@@ -12,6 +12,10 @@
 			wolf: {ears:"disabled", tail:"disabled", pubes:"disabled", pits:"disabled"},
 			bird: {tail:"disabled", wings:"disabled", eyes:"disabled", malar:"disabled", plumage:"disabled", pubes:"disabled"},
 			fox: {ears:"disabled", tail:"disabled", cheeks:"disabled"},
+			bee: {ears:"disabled", tail:"disabled", wings:"disabled"},
+			sheep: {ears:"disabled", tail:"disabled", horns:"disabled"},
+			deer: {ears:"disabled", tail:"disabled", horns:"disabled"},
+			bear: {ears:"disabled", tail:"disabled"},
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
@@ -66,6 +70,42 @@
 			<</if>>
 			<<if $cow gte 6>>
 				<<set $transformationParts.cow.tail to "default">>
+			<</if>>
+			<<if $bee gte 2>>
+				<<set $transformationParts.bee.ears to "default">>
+			<</if>>
+			<<if $bee gte 4>>
+				<<set $transformationParts.bee.tail to "default">>
+			<</if>>
+			<<if $bee gte 6>>
+				<<set $transformationParts.bee.wings to "default">>
+			<</if>>
+			<<if $sheep gte 2>>
+				<<set $transformationParts.sheep.horns to "default">>
+			<</if>>
+			<<if $sheep gte 4>>
+				<<set $transformationParts.sheep.ears to "default">>
+			<</if>>
+			<<if $sheep gte 6>>
+				<<set $transformationParts.sheep.tail to "default">>
+			<</if>>
+			<<if $deer gte 2>>
+				<<set $transformationParts.deer.horns to "default">>
+			<</if>>
+			<<if $deer gte 4>>
+				<<set $transformationParts.deer.ears to "default">>
+			<</if>>
+			<<if $deer gte 6>>
+				<<set $transformationParts.deer.tail to "default">>
+			<</if>>
+			<<if $bear gte 2>>
+				<<set $transformationParts.traits.fangs to "default">>
+			<</if>>
+			<<if $bear gte 4>>
+				<<set $transformationParts.bear.ears to "default">>
+			<</if>>
+			<<if $bear gte 6>>
+				<<set $transformationParts.bear.tail to "default">>
 			<</if>>
 		<</if>>
 	<</if>>
@@ -148,6 +188,10 @@
 			<<case "angel">> <<set $angelbuild = Math.clamp($angelbuild + _args[1], 0, 100)>>
 			<<case "fallen">> <<set $fallenbuild = Math.clamp($fallenbuild + _args[1], 0, 100)>>
 			<<case "demon">> <<set $demonbuild = Math.clamp($demonbuild + _args[1], 0, 100)>>
+			<<case "bee">> <<set $beebuild = Math.clamp($beebuild + _args[1], 0, 100)>>
+			<<case "sheep">> <<set $sheepbuild = Math.clamp($sheepbuild + _args[1], 0, 100)>>
+			<<case "deer">> <<set $deerbuild = Math.clamp($deerbuild + _args[1], 0, 100)>>
+			<<case "bear">> <<set $bearbuild = Math.clamp($bearbuild + _args[1], 0, 100)>>
 		<</switch>>
 	<</if>>
 	<<if _args[0] isnot "angel" and _args[0] isnot "demon" and _args[1] gte 1>>
@@ -165,6 +209,18 @@
 		<</if>>
 		<<if _args[0] isnot "fox" and $worn.head.name isnot "spirit mask">>
 			<<set $foxbuild = Math.clamp($foxbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "bee" and $worn.head.name isnot "honeycomb hair clip">>
+			<<set $beebuild = Math.clamp($beebuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "sheep" and $worn.head.name isnot "cloud hair clip">>
+			<<set $sheepbuild = Math.clamp($sheepbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "deer" and $worn.head.name isnot "spotted hair clip">>
+			<<set $deerbuild = Math.clamp($deerbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "bear" and $worn.head.name isnot "honeycomb hair clip">>
+			<<set $bearbuild = Math.clamp($bearbuild - _args[1], 0, 100)>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -189,6 +245,22 @@
 
 	<<if $foxbuild gte 1 and $worn.head.name isnot "spirit mask">>
 		<<transform fox -1>>
+	<</if>>
+
+	<<if $sheepbuild gte 1 and $worn.head.name isnot "cloud hair clip">>
+		<<transform sheep -1>>
+	<</if>>
+
+	<<if $beebuild gte 1 and $worn.head.name isnot "honeycomb hair clip">>
+		<<transform bee -1>>
+	<</if>>
+
+	<<if $deerbuild gte 1 and $worn.head.name isnot "spotted hair clip">>
+		<<transform deer -1>>
+	<</if>>
+
+	<<if $bearbuild gte 1 and $worn.head.name isnot "honeycomb hair clip">>
+		<<transform bear -1>>
 	<</if>>
 
 	<<if $wolfgirl gte 6>>
@@ -263,6 +335,14 @@
 			<<harpyTransform $harpy>>
 		<<elseif ($foxbuild gte 5 and $physicalTransform isnot 1) or ($fox gte 1 and $physicalTransform is 1)>>
 			<<foxTransform $fox>>
+		<<elseif ($beebuild gte 5 and $physicalTransform isnot 1) or ($bee gte 1 and $physicalTransform is 1)>>
+			<<beeTransform $bee>>
+		<<elseif ($sheepbuild gte 5 and $physicalTransform isnot 1) or ($sheep gte 1 and $physicalTransform is 1)>>
+			<<sheepTransform $sheep>>
+		<<elseif ($deerbuild gte 5 and $physicalTransform isnot 1) or ($deer gte 1 and $physicalTransform is 1)>>
+			<<deerTransform $deer>>
+		<<elseif ($bearbuild gte 5 and $physicalTransform isnot 1) or ($bear gte 1 and $physicalTransform is 1)>>
+			<<deerTransform $bear>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -1225,12 +1305,388 @@
 	<</if>>
 <</widget>>
 
+<<widget "beeTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $beebuild gte 5 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $bee to 1>>
+					<span class="gold">Your ears tingle.</span>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $beebuild gte 10 and $transformdisable is "f">>
+					<<set $bee to 2>>
+					<<set $transformationParts.bee.ears to "default">>
+					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of bee ears.</span>
+					<br><br>
+				<<elseif $beebuild lt 5>>
+					<<set $bee to 0>>
+					<span class="gold">Your ears no longer tingle.</span>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $beebuild gte 15 and $transformdisable is "f">>
+					<<set $bee to 3>>
+					<span class="gold">Your lower back itch.</span>
+					<br><br>
+				<<elseif $beebuild lt 10>>
+					<<set $bee to 1>>
+					<span class="gold">Your bee ears have disappeared.</span>
+					<<set $transformationParts.bee.ears to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $beebuild gte 20 and $transformdisable is "f">>
+					<<set $bee to 4>>
+					<span class="gold">Your bottom feels heavier. You reach behind you, and grasp a stinger.</span>
+					<<set $transformationParts.bee.tail to "default">>
+					<br><br>
+				<<elseif $beebuild lt 15>>
+					<<set $bee to 2>>
+					<span class="gold">The itching in your lower back both stop.</span>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $beebuild gte 25 and $transformdisable is "f">>
+					<<set $bee to 5>>
+					<span class="gold">Your back itches.</span>
+					<br><br>
+				<<elseif $beebuild lt 20>>
+					<<set $bee to 3>>
+					<span class="gold">Your stinger has disappeared.</span>
+					<<set $transformationParts.bee.tail to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $beebuild gte 30 and $transformdisable is "f">>
+					<<set $bee to 6>>
+					<span class="gold">You feel lighter. Wings caress your face.</span>
+					<<earnFeat "Bee">>
+					<<set $transformationParts.bee.wings to "default">>
+					<<if $transformationParts.angel.wings is "default">>
+						<<set $transformationParts.angel.wings to "hidden">>
+					<<elseif $transformationParts.fallenAngel.wings is "default">>
+						<<set $transformationParts.fallenAngel.wings to "hidden">>
+					<<elseif $transformationParts.demon.wings is "default">>
+						<<set $transformationParts.demon.wings to "hidden">>
+					<</if>>
+					<br><br>
+				<<elseif $beebuild lt 25>>
+					<<set $bee to 4>>
+					<span class="gold">You feel lighter.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $beebuild lt 30>>
+					<span class="gold">You feel heavier. Your wings have disappeared.</span>
+					<<set $bee to 5>>
+					<<set $transformationParts.bee.wings to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $bee to 0>>
+				<<set $beebuild to 0>>
+				<<set $transformationParts.bee.tail to "disabled">>
+				<<set $transformationParts.bee.ears to "disabled">>
+				<<set $transformationParts.bee.wings to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $bee to 6>>
+		<<set $beebuild to 100>>
+		<<set $transformationParts.bee.tail to "default">>
+		<<set $transformationParts.bee.ears to "default">>
+		<<set $transformationParts.bee.wings to "default">>
+	<</if>>
+<</widget>>
+
+<<widget "sheepTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $sheepbuild gte 5 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $sheep to 1>><<set $physicalTransform to 1>>
+					<span class="gold">You have a strange urge to munch grass.</span>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $sheepbuild gte 10 and $transformdisable is "f">>
+					<<set $sheep to 2>>
+					<<set $transformationParts.sheep.horns to "default">>
+					<span class="gold">Your scalp itches. You reach up, and find that a pair of horns have sprouted.</span>
+					<br><br>
+				<<elseif $sheepbuild lt 5>>
+					<<set $sheep to 0>><<set $physicalTransform to 0>>
+					<span class="gold">Grass no longer looks so tasty.</span>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $sheepbuild gte 15 and $transformdisable is "f">>
+					<<set $sheep to 3>>
+					<span class="gold">Your ears tingle.</span>
+					<br><br>
+				<<elseif $sheepbuild lt 10>>
+					<<set $sheep to 1>>
+					<<set $transformationParts.sheep.horns to "disabled">>
+					<span class="gold">Your horns have disappeared.</span>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $sheepbuild gte 20 and $transformdisable is "f">>
+					<<set $sheep to 4>>
+					<<set $transformationParts.sheep.ears to "default">>
+					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of sheep ears.</span>
+					<br><br>
+				<<elseif $sheepbuild lt 15>>
+					<<set $sheep to 2>>
+					<span class="gold">Your ears no longer tingle.</span>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $sheepbuild gte 25 and $transformdisable is "f">>
+					<<set $sheep to 5>>
+					<span class="gold">Your lower back tingles.</span>
+					<br><br>
+				<<elseif $sheepbuild lte 20>>
+					<<set $sheep to 3>>
+					<<set $transformationParts.sheep.ears to "disabled">>
+					<span class="gold">Your sheep ears have disappeared.</span>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $sheepbuild gte 30 and $transformdisable is "f">>
+					<<set $sheep to 6>>
+					<<set $semen_max to 6000>>
+					<<set $milk_max to 6000>>
+					<<set $transformationParts.sheep.tail to "default">>
+					<<earnFeat "Sheep">>
+					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new sheep tail. You suppress the urge to baa.</span>
+					<br><br>
+				<<elseif $sheepbuild lt 25>>
+					<<set $sheep to 4>>
+					<span class="gold">Your lower back has stopped tingling.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $sheepbuild lt 30>>
+					<<set $semen_max to 3000>>
+					<<set $milk_max to 3000>>
+					<span class="gold">Your balance feels different. Your sheep tail has disappeared.</span>
+					<<set $sheep to 5>>
+					<<set $transformationParts.sheep.tail to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $sheep to 0>>
+				<<set $sheepbuild to 0>>
+				<<set $transformationParts.sheep.tail to "disabled">>
+				<<set $transformationParts.sheep.ears to "disabled">>
+				<<set $transformationParts.sheep.horns to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $sheep to 6>>
+		<<set $sheepbuild to 100>>
+		<<set $transformationParts.sheep.tail to "default">>
+		<<set $transformationParts.sheep.ears to "default">>
+		<<set $transformationParts.sheep.horns to "default">>
+	<</if>>
+<</widget>>
+
+<<widget "deerTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $deerbuild gte 5 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $deer to 1>><<set $physicalTransform to 1>>
+					<span class="gold">You have a strange urge to munch grass.</span>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $deerbuild gte 10 and $transformdisable is "f">>
+					<<set $deer to 2>>
+					<<set $transformationParts.deer.horns to "default">>
+					<span class="gold">Your scalp itches. You reach up, and find that a pair of antlers have sprouted.</span>
+					<br><br>
+				<<elseif $deerbuild lt 5>>
+					<<set $deer to 0>><<set $physicalTransform to 0>>
+					<span class="gold">Grass no longer looks so tasty.</span>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $deerbuild gte 15 and $transformdisable is "f">>
+					<<set $deer to 3>>
+					<span class="gold">Your ears tingle.</span>
+					<br><br>
+				<<elseif $deerbuild lt 10>>
+					<<set $deer to 1>>
+					<<set $transformationParts.deer.horns to "disabled">>
+					<span class="gold">Your antlers have disappeared.</span>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $deerbuild gte 20 and $transformdisable is "f">>
+					<<set $deer to 4>>
+					<<set $transformationParts.deer.ears to "default">>
+					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of deer ears.</span>
+					<br><br>
+				<<elseif $deerbuild lt 15>>
+					<<set $deer to 2>>
+					<span class="gold">Your ears no longer tingle.</span>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $deerbuild gte 25 and $transformdisable is "f">>
+					<<set $deer to 5>>
+					<span class="gold">Your lower back tingles.</span>
+					<br><br>
+				<<elseif $deerbuild lte 20>>
+					<<set $deer to 3>>
+					<<set $transformationParts.deer.ears to "disabled">>
+					<span class="gold">Your deer ears have disappeared.</span>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $deerbuild gte 30 and $transformdisable is "f">>
+					<<set $deer to 6>>
+					<<set $transformationParts.deer.tail to "default">>
+					<<earnFeat "Deer">>
+					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new deer tail.</span>
+					<br><br>
+				<<elseif $deerbuild lt 25>>
+					<<set $deer to 4>>
+					<span class="gold">Your lower back has stopped tingling.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $deerbuild lt 30>>
+					<<set $semen_max to 3000>>
+					<<set $milk_max to 3000>>
+					<span class="gold">Your balance feels different. Your deer tail has disappeared.</span>
+					<<set $deer to 5>>
+					<<set $transformationParts.deer.tail to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $deer to 0>>
+				<<set $deerbuild to 0>>
+				<<set $transformationParts.deer.tail to "disabled">>
+				<<set $transformationParts.deer.ears to "disabled">>
+				<<set $transformationParts.deer.horns to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $deer to 6>>
+		<<set $deerbuild to 100>>
+		<<set $transformationParts.deer.tail to "default">>
+		<<set $transformationParts.deer.ears to "default">>
+		<<set $transformationParts.deer.horns to "default">>
+	<</if>>
+<</widget>>
+
+<<widget "bearTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $bearbuild gte 5>>
+					<<set $bear to 1>>
+					<<set $physicalTransform to 1>>
+					<span class="gold">You have a strange toothache.</span>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $bearbuild gte 10>>
+					<<set $bear to 2>>
+					<span class="gold">Your mouth and eyes feel different. You explore your mouth and yelp in pain as your tongue presses against your new fangs.</span>
+					<<set $transformationParts.traits.fangs to "default">>
+					<br><br>
+				<<elseif $bearbuild lt 5>>
+					<<set $bear to 0>>
+					<<set $physicalTransform to 0>>
+					<span class="gold">Your toothache has stopped.</span>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $bearbuild gte 15 and $transformdisable is "f">>
+					<<set $bear to 3>>
+					<span class="gold">Your ears tingle.</span>
+					<br><br>
+				<<elseif $bearbuild lte 10 and $transformdisable is "f">>
+					<<set $bear to 1>>
+					<span class="gold">Your fangs have turned into regular teeth.</span>
+					<<set $transformationParts.traits.fangs to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $bearbuild gte 20 and $transformdisable is "f">>
+					<<set $bear to 4>>
+					<<set $transformationParts.bear.ears to "default">>
+					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of bear ears.</span>
+					<br><br>
+				<<elseif $bearbuild lt 15>>
+					<<set $bear to 2>>
+					<span class="gold">Your ears no longer tingle.</span>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $bearbuild gte 25 and $transformdisable is "f">>
+					<<set $bear to 5>>
+					<span class="gold">Your lower back tingles.</span>
+					<br><br>
+				<<elseif $bearbuild lte 20>>
+					<<set $bear to 3>>
+					<<set $transformationParts.bear.ears to "disabled">>
+					<span class="gold">Your bear ears have disappeared.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $bearbuild gte 30 and $transformdisable is "f">>
+					<<set $bear to 6>>
+					<<set $transformationParts.bear.tail to "default">>
+					<<earnFeat "Bear">>
+					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new bear tail.</span>
+					<br><br>
+				<<elseif $bearbuild lt 25>>
+					<<set $bear to 4>>
+					<span class="gold">Your lower back has stopped tingling.</span>
+					<br><br>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $bear to 0>>
+				<<set $bearbuild to 0>>
+				<<set $transformationParts.bear.tail to "disabled">>
+				<<set $transformationParts.bear.ears to "disabled">>
+				<<set $transformationParts.traits.fangs to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $bear to 6>>
+		<<set $bearbuild to 100>>
+		<<set $transformationParts.bear.tail to "default">>
+		<<set $transformationParts.bear.ears to "default">>
+		<<set $transformationParts.traits.fangs to "default">>
+	<</if>>
+<</widget>>
+
 <<widget "clearAnimalTransformations">>
 	<<harpyTransform 99>>
 	<<cowTransform 99>>
 	<<catTransform 99>>
 	<<wolfTransform 99>>
 	<<foxTransform 99>>
+	<<beeTransform 99>>
+	<<sheepTransform 99>>
+	<<deerTransform 99>>
+	<<bearTransform 99>>
 <</widget>>
 
 <<widget "clearDivineTransformations">>

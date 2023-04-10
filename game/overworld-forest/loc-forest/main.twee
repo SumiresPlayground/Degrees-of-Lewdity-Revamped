@@ -192,6 +192,12 @@
 				<</if>>
 				<br>
 			<</if>>
+
+			<<if $historytrait gte 1>>
+				<<link [[Forest Mansion (0:10)|Forest Mansion Explore]]>><</link>>
+				<br>
+			<</if>>
+
 			<br>
 			<<forestdeeper>>
 			<br><br>
@@ -218,7 +224,13 @@
 		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
 		<<if $eventskip is 0>>
 			<<rng>>
-			<<if $rng gte 81 or ($forest_search is true and $rng gte 61)>>
+			<<if $hive_intro isnot 1 and $rng gte 50>>
+				<<set $hive_intro to 1>>
+				Hidden among the trees you find a huge wax hive. You can see movement within and two strong looking wasps guard the entrance. 
+				<br><br>
+				<<link [[Approach (0:20)|Hive Approach]]>><<pass 20>><<set $eventskip to 1>><</link>>
+				<br>
+			<<elseif $rng gte 81 or ($forest_search is true and $rng gte 61)>>
 				<<eventforestitem>>
 			<<elseif $danger gte (9900 - ($allure * $forestmod))>>
 				<<eventforestdeep>>
@@ -257,6 +269,10 @@
 					<<link [[Search for Landry's black box|Forest Box]]>><</link>>
 					<br>
 				<</if>>
+			<</if>>
+			<<if $hive_intro is 1>>
+				<<link [[Hive (0:20)|Hive Entrance]]>><<pass 20>><</link>>
+				<br>
 			<</if>>
 			<br>
 			<<forestdeeper>>

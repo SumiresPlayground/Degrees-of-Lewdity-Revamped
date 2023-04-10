@@ -3627,7 +3627,7 @@
 	<<if $statdisable is "f">> |
 		<<if $harpy gte 6 and $birdFly gte 1>>
 			<span class="gold">Strong wings</span>
-		<<elseif $angel gte 6 or $demon gte 6 or $fallenangel gte 2 or $harpy gte 6>>
+		<<elseif $angel gte 6 or $demon gte 6 or $fallenangel gte 2 or $harpy gte 6 or $bee gte 6>>
 			<span class="gold">Wings</span>
 		<</if>>
 	<</if>>
@@ -6178,6 +6178,42 @@
 	<</if>>
 <</widget>>
 
+<<widget "bee">>
+	<<if $hallucinations gte 2 or $bestialitydisable is "t">>
+		<<if $player.gender_appearance is "m">>
+	| 		<span class="blue">Beeboy</span>
+		<<else>>
+	|   	<span class="blue">Beegirl</span>
+		<</if>>
+	<<else>>
+	|	<span class="gold">Bee</span>
+	<</if>>
+<</widget>>
+
+<<widget "deer">>
+	<<if $statdisable is "f">> |
+		<span class="orange"><<print ($player.gender_appearance is "m" ? "Stagboy" : "Deergirl")>></span>
+	<</if>>
+<</widget>>
+
+<<widget "bear">>
+	<<if $statdisable is "f">> |
+		<span class="blue">Bear</span>
+	<</if>>
+<</widget>>
+
+<<widget "sheep">>
+	<<if $hallucinations gte 2 or $bestialitydisable is "t">>
+		<<if $player.gender_appearance is "m">>
+	| 		<span class="blue">Ramboy</span>
+		<<else>>
+	|   	<span class="blue">Sheepgirl</span>
+		<</if>>
+	<<else>>
+	|	<span class="gold">Sheep</span>
+	<</if>>
+<</widget>>
+
 <<widget "angel">>
 	<<if $statdisable is "f">> |
 		<span class="gold">Angel</span>
@@ -6323,6 +6359,9 @@
 				<<case "cowgirl" "bullboy">><<set _text_output to "cowgirls and bullboys">>
 				<<case "foxgirl" "foxboy">><<set _text_output to "foxgirls and foxboys">>
 				<<case "spidergirl" "spiderboy">><<set _text_output to "spidergirls and spiderboys">>
+				<<case "sheepgirl" "ramboy">><<set _text_output to "sheepgirls and ramboys">>
+				<<case "deergirl" "stagboy">><<set _text_output to "deergirls and stagboys">>
+				<<case "beegirl" "beeboy">><<set _text_output to "beegirls and beeboys">>
 				<<default>><<set _text_output to "creatures">>
 			<</switch>>
 		<</if>>
@@ -6531,6 +6570,14 @@
 					<<set _text_output to "chirp">>
 				<<elseif $fox gte 4>>
 					<<set _text_output to "whimper">>
+				<<elseif $sheep gte 4>>
+					<<set _text_output to "bleat">>
+				<<elseif $bee gte 4>>
+					<<set _text_output to "buzz">>
+				<<elseif $deer gte 4>>
+					<<set _text_output to "snort">>
+				<<elseif $bear gte 4>>
+					<<set _text_output to "whimper">>
 				<<else>>
 					<<set _text_output to "plead">>
 				<</if>>
@@ -6566,6 +6613,14 @@
 				<<set _text_output to "chirp">>
 			<<elseif $fox gte 4>>
 				<<set _text_output to "yipp">>
+			<<elseif $sheep gte 4>>
+				<<set _text_output to "bleat">>
+			<<elseif $bee gte 4>>
+				<<set _text_output to "buzz">>
+			<<elseif $deer gte 4>>
+				<<set _text_output to "snort">>
+			<<elseif $bear gte 4>>
+				<<set _text_output to "grunt">>
 			<<else>>
 				<<set _text_output to "moan">>
 			<</if>>
@@ -6585,6 +6640,14 @@
 					<<set _text_output to "screech">>
 				<<elseif $fox gte 4>>
 					<<set _text_output to "scream">>
+				<<elseif $sheep gte 4>>
+					<<set _text_output to "bleat threateningly">>
+				<<elseif $bee gte 4>>
+					<<set _text_output to "buzz threateningly">>
+				<<elseif $deer gte 4>>
+					<<set _text_output to "snort angerly">>
+				<<elseif $bear gte 4>>
+					<<set _text_output to "growl menacingly">>
 				<<else>>
 					<<set _text_output to "spit">>
 				<</if>>

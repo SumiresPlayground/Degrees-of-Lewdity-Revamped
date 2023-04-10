@@ -256,6 +256,30 @@
 		<</if>>
 	<</if>>
 
+	<<if $taylorgender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $taylorgender to "f">>
+		<<else>>
+			<<set $taylorgender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $taylorgenitals is undefined>>
+		<<if $taylorgender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $taylorgenitals to "penis">>
+			<<else>>
+				<<set $taylorgenitals to "vagina">>
+			<</if>>
+		<<elseif $taylorgender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $taylorgenitals to "vagina">>
+			<<else>>
+				<<set $taylorgenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
 	<<if $genderknown is undefined>>
 		<<set $genderknown to ["Robin", "Bailey"]>>
 	<</if>>
@@ -1183,7 +1207,7 @@
 
 	<<unset $clothes>>
 
-	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1>>
+	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1>>
 		<<set $physicalTransform to 1>>
 	<<else>>
 		<<set $physicalTransform to 0>>
@@ -1515,7 +1539,7 @@
 		<<unset $shoot_stat>>
 	<</if>>
 
-	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","spider"]>>
+	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","spider","cow","sheep","deer","bee","wasp","hellhound"]>>
 
 	<<if $niki_seen is undefined and $chef_state gte 5>>
 		<<set $niki_seen to "chef">>
@@ -1558,6 +1582,26 @@
 			banCount: 0,
 			rng: random(0,1000)
 		}>>
+	<</if>>
+
+	<<if $beebuild is undefined>>
+		<<set $beebuild to 0>>
+		<<set $bee to 0>>
+	<</if>>
+
+	<<if $sheepbuild is undefined>>
+		<<set $sheepbuild to 0>>
+		<<set $sheep to 0>>
+	<</if>>
+	
+	<<if $deerbuild is undefined>>
+		<<set $deerbuild to 0>>
+		<<set $deer to 0>>
+	<</if>>
+
+	<<if $bearbuild is undefined>>
+		<<set $bearbuild to 0>>
+		<<set $bear to 0>>
 	<</if>>
 
 	<<if $adultShop is undefined>>
@@ -1751,6 +1795,54 @@
 		<<if !$plots.garden[3]>>
 			<<add_plot garden water 1 small>>
 		<</if>>
+	<</if>>
+
+	<<if $bjob is undefined>>
+		<<set $bjob to 0>>
+	<</if>>
+
+	<<if $TaylorArrested is undefined>>
+		<<set $TaylorArrested to 0>>
+	<</if>>
+
+	<<if $TaylorChase is undefined>>
+		<<set $TaylorChase to 0>>
+	<</if>>
+
+	<<if $TaylorFreed is undefined>>
+		<<set $TaylorFreed to 0>>
+	<</if>>
+
+	<<if $TaylorMissing is undefined>>
+		<<set $TaylorMissing to 0>>
+	<</if>>
+
+	<<if $TaylorSeen is undefined>>
+		<<set $TaylorSeen to 0>>
+	<</if>>
+
+	<<if $forestmansionstage is undefined>>
+		<<set $forestmansionstage to 0>>
+	<</if>>
+
+	<<if $forestmansionpicked is undefined>>
+		<<set $forestmansionpicked to 0>>
+	<</if>>
+
+	<<if $forestmansionkitchen is undefined>>
+		<<set $forestmansionkitchen to 0>>
+	<</if>>
+
+	<<if $forestmansionhaunt is undefined>>
+		<<set $forestmansionhaunt to 0>>
+	<</if>>
+
+	<<if $TaylorReadMansion is undefined>>
+		<<set $TaylorReadMansion to 0>>
+	<</if>>
+
+	<<if $TaylorWith is undefined>>
+		<<set $TaylorWith to 0>>
 	<</if>>
 
 	<<if $science_exam is undefined>>
@@ -3698,7 +3790,7 @@
 	/* End of Code that should not be moved */
 
 	<!-- v0.3.6.2: cow update - ToDo: Move to variables-static -->
-	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider"]>>
+	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","spider","cow","sheep","deer","bee","wasp","hellhound"]>>
 
 	<!-- Will navigate to V.makeup.eyelenses, and attempt to turn that into the proper object this time. Needs configing if it can be moved to `variablesVersionUpdate2`-->
 	<<run restructureEyeColourVariable()>>

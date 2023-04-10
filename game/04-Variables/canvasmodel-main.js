@@ -345,6 +345,14 @@ Renderer.CanvasModels["main"] = {
 			"fox_tail_type": "disabled",
 			"fox_ears_type": "disabled",
 			"fox_cheeks_type": "disabled",
+			"bee_tail_type": "disabled",
+			"bee_ears_type": "disabled",
+			"bee_wings_type": "disabled",
+			"bee_wing_right": "idle",
+			"bee_wing_left": "idle",
+			"sheep_horns_type": "disabled",
+			"sheep_tail_type": "disabled",
+			"sheep_ears_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -1918,6 +1926,180 @@ Renderer.CanvasModels["main"] = {
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fox_cheeks_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.lower,
+			animation: "idle"
+		},
+		/***
+         *     █████   ██   ██  ███████  ███████  ██████
+         *    ██       ██   ██  ██       ██       ██   ██
+         *     █████   ███████  ██████   ██████   ██████
+         *         ██  ██   ██  ██       ██       ██
+         *     █████   ██   ██  ███████  ███████  ██
+         *
+         *
+         */
+		"sheep_horns": {
+			srcfn(options) {
+				return `img/transformations/sheep/horns/${options.sheep_horns_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.sheep_horns_type);
+			},
+			z: ZIndices.horns,
+			animation: "idle"
+		},
+		"sheep_ears": {
+			srcfn(options) {
+				return `img/transformations/sheep/ears/${options.sheep_ears_type}.png`;
+			},
+			masksrcfn(options) {
+				return options.head_mask_src;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.sheep_ears_type);
+			},
+			z: ZIndices.ears,
+			animation: "idle"
+		},
+		"sheep_tail": {
+			srcfn(options) {
+				return `img/transformations/sheep/tail/${options.sheep_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.sheep_tail_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.lower,
+			animation: "idle"
+		},
+		/***
+         *    ██████   ███████ ███████
+         *    ██    ██ ██      ██
+         *    ██████   ██████  ██████
+         *    ██    ██ ██      ██
+         *    ██████   ███████ ███████
+         *
+         *
+         */
+		"bee_ears": {
+			srcfn(options) {
+				return `img/transformations/bee/ears/${options.bee_ears_type}.png`;
+			},
+			masksrcfn(options) {
+				return options.head_mask_src;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bee_ears_type);
+			},
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+		"bee_tail": {
+			srcfn(options) {
+				return `img/transformations/bee/tail/${options.bee_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bee_tail_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"bee_wings_right": {
+			srcfn(options) {
+				return `img/transformations/bee/rightwing/default.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bee_wings_type) && options.bee_wing_right === "idle";
+			},
+			filters: ["hair"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"bee_wings_left": {
+			srcfn(options) {
+				return `img/transformations/bee/leftwing/default.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bee_wings_type) && options.bee_wing_left === "idle";
+			},
+			filters: ["hair"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		/***
+         *    ██████  ███████ ███████ ██████
+		 *    ██   ██ ██      ██      ██   ██
+		 *    ██   ██ █████   █████   ██████
+		 *    ██   ██ ██      ██      ██   ██
+		 *    ██████  ███████ ███████ ██   ██
+         *
+         *
+         */
+		"deer_horns": {
+			srcfn(options) {
+				return `img/transformations/deer/horns/${options.deer_horns_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.deer_horns_type);
+			},
+			z: ZIndices.horns,
+			animation: "idle"
+		},
+		"deer_ears": {
+			srcfn(options) {
+				return `img/transformations/deer/ears/${options.deer_ears_type}.png`;
+			},
+			masksrcfn(options) {
+				return options.head_mask_src;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.deer_ears_type);
+			},
+			z: ZIndices.ears,
+			animation: "idle"
+		},
+		"deer_tail": {
+			srcfn(options) {
+				return `img/transformations/deer/tail/${options.deer_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.deer_tail_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.lower,
+			animation: "idle"
+		},
+		/***
+         *    ██████   ███████  █████  ██████
+         *    ██    ██ ██      ██   ██ ██   ██
+         *    ██████   ██████  ███████ ██████
+         *    ██    ██ ██      ██   ██ ██   ██
+         *    ██████   ███████ ██   ██ ██   ██
+         *
+         *
+         */
+		"bear_ears": {
+			srcfn(options) {
+				return `img/transformations/bear/ears/${options.bear_ears_type}.png`;
+			},
+			masksrcfn(options) {
+				return options.head_mask_src;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bear_ears_type);
+			},
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+		"bear_tail": {
+			srcfn(options) {
+				return `img/transformations/bear/tail/${options.bear_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bear_tail_type);
 			},
 			filters: ["hair"],
 			z: ZIndices.lower,

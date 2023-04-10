@@ -1758,9 +1758,16 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 <</if>>
 
 :: Forest Deer
-<<location "forest">><<effects>>
+<<location "forest">><<effects>><<transform deer 1>>
 
-<<if $rng gte 51>>
+<<if $rng gte 67>>
+You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
+<br><br>
+
+<<link [[Next|Deer Rape]]>><<set $eventskip to 1>><</link>>
+<br>
+
+<<elseif $rng gte 33>>
 You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then goes back to grazing.
 <<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
 <br><br>
@@ -1774,6 +1781,104 @@ You creep forward. Unfortunately, the deer turns and runs in the other direction
 <<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 <br>
 
+<</if>>
+
+:: Deer Rape
+
+<<if $molestationstart is 1>>
+	<<beastNEWinit 1 deer>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<set $noFinish to 1>>
+	<<maninit>>
+	<<forestRescueSetup>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<<if $alarm is 1 and $rescue is 0>>
+	<<set $alarm to 0>>
+	<<forestRescueFail>>
+	<br><br>
+<</if>>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $alarm is 1 and $rescue is 2>>
+	<span id="next"><<link [[Next|Deer Rescue]]>><<set $phase to 2>><</link>></span><<nexttext>>
+<<elseif _combatend>>
+	<span id="next"><<link [[Next|Deer Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Deer Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Deer Finish
+
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The deer buckles as it releases its sperm inside you before pulling out and trotting away.
+	<br><br>
+
+	<<tearful>> you steady yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+
+<<elseif $rescue is 1 and $forest lte 20>>
+	<<gwylanForestRescue "beast">>
+
+<<elseif $rescue is 1 and $forest gte 21>>
+	You hear a gun fire close by, and a bullet lands at the beasts feet. It back off in fear and flees into the forest.
+	<br><br>
+
+	<<if $edenCagedEscape>>
+		<<clotheson>>
+		<<endcombat>>
+
+		<br><br>
+
+		<<edenCagedSave>>
+	<<else>>
+		Eden emerges and helps you collect yourself. "Damn animals," <<nnpc_he "Eden">> mutters. "Are you okay?"
+		<br><br>
+
+		<<clotheson>>
+		<<endcombat>>
+
+		<br><br>
+
+		<<if $gwylan_eden_coop gte 1>>
+			Eden glances around for a moment. "We must be in too deep for that shopkeep," <<nnpc_he "Eden">> says.
+			<br><br>
+		<</if>>
+
+		<<if $eden_rescue isnot 1>>
+			<<set $eden_rescue to 1>>
+			Eden pats you on the shoulder. "I was able to hear you because I happened to be in the area," <<nnpc_he "Eden">> says. "<span class="gold">I might not always be around, but I should be able to save you anywhere in the forest.</span> Give me a shout if you're in trouble."
+			<br><br>
+		<</if>>
+
+		<<forestCabinReturnLinks>>
+	<</if>>
+<<else>>
+	You shove the <<beasttype>> away from you. <<tearful>> you run.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 <</if>>
 
 :: Forest Slime Pair Submit willingly
