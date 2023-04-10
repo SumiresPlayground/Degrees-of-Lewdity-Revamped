@@ -2040,7 +2040,7 @@ Renderer.CanvasModels["main"] = {
          */
 		"deer_horns": {
 			srcfn(options) {
-				return `img/transformations/deer/horns/${options.deer_horns_type}.png`;
+				return `img/transformations/deer/horns/default.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_horns_type);
@@ -2050,7 +2050,7 @@ Renderer.CanvasModels["main"] = {
 		},
 		"deer_ears": {
 			srcfn(options) {
-				return `img/transformations/deer/ears/${options.deer_ears_type}.png`;
+				return `img/transformations/deer/ears/default.png`;
 			},
 			masksrcfn(options) {
 				return options.head_mask_src;
@@ -2063,7 +2063,7 @@ Renderer.CanvasModels["main"] = {
 		},
 		"deer_tail": {
 			srcfn(options) {
-				return `img/transformations/deer/tail/${options.deer_tail_type}.png`;
+				return `img/transformations/deer/tail/default.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_tail_type);
@@ -2083,7 +2083,7 @@ Renderer.CanvasModels["main"] = {
          */
 		"bear_ears": {
 			srcfn(options) {
-				return `img/transformations/bear/ears/${options.bear_ears_type}.png`;
+				return `img/transformations/bear/ears/default.png`;
 			},
 			masksrcfn(options) {
 				return options.head_mask_src;
@@ -2096,7 +2096,7 @@ Renderer.CanvasModels["main"] = {
 		},
 		"bear_tail": {
 			srcfn(options) {
-				return `img/transformations/bear/tail/${options.bear_tail_type}.png`;
+				return `img/transformations/bear/tail/default.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.bear_tail_type);
