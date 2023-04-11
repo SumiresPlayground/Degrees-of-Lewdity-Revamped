@@ -89,7 +89,7 @@ const Time = (() => {
 	}
 
 	function isSchoolTime(date) {
-		return isSchoolDay(date) && date.hour >= 8 && date.hour <= 15;
+		return isSchoolDay(date) && date.hour > 8 && date.hour < 15;
 	}
 
 	return Object.create({
@@ -362,7 +362,7 @@ function dayPassed() {
 	if (V.wolfcavebreast >= 1) delete V.wolfcavebreast;
 	if (V.wolfcavepatrol === 1) V.wolfcavepatrolchance = random(1, 3);
 	if (V.temple_jordan_prayer === 1) delete V.temple_jordan_prayer;
-	if (V.temple_event) V.temple_event = 1;
+	if (V.temple_event === 0) V.temple_event = 1;
 	if (V.school_crossdress_message >= 1 || V.school_herm_message >= 1) V.effectsmessage = 1;
 	if (V.syndromewolves === 1) {
 		fragment.append(wikifier("wolf_cave_update"));
@@ -386,7 +386,7 @@ function dayPassed() {
 	if (V.slimeSleepEvent < 1) delete V.slimeEvent;
 	if (V.lake_ice_broken >= 1) V.lake_ice_broken--;
 	if (V.lake_ice_broken < 1) delete V.lake_ice_broken;
-	if (V.community_service >= 1 && !V.community_service_done !== 1) {
+	if (V.community_service >= 1 && V.community_service_done !== 1) {
 		if (!["asylum", "prison"].includes(V.location)) {
 			fragment.append(wikifier("crimeup", 200));
 			V.effectsmessage = 1;
@@ -774,7 +774,7 @@ function dailyNPCEffects() {
 		delete V.edenroof;
 	}
 	if (V.edenshoutrescue !== 1) V.edenwhip = 0;
-	if (V.edendays) V.edendays++;
+	if (V.edendays !== undefined) V.edendays++;
 	if (V.edengarden >= 1) V.edengarden--;
 	if (V.edenshrooms >= 1) V.edenshrooms--;
 	if (V.edenspring >= 1) V.edenspring--;
@@ -1243,12 +1243,12 @@ function dailySchoolEffects() {
 
 	if (Time.isSchoolDay(Time.yesterday) && V.location !== "prison") {
 		const attended = Object.keys(V.daily.school.attended).length;
-		V.sciencemissed += V.daily.school.attended.science ? 0 : 1;
-		V.mathsmissed += V.daily.school.attended.maths ? 0 : 1;
-		V.englishmissed += V.daily.school.attended.english ? 0 : 1;
-		V.historymissed += V.daily.school.attended.history ? 0 : 1;
-		V.swimmingmissed += V.daily.school.attended.swimming ? 0 : 1;
-		V.lessonmissed += 5 - attended;
+		V.schoolLessonsMissed.science += !Number(V.daily.school.attended.science);
+		V.schoolLessonsMissed.maths += !Number(V.daily.school.attended.maths);
+		V.schoolLessonsMissed.english += !Number(V.daily.school.attended.english);
+		V.schoolLessonsMissed.history += !Number(V.daily.school.attended.history);
+		V.schoolLessonsMissed.swimming += !Number(V.daily.school.attended.swimming);
+		V.lessonmissed += 5 - attended * 2; // Reduce lessonmissed if lessons are attended
 		V.lessonmissedtext = 5 - attended;
 	}
 
