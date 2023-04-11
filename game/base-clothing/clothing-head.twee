@@ -1523,6 +1523,13 @@
 		accIcon: "spirit_mask_acc.png"
 	},
 
+	]>>
+
+	<!--
+		Clothes that modders add go into this array, this should be empty in the base game at all times.
+		These items should have a `modder` variable with a the modders name in a short string
+	-->
+	<<set setup.moddedClothes.head to [
 		{index: 49,
 			name: "cloud hair clip",
 			name_cap: "Cloud hair clip",
@@ -1615,14 +1622,7 @@
 			iconFile: "Spotted Hairclip.png",
 			accIcon: 0
 	}
-
 	]>>
-
-	<!--
-		Clothes that modders add go into this array, this should be empty in the base game at all times.
-		These items should have a `modder` variable with a the modders name in a short string
-	-->
-	<<set setup.moddedClothes.head to []>>
 
 	<<run setup.moddedClothes.head.forEach( (x,i) => x.index = setup.clothes.head.length + i )>>
 	<<run setup.clothes.head.push(...setup.moddedClothes.head)>>

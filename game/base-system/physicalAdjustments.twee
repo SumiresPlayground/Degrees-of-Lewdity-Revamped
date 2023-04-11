@@ -315,6 +315,10 @@
 			<<set $breastgrowthtimer += 300>>
 		<</if>>
 
+		<<if $parasite.nipples.name is "livingclothes">>
+			<<set $breastgrowthtimer -= 150>>
+		<</if>>
+
 		<<if $breastgrowthtimer lte 0 and $player.breastsize lt $breastsizemax>>
 			<<set $player.breastsize += 1>>
 			<<set $breastgrowthtimer += 700>>
@@ -385,6 +389,10 @@
 			<<set $penisgrowthtimer += 250>>
 			<<set $sexStats.pills["pills"]["penis reduction"].overdose += random(1,2)>>
 		<</if>>
+		<<if $parasite.penis.name is "livingclothes">>
+			<<set $penisgrowthtimer -= 250>>
+			<<set $sexStats.pills["pills"]["penis growth"].overdose += random(1,2)>>
+		<</if>>
 		<<set _overdose to $sexStats.pills["pills"]["penis growth"].overdose - $sexStats.pills["pills"]["penis reduction"].overdose>>
 		<<if $penisgrowthtimer lte 0 and $player.penissize lt $penissizemax and $player.penissize gte -1>>
 			<<set $player.penissize += 1>>
@@ -449,6 +457,9 @@
 		<</if>>
 		<<if $parasite.bottom.name is "slime">>
 			<<set $bottomgrowthtimer += 300>>
+		<</if>>
+		<<if $parasite.bottom.name is "livingclothes">>
+			<<set $bottomgrowthtimer -= 300>>
 		<</if>>
 		<<if $bottomgrowthtimer lte 0 and $player.bottomsize lt $bottomsizemax>>
 			<<set $player.bottomsize += 1>>

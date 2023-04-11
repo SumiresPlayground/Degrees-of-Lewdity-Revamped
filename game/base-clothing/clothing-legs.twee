@@ -563,7 +563,37 @@
 		Clothes that modders add go into this array, this should be empty in the base game at all times.
 		These items should have a `modder` variable with a the modders name in a short string
 	-->
-	<<set setup.moddedClothes.legs to []>>
+	<<set setup.moddedClothes.legs to [
+		{index: 18,
+		name: "tentacle stockings",
+		name_cap: "Tentacle stockings",
+		variable: "tentacle",
+		integrity: 70000,
+		integrity_max: 70000,
+		fabric_strength: 70000,
+		reveal: 300,
+		word: "n",
+		state: "thighs",
+		state_base: "thighs",
+		plural: 1,
+		colour: 0,
+		colour_options: [],
+		colour_sidebar: 1,
+		type: ["fetish", "swim", "school"],
+		gender: "n",
+		femininity: 0,
+		warmth: 10,
+		cost: 500,
+		description: "Made by tentacles.",
+		shop: [],
+		accessory: 0,
+		accessory_colour: 0,
+		accessory_colour_options: [],
+		cursed: 1,
+		location: 0,
+		iconFile: ""
+	}
+	]>>
 
 	<<run setup.moddedClothes.legs.forEach( (x,i) => x.index = setup.clothes.legs.length + i )>>
 	<<run setup.clothes.legs.push(...setup.moddedClothes.legs)>>
