@@ -3984,16 +3984,16 @@
 				<span class="purple"><<His>> glasses shatter.</span>
 			<</if>>
 			<<defiance 10 $mouthtarget>><<attackstat>><<set $mouthuse to 0>><<set $mouthstate to 0>>
-			<<if $cow gte 2 and $demon gte 2>>
+			<<if $cow gte 2 and $demon gte 2 or $sheep gte 2 and $demon gte 2 or $deer gte 2 and $demon gte 2>>
 				<<defiance 10 $mouthtarget>><<defiance 10 $mouthtarget>>
 			<</if>>
-			<<if $demon gte 2>>
+			<<if $demon gte 2 or $deer gte 2>>
 				<<defiance 10 $mouthtarget>>
 				<<if $leftarm isnot "bound" or $rightarm isnot "bound">>
 					You rub your horns.
 				<</if>>
 			<</if>>
-			<<if $cow gte 2>>
+			<<if $cow gte 2 or $dragon gte 3 or $sheep gte 2>>
 				<<print either("That didn't hurt you at all!", "You remain unshaken by the blow.", "You're unharmed by the hit.")>>
 			<<else>>
 				<<pain 4>>
@@ -5002,6 +5002,36 @@
 						<<molested>><<controlloss>>
 					<</if>>
 					They pause a moment before responding. <span class="red">"Stupid slut, you think you can tell me what to do?"</span>
+				<</if>>
+			<</if>>
+		<</if>>
+
+		<<if $mouthaction is "dragonBreath">>
+			<<set $mouthactiondefault to "dragonBreath">><<set $mouthaction to 0>>
+			<<set $enemyhealth -= 200>>
+			<<for _npctodamage to 0; _npctodamage lt $enemynomax; _npctodamage++>>
+				<<if $NPCList[_npctodamage].active is "active" and $NPCList[_npctodamage].stance isnot "defeated">>
+					<<set $NPCList[_npctodamage].health -= (200/$enemyno)>>/* Divide damage by all current active enemies. */
+					<<if $enemyno gte 2>>
+						<<npcdamage _npctodamage>>
+					<</if>>
+				<</if>>
+			<</for>>
+			<<if $dragonbreathuse is undefined>>
+				<<set $dragonbreathuse to 0>>
+			<</if>>
+			<<set $dragonbreathuse += 1>><<set $speechdragonbreath to 1>>
+			<<if $enemytype is "beast">>
+				You breath dragon fire at the <<beasttype>>. It whimpers.
+			<<elseif $enemyno gte 2>>
+				You breath dragon fire at the <<group>>. They recoil in pain.
+				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
+					<<ggcrime>><<crimeup 500>>
+				<</if>>
+			<<else>>
+				You breath dragon fire at the assailant. <<He>> recoils in pain.
+				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
+					<<ggcrime>><<crimeup 500>>
 				<</if>>
 			<</if>>
 		<</if>>

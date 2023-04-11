@@ -222,6 +222,36 @@
 					text: "Little escapes your notice. +5% skulduggery.",
 				},
 				{
+					name: "Lizard eyes",
+					colour: "def",
+					has: $transformationParts.lizard.eyes isnot "disabled",
+					text: "Little escapes your notice. +5% skulduggery.",
+				},
+				{
+					name: "Dragon eyes",
+					colour: "def",
+					has: $transformationParts.dragon.eyes isnot "disabled",
+					text: "Your eyes are better than even that of an eagle. +10% skulduggery.",
+				},
+				{
+					name: "Dragon fangs",
+					colour: "def",
+					has: $transformationParts.dragon.fangs isnot "disabled",
+					text: "Your bites are lethal.",
+				},
+				{
+					name: "Dragon wings",
+					colour: "def",
+					has: $transformationParts.dragon.wings isnot "disabled",
+					text: "The skies are yours. You can fly all across town quickly.",
+				},
+				{
+					name: "Lizard lungs",
+					colour: "def",
+					has: $transformationParts.lizard.tail isnot "disabled",
+					text: "You can now hold your breath for longer.",
+				},
+				{
 					name: "Heterochromia",
 					colour: "",
 					style: `background: linear-gradient(to right,${setup.colours.eyes_map[$rightEyeColour].canvasfilter.blend} 0%, ${setup.colours.eyes_map[$leftEyeColour].canvasfilter.blend} 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
@@ -292,19 +322,19 @@
 				{
 					name: "Compound Horns",
 					colour: "def",
-					has: $cow gte 2 and $demon gte 2 or $sheep gte 2 and $demon gte 2 or $deer gte 2 and $demon gte 2,
+					has: $cow gte 2 and $demon gte 2 or $sheep gte 2 and $demon gte 2 or $deer gte 2 and $demon gte 2 or $dragon gte 3,
 					text: "Your headbutts are vicious. Headbutts are four times as powerful, and no longer hurt you.",
 				},
 				{
 					name: "Strong wings",
 					colour: "gold",
-					has: $harpy gte 6 and $birdFly gte 1,
+					has: $harpy gte 6 and $birdFly gte 1 or $dragon gte 6,
 					text: "Can glide from high locations. Can fly where the wind is willing.",
 				},
 				{
 					name: "Wings",
 					colour: "grey",
-					has: !($harpy gte 6 and $birdFly gte 1) and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6 or $harpy gte 6 or $bee gte 6),
+					has: !($harpy gte 6 and $birdFly gte 1 or $dragon gte 6) and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6 or $harpy gte 6 or $bee gte 6),
 					text: "Can glide from high locations.",
 				},
 				{

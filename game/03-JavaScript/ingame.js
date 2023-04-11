@@ -1187,6 +1187,7 @@ function currentSkillValue(skill) {
 			if (V.worn.hands.type.includes("sticky_fingers")) modifier += 0.05;
 			if (V.transformationParts.traits.sharpEyes !== "disabled") modifier += 0.05;
 			if (V.fox >= 6) modifier += 0.10;
+			if (V.dragon >= 1) modifier += 0.10;
 			result = Math.floor(result * modifier);
 			break;
 		case "physique":

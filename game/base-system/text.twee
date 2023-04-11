@@ -3617,7 +3617,7 @@
 
 <<widget "flight_text">>
 	<<if $statdisable is "f">> |
-		<<if $harpy gte 6 and $birdFly gte 1>>
+		<<if $harpy gte 6 and $birdFly gte 1 or $dragon gte 6>>
 			<span class="gold">Strong wings</span>
 		<<elseif $angel gte 6 or $demon gte 6 or $fallenangel gte 2 or $harpy gte 6 or $bee gte 6>>
 			<span class="gold">Wings</span>
@@ -6206,6 +6206,10 @@
 	<</if>>
 <</widget>>
 
+<<widget "dragon">>
+| <span class="blue">Dragon</span>
+<</widget>>
+
 <<widget "angel">>
 	<<if $statdisable is "f">> |
 		<span class="gold">Angel</span>
@@ -6354,6 +6358,7 @@
 				<<case "sheepgirl" "ramboy">><<set _text_output to "sheepgirls and ramboys">>
 				<<case "deergirl" "stagboy">><<set _text_output to "deergirls and stagboys">>
 				<<case "beegirl" "beeboy">><<set _text_output to "beegirls and beeboys">>
+				<<case "dragongirl" "dragonboy">><<set _text_output to "dragongirls and dragonboys">>
 				<<default>><<set _text_output to "creatures">>
 			<</switch>>
 		<</if>>
@@ -6570,6 +6575,8 @@
 					<<set _text_output to "snort">>
 				<<elseif $bear gte 4>>
 					<<set _text_output to "whimper">>
+				<<elseif $dragon gte 6>>
+					<<set _text_output to "growl">>
 				<<else>>
 					<<set _text_output to "plead">>
 				<</if>>
@@ -6613,6 +6620,8 @@
 				<<set _text_output to "snort">>
 			<<elseif $bear gte 4>>
 				<<set _text_output to "grunt">>
+			<<elseif $dragon gte 6>>
+				<<set _textoutput to "groan">>
 			<<else>>
 				<<set _text_output to "moan">>
 			<</if>>
@@ -6640,6 +6649,8 @@
 					<<set _text_output to "snort angerly">>
 				<<elseif $bear gte 4>>
 					<<set _text_output to "growl menacingly">>
+				<<elseif $dragon gte 6>>
+					<<set _text_output to "snarl">>
 				<<else>>
 					<<set _text_output to "spit">>
 				<</if>>

@@ -209,6 +209,9 @@ There's a path leading down to the beach.
 			<<if $exposed lte 0>>
 				<<buswait>>
 			<</if>>
+			<<if $dragon gte 6>>
+				<<flywait>>
+			<</if>>
 			<<loiter>>
 		<</if>>
 		<<add_link "<br>Alternate Routes<br>">><<hideDisplay>>
@@ -774,7 +777,7 @@ You turn around slowly. Three uniformed police stand behind you.
 		<br><br>
 		<<endevent>>
 		<<link [[Next|Bus Station]]>><<pass 5>><</link>>
-	<<elseif $rng gte 60 and $harpy gte 6 and $birdFly gte 1>> /* harpies get a bit more chance */
+	<<elseif $rng gte 60 and $harpy gte 6 and $birdFly gte 1 or $dragon gte 6>> /* harpies get a bit more chance */
 		Your lungs are burning and you're close to collapse, when you hear <<him>> trip on something and stagger.<br>
 		A rush of adrenaline boosts your lead. Dashing around a corner and speeding downhill, you spread your wings and soar into the sky.
 		<br><br>

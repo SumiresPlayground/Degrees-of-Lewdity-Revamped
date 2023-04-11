@@ -294,7 +294,37 @@
 		Clothes that modders add go into this array, this should be empty in the base game at all times.
 		These items should have a `modder` variable with a the modders name in a short string
 	-->
-	<<set setup.moddedClothes.hands to []>>
+	<<set setup.moddedClothes.hands to [
+		{index: 9,
+	name: "dragonstone ring",
+	name_cap: "Dragonstone Ring",
+	variable: "dragonstone ring",
+	integrity: 1000,
+	integrity_max: 1000,
+	fabric_strength: 1000,
+	reveal: 1,
+	word: "n",
+	plural: 1,
+	colour: 0,
+	colour_options: [],
+	type: ["stealthy", "eerie"],
+	gender: "n",
+	warmth: 1,
+	cost: 100000,
+	description: "A ring made with a dragonstone, made for dragons.",
+	shop: ["forest"],
+	accessory: 0,
+	accessory_colour: 0,
+	accessory_colour_options: [],
+	back_img: 0,
+	cursed: 0,
+	location: 0,
+	iconFile: 0,
+	accIcon: 0,
+	mainImage:0
+}
+
+	]>>
 
 	<<run setup.moddedClothes.hands.forEach( (x,i) => x.index = setup.clothes.hands.length + i )>>
 	<<run setup.clothes.hands.push(...setup.moddedClothes.hands)>>

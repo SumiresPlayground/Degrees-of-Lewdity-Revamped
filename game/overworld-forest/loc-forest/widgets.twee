@@ -288,6 +288,7 @@
 			<</if>>
 		<</addinlineevent>>
 		<<addevent "forestbear" 0.15>>
+		<<addevent "forestdragon" 0.15>>
 		<<addevent "forestrock" 0.25>>
 		<<addinlineevent "forest_clothingdamage">>
 			You squeeze through a thicket.
@@ -360,6 +361,7 @@
 			<<addevent "forestsnake" 0.33>>
 		<</if>>
 		<<addevent "forestbear">>
+		<<addevent "forestdragon">>
 		<<if $tentacledisable is "f" and $voredisable is "f" and ($hallucinations gte 2 or $backgroundTraits.includes("plantlover"))>>
 			<<addinlineevent "deepforest_slimecontrol">>
 				You walk through a dense thicket. The air is thick with pollen, but you don't see any flowers. You begin to feel lightheaded, and steady yourself against a trunk. A white haze lingers in the air.
@@ -654,6 +656,28 @@
 		<<link [[Ignore them|Forest]]>><<endevent>><<set $eventskip to 1>><</link>>
 		<br>
 	<</if>>
+<</widget>>
+
+<<widget "forestdragon">>
+
+You spot fresh dragon footprints in the dirt.
+<br><br>
+<<beastNEWinit 1 dragon>>
+<<if $foresthunt gte 1>>
+You feel whatever's hunting you draw closer.
+<br><br>
+<</if>>
+
+<<link [[Take a detour (0:30)|Forest]]>><<endevent>><<pass 30>><<if $foresthunt gte 1>><<set $foresthunt += 2>><</if>><<set $eventskip to 1>><</link>>
+<br>
+<!-- Modified for Monster People -->
+<<if random(1, 5) is 5 and ($bestialitydisable is "f" or $monster is 1)>>
+<<link [[Ignore them|Forest Dragon Molestation]]>><<set $molestationstart to 1>><</link>>
+<br>
+<<else>>
+<<link [[Ignore them|Forest]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+<</if>>
 <</widget>>
 
 <<widget "forestspider">>

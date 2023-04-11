@@ -210,6 +210,13 @@ You are in the Ocean Breeze Cafe.
 		<<link [[Buy Deluxe Cream Bun (0:20 £50)|Cafe Cream Bun]]>><<set $daily.cafeEaten to 1>><<transform cat 1>><<set $money -= 5000>><<pass 20>><<stress -18>><</link>><<llstress>>
 		<br>
 	<</if>>
+	<<if $money gte 10000>>
+		<<if $images is 1>><img id="icon" src="img/misc/icon/food_steak.png"><</if>><<link [[Buy Steak (0:30 £100)|Cafe Steak]]>><<set $cafeeaten to 1>><<transform dragon 1>><<set $money -= 10000>><<pass 30>><<stress -30>><</link>><<llstress>>
+	<</if>>
+	<br>
+	<<if $money gte 10000>>
+		<<if $images is 1>><img id="icon" src="img/misc/icon/food_steak.png"><</if>><<link [[Buy Cheeseburger (0:20 £50)|Cafe Hamburger]]>><<set $cafeeaten to 1>><<transform dragon 1>><<set $money -= 5000>><<pass 20>><<stress -18>><</link>><<llstress>>
+	<</if>>
 <</if>>
 
 <<if $openinghours is 0 and Time.hour isnot $closinghour and !$weekly.theft.oceanBreeze>>
@@ -2064,6 +2071,30 @@ You ignore the <<person>> and finish licking the plate clean. You lean back, sat
 <br><br>
 <<endevent>>
 <<link [[Next|Ocean Breeze]]>><</link>>
+<br>
+
+:: Cafe Steak
+<<set $outside to 0>><<set $location to "cafe">><<effects>>
+
+You take a seat and order a sirloin steak, medium rare, with mashed potatos and corn. It soon arrives.
+<br><br>
+
+It's big and juicy. It's so tasty, it leaves you feeling satisfied.
+<br><br>
+
+<<link [[That's enough|Ocean Breeze]]>><</link>>
+<br>
+
+:: Cafe Hamburger
+<<set $outside to 0>><<set $location to "cafe">><<effects>>
+
+You take a seat and order a cheeseburger with tomato, lettuce, and pickle. It soon arrives.
+<br><br>
+
+It's big and juicy. It's so tasty, it leaves you feeling satisfied.
+<br><br>
+
+<<link [[That's enough|Ocean Breeze]]>><</link>>
 <br>
 
 :: Cafe Winter Ale

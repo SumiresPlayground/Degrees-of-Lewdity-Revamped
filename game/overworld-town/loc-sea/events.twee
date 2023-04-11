@@ -91,6 +91,102 @@
 	<<destinationeventend>>
 <</if>>
 
+:: Sea Dragons
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+	<<set $water to 1>>
+	<!-- <<set $claws to 0>> -->
+	<<if $daystate isnot "night" and $location is "beach">>
+		<<enable_rescue>>
+	<</if>>
+	<<if $bus isnot "sea">>
+		<span class="pink">The <<beastsplural>> push you out to sea.</span>
+	<</if>>
+	<<location "sea">>
+<</if>>
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $alarm is 1 and $rescue is 1>>
+	<span id="next"><<link [[Next|Sea Dragons Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Sea Dragons Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Sea Dragons Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Sea Dragons]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Sea Dragons Finish
+
+<<effects>>
+<<if $enemyhealth lte 0>>
+	<<beastwound>>
+	<<if $combatTrain.length gt 0>>
+		The <<beasttype>> recoils in pain and fear, but another is eager for a go.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons]]>><</link>>
+		<br>
+	<<else>>
+		The <<beasttype>> recoils in pain and fear.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $combatTrain.length gt 0>>
+		Satisfied, the <<beasttype>> moves and another takes its turn.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons]]>><</link>>
+		<br>
+	<<else>>
+		Satisfied, the <<beasttype>> moves away from you.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $finish is 1>>
+	<<if $enemywounded is 1 and $enemyejaculated is 0>>
+		The <<beasttype>> whimpers and flees into the darkness of the sea.
+	<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
+		The <<beasttype>> leaves you floating in the water.
+	<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
+		Feeling that you're more trouble than you're worth, the <<beastsplural>> flee into the sea.
+	<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+		The <<beastsplural>> leave you spent and shivering in the water.
+	<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+		The <<beastsplural>> leave you spent and shivering in the water.
+	<</if>>
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<destinationeventend>>
+<<elseif $alarm is 1 and $rescue is 1>>
+	<<set $rescued += 1>>
+	A whistle blows, startling the <<beastsplural>>. A lifeguard in a small boat races toward you. The <<beastsplural>> make a chittering noise, then flee away from the shore. Seeing them leave, the lifeguard heads back to the beach.
+	<br><br>
+	<<tearful>> you gather yourself.
+	<<clotheson>>
+	<<endcombat>>
+	<<destinationeventend>>
+<</if>>
+
 :: Sea Eels
 
 <<if $location isnot "sea">><<location "sea">><</if>><<effects>>
@@ -518,6 +614,109 @@ The creature loses interest in you, and returns to the depths. <<tearful>> you s
 		<<combatTrainAdvance>>
 		<br><br>
 		<<link [[Next|Sea Dolphins Sex Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $finish is 1>>
+	<<if $consensual is 1>>
+		The <<beastsplural>> swim away from you.
+		<br><br>
+	<<else>>
+		<<if $enemywounded is 1 and $enemyejaculated is 0>>
+			The $NPCList[_na].type whimpers and flees into the darkness of the sea.
+		<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
+			The $NPCList[_na].type leaves you floating in the water.
+		<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
+			Feeling that you're more trouble than you're worth, the <<beastsplural>> flee into the sea.
+		<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+			The <<beastsplural>> leave you spent and shivering in the water.
+		<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+			The <<beastsplural>> leave you spent and shivering in the water.
+		<</if>>
+		<br><br>
+	<</if>>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<destinationeventend>>
+<<elseif $alarm is 1 and $rescue is 1>>
+	<<set $rescued += 1>>
+	A whistle blows, startling the <<beastsplural>>. A lifeguard in a small boat races toward you. The <<beastsplural>> make a chittering noise, then flee away from the shore. Seeing them leave, the lifeguard heads back to the beach.
+	<br><br>
+	<<tearful>> you gather yourself.
+	<<clotheson>>
+	<<endcombat>>
+	<<destinationeventend>>
+<</if>>
+
+:: Sea Dragons Sex
+
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+
+	<<beastTrainGenerate>>
+
+	<<set $water to 1>>
+	<!-- <<set $claws to 0>> -->
+	<<if $daystate isnot "night" and $location is "beach">>
+		<<enable_rescue>>
+	<</if>>
+	You pet further and further down the $NPCList[0].type's belly. They take the hint, and swim closer to you in excitement.
+	<br>
+	<<deviancy3>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $alarm is 1 and $rescue is 1>>
+	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif $finish is 1>>
+	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Sea Dragons Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Sea Dragons Sex Finish
+
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	<<beastwound>>
+	<<if $combatTrain.length gt 0>>
+		The $NPCList[_na].type recoils in pain and fear, but the next takes its turn.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons Sex]]>><</link>>
+	<<else>>
+		The $NPCList[_na].type recoils in pain and fear.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons Sex Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $combatTrain.length gt 0>>
+		Satisfied, the $NPCList[_na].type moves and the next takes its turn.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons Sex]]>><</link>>
+	<<else>>
+		Satisfied, the $NPCList[_na].type moves away from you.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Sea Dragons Sex Finish]]>><<set $finish to 1>><</link>>
 	<</if>>
 <<elseif $finish is 1>>
 	<<if $consensual is 1>>

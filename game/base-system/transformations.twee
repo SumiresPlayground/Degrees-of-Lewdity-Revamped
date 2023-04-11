@@ -16,6 +16,8 @@
 			sheep: {ears:"disabled", tail:"disabled", horns:"disabled"},
 			deer: {ears:"disabled", tail:"disabled", horns:"disabled"},
 			bear: {ears:"disabled", tail:"disabled"},
+			dragon: {tail:"disabled", wings:"disabled", eyes:"disabled", horns:"disabled", claws:"disabled"},
+			lizard: {horns:"disabled", tail:"disabled", eyes:"disabled"},
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
@@ -107,6 +109,30 @@
 			<<if $bear gte 6>>
 				<<set $transformationParts.bear.tail to "default">>
 			<</if>>
+			<<if $dragon gte 1>>
+				<<set $transformationParts.dragon.eyes to "default">>
+			<</if>>
+			<<if $dragon gte 2>>
+				<<set $transformationParts.dragon.fangs to "default">>
+			<</if>>
+			<<if $dragon gte 3>>
+				<<set $transformationParts.dragon.horns to "default">>
+			<</if>>
+			<<if $dragon gte 4>>
+				<<set $transformationParts.dragon.tail to "default">>
+			<</if>>
+			<<if $dragon gte 6>>
+				<<set $transformationParts.dragon.wings to "default">>
+			<</if>>
+			<<if $lizard gte 1>>
+				<<set $transformationParts.lizard.eyes to "default">>
+			<</if>>
+			<<if $lizard gte 2>>
+				<<set $transformationParts.lizard.horns to "default">>
+			<</if>>
+			<<if $lizard gte 6>>
+				<<set $transformationParts.lizard.tail to "default">>
+			<</if>>
 		<</if>>
 	<</if>>
 	<<if $transformationParts.fallenAngel.halo is 1>>
@@ -147,6 +173,12 @@
 	<</if>>
 	<<if $transformationParts.fox is undefined>>
 		<<set $transformationParts.fox to {ears:"disabled", tail:"disabled", cheeks:"disabled"}>>
+	<</if>>
+	<<if $transformationParts.dragon is undefined>>
+		<<set $transformationParts.dragon to {tail:"disabled", wings:"disabled", eyes:"disabled", fangs:"disabled", horns:"disabled"}>>
+	<</if>>	
+	<<if $transformationParts.lizard is undefined>>
+		<<set $transformationParts.lizard to {tail:"disabled", eyes:"disabled", horns:"disabled"}>>
 	<</if>>
 	<<if $transformationParts.traits is undefined>>
 		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled"}>>
@@ -192,6 +224,8 @@
 			<<case "sheep">> <<set $sheepbuild = Math.clamp($sheepbuild + _args[1], 0, 100)>>
 			<<case "deer">> <<set $deerbuild = Math.clamp($deerbuild + _args[1], 0, 100)>>
 			<<case "bear">> <<set $bearbuild = Math.clamp($bearbuild + _args[1], 0, 100)>>
+			<<case "dragon">> <<set $dragonbuild = Math.clamp($dragonbuild + _args[1], 0, 100)>>
+			<<case "lizard">> <<set $lizardbuild = Math.clamp($lizardbuild + _args[1], 0, 100)>>
 		<</switch>>
 	<</if>>
 	<<if _args[0] isnot "angel" and _args[0] isnot "demon" and _args[1] gte 1>>
@@ -221,6 +255,14 @@
 		<</if>>
 		<<if _args[0] isnot "bear" and $worn.head.name isnot "honeycomb hair clip">>
 			<<set $bearbuild = Math.clamp($bearbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if $args[0] isnot "dragon" and $worn.hands.name isnot "dragonstone ring">>
+			<<set $dragonbuild -= $args[1]>>
+			<<set $dragonbuild = Math.clamp($dragonbuild, 0, 100)>>
+		<</if>>
+		<<if $args[0] isnot "lizard" and $worn.hands.name isnot "dragonstone ring">>
+			<<set $lizardbuild -= $args[1]>>
+			<<set $lizardbuild = Math.clamp($lizardbuild, 0, 100)>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -263,6 +305,14 @@
 		<<transform bear -1>>
 	<</if>>
 
+	<<if $dragonbuild gte 1 and $worn.hands.name isnot "dragonstone ring">>
+		<<transform dragon -1>>
+	<</if>>
+
+	<<if $lizardbuild gte 1 and $worn.hands.name isnot "dragonstone ring">>
+		<<transform lizard -1>>
+	<</if>>
+
 	<<if $wolfgirl gte 6>>
 		<<def 5>>
 	<</if>>
@@ -276,7 +326,7 @@
 	<</if>>
 	<<if $physicalTransform is 1 or $specialTransform is 1>>
 		<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
-			<<if $transformationParts.bird.wings is "hidden" and ($transformationParts.demon.wings is "hidden" or $transformationParts.angel.wings is "hidden" or $transformationParts.fallenAngel.wings is "hidden")>>
+			<<if ($transformationParts.bird.wings is "hidden" or $transformationParts.dragon.wings is "hidden") and ($transformationParts.demon.wings is "hidden" or $transformationParts.angel.wings is "hidden" or $transformationParts.fallenAngel.wings is "hidden" or $transformationParts.bee.wings is "hidden")>>
 			<<else>>
 				<<set _excludeWings to true>>
 			<</if>>
@@ -343,6 +393,10 @@
 			<<deerTransform $deer>>
 		<<elseif ($bearbuild gte 5 and $physicalTransform isnot 1) or ($bear gte 1 and $physicalTransform is 1)>>
 			<<bearTransform $bear>>
+		<<elseif ($dragonbuild gte 5 and $physicalTransform isnot 1) or ($dragon gte 1 and $physicalTransform is 1)>>
+			<<dragonTransform $dragon>>
+		<<elseif ($lizardbuild gte 2 and $physicalTransform isnot 1) or ($lizard gte 1 and $physicalTransform is 1)>>
+			<<lizardTransform $lizard>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -1677,6 +1731,194 @@
 	<</if>>
 <</widget>>
 
+<<widget "dragonTransform">>
+	<<if $args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $dragonbuild gte 10 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $dragon to 1>><<set $physicalTransform to 1>>
+					<span class="gold">Your eyes have turned a strange red and yellow. Your vision has improved.</span>
+					<<set $transformationParts.dragon.eyes to "default">>
+					<<set $transformationParts.traits.sharpEyes to "hidden">>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $dragonbuild gte 20 and $transformdisable is "f">>
+					<<set $dragon to 2>>
+					<span class="gold">Your mouth hurts for a moment. You lick your teeth and find sharp new fangs.</span>
+					<<set $transformationParts.dragon.fangs to "default">>
+					<<set $transformationParts.traits.fangs to "hidden">>
+					<br><br>
+				<<elseif $dragonbuild lt 10>>
+					<<set $dragon to 0>><<set $physicalTransform to 0>>
+					<span class="gold">Your vision has worsened significantly.</span>
+					<<set $transformationParts.dragon.eyes to "disabled">>
+					<<set $transformationParts.traits.sharpEyes to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $dragonbuild gte 25 and $transformdisable is "f">>
+					<<set $dragon to 3>>
+					<span class="gold">Your head aches for a moment, and horns appear.</span>
+					<<set $transformationParts.dragon.horns to "default">>
+					<br><br>
+				<<elseif $dragonbuild lt 10>>
+					<<set $dragon to 1>>
+					<span class="gold">Your fangs have completely disappeared.</span>
+					<<set $transformationParts.dragon.fangs to "disabled">>
+					<<set $transformationParts.traits.fangs to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $dragonbuild gte 30 and $transformdisable is "f">>
+					<<set $dragon to 4>>
+					<span class="gold">Your bottom feels strange. You reach behind you, and find a tail covered in rough scales.</span>
+					<<set $transformationParts.dragon.tail to "default">>
+					<br><br>
+				<<elseif $dragonbuild lt 20>>
+					<<set $dragon to 2>>
+					<span class="gold">Your horns have disappeared.</span>
+					<<set $transformationParts.dragon.horns to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $dragonbuild gte 40 and $transformdisable is "f">>
+					<<set $dragon to 5>>
+					<span class="gold">Your back itches.</span>
+					<br><br>
+				<<elseif $dragonbuild lt 30>>
+					<<set $dragon to 3>>
+					<span class="gold">Your tail is gone.</span>
+					<<set $transformationParts.dragon.tail to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $dragonbuild gte 50 and $transformdisable is "f">>
+					<<set $dragon to 6>>
+					<span class="gold">You feel stronger and lighter than ever before.</span>
+					<<set $transformationParts.dragon.wings to "default">>
+					<<if $transformationParts.angel.wings is "default">>
+						<<set $transformationParts.angel.wings to "hidden">>
+					<<elseif $transformationParts.fallenAngel.wings is "default">>
+						<<set $transformationParts.fallenAngel.wings to "hidden">>
+					<<elseif $transformationParts.demon.wings is "default">>
+						<<set $transformationParts.demon.wings to "hidden">>
+					<</if>>
+					<br><br>
+				<<elseif $dragonbuild lt 40>>
+					<<set $dragon to 4>>
+					<span class="gold">You feel weaker.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $dragonbuild lt 50>>
+					<span class="gold">You feel as weak as you once were. Your scaley wings have disappeared.</span>
+					<<set $dragon to 5>>
+					<<set $transformationParts.dragon.wings to "disabled">>
+					<<if $angel gte 6>>
+						<<set $transformationParts.angel.wings to "default">>
+					<</if>>
+					<<if $demon gte 6>>
+						<<set $transformationParts.demon.wings to "default">>
+					<</if>>
+					<<if $fallenangel gte 2>>
+						<<set $transformationParts.fallenAngel.wings to "default">>
+					<</if>>
+					<br><br>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $dragon to 0>>
+				<<set $dragonbuild to 0>>
+				<<set $transformationParts.dragon.eyes to "disabled">>
+				<<set $transformationParts.dragon.fangs to "disabled">>
+				<<set $transformationParts.dragon.horns to "disabled">>
+				<<set $transformationParts.dragon.tail to "disabled">>
+				<<set $transformationParts.dragon.wings to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $dragon to 6>>
+		<<set $dragonbuild to 100>>
+		<<set $transformationParts.dragon.eyes to "default">>
+		<<set $transformationParts.dragon.fangs to "default">>
+		<<set $transformationParts.dragon.horns to "default">>
+		<<set $transformationParts.dragon.tail to "default">>
+		<<set $transformationParts.dragon.wings to "default">>
+		<<if $transformationParts.angel.wings is "default">>
+			<<set $transformationParts.angel.wings to "hidden">>
+		<<elseif $transformationParts.fallenAngel.wings is "default">>
+			<<set $transformationParts.fallenAngel.wings to "hidden">>
+		<<elseif $transformationParts.demon.wings is "default">>
+			<<set $transformationParts.demon.wings to "hidden">>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "lizardTransform">>
+	<<if $args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $lizardbuild gte 10 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $lizard to 1>><<set $physicalTransform to 1>>
+					<span class="gold">Your eyes have turned a strange red and yellow. Your vision has improved.</span>
+					<<set $transformationParts.lizard.eyes to "default">>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $lizardbuild gte 20 and $transformdisable is "f">>
+					<<set $lizard to 2>>
+					<span class="gold">Your head aches for a moment, and horns appear.</span>
+					<<set $transformationParts.lizard.horns to "default">>
+					<br><br>
+				<<elseif $lizardbuild lt 10>>
+					<<set $lizard to 0>><<set $physicalTransform to 0>>
+					<span class="gold">Your vision has worsened significantly.</span>
+					<<set $transformationParts.lizard.eyes to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $lizardbuild gte 30 and $transformdisable is "f">>
+					<<set $lizard to 3>>
+					<span class="gold">Your bottom feels strange. You reach behind you, and find a tail covered in rough scales.</span>
+					<span class="blue">You feel as though you can hold your breath for longer than before.</span>
+					<<set $oxygenmax to 1500>>
+					<<set $transformationParts.lizard.tail to "default">>
+					<br><br>
+				<<elseif $lizardbuild lt 15>>
+					<<set $lizard to 1>>
+					<span class="gold">Your horns have completely disappeared.</span>
+					<<set $transformationParts.lizard.horns to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $lizardbuild lt 20>>
+					<<set $lizard to 2>>
+					<span class="gold">Your tail has disappeared.</span>
+					<span class="blue">Your lung capacity has returned to normal.</span>
+					<<set $oxygenmax to 1200>>
+					<<set $transformationParts.lizard.tail to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $lizard to 0>>
+				<<set $lizardbuild to 0>>
+				<<set $transformationParts.lizard.horns to "disabled">>
+				<<set $transformationParts.lizard.tail to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $lizard to 6>>
+		<<set $lizard to 100>>
+		<<set $transformationParts.lizard.eyes to "default">>
+		<<set $transformationParts.lizard.horns to "default">>
+		<<set $transformationParts.lizard.tail to "default">>
+	<</if>>
+<</widget>>
+
 <<widget "clearAnimalTransformations">>
 	<<harpyTransform 99>>
 	<<cowTransform 99>>
@@ -1687,6 +1929,8 @@
 	<<sheepTransform 99>>
 	<<deerTransform 99>>
 	<<bearTransform 99>>
+	<<dragonTransform 99>>
+	<<lizardTransform 99>>
 <</widget>>
 
 <<widget "clearDivineTransformations">>

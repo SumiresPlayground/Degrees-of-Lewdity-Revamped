@@ -1207,6 +1207,135 @@ The snakes slither off of you, escaping through nooks and crannies all around th
 	<</if>>
 <</if>>
 
+:: Forest Dragon Molestation
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<beastCombatInit>><<set $enemytrust -= 40>><<set $enemyanger += 40>><<set $enemyhealthmax to 400>><<set $enemyhealth to 400>><<set $enemyarousalmax to 1000>>
+	You continue on your path. You don't get far before hearing a roar behind you.
+	<<if $monster is 1>>
+		"Tiny, squishy little morsel!"
+	<</if>>
+	<br><br>
+	<<if $loveInterest>>
+		<<if ($loveInterest.primary is "Eden" or $loveInterest.secondary is "Eden") and (random(1, 2) is 2 or $eden_rescue isnot 1)>>
+			<<enable_rescue>>
+		<</if>>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<<if $alarm is 1 and $rescue is 0>>
+	<<set $alarm to 0>>
+	<<if ($loveInterest.primary is "Eden" or $loveInterest.secondary is "Eden")>>
+		<<if $gwylan_rescue is 1>>
+			<span class="red">You're too deep into the forest for Gwylan to hear you, and Eden must not be in the area.</span>
+		<<else>>
+			<span class="red">You're too far from the town for anyone to hear you, and Eden must not be in the area.</span>
+		<</if>>
+	<<else>>
+		<<if $gwylan_rescue is 1>>
+			<span class="red">You're too deep into the forest for Gwylan to hear you.</span>
+		<<else>>
+			<span class="red">You're too far from the town for anyone to hear you.</span>
+		<</if>>
+	<</if>>
+	<br><br>
+<</if>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
+<<elseif $alarm is 1 and $rescue is 1>>
+	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Forest Dragon Molestation]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Forest Dragon Molestation Finish
+
+<<location "forest">><<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation>>
+
+	Satisfied, the <<beasttype>> returns to its abode.
+	<<if $monster is 1>>
+		"Next time I might take you with me, squishy," <<bhe>> coos.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you continue on your way.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+
+	You scare the mighty <<beasttype>>. <<bHe>> flees deeper into the forest.
+	<<if $monster is 1>>
+		"Not so tiny! Not so squishy!" <<bhe>> yells as <<bhe>> runs.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you continue on your way.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<elseif $rescue is 1 and $alarm is 1>>
+	You hear a gun fire close by, and a bullet lands near the <<beasttype>>. <<bHe>> backs off in fear and flees into the forest.
+	<br><br>
+
+	<<if $edenCagedEscape>>
+		<<clotheson>>
+		<<endcombat>>
+
+		<<edenCagedSave>>
+	<<else>>
+		Eden emerges and helps you collect yourself. "Damn, I've never seen a dragon that large," <<nnpc_he "Eden">> mutters. "Are you okay?"
+		<br><br>
+
+		<<clotheson>>
+		<<endcombat>>
+		<<if $gwylan_eden_coop gte 1>>
+			Eden glances around for a moment. "We must be in too deep for that shopkeep," <<nnpc_he "Eden">> says.
+			<br><br>
+		<</if>>
+
+		<<if $eden_rescue isnot 1>>
+			<<set $eden_rescue to 1>>
+			Eden pats you on the shoulder. "I was able to hear you because I happened to be in the area," <<nnpc_he "Eden">> says. "<span class="gold">I might not always be around, but I should be able to save you anywhere in the forest.</span> Give me a shout if you're in trouble."
+			<br><br>
+		<</if>>
+
+		<<link [[Go back to the cabin (0:30)|Forest Cabin Return]]>><<pass 30>><</link>>
+		<br>
+		<<link [[Say goodbye|Forest]]>><<endevent>><</link>>
+	<</if>>
+<</if>>
+
 :: Forest Wolf Mate
 <<location "forest">><<effects>>
 

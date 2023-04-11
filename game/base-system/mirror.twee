@@ -327,6 +327,14 @@
 			Deerlike
 			<br>
 		<</if>>
+		<<if $dragon gte 6>>
+			Dragon
+			<br>
+		<</if>>
+		<<if $lizard gte 6>>
+			Lizard
+			<br>
+		<</if>>
 		<<if $makeup.lipstick != 0 or $makeup.eyeshadow != 0 or $makeup.mascara != 0>>
 			Attractive makeup
 			<br>
@@ -1681,6 +1689,8 @@
 	<<set _sheep to $transformationParts.sheep>>
 	<<set _deer to $transformationParts.deer>>
 	<<set _bear to $transformationParts.bear>>
+	<<set _dragon to $transformationParts.dragon>>
+	<<set _lizard to $transformationParts.lizard>>
 	<<set _traits to $transformationParts.traits>>
 
 	<div id='transformations-menu' class='grid col-2'>
@@ -2157,6 +2167,92 @@
 					<</if>>
 					<br>
 				<</if>>
+			</div>
+			<div class='tf-dragon'>
+				<<if $dragon gte 1>>
+					__Dragon__
+					<br>
+					<<if _dragon.eyes isnot "disabled">>
+						<div class='tf-part-item'>
+							Eyes:
+							<<listbox "_dragon.eyes" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+						</div>
+					<</if>>
+					<br>
+					<<if _dragon.horns isnot "disabled">>
+						<div class='tf-part-item'>
+							Horns:
+							<<listbox "_dragon.horns" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+						</div>
+					<</if>>
+					<br>
+					<<if _dragon.wings isnot "disabled">>
+						<div class='tf-part-item'>
+							Wings:
+							<<listbox "_dragon.wings" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+							<<gencolourselector "_dragon.wings_colour">>
+						</div>
+					<</if>>
+					<br>
+					<<if _dragon.tail isnot "disabled">>
+						<div class='tf-part-item'>
+							Tail:
+							<<listbox "_dragon.tail" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+							<<gencolourselector "_dragon.tail_colour">>
+						</div>
+					<</if>>
+					<br>
+				<</if>>
+				<br>
+			</div>
+			<div class='tf-lizard'>
+				<<if $lizard gte 1>>
+					__Lizard__
+					<br>
+					<<if _lizard.horns isnot "disabled">>
+						<div class='tf-part-item'>
+							Horns:
+							<<listbox "_lizard.horns" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+						</div>
+					<</if>>
+					<br>
+					<<if _lizard.eyes isnot "disabled">>
+						<div class='tf-part-item'>
+							Eyes:
+							<<listbox "_lizard.eyes" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+						</div>
+					<</if>>
+					<br>
+					<<if _lizard.tail isnot "disabled">>
+						<div class='tf-part-item'>
+							Tail:
+							<<listbox "_lizard.tail" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+						</div>
+					<</if>>
+					<br>
+				<</if>>
+				<br>
 			</div>
 			<<set $_chimeraOptions to {
 				"demoncat_tail" : !["disabled", "hidden"].includesAny(_demon.tail, _cat.tail),

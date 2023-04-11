@@ -5,6 +5,9 @@ const Transformations = (() => {
 		demon: {
 			colour: { h: 275, s: 100, l: 30 },
 		},
+		dragon: {
+			colour: { h: 10, s: 100, l: 30},
+		},
 	};
 
 	/* Keeping this around for structural reasons. */

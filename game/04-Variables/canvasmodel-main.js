@@ -353,6 +353,18 @@ Renderer.CanvasModels["main"] = {
 			"sheep_horns_type": "disabled",
 			"sheep_tail_type": "disabled",
 			"sheep_ears_type": "disabled",
+			"deer_horns_type": "disabled",
+			"deer_tail_type": "disabled",
+			"deer_ears_type": "disabled",
+			"bear_tail_type": "disabled",
+			"bear_ears_type": "disabled",
+			"dragon_wings_type": "disabled",
+			"dragon_tail_type": "disabled",
+			"dragon_horns_type": "disabled",
+			"dragon_eyes_type": "disabled",
+			"lizard_eyes_type": "disabled",
+			"lizard_tail_type": "disabled",
+			"lizard_horns_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2040,7 +2052,7 @@ Renderer.CanvasModels["main"] = {
          */
 		"deer_horns": {
 			srcfn(options) {
-				return `img/transformations/deer/horns/default.png`;
+				return `img/transformations/deer/horns/${options.deer_horns_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_horns_type);
@@ -2050,7 +2062,7 @@ Renderer.CanvasModels["main"] = {
 		},
 		"deer_ears": {
 			srcfn(options) {
-				return `img/transformations/deer/ears/default.png`;
+				return `img/transformations/deer/ears/${options.deer_ears_type}.png`;
 			},
 			masksrcfn(options) {
 				return options.head_mask_src;
@@ -2063,7 +2075,7 @@ Renderer.CanvasModels["main"] = {
 		},
 		"deer_tail": {
 			srcfn(options) {
-				return `img/transformations/deer/tail/default.png`;
+				return `img/transformations/deer/tail/${options.deer_tail_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_tail_type);
@@ -2083,7 +2095,7 @@ Renderer.CanvasModels["main"] = {
          */
 		"bear_ears": {
 			srcfn(options) {
-				return `img/transformations/bear/ears/default.png`;
+				return `img/transformations/bear/ears/${options.bear_ears_type}.png`;
 			},
 			masksrcfn(options) {
 				return options.head_mask_src;
@@ -2096,13 +2108,115 @@ Renderer.CanvasModels["main"] = {
 		},
 		"bear_tail": {
 			srcfn(options) {
-				return `img/transformations/bear/tail/default.png`;
+				return `img/transformations/bear/tail/${options.bear_tail_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.bear_tail_type);
 			},
 			filters: ["hair"],
 			z: ZIndices.lower,
+			animation: "idle"
+		},
+		/***
+         *    ██████  ██████    ██████    ███████  ████████  ██      ██
+		 *    ██   ██ ██   ██  ██    ██  ██        ██    ██  ████    ██
+		 *    ██   ██ ██████   ████████  ██  ████  ██    ██  ██  ██  ██
+		 *    ██   ██ ██   ██  ██    ██  ██    ██  ██    ██  ██    ████
+		 *    ██████  ██   ██  ██    ██   ██████   ████████  ██      ██
+         *
+         *
+         */
+		"dragon_horns": {
+			srcfn(options) {
+				return `img/transformations/dragon/horns/${options.dragon_horns_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_horns_type);
+			},
+			z: ZIndices.horns,
+			animation: "idle"
+		},
+		"dragon_eyes": {
+			srcfn(options) {
+				return `img/transformations/dragon/eyes/${options.dragon_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.dragon_eyes_type)
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+		"dragon_wings_right": {
+			srcfn(options) {
+				return `img/transformations/dragon/rightwing/${options.dragon_wings_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_right === "idle"*/
+			},
+			filters: ["dragon_wings"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"dragon_wings_left": {
+			srcfn(options) {
+				return `img/transformations/dragon/leftwing/${options.dragon_wings_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_left === "idle"*/
+			},
+			filters: ["dragon_wings"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"dragon_tail": {
+			srcfn(options) {
+				return `img/transformations/dragon/tail/${options.dragon_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_tail_type)
+			},
+			filters: ["dragon_tail"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		/*** 
+         *    ██      ██████  ████████   █████   ██████   ██████
+		 *    ██        ██         ██   ██   ██  ██   ██  ██    ██
+		 *    ██        ██       ██		███████  ██████   ██    ██
+		 *    ██        ██     ██   	██   ██  ██   ██  ██    ██
+		 *    ██████  ██████  ████████  ██   ██  ██   ██  ██████
+         *
+         *
+         */
+		"lizard_horns": {
+			srcfn(options) {
+				return `img/transformations/lizard/horns/${options.lizard_horns_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.lizard_horns_type);
+			},
+			z: ZIndices.horns,
+			animation: "idle"
+		},
+		"lizard_eyes": {
+			srcfn(options) {
+				return `img/transformations/lizard/eyes/${options.lizard_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.lizard_eyes_type)
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+		"lizard_tail": {
+			srcfn(options) {
+				return `img/transformations/lizard/tail/${options.lizard_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.lizard_tail_type)
+			},
+			filters: ["lizard_tail"],
+			z: ZIndices.backhair,
 			animation: "idle"
 		},
 		/***
