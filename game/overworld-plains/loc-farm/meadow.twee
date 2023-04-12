@@ -88,6 +88,14 @@ You search for plants long and sturdy enough to build an improvised garment. You
 :: Meadow Relax
 <<effects>>
 
+<!-- DoLM -->
+<!-- Relaxing in the meadows reduce fatigue -->
+<<if $sleeptrouble is 1 and $controlled is 0>>
+	<<set $tiredness -= 150>>
+<<else>>
+	<<set $tiredness -= 200>>
+<</if>>
+
 <<if $weather is "rain">><<set $outside to 0>>
 	You lie beneath the oak. The grass all around it is dry, protected by the thick boughs.
 	<<if Time.dayState is "night">>

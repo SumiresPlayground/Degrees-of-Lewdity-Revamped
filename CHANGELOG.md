@@ -1,5 +1,93 @@
 # CHANGELOG
 
+## 0.4.0.6.1
+- Updated to 0.4.0.6
+
+## 0.3.13.5.1
+- Updated to 0.3.13.5
+- Added School Pool Swim Nude Counter cheat under Other.
+- Added back some safe teleports.
+
+## 0.3.8.6.1
+
+### Update
+- Updated to 0.3.8.6
+
+## 3.7.4.2
+
+### New Stuff
+- Added unlock all plants cheat in the Others tab.
+- Added Prison-related cheats in the NPCs tab which includes Attention Level, Attention, Suspicion, Guard Reputation, Inmates Reputation, Prison Hope and Prison Rebelliousness.
+
+### Changes
+- Skulduggery actions involving hands also take into account 20% of hand skill and increase hand skill. Please check below for the full list.
+
+### Fixes
+- Alex Farm Cheats work now.
+
+#### Full list of affected events
+- Stealing during encounters.
+- Stealing the asylum card.
+- Lockpicking the lake ruin boxes.
+- Moor Shackle Pick.
+- Moor Abduction Loosen Bonds.
+- Riding Lesson Strip Revenge.
+- Arcade steal.
+- Squirreling some food away for the orphans.
+- Steal jewelry during dance stage exploration.
+- Steal antiques during dance stage exploration.
+- Lockpicking safe during dance stage exploration.
+- Lockpicking danube house wine cellar.
+- Danube house rob.
+- Opening an envelope.
+- Park steal camera.
+- Steal milk for Robin.
+- Steal rubbish during community service.
+- Prison laundry steal.
+- Prison laundry keep.
+- Prison medical slip.
+- Prison medical slip for prisoner and yourself.
+- Detention gentle paddling.
+- School infarmary steal drugs.
+- Lockpicking the school head's safe.
+- Steal from the stim dealer.
+- Science fair sabotage.
+- History events trick.
+- Maths Whitney undies trick.
+- Spa steal.
+- Lockpicking the basement door.
+- Lockpicking the street box.
+- Stealing the temple plate.
+- Lockpicking the temple tower for lichen.
+- Stealing water for Robin.
+- Bully alley rob.
+- Examining the smugglers' cave chest.
+- Lockpicking the smugglers' cave hollow chest.
+- Lockpicking the smugglers' cave heavy chest.
+- Lockpicking the sewer shackles.
+- Robbing from smugglers.
+- Fun fact, there were 150 possible changes across 63 files, that's a lot of skulduggery actions. Only 49 across 32 files were changed.
+- Fun fact 2, yes I got tired of writing this list halfway thus the very lazy naming. :D
+
+## 3.7.4.1
+
+### New Stuff
+- Added a new tab for teleport cheats has been added. (All town, forest, lake, plains, sea, smugglers' cave, moor and special locations.)
+- Added options to skip 12 hours, 2 days, 4 days, 7 days, 2 weeks and 4 weeks to the time cheats.
+- Added options for £10,000 and £100,000 cheats.
+- Added a new tab for Alex Farm-related cheats which includes animal respect, farm stage (completed fields), farm upgrades and remy-related cheats. (currently very broken)
+
+### Changes
+- Milking by hand now increases hand skill
+- Milking by mouth now increases oral skill
+- Resting near the stables also decrease fatigue
+- Relaxing in the meadows also decrease fatigue
+- Riding lessons will increase thigh skill every turn
+- Riding lessons will tell you that it takes money
+
+### Fixes
+- Its the first fooking release, of course there isn't any fixes yet.
+## 0.3.9.3
 ## 0.3.13.5
 
 -   Fixed a bug in the changing rooms. Thanks to note leven.

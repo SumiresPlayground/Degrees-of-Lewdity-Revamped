@@ -238,6 +238,13 @@
 	<<set $skulduggeryroll to random(1, 1000)>>
 	<<set _skulduggery to currentSkillValue('skulduggery')>>
 
+	<!-- DoLM -->
+	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
+	<<if $skulduggeryhands is 1>>
+		<<set _skulduggery += $handskill / 5>>
+		<<set $handskill += 5>>
+		<<set $skulduggeryhands to 0>>
+	<</if>>
 	<<set $skulduggerysuccess to 0>>
 
 	<<if _skulduggery gte $skulduggerydifficulty>>
@@ -269,6 +276,12 @@
 			| <span class="orange">Skulduggery</span>
 		<<else>>
 			<<set _skulduggery to currentSkillValue('skulduggery')>>
+			<!-- DoLM -->
+			<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
+			<<if $skulduggeryhands is 1>>
+				<<set _skulduggery += $handskill / 5>>
+				<<set $skulduggeryhands to 0>>
+			<</if>>
 			| <span class="orange">Skulduggery</span>:
 			<<if _skulduggery gte $skulduggerydifficulty>>
 				<span class="green">Very Easy</span>

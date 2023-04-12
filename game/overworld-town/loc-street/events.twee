@@ -1270,8 +1270,10 @@ You remain hidden, and hope no one looks down. The group remains unaware you're 
 
 	<<link [[Throw it back|Street Ex Throw]]>><</link>>
 	<br>
+	<!-- DoLM -->
+	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 	<<set $skulduggerydifficulty to 1000>>
-	<<link [[Unlock the basement door|Street Ex Unlock]]>><</link>><<skulduggerydifficulty>>
+	<<link [[Unlock the basement door|Street Ex Unlock]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
 	<br>
 	<<link [[Maintain your dignity as best you can|Street Ex Dignity]]>><</link>>
 	<br>
@@ -6010,9 +6012,10 @@ You lift the box.
 <<elseif $rng gte 61>>
 	It's sealed by a heavy lock.
 	<br><br>
-
+	<!-- DoLM -->
+	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 	<<set $skulduggerydifficulty to 400>>
-	<<link [[Try to open it (0:05)|Street Box Open]]>><<pass 5>><</link>><<skulduggerydifficulty>><<crime>>
+	<<link [[Try to open it (0:05)|Street Box Open]]>><<pass 5>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>><<crime>>
 	<br>
 	<<link [[Leave it|Street Box Stop]]>><</link>>
 	<br>

@@ -128,20 +128,38 @@
 <</widget>>
 
 <<widget "leftstealnew">>
-	<<if $lefttarget isnot "self" and !($stealtarget.includes($lefttarget))>>
-		<<if (currentSkillValue('skulduggery') gte 200 or $easySteal is 1) and $enemytype is "man" and $abomination isnot 1 and !($npcrow.includes($lefttarget)) and $water isnot 1 and $punishmentposition isnot "gloryhole">>
-			<<set $skulduggerydifficulty to (1000 - ($enemyarousal / $enemyarousalmax * 400) - $skulduggery - $enemytrust + $enemyanger) * $stealdifficulty>>
-			<<if $easySteal is 1>><<set $skulduggerydifficulty to 0>><</if>>
-			/*Missing <<skulduggerydifficulty>><<combatcrime>>*/
-			<<if $stealstateleft is undefined>>
-				<<set _leftaction["Steal"] to "steal">>
-			<<elseif $stealstateleft is 2>>
-				<<set _leftaction["Take " + $NPCList[$lefttarget].pronouns.his + " belongings"] to "steal">>
-			<<else>>
-				<<set _leftaction["Commit to stealing"] to "steal">>
-			<</if>>
+<<if $lefttarget isnot "self" and !($stealtarget.includes($lefttarget))>>
+		<!-- DoLM -->
+		<!-- Pickpocketing now takes into account 20% of hand skill -->
+	<<if (currentSkillValue('skulduggery') gte 200 or $easySteal is 1) and $enemytype is "man" and $abomination isnot 1 and !($npcrow.includes($lefttarget)) and $water isnot 1 and $punishmentposition isnot "gloryhole">>
+		<<set $skulduggerydifficulty to (1000 - ($enemyarousal / $enemyarousalmax * 400) - $skulduggery - $enemytrust + $enemyanger - ($handskill / 5)) * $stealdifficulty>>
+		<<if $easySteal is 1>><<set $skulduggerydifficulty to 0>><</if>>
+		/*Missing <<skulduggerydifficulty>><<combatcrime>>*/
+		<<if $stealstateleft is undefined>>
+			<<set _leftaction["Steal"] to "steal">>
+		<<elseif $stealstateleft is 2>>
+			<<set _leftaction["Take " + $NPCList[$lefttarget].pronouns.his + " belongings"] to "steal">>
+		<<else>>
+			<<set _leftaction["Commit to stealing"] to "steal">>
 		<</if>>
 	<</if>>
+<</if>>
+<</widget>>
+
+<!-- Deprecated, not in use. See "leftpenwhacknew"-->
+<<widget "leftpenwhack">>
+<<if $NPCList[0].lefthand is "pen" or $NPCList[0].righthand is "pen" or
+$NPCList[1].lefthand is "pen" or $NPCList[1].righthand is "pen" or
+$NPCList[2].lefthand is "pen" or $NPCList[2].righthand is "pen" or
+$NPCList[3].lefthand is "pen" or $NPCList[3].righthand is "pen" or
+$NPCList[4].lefthand is "pen" or $NPCList[4].righthand is "pen" or
+$NPCList[5].lefthand is "pen" or $NPCList[5].righthand is "pen">>
+	<<if $leftactiondefault is "penwhack">>
+	| <label><span class="brat">Whack the writing tool away</span> <<radiobutton "$leftaction" "penwhack" checked>></label>
+	<<else>>
+	| <label><span class="brat">Whack the writing tool away</span> <<radiobutton "$leftaction" "penwhack">></label>
+	<</if>>
+<</if>>
 <</widget>>
 
 <<widget "leftpenwhacknew">>
@@ -484,8 +502,10 @@
 
 <<widget "rightstealnew">>
 	<<if $righttarget isnot "self" and !($stealtarget.includes($righttarget))>>
+		<!-- DoLM -->
+		<!-- Pickpocketing now takes into account 20% of hand skill -->
 		<<if (currentSkillValue('skulduggery') gte 200 or $easySteal is 1) and $enemytype is "man" and $abomination isnot 1 and !($npcrow.includes($righttarget)) and $water isnot 1 and $punishmentposition isnot "gloryhole">>
-			<<set $skulduggerydifficulty to (1000 - ($enemyarousal / $enemyarousalmax * 400) - $skulduggery - $enemytrust + $enemyanger) * $stealdifficulty>>
+			<<set $skulduggerydifficulty to (1000 - ($enemyarousal / $enemyarousalmax * 400) - $skulduggery - $enemytrust + $enemyanger - ($handskill / 5)) * $stealdifficulty>>
 			<<if $easySteal is 1>><<set $skulduggerydifficulty to 0>><</if>>
 			/*Missing <<skulduggerydifficulty>><<combatcrime>>*/
 			<<if $stealstateright is undefined>>
