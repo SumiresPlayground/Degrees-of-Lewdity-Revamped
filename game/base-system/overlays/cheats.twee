@@ -77,6 +77,10 @@
 	<span class="gold">Miscellaneous</span>
 	<br>
 
+	<!-- DoLM -->
+	<!-- Added options for 10,000 and 100,000 -->
+	<<link "<<<<<">><<set $money -= 10000000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>> |
+	<<link "<<<<">><<set $money -= 1000000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>> |
 	<<link "<<<">><<set $money -= 100000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>> |
 	<<link "<<">><<set $money -= 10000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>> |
 	<<link "<">><<set $money -= 1000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>> |
@@ -84,6 +88,8 @@
 	| <<link ">">><<set $money += 1000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>>
 	| <<link ">>">><<set $money += 10000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>>
 	| <<link ">>>">><<set $money += 100000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>>
+	| <<link ">>>>">><<set $money += 1000000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>>
+	| <<link ">>>>>">><<set $money += 10000000>><<clamp>><<replace "#statsmoney">><<print Math.trunc($money)>><</replace>><</link>>
 	<br>
 
 	<<if $location is "prison">>
@@ -1857,6 +1863,13 @@
 		School crossdresser reputation: <span id="statsschoolrepcrossdress"><<print Math.trunc($schoolrep.crossdress)>></span>
 		| <<link ">">><<set $schoolrep.crossdress += 1>><<set $schoolrep.crossdress = Math.clamp($schoolrep.crossdress, 0, 5)>><<replace "#statsschoolrepcrossdress">><<print Math.trunc($schoolrep.crossdress)>><</replace>><</link>>
 	<</if>>
+	<<link "<<<">><<set $swimnudecounter -= 100>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
+	<<link "<<">><<set $swimnudecounter -= 10>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
+	<<link "<">><<set $swimnudecounter -= 1>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
+	Docks status: <span id="statswimnudecounter"><<print Math.trunc($swimnudecounter)>></span>
+	| <<link ">">><<set $swimnudecounter += 1>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
+	| <<link ">>">><<set $swimnudecounter += 10>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
+	| <<link ">>>">><<set $swimnudecounter += 100>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
 	<br><br>
 	<<link "<<<">><<set $crime -= 1000>><<set $crime = Math.clamp($crime, C.crime.min, C.crime.max)>><<replace "#statscrime">><<print Math.trunc($crime)>><</replace>><</link>> |
 	<<link "<<">><<set $crime -= 100>><<set $crime = Math.clamp($crime, C.crime.min, C.crime.max)>><<replace "#statscrime">><<print Math.trunc($crime)>><</replace>><</link>> |
@@ -1904,8 +1917,9 @@
 	| <<link ">>>">><<set $orphan_reb += 100>><<clamp>><<replace "#statsorphan_reb">><<print Math.trunc($orphan_reb)>><</replace>><</link>>
 	<br><br>
 
-
-
+	<!-- DoLM -->
+	<!-- Moved to it's own tab -->
+	/*
 	<<if $farm_stage gte 2>>
 		<<link "<<<">><<set $farm.beasts.horses -= 20>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>> |
 		<<link "<<">><<set $farm.beasts.horses -= 5>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>> |
@@ -1940,7 +1954,7 @@
 		| <<link ">>>">><<set $farm.beasts.dogs += 20>><<set $farm.beasts.dogs = Math.clamp($farm.beasts.dogs, -30, 30)>><<replace "#dog_respect">><<print Math.trunc($farm.beasts.dogs)>><</replace>><</link>>
 		<br><br>
 	<</if>>
-
+	*/
 
 
 
@@ -1955,6 +1969,67 @@
 	| <<link ">>">><<set $dockstatus += 10>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
 	| <<link ">>>">><<set $dockstatus += 100>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
 	<br><br>
+	<</if>>
+
+	<!-- DoLM -->
+	<!-- Added prison-related cheats -->
+	<<if $location is "prison">>
+		<<link "<<<">><<set $prison.attention_level -= 3>><<set $prison.attention_level = Math.clamp($prison.attention_level, 0, 3)>><<replace "#statsattentionlevel">><<print Math.trunc($prison.attention_level)>><</replace>><</link>> |
+		<<link "<<">><<set $prison.attention_level -= 2>><<set $prison.attention_level = Math.clamp($prison.attention_level, 0, 3)>><<replace "#statsattentionlevel">><<print Math.trunc($prison.attention_level)>><</replace>><</link>> |
+		<<link "<">><<set $prison.attention_level -= 1>><<set $prison.attention_level = Math.clamp($prison.attention_level, 0, 3)>><<replace "#statsattentionlevel">><<print Math.trunc($prison.attention_level)>><</replace>><</link>> |
+		Attention Level: <span id="statsattentionlevel"><<print Math.trunc($prison.attention_level)>></span>
+		| <<link ">">><<set $prison.attention_level += 1>><<set $prison.attention_level = Math.clamp($prison.attention_level, 0, 3)>><<replace "#statsattentionlevel">><<print Math.trunc($prison.attention_level)>><</replace>><</link>>
+		| <<link ">>">><<set $prison.attention_level += 2>><<set $prison.attention_level = Math.clamp($prison.attention_level, 0, 3)>><<replace "#statsattentionlevel">><<print Math.trunc($prison.attention_level)>><</replace>><</link>>
+		| <<link ">>>">><<set $prison.attention_level += 3>><<set $prison.attention_level = Math.clamp($prison.attention_level, 0, 3)>><<replace "#statsattentionlevel">><<print Math.trunc($prison.attention_level)>><</replace>><</link>>
+		<br>
+		<<link "<<<">><<prison_attention -100>><<replace "#statsprisonattention">><<print Math.trunc($prison.attention)>><</replace>><</link>> |
+		<<link "<<">><<prison_attention -10>><<replace "#statsprisonattention">><<print Math.trunc($prison.attention)>><</replace>><</link>> |
+		<<link "<">><<prison_attention -1>><<replace "#statsprisonattention">><<print Math.trunc($prison.attention)>><</replace>><</link>> |
+		Attention: <span id="statsprisonattention"><<print Math.trunc($prison.attention)>></span>
+		| <<link ">">><<prison_attention 1>><<replace "#statsprisonattention">><<print Math.trunc($prison.attention)>><</replace>><</link>>
+		| <<link ">>">><<prison_attention 10>><<replace "#statsprisonattention">><<print Math.trunc($prison.attention)>><</replace>><</link>>
+		| <<link ">>>">><<prison_attention 100>><<replace "#statsprisonattention">><<print Math.trunc($prison.attention)>><</replace>><</link>>
+		<br>
+		<<link "<<<">><<cell_trouble -10>><<replace "#statscelltrouble">><<print Math.trunc($prison.cell_trouble)>><</replace>><</link>> |
+		<<link "<<">><<cell_trouble -5>><<replace "#statscelltrouble">><<print Math.trunc($prison.cell_trouble)>><</replace>><</link>> |
+		<<link "<">><<cell_trouble -1>><<replace "#statscelltrouble">><<print Math.trunc($prison.cell_trouble)>><</replace>><</link>> |
+		Suspicion: <span id="statscelltrouble"><<print Math.trunc($prison.cell_trouble)>></span>
+		| <<link ">">><<cell_trouble 1>><<replace "#statscelltrouble">><<print Math.trunc($prison.cell_trouble)>><</replace>><</link>>
+		| <<link ">>">><<cell_trouble 5>><<replace "#statscelltrouble">><<print Math.trunc($prison.cell_trouble)>><</replace>><</link>>
+		| <<link ">>>">><<cell_trouble 10>><<replace "#statscelltrouble">><<print Math.trunc($prison.cell_trouble)>><</replace>><</link>>
+		<br>
+		<<link "<<<">><<prison_guards -100>><<replace "#statsguards">><<print Math.trunc($prison.guards)>><</replace>><</link>> |
+		<<link "<<">><<prison_guards -10>><<replace "#statsguards">><<print Math.trunc($prison.guards)>><</replace>><</link>> |
+		<<link "<">><<prison_guards -1>><<replace "#statsguards">><<print Math.trunc($prison.guards)>><</replace>><</link>> |
+		Guard Reputation: <span id="statsguards"><<print Math.trunc($prison.guards)>></span>
+		| <<link ">">><<prison_guards 1>><<replace "#statsguards">><<print Math.trunc($prison.guards)>><</replace>><</link>>
+		| <<link ">>">><<prison_guards 10>><<replace "#statsguards">><<print Math.trunc($prison.guards)>><</replace>><</link>>
+		| <<link ">>>">><<prison_guards 100>><<replace "#statsguards">><<print Math.trunc($prison.guards)>><</replace>><</link>>
+		<br>
+		<<link "<<<">><<prison_inmates -100>><<replace "#statsinmates">><<print Math.trunc($prison.inmates)>><</replace>><</link>> |
+		<<link "<<">><<prison_inmates -10>><<replace "#statsinmates">><<print Math.trunc($prison.inmates)>><</replace>><</link>> |
+		<<link "<">><<prison_inmates -1>><<replace "#statsinmates">><<print Math.trunc($prison.inmates)>><</replace>><</link>> |
+		Inmates Reputation: <span id="statsinmates"><<print Math.trunc($prison.inmates)>></span>
+		| <<link ">">><<prison_inmates 1>><<replace "#statsinmates">><<print Math.trunc($prison.inmates)>><</replace>><</link>>
+		| <<link ">>">><<prison_inmates 10>><<replace "#statsinmates">><<print Math.trunc($prison.inmates)>><</replace>><</link>>
+		| <<link ">>>">><<prison_inmates 100>><<replace "#statsinmates">><<print Math.trunc($prison.inmates)>><</replace>><</link>>
+		<br>
+		<<link "<<<">><<prison_hope -100>><<replace "#statshope">><<print Math.trunc($prison.hope)>><</replace>><</link>> |
+		<<link "<<">><<prison_hope -10>><<replace "#statshope">><<print Math.trunc($prison.hope)>><</replace>><</link>> |
+		<<link "<">><<prison_hope -1>><<replace "#statshope">><<print Math.trunc($prison.hope)>><</replace>><</link>> |
+		Prison Hope: <span id="statshope"><<print Math.trunc($prison.hope)>></span>
+		| <<link ">">><<prison_hope 1>><<replace "#statshope">><<print Math.trunc($prison.hope)>><</replace>><</link>>
+		| <<link ">>">><<prison_hope 10>><<replace "#statshope">><<print Math.trunc($prison.hope)>><</replace>><</link>>
+		| <<link ">>>">><<prison_hope 100>><<replace "#statshope">><<print Math.trunc($prison.hope)>><</replace>><</link>>
+		<br>
+		<<link "<<<">><<prison_reb -100>><<replace "#statsreb">><<print Math.trunc($prison.reb)>><</replace>><</link>> |
+		<<link "<<">><<prison_reb -10>><<replace "#statsreb">><<print Math.trunc($prison.reb)>><</replace>><</link>> |
+		<<link "<">><<prison_reb -1>><<replace "#statsreb">><<print Math.trunc($prison.reb)>><</replace>><</link>> |
+		Prison Rebelliousness: <span id="statsreb"><<print Math.trunc($prison.reb)>></span>
+		| <<link ">">><<prison_reb 1>><<replace "#statsreb">><<print Math.trunc($prison.reb)>><</replace>><</link>>
+		| <<link ">>">><<prison_reb 10>><<replace "#statsreb">><<print Math.trunc($prison.reb)>><</replace>><</link>>
+		| <<link ">>>">><<prison_reb 100>><<replace "#statsreb">><<print Math.trunc($prison.reb)>><</replace>><</link>>
+		<br>
 	<</if>>
 
 	<<if $pound>>
@@ -2077,6 +2152,8 @@
 	<br>
 <</widget>>
 
+<!-- DoLM -->
+<!-- Added some missing teleports -->
 <<widget "cheats-teleport">>
 	<<if ["Clothing Shop", "Forest Shop", "School Library Shop", "Adult Shop Store"].includes($passage)>>
 		<span class="red">Teleporting from a clothing store can break your wardrobe.</span> Please leave the shop before teleporting.
@@ -2167,57 +2244,124 @@
 		<<alleyicon>>[[Residential alleyways]]
 		<br><br>
 
-		<span class="gold">Town Outskirts</span>
-		<br>
-		<<foresticon>>[[Forest]]
-		<br>
-		<<roadicon>>[[Farm Road 1]]
-		<br><br>
+	<span class="gold">Town Outskirts</span>
+	<br>
+	<u>Forest</u><br>
+	<<foresticon>><<link [[Forest Outskirts|Forest]]>><<set $forest = 0>><</link>><br>
+	<<foresticon>><<link [[Forest Sparse|Forest]]>><<set $forest = 20>><</link>><br>
+	<<foresticon>><<link [[Forest Lake|Forest]]>><<set $forest = 50>><</link>><br>
+	<<foresticon>><<link [[Forest Deep|Forest]]>><<set $forest = 99>><</link>><br>
+	<br>
+	<u>Forest Lake Locations</u><br>
+	<<lakeicon>><<link [[Forest Lake Shore|Lake Shore]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Firepit|Lake Firepit]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Waterfall|Lake Waterfall]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Fishing Rock|Lake Fishing Rock]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Campsite|Lake Campsite]]>><</link>><br>
+	<br>
+	<u>Plains</u><br>
+	<<link [[Farmland|Farmland]]>><</link>><br>
+	<<link [[Meadow|Meadow]]>><</link>><br>
+	<<link [[Riding School|Riding School]]>><</link>><br>
+	<<link [[Remy's Estate (Gate)|Estate]]>><<estate_init gate>><</link>><br>
+	<<link [[Remy's Estate (Secret)|Estate]]>><<estate_init secret>><</link>><br>
+	<br>
+	<u>Moor</u><br>
+	<<link [[Moor Plains|Moor]]>><<set $moor = 1>><</link>><br>
+	<<link [[Moor Rocky|Moor]]>><<set $moor = 21>><</link>><br>
+	<<link [[Moor Bubbles|Moor]]>><<set $moor = 51>><</link>><br>
+	<<link [[Moor Castle|Moor]]>><<set $moor = 100>><</link>><br>
+	<br>
+	
+	<span class="gold">Underground</span>
+	<br>
+	<<sewericon>>[[Industrial Drain]]
+	<br>
+	<<sewericon>>[[Commercial Drain]]
+	<br>
+	<<sewericon>>[[Residential Drain]]
+	<br>
+	<<sewericon>><<link [[Drain ocean exit|Drain Exit]]>><</link>>
+	<br>
+	<<sewericon>>[[Sewers Residential]]
+	<br>
+	<<sewericon>>[[Sewers Commercial]]
+	<br>
+	<<sewericon>>[[Sewers Industrial]]
+	<br><br>
 
-		<span class="gold">Underground</span>
-		<br>
-		<<sewericon>>[[Industrial Drain]]
-		<br>
-		<<sewericon>>[[Commercial Drain]]
-		<br>
-		<<sewericon>>[[Residential Drain]]
-		<br>
-		<<sewericon>><<link [[Drain ocean exit|Drain Exit]]>><</link>>
-		<br>
-		<<sewericon>>[[Sewers Residential]]
-		<br>
-		<<sewericon>>[[Sewers Commercial]]
-		<br>
-		<<sewericon>>[[Sewers Industrial]]
-		<br>
-	<<else>>
-		<span class="red">You are in an area where teleporting can break your save, or an event is in progress.</span> Return to the overworld before teleporting.
-	<</if>>
+	<span class="gold">Sea</span>
+	<br>
+	<<link [[Sea Nearby Beach|Sea]]>><<set $sea = 0>><</link>><br>
+	<<link [[Sea Nearby Town|Sea]]>><<set $sea = 20>><</link>><br>
+	<<link [[Sea Distant Town|Sea]]>><<set $sea = 50>><</link>><br>
+	<<link [[Sea Horizon Town|Sea]]>><<set $sea = 99>><</link>><br>
+	<<link [[Sea Endless Deep|Sea]]>><<set $sea = 100>><</link>><br>
+	<br>
+
+	<span class="gold">Unsafe Locations</span>
+	<br>
+	Caution: Teleporting to these locations may or may not break your save. Use after saving.
+	<br><br>
+	<u>Forest Locations</u><br>
+	<<link [[Eden Cabin|Eden Cabin]]>><</link>><br>
+	<<link [[Churchyard|Churchyard]]>><</link>><br>
+	<<link [[Wolf Cave|Wolf Cave]]>><</link>><br>
+	<br>
+	<u>Others</u><br>
+	<<link [[Elk Compound|Elk Compound]]>><</link>><br>
+	<<link [[Asylum|Asylum Cell]]>><</link>><br>
+	<<link [[Underground Brothel|Underground Cell]]>><</link>><br>
+	<<link [[Underground Farm|Livestock Cell]]>><</link>><br>
+	<<link [[Tentacle Plains|Tentacle Plains]]>><</link>><br>
+	<<link [[Night Monster Lair|Monster Tower]]>><</link>><br>
+	<<link [[Great Hawk Tower|Bird Tower]]>><</link>><br>
+	<<link [[Prison Cell|Prison Cell]]>><<prison_init>><</link>><br>
+<<else>>
+	<span class="red">You are in an area where teleporting can break your save, or an event is in progress.</span> Return to the overworld before teleporting.
+<</if>>
 <</widget>>
 
 <<widget "cheats-other">>
-	<span class="gold">Time</span>
-	<br>
-	<<link [[Forward 15 minutes|$passage]]>><<pass 15>><</link>>
-	<br>
-	<<link [[Forward 30 minutes|$passage]]>><<pass 30>><</link>>
-	<br>
-	<<link [[Forward 1 hour|$passage]]>><<pass 1 hour>><</link>>
-	<br>
-	<<link [[Forward 2 hours|$passage]]>><<pass 2 hour>><</link>>
-	<br>
-	<<link [[Forward 3 hours|$passage]]>><<pass 3 hour>><</link>>
-	<br>
-	<<link [[Forward 6 hours|$passage]]>><<pass 6 hour>><</link>>
-	<br>
-	<<link [[Forward 8 hours|$passage]]>><<pass 8 hour>><</link>>
-	<br>
-	<<link [[Forward 12 hours|$passage]]>><<pass 12 hour>><</link>>
-	<br>
-	<<link [[Forward 16 hours|$passage]]>><<pass 16 hour>><</link>>
-	<br>
-	<<link [[Forward 24 hours|$passage]]>><<pass 24 hour>><</link>>
-	<br><br>
+
+<span class="gold">Time</span>
+<br>
+<<link [[Forward 15 minutes|$passage]]>><<pass 15>><</link>>
+<br>
+<<link [[Forward 30 minutes|$passage]]>><<pass 30>><</link>>
+<br>
+<<link [[Forward 1 hour|$passage]]>><<pass 1 hour>><</link>>
+<br>
+<<link [[Forward 2 hours|$passage]]>><<pass 2 hour>><</link>>
+<br>
+<<link [[Forward 3 hours|$passage]]>><<pass 3 hour>><</link>>
+<br>
+<<link [[Forward 6 hours|$passage]]>><<pass 6 hour>><</link>>
+<br>
+<<link [[Forward 8 hours|$passage]]>><<pass 8 hour>><</link>>
+<br>
+<<link [[Forward 12 hours|$passage]]>><<pass 12 hour>><</link>>
+<br>
+<<link [[Forward 16 hours|$passage]]>><<pass 16 hour>><</link>>
+<!-- DoLM -->
+<!-- Added 20 hours -->
+<br>
+<<link [[Forward 20 hours|$passage]]>><<pass 20 hour>><</link>>
+<br>
+<<link [[Forward 24 hours|$passage]]>><<pass 24 hour>><</link>>
+<!-- DoLM -->
+<!-- Added 2 days, 4 days, 7 days, 2 weeks and 4 weeks options -->
+<br>
+<<link [[Forward 2 days|$passage]]>><<pass 2 days>><</link>>
+<br>
+<<link [[Forward 4 days|$passage]]>><<pass 4 days>><</link>>
+<br>
+<<link [[Forward 7 days|$passage]]>><<pass 7 days>><</link>>
+<br>
+<<link [[Forward 2 weeks|$passage]]>><<pass 14 days>><</link>>
+<br>
+<<link [[Forward 4 weeks|$passage]]>><<pass 28 days>><</link>>
+<br><br>
 
 	<span class="gold">Weather</span>
 	<br>
@@ -2269,6 +2413,21 @@
 		<span class="gold">Pregnancy Cheats</span>
 		<div id="cheatsPregnancyOptions"><<cheatsPregnancyOptions>></div>
 	<</if>>
+
+	<!-- DoLM -->
+	<!-- Added Unlock All Plants and Swim Nude Counter -->
+	<br><br>
+	<<link "Unlock All Plants">><<unlockplants>><</link>>
+	<br><br>
+	<<link "<<<">><<set $swimnudecounter -= 100>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
+	<<link "<<">><<set $swimnudecounter -= 10>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
+	<<link "<">><<set $swimnudecounter -= 1>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
+	School Pool Swim Nude Counter: <span id="statswimnudecounter"><<print Math.trunc($swimnudecounter)>></span>
+	| <<link ">">><<set $swimnudecounter += 1>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
+	| <<link ">>">><<set $swimnudecounter += 10>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
+	| <<link ">>>">><<set $swimnudecounter += 100>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
+	<br><br>
+	Note: Greater than 10 will trigger the Pool Leighton Nude Punishment event.
 <</widget>>
 
 <<widget "cheatsImpregOptions">>
@@ -2306,7 +2465,7 @@
 			<</if>>
 		<<else>>
 			You have hit the maximum number of <<print (_args[0] is "anus" ? "Anal" : "Vaginal")>> pregnancies at one time.
-		<</if>>
+		<</if>>swam
 		<br>
 		<<set $_linkName to "Clear Current " + (_args[0] is "anus" ? "Anal" : "Vaginal") + " Pregnancies">>
 		<<link $_linkName>>
@@ -2612,4 +2771,275 @@
 	<</if>>
 	<br>
 	<br>
+<</widget>>
+
+/*
+<!-- DoLM -->
+<!-- Teleport cheats -->
+<<widget "cheats-teleport">>
+	<div class = "threecolumn">
+	<u>Town</u><br>
+	<<domusicon>><<link [[Domus Street|Domus Street]]>><</link>><br>
+	<<barbicon>><<link [[Barb Street|Barb Street]]>><</link>><br>
+	<<danubeicon>><<link [[Danube Street|Danube Street]]>><</link>><br>
+	<<connudatusicon>><<link [[Connudatus Street|Connudatus Street]]>><</link>><br>
+	<<clifficon>><<link [[Cliff Street|Cliff Street]]>><</link>><br>
+	<<wolficon>><<link [[Wolf Street|Wolf Street]]>><</link>><br>
+	<<highicon>><<link [[High Street|High Street]]>><</link>><br>
+	<<starfishicon>><<link [[Starfish Street|Starfish Street]]>><</link>><br>
+	<<nightingaleicon>><<link [[Nightingale Street|Nightingale Street]]>><</link>><br>
+	<<oxfordicon>><<link [[Oxford Street|Oxford Street]]>><</link>><br>
+	<<mericon>><<link [[Mer Street|Mer Street]]>><</link>><br>
+	<<elkicon>><<link [[Elk Street|Elk Street]]>><</link>><br>
+	<<harvesticon>><<link [[Harvest Street|Harvest Street]]>><</link>><br>
+	<<link [[Residential alleyways|Residential alleyways]]>><</link>><br>
+	<<link [[Commercial alleyways]]>><</link>><br>
+	<<link [[Industrial alleyways|Industrial alleyways]]>><</link>><br>
+	<<link [[Park|Park]]>><</link>><br>
+	<br>
+	<u>Forest</u><br>
+	<<foresticon>><<link [[Forest Outskirts|Forest]]>><<set $forest = 0>><</link>><br>
+	<<foresticon>><<link [[Forest Sparse|Forest]]>><<set $forest = 20>><</link>><br>
+	<<foresticon>><<link [[Forest Lake|Forest]]>><<set $forest = 50>><</link>><br>
+	<<foresticon>><<link [[Forest Deep|Forest]]>><<set $forest = 99>><</link>><br>
+	<br>
+	<u>Forest Locations</u><br>
+	<<link [[Eden Cabin|Eden Cabin]]>><</link>><br>
+	<<link [[Churchyard|Churchyard]]>><</link>><br>
+	<<link [[Wolf Cave|Wolf Cave]]>><</link>><br>
+	<br>
+	<u>Forest Lake Locations</u><br>
+	<<lakeicon>><<link [[Forest Lake Shore|Lake Shore]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Firepit|Lake Firepit]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Waterfall|Lake Waterfall]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Fishing Rock|Lake Fishing Rock]]>><</link>><br>
+	<<lakeicon>><<link [[Forest Lake Campsite|Lake Campsite]]>><</link>><br>
+	<br>
+	<u>Plains</u><br>
+	<<link [[Farmland|Farmland]]>><</link>><br>
+	<<link [[Meadow|Meadow]]>><</link>><br>
+	<<link [[Riding School|Riding School]]>><</link>><br>
+	<<link [[Remy's Estate (Gate)|Estate]]>><<estate_init gate>><</link>><br>
+	<<link [[Remy's Estate (Secret)|Estate]]>><<estate_init secret>><</link>><br>
+	<br>
+	<u>Sea</u><br>
+	<<link [[Sea Nearby Beach|Sea]]>><<set $sea = 0>><</link>><br>
+	<<link [[Sea Nearby Town|Sea]]>><<set $sea = 20>><</link>><br>
+	<<link [[Sea Distant Town|Sea]]>><<set $sea = 50>><</link>><br>
+	<<link [[Sea Horizon Town|Sea]]>><<set $sea = 99>><</link>><br>
+	<<link [[Sea Endless Deep|Sea]]>><<set $sea = 100>><</link>><br>
+	<br>
+	<u>Smugglers' Cave</u><br>
+	<<link [[Smugglers' Cave Entrance|Beach Cave]]>><<set $cave = 1>><</link>><br>
+	<<link [[Smugglers' Cave Quarterway|Beach Cave]]>><<set $cave = 20>><</link>><br>
+	<<link [[Smugglers' Cave Halfway|Beach Cave]]>><<set $cave = 50>><</link>><br>
+	<<link [[Smugglers' Cave End|Beach Cave]]>><<set $cave = 100>><</link>><br>
+	Note: Smugglers' Cave doesn't have different names for how far deep you are so this is the best I can do.<br>
+	<br>
+	<u>Moor</u><br>
+	<<link [[Moor Plains|Moor]]>><<set $moor = 1>><</link>><br>
+	<<link [[Moor Rocky|Moor]]>><<set $moor = 21>><</link>><br>
+	<<link [[Moor Bubbles|Moor]]>><<set $moor = 51>><</link>><br>
+	<<link [[Moor Castle|Moor]]>><<set $moor = 100>><</link>><br>
+	<br>
+	<u>Special Locations</u><br>
+	<<link [[Elk Compound|Elk Compound]]>><</link>><br>
+	<<link [[Asylum|Asylum Cell]]>><</link>><br>
+	<<link [[Underground Brothel|Underground Cell]]>><</link>><br>
+	<<link [[Underground Farm|Livestock Cell]]>><</link>><br>
+	<<link [[Tentacle Plains|Tentacle Plains]]>><</link>><br>
+	<<link [[Night Monster Lair|Monster Tower]]>><</link>><br>
+	<<link [[Great Hawk Tower|Bird Tower]]>><</link>><br>
+	<<link [[Prison Cell|Prison Cell]]>><<prison_init>><</link>><br>
+	</div>
+<</widget>>*/
+
+<!-- DoLM -->
+<!-- Moved animal respect cheats here, added farm stage cheat, added farm upgrades cheat and added remy-related cheats -->
+<<widget "cheats-alex">>
+	<u>Animal Respect</u>
+	<br>
+
+	<<link "<<<">><<set $farm.beasts.horses -= 20>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>> |
+	<<link "<<">><<set $farm.beasts.horses -= 5>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>> |
+	<<link "<">><<set $farm.beasts.horses -= 1>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>> |
+	Steeds' respect: <span id="horse_respect"><<print Math.trunc($farm.beasts.horses)>></span>
+	| <<link ">">><<set $farm.beasts.horses += 1>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>>
+	| <<link ">>">><<set $farm.beasts.horses += 5>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>>
+	| <<link ">>>">><<set $farm.beasts.horses += 20>><<set $farm.beasts.horses = Math.clamp($farm.beasts.horses, -30, 30)>><<replace "#horse_respect">><<print Math.trunc($farm.beasts.horses)>><</replace>><</link>>
+	<br>
+	<<link "<<<">><<set $farm.beasts.pigs -= 20>><<set $farm.beasts.pigs = Math.clamp($farm.beasts.pigs, -30, 30)>><<replace "#pig_respect">><<print Math.trunc($farm.beasts.pigs)>><</replace>><</link>> |
+	<<link "<<">><<set $farm.beasts.pigs -= 5>><<set $farm.beasts.pigs = Math.clamp($farm.beasts.pigs, -30, 30)>><<replace "#pig_respect">><<print Math.trunc($farm.beasts.pigs)>><</replace>><</link>> |
+	<<link "<">><<set $farm.beasts.pigs -= 1>><<set $farm.beasts.pigs = Math.clamp($farm.beasts.pigs, -30, 30)>><<replace "#pig_respect">><<print Math.trunc($farm.beasts.pigs)>><</replace>><</link>> |
+	Pigs' respect: <span id="pig_respect"><<print Math.trunc($farm.beasts.pigs)>></span>
+	| <<link ">">><<set $farm.beasts.pigs += 1>><<set $farm.beasts.pigs = Math.clamp($farm.beasts.pigs, -30, 30)>><<replace "#pig_respect">><<print Math.trunc($farm.beasts.pigs)>><</replace>><</link>>
+	| <<link ">>">><<set $farm.beasts.pigs += 5>><<set $farm.beasts.pigs = Math.clamp($farm.beasts.pigs, -30, 30)>><<replace "#pig_respect">><<print Math.trunc($farm.beasts.pigs)>><</replace>><</link>>
+	| <<link ">>>">><<set $farm.beasts.pigs += 20>><<set $farm.beasts.pigs = Math.clamp($farm.beasts.pigs, -30, 30)>><<replace "#pig_respect">><<print Math.trunc($farm.beasts.pigs)>><</replace>><</link>>
+	<br>
+	<<link "<<<">><<set $farm.beasts.cattle -= 20>><<set $farm.beasts.cattle = Math.clamp($farm.beasts.cattle, -30, 30)>><<replace "#cattle_respect">><<print Math.trunc($farm.beasts.cattle)>><</replace>><</link>> |
+	<<link "<<">><<set $farm.beasts.cattle -= 5>><<set $farm.beasts.cattle = Math.clamp($farm.beasts.cattle, -30, 30)>><<replace "#cattle_respect">><<print Math.trunc($farm.beasts.cattle)>><</replace>><</link>> |
+	<<link "<">><<set $farm.beasts.cattle -= 1>><<set $farm.beasts.cattle = Math.clamp($farm.beasts.cattle, -30, 30)>><<replace "#cattle_respect">><<print Math.trunc($farm.beasts.cattle)>><</replace>><</link>> |
+	Cattle respect: <span id="cattle_respect"><<print Math.trunc($farm.beasts.cattle)>></span>
+	| <<link ">">><<set $farm.beasts.cattle += 1>><<set $farm.beasts.cattle = Math.clamp($farm.beasts.cattle, -30, 30)>><<replace "#cattle_respect">><<print Math.trunc($farm.beasts.cattle)>><</replace>><</link>>
+	| <<link ">>">><<set $farm.beasts.cattle += 5>><<set $farm.beasts.cattle = Math.clamp($farm.beasts.cattle, -30, 30)>><<replace "#cattle_respect">><<print Math.trunc($farm.beasts.cattle)>><</replace>><</link>>
+	| <<link ">>>">><<set $farm.beasts.cattle += 20>><<set $farm.beasts.cattle = Math.clamp($farm.beasts.cattle, -30, 30)>><<replace "#cattle_respect">><<print Math.trunc($farm.beasts.cattle)>><</replace>><</link>>
+	<br>
+	<<link "<<<">><<set $farm.beasts.dogs -= 20>><<set $farm.beasts.dogs = Math.clamp($farm.beasts.dogs, -30, 30)>><<replace "#dog_respect">><<print Math.trunc($farm.beasts.dogs)>><</replace>><</link>> |
+	<<link "<<">><<set $farm.beasts.dogs -= 5>><<set $farm.beasts.dogs = Math.clamp($farm.beasts.dogs, -30, 30)>><<replace "#dog_respect">><<print Math.trunc($farm.beasts.dogs)>><</replace>><</link>> |
+	<<link "<">><<set $farm.beasts.dogs -= 1>><<set $farm.beasts.dogs = Math.clamp($farm.beasts.dogs, -30, 30)>><<replace "#dog_respect">><<print Math.trunc($farm.beasts.dogs)>><</replace>><</link>> |
+	Dogs' respect: <span id="dog_respect"><<print Math.trunc($farm.beasts.dogs)>></span>
+	| <<link ">">><<set $farm.beasts.dogs += 1>><<set $farm.beasts.dogs = Math.clamp($farm.beasts.dogs, -30, 30)>><<replace "#dog_respect">><<print Math.trunc($farm.beasts.dogs)>><</replace>><</link>>
+	| <<link ">>">><<set $farm.beasts.dogs += 5>><<set $farm.beasts.dogs = Math.clamp($farm.beasts.dogs, -30, 30)>><<replace "#dog_respect">><<print Math.trunc($farm.beasts.dogs)>><</replace>><</link>>
+	| <<link ">>>">><<set $farm.beasts.dogs += 20>><<set $farm.beasts.dogs = Math.clamp($farm.beasts.dogs, -30, 30)>><<replace "#dog_respect">><<print Math.trunc($farm.beasts.dogs)>><</replace>><</link>>
+	<br><br>
+
+	<u>Farm</u>
+
+	<br>
+	<<if $farm_stage gte 6 and $farm_countdown is undefined>>
+		<<set $farm_countdown to 7>>
+		<<set $alex_countdown to 3>>
+		<<set $wardrobes.alexFarm.unlocked to true>>
+	<</if>>
+	<<if $farm_stage gte 7 and $farm_attack_timer is undefined>>
+		<<set $farm_attack_timer to 30>>
+		<<fields_init>>
+		<<set $farm_fields_intro to 1>>
+		<<farm_stock_init>>
+		<<set $farm.wall to 0>>
+	<</if>>
+	<<link "<<<">><<set $farm_stage -= 10>><<set $farm_stage = Math.clamp($farm_stage, 2, 12)>><<replace "#farm_stage">><<print Math.trunc($farm_stage)>><</replace>><</link>> |
+	<<link "<<">><<set $farm_stage -= 5>><<set $farm_stage = Math.clamp($farm_stage, 2, 12)>><<replace "#farm_stage">><<print Math.trunc($farm_stage)>><</replace>><</link>> |
+	<<link "<">><<set $farm_stage -= 1>><<set $farm_stage = Math.clamp($farm_stage, 2, 12)>><<replace "#farm_stage">><<print Math.trunc($farm_stage)>><</replace>><</link>> |
+	Farm Stage: <span id="farm_stage"><<print Math.trunc($farm_stage)>></span>
+	| <<link ">">><<set $farm_stage += 1>><<set $farm_stage = Math.clamp($farm_stage, 2, 12)>><<replace "#farm_stage">><<print Math.trunc($farm_stage)>><</replace>><</link>>
+	| <<link ">>">><<set $farm_stage += 5>><<set $farm_stage = Math.clamp($farm_stage, 2, 12)>><<replace "#farm_stage">><<print Math.trunc($farm_stage)>><</replace>><</link>>
+	| <<link ">>>">><<set $farm_stage += 10>><<set $farm_stage = Math.clamp($farm_stage, 2, 12)>><<replace "#farm_stage">><<print Math.trunc($farm_stage)>><</replace>><</link>>
+	<br>
+	Note: The above may or may not break the farm. Farm stage 2 means there are 0 completed fields, farm stage 12 means there are 9 completed fields (max).
+	<br><br>
+	<<if $farm_stage gte 7>>
+		<<link "<<<">><<set $farm.wall -= 4>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>> |
+		<<link "<<">><<set $farm.wall -= 2>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>> |
+		<<link "<">><<set $farm.wall -= 1>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>> |
+		Farm Wall: <span id="farm_wall"><<print Math.trunc($farm.wall)>></span>
+		| <<link ">">><<set $farm.wall += 1>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.wall += 2>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>>
+		| <<link ">>>">><<set $farm.wall += 4>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>>
+		<br>
+	<</if>>
+	<<if $farm_stage gte 8>>
+		<<if $farm.tower is undefined>>
+			<<set $farm.tower to 0>>
+		<</if>>
+		<<link "<<">><<set $farm.tower -= 2>><<set $farm.tower = Math.clamp($farm.tower, 0, 2)>><<replace "#farm_tower">><<print Math.trunc($farm.tower)>><</replace>><</link>> |
+		<<link "<">><<set $farm.tower -= 1>><<set $farm.tower = Math.clamp($farm.tower, 0, 2)>><<replace "#farm_tower">><<print Math.trunc($farm.tower)>><</replace>><</link>> |
+		Farm Tower: <span id="farm_tower"><<print Math.trunc($farm.tower)>></span>
+		| <<link ">">><<set $farm.tower += 1>><<set $farm.tower = Math.clamp($farm.tower, 0, 2)>><<replace "#farm_tower">><<print Math.trunc($farm.tower)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.tower += 2>><<set $farm.tower = Math.clamp($farm.tower, 0, 2)>><<replace "#farm_tower">><<print Math.trunc($farm.tower)>><</replace>><</link>>
+		<br>
+		<<if $farm.woodland is undefined>>
+			<<set $farm.woodland to 0>>
+		<</if>>
+		<<link "<<<">><<set $farm.woodland -= 3>><<set $farm.woodland = Math.clamp($farm.woodland, 0, 3)>><<replace "#farm_woodland">><<print Math.trunc($farm.woodland)>><</replace>><</link>> |
+		<<link "<<">><<set $farm.woodland -= 2>><<set $farm.woodland = Math.clamp($farm.woodland, 0, 3)>><<replace "#farm_woodland">><<print Math.trunc($farm.woodland)>><</replace>><</link>> |
+		<<link "<">><<set $farm.woodland -= 1>><<set $farm.woodland = Math.clamp($farm.woodland, 0, 3)>><<replace "#farm_woodland">><<print Math.trunc($farm.woodland)>><</replace>><</link>> |
+		Farm Woodland: <span id="farm_woodland"><<print Math.trunc($farm.woodland)>></span>
+		| <<link ">">><<set $farm.woodland += 1>><<set $farm.woodland = Math.clamp($farm.woodland, 0, 3)>><<replace "#farm_woodland">><<print Math.trunc($farm.woodland)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.woodland += 2>><<set $farm.woodland = Math.clamp($farm.woodland, 0, 3)>><<replace "#farm_woodland">><<print Math.trunc($farm.woodland)>><</replace>><</link>>
+		| <<link ">>>">><<set $farm.woodland += 3>><<set $farm.woodland = Math.clamp($farm.woodland, 0, 3)>><<replace "#farm_woodland">><<print Math.trunc($farm.woodland)>><</replace>><</link>>
+		<br>
+		<<if $farm.kennel is undefined>>
+			<<set $farm.kennel to 0>>
+		<</if>>
+		<<link "<">><<set $farm.kennel -= 1>><<set $farm.kennel = Math.clamp($farm.kennel, 0, 1)>><<replace "#farm_kennel">><<print Math.trunc($farm.kennel)>><</replace>><</link>> |
+		Farm Kennel: <span id="farm_kennel"><<print Math.trunc($farm.kennel)>></span>
+		| <<link ">">><<set $farm.kennel += 1>><<set $farm.kennel = Math.clamp($farm.kennel, 0, 1)>><<replace "#farm_kennel">><<print Math.trunc($farm.kennel)>><</replace>><</link>>
+		<br>
+		<<if $farm.barn is undefined>>
+			<<set $farm.barn to 0>>
+		<</if>>
+		<<link "<<">><<set $farm.barn -= 2>><<set $farm.barn = Math.clamp($farm.barn, 0, 2)>><<replace "#farm_barn">><<print Math.trunc($farm.barn)>><</replace>><</link>> |
+		<<link "<">><<set $farm.barn -= 1>><<set $farm.barn = Math.clamp($farm.barn, 0, 2)>><<replace "#farm_barn">><<print Math.trunc($farm.barn)>><</replace>><</link>> |
+		Farm Barn: <span id="farm_barn"><<print Math.trunc($farm.barn)>></span>
+		| <<link ">">><<set $farm.barn += 1>><<set $farm.barn = Math.clamp($farm.barn, 0, 2)>><<replace "#farm_barn">><<print Math.trunc($farm.barn)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.barn += 2>><<set $farm.barn = Math.clamp($farm.barn, 0, 2)>><<replace "#farm_barn">><<print Math.trunc($farm.barn)>><</replace>><</link>>
+		<br>
+		<<if $farm.stable is undefined>>
+			<<set $farm.stable to 0>>
+		<</if>>
+		<<link "<">><<set $farm.stable -= 1>><<set $farm.stable = Math.clamp($farm.stable, 0, 1)>><<replace "#farm_stable">><<print Math.trunc($farm.stable)>><</replace>><</link>> |
+		Farm Stable: <span id="farm_stable"><<print Math.trunc($farm.stable)>></span>
+		| <<link ">">><<set $farm.stable += 1>><<set $farm.stable = Math.clamp($farm.stable, 0, 1)>><<replace "#farm_stable">><<print Math.trunc($farm.stable)>><</replace>><</link>>
+		<br>
+		<<if $farm.coop is undefined>>
+			<<set $farm.coop to 0>>
+		<</if>>
+		<<link "<<">><<set $farm.coop -= 2>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>> |
+		<<link "<">><<set $farm.coop -= 1>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>> |
+		Farm Coop: <span id="farm_coop"><<print Math.trunc($farm.coop)>></span>
+		| <<link ">">><<set $farm.coop += 1>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.coop += 2>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
+		<br>
+		<<if $farm.irrigation is undefined>>
+			<<set $farm.irrigation to 0>>
+		<</if>>
+		<<link "<<<">><<set $farm.irrigation -= 9>><<set $farm.irrigation = Math.clamp($farm.irrigation, 0, 9)>><<replace "#farm_irrigation">><<print Math.trunc($farm.irrigation)>><</replace>><</link>> |
+		<<link "<<">><<set $farm.irrigation -= 3>><<set $farm.irrigation = Math.clamp($farm.irrigation, 0, 9)>><<replace "#farm_irrigation">><<print Math.trunc($farm.irrigation)>><</replace>><</link>> |
+		<<link "<">><<set $farm.irrigation -= 1>><<set $farm.irrigation = Math.clamp($farm.irrigation, 0, 9)>><<replace "#farm_irrigation">><<print Math.trunc($farm.irrigation)>><</replace>><</link>> |
+		Farm Irrigation: <span id="farm_irrigation"><<print Math.trunc($farm.irrigation)>></span>
+		| <<link ">">><<set $farm.irrigation += 1>><<set $farm.irrigation = Math.clamp($farm.irrigation, 0, 9)>><<replace "#farm_irrigation">><<print Math.trunc($farm.irrigation)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.irrigation += 3>><<set $farm.irrigation = Math.clamp($farm.irrigation, 0, 9)>><<replace "#farm_irrigation">><<print Math.trunc($farm.irrigation)>><</replace>><</link>>
+		| <<link ">>>">><<set $farm.irrigation += 9>><<set $farm.irrigation = Math.clamp($farm.irrigation, 0, 9)>><<replace "#farm_irrigation">><<print Math.trunc($farm.irrigation)>><</replace>><</link>>
+		<br>
+		<<if $farm.parasitebarn is undefined>>
+			<<set $farm.parasitebarn to 0>>
+		<</if>>
+		<<link "<<">><<set $farm.parasitebarn -= 2>><<set $farm.parasitebarn = Math.clamp($farm.parasitebarn, 0, 2)>><<replace "#farm_parasitebarn">><<print Math.trunc($farm.parasitebarn)>><</replace>><</link>> |
+		<<link "<">><<set $farm.parasitebarn -= 1>><<set $farm.parasitebarn = Math.clamp($farm.parasitebarn, 0, 2)>><<replace "#farm_parasitebarn">><<print Math.trunc($farm.parasitebarn)>><</replace>><</link>> |
+		Farm Parasitebarn: <span id="farm_parasitebarn"><<print Math.trunc($farm.parasitebarn)>></span>
+		| <<link ">">><<set $farm.parasitebarn += 1>><<set $farm.parasitebarn = Math.clamp($farm.parasitebarn, 0, 2)>><<replace "#farm_parasitebarn">><<print Math.trunc($farm.parasitebarn)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.parasitebarn += 2>><<set $farm.parasitebarn = Math.clamp($farm.parasitebarn, 0, 2)>><<replace "#farm_parasitebarn">><<print Math.trunc($farm.parasitebarn)>><</replace>><</link>>
+		<br>
+		<<if $alex_greenhouse is undefined>>
+			<<set $alex_greenhouse to 0>>
+		<</if>>
+		<<link "<<<">><<set $alex_greenhouse -= 3>><<set $alex_greenhouse = Math.clamp($alex_greenhouse, 0, 3)>><<replace "#alex_greenhouse">><<print Math.trunc($alex_greenhouse)>><</replace>><</link>> |
+		<<link "<<">><<set $alex_greenhouse -= 2>><<set $alex_greenhouse = Math.clamp($alex_greenhouse, 0, 3)>><<replace "#alex_greenhouse">><<print Math.trunc($alex_greenhouse)>><</replace>><</link>> |
+		<<link "<">><<set $alex_greenhouse -= 1>><<set $alex_greenhouse = Math.clamp($alex_greenhouse, 0, 3)>><<replace "#alex_greenhouse">><<print Math.trunc($alex_greenhouse)>><</replace>><</link>> |
+		Greenhouse: <span id="alex_greenhouse"><<print Math.trunc($alex_greenhouse)>></span>
+		| <<link ">">><<set $alex_greenhouse += 1>><<set $alex_greenhouse = Math.clamp($alex_greenhouse, 0, 3)>><<replace "#alex_greenhouse">><<print Math.trunc($alex_greenhouse)>><</replace>><</link>>
+		| <<link ">>">><<set $alex_greenhouse += 2>><<set $alex_greenhouse = Math.clamp($alex_greenhouse, 0, 3)>><<replace "#alex_greenhouse">><<print Math.trunc($alex_greenhouse)>><</replace>><</link>>
+		| <<link ">>>">><<set $alex_greenhouse += 3>><<set $alex_greenhouse = Math.clamp($alex_greenhouse, 0, 3)>><<replace "#alex_greenhouse">><<print Math.trunc($alex_greenhouse)>><</replace>><</link>>
+		<br><br>
+	<</if>>
+	<<if $farm_stage gte 7>>
+		<u>Remy</u>
+
+		<br>
+		<<if $farm.aggro is undefined>>
+			<<set $farm.aggro to 0>>
+		<</if>>
+		<<link "<<<">><<set $farm.aggro -= 100>><<set $farm.aggro = Math.clamp($farm.aggro, 0, 100)>><<replace "#farm_aggro">><<print Math.trunc($farm.aggro)>><</replace>><</link>> |
+		<<link "<<">><<set $farm.aggro -= 10>><<set $farm.aggro = Math.clamp($farm.aggro, 0, 100)>><<replace "#farm_aggro">><<print Math.trunc($farm.aggro)>><</replace>><</link>> |
+		<<link "<">><<set $farm.aggro -= 1>><<set $farm.aggro = Math.clamp($farm.aggro, 0, 100)>><<replace "#farm_aggro">><<print Math.trunc($farm.aggro)>><</replace>><</link>> |
+		Remy Encroachment: <span id="farm_aggro"><<print Math.trunc($farm.aggro)>></span>
+		| <<link ">">><<set $farm.aggro += 1>><<set $farm.aggro = Math.clamp($farm.aggro, 0, 100)>><<replace "#farm_aggro">><<print Math.trunc($farm.aggro)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.aggro += 10>><<set $farm.aggro = Math.clamp($farm.aggro, 0, 100)>><<replace "#farm_aggro">><<print Math.trunc($farm.aggro)>><</replace>><</link>>
+		| <<link ">>>">><<set $farm.aggro += 100>><<set $farm.aggro = Math.clamp($farm.aggro, 0, 100)>><<replace "#farm_aggro">><<print Math.trunc($farm.aggro)>><</replace>><</link>>
+		<br>
+		<<if $estate != undefined>>
+			<<if $estate.chaos is undefined>>
+				<<set $estate.chaos to 0>>
+			<</if>>
+			<<link "<<<">><<set $estate.chaos -= 100>><<set $estate.chaos = Math.clamp($estate.chaos, 0, 1000)>><<replace "#estate_chaos">><<print Math.trunc($estate.chaos)>><</replace>><</link>> |
+			<<link "<<">><<set $estate.chaos -= 10>><<set $estate.chaos = Math.clamp($estate.chaos, 0, 1000)>><<replace "#estate_chaos">><<print Math.trunc($estate.chaos)>><</replace>><</link>> |
+			<<link "<">><<set $estate.chaos -= 1>><<set $estate.chaos = Math.clamp($estate.chaos, 0, 1000)>><<replace "#estate_chaos">><<print Math.trunc($estate.chaos)>><</replace>><</link>> |
+			Remy Estate Chaos: <span id="estate_chaos"><<print Math.trunc($estate.chaos)>></span>
+			| <<link ">">><<set $estate.chaos += 1>><<set $estate.chaos = Math.clamp($estate.chaos, 0, 1000)>><<replace "#estate_chaos">><<print Math.trunc($estate.chaos)>><</replace>><</link>>
+			| <<link ">>">><<set $estate.chaos += 10>><<set $estate.chaos = Math.clamp($estate.chaos, 0, 1000)>><<replace "#estate_chaos">><<print Math.trunc($estate.chaos)>><</replace>><</link>>
+			| <<link ">>>">><<set $estate.chaos += 100>><<set $estate.chaos = Math.clamp($estate.chaos, 0, 1000)>><<replace "#estate_chaos">><<print Math.trunc($estate.chaos)>><</replace>><</link>>
+			<br>
+		<</if>>
+	<</if>>
 <</widget>>

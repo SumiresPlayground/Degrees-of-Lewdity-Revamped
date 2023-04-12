@@ -67,8 +67,10 @@ You open the chest. Silver glints inside. A compass. It looks valuable. A collec
 <br><br>
 <<set $pursuit += 1>>
 <<if $museumAntiques.antiques.antiqueleathermap isnot "found" and $museumAntiques.antiques.antiqueleathermap isnot "talk" and $museumAntiques.antiques.antiqueleathermap isnot "museum">>
+	<!-- DoLM -->
+	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 	<<set $skulduggerydifficulty to 700>>
-	<<link [[Examine the chest more closely|Beach Cave Examine]]>><</link>><<skulduggerydifficulty>>
+	<<link [[Examine the chest more closely|Beach Cave Examine]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
 	<br>
 <</if>>
 

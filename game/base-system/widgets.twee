@@ -602,13 +602,15 @@
 <</widget>>
 
 <<widget "combatskulduggeryskilluse">>
-	<<if $statFreeze isnot true>>
-		<<set $skulduggery += 3>>
-		<<set $skulduggery to Math.clamp($skulduggery, 0, 1000)>>
-		<<if $skulduggery lt 1000>>
-			<span class="gold"> You learned a thing or two about skulduggery.</span>
-		<</if>>
+<<if $statFreeze isnot true>>
+	<<set $skulduggery += 3>>
+	<!-- DoLM -->
+	<!-- Successful pickpockets increase hand skill -->
+	<<set $handskill += 5>>
+	<<if $skulduggery lt 1000>>
+		<span class="gold"> You learned a thing or two about skulduggery.</span>
 	<</if>>
+<</if>>
 <</widget>>
 
 <<widget "swimmingskilluse">>
@@ -5005,6 +5007,43 @@
 	<<if _args[0]>>
 		<<set $hypnotised += _args[0]>>
 	<</if>>
+<<if _args[0]>>
+	<<set $hypnotised += _args[0]>>
+<</if>>
+<</widget>>
+
+<!-- DoLM -->
+<!-- Added unlock all plants -->
+<<widget "unlockplants">>
+	/*<<set _plant_keys to Object.keys($plants)>>
+	<<for _i to 0; _i lt _plant_keys.length; _i++>>
+		<<set $plants_known.push(setup.plants[_plant_keys[_i]].name)>>
+	<</for>>*/
+	<<set $plants_known.push("red_rose")>>
+	<<set $plants_known.push("white_rose")>>
+	<<set $plants_known.push("orchid")>>
+	<<set $plants_known.push("daisy")>>
+	<<set $plants_known.push("tulip")>>
+	<<set $plants_known.push("lotus")>>
+	<<set $plants_known.push("lily")>>
+	<<set $plants_known.push("poppy")>>
+	<<set $plants_known.push("apple")>>
+	<<set $plants_known.push("orange")>>
+	<<set $plants_known.push("banana")>>
+	<<set $plants_known.push("lemon")>>
+	<<set $plants_known.push("blood_lemon")>>
+	<<set $plants_known.push("pear")>>
+	<<set $plants_known.push("strawberry")>>
+	<<set $plants_known.push("peach")>>
+	<<set $plants_known.push("plum")>>
+	<<set $plants_known.push("wild_carrot")>>
+	<<set $plants_known.push("onion")>>
+	<<set $plants_known.push("garlic_bulb")>>
+	<<set $plants_known.push("potato")>>
+	<<set $plants_known.push("strange_flower")>>
+	<<set $plants_known.push("cabbage")>>
+	<<set $plants_known.push("turnip")>>
+	<<set $plants_known.push("broccoli")>>
 <</widget>>
 
 <<widget "giftSexToys">>

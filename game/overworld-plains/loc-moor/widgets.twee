@@ -638,8 +638,10 @@
 				<<shackle_feet>>
 				<<link [[Break them|Moor Shackle Break]]>><</link>><<physiquedifficulty 1 16000>>
 				<br>
+				<!-- DoLM -->
+				<!-- Some skulduggery actions now takes into account 20% of hand skill -->
 				<<set $skulduggerydifficulty to 600>>
-				<<link [[Pick the lock|Moor Shackle Pick]]>><</link>><<skulduggerydifficulty>>
+				<<link [[Pick the lock|Moor Shackle Pick]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
 				<br>
 			<</if>>
 		<<case 7>>
@@ -870,8 +872,10 @@
 
 <<widget "moor_captive_actions">>
 	<<if $moor_binding gte 1>>
+		<!-- DoLM -->
+		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 		<<set $skulduggerydifficulty to 500>>
-		<<link [[Loosen your bonds|Moor Abduction Walk Loosen]]>><</link>><<skulduggerydifficulty>>
+		<<link [[Loosen your bonds|Moor Abduction Walk Loosen]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
 		<br>
 		<<link [[Be good|Moor Abduction Walk]]>><<sub 1>><</link>>
 		<br>

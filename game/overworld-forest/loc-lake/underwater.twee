@@ -577,8 +577,10 @@ Deciding you've had enough, you attempt to unravel yourself and leave the room.
 			<<link [[Just take the box|Lake Ruin Deep]]>><<set $antiquemoney += 20>><<museumAntiqueStatus "antiquebox" "found">><</link>>
 			<br>
 		<</if>>
+		<!-- DoLM -->
+		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 		<<set $skulduggerydifficulty to 300>>
-		<<link [[Open it|Lake Ruin Box]]>><<wateraction>><</link>><<skulduggerydifficulty>><<loxygen>>
+		<<link [[Open it|Lake Ruin Box]]>><<wateraction>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>><<loxygen>>
 		<br>
 		<<if $lakeruinkey is 1>>
 			<<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
