@@ -91,8 +91,28 @@
 			foxEars:"hidden",
 			foxTail:"hidden",
 			foxCheeks:"hidden",
+			beeEars:"hidden",
+			beeWings:"hidden",
 			beeWingsLeftType:"idle",
 			beeWingsRightType:"idle",
+			beeTail:"hidden",
+			bearEars:"hidden",
+			bearTail:"hidden",
+			deerEars:"hidden",
+			deerHorns:"hidden",
+			deerTail:"hidden",
+			dragonEyes:"hidden",
+			dragonHorns:"hidden",
+			dragonWings:"hidden",
+			dragonWingsLeftType:"idle",
+			dragonWingsRightType:"idle",
+			dragonTail:"hidden",
+			lizardEyes:"hidden",
+			lizardHorns:"hidden",
+			lizardTail:"hidden",
+			sheepEars:"hidden",
+			sheepHorns:"hidden",
+			sheepTail:"hidden",
 		}>>
 		<<set $characterViewer.colours to {
 			hair: "red",
@@ -756,6 +776,155 @@
 		<<option "Default" "default">>
 	<</listbox>>
 	<br><br>
+
+	<span class="gold">Bee:</span>
+	<br>
+	Eyes:
+	<<listbox "$characterViewer.bodyState.beeEars" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.beeTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br>
+	Wings:
+	<<listbox "$characterViewer.bodyState.beeWings" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Left Wing Type:
+	<<listbox "$characterViewer.bodyState.beeWingsLeftType" autoselect>>
+		<<option "Normal" "idle">>
+		<<option "Cover" "cover">>
+	<</listbox>>
+	||
+	Right Wing Type:
+	<<listbox "$characterViewer.bodyState.beeWingsRightType" autoselect>>
+		<<option "Normal" "idle">>
+		<<option "Cover" "cover">>
+	<</listbox>>
+	<br><br>
+
+	<span class="gold">Bear:</span>
+	<br>
+	Ears:
+	<<listbox "$characterViewer.bodyState.bearEars" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.bearTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br><br>
+
+	<span class="gold">Deer:</span>
+	<br>
+	Horns:
+	<<listbox "$characterViewer.bodyState.deerHorns" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Ears:
+	<<listbox "$characterViewer.bodyState.deerEars" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.deerTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br><br>
+
+	<span class="gold">Dragon:</span>
+	<br>
+	Horns:
+	<<listbox "$characterViewer.bodyState.dragonHorns" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Eyes:
+	<<listbox "$characterViewer.bodyState.dragonEyes" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.dragonTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	Wings:
+	<<listbox "$characterViewer.bodyState.dragonWings" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Left Wing Type:
+	<<listbox "$characterViewer.bodyState.dragonWingsLeftType" autoselect>>
+		<<option "Normal" "idle">>
+		<<option "Cover" "cover">>
+	<</listbox>>
+	||
+	Right Wing Type:
+	<<listbox "$characterViewer.bodyState.dragonWingsRightType" autoselect>>
+		<<option "Normal" "idle">>
+		<<option "Cover" "cover">>
+	<</listbox>>
+	<br><br>
+
+	<span class="gold">Lizard:</span>
+	<br>
+	Horns:
+	<<listbox "$characterViewer.bodyState.lizardHorns" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Eyes:
+	<<listbox "$characterViewer.bodyState.lizardEyes" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.lizardTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br><br>
+
+	<span class="gold">Sheep:</span>
+	<br>
+	Horns:
+	<<listbox "$characterViewer.bodyState.sheepHorns" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Ears:
+	<<listbox "$characterViewer.bodyState.sheepEars" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.sheepTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br><br>
 <</widget>>
 
 <<widget "characterViewerModel">>
@@ -885,6 +1054,20 @@
 	<<set _modeloptions.bee_wings_type to $characterViewer.bodyState.beeWings>>
 	<<set _modeloptions.bee_wing_right to $characterViewer.bodyState.beeWingsRightType>>
 	<<set _modeloptions.bee_wing_left to $characterViewer.bodyState.beeWingsLeftType>>
+	<<set _modeloptions.bear_tail_type to $characterViewer.bodyState.bearTail>>
+	<<set _modeloptions.bear_ears_type to $characterViewer.bodyState.bearEars>>
+	<<set _modeloptions.deer_tail_type to $characterViewer.bodyState.deerTail>>
+	<<set _modeloptions.deer_ears_type to $characterViewer.bodyState.deerEars>>
+	<<set _modeloptions.deer_horns_type to $characterViewer.bodyState.deerHorns>>
+	<<set _modeloptions.dragon_tail_type to $characterViewer.bodyState.dragonTail>>
+	<<set _modeloptions.dragon_eyes_type to $characterViewer.bodyState.dragonEyes>>
+	<<set _modeloptions.dragon_horns_type to $characterViewer.bodyState.dragonHorns>>
+	<<set _modeloptions.dragon_wings_type to $characterViewer.bodyState.dragonWings>>
+	<<set _modeloptions.dragon_wing_right to $characterViewer.bodyState.dragonWingsRightType>>
+	<<set _modeloptions.dragon_wing_left to $characterViewer.bodyState.dragonWingsLeftType>>
+	<<set _modeloptions.lizard_tail_type to $characterViewer.bodyState.lizardTail>>
+	<<set _modeloptions.lizard_eyes_type to $characterViewer.bodyState.lizardEyes>>
+	<<set _modeloptions.lizard_horns_type to $characterViewer.bodyState.lizardHorns>>
 	<<set _modeloptions.sheep_tail_type to $characterViewer.bodyState.sheepTail>>
 	<<set _modeloptions.sheep_ears_type to $characterViewer.bodyState.sheepEars>>
 	<<set _modeloptions.sheep_horns_type to $characterViewer.bodyState.sheepHorns>>
