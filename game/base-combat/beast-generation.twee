@@ -124,7 +124,7 @@
 		<<set $NPCList[_n].claws to "flippers">> <!-- Dolphins have flippers -->
 	<<elseif $NPCList[_n].type is "hawk">>
 		<<set $NPCList[_n].claws to "talons">> <!-- Hawks have talons -->
-	<<elseif $NPCList[_n].type is "pig" or $NPCList[_n].type is "boar">>
+	<<elseif $NPCList[_n].type is "pig" or $NPCList[_n].type is "boar" or $NPCList[_n].type is "deer">>
 		<<set $NPCList[_n].claws to "hooves">> <!-- Pigs and boars have hooves -->
 	<</if>>
 
@@ -135,7 +135,7 @@
 		<<set $NPCList[_n].monster to "monster">>
 	<<elseif _beast_monster isnot "beast" and ($monsterchance gte $rng and ($hallucinations gte 1 or $monsterhallucinations is "f")) or (_beast_monster is "monster") or ($bestialitydisable is "t" and $NPCList[0].monster is "monster")>>
 		<<set $NPCList[_n].monster to "monster">>
-		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
+		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow","deer"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
 			<<run delete $NPCList[_n].claws>> <!-- It can't have claws - using undefined to maintain back compat with previous saves mid-combat ($claws) -->
 		<</if>>
 		<<if $NPCList[_n].type is "horse">>
@@ -171,7 +171,7 @@
 		<<set $NPCList[_n].lefthand to 0>>
 		<<set $NPCList[_n].righthand to 0>>
 		<!-- female monster people mammals have an accessible chest and might be able to lactate. -->
-		<<if $NPCList[_n].pronoun is "f" and ["catgirl", "doggirl", "wolfgirl", "beargirl", "foxgirl", "cowgirl"].includes($NPCList[_n].type)>>
+		<<if $NPCList[_n].pronoun is "f" and ["catgirl", "doggirl", "wolfgirl", "beargirl", "foxgirl", "cowgirl", "deergirl", "sheepgirl"].includes($NPCList[_n].type)>>
 			<<set $NPCList[_n].chest to 0>>
 			<<if ["beargirl", "cowgirl"].includes($NPCList[_n].type)>> <!-- Bigger monsters = Bigger booba -->
 				<<set $_breastMin to [0,0,0,0,2,2,2,2,2,5,5,5,5,5,5,5,8,8,9,10,12]>>
@@ -222,34 +222,6 @@
 		<</if>>
 	<</if>>
 	<<set $NPCList[_n].fullDescription += $NPCList[_n].type>>
-
-	<<if $NPCList[_n].type.includes("fox")>>
-		<<generate_npc_skills>>
-		<<generate_beast_traits>>
-		<<if $NPCList[_n].traits.includes("cowardly")>>
-			<<set $NPCList[_n].skills.security += 200>>
-			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
-		<<elseif $NPCList[_n].traits.includes("territorial")>>
-			<<set $NPCList[_n].healthmax += 125>>
-			<<set $NPCList[_n].health += 125>>
-			<<set $NPCList[_n].skills.security += 100>>
-			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
-		<<elseif $NPCList[_n].traits.includes("clever")>>
-			<<set $NPCList[_n].skills.security += 150>>
-			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
-			<<set $NPCList[_n].skills.athletics += 100>>
-			<<set $NPCList[_n].skills.athletics to Math.clamp($NPCList[_n].skills.athletics, 1, 1000)>>
-		<<elseif $NPCList[_n].traits.includes("friendly")>>
-			<<set $NPCList[_n].healthmax -= 75>>
-			<<set $NPCList[_n].health -= 75>>
-		<<elseif $NPCList[_n].traits.includes("clumsy")>>
-			<<set $NPCList[_n].skills.security -= 200>>
-			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
-			<<set $NPCList[_n].skills.athletics -= 200>>
-			<<set $NPCList[_n].skills.athletics to Math.clamp($NPCList[_n].skills.athletics, 1, 1000)>>
-		<</if>>
-	<</if>>
-
 
 	<!-- Gender-swap monsters if needed -->
 	<<if $NPCList[_n].monster is "monster" and _beast_genitals is undefined>>
@@ -578,28 +550,4 @@
 
 <<widget "generatespider6">>
 	<<generateBEAST 6 spider>>
-<</widget>>
-
-<<widget "generatedragon1">>
-	<<generateBEAST 1 dragon>>
-<</widget>>
-
-<<widget "generatedragon2">>
-	<<generateBEAST 2 dragon>>
-<</widget>>
-
-<<widget "generatedragon3">>
-	<<generateBEAST 3 dragon>>
-<</widget>>
-
-<<widget "generatedragon4">>
-	<<generateBEAST 4 dragon>>
-<</widget>>
-
-<<widget "generatedragon5">>
-	<<generateBEAST 5 dragon>>
-<</widget>>
-
-<<widget "generatedragon6">>
-	<<generateBEAST 6 dragon>>
 <</widget>>
