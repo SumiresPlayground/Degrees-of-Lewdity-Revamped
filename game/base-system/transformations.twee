@@ -128,7 +128,7 @@
 				<<set $transformationParts.lizard.eyes to "default">>
 			<</if>>
 			<<if $lizard gte 2>>
-				<<set $transformationParts.lizard.horns to "default">>
+				<<set $transformationParts.traits.fangs to "default">>
 			<</if>>
 			<<if $lizard gte 6>>
 				<<set $transformationParts.lizard.tail to "default">>
@@ -178,7 +178,7 @@
 		<<set $transformationParts.dragon to {tail:"disabled", wings:"disabled", eyes:"disabled", fangs:"disabled", horns:"disabled"}>>
 	<</if>>	
 	<<if $transformationParts.lizard is undefined>>
-		<<set $transformationParts.lizard to {tail:"disabled", eyes:"disabled", horns:"disabled"}>>
+		<<set $transformationParts.lizard to {tail:"disabled", eyes:"disabled"}>>
 	<</if>>
 	<<if $transformationParts.traits is undefined>>
 		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled"}>>
@@ -1869,8 +1869,8 @@
 			<<case 1>>
 				<<if $lizardbuild gte 20 and $transformdisable is "f">>
 					<<set $lizard to 2>>
-					<span class="gold">Your head aches for a moment, and horns appear.</span>
-					<<set $transformationParts.lizard.horns to "default">>
+					<span class="gold">Your teeth ache for a moment, and fangs appear.</span>
+					<<set $transformationParts.traits.fangs to "default">>
 					<br><br>
 				<<elseif $lizardbuild lt 10>>
 					<<set $lizard to 0>><<set $physicalTransform to 0>>
@@ -1888,8 +1888,8 @@
 					<br><br>
 				<<elseif $lizardbuild lt 15>>
 					<<set $lizard to 1>>
-					<span class="gold">Your horns have completely disappeared.</span>
-					<<set $transformationParts.lizard.horns to "disabled">>
+					<span class="gold">Your fangs have completely disappeared.</span>
+					<<set $transformationParts.traits.fangs to "default">>
 					<br><br>
 				<</if>>
 			<<case 3>>
@@ -1905,7 +1905,7 @@
 				<<set $physicalTransform to 0>>
 				<<set $lizard to 0>>
 				<<set $lizardbuild to 0>>
-				<<set $transformationParts.lizard.horns to "disabled">>
+				<<set $transformationParts.lizard.eyes to "disabled">>
 				<<set $transformationParts.lizard.tail to "disabled">>
 		<</switch>>
 	<<else>>
@@ -1914,7 +1914,7 @@
 		<<set $lizard to 6>>
 		<<set $lizard to 100>>
 		<<set $transformationParts.lizard.eyes to "default">>
-		<<set $transformationParts.lizard.horns to "default">>
+		<<set $transformationParts.traits.fangs to "default">>
 		<<set $transformationParts.lizard.tail to "default">>
 	<</if>>
 <</widget>>

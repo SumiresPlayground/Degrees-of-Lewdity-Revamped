@@ -83,27 +83,27 @@
 		The guards recognize you and don't block your way. 
 		<br><br>
 
-		<<link [[Enter Hive|Hive Corridor]]>><</link>><<endevent>>
+		<<link [[Enter Hive|Hive Corridor]]>><</link>>
 		<br>
-		<<link [[Leave|Hive Entrance]]>><</link>><<endevent>>
+		<<link [[Leave|Hive Entrance]]>><</link>>
 		<br>
 	<<elseif $bee gte 6>>
-		“Stop there bee.” <<bhe>> sniffs you and thinks for a moment. “You don’t smell like another hive. Are you wild?”
+		“Stop there bee.” they sniff you and think for a moment. “You don’t smell like another hive. Are you wild?”
 		<br><br>
-		<<link [[Say you’re wild|Hive Entrance Accepted]]>><</link>><<endevent>>
+		<<link [[Say you’re wild|Hive Entrance Accepted]]>><</link>>
 		<br>
-		<<link [[Say you’re a member of another hive|Hive Entrance Rejected]]>><</link>><<endevent>>
+		<<link [[Say you’re a member of another hive|Hive Entrance Rejected]]>><</link>>
 		<br>
 	<<else>>
 		<<if ($monsterchance gte random(1, 100) and ($hallucinations gte 1 or $monsterhallucinations is "f")) or ($bestialitydisable is "t")>>
 			<<beastNEWinit 2 wasp>>
-			“Stand back human, not welcome inside” <<bhe>> buzzes menacingly. 
+			“Stand back human, not welcome inside” They buzz menacingly. 
 		<<else>>
 			The wasps buzz angrily at you, chasing you away from the hive. 
 		<</if>>
 		<br><br>
 
-		<<link [[Next|Hive Entrance]]>><</link>><<endevent>>
+		<<link [[Next|Hive Entrance]]>><</link>>
 		<br>
 	<</if>>
 <</if>>
@@ -138,9 +138,10 @@
 	<</if>>
 	<br><br>
 
-	<<if $TaylorSeen is 1 and $TaylorMissing is 1>>
-		While you’re walking down the corridors you see a guard walking a young <<personsimple>> to the cells.
+	<<if $TaylorSeen is 0 and $TaylorMissing is 0>>
+		While you’re walking down the corridors you see a guard walking a young human to the cells.
 		<br><br>
+		<<set $TaylorSeen to 1>><<set $TaylorMissing to 1>>
 	<</if>>
 
 	<<link [[Leave Hive|Hive Approach]]>><<endevent>><</link>>
@@ -342,9 +343,9 @@ You squeeze into the pod, feeling the waxy walls against your skin.
 	<<link [[Corridor|Hive Corridor]]>><</link>>
 	<br>
 	<<if ($TaylorArrested is 1 or $TaylorMissing is 1) and $TaylorIntroduction is undefined and $TaylorFreed is 0>>
-		<<link [[Talk to prisoner|Hive Taylor Introduction]]>><<npcincr Taylor love 1>><</link>><<glove>>
+		<<link [[Talk to prisoner (0:30)|Hive Taylor Introduction]]>><<npcincr Taylor love 1>><<pass 30>><</link>><<glove>>
 	<<elseif ($TaylorArrested is 1 or $TaylorMissing is 1) and $TaylorFreed is 0>>
-		<<link [[Talk to Taylor|Hive Taylor Hangout]]>><<npcincr Taylor love 1>><</link>><<glove>>
+		<<link [[Talk to Taylor (0:30)|Hive Taylor Hangout]]>><<npcincr Taylor love 1>><<pass 30>><</link>><<glove>>
 	<</if>>
 <</if>>
 
