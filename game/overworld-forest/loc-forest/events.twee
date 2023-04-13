@@ -775,6 +775,7 @@ Six pairs of eyes stare at you through the dim light. The pack advances on you.
 :: Forest Swim
 
 <<location "forest">><<water>><<effects>>
+<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
 <<if $danger gte (9900 - ($allure * $forestmod)) and $eventskip is 0>>
 	<!-- Modified for monster people -->
 	<<beastNEWinit 1 lizard>>
@@ -1886,41 +1887,42 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 <</if>>
 
 :: Forest Deer
-<<location "forest">><<effects>>
-<<beastNEWinit 1 deer>>
+<<location "forest">><<effects>><<transform deer 1>>
 
-<<if $rng gte 67 and $danger gte (9900 - ($allure * $forestmod)) and $bestialitydisable is "f">>
-	You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
-	<br><br>
+<<if $rng gte 67>>
+You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
+<br><br>
 
-	<<link [[Next|Deer Rape]]>><<set $molestationstart to 1>><</link>>
-	<br>
-	
+<<link [[Next|Deer Rape]]>><<set $eventskip to 1>><</link>>
+<br>
+
 <<elseif $rng gte 33>>
-	You creep forward. Unfortunately, the <<beasttype>> turns and runs in the other direction. It disappears into the trees.
-	<br><br>
+You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then goes back to grazing.
+<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+<br><br>
 
-	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-	<br>
-
+<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+<br>
 <<else>>
-	You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then goes back to grazing.
-	<<ltrauma>><<lstress>><<trauma -6>><<stress -6>><<transform deer 1>>
-	<br><br>
+You creep forward. Unfortunately, the deer turns and runs in the other direction. It disappears into the trees.
+<br><br>
 
-	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-	<br>
+<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+<br>
+
 <</if>>
 
 :: Deer Rape
 
 <<if $molestationstart is 1>>
+	<<beastNEWinit 1 deer>>
 	<<set $molestationstart to 0>>
 	<<controlloss>>
 	<<violence 1>>
 	<<neutral 1>>
 	<<molested>>
-	<<beastCombatInit>>
+	<<set $noFinish to 1>>
+	<<maninit>>
 	<<forestRescueSetup>>
 <</if>>
 
@@ -1932,10 +1934,6 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 	<<forestRescueFail>>
 	<br><br>
 <</if>>
-
-<br>
-<<beast $enemyno>>
-<br><br>
 
 <<stateman>>
 <br><br>
@@ -1949,13 +1947,13 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 	<span id="next"><<link [[Next|Deer Rape]]>><</link>></span><<nexttext>>
 <</if>>
 
-:: Deer Rape Finish
+:: Deer Finish
 
 <<effects>>
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<beastejaculation>>
 
-	The <<beasttype>> buckles as it releases its sperm inside you before pulling out and trotting away.
+	The deer buckles as it releases its sperm inside you before pulling out and trotting away.
 	<br><br>
 
 	<<tearful>> you steady yourself.
@@ -4432,6 +4430,40 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 <</if>>
 <br><br>
 
+<<if $NPCList[0].traits.includes("clumsy")>>
+	Before you can follow through, however, <<bhe>> clumsily stumbles back in shock, <span class="red">crushing the remaining eggs.</span> This particular <<beasttype>> seems too clumsy to challenge effectively.
+	<br><br>
+	<<if $monster is 1>>
+		<<bHe>> quickly rights <<bhimself>> into a pouncing position. "You scared me! Don't do that!" <<bhe>> yells. <<bHe>> looks annoyed, but quickly starts trying to lick the destroyed eggs off <<bhis>> tail. <<bHe>> seems to immediately forget that you're there.
+	<<else>>
+		<<bHe>> ends up in a pouncing position, staring you down. After a moment, <<bhe>> relaxes, and starts trying to lick the destroyed eggs off his fur. <<bHe>> seems to immediately forget that you're there.		
+	<</if>>
+	<<set $forest_nest.eggs to 0>>
+	<br><br>
+
+	<<link [[Pet|Forest Fox Nest Pet]]>><<set $phase2 to 1>><</link>><<tendingdifficulty 1 200>><<llstress>>
+	<br>
+	<<if $fox gte 6 and $monster is 1>>
+		<<link [["Lick " + $NPCList[0].pronouns.him + " clean"|Forest Fox Nest Lick]]>><<set $phase2 to 1>><</link>><<deviant1>><<fox>>
+		<br>
+	<</if>>
+	<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+	<br>
+<<elseif $NPCList[0].traits.includes("cowardly")>>
+	Before you can follow through, however, <<bhis>> tail puffs up and <<bhe>> flees. <<bHe>> took some of the eggs with <<bhim>>. This particular <<beasttype>> seemed especially cowardly.
+	<<set $forest_nest.eggs -= 2>>
+	<br><br>
+
+	<<tending_bird_eggs $forest_nest.eggs>>
+	<br><br>
+
+	<<if $forest_nest.eggs gte 1>>
+		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+		<br>
+	<</if>>
+	<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+	<br>
+<<else>>
 	You make yourself appear as large as possible,
 	<<if $physiqueSuccess or $harpy gte 6>>
 		<span class="green">and <<bhis>> tail puffs out.</span>
@@ -4456,6 +4488,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 		<br>
 	<<else>>
+		<<if $NPCList[0].traits.includes("territorial")>>
 			but <<bhe>> <span class="red">merely looks at you</span>.
 			<<if $monster is 1>>
 				"Challenging me in my own territory?" <<bHe>> scoffs. "You need to be taught a lesson."
@@ -4465,7 +4498,68 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 
 			<<link [[Next|Forest Fox Nest Rape]]>><<set $molestationstart to 1>><<set $position to "missionary">><<set $NPCList[0].stance to "top">><</link>>
 			<br>
+		<<elseif $NPCList[0].traits.includes("clever")>>
+			but <<bhis>> ear <span class="red">merely twitches</span>.
+			<<if $monster is 1>>
+				Then, in one swift movement, <<bhe>> picks up and throws an egg at you!
+				<br><br>
+
+				It gets you right in the face, splattering yolk all over. <<bHe>> laughs at you, rolling over <<bhimself>> a few times before scampering away. <<bodyliquid "face" "goo">><<stress 6>><<pain 2>><<gstress>><<gpain>>
+			<<else>>
+				Then, in one swift movement, <<bhe>> bounds around and pounces!
+				<br><br>
+
+				<<bHe>> knocks you over easily despite <<bhis>> relatively small size. <<bHe>> then chomps on the egg right above your face, splattering yolk all over you. <<bHe>> lets out a series of high-pitched barks that sound a bit like laughter, rolling over <<bhimself>> a few times before scampering away. <<bodyliquid "face" "goo">><<stress 6>><<pain 2>><<gstress>><<gpain>>
+			<</if>>
+			<br><br>
+
+			<<set $forest_nest.eggs -= 3>><<tending_bird_eggs $forest_nest.eggs>>
+			<br><br>
+
+			<<if $forest_nest.eggs gte 1>>
+				<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+				<br>
+			<</if>>
+			<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+			<br>
+		<<elseif $NPCList[0].traits.includes("friendly")>>
+			but <<bhe>> <span class="red">merely tilts <<bhis>> head at you.</span> Unwavering, <<bhe>> approaches you and sniffs you.
+			<<if $monster is 1>>
+				<<bHe>> giggles before <span class="green">petting your head.</span> "Were you trying to scare me? You're too cute for that."
+				<br><br>
+
+				<<bHe>> returns to the egg pile and sits.
+				<<if $forest_nest.eggs lte 0>>
+					"They're all broken. No saving any for later. Wanna share?" <<bHe>> pats the ground next to <<bhim>>.
+				<<else>>
+					"There's still some left. Wanna share?" <<bHe>> pops one into <<bhis>> mouth and pats the ground next to <<bhim>>.
+				<</if>>
+			<<else>>
+				After a moment, <span class="green">gives your leg a lick.</span> <<bHis>> tongue tickles.
+				<br><br>
+
+				<<bHe>> returns to the egg pile and sits, putting <<bhis>> face into it and
+				<<if $forest_nest.eggs lte 0>>
+					peeking back up with some yolk on <<bhis>> snout.
+				<<else>>
+					peeking back up with an egg in <<bhis>> mouth.
+				<</if>>
+				<<bHe>> seems to want to share with you.
+			<</if>>
+			<br><br>
+
+			<<if $fox gte 6>>
+				<<link [[Eat one|Forest Nest Share]]>><<transform fox 1>><<stress -4>><</link>><<lstress>>
+				<br>
+			<<else>>
+				<<link [[Eat one|Forest Nest Share]]>><<transform fox 1>><<stress 2>><</link>><<gstress>>
+				<br>
+			<</if>>
+			<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+			<br>		
+		<</if>>
 	<</if>>
+<</if>>
 
 :: Forest Fox Nest Pet
 <<effects>>

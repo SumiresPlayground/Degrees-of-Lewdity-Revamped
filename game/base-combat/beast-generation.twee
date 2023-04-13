@@ -223,6 +223,33 @@
 	<</if>>
 	<<set $NPCList[_n].fullDescription += $NPCList[_n].type>>
 
+	<<if $NPCList[_n].type.includes("fox")>>
+		<<generate_npc_skills>>
+		<<generate_beast_traits>>
+		<<if $NPCList[_n].traits.includes("cowardly")>>
+			<<set $NPCList[_n].skills.security += 200>>
+			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
+		<<elseif $NPCList[_n].traits.includes("territorial")>>
+			<<set $NPCList[_n].healthmax += 125>>
+			<<set $NPCList[_n].health += 125>>
+			<<set $NPCList[_n].skills.security += 100>>
+			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
+		<<elseif $NPCList[_n].traits.includes("clever")>>
+			<<set $NPCList[_n].skills.security += 150>>
+			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
+			<<set $NPCList[_n].skills.athletics += 100>>
+			<<set $NPCList[_n].skills.athletics to Math.clamp($NPCList[_n].skills.athletics, 1, 1000)>>
+		<<elseif $NPCList[_n].traits.includes("friendly")>>
+			<<set $NPCList[_n].healthmax -= 75>>
+			<<set $NPCList[_n].health -= 75>>
+		<<elseif $NPCList[_n].traits.includes("clumsy")>>
+			<<set $NPCList[_n].skills.security -= 200>>
+			<<set $NPCList[_n].skills.security to Math.clamp($NPCList[_n].skills.security, 1, 1000)>>
+			<<set $NPCList[_n].skills.athletics -= 200>>
+			<<set $NPCList[_n].skills.athletics to Math.clamp($NPCList[_n].skills.athletics, 1, 1000)>>
+		<</if>>
+	<</if>>
+
 	<!-- Gender-swap monsters if needed -->
 	<<if $NPCList[_n].monster is "monster" and _beast_genitals is undefined>>
 		<<set $NPCList[_n].penis to "none">>
