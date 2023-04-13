@@ -71,6 +71,10 @@
 				<<feetActionInit>>
 			</div>
 
+			<div id="tailaction" @class="$options.combatControls + 'Control'">
+				<<tailActionInit>>
+			</div>
+
 			<div id="mouthaction" @class="$options.combatControls + 'Control'">
 				<<mouthActionInit>>
 			</div>
@@ -193,6 +197,7 @@
 	<<safereplace #leftaction>><<leftActionInit true>><</safereplace>>
 	<<safereplace #rightaction>><<rightActionInit true>><</safereplace>>
 	<<safereplace #feetaction>><<feetActionInit true>><</safereplace>>
+	<<safereplace #tailaction>><<tailActionInit true>><</safereplace>>
 	<<safereplace #mouthaction>><<mouthActionInit true>><</safereplace>>
 	<<if $player.penisExist or $worn.genitals.type.includes("strap-on") or playerHasStrapon()>>
 		<<safereplace #penisaction>><<penisActionInit true>><</safereplace>>
@@ -1171,6 +1176,84 @@
 				<<set _feetaction["Hold it still"] to "feetresistW">>
 		<</switch>>
 	<</if>>
+<</widget>>
+
+<<widget "tailActionInit">>
+<<if $transformationParts.bee.tail is "default">>
+	<<if $orgasmdown gte 1 and $transformationParts.bee.tail is "default">>
+		<<set _tailOptions to "orgasm">>
+		<span class="lewd">Your tail is free, but you can't stop the spasms.</span>
+	<<elseif $pain gte 100 and $willpowerpain is 0 and !$possessed and $transformationParts.bee.tail is "default">>
+		<<set _tailOptions to "pain">>
+		<span class="red">Your tail is free, but hurts to move.</span>
+	<<elseif $dissociation gte 2 and !$possessed and $transformationParts.bee.tail is "default">>
+		<<set _tailOptions to "unreal">>
+		<span class="pink">Your tail is free, but doesn't feel real.</span>
+	<<elseif $possessed and $transformationParts.bee.tail is "default">>
+		<<set _tailOptions to "possessed">>
+		Your tail is free, <span class="pink">but not under your control.</span>
+	<<else>>
+		<<set _tailOptions to "stab">>
+		<span @class="($lastOptions.tail isnot _tailOptions ?'gold':'')">Your tail is free.</span>
+	<</if>>
+	<<if $lastOptions.tail isnot _tailOptions>>
+			<<set _tailGold to true>>
+		<</if>>
+		<<if $_changetype isnot true>>
+			<<tailActions>>
+			<<if Object.keys(_tailaction).length gt 0>>
+				<<if Object.values(_tailaction).includes($tailactiondefault) is false or _args[0] is true or $tailactiondefault is "rest">>
+					<<set _defaultsCombatAction to "tailaction">>
+					<<set _actionsSet = DefaultActions.get($defaultsCombatType, $defaultsType, _defaultsCombatAction)>>
+					<<set _pass to false>>
+					<<for _set to 0; _set lt $maxDefaultActionSets; _set++>>
+						<<if Object.values(_tailaction).includes(_actionsSet[_set])>>
+							<<set $_tailactiondefault to clone(_actionsSet[_set])>>
+							<<set _pass to true>>
+							<<break>>
+						<</if>>
+					<</for>>
+					<<if _pass is false>>
+						<<set $_tailactiondefault to Object.values(_tailaction)[0]>>
+					<</if>>
+				<</if>>
+
+				<<set $tailaction to $_tailactiondefault>>
+				<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "")>>
+				<<generateCombatAction _tailaction "tailaction" _textColor $tailaction>>
+
+				/*Checks/Difficulty*/
+				<<if $options.combatControls.includes("ists")>>
+					<div id="tailactionDifficulty">
+						<<tailactionDifficulty>>
+					</div>
+				<</if>>
+			<</if>>
+			<<set $lastOptions.tail to clone(_tailOptions)>>
+		<<else>>
+		<<timed 100ms>>
+			<<run jQuery("#tailaction").remove();>>
+		<</timed>>
+		<</if>>
+<</if>>
+<</widget>>
+
+<<widget "tailactionDifficulty">>
+	<<if _args[0] is undefined>>
+		<<set _diffAction to $tailaction>>
+	<<else>>
+		<<set _diffAction to _args[0]>>
+	<</if>>
+<</widget>>
+
+<<widget "tailActions">>
+	/*Generate Actions*/
+	<<set _tailaction to {}>>
+	<<set _tailaction["Rest"] to "rest">>
+	<<switch _tailOptions>>
+			<<case "stab">>
+				<<tailstab>>
+	<</switch>>
 <</widget>>
 
 <<widget "mouthActionInit">>
@@ -3067,6 +3150,35 @@
 								<<feetActionInitMachine>>
 							<<else>>
 								<<feetActionInit>>
+							<</if>>
+					<</switch>>
+				</div>
+			<</if>>
+
+			<<if Object.values(_targetlistall).length gte 1>>
+				<div id="tailaction" @class="$options.combatControls + 'Control'">
+					<<switch $tailtarget>>
+						<<case "self">>
+							<<tailActionInitSelf>>
+						<<case "tentacles">>
+							<<tailActionInitTentacle>>
+						<<case "swarm">>
+							<<tailActionInitSwarm>>
+						<<case "struggle">>
+							<<tailActionInitStruggle>>
+						<<case "machine">>
+							<<tailActionInitMachine>>
+						<<default>>
+							<<if Object.values(_targetlistall)[0] is "tentacles">>
+								<<tailActionInitTentacle>>
+							<<elseif Object.values(_targetlistall)[0] is "swarm">>
+								<<tailActionInitSwarm>>
+							<<elseif Object.values(_targetlistall)[0] is "struggle">>
+								<<tailActionInitStruggle>>
+							<<elseif Object.values(_targetlistall)[0] is "machine">>
+								<<tailActionInitMachine>>
+							<<else>>
+								<<tailActionInit>>
 							<</if>>
 					<</switch>>
 				</div>

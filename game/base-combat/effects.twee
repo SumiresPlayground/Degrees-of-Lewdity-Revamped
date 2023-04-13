@@ -3332,6 +3332,29 @@
 		<</if>>
 
 		/*End of stalked actions */
+		
+		/*tail */
+
+		<<if $tailaction is "rest">>
+			<<set $tailaction to 0>><<set $tailactiondefault to "rest">>You rest your tail.
+		<</if>>
+
+		<<if $tailaction is "tailstab">>
+			<<set $tailaction to 0>><<set $tailactiondefault to "tailstab">>
+			<<if $parasite.left_ear.name is "slime" and random(1, 3) is 3 or $parasite.right_ear.name is "slime" and random(1, 3) is 3>>
+				<<if $corruption_slime gte (currentSkillValue('willpower') / 10)>>
+					You try to stab the <<if $enemytype is "beast">><<beasttype>>,<<else>><<personselect $feettarget>><<person>>,<</if>>
+					<span class="red">but the slime immobilises your tail.</span>
+					<<gwillpower>><<willpower 1>>
+				<<else>>
+					The slime tries to immobilise your tail, <span class="green">but you wrestle control away from it.</span>
+					<<actionsstab $tailtarget>><<defiance 5 $tailtarget>><<set $attackstat += 1>>
+				<</if>>
+			<<else>>
+				<<actionsstab $tailtarget>><<defiance 5 $tailtarget>><<set $attackstat += 1>>
+			<</if>>
+		<</if>>
+
 
 		/***
 		*    ██   ██  █████  ██   ██ ███████ ██   ██
