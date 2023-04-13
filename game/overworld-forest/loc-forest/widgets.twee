@@ -258,7 +258,7 @@
 				<<elseif $rng2 is 2>>
 					<<set $edenforesthunt to 0>>
 					<<set $blackwolfhunt to 1>>
-				<</if>>
+				<</if>
 				<<set $foresthunt to 1>>
 				<<endevent>>
 				<br><br>
@@ -303,6 +303,7 @@
 		<<if $fox_grudge>>
 			<<addevent "fox_grudge" 0.33>>
 		<</if>>
+		<<addevent "forestriver" 0.33>>
 		<<runeventpool>>
 	<</if>>
 <</widget>>
@@ -403,26 +404,27 @@
 
 			<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
-	<<if $plantdisable is "f" and $tentacledisable is "f" and ($hallucinations gte 2 or $backgroundTraits.includes("plantlover"))>>
-		<<addevent "forestplant_kiss">>
-		<<addevent "forestplant_snare">>
-	<</if>>
-	<<addevent "forestrock">>
-	<<if $bestialitydisable is "f" and $waspdisable is "f">>
-		<<addevent "forestwasps">>
-	<</if>>
-	<<addinlineevent "deepforest_clothingdamage">>
-		You squeeze through a thicket.
-		<<set $stripintegrity to 10>><<set $stripobject to "tree branch">><<stripobject>>
-		<br><br>
+		<<if $plantdisable is "f" and $tentacledisable is "f" and ($hallucinations gte 2 or $backgroundTraits.includes("plantlover"))>>
+			<<addevent "forestplant_kiss">>
+			<<addevent "forestplant_snare">>
+		<</if>>
+		<<addevent "forestrock">>
+		<<if $bestialitydisable is "f" and $waspdisable is "f">>
+			<<addevent "forestwasps">>
+		<</if>>
+		<<addinlineevent "deepforest_clothingdamage">>
+			You squeeze through a thicket.
+			<<set $stripintegrity to 10>><<set $stripobject to "tree branch">><<stripobject>>
+			<br><br>
 
-		<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-	<</addinlineevent>>
-	<<set _forestNestUnsafe to true>>
-	<<addevent "forest_nest">>
-	<<if $fox_grudge>>
-		<<addevent "fox_grudge" 0.33>>
-	<</if>>
+			<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+		<</addinlineevent>>
+		<<set _forestNestUnsafe to true>>
+		<<addevent "forest_nest">>
+		<<if $fox_grudge>>
+			<<addevent "fox_grudge" 0.33>>
+		<</if>>
+		<<addevent "forest_deer">>
 		<<runeventpool>>
 	<</if>>
 <</widget>>
@@ -476,15 +478,7 @@
 	<<if $forest lte 50>>
 		<<addevent "forestriver" 0.33>>
 	<<else>>
-		<<addinlineevent "safeforest_deer" 0.33>>
-			A breeze caresses your face as you enter a clearing. Stood in the middle is a deer. It stops feeding when it notices you, but doesn't move.<<transform deer 1>>
-			<br><br>
-
-			<<link [[Approach|Forest Deer]]>><</link>>
-			<br>
-			<<link [[Ignore|Forest]]>><<set $eventskip to 1>><</link>>
-			<br>
-		<</addinlineevent>>
+		<<addevent "forest_deer">>
 	<</if>>
 	<<if $halloween is 1 and Time.monthDay is 31 and !$halloween_lake>>
 		<<addevent "halloween_lake_invite" 1000>>
@@ -1555,4 +1549,15 @@ You feel whatever's hunting you draw closer.
 	<<else>>
 		<span class="red">There's no intact eggs left.</span>
 	<</if>>
+<</widget>>
+
+<<widget "forest_deer">>
+	<<beastNEWinit 1 deer>>
+	A breeze caresses your face as you enter a clearing. Stood in the middle is a <<beasttype>>. It stops feeding when it notices you, but doesn't move.
+	<br><br>
+
+	<<link [[Approach|Forest Deer]]>><</link>>
+	<br>
+	<<link [[Ignore|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
 <</widget>>
