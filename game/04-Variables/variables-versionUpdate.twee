@@ -1418,7 +1418,7 @@
 	<</if>>
 
 	<<if $openinghours is undefined>>
-		<<if $hour gte 8 and $hour lt 21>>
+		<<if Time.hour gte 8 and Time.hour lt 21>>
 			<<set $openinghours to 1>>
 		<<else>>
 			<<set $openinghours to 0>>
@@ -1945,8 +1945,8 @@
 		<<set $tiredness to 0>>
 	<</if>>
 
-	<<if ($minute % $time) isnot ($time - ($hour * 60))>>
-		<<set $minute to ($time - ($hour * 60))>>
+	<<if ($minute % $time) isnot ($time - (Time.hour * 60))>>
+		<<set $minute to ($time - (Time.hour * 60))>>
 	<</if>>
 
 	<<if $waspdisable is undefined>>
@@ -3726,7 +3726,7 @@
 	<!-- v0.3.6.2: Updating NPC clothing when needed -->
 	<<if $objectVersion.npcClothes lt 1 or $objectVersion.npcClothes is undefined>>
 		<<set $objectVersion.npcClothes to 1>>
-		<<if $halloween is 1 and $robinmissing is 0 and $hour gte 16 and $hour lt 19 and $monthday is 31 and $halloween_robin_costume and $NPCName[$NPCNameList.indexOf("Robin")].init is 1>>
+		<<if $halloween is 1 and $robinmissing is 0 and Time.hour gte 16 and Time.hour lt 19 and $monthday is 31 and $halloween_robin_costume and $NPCName[$NPCNameList.indexOf("Robin")].init is 1>>
 			<<if !$NPCName[$NPCNameList.indexOf("Robin")].outfits>>
 				<<initNNPCClothes "Robin">>
 			<</if>>
