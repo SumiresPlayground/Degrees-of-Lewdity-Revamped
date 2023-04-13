@@ -2382,6 +2382,14 @@ You sit beside Alex, then procure the milkshake. "Fancy a drink?" you ask simult
 :: Farm Stables Rest
 <<set $outside to 0>><<effects>>
 
+<!-- DoLM -->
+<!-- Resting at the farm stables reduce fatigue -->
+<<if $sleeptrouble is 1 and $controlled is 0>>
+	<<set $tiredness -= 30>>
+<<else>>
+	<<set $tiredness -= 50>>
+<</if>>
+
 You relax on the hammock next to the stables.
 <<if $weather is "rain" or $weather is "snow">>You're glad to have some cover from the <<print ($weather is "rain"?'rain':'snow')>>.<</if>>
 

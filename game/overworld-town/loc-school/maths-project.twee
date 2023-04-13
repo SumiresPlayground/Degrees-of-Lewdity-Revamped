@@ -584,6 +584,8 @@ You manage to shove <<him>> against the alley wall and stagger into the open.
 
 <<link [[Ask to buy stimulant|Stim Dealer Buy]]>><</link>>
 <br>
+<!-- DoLM -->
+<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 <<if $mathsstimstolen is 0>>
 <<set $skulduggerydifficulty to 600>>
 <<elseif $mathsstimstolen is 1>>
@@ -593,7 +595,7 @@ You manage to shove <<him>> against the alley wall and stagger into the open.
 <<else>>
 <<set $skulduggerydifficulty to 1200>>
 <</if>>
-<<link [[Steal stimulant|Stim Dealer Steal]]>><</link>><<skulduggerydifficulty>>
+<<link [[Steal stimulant|Stim Dealer Steal]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
 <br>
 	<<if $hallucinations gte 1>>
 	<<link [[Get caught stealing on purpose|Stim Dealer Steal]]>><<set $skulduggerydifficulty to 10000>><<trauma -60>><</link>><<dangerousText>><<llltrauma>>

@@ -317,15 +317,17 @@
 	<</if>>
 
 
-	<<link [[Keep working|Spa Tired Keep]]>><<handskill 5>><</link>><<ghandskill>>
-	<br>
-	<<link [[Take a break|Spa Tired Break]]>><<stress -6>><<tiredness -6>><</link>><<ltiredness>><<lstress>>
-	<br>
-	<<if currentSkillValue('skulduggery') gte 100>>
-		<<set $skulduggerydifficulty to 500>>
-		<<link [[Rob|Spa Tired Steal]]>><</link>><<skulduggerydifficulty>><<crime>>
-	<</if>>
-	<br>
+<<link [[Keep working|Spa Tired Keep]]>><<handskill 5>><</link>><<ghandskill>>
+<br>
+<<link [[Take a break|Spa Tired Break]]>><<stress -6>><<tiredness -6>><</link>><<ltiredness>><<lstress>>
+<br>
+<!-- DoLM -->
+<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
+<<if currentSkillValue('skulduggery') gte 100>>
+	<<set $skulduggerydifficulty to 500>>
+	<<link [[Rob|Spa Tired Steal]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>><<crime>>
+<</if>>
+<br>
 <</widget>>
 
 <<widget "spa_job_init">>

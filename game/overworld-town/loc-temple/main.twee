@@ -348,8 +348,10 @@ You are in the main hall of the temple. Stone walls and pillars tower into darkn
 			<<link [[Make a large donation (£25)|Temple Plate Donation]]>><<set $phase to 2>><<set $money -= 2500>><<trauma -18>><<famegood 3>><</link>><<llltrauma>>
 			<br>
 		<</if>>
+		<!-- DoLM -->
+		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 		<<set $skulduggerydifficulty to 100>>
-		<<link [[Steal|Temple Plate Steal]]>><<crimeup 5>><</link>><<crime>><<skulduggerydifficulty>>
+		<<link [[Steal|Temple Plate Steal]]>><<crimeup 5>><<set $skulduggeryhands to 1>><</link>><<crime>><<skulduggerydifficulty>>
 		<br>
 
 	<<elseif $rng gte 71>>

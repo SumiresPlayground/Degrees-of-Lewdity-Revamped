@@ -27,6 +27,8 @@
 <</widget>>
 
 <<widget "smugglerdifficultyactions">>
+	<!-- DoLM -->
+	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 	<<if $smuggler_stolen_stat is 0>>
 		<<set $skulduggerydifficulty to 100>>
 	<<elseif $smuggler_stolen_stat is 1>>
@@ -48,7 +50,7 @@
 	<<else>>
 		<<set $skulduggerydifficulty to 1000>>
 	<</if>>
-	<<link [[Steal the glowing object|Smuggler Steal]]>><</link>><<skulduggerydifficulty>>
+	<<link [[Steal the glowing object|Smuggler Steal]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
 	<br>
 <</widget>>
 

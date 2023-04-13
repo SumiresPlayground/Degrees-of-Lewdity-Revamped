@@ -497,8 +497,10 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<<link [[Make a large donation (£25)|Temple Plate Donation]]>><<set $phase to 2>><<set $money -= 2500>><<trauma -18>><<famegood 3>><<npcincr Sydney love 1>><</link>><<llltrauma>><<glove>>
 			<br>
 		<</if>>
+		<!-- DoLM -->
+		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 		<<set $skulduggerydifficulty to 200>>
-		<<link [[Steal|Temple Plate Steal]]>><<crimeup 5>><</link>><<crime>><<skulduggerydifficulty>>
+		<<link [[Steal|Temple Plate Steal]]>><<crimeup 5>><<set $skulduggeryhands to 1>><</link>><<crime>><<skulduggerydifficulty>>
 		<br>
 
 	<<elseif $rng gte 71>>
