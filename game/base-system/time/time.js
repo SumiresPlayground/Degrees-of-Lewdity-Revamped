@@ -548,6 +548,8 @@ function dayPassed() {
 		if (V.challengetimer < 0) delete V.challengetimer;
 	}
 
+	V.dragonbreathuse = 0;
+
 	return fragment;
 }
 
