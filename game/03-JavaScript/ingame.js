@@ -90,6 +90,8 @@ const combatActionColours = {
 			"spray", "lefthit", "righthit", "leftstruggle", "rightstruggle", "stopchokenoncon", "pursuit_grab",
 			/* feetaction */
 			"kick",
+			/* tailaction */
+			"tailstab",
 			/* mouthaction */
 			"bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy",
 		],
@@ -842,6 +844,7 @@ window.DefaultActions = {
 		this.addMany(type, "Defiant", "vaginaaction", ["escape", "othermouthescape"]);
 		this.addMany(type, "Defiant", "anusaction", ["escape", "othermouthescape"]);
 		this.addMany(type, "Defiant", "feetaction", ["kick"]);
+		this.addMany(type, "Defiant", "tailaction", ["tailstab"]);
 		this.addMany(type, "Tentacles", "regrab", [0]);
 		type = "consensual";
 		this.addMany(type, "Submissive", "leftaction", ["leftchest"]);

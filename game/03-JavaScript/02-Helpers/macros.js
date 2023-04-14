@@ -69,7 +69,7 @@ const ErrorSystem = ((Scripting, Errors) => {
 		handler() {
 			if (V.time !== undefined && V.hour !== undefined && V.minute !== undefined) {
 				if (V.time !== V.hour * 60 + V.minute) {
-					const message = `$time: ${V.time} desynchronised from $hour: ${V.hour} and $minute: ${V.minute}. Total: ${V.hour * 60 + V.minute}.`;
+					const message = `$time: ${V.time} desynchronised from Time.hour: ${V.hour} and $minute: ${V.minute}. Total: ${V.hour * 60 + V.minute}.`;
 					const source = `Caught in Passage ${this.args[0]}. ${V.passage}, <<checkTimeSystem>>.`;
 					throwError(this.output, message, source);
 				}
