@@ -3158,25 +3158,11 @@
 			<<if Object.values(_targetlistall).length gte 1>>
 				<div id="tailaction" @class="$options.combatControls + 'Control'">
 					<<switch $tailtarget>>
-						<<case "self">>
-							<<tailActionInitSelf>>
-						<<case "tentacles">>
-							<<tailActionInitTentacle>>
 						<<case "swarm">>
 							<<tailActionInitSwarm>>
-						<<case "struggle">>
-							<<tailActionInitStruggle>>
-						<<case "machine">>
-							<<tailActionInitMachine>>
 						<<default>>
-							<<if Object.values(_targetlistall)[0] is "tentacles">>
-								<<tailActionInitTentacle>>
 							<<elseif Object.values(_targetlistall)[0] is "swarm">>
 								<<tailActionInitSwarm>>
-							<<elseif Object.values(_targetlistall)[0] is "struggle">>
-								<<tailActionInitStruggle>>
-							<<elseif Object.values(_targetlistall)[0] is "machine">>
-								<<tailActionInitMachine>>
 							<<else>>
 								<<tailActionInit>>
 							<</if>>

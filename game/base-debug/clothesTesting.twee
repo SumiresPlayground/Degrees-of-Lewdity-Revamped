@@ -113,6 +113,7 @@
 			sheepEars:"hidden",
 			sheepHorns:"hidden",
 			sheepTail:"hidden",
+			dolphinTail:"hidden",
 		}>>
 		<<set $characterViewer.colours to {
 			hair: "red",
@@ -925,6 +926,15 @@
 		<<option "Default" "default">>
 	<</listbox>>
 	<br><br>
+
+	<span class="gold">Dolphin:</span>
+	<br>
+	Tail:
+	<<listbox "$characterViewer.bodyState.dolphinTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br><br>
 <</widget>>
 
 <<widget "characterViewerModel">>
@@ -1071,6 +1081,7 @@
 	<<set _modeloptions.sheep_tail_type to $characterViewer.bodyState.sheepTail>>
 	<<set _modeloptions.sheep_ears_type to $characterViewer.bodyState.sheepEars>>
 	<<set _modeloptions.sheep_horns_type to $characterViewer.bodyState.sheepHorns>>
+	<<set _modeloptions.dolphin_tail_type to $characterViewer.bodyState.dolphinTail>>
 
 	<<if $characterViewer.controls.animations>>
 		<<animatemodel>>

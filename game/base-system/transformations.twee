@@ -18,6 +18,7 @@
 			bear: {ears:"disabled", tail:"disabled"},
 			dragon: {tail:"disabled", wings:"disabled", eyes:"disabled", horns:"disabled", claws:"disabled"},
 			lizard: {horns:"disabled", tail:"disabled", eyes:"disabled"},
+			dolphin: {tail:"disabled"},
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
@@ -132,6 +133,16 @@
 			<</if>>
 			<<if $lizard gte 6>>
 				<<set $transformationParts.lizard.tail to "default">>
+				<<set $transformationParts.traits.lungs to "default">>
+			<</if>>
+			<<if $dolphin gte 2>>
+				<<set $transformationParts.traits.lungs to "default">>
+			<</if>>
+			<<if $dolphin gte 4>>
+				<<set $transformationParts.dolphin.tail to "default">>
+			<</if>>
+			<<if $dolphin gte 6>>
+				<<set $transformationParts.traits.aquatail to "default">>
 			<</if>>
 		<</if>>
 	<</if>>
@@ -180,8 +191,11 @@
 	<<if $transformationParts.lizard is undefined>>
 		<<set $transformationParts.lizard to {tail:"disabled", eyes:"disabled"}>>
 	<</if>>
+	<<if $transformationParts.dolphin is undefined>>
+		<<set $transformationParts.dolphin to {tail:"disabled"}>>
+	<</if>>
 	<<if $transformationParts.traits is undefined>>
-		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled"}>>
+		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled"}>>
 		<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
 			<<set $transformationParts.traits.fangs to "default">>
 		<</if>>
@@ -226,6 +240,7 @@
 			<<case "bear">> <<set $bearbuild = Math.clamp($bearbuild + _args[1], 0, 100)>>
 			<<case "dragon">> <<set $dragonbuild = Math.clamp($dragonbuild + _args[1], 0, 100)>>
 			<<case "lizard">> <<set $lizardbuild = Math.clamp($lizardbuild + _args[1], 0, 100)>>
+			<<case "dolphin">> <<set $dolphinbuild = Math.clamp($dolphinbuild + _args[1], 0, 100)>>
 		<</switch>>
 	<</if>>
 	<<if _args[0] isnot "angel" and _args[0] isnot "demon" and _args[1] gte 1>>
@@ -263,6 +278,10 @@
 		<<if $args[0] isnot "lizard" and $worn.hands.name isnot "dragonstone ring">>
 			<<set $lizardbuild -= $args[1]>>
 			<<set $lizardbuild = Math.clamp($lizardbuild, 0, 100)>>
+		<</if>>
+		<<if $args[0] isnot "dolphin" and $worn.upper.name isnot "monster hoodie">>
+			<<set $dolphinbuild -= $args[1]>>
+			<<set $dolphinbuild = Math.clamp($dolphinbuild, 0, 100)>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -311,6 +330,10 @@
 
 	<<if $lizardbuild gte 1 and $worn.hands.name isnot "dragonstone ring">>
 		<<transform lizard -1>>
+	<</if>>
+
+	<<if $dolphinbuild gte 1 and $worn.upper.name isnot "monster hoodie">>
+		<<transform dolphin -1>>
 	<</if>>
 
 	<<if $wolfgirl gte 6>>
@@ -397,6 +420,8 @@
 			<<dragonTransform $dragon>>
 		<<elseif ($lizardbuild gte 2 and $physicalTransform isnot 1) or ($lizard gte 1 and $physicalTransform is 1)>>
 			<<lizardTransform $lizard>>
+		<<elseif ($dolphinbuild gte 2 and $physicalTransform isnot 1) or ($dolphin gte 1 and $physicalTransform is 1)>>
+			<<dolphinTransform $dolphin>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -1885,6 +1910,7 @@
 					<span class="blue">You feel as though you can hold your breath for longer than before.</span>
 					<<set $oxygenmax to 1500>>
 					<<set $transformationParts.lizard.tail to "default">>
+					<<set $transformationParts.traits.lungs to "default">>
 					<br><br>
 				<<elseif $lizardbuild lt 15>>
 					<<set $lizard to 1>>
@@ -1899,6 +1925,7 @@
 					<span class="blue">Your lung capacity has returned to normal.</span>
 					<<set $oxygenmax to 1200>>
 					<<set $transformationParts.lizard.tail to "disabled">>
+					<<set $transformationParts.traits.lungs to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 99>>
@@ -1907,15 +1934,82 @@
 				<<set $lizardbuild to 0>>
 				<<set $transformationParts.lizard.eyes to "disabled">>
 				<<set $transformationParts.lizard.tail to "disabled">>
+				<<set $transformationParts.traits.fangs to "disabled">>
+				<<set $transformationParts.traits.lungs to "disabled">>
+				
 		<</switch>>
 	<<else>>
 		<<clearAnimalTransformations>>
 		<<set $physicalTransform to 1>>
 		<<set $lizard to 6>>
-		<<set $lizard to 100>>
+		<<set $lizardbuild to 100>>
 		<<set $transformationParts.lizard.eyes to "default">>
 		<<set $transformationParts.traits.fangs to "default">>
+		<<set $transformationParts.traits.lungs to "default">>
 		<<set $transformationParts.lizard.tail to "default">>
+	<</if>>
+<</widget>>
+
+<<widget "dolphinTransform">>
+	<<if $args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $dolphinbuild gte 10 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $dolphin to 2>><<set $physicalTransform to 1>>
+					<span class="blue">You feel as though you can hold your breath for longer than before.</span>
+					<<set $transformationParts.traits.lungs to "default">>
+					<<set $oxygenmax to 1500>>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $dolphinbuild gte 20 and $transformdisable is "f">>
+					<<set $dolphin to 4>>
+					<span class="gold">Your bottom feels strange. You reach behind you, and find a slick lubricated tail.</span>
+					<<set $transformationParts.dolphin.tail to "default">>
+					<br><br>
+				<<elseif $dolphinbuild lt 10>>
+					<<set $dolphin to 1>><<set $physicalTransform to 0>>
+					<span class="blue">Your lung capacity has returned to normal.</span>
+					<<set $transformationParts.traits.lungs to "disabled">>
+					<<set $oxygenmax to 1200>>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $dolphinbuild gte 30 and $transformdisable is "f">>
+					<<set $dolphin to 6>>
+					<span class="gold">Your feel more confident at swimming.</span>
+					<<set $transformationParts.traits.aquatail to "default">>
+					<br><br>
+				<<elseif $dolphinbuild lt 15>>
+					<<set $dolphin to 3>>
+					<span class="gold">Your tail has disappeared.</span>
+					<<set $transformationParts.dolphin.tail to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $dolphinbuild lt 20>>
+					<<set $dolphin to 2>>
+					<span class="gold">Your feel less confident at swimming.</span>
+					<<set $transformationParts.traits.aquatail to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $dolphin to 0>>
+				<<set $dolphinbuild to 0>>
+				<<set $transformationParts.traits.lungs to "disabled">>
+				<<set $transformationParts.dolphin.tail to "disabled">>
+				<<set $transformationParts.traits.aquatail to "disabled">>
+				
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $dolphin to 6>>
+		<<set $dolphinbuild to 100>>
+		<<set $transformationParts.traits.lungs to "default">>
+		<<set $transformationParts.dolphin.tail to "default">>
+		<<set $transformationParts.traits.aquatail to "default">>
 	<</if>>
 <</widget>>
 
@@ -1931,6 +2025,7 @@
 	<<bearTransform 99>>
 	<<dragonTransform 99>>
 	<<lizardTransform 99>>
+	<<dolphinTransform 99>>
 <</widget>>
 
 <<widget "clearDivineTransformations">>

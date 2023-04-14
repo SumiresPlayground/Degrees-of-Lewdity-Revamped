@@ -365,6 +365,7 @@ Renderer.CanvasModels["main"] = {
 			"lizard_eyes_type": "disabled",
 			"lizard_tail_type": "disabled",
 			"lizard_horns_type": "disabled",
+			"dolphin_tail_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2219,6 +2220,22 @@ Renderer.CanvasModels["main"] = {
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
+
+		/***
+		Dolphin
+		*/
+		"dolphin_tail": {
+			srcfn(options) {
+				return `img/transformations/dolphin/tail/${options.dolphin_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dolphin_tail_type)
+			},
+			filters: ["dolphin_tail"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+
 		/***
 		 *    ██     ██ ██████  ██ ████████ ██ ███    ██  ██████  ███████
 		 *    ██     ██ ██   ██ ██    ██    ██ ████   ██ ██       ██

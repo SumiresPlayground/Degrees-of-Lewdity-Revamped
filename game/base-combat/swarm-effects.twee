@@ -25,6 +25,10 @@
 			<<feetActionInitSwarm>>
 		</div>
 
+		<div id="tailaction" @class="$options.combatControls + 'Control'">
+			<<tailActionInitSwarm>>
+		</div>
+
 		<<if ($mouthuse is 0 and !($dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined)))>>
 			<div id="mouthaction" @class="$options.combatControls + 'Control'">
 				<<mouthActionInit>>
@@ -411,19 +415,65 @@
 	<</if>>
 <</widget>>
 
-<<widget "tailActionsSwarm">>
-	<<set _tailaction to {}>>
-	<<if $swarm.amount.active[2] gte 1 and $tailtarget isnot "self">>
-		<<silently>><<swarmName>><</silently>>
-		<<set _tailaction[_swarmsteady + " one of the " + _swarmname] to "tailswarm">>
-	<</if>>
-	<<if _tailOptions is "free">>
-		<<if $water is 1 and $vorecreature is 0 and currentSkillValue('swimmingskill') gt 700 and $consensual isnot 1>>
-			<<set _tailaction["Swim to safety"] to "swim">>
+<<widget "tailActionInitSwarm">>
+	<<if $dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined)>>
+		<<set $tailtarget to "swarm">>
+			<<set _tailOptions to "free">>
+			<span @class="($lastOptions.tail isnot _tailOptions or _tailGold is true ?'gold':'')">Your tail is free.</span>
+			<<if $options.combatControls.includes("adio") and _targetnumber gt 1 and _tailOptions.toLowerCase().includes("free")>>
+				<<targetListBox "tail" _targetlistall>>
+			<</if>>
+			<<if _targetnumber is 1>>
+				<<set $tailtarget to _firsttarget>>
+			<</if>>
+		<<if $lastOptions.tail isnot _tailOptions>>
+			<<set _tailGold to true>>
 		<</if>>
+		<<if $_changetype isnot true>>
+			<<tailActionsSwarm>>
+			<<if Object.keys(_tailaction).length gt 0>>
+				<<if !(Object.values(_tailaction).includes($tailactiondefault))>>
+					<<set $tailactiondefault to "swarmrest">>
+				<</if>>
+				<<set $tailaction to $tailactiondefault>>
+				<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "Swarm")>>
+				<div class="extraMargin">
+					<<generateCombatActionOthers _tailaction "tailaction" _textColor $tailaction "Swarm">>
+				</div>
+				<<if $options.combatControls.includes("ists")>>
+					<div id="tailactionDifficulty">
+						<<tailactionDifficulty>>
+					</div>
+				<</if>>
+			<</if>>
+			<<set $lastOptions.tail to clone(_tailOptions)>>
+		<</if>>
+	<<else>>
+		<<timed 100ms>>
+			<<run jQuery("#tailaction").remove();>>
+		<</timed>>
 	<</if>>
-	<<if $vorecreature is 0>>
-		<<set _tailaction["Rest"] to "swarmrest">>
+<</widget>>
+
+<<widget "tailactionDifficultySwarm">>/* If removed, expect errors in combats with controls set to "lists". */
+	<!-- Does nothing -->
+<</widget>>
+
+<<widget "tailActionsSwarm">>
+	<<if $transformationParts.bee.tail is "default" or $transformationParts.dolphin.tail is "default">>
+		<<set _tailaction to {}>>
+		<<if $swarm.amount.active[2] gte 1 and $tailtarget isnot "self">>
+			<<silently>><<swarmName>><</silently>>
+			<<set _tailaction[_swarmsteady + " one of the " + _swarmname] to "tailswarm">>
+		<</if>>
+		<<if _tailOptions is "free" and $transformationParts.dolphin.tail is "default">>
+			<<if $water is 1 and $vorecreature is 0 and $consensual isnot 1>>
+				<<set _tailaction["Swim to safety"] to "swim">>
+			<</if>>
+		<</if>>
+		<<if $vorecreature is 0>>
+			<<set _tailaction["Rest"] to "swarmrest">>
+		<</if>>
 	<</if>>
 <</widget>>
 
@@ -603,21 +653,22 @@
 		<</if>>
 
 		<br><br>
-		<<if $feetuse is 0>>
-			Your tail is free.
-			<br>
-			<<if $swarm.amount.active[2] gte 1>>
-				<label>_swarmsteady one of the <<swarmName>> <<radiobutton "$tailaction" "tailswarm" checked>></label> |
-			<</if>>
+		<<if $transformationParts.bee.tail is "default" or $transformationParts.dolphin.tail is "default">>
+			<<if $tailuse is 0>>
+				Your tail is free.
+				<br>
+				<<if $swarm.amount.active[2] gte 1>>
+					<label>_swarmsteady one of the <<swarmName>> <<radiobutton "$tailaction" "tailswarm" checked>></label> |
+				<</if>>
 
-			<<if $water is 1 and $vorecreature is 0 and currentSkillValue('swimmingskill') gt 700 and $consensual isnot 1>>
-				<label><span class="teal">Swim to safety</span> <<radiobutton "$tailaction" "swim" checked>></label> |
-			<</if>>
+				<<if $water is 1 and $vorecreature is 0 and $consensual isnot 1 and $transformationParts.dolphin.tail is "default">>
+					<label><span class="teal">Swim to safety</span> <<radiobutton "$tailaction" "swim" checked>></label> |
+				<</if>>
 
-			<<if $vorecreature is 0>>
-				<label>Rest <<radiobutton "$tailaction" "swarmrest">></label> |
+				<<if $vorecreature is 0>>
+					<label>Rest <<radiobutton "$tailaction" "swarmrest">></label> |
+				<</if>>
 			<</if>>
-
 		<</if>>
 		<br><br>
 	<</if>>

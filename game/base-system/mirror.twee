@@ -335,6 +335,10 @@
 			Lizard
 			<br>
 		<</if>>
+		<<if $dolphin gte 6>>
+			Dolphin
+			<br>
+		<</if>>
 		<<if $makeup.lipstick != 0 or $makeup.eyeshadow != 0 or $makeup.mascara != 0>>
 			Attractive makeup
 			<br>
@@ -1691,6 +1695,7 @@
 	<<set _bear to $transformationParts.bear>>
 	<<set _dragon to $transformationParts.dragon>>
 	<<set _lizard to $transformationParts.lizard>>
+	<<set _dolphin to $transformationParts.dolphin>>
 	<<set _traits to $transformationParts.traits>>
 
 	<div id='transformations-menu' class='grid col-2'>
@@ -2221,16 +2226,6 @@
 				<<if $lizard gte 1>>
 					__Lizard__
 					<br>
-					<<if _lizard.horns isnot "disabled">>
-						<div class='tf-part-item'>
-							Horns:
-							<<listbox "_lizard.horns" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
 					<<if _lizard.eyes isnot "disabled">>
 						<div class='tf-part-item'>
 							Eyes:
@@ -2245,6 +2240,23 @@
 						<div class='tf-part-item'>
 							Tail:
 							<<listbox "_lizard.tail" autoselect>>
+								<<option "Hide" "hidden">>
+								<<option "Default" "default">>
+							<</listbox>>
+						</div>
+					<</if>>
+					<br>
+				<</if>>
+				<br>
+			</div>
+			<div class='tf-lizard'>
+				<<if $dolphin gte 1>>
+					__Dolphin__
+					<br>
+					<<if _dolphin.tail isnot "disabled">>
+						<div class='tf-part-item'>
+							Tail:
+							<<listbox "_dolphin.tail" autoselect>>
 								<<option "Hide" "hidden">>
 								<<option "Default" "default">>
 							<</listbox>>

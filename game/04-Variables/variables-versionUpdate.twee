@@ -1207,7 +1207,7 @@
 
 	<<unset $clothes>>
 
-	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1>>
+	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1>>
 		<<set $physicalTransform to 1>>
 	<<else>>
 		<<set $physicalTransform to 0>>
@@ -1692,6 +1692,11 @@
 	<<if $lizardbuild is undefined>>
 		<<set $lizardbuild to 0>>
 		<<set $lizard to 0>>
+	<</if>>
+
+	<<if $dolphinbuild is undefined>>
+		<<set $dolphinbuild to 0>>
+		<<set $dolphin to 0>>
 	<</if>>
 
 	<<if $hirsutedisable>>
@@ -4611,7 +4616,26 @@
 		<</if>>
 		<<if $lizard gte 6>>
 			<<set $transformationParts.lizard.tail to "default">>
+			<<set $transformationParts.traits.lungs to "default">>
 		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dolphin is undefined and $tfFIX is undefined>>
+		<<set $dolphin to 0>> <<set $dolphinbuild to 0>>
+		<<set $transformationParts.dolphin to {tail:"disabled"}>>
+		<<if $dolphin gte 2>>
+			<<set $transformationParts.traits.lungs to "default">>
+		<</if>>
+		<<if $dolphin gte 4>>
+			<<set $transformationParts.dolphin.tail to "default">>
+		<</if>>
+		<<if $dolphin gte 6>>
+			<<set $transformationParts.traits.aquatail to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.traits.lungs is undefined and $tfFIX is undefined>>
+		<<set $transformationParts.traits.lungs to "disabled">>
 	<</if>>
 
 	<!-- V0.4.0.5 Stop any saves in the above situation from being broke upon leaving -->
