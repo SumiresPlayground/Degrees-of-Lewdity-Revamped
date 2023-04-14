@@ -449,7 +449,11 @@
 		<<if $arousal gte ($arousalmax * 0.8)>>
 			<<sadism _args[0]>>
 		<</if>>
-		<<set _thedamage to (2 * _defiance * ($physique / 4000))>>
+		<<if $fallenangelretribution is 1>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.5>>
+		<<else>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000))>>
+		<</if>>
 		<<if $enemyno gte 2>>
 			<<npcdamage _args[1]>>
 		<</if>>
