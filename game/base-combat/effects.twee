@@ -3785,6 +3785,37 @@
 			<</if>>
 		<</if>>
 
+		<<if $mouthaction is "retribution">>
+			<<set $mouthaction to 0>><<set _sound to 1>>
+			<<if $neckuse is "hand" and $oxygen lt $oxygenmax and $asphyxiaLvl gte 2>>
+				<<wheeze>>
+			<<else>>
+				<<set $mouthactiondefault to "demand">>
+				<<set $fallenangelretribution to 1>>
+				<<if $enemytype is "beast">>
+					"Begone <<beasttype>>!"
+				<<else>>
+					"You will pay for your sins!"
+				<</if>>
+			<</if>>
+		<</if>>
+
+		<<if $mouthaction is "seduce">>
+			<<set $mouthaction to 0>><<set _sound to 1>>
+			<<if $neckuse is "hand" and $oxygen lt $oxygenmax and $asphyxiaLvl gte 2>>
+				<<wheeze>>
+			<<else>>
+				<<set $mouthactiondefault to "moan">>
+				<<set $demonseduce to 1>>
+				<<submission 150>>
+				<<if $enemytype is "beast">>
+					"Cum for me you beast~"
+				<<else>>
+					"Cum for me~"
+				<</if>>
+			<</if>>
+		<</if>>
+
 		<<if $mouthaction is "peniskiss">>
 			<<set $mouthaction to 0>><<set $mouthactiondefault to "peniskiss">>
 			<<actionspeniskiss $mouthtarget>>
