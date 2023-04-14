@@ -168,7 +168,7 @@
 	<br><br>
 
 	<<if !$simpleMirror>>
-		<<if $specialTransform is 1 or $physicalTransform is 1>>
+		<<if $specialTransform is 1 or $physicalTransform is 1 or $permanentTransform is 1>>
 			__Transformation__
 			<br>
 			<<link "Examine your inner self">><<set $mirrorMenu to "transformation">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
@@ -1086,7 +1086,7 @@
 		<<set _bodyWritingOptions["Love Interests"]["Sydney's Saviour"] to "sydneys_savior">>
 		<<set _bodyWritingOptions["Love Interests"]["Bound to Sydney"] to "bound_to_sydney">>
 		<<set _bodyWritingOptions["Love Interests"]["Sydney Makes Me :)"] to "sydney_makes_me_smile">>
-		<<if $NPCName[$NPCNameList.indexOf("Sydney")].purity gt 1>>
+		<<if $NPCName[$NPCNameList.indexOf("Sydney")].purity gte 2>>
 			<<set _bodyWritingOptions["Love Interests"]["Purest Love"] to "purest_love">>
 		<<else>>
 			<<set _bodyWritingOptions["Love Interests"]["Lusty Sinners"] to "lusty_sinners">>
@@ -1693,604 +1693,210 @@
 	<<set _lizard to $transformationParts.lizard>>
 	<<set _traits to $transformationParts.traits>>
 
-	<div id='transformations-menu' class='grid col-2'>
-		<div id='transformations-list' class='list'>
-			<div class='tf-angel'>
-				<<if $angel gt 1>>
-					__Angel__
-					<br>
-					<<if _angel.halo isnot "disabled">>
-						<div class='tf-part-item'>
-							Halo:
-							<<listbox "_angel.halo" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Traditional" "traditional">>
-							<</listbox>>
-						</div>
-						<br>
-					<</if>>
-					<<if _angel.wings isnot "disabled">>
-						<div class='tf-part-item'>
-							Wings:
-							<<listbox "_angel.wings" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-						<br>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-fallen'>
-				<<if $fallenangel gt 1>>
-					__Fallen Angel__
-					<br>
-					<<if _fallen.halo isnot "disabled">>
-						<div class='tf-part-item'>
-							Halo:
-							<<listbox "_fallen.halo" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Traditional" "traditional">>
-							<</listbox>>
-						</div>
-						<br>
-					<</if>>
-					<<if _fallen.wings isnot "disabled">>
-						<div class='tf-part-item'>
-							Wings:
-							<<if $fallenangel gte 4>>
-								<<listbox "_fallen.wings" autoselect>>
-									<<option "Hide" "hidden">>
-									<<option "Default" "default">>
-									<<option "Feathered" "fallenplus">>
-								<</listbox>>
-							<<else>>
-								<<listbox "_fallen.wings" autoselect>>
-									<<option "Hide" "hidden">>
-									<<option "Default" "default">>
-								<</listbox>>
-							<</if>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-demon'>
-				<<if $demon gt 1>>
-					__Demon__
-					<br>
-					<<if _demon.horns isnot "disabled">>
-						<div class='tf-part-item'>
-							Horns:
-							<<listbox "_demon.horns" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Classic" "classic">>
-								<<option "Succubus" "succubus">>
-							<</listbox>>
-							<<gencolourselector "_demon.horns_colour">>
-						</div>
-					<</if>>
-					<<if _demon.wings isnot "disabled">>
-						<div class='tf-part-item'>
-							Wings:
-							<<listbox "_demon.wings" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Succubus" "succubus">>
-							<</listbox>>
-							<<gencolourselector "_demon.wings_colour">>
-						</div>
-					<</if>>
-					<<if _demon.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_demon.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Classic" "classic">>
-								<<option "Succubus" "succubus">>
-							<</listbox>>
-							<<gencolourselector "_demon.tail_colour">>
-						</div>
-					<</if>>
-					<<if $demon gte 4>>
-						<div class='tf-part-item'>
-							<<if $exhibitionism gte 95>>
-								Flaunting when exposed:
-								<<listbox "_traits.flaunting" autoselect>>
-									<<option "Hide" "hidden">>
-									<<option "Default" "default">>
-								<</listbox>>
-								<<ind>>
-							<<else>>
-								<span class="black">Flaunting (requires higher exhibitionism):</span>
-								<<listbox "_traits.flaunting" autoselect>>
-									<<option "Hide" "hidden">>
-								<</listbox>>
-								<<ind>>
-							<</if>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-cat'>
-				<<if $cat gt 1>>
-					__Cat__
-					<br>
-					<<if _cat.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_cat.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _cat.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_cat.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _cat.heterochromia isnot "disabled">>
-						<div class='tf-part-item'>
-							Heterochromia:
-							<<listbox "_cat.heterochromia" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-cow'>
-				<<if $cow gt 1>>
-					__Cow__
-					<br>
-					<<if _cow.horns isnot "disabled">>
-						<div class='tf-part-item'>
-							Horns:
-							<<listbox "_cow.horns" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _cow.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_cow.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Spotted black" "spotted black">>
-								<<option "Spotted brown" "spotted brown">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _cow.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_cow.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Black" "black">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-wolf'>
-				<<if $wolfgirl gt 1>>
-					__Wolf__
-					<br>
-					<<if _wolf.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_wolf.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Feral" "feral">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _wolf.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_wolf.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-								<<option "Feral" "feral">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-					<<if _wolf.cheeks isnot "disabled">>
-						<div class='tf-part-item'>
-							Cheeks:
-							<<listbox "_wolf.cheeks" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Feral" "feral">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _wolf.pubes isnot "disabled" and $pbdisable is "f">>
-						<div class='tf-part-item'>
-							Pubes:
-							<<listbox "_wolf.pubes" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-					<<if _wolf.pits isnot "disabled" and $pbdisable is "f">>
-						<div class='tf-part-item'>
-							Pits:
-							<<listbox "_wolf.pits" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-bird'>
-				<<if $harpy gt 1>>
-					__Bird__
-					<br>
-					<<if _bird.eyes isnot "disabled">>
-						<div class='tf-part-item'>
-							eyes:
-							<<listbox "_bird.eyes" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _bird.malar isnot "disabled">>
-						<div class='tf-part-item'>
-							Malar Stripes:
-							<<listbox "_bird.malar" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _bird.plumage isnot "disabled">>
-						<div class='tf-part-item'>
-							Plumage:
-							<<listbox "_bird.plumage" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _bird.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_bird.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _bird.wings isnot "disabled">>
-						<div class='tf-part-item'>
-							Wings:
-							<<listbox "_bird.wings" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-						<br>
-					<</if>>
-					<<if _bird.pubes isnot "disabled" and $pbdisable is "f">>
-						<div class='tf-part-item'>
-							Pubes:
-							<<listbox "_bird.pubes" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-fox'>
-				<<if $fox gt 1>>
-					__Fox__
-					<br>
-					<<if _fox.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_fox.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _fox.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_fox.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _fox.cheeks isnot "disabled">>
-						<div class='tf-part-item'>
-							Cheeks:
-							<<listbox "_fox.cheeks" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-sheep'>
-				<<if $sheep gt 1>>
-					__Sheep__
-					<br>
-					<<if _sheep.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_sheep.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _sheep.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_sheep.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _sheep.horns isnot "disabled">>
-						<div class='tf-part-item'>
-							Horns:
-							<<listbox "_sheep.horns" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-bee'>
-				<<if $bee gt 1>>
-					__Bee__
-					<br>
-					<<if _bee.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_bee.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _bee.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_bee.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _bee.wings isnot "disabled">>
-						<div class='tf-part-item'>
-							Wings:
-							<<listbox "_bee.wings" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-deer'>
-				<<if $deer gt 1>>
-					__Deer__
-					<br>
-					<<if _deer.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_deer.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _deer.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_deer.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _deer.horns isnot "disabled">>
-						<div class='tf-part-item'>
-							Horns:
-							<<listbox "_deer.horns" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-bear'>
-				<<if $bear gt 1>>
-					__Bear__
-					<br>
-					<<if bear.ears isnot "disabled">>
-						<div class='tf-part-item'>
-							Ears:
-							<<listbox "_bear.ears" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<<if _bear.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_bear.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-			</div>
-			<div class='tf-dragon'>
-				<<if $dragon gte 1>>
-					__Dragon__
-					<br>
-					<<if _dragon.eyes isnot "disabled">>
-						<div class='tf-part-item'>
-							Eyes:
-							<<listbox "_dragon.eyes" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-					<<if _dragon.horns isnot "disabled">>
-						<div class='tf-part-item'>
-							Horns:
-							<<listbox "_dragon.horns" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-					<<if _dragon.wings isnot "disabled">>
-						<div class='tf-part-item'>
-							Wings:
-							<<listbox "_dragon.wings" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-							<<gencolourselector "_dragon.wings_colour">>
-						</div>
-					<</if>>
-					<br>
-					<<if _dragon.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_dragon.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-							<<gencolourselector "_dragon.tail_colour">>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-				<br>
-			</div>
-			<div class='tf-lizard'>
-				<<if $lizard gte 1>>
-					__Lizard__
-					<br>
-					<<if _lizard.horns isnot "disabled">>
-						<div class='tf-part-item'>
-							Horns:
-							<<listbox "_lizard.horns" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-					<<if _lizard.eyes isnot "disabled">>
-						<div class='tf-part-item'>
-							Eyes:
-							<<listbox "_lizard.eyes" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-					<<if _lizard.tail isnot "disabled">>
-						<div class='tf-part-item'>
-							Tail:
-							<<listbox "_lizard.tail" autoselect>>
-								<<option "Hide" "hidden">>
-								<<option "Default" "default">>
-							<</listbox>>
-						</div>
-					<</if>>
-					<br>
-				<</if>>
-				<br>
-			</div>
-			<<set $_chimeraOptions to {
-				"demoncat_tail" : !["disabled", "hidden"].includesAny(_demon.tail, _cat.tail),
-				"demonharpy_wings" : !["disabled", "hidden"].includesAny(_demon.wings, _bird.wings)
-			}>>
-			<<set $_chimeraEnabled to Object.values($_chimeraOptions).some(o => o) ? "" : " hide">>
-			<div @class="'chimera' + $_chimeraEnabled">
-				__Chimera__
-				<<if $_chimeraOptions.demoncat_tail>>
-					/* Using demon cat chimera tail. */
-					<div class='tf-part-item'>
-						Demon cat tail:
-						<<listbox "$chimera.demoncat.tail" autoselect>>
-							<<option "Show" true>>
-							<<option "Hide" false>>
-						<</listbox>>
-					</div>
-				<</if>>
-				<<if $_chimeraOptions.demonharpy_wings>>
-					/* Using demon harpy chimera wings. */
-					<div class='tf-part-item'>
-						Demon harpy wings:
-						<<listbox "$chimera.demonharpy.wings" autoselect>>
-							<<option "Show" true>>
-							<<option "Hide" false>>
-						<</listbox>>
-					</div>
-				<</if>>
-			</div>
-		</div>
-		<<if _isMenuEnabled>>
-			<div id="transformations-colour-selector" class='list sticky centre'>
-				<<set _options to ['ffffff', 'ff0000', '00ff00', '0000ff', '590099', '000000']>>
-				<<gencoloursquares _options>>
-				<<gencolourpicker>>
-			</div>
+	<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 2 or $lizardtf is 1 or $harpy gte 2 or $harpytf is 1>>
+		__Traits__<br>
+		<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 2 or $lizardtf is 1>>
+			Fangs:<br>
+			<<link "Set">><<set $transformationParts.traits.fangs = "default">><</link>> / <<link "Clear">><<set $transformationParts.traits.fangs = "disabled">><</link>><br>
 		<</if>>
-	</div>
+		<<if $cat gte 2 or $cattf is 1 or $harpy gte 2 or $harpytf is 1 or $fox gte 2 or $foxtf is 1>>
+			Sharp Eyes:<br>
+			<<link "Set">><<set $transformationParts.traits.sharpEyes = "default">><</link>> / <<link "Clear">><<set $transformationParts.traits.sharpEyes = "disabled">><</link>><br>
+		<</if>>
+		<<if $harpy gte 3 or $harpytf is 1 or $fox gte 3 or $foxtf is 1>>
+			Mate for Life:<br>
+			<<link "Set">><<set $transformationParts.traits.mateForLife = "default">><</link>> / <<link "Clear">><<set $transformationParts.traits.mateForLife = "disabled">><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $fox gte 5 or $foxtf is 1>>
+		__Cheeks__<br>
+		<<link "Set">><<set $transformationParts.fox.cheeks = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set $transformationParts.fox.cheeks = "disabled">><<updatesidebarimg>><</link>><br>
+		<br>
+	<</if>>
+
+	<<if $angel gte 4 or $fallenangel gte 1>>
+		__Halo__<br>
+		<<link "Clear">><<clearears>><<updatesidebarimg>><</link>><br>
+		<<if $angel gte 4>>
+			Angel:<br>
+			<<link "Angel">><<set $transformationParts.angel.halo = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $fallenangel gte 1>>
+			Fallen Angel:<br>
+			<<link "Fallen Angel">><<set $transformationParts.fallenAngel.halo = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	/*<<if $cat gte 7 or $cattf is 1>>
+		__Heterochromia__<br>
+		<<link "Set">><<set $transformationParts.cat.heterochromia = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set $transformationParts.cat.heterochromia = "disabled">><<updatesidebarimg>><</link>><br>
+		<br>
+	<</if>>*/
+
+	<<if $harpy gte 2 or $harpytf is 1>>
+		__Malar__<br>
+		<<link "Set">><<set $transformationParts.bird.malar = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set $transformationParts.bird.malar = "disabled">><<updatesidebarimg>><</link>><br>
+		<br>
+	<</if>>
+
+	<<if ($wolfgirl gte 4 or $wolftf is 1) and $pbdisable is "f">>
+		__Pits__<br>
+		<<link "Set">><<set $transformationParts.wolf.pits = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set $transformationParts.wolf.pits = "disabled">><<updatesidebarimg>><</link>><br>
+		<br>
+	<</if>>
+
+	<<if $harpy gte 4 or $harpytf is 1>>
+		__Plumage__<br>
+		<<link "Set">><<set $transformationParts.bird.plumage = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set $transformationParts.bird.plumage = "disabled">><<updatesidebarimg>><</link>><br>
+		<br>
+	<</if>>
+
+	<<if ($wolfgirl gte 4 or $wolftf is 1) and $pbdisable is "f">>
+		__Pubes__<br>
+		<<link "Set">><<set $transformationParts.wolf.pubes = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set $transformationParts.wolf.pubes = "disabled">><<updatesidebarimg>><</link>><br>
+		<br>
+	<</if>>
+
+	<<if $cat gte 4 or $cattf is 1 or $cow gte 4 or $cowtf is 1 or $wolfgirl gte 4 or $wolftf is 1 or $fox gte 4 or $foxtf is 1 or $bee gte 2 or $beetf is 1 or $sheep gte 4 or $sheeptf is 1 or $deer gte 4 or $deertf is 1 or $bear gte 4 or $beartf is 1>>
+		__Ears__<br>
+		<<link "Clear">><<clearears>><<updatesidebarimg>><</link>><br>
+		<<if $cat gte 4 or $cattf is 1>>
+			<<link "Cat">><<clearears>><<set $transformationParts.cat.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $cow gte 4 or $cowtf is 1>>
+			<<link "Cow">><<clearears>><<set $transformationParts.cow.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $wolfgirl gte 4 or $wolftf is 1>>
+			<<link "Wolf">><<clearears>><<set $transformationParts.wolf.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $fox gte 4 or $foxtf is 1>>
+			<<link "Fox">><<clearears>><<set $transformationParts.fox.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $bee gte 2 or $beetf is 1>>
+			<<link "Bee">><<clearears>><<set $transformationParts.bee.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $sheep gte 4 or $sheeptf is 1>>
+			<<link "Sheep">><<clearears>><<set $transformationParts.sheep.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $deer gte 4 or $deertf is 1>>
+			<<link "Deer">><<clearears>><<set $transformationParts.deer.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $bear gte 4 or $beartf is 1>>
+			<<link "Bear">><<clearears>><<set $transformationParts.bear.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $harpy gte 2 or $harpytf is 1 or $dragon gte 1 or $dragontf is 1 or $lizard gte 1 or $lizardtf is 1>>
+		__Eyes__<br>
+		<<link "Clear">><<cleareyes>><<updatesidebarimg>><</link>><br>
+		<<if $harpy gte 2 or $harpytf is 1>>
+			<<link "Harpy">><<cleareyes>><<set $transformationParts.bird.eyes = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $dragon gte 1 or $dragontf is 1>>
+			<<link "Dragon">><<cleareyes>><<set $transformationParts.dragon.eyes = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $lizard gte 1 or $lizardtf is 1>>
+			<<link "Lizard">><<cleareyes>><<set $transformationParts.lizard.eyes = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $demon gte 2 or $cow gte 2 or $cowtf is 1 or $sheep gte 2 or $sheeptf is 1 or $deer gte 2 or $deertf is 1 or $dragon gte 3 or $dragontf is 1>>
+		__Horns__<br>
+		<<link "Clear">><<clearhorns>><<updatesidebarimg>><</link>><br>
+		<<if $demon gte 2>>
+			<<link "Demon">><<clearhorns>><<set $transformationParts.demon.horns = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $cow gte 2 or $cowtf is 1>>
+			<<link "Cow">><<clearhorns>><<set $transformationParts.cow.horns = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $sheep gte 2 or $sheeptf is 1>>
+			<<link "Sheep">><<clearhorns>><<set $transformationParts.sheep.horns = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $deer gte 2 or $deertf is 1>>
+			<<link "Deer">><<clearhorns>><<set $transformationParts.deer.horns = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $dragon gte 1 or $dragontf is 1>>
+			<<link "Dragon">><<clearhorns>><<set $transformationParts.dragon.horns = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $demon gte 4 or $cat gte 4 or $cattf is 1 or $cow gte 4 or $cowtf is 1 or $wolfgirl gte 4 or $wolftf is 1 or $harpy gte 2 or $harpytf is 1 or $fox gte 4 or $foxtf is 1 or $bee gte 2 or $beetf is 1 or $sheep gte 4 or $sheeptf is 1 or $deer gte 4 or $deertf is 1 or $bear gte 4 or $beartf is 1 or $dragon gte 1 or $dragontf is 1 or $lizard gte 1 or $lizardtf is 1>>
+		__Tail__<br>
+		<<link "Clear">><<cleartail>><<updatesidebarimg>><</link>><br>
+		<<if $demon gte 6>>
+			<<link "Demon">><<cleartail>><<set $transformationParts.demon.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $cat gte 6 or $cattf is 1>>
+			<<link "Cat">><<cleartail>><<set $transformationParts.cat.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $cow gte 6 or $cowtf is 1>>
+			<<link "Cow">><<cleartail>><<set $transformationParts.cow.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $wolfgirl gte 6 or $wolftf is 1>>
+			<<link "Wolf">><<cleartail>><<set $transformationParts.wolf.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $harpy gte 4 or $harpytf is 1>>
+			<<link "Harpy">><<cleartail>><<set $transformationParts.bird.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $fox gte 6 or $foxtf is 1>>
+			<<link "Fox">><<cleartail>><<set $transformationParts.fox.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $bee gte 4 or $beetf is 1>>
+			<<link "Bee">><<cleartail>><<set $transformationParts.bee.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $sheep gte 6 or $sheeptf is 1>>
+			<<link "Sheep">><<cleartail>><<set $transformationParts.sheep.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $deer gte 6 or $deertf is 1>>
+			<<link "Deer">><<cleartail>><<set $transformationParts.deer.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $bear gte 6 or $beartf is 1>>
+			<<link "Bear">><<cleartail>><<set $transformationParts.bear.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $dragon gte 4 or $dragontf is 1>>
+			<<link "Dragon">><<cleartail>><<set $transformationParts.dragon.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $lizard gte 3 or $lizardtf is 1>>
+			<<link "Lizard">><<cleartail>><<set $transformationParts.lizard.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $angel gte 6 or $demon gte 6 or $fallenangel gte 2 or $bird gte 4 or $birdtf is 1 or $bee gte 4 or $beetf is 1 or $dragon gte 1 or $dragontf is 1>>
+		__Wings__<br>
+		<<link "Clear">><<clearwings>><<updatesidebarimg>><</link>><br>
+		<<if $angel gte 6>>
+			<<link "Angel">><<clearwings>><<set $transformationParts.angel.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $demon gte 6>>
+			<<link "Demon">><<clearwings>><<set $transformationParts.demon.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $fallenangel gte 2>>
+			<<link "Fallen Angel">><<clearwings>><<set $transformationParts.fallenAngel.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $bird gte 2 or $birdtf is 1>>
+			<<link "Harpy">><<clearwings>><<set $transformationParts.bird.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $bee gte 2 or $beetf is 1>>
+			<<link "Bee">><<clearwings>><<set $transformationParts.bee.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $dragon gte 1 or $dragontf is 1>>
+			<<link "Dragon">><<clearwings>><<set $transformationParts.dragon.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	/*<div id="transformations-colour-selector" class='list sticky centre'>
+		<<set _options to ['ffffff', 'ff0000', '00ff00', '0000ff', '590099', '000000']>>
+		<<gencoloursquares _options>>
+		<<gencolourpicker>>
+	</div>*/
 	<<link [[Confirm|$passage]]>>
 		<<set $mirrorMenu to "transformation">>
 		<<if $transformationParts.cat.heterochromia is "hidden">>
