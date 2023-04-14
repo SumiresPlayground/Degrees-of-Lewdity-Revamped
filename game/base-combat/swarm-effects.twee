@@ -416,6 +416,7 @@
 <</widget>>
 
 <<widget "tailActionInitSwarm">>
+<<if $transformationParts.bee.tail is "default" or $transformationParts.dolphin.tail is "default">>
 	<<if $dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined)>>
 		<<set $tailtarget to "swarm">>
 			<<set _tailOptions to "free">>
@@ -453,6 +454,7 @@
 			<<run jQuery("#tailaction").remove();>>
 		<</timed>>
 	<</if>>
+<</if>>
 <</widget>>
 
 <<widget "tailactionDifficultySwarm">>/* If removed, expect errors in combats with controls set to "lists". */
