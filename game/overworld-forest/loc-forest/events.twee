@@ -1889,7 +1889,7 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 :: Forest Deer
 <<location "forest">><<effects>><<transform deer 1>>
 
-<<if $rng gte 67>>
+<<if $rng gte 67 and $danger gte (9900 - ($allure * $forestmod))>>
 You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
 <br><br>
 
@@ -1915,7 +1915,6 @@ You creep forward. Unfortunately, the deer turns and runs in the other direction
 :: Deer Rape
 
 <<if $molestationstart is 1>>
-	<<beastNEWinit 1 deer>>
 	<<set $molestationstart to 0>>
 	<<controlloss>>
 	<<violence 1>>
