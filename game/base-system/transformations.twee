@@ -19,6 +19,7 @@
 			dragon: {tail:"disabled", wings:"disabled", eyes:"disabled", horns:"disabled", claws:"disabled"},
 			lizard: {horns:"disabled", tail:"disabled", eyes:"disabled"},
 			dolphin: {tail:"disabled"},
+			wolf: {ears:"disabled", tail:"disabled"},
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
@@ -144,6 +145,15 @@
 			<<if $dolphin gte 6>>
 				<<set $transformationParts.traits.aquatail to "default">>
 			<</if>>
+			<<if $dog gte 2>>
+				<<set $transformationParts.traits.fangs to "default">>
+			<</if>>
+			<<if $dog gte 4>>
+				<<set $transformationParts.dog.ears to "default">>
+			<</if>>
+			<<if $dog gte 6>>
+				<<set $transformationParts.dog.tail to "default">>
+			<</if>>
 		<</if>>
 	<</if>>
 	<<if $transformationParts.fallenAngel.halo is 1>>
@@ -167,7 +177,7 @@
 	<</if>>
 	<<if $transformationParts.wolf.cheeks is undefined>>
 		<<if $wolfgirl gte 6>>
-			<<set $transformationParts.wolf.cheeks to "hidden">>
+			<<set $transformationParts.wolf.cheeks to "default">>
 		<<else>>
 			<<set $transformationParts.wolf.cheeks to "disabled">>
 		<</if>>
@@ -193,6 +203,9 @@
 	<</if>>
 	<<if $transformationParts.dolphin is undefined>>
 		<<set $transformationParts.dolphin to {tail:"disabled"}>>
+	<</if>>
+	<<if $transformationParts.dog is undefined>>
+		<<set $transformationParts.dog to {tail:"disabled", ears:"disabled"}>>
 	<</if>>
 	<<if $transformationParts.traits is undefined>>
 		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled"}>>
@@ -241,6 +254,7 @@
 			<<case "dragon">> <<set $dragonbuild = Math.clamp($dragonbuild + _args[1], 0, 100)>>
 			<<case "lizard">> <<set $lizardbuild = Math.clamp($lizardbuild + _args[1], 0, 100)>>
 			<<case "dolphin">> <<set $dolphinbuild = Math.clamp($dolphinbuild + _args[1], 0, 100)>>
+			<<case "dog">> <<set $dogbuild = Math.clamp($dogbuild + _args[1], 0, 100)>>
 		<</switch>>
 	<</if>>
 	<<if _args[0] isnot "angel" and _args[0] isnot "demon" and _args[1] gte 1>>
@@ -272,16 +286,16 @@
 			<<set $bearbuild = Math.clamp($bearbuild - _args[1], 0, 100)>>
 		<</if>>
 		<<if $args[0] isnot "dragon" and $worn.hands.name isnot "dragonstone ring">>
-			<<set $dragonbuild -= $args[1]>>
-			<<set $dragonbuild = Math.clamp($dragonbuild, 0, 100)>>
+			<<set $dragonbuild = Math.clamp($dragonbuild - _args[1], 0, 100)>>
 		<</if>>
 		<<if $args[0] isnot "lizard" and $worn.hands.name isnot "dragonstone ring">>
-			<<set $lizardbuild -= $args[1]>>
-			<<set $lizardbuild = Math.clamp($lizardbuild, 0, 100)>>
+			<<set $lizardbuild = Math.clamp($lizardbuild - _args[1], 0, 100)>>
 		<</if>>
 		<<if $args[0] isnot "dolphin" and $worn.upper.name isnot "monster hoodie">>
-			<<set $dolphinbuild -= $args[1]>>
-			<<set $dolphinbuild = Math.clamp($dolphinbuild, 0, 100)>>
+			<<set $dolphinbuild = Math.clamp($dolphinbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "dog" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
+			<<set $dogbuild = Math.clamp($dogbuild - _args[1], 0, 100)>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -334,6 +348,10 @@
 
 	<<if $dolphinbuild gte 1 and $worn.upper.name isnot "monster hoodie">>
 		<<transform dolphin -1>>
+	<</if>>
+
+	<<if $dogbuild gte 1 and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
+		<<transform dog -1>>
 	<</if>>
 
 	<<if $wolfgirl gte 6>>
@@ -418,10 +436,12 @@
 			<<bearTransform $bear>>
 		<<elseif ($dragonbuild gte 5 and $physicalTransform isnot 1) or ($dragon gte 1 and $physicalTransform is 1)>>
 			<<dragonTransform $dragon>>
-		<<elseif ($lizardbuild gte 2 and $physicalTransform isnot 1) or ($lizard gte 1 and $physicalTransform is 1)>>
+		<<elseif ($lizardbuild gte 5 and $physicalTransform isnot 1) or ($lizard gte 1 and $physicalTransform is 1)>>
 			<<lizardTransform $lizard>>
-		<<elseif ($dolphinbuild gte 2 and $physicalTransform isnot 1) or ($dolphin gte 1 and $physicalTransform is 1)>>
+		<<elseif ($dolphinbuild gte 5 and $physicalTransform isnot 1) or ($dolphin gte 1 and $physicalTransform is 1)>>
 			<<dolphinTransform $dolphin>>
+		<<elseif ($dogbuild gte 5 and $physicalTransform isnot 1) or ($dog gte 1 and $physicalTransform is 1)>>
+			<<dogTransform $dog>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -741,7 +761,7 @@
 					<<set $wolfgirl to 2>>
 					<span class="gold">Your mouth feels different. You explore your mouth and wince as your tongue presses against your new fangs.</span>
 					<<set $transformationParts.traits.fangs to "default">>
-					<<set $transformationParts.wolf.cheeks to "hidden">>
+					<<set $transformationParts.wolf.cheeks to "default">>
 					<br><br>
 				<<elseif $wolfbuild lt 5>>
 					<<set $wolfgirl to 0>>
@@ -829,7 +849,7 @@
 		<<set $wolfgirl to 6>>
 		<<set $wolfbuild to 100>>
 		<<set $transformationParts.traits.fangs to "default">>
-		<<set $transformationParts.wolf.cheeks to "hidden">>
+		<<set $transformationParts.wolf.cheeks to "default">>
 		<<set $transformationParts.wolf.ears to "default">>
 		<<set $transformationParts.wolf.pubes to ($pbdisable is "f"? "default" : "hidden")>>
 		<<set $transformationParts.wolf.pits to ($pbdisable is "f"? "default" : "hidden")>>
@@ -2061,6 +2081,104 @@
 	<</if>>
 <</widget>>
 
+<<widget "dogTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $dogbuild gte 5>>
+					<<set $dog to 1>>
+					<<set $physicalTransform to 1>>
+					<span class="gold">You have a strange toothache.</span>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $dogbuild gte 10>>
+					<<set $dog to 2>>
+					<span class="gold">Your mouth feels different. You explore your mouth and wince as your tongue presses against your new fangs.</span>
+					<<set $transformationParts.traits.fangs to "default">>
+					<br><br>
+				<<elseif $dogbuild lt 5>>
+					<<set $dog to 0>>
+					<<set $physicalTransform to 0>>
+					<span class="gold">Your toothache has stopped.</span>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $dogbuild gte 15>>
+					<<set $dog to 3>>
+					<span class="gold">Your scalp itches.</span>
+					<br><br>
+				<<elseif $dogbuild lt 10>>
+					<<set $dog to 1>>
+					<span class="gold">Your fangs have turned into regular teeth.</span>
+					<<set $transformationParts.traits.fangs to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $dogbuild gte 20>>
+					<<set $dog to 4>>
+					<span class="gold">You feel something on your head. You reach up and tug, but it hurts.
+					You have a new pair of dog ears.
+					<<set $transformationParts.dog.ears to "default">>
+					<br><br>
+				<<elseif $dogbuild lt 15>>
+					<<set $dog to 2>>
+					<span class="gold">Your scalp no longer itches.</span>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $dogbuild gte 25>>
+					<<set $dog to 5>>
+					<span class="gold">Your lower back itches.</span>
+					<br><br>
+				<<elseif $dogbuild lt 20>>
+					<<set $dog to 3>>
+					<span class="gold">Your dog ears <<print ($pbdisable is "f" ? "and extra body hair ":"")>>have disappeared.</span>
+					<<set $transformationParts.dog.ears to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $dogbuild gte 30>>
+					<<set $dog to 6>>
+					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new wolf tail.</span>
+					<<set $transformationParts.dog.tail to "default">>
+					<<earnFeat "Dog">>
+					<br><br>
+				<<elseif $dogbuild lt 25>>
+					<<set $dog to 4>>
+					<span class="gold">Your lower back has stopped itching.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $dogbuild lt 30>>
+					<span class="gold">Your balance feels different. Your dog tail has disappeared.</span>
+					<<set $dog to 5>>
+					<<set $transformationParts.dog.tail to "disabled">>
+					<br><br>
+					<<set $dogtf = 1>>
+					<<set $permanentTransform = 1>>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $dog to 0>>
+				<<set $dogbuild to 0>>
+				<<set $transformationParts.traits.fangs to "disabled">>
+				<<set $transformationParts.dog.ears to "disabled">>
+				<<set $transformationParts.dog.tail to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $permanentTransform = 1>>
+		<<set $dogtf = 1>>
+		<<set $dog to 6>>
+		<<set $wolfbuild to 100>>
+		<<set $transformationParts.traits.fangs to "default">>
+		<<set $transformationParts.dog.ears to "default">>
+		<<set $transformationParts.dog.tail to "default">>
+	<</if>>
+<</widget>>
+
 <<widget "clearAnimalTransformations">>
 	<<harpyTransform 99>>
 	<<cowTransform 99>>
@@ -2074,6 +2192,7 @@
 	<<dragonTransform 99>>
 	<<lizardTransform 99>>
 	<<dolphinTransform 99>>
+	<<dogTransform 99>>
 <</widget>>
 
 <<widget "clearDivineTransformations">>

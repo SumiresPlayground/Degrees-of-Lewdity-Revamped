@@ -366,6 +366,8 @@ Renderer.CanvasModels["main"] = {
 			"lizard_tail_type": "disabled",
 			"lizard_horns_type": "disabled",
 			"dolphin_tail_type": "disabled",
+			"dog_tail_type": "disabled",
+			"dog_ears_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2232,6 +2234,35 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.dolphin_tail_type)
 			},
 			filters: ["dolphin_tail"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+
+		/***
+		Dog
+		*/
+		"dog_tail": {
+			srcfn(options) {
+				return `img/transformations/dog/tail/${options.dog_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dog_tail_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.tail,
+			animation: "idle"
+		},
+		"dog_ears": {
+			srcfn(options) {
+				return `img/transformations/dog/ears/${options.dog_ears_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dog_ears_type);
+			},
+			masksrcfn(options) {
+				return options.head_mask_src;
+			},
+			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},

@@ -1207,7 +1207,7 @@
 
 	<<unset $clothes>>
 
-	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1>>
+	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1>>
 		<<set $physicalTransform to 1>>
 		<<set $permanentTransform to 1>>
 	<<else>>
@@ -1699,6 +1699,11 @@
 	<<if $dolphinbuild is undefined>>
 		<<set $dolphinbuild to 0>>
 		<<set $dolphin to 0>>
+	<</if>>
+
+	<<if $dogbuild is undefined>>
+		<<set $dogbuild to 0>>
+		<<set $dog to 0>>
 	<</if>>
 
 	<<if $hirsutedisable>>
@@ -4638,6 +4643,20 @@
 		<</if>>
 		<<if $dolphin gte 6>>
 			<<set $transformationParts.traits.aquatail to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dog is undefined and $tfFIX is undefined>>
+		<<set $dog to 0>> <<set $dolphinbuild to 0>>
+		<<set $transformationParts.dog to {ears:"disabled", tail:"disabled"}>>
+		<<if $dog gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $dog gte 4>>
+			<<set $transformationParts.dog.ears to "default">>
+		<</if>>
+		<<if $dog gte 6>>
+			<<set $transformationParts.dog.tail to "default">>
 		<</if>>
 	<</if>>
 

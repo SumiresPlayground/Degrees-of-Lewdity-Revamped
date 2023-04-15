@@ -342,6 +342,10 @@
 			Dolphin
 			<br>
 		<</if>>
+		<<if $dolphin gte 6>>
+			Dog
+			<br>
+		<</if>>
 		<<if $makeup.lipstick != 0 or $makeup.eyeshadow != 0 or $makeup.mascara != 0>>
 			Attractive makeup
 			<br>
@@ -1699,11 +1703,12 @@
 	<<set _dragon to $transformationParts.dragon>>
 	<<set _lizard to $transformationParts.lizard>>
 	<<set _dolphin to $transformationParts.dolphin>>
+	<<set _dog to $transformationParts.dog>>
 	<<set _traits to $transformationParts.traits>>
 
-	<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 2 or $lizardtf is 1 or $harpy gte 2 or $harpytf is 1>>
+	<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 2 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $dog gte 2 or $dogtf is 1 or $harpy gte 2 or $harpytf is 1>>
 		__Traits__<br>
-		<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 2 or $lizardtf is 1>>
+		<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 2 or $lizardtf is 1 or $dog gte 2 or $dogtf is 1>>
 			Fangs:<br>
 			<<link "Set">><<set _traits.fangs = "default">><</link>> / <<link "Clear">><<set _traits.fangs = "disabled">><</link>><br>
 		<</if>>
@@ -1768,7 +1773,7 @@
 		<br>
 	<</if>>
 
-	<<if $cat gte 4 or $cattf is 1 or $cow gte 4 or $cowtf is 1 or $wolfgirl gte 4 or $wolftf is 1 or $fox gte 4 or $foxtf is 1 or $bee gte 2 or $beetf is 1 or $sheep gte 4 or $sheeptf is 1 or $deer gte 4 or $deertf is 1 or $bear gte 4 or $beartf is 1>>
+	<<if $cat gte 4 or $cattf is 1 or $cow gte 4 or $cowtf is 1 or $wolfgirl gte 4 or $wolftf is 1 or $fox gte 4 or $foxtf is 1 or $bee gte 2 or $beetf is 1 or $sheep gte 4 or $sheeptf is 1 or $deer gte 4 or $deertf is 1 or $bear gte 4 or $beartf is 1 or $dog gte 4 or $dogtf is 1>>
 		__Ears__<br>
 		<<link "Clear">><<clearears>><<updatesidebarimg>><</link>><br>
 		<<if $cat gte 4 or $cattf is 1>>
@@ -1778,10 +1783,7 @@
 			<<link "Cow">><<clearears>><<set _cow.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 4 or $wolftf is 1>>
-			<<link "Wolf Default">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
-		<</if>>
-		<<if $wolfgirl gte 4 or $wolftf is 1>>
-			<<link "Wolf Feral">><<clearears>><<set _wolf.ears = "feral">><<updatesidebarimg>><</link>><br>
+			<<link "Wolf">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 4 or $foxtf is 1>>
 			<<link "Fox">><<clearears>><<set _fox.ears = "default">><<updatesidebarimg>><</link>><br>
@@ -1797,6 +1799,9 @@
 		<</if>>
 		<<if $bear gte 4 or $beartf is 1>>
 			<<link "Bear">><<clearears>><<set _bear.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $dog gte 4 or $dogtf is 1>>
+			<<link "Dog">><<clearears>><<set _dog.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<br>
 	<</if>>
@@ -1864,12 +1869,9 @@
 			<<link "Cow">><<cleartail>><<set _cow.tail = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 6 or $wolftf is 1>>
-			<<link "Wolf Default">><<cleartail>><<set _wolf.tail = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Wolf">><<cleartail>><<set _wolf.tail = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $wolfgirl gte 6 or $wolftf is 1>>
-			<<link "Wolf Feral">><<cleartail>><<set _wolf.tail = "feral">><<updatesidebarimg>><</link>><br>
-		<</if>>
-		<<if $harpy gte 4 or $harpytf is 1>>
+		<<if $harpy gte 2 or $harpytf is 1>>
 			<<link "Harpy">><<cleartail>><<set _bird.tail = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 6 or $foxtf is 1>>
@@ -1896,9 +1898,9 @@
 		<<if $dolphin gte 4 or $dolphintf is 1>>
 			<<link "Dolphin">><<cleartail>><<set _dolphin.tail = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		/*<<if $demon gte 4 and ($cat gte 4 or $cattf is 1)>>
-			<<link "Demon Cat">><<cleartail>><<set $chimera.demoncat.tail = "default">><<updatesidebarimg>><</link>><br>
-		<</if>>*/
+		<<if $dog gte 6 or $dogtf is 1>>
+			<<link "Dog">><<cleartail>><<set _dog.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
 		<br>
 	<</if>>
 
