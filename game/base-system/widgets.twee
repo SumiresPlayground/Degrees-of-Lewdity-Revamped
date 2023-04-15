@@ -5197,18 +5197,24 @@
 <</widget>>
 
 <<widget "clearhorns">>
-	<<set $transformationParts.cow.horns = "disabled">>
+	<<if $transformationParts.cow.horns == "disabled">>
+		<<set $transformationParts.demon.horns = "disabled">>
+	<</if>>
+	<<if $transformationParts.demon.horns == "disabled">>
+		<<set $transformationParts.cow.horns = "disabled">>
+	<</if>>
 	<<set $transformationParts.sheep.horns = "disabled">>
 	<<set $transformationParts.deer.horns = "disabled">>
 	<<set $transformationParts.dragon.horns = "disabled">>
 <</widget>>
 
-<<widget "cleardivinehorns">>
-	<<set $transformationParts.demon.horns = "disabled">>
-<</widget>>
-
 <<widget "cleartail">>
-	<<set $transformationParts.cat.tail = "disabled">>
+	<<if $transformationParts.cat.tail == "disabled">>
+		<<set $transformationParts.demon.tail = "disabled">>
+	<</if>>
+	<<if $transformationParts.demon.tail == "disabled">>
+		<<set $transformationParts.cat.tail = "disabled">>
+	<</if>>
 	<<set $transformationParts.cow.tail = "disabled">>
 	<<set $transformationParts.wolf.tail = "disabled">>
 	<<set $transformationParts.bird.tail = "disabled">>
@@ -5226,18 +5232,15 @@
 	<<set $thicktail to "false">>
 <</widget>>
 
-<<widget "cleardivinetail">>
-	<<set $transformationParts.demon.tail = "disabled">>
-<</widget>>
-
 <<widget "clearwings">>
-	<<set $transformationParts.bird.wings = "disabled">>
+	<<set $transformationParts.angel.wings = "disabled">>
+	<<if $transformationParts.bird.wings == "disabled">>
+		<<set $transformationParts.demon.wings = "disabled">>
+	<</if>>
+	<<set $transformationParts.fallenAngel.wings = "disabled">>
+	<<if $transformationParts.demon.wings == "disabled">>
+		<<set $transformationParts.bird.wings = "disabled">>
+	<</if>>
 	<<set $transformationParts.bee.wings = "disabled">>
 	<<set $transformationParts.dragon.wings = "disabled">>
-<</widget>>
-
-<<widget "cleardivinewings">>
-	<<set $transformationParts.angel.wings = "disabled">>
-	<<set $transformationParts.demon.wings = "disabled">>
-	<<set $transformationParts.fallenAngel.wings = "disabled">>
 <</widget>>
