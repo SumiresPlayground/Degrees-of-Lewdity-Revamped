@@ -1781,7 +1781,14 @@
 	| <<link ">>>">><<npcincr Charlie love 100>><<clamp>><<replace "#statscharlielove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Charlie")].love)>><</replace>><</link>> (50 = full)
 	<br>
 
-	<br>
+	<<link "<<<">><<npcincr "Taylor" love -100>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> |
+	<<link "<<">><<npcincr "Taylor" love -10>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> |
+	<<link "<">><<npcincr "Taylor" love -1>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> |
+	Taylor love: <span id="statstaylorlove"><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>></span>
+	| <<link ">">><<npcincr "Taylor" love 1>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>>
+	| <<link ">>">><<npcincr "Taylor" love 10>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>>
+	| <<link ">>>">><<npcincr "Taylor" love 100>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> (100 = full)
+	<br><br>
 
 	<<link "<<<">><<npcincr "Great Hawk" love -100>><<clamp>><<replace "#statsgreathawklove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].love)>><</replace>><</link>> |
 	<<link "<<">><<npcincr "Great Hawk" love -10>><<clamp>><<replace "#statsgreathawklove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].love)>><</replace>><</link>> |
@@ -1799,20 +1806,7 @@
 	| <<link ">">><<npcincr "Great Hawk" dom 1>><<clamp>><<replace "#statsgreathawkdom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].dom)>><</replace>><</link>>
 	| <<link ">>">><<npcincr "Great Hawk" dom 10>><<clamp>><<replace "#statsgreathawkdom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].dom)>><</replace>><</link>>
 	| <<link ">>>">><<npcincr "Great Hawk" dom 100>><<clamp>><<replace "#statsgreathawkdom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].dom)>><</replace>><</link>> (100 = full)
-	<br>
-
-	<br>
-
-	<<link "<<<">><<npcincr "Taylor" love -100>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> |
-	<<link "<<">><<npcincr "Taylor" love -10>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> |
-	<<link "<">><<npcincr "Taylor" love -1>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> |
-	Taylor love: <span id="statstaylorlove"><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>></span>
-	| <<link ">">><<npcincr "Taylor" love 1>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>>
-	| <<link ">>">><<npcincr "Taylor" love 10>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>>
-	| <<link ">>>">><<npcincr "Taylor" love 100>><<clamp>><<replace "#statstaylorlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Taylor")].love)>><</replace>><</link>> (100 = full)
 	<br><br>
-
-	<br>
 
 	<<link "<<<">><<set $wolfpacktrust -= 10>><<set $wolfpacktrust = Math.clamp($wolfpacktrust, 0, 30)>><<replace "#statstrust">><<print Math.trunc($wolfpacktrust)>><</replace>><</link>> |
 	<<link "<<">><<set $wolfpacktrust -= 5>><<set $wolfpacktrust = Math.clamp($wolfpacktrust, 0, 30)>><<replace "#statstrust">><<print Math.trunc($wolfpacktrust)>><</replace>><</link>> |
@@ -1879,14 +1873,8 @@
 		School crossdresser reputation: <span id="statsschoolrepcrossdress"><<print Math.trunc($schoolrep.crossdress)>></span>
 		| <<link ">">><<set $schoolrep.crossdress += 1>><<set $schoolrep.crossdress = Math.clamp($schoolrep.crossdress, 0, 5)>><<replace "#statsschoolrepcrossdress">><<print Math.trunc($schoolrep.crossdress)>><</replace>><</link>>
 	<</if>>
-	<<link "<<<">><<set $swimnudecounter -= 100>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
-	<<link "<<">><<set $swimnudecounter -= 10>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
-	<<link "<">><<set $swimnudecounter -= 1>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>> |
-	Docks status: <span id="statswimnudecounter"><<print Math.trunc($swimnudecounter)>></span>
-	| <<link ">">><<set $swimnudecounter += 1>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
-	| <<link ">>">><<set $swimnudecounter += 10>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
-	| <<link ">>>">><<set $swimnudecounter += 100>><<set $swimnudecounter = Math.clamp($swimnudecounter, 0, 100)>><<replace "#statswimnudecounter">><<print Math.trunc($swimnudecounter)>><</replace>><</link>>
 	<br><br>
+
 	<<link "<<<">><<set $crime -= 1000>><<set $crime = Math.clamp($crime, C.crime.min, C.crime.max)>><<replace "#statscrime">><<print Math.trunc($crime)>><</replace>><</link>> |
 	<<link "<<">><<set $crime -= 100>><<set $crime = Math.clamp($crime, C.crime.min, C.crime.max)>><<replace "#statscrime">><<print Math.trunc($crime)>><</replace>><</link>> |
 	<<link "<">><<set $crime -= 10>><<set $crime = Math.clamp($crime, C.crime.min, C.crime.max)>><<replace "#statscrime">><<print Math.trunc($crime)>><</replace>><</link>> |
@@ -1977,14 +1965,14 @@
 
 	<<if $dockwork is 2>>
 
-	<<link "<<<">><<set $dockstatus -= 100>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>> |
-	<<link "<<">><<set $dockstatus -= 10>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>> |
-	<<link "<">><<set $dockstatus -= 1>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>> |
-	Docks status: <span id="statdockstatus"><<print Math.trunc($dockstatus)>></span>
-	| <<link ">">><<set $dockstatus += 1>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
-	| <<link ">>">><<set $dockstatus += 10>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
-	| <<link ">>>">><<set $dockstatus += 100>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
-	<br><br>
+		<<link "<<<">><<set $dockstatus -= 100>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>> |
+		<<link "<<">><<set $dockstatus -= 10>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>> |
+		<<link "<">><<set $dockstatus -= 1>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>> |
+		Docks status: <span id="statdockstatus"><<print Math.trunc($dockstatus)>></span>
+		| <<link ">">><<set $dockstatus += 1>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
+		| <<link ">>">><<set $dockstatus += 10>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
+		| <<link ">>>">><<set $dockstatus += 100>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
+		<br><br>
 	<</if>>
 
 	<!-- DoLM -->
