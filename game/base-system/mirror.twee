@@ -1835,12 +1835,18 @@
 		<br>
 	<</if>>
 
-	<<if $demon gte 2 or $cow gte 2 or $cowtf is 1 or $sheep gte 2 or $sheeptf is 1 or $deer gte 2 or $deertf is 1 or $dragon gte 3 or $dragontf is 1>>
+	<<if $demon gte 2>>
+		__Divine Horns__<br>
+		<<link "Clear">><<cleardivinehorns>><<updatesidebarimg>><</link>><br>
+		<<if $demon gte 2>>
+			<<link "Demon">><<cleardivinehorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $cow gte 2 or $cowtf is 1 or $sheep gte 2 or $sheeptf is 1 or $deer gte 2 or $deertf is 1 or $dragon gte 3 or $dragontf is 1>>
 		__Horns__<br>
 		<<link "Clear">><<clearhorns>><<updatesidebarimg>><</link>><br>
-		<<if $demon gte 2>>
-			<<link "Demon">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><br>
-		<</if>>
 		<<if $cow gte 2 or $cowtf is 1>>
 			<<link "Cow">><<clearhorns>><<set _cow.horns = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
@@ -1856,12 +1862,18 @@
 		<br>
 	<</if>>
 
-	<<if $demon gte 4 or $cat gte 6 or $cattf is 1 or $cow gte 6 or $cowtf is 1 or $wolfgirl gte 6 or $wolftf is 1 or $harpy gte 4 or $harpytf is 1 or $fox gte 6 or $foxtf is 1 or $bee gte 4 or $beetf is 1 or $sheep gte 6 or $sheeptf is 1 or $deer gte 6 or $deertf is 1 or $bear gte 6 or $beartf is 1 or $dragon gte 4 or $dragontf is 1 or $lizard gte 3 or $lizardtf is 1 or $dolphin gte 4 or $dolphintf is 1 or $dog gte 6 or $dogtf is 1>>
+	<<if $demon gte 4>>
+		__Divine Tail__<br>
+		<<link "Clear">><<cleardivinetail>><<updatesidebarimg>><</link>><br>
+		<<if $demon gte 4>>
+			<<link "Demon">><<cleardivinetail>><<set _demon.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $cat gte 6 or $cattf is 1 or $cow gte 6 or $cowtf is 1 or $wolfgirl gte 6 or $wolftf is 1 or $harpy gte 4 or $harpytf is 1 or $fox gte 6 or $foxtf is 1 or $bee gte 4 or $beetf is 1 or $sheep gte 6 or $sheeptf is 1 or $deer gte 6 or $deertf is 1 or $bear gte 6 or $beartf is 1 or $dragon gte 4 or $dragontf is 1 or $lizard gte 3 or $lizardtf is 1 or $dolphin gte 4 or $dolphintf is 1 or $dog gte 6 or $dogtf is 1>>
 		__Tail__<br>
 		<<link "Clear">><<cleartail>><<updatesidebarimg>><</link>><br>
-		<<if $demon gte 4>>
-			<<link "Demon">><<cleartail>><<set _demon.tail = "default">><<updatesidebarimg>><</link>><br>
-		<</if>>
 		<<if $cat gte 6 or $cattf is 1>>
 			<<link "Cat">><<cleartail>><<set _cat.tail = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
@@ -1904,18 +1916,27 @@
 		<br>
 	<</if>>
 
-	<<if $angel gte 6 or $demon gte 6 or $fallenangel gte 2 or $harpy gte 6 or $harpytf is 1 or $bee gte 6 or $beetf is 1 or $dragon gte 6 or $dragontf is 1>>
-		__Wings__<br>
-		<<link "Clear">><<clearwings>><<updatesidebarimg>><</link>><br>
+	<<if $angel gte 6 or $demon gte 6 or $fallenangel gte 2>>
+		__Divine Wings__<br>
+		<<link "Clear">><<cleardivinewings>><<updatesidebarimg>><</link>><br>
 		<<if $angel gte 6>>
-			<<link "Angel">><<clearwings>><<set _angel.wings = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Angel">><<cleardivinewings>><<set _angel.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $demon gte 6>>
-			<<link "Demon">><<clearwings>><<set _demon.wings = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Demon">><<cleardivinewings>><<set _demon.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2>>
-			<<link "Fallen Angel">><<clearwings>><<set _fallen.wings = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Fallen Angel">><<cleardivinewings>><<set _fallen.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
+		/*<<if $demon gte 6 and ($harpy gte 6 or $harpytf is 1)>>
+			<<link "Demon Harpy">><<clearwings>><<set $chimera.demonharpy.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>*/
+		<br>
+	<</if>>
+
+	<<if $harpy gte 6 or $harpytf is 1 or $bee gte 6 or $beetf is 1 or $dragon gte 6 or $dragontf is 1>>
+		__Wings__<br>
+		<<link "Clear">><<clearwings>><<updatesidebarimg>><</link>><br>
 		<<if $harpy gte 6 or $harpytf is 1>>
 			<<link "Harpy">><<clearwings>><<set _bird.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
