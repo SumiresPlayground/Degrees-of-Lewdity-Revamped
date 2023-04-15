@@ -110,6 +110,11 @@
 
 :: Hive Corridor 
 <<set $outside to 0>><<set $location to "hive">><<effects>><<set $hivestage to 1>>
+<<if $foresthunt gte 1>>
+	<span class="lblue">You're safe in the hive. Whatever was hunting you will have given up.</span>
+	<br><br>
+	<<set $foresthunt to 0>>
+<</if>>
 <<if $stress gte 10000>>
 	<<passouthive>>
 <<elseif $NPCName[$NPCNameList.indexOf("Taylor")].love gte $npclovehigh and $TaylorFreed is 0>>
