@@ -1928,9 +1928,6 @@
 		<<if $fallenangel gte 2>>
 			<<link "Fallen Angel">><<cleardivinewings>><<set _fallen.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		/*<<if $demon gte 6 and ($harpy gte 6 or $harpytf is 1)>>
-			<<link "Demon Harpy">><<clearwings>><<set $chimera.demonharpy.wings = "default">><<updatesidebarimg>><</link>><br>
-		<</if>>*/
 		<br>
 	<</if>>
 
@@ -1946,10 +1943,53 @@
 		<<if $dragon gte 6 or $dragontf is 1>>
 			<<link "Dragon">><<clearwings>><<set _dragon.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		/*<<if $demon gte 6 and ($harpy gte 6 or $harpytf is 1)>>
-			<<link "Demon Harpy">><<clearwings>><<set $chimera.demonharpy.wings = "default">><<updatesidebarimg>><</link>><br>
-		<</if>>*/
 		<br>
+	<</if>>
+
+	<<if ($demon gte 2 and ($cow gte 2 or $cowtf is 1)) or ($demon gte 4 and ($cat gte 6 or $cattf is 1)) or ($demon gte 6 and ($harpy gte 6 or $harpytf is 1))>>
+		__Chimera__<br>
+		<<if $demon gte 6 and ($cow gte 2 or $cowtf is 1)>>
+			Demon Cow Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _cow.tail = "default">>
+				<<set $chimera.demoncow.horns = "default">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearhorns>>
+				<<set $chimera.demoncow.horns = null>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if $demon gte 6 and ($cat gte 6 or $cattf is 1)>>
+			Demon Cat Tail:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _cat.tail = "default">>
+				<<set $chimera.demoncat.tail = "default">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<set $chimera.demoncat.tail = null>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if $demon gte 6 and ($harpy gte 6 or $harpytf is 1)>>
+			Demon Harpy Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _bird.wings = "default">>
+				<<set $chimera.demonharpy.wings = "default">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearwings>>
+				<<set $chimera.demonharpy.wings = null>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
 	<</if>>
 
 	<<if ($traumatized isnot undefined)>>
