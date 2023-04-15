@@ -60,10 +60,6 @@
 			<<feetActionInitTentacle>>
 		</div>
 
-		<div id="tailaction" @class="$options.combatControls + 'Control'">
-			<<tailActionInitTentacle>>
-		</div>
-
 		<<if $mouthstate isnot 0 or !($dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined))>>
 			<div id="mouthaction" @class="$options.combatControls + 'Control'">
 				<<mouthActionInitTentacle>>
@@ -926,13 +922,6 @@
 	<</switch>>
 <</widget>>
 
-<<widget "tailActionInitTentacle">>
-	<<if $tail is 0>>
-		<<set _tailOptions to "free">>
-		<span @class="($lastOptions.tail isnot _tailOptions ?'gold':'')">Your tail is free.</span>
-	<</if>>
-<</widget>>
-
 <<widget "mouthActionInitTentacle">>
 	<<if $orgasmdown gte 1>>
 		<<mouthActionInit>>
@@ -1562,10 +1551,6 @@
 
 		<div id="feetaction" @class="$options.combatControls + 'Control'">
 			<<feetActionInitTentacle>>
-		</div>
-
-		<div id="tailaction" @class="$options.combatControls + 'Control'">
-			<<tailActionInitTentacle>>
 		</div>
 
 		<<if $mouthstate isnot 0 or !($dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined))>>
