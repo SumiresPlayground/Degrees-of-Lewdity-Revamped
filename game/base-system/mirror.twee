@@ -1839,7 +1839,13 @@
 		__Horns__<br>
 		<<link "Clear">><<clearhorns>><<updatesidebarimg>><</link>><br>
 		<<if $demon gte 2>>
-			<<link "Demon">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Demon Default">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $demon gte 2>>
+			<<link "Demon Succubus">><<clearhorns>><<set _demon.horns = "succubus">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $demon gte 2>>
+			<<link "Demon Classic">><<clearhorns>><<set _demon.horns = "classic">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $cow gte 2 or $cowtf is 1>>
 			<<link "Cow">><<clearhorns>><<set _cow.horns = "default">><<updatesidebarimg>><</link>><br>
@@ -1860,7 +1866,13 @@
 		__Tail__<br>
 		<<link "Clear">><<cleartail>><<updatesidebarimg>><</link>><br>
 		<<if $demon gte 4>>
-			<<link "Demon">><<cleartail>><<set _demon.tail = "default">><<set $hastail to "true">><<updatesidebarimg>><</link>><br>
+			<<link "Demon Default">><<cleartail>><<set _demon.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $demon gte 4>>
+			<<link "Demon Succubus">><<cleartail>><<set _demon.tail = "succubus">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $demon gte 4>>
+			<<link "Demon Classic">><<cleartail>><<set _demon.tail = "classic">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $cat gte 6 or $cattf is 1>>
 			<<link "Cat">><<cleartail>><<set _cat.tail = "default">><<set $hastail to "true">><<updatesidebarimg>><</link>><br>
@@ -1911,7 +1923,10 @@
 			<<link "Angel">><<clearwings>><<set _angel.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $demon gte 6>>
-			<<link "Demon">><<clearwings>><<set _demon.wings = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Demon Default">><<clearwings>><<set _demon.wings = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $demon gte 6>>
+			<<link "Demon Succubus">><<clearwings>><<set _demon.wings = "succubus">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2>>
 			<<link "Fallen Angel">><<clearwings>><<set _fallen.wings = "default">><<updatesidebarimg>><</link>><br>
@@ -1925,10 +1940,53 @@
 		<<if $dragon gte 6 or $dragontf is 1>>
 			<<link "Dragon">><<clearwings>><<set _dragon.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		/*<<if $demon gte 6 and ($harpy gte 6 or $harpytf is 1)>>
-			<<link "Demon Harpy">><<clearwings>><<set $chimera.demonharpy.wings = "default">><<updatesidebarimg>><</link>><br>
-		<</if>>*/
 		<br>
+	<</if>>
+
+	<<if ($demon gte 2 and ($cow gte 2 or $cowtf is 1)) or ($demon gte 4 and ($cat gte 6 or $cattf is 1)) or ($demon gte 6 and ($harpy gte 6 or $harpytf is 1))>>
+		__Chimera__<br>
+		<<if $demon gte 6 and ($cow gte 2 or $cowtf is 1)>>
+			Demon Cow Horns:<br>
+			<<link "Set">>
+				<<set _cow.horns = "default">>
+				<<clearhorns>>
+				<<set $chimera.demoncow.horns = "default">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearhorns>>
+				<<set $chimera.demoncow.horns = null>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if $demon gte 6 and ($cat gte 6 or $cattf is 1)>>
+			Demon Cat Tail:<br>
+			<<link "Set">>
+				<<set _cat.tail = "default">>
+				<<cleartail>>
+				<<set $chimera.demoncat.tail = "default">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<set $chimera.demoncat.tail = null>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if $demon gte 6 and ($harpy gte 6 or $harpytf is 1)>>
+			Demon Harpy Wings:<br>
+			<<link "Set">>
+				<<set _bird.wings = "default">>
+				<<clearwings>>
+				<<set $chimera.demonharpy.wings = "default">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearwings>>
+				<<set $chimera.demonharpy.wings = null>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
 	<</if>>
 
 	<<if ($traumatized isnot undefined)>>
