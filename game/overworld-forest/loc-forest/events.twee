@@ -1887,41 +1887,43 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 <</if>>
 
 :: Forest Deer
-<<location "forest">><<effects>><<transform deer 1>>
+<<location "forest">><<effects>><<transform deer 1>><<beastNEWinit 1 deer>>
+<<cleareventpool>>
+<<if $danger gte (9900 - ($allure * $forestmod)) and $bestialitydisable is "f">>
+	<<addinlineevent>>
+		You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
+		<br><br>
 
-<<if $rng gte 67 and $danger gte (9900 - ($allure * $forestmod))>>
-You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
-<br><br>
-
-<<link [[Next|Deer Rape]]>><<set $eventskip to 1>><</link>>
-<br>
-
-<<elseif $rng gte 33>>
-You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then goes back to grazing.
-<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
-<br><br>
-
-<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-<br>
-<<else>>
-You creep forward. Unfortunately, the deer turns and runs in the other direction. It disappears into the trees.
-<br><br>
-
-<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-<br>
-
+		<<link [[Next|Deer Rape]]>><<set $eventskip to 1>><</link>>
+		<br>
+	<</addinlineevent>>
 <</if>>
+<<addinlineevent>>
+	You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then goes back to grazing.
+	<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+	<br><br>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent>>
+	You creep forward. Unfortunately, the <<beasttype>> turns and runs in the other direction. It disappears into the trees.
+	<br><br>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</addinlineevent>>
+<<runeventpool>>
 
 :: Deer Rape
-
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
 	<<controlloss>>
 	<<violence 1>>
 	<<neutral 1>>
 	<<molested>>
-	<<set $noFinish to 1>>
-	<<maninit>>
+	<<beastCombatInit>>
 	<<forestRescueSetup>>
 <</if>>
 
@@ -1933,6 +1935,10 @@ You creep forward. Unfortunately, the deer turns and runs in the other direction
 	<<forestRescueFail>>
 	<br><br>
 <</if>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
 
 <<stateman>>
 <br><br>
@@ -1946,7 +1952,7 @@ You creep forward. Unfortunately, the deer turns and runs in the other direction
 	<span id="next"><<link [[Next|Deer Rape]]>><</link>></span><<nexttext>>
 <</if>>
 
-:: Deer Finish
+:: Deer Rape Finish
 
 <<effects>>
 <<if $enemyarousal gte $enemyarousalmax>>
