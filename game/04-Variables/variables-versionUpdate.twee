@@ -4538,6 +4538,7 @@
 		<</if>>
 		<<if $fox gte 6>>
 			<<set $transformationParts.fox.tail to "default">>
+			<<set $hastail to "true">>
 		<</if>>
 	<</if>>
 
@@ -4552,6 +4553,7 @@
 		<</if>>
 		<<if $sheep gte 6>>
 			<<set $transformationParts.sheep.tail to "default">>
+			<<set $hastail to "true">>
 		<</if>>
 	<</if>>
 
@@ -4566,6 +4568,7 @@
 		<</if>>
 		<<if $deer gte 6>>
 			<<set $transformationParts.deer.tail to "default">>
+			<<set $hastail to "true">>
 		<</if>>
 	<</if>>
 
@@ -4580,6 +4583,7 @@
 		<</if>>
 		<<if $bear gte 6>>
 			<<set $transformationParts.bear.tail to "default">>
+			<<set $hastail to "true">>
 		<</if>>
 	<</if>>
 
@@ -4591,6 +4595,8 @@
 		<</if>>
 		<<if $bee gte 4>>
 			<<set $transformationParts.bee.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
 		<</if>>
 		<<if $bee gte 6>>
 			<<set $transformationParts.bee.wings to "default">>
@@ -4611,6 +4617,8 @@
 		<</if>>
 		<<if $dragon gte 4>>
 			<<set $transformationParts.dragon.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
 		<</if>>
 		<<if $dragon gte 6>>
 			<<set $transformationParts.dragon.wings to "default">>
@@ -4628,6 +4636,8 @@
 		<</if>>
 		<<if $lizard gte 6>>
 			<<set $transformationParts.lizard.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
 			<<set $transformationParts.traits.lungs to "default">>
 		<</if>>
 	<</if>>
@@ -4640,6 +4650,9 @@
 		<</if>>
 		<<if $dolphin gte 4>>
 			<<set $transformationParts.dolphin.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $swimtail to "true">>
 		<</if>>
 		<<if $dolphin gte 6>>
 			<<set $transformationParts.traits.aquatail to "default">>
@@ -4657,7 +4670,14 @@
 		<</if>>
 		<<if $dog gte 6>>
 			<<set $transformationParts.dog.tail to "default">>
+			<<set $hastail to "true">>
 		<</if>>
+	<</if>>
+
+	<<if $hastail is undefined>>
+		<<set $hastail to "false">>
+		<<set $thicktail to "false">>
+		<<set $swimtail to "false">>
 	<</if>>
 
 	<<if $transformationParts.traits.lungs is undefined and $tfFIX is undefined>>

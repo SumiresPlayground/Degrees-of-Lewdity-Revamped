@@ -416,45 +416,45 @@
 <</widget>>
 
 <<widget "tailActionInitSwarm">>
-<<if $transformationParts.bee.tail is "default" or $transformationParts.dolphin.tail is "default">>
-	<<if $dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined)>>
-		<<set $tailtarget to "swarm">>
-			<<set _tailOptions to "free">>
-			<span @class="($lastOptions.tail isnot _tailOptions or _tailGold is true ?'gold':'')">Your tail is free.</span>
-			<<if $options.combatControls.includes("adio") and _targetnumber gt 1 and _tailOptions.toLowerCase().includes("free")>>
-				<<targetListBox "tail" _targetlistall>>
-			<</if>>
-			<<if _targetnumber is 1>>
-				<<set $tailtarget to _firsttarget>>
-			<</if>>
-		<<if $lastOptions.tail isnot _tailOptions>>
-			<<set _tailGold to true>>
-		<</if>>
-		<<if $_changetype isnot true>>
-			<<tailActionsSwarm>>
-			<<if Object.keys(_tailaction).length gt 0>>
-				<<if !(Object.values(_tailaction).includes($tailactiondefault))>>
-					<<set $tailactiondefault to "swarmrest">>
+	<<if $hastail is "true">>
+		<<if $dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined)>>
+			<<set $tailtarget to "swarm">>
+				<<set _tailOptions to "free">>
+				<span @class="($lastOptions.tail isnot _tailOptions or _tailGold is true ?'gold':'')">Your tail is free.</span>
+				<<if $options.combatControls.includes("adio") and _targetnumber gt 1 and _tailOptions.toLowerCase().includes("free")>>
+					<<targetListBox "tail" _targetlistall>>
 				<</if>>
-				<<set $tailaction to $tailactiondefault>>
-				<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "Swarm")>>
-				<div class="extraMargin">
-					<<generateCombatActionOthers _tailaction "tailaction" _textColor $tailaction "Swarm">>
-				</div>
-				<<if $options.combatControls.includes("ists")>>
-					<div id="tailactionDifficulty">
-						<<tailactionDifficulty>>
+				<<if _targetnumber is 1>>
+					<<set $tailtarget to _firsttarget>>
+				<</if>>
+			<<if $lastOptions.tail isnot _tailOptions>>
+				<<set _tailGold to true>>
+			<</if>>
+			<<if $_changetype isnot true>>
+				<<tailActionsSwarm>>
+				<<if Object.keys(_tailaction).length gt 0>>
+					<<if !(Object.values(_tailaction).includes($tailactiondefault))>>
+						<<set $tailactiondefault to "swarmrest">>
+					<</if>>
+					<<set $tailaction to $tailactiondefault>>
+					<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "Swarm")>>
+					<div class="extraMargin">
+						<<generateCombatActionOthers _tailaction "tailaction" _textColor $tailaction "Swarm">>
 					</div>
+					<<if $options.combatControls.includes("ists")>>
+						<div id="tailactionDifficulty">
+							<<tailactionDifficulty>>
+						</div>
+					<</if>>
 				<</if>>
+				<<set $lastOptions.tail to clone(_tailOptions)>>
 			<</if>>
-			<<set $lastOptions.tail to clone(_tailOptions)>>
+		<<else>>
+			<<timed 100ms>>
+				<<run jQuery("#tailaction").remove();>>
+			<</timed>>
 		<</if>>
-	<<else>>
-		<<timed 100ms>>
-			<<run jQuery("#tailaction").remove();>>
-		<</timed>>
 	<</if>>
-<</if>>
 <</widget>>
 
 <<widget "tailactionDifficultySwarm">>/* If removed, expect errors in combats with controls set to "lists". */
@@ -462,13 +462,13 @@
 <</widget>>
 
 <<widget "tailActionsSwarm">>
-	<<if $transformationParts.bee.tail is "default" or $transformationParts.dolphin.tail is "default">>
+	<<if $hastail is "true">>
 		<<set _tailaction to {}>>
-		<<if $swarm.amount.active[2] gte 1 and $tailtarget isnot "self">>
+		<<if $swarm.amount.active[2] gte 1 and $tailtarget isnot "self" and $thicktail is "true">>
 			<<silently>><<swarmName>><</silently>>
 			<<set _tailaction[_swarmsteady + " one of the " + _swarmname] to "tailswarm">>
 		<</if>>
-		<<if _tailOptions is "free" and $transformationParts.dolphin.tail is "default">>
+		<<if _tailOptions is "free" and $swimtail is "true">>
 			<<if $water is 1 and $vorecreature is 0 and $consensual isnot 1>>
 				<<set _tailaction["Swim to safety"] to "swim">>
 			<</if>>
@@ -655,15 +655,15 @@
 		<</if>>
 
 		<br><br>
-		<<if $transformationParts.bee.tail is "default" or $transformationParts.dolphin.tail is "default">>
+		<<if $hastail is "true">>
 			<<if $tailuse is 0>>
 				Your tail is free.
 				<br>
-				<<if $swarm.amount.active[2] gte 1>>
+				<<if $swarm.amount.active[2] gte 1 and $thicktail is "true">>
 					<label>_swarmsteady one of the <<swarmName>> <<radiobutton "$tailaction" "tailswarm" checked>></label> |
 				<</if>>
 
-				<<if $water is 1 and $vorecreature is 0 and $consensual isnot 1 and $transformationParts.dolphin.tail is "default">>
+				<<if $water is 1 and $vorecreature is 0 and $consensual isnot 1 and $swimtail is "true">>
 					<label><span class="teal">Swim to safety</span> <<radiobutton "$tailaction" "swim" checked>></label> |
 				<</if>>
 
