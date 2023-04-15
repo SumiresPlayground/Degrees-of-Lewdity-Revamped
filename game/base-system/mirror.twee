@@ -1726,9 +1726,15 @@
 		<br>
 	<</if>>
 
-	<<if $fox gte 5 or $foxtf is 1>>
+	<<if $wolfgirl gte 6 or $wolftf is 1 or $fox gte 5 or $foxtf is 1>>
 		__Cheeks__<br>
-		<<link "Set">><<set _fox.cheeks = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _fox.cheeks = "disabled">><<updatesidebarimg>><</link>><br>
+		<<link "Clear">><<clearcheeks>><<updatesidebarimg>><</link>><br>
+		<<if $wolfgirl gte 6 or $wolftf is 1>>
+			<<link "Wolf">><<clearcheeks>><<set _wolf.cheeks = "feral">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $fox gte 5 or $foxtf is 1>>
+			<<link "Fox">><<clearcheeks>><<set _fox.cheeks = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
 		<br>
 	<</if>>
 
@@ -1772,7 +1778,10 @@
 			<<link "Cow">><<clearears>><<set _cow.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 4 or $wolftf is 1>>
-			<<link "Wolf">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Wolf Default">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $wolfgirl gte 4 or $wolftf is 1>>
+			<<link "Wolf Feral">><<clearears>><<set _wolf.ears = "feral">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 4 or $foxtf is 1>>
 			<<link "Fox">><<clearears>><<set _fox.ears = "default">><<updatesidebarimg>><</link>><br>
@@ -1855,7 +1864,10 @@
 			<<link "Cow">><<cleartail>><<set _cow.tail = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 4 or $wolftf is 1>>
-			<<link "Wolf">><<cleartail>><<set _wolf.tail = "default">><<updatesidebarimg>><</link>><br>
+			<<link "Wolf Default">><<cleartail>><<set _wolf.tail = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $wolfgirl gte 4 or $wolftf is 1>>
+			<<link "Wolf Feral">><<cleartail>><<set _wolf.tail = "feral">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $harpy gte 2 or $harpytf is 1>>
 			<<link "Harpy">><<cleartail>><<set _bird.tail = "default">><<updatesidebarimg>><</link>><br>
