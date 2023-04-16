@@ -569,6 +569,8 @@ You are swimming in the sea at the base of some cliffs, east of the docks. A lar
 		<</if>>
 	<<else>>
 		You can see the town in the distance.
+		<br>
+		Something colorful specks the water in the distance.
 	<</if>>
 	<<physique>>
 	<br><br>
@@ -585,6 +587,8 @@ You are swimming in the sea at the base of some cliffs, east of the docks. A lar
 				<br><br>
 				<<if $sea gte 40>>
 					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+					<br>
+					<<swimicon>><<link [[Swim toward the color (0:10)|Sea Reef]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
 					<br>
 				<<else>>
 					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 200>>
@@ -605,6 +609,8 @@ You are swimming in the sea at the base of some cliffs, east of the docks. A lar
 	<<if Time.dayState is "night">>
 		<<if $weather is "clear">>
 			You can see the town glowing on the horizon.
+			<br>
+			The ocean drops into deep darkness below you
 		<<else>>
 			You can see the town on the horizon, lighting the clodus above.
 		<</if>>
@@ -680,3 +686,7 @@ You are swimming in the sea at the base of some cliffs, east of the docks. A lar
 	<</if>>
 <</if>>
 <<set $eventskip to 0>>
+
+:: Sea Reef
+You are swimming in the sea.
+<br>
