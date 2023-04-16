@@ -2713,11 +2713,7 @@ You hang limp, but the vines don't cease their assault.
 
 <<if $milk_amount gte 1 and $breastfeedingdisable is "f" and $lactating gte 1>>
 	You feel your chest respond to the sensation, and milk flows from your buds. You remain suspended, helpless, as the plant suckles.
-	<<breastfeed>>
-	<<breastfeed>>
-	<<breastfeed>>
-	<<breastfeed>>
-	<<breastfeed>>
+	<<breastfeed 5>>
 
 <<elseif $breastfeedingdisable is "f">>
 	<<milkvolume 5>>
@@ -2780,11 +2776,7 @@ You hang limp, but the vines don't cease their assault.
 
 <<if $milk_amount gte 1 and $breastfeedingdisable is "f" and $lactating gte 1>>
 	You feel your chest respond to the sensation, and milk flows from your buds. You remain suspended, helpless, as the plant suckles.
-	<<breastfeed>>
-	<<breastfeed>>
-	<<breastfeed>>
-	<<breastfeed>>
-	<<breastfeed>>
+	<<breastfeed 5>>
 
 <<elseif $breastfeedingdisable is "f">>
 	<<milkvolume 5>>
@@ -4025,7 +4017,7 @@ You hide and wait, watching the nest intently.
 	<<link [[Sneak up|Forest Fox Nest Sneak]]>><</link>><<skulduggerydifficulty>>
 	<br>
 	<<if $fox gte 6>>
-		<<link [[Chase!|Forest Fox Nest Chase]]>><<set $phase2 to 1>><<stress -6>><<transform 1 fox>><</link>><<llstress>><<fox>> | <span class="red">No eggs</span>
+		<<link [[Chase!|Forest Fox Nest Chase]]>><<set $phase2 to 1>><<stress -6>><<transform fox 1>><</link>><<llstress>><<fox>> | <span class="red">No eggs</span>
 		<br>			
 	<<else>>
 		<<link [[Chase|Forest Fox Nest Chase]]>><<set $phase2 to 1>><<tiredness 6>><</link>><<gtiredness>><<athleticsdifficulty $_athlDiffMin $NPCList[0].skills.athletics>> | <span class="red">No eggs</span>
