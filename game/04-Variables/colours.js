@@ -113,6 +113,8 @@ setup.colours = {
 		ymedium: ["#f0e4bc", "#8e7f68"],
 		ydark: ["#8e7f68", "#483f35"],
 		ygyaru: ["#f0ffe6", "#f0e4bc", "#8e7f68", "#483f35"],
+		transblue: ["#81D4FA", "#B3E5FC"],
+		ghostly: ["#DBFFFF", "#DBFFFF"],
 	},
 	/**
 	 * Get canvas filter for skin of given type and tan progression (0..1).
