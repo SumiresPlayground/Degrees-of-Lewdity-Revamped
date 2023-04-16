@@ -4150,6 +4150,148 @@
 		<<set $englishPlay to "none">>
 	<</if>>
 
+		<<if $transformationParts.sheep is undefined and $tfFIX is undefined>>
+		<<set $sheep to 0>> <<set $sheepbuild to 0>>
+		<<set $transformationParts.sheep to {ears:"disabled", tail:"disabled", horns:"disabled"}>>
+		<<if $sheep gte 2>>
+			<<set $transformationParts.sheep.horns to "default">>
+		<</if>>
+		<<if $sheep gte 4>>
+			<<set $transformationParts.sheep.ears to "default">>
+		<</if>>
+		<<if $sheep gte 6>>
+			<<set $transformationParts.sheep.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.deer is undefined and $tfFIX is undefined>>
+		<<set $deer to 0>> <<set $deerbuild to 0>>
+		<<set $transformationParts.deer to {ears:"disabled", tail:"disabled", horns:"disabled"}>>
+		<<if $deer gte 2>>
+			<<set $transformationParts.deer.horns to "default">>
+		<</if>>
+		<<if $deer gte 4>>
+			<<set $transformationParts.deer.ears to "default">>
+		<</if>>
+		<<if $deer gte 6>>
+			<<set $transformationParts.deer.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.bear is undefined and $tfFIX is undefined>>
+		<<set $bear to 0>> <<set $bearbuild to 0>>
+		<<set $transformationParts.bear to {ears:"disabled", tail:"disabled"}>>
+		<<if $bear gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $bear gte 4>>
+			<<set $transformationParts.bear.ears to "default">>
+		<</if>>
+		<<if $bear gte 6>>
+			<<set $transformationParts.bear.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.bee is undefined and $tfFIX is undefined>>
+		<<set $bee to 0>> <<set $beebuild to 0>>
+		<<set $transformationParts.bee to {ears:"disabled", tail:"disabled", wings:"disabled"}>>
+		<<if $bee gte 2>>
+			<<set $transformationParts.bee.ears to "default">>
+		<</if>>
+		<<if $bee gte 4>>
+			<<set $transformationParts.bee.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+		<<if $bee gte 6>>
+			<<set $transformationParts.bee.wings to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dragon is undefined and $tfFIX is undefined>>
+		<<set $dragon to 0>> <<set $dragonbuild to 0>>
+		<<set $transformationParts.dragon to {eyes:"disabled", fangs:"disabled", horns:"disabled", tail:"disabled", wings:"disabled"}>>
+		<<if $dragon gte 1>>
+			<<set $transformationParts.dragon.eyes to "default">>
+		<</if>>
+		<<if $dragon gte 2>>
+			<<set $transformationParts.dragon.fangs to "default">>
+		<</if>>
+		<<if $dragon gte 3>>
+			<<set $transformationParts.dragon.horns to "default">>
+		<</if>>
+		<<if $dragon gte 4>>
+			<<set $transformationParts.dragon.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+		<<if $dragon gte 6>>
+			<<set $transformationParts.dragon.wings to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.lizard is undefined and $tfFIX is undefined>>
+		<<set $lizard to 0>> <<set $lizardbuild to 0>>
+		<<set $transformationParts.lizard to {eyes:"disabled", tail:"disabled"}>>
+		<<if $lizard gte 1>>
+			<<set $transformationParts.lizard.eyes to "default">>
+		<</if>>
+		<<if $lizard gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $lizard gte 6>>
+			<<set $transformationParts.lizard.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $transformationParts.traits.lungs to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dolphin is undefined and $tfFIX is undefined>>
+		<<set $dolphin to 0>> <<set $dolphinbuild to 0>>
+		<<set $transformationParts.dolphin to {tail:"disabled"}>>
+		<<if $dolphin gte 2>>
+			<<set $transformationParts.traits.lungs to "default">>
+		<</if>>
+		<<if $dolphin gte 4>>
+			<<set $transformationParts.dolphin.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $swimtail to "true">>
+		<</if>>
+		<<if $dolphin gte 6>>
+			<<set $transformationParts.traits.aquatail to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dog is undefined and $tfFIX is undefined>>
+		<<set $dog to 0>> <<set $dolphinbuild to 0>>
+		<<set $transformationParts.dog to {ears:"disabled", tail:"disabled"}>>
+		<<if $dog gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $dog gte 4>>
+			<<set $transformationParts.dog.ears to "default">>
+		<</if>>
+		<<if $dog gte 6>>
+			<<set $transformationParts.dog.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $hastail is undefined>>
+		<<set $hastail to "false">>
+		<<set $thicktail to "false">>
+		<<set $swimtail to "false">>
+	<</if>>
+
+	<<if $transformationParts.traits.lungs is undefined and $tfFIX is undefined>>
+		<<set $transformationParts.traits.lungs to "disabled">>
+	<</if>>
+
 	<!-- v0.3.13.5 disable combat animations on mobile due to system breakdown.-->
 	<!-- ToDo: Canvas, revert in future update when combat is updated to canvas renderer -->
 	<<if Browser.isMobile.any() and $options.combatAnimations is true and $combatFix is undefined>>
@@ -4512,7 +4654,7 @@
 				<<set $transformationParts.fox to {ears:"disabled", tail:"disabled", cheeks:"disabled"}>>
 				<<if $transformationParts.traits.mateForLife is undefined or $transformationParts.traits.flaunting is undefined>>
 					<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled"}>>
-					<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
+					<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2 or $lizard gte 2>>
 						<<set $transformationParts.traits.fangs to "default">>
 					<</if>>
 					<<if $cat gte 2 or $harpy gte 2 or $fox gte 2>>
@@ -4533,6 +4675,7 @@
 				<</if>>
 				<<if $fox gte 6>>
 					<<set $transformationParts.fox.tail to "default">>
+					<<set $hastail to "true">>
 				<</if>>
 			<</if>>
 		<</if>>
@@ -4598,6 +4741,13 @@
 	<!-- To fix issue where Dr Harper failed to remove both hermaphrodite parasites -->
 	<<if $sexStats.vagina.pregnancy.type is "parasite" and $sexStats.vagina.pregnancy.fetus.find(parasite => parasite.stats.gender === "Hermaphrodite")>>
 		<<set $sexStats.vagina.pregnancy.motherStatus to 2>>
+	<</if>>
+
+	<<if $transformationParts.wolf.tail is "feral">>
+		<<set $transformationParts.wolf.tail to "default">>
+	<</if>>
+	<<if $transformationParts.wolf.ears is "feral">>
+		<<set $transformationParts.wolf.ears to "default">>
 	<</if>>
 
 <</widget>>
