@@ -1866,13 +1866,13 @@
 		__Tail__<br>
 		<<link "Clear">><<cleartail>><<updatesidebarimg>><</link>><br>
 		<<if $demon gte 4>>
-			<<link "Demon Default">><<cleartail>><<updatesidebarimg>><</link>><<set _demon.tail = "default">><<gencolourselector "_demon.tail_colour">><br>
+			<<link "Demon Default">><<cleartail>><<set _demon.tail = "default">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
 		<</if>>
 		<<if $demon gte 4>>
-			<<link "Demon Succubus">><<cleartail>><<updatesidebarimg>><</link>><<set _demon.tail = "default">><<gencolourselector "_demon.tail_colour">><br>
+			<<link "Demon Succubus">><<cleartail>><<set _demon.tail = "succubus">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
 		<</if>>
 		<<if $demon gte 4>>
-			<<link "Demon Classic">><<cleartail>><<updatesidebarimg>><</link>><<set _demon.tail = "default">><<gencolourselector "_demon.tail_colour">><br>
+			<<link "Demon Classic">><<cleartail>><<set _demon.tail = "classic">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
 		<</if>>
 		<<if $cat gte 6 or $cattf is 1>>
 			<<link "Cat">><<cleartail>><<set _cat.tail = "default">><<set $hastail to "true">><<updatesidebarimg>><</link>><br>
@@ -1949,7 +1949,7 @@
 			Demon Cow Horns:<br>
 			<<link "Set">>
 				<<set _cow.horns = "default">>
-				<<clearhorns>>
+				<<set _demon.horns = "default">>
 				<<set $chimera.demoncow.horns = "default">>
 				<<updatesidebarimg>>
 			<</link>> / 
@@ -1963,7 +1963,7 @@
 			Demon Cat Tail:<br>
 			<<link "Set">>
 				<<set _cat.tail = "default">>
-				<<cleartail>>
+				<<set _demon.tail = "default">>
 				<<set $chimera.demoncat.tail = "default">>
 				<<updatesidebarimg>>
 			<</link>> / 
@@ -1977,7 +1977,7 @@
 			Demon Harpy Wings:<br>
 			<<link "Set">>
 				<<set _bird.wings = "default">>
-				<<clearwings>>
+				<<set _demon.wings = "default">>
 				<<set $chimera.demonharpy.wings = "default">>
 				<<updatesidebarimg>>
 			<</link>> / 
@@ -2004,11 +2004,11 @@
 	<</if>>
 	<<link [[Confirm|$passage]]>>
 		<<set $mirrorMenu to "transformation">>
-		<<if _cat.heterochromia is "hidden">>
+		/* <<if _cat.heterochromia is "hidden">>
 			<<catHeterochromiaTF "hide">>
 		<<elseif $cat gte 7 and $cat lte 10>>
 			<<catHeterochromiaTF `$cat - 7`>>
-		<</if>>
+		<</if>> */
 	<</link>>
 	<!-- Attach an event to every listbox item to update the PC on the sidebar. -->
 	<<script>>
