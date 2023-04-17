@@ -1973,6 +1973,17 @@
 		| <<link ">>">><<set $dockstatus += 10>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
 		| <<link ">>>">><<set $dockstatus += 100>><<set $dockstatus = Math.clamp($dockstatus, 0, 100)>><<replace "#statdockstatus">><<print Math.trunc($dockstatus)>><</replace>><</link>>
 		<br><br>
+
+		<<if $skul_dock_init is 1>>
+			<<link "<<<">><<set $dock_security -= 100>><<set $dock_security = Math.clamp($dock_security, 0, 5)>><<replace "#statdock_security">><<print Math.trunc($dock_security)>><</replace>><</link>> |
+			<<link "<<">><<set $dock_security -= 10>><<set $dock_security = Math.clamp($dock_security, 0, 5)>><<replace "#statdock_security">><<print Math.trunc($dock_security)>><</replace>><</link>> |
+			<<link "<">><<set $dock_security -= 1>><<set $dock_security = Math.clamp($dock_security, 0, 5)>><<replace "#statdock_security">><<print Math.trunc($dock_security)>><</replace>><</link>> |
+			Docks status: <span id="statdock_security"><<print Math.trunc($dock_security)>></span>
+			| <<link ">">><<set $dock_security += 1>><<set $dock_security = Math.clamp($dock_security, 0, 5)>><<replace "#statdock_security">><<print Math.trunc($dock_security)>><</replace>><</link>>
+			| <<link ">>">><<set $dock_security += 10>><<set $dock_security = Math.clamp($dock_security, 0, 5)>><<replace "#statdock_security">><<print Math.trunc($dock_security)>><</replace>><</link>>
+			| <<link ">>>">><<set $dock_security += 100>><<set $dock_security = Math.clamp($dock_security, 0, 5)>><<replace "#statdock_security">><<print Math.trunc($dock_security)>><</replace>><</link>>
+			<br><br>
+		<</if>>
 	<</if>>
 
 	<!-- DoLM -->
