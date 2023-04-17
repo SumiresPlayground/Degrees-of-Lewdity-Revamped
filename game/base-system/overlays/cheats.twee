@@ -2916,19 +2916,17 @@
 		<<set $alex_countdown to 3>>
 		<<set $wardrobes.alexFarm.unlocked to true>>
 	<</if>>
-	<<if $farm_stage gte 7 and $farm_attack_timer is undefined>>
-		<<set $farm_attack_timer to 30>>
-		<<fields_init>>
-		<<set $farm_fields_intro to 1>>
-		<<farm_stock_init>>
-		<<set $farm.wall to 0>>
-	<</if>>
-	/*Farm Stage: <span id="farm_stage"><<print Math.trunc($farm_stage)>></span>
-	<<link ">">><<set $farm_stage += 1>><<add_plot farm earth 3 large>><<set $farm_stage = Math.clamp($farm_stage, 2, 12)>><<replace "#farm_stage">><<print Math.trunc($farm_stage)>><</replace>><</link>>
+
+	<<farmcheatsync>>
+	Farm Plots: <span id="farm_stage_cheat"><<print Math.trunc($farm_stage_cheat)>></span>
+	<<link ">">><<farmincrcheat>><<set $farm_stage_cheat = Math.clamp($farm_stage_cheat, 1, 9)>><<replace "#farm_stage_cheat">><<print Math.trunc($farm_stage_cheat)>><</replace>><</link>>
 	<br>
-	Note: The above may or may not break the farm. Farm stage 2 means there are 0 completed fields, farm stage 12 means there are 9 completed fields (max).*/
+	Note: The above may or may not break the farm.
 	<br><br>
 	<<if $farm_stage gte 7>>
+		<<if $farm.wall is undefined>>
+			<<set $farm.wall to 0>>
+		<</if>>
 		<<link "<<<">><<set $farm.wall -= 4>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>> |
 		<<link "<<">><<set $farm.wall -= 2>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>> |
 		<<link "<">><<set $farm.wall -= 1>><<set $farm.wall = Math.clamp($farm.wall, 0, 4)>><<replace "#farm_wall">><<print Math.trunc($farm.wall)>><</replace>><</link>> |

@@ -5017,15 +5017,6 @@
 	<<set $plants_known.push("lotus")>>
 	<<set $plants_known.push("lily")>>
 	<<set $plants_known.push("poppy")>>
-	<<set $plants_known.push("apple")>>
-	<<set $plants_known.push("orange")>>
-	<<set $plants_known.push("banana")>>
-	<<set $plants_known.push("lemon")>>
-	<<set $plants_known.push("blood_lemon")>>
-	<<set $plants_known.push("pear")>>
-	<<set $plants_known.push("strawberry")>>
-	<<set $plants_known.push("peach")>>
-	<<set $plants_known.push("plum")>>
 	<<set $plants_known.push("wild_carrot")>>
 	<<set $plants_known.push("onion")>>
 	<<set $plants_known.push("garlic_bulb")>>
@@ -5229,4 +5220,43 @@
 	<</if>>
 	<<set $transformationParts.bee.wings = "disabled">>
 	<<set $transformationParts.dragon.wings = "disabled">>
+<</widget>>
+
+<<widget "farmincrcheat">>
+	<<if $farm_stage_cheat is 1>>
+		<<set $farm_stage_cheat to 2>>
+		<<set $farm_stage to 4>>
+	<<elseif $farm_stage_cheat is 2>>
+		<<set $farm_stage_cheat to 3>>
+		<<set $farm_stage to 5>>
+	<<elseif $farm_stage_cheat is 3>>
+		<<set $farm_stage_cheat to 4>>
+		<<set $farm_stage to 6>>
+	<<elseif $farm_stage_cheat is 4>>
+		<<set $farm_attack_timer to 30>>
+		<<fields_init>>
+		<<set $farm_fields_intro to 1>>
+		<<farm_stock_init>>
+		<<set $farm_stage_cheat to 5>>
+		<<set $farm_stage to 8>>
+		<<add_plot farm earth 3 large>>
+	<<elseif $farm_stage_cheat gte 5 and $farm_stage_cheat lte 8>>
+		<<set $farm_stage_cheat += 1>>
+		<<set $farm_stage += 1>>
+		<<add_plot farm earth 3 large>>
+	<</if>>
+<</widget>>
+
+<<widget "farmcheatsync">>
+	<<if $farm_stage gte 8>>
+		<<set $farm_stage_cheat to $farm_stage - 4>>
+	<<elseif $farm_stage gte 6>>
+		<<set $farm_stage_cheat to 4>>
+	<<elseif $farm_stage gte 5>>
+		<<set $farm_stage_cheat to 3>>
+	<<elseif $farm_stage gte 4>>
+		<<set $farm_stage_cheat to 2>>
+	<<elseif $farm_stage gte 2>>
+		<<set $farm_stage_cheat to 1>>
+	<</if>>
 <</widget>>
