@@ -1236,13 +1236,15 @@
 	/*Generate Actions*/
 	<<set _tailaction to {}>>
 	<<set _tailaction["Rest"] to "rest">>
-	<<switch _tailOptions>>
+	<<if $NPCList[0].state isnot "stalk">>
+		<<switch _tailOptions>>
 			<<case "free">>
 				<<if $transformationParts.bee.tail is "default">>
 					<<tailstab>>
 				<<else>>
 				<</if>>
-	<</switch>>
+		<</switch>>
+	<</if>>
 <</widget>>
 
 <<widget "mouthActionInit">>
