@@ -737,11 +737,11 @@
 		<</if>>
 	<</if>>
 	<<if $farm_stage isnot 12 and $farm_work.alex is "clearing" and ($exposed lt 2 or $exhibitionism gte 75) and Time.dayState isnot "night">>
-		<<ind>><<link [[Help Alex clear a field (0:20)|Farm Clearing]]>><<farm_count 20>><<pass 20>><<tiredness 2>><<physique 2>><<set $farm.clearing -= 1>><</link>><<gtiredness>><<run _actions++>>
+		<<ind>><<link [[Help Alex clear a field (0:20)|Farm Clearing]]>><<physique 2>><<farm_clear>><</link>><<gtiredness>><<run _actions++>>
 		<br>
 	<</if>>
 	<<if $farm_stage isnot 12 and $farm_stage gte 7 and $farm_work.alex isnot "clearing" and ($exposed lt 2 or $exhibitionism gte 75)>>
-		<<ind>><<link [[Clear a field alone (0:40)|Farm Clearing Alone]]>><<farm_count 40>><<pass 40>><<tiredness 4>><<physique 3>><<set $farm.clearing -= 1>><</link>><<ggtiredness>><<run _actions++>>
+		<<ind>><<link [[Clear a field alone (0:40)|Farm Clearing Alone]]>><<physique 3>><<farm_clear>><</link>><<ggtiredness>><<run _actions++>>
 		<br>
 	<</if>>
 
@@ -2864,6 +2864,51 @@
 			<<link [[Expand|Farm Upgrades Coop 1]]>><</link>>
 		<</if>>
 		<br>
+		Tractor:
+		<<if $farm.tractor is undefined>>
+			<<set $farm.tractor = 0>>
+		<</if>>
+		<<if $farm.tractor gte 3>>
+			<span class="green">As powerful as it can be</span>
+		<<elseif $farm.tractor gte 2>>
+			<<link [[Upgrade|Farm Upgrades Tractor 3]]>><</link>>
+		<<elseif $farm.tractor gte 1>>
+			<<link [[Upgrade|Farm Upgrades Tractor 2]]>><</link>>
+		<<else>>
+			<<link [[Purchase|Farm Upgrades Tractor 1]]>><</link>>
+		<</if>>
+		<br>
+		<<if $farm.tractor gte 1>>
+			Plough Attachment:
+			<<if $farm.tractorplough is true>>
+				<span class="green">Bought.</span>
+			<<else>>
+				<<link [[Purchase|Farm Upgrades Tractor Plough]]>><</link>>
+			<</if>>
+			<br>
+			Seed Drill Attachement:
+			<<if $farm.tractorseeddrill is true>>
+				<span class="green">Bought.</span>
+			<<else>>
+				<<link [[Purchase|Farm Upgrades Tractor Seed Drill]]>><</link>>
+			<</if>>
+			<br>
+			Harvester Attachement:
+			<<if $farm.tractorharvester is true>>
+				<span class="green">Bought.</span>
+			<<else>>
+				<<link [[Purchase|Farm Upgrades Tractor Harvester]]>><</link>>
+			<</if>>
+			<br>
+			Loader Attachement:
+			<<if $farm.tractorloader is true>>
+				<span class="green">Bought.</span>
+			<<else>>
+				<<link [[Purchase|Farm Upgrades Tractor Loader]]>><</link>>
+			<</if>>
+			<br>
+		<</if>>
+		<br>
 		Farm Irrigation:
 		<<if $farm.irrigation gte 9>>
 			<span class="green">Every field has irrigation</span>
@@ -2885,4 +2930,34 @@
 		<</if>>
 		<br>
 	<</if>>
+<</widget>>
+
+<<widget "farm_clear">>
+	<<if $farm_work.alex is "clearing">>
+		<<set _baseTime = 20>>
+		<<set _baseTiredsness = 2>>
+	<<else>>
+		<<set _baseTime = 40>>
+		<<set _baseTiredsness = 4>>
+	<</if>>
+	<<if $location is "alex_farm">>
+		<<if $farm.tractor gte 1>>
+			<<set _baseTiredsness = Math.round(_baseTiredsness * 0.8)>>
+		<</if>>
+		<<if $farm.tractor gte 3>>
+			<<set _tractor = 1>>
+		<<elseif $farm.tractor gte 2>>
+			<<set _tractor = 0.5>>
+		<<elseif $farm.tractor gte 1>>
+			<<set _tractor = 0.25>>
+		<</if>>
+		<<if $farm.tractorloader is true>>
+			<<set _baseTime = Math.round(_baseTime * (0.5 * _tractor))>>
+			<<set _baseTiredsness = Math.round(_baseTiredsness * (0.5 * _tractor))>>
+		<</if>>
+	<</if>>
+	<<farm_count _baseTime>>
+	<<pass _baseTime>>
+	<<tiredness _baseTiredsness>>
+	<<set $farm.clearing = Math.round($farm.clearing / _tractor)>>
 <</widget>>
