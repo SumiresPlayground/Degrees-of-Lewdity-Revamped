@@ -269,13 +269,13 @@
 	<<if $location is "alex_farm">>
 		<<if $farm.tractor gte 3>>
 			<<set _baseTime = Math.round(_baseTime * 0.7)>>
-			<<set _tractor = 1>>
+			<<set _tractor = 0.25>>
 		<<elseif $farm.tractor gte 2>>
 			<<set _baseTime = Math.round(_baseTime * 0.8)>>
 			<<set _tractor = 0.5>>
 		<<elseif $farm.tractor gte 1>>
 			<<set _baseTime = Math.round(_baseTime * 0.9)>>
-			<<set _tractor = 0.25>>
+			<<set _tractor = 1>>
 		<</if>>
 		<<if $farm.tractorseeddrill is true>>
 			<<set _baseTime = Math.round(_baseTime * (0.5 * _tractor))>>
@@ -340,16 +340,16 @@
 		<</if>>
 		<<if $farm.tractor gte 3>>
 			<<set _baseTime = Math.round(_baseTime * 0.7)>>
-			<<set _tractor = 1>>
+			<<set _tractor = 0.25>>
 		<<elseif $farm.tractor gte 2>>
 			<<set _baseTime = Math.round(_baseTime * 0.8)>>
 			<<set _tractor = 0.5>>
 		<<elseif $farm.tractor gte 1>>
 			<<set _baseTime = Math.round(_baseTime * 0.9)>>
-			<<set _tractor = 0.25>>
+			<<set _tractor = 1>>
 		<</if>>
 		<<if $farm.tractorplough is true>>
-			<<set _baseTime = Math.round(_baseTime * ( 0.5 * _tractor))>>
+			<<set _baseTime = Math.round(_baseTime * (0.5 * _tractor))>>
 			<<set _baseTiredsness = Math.round(_baseTiredsness * (0.5 * _tractor))>>
 		<</if>>
 	<</if>>
