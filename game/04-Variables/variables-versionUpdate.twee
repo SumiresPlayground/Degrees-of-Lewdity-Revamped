@@ -1706,6 +1706,18 @@
 		<<set $dog to 0>>
 	<</if>>
 
+	<<if $ghost is undefined>>
+		<<set $ghost to 0>>
+	<</if>>
+
+	<<if $slime is undefined>>
+		<<set $slime to 0>>
+	<</if>>
+
+	<<if $exorcism is undefined>>
+		<<set $exorcism to 0>>
+	<</if>>
+
 	<<if $hirsutedisable>>
 		<<if $hirsutedisable is "f">>
 			<<if $wolfgirl gte 4>>
@@ -4280,6 +4292,11 @@
 			<<set $transformationParts.dog.tail to "default">>
 			<<set $hastail to "true">>
 		<</if>>
+	<</if>>
+
+	<<if $transformationParts.ghost is undefined and $tfFIX is undefined>>
+		<<set $ghost to 0>>
+		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled"}>>
 	<</if>>
 
 	<<if $hastail is undefined>>

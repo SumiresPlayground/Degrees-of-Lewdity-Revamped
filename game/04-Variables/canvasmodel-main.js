@@ -368,6 +368,8 @@ Renderer.CanvasModels["main"] = {
 			"dolphin_tail_type": "disabled",
 			"dog_tail_type": "disabled",
 			"dog_ears_type": "disabled",
+			"ghost_eyes_type": "disabled",
+			"ghost_hitodama_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2263,6 +2265,32 @@ Renderer.CanvasModels["main"] = {
 				return options.head_mask_src;
 			},
 			filters: ["hair"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+
+		/***
+		Ghost
+		*/
+
+		"ghost_eyes": {
+			srcfn(options) {
+				return `img/transformations/ghost/eyes/${options.ghost_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.ghost_eyes_type)
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+
+		"ghost_hitodama": {
+			srcfn(options) {
+				return `img/transformations/ghost/hitodama/${options.ghost_hitodama_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.ghost_hitodama_type)
+			},
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
