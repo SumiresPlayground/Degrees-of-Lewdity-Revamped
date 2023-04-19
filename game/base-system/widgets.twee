@@ -5174,6 +5174,10 @@
 <</widget>>
 
 <<widget "clearhorns">>
+	<<if $transformationParts.demon.horns !== "disabled" and $transformationParts.cow.horns !== "disabled">>
+		<<set $transformationParts.demon.horns = "disabled">>
+		<<set $transformationParts.cow.horns = "disabled">>
+	<</if>>
 	<<if $transformationParts.cow.horns == "disabled">>
 		<<set $transformationParts.demon.horns = "disabled">>
 	<</if>>
@@ -5186,6 +5190,10 @@
 <</widget>>
 
 <<widget "cleartail">>
+	<<if $transformationParts.demon.tail !== "disabled" and $transformationParts.cat.tail !== "disabled">>
+		<<set $transformationParts.demon.tail = "disabled">>
+		<<set $transformationParts.bird.tail = "disabled">>
+	<</if>>
 	<<if $transformationParts.cat.tail == "disabled">>
 		<<set $transformationParts.demon.tail = "disabled">>
 	<</if>>
@@ -5253,7 +5261,7 @@
 
 <<widget "farmcheatsync">>
 	<<if $farm_stage gte 8>>
-		<<set $farm_stage_cheat to $farm_stage - 4>>
+		<<set $farm_stage_cheat to $farm_stage - 3>>
 	<<elseif $farm_stage gte 6>>
 		<<set $farm_stage_cheat to 4>>
 	<<elseif $farm_stage gte 5>>

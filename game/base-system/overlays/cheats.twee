@@ -2989,6 +2989,81 @@
 		| <<link ">">><<set $farm.coop += 1>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
 		| <<link ">>">><<set $farm.coop += 2>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
 		<br>
+		<<if $farm.tractor is undefined>>
+			<<set $farm.tractor to 0>>
+			<<set $farm.tractorplough to false>>
+			<<set $farm.tractorseeddrill to false>>
+			<<set $farm.tractorharvester to false>>
+			<<set $farm.tractorloader to false>>
+		<</if>>
+		<<link "<<<">><<set $farm.tractor -= 3>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>> |
+		<<link "<<">><<set $farm.tractor -= 2>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>> |
+		<<link "<">><<set $farm.tractor -= 1>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>> |
+		Farm Tractor: <span id="farm_tractor"><<print Math.trunc($farm.tractor)>></span>
+		| <<link ">">><<set $farm.tractor += 1>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>>
+		| <<link ">>">><<set $farm.tractor += 2>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>>
+		| <<link ">>>">><<set $farm.tractor += 3>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>>
+		<br>
+		Farm Tractor Plough: <span id="farm_tractor_plough"><<print $farm.tractorplough>></span> 
+		<<link "Change">>
+			<<if $farm.tractorplough isnot true>>
+				<<set $farm.tractorplough to true>>
+				<<replace "#farm_tractor_plough">>
+					<<print $farm.tractorplough>>
+				<</replace>>
+			<<else>>
+				<<set $farm.tractorplough to false>>
+				<<replace "#farm_tractor_plough">>
+					<<print $farm.tractorplough>>
+				<</replace>>
+			<</if>>
+		<</link>>
+		<br>
+		Farm Tractor Seed Drill: <span id="farm_tractor_seeddrill"><<print $farm.tractorseeddrill>></span> 
+		<<link "Change">>
+			<<if $farm.tractorseeddrill isnot true>>
+				<<set $farm.tractorseeddrill to true>>
+				<<replace "#farm_tractor_seeddrill">>
+					<<print $farm.tractorseeddrill>>
+				<</replace>>
+			<<else>>
+				<<set $farm.tractorseeddrill to false>>
+				<<replace "#farm_tractor_seeddrill">>
+					<<print $farm.tractorseeddrill>>
+				<</replace>>
+			<</if>>
+		<</link>>
+		<br>
+		Farm Tractor Harvester: <span id="farm_tractor_harvester"><<print $farm.tractorharvester>></span> 
+		<<link "Change">>
+			<<if $farm.tractorharvester isnot true>>
+				<<set $farm.tractorharvester to true>>
+				<<replace "#farm_tractor_harvester">>
+					<<print $farm.tractorharvester>>
+				<</replace>>
+			<<else>>
+				<<set $farm.tractorharvester to false>>
+				<<replace "#farm_tractor_harvester">>
+					<<print $farm.tractorharvester>>
+				<</replace>>
+			<</if>>
+		<</link>>
+		<br>
+		Farm Tractor Loader: <span id="farm_tractor_loader"><<print $farm.tractorloader>></span> 
+		<<link "Change">>
+			<<if $farm.tractorloader isnot true>>
+				<<set $farm.tractorloader to true>>
+				<<replace "#farm_tractor_loader">>
+					<<print $farm.tractorloader>>
+				<</replace>>
+			<<else>>
+				<<set $farm.tractorloader to false>>
+				<<replace "#farm_tractor_loader">>
+					<<print $farm.tractorloader>>
+				<</replace>>
+			<</if>>
+		<</link>>
+		<br>
 		<<if $farm.irrigation is undefined>>
 			<<set $farm.irrigation to 0>>
 		<</if>>
