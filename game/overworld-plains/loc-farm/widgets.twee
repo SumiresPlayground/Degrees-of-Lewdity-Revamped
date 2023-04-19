@@ -2959,5 +2959,9 @@
 	<<farm_count _baseTime>>
 	<<pass _baseTime>>
 	<<tiredness _baseTiredsness>>
-	<<set $farm.clearing = Math.round($farm.clearing - (1 / _tractor))>>
+	<<if $farm.tractor gte 1>>
+		<<set $farm.clearing = Math.round($farm.clearing - (1 + (1 / _tractor)))>>
+	<<else>>
+		<<set $farm.clearing = Math.round($farm.clearing - 1)>>
+	<</if>>
 <</widget>>
