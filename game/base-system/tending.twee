@@ -85,12 +85,14 @@
 	<<set _location to _args[0]>>
 	<<set $_plotsHere to $plots[_location]>>
 	<<set _water_needed to 0>>
-	<<if $farm.tractor is undefined>>
-		<<set $farm.tractor to 0>>
-		<<set $farm.tractorplough to false>>
-		<<set $farm.tractorseeddrill to false>>
-		<<set $farm.tractorharvester to false>>
-		<<set $farm.tractorloader to false>>
+	<<if $farm isnot undefined>>
+		<<if $farm.tractor is undefined>>
+			<<set $farm.tractor to 0>>
+			<<set $farm.tractorplough to false>>
+			<<set $farm.tractorseeddrill to false>>
+			<<set $farm.tractorharvester to false>>
+			<<set $farm.tractorloader to false>>
+		<</if>>
 	<</if>>
 	There are <<number $_plotsHere.length>> tillable
 	<<switch $_plotsHere[0].size>>
