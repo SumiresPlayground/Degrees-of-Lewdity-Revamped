@@ -114,11 +114,13 @@ setup.colours = {
 		ydark: ["#8e7f68", "#483f35"],
 		ygyaru: ["#f0ffe6", "#f0e4bc", "#8e7f68", "#483f35"],
 		ghostly: ["#DBFFFF", "#DBFFFF"],
+		slimy: ["#CBFFCB", "#98FF98"]
 	},
 	/**
 	 * Get canvas filter for skin of given type and tan progression (0..1).
 	 *
 	 * @param {any} type
+	 * 
 	 * @param {any} tan
 	 */
 	getSkinFilter(type, tan) {
