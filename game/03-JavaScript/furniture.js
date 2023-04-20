@@ -560,9 +560,7 @@ const Furniture = (() => {
 				break;
 			// case 4:
 			// 	/* Lake house */
-			// 	updaterLogAll();
-			// 	var lakehouse = {};
-			// 	V.furniture.push(lakehouse);
+			// 	V.furniture.push({ lakehouse: {} });
 			// 	furnitureIn(Locations.lakehouse);
 		}
 	}
