@@ -1749,7 +1749,11 @@
 
 	<<if $cat gte 7 or $cattf is 1>>
 		__Heterochromia__<br>
-		<<link "Set">><<set _cat.heterochromia = "default">><<catHeterochromiaTF 3>><<updatesidebarimg>><</link>> / <<link "Clear">><<set _cat.heterochromia = "disabled">><<catHeterochromiaTF 0>><<updatesidebarimg>><</link>><br>
+		<<if _cat.heterochromia isnot "default">>
+			<<link [[Set|$passage]]>><<set _cat.heterochromia = "default">><<run window.determineCatEyeStages()>><<set $original_colour = [$leftEyeColour, $rightEyeColour]>><<catHeterochromiaTF 3>><<updatesidebarimg>><</link>>
+		<<else>>
+			<<link [[Clear|$passage]]>><<set _cat.heterochromia = "disabled">><<set $leftEyeColour to $original_colour[0]>><<set $rightEyeColour to $original_colour[1]>><<catHeterochromiaTF 0>><<updatesidebarimg>><</link>><br>
+		<</if>>
 		<br>
 	<</if>>
 
