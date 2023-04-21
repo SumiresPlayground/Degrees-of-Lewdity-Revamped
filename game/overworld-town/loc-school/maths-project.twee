@@ -38,6 +38,9 @@ You have <span class="gold">$mathsinfo</span> insights.
 <<if $location is "home">>
 	<<link [[Stop|Bedroom]]>><</link>>
 	<br>
+<<elseif $location is "lakehouse">>
+	<<link [[Stop|Lake House Bedroom]]>><</link>>
+	<br>
 <<else>>
 	<<link [[Stop|School Library]]>><</link>>
 	<br>
@@ -161,6 +164,8 @@ You sit down and get to work.
 
 	<<if $location is "home">>
 		<<link [[Next|Bedroom]]>><</link>>
+	<<elseif $location is "lakehouse">>
+		<<link [[Stop|Lake House Bedroom]]>><</link>>
 	<<else>>
 		<<link [[Next|School Library]]>><</link>>
 	<</if>>
@@ -271,6 +276,11 @@ You take the stimulant, sit down, and get to work.
 		<br>
 		<<link [[Go outside|Maths Project Outside Home]]>><</link>>
 		<br>
+	<<elseif $location is "lakehouse">>
+		<<link [[Endure (4:00)|Maths Project Endure Lake House]]>><<pass 240>><<stress 24>><</link>><<ggstress>>
+		<br>
+		<<link [[Go outside|Maths Project Outside Lake House]]>><</link>>
+		<br>
 	<<else>>
 		<<link [[Endure (4:00)|Maths Project Endure Library]]>><<pass 240>><<stress 24>><</link>>
 		<br>
@@ -278,18 +288,24 @@ You take the stimulant, sit down, and get to work.
 		<br>
 	<</if>>
 <<elseif $mathsstimused is 3 or $mathsstimused gte 4 and $rng gte 50>>
-	You sit back and admire your work, but something is wrong. The objects in <<if $location is "home">>your room<<else>>the library<</if>> begin to shift and warp, becoming covered in strange patterns. You lose your sense of balance and find yourself wobbling. You almost fall over. That dose must have been contaminated with a concentrated hallucinogen. The knowledge does nothing to make the experience less real.
+	You sit back and admire your work, but something is wrong. The objects in <<if $location is "home" or $location is "lakehouse">>your room<<else>>the library<</if>> begin to shift and warp, becoming covered in strange patterns. You lose your sense of balance and find yourself wobbling. You almost fall over. That dose must have been contaminated with a concentrated hallucinogen. The knowledge does nothing to make the experience less real.
 	<<hallucinogen 500>>
 	<br><br>
-	<<if $location is "home">>You try to lie down, but before you can make it to your bed<<else>>You decide to go for a walk to clear your head, but the moment you rise from your chair,<</if>> your surroundings become twisted and unfamiliar. Dark, threatening shapes shift around you as you stumble forward in search of something familiar to cling to. Grotesque creatures with giant eyes and countless thrashing tongues watch you from afar, gibbering in guttural sounds that echo across the landscape. The floor begins to liquefy, and you struggle to move through it as you sink to your ankles, then your knees, then your waist. Finally, it gives way all at once and you find yourself falling, tumbling end-over-end through a black void.
+	<<if $location is "home" or $location is "lakehouse">>You try to lie down, but before you can make it to your bed<<else>>You decide to go for a walk to clear your head, but the moment you rise from your chair,<</if>> your surroundings become twisted and unfamiliar. Dark, threatening shapes shift around you as you stumble forward in search of something familiar to cling to. Grotesque creatures with giant eyes and countless thrashing tongues watch you from afar, gibbering in guttural sounds that echo across the landscape. The floor begins to liquefy, and you struggle to move through it as you sink to your ankles, then your knees, then your waist. Finally, it gives way all at once and you find yourself falling, tumbling end-over-end through a black void.
 	<br><br>
 	<<if $location is "home">>
 		<<set $bus to "residential">>
 	<<else>>
 		<<set $bus to "industrial">>
 	<</if>>
-	<<link [[Next|Maths Project Void]]>><</link>>
-	<br>
+	
+	<<if $location is "lakehouse">>
+		<<link [[Next|Maths Project Void Lake]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Next|Maths Project Void]]>><</link>>
+		br>
+	<</if>>
 <<elseif $mathsstimrobin isnot 1 and Time.schoolDay and Time.dayState isnot "night" and $robinmissing is 0 and $NPCName[$NPCNameList.indexOf("Robin")].init is 1 and $location is "home">>
 	<<set $mathsstimrobin to 1>>
 	<<npc Robin>><<person1>>
@@ -323,6 +339,8 @@ You take the stimulant, sit down, and get to work.
 
 		<<if $location is "home">>
 			<<link [[Next|Bedroom]]>><</link>>
+		<<elseif $location is "lakehouse">>
+			<<link [[Next|Lake House Bedroom]]>><</link>>
 		<<else>>
 			<<link [[Next|School Library]]>><</link>>
 		<</if>>
@@ -458,6 +476,78 @@ You can't find the words to protest as <<he>> takes you by the shoulder and guid
 	<<destinationeventend>>
 <</if>>
 
+:: Maths Project Void Lake
+
+<<effects>>
+<<beastNEWinit 1 wolf>>
+The fall abruptly ends as you land on the cold ground. You recognise the sky and the lake, though they still don't seem quite right. You've somehow ended up outside<<if $exposed gte 1>> - and without getting dressed first!<<else>>.<</if>>
+<br><br>
+As you try and fail to balance yourself, a <<beasttype>> comes out of the forest and notices the difficulty you're having.
+<br><br>
+"Prey."
+<br><br>
+Your lucidity returns as the <<beasttype>> bears down on you.
+<br><br>
+<<link [[Next|Maths Project Void Lake Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Maths Project Void Lake Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<set $enemytrust -= 40>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Maths Project Void Lake Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Maths Project Void Lake Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Maths Project Void Lake Rape Finish
+
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<bHe>> dumps you on the ground before leaving without a word.
+	<br><br>
+	<<tearful>> you try to stagger to your feet. You slip back to the ground.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	You stagger once more to your feet. You remain stood this time. The world is returning to normal. Mostly.
+	<br><br>
+	<<link [[Next|Lake Shore]]>><</link>>
+	<br>
+<<else>>
+	You manage to shove <<bhim>> against the alley wall and stagger into the open.
+	<br><br>
+	<<tearful>> you lean against a street light, but lose your balance and tumble to the ground.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	You stagger once more to your feet. You remain stood this time. The world is returning to normal. Mostly.
+	<br><br>
+	<<link [[Next|Lake Shore]]>><</link>>
+	<br>
+<</if>>
+
 :: Maths Project Endure Home
 
 <<effects>>
@@ -469,6 +559,19 @@ Your muscles ache from the tension by the time the aches fade. You realise that 
 <br><br>
 
 <<link [[Next|Bedroom]]>><</link>>
+<br>
+
+:: Maths Project Endure Lake House
+
+<<effects>>
+
+You lie down on your bed and hope you can endure the experience. Doing anything productive right now is out of the question. It's a struggle to even think straight, but you do your best to distract yourself by counting things. It's going well until you glance at the clock and realise only a couple of minutes have passed.
+<br><br>
+
+Your muscles ache from the tension by the time the aches fade. You realise that your teeth have been clenched too. You're still aroused and frustrated. At least you can think straight again.
+<br><br>
+
+<<link [[Next|Lake House Bedroom]]>><</link>>
 <br>
 
 :: Maths Project Endure Library
@@ -498,6 +601,26 @@ You stumble outside, leaning against a wall for support. <<if $exposed gte 1>>Th
 "You're a naughty one, aren't you?" <<he>> says. "Don't worry. I know just what you need."
 <br><br>
 <<link [[Next|Maths Project Outside Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Maths Project Outside Lake House
+
+<<effects>>
+<<beastNEWinit 1 wolf>>
+You stumble outside, leaning against a wall for support. <<if $exposed gte 1>>The air is cold against your skin. You were in such a hurry that you didn't even get dressed, but you're past the point of caring. If it means that someone notices you sooner, all the better.<<else>>The stimulation of your clothes brushing against your <<genitals_are 1>> almost too much to bear, forcing you to stop every few steps as you convulse with pleasure.<</if>> 
+At first, no one is there to notice, until a <<beasttype>> walks out of the forest casting a leer up and down your body. You try to speak to <<bhim>>.
+<br><br>
+"P-please..."
+<br><br>
+<<bHe>> immediately pounces on you. Your reflexive scream of protest comes out as a lewd moan.
+<br><br>
+<<if $monster is 1 or $bestialitydisable is "f">>
+	<<bHis>> hand explores between your legs, and the pleasure overwhelms you once more. But this time the spasms don't stop the stimulation. You can only thrash helplessly as <<bhis>> fingers continue their work.
+	<br><br>
+	"Prey." <<bhe>> growls. "Mine."
+	<br><br>
+<</if>>
+<<link [[Next|Maths Project Outside Lake House Rape]]>><<set $molestationstart to 1>><</link>>
 <br>
 
 :: Maths Project Outside Library
@@ -573,6 +696,66 @@ You manage to shove <<him>> against the alley wall and stagger into the open.
 <<endcombat>>
 
 <<destinationeventend>>
+
+<</if>>
+
+:: Maths Project Outside Lake House Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Maths Project Outside Rape Lake House Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Maths Project Outside Lake House Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Maths Project Outside Rape Lake House Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+<<ejaculation>>
+
+<<bHe>> dumps you on the ground before leaving without a word.
+<br><br>
+
+<<tearful>> you stagger to your feet. You still feel sensitive and frustrated, but your thoughts have cleared somewhat.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Lake Shore]]>><</link>>
+<br>
+
+<<else>>
+
+You manage to fight off <<bhim>>.
+<br><br>
+
+<<tearful>> you lie down on the ground. You still feel sensitive and frustrated, but your thoughts have cleared somewhat.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Lake Shore]]>><</link>>
+<br>
 
 <</if>>
 

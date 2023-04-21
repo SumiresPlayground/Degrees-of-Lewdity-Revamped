@@ -379,9 +379,6 @@ const Furniture = (() => {
 			cost: setPrice(3000),
 			description: "A television.",
 			iconFile: "",
-			showFn() {
-				return target !== "bedroom";
-			},
 		});
 		/* ------------ GAME CONSOLE ------------- */
 		mapper.set("gameconsole", {
@@ -392,9 +389,6 @@ const Furniture = (() => {
 			cost: setPrice(400),
 			description: "A game console.",
 			iconFile: "",
-			showFn() {
-				return target !== "bedroom";
-			},
 		});
 		/* ----------------- PC ------------------ */
 		mapper.set("pc", {
@@ -405,9 +399,6 @@ const Furniture = (() => {
 			cost: setPrice(5000),
 			description: "A PC.",
 			iconFile: "",
-			showFn() {
-				return target !== "bedroom";
-			},
 		});
 		/* -------------- BOOKSHELF -------------- */
 		mapper.set("bookshelf", {
@@ -418,9 +409,6 @@ const Furniture = (() => {
 			cost: setPrice(2000),
 			description: "A bookshelf.",
 			iconFile: "",
-			showFn() {
-				return target !== "bedroom";
-			},
 		});
 	}
 
@@ -560,7 +548,7 @@ const Furniture = (() => {
 				break;
 			// case 4:
 			// 	/* Lake house */
-			// 	V.furniture.push({ lakehouse: {} });
+			// 	V.furniture.lakehouse = {};
 			// 	furnitureIn(Locations.lakehouse);
 		}
 	}

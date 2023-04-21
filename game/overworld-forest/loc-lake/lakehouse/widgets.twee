@@ -1,0 +1,61 @@
+:: Widgets Lake House [widget]
+<<widget "passoutlakehouse">>
+	<<if isPlayerNonparasitePregnancyEnding()>>
+		<<pregnancyWatersBrokenPassout>>
+	<<else>>
+		<<link [[Everything fades to black...->Lake House Passout]]>><</link>>
+	<</if>>
+<</widget>>
+
+<<widget "lake_house_assault_intro">>
+	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog" and $lakehouse.dogTraining is true>>
+		<span class="green">Your dogs are trained and ready to defend their master.</span><br>
+	<<elseif $lakehouse.pet1 is "dog" and lakehouse.pet2 is "dog" and $lakehouse.dogTraining is false>>
+		<span class="teal">Your dogs are ready to defend the house, but don't have any special training.</span><br>
+	<<elseif $lakehouse.pet1 is "dog" or lakehouse.pet2 is "dog" and $lakehouse.dogTraining is true>>
+		<span class="teal">Your dog is trained and ready to defend their master.</span><br>
+	<<elseif $lakehouse.pet1 is "dog" or lakehouse.pet2 is "dog" and $lakehouse.dogTraining is false>>
+		<span class="lblue">Your dog is ready to defend the farm, but don't have any special training.</span><br>
+	<</if>>
+	<<if $lakehouse.wall gte 3>>
+		<span class="green">The barbed metal fence around the lake is unclimbable. Attackers will need to cut their way in, which will take a while.</span>
+	<<elseif $lakehouse.wall gte 2>>
+		<span class="teal">The tall metal fence around the lake will greatly slow attackers.</span>
+	<<elseif $lakehouse.wall gte 1>>
+		<span class="lblue">The concrete wall around the farm will slow attackers.</span>
+	<<else>>
+		<span class="purple">The attackers invade unimpeded.</span>
+	<</if>>
+	<br><br>
+<</widget>>
+
+<<widget "lake_house_sleep_options">>
+	<<nightmareCheck "Lake House Sleep">>
+
+	<<if $sleeptrouble is 1 and $controlled is 0>>
+		<<link [[Sleep for 10 hours|Lake House Sleep]]>><<set $sleephour to 10>><<incrementautosave>><</link>> (<<timeAfterXHours 10>>)<<ltiredness>>
+		<br>
+		<<link [[Sleep for 9 hours|Lake House Sleep]]>><<set $sleephour to 9>><<incrementautosave>><</link>> (<<timeAfterXHours 9>>)<<ltiredness>>
+		<br>
+	<</if>>
+	<<link [[Sleep for 8 hours|Lake House Sleep]]>><<set $sleephour to 8>><<incrementautosave>><</link>> (<<timeAfterXHours 8>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 7 hours|Lake House Sleep]]>><<set $sleephour to 7>><<incrementautosave>><</link>> (<<timeAfterXHours 7>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 6 hours|Lake House Sleep]]>><<set $sleephour to 6>><<incrementautosave>><</link>> (<<timeAfterXHours 6>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 5 hours|Lake House Sleep]]>><<set $sleephour to 5>><<incrementautosave>><</link>> (<<timeAfterXHours 5>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 4 hours|Lake House Sleep]]>><<set $sleephour to 4>><<incrementautosave>><</link>> (<<timeAfterXHours 4>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 3 hours|Lake House Sleep]]>><<set $sleephour to 3>><<incrementautosave>><</link>> (<<timeAfterXHours 3>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 2 hours|Lake House Sleep]]>><<set $sleephour to 2>><<incrementautosave>><</link>> (<<timeAfterXHours 2>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 1 hour|Lake House Sleep]]>><<set $sleephour to 1>><<incrementautosave>><</link>> &#8194;(<<timeAfterXHours 1>>)<<ltiredness>>
+	<br>
+	<<link [[Just sleep|Lake House Sleep]]>><<set $sleephour to -1>><<incrementautosave>><</link>> (??:??)<<ltiredness>>
+	<br><br>
+	<<link [[Climb out of bed|Lake House Bedroom]]>><<storeon "Lake House Bed">><<set $wardrobe_location to "lakehouse">><<loadTempHairStyle>><<wardrobeSelection>><<loadTempHairStyle>><</link>>
+	<br><br>
+<</widget>>

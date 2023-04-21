@@ -15,7 +15,12 @@ The light takes shape and extends into the space in front of you. A single tenta
 <<effects>>
 You pull away from the mirror. The light goes out at once.
 <br><br>
-<<link [[Step away|Bedroom]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+
+<<if $location is "lakehouse">>
+	<<link [[Step away|Lake House Bedroom]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+<<else>>
+	<<link [[Step away|Bedroom]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+<</if>>
 <<mirror>>
 
 :: Eerie Mirror 2
@@ -150,4 +155,9 @@ You try to scream for help, <span class="pink">but the aphrodisiacs make it soun
 On being pulled through the mirror, you find yourself on an alien landscape.
 Giant tentacles writhe against the sky. <span class="red">An orgasm here could be dangerous.</span>
 <br><br>
-<<link [[Next|Tentacle Plains]]>><<set $tentacleEntrance to "mirror">><</link>>
+
+<<if $location is "lakehouse">>
+	<<link [[Next|Tentacle Plains]]>><<set $tentacleEntrance to "lakehouse">><</link>>
+<<else>>
+	<<link [[Next|Tentacle Plains]]>><<set $tentacleEntrance to "mirror">><</link>>
+<</if>>

@@ -131,6 +131,28 @@
 		<<set $container.list.pushUnique("farm")>>
 	<</if>>
 
+		<<if $container.lakehouse is undefined>>
+		<<set $container.lakehouse to {
+			"upgrades":{
+				"capacity":0,
+				"foodStorage":0,
+				"luxury":0
+			},
+			"name": "Tiny Fish Tank",
+			"count": 0,
+			"maxCount": 5,
+			"daysSinceFed": 0,
+			"maxDaysWithoutFood": 14,
+			"creatures":{
+				0: null
+			},
+			"deadCreatures": 0,
+			"visited": false,
+			"leaveLink": "Lake House Bedroom"
+		}>>
+		<<set $container.list.pushUnique("lakehouse")>>
+	<</if>>
+
 	<<if $pregnancyStats.parasiteTypesSeen is undefined or $pregnancyStats.parasiteVariantsSeen is undefined>>
 		<<set $pregnancyStats.parasiteTypesSeen to []>><<set $pregnancyStats.parasiteVariantsSeen to []>>
 		<<for _i range $container.list>>

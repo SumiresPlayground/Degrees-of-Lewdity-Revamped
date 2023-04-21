@@ -369,6 +369,12 @@ Overwhelmed with unending orgasms, you eventually crash into unconsciousness.
 	<br><br>
 	<<tentacleworldend>>
 	<<link [[Next|Bedroom]]>><</link>>
+<<elseif $tentacleEntrance is "lakehouse">>
+	<<set $location to "lakehouse">>
+	You wake up on the floor next to your mirror. That was quite the nightmare.
+	<br><br>
+	<<tentacleworldend>>
+	<<link [[Next|Lake House Bedroom]]>><</link>>
 <<else>>
 	<<set $location to "asylum">>
 	You wake in darkness. You're back in the asylum, in the tiny room.<<endevent>><<npc Harper>><<person1>>
@@ -423,6 +429,10 @@ whatever else they can reach. The air is sweet.
 			You stand in front of your mirror.
 			<br>
 			<<link [[Walk through|Tentacle Home Return]]>><</link>>
+		<<elseif $tentacleEntrance is "lakehouse">>
+			You stand in front of your mirror.
+			<br>
+			<<link [[Walk through|Tentacle Lake House Return]]>><</link>>
 		<<else>>
 			The door to the asylum is nearby.
 			<br>
@@ -530,6 +540,15 @@ You step through the mirror, and you're back in your room. The eerie light fades
 <br><br>
 <<tentacleworldend>>
 <<link [[Next|Bedroom]]>><</link>>
+<br>
+
+:: Tentacle Lake Home Return
+
+<<set $location to "lakehouse">><<set $outside to 0>><<effects>>
+You step through the mirror, and you're back in your room. The eerie light fades, as if it were never there.
+<br><br>
+<<tentacleworldend>>
+<<link [[Next|Lake Home Bedroom]]>><</link>>
 <br>
 
 :: Tentacle Plains Despair
@@ -1158,6 +1177,8 @@ You take to the air, leaving the writhing tentacles far below. Your wings soon t
 <<if $tentnorth gte -2 and $tentnorth lte 2 and $tenteast gte -2 and $tenteast lte 2>>
 	<<set _tent_found to true>>
 	<<if $tentacleEntrance is "mirror">>
+		You see the mirror to your bedroom.
+	<<elseif $tentacleEntrance is "lakehouse">>
 		You see the mirror to your bedroom.
 	<<else>>
 		You see the door to the asylum.
