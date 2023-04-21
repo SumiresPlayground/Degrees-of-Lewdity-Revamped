@@ -2997,12 +2997,14 @@
 		| <<link ">">><<set $farm.coop += 1>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
 		| <<link ">>">><<set $farm.coop += 2>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
 		<br>
-		<<if $farm.tractor is undefined>>
-			<<set $farm.tractor to 0>>
-			<<set $farm.tractorplough to false>>
-			<<set $farm.tractorseeddrill to false>>
-			<<set $farm.tractorharvester to false>>
-			<<set $farm.tractorloader to false>>
+		<<if $farm isnot undefined>>
+			<<if $farm.tractor is undefined>>
+				<<set $farm.tractor to 0>>
+				<<set $farm.tractorplough to false>>
+				<<set $farm.tractorseeddrill to false>>
+				<<set $farm.tractorharvester to false>>
+				<<set $farm.tractorloader to false>>
+			<</if>>
 		<</if>>
 		<<link "<<<">><<set $farm.tractor -= 3>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>> |
 		<<link "<<">><<set $farm.tractor -= 2>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>> |

@@ -853,6 +853,8 @@ Macro.add("canvasModelEditor", {
 						selectOption("sheep_horns_type", ["disabled", "hidden", "default"]),
 						selectOption("sheep_tail_type", ["disabled", "hidden", "default"]),
 						selectOption("sheep_ears_type", ["disabled", "hidden", "default"]),
+						selectOption("ghost_eyes_type", ["disabled", "hidden", "default"]),
+						selectOption("ghost_hitodama_type", ["disabled", "hidden", "default"]),
 
 						optionCategory("Body writings"),
 						selectOption("writing_forehead", bodyWritings),

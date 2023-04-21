@@ -36,6 +36,21 @@
 	<<passoutforest>>
 <<elseif $foresthunt gte 10 and $TaylorWith is 0>>
 	<<foresthunt>>
+<<elseif $exorcism is 1>>
+	<<npc Jordan>><<person1>>
+	As you enter you find Jordan in a large robe holding a tome, waiting.
+	<br><br>
+	"Ah finally here. Ready to get your body back?" <<He>> has a serious look on <<his>> face.
+	<br><br>
+	<<He>> leads you to the empty bedroom where your body was only to find it empty. 
+	<br><br>
+	"Looks like your body's got a hitchhiker." <<He>> grumbles as <<he>> spreads a white powder in the air that reveals a slimy trail along the ground.
+	<br><br>
+	You follow the trail through the house and into the kitchen. The slime stops at the edge of the trapdoor.
+	<br><br>
+	"Seems like our invader is hiding in the cellar. Be careful." <<He>> casts you a cautionary glance before opening the trapdoor and climbing down.
+	<br><br>
+	<<link [[Next|Forest Mansion Cellar Exorcism]]>><<pass 5>><</link>>
 <<else>>
 	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
 	<<set $lock to 1000>>
@@ -162,7 +177,7 @@ You find yourself in a long hallway with doors on either side.
 
 :: Forest Mansion Kitchen
 <<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 3>><<effects>>
-You enter a small room full of cooking appliances and utensils long past. An old wood oven and ice box sit against the wall and silverware lines the counter tops. In the corner is a dust covered trap door leading down.
+You enter a small room full of cooking appliances and utensils long past. An old wood oven and ice box sit against the wall and silverware lines the counter tops. In the corner is a dust covered trapdoor leading down.
 <br><br>
 
 <<if $TaylorWith is 1>>
@@ -400,6 +415,19 @@ You snuggle under the covers.
 <<sleep>><<effects>>
 <<if $TaylorWith is 1>>
 	“Wait, you want to sleep here? Well it is past dark and we’re in the middle of the woods.” <<He>> sighs “How will I explain this to my mother, especially after the last incident.” The two of you lie in bed and try to sleep. Most of the night you’re plagued with chills before the sun comes back up. 
+<<elseif $ghost is 0>>
+	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+	<br><br>
+	Although, something feels... wrong. You go to rub your temple but feel nothing. You panic, pulling the cover from a mirror to find yourself changed.
+	<br><br>
+	Your skin is ghostly pale. Blue flaming orbs loom around you. You go to touch your face but shockingly your hand phases through into your head. You start to breath heavily, panic setting in, as your hand becomes stuck in place.
+	<br><br>
+	You pull and finally rip it loose as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
+	<<set $skinColor.naturalreset to $skinColor.natural>>
+	<<set $skinColor.natural to "ghostly">>
+	<<set $transformationParts.ghost.eyes to "default">>
+	<<set $transformationParts.ghost.hitodama to "default">>
+	<<set $ghost to 1>>
 <<else>>
 	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
 <</if>>
@@ -440,3 +468,42 @@ You snuggle under the covers.
 <<endevent>>
 
 <<link [[Next|Danube Street]]>><<pass 90>><</link>>
+
+:: Forest Mansion Cellar Exorcism
+You follow after Jordan down into the dark damp cellar. Liquid drips from the ceiling as Jordan reaches into <<his>> robe and removes a torch to light the room.
+<br><br>
+Broken bottles lie on the floor and large casks block your view. Something growls in the back of the room causing your hairs to raise.
+<br><br>
+Jordan steps around a cask and shines <<his>> light around. A rat skitters out of the light but there's no sign of your body.
+<br><br>
+Suddenly something lunges out from the shadows and attacks Jordan. <<Hes>> knocked unto his back and the torch spins away to your feet.
+<br><br>
+You hurredly pick it up and illuminate the scene. Within the dim torch light you find Jordan pinned under your thin body. Your cheeks sunken in and your eyes nearly black.
+<br><br>
+Jordan shouts something as <<he>> smashes a glass bottle on your body's forehead. Your body screams in pain as it crumples to the ground in pain.
+<br><br>
+"Hurry hold it down." Jordan yells as <<he>> removes the tomb from his robe and opens to a bookmark.
+<br><br>
+<<link [[Hold it down|Forest Mansion Exorcism]]>><</link>>
+
+:: Forest Mansion Exorcism
+You hold down the body as Jordan begins to read from the old tome. You can't understand the language but your body starts to twitch and scream in agony.
+<br><br>
+Black fluid poors from your body's pours and pools on the ground as it writhes under you.
+<br><br>
+"Hurry get back inside." Jordan yells.
+<br><br>
+You waste no time forcing yourself back inside your body before blacking out.
+<br><br>
+<<link [[Wake up (6:00)|Forest Mansion Awaken]]>><<pass 360>><<set $skinColor.natural to $skinColor.naturalreset>><<set $transformationParts.ghost.eyes to "disabled">><<set $transformationParts.ghost.hitodama to "disabled">><</link>>
+
+:: Forest Mansion Awaken
+Your eyes flutter open and you sit up quickly. You find yourself sitting in a plush bed, Jordan sits in a chair beside you sleeping peacefully.
+<br><br>
+As you start to get up Jordan comes to and stretches, standing up. "Morning." <<He>> mutters grogily. "Seems the exorcism took a lot out of us both. I barely made it back to the temple before passing out."
+<br><br>
+<<He>> smiles as he helps you up. "Glad to help with your spiritual problem. Next time try not to stay in such a cursed place."
+<br><br>
+<<He>> walks you back into the temple's main room and bids you farewell.
+<br><br>
+<<link [[Next|Temple]]>><<set $ghost to 2>><</link>>
