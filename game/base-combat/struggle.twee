@@ -1225,7 +1225,7 @@
 				<br>
 				You dig your nails in and try to wrench the <<print $struggle[_actionpart].creature>> off your <<struggle_region _actionpart>>.
 				<<struggle_difficulty_set>>
-				<<if $struggle[_actionpart].success gte random(1, 100) || ($leftaction is $rightaction and $struggle[_actionpart].success gte random(1, 100))>>
+				<<if $struggle[_actionpart].success gte random(1, 100) || ($leftaction is $rightaction and $struggle[_actionpart].success gte random(1, 100)) or $slime is 1>>
 					<span class="green">You hurl it away from you.</span>
 					<<set V[_actionpart + 'use'] to 0>>
 					<<set V[_actionpart + 'state'] to 0>>
@@ -1363,7 +1363,7 @@
 			<<case 0>>
 				<<if $struggle.mouth.legs is "tentacles">>
 					The <<print $struggle.mouth.creature>>'s tentacles wrap around your neck.<<neutral 2>>
-				<<elseif $worn.face.type.includes("covered") or $worn.face.type.includes("gag")>>
+				<<elseif $worn.face.type.includes("covered") or $worn.face.type.includes("gag") or $slime is 1>>
 					The <<print $struggle.mouth.creature>>'s <<struggle_appendage mouth>> rubs against your $worn.face.name.<<neutral 1>>
 				<<else>>
 					The <<print $struggle.mouth.creature>>'s <<struggle_appendage mouth>> rubs against your face.<<neutral 1>>

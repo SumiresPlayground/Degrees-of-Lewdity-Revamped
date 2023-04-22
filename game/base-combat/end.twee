@@ -99,6 +99,19 @@
 
 	<</if>>
 
+	<<if $slime is 1>> 
+		<<if $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 0 and $liquidcount gte 1>>
+			<<wash>>
+			<<pain -30>>
+			<span class ='green'>Your amorphous body absorbs the fluid covering you and begins to heal.</span><br><br>
+		<<elseif $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 0>>
+			<<pain -15>>
+			<span class ='green'>Your amorphous body tries to mend itself.</span><br><br>
+		<<else>>
+			<span class ='green'>Your amorphous body tries to heal, but the environment is too hostile.</span><br><br>
+		<</if>>
+	<</if>>
+
 	<<unset $enemytype>>
 
 	<<endevent>>

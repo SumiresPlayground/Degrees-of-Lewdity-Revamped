@@ -46,6 +46,9 @@
 
 		<<if $underwater is 1>>
 			<<set $underwatertime += 1>>
+			<<if $slime is 1>>
+				<<violence 60>>
+			<</if>>
 			<<if $underwatertime lte 5>>
 				You are underwater, and cannot speak.
 			<<elseif $underwatertime lte 10>>
@@ -357,7 +360,7 @@
 			<<set $leftaction to 0>><<set $rightaction to 0>><<set $leftactiondefault to "leftstruggle">><<set $rightactiondefault to "rightstruggle">>
 			You struggle with all your might.
 			<<defiance 2 $lefttarget>><<set $speechstruggle to 1>>
-			<<if currentSkillValue('physique') gte random(1, 32000) and !$robinRentEvent>>
+			<<if currentSkillValue('physique') gte random(1, 32000) and !$robinRentEvent or $slime is 1>>
 				<span class="teal">You manage to twist your arms free.</span>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -376,7 +379,7 @@
 			<<set $leftaction to 0>><<set $leftactiondefault to "leftstruggle">>
 			You struggle.
 			<<set $speechstruggle to 1>><<defiance 1 $lefttarget>>
-			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent>>
+			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime is 1>>
 				<span class="teal">You manage to twist your arms free.</span>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -395,7 +398,7 @@
 			<<set $rightaction to 0>><<set $rightactiondefault to "rightstruggle">>
 			You struggle.
 			<<defiance 1 $righttarget>><<set $speechstruggle to 1>>
-			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent>>
+			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime is 1>>
 				<span class="teal">You manage to twist your arms free.</span>
 				<<defiance 5 $righttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -5076,19 +5079,21 @@
 			<</if>>
 			<<set $dragonbreathuse += 1>><<set $speechdragonbreath to 1>>
 			<<if $enemytype is "beast">>
-				You breath dragon fire at the <<beasttype>>. It whimpers.
+				You breathe dragon fire at the <<beasttype>>. It whimpers.
 			<<elseif $enemyno gte 2>>
-				You breath dragon fire at the <<group>>. They recoil in pain.
+				You breathe dragon fire at the <<group>>. They recoil in pain.
 				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
 					<<ggcrime>><<crimeup 500>>
 				<</if>>
 			<<else>>
-				You breath dragon fire at the assailant. <<He>> recoils in pain.
+				You breathe dragon fire at the assailant. <<He>> recoils in pain.
 				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
 					<<ggcrime>><<crimeup 500>>
 				<</if>>
 			<</if>>
 		<</if>>
+
+
 
 		/*Stalked actions */
 		<<if !$stalk_end>>
@@ -6620,3 +6625,20 @@
 		<</for>>
 	<</if>>
 <</widget>>
+<<widget "specialeffects">>
+	/*Adds special effects to the character */
+	<<if $slime is 1>>
+		<<set $player.bodyliquid[_bodypart]["goo"] to 3>>
+		<<for _type range ["neck","rightarm","leftarm","thigh","bottom","tummy","chest","face","hair","feet","vaginaoutside"]>>
+			<<bodyliquid _type "goo" 5>><<run $(`#stats${_type}goo`).html(Math.trunc($player.bodyliquid[_type].goo))>>
+		<</for>>
+		<<updatesidebarimg>>
+	<</if>>
+	<<set $player.bodyliquid to {}>>
+	<<for _bodypart range setup.bodyliquid.bodyparts>>
+		/* look in variables-static for the list of body parts */
+		<<set $player.bodyliquid[_bodypart] to {}>>
+		<<set $player.bodyliquid[_bodypart]["goo"] to 0>>
+		
+	<</for>>
+<</widget>> |

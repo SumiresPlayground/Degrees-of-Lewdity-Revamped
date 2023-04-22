@@ -950,7 +950,7 @@
 			<<neutral 1>><<set _tentacle.shaft to "waist">>
 		<<elseif $rng lte 60>>
 			<<if $position isnot "wall">>
-				<<if $head is 0 and $nochoke isnot 1 and $asphyxiaLvl gte 1>>
+				<<if $head is 0 and $nochoke isnot 1 and $asphyxiaLvl gte 1 and $slime isnot 1>>
 					_The _tentacle.fullDesc winds its way around your neck, <span class="blue">restraining your head.</span>
 					<<neutral 1>><<set _tentacle.shaft to "neck">><<set $head to "grappled">>
 					<<tentacle_skin "left_cheek" "right_cheek">>
@@ -1543,6 +1543,8 @@
 		<<if !_struggletext>>
 			<<if $leftaction is "leftstruggle" and $rightaction is "rightstruggle">>
 				You struggle with all your might.
+			<<elseif $slime is 1>>
+				You slip through it's grasp.
 			<<else>>
 				You struggle.
 			<</if>>
@@ -1551,7 +1553,7 @@
 		<<if $abomination is 1 and ($NPCList[0].lefthand is "arms" or $NPCList[0].righthand is "arms")>>
 			<<if $leftaction is "leftstruggle" and $rightaction is "rightstruggle">>
 				<<set $leftaction to 0>><<set $rightaction to 0>><<set $leftactiondefault to "leftstruggle">><<set $rightactiondefault to "rightstruggle">>
-				<<if currentSkillValue('physique') gte random(1, 32000)>>
+				<<if currentSkillValue('physique') gte random(1, 32000) or $slime is 1>>
 					<span class="teal">You manage to twist your arms free.</span>
 					<<defiance 5>>
 					<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -1561,7 +1563,7 @@
 					<span class="purple">Your arms remain entangled.</span>
 				<</if>>
 			<<else>>
-				<<if currentSkillValue('physique') gte random(1, 64000)>>
+				<<if currentSkillValue('physique') gte random(1, 64000) or $slime is 1>>
 					<span class="teal">You manage to twist your arms free.</span>
 					<<defiance 5>>
 					<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -1575,7 +1577,7 @@
 		<<if $leftaction is "leftstruggle" and _tentacle.shaft is "leftarm">>
 			<<set $leftaction to 0>><<set $leftactiondefault to "leftstruggle">>
 			<<set $speechstruggle to 1>><<defiance 1>>
-			<<if currentSkillValue('physique') gte random(1, 64000)>>
+			<<if currentSkillValue('physique') gte random(1, 64000) or $slime is 1>>
 				<span class="teal">You manage to twist your left arm free.</span>
 				<<defiance 5>><<tentacleadvdisable _tentacle>>
 				<<set $leftarm to 0>>
@@ -1586,7 +1588,7 @@
 		<<if $rightaction is "rightstruggle" and _tentacle.shaft is "rightarm">>
 			<<set $rightaction to 0>><<set $rightactiondefault to "rightstruggle">>
 			<<defiance 1>><<set $speechstruggle to 1>>
-			<<if currentSkillValue('physique') gte random(1, 64000)>>
+			<<if currentSkillValue('physique') gte random(1, 64000) or $slime is 1>>
 				<span class="teal">You manage to twist your right arm free.</span>
 				<<defiance 5>><<tentacleadvdisable _tentacle>>
 				<<set $rightarm to 0>>
@@ -1613,7 +1615,7 @@
 		<br>
 		You <<handtext>> guide _the _tentacle.fullDesc with your _hand hand towards your <<bottom>>.
 
-		<<if $rng lte 30>> /* How common will the tentacle wrap around the arm guiding it */
+		<<if $rng lte 30 and $slime isnot 1>> /* How common will the tentacle wrap around the arm guiding it */
 			<<if _hand is "left">>
 				<<leftarmtentacledisable>>
 				<<set _tentacle.shaft to "leftarm">>
@@ -1652,7 +1654,7 @@
 		<br>
 		You <<handtext>> guide _the _tentacle.fullDesc with your _hand hand up towards your mouth.
 
-		<<if $rng lte 30>> /* How common will the tentacle wrap around the arm guiding it */
+		<<if $rng lte 30 and $slime isnot 1>> /* How common will the tentacle wrap around the arm guiding it */
 			<<if _hand is "left">>
 				<<leftarmtentacledisable>>
 				<<set _tentacle.shaft to "leftarm">>
@@ -1695,7 +1697,7 @@
 		<br>
 		You <<handtext>> guide _the _tentacle.fullDesc with your _hand hand between your thighs.
 
-		<<if $rng lte 30>> /* How common will the tentacle wrap around the arm guiding it */
+		<<if $rng lte 30 and $slime isnot 1>> /* How common will the tentacle wrap around the arm guiding it */
 			<<if _hand is "left">>
 				<<leftarmtentacledisable>>
 				<<set _tentacle.shaft to "leftarm">>
@@ -1740,7 +1742,7 @@
 			<br>
 			You <<handtext>> guide _the _tentacle.fullDesc with your _hand hand between your thighs close to your <<penisSimple>>.
 
-			<<if $rng lte 30>> /* How common will the tentacle wrap around the arm guiding it */
+			<<if $rng lte 30 and $slime isnot 1>> /* How common will the tentacle wrap around the arm guiding it */
 				<<if _hand is "left">>
 					<<leftarmtentacledisable>>
 					<<set _tentacle.shaft to "leftarm">>
@@ -1784,7 +1786,7 @@
 			<br>
 			You <<handtext>> guide _the _tentacle.fullDesc with your _hand hand between your thighs close to your pussy.
 
-			<<if $rng lte 30>> /* How common will the tentacle wrap around the arm guiding it */
+			<<if $rng lte 30 ans $slime isnot 1>> /* How common will the tentacle wrap around the arm guiding it */
 				<<if _hand is "left">>
 					<<leftarmtentacledisable>>
 					<<set _tentacle.shaft to "leftarm">>
@@ -1880,7 +1882,7 @@
 			You <<feettext>> guide _the _tentacle.fullDesc with your feet towards your <<bottom>>.
 		<</if>>
 
-		<<if $rng lte 30>> /* Leg grapple? */
+		<<if $rng lte 30 and $slime isnot 1>> /* Leg grapple? */
 			<<if $rng gte 15>>
 				<<set _leg to "left">><<set _tentacle.shaft to "leftleg">><<set $leftleg to "grappled">><<set $feettarget to "tentacles">>
 			<<else>>
@@ -1925,7 +1927,7 @@
 			You <<feettext>> guide _the _tentacle.fullDesc with your feet between your thighs close to your pussy.
 
 			<<if $rng lte 30>>
-				<<if $rng gte 15>>
+				<<if $rng gte 15 and $slime isnot 1>>
 					<<set _leg to "left">><<set _tentacle.shaft to "leftleg">><<set $leftleg to "grappled">><<set $feettarget to "tentacles">>
 				<<else>>
 					<<set _leg to "right">><<set _tentacle.shaft to "rightleg">><<set $rightleg to "grappled">><<set $feettarget to "tentacles">>
@@ -1959,7 +1961,7 @@
 			You <<feettext>> guide _the _tentacle.fullDesc with your feet between your thighs close to your <<print playerHasStrapon() ? "strap-on" : "penis">>.
 
 			<<if $rng lte 30>>
-				<<if $rng gte 15>>
+				<<if $rng gte 15 and $slime isnot 1>>
 					<<set _leg to "left">><<set _tentacle.shaft to "leftleg">><<set $leftleg to "grappled">><<set $feettarget to "tentacles">>
 				<<else>>
 					<<set _leg to "right">><<set _tentacle.shaft to "rightleg">><<set $rightleg to "grappled">><<set $feettarget to "tentacles">>
