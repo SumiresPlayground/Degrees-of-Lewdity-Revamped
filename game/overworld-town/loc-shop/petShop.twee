@@ -185,8 +185,18 @@ You are in the pet shop. <<if Time.dayState is "night">>Most of the animals are 
 					<<set $money -= 50000>>
 					<<if $lakehouse.pet1 is undefined>>
 						<<set $lakehouse.pet1 to "dog">>
+						<<if random(1, 100) lte $beastmalechance>>
+							<<set $lakehouse.pet1.gender to "m">>
+						<<else>>
+							<<set $lakehouse.pet1.gender to "f">>
+						<</if>>
 					<<else>>
 						<<set $lakehouse.pet2 to "dog">>
+						<<if random(1, 100) lte $beastmalechance>>
+							<<set $lakehouse.pet2.gender to "m">>
+						<<else>>
+							<<set $lakehouse.pet2.gender to "f">>
+						<</if>>
 					<</if>>
 				<</link>></li>
 			<<else>>
@@ -198,9 +208,19 @@ You are in the pet shop. <<if Time.dayState is "night">>Most of the animals are 
 				<li><<link [[Adopt a cat (£300)|$passage]]>>
 					<<set $money -= 30000>>
 					<<if $lakehouse.pet1 is undefined>>
-						<<set $lakehouse.pet1 to "dog">>
+						<<set $lakehouse.pet1 to "cat">>
+						<<if random(1, 100) lte $beastmalechance>>
+							<<set $lakehouse.pet1.gender to "m">>
+						<<else>>
+							<<set $lakehouse.pet1.gender to "f">>
+						<</if>>
 					<<else>>
-						<<set $lakehouse.pet2 to "dog">>
+						<<set $lakehouse.pet2 to "cat">>
+						<<if random(1, 100) lte $beastmalechance>>
+							<<set $lakehouse.pet2.gender to "m">>
+						<<else>>
+							<<set $lakehouse.pet2.gender to "f">>
+						<</if>>
 					<</if>>
 				<</link>></li>
 			<<else>>

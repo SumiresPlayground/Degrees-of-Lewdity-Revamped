@@ -127,23 +127,28 @@
 		<br>
 	<</if>>
 	<<if _tv and _gameconsole>>
-		<<link [[Play console|Lake House Console]]>><</link>>
+		<<link [[Play console(0:30)|Lake House Console]]>><<trauma -3>><</link>>
 		<br>
 	<</if>>
-	<<if $lakehouse.pet1 is "cat" or $lakehouse.pet2 is "cat">>
-		<<link [[Snuggle cat|Lake House Snuggle Cat]]>><</link>>
+	<<if $lakehouse.pet1 is "cat" and $lakehouse.pet2 is "cat">>
+		<<link [[Snuggle cat(0:30)|Lake House Snuggle Cats]]>><<pass 30>><<stress -25>><<trauma -25>><</link>><<lllstress>><<llltrauma>>
+		<br>
+	<<elseif $lakehouse.pet1 is "cat" or $lakehouse.pet2 is "cat">>
+		<<link [[Snuggle cat(0:30)|Lake House Snuggle Cat]]>><<pass 30>><<stress -10>><<trauma -10>><</link>><<llstress>><<lltrauma>>
 		<br>
 	<</if>>
-	<<if $lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog">>
-		<<link [[Play fetch with dog|Lake House Fetch dog]]>><</link>>
+	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog">>
+		<<link [[Play fetch with Dog|Lake House Fetch Dog]]>><</link>>
 		<br>
-	<</if>>
-	<<if $lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog">>
-		<<link [[Fuck dog|Lake House Fuck Dog]]>><</link>>
+	<<elseif $lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog">>
+		<<link [[Play fetch with Dog|Lake House Fetch Dog]]>><</link>>
 		<br>
 	<</if>>
 	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog">>
 		<<link [[Fuck dogs|Lake House Fuck Dogs]]>><</link>>
+		<br>
+	<<elseif $lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog">>
+		<<link [[Fuck dog|Lake House Fuck Dog]]>><</link>>
 		<br>
 	<</if>>
 	/* <<link [[Robin options|Lake House Robin Options]]>><</link>>
@@ -1088,3 +1093,22 @@ Watching them interact for a while calms you down.
 	<br>
 <</addinlineevent>>
 <<runeventpool>>
+
+:: Lake House Snuggle Cat
+<<if $lakehouse.pet1 is "cat">>
+	<<beastNEWinit 1 cat $lakehouse.pet1.gender>>
+<<else>>
+	<<beastNEWinit 1 cat $lakehouse.pet2.gender>>
+<</if>>
+You pick up your cat and hold <<him>> close snuggling <<him>>. <<His>> soft fur makes you feel happy and makes you feel slightly better.
+
+<<link [[Next|Lake House]]>><</link>>
+<br>
+
+:: Lake House Snuggle Cats
+You pick up your cats and hold them close snuggling them>. Their soft fur makes you feel happy and makes you feel slightly better.
+
+<<link [[Next|Lake House]]>><</link>>
+<br>
+
+:: Lake House Fetch Dog
