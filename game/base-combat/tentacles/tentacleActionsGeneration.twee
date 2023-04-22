@@ -143,8 +143,10 @@
 						<<break>>
 					<</if>>
 				<</for>>
-				<<if !$_tentgrab or $slime is 0>>
-					<span @class="($lastOptions.left isnot _leftOptions ?'gold':'')">Your left arm is being held down.</span>
+				<<if !$_tentgrab and $slime is 0>>
+					<br><span @class="($lastOptions.left isnot _leftOptions ?'gold':'')">Your left arm is being held down.</span>
+				<<elseif $slime is 1>>
+					<br><span @class="($lastOptions.left isnot _leftOptions ?'gold':'')">Your left arm is free.</span>
 				<</if>>
 			<</if>>
 		<<case "bound">>
@@ -454,8 +456,10 @@
 						<<break>>
 					<</if>>
 				<</for>>
-				<<if !$_tentgrab or $slime is 0>>
+				<<if !$_tentgrab and $slime is 0>>
 					<span @class="($lastOptions.right isnot _rightOptions ?'gold':'')">Your right arm is being held down.</span>
+				<<elseif $slime is 1>>
+					<br><span @class="($lastOptions.left isnot _rightOptions ?'gold':'')">Your right arm is free.</span>
 				<</if>>
 			<</if>>
 		<<case "bound">>
