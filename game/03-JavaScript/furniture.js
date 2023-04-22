@@ -378,7 +378,7 @@ const Furniture = (() => {
 			type: [],
 			cost: setPrice(3000),
 			description: "A television.",
-			iconFile: "",
+			iconFile: "indent.png",
 		});
 		/* ------------ GAME CONSOLE ------------- */
 		mapper.set("gameconsole", {
@@ -388,7 +388,7 @@ const Furniture = (() => {
 			type: [],
 			cost: setPrice(400),
 			description: "A game console.",
-			iconFile: "",
+			iconFile: "arcade.gif",
 		});
 		/* ----------------- PC ------------------ */
 		mapper.set("pc", {
@@ -398,7 +398,7 @@ const Furniture = (() => {
 			type: [],
 			cost: setPrice(5000),
 			description: "A PC.",
-			iconFile: "",
+			iconFile: "headdesk.png",
 		});
 		/* -------------- BOOKSHELF -------------- */
 		mapper.set("bookshelf", {
@@ -408,7 +408,17 @@ const Furniture = (() => {
 			type: [],
 			cost: setPrice(2000),
 			description: "A bookshelf.",
-			iconFile: "",
+			iconFile: "library.png",
+		});
+		/* ---------------- MIRROR --------------- */
+		mapper.set("mirror", {
+			name: "mirror",
+			nameCap: "Mirror",
+			category: ["mirror"],
+			type: [],
+			cost: setPrice(2000),
+			description: "A mirror.",
+			iconFile: "mirrorhome.png",
 		});
 	}
 

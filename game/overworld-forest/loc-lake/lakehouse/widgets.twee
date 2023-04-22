@@ -59,3 +59,15 @@
 	<<link [[Climb out of bed|Lake House Bedroom]]>><<storeon "Lake House Bed">><<set $wardrobe_location to "lakehouse">><<loadTempHairStyle>><<wardrobeSelection>><<loadTempHairStyle>><</link>>
 	<br><br>
 <</widget>>
+
+<<widget "lakehouseclearplot">>
+	<<if $lakehouse.clearing lte 0 and $lakehouse.plots is 0>>
+		<<set $lakehouse.clearing to 25>>
+		<<set $lakehouse.plots += 1>>
+		<<plots_init lakehouse 1 earth 3 medium>>
+	<<elseif $lakehouse.clearing lte 0 and $lakehouse.plots lt 3>>
+		<<set $lakehouse.clearing to 25>>
+		<<set $lakehouse.plots += 1>>
+		<<add_plot lakehouse earth 3 medium>>	
+	<</if>>
+<</widget>>
