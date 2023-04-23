@@ -91,7 +91,7 @@ const combatActionColours = {
 			/* feetaction */
 			"kick",
 			/* tailaction */
-			"tailstab",
+			"tailstab", "tailwhip",
 			/* mouthaction */
 			"bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy", "retribution",
 		],
