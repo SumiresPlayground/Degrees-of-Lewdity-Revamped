@@ -2305,38 +2305,34 @@ Renderer.CanvasModels["main"] = {
          *
          *
          */
-		"slime_bubbles": {
+		"slime_bubble": {
 			srcfn(options) {
 				return `img/transformations/slime/bubble/${options.slime_bubble_type}.png`;
 			},
 			showfn(options) {
-				return options.show_tf && isPartEnabled(options.slime_bubble_type);
+				return options.show_tf && options.show_face && isPartEnabled(options.slime_bubble_type)
 			},
 			z: ZIndices.horns,
 			animation: "idle"
 		},
 		"slime_stream": {
 			srcfn(options) {
-				return `img/transformations/slime/bubble/${options.slime_stream_type}.png`;
-			},
-			masksrcfn(options) {
-				return options.head_mask_src;
+				return `img/transformations/slime/stream/${options.slime_stream_type}.png`;
 			},
 			showfn(options) {
-				return options.show_tf && isPartEnabled(options.slime_stream_type);
+				return options.show_tf && options.show_face && isPartEnabled(options.slime_stream_type)
 			},
-			z: ZIndices.ears,
+			z: ZIndices.over_head,
 			animation: "idle"
 		},
-		"slime_body": {
+		"slime_core": {
 			srcfn(options) {
-				return `img/transformations/sheep/tail/${options.slime_body_type}.png`;
+				return `img/transformations/slime/core/${options.slime_core_type}.png`;
 			},
 			showfn(options) {
-				return options.show_tf && isPartEnabled(options.slime_body_type);
+				return options.show_tf && options.show_face && isPartEnabled(options.slime_core_type)
 			},
-			filters: ["hair"],
-			z: ZIndices.lower,
+			z: ZIndices.skin,
 			animation: "idle"
 		},
 
