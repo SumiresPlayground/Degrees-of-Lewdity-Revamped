@@ -536,6 +536,7 @@ function dayPassed() {
 	fragment.append(dailyNPCEffects());
 	fragment.append(yearlyEventChecks());
 	fragment.append(moonState());
+	fragment.append(dailyLakeHouseEvents());
 
 	parasiteProgressDay();
 	parasiteProgressDay("vagina");
@@ -1457,6 +1458,17 @@ function dailyFarmEvents() {
 	delete V.alex_breakfast;
 	delete V.alex_tea;
 	delete V.alex_to_bed;
+
+	return fragment;
+}
+
+function dailyLakeHouseEvents() {
+	const fragment = document.createDocumentFragment();
+
+	V.lakehouse_attack_timer--;
+	if (V.lakehouse_attack_timer < 0) fragment.append(wikifier("lakehouse_attack_auto"));
+	fragment.append(wikifier("lakehouse_build_day"));
+	if (V.lakehouse_countdown >= 1) V.lakehouse_countdown--;
 
 	return fragment;
 }

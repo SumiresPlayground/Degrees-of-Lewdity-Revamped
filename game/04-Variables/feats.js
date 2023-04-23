@@ -157,6 +157,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "General"],
 	},
+	"The Fortress": {
+		title: "The Fortress",
+		desc: "Build all the lake house upgrades.",
+		difficulty: 4,
+		series: "",
+		filter: ["All", "General"],
+	},
 	"Five in a Row": {
 		title: "Five in a Row",
 		desc: "Win five games of blackjack in a row.",

@@ -7,8 +7,54 @@
 	<<set $lakehouse = {}>>
 	<<set $lakehouse.plots to 0>>
 	<<set $lakehouse.clearing to 25>>
+	<<set $lakehouse_countdown to 7>>
 	<<set $lakehouseinit to 1>>
-<</if>> 
+<</if>>
+
+<<if $lakehouse.build isnot undefined and $lakehouse.build isnot 0>>
+	<<switch $lakehouse.build>>
+	<<case "wall 1">>
+		<span class="lblue">The wall is being repaired.</span>
+	<<case "wall 2">>
+		<span class="lblue">The wall is being reinforced.</span>
+	<<case "wall 3">>
+		<span class="lblue">A modern fence is being built around the lakehouse.</span>
+	<<case "wall 4">>
+		<span class="lblue">Barbed wire is being affixed atop the fence.</span>
+	<<case "tower 1">>
+		<span class="lblue">A tower is being built by the fields.</span>
+	<<case "tower 2">>
+		<span class="lblue">Searchlights are being affixed atop the watchtower.</span>
+	<<case "woodland 1">>
+		<span class="lblue">The fence is being extended around an area of woodland.</span>
+	<<case "woodland 2">>
+		<span class="lblue">The fence is being extended around a fecund area of woodland.</span>
+	<<case "woodland 3">>
+		<span class="lblue">The fence is being extended around a prodigious area of woodland.</span>
+	<<case "kennel 1">>
+		<span class="lblue">Vicious apparatus are being installed in the kennel.</span>
+	<<case "barn 1">>
+		<span class="lblue">New milking equipment is being installed in the barn.</span>
+	<<case "barn 2">>
+		<span class="lblue">An extension is being built on the barn.</span>
+	<<case "stable 1">>
+		<span class="lblue">The stable is being expanded.</span>
+	<<case "coop 1">>
+		<span class="lblue">The coop is being expanded.</span>
+	<<case "coop 2">>
+		<span class="lblue">The coop is being expanded.</span>
+	<<case "parasites 1">>
+		<span class="lblue">The parasite barn is being built.</span>
+	<<case "parasites 2">>
+		<span class="lblue">The parasite barn is being expanded.</span>
+	<<case "irrigation">>
+		<span class="lblue">Irrigation is being installed in a field.</span>
+	<</switch>>
+	<<if Time.hour gte 6>>
+		<span class="blue">Workers traipse across the lakehouse.</span>
+	<</if>>
+	<br><br>
+<</if>>
 
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutlake>>
@@ -127,7 +173,7 @@
 		<br>
 	<</if>>
 	<<if _tv and _gameconsole>>
-		<<link [[Play console(0:30)|Lake House Console]]>><<trauma -3>><</link>>
+		<<link [[Play console(0:30)|Lake House Console]]>><<trauma -3>><<set $handskill += 1>><</link>><<ghandskill>>
 		<br>
 	<</if>>
 	<<if $lakehouse.pet1 is "cat" and $lakehouse.pet2 is "cat">>
@@ -138,17 +184,26 @@
 		<br>
 	<</if>>
 	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog">>
-		<<link [[Play fetch with Dog|Lake House Fetch Dog]]>><</link>>
+		<<link [[Play fetch with Dogs(1:00)|Lake House Fetch Dogs]]>><<pass 60>><<stress -25>><<trauma -25>><<physique 3>><<tiredness 3>><</link>><<lllstress>><<llltrauma>><<gphysique>><<gtiredness>>
 		<br>
 	<<elseif $lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog">>
-		<<link [[Play fetch with Dog|Lake House Fetch Dog]]>><</link>>
+		<<link [[Play fetch with Dog(1:00)|Lake House Fetch Dog]]>><<pass 60>><<stress -10>><<trauma -10>><<physique 3>><<tiredness 3>><</link>><<llstress>><<lltrauma>><<gphysique>><<gtiredness>>
 		<br>
 	<</if>>
-	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog">>
-		<<link [[Fuck dogs|Lake House Fuck Dogs]]>><</link>>
+	<<if ($lakehouse.pet1 is "cat" or $lakehouse.pet2 is "cat") and $deviancy gte 15>>
+		<<link [[Fuck cat|Lake House Fuck Cats]]>><<pass 30>><</link>><<deviant2>>
 		<br>
-	<<elseif $lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog">>
-		<<link [[Fuck dog|Lake House Fuck Dog]]>><</link>>
+	<</if>>
+	<<if ($lakehouse.pet1 is "cat" and $lakehouse.pet2 is "cat") and $deviancy gte 35>>
+		<<link [[Fuck cats|Lake House Fuck Cats]]>><<pass 60>><</link>><<deviant3>>
+		<br>
+	<</if>>
+	<<if ($lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog") and $deviancy gte 15>>
+		<<link [[Fuck dog|Lake House Fuck Dog]]>><<pass 30>><</link>><<deviant2>>
+		<br>
+	<</if>>
+	<<if ($lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog") and $deviancy gte 35>>
+		<<link [[Fuck dogs|Lake House Fuck Dogs]]>><<pass 60>><</link>><<deviant3>>
 		<br>
 	<</if>>
 	/* <<link [[Robin options|Lake House Robin Options]]>><</link>>
@@ -382,9 +437,6 @@
 				<<bedroomtablechairicon>><<link [[Table (Debug)|Bedroom Table]]>><</link>>
 				<br><br>
 			<</if>> -->
-		<<else>>
-			You don't have a table yet. You will need one to manage security upgrades.
-			<br>
 		<</if>>
 
 		<<set _bookshelf to Furniture.get('bookshelf')>>
@@ -412,10 +464,10 @@
 		<<if _table or _pc>>
 			There's a desk here. You could work on security projects.
 			<br>
-			<<link [[Sit at the desk|Lake House Security Upgrades]]>><</link>>
+			<<link [[Sit at the desk|Lake House Upgrades]]>><</link>>
 			<br><br>
 		<<else>>
-			You don't have a table or pc yet. You will need one to manage security upgrades.
+			You don't have a table or pc yet. You will need one to manage upgrades.
 			<br>
 		<</if>>
 
@@ -470,7 +522,7 @@ You snuggle under the covers.
 <</if>>
 <br><br>
 
-<<lake_house_sleep_options>>
+<<lakehouse_sleep_options>>
 
 :: Lake House Sleep
 <<set _autosavehere to true>>
@@ -515,7 +567,7 @@ You snuggle under the covers.
 		You startle awake hearing a window crash. <span class="red"><<nnpc_Hes Bailey>> here</span>.
 		<br><br>
 
-		<<lake_house_assault_intro>>
+		<<lakehouse_assault_intro>>
 		<br><br>
 
 		<<set _bedroom to "Lake House Bed">>
@@ -928,24 +980,6 @@ After several minutes you rinse your private area with water and behold your <<g
 	<</if>>
 <</if>>
 
-:: Lake House Security Upgrades
-<<effects>>
-You sit at the desk, and look through the ways the farm could be improved.
-<br><br>
-
-<<lake_house_upgrades_current>>
-<<lake_house_upgrades_status>>
-
-/* <<if _upgrade_count gte 8>>
-	<<earnFeat "The Rival Estate">>
-<</if>>
-<<if _upgrade_count gte 1>>
-	<<earnFeat "The Rival Farm">>
-<</if>> */
-
-<<link [[Leave|Lake House Bedroom]]>><</link>>
-<br>
-
 :: Lake House Play Computer
 <<effects>>
 You sit in your desk chair before playing some PC games. You have a good time and blow off some stress before returning to real life.
@@ -1095,20 +1129,342 @@ Watching them interact for a while calms you down.
 <<runeventpool>>
 
 :: Lake House Snuggle Cat
+<<effects>>
 <<if $lakehouse.pet1 is "cat">>
 	<<beastNEWinit 1 cat $lakehouse.pet1.gender>>
 <<else>>
 	<<beastNEWinit 1 cat $lakehouse.pet2.gender>>
 <</if>>
 You pick up your cat and hold <<him>> close snuggling <<him>>. <<His>> soft fur makes you feel happy and makes you feel slightly better.
-
+<br><br>
 <<link [[Next|Lake House]]>><</link>>
 <br>
 
 :: Lake House Snuggle Cats
-You pick up your cats and hold them close snuggling them>. Their soft fur makes you feel happy and makes you feel slightly better.
-
+<<effects>>
+You pick up your cats and hold them close snuggling them. Their soft fur makes you feel happy and makes you feel slightly better.
+<br><br>
 <<link [[Next|Lake House]]>><</link>>
 <br>
 
 :: Lake House Fetch Dog
+<<set $outside to 1>><<effects>>
+You head outside with your dog. You find a large stick and throw it as it chases it and bring it back. You do this for a while until you and your dog are tired and retire indoors.
+<br><br>
+<<link [[Next|Lake House]]>><</link>>
+<br>
+
+:: Lake House Fetch Dog
+<<set $outside to 1>><<effects>>
+You head outside with your dogs. You find a large stick and throw it as they chase it and bring it back. You do this for a while until you and your dogs are tired and retire indoors.
+<br><br>
+<<link [[Next|Lake House]]>><</link>>
+<br>
+
+:: Lake House Fuck Cat
+<<effects>>
+<<if $lakehouse.pet1 is "cat">>
+	<<beastNEWinit 1 cat $lakehouse.pet1.gender>>
+<<else>>
+	<<beastNEWinit 1 cat $lakehouse.pet2.gender>>
+<</if>>
+
+You drop to your knees and give your ass a little wiggle. The <<beasttype>> mounts you from behind.
+<<deviancy2>>
+
+<<link [[Next|Lake House Cat Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Lake House Cat Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+	<<set $NPCList[0].stance to "top">>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Lake House Cat Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Lake House Cat Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Lake House Cat Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation>>
+	<<tearful>> you rise to your feet. "Good <<if $pronoun is "f">>girl<<else>>boy<</if>>," you say.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+
+	The <<beasttype>> turns and flees.
+	<br><br>
+
+	<<tearful>> you climb to your feet.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<<elseif>>
+	The <<beasttype>> backs away from you. <<tearful>> you climb to your feet.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<</if>>
+
+:: Lake House Fuck Cats
+<<effects>>
+<<generateBEAST 1 cat $lakehouse.pet1.gender>>
+<<generateBEAST 2 cat $lakehouse.pet2.gender>>
+
+You drop to your knees and give your ass a little wiggle. The <<beasttype>> mounts you from behind.
+<<deviancy2>>
+
+<<link [[Next|Lake House Cat Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Lake House Cats Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+	<<set $NPCList[0].stance to "top">>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Lake House Cats Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Lake House Cats Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Lake House Cats Sex Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	<<beastwound>>
+	<<if $combatTrain.length gt 0>>
+		The <<beasttype>> recoils in pain and fear, but the other is eager for a go.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Cats Sex]]>><</link>>
+	<<else>>
+		The <<beasttype>> recoils in pain and fear.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Cats Sex Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $combatTrain.length gt 0>>
+		Satisfied, the <<beasttype>> moves and another <<print $combatTrain.beastTypes[1]>> takes its turn.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Cats Sex]]>><</link>>
+	<<else>>
+		Satisfied, the <<beasttype>> moves away from you.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Cats Sex Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<else>>
+	The <<beasttype>> backs away from you. <<tearful>> you climb to your feet.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<</if>>
+
+:: Lake House Fuck Dog
+<<effects>>
+<<if $lakehouse.pet1 is "dog">>
+	<<beastNEWinit 1 dog $lakehouse.pet1.gender>>
+<<else>>
+	<<beastNEWinit 1 dog $lakehouse.pet2.gender>>
+<</if>>
+
+You drop to your knees and give your ass a little wiggle. The <<beasttype>> mounts you from behind.
+<<deviancy2>>
+
+<<link [[Next|Lake House Dog Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Lake House Dog Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+	<<set $NPCList[0].stance to "top">>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Lake House Dog Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Lake House Dog Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Lake House Dog Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation>>
+	<<tearful>> you rise to your feet. "Good <<if $pronoun is "f">>girl<<else>>boy<</if>>," you say.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+
+	The <<beasttype>> turns and flees.
+	<br><br>
+
+	<<tearful>> you climb to your feet.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<<else>>
+	The <<beasttype>> backs away from you. <<tearful>> you climb to your feet.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<</if>>
+
+:: Lake House Fuck Dogs
+<<effects>>
+<<generateBEAST 1 dog $lakehouse.pet1.gender>>
+<<generateBEAST 2 dog $lakehouse.pet2.gender>>
+
+You drop to your knees and give your ass a little wiggle. The <<beasttype>> mounts you from behind.
+<<deviancy2>>
+
+<<link [[Next|Lake House Dog Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Lake House Dogs Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+	<<set $NPCList[0].stance to "top">>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Lake House Dogs Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Lake House Dogs Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Lake House Dogs Sex Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	<<beastwound>>
+	<<if $combatTrain.length gt 0>>
+		The <<beasttype>> recoils in pain and fear, but the other is eager for a go.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Dogs Sex]]>><</link>>
+	<<else>>
+		The <<beasttype>> recoils in pain and fear.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Dogs Sex Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $combatTrain.length gt 0>>
+		Satisfied, the <<beasttype>> moves and another <<print $combatTrain.beastTypes[1]>> takes its turn.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Dogs Sex]]>><</link>>
+	<<else>>
+		Satisfied, the <<beasttype>> moves away from you.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Lake House Dogs Sex Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<else>>
+	The <<beasttype>> backs away from you. <<tearful>> you climb to your feet.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Lake House]]>><</link>>
+	<br>
+<</if>>	
