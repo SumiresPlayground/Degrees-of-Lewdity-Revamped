@@ -4,6 +4,8 @@
 <<set $outside to 0>><<set $location to "home">><<home_effects>><<effects>><<getTarget true>>
 You are in your bedroom.
 
+<<link [[Paragraph test|Strip Club Shower]]>><</link>><br><br>
+
 <<set _furniture to $furniture.bedroom>>
 <<if _furniture.wallpaper>>
 	<<switch _furniture.wallpaper.name>>
@@ -623,7 +625,7 @@ You are in the bathroom.
 		<<set _clothed = ![V.worn.upper.name, V.worn.lower.name, V.worn.under_upper.name, V.worn.under_lower.name, V.worn.over_upper.name, V.worn.over_lower.name].every(x => x == 'naked')>>
 		<<bathicon>><<link [["Have a bath " + (_clothed ? " in clothes " : "") + "(0:30)"->Bath]]>><<water>><<pass 30>><<stress -6>><<set $hygiene to 0>><</link>><<lstress>>
 	<<else>>
-		<<bathicon>><<link [[Have a bath (0:30)->Bath]]>><<strip>><<pass 30>><<stress -6>><<set $hygiene to 0>><</link>><<lstress>>
+		<<bathicon>><<link [[Have a bath (0:30)->Bath]]>><<strip>><<pass 30>><<stress -6>><<set $hygiene to 0>><</link>><<lstress>><
 	<</if>>
 	<br>
 	<!-- Check if there's any hair-->
@@ -1386,17 +1388,25 @@ The water's getting cold. "I'm squeaky clean," you say. "Thanks for the help." T
 		<</if>>
 	<</if>>
 <<elseif $danger gte (9900 - $allure / 3) and $hallucinations gte 2 and $slimedisable is "f" and $controlled is 0>>
-	You wash until you're squeaky clean.<<wash>>
-	<br><br>
-
+	You wash until you're squeaky clean.<<wash>><br><br>
+		
+		<<if $slime is 1>>
+			<<violence 100>>
+			<span class='red'>You somehow endure the pain. You're a slime. Why did you do that?</span>
+		<</if>>
+		
 	As you remove the plug to drain the water, you feel something probe your <<genitals>>. You look between your legs, but you don't see anything abnormal. When you try to stand up however, translucent tendrils rise from the water and force you back down.
 	<br><br>
 
 	<<link [[Next|Bath Slime]]>><<set $molestationstart to 1>><</link>>
 <<elseif ($danger gte (9900 - $allure / 2) and $rng gte 30 and Time.dayState isnot "night") or _DEBUGTIMEBOIS is 1>>
 	<<generatey1>><<generatey2>><<generatey3>><<fameexhibitionism 3>>
-	You wash until you're squeaky clean.<<wash>>
-	<br><br>
+	You wash until you're squeaky clean.<<wash>><br><br>
+
+		<<if $slime is 1>>
+			<<violence 100>>
+			<span class='red'>You somehow endure the pain. You're a slime. Why did you do that?</span>
+		<</if>>
 
 	As you remove the plug to drain the water, you hear voices from the hallway. They stop outside the door, before flinging it open. A <<fullGroup>> barge in.
 	<br><br>
@@ -1465,7 +1475,7 @@ The water's getting cold. "I'm squeaky clean," you say. "Thanks for the help." T
     <<link [[Shove Kylar Away|Kylar Bath Shove]]>><<npcincr Kylar love -1>><<npcincr Kylar rage 3>><</link>><<llove>><<gksuspicion>>
 
 <<else>>
-You wash until you're squeaky clean.<<wash>>
+You wash until you're squeaky clean.<<wash>><br><if $slime is 1>><<violence 100>><span class='red'>You somehow endure the pain. As a slime, you should try harder to avoid water.</span><</if>><br>
 <br><br>
 
 <<link [[Get out->Bath Finish]]>><</link>>

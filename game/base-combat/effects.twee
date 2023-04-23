@@ -44,11 +44,22 @@
 			<</if>>
 		<</if>>
 
+		<<if $underwater is 1 or $inwater is 1>>
+			<<if $slime is 1>>
+				<<violence 30>>
+			<span class="red">You're slowly starting to dissolve. Leave the water!</span>	
+			<</if>>
+		<</if>>
+
+		<<if $weather is "rain" and $outside is 1>>
+			<<if $slime is 1>>
+				<<violence 10>>
+			<span class="red">The rain stings! Get to shelter!</span>
+			<</if>>	
+		<</if>>
+
 		<<if $underwater is 1>>
 			<<set $underwatertime += 1>>
-			<<if $slime is 1>>
-				<<violence 60>>
-			<</if>>
 			<<if $underwatertime lte 5>>
 				You are underwater, and cannot speak.
 			<<elseif $underwatertime lte 10>>
@@ -6625,20 +6636,4 @@
 		<</for>>
 	<</if>>
 <</widget>>
-<<widget "specialeffects">>
-	/*Adds special effects to the character */
-	<<if $slime is 1>>
-		<<set $player.bodyliquid[_bodypart]["goo"] to 3>>
-		<<for _type range ["neck","rightarm","leftarm","thigh","bottom","tummy","chest","face","hair","feet","vaginaoutside"]>>
-			<<bodyliquid _type "goo" 5>><<run $(`#stats${_type}goo`).html(Math.trunc($player.bodyliquid[_type].goo))>>
-		<</for>>
-		<<updatesidebarimg>>
-	<</if>>
-	<<set $player.bodyliquid to {}>>
-	<<for _bodypart range setup.bodyliquid.bodyparts>>
-		/* look in variables-static for the list of body parts */
-		<<set $player.bodyliquid[_bodypart] to {}>>
-		<<set $player.bodyliquid[_bodypart]["goo"] to 0>>
-		
-	<</for>>
-<</widget>> |
+ |

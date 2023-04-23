@@ -548,6 +548,18 @@ setup.colours.hair = [
 			blend: "#FFFFFF",
 		},
 	},
+	{
+		variable: "slimegreen",
+		name: "strange green",
+		name_cap: "Slime Green",
+		csstext: "slimegreenhair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#85d6a5",
+			opacity: 0.9
+		},
+	},
 ];
 
 /**

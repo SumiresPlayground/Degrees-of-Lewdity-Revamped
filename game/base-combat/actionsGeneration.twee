@@ -1018,8 +1018,15 @@
 						<<set _feetOptions to "rightFree">>
 						<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your right leg is free.</span>
 					<<elseif $leftleg is "grappled" and $rightleg is "grappled">>
-						<<set _feetOptions to "grappled">>
-						<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are entangled and forced apart, leaving you less able to protect your <<genitals>>.</span>
+						<<if $slime is 1>>
+							<<set $leftleg to 0>>
+							<<set $rightleg to 0>>
+							<<set _feetOptions to "free">>
+							<br><span class='green'>The attempt to restrain your feet fails. You just slip free!</span><br>
+						<<else>>
+							<<set _feetOptions to "grappled">>
+							<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are entangled and forced apart, leaving you less able to protect your <<genitals>>.</span>
+						<</if>>
 					<<elseif $leftleg is "bound" and $rightleg is "bound">>
 						<<set _feetOptions to "bound">>
 						<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are bound and forced apart, leaving you less able to protect your <<genitals>>.</span>

@@ -409,12 +409,17 @@ The malleability you noticed before comes to a head as you realise you're litera
 As you come to your senses, you seem to subconsciously reform into your prior human state.<br><br> Your vision clarifies as you put thoughts of ear slimes out of your mind. Your visual perception returns to normal, and you slowly come to realize that <span class='green'> you now seem to share the properties of a slime!</span>
 <br><br>
 
-	<<set $skinColor.naturalreset to $skinColor.natural>>
-	<<set $skinColor.natural to "slimy">>
-	<<set $transformationParts.slime.bubble to "default">>
-	<<set $transformationParts.slime.stream to "default">>
+
 	<<if $slime is 0>> 
 	<<set $slime to 1>>
+	<</if>>
+	<<if $slime is 1>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "slimy">>
+		<<set $transformationParts.slime.bubble to "default">>
+		<<set $transformationParts.slime.stream to "default">>
+		<<set $haircolour to "slimegreen">>
+		<<set $hairfringecolour to "slimegreen">>
 	<</if>>
 
 <<link [[Next|Slime Transformation 2]]>><</link>>
