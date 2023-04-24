@@ -394,7 +394,7 @@
 	<<else>>
 		<<set $physicalTransform to 0>>
 	<</if>>
-	<<if $physicalTransform is 1 $supernaturalTransform is 1 or $specialTransform is 1>>
+	<<if $physicalTransform is 1 or $specialTransform is 1>>
 		<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
 			<<if ($transformationParts.bird.wings is "hidden" or $transformationParts.dragon.wings is "hidden") and ($transformationParts.demon.wings is "hidden" or $transformationParts.angel.wings is "hidden" or $transformationParts.fallenAngel.wings is "hidden" or $transformationParts.bee.wings is "hidden")>>
 			<<else>>
@@ -1034,8 +1034,6 @@
 			<<case 9>>
 				<<if $catbuild gte 70>>
 					<<set $cat to 10>>
-					<<set $cattf = 1>>
-					<<set $permanentTransform = 1>>
 					<<catHeterochromiaTF 3>>
 					<span class="gold">Your eyes no longer burn, and despite the darkness of the early morning, you are able to pick up every detail of the scenery around you.</span>
 					<br><br>
@@ -1048,6 +1046,8 @@
 					<<catHeterochromiaTF 2>>
 					<span class="gold">Your surroundings appear darker than before. </span>
 					<<set $cat to 9>>
+					<<set $cattf = 1>>
+					<<set $permanentTransform = 1>>
 				<</if>>
 			<<case 99>>
 				<<set $physicalTransform to 0>>
