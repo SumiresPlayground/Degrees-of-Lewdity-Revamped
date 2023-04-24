@@ -136,11 +136,28 @@ It's your turn. The <<person1>><<person>> waits.
 <</if>>
 <<if $town_projects.green is undefined or $town_projects.green is 1>>
     <span class="black">Project undiscovered.</span>
+    <br>
 <<elseif $town_projects.green is 2>>
     <<link [[Ask about clearing the green behind the school (1:00)|Town Hall Projects Green]]>><<pass 60>><</link>>
     <br>
 <<elseif $town_projects.green gte 3>>
     <span class="green">A student green behind the school is being maintained.</span>
+    <br>
+<</if>>
+<<if $town_projects.green gte 3 and $town_projects.thicket gte 3 and $town_projects.diving gte 3 and $town_projects.road gte 3 and $town_projects.bridge gte 3 and $town_projects.home is 2>>
+    <<link [[Ask about buying a home (1:00)|Town Hall Projects Home 2]]>><<pass 60>><</link>>
+    <br>
+<<elseif $town_projects.green gte 3 and $town_projects.thicket gte 3 and $town_projects.diving gte 3 and $town_projects.road gte 3 and $town_projects.bridge gte 3 and $blackmaildestroyed is 1>>
+    <<link [[Visit Quinn (0:05)|Quinn Blackmail]]>><<pass 5>><</link>>
+    <br>
+<<elseif $town_projects.green gte 3 and $town_projects.thicket gte 3 and $town_projects.diving gte 3 and $town_projects.road gte 3 and $town_projects.bridge gte 3 and $town_projects.home is undefined>>
+    <<link [[Ask about buying a home (0:30)|Town Hall Projects Home 1]]>><<pass 30>><</link>>
+    <br>
+<<elseif $town_projects.home gte 3>>
+    <span class="green">Your home has been built.</span>
+    <br>
+<<else>>
+    <span class="black">Project undiscovered.</span>
     <br>
 <</if>>
 <<if $hookah_plot is 2>>
@@ -577,6 +594,104 @@ You follow the directions, and enter a small room. A <<person>> stands at the wi
 <<effects>>
 
 The <<person1>><<person>> nods. "I'll give the head-" <<he>> catches <<himself>>. "They'll have the green tidy soon. Thanks for your contribution."
+<br><br>
+
+You leave the office, hoping you weren't just robbed.
+<br><br>
+
+<<link [[Leave|Cliff Street]]>><<endevent>><</link>>
+<br>
+
+:: Town Hall Projects Home 1
+<<effects>>
+
+The <<person1>><<person>> points down the hall. "That'll be residential. First door on the right."
+<br><br>
+<<endevent>>
+<<npc Quinn>><<person1>>
+You go to follow the directions, but spot Quinn pacing down the hall.
+<br><br>
+
+<<if $submissive gte 1150>>
+    "Excuse me," you say.
+<<elseif $submissive lte 850>>
+    "Yo," you say.
+<<else>>
+    "Hello," you say.
+<</if>>
+<br><br>
+
+<<He>> jumps at your voice, and turns. There's fear on <<his>> face for just a moment, then relief. "Sorry," <<he>> says. "I'm a little busy at the moment. What do you need?"
+<br><br>
+
+<<if $submissive gte 1150>>
+    "There's some open land at the lake," you say. "I'd like to have my own home."
+<<elseif $submissive lte 850>>
+    "Now that I own some land," you say. "I'd like to have a home built."
+<<else>>
+    "Now that I own a plot of land," you say. "I'd like to have a private home built."
+<</if>>
+<br><br>
+
+<<He>> has a look of melancholy about him, clearly upset. "I wish I could. You've done a lot for this town but I'm currently in a bit of a... tricky situation."
+<br><br>
+
+<<He>> looks over his shoulder to make sure he's not being watched before continuing. "Bailey has some dirt on me, so I can't really go against what he wishes. If you truly want this project done, try checking his office."
+<br><br>
+
+"Oh and for the record. This conversation never happened." <<He>> zips his lips before walking away.
+<br><br>
+
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $town_projects.home to 1>><</link>>
+<br>
+
+:: Quinn Blackmail
+<<npc Quinn>><<person1>>
+You make your way to Quinn's office and lay the document and hard drive on <<his>> desk. "What are these?" Quinn looks over the document before closing it. <<He>> seems shocked.
+<br><br>
+"I can't believe you actually managed to get your hands on these." <<He>> smiles dropping the file into the shredder. "Alright now you said you wanted a home? Just head down to the residential department and that can be arranged."
+<br><br>
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $town_projects.home to 2>><</link>>
+
+:: Town Hall Projects Home 2
+<<effects>>
+
+The <<person1>><<person>> points down the hall. "That'll be residential. First door on the right."
+<br><br>
+<<endevent>>
+<<generate1>><<person1>>
+You follow the directions, and enter a small room. A strong looking <<person>> sits behind a desk, staring at a monitor.
+<br><br>
+"What do you want," <<he>> says.
+<br><br>
+
+<<if $submissive gte 1150>>
+    "There's some open land at the lake," you say. "I'd like to have my own home."
+<<elseif $submissive lte 850>>
+    "Now that I own some land," you say. "I'd like to have a home built."
+<<else>>
+    "Now that I own a plot of land," you say. "I'd like to have a private home built."
+<</if>>
+<br><br>
+
+The <<person>> sighs. "I could send out some men to work on it. It'll cost <span class="gold">£25000</span>, and there's no budget for it."
+<br><br>
+
+<<if $money gte 2500000>>
+    <<link [[Pay for the home (£10000)|Town Hall Projects Home Buy]]>><<set $money -= 2500000>><<set $town_projects.home to 3>><<famebusiness 100>><</link>>
+    <br>
+<<else>>
+    <span class="blue">You can't afford such an expense.</span>
+    <br>
+<</if>>
+
+<<link [[Leave|Cliff Street]]>><<endevent>><</link>>
+<br>
+
+:: Town Hall Projects Home Buy
+<<effects>>
+
+The <<person1>><<person>> nods. "I'll give the heads up and send some men right away. They'll have the home ready soon. Thanks for your contribution."
 <br><br>
 
 You leave the office, hoping you weren't just robbed.

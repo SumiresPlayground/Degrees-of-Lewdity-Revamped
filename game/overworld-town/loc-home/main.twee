@@ -2324,7 +2324,45 @@ and !$fromRobinRoom and _robin.cdquest is 2 and _robin.trauma lte 20 and !$daily
 	<</if>>
 	<<gardenicon>><<link [[Garden (0:01)|Garden]]>><<pass 1>><</link>>
 	<br><br>
-	<<officeicon>><<link [[Bailey's office (0:01)|Bailey's Office]]>><<pass 1>><</link>>
+	<<if Time.daystate is "night" and $town_projects.home is 1 and $baileypicked is undefined>>
+		<<set $lock to 250>>
+		<<if $skulduggery gte $lock>>
+			<span class="green">The locks look easy to pick.</span>
+			<br><br>
+			<<officeicon>><<link [[Break into Bailey's office (0:5)|Bailey's Office Lockpick]]>><<pass 5>><</link>>
+		<<else>>
+			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+		<</if>>
+		<<if $ghost is 1>>
+			You can phase through the doors if you concentrate. 
+			<br><br>
+			<<link [[Phase (0:01)|Bailey's Office Break In]]>><<pass 1>><</link>>
+			<br>
+		<</if>>
+	<<elseif Time.daystate is "night" and $town_projects.home is 1 and $baileypicked is 1>>
+		<<officeicon>><<link [[Break into Bailey's office (0:20)|Bailey's Office Break In]]>><<pass 20>><</link>>
+	<<else>>
+		<<officeicon>><<link [[Bailey's office (0:01)|Bailey's Office]]>><<pass 1>><</link>>
+	<</if>>
+	<br>
+	<<if Time.daystate is "night" and $town_projects.home is 1 and $basement is 1>>
+		<<set $lock to 1000>>
+		<<if $skulduggery gte $lock>>
+			<span class="green">The locks look easy to pick.</span>
+			<br><br>
+			<<officeicon>><<link [[Break into the basement (0:30)|Basement Lockpick]]>><<pass 30>><</link>>
+		<<else>>
+			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+		<</if>>
+		<<if $ghost is 1>>
+			You can phase through the doors if you concentrate. 
+			<br><br>
+			<<link [[Phase (0:01)|Orphanage Basement]]>><<pass 1>><</link>>
+			<br>
+		<</if>>
+	<<elseif Time.daystate is "night" and $town_projects.home is 1 and $basement is 1 and $basementpicked is 1>>
+		<<officeicon>><<link [[Break into the basement (0:01)|Orphanage Basement]]>><<pass 1>><</link>>
+	<</if>>
 	<br>
 	<<orphanageWard>>
 	<br>
@@ -2359,6 +2397,206 @@ and !$fromRobinRoom and _robin.cdquest is 2 and _robin.trauma lte 20 and !$daily
 <<if $fromRobinRoom>>
 	<<unset $fromRobinRoom>>
 <</if>>
+
+:: Bailey's Office Lockpick
+<<skulduggeryskilluse>>
+<<set $baileypicked to 1>>
+You take some time fiddling with the lock before popping it open and opening the door.
+<br><br>
+
+<<link [[Enter (0:20)|Bailey's Office Break In]]>><<pass 20>><</link>>
+<br>
+<<link [[Go back|Orphanage]]>><</link>>
+
+:: Bailey's Office Break In
+You peak into Bailey's office and look around. Your eyes start to adjust to the dim lighting of the room as you leaf through the files and papers left on the desk.
+<br><br>
+Nothing seems to relate to Quinn's blackmail but a file does catch your eye. It seems to be a bill for construction work down in the basement.
+<br><br>
+Listed on the file are concerns from the workers regarding the contents, although they don't go in much detail. Definitely something to check out.
+<br><br>
+<<link [[Go back|Orphanage]]>><<set $basement to 1>><</link>>
+
+:: Basement Lockpick
+<<skulduggeryskilluse>>
+<<set $basementpicked to 1>>
+You take some time fiddling with the lock before popping it open and opening the door.
+<br><br>
+<<link [[Enter (0:01)|Orphanage Basement]]>><<pass 1>><</link>>
+<br>
+<<link [[Go back|Orphanage]]>><</link>>
+
+:: Orphanage Basement
+You creak the basement door open and descend down the stairs into the basement. Human sized cages like the walls fortunately, or perhaps not, they're empty. You can hear some chatter down the hallway.
+<br><br>
+As you step forward you spot some electronics lining the walls. If you were to hazard a guess these would be tripwires for detecting intruders. It's probably for the best you attempt to avoid them.
+<br><br>
+<<link [[Attempt to dodge the tripwires (0:20)|Basement Tripwire]]>><<pass 20>><</link>>
+<br>
+<<link [[Go back (0:01)|Orphanage]]>><<pass 1>><</link>>
+
+:: Basement Tripwire
+<<dancedifficulty 1 1000>>
+<<if $danceSuccess>>
+	You gracefully dodge the tripwires lining the room and reach the other side. You're now met with a long dimmed hallway. The sound of chatter is ever closer as you can hear footsteps coming your way.
+	<br><br>
+	<<link [[Attempt to crawl into the ceiling duct (0:05)|Basement Duct]]>><<pass 5>><</link>>
+	<br>
+	<<link [[Attempt to bluff the henchmen (0:05)|Basement Bluff]]>><<pass 5>><</link>>
+<<elseif $blackmaildestroyed is 1>>
+	You're back in the tripwire room. Getting back to the entrance requires you to avoid the wires again.
+<<else>>
+	You slip and set off one of the tripwires. Alarms blare through the basement as goons flood into the halls. 
+	<br><br>
+	<<link [[Next|Basement Caught]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Basement Duct
+<<if $athletics gte 750>>
+	You grip the overhead pipe and pull yourself up into the duct as fast as you can. A few seconds pass before two strong looking men pass by. They look around for a moment before continuing their patrol. It looks like this vent connects to a deeper room.
+	<br><br>
+	<<link [[Crawl Deeper (0:05)|Basement Tentacle]]>><<pass 5>><</link>>
+	<br>
+	<<link [[Jump back out of the vent (0:01)|Basement Hallway]]>><<pass 1>><</link>>
+<<else>>
+	You jump and grab the pipe but struggle to lift yourself into it. You get partway up before being yanked back to the floor.
+	<br><br>
+	<<link [[Next|Basement Caught]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Basement Bluff
+As you approach you're halted immediately as the goons grab you and pin you to the ground. "Who are you? Why are you down here?" The goon pinning you yells as they twist your arm behind your back. "I'm sure Bailey would love to learn of you being down here."
+<br><br>
+You gasp in pain as your arm creaks under the pressure. Quickly you fabricate a lie to try and excuse your presence. 
+<br><br>
+<<if $english gte 700>>
+	The goon pauses for a moment after you speak. He yanks your arm causing you to wince in pain as he pulls you to your feet. "Well why the hell didn't you explain the situation sooner. You needlessly dirtied my clothes"
+	<br><br>
+	The goon shakes his head as he continues past you mumbling to himself quietly.
+	<br><br>
+	<<link [[Continue down the hallway (0:05)|Basement Hallway]]>><<pass 5>><</link>>
+<<else>>
+	The goon scoffs and punches you hard. "Don't lie to me cunt." The goon pulls an alarm and many other goons flood out into the halls.
+	<br><br>
+	<<link [[Next|Basement Caught]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Basement Tentacle
+You crawl down the vent and find an opening leading to an office. You go to open the vent but as you begin to lift the cover a large tentacle slams it back shut. Tentacles slide out from deeper in the duct, attempting to wrap around you.
+<br><br>
+<<if $tending gte 600>>
+	You rub and attempt to sooth the tentacles. They quiver for a moment under your touch before retreating and letting you pass. You drop from the vent into a nice looking office space.
+	<br><br>
+	<<link [[Next (0:1)|Basement Blackmail]]>><<pass 1>><</link>>
+<<else>>
+	You rub and attempt to sooth the tentacles but they grasp you and pull you deeper into the vents. You scream as you're dragged back and fall through another vent into a room full of goons.
+	<br><br>
+	<<link [[Next|Basement Caught]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Basement Hallway
+<<if $blackmaildestroyed is 1>>
+	You exit into the hallway, fortunately no goons are around. 
+	<br><br>
+	<<link [[Return through the tripwire room (0:20)|Basement Tripwire 2]]>><<pass 20>><</link>>
+<<else>>
+	You continue down the hallway before reaching a door into an office. You assume this must be where Bailey keeps his important files. The door is locked by a keypad.
+	<br><br>
+	<<link [[Attempt to crack the code (0:10)|Basement Keypad]]>><<pass 10>><</link>>
+<</if>>
+
+:: Basement Keypad
+<<if $ghost is 1>>
+	You can phase through the doors if you concentrate. 
+	<br><br>
+	<<link [[Phase (0:01)|Basement Blackmail]]>><<pass 1>><</link>>
+	<br>
+<<elseif $science gte 700>>
+	You remove the front panel and mess with the internal wires, It doesn't take long before the machine sparks and the door slides open. You step into the office space ready to find the blackmail.
+	<br><br>
+	<<link [[Next (0:01)|Basement Blackmail]]>><<pass 1>><</link>>
+<<else>>
+	You remove the front panel and mess with the internal wires, suddenly an alarm starts blaring as goons rush out of the other rooms to apprehend the intruder.
+	<br><br>
+	<<link [[Next (0:01)|Basement Caught]]>><<pass 1>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Basement Blackmail
+Inside the office you get to work searching the files. Digging through the cabinets you find a folder labled important. Opening it up you find various info relating to Quinn, you swiftly take the file and hard drive from the PC. 
+<br><br>
+<<link [[Escape (0:01)|Basement Hallway]]>><<pass 1>><<set $blackmaildestroyed to 1>><</link>>
+
+:: Basement Tripwire 2
+<<dancedifficulty 1 1000>>
+<<if $danceSuccess>>
+	You gracefully dodge the tripwires lining the room and reach the other side. You're now back at the basement door.
+	<br><br>
+	<<link [[Leave (0:1)|Orphanage]]>><<pass 1>><</link>>
+<<else>>
+	You slip and set off one of the tripwires. Alarms blare through the basement as goons flood into the halls. 
+	<br><br>
+	<<link [[Next|Basement Caught]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Basement Caught
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<generate1>><<generate2>><<generate3>><<generate4>><<generate5>><<generate6>><<person1>>
+	<span class="red">The gang advances...</span>
+	<br><br>
+	<<controlloss>>
+	<br>
+	<<violence 1>>
+	<<neutral 1>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Basement Caught Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Basement Caught]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Basement Caught Finish
+<<effects>>
+<<pass 5>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	They finish, leaving you used on the basement floor. The <<person1>><<person>> laughs. "Time to lock this bitch up." The <<person2>><<person>> grabs you by the arm and throws you inside one of the cages. <<He>> speaks. "A slut like you was exactly what we were looking for. Thanks for providing us with such a fun time." The shock causes you to lose all the air in your lungs. Before you can react, <<he>> locks the door.
+	<br><br>
+	It takes you a few moments to regain your energy and raise to your feet.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Basement Cage]]>><<endevent>><<pass 1>><</link>>
+<<else>>
+	You manage to fight them off. Seizing the opportunity, you run as fast as you can to get out of the basement. Looking over your shoulder without slowing down, you check if the goons are following you. To your relief, the basement door stays shut. <<trauma -1>><<ltrauma>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Orphanage]]>><<endevent>><<pass 1>><</link>>
+<</if>>
+
+:: Basement Cage
+<<npc "Bailey">><<person1>>
+It only takes a few moments before Bailey makes <<his>> way down. "Well well well. Look who it was that set off the alarms. What do you think you're doing down here?" 
+<br><br>
+Before you speak <<he>> cuts you off. "Nevermind I don't care. Now that you've found your way down to the basement I suppose I can do whatever I want with you."
+<br><br>
+<<if $blackmaildestroyed is 1>>
+"And what's this?" <<He>> takes the file and hard drive back. "You thieving bitch. What were you planing to do with these?" <<He>> shakes his head before continuing.
+<br><br>
+<<set $blackmaildestroyed to 0>>
+<</if>>
+<<rentnopay>>
 
 :: Orphanage Handheld
 <<effects>>

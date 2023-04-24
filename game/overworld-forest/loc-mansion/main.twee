@@ -73,6 +73,12 @@
 			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
 			<br><br>
 		<</if>>
+		<<if $ghost is 1>>
+			You can phase through the doors if you concentrate. 
+			<br><br>
+			<<link [[Phase (0:01)|Forest Mansion Explore]]>><<pass 1>><</link>>
+			<br>
+		<</if>>
 	<<else>>
 		The front door is unlocked and slightly ajar.
 		<br><br>
@@ -427,6 +433,7 @@ You snuggle under the covers.
 	<<set $skinColor.natural to "ghostly">>
 	<<set $transformationParts.ghost.eyes to "default">>
 	<<set $transformationParts.ghost.hitodama to "default">>
+	<<set $options.lightGlow to 1>>
 	<<set $ghost to 1>>
 <<else>>
 	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
@@ -495,7 +502,7 @@ Black fluid poors from your body's pours and pools on the ground as it writhes u
 <br><br>
 You waste no time forcing yourself back inside your body before blacking out.
 <br><br>
-<<link [[Wake up (6:00)|Forest Mansion Awaken]]>><<pass 360>><<set $skinColor.natural to $skinColor.naturalreset>><<set $transformationParts.ghost.eyes to "disabled">><<set $transformationParts.ghost.hitodama to "disabled">><</link>>
+<<link [[Wake up (6:00)|Forest Mansion Awaken]]>><<pass 360>><<set $options.lightGlow to .1>><<set $skinColor.natural to $skinColor.naturalreset>><<set $transformationParts.ghost.eyes to "disabled">><<set $transformationParts.ghost.hitodama to "disabled">><</link>>
 
 :: Forest Mansion Awaken
 Your eyes flutter open and you sit up quickly. You find yourself sitting in a plush bed, Jordan sits in a chair beside you sleeping peacefully.
