@@ -65,8 +65,13 @@
 				<</if>>
 			<</if>>
 		<<case "swarmgrappled">>
-			<<set _leftOptions to "unable">>
-			<span class="purple">The $swarm["type"] are constricting your left arm!</span><<if $options.combatControls.includes("adio")>><br><</if>>
+			<<if $slime isnot 1>>
+				<<set _leftOptions to "unable">>
+				<span class="purple">The $swarm["type"] are constricting your left arm!</span><<if $options.combatControls.includes("adio")>><br><</if>>
+			<<else>>
+				<<set _leftOptions to "free">>
+				<span class="purple">The $swarm["type"] failed to constrict your left arm!</span><<if $options.combatControls.includes("adio")>><br><</if>>
+			<</if>>
 		<<case "bound">>
 			<<if $orgasmdown gte 1>>
 				<<set _leftOptions to "unable">>
@@ -207,8 +212,13 @@
 				<</if>>
 			<</if>>
 		<<case "swarmgrappled">>
-			<<set _rightOptions to "unable">>
-			<span class="purple">The $swarm["type"] are constricting your right arm!</span><<if $options.combatControls.includes("adio")>><br><</if>>
+			<<if $slime isnot 1>>
+				<<set _rightOptions to "unable">>
+				<span class="purple">The $swarm["type"] are constricting your right arm!</span><<if $options.combatControls.includes("adio")>><br><</if>>
+			<<else>>
+				<<set _rightOptions to "free">>
+				<span class="purple">The $swarm["type"] failed to constrict your right arm!</span><<if $options.combatControls.includes("adio")>><br><</if>>
+			<</if>>
 		<<case "bound">>
 			<<if $orgasmdown gte 1>>
 				<<set _rightOptions to "unable">>

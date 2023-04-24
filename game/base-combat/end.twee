@@ -100,17 +100,17 @@
 	<</if>>
 
 	<<if $slime is 1>> 
-		<<if $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 0 and $liquidcount gte 0>>
+		<<if $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 0 and $liquidcount gte 2>>
 			<<wash>>
 			<<pain -30>>
 			<span class ='green'>Your amorphous body absorbs the fluid covering you and heals itself.</span><br><br>
-		<<elseif $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 0 and $liquidcount lte 1>>
+		<<elseif $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 1 and $liquidcount lte 0>>
 			<<pain -15>>
 			<span class ='green'>Your amorphous body attempts to mend itself.</span><br><br>
-		<<elseif $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain is 0 and $liquidcount gte 0>>
+		<<elseif $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain lte 1 and $liquidcount gte 0>>
 			<<wash>>
 			<span class ='green'>You're more or less intact. Your body absorbs any foreign fluids on you.</span><br><br>
-		<<else>>
+		<<elseif $slime is 1 and $weather is "rain" and $outside is 1 or $underwater is 1 or $inwater is 1 and $pain gte 0>>
 			Your amorphous body tries to heal, but the environment is too hostile. <span class ='red'>Avoid direct contact with water!</span><br><br>
 		<</if>>
 	<</if>>
