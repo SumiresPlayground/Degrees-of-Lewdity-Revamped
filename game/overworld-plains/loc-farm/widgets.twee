@@ -2448,6 +2448,10 @@
 <<widget "guard_skill_text">>
 	<<if _args[0] is "tower" and $farm.tower_guard_skill isnot undefined>>
 		<<set _guard_skill to $farm.tower_guard_skill>>
+	<<elseif _args[0] is "lakehouse_tower" and $lakehouse.tower_guard_skill isnot undefined>>
+		<<set _guard_skill to $lakehouse.tower_guard_skill>>
+	<<elseif _args[0] is "lakehouse_post" and $lakehouse.post_guard_skill isnot undefined>>
+		<<set _guard_skill to $lakehouse.post_guard_skill>>
 	<<else>>
 		<<set _guard_skill to $NPCList[0].skills.security>>
 	<</if>>

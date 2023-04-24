@@ -7,48 +7,35 @@
 	<<set $lakehouse = {}>>
 	<<set $lakehouse.plots to 0>>
 	<<set $lakehouse.clearing to 25>>
-	<<set $lakehouse_countdown to 7>>
+	<<set $lakehouse_countdown to 14>>
+	<<set $lakehouse.wall to 0>>
+	<<set $lakehouse.tower to 0>>
+	<<set $lakehouse.guardpost to 0>>
+	<<set $lakehouse.dogtraining to 0>>
+	<<set $lakehouse.traps to 0>>
 	<<set $lakehouseinit to 1>>
 <</if>>
 
 <<if $lakehouse.build isnot undefined and $lakehouse.build isnot 0>>
 	<<switch $lakehouse.build>>
 	<<case "wall 1">>
-		<span class="lblue">The wall is being repaired.</span>
+		<span class="lblue">A foundation is being placed.</span>
 	<<case "wall 2">>
-		<span class="lblue">The wall is being reinforced.</span>
+		<span class="lblue">A modern fence is being built around the lake house.</span>
 	<<case "wall 3">>
-		<span class="lblue">A modern fence is being built around the lakehouse.</span>
-	<<case "wall 4">>
 		<span class="lblue">Barbed wire is being affixed atop the fence.</span>
 	<<case "tower 1">>
-		<span class="lblue">A tower is being built by the fields.</span>
+		<span class="lblue">A tower is being built by the forest.</span>
 	<<case "tower 2">>
 		<span class="lblue">Searchlights are being affixed atop the watchtower.</span>
-	<<case "woodland 1">>
-		<span class="lblue">The fence is being extended around an area of woodland.</span>
-	<<case "woodland 2">>
-		<span class="lblue">The fence is being extended around a fecund area of woodland.</span>
-	<<case "woodland 3">>
-		<span class="lblue">The fence is being extended around a prodigious area of woodland.</span>
-	<<case "kennel 1">>
-		<span class="lblue">Vicious apparatus are being installed in the kennel.</span>
-	<<case "barn 1">>
-		<span class="lblue">New milking equipment is being installed in the barn.</span>
-	<<case "barn 2">>
-		<span class="lblue">An extension is being built on the barn.</span>
-	<<case "stable 1">>
-		<span class="lblue">The stable is being expanded.</span>
-	<<case "coop 1">>
-		<span class="lblue">The coop is being expanded.</span>
-	<<case "coop 2">>
-		<span class="lblue">The coop is being expanded.</span>
-	<<case "parasites 1">>
-		<span class="lblue">The parasite barn is being built.</span>
-	<<case "parasites 2">>
-		<span class="lblue">The parasite barn is being expanded.</span>
-	<<case "irrigation">>
-		<span class="lblue">Irrigation is being installed in a field.</span>
+	<<case "guard post">>
+		<span class="lblue">A guard post is being built.</span>
+	<<case "dog training">>
+		<span class="lblue">Training facilities is being built.</span>
+	<<case "traps 1">>
+		<span class="lblue">Traps are being set up around your property.</span>
+	<<case "traps 2">>
+		<span class="lblue">More traps are being set up around your property.</span>
 	<</switch>>
 	<<if Time.hour gte 6>>
 		<span class="blue">Workers traipse across the lakehouse.</span>
@@ -57,7 +44,12 @@
 <</if>>
 
 <<if $stress gte $stressmax and !$possessed>>
-	<<passoutlake>>
+	<<if $lakehouse.wall gte 2>>
+		<<set $previousPassage to $passage>>
+		<<passoutlakehouse>>
+	<<else>>
+		<<passoutlake>>
+	<</if>>
 <<else>>
 	You are at the lake house. 
 	<<if Time.dayState is "night">>
@@ -112,7 +104,16 @@
 :: Lake House
 <<set $outside to 0>><<set $location to "lakehouse">><<effects>>
 
-<<if $stress gte $stressmax and !$possessed>>
+<<if ($lakehouse_countdown lte 0 or $lakehouse_countdown is undefined) and ($renttime lte -2 or ($renttime lte 0 and Time.hour gte 4 and Time.hour lte 21))>>
+	<<unset $lakehouse_countdown>><<unset $baileyReunionScene>>
+	<span class="red">You hear a knock at the door.</span>
+	<br><br>
+
+	<<link [[Answer the door|Lake House Bailey]]>><</link>>
+	<br>
+<<elseif $lakehouse_attack_timer lte 0 and Time.hour gte 21>>
+	
+<<elseif $stress gte $stressmax and !$possessed>>
 	<<set $previousPassage to $passage>>
 	<<passoutlakehouse>>
 <<else>>
@@ -564,7 +565,7 @@ You snuggle under the covers.
 	<</if>>
 	<<sleepeffects>>
 	<<if $baileywake is 1>>
-		You startle awake hearing a window crash. <span class="red"><<nnpc_Hes Bailey>> here</span>.
+		You startle awake hearing commotion outside. <span class="red"><<nnpc_Hes Bailey>> here</span>.
 		<br><br>
 
 		<<lakehouse_assault_intro>>
@@ -916,7 +917,12 @@ After several minutes you rinse your private area with water and behold your <<g
 <<set $outside to 1>><<effects>>
 
 <<if $stress gte $stressmax and !$possessed>>
-	<<passoutlake>>
+	<<if $lakehouse.wall gte 2>>
+		<<set $previousPassage to $passage>>
+		<<passoutlakehouse>>
+	<<else>>
+		<<passoutlake>>
+	<</if>>
 <<else>>
 	You step out to your backyard.
 	<br><br>
@@ -978,7 +984,8 @@ After several minutes you rinse your private area with water and behold your <<g
 	<<if $lakehouse.plots gte 1>>
 		<<display_plot lakehouse>>
 	<</if>>
-<</if>>
+<</if>>.
+
 
 :: Lake House Play Computer
 <<effects>>
@@ -1468,3 +1475,36 @@ You drop to your knees and give your ass a little wiggle. The <<beasttype>> moun
 	<<link [[Next|Lake House]]>><</link>>
 	<br>
 <</if>>	
+
+:: Lake House Bailey
+<<effects>>
+
+You open the door. <span class="red">It's Bailey.</span>
+<br><br>
+"Time to pay up," <<nnpc_he Bailey>> says.
+<br><br>
+Alex arrives at your side, and glares at Bailey. "I'll support you, whatever you decide," <<he>> whispers.
+<br><br>
+<<lakehouse_bailey_options>>
+
+
+
+<<set $rentday to Time.weekDay>>
+
+:: Lake House Bailey Refuse
+<<effects>>
+
+<<if $submissive gte 1150>>
+	"I-I'm not paying," you say. You can't quite meet Bailey's gaze. "Go away."
+<<elseif $submissive lte 850>>
+	"You're not getting a penny," you say. You glare at Bailey. "You have no power here."
+<<else>>
+	"I won't let you bully me," you say, looking Bailey in the eye. "It's not your money."
+<</if>>
+<br><br>
+
+"Fine," Bailey says. "My friends will be glad of it." <<nnpc_He Bailey>> turns and walks away.
+<br><br>
+
+<<link [[Next|Lake House]]>><</link>>
+<br>

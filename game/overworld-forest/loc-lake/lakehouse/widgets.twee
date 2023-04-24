@@ -8,23 +8,49 @@
 <</widget>>
 
 <<widget "lakehouse_assault_intro">>
-	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog" and $lakehouse.dogTraining is true>>
+	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog" and $lakehouse.dogtraining is true>>
 		<span class="green">Your dogs are trained and ready to defend their master.</span><br>
-	<<elseif $lakehouse.pet1 is "dog" and lakehouse.pet2 is "dog" and $lakehouse.dogTraining is false>>
+	<<elseif $lakehouse.pet1 is "dog" and lakehouse.pet2 is "dog" and $lakehouse.dogtraining is false>>
 		<span class="teal">Your dogs are ready to defend the house, but don't have any special training.</span><br>
-	<<elseif $lakehouse.pet1 is "dog" or lakehouse.pet2 is "dog" and $lakehouse.dogTraining is true>>
+	<<elseif $lakehouse.pet1 is "dog" or lakehouse.pet2 is "dog" and $lakehouse.dogtraining is true>>
 		<span class="teal">Your dog is trained and ready to defend their master.</span><br>
-	<<elseif $lakehouse.pet1 is "dog" or lakehouse.pet2 is "dog" and $lakehouse.dogTraining is false>>
+	<<elseif $lakehouse.pet1 is "dog" or lakehouse.pet2 is "dog" and $lakehouse.dogtraining is false>>
 		<span class="lblue">Your dog is ready to defend the lakehouse, but don't have any special training.</span><br>
+	<</if>>
+	<<if $lakehouse.tower gte 2>>
+		<<if $lakehouse.tower_guard>>
+			<span class="green">The watchtower and searchlight are operated by $lakehouse.tower_guard,</span> with <<guard_skill_text "lakehouse_tower">> security skill.<br>
+		<<else>>
+			<span class="red">The watchtower is empty,</span> but you could use it to get a better view.<br>
+		<</if>>
+	<<elseif $lakehouse.tower gte 1>>
+		<<if $lakehouse.tower_guard>>
+			<span class="teal">The watchtower is operated by $lakehouse.tower_guard,</span> with <<guard_skill_text "lakehouse_tower">> security skill.<br>
+		<<else>>
+			<span class="red">The watchtower is empty,</span> but you could use it to get a better view.<br>
+		<</if>>
+	<</if>>
+	<<if $lakehouse.guardpost gte 1>>
+		<<if $lakehouse.post_guard>>
+			<span class="teal">The guard post is operated by $lakehouse.post_guard,</span> with <<guard_skill_text "lakehouse_post">> security skill.<br>
+		<<else>>
+			<span class="red">The guard post is empty.</span><br>
+		<</if>>
 	<</if>>
 	<<if $lakehouse.wall gte 3>>
 		<span class="green">The barbed metal fence around the lake is unclimbable. Attackers will need to cut their way in, which will take a while.</span>
 	<<elseif $lakehouse.wall gte 2>>
 		<span class="teal">The tall metal fence around the lake will greatly slow attackers.</span>
 	<<elseif $lakehouse.wall gte 1>>
-		<span class="lblue">The concrete wall around the lakehouse will slow attackers.</span>
+		<span class="lblue">The foundations are in place but the attackers remain unimpeded.</span>
 	<<else>>
 		<span class="purple">The attackers invade unimpeded.</span>
+	<</if>>
+	<br>
+	<<if $lakehouse.traps gte 2>>
+		<span class="green">8 traps are waiting to spring.</span><br>
+	<<elseif $lakehouse.traps gte 1>>
+		<span class="lblue">4 traps are waiting to spring.</span><br>
 	<</if>>
 	<br><br>
 <</widget>>
@@ -75,16 +101,24 @@
 <<widget "lakehouse_upgrades_current">>
 		<<if $lakehouse.build>>
 		<<switch $lakehouse.build>>
-			<<case "wall 1">>
-				The foundations are being placed.
-			<<case "wall 2">>
-				A metal fence is being built atop the stone wall.
-			<<case "wall 3">>
-				Barbed wire is being affixed atop the fence.
-			<<case "tower 1">>
-				A watchtower is being constructed at the edge of the forest.
-			<<case "tower 2">>
-				Searchlights are being affixed atop the watchtower.
+		<<case "wall 1">>
+			<span class="lblue">A foundation is being placed.</span>
+		<<case "wall 2">>
+			<span class="lblue">A modern fence is being built around the lake house.</span>
+		<<case "wall 3">>
+			<span class="lblue">Barbed wire is being affixed atop the fence.</span>
+		<<case "tower 1">>
+			<span class="lblue">A tower is being built by the forest.</span>
+		<<case "tower 2">>
+			<span class="lblue">Searchlights are being affixed atop the watchtower.</span>
+		<<case "guard post">>
+			<span class="lblue">A guard post is being built.</span>
+		<<case "dog training">>
+			<span class="lblue">Training facilities is being built.</span>
+		<<case "traps 1">>
+			<span class="lblue">Traps are being set up around your property.</span>
+		<<case "traps 2">>
+			<span class="lblue">More traps are being set up around your property.</span>
 		<</switch>>
 		<<if $lakehouse.build_timer is 1>>
 			It'll be finished tomorrow.
@@ -109,7 +143,7 @@
 		<<link [[Full repair|Lake House Upgrades Wall 1]]>><</link>>
 	<</if>>
 	<br>
-	Security:
+	Watchtower:
 	<<if $lakehouse.tower is 2 or $lakehouse.build is "tower 2">>
 		<span class="green">As watchful as can be</span>
 		<<set _upgrade_count += 1>>
@@ -119,169 +153,171 @@
 		<<link [[Watchtower|Lake House Upgrades Tower]]>><</link>>
 	<</if>>
 	<br>
-	Lakehouse Irrigation:
-	<<if $lakehouse.irrigation gte 9>>
-		<span class="green">Every field has irrigation</span>
+	Guard Post:
+	<<if $lakehouse.guardpost is 1 or $lakehouse.build is "guard post">>
+		<span class="green">Standing by and ready</span>
 		<<set _upgrade_count += 1>>
-	<<elseif $lakehouse.irrigation is $plots.lakehouse.length>>
-		<span class="green">Every current field has irrigation</span>
 	<<else>>
-		<<link [[Build field irrigation|Lakehouse Upgrades Irrigation]]>><</link>>
+		<<link [[Watchtower|Lake House Upgrades Guard Post]]>><</link>>
 	<</if>>
 	<br>
-	<<if ($sexStats.anus.pregnancy.motherStatus gte 1 or $sexStats.vagina.pregnancy.motherStatus gte 1) and ($lakehouse.parasitebarn gte 1 or $lakehouse.build is "parasites 1")>>
-		Parasite Barn:
-		<<if $lakehouse.parasitebarn gte 2 or $lakehouse.build is "parasites 2">>
-			<span class="green">As big as can be</span>
-		<<else>>
-			<<link [[Expand|Lakehouse Upgrades Parasite Barn 2]]>><</link>>
-		<</if>>
-		<br>
+	Dog Training:
+	<<if $lakehouse.dogtraining is 1 or $lakehouse.build is "dog training">>
+		<span class="green">State of the Art</span>
+		<<set _upgrade_count += 1>>
+	<<else>>
+		<<link [[Hound Training|Lake House Upgrades Dog Training]]>><</link>>
+	<</if>>
+	<br>
+	Traps:
+	<<if $lakehouse.traps is 2 or $lakehouse.build is "traps 2">>
+		<span class="green">A deathtrap</span>
+		<<set _upgrade_count += 1>>
+	<<elseif $lakehouse.traps is 1 or $lakehouse.build is "traps 1">>
+		<<link [[Searchlights|Lake House Upgrades Traps 2]]>><</link>>
+	<<else>>
+		<<link [[Watchtower|Lake House Upgrades Traps 1]]>><</link>>
 	<</if>>
 	<br>
 <</widget>>
 
 <<widget "lakehouse_build_day">>
-	<<if $lakehouse_stage gte 7>>
-		<<if $lakehouse.build_timer gte 1>>
-			<<set $lakehouse.build_timer -= 1>>
-		<</if>>
-		<<if $lakehouse.build_timer lte 0>>
-			<<switch $lakehouse.build>>
-				<<case "wall 1">>
-					<<set $lakehouse.wall to 1>>
-				<<case "wall 2">>
-					<<set $lakehouse.wall to 2>>
-				<<case "wall 3">>
-					<<set $lakehouse.wall to 3>>
-				<<case "wall 4">>
-					<<set $lakehouse.wall to 4>>
-				<<case "tower 1">>
-					<<set $lakehouse.tower to 1>>
-				<<case "tower 2">>
-					<<set $lakehouse.tower to 2>>
-				<<case "woodland 1">>
-					<<set $lakehouse.woodland to 1>>
-				<<case "woodland 2">>
-					<<set $lakehouse.woodland to 2>>
-				<<case "woodland 3">>
-					<<set $lakehouse.woodland to 3>>
-				<<case "kennel 1">>
-					<<set $lakehouse.kennel to 1>>
-				<<case "barn 1">>
-					<<set $lakehouse.barn to 1>>
-				<<case "barn 2">>
-					<<set $lakehouse.barn to 2>>
-				<<case "stable 1">>
-					<<set $lakehouse.stable to 1>>
-				<<case "coop 1">>
-					<<set $lakehouse.coop to 1>>
-				<<case "coop 2">>
-					<<set $lakehouse.coop to 2>>
-				<<case "parasites 1">>
-					<<set $lakehouse.parasitebarn to 1>>
-				<<case "parasites 2">>
-					<<set $lakehouse.parasitebarn to 2>>
-					<<set _container to $container.lakehouse>>
-					<<set _container.upgrades.capacity to 1>>
-					<<set _container.maxCount to 7>>
-					<<set _container.upgrades.foodStorage to 1>>
-					<<set _container.maxDaysWithoutFood to 31>>
-					<<set _container.upgrades.luxury to 3>>
-				<<case "irrigation">>
-					<<if $lakehouse.irrigation is undefined>>
-						<<set $lakehouse.irrigation to 1>>
-					<<elseif $lakehouse.irrigation lt 9>>
-						<<set $lakehouse.irrigation++>>
-					<</if>>
-			<</switch>>
-			<<set $lakehouse.build to 0>>
-		<</if>>
+	<<if $lakehouse.build_timer gte 1>>
+		<<set $lakehouse.build_timer -= 1>>
+	<</if>>
+	<<if $lakehouse.build_timer lte 0>>
+		<<switch $lakehouse.build>>
+			<<case "wall 1">>
+				<<set $lakehouse.wall to 1>>
+			<<case "wall 2">>
+				<<set $lakehouse.wall to 2>>
+			<<case "wall 3">>
+				<<set $lakehouse.wall to 3>>
+			<<case "tower 1">>
+				<<set $lakehouse.tower to 1>>
+			<<case "tower 2">>
+				<<set $lakehouse.tower to 2>>
+			<<case "guard post">>
+				<<set $lakehouse.guardpost to 1>>
+			<<case "dog training">>
+				<<set $lakehouse.dogtraining to 1>>
+			<<case "traps 1">>
+				<<set $lakehouse.traps to 1>>
+			<<case "traps 2">>
+				<<set $lakehouse.traps to 2>>
+		<</switch>>
+		<<set $lakehouse.build to 0>>
 	<</if>>
 <</widget>>
 
-<<widget "farm_assault_init">>
-	<<set $farm_assault to {}>>
-	<<set $farm_assault.no to [0, 1, 2, 3]>>
-	<<if $farm_stage gte 8>>
-		<<set $farm_assault.no.push(4)>>
-	<</if>>
-	<<if $farm_stage gte 9>>
-		<<set $farm_assault.no.push(5)>>
-	<</if>>
-	<<if $farm_stage gte 10>>
-		<<set $farm_assault.no.push(6)>>
-	<</if>>
-	<<if $farm_stage gte 11>>
-		<<set $farm_assault.no.push(7)>>
-	<</if>>
-	<<if $farm_stage gte 12>>
-		<<set $farm_assault.no.push(8)>>
-	<</if>>
-	<<set $farm_assault.teams to {}>>
+<<widget "lakehouse_bailey_options">>
+	<<babyRent>>
+	<<if $money gte $rentmoney + ($babyRent or 0)>>
+		<<link [[Pay up|Lake House Bailey Pay]]>><<set $renttime to 7>><<set $lakehouse_attack_timer to 7>><</link>>
+		<br>
+		<<link [[Refuse|Lake House Bailey Refuse]]>><<set $renttime to 14>><<def 1>><</link>>
+		<br>
+	<<else>>
+		<<set $baileypaychain to 0>>
+		<<if $submissive gte 1150>>
+			"I-I don't have the money," you tell Bailey.
+		<<elseif $submissive lte 850>>
+			"I don't have it," you tell Bailey. "And wouldn't give you a penny if I did."
+		<<else>>
+			"I don't have it," you tell Bailey. "You're wasting your time."
+		<</if>>
+		<br><br>
 
-	<<if $farm_stage gte 12>>
-		<<set $farm_assault.teams.team_1 to {}>>
-		<<set $farm_assault.teams.team_2 to {}>>
-		<<set $farm_assault.teams.team_3 to {}>>
-		<<set $farm_assault.teams.team_4 to {}>>
-		<<set $farm_assault.teams.team_5 to {}>>
+		"Fine," Bailey says. "My friends will be glad of it." <<nnpc_He Bailey>> turns and walks away.
+		<br><br>
+
+		<<link [[Next|Lake House]]>><<set $renttime to 14>><</link>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "lakehouse_assault_init">>
+	<<set $lakehouse_assault to {}>>
+	<<set $lakehouse_assault.no to [0]>>
+	<<if $lakehouse_stage gte 8>>
+		<<set $lakehouse_assault.no.push(4)>>
+	<</if>>
+	<<if $lakehouse_stage gte 9>>
+		<<set $lakehouse_assault.no.push(5)>>
+	<</if>>
+	<<if $lakehouse_stage gte 10>>
+		<<set $lakehouse_assault.no.push(6)>>
+	<</if>>
+	<<if $lakehouse_stage gte 11>>
+		<<set $lakehouse_assault.no.push(7)>>
+	<</if>>
+	<<if $lakehouse_stage gte 12>>
+		<<set $lakehouse_assault.no.push(8)>>
+	<</if>>
+	<<set $lakehouse_assault.teams to {}>>
+
+	<<if $lakehouse_stage gte 12>>
+		<<set $lakehouse_assault.teams.team_1 to {}>>
+		<<set $lakehouse_assault.teams.team_2 to {}>>
+		<<set $lakehouse_assault.teams.team_3 to {}>>
+		<<set $lakehouse_assault.teams.team_4 to {}>>
+		<<set $lakehouse_assault.teams.team_5 to {}>>
 		<<if $bailey_encroach>>
-			<<set $farm_assault.teams.team_6 to {}>>
-			<<set $farm_assault.teams.team_6.type to "bailey">>
+			<<set $lakehouse_assault.teams.team_6 to {}>>
+			<<set $lakehouse_assault.teams.team_6.type to "bailey">>
 		<</if>>
-	<<elseif $farm_stage gte 10>>
-		<<set $farm_assault.teams.team_1 to {}>>
-		<<set $farm_assault.teams.team_2 to {}>>
-		<<set $farm_assault.teams.team_3 to {}>>
-		<<set $farm_assault.teams.team_4 to {}>>
+	<<elseif $lakehouse_stage gte 10>>
+		<<set $lakehouse_assault.teams.team_1 to {}>>
+		<<set $lakehouse_assault.teams.team_2 to {}>>
+		<<set $lakehouse_assault.teams.team_3 to {}>>
+		<<set $lakehouse_assault.teams.team_4 to {}>>
 		<<if $bailey_encroach>>
-			<<set $farm_assault.teams.team_5 to {}>>
-			<<set $farm_assault.teams.team_5.type to "bailey">>
+			<<set $lakehouse_assault.teams.team_5 to {}>>
+			<<set $lakehouse_assault.teams.team_5.type to "bailey">>
 		<</if>>
-	<<elseif $farm_stage gte 8>>
-		<<set $farm_assault.teams.team_1 to {}>>
-		<<set $farm_assault.teams.team_2 to {}>>
-		<<set $farm_assault.teams.team_3 to {}>>
+	<<elseif $lakehouse_stage gte 8>>
+		<<set $lakehouse_assault.teams.team_1 to {}>>
+		<<set $lakehouse_assault.teams.team_2 to {}>>
+		<<set $lakehouse_assault.teams.team_3 to {}>>
 		<<if $bailey_encroach>>
-			<<set $farm_assault.teams.team_4 to {}>>
-			<<set $farm_assault.teams.team_4.type to "bailey">>
+			<<set $lakehouse_assault.teams.team_4 to {}>>
+			<<set $lakehouse_assault.teams.team_4.type to "bailey">>
 		<</if>>
 	<<else>>
-		<<set $farm_assault.teams.team_1 to {}>>
-		<<set $farm_assault.teams.team_2 to {}>>
+		<<set $lakehouse_assault.teams.team_1 to {}>>
+		<<set $lakehouse_assault.teams.team_2 to {}>>
 		<<if $bailey_encroach>>
-			<<set $farm_assault.teams.team_3 to {}>>
-			<<set $farm_assault.teams.team_3.type to "bailey">>
+			<<set $lakehouse_assault.teams.team_3 to {}>>
+			<<set $lakehouse_assault.teams.team_3.type to "bailey">>
 		<</if>>
 	<</if>>
-	<<set _assault_keys to Object.keys($farm_assault.teams)>>
+	<<set _assault_keys to Object.keys($lakehouse_assault.teams)>>
 	<<for _s to 0; _s lt _assault_keys.length; _s++>>
-		<<set $farm_assault.teams[_assault_keys[_s]].location to $farm_assault.no.pluck()>>
-		<<set $farm_assault.teams[_assault_keys[_s]].wall_progress to 0>>
-		<<set $farm_assault.teams[_assault_keys[_s]].field_progress to 0>>
-		<<set $farm_assault.teams[_assault_keys[_s]].number to 3>>
-		<<if $wraith.state is "haunt" and $farm_assault.wraith is undefined and $hallucinations gte 2 and random(1,15-Math.floor(C.npc["Ivory Wraith"].lust/5)) is 1>>
-			<<set $farm_assault.teams[_assault_keys[_s]].type to "wraith">>
-			<<set $farm_assault.teams[_assault_keys[_s]].number to 1>>
-			<<set $farm_assault.teams[_assault_keys[_s]].torched to 0>>
-			<<set $farm_assault.wraith to _s>>
+		<<set $lakehouse_assault.teams[_assault_keys[_s]].location to $lakehouse_assault.no.pluck()>>
+		<<set $lakehouse_assault.teams[_assault_keys[_s]].wall_progress to 0>>
+		<<set $lakehouse_assault.teams[_assault_keys[_s]].field_progress to 0>>
+		<<set $lakehouse_assault.teams[_assault_keys[_s]].number to 3>>
+		<<if $wraith.state is "haunt" and $lakehouse_assault.wraith is undefined and $hallucinations gte 2 and random(1,15-Math.floor(C.npc["Ivory Wraith"].lust/5)) is 1>>
+			<<set $lakehouse_assault.teams[_assault_keys[_s]].type to "wraith">>
+			<<set $lakehouse_assault.teams[_assault_keys[_s]].number to 1>>
+			<<set $lakehouse_assault.teams[_assault_keys[_s]].torched to 0>>
+			<<set $lakehouse_assault.wraith to _s>>
 		<</if>>
-		<<if !$farm_assault.teams[_assault_keys[_s]].type>>
-			<<set $farm_assault.teams[_assault_keys[_s]].type to "remy">>
+		<<if !$lakehouse_assault.teams[_assault_keys[_s]].type>>
+			<<set $lakehouse_assault.teams[_assault_keys[_s]].type to "remy">>
 		<</if>>
 	<</for>>
 	<<set $fields_damaged to 0>>
-	<<if $farm.kennel gte 1>>
-		<<set $farm_assault.dogs to 2>>
+	<<if $lakehouse.kennel gte 1>>
+		<<set $lakehouse_assault.dogs to 2>>
 	<<else>>
-		<<set $farm_assault.dogs to 1>>
+		<<set $lakehouse_assault.dogs to 1>>
 	<</if>>
-	<<set $farm_assault.dogs_state to "guarding">>
-	<<if $farm.tower_guard>>
-		<<set $farm_assault.tower to "manned">>
+	<<set $lakehouse_assault.dogs_state to "guarding">>
+	<<if $lakehouse.tower_guard>>
+		<<set $lakehouse_assault.tower to "manned">>
 	<<else>>
-		<<set $farm_assault.tower to "empty">>
+		<<set $lakehouse_assault.tower to "empty">>
 	<</if>>
-	<<set $farm_assault.alex to "patrol">>
+	<<set $lakehouse_assault.alex to "patrol">>
 <</widget>>

@@ -160,7 +160,7 @@ setup.feats = {
 	"The Fortress": {
 		title: "The Fortress",
 		desc: "Build all the lake house upgrades.",
-		difficulty: 4,
+		difficulty: 3,
 		series: "",
 		filter: ["All", "General"],
 	},
