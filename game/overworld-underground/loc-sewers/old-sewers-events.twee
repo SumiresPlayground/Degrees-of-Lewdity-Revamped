@@ -282,7 +282,15 @@ You crouch and try to pick the lock.
 :: Sewers Slime
 
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
-You try to pull yourself free. The muck, slimy and suspiciously warm, coats you from your hands to your elbows. It's a strange feeling, being unable to pull away from the stuff. To make matters worse, your feet, ankles, and calves are also stuck in the substance. You are trapped, unable to free yourself no matter how much you twist and turn.
+You try to pull yourself free. The muck, slimy and suspiciously warm, coats you from your hands to your elbows. It's a 
+
+<<if $onemoreslime is 1>> 
+	familiar 
+<<else>>
+	strange 
+<</if>>
+
+feeling. To make matters worse, your feet, ankles, and calves are also stuck in the substance. You are trapped, unable to free yourself no matter how much you twist and turn.
 <br><br>
 The light down here is minimal, making it difficult to see. The fact that much of the blob is cast in the shadows is alarming as well, and you wonder just how big this mountain of goo really is. It could stretch out a dozen or more feet into the darkness, making you shiver at the thought. Something about this stuff gives you chills.
 <br><br>
@@ -358,7 +366,8 @@ You cum again quickly, the pinching of your <<nipples>> and licking of your assh
 <<arousal 10000>><<orgasm>>
 
 <br><br>
-<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
+<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0>>
+
 Your repeated orgasms seem to drive your ear slimes into a frenzy! The frequency is slow, at first, but soon begins to increase. As they do so, a warmth spreads from your head, flowing through your body. <span class='green'>The slime engulfing you pulses in sync to the ear slimes' movement.</span> Despite the situation, you begin to feel eerily calm. The feeling is oddly familiar, as if you were in a womb. Your consciousness begins to shift as your fatigue takes over. You slowly drift asleep as the giant slime rhythmically caresses your body. The last thing you notice before sleep takes you is <span class='green'>how malleable you suddenly feel...</span>
 <br><br>
 
@@ -404,7 +413,14 @@ You awaken in an unknown location. The giant slime is nowhere to be seen. Lackin
 <br><br>
 Something seems off, though. Your vision seems oddly unfocused, as if peering through a green foggy lens. There's something odd about your body. Your skin can barely be called that anymore. In fact, your entire body seems to be a murky mint-green color.
 <br><br>
-The malleability you noticed before comes to a head as you realise you're literally a gelatious mass on the floor. You notice something else. <span class='gold'>The ear slimes which were plaguing you seem to be gone.</span> Perhaps, no longer having actual ears to infest, they simply abandoned you. Though, considering the current state of your body, maybe they never actually left...
+The malleability you noticed before comes to a head as you realise you're literally a gelatious mass on the floor. You notice something else. <span class='gold'>The ear slimes which were plaguing you seem to be gone.</span> 
+
+<<if $onemoreslime is 1>>
+	No longer being a hindrance to you and your thoughts, they've merged with you completely.
+<<else>>
+	Perhaps, no longer having actual ears to infest, they simply abandoned you. Though, considering the current state of your body, maybe they never actually left...
+<</if>>>>
+
 <br><br>
 As you come to your senses, you seem to subconsciously reform into your prior human state.<br><br> Your vision clarifies as you put thoughts of ear slimes out of your mind. Your visual perception returns to normal, and you slowly come to realize that <span class='green'> you now seem to share the properties of a slime!</span>
 <br><br>
@@ -415,25 +431,33 @@ As you come to your senses, you seem to subconsciously reform into your prior hu
 	<</if>>
 	<<if $slime is 1>>
 		<<set $skinColor.naturalreset to $skinColor.natural>>
-		<<set $skinColor.natural to "slimy">>
+		<<set $skinColor.natural to "slimy">> /*"amethyst" for alternate color */
 		<<set $transformationParts.slime.bubble to "default">>
 		<<set $transformationParts.slime.stream to "default">>
 		<<set $transformationParts.slime.core to "default">>
-		<<set $haircolour to "slimegreen">>
-		<<set $hairfringecolour to "slimegreen">>
+		<<set $haircolour to "slimegreen">> /*"lilac" for alternate color */
+		<<set $hairfringecolour to "slimegreen">> /*"lilac" for alternate color */
 	<</if>>
 
 <<link [[Next|Slime Transformation 2]]>><</link>>
 
 ::Slime Transformation 2
 
-As you get your bearings together, you begin to dread your new life as an amorphous mass of goo. You try to force yourself to calm down. In doing so, you notice your new body seems to solidify somewhat.<br><br> It becomes drier and your body almost seems to resemble that of a normal human's again. Almost.
-<br><br>
-If you look closely enough, it still retains the barest hint of transparency. You notice a floating red mass in the center of your body. You get the feeling this... core... is of vital importance. For now, you try to make sense of your surroundings. A quick scan tells you you're still in the sewers.
-<br><br>
-The damp air feels unusually soothing. You walk forward a few meters when an errant stream of water from an adjacent pipe sprays you on the arm. <span class='red'>It stings.</span><<violence 20>> You flinch and wonder if what hit you really was water. If so, then your predicament may be even more dire that you initially realized.
-<br><br>
-Once you're back in town, <span class='green'>perhaps the local hospital will have an idea of how to restore your humanity.</span>
+<<if $onemoreslime is 1>>
+	You remember this sensation, this experience. You're not entirely sure how to to feel about it. While there were some benefits to being a slime,the necessary avoidance of water was a considerable complication. Looking down, you become aware of the slime core suspended within your body. You'll be careful to ensure it's safety; if it goes, so do you.
+	<br><br>
+	Recalling the process to undo the transformation, you remember the area to do so is accessible only under certain conditions. <span class='gold'>You'll need to make your way to the sealed room in the lake ruins during the blood moon</span>. Until then, you'll just have to manage with your slime body. Given your experience, this should be easier this time around. Hopefully.
+	<br><br>
+	You survey the area and get your bearings.
+<<else>>
+	As you get your bearings together, you begin to dread your new life as an amorphous mass of goo. You try to force yourself to calm down. In doing so, you notice your new body seems to solidify somewhat.<br><br> It becomes drier and your body almost seems to resemble that of a normal human's again. Almost.
+	<br><br>
+	If you look closely enough, it still retains the barest hint of transparency. You notice a floating red mass in the center of your body. You get the feeling this... core... is of vital importance. For now, you try to make sense of your surroundings. A quick scan tells you you're still in the sewers.
+	<br><br>
+	The damp air feels unusually soothing. You walk forward a few meters when an errant stream of water from an adjacent pipe sprays you on the arm. <span class='red'>It stings.</span><<violence 20>> You flinch and wonder if what hit you really was water. If so, then your predicament may be even more dire that you initially realized.
+	<br><br>
+	Once you're back in town, <span class='green'>perhaps the local hospital will have an idea of how to restore your humanity.</span>
+<</if>>
 
 <br><br>
 
