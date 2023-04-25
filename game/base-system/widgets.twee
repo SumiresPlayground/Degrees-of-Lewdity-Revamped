@@ -154,8 +154,10 @@
 <</widget>>
 
 <<widget "underwater">>
-	<<water>><<set $underwater to 1>><<set $underwatercheck to 1>>
-	<<if $combat isnot 1>>
+	<<water>>
+	<<set $underwater to 1>>
+	<<set $underwatercheck to 1>>
+	<<if $combat isnot 1 and $slime is 0>>
 		<<if $oxygen lt 0 and $nooxygen is 1>>
 			<<set $stress += 1000>>
 		<<elseif $oxygen lt 0 and $nooxygen isnot 1>>
@@ -164,11 +166,11 @@
 			<<set $nooxygen to 0>>
 		<</if>>
 		<span class="lblue">Air:</span>
-		<<if $oxygen lt 0>>
+		<<if $oxygen lt 0 and $slime is 0>>
 			<span class="red">You can't breathe! Your stress will increase and you'll soon pass out if you can't find air.</span>
 		<</if>>
 		<<oxygencaption>>
-		<<if $underwaterintro isnot 1 and $combat isnot 1 and !$possessed>>
+		<<if $underwaterintro isnot 1 and $combat isnot 1 and !$possessed and $slime is 0>>
 			<<set $underwaterintro to 1>>
 			<i>You can't hold your breath forever. You will pass less time and use less air per action with a higher swimming skill.</i>
 			<br><br>
@@ -344,7 +346,11 @@
 			<</if>>
 			<<set $stress += (_violence * _drunkMod * _stressMod) * (1 - ($masochism / 1200))>>
 			<<combattrauma _violence * _traumaMod>>
-			<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod)>>
+			<<if $slime is 1>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.30>>
+			<<else>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod)>>
+			<</if>>
 			<<set _arousal to (_violence * (0 + ($masochism / 18)))>>
 			<<arousal _arousal/_possessMod "maso">>
 			<<if $orgasmdown gte 1>>

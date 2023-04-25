@@ -114,11 +114,14 @@ setup.colours = {
 		ydark: ["#8e7f68", "#483f35"],
 		ygyaru: ["#f0ffe6", "#f0e4bc", "#8e7f68", "#483f35"],
 		ghostly: ["#DBFFFF", "#DBFFFF"],
+		slimy: ["#CBFFCB", "#98FF98"],
+		amethyst: ["#bba9f5", "#8451fc"]
 	},
 	/**
 	 * Get canvas filter for skin of given type and tan progression (0..1).
 	 *
 	 * @param {any} type
+	 * 
 	 * @param {any} tan
 	 */
 	getSkinFilter(type, tan) {
@@ -544,6 +547,30 @@ setup.colours.hair = [
 		dye: true,
 		canvasfilter: {
 			blend: "#FFFFFF",
+		},
+	},
+	{
+		variable: "slimegreen",
+		name: "strange green",
+		name_cap: "Slime Green",
+		csstext: "slimegreenhair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#85d6a5",
+			opacity: 0.9
+		},
+	},
+	{
+		variable: "lilac",
+		name: "lilac purple",
+		name_cap: "Lilac Purple",
+		csstext: "lilacpurplehair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#D2AFFF",
+			opacity: 0.9
 		},
 	},
 ];

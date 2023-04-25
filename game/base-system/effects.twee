@@ -162,6 +162,7 @@
 		<</if>>
 		<br><br>
 	<</if>>
+
 <</widget>>
 
 <<widget "effectsarousalsoak">>
@@ -219,6 +220,24 @@
 		<<set $squidcount to 0>>
 	<</if>>
 	<<set $inwater to 0>>
+
+	<<if $slime is 1 and $oxygen lte $oxygenmax>>
+		<<oxygenrefresh>>
+	<</if>>
+
+	<<if $slime is 1>>
+		<<if $outside is 1 and $weather is "rain">>
+    	<<violence 20>>
+		<br>Get out of the rain! <span class='red'>It stings!<br><br></span>
+		<</if>>
+	<</if>>
+
+	<<if $slime is 1 and $nooxygen is 1>>
+		<<set $nooxygen to 0>>
+		<br><span class='green'>Normally, aphyxia would be an issue right now. Good thing you're a slime.</span><br>
+	<</if>>
+
+
 
 	<<if $scienceproject is "ongoing" and $scienceprojectdays is 0 and $scienceprojectwarning isnot 1>>
 		<<set $scienceprojectwarning to 1>>
@@ -939,6 +958,10 @@
 	<</for>>
 
 	<<if $inwater is 1>>
+		<<if $slime is 1>>
+			<<violence 60>>
+			<span class="red"><br><br>You're slowly starting to dissolve. Leave the water!<br><br></span>
+		<</if>>
 		<<if Time.season is "winter" and !["sea", "beach", "school", "underground", "pool"].includes($location)>>
 			<<if $warmth gte 80>>
 				<<set $body_temperature_outside to "comfy">>

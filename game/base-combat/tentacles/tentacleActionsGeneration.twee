@@ -135,11 +135,18 @@
 						<<if $angel gte 4 and $angelBanish gte 1 and !$banishDisable>>
 							<<set _banishTarget to $tentacles[_i]>>
 						<</if>>
+						<<if $slime is 1>>
+							<<set $_tentgrab to 0>>
+							<<set _leftOptions to "free">>
+							<span class='green'>However, your skin's slickness prevented your arm from being bound!</span>
+						<</if>>
 						<<break>>
 					<</if>>
 				<</for>>
-				<<if !$_tentgrab>>
-					<span @class="($lastOptions.left isnot _leftOptions ?'gold':'')">Your left arm is being held down.</span>
+				<<if !$_tentgrab and $slime is 0>>
+					<br><span @class="($lastOptions.left isnot _leftOptions ?'gold':'')">Your left arm is being held down.</span>
+				<<elseif $slime is 1>>
+					<br><span @class="($lastOptions.left isnot _leftOptions ?'gold':'')">Your left arm is free.</span>
 				<</if>>
 			<</if>>
 		<<case "bound">>
@@ -441,11 +448,18 @@
 						<<if $angel gte 4 and $angelBanish gte 1 and !$banishDisable>>
 							<<set _banishTarget to $tentacles[_i]>>
 						<</if>>
+						<<if $slime is 1>>
+							<<set $_tentgrab to 0>>
+							<<set _rightOptions to "free">>
+							<span class='green'>However, your skin's slickness prevented your arm from being bound!</span>
+						<</if>>
 						<<break>>
 					<</if>>
 				<</for>>
-				<<if !$_tentgrab>>
+				<<if !$_tentgrab and $slime is 0>>
 					<span @class="($lastOptions.right isnot _rightOptions ?'gold':'')">Your right arm is being held down.</span>
+				<<elseif $slime is 1>>
+					<br><span @class="($lastOptions.left isnot _rightOptions ?'gold':'')">Your right arm is free.</span>
 				<</if>>
 			<</if>>
 		<<case "bound">>
@@ -728,6 +742,12 @@
 				<<elseif $leftleg is "grappled" and $rightleg is "grappled">>
 					<<set _feetOptions to "grappled">>
 					<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are entangled and forced apart, leaving you less able to protect your <<genitals>>.</span>
+						<<if $slime is 1>>
+							<<set $leftleg to 0>>
+							<<set $rightleg to 0>>
+							<<set _feetOptions to "free">>
+							<span class='green'>However, your skin's slickness allows you to immediately free yourself!</span>
+						<</if>>
 				<<elseif $leftleg is "bound" and $rightleg is "bound">>
 					<<set _feetOptions to "bound">>
 					<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are bound and forced apart, leaving you less able to protect your <<genitals>>.</span>

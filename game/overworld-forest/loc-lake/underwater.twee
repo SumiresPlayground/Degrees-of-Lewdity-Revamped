@@ -279,53 +279,131 @@ You hear the ancient mechanism creak and the door groans open. Beyond is a plint
 :: Lake Ruin Sit
 <<set $outside to 0>><<set $location to "lake_ruin">><<underwater>><<effects>><<lakeeffects>>
 
-You grip the plinth, and pull your <<bottom>> against it. The instant you do, a red light blazes into life, illuminating the room. Previously unseen statues stare down at you from above.
-<br><br>
-You jerk back, and convulse. The room shakes and trembles. A crack appears in the floor. It widens, letting in more of the red light.
-<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
-	You feel the slimes squirm from your ears. They vanish into the crevice.
-<<else>>
-	You feel the slime squirm from your ear. It vanishes into the crevice.
-<</if>>
-<br><br>
-
-<<set $corruption_slime to 1>>
-
-<<if $slime_tf is 1>>
-	<<set $slime_tf to 0>>
-	<<set $physicalTransform to 0>>
-<</if>>
-
-<<if $parasite.left_ear.name is "slime" or $parasite.right_ear.name is "slime">>
-	<<unset $alwaysSleepNaked>>
-	<<unset $slimeEvent>>
-<</if>>
-
-<<if $parasite.left_ear.name is "slime">>
-	<<removeparasite left_ear>>
-<</if>>
-<<if $parasite.right_ear.name is "slime">>
-	<<removeparasite right_ear>>
-<</if>>
-<<set $noEarSlime to true>>
-
-<<if $tentacledisable is "f">>
-
-	The light fades, and all falls quiet. Yet you feel a presence. Something stayed behind.
+<<if $slime is 1>>
+	
+	You grip the plinth, and pull your <<bottom>> against it. The instant you do, a red light blazes into life, illuminating the room. Previously unseen statues stare down at you from above.
+	<br><br>
+	You jerk back, and convulse. The room shakes and trembles. A crack appears in the floor. It widens, letting in more of the red light.
+	Your entire body is bathed in the crimson. Your body begins to quake independently of the room. Your skin beigins to distort and bubble, the color turning as red as the core contained within.
+	<br><br>
+	That same core, meanwhile, grows larger...
 	<br><br>
 
-	Over a dozen tentacles curl up the side of the plinth, forming a prison around you.
-	<br><br>
+	<<link [[Next|Slime Reversion]]>><<pass 10>><</link>><br><br>
 
-	<<link [[Next|Lake Ruin Sit Tentacles]]>><<set $molestationstart to 1>><</link>>
-	<br>
+
 
 <<else>>
+	
+	You grip the plinth, and pull your <<bottom>> against it. The instant you do, a red light blazes into life, illuminating the room. Previously unseen statues stare down at you from above.
+	<br><br>
+	You jerk back, and convulse. The room shakes and trembles. A crack appears in the floor. It widens, letting in more of the red light.
+	<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
+		You feel the slimes squirm from your ears. They vanish into the crevice.
+	<<else>>
+		You feel the slime squirm from your ear. It vanishes into the crevice.
+	<</if>>
+	<br><br>
 
-	<<link [[Next|Lake Ruin Plinth]]>><</link>>
-	<br>
+	<<set $corruption_slime to 1>>
 
+	<<if $slime_tf is 1>>
+		<<set $slime_tf to 0>>
+		<<set $physicalTransform to 0>>
+	<</if>>
+
+	<<if $parasite.left_ear.name is "slime" or $parasite.right_ear.name is "slime">>
+		<<unset $alwaysSleepNaked>>
+		<<unset $slimeEvent>>
+	<</if>>
+
+	<<if $parasite.left_ear.name is "slime">>
+		<<removeparasite left_ear>>
+	<</if>>
+	<<if $parasite.right_ear.name is "slime">>
+		<<removeparasite right_ear>>
+	<</if>>
+	<<set $noEarSlime to true>>
+
+	<<if $tentacledisable is "f">>
+
+		The light fades, and all falls quiet. Yet you feel a presence. Something stayed behind.
+		<br><br>
+
+		Over a dozen tentacles curl up the side of the plinth, forming a prison around you.
+		<br><br>
+
+		<<link [[Next|Lake Ruin Sit Tentacles]]>><<set $molestationstart to 1>><</link>>
+		<br>
+
+	<<else>>
+
+		<<link [[Next|Lake Ruin Plinth]]>><</link>>
+		<br>
+
+	<</if>>
 <</if>>
+
+:: Slime Reversion
+
+
+	<<set $corruption_slime to 1>>
+
+	<<if $slime_tf is 1>>
+		<<set $slime_tf to 0>>
+		<<set $physicalTransform to 0>>
+	<</if>>
+
+	<<if $parasite.left_ear.name is "slime" or $parasite.right_ear.name is "slime">>
+		<<unset $alwaysSleepNaked>>
+		<<unset $slimeEvent>>
+	<</if>>
+
+	<<if $parasite.left_ear.name is "slime">>
+		<<removeparasite left_ear>>
+	<</if>>
+	<<if $parasite.right_ear.name is "slime">>
+		<<removeparasite right_ear>>
+	<</if>>
+	<<set $noEarSlime to true>>
+
+You feel strangely bloated. Your skin, red as the light which blankets the room, suddenly begins to solidify. Meanwhile, your expanding core starts to lose it's uniform shape. It takes on a translucence similar to how your skin was prior to this new transformation.
+<br><br>
+You feel your slime core begin to liquify, contained only by the hardened, lustrous shell which used to be your skin. You lose conciousness quickly. Meanwhile, a mysterious process begins to affect the liquid which permeates your being. The fluid inside your shell begins to congeal and coagulate. The consistency changes from a gelatinous fluid to something more akin to flesh...
+<br><br>
+
+
+<<link [[Next|Slime Reversion 2]]>><<pass 10>><</link>>
+
+:: Slime Reversion 2
+
+
+<<set $worn.lower.integrity to 0>>
+<<set $worn.upper.integrity to 0>>
+<<set $worn.under_lower.integrity to 0>>
+<<set $worn.under_upper.integrity to 0>>
+<<headruined>>
+<<legsruined>>
+<<feetruined>>
+<<integritycheck>>
+<<set $skinColor.natural to $skinColor.naturalreset>>
+<<set $haircolour to $haircolourreset>>
+<<set $hairfringecolour to $hairfringecolourreset>>
+<<set $transformationParts.slime.bubble to "disabled">>
+<<set $transformationParts.slime.stream to "disabled">>
+<<set $transformationParts.slime.core to "disabled">>
+<<set $slime to 0>>
+<<set $onemoreslime to 1>>
+
+You awaken with a start, inhaling sharply. You feel strange. More... stable. You look at your surroundings and see odd red shards scattered around.
+Picking one up, it easily crumbles between your fingertips. As opposed to being slightly embedded in them.
+<br><br> 
+Taking a quick survey of your nude body, you're now certain that <span class="gold">you're no longer a slime!</span> Oddly enough, the way the shards are spread around, it seems as if they were <i>blasted</i> from somewhere. Namely, your current location. Did these come from you?
+<br><br>
+You notice scraps of your clothing scattered by the shards. Whatever process reverted you back to your original state, it was a violent one. The loss of your clothing is unfortunate, but they can be replaced. For now, it's time to make your exit.
+<br><br>
+
+<<link [[Next|Lake Ruin Plinth]]>><</link>>
 
 :: Lake Ruin Sit Tentacles
 
@@ -408,7 +486,11 @@ You are deep in the lake ruin, in a small room with a plinth.
 	<<link [[Escape|Lake Ruin Deep Consentacles Leave]]>><<loxygen>><</link>><<swimmingdifficulty 600 1200>>
 	<br>
 <<elseif _bmoon>>
-	The water around you is eerily silent, and deathly still, the room barely illuminated in the red glow.
+	The water around you is eerily silent, and deathly still, the room barely illuminated in the red glow.<br><br>
+	<<if $slime is 1>>
+	<span class="green">Oddly enough, you feel drawn to the plinth...<br><br></span>
+	<<link [[Reach out|Lake Ruin Sit]]>><</link>>
+	<</if>>
 	<br><br>
 <<else>>
 	The water sways with your movements in the dark room.
@@ -526,7 +608,7 @@ Sensing imminent danger, you decide not to take any risks and leave the room.
 Deciding you've had enough, you attempt to unravel yourself and leave the room.
 <br><br>
 
-<<if $swimmingSuccess>>
+<<if $swimmingSuccess or $slime is 1>>
 	<span class="green">You free your ankles and make your escape.</span> The tentacles grasp at you with increasing desperation. You narrowly avoid one shooting for your leg, and swim through the doorway. The tentacles protrude from the room and grope around the walls, but they refuse to chase you any further. They slink away.
 	<br><br>
 	<<link [[Continue|Lake Ruin Deep]]>><<loxygen>><</link>>

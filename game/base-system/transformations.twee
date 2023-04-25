@@ -21,6 +21,7 @@
 			dolphin: {tail:"disabled"},
 			wolf: {ears:"disabled", tail:"disabled"},
 			ghost: {eyes:"disabled", hitodama:"disabled"},
+			slime: {bubble:"disabled", stream:"disabled", core:"disabled"},
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
@@ -231,6 +232,9 @@
 	<</if>>
 	<<if $transformationParts.ghost is undefined>>
 		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled"}>>
+	<</if>>
+	<<if $transformationParts.slime is undefined>>
+		<<set $transformationParts.slime to {bubble:"disabled", stream:"disabled", core:"disabled"}>>
 	<</if>>
 	<<if $transformationParts.traits is undefined>>
 		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled"}>>
@@ -1030,8 +1034,6 @@
 			<<case 9>>
 				<<if $catbuild gte 70>>
 					<<set $cat to 10>>
-					<<set $cattf = 1>>
-					<<set $permanentTransform = 1>>
 					<<catHeterochromiaTF 3>>
 					<span class="gold">Your eyes no longer burn, and despite the darkness of the early morning, you are able to pick up every detail of the scenery around you.</span>
 					<br><br>
@@ -1044,6 +1046,8 @@
 					<<catHeterochromiaTF 2>>
 					<span class="gold">Your surroundings appear darker than before. </span>
 					<<set $cat to 9>>
+					<<set $cattf = 1>>
+					<<set $permanentTransform = 1>>
 				<</if>>
 			<<case 99>>
 				<<set $physicalTransform to 0>>

@@ -370,6 +370,8 @@ Renderer.CanvasModels["main"] = {
 			"dog_ears_type": "disabled",
 			"ghost_eyes_type": "disabled",
 			"ghost_hitodama_type": "disabled",
+			"slime_bubble_type": "disabled",
+			"slime_stream_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2292,6 +2294,45 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_hitodama_type)
 			},
 			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		/***
+         *     █████   ██      ████  ██████████   ███████
+         *    ██       ██       ██   ██  ██  ██   ██   
+         *     █████   ██       ██   ██  ██  ██   ██████
+         *         ██  ██       ██   ██  ██  ██   ██
+         *     █████   ██████  ████  ██      ██   ███████
+         *
+         *
+         */
+		"slime_bubble": {
+			srcfn(options) {
+				return `img/transformations/slime/bubble/${options.slime_bubble_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.slime_bubble_type)
+			},
+			z: ZIndices.horns,
+			animation: "idle"
+		},
+		"slime_stream": {
+			srcfn(options) {
+				return `img/transformations/slime/stream/${options.slime_stream_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.slime_stream_type)
+			},
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+		"slime_core": {
+			srcfn(options) {
+				return `img/transformations/slime/core/${options.slime_core_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.slime_core_type)
+			},
+			z: ZIndices.skin,
 			animation: "idle"
 		},
 
