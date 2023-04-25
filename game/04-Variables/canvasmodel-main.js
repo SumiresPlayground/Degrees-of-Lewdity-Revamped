@@ -372,6 +372,7 @@ Renderer.CanvasModels["main"] = {
 			"ghost_hitodama_type": "disabled",
 			"slime_bubble_type": "disabled",
 			"slime_stream_type": "disabled",
+			"slime_core_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
