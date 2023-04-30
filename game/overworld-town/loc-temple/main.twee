@@ -768,8 +768,11 @@ You look away from the <<monk>>, and <<he>> continues down the aisle.
 <<link [[Inquire about ear slime|Temple Slime]]>><</link>>
 <br>
 <</if>>
-<<if $slime is 1>>
+<<if $slime is 1 and $onemoreslime is 0>>
 <<link [[Inquire about your slime situation|Jordan Slime Inquiry]]>><</link>>	<br><br>
+<</if>>
+<<if $slime is 1 and $onemoreslime is 1>>
+<<link [[Report on your slime situation|Jordan Slime Inquiry 2]]>><</link>>	<br><br>
 <</if>>
 <<if $ghost is 1>>
 <<link [[Inquire about your situation|Temple Ghost]]>><</link>>
@@ -1551,7 +1554,7 @@ You describe the problems you've had, and how they started when a slime entered 
 
 "Forgive me, I may not have heard you correctly. You said you are a... slime?" Jordan looks incredulously at you as describe you your situation and how it came to be. <<He>> looks notably shaken when you mention the ear slimes.
 <br><br> 
-"Oh, dear..." <<He>> begins. "I have heard tales... rituals of something similar to this occuring. There used to exist an ancient sect of our order, or so I've read." <<He>> stares at you deep in thought before continuing. "The members of this sect were said to partake in sacrifices involving the very same creatures which you have described. Even I had my own doubts, but you seem to be walking proof of their activities. Or at least the results thereof."
+"Oh, dear..." <<he>> begins. "I have heard tales... rituals of something similar to this occuring. There used to exist an ancient sect of our order, or so I've read." <<He>> stares at you deep in thought before continuing. "The members of this sect were said to partake in sacrifices involving the very same creatures which you have described. Even I had my own doubts, but you seem to be walking proof of their activities. Or at least the results thereof."
 <br><br>
 "As this occured centuries before my time, I'm afraid my knowledge of the matter is rather lacking. Many records of the sect were deliberately destroyed in an attempt hide some of the more unsavory parts of our order's history." <<He>> gives you a melancholic smile and looks skyward.
 <br><br>
@@ -1564,6 +1567,22 @@ Jordan's voice suddenly becomes an octave lower and <<he>> adopts a solemn facia
 "Whatever you decide to do with this information is up to you. I wish you luck."
 <br><br>
 
+
+<<endevent>>
+
+<<link [[Next|Temple]]>><</link>>
+
+:: Jordan Slime Inquiry 2
+
+<<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
+
+"Un...unbelievable. To think that the tales of old held some truth to them." Jordan looks at you in wonder after you regale <<him>> with the events that proceeded after coming in contact with the plinth in the ruins. "I must wonder, however, how you've managed to enter such a state again. Have you perhaps been pursued by the slimes you mentioned earlier?" You don't respond, only giving Jordan a nervous glance before lowering your gaze.
+<br><br>
+"Regardless of the reason, you are fortunate that area still maintains it's original function. ...I assume helping to restore one's humanity after their transformation is it's original purpose, at least. As such, you can simply return to the plinth and undo the process when conditions are appropriate." You nod and thank Jordan. As you turn around to leave, <<he>> gives a final warning.
+<br><br>
+"I assume the ritual, and thus your restoration, was performed during the blood moon, as stated in the scriptures. That lake is said to become particularly dangerous around that time. I believe the same goes for our town, actually. Widespread, mysterious happenings tend to occur during those nights. I urge you to maintain your distance from those lake ruins unless you absolutely must traverse them. Especially during the blood moon."
+<br><br>
+"I shall pray for your continued safety."
 
 <<endevent>>
 

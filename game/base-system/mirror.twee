@@ -49,6 +49,8 @@
 			<<mirrorSkin>>
 		<<case "hair">>
 			<<mirrorHair>>
+		<<case "slimehair">>
+			<<slimehair>>
 		<<case "makeup">>
 			<<mirrorMakeup>>
 		<<case "transformation">>
@@ -162,6 +164,11 @@
 	<br>
 	<<link "Change your hair style">><<set $mirrorMenu to "hair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
+	
+	<<if $slime is 1>>
+	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
+	<</if>>
+	
 	__Makeup__
 	<br>
 	<<link "Apply makeup">><<set $mirrorMenu to "makeup">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
@@ -342,8 +349,12 @@
 			Dolphin
 			<br>
 		<</if>>
-		<<if $dolphin gte 6>>
-			Dog
+		<<if $ghost is 1>>
+			Ghostly
+			<br>
+		<</if>>
+		<<if $slime is 1>>
+			Slimy
 			<br>
 		<</if>>
 		<<if $makeup.lipstick != 0 or $makeup.eyeshadow != 0 or $makeup.mascara != 0>>
@@ -475,7 +486,7 @@
 			Demon
 			<br>
 		<</if>>
-				<<if $sheep gte 6>>
+		<<if $sheep gte 6>>
 			Sheepish
 			<br>
 		<</if>>
@@ -485,6 +496,14 @@
 		<</if>>
 		<<if $bee gte 6>>
 			Deerlike
+			<br>
+		<</if>>
+		<<if $ghost is 1>>
+			Ghostly
+			<br>
+		<</if>>
+		<<if $slime is 1>>
+			Slimy
 			<br>
 		<</if>>
 		<<if $makeup.lipstick != 0 or $makeup.eyeshadow != 0 or $makeup.mascara != 0>>
@@ -865,6 +884,8 @@
 		<<mirrorwet "penis" $player.bodyliquid.penis.semen $player.bodyliquid.penis.goo $player.bodyliquid.penis.nectar>>
 		<<mirrorwet "anus" $player.bodyliquid.anus.semen $player.bodyliquid.anus.goo $player.bodyliquid.anus.nectar>>
 		<<mirrorwet "mouth" $player.bodyliquid.mouth.semen $player.bodyliquid.mouth.goo $player.bodyliquid.mouth.nectar>>
+	<<elseif $slime is 1>>
+		<span class='green'>Your skin feels especially slippery, but it's still clean.</span>
 	<<else>>
 		Your skin feels clean.
 	<</if>>
@@ -1370,6 +1391,11 @@
 <</widget>>
 
 <<widget "mirrorMakeup">>
+
+<<if $slime is 1>>
+<span class='green'>Due to their composition, these cosmetics should remain on your skin despite your condition.</span>
+<br><br>
+<</if>>
 	<<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
 	<br><br>
 	__Makeup__
@@ -1533,6 +1559,8 @@
 		<<set _dyes = $makeup.owned.hairdye.filter(x => x.count > 0)>>
 		<<if _dyes.length == 0>>
 			You have no dyes.
+		<<elseif $slime is 1>>
+			<span class='green'>Unfortunately, you'd just break down and absorb whatever dye you tried to apply.</span>
 		<<else>>
 			<<set _browsDyeOptions to {"Don't dye":"noChange"}>>
 			<<for _i to 0; _i lt _dyes.length; _i++>>
@@ -2059,6 +2087,30 @@
 	<br><br>
 
 	<<link "Skip day">><<pass 23 hours>><<effects>><<goto "Mirror">><</link>>
+	<br>
+<</widget>>
+
+<<widget "slimehair">>
+	<span class='green'>You may not be able to alter your body's shape to the degree most slimes can...
+	<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
+	<br><br>
+	<<link "<<<">><<set $hairlength -= 1000>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>> |
+	<<link "<<">><<set $hairlength -= 100>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>> |
+	<<link "<">><<set $hairlength -= 10>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>> |
+	Hair length: <span id="statshairlength"><<print Math.trunc($hairlength)>></span>
+	| <<link ">">><<set $hairlength += 10>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>>
+	| <<link ">>">><<set $hairlength += 100>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>>
+	| <<link ">>>">><<set $hairlength += 1000>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>>
+	<br><br><br>
+	<<link "<<<">><<set $fringelength -= 1000>><<clamp>><<replace "#statsfringelength">><<print Math.trunc($fringelength)>><</replace>><</link>> |
+	<<link "<<">><<set $fringelength -= 100>><<clamp>><<replace "#statsfringelength">><<print Math.trunc($fringelength)>><</replace>><</link>> |
+	<<link "<">><<set $fringelength -= 10>><<clamp>><<replace "#statsfringelength">><<print Math.trunc($fringelength)>><</replace>><</link>> |
+	Fringe length: <span id="statsfringelength"><<print Math.trunc($fringelength)>></span>
+	| <<link ">">><<set $fringelength += 10>><<clamp>><<replace "#statsfringelength">><<print Math.trunc($fringelength)>><</replace>><</link>>
+	| <<link ">>">><<set $fringelength += 100>><<clamp>><<replace "#statsfringelength">><<print Math.trunc($fringelength)>><</replace>><</link>>
+	| <<link ">>>">><<set $fringelength += 1000>><<clamp>><<replace "#statsfringelength">><<print Math.trunc($fringelength)>><</replace>><</link>>
+	<br><br>
+	<<link [[Confirm (0:20)|$passage]]>><<pass 20>><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
 	<br>
 <</widget>>
 

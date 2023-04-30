@@ -3536,33 +3536,37 @@ You grab your clothes and dress with haste.
 	Your penis is locked inside the cage. Shaving around it will be a bit more tricky, but that's not a big deal.
 	<br>
 	<</if>>
-	<<if $pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2>>
+	<<if ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2) and $slime is 1>>
+		<<shavestyleicon 'clean'>><<link [[Smoothen surface (0:15)->Shave slime]]>><<pass 15>><<arousal 100>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<set $pbstrip to 0>><<set $makeup.pbcolour to 0>><</link>>
+		<br>
+	<</if>>
+	<<if ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2) and $slime is 0>>
 		<<shavestyleicon 'clean'>><<link [[Shave clean (0:15)->Shave clean]]>><<pass 15>><<arousal 100>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<set $pbstrip to 0>><<set $makeup.pbcolour to 0>><</link>>
 		<br>
 	<</if>>
-	<<if $pblevel gte 5 or $pbstrip gte 2 or ($pbstrip is 1 and $pblevel gte 2)>>
+	<<if $pblevel gte 5 or $pbstrip gte 2 or ($pbstrip is 1 and $pblevel gte 2) and $slime is 0>>
 		<<shavestyleicon 'strip'>><<link [[Form a landing strip (0:15)->Shave strip]]>><<pass 15>><<arousal 100>><<set $pbstripName to "neat landing strip">><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 1>><</link>>
 		<br>
 	<</if>>
-	<<if $pblevel gte 5 or $pbstrip gte 3 or ($pbstrip gte 2 and $pblevel gte 2)>>
+	<<if $pblevel gte 5 or $pbstrip gte 3 or ($pbstrip gte 2 and $pblevel gte 2) and $slime is 0>>
 		<<shavestyleicon 'heart'>><<link [[Form a heart (0:15)->Shave strip]]>><<pass 15>><<arousal 100>><<set $pbstripName to "cute heart shape">><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 2>><</link>>
 		<br>
 	<</if>>
-	<<if $pblevel gte 5 or $pbstrip gte 4 or ($pbstrip gte 3 and $pblevel gte 2)>>
+	<<if $pblevel gte 5 or $pbstrip gte 4 or ($pbstrip gte 3 and $pblevel gte 2) and $slime is 0>>
 		<<shavestyleicon 'triangle'>><<link [[Form a triangle (0:15)->Shave strip]]>><<pass 15>><<arousal 100>><<set $pbstripName to "neat triangle">><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 3>><</link>>
 		<br>
 	<</if>>
-	<<if $player.ballsExist is true>>
+	<<if $player.ballsExist is true and $slime is 0>>
 		<<if $pblevel gte 2 or $pbstrip gte 1>>
 			<<shavestyleicon 'clean'>><<link [[Shave only pubis (0:10)->Shave pubis]]>><<pass 10>><<arousal 50>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 0>><<if $pblevelballs is 0>><<set $makeup.pbcolour to 0>><</if>><</link>>
 			<br>
 		<</if>>
-		<<if $pblevelballs gte 3>>
+		<<if $pblevelballs gte 3 and $slime is 0>>
 			<<shavestyleicon 'balls'>><<link [[Shave only balls (0:05)->Shave balls]]>><<pass 5>><<arousal 50>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<if $pblevel is 0 and $pbstrip is 0>><<set $makeup.pbcolour to 0>><</if>><</link>>
 			<br>
 		<</if>>
 	<</if>>
-	<<if $pblevel gt 5 or $pblevelballs gt 5>>
+	<<if $pblevel gt 5 or $pblevelballs gt 5 and $slime is 0>>
 		<<shavestyleicon 'trim'>><<link [[Trim short (0:10)->Shave trim]]>><<pass 10>><<arousal 100>>
 			<<if $pblevel gte 5>>
 				<<set $pblevel to 5>><<set $pbgrowth to 7>><<set $pbstrip to 0>>
@@ -3580,6 +3584,17 @@ You grab your clothes and dress with haste.
 	<<ind>><<link [[Don't shave anything->Bathroom]]>><<clotheson>><<dontHideRevert>><</link>>
 <</if>>
 <</if>>
+
+:: Shave slime
+<<effects>>
+
+<span class='green'>Your pubic "hair" seems to grow as it did when you were a human. Shaving equipment would do no good here, however.
+<br><br>
+Instead, you focus on that area. Willing it to become flush with the rest of your skin. It takes a few minutes, but your <<genitals_are 2>> now smooth and clean.</span>
+<br><br>
+<<link [[Next|Bathroom]]>><<clotheson>><<dontHideRevert>><</link>>
+
+
 
 :: Shave clean
 <<effects>>
@@ -3632,6 +3647,9 @@ You spread your legs and start carefully trimming your pubes. After a few minute
 <<set _ownedColours = $makeup.owned.hairdye.filter(x => x.count > 0)>>
 <<if _ownedColours.length == 0>>
 	You don't own any hair dyes. Maybe you should visit a cosmetics shop to buy some.
+	<br>
+<<elseif $slime is 1>>
+	<span class='green'>Nothing to do here. You'd just absorb and break down whatever dye you used.</span>
 	<br>
 <<else>>
 	What colour will it be?
