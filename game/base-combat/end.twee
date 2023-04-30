@@ -38,6 +38,25 @@
 		<</if>>
 	<</if>>
 
+	/*Slime Auto Heal */
+	<<if $slime is 1>> 
+		<<if $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gt 10 and $liquidcount gte 2>>
+			<<wash>>
+			<<pain -10>>
+			<span class ='green'>Your body absorbs the copious amount of fluid available and heals itself.</span><br><br>
+		<<elseif $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 10 and $liquidcount lt 2>>
+			<<pain -5>>
+			<<wash>>
+			<span class ='green'>Your body tries to heal itself by absorbing what fluid it can.</span><br><br>
+		<<elseif $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain lt 10>>
+			<<wash>>
+			<span class ='green'>Your body is essentially intact, but absorbs the available fluid anyway.</span><br><br>
+		<<elseif $slime is 1 and $weather is "rain" and $outside is 1 or $underwater is 1 or $inwater is 1 and $pain gte 0>>
+			<span class ='red'>Your body tries to heal, but the environment is too hostile. Avoid direct contact with water!</span><br><br>
+		<</if>>
+	<</if>>
+
+
 	<<if $assertive gte 1>>
 		You were
 		<<if $assertive lte 5>>
@@ -99,21 +118,7 @@
 
 	<</if>>
 
-	<<if $slime is 1>> 
-		<<if $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 10 and $liquidcount gte 1>>
-			<<wash>>
-			<<pain -15>>
-			<span class ='green'>Your body absorbs the copious amount of fluid on you.</span><br><br>
-		<<elseif $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 10 and $liquidcount is 0>>
-			<<pain -10>>
-			<span class ='green'>Though you lack fluids to absorb, your body still tries it's best to repair itself.</span><br><br>
-		<<elseif $slime is 1 and $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain lte 10>>
-			<<wash>>
-			<span class ='green'>Your body is essentially intact, but absorbs the available fluid anyway.</span><br><br>
-		<<elseif $slime is 1 and $weather is "rain" and $outside is 1 or $underwater is 1 or $inwater is 1 and $pain gte 0>>
-			Your amorphous body tries to heal, but the environment is too hostile. <span class ='red'>Avoid direct contact with water!</span><br><br>
-		<</if>>
-	<</if>>
+
 
 	<<unset $enemytype>>
 

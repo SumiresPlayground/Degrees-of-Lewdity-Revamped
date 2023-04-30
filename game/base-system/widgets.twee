@@ -1258,6 +1258,7 @@
 		<</if>>
 		<<statbarinverted $oxygen $oxygenmax _showCaptionText>>
 		<div style="clear:both;"></div>
+		<<if $slime is 1>><br>Someone is attempting to suffocate you.  <span class='green'>Not like it matters.</span><</if>>
 	</div>
 <</widget>>
 
@@ -2620,6 +2621,10 @@
 <<widget "wet_all">>
 	<<wet_upper>>
 	<<wet_lower>>
+	<<if $slime is 1>>
+	<<violence 50>>
+		<span class='green'>Watch out for water!</span><<gpain>><br><br>
+	<</if>>
 <</widget>>
 
 <<widget "wet_upper">>
@@ -2631,6 +2636,9 @@
 			/* skin wetness system is not implemented... yet? */
 			<<set V[_slot + "wet"] to 200>>
 			<<set V[_slot + "wetstage"] to 3>>
+			<<if $slime is 1>>
+				<<violence 20>>
+			<</if>>
 		<</if>>
 	<</for>>
 <</widget>>
@@ -2642,6 +2650,9 @@
 		<<elseif !$worn[_slot].type.includes("naked")>>
 			<<set V[_slot + "wet"] to 200>>
 			<<set V[_slot + "wetstage"] to 3>>
+			<<if $slime is 1>>
+				<<violence 20>>
+			<</if>>
 		<</if>>
 	<</for>>
 <</widget>>

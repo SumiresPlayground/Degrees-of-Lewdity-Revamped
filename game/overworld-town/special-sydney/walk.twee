@@ -316,8 +316,12 @@ You are on the main floor of the shopping centre with Sydney. It's crowded with 
 		<<clothingcategoryicon "face">> <<link [[Optometrist (0:01)|Sydney Shopping Glasses]]>><<pass 1>><</link>>
 		<br>
 	<</if>>
-	<<if !$daily.sydney.shopHair>>
+	<<if !$daily.sydney.shopHair and $slime is 0>>
 		<<hairdressericon>><<link [[Hairdressers (0:01)|Sydney Shopping Hairdressers]]>><<pass 1>><</link>>
+		<br>
+	<</if>>
+	<<if !$daily.sydney.shopHair and $slime is 1>>
+		<<hairdressericon>><span class='green'> Your "hair" isn't exactly normal. Perhaps it would be best to take Sydney elsewhere.</span>
 		<br>
 	<</if>>
 	<<if !$daily.sydney.shopSwim and $NPCName[$NPCNameList.indexOf("Sydney")].love gte 50>>

@@ -20,6 +20,7 @@
 <<widget "effectswater">>
 	<<set $wetintro to 0>>
 
+
 	<<if $squidcount is 1>>
 		<span class="purple">You feel the squid tease your <<genitals>>.</span>
 		<<garousal>><<arousal 100 "genitals">>
@@ -222,22 +223,22 @@
 	<<set $inwater to 0>>
 
 	<<if $slime is 1 and $oxygen lte $oxygenmax>>
-		<<oxygenrefresh>>
+	<<oxygenrefresh>>
 	<</if>>
 
-	<<if $slime is 1>>
-		<<if $outside is 1 and $weather is "rain">>
-    	<<violence 20>>
-		<br>Get out of the rain! <span class='red'>It stings!<br><br></span>
-		<</if>>
-	<</if>>
+
 
 	<<if $slime is 1 and $nooxygen is 1>>
 		<<set $nooxygen to 0>>
 		<br><span class='green'>Normally, aphyxia would be an issue right now. Good thing you're a slime.</span><br>
 	<</if>>
 
-
+	<<if $slime is 1>>
+		<<if $outside is 1 and $weather is "rain">>
+    	<<violence 40>>
+		<br>Get out of the rain! <span class='red'>It stings!<br><br></span>
+		<</if>>
+	<</if>>
 
 	<<if $scienceproject is "ongoing" and $scienceprojectdays is 0 and $scienceprojectwarning isnot 1>>
 		<<set $scienceprojectwarning to 1>>
