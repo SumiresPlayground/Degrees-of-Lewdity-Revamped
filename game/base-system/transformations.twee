@@ -22,6 +22,7 @@
 			wolf: {ears:"disabled", tail:"disabled"},
 			ghost: {eyes:"disabled", hitodama:"disabled"},
 			slime: {bubble:"disabled", stream:"disabled", core:"disabled"},
+			raccoon: {mask:"disabled", ears: "disabled", tail: "disabled"},
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
@@ -91,6 +92,18 @@
 			<</if>>
 			<<if $bee gte 6>>
 				<<set $transformationParts.bee.wings to "default">>
+			<</if>>
+			<<if $raccoon gte 2>>
+				<<set $transformationParts.traits.incognito to "default">>
+				<<set $transformationParts.traits.sharpEyes to "default">>
+			<</if>>
+			<<if $raccoon gte 4>>
+				<<set $transformationParts.raccoon.ears to "default">>
+			<</if>>
+			<<if $raccoon gte 6>>
+				<<set $transformationParts.raccoon.tail to "default">>
+				<<set $hastail to "true">>
+				<<set $thicktail to "true">>
 			<</if>>
 			<<if $sheep gte 2>>
 				<<set $transformationParts.sheep.horns to "default">>
@@ -224,6 +237,9 @@
 	<<if $transformationParts.dolphin is undefined>>
 		<<set $transformationParts.dolphin to {tail:"disabled"}>>
 	<</if>>
+	<<if $transformationParts.raccoon is undefined>>
+		<<set $transformationParts.raccoon to {ears:"disabled", tail:"disabled", mask:"disabled"}>>
+	<</if>>
 	<<if $transformationParts.dog is undefined>>
 		<<set $transformationParts.dog to {tail:"disabled", ears:"disabled"}>>
 	<</if>>
@@ -241,7 +257,7 @@
 		<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
 			<<set $transformationParts.traits.fangs to "default">>
 		<</if>>
-		<<if $cat gte 2 or $harpy gte 2 or $fox gte 2>>
+		<<if $cat gte 2 or $harpy gte 2 or $fox gte 2 or $raccoon gte 2>>
 			<<set $transformationParts.traits.sharpEyes to "default">>
 		<</if>>
 	<</if>>
@@ -284,6 +300,7 @@
 			<<case "lizard">> <<set $lizardbuild = Math.clamp($lizardbuild + _args[1], 0, 100)>>
 			<<case "dolphin">> <<set $dolphinbuild = Math.clamp($dolphinbuild + _args[1], 0, 100)>>
 			<<case "dog">> <<set $dogbuild = Math.clamp($dogbuild + _args[1], 0, 100)>>
+			<<case "raccoon">> <<set $raccoonbuild = Math.clamp($raccoonbuild + _args[1], 0, 100)>>
 		<</switch>>
 	<</if>>
 	<<if _args[0] isnot "angel" and _args[0] isnot "demon" and _args[1] gte 1>>
@@ -325,6 +342,9 @@
 		<</if>>
 		<<if _args[0] isnot "dog" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
 			<<set $dogbuild = Math.clamp($dogbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if $args[0] isnot "raccoon" and $worn.upper.name isnot "monster hoodie">>
+			<<set $raccoonbuild = Math.clamp($raccoonbuild - _args[1], 0, 100)>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -377,6 +397,10 @@
 
 	<<if $dolphinbuild gte 1 and $worn.upper.name isnot "monster hoodie">>
 		<<transform dolphin -1>>
+	<</if>>
+
+	<<if $raccoonbuild gte 1 and $worn.upper.name isnot "monster hoodie">>
+		<<transform raccoon -1>>
 	<</if>>
 
 	<<if $dogbuild gte 1 and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
@@ -471,6 +495,8 @@
 			<<dolphinTransform $dolphin>>
 		<<elseif ($dogbuild gte 5 and $physicalTransform isnot 1) or ($dog gte 1 and $physicalTransform is 1)>>
 			<<dogTransform $dog>>
+		<<elseif ($raccoonbuild gte 5 and $physicalTransform isnot 1) or ($raccoon gte 1 and $physicalTransform is 1)>>
+			<<raccoonTransform $raccoon>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -1393,6 +1419,124 @@
 		<<else>>
 			<<set $transformationParts.bird.pubes to "hidden">>
 		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "raccoonTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $raccoonbuild gte 5 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $raccoon to 1>><<set $physicalTransform to 1>>
+					<span class="gold">You feel more mischievous than usual.</span>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $raccoonbuild gte 10 and $transformdisable is "f">>
+					<<set $raccoon to 2>>
+					<<clearcheeks>>
+					<<set $transformationParts.traits.sharpEyes to "default">>
+					<<set $transformationParts.traits.incognito to "default">>
+					<<set $transformationParts.raccoon.mask to "default">>
+					<span class="gold">A clarity suddenly overtakes you as darkness seems to encircle your eyes. You notice things you didn't before. Things you yearn to have all to yourself.</span>
+					<br><br>
+				<<elseif $raccoonbuild lt 5>>
+					<<set $raccoon to 0>><<set $physicalTransform to 0>>
+					<span class="gold">Your usual inhibitions return.</span>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $raccoonbuild gte 15 and $transformdisable is "f">>
+					<<set $raccoon to 3>>
+					<span class="gold">Your ears tingle.</span>
+					<br><br>
+				<<elseif $raccoonbuild lt 10>>
+					<<set $raccoon to 1>>
+					<<set $transformationParts.raccoon.mask to "disabled">>
+					<span class="gold">Your facial markings disappear and your visual acuity returns to how it once was.</span>
+					<<set $transformationParts.traits.sharpEyes to "disabled">>
+					<<set $transformationParts.traits.incognito to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $raccoonbuild gte 20 and $transformdisable is "f">>
+					<<set $raccoon to 4>>
+					<<clearears>>
+					<<set $transformationParts.raccoon.ears to "default">>
+					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of raccoon ears.</span>
+					<br><br>
+				<<elseif $raccoonbuild lt 15>>
+					<<set $raccoon to 2>>
+					<span class="gold">Your ears no longer tingle.</span>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $raccoonbuild gte 25 and $transformdisable is "f">>
+					<<set $raccoon to 5>>
+					<span class="gold">Your lower back tingles.</span>
+					<br><br>
+				<<elseif $raccoonbuild lte 20>>
+					<<set $raccoon to 3>>
+					<<set $transformationParts.raccoon.ears to "disabled">>
+					<span class="gold">Your raccoon ears have disappeared.</span>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $raccoonbuild gte 30 and $transformdisable is "f">>
+					<<set $permanentTransform = 1>>
+					<<set $raccoontf = 1>>
+					<<set $raccoon to 6>>
+					<<cleartail>>
+					<<set $transformationParts.raccoon.tail to "default">>
+					<<set $hastail to "true">>
+					<<set $thicktail to "true">>
+					<<earnFeat "Raccoon">>
+					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new raccoon tail. A surge of kleptomania nearly overtakes you.</span>
+					<br><br>
+				<<elseif $raccoonbuild lt 25>>
+					<<set $raccoon to 4>>
+					<span class="gold">Your lower back has stopped tingling.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $raccoonbuild lt 30>>
+					<span class="gold">Your balance feels different. Your raccoon tail has disappeared.</span>
+					<<set $raccoon to 5>>
+					<<set $transformationParts.raccoon.tail to "disabled">>
+					<<set $hastail to "false">>
+					<<set $thicktail to "false">>
+					<br><br>
+					<<set $permanentTransform = 1>>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $sheep to 0>>
+				<<set $sheepbuild to 0>>
+				<<set $transformationParts.raccoon.tail to "disabled">>
+				<<set $hastail to "false">>
+				<<set $thicktail to "false">>
+				<<set $transformationParts.raccoon.ears to "disabled">>
+				<<set $transformationParts.raccoon.mask to "disabled">>
+				<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<<set $transformationParts.traits.incognito to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $permanentTransform = 1>>
+		<<set $raccoontf = 1>>
+		<<set $raccoon to 6>>
+		<<set $raccoonbuild to 100>>
+		<<cleartail>>
+		<<clearears>>
+		<<clearcheeks>>
+		<<set $transformationParts.traits.sharpEyes to "default">>
+		<<set $transformationParts.traits.incognito to "default">>
+		<<set $transformationParts.raccoon.tail to "default">>
+		<<set $hastail to "true">>
+		<<set $thicktail to "true">>
+		<<set $transformationParts.raccoon.ears to "default">>
+		<<set $transformationParts.raccoon.mask to "default">>
 	<</if>>
 <</widget>>
 
@@ -2408,6 +2552,7 @@
 	<<lizardTransform 99>>
 	<<dolphinTransform 99>>
 	<<dogTransform 99>>
+	<<raccoonTransform 99>>
 <</widget>>
 
 <<widget "clearDivineTransformations">>

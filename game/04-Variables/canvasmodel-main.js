@@ -353,6 +353,9 @@ Renderer.CanvasModels["main"] = {
 			"sheep_horns_type": "disabled",
 			"sheep_tail_type": "disabled",
 			"sheep_ears_type": "disabled",
+			"raccoon_ears_type": "disabled",
+			"raccoon_mask_type": "disabled",
+			"raccoon_tail_type": "disabled",
 			"deer_horns_type": "disabled",
 			"deer_tail_type": "disabled",
 			"deer_ears_type": "disabled",
@@ -1922,7 +1925,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fox_tail_type);
 			},
-			filters: ["hair"],
+			filters: ["fox_tail"],
 			z: ZIndices.tail,
 			animation: "idle"
 		},
@@ -1936,7 +1939,7 @@ Renderer.CanvasModels["main"] = {
 			masksrcfn(options) {
 				return options.head_mask_src;
 			},
-			filters: ["hair"],
+			filters: ["fox_ears"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
@@ -1947,7 +1950,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fox_cheeks_type);
 			},
-			filters: ["hair"],
+			filters: ["fox_cheeks"],
 			z: ZIndices.lower,
 			animation: "idle"
 		},
@@ -2297,6 +2300,42 @@ Renderer.CanvasModels["main"] = {
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
+
+		/*Raccoon*/
+
+		"raccoon_ears": {
+			srcfn(options) {
+				return `img/transformations/raccoon/ears/${options.raccoon_ears_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_ears_type)
+			},
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+		"raccoon_mask": {
+			srcfn(options) {
+				return `img/transformations/raccoon/mask/${options.raccoon_mask_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_mask_type)
+			},
+			z: ZIndices.skin,
+			animation: "idle"
+		},
+		"raccoon_tail": {
+			srcfn(options) {
+				return `img/transformations/raccoon/tail/${options.raccoon_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_tail_type)
+			},
+			filters: ["raccoon_tail"],
+			z: ZIndices.tail,
+			animation: "idle"
+		},
+		
+
 		/***
          *     █████   ██      ████  ██████████   ███████
          *    ██       ██       ██   ██  ██  ██   ██   

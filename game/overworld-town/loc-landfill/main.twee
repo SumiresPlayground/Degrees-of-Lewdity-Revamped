@@ -26,6 +26,20 @@ You are in the landfill on Elk Street.
 	The piles of rubbish get taller the further you move from the street.
 <<else>>
 	You're at the front gate. You can see Elk Street on the other side. A sign reads: "These premises and all objects within are private property."
+	<<if $stress lt $stressmax>>
+		<br><br>
+		Within the surrounding hills of waste, you notice a particularly robust pile of trash.
+		<br>
+		There seems to be a clearing situated within it, insulated with what could be hair or cloth.
+		<br><br>
+		You think you see movement within. Is that a striped tail? 
+		<br><br>
+		<span class='lewd'>Investigating may be a bad idea</span>, but you're curious nontheless.
+		<br><br>
+	
+
+		<<link [[Head inside the opening (0:03)|Trash Mammals]]>><<beastNEWinit 3 raccoon>><<pass 3>><</link>><br><br>
+	<</if>>
 <</if>>
 
 <<if $robinmissing is "landfill" and $robinmistknown>>
@@ -106,6 +120,127 @@ You are in the landfill on Elk Street.
 	<</if>>
 <</if>>
 <<set $eventskip to 0>>
+
+
+:: Trash Mammals
+
+<<set $location to "landfill">>
+
+<<set $outside to 0>>
+
+<<effects>>
+
+You carefully enter the clearing, curious about the movement you just saw. Once you're fully inside, a smell not dissimilar to a wet dog assaults your faculties. Suddenly, a chittering sound echoes in the area. The sound is replicated soon after, followed by another. The source of the cacophony becomes apparent as you are approached by a <<beasttype>>. Others approach you from the dark recesses of the den. They slowly surround you, blocking any hope of escape.
+<br><br>
+<<if $monster is 1 or $bestialitydisable is "f">>
+	“Hey, there. You seemed to have haphazardly wandered into our den. Not the smartest move,” the one in front of you states. <<bHe>> makes a motion towards <<bhis>> companions. They begin to close in. "Now, we're not cruel. We'll allow you to leave here relatively unhurt. That being said..." 
+	<br><br>
+	<<bHe>> suddenly pounces on you, knocking you down. "We'll only do so under a certain condition. Pretty sure you can guess what that is." <<bHe>> grasps your body. “Don't struggle. You've earned this.”
+	<br><br>
+<</if>>
+
+
+<<link [[Next|Raccoons Rape]]>><<set $molestationstart to 1>><</link>><br>
+
+:: Raccoons Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate 1>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next->Raccoons Rape Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next->Raccoons Rape Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next->Raccoons Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Raccoons Rape Ejaculation
+
+<<effects>>
+<<beastejaculation>>
+
+
+<<if $combatTrain.length gt 0>>
+	Satisfied, the <<beasttype>> leaves you be. Another takes its place.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape]]>><</link>>
+<<else>>
+	Satisfied, the <<beasttype>> leaves you be.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape End]]>><</link>>
+<</if>>
+
+:: Raccoons Rape Escape
+
+<<effects>>
+<<beastwound>>
+<<if $combatTrain.length gt 0>>
+	The <<beasttype>> recoils in pain and fear, but another takes its place.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape]]>><</link>>
+<<else>>
+	The <<beasttype>> recoils in pain and fear.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape End]]>><</link>>
+<</if>>
+
+:: Raccoons Rape End
+
+<<effects>>
+<<if $enemywounded is 1 and $enemyejaculated is 0>>
+	The <<beasttype>> whimpers and flees into the darkness.
+<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
+	The <<beasttype>> leaves you lying on the ground.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“See? That wasn't so hard. All you had to do was sit back and let us take care of business." The leader gestures towards <<bhis>> companions. They return to the side of the one in charge. "Doubt you'll just waltz back in here like you did just now, but if you happen to do so, I certainly wouldn't complain." 
+		<br><br>
+		<<bHis>> companions make a chittering noise oddly reminiscent of snickering. The leader maintains <<bhis>> composure, but you still sense an air of conceit emanating from <<bhim>>. "Now get out of our den. Unless you're up for yet another round."
+		<br><br>
+	<</if>>
+<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
+	Feeling that you're more trouble than you're worth, the <<beastsplural>> flee into the darkness.
+<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+	The <<beastsplural>> leave you spent and shivering on the ground.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“See? That wasn't so hard. All you had to do was sit back and let us take care of business." The leader gestures towards <<bhis>> companions. They return to the side of the one in charge. "Doubt you'll just waltz back in here like you did just now, but if you happen to do so, I certainly wouldn't complain." 
+		<br><br>
+		<<bHis>> companions make a chittering noise oddly reminiscent of snickering. The leader maintains <<bhis>> composure, but you still sense an air of conceit emanating from <<bhim>>. "Now get out of our den. Unless you're up for yet another round."
+		<br><br>
+	<</if>>
+<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+	The <<beastsplural>> leave you spent and shivering on the ground. One is slowed by a limp.
+<</if>>
+<br><br>
+<<tearful>> you rise to your feet and flee the den as fast as you can.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+
+
+<<link [[Next|Trash]]>><<endevent>><<set $eventskip to 1>><</link>>
 
 :: Trash Gate Enter
 <<set $location to "landfill">><<set $outside to 1>><<effects>>
@@ -249,6 +384,8 @@ You search the piles of rubbish for anything of value.
 		<</if>>
 	<<elseif $rng gte 30>>
 		The rubbish gives way in a small avalanche, <span class="red">revealing a baleful eye.</span> It pierces you with its stare, before vanishing into the mountain. It happened so quick you might have imagined it, but when you close your eyes, it's still there, watching.<<ghallucinogens>><<ggstress>><<set $hallucinogen += 90>><<stress 12>>
+	<<elseif $rng gte 20>>
+		As you search the trash for anything useful, you hear the sound of chittering nearby. Turning quickly, you barely see a small black shape run into a nearby crevice. Was that a raccoon?
 	<<else>>
 		You don't find anything.
 	<</if>>

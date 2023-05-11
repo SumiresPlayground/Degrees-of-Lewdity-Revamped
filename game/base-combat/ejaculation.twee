@@ -2397,7 +2397,7 @@
 		<<transform wolf 1>>
 	<<elseif $NPCList[_jj].type.includes("dog", "dogboy", "doggirl")>>
 		<<transform dog 1>>
-	<<elseif $NPCList[_jj].type.includes("fox", "foxboy", "foxgirl")>>
+	<<elseif $NPCList[_jj].type.includes("fox", "foxboy", "girl")>>
 		<<transform fox 1>>
 	<<elseif $NPCList[_jj].type.includes("bee", "beeboy", "beegirl")>>
 		<<transform bee 1>>
@@ -2419,6 +2419,8 @@
 		<<transform dragon 1>>
 	<<elseif $NPCList[_jj].type.includes("dolphin", "dolphinboy", "dolphingirl")>>
 		<<transform dolphin 1>>
+	<<elseif $NPCList[_jj].type.includes("raccoon", "raccoonboy", "raccoongirl")>>
+		<<transform raccoon 2>>
 	<</if>>
 
 	<<set _legLocked to $leglocktarget is $active_enemy>>
@@ -3057,7 +3059,7 @@
 	<<else>>
 		<<if _ejaculation_type is "human">>
 			<<set _ejaculation_volume to random(5, 99)>>
-		<<elseif ["wolf", "dog", "fox"].some(type => _ejaculation_type.includes(type))>>
+		<<elseif ["wolf", "dog", "fox", "raccoon"].some(type => _ejaculation_type.includes(type))>>
 			<<set _ejaculation_volume to random(5, 100)>>
 		<<elseif ["centaur", "horse", "bull", "cow"].some(type => _ejaculation_type.includes(type))>>
 			<<set _ejaculation_volume to random(25, 250)>>

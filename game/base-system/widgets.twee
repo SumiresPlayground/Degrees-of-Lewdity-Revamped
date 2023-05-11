@@ -526,7 +526,11 @@
 					<<set $_stealthReduce1 to expCurve($_normcrime1, 3.0)>>
 					<!-- First 5k of crime at a curve to 5000 -->
 				*/
-				<<set $_stealthfactor to ( 0.15 * ( 1 - normalise($crime, C.crime.max / 5 ) ) )>>
+				<<if $transformationParts.traits.incognito is "default">>
+					<<set $_stealthfactor to ( 0.35 * ( 1 - normalise($crime, C.crime.max / 5 ) ) )>>
+				<<else>>
+					<<set $_stealthfactor to ( 0.15 * ( 1 - normalise($crime, C.crime.max / 5 ) ) )>>
+				<</if>>
 				<!-- Stealth gives 15%, but reduced by existing crime stat down to 0 at C.crime.max / 5 -->
 				<!-- At 10k crime, stealth equipment is effectively useless - too much evidence -->
 
@@ -1707,6 +1711,8 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_day.gif'">
 				<<case "mines">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergroundday.png'">
+				<<case "old_cemetery">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/cemetery_day.png'">
 			<</switch>>
 		<<elseif Time.dayState is "night">>
 			<!-- if bloodmoon -->
@@ -1868,6 +1874,12 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_night.gif'">
 				<<case "mines">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergroundnight.png'">
+				<<case "old_cemetery">>
+					<<if Time.season is "winter">>
+						<img id="location" @src="'img/misc/' + _weather_display + (_bloodmoon ? '/cemetery_blood.png' : '/cemetery_night.png')">
+					<<else>>
+						<img id="location" @src="'img/misc/' + _weather_display + (_bloodmoon ? '/cemetery_blood.png' : '/cemetery_night.png')">
+					<</if>>
 			<</switch>>
 		<<elseif Time.dayState is "dawn">>
 			<<if $location is "tentworld">>
@@ -2022,6 +2034,8 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_dawn.gif'">
 				<<case "mines">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddawn.png'">
+				<<case "old_cemetery">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/cemetery_dawn.png'">
 			<</switch>>
 		<<elseif Time.dayState is "dusk">>
 			<<if $location is "tentworld">>
@@ -2180,6 +2194,8 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_dusk.gif'">
 				<<case "mines">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddusk.png'">
+				<<case "old_cemetery">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/cemetery_dusk.png'">
 			<</switch>>
 		<</if>>
 	<<else>>
@@ -5165,6 +5181,7 @@
 <<widget "clearcheeks">>
 	<<set $transformationParts.wolf.cheeks = "disabled">>
 	<<set $transformationParts.fox.cheeks = "disabled">>
+	<<set $transformationParts.raccoon.mask ="disabled">>
 <</widget>>
 
 <<widget "clearhalo">>
@@ -5182,6 +5199,7 @@
 	<<set $transformationParts.deer.ears = "disabled">>
 	<<set $transformationParts.bear.ears = "disabled">>
 	<<set $transformationParts.dog.ears = "disabled">>
+	<<set $transformationParts.raccoon.ears = "disabled">>
 <</widget>>
 
 <<widget "cleareyes">>
@@ -5229,6 +5247,7 @@
 	<<set $transformationParts.lizard.tail = "disabled">>
 	<<set $transformationParts.dolphin.tail = "disabled">>
 	<<set $transformationParts.dog.tail = "disabled">>
+	<<set $transformationParts.raccoon.tail = "disabled">>
 	<<set $hastail to "false">>
 	<<set $swimtail to "false">>
 	<<set $thicktail to "false">>

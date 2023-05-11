@@ -640,9 +640,17 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
+	
 	"Bee":{
 		title: "All the Buzz",
 		desc: "Watch out for honey.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Raccoon": {
+		title: "Unclean Getaway",
+		desc: "A furry, yet smooth criminal.",
 		difficulty: 1,
 		series: "",
 		filter: ["All", "Transformation"],

@@ -1191,6 +1191,7 @@ function currentSkillValue(skill) {
 			if (V.transformationParts.traits.sharpEyes !== "disabled") modifier += 0.05;
 			if (V.fox >= 6) modifier += 0.10;
 			if (V.dragon >= 1) modifier += 0.10;
+			if (V.raccoon >= 1) modifier += 0.20;
 			result = Math.floor(result * modifier);
 			break;
 		case "physique":
@@ -1619,6 +1620,8 @@ function getHalloweenCostume() {
 		return "harpy TF";
 	} else if (T.tf.foxEars && T.tf.foxTail) {
 		return "fox TF";
+	} else if (T.tf.raccoonEars && T.tf.raccoonTail) {
+		return "raccoon TF";
 
 	/* Misc outcomes */
 	} else if (
