@@ -562,6 +562,17 @@ setup.debugMenu.eventList = {
 			],
 		},
 		{
+			link: [`Raccoons Rape Me`, "Raccoons"],
+			widgets: [
+				`<<endcombat>>`,
+				`<<set $molestationstart to 1>>`,
+				`<<beastNEWinit 3 raccoon>>`,
+				`<<set $outside to 1>>`,
+				`<<set $location to "landfill">>`,
+				`<<set $bus to "harvest">>`,
+			],
+		},
+		{
 			link: [`Beast Gang Test (currently broken)`, `The Farm`],
 			widgets: [`<<endcombat>>`, `<<set $molestationstart to 1>>`, `<<set $outside to 1>>`, `<<location "forest">>`, `<<set $bus to "forest">>`],
 		},

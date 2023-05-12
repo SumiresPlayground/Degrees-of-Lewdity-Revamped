@@ -1,6 +1,24 @@
 :: Widgets Trash [widget]
 <<widget "eventstrash">>
-	<<if $rng gte 81>>
+	<<if $rng gte 91>>
+		<<beastNEWinit 1 raccoon>>
+		You hear a chittering behind you. A <<beasttype>> steps out from behind a pile, teeth bared.
+		<br><br>
+		<<if $monster is 1 or $bestialitydisable is "f">>
+			<!-- Modified for Beast People -->
+			<<link [[Next|Trash Beast]]>><<set $molestationstart to 1>><</link>>
+			<br>
+		<<else>>
+			You run. You manage to escape, though not unscathed.
+			<<beastescape>>
+			<br><br>
+
+			<<link [[Next|Trash]]>><<endevent>><<set $eventskip to 1>><</link>>
+			<br>
+		<</if>>
+
+
+	<<elseif $rng gte 81>>
 		<<generate1>><<person1>>"Stop right there," a voice shouts behind you. "This is private property. What the fuck do you think you're doing?"
 		<br><br>
 

@@ -116,6 +116,9 @@
 			dolphinTail:"hidden",
 			dogEars:"hidden",
 			dogTail:"hidden",
+			raccoonEars:"hidden",
+			raccoonMask:"hidden",
+			raccoonTail:"hidden",
 		}>>
 		<<set $characterViewer.colours to {
 			hair: "red",
@@ -929,6 +932,27 @@
 	<</listbox>>
 	<br><br>
 
+		<span class="gold">Raccoon:</span>
+	<br>
+	Horns:
+	<<listbox "$characterViewer.bodyState.raccoonEars" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Ears:
+	<<listbox "$characterViewer.bodyState.raccoonMask" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.raccoonTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br><br>
+
 	<span class="gold">Dolphin:</span>
 	<br>
 	Tail:
@@ -1091,6 +1115,9 @@
 	<<set _modeloptions.slime_bubble_type to $characterViewer.bodyState.slimeBubble>>
 	<<set _modeloptions.slime_stream_type to $characterViewer.bodyState.slimeStream>>
 	<<set _modeloptions.slime_core_type to $characterViewer.bodyState.slimeCore>>
+	<<set _modeloptions.raccoon_ears_type to $characterViewer.bodyState.raccoonEars>>
+	<<set _modeloptions.raccoon_mask_type to $characterViewer.bodyState.raccoonMask>>
+	<<set _modeloptions.raccoon_tail_type to $characterViewer.bodyState.raccoonTail>>
 
 	<<if $characterViewer.controls.animations>>
 		<<animatemodel>>
