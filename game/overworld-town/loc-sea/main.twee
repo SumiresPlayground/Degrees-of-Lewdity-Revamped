@@ -688,6 +688,7 @@ You are swimming in the sea at the base of some cliffs, east of the docks. A lar
 <<set $eventskip to 0>>
 
 :: Sea Reef
+<<set $location to "sea">><<water>><<effects>>
 You are swimming in the sea.
 <<physique>>
 <br><br>
@@ -698,7 +699,9 @@ You are swimming in the sea.
 	<<if $swimmingSuccess>>
 		<span class="green">You successfully swim against the tide.</span>
 		<br><br>
-		<<link [[Swim towards shore (0:10)|Sea]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+		<<link [[Swim back toward the town (0:10)|Sea]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+		<br>
+		<<link [[Swim to the small island (0:10)|Island Landing]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
 		<br>
 	<<else>>
 		You try to swim against the tide, <span class="red">but it's too strong for you.</span> You are swept further out to sea.

@@ -554,11 +554,7 @@
 				<<set _corruptionConfig =	{ name : "Corruption",	displayType : "none",	currentValue : $corruption_slime,	modifier: 100, modTypes: { good: [], bad: [] },		meterColor: 'red'}>>
 				<<set _skulduggeryConfig =	{ name : "Skulduggery", displayType : "grade",	currentValue : $skulduggery,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _dancingConfig =		{ name : "Dancing",		displayType : "grade",	currentValue : $danceskill,			modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-				<<if $transformationParts.traits.aquatail is "enabled">>
-					<<set _swimmingConfig =		{ name : "Swimming",	displayType : "grade",	currentValue : $swimmingskill,		modifier: 150, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
-				<<else>>
-					<<set _swimmingConfig =		{ name : "Swimming",	displayType : "grade",	currentValue : $swimmingskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
-				<</if>>
+				<<set _swimmingConfig =		{ name : "Swimming",	displayType : "grade",	currentValue : $swimmingskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _athleticsConfig =	{ name : "Athletics",	displayType : "grade",	currentValue : $athletics,			modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _tendingConfig =		{ name : "Tending",		displayType : "grade",	currentValue : $tending,			modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _housekeepingConfig =	{ name : "Housekeeping",displayType : "grade",	currentValue : $housekeeping,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
@@ -587,9 +583,17 @@
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("sharp eyes")>>
 				<</if>>
+				<<if $transformationParts.dragon.eyes isnot "disabled">>
+					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.10)>>
+					<<set _skulduggeryConfig.modTypes.good.pushUnique("dragon eyes")>>
+				<</if>>
 				<<if $fox gte 6>>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.10)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("fox")>>					
+				<</if>>
+				<<if $transformationParts.traits.aquatail is "default">>
+					<<set _swimmingConfig.modifier to Math.floor(_swimmingConfig.modifier * 1.30)>>
+					<<set _swimmingConfig.modTypes.good.pushUnique("aquatail")>>		
 				<</if>>
 				<<if $worn.under_upper.type.includesAny("dance", "naked") and $worn.under_lower.type.includesAny("dance", "naked")
 				and $worn.upper.type.includesAny("dance", "naked")and $worn.lower.type.includesAny("dance", "naked")>>

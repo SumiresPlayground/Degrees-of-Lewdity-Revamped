@@ -1537,7 +1537,7 @@
 <</widget>>
 
 <<widget "weatherdisplay">>
-	<<if Time.season is "winter">>
+	<<if Time.season is "winter" or $location is "snowforest" or $location is "glacier">>
 		<<set _weather_display to "winter">>
 	<<else>>
 		<<set _weather_display to "normal">>
@@ -1706,6 +1706,12 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_day.gif'">
 				<<case "mines">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergroundday.png'">
+				<<case "desert">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/desertday.gif'">
+				<<case "snowforest">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/forestday.gif'">
+				<<case "glacier">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/undergroundday.png'">
 			<</switch>>
 		<<elseif Time.dayState is "night">>
 			<!-- if bloodmoon -->
@@ -1867,6 +1873,12 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_night.gif'">
 				<<case "mines">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergroundnight.png'">
+				<<case "desert">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/desertnight.gif'">
+				<<case "snowforest">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/forestnight.png'">
+				<<case "glacier">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/undergroundnight.png'">
 			<</switch>>
 		<<elseif Time.dayState is "dawn">>
 			<<if $location is "tentworld">>
@@ -2020,6 +2032,12 @@
 				<<case "canal">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_dawn.gif'">
 				<<case "mines">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddawn.png'">
+				<<case "desert">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/desertdawn.gif'">
+				<<case "snowforest">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/forestdawn.png'">
+				<<case "glacier">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddawn.png'">
 			<</switch>>
 		<<elseif Time.dayState is "dusk">>
@@ -2178,6 +2196,12 @@
 				<<case "canal">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/canal_dusk.gif'">
 				<<case "mines">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddusk.png'">
+				<<case "desert">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/desertdusk.gif'">
+				<<case "snowforest">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/forestdusk.gif'">
+				<<case "glacier">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddusk.png'">
 			<</switch>>
 		<</if>>
