@@ -1527,7 +1527,6 @@ const DoLCompressorDictionaries = (() => {
 		"sextoys",
 		"sextoystat",
 		"sharpEyes",
-		"incognito",
 		"shop",
 		"shopClothingFilter",
 		"shopDefaults",
