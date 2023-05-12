@@ -30,6 +30,7 @@ You are in the hairdressers. Here you can have your hair cut or dyed.
 	You hide in a cupboard to protect your dignity.
 <<else>>
 	There's a seat available.
+	<<if $slime is 1>> <br><br><span class='green'>However, you would just absorb the dye, or gunk up the stylist's tools.</span><</if>> 
 <</if>>
 <br><br>
 <<if $stress gte $stressmax>>
@@ -52,8 +53,11 @@ You are in the hairdressers. Here you can have your hair cut or dyed.
 			<<link [[Examine the cash register|Hairdressers Register]]>><</link>>
 			<br>
 		<</if>>
-		<<if $exposed lte 1 and Time.dayState isnot "night" and Time.hour isnot 21>>
+		<<if $exposed lte 1 and Time.dayState isnot "night" and Time.hour isnot 21 and $slime is 0>>
 			<<link [[Take a seat|Hairdressers Seat]]>><</link>>
+			<br><br>
+		<<elseif $slime is 1 and Time.daystate is "day">>
+			<span class='green'>Pass. You'd just absorb the dye or gunk up the place, anyway.</span>
 			<br><br>
 		<</if>>
 		<<link [[Leave|Shopping Centre]]>><</link>>

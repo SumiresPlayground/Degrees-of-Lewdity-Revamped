@@ -45,14 +45,6 @@
 		<</if>>
 
 
-
-		<<if $weather is "rain" and $outside is 1>>
-			<<if $slime is 1>>
-				<<violence 10>>
-			<span class="red">The rain stings! Get to shelter!</span>
-			<</if>>	
-		<</if>>
-
 		<<if $underwater is 1>>
 			<<set $underwatertime += 1>>
 			<<if $underwatertime lte 5>>
@@ -368,6 +360,7 @@
 			<<defiance 2 $lefttarget>><<set $speechstruggle to 1>>
 			<<if currentSkillValue('physique') gte random(1, 32000) and !$robinRentEvent or $slime is 1>>
 				<span class="teal">You manage to twist your arms free.</span>
+				<<if $slime is 1>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
 				<<if $NPCList[$lefttarget].lefthand is "arms">>
@@ -387,6 +380,7 @@
 			<<set $speechstruggle to 1>><<defiance 1 $lefttarget>>
 			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime is 1>>
 				<span class="teal">You manage to twist your arms free.</span>
+				<<if $slime is 1>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
 				<<if $NPCList[$lefttarget].lefthand is "arms">>
@@ -406,6 +400,7 @@
 			<<defiance 1 $righttarget>><<set $speechstruggle to 1>>
 			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime is 1>>
 				<span class="teal">You manage to twist your arms free.</span>
+				<<if $slime is 1>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $righttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
 				<<if $NPCList[$righttarget].lefthand is "arms">>

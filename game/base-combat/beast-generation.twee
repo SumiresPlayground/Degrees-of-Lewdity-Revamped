@@ -92,12 +92,12 @@
 	<!-- v2.7 $BeastList is 0-7: "dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "creature" -->
 	<!-- v2.13 "horse" added to $BeastList -->
 
-	<<set _h to [200,150,200,300,200,250,500,300,200,500,225,150,400,300,300,250,300,400,500,500,300]>> <!-- Health Max per type -->
-	<<set _t to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","hellhound","dragon","ant"]>> <!-- Name of each type -->
-	<<set _d to ["large","large","fat","enormous","bottlenose","scaly","brown","hairy","strange","huge","large","fierce","huge","slimy","fluffy","sleek","strange","strange","large","scaly","strange"]>> <!-- Descriptor of each type -->
-	<<set _pd to ["knotted penis","spiked penis","penis","knotted penis","strange penis","penis","penis","penis","penis","equine cock","knotted penis","avian cock","bovine cock","arachnid penis","penis","cock","cock","cock","knotted penis","penis","cock"]>> <!-- Descriptor of Penises -->
+	<<set _h to [200,150,200,300,200,250,500,300,200,500,225,150,400,300,300,250,300,400,500,500,300,150]>> <!-- Health Max per type -->
+	<<set _t to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","hellhound","dragon","ant","raccoon"]>> <!-- Name of each type -->
+	<<set _d to ["large","large","fat","enormous","bottlenose","scaly","brown","hairy","strange","huge","large","fierce","huge","slimy","fluffy","sleek","strange","strange","large","scaly","strange","sleek"]>> <!-- Descriptor of each type -->
+	<<set _pd to ["knotted penis","spiked penis","penis","knotted penis","strange penis","penis","penis","penis","penis","equine cock","knotted penis","avian cock","bovine cock","arachnid penis","penis","cock","cock","cock","knotted penis","penis","cock","penis"]>> <!-- Descriptor of Penises -->
 	/% <<set _cla to [1,1,1,1,0,1,1,1]>> %/
-	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,4,3,2,2,4,5,3]>> <!-- Size of penises -->
+	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,4,3,2,2,4,5,3,2]>> <!-- Size of penises -->
 
 	<<set _i to $BeastList.indexOf(_type)>>
 	<<set $NPCList[_n].healthmax to _h[_i]>>
@@ -135,11 +135,17 @@
 		<<set $NPCList[_n].monster to "monster">>
 	<<elseif _beast_monster isnot "beast" and ($monsterchance gte $rng and ($hallucinations gte 1 or $monsterhallucinations is "f")) or (_beast_monster is "monster") or ($bestialitydisable is "t" and $NPCList[0].monster is "monster")>>
 		<<set $NPCList[_n].monster to "monster">>
-		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow","deer"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
+		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow","deer","raccoon"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
 			<<run delete $NPCList[_n].claws>> <!-- It can't have claws - using undefined to maintain back compat with previous saves mid-combat ($claws) -->
 		<</if>>
 		<<if $NPCList[_n].type is "horse">>
 			<<set $NPCList[_n].type to "centaur">>
+		<<elseif $NPCList[_n].type is "raccoon">>
+			<<if $NPCList[_n].gender is "f">>>>
+				<<set $NPCList[_n].type to "raccoongirl">>
+			<<else>>
+				<<set $NPCList[_n].type to "raccoonboy">>
+			<</if>>
 		<<elseif $NPCList[_n].type is "hawk">>
 			<<set $NPCList[_n].type to "harpy">>
 		<<elseif $NPCList[_n].type is "sheep">>
@@ -171,7 +177,7 @@
 		<<set $NPCList[_n].lefthand to 0>>
 		<<set $NPCList[_n].righthand to 0>>
 		<!-- female monster people mammals have an accessible chest and might be able to lactate. -->
-		<<if $NPCList[_n].pronoun is "f" and ["catgirl", "doggirl", "wolfgirl", "beargirl", "foxgirl", "cowgirl", "deergirl", "sheepgirl"].includes($NPCList[_n].type)>>
+		<<if $NPCList[_n].pronoun is "f" and ["catgirl", "doggirl", "wolfgirl", "beargirl", "foxgirl", "cowgirl", "deergirl", "sheepgirl", "raccoongirl"].includes($NPCList[_n].type)>>
 			<<set $NPCList[_n].chest to 0>>
 			<<if ["beargirl", "cowgirl"].includes($NPCList[_n].type)>> <!-- Bigger monsters = Bigger booba -->
 				<<set $_breastMin to [0,0,0,0,2,2,2,2,2,5,5,5,5,5,5,5,8,8,9,10,12]>>

@@ -2048,6 +2048,87 @@ Your cries attract the attention of the people passing by the alley's entrance. 
 <<endcombat>>
 <<destinationeventend>>
 
+:: Raccoons
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate 1>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next->Raccoons Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next->Raccoons Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next->Raccoons]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Raccoons Ejaculation
+
+<<effects>>
+<<beastejaculation>>
+<<if $combatTrain.length gt 0>>
+	Satisfied, the <<beasttype>> leaves you be. Another takes its place.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons]]>><</link>>
+<<else>>
+	Satisfied, the <<beasttype>> leaves you be.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons End]]>><</link>>
+<</if>>
+
+:: Raccoon Escape
+
+<<effects>>
+<<beastwound>>
+<<if $combatTrain.length gt 0>>
+	The <<beasttype>> recoils in pain and fear, but another takes its place.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons]]>><</link>>
+<<else>>
+	The <<beasttype>> recoils in pain and fear.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons End]]>><</link>>
+<</if>>
+
+:: Raccoons End
+
+<<effects>>
+<<if $enemywounded is 1 and $enemyejaculated is 0>>
+	The <<beasttype>> whimpers and flees into the darkness.
+<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
+	The <<beasttype>> leaves you lying on the pavement.
+<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
+	Feeling that you're more trouble than you're worth, the <<beastsplural>> flee into the darkness.
+<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+	The <<beastsplural>> leave you spent and shivering on the pavement.
+<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+	The <<beastsplural>> leave you spent and shivering on the pavement. One is slowed by a limp.
+<</if>>
+<br><br>
+<<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<destinationeventend>>
+
 :: Street Dogs
 
 <<if $molestationstart is 1>>
@@ -6244,6 +6325,13 @@ One by one, the van is cleared of cargo. <<physique 6>>
 	<br>
 	<<link [[Just wait (1:00)|Street Van Journey]]>><<pass 60>><</link>>
 	<br>
+	<<if $ghost is 1>>
+		<br><br>
+		<span class='wraith'>You can phase through the doors if you concentrate.</span> The landing may hurt a bit, though.
+		<br><br>
+		<<link [[Phase (0:01)|Ghost Van Escape]]>><<endevent>><<set $eventskip to 1>><<tiredness 20>><<violence 200>><<pass 1>><</link>><<ggtiredness>><<ggpain>>
+		<br><br>
+	<</if>>
 <<else>>
 	"Thanks," the <<person>> says as you put down the last box. "You're a life saver. Here you go, every penny earned."
 
