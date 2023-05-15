@@ -1950,6 +1950,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fox_cheeks_type);
 			},
+			filters: ["hair"],
 			z: ZIndices.lower,
 			animation: "idle"
 		},
