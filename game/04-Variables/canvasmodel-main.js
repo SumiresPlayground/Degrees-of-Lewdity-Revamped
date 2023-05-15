@@ -1925,7 +1925,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fox_tail_type);
 			},
-			filters: ["fox_tail"],
+			filters: ["hair"],
 			z: ZIndices.tail,
 			animation: "idle"
 		},
@@ -1939,7 +1939,7 @@ Renderer.CanvasModels["main"] = {
 			masksrcfn(options) {
 				return options.head_mask_src;
 			},
-			filters: ["fox_ears"],
+			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
@@ -1950,7 +1950,6 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fox_cheeks_type);
 			},
-			filters: ["fox_cheeks"],
 			z: ZIndices.lower,
 			animation: "idle"
 		},
@@ -2310,6 +2309,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_ears_type)
 			},
+			filters: ["hair"],
 			z: ZIndices.over_head,
 			animation: "idle"
 		},
@@ -2330,7 +2330,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_tail_type)
 			},
-			filters: ["raccoon_tail"],
+			filters: ["hair"],
 			z: ZIndices.tail,
 			animation: "idle"
 		},
