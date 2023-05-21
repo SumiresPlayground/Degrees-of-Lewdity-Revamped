@@ -1375,6 +1375,26 @@ They growl at each other. After a brief tussle, with many scratches and bites, t
 <<link [[Next|Forest Wolf Sex2]]>><<set $sexstart to 1>><</link>>
 <br>
 
+
+:: Forest Raccoon
+<<location "forest">><<effects>>
+
+
+You drop to the ground and adopt a mating posture.
+<<deviancy3>>
+
+The <<beasttype>> slowly crawls out of the burrow and arroaches you, giving your vulnerable form a curious sniff.
+<<if $monster is 1>>
+	<br><br>
+	"Not used to company. Company willing, too. Very Nice."<br>
+<</if>>
+
+After inspecting you for a minute or so, the <<beasttype>> prepares to mount you.
+<br><br>
+
+<<link [[Next|Forest Raccoon Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
 :: Forest Howl
 <<location "forest">><<effects>>
 
@@ -1410,6 +1430,101 @@ You throw your head back and howl into the canopy. The <<if $phase is 1>><<beast
 <br>
 
 <</if>>
+
+
+:: Forest Raccoon Sex 
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+
+	<<beastCombatInit>>
+	<<set $enemytrust += 100>>
+<</if>>
+<<effects>>
+<<effectsman>><<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $finish is 1>>
+	<span id="next"><<link [[Next|Forest Raccoon Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Forest Raccoon Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Forest Raccoon Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Forest Raccoon Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Forest Raccoon Sex Finish 
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $consensual is 1>>
+		<<if $monster is 1>>
+			The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
+			<br><br>
+			"Was careless. Still safe. Good." <<bHe>> nuzzles your insensate form before turning around. "You stay safe too. Maybe come back. Would like." <<bHe>> scurries off into the underbrush, leaving you to recover. You continue on your journey.
+		<<else>>
+			The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
+			<br><br>
+			Satisfied with the lack of an audience, <<bhe>> nuzzles your insensate form before turning around and scurrying off into the underbrush, leaving you to recover. You continue on your journey.
+		<</if>>
+	<<else>>
+		<<if $monster is 1>>
+			"What your problem? You wanted. You change mind?" <<bHe>> cocks <<bhis>> head in a quizzical manner before turning around and snorting.
+			"Be sure next time. Me not really fighter. You lucky."
+			<br><br>
+			<<bHe>> scurries off into the underbrush, leaving you to recover. You continue on your journey.
+		<<else>>
+			The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
+			<br><br>
+			Satisfied with the lack of an audience, <<bhe>> makes chuffing sound turning around and scurrying off into the underbrush, leaving you to recover. You continue on your journey.
+		<</if>>
+		<br><br>
+	<</if>>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+	<<if $monster is 1>>
+		"Ah...! What your problem? You wanted. You change mind?" <<bHe>> cocks <<bhis>> head in a quizzical manner before turning around and snorting.
+		"Be sure next time. Me not really fighter. You lucky."
+		<br><br>
+		<<bHe>> scurries off into the underbrush, leaving you to recover.
+	<<else>>
+		The <<beasttype>> falls back stunned. <<bHe>> growls at you before scurrying off into the underbrush.
+	<</if>>
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<if $monster is 1>>
+	The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
+	<br><br>
+	"Was careless. Still safe. Good." <<bHe>> nuzzles your insensate form before turning around. "You stay safe too. Maybe come back. Would like." <<bHe>> scurries off into the underbrush, leaving you to recover. You continue on your journey.
+	<<else>>
+	The <<beasttype>> shudders as <<bhe>> dismounts you, leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
+	<br><br>
+	Satisfied with the lack of an audience, <<bhe>> nuzzles your insensate form before turning around and scurrying off into the underbrush, leaving you to recover. You continue on your journey.
+	<br><br>
+
+	<</if>>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
+
 
 :: Forest Wolf Sex2
 
