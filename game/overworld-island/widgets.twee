@@ -15,17 +15,14 @@
 <</widget>>
 
 <<widget "eventisland">>
+	<<cleareventpool>>
     <<if $location is "desert">>
-        <<addevent "islandant" 1>>
-    <</if>>
-    <<if $location is "forest">>
+        <<addevent "islandant">>
+    <<elseif $location is "forest" or $location is "snowforest">>
         <<addevent "islandwolf" .5>>
         <<addevent "islandlurker" .5>>
-    <</if>>
-    <<if $location is "snowforest">>
-        <<addevent "islandwolf" .5>>
-        <<addevent "islandlurker" .5>>
-    <</if>>
+	<</if>>
+	<<runeventpool>>
 <</widget>>
 
 <<widget "islandwolf">>

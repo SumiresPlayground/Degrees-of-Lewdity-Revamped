@@ -20,7 +20,7 @@ You are on the docks.
 	Dockers arrive for work. They won't let you join them on a school day.
 	<br><br>
 <</if>>
-<<if $money gte 10000 and $history gte 700>>
+<<if $money gte 100000 and $history gte 700>>
 	<<link [[Look for a ride (0:20)|Docks Ride]]>><<pass 20>><</link>>
 	<br>
 <</if>>
@@ -161,8 +161,10 @@ The door is open. A <<generate2>><<person2>><<person>> looks up from <<his>> des
 :: Docks Ride
 You ask some of the fishermen on the dock about renting their vessel for a ride to Isla Carna, an exotic island untouched by Britain in the colonial era. They offer you a ride for a mere one thousand pounds.
 <br><br>
+<<if $money gte 100000>>
 <<link [[Accept payment|Take Off]]>><<set $money -= 100000>><<set $rng to random(1,100)>><</link>>
 <br>
+<</if>>
 <<link [[Decline|Docks]]>><</link>>
 
 :: Take Off

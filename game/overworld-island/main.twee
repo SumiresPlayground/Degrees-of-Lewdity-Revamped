@@ -10,12 +10,15 @@ The ship stops a bit off shore. "I'm sorry this is the furthest we can take you.
 
 :: Island
 <<effects>>
+<<if $islanddistance is 0>>
+    <<location "beach">>
+<</if>>
 <<if $arousal gte $arousalmax>>
 	<<orgasmisland>>
 <</if>>
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutisland>>
-<<elseif $danger gte (9900 - ($allure * 3))>>
+<<elseif $danger gte (9900 - ($allure * 3)) and $location is "desert" or $danger gte (9900 - ($allure * 3)) and $location is "forest" or $danger gte (9900 - ($allure * 3)) and $location is "snowforest">>
 	<<eventisland>>
 <<else>>
     <<if $islanddistance is 0>>
