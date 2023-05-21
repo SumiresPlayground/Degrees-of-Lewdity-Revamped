@@ -177,6 +177,7 @@
 		<</if>>
 	<</addinlineevent>>
 	<<addevent "forestwolfspy">>
+	<<addevent "forestraccoon">>
 	<<addinlineevent "forest_wolf" 0.33>>
 		<<beastNEWinit 1 wolf>>
 
@@ -287,6 +288,7 @@
 				<<link [[Next (0:20)|Forest]]>><<endevent>><<pass 20>><<set $eventskip to 1>><</link>>
 			<</if>>
 		<</addinlineevent>>
+		<<addevent "forestraccoon" 0.15>>
 		<<addevent "forestbear" 0.15>>
 		<<addevent "forestdragon" 0.15>>
 		<<addevent "forestrock" 0.25>>
@@ -361,6 +363,7 @@
 		<<if $voredisable is "f" and $bestialitydisable is "f">>
 			<<addevent "forestsnake" 0.33>>
 		<</if>>
+		<<addevent "forestraccoon">>
 		<<addevent "forestbear">>
 		<<addevent "forestdragon">>
 		<<if $tentacledisable is "f" and $voredisable is "f" and ($hallucinations gte 2 or $backgroundTraits.includes("plantlover"))>>
@@ -562,6 +565,19 @@
 	<</if>>
 	<<if $wolfgirl gte 6>>
 		<<link [[Howl|Forest Howl]]>><<endevent>><<stress -12>><<trauma -6>><<set $phase to 1>><</link>><<ltrauma>><<lstress>><<wolfgirl>>
+		<br>
+	<</if>>
+	<<link [[Continue|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
+	<br>
+<</widget>>
+
+<<widget "forestraccoon">>
+	A pair of eyes stare out from a hollowed out tree burrow.
+	<<gstress>><<stress 6>>
+	<br><br>
+	<<beastNEWinit 1 raccoon>>
+	<<if $deviancy gte 35 and ($bestialitydisable is "f" or $monster is 1)>>
+		<<link [[Adopt mating posture|Forest Raccoon]]>><</link>><<deviant3>>
 		<br>
 	<</if>>
 	<<link [[Continue|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
