@@ -3,7 +3,7 @@
 <<widget "setupTransformationPiecesObject">>
 	<<if $transformationParts is undefined>>
 		<<set $transformationParts to {
-			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", aquatail:"disabled", lungs:"disabled", incognito:"disabled"},
+			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", aquatail:"disabled", lungs:"disabled", incognito:"disabled", aquatic:"disabled"},
 			angel: {halo:"disabled", wings:"disabled"},
 			fallenAngel: {halo:"disabled", wings:"disabled"},
 			demon: {horns:"disabled", wings:"disabled", tail: "disabled"},
@@ -23,6 +23,7 @@
 			ghost: {eyes:"disabled", hitodama:"disabled"},
 			slime: {bubble:"disabled", stream:"disabled", core:"disabled"},
 			raccoon: {mask:"disabled", ears: "disabled", tail: "disabled"},
+			fish: {fins:"disabled", tail:"disabled"},
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
@@ -186,6 +187,19 @@
 				<<set $transformationParts.dog.tail to "default">>
 				<<set $hastail to "true">>
 			<</if>>
+			<<if $fish gte 2>>
+				<<set $transformationParts.traits.aquatic to "default">>
+			<</if>>
+			<<if $fish gte 4>>
+				<<set $transformationParts.fish.fins to "default">>
+			<</if>>
+			<<if $fish gte 6>>
+				<<set $transformationParts.fish.tail to "default">>
+				<<set $transformationParts.traits.aquatail to "default">>
+				<<set $hastail to "true">>
+				<<set $thicktail to "true">>
+				<<set $swimtail to "true">>
+			<</if>>
 		<</if>>
 	<</if>>
 	<<if $transformationParts.fallenAngel.halo is 1>>
@@ -195,7 +209,7 @@
 	<<if $transformationParts.demon.horns is 1>>
 		<<set $transformationParts.demon.horns to "default">>
 		<<set $transformationParts.demon.tail to "default">>
-		<<set $hastail to "true">>
+		<<set $hastail to "true">> /*??? */
 		<<set $transformationParts.demon.wings to "default">>
 	<</if>>
 	<<if $angel lt 4>>
@@ -240,6 +254,9 @@
 	<<if $transformationParts.raccoon is undefined>>
 		<<set $transformationParts.raccoon to {ears:"disabled", tail:"disabled", mask:"disabled"}>>
 	<</if>>
+	<<if $transformationParts.fish is undefined>>
+		<<set $transformationParts.fish to {fins:"disabled", tail:"disabled"}>>
+	<</if>>
 	<<if $transformationParts.dog is undefined>>
 		<<set $transformationParts.dog to {tail:"disabled", ears:"disabled"}>>
 	<</if>>
@@ -253,7 +270,7 @@
 		<<set $transformationParts.slime to {bubble:"disabled", stream:"disabled", core:"disabled"}>>
 	<</if>>
 	<<if $transformationParts.traits is undefined>>
-		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled"}>>
+		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled", incognito:"disabled", aquatic:"disabled"}>>
 		<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
 			<<set $transformationParts.traits.fangs to "default">>
 		<</if>>
@@ -301,6 +318,7 @@
 			<<case "dolphin">> <<set $dolphinbuild = Math.clamp($dolphinbuild + _args[1], 0, 100)>>
 			<<case "dog">> <<set $dogbuild = Math.clamp($dogbuild + _args[1], 0, 100)>>
 			<<case "raccoon">> <<set $raccoonbuild = Math.clamp($raccoonbuild + _args[1], 0, 100)>>
+			<<case "fish">> <<set $fishbuild = Math.clamp($fishbuild + _args[1], 0, 100)>>
 		<</switch>>
 	<</if>>
 	<<if _args[0] isnot "angel" and _args[0] isnot "demon" and _args[1] gte 1>>
@@ -331,20 +349,23 @@
 		<<if _args[0] isnot "bear" and $worn.head.name isnot "honeycomb hair clip">>
 			<<set $bearbuild = Math.clamp($bearbuild - _args[1], 0, 100)>>
 		<</if>>
-		<<if $args[0] isnot "dragon" and $worn.hands.name isnot "dragonstone ring">>
+		<<if _args[0] isnot "dragon" and $worn.hands.name isnot "dragonstone ring">>
 			<<set $dragonbuild = Math.clamp($dragonbuild - _args[1], 0, 100)>>
 		<</if>>
-		<<if $args[0] isnot "lizard" and $worn.hands.name isnot "dragonstone ring">>
+		<<if _args[0] isnot "lizard" and $worn.hands.name isnot "dragonstone ring">>
 			<<set $lizardbuild = Math.clamp($lizardbuild - _args[1], 0, 100)>>
 		<</if>>
-		<<if $args[0] isnot "dolphin" and $worn.upper.name isnot "monster hoodie">>
+		<<if _args[0] isnot "dolphin" and $worn.upper.name isnot "monster hoodie">>
 			<<set $dolphinbuild = Math.clamp($dolphinbuild - _args[1], 0, 100)>>
 		<</if>>
 		<<if _args[0] isnot "dog" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
 			<<set $dogbuild = Math.clamp($dogbuild - _args[1], 0, 100)>>
 		<</if>>
-		<<if $args[0] isnot "raccoon" and $worn.upper.name isnot "scuffed ring">>
+		<<if _args[0] isnot "raccoon" and $worn.hands.name isnot "scuffed ring">>
 			<<set $raccoonbuild = Math.clamp($raccoonbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "fish" and $worn.head.name isnot "fish hairpin">>
+			<<set $fishbuild = Math.clamp($fishbuild - _args[1], 0, 100)>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -399,8 +420,12 @@
 		<<transform dolphin -1>>
 	<</if>>
 
-	<<if $raccoonbuild gte 1 and $worn.upper.name isnot "scuffed ring">>
+	<<if $raccoonbuild gte 1 and $worn.hand.name isnot "scuffed ring">>
 		<<transform raccoon -1>>
+	<</if>>
+
+	<<if $fishbuild gte 1 and $worn.head.name isnot "fish hairpin">>
+		<<transform fish -1>>
 	<</if>>
 
 	<<if $dogbuild gte 1 and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
@@ -495,6 +520,8 @@
 			<<dolphinTransform $dolphin>>
 		<<elseif ($dogbuild gte 5 and $physicalTransform isnot 1) or ($dog gte 1 and $physicalTransform is 1)>>
 			<<dogTransform $dog>>
+		<<elseif ($fishbuild gte 5 and $physicalTransform isnot 1) or ($fish gte 1 and $physicalTransform is 1)>>
+			<<fishTransform $fish>>
 		<<elseif ($raccoonbuild gte 5 and $physicalTransform isnot 1) or ($raccoon gte 1 and $physicalTransform is 1)>>
 			<<raccoonTransform $raccoon>>
 		<</if>>
@@ -1510,8 +1537,8 @@
 				<</if>>
 			<<case 99>>
 				<<set $physicalTransform to 0>>
-				<<set $sheep to 0>>
-				<<set $sheepbuild to 0>>
+				<<set $raccoon to 0>>
+				<<set $raccoonbuild to 0>>
 				<<set $transformationParts.raccoon.tail to "disabled">>
 				<<set $hastail to "false">>
 				<<set $thicktail to "false">>
@@ -2467,7 +2494,7 @@
 				<<if $dogbuild gte 20>>
 					<<set $dog to 4>>
 					<span class="gold">You feel something on your head. You reach up and tug, but it hurts.
-					You have a new pair of dog ears.
+					You have a new pair of dog ears.</span>
 					<<clearears>>
 					<<set $transformationParts.dog.ears to "default">>
 					<br><br>
@@ -2538,6 +2565,125 @@
 	<</if>>
 <</widget>>
 
+<<widget "fishTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $fishbuild gte 5>>
+					<<set $fish to 1>>
+					<<set $physicalTransform to 1>>
+					<span class="gold">Strange ridges appear on your neck.</span>
+					<br><br>
+				<</if>>
+			<<case 1>>
+				<<if $fishbuild gte 10>>
+					<<set $fish to 2>>
+					<span class="gold">The ridges on your neck open up. You find yourself able to breathe as naturally through them as you can through your nose. You now have fish gills.</span>
+					<<set $transformationParts.traits.aquatic to "default">>
+					<br><br>
+				<<elseif $fishbuild lt 5>>
+					<<set $fish to 0>>
+					<<set $physicalTransform to 0>>
+					<span class="gold">The ridges along your neck disappear.</span>
+					<br><br>
+				<</if>>
+			<<case 2>>
+				<<if $fishbuild gte 15>>
+					<<set $fish to 3>>
+					<span class="gold">The skin around your ears stiffens. Scales grow on and around the area.</span>
+					<br><br>
+				<<elseif $fishbuild lt 10>>
+					<<set $fish to 1>>
+					<span class="gold">The gills along your neck close up. Only barely-visible ridges remain.</span>
+					<<set $transformationParts.traits.aquatic to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 3>>
+				<<if $fishbuild gte 20>>
+					<<set $fish to 4>>
+					<span class="gold">Your hardened ears begin to warp. The pinnae along each ear elongate into multiple spines. A membrane forms between each spine. Your ears retain their original purpose, but have morphed into fins.</span>
+					<<clearears>>
+					<<set $transformationParts.fish.fins to "default">>
+					<br><br>
+				<<elseif $fishbuild lt 15>>
+					<<set $fish to 2>>
+					<span class="gold">The scales flake off of your ears and the skin softens back to normal.</span>
+					<br><br>
+				<</if>>
+			<<case 4>>
+				<<if $fishbuild gte 25>>
+					<<set $fish to 5>>
+					<span class="gold">Your lower back itches. The skin becomes hard and scaly.</span>
+					<br><br>
+				<<elseif $fishbuild lt 20>>
+					<<set $fish to 3>>
+					<span class="gold">The webbed membrane along your fins atrophies. The pinnae retract back into their original humanoid shape. Your fins are gone.</span>
+					<<set $transformationParts.fish.fins to "disabled">>
+					<br><br>
+				<</if>>
+			<<case 5>>
+				<<if $fishbuild gte 30>>
+					<<set $permanentTransform = 1>>
+					<<set $fishtf = 1>>
+					<<set $fish to 6>>
+					<span class="gold">An appendage extends from the scaled area along your back. The protrusion seems to have a caudal fin on the end. You have grown a fish tail.</span>
+					<<cleartail>>
+					<<set $transformationParts.fish.tail to "default">>
+					<<set $transformationParts.traits.aquatail to "default">>
+					<<set $hastail to "true">>
+					<<set $thicktail to "true">>
+					<<set $swimtail to "true">>
+					<<earnFeat "Fish">>
+					<br><br>
+				<<elseif $fishbuild lt 25>>
+					<<set $fish to 4>>
+					<span class="gold">Your lower back has stopped itching. The scales have fallen off and the skin regains it's normal texture.</span>
+					<br><br>
+				<</if>>
+			<<case 6>>
+				<<if $fishbuild lt 30>>
+					<span class="gold">Your balance feels different. Your scaly fish tail has been reabsorbed into your body.</span>
+					<<set $fish to 5>>
+					<<set $transformationParts.fish.tail to "disabled">>
+					<<set $transformationParts.traits.aquatail to "disabled">>
+					<<set $hastail to "false">>
+					<br><br>
+					<<set $fishtf = 1>>
+					<<set $thicktail to "false">>
+					<<set $swimtail to "false">>
+					<<set $permanentTransform = 1>>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $fish to 0>>
+				<<set $fishbuild to 0>>
+				<<set $transformationParts.traits.aquatic to "disabled">>
+				<<set $transformationParts.traits.aquatail to "disabled">>
+				<<set $transformationParts.fish.fins to "disabled">>
+				<<set $transformationParts.fish.tail to "disabled">>
+				<<set $hastail to "false">>
+				<<set $thicktail to "false">>
+				<<set $swimtail to "false">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $permanentTransform = 1>>
+		<<set $fishtf = 1>>
+		<<set $fish to 6>>
+		<<set $fishbuild to 100>>
+		<<clearears>>
+		<<cleartail>>
+		<<set $transformationParts.traits.aquatail to "default">>
+		<<set $transformationParts.traits.aquatic to "default">>
+		<<set $transformationParts.fish.fins to "default">>
+		<<set $transformationParts.fish.tail to "default">>
+		<<set $hastail to "true">>
+		<<set $thicktail to "true">>
+		<<set $swimtail to "true">>
+	<</if>>
+<</widget>>
+
 <<widget "clearAnimalTransformations">>
 	<<harpyTransform 99>>
 	<<cowTransform 99>>
@@ -2553,6 +2699,7 @@
 	<<dolphinTransform 99>>
 	<<dogTransform 99>>
 	<<raccoonTransform 99>>
+	<<fishTransform 99>>
 <</widget>>
 
 <<widget "clearDivineTransformations">>

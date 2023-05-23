@@ -1383,7 +1383,7 @@ They growl at each other. After a brief tussle, with many scratches and bites, t
 You drop to the ground and adopt a mating posture.
 <<deviancy3>>
 
-The <<beasttype>> slowly crawls out of the burrow and arroaches you, giving your vulnerable form a curious sniff.
+The <<beasttype>> slowly crawls out of the burrow and approaches you, giving your vulnerable form a curious sniff.
 <<if $monster is 1>>
 	<br><br>
 	"Not used to company. Company willing, too. Very Nice."<br>
@@ -1440,10 +1440,13 @@ You throw your head back and howl into the canopy. The <<if $phase is 1>><<beast
 	<<neutral 1>>
 
 	<<beastCombatInit>>
-	<<set $enemytrust += 100>>
 <</if>>
+
 <<effects>>
-<<effectsman>><<man>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
 <<stateman>>
 <br><br>
 <<actionsman>>
@@ -2039,11 +2042,10 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 	<<neutral 1>>
 	<<molested>>
 	<<beastCombatInit>>
-	<<forestRescueSetup>>
+	<<set $enemytrust += 40>>
 <</if>>
-
 <<effects>>
-<<effectsman>>
+<<effectsman>><<man>>
 
 <<if $alarm is 1 and $rescue is 0>>
 	<<set $alarm to 0>>
