@@ -356,6 +356,8 @@ Renderer.CanvasModels["main"] = {
 			"raccoon_ears_type": "disabled",
 			"raccoon_mask_type": "disabled",
 			"raccoon_tail_type": "disabled",
+			"fish_fins_type": "disabled",
+			"fish_tail_type": "disabled",
 			"deer_horns_type": "disabled",
 			"deer_tail_type": "disabled",
 			"deer_ears_type": "disabled",
@@ -2334,6 +2336,31 @@ Renderer.CanvasModels["main"] = {
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_tail_type)
+			},
+			filters: ["hair"],
+			z: ZIndices.tail,
+			animation: "idle"
+		},
+
+		/*Fish*/
+
+		"fish_fins": {
+			srcfn(options) {
+				return `img/transformations/fish/fins/${options.fish_fins_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.fish_fins_type)
+			},
+			filters: ["hair"],
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+		"fish_tail": {
+			srcfn(options) {
+				return `img/transformations/fish/tail/${options.fish_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.fish_tail_type)
 			},
 			filters: ["hair"],
 			z: ZIndices.tail,

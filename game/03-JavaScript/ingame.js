@@ -1622,6 +1622,8 @@ function getHalloweenCostume() {
 		return "fox TF";
 	} else if (T.tf.raccoonEars && T.tf.raccoonTail) {
 		return "raccoon TF";
+	} else if (T.tf.fishFins && T.tf.fishTail) {
+		return "fish TF";
 
 	/* Misc outcomes */
 	} else if (

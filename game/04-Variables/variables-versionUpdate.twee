@@ -1207,7 +1207,7 @@
 
 	<<unset $clothes>>
 
-	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1>>
+	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1>>
 		<<set $physicalTransform to 1>>
 		<<set $permanentTransform to 1>>
 	<<else>>
@@ -1709,6 +1709,11 @@
 	<<if $racoonbuild is undefined>>
 		<<set $raccoonbuild to 0>>
 		<<set $raccoon to 0>>
+	<</if>>
+
+	<<if $fishbuild is undefined>>
+		<<set $fishbuild to 0>>
+		<<set $fish to 0>>
 	<</if>>
 
 	<<if $ghost is undefined or $ghost is 2>>
@@ -4222,6 +4227,25 @@
 		<</if>>
 	<</if>>
 
+	<<if $transformationParts.fish is undefined>>
+		<<set $fish to 0>> <<set $fishbuild to 0>>
+		<<set $transformationParts.fish to {fins:"disabled", tail:"disabled"}>>
+		<<if $fish gte 2>>
+			<<set $transformationParts.traits.aquatic to "default">>
+		<</if>>
+		<<if $fish gte 4>>
+			<<set $transformationParts.fish.fins to "default">>
+		<</if>>
+		<<if $fish gte 6>>
+			<<set $transformationParts.fish.tail to "default">>
+			<<set $transformationParts.traits.aquatail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $swimtail to "true">>
+		<</if>>
+	<</if>>
+
+
 	<<if $transformationParts.deer is undefined>>
 		<<set $deer to 0>> <<set $deerbuild to 0>>
 		<<set $transformationParts.deer to {ears:"disabled", tail:"disabled", horns:"disabled"}>>
@@ -4357,6 +4381,14 @@
 
 	<<if $transformationParts.traits.lungs is undefined>>
 		<<set $transformationParts.traits.lungs to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.aquatic is undefined>>
+		<<set $transformationParts.traits.aquatic to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.incognito is undefined>>
+		<<set $transformationParts.traits.incognito to "disabled">>
 	<</if>>
 
 	<!-- v0.3.13.5 disable combat animations on mobile due to system breakdown.-->
@@ -4561,6 +4593,9 @@
 	<<if $adultShopWhitney isnot undefined>>
 		<<set $weekly.adultShopWhitney to $adultShopWhitney>>
 		<<unset $adultShopWhitney>>
+	<</if>>
+	<<if $dencounter is undefined>>
+		<<set $dencounter to 0>>
 	<</if>>
 
 	<!-- 
@@ -4815,6 +4850,24 @@
 	<</if>>
 	<<if $transformationParts.wolf.ears is "feral">>
 		<<set $transformationParts.wolf.ears to "default">>
+	<</if>>
+
+	<!--Non-normal encounter TF increments -->
+
+	<<if $arousal gte $arousalmax>>
+		
+		<<if $struggle.creature is "bee">>
+			<<transform bee 1>>
+		<</if>>
+		<<if $struggle.creature is "wasp">>
+			<<transform bee 1>>
+		<</if>>
+		<<if _swarmcreature is "fish">>
+			<<transform fish 1>>
+		<</if>>
+		<<if _swarmcreature is "eels">>
+			<<transform fish 1>>
+		<</if>>
 	<</if>>
 
 <</widget>>

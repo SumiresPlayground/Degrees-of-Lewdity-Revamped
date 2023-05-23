@@ -119,6 +119,8 @@
 			raccoonEars:"hidden",
 			raccoonMask:"hidden",
 			raccoonTail:"hidden",
+			fishFins:"hidden",
+			fishTail:"hidden",
 		}>>
 		<<set $characterViewer.colours to {
 			hair: "red",
@@ -953,6 +955,21 @@
 	<</listbox>>
 	<br><br>
 
+			<span class="gold">Fish:</span>
+	<br>
+	Fins:
+	<<listbox "$characterViewer.bodyState.fishFins" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	||
+	Tail:
+	<<listbox "$characterViewer.bodyState.fishTail" autoselect>>
+		<<option "Hide" "hidden">>
+		<<option "Default" "default">>
+	<</listbox>>
+	<br><br>
+
 	<span class="gold">Dolphin:</span>
 	<br>
 	Tail:
@@ -1118,6 +1135,8 @@
 	<<set _modeloptions.raccoon_ears_type to $characterViewer.bodyState.raccoonEars>>
 	<<set _modeloptions.raccoon_mask_type to $characterViewer.bodyState.raccoonMask>>
 	<<set _modeloptions.raccoon_tail_type to $characterViewer.bodyState.raccoonTail>>
+	<<set _modeloptions.fish_fins_type to $characterViewer.bodyState.fishFins>>
+	<<set _modeloptions.fish_tail_type to $characterViewer.bodyState.fishTail>>
 
 	<<if $characterViewer.controls.animations>>
 		<<animatemodel>>
