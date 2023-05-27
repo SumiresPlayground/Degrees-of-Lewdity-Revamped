@@ -115,7 +115,8 @@ setup.colours = {
 		ygyaru: ["#f0ffe6", "#f0e4bc", "#8e7f68", "#483f35"],
 		ghostly: ["#DBFFFF", "#DBFFFF"],
 		slimy: ["#CBFFCB", "#98FF98"],
-		amethyst: ["#bba9f5", "#8451fc"]
+		amethyst: ["#bba9f5", "#8451fc"],
+		green: ["#B5C47A", "#81A558"]
 	},
 	/**
 	 * Get canvas filter for skin of given type and tan progression (0..1).

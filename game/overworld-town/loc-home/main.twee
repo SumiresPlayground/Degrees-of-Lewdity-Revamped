@@ -421,6 +421,8 @@ You are in your bedroom.<br><br>
 	<</if>>
 	<<link [[Settings]]>><<set $settingsExitPassage to "Bedroom">><</link>>
 	<br>
+	<<link [[Code Input|Code]]>><</link>>
+	<br>
 	<<attitudesControlCheck>>
 	<<if $attitudesControl.showGoldLink is true>>
 		<span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>> </span><span class="red">!!</span>
@@ -430,6 +432,20 @@ You are in your bedroom.<br><br>
 	<br><br>
 <</if>>
 
+:: Code
+<<textbox "$code" $code>>
+<br>
+<<link [[Input|Bedroom]]>>
+	<<set $code to Util.escape($code)>>
+	<<if $code is "gob">>
+		<<set $bodysize to 0>>
+		<<set _physique_max_old to $physiquesize>>
+		<<set $physiquesize to 6000>>
+		<<set $physique *= $physiquesize / _physique_max_old>>
+		<<set $skinColor.natural to "green">>
+		<<set $gob to 1>>
+	<</if>>
+<</link>>
 
 :: Bedroom Kylar Gift Open
 <<effects>>
