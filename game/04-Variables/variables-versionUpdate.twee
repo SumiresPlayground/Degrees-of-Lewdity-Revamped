@@ -280,6 +280,38 @@
 		<</if>>
 	<</if>>
 
+	<<if $caseygender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $caseygender to "f">>
+		<<else>>
+			<<set $caseygender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $caseygenitals is undefined>>
+		<<if $caseygender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $caseygenitals to "penis">>
+			<<else>>
+				<<set $caseygenitals to "vagina">>
+			<</if>>
+		<<elseif $caseygender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $caseygenitals to "vagina">>
+			<<else>>
+				<<set $caseygenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
+	<<if $caseyagain is undefined>>
+		<<set $caseyagain to 0>>
+		<<set $caseymet to 0>>
+		<<set $caseyridefirst to 0>>
+		<<set $caseyromance to 0>>
+		<<set $motorupgrade to 0>>
+	<</if>>
+
 	<<if $genderknown is undefined>>
 		<<set $genderknown to ["Robin", "Bailey"]>>
 	<</if>>

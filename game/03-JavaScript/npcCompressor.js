@@ -304,6 +304,7 @@ const { npcCompressor, npcDecompressor, childCompressor, childDecompressor } = (
 		"cum bucket",
 		"Harper's Serum",
 		"Taylor",
+		"Casey",
 	];
 
 	// child items
