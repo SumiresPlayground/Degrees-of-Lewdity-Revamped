@@ -1621,7 +1621,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.demon_horns_type);
 			},
-			z: ZIndices.horns,
+			z: ZIndices.over_upper,
 			filters: ["demon_horns"],
 			animation: "idle"
 		},
@@ -1656,7 +1656,7 @@ Renderer.CanvasModels["main"] = {
 				return options.head_mask_src;
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"wolf_pits": {
@@ -1748,7 +1748,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.cat_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		/***
@@ -1767,7 +1767,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.cow_horns_type);
 			},
-			z: ZIndices.horns,
+			z: ZIndices.over_upper,
 			animation: "idle"
 		},
 		"cow_ears": {
@@ -1780,7 +1780,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.cow_ears_type);
 			},
-			z: ZIndices.horns,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"cow_tag": {
@@ -1945,7 +1945,7 @@ Renderer.CanvasModels["main"] = {
 				return options.head_mask_src;
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"fox_cheeks": {
@@ -1975,7 +1975,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_horns_type);
 			},
-			z: ZIndices.horns,
+			z: ZIndices.over_upper,
 			animation: "idle"
 		},
 		"sheep_ears": {
@@ -1989,7 +1989,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.sheep_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.ears,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"sheep_tail": {
@@ -2022,7 +2022,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.bee_ears_type);
 			},
-			z: ZIndices.over_head,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"bee_tail": {
@@ -2074,7 +2074,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_horns_type);
 			},
-			z: ZIndices.horns,
+			z: ZIndices.over_upper,
 			animation: "idle"
 		},
 		"deer_ears": {
@@ -2088,7 +2088,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.deer_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.ears,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"deer_tail": {
@@ -2122,7 +2122,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.bear_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.over_head,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"bear_tail": {
@@ -2152,7 +2152,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_horns_type);
 			},
-			z: ZIndices.horns,
+			z: ZIndices.over_upper,
 			animation: "idle"
 		},
 		"dragon_eyes": {
@@ -2207,16 +2207,6 @@ Renderer.CanvasModels["main"] = {
          *
          *
          */
-		"lizard_horns": {
-			srcfn(options) {
-				return `img/transformations/lizard/horns/${options.lizard_horns_type}.png`;
-			},
-			showfn(options) {
-				return options.show_tf && isPartEnabled(options.lizard_horns_type);
-			},
-			z: ZIndices.horns,
-			animation: "idle"
-		},
 		"lizard_eyes": {
 			srcfn(options) {
 				return `img/transformations/lizard/eyes/${options.lizard_eyes_type}.png`;
@@ -2279,7 +2269,7 @@ Renderer.CanvasModels["main"] = {
 				return options.head_mask_src;
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 
@@ -2305,7 +2295,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_hitodama_type)
 			},
-			z: ZIndices.backhair,
+			z: ZIndices.over_upper,
 			animation: "idle"
 		},
 
@@ -2319,7 +2309,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_ears_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.over_head,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"raccoon_mask": {
@@ -2354,7 +2344,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && options.show_face && isPartEnabled(options.fish_fins_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.over_head,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"fish_tail": {
@@ -2383,7 +2373,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.horse_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"horse_tail": {
@@ -2415,7 +2405,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.slime_bubble_type)
 			},
-			z: ZIndices.horns,
+			z: ZIndices.over_upper,
 			animation: "idle"
 		},
 		"slime_stream": {
@@ -2425,7 +2415,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.slime_stream_type)
 			},
-			z: ZIndices.over_head,
+			z: ZIndices.over_lower,
 			animation: "idle"
 		},
 		"slime_core": {
