@@ -365,7 +365,11 @@
 <</widget>>
 
 <<widget "tiredness">>
-	<<set _tiredness_mod to 1>>
+	<<if $transformationParts.traits.vigorous is "default">>
+		<<set _tiredness_mod to 0.5>>
+	<<else>>
+		<<set _tiredness_mod to 1>>
+	<</if>>
 	<<if $body_temperature is "hot">>
 		<<set _tiredness_mod += 2>>
 	<<elseif $body_temperature is "warm">>

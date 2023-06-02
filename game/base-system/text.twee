@@ -6233,6 +6233,18 @@
 	<</if>>
 <</widget>>
 
+<<widget "horse">>
+	<<if $hallucinations gte 2 or $bestialitydisable is "t">>
+		<<if $player.gender_appearance is "m">>
+	| 		<span class="blue">Horseboy</span>
+		<<else>>
+	|   	<span class="blue">Horsegirl</span>
+		<</if>>
+	<<else>>
+	|	<span class="gold">Horse</span>
+	<</if>>
+<</widget>>
+
 <<widget "dragon">>
 | <span class="blue">Dragon</span>
 <</widget>>
@@ -6627,6 +6639,8 @@
 					<<set _text_output to "whimper">>
 				<<elseif $raccoon gte 4>>
 					<<set _text_output to "chitter">>
+				<<elseif $horse gte 6>>
+					<<set _text_output to "whinny">>
 				<<elseif $dragon gte 6>>
 					<<set _text_output to "growl">>
 				<<else>>
@@ -6670,6 +6684,8 @@
 				<<set _text_output to "buzz">>
 			<<elseif $deer gte 4>>
 				<<set _text_output to "snort">>
+			<<elseif $horse gte 6>>
+				<<set _text_output to "bray">>
 			<<elseif $raccoon gte 4>>
 				<<set _text_output to "purr">>
 			<<elseif $bear gte 4>>
@@ -6700,7 +6716,9 @@
 				<<elseif $bee gte 4>>
 					<<set _text_output to "buzz threateningly">>
 				<<elseif $deer gte 4>>
-					<<set _text_output to "snort angerly">>
+					<<set _text_output to "snort angryly">>
+				<<elseif $horse gte 4>>
+					<<set _text_output to "snort angryly">>
 				<<elseif $raccoon gte 4>>
 					<<set _text_output to "growl menacingly">>
 				<<elseif $bear gte 4>>
