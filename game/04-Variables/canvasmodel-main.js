@@ -1652,9 +1652,6 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.wolf_ears_type);
 			},
-			masksrcfn(options) {
-				return options.head_mask_src;
-			},
 			filters: ["hair"],
 			z: ZIndices.over_lower,
 			animation: "idle"
@@ -1741,9 +1738,6 @@ Renderer.CanvasModels["main"] = {
 			srcfn(options) {
 				return `img/transformations/cat/ears/${options.cat_ears_type}.png`;
 			},
-			masksrcfn(options) {
-				return options.head_mask_src;
-			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.cat_ears_type);
 			},
@@ -1773,9 +1767,6 @@ Renderer.CanvasModels["main"] = {
 		"cow_ears": {
 			srcfn(options) {
 				return `img/transformations/cow/ears/${options.cow_ears_type}.png`;
-			},
-			masksrcfn(options) {
-				return options.head_mask_src;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.cow_ears_type);
@@ -1941,9 +1932,6 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fox_ears_type);
 			},
-			masksrcfn(options) {
-				return options.head_mask_src;
-			},
 			filters: ["hair"],
 			z: ZIndices.over_lower,
 			animation: "idle"
@@ -1982,9 +1970,6 @@ Renderer.CanvasModels["main"] = {
 			srcfn(options) {
 				return `img/transformations/sheep/ears/${options.sheep_ears_type}.png`;
 			},
-			masksrcfn(options) {
-				return options.head_mask_src;
-			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_ears_type);
 			},
@@ -2015,9 +2000,6 @@ Renderer.CanvasModels["main"] = {
 		"bee_ears": {
 			srcfn(options) {
 				return `img/transformations/bee/ears/${options.bee_ears_type}.png`;
-			},
-			masksrcfn(options) {
-				return options.head_mask_src;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.bee_ears_type);
@@ -2081,9 +2063,6 @@ Renderer.CanvasModels["main"] = {
 			srcfn(options) {
 				return `img/transformations/deer/ears/${options.deer_ears_type}.png`;
 			},
-			masksrcfn(options) {
-				return options.head_mask_src;
-			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_ears_type);
 			},
@@ -2114,9 +2093,6 @@ Renderer.CanvasModels["main"] = {
 		"bear_ears": {
 			srcfn(options) {
 				return `img/transformations/bear/ears/${options.bear_ears_type}.png`;
-			},
-			masksrcfn(options) {
-				return options.head_mask_src;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.bear_ears_type);
@@ -2265,9 +2241,6 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dog_ears_type);
 			},
-			masksrcfn(options) {
-				return options.head_mask_src;
-			},
 			filters: ["hair"],
 			z: ZIndices.over_lower,
 			animation: "idle"
@@ -2365,9 +2338,6 @@ Renderer.CanvasModels["main"] = {
 		"horse_ears": {
 			srcfn(options) {
 				return `img/transformations/horse/ears/${options.horse_ears_type}.png`;
-			},
-			masksrcfn(options) {
-				return options.head_mask_src;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.horse_ears_type);
