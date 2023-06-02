@@ -2383,7 +2383,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.horse_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.over_head,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 		"horse_tail": {

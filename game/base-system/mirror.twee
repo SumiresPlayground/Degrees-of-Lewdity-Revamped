@@ -168,6 +168,10 @@
 	<<if $slime is 1>>
 	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
 	<</if>>
+
+	<<if $ghost is 1>>
+	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
+	<</if>>
 	
 	__Makeup__
 	<br>
@@ -1585,6 +1589,8 @@
 			You have no dyes.
 		<<elseif $slime is 1>>
 			<span class='green'>Unfortunately, you'd just break down and absorb whatever dye you tried to apply.</span>
+		<<elseif $ghost is 1>>
+			<span class='green'>Unfortunately, these won't affect you in your ephemeral state.</span>
 		<<else>>
 			<<set _browsDyeOptions to {"Don't dye":"noChange"}>>
 			<<for _i to 0; _i lt _dyes.length; _i++>>
@@ -2157,9 +2163,17 @@
 <</widget>>
 
 <<widget "slimehair">>
-	<span class='green'>You may not be able to alter your body's shape to the degree most slimes can...
-	<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
-	<br><br>
+	<<if $slime is 1>>
+		<br><br>
+		<span class='green'>You may not be able to alter your body's shape to the degree most slimes can...
+		<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
+		<br><br>
+	<<elseif $ghost is 1>>
+		<br><br>
+		<span class='wraith'>Your supernatural abilities are normally limited to phasing through walls...
+		<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
+		<br><br>
+	<</if>>
 	<<link "<<<">><<set $hairlength -= 1000>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>> |
 	<<link "<<">><<set $hairlength -= 100>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>> |
 	<<link "<">><<set $hairlength -= 10>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>> |
