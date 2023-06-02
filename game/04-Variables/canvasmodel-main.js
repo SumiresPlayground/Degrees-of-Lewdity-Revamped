@@ -2172,7 +2172,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_right === "idle"*/
 			},
-			filters: ["dragon_wings"],
+			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
@@ -2183,7 +2183,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_left === "idle"*/
 			},
-			filters: ["dragon_wings"],
+			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
@@ -2194,7 +2194,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_tail_type)
 			},
-			filters: ["dragon_tail"],
+			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
