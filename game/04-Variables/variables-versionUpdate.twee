@@ -1239,7 +1239,7 @@
 
 	<<unset $clothes>>
 
-	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1>>
+	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1 or $horse gte 1>>
 		<<set $physicalTransform to 1>>
 		<<set $permanentTransform to 1>>
 	<<else>>
@@ -1746,6 +1746,11 @@
 	<<if $fishbuild is undefined>>
 		<<set $fishbuild to 0>>
 		<<set $fish to 0>>
+	<</if>>
+
+	<<if $horsebuild is undefined>>
+		<<set $horsebuild to 0>>
+		<<set $horse to 0>>
 	<</if>>
 
 	<<if $ghost is undefined or $ghost is 2>>
@@ -4277,6 +4282,20 @@
 		<</if>>
 	<</if>>
 
+	<<if $transformationParts.horse is undefined>>
+		<<set $horse to 0>> <<set $horsebuild to 0>>
+		<<set $transformationParts.horse to {ears:"disabled", tail:"disabled"}>>
+		<<if $horse gte 2>>
+			<<set $transformationParts.traits.vigorous to "default">>
+		<</if>>
+		<<if $horse gte 4>>
+			<<set $transformationParts.horse.ears to "default">>
+		<</if>>
+		<<if $horse gte 6>>
+			<<set $transformationParts.horse.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
 
 	<<if $transformationParts.deer is undefined>>
 		<<set $deer to 0>> <<set $deerbuild to 0>>
@@ -4421,6 +4440,10 @@
 
 	<<if $transformationParts.traits.incognito is undefined>>
 		<<set $transformationParts.traits.incognito to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.vigorous is undefined>>
+		<<set $transformationParts.traits.vigorous to "disabled">>
 	<</if>>
 
 	<!-- v0.3.13.5 disable combat animations on mobile due to system breakdown.-->

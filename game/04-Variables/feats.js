@@ -662,6 +662,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
+	"Horse": {
+		title: "Wild and Free",
+		desc: "Run like the wind.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	"Dragon": {
 		title: "How to Tame Your Dragon",
 		desc: "Breathe in, breathe out.",
