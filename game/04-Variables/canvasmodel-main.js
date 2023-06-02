@@ -1748,7 +1748,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.cat_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 		/***
@@ -2279,7 +2279,7 @@ Renderer.CanvasModels["main"] = {
 				return options.head_mask_src;
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 
