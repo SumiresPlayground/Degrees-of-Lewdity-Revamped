@@ -863,6 +863,10 @@ Macro.add("canvasModelEditor", {
 						selectOption("raccoon_tail_type", ["disabled", "hidden", "default"]),
 						selectOption("fish_fins_type", ["disabled", "hidden", "default"]),
 						selectOption("fish_tail_type", ["disabled", "hidden", "default"]),
+						selectOption("dog_ears_type", ["disabled", "hidden", "default"]),
+						selectOption("dog_tail_type", ["disabled", "hidden", "default"]),
+						selectOption("horse_ears_type", ["disabled", "hidden", "default"]),
+						selectOption("horse_tail_type", ["disabled", "hidden", "default"]),
 
 						optionCategory("Body writings"),
 						selectOption("writing_forehead", bodyWritings),
