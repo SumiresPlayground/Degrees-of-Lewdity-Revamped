@@ -373,12 +373,14 @@ Renderer.CanvasModels["main"] = {
 			"lizard_tail_type": "disabled",
 			"lizard_horns_type": "disabled",
 			"dolphin_tail_type": "disabled",
+			"spider_eyes_type": "disabled",
+			"spider_tail_type": "disabled",
+			"frog_eyes_type": "disabled",
+			"frog_cheeks_type": "disabled",
+			"pig_tail_type": "disabled",
+			"pig_ears_type": "disabled", 
 			"dog_tail_type": "disabled",
 			"dog_ears_type": "disabled",
-			"horse_tail_type": "disabled",
-			"horse_ears_type": "disabled",
-			"fish_tail_type": "disabled",
-			"fish_fins_type": "disabled",
 			"ghost_eyes_type": "disabled",
 			"ghost_hitodama_type": "disabled",
 			"slime_bubble_type": "disabled",
@@ -2336,7 +2338,7 @@ Renderer.CanvasModels["main"] = {
 			animation: "idle"
 		},
 
-		/*HORSE*/
+		/*horse*/
 		
  
 		"horse_ears": {
@@ -2361,6 +2363,81 @@ Renderer.CanvasModels["main"] = {
 			z: ZIndices.tail,
 			animation: "idle"
 		},
+
+		/*Spider*/
+
+
+		"spider_eyes": {
+			srcfn(options) {
+				return `img/transformations/spider/eyes/${options.spider_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.spider_eyes_type);
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+		"spider_tail": {
+			srcfn(options) {
+				return `img/transformations/spider/tail/${options.spider_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.spider_tail_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.tail,
+			animation: "idle"
+		},
+
+		/*Frog*/
+
+
+		"frog_eyes": {
+			srcfn(options) {
+				return `img/transformations/frog/eyes/${options.frog_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.frog_eyes_type);
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+		"frog_cheeks": {
+			srcfn(options) {
+				return `img/transformations/frog/cheeks/${options.frog_cheeks_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.frog_cheeks_type);
+			},
+			z: ZIndices.skin,
+			animation: "idle"
+		},
+		
+		/*Pig*/
+
+		"pig_tail": {
+			srcfn(options) {
+				return `img/transformations/pig/tail/${options.pig_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.pig_tail_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.tail,
+			animation: "idle"
+		},
+		"pig_ears": {
+			srcfn(options) {
+				return `img/transformations/pig/ears/${options.pig_ears_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.pig_ears_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.horns,
+			animation: "idle"
+		},
+
 		
 
 		/***

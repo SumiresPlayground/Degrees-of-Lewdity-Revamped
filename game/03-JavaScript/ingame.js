@@ -1192,6 +1192,7 @@ function currentSkillValue(skill) {
 			if (V.fox >= 6) modifier += 0.10;
 			if (V.dragon >= 1) modifier += 0.10;
 			if (V.raccoon >= 1) modifier += 0.20;
+			if (V.spider >= 1) modifier += 0.15;
 			result = Math.floor(result * modifier);
 			break;
 		case "physique":
@@ -1624,6 +1625,14 @@ function getHalloweenCostume() {
 		return "raccoon TF";
 	} else if (T.tf.fishFins && T.tf.fishTail) {
 		return "fish TF";
+	} else if (T.tf.horseEars && T.tf.horseTail) {
+		return "horse TF"
+	} else if (T.tf.spiderEyes && T.tf.spiderTail) {
+		return "spider TF"
+	} else if (T.tf.frogEyes && T.tf.frogCheeks) {
+		return "frog TF"
+	} else if (T.tf.pigEars && T.tf.pigTail) {
+		return "pig TF"
 
 	/* Misc outcomes */
 	} else if (
