@@ -1,6 +1,6 @@
 :: Forest Mansion Explore
 
-<<set $outside to 1>><<set $location to "kylar_manor">><<set $forestmansionstage to 0>><<effects>>
+<<set $outside to 1>><<set $location to "forestmansion">><<set $forestmansionstage to 0>><<effects>>
 
 <<if $foresthunt gte 1 and $edenforesthunt is 1>>
 	<<set $rng to random(1, 60)>>
@@ -137,7 +137,14 @@ You take some time fiddling with the lock before popping it open and opening the
 <<link [[Go back|Forest Mansion Explore]]>><</link>>
 
 :: Forest Mansion Entrance
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 1>><<effects>>
+
+<<if $foresthunt gte 1>>
+	<span class="lblue">You're relatively safe at this abandoned mansion. Whatever was hunting you will have given up.</span>
+	<br><br>
+	<<set $foresthunt to 0>>
+<</if>>
+
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 1>><<effects>>
 You find yourself in a large dusty entrance room. A coat rack sits to the side with an old looking coat and hat caked in years of dust and grime.
 <br><br>
 
@@ -170,7 +177,7 @@ There’s doors to the left and right as well as a staircase upwards.
 <</if>>
 
 :: Forest Mansion Left Hallway
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 2>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 2>><<effects>>
 You find yourself in a long hallway with doors on either side.
 <br><br>
 
@@ -182,7 +189,7 @@ You find yourself in a long hallway with doors on either side.
 <br>
 
 :: Forest Mansion Kitchen
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 3>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 3>><<effects>>
 You enter a small room full of cooking appliances and utensils long past. An old wood oven and ice box sit against the wall and silverware lines the counter tops. In the corner is a dust covered trapdoor leading down.
 <br><br>
 
@@ -204,7 +211,7 @@ You enter a small room full of cooking appliances and utensils long past. An old
 <</if>>
 
 :: Forest Mansion Cellar
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 4>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 4>><<effects>>
 You step down a creaky old ladder to a damp and pitch black room. <<if $TaylorWith is 1>>Taylor switches on <<his>> electric torch and looks around the room.<<else>>You switch on your electric torch and look around the room.<</if>> There's dozens of old empty bottles with a few full of a red substance. 
 
 <<if $forestmansionsleep is 1>>
@@ -281,7 +288,7 @@ WOW that is one strong drink...
 	<<link [[Next|Forest Mansion Cellar]]>><</link>>
 <</if>>
 :: Forest Mansion Dining Room
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 5>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 5>><<effects>>
 You enter a large dining room. A long table spans most of the room. Various dishes line the table, still set for a dinner.
 <br><br>
 
@@ -292,7 +299,7 @@ You enter a large dining room. A long table spans most of the room. Various dish
 <<link [[Go back to the hallway (0:05)|Forest Mansion Left Hallway]]>><<pass 5>><</link>>
 
 :: Forest Mansion Right Hallway
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 6>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 6>><<effects>>
 You find yourself in a long hallway with doors on either side.
 <br><br>
 
@@ -304,7 +311,7 @@ You find yourself in a long hallway with doors on either side.
 <br>
 
 :: Forest Mansion Servant Quarters
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 7>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 7>><<effects>>
 You enter a messy room full of beds in various states of disarray. Many are unmade and a few have collapsed. The wardrobe door has fallen off its hinges and all of the clothes are gone.
 <br><br>
 
@@ -316,7 +323,7 @@ You enter a messy room full of beds in various states of disarray. Many are unma
 <<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><</link>>
 
 :: Forest Mansion Study
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 8>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 8>><<effects>>
 You walk into a large room lined with bookshelves with a desk in the middle. This is where the master of the mansion would have read and worked. The books are all much older than the mansion and falling apart. You try to open one but it falls apart in your hands, even on the scraps the words are so faded you can’t read them.
 <br><br>
 
@@ -335,7 +342,7 @@ You walk into a large room lined with bookshelves with a desk in the middle. Thi
 <<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><</link>>
 
 :: Forest Mansion Landing
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 9>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 9>><<effects>>
 You climb the stairs to the upstairs landing. Large paintings line the walls staring intimidatingly upon you. There’s doorways to the left and right leading to other rooms.
 <br><br>
 
@@ -346,20 +353,16 @@ You climb the stairs to the upstairs landing. Large paintings line the walls sta
 <<link [[Go downstairs (0:05)|Forest Mansion Entrance]]>><<pass 5>><</link>>
 
 :: Forest Mansion Guest Suite
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 10>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 10>><<effects>>
 You find yourself in a nicely built and kept bedroom. The room looks almost unused lying under a thin blanket of dust. The bed is made and there’s clothes still in remarkable condition in the wardrobe.
 <br><br>
 
 <<link [[Sleep|Forest Mansion Bed]]>><</link>>
 <br>
-<<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
-<br>
-<<link [[Mirror|Forest Mansion Mirror]]>><</link>>
-<br>
 <<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><</link>>
 
 :: Forest Mansion Master Suite
-<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 11>><<effects>>
+<<set $outside to 0>><<set $location to "forestmansion">><<set $forestmansionstage to 11>><<effects>>
 <<if $forestmansionhaunt is 1>>
 	The master suite is destroyed. The door is busted, the window shattered, the bed is crooked and a painting lies face down on the floor.
 	<br><br>
@@ -379,10 +382,6 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 	<</if>>
 
 	<<link [[Sleep|Forest Mansion Bed]]>><</link>>
-	<br>
-	<<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
-	<br>
-	<<link [[Mirror|Forest Mansion Mirror]]>><</link>>
 	<br>
 <</if>>
 <<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><</link>>
@@ -541,26 +540,3 @@ As you start to get up Jordan comes to and stretches, standing up. "Morning." <<
 <<He>> walks you back into the temple's main room and bids you farewell.
 <br><br>
 <<link [[Next|Temple]]>><<set $ghost to 0>><<set $exorcism to 0>><<set $exorcised to 1>><</link>>
-
-:: Forest Mansion Mirror
-<<effects>>
-
-<<if $forestmansionstage is 11>>
-	<<link [[Next|Forest Mansion Master Suite]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
-<<else>>
-	<<link [[Next|Forest Mansion Guest Suite]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
-<</if>>
-<br>
-
-<<mirror>>
-<br><br>
-
-:: Forest Mansion Wardrobe [exitCheckBypass]
-<<effects>>
-You look in your wardrobe.
-<br><br>
-<<set $wardrobe_location to "mansion">>
-<<wardrobeSelection>>
-<<wardrobewear>>
-<div id="wardrobeExits"><<wardrobeExits>></div>
-<<wardrobe>>

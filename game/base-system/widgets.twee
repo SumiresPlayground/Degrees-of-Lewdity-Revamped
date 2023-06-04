@@ -572,7 +572,11 @@
 <</widget>>
 
 <<widget "oralskilluse">>
-	<<set $enemyarousal += ($oralskill / 100)>><<oralskill 5>><<set $oralskillup to 1>>
+	<<if $transformationParts.traits.longtongue isnot "disabled">>
+		<<set $enemyarousal += ($oralskill / 50)>><<oralskill 5>><<set $oralskillup to 2>>
+	<<else>>
+		<<set $enemyarousal += ($oralskill / 100)>><<oralskill 5>><<set $oralskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "vaginalskilluse">>
@@ -1721,8 +1725,6 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergroundday.png'">
 				<<case "old_cemetery">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/cemetery_day.png'">
-				<<case "hive">>
-					<img id="location" @src="'img/misc/' + _weather_display + '/hive_day.png'">
 			<</switch>>
 		<<elseif Time.dayState is "night">>
 			<!-- if bloodmoon -->
@@ -1896,8 +1898,6 @@
 					<<else>>
 						<img id="location" @src="'img/misc/' + _weather_display + (_bloodmoon ? '/cemetery_blood.png' : '/cemetery_night.png')">
 					<</if>>
-				<<case "hive">>
-					<img id="location" @src="'img/misc/' + _weather_display + '/hive_night.png'">
 			<</switch>>
 		<<elseif Time.dayState is "dawn">>
 			<<if $location is "tentworld">>
@@ -2060,8 +2060,6 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddawn.png'">
 				<<case "old_cemetery">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/cemetery_dawn.png'">
-				<<case "hive">>
-					<img id="location" @src="'img/misc/' + _weather_display + '/hive_dawn.png'">
 			<</switch>>
 		<<elseif Time.dayState is "dusk">>
 			<<if $location is "tentworld">>
@@ -2228,8 +2226,6 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/undergrounddusk.png'">
 				<<case "old_cemetery">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/cemetery_dusk.png'">
-				<<case "hive">>
-					<img id="location" @src="'img/misc/' + _weather_display + '/hive_dusk.png'">
 			<</switch>>
 		<</if>>
 	<<else>>
@@ -5218,6 +5214,7 @@
 	<<set $transformationParts.wolf.cheeks = "disabled">>
 	<<set $transformationParts.fox.cheeks = "disabled">>
 	<<set $transformationParts.raccoon.mask ="disabled">>
+	<<set $transformationParts.frog.cheeks ="disabled">>
 <</widget>>
 
 <<widget "clearhalo">>
@@ -5238,12 +5235,15 @@
 	<<set $transformationParts.raccoon.ears = "disabled">>
 	<<set $transformationParts.fish.fins = "disabled">>
 	<<set $transformationParts.horse.ears = "disabled">>
+	<<set $transformationParts.pig.ears = "disabled">>
 <</widget>>
 
 <<widget "cleareyes">>
 	<<set $transformationParts.bird.eyes = "disabled">>
 	<<set $transformationParts.dragon.eyes = "disabled">>
 	<<set $transformationParts.lizard.eyes = "disabled">>
+	<<set $transformationParts.spider.eyes = "disabled">>
+	<<set $transformationParts.frog.eyes = "disabled">>
 <</widget>>
 
 <<widget "clearhorns">>
@@ -5288,6 +5288,8 @@
 	<<set $transformationParts.raccoon.tail = "disabled">>
 	<<set $transformationParts.fish.tail = "disabled">>
 	<<set $transformationParts.horse.tail = "disabled">>
+	<<set $transformationParts.spider.tail = "disabled">>
+	<<set $transformationParts.pig.tail = "disabled">>
 	<<set $hastail to "false">>
 	<<set $swimtail to "false">>
 	<<set $thicktail to "false">>

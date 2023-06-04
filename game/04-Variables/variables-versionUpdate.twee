@@ -1239,7 +1239,7 @@
 
 	<<unset $clothes>>
 
-	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1 or $horse gte 1>>
+	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1 or $horse gte 1 or $pig gte 1 or $spider gte 1 or $frog gte 1>>
 		<<set $physicalTransform to 1>>
 		<<set $permanentTransform to 1>>
 	<<else>>
@@ -1751,6 +1751,21 @@
 	<<if $horsebuild is undefined>>
 		<<set $horsebuild to 0>>
 		<<set $horse to 0>>
+	<</if>>
+
+	<<if $pigbuild is undefined>>
+		<<set $pigbuild to 0>>
+		<<set $pig to 0>>
+	<</if>>
+
+	<<if $spiderbuild is undefined>>
+		<<set $spiderbuild to 0>>
+		<<set $spider to 0>>
+	<</if>>
+
+	<<if $frogbuild is undefined>>
+		<<set $frogbuild to 0>>
+		<<set $frog to 0>>
 	<</if>>
 
 	<<if $ghost is undefined or $ghost is 2>>
@@ -4301,6 +4316,55 @@
 		<</if>>
 	<</if>>
 
+	<<if $transformationParts.pig is undefined>>
+		<<set $pig to 0>> <<set $pigbuild to 0>>
+		<<set $transformationParts.pig to {ears:"disabled", tail:"disabled"}>>
+		<<if $pig gte 2>>
+			<<set $transformationParts.traits.strongnose to "default">>
+		<</if>>
+		<<if $pig gte 4>>
+			<<set $transformationParts.pig.ears to "default">>
+		<</if>>
+		<<if $pig gte 6>>
+			<<set $transformationParts.pig.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.spider is undefined>>
+		<<set $spider to 0>> <<set $spiderbuild to 0>>
+		<<set $transformationParts.spider to {eyes:"disabled", tail:"disabled"}>>
+		<<if $spider gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $spider gte 4>>
+			<<set $transformationParts.spider.eyes to "default">>
+			<<set $transformationParts.traits.sharpEyes to "default">>
+		<</if>>
+		<<if $spider gte 6>>
+			<<set $transformationParts.spider.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.frog is undefined>>
+		<<set $frog to 0>> <<set $frogbuild to 0>>
+		<<set $transformationParts.frog to {eyes:"disabled", cheeks:"disabled"}>>
+		<<if $frog gte 2>>
+			<<set $transformationParts.traits.lungs to "default">>
+			<<set $transformationParts.traits.kicks to "default">>
+			<<set $transformationParts.traits.longtongue to "default">>
+			<<set $transformationParts.traits.webbedfeet to "default">>
+		<</if>>
+		<<if $frog gte 4>>
+			<<set $transformationParts.frog.eyes to "default">>
+		<</if>>
+		<<if $frog gte 6>>
+			<<set $transformationParts.frog.cheeks to "default">>
+		<</if>>
+	<</if>>
+
 	<<if $transformationParts.deer is undefined>>
 		<<set $deer to 0>> <<set $deerbuild to 0>>
 		<<set $transformationParts.deer to {ears:"disabled", tail:"disabled", horns:"disabled"}>>
@@ -4448,6 +4512,22 @@
 
 	<<if $transformationParts.traits.vigorous is undefined>>
 		<<set $transformationParts.traits.vigorous to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.strongnose is undefined>>
+		<<set $transformationParts.traits.strongnose to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.longtongue is undefined>>
+		<<set $transformationParts.traits.longtongue to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.webbedfeet is undefined>>
+		<<set $transformationParts.traits.webbedfeet to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.kicks is undefined>>
+		<<set $transformationParts.traits.kicks to "disabled">>
 	<</if>>
 
 	<!-- v0.3.13.5 disable combat animations on mobile due to system breakdown.-->

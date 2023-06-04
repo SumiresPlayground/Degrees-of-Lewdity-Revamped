@@ -669,6 +669,27 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
+	"Spider": {
+		title: "Does Whatever a Spider Can",
+		desc: "Wrap it up.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Frog": {
+		title: "It's Not Easy",
+		desc: "Some mouth, all tongue.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Pig": {
+		title: "Some Pig",
+		desc: "If only Charlotte were here.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	"Dragon": {
 		title: "How to Tame Your Dragon",
 		desc: "Breathe in, breathe out.",

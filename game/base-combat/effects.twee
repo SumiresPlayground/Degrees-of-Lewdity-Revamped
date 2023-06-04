@@ -2858,12 +2858,20 @@
 						Your high heels strengthen the blow!
 						<<defiance 1 $feettarget>>
 					<</if>>
+					<<if $transformationParts.traits.kicks isnot "disabled">>
+						Your strong legs strengthen the blow!
+						<<defiance 10 $feettarget>>
+					<</if>>
 				<</if>>
 			<<else>>
 				<<actionskick $feettarget>><<defiance 5 $feettarget>><<set $attackstat += 1>>
 				<<if $worn.feet.type.includes("heels")>>
 					Your high heels strengthen the blow!
 					<<defiance 1 $feettarget>>
+				<</if>>
+				<<if $transformationParts.traits.kicks isnot "disabled">>
+					Your strong legs strengthen the blow!
+					<<defiance 10 $feettarget>>
 				<</if>>
 			<</if>>
 		<</if>>
@@ -3645,7 +3653,10 @@
 
 		<<if $mouthaction is "breastlick" and $NPCList[$mouthtarget].chest is "mouthentrance">>
 			<<set $mouthactiondefault to "breastlick">><<set $mouthaction to 0>><<submission 3>>
-			You lick <<hisselect $mouthtarget>> $NPCList[$mouthtarget].breastsdesc.
+			You lick <<hisselect $mouthtarget>> $NPCList[$mouthtarget].breastsdesc. 
+			<<if $transformationParts.traits.longtongue isnot "disabled">>
+				<span class='lewd'>Your sensitive, prehensile tongue enhances the sensation.</span>
+			<</if>>
 		<</if>>
 
 		<<if $mouthaction is "breastclosed" and $NPCList[$mouthtarget].chest.toString().includes("mouth")>>
