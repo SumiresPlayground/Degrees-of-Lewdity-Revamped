@@ -871,6 +871,8 @@ Macro.add("canvasModelEditor", {
 						selectOption("frog_cheeks_type", ["disabled", "hidden", "default"]),
 						selectOption("pig_ears_type", ["disabled", "hidden", "default"]),
 						selectOption("pig_tail_type", ["disabled", "hidden", "default"]),
+						selectOption("dog_ears_type", ["disabled", "hidden", "default"]),
+						selectOption("dog_tail_type", ["disabled", "hidden", "default"]),
 
 						optionCategory("Body writings"),
 						selectOption("writing_forehead", bodyWritings),
