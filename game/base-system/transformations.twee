@@ -547,7 +547,7 @@
 			<<for _i to 0; _i lt _keys.length; _i++>>
 				<<set _key to _keys[_i]>>
 				<<for _label, _value range $transformationParts[_key]>>
-					<<if _value is "hidden" and _label isnot "pubes" and _label isnot "pits" and _label isnot "cheeks" and !(_label is "wings" and _excludeWings is true)>>
+					<<if _value is "hidden" and _label isnot "pubes" and _label isnot "pits" and _label isnot "cheeks" and _label isnot "eyes" and !(_label is "wings" and _excludeWings is true)>>
 						<<set $transformationParts[clone(_key)][clone(_label)] to "default">>
 						<<set _hidingFailed to true>>
 					<</if>>
@@ -2928,7 +2928,7 @@
 			<<case 3>>
 				<<if $spiderbuild gte 20>>
 					<<set $spider to 4>>
-					<span class="gold">Your vision scatters. You feal disoriented and start seeing double. Triple. Quadruple. The sensation fades. Your eyesight stabilizes and becomes more clear than before. You have developed multiple pairs of spider eyes.</span>
+					<span class="gold">Your vision scatters. You feel disoriented and start seeing double. Triple. Quadruple. The sensation fades. Your eyesight stabilizes and becomes more clear than before. You have developed multiple pairs of spider eyes.</span>
 					<<clearears>>
 					<<set $transformationParts.spider.eyes to "default">>
 					<<set $transformationParts.traits.sharpEyes to "default">>
