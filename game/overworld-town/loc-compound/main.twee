@@ -937,7 +937,11 @@ Finding your way out is much easier than getting here.
 :: Elk Compound Interior
 
 <<set $outside to 0>><<set $location to "compound">><<effects>>
-You successfully pick the lock and enter the building.
+<<if $ghost is 1>>
+	You enter into the premises.
+<<else>>
+	You successfully pick the lock and enter the building.
+<</if>>
 <<set $compoundalarm += 1>>
 <<if $skulduggery lt 400>>
 	<<skulduggeryskilluse>>
