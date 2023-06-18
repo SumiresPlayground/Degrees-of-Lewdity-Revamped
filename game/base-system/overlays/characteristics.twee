@@ -1,6 +1,7 @@
 :: Characteristics [widget]
 
 <<widget "characteristics">>
+	<br>
 	You are
 	<<if $wolfgirl gte 6 or $cat gte 6 or $cow gte 6 or $harpy gte 6 or $fox gte 6 or $sheep gte 6 or $bee gte 6 or $deer gte 6 or $bear gte 6 or $dragon gte 6 or $lizard gte 6 or $dolphin gte 6 or $dog gte 6 or $raccoon gte 6 or $fish gte 6 or $horse gte 6 or $pig gte 6 or $frog gte 6 or $spider gte 6>>
 		<<if $angel gte 6>>
@@ -107,7 +108,6 @@
 
 	<!-- Eye details -->
 	<<print window.buildEyeDetails()>>
-	<br><br>
 	<!-- -->
 
 	You have a <<skincolourtext>>
@@ -304,7 +304,7 @@
 
 	<!--Lactation Details-->
 	<<if $lactating is 1 and $breastfeedingdisable is "f">>
-		<<set _milkCapacityTextConfig = { currentValue : $milk_volume, preText: 'Your breasts produce a ', postText: ' amount of milk, ', states : [
+		<<set _milkCapacityTextConfig = { currentValue : $milk_volume, preText: 'Your <<breasts>> produce a ', postText: ' amount of milk, ', states : [
 					{ requiredValue: 0,		color: 'red',		description: 'tiny'},
 					{ requiredValue: 100,	color: 'pink',		description: 'small'},
 					{ requiredValue: 300,	color: 'purple',	description: 'limited'},
@@ -369,7 +369,7 @@
 		<<characteristic-text _analWetnessTextConfig>>
 	<</if>>
 
-	<br>
+	<br><br>
 	<<bodywriting>>
 	<div id="characteristics-display">
 
@@ -436,7 +436,7 @@
 						<<default>><<set _pregnancyModifier to 120>>
 					<</switch>>
 					<<set _physiqueConfig.modifier to Math.floor(_physiqueConfig.modifier * (1 - (playerBellySize() / _pregnancyModifier)))>>
-					<<set _physiqueConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _physiqueConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 				<</if>>
 				<<switch $location>>
 					<<case "forest" "moor" "farm" "alex_farm">>
@@ -588,11 +588,11 @@
 						<<default>><<set _pregnancyModifier to 120>>
 					<</switch>>
 					<<set _dancingConfig.modifier to Math.floor(_dancingConfig.modifier * (1 - (_bellySize / _pregnancyModifier)))>>
-					<<set _dancingConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _dancingConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 					<<set _swimmingConfig.modifier to Math.floor(_swimmingConfig.modifier * (1 - (_bellySize / _pregnancyModifier)))>>
-					<<set _swimmingConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _swimmingConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 					<<set _athleticsConfig.modifier to Math.floor(_athleticsConfig.modifier * (1 - (_bellySize / _pregnancyModifier)))>>
-					<<set _athleticsConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _athleticsConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 				<</if>>
 				<<if $worn.hands.type.includes("sticky_fingers")>>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
@@ -906,7 +906,6 @@
 			<</if>>*/
 		</div>
 	</div>
-	<br><br>
 
 	<br>
 	<span class="gold">Insecurities</span>
