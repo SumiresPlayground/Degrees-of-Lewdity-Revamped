@@ -424,6 +424,39 @@ function startingPlayerImageReset() {
 }
 DefineMacroS("startingPlayerImageReset", startingPlayerImageReset);
 
+window.startingPlayerTransform = function(){
+	jQuery(document).on('change', '#settingsDiv .macro-radiobutton,#settingsDiv .macro-numberslider,#settingsDiv .macro-checkbox', function (e) {
+		switch(V.startingAnimalTF){
+			case "wolf": new Wikifier(null, '<<wolfTransform>><<startingPlayerImageUpdate>>'); break;
+			case "cat": new Wikifier(null, '<<catTransform>><<startingPlayerImageUpdate>>'); break;
+			case "cow": new Wikifier(null, '<<cowTransform>><<startingPlayerImageUpdate>>'); break;
+			case "harpy": new Wikifier(null, '<<harpyTransform>><<startingPlayerImageUpdate>>'); break;
+			case "fox": new Wikifier(null, '<<foxTransform>><<startingPlayerImageUpdate>>'); break;
+			case "raccoon": new Wikifier(null, '<<raccoonTransform>><<startingPlayerImageUpdate>>'); break;
+			case "dragon": new Wikifier(null, '<<dragonTransform>><<startingPlayerImageUpdate>>'); break;
+			case "dolphin": new Wikifier(null, '<<dolphinTransform>><<startingPlayerImageUpdate>>'); break;
+			case "lizard": new Wikifier(null, '<<lizardTransform>><<startingPlayerImageUpdate>>'); break;
+			case "bear": new Wikifier(null, '<<bearTransform>><<startingPlayerImageUpdate>>'); break;
+			case "deer": new Wikifier(null, '<<deerTransform>><<startingPlayerImageUpdate>>'); break;
+			case "sheep": new Wikifier(null, '<<sheepTransform>><<startingPlayerImageUpdate>>'); break;
+			case "bee": new Wikifier(null, '<<beeTransform>><<startingPlayerImageUpdate>>'); break;
+			case "fish": new Wikifier(null, '<<fishTransform>><<startingPlayerImageUpdate>>'); break;
+			case "horse": new Wikifier(null, '<<horseTransform>><<startingPlayerImageUpdate>>'); break;
+			case "pig": new Wikifier(null, '<<pigTransform>><<startingPlayerImageUpdate>>'); break;
+			case "spider": new Wikifier(null, '<<spiderTransform>><<startingPlayerImageUpdate>>'); break;
+			case "frog": new Wikifier(null, '<<frogTransform>><<startingPlayerImageUpdate>>'); break;
+			default: new Wikifier(null, '<<clearAnimalTransformations>><<startingPlayerImageUpdate>>'); break;
+		}
+
+		switch(V.startingDivineTF){
+			case "angel": new Wikifier(null, '<<angelTransform>><<startingPlayerImageUpdate>>'); break;
+			case "demon": new Wikifier(null, '<<demonTransform>><<startingPlayerImageUpdate>>'); break;
+			case "fallen": new Wikifier(null, '<<fallenstart>><<startingPlayerImageUpdate>>'); break;
+			default: new Wikifier(null, '<<clearDivineTransformations>><<startingPlayerImageUpdate>>'); break;
+		}
+	});
+}
+
 function deck() {
 	const names = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 	const suits = ["Hearts", "Diamonds", "Spades", "Clubs"];

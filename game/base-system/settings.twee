@@ -1216,6 +1216,52 @@
 
 	<div class="settingsGrid">
 		<div class="settingsHeader">
+			Transformations
+		</div>
+		<<if $feats.allSaves["Wolf"] or $feats.allSaves["Neko"] or $feats.allSaves["Harpy"] or $feats.allSaves["Cattle"] or $feats.allSaves["Fox"] or $feats.allSaves["Raccoon"] or $feats.allSaves["Dragon"] or $feats.allSaves["Dolphin"] or $feats.allSaves["Lizard"] or $feats.allSaves["Bear"] or $feats.allSaves["Deer"] or $feats.allSaves["Sheep"] or $feats.allSaves["Bee"] or $feats.allSaves["Fish"] or $feats.allSaves["Horse"] or $feats.allSaves["Pig"] or $feats.allSaves["Spider"] or $feats.allSaves["Frog"]>>
+			Beast Transformations
+			<br>
+			<div class="settingsToggleItemWide">
+				<label><<radiobutton "$startingAnimalTF" undefined autocheck>> None</label>
+				<<if $feats.allSaves["Wolf"]>>  | <label><<radiobutton "$startingAnimalTF" "wolf" autocheck>>  <span class="def">Wolf</span></label><</if>>
+				<<if $feats.allSaves["Neko"]>>  | <label><<radiobutton "$startingAnimalTF" "cat" autocheck>>   <span class="teal">Cat</span></label><</if>>
+				<<if $feats.allSaves["Harpy"]>> | <label><<radiobutton "$startingAnimalTF" "harpy" autocheck>> <span class="blue">Harpy</span></label><</if>>
+				<<if $feats.allSaves["Cattle"]>>| <label><<radiobutton "$startingAnimalTF" "cow" autocheck>>   <span class="purple">Cow</span></label><</if>>
+				<<if $feats.allSaves["Fox"]>>| <label><<radiobutton "$startingAnimalTF" "fox" autocheck>>   <span class="orange">Fox</span></label><</if>>
+				<<if $feats.allSaves["Raccoon"]>>| <label><<radiobutton "$startingAnimalTF" "raccoon" autocheck>>   <span class="grey">Raccoon</span></label><</if>>
+				<<if $feats.allSaves["Dragon"]>>| <label><<radiobutton "$startingAnimalTF" "dragon" autocheck>>   <span class="red">Dragon</span></label><</if>>
+				<<if $feats.allSaves["Dolphin"]>>| <label><<radiobutton "$startingAnimalTF" "dolphin" autocheck>>   <span class="blue">Dolphin</span></label><</if>>
+				<<if $feats.allSaves["Lizard"]>>| <label><<radiobutton "$startingAnimalTF" "lizard" autocheck>>   <span class="green">Lizard</span></label><</if>>
+				<<if $feats.allSaves["Bear"]>>| <label><<radiobutton "$startingAnimalTF" "bear" autocheck>>   <span class="brown">Bear</span></label><</if>>
+				<<if $feats.allSaves["Deer"]>>| <label><<radiobutton "$startingAnimalTF" "deer" autocheck>>   <span class="orange">Deer</span></label><</if>>
+				<<if $feats.allSaves["Sheep"]>>| <label><<radiobutton "$startingAnimalTF" "sheep" autocheck>>   <span class="white">Sheep</span></label><</if>>
+				<<if $feats.allSaves["Bee"]>>| <label><<radiobutton "$startingAnimalTF" "bee" autocheck>>   <span class="yellow">Bee</span></label><</if>>
+				<<if $feats.allSaves["Fish"]>>| <label><<radiobutton "$startingAnimalTF" "fish" autocheck>>   <span class="red">Fish</span></label><</if>>
+				<<if $feats.allSaves["Horse"]>>| <label><<radiobutton "$startingAnimalTF" "horse" autocheck>>   <span class="brown">Horse</span></label><</if>>
+				<<if $feats.allSaves["Pig"]>>| <label><<radiobutton "$startingAnimalTF" "pig" autocheck>>   <span class="pink">Pig</span></label><</if>>
+				<<if $feats.allSaves["Spider"]>>| <label><<radiobutton "$startingAnimalTF" "spider" autocheck>>   <span class="black">Spider</span></label><</if>>
+				<<if $feats.allSaves["Frog"]>>| <label><<radiobutton "$startingAnimalTF" "frog" autocheck>>   <span class="orange">Frog</span></label><</if>>
+				<br>
+			</div>
+		<</if>>
+		<<if $feats.allSaves["Angel"] or $feats.allSaves["Demon"] or $feats.allSaves["Fallen Angel"]>>
+			Divine Transformations
+			<br>
+			<div class="settingsToggleItemWide">
+				<label><<radiobutton "$startingDivineTF" undefined autocheck>> None</label>
+				<<if $feats.allSaves["Angel"]>>| <label><<radiobutton "$startingDivineTF" "angel" autocheck>> <span class="gold">Angel</span></label><</if>>
+				<<if $feats.allSaves["Demon"]>>| <label><<radiobutton "$startingDivineTF" "demon" autocheck>> <span class="purple">Demon</span></label><</if>>
+				<<if $feats.allSaves["Fallen Angel"]>>| <label><<radiobutton "$startingDivineTF" "fallen" autocheck>> <span class="grey">Fallen Angel</span></label><</if>>
+				<br>
+			</div>
+		<</if>>
+		<<run startingPlayerTransform()>>
+	</div>
+
+	<hr>
+
+	<div class="settingsGrid">
+		<div class="settingsHeader">
 			Personality
 		</div>
 		<div class="settingsToggleItemWide">

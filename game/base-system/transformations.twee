@@ -666,7 +666,7 @@
 		<<set $fallenangel to 2>>
 		<<clearhalo>>
 		<<clearwings>>
-		<<set $transformationParts.fallenAngel.halo to ($transformationParts.angel.halo is "hidden" ? "default" : $transformationParts.angel.halo)>>
+		<<set $transformationParts.fallenAngel.halo to "default">>
 		<<set $transformationParts.fallenAngel.wings to "default">>
 		<<earnFeat "Fallen Angel">>
 	<<elseif $angel gte 4>>
@@ -678,6 +678,12 @@
 	<<if $fallenangel is 2>>
 		<<set $specialTransform to 1>>
 	<</if>>
+<</widget>>
+
+<<widget "fallenstart">>
+	<<clearDivineTransformations>>
+	<<set $angel to 6>>
+	<<fallenTransform>>
 <</widget>>
 
 <<widget "fallenButNotOut">>

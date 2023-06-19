@@ -828,7 +828,7 @@ Macro.add("canvasModelEditor", {
 						selectOption("wolf_ears_type", ["disabled", "hidden", "default"]),
 						selectOption("wolf_pits_type", ["disabled", "hidden", "default"]),
 						selectOption("wolf_pubes_type", ["disabled", "hidden", "default"]),
-						selectOption("wolf_cheeks_type", ["disabled", "hidden"]),
+						selectOption("wolf_cheeks_type", ["disabled", "hidden", "feral"]),
 						selectOption("cat_tail_type", ["disabled", "hidden", "default"]),
 						selectOption("cat_ears_type", ["disabled", "hidden", "default"]),
 						selectOption("cow_horns_type", ["disabled", "hidden", "default"]),
