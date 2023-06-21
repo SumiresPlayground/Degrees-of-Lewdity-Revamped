@@ -4115,11 +4115,9 @@
 <<widget "breastfed">>
 	<<set $milk_drank_stat += random(1, 5)>>
 	<<if random(1, 100) gte 70>>
-		<<if $NPCList[0].type and $NPCList[0].type is ("wolf", "wolfboy", "wolfgirl")>>
+		<<if $NPCList[0].type and $NPCList[0].type is "wolfgirl">>
 			<<transform wolf 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("dog", "dogboy", "doggirl")>>
-			<<transform dog 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("fox", "foxboy", "girl")>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "foxgirl">>
 			<<transform fox 1>>
 		<<elseif $NPCList[0].type and $NPCList[0].type is "raccoongirl">>
 			<<transform raccoon 1>>
@@ -4137,20 +4135,6 @@
 			<<transform dolphin 1>>
 		<<else>>
 			<<transform cat 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("lizard", "lizardboy", "lizardgirl")>>
-			<<transform lizard 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("dragon", "dragonboy", "dragongirl")>>
-			<<transform dragon 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("dolphin", "dolphinboy", "dolphingirl")>>
-			<<transform dolphin 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("raccoon", "raccoonboy", "raccoongirl")>>
-			<<transform raccoon 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("horse", "centaur")>>
-			<<transform horse 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("pig", "pigboy", "piggirl", "boar", "boarboy", "boargirl")>>
-			<<transform pig 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("spider", "spiderboy", "spidergirl")>>
-			<<transform spider 1>>
 		<</if>>
 	<</if>>
 	<<if $milkdranktrait is 1>><<physique 1>><</if>>
