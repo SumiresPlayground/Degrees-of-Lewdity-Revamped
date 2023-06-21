@@ -3675,7 +3675,7 @@
 					return true;
 			};
 
-			T.importantNpcStats = ["love", "lust", "dom", "trauma", "rage", "purity", "corruption", "harmony","ferocity"];
+			T.importantNpcStats = ["love", "lust", "dom", "trauma", "rage", "purity", "corruption", "harmony", "ferocity"];
 			T.otherNpcStats = ["love", "lust"];
 
 			let statDefaults = {
@@ -3802,7 +3802,7 @@
 						<<npcrelationship "Ivory Wraith">>
 					</div>
 					<div @class="'relation-stat-list' + ($options.images ? '' : ' no-images')">
-						<<for _j = 0; _j lt _importantNpcStats.length; _j++>>
+						<<for _j = 0; _j lt _importantNpcStats.length-2; _j++>>
 							<<if _npcData[_importantNpcStats[_j]] gt 0 and _checkRequirements(_importantNpcStats[_j])>>
 								<<relation-box-stat _getStatConfig(_importantNpcStats[_j]) true>>
 							<</if>>
@@ -3827,7 +3827,10 @@
 					<<npcrelationship _npcData.nam>>
 				</div>
 				<div @class="'relation-stat-list' + ($options.images ? '' : ' no-images')">
-					<<for _j = 0; _j lt _importantNpcStats.length; _j++>>
+					<<if _importantNPCs[_k].nam is "Black Wolf">><<set _npcStats to _importantNpcStats.length>>
+						<<else>><<set _npcStats to _importantNpcStats.length-2>>
+					<</if>>
+					<<for _j = 0; _j lt _npcStats; _j++>>
 						<<if _npcData[_importantNpcStats[_j]] gt 0 and _checkRequirements(_importantNpcStats[_j])>>
 							<<relation-box-stat _getStatConfig(_importantNpcStats[_j]) true>>
 						<</if>>
@@ -4118,19 +4121,21 @@
 			<<transform dog 1>>
 		<<elseif $NPCList[0].type and $NPCList[0].type is ("fox", "foxboy", "girl")>>
 			<<transform fox 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("bee", "beeboy", "beegirl")>>
-			<<transform bee 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("deer", "stagboy", "deergirl")>>
-			<<transform deer 2>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("hawk", "harpy")>>
-			<<transform bird 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("bear", "bearboy", "beargirl")>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "raccoongirl">>
+			<<transform raccoon 1>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "doggirl">>
+			<<transform dog 1>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "beargirl">>
 			<<transform bear 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("sheep", "ramboy", "sheepgirl")>>
-			<<transform sheep 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("cow", "bullboy", "cowgirl")>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "cowgirl">>
 			<<transform cow 1>>
-		<<elseif $NPCList[0].type and $NPCList[0].type is ("cat", "catboy", "catgirl")>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "deergirl">>
+			<<transform deer 1>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "sheepgirl">>
+			<<transform sheep 1>>
+		<<elseif $NPCList[0].type and $NPCList[0].type is "dolphingirl">>
+			<<transform dolphin 1>>
+		<<else>>
 			<<transform cat 1>>
 		<<elseif $NPCList[0].type and $NPCList[0].type is ("lizard", "lizardboy", "lizardgirl")>>
 			<<transform lizard 1>>
