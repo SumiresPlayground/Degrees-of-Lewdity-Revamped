@@ -119,13 +119,6 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 		<</if>>
 		Places of interest
 		<br><br>
-		<<if $caseyagain is undefined>>
-			<<set $caseyagain to 0>>
-			<<set $caseymet to 0>>
-			<<set $caseyridefirst to 0>>
-			<<set $caseyromance to 0>>
-			<<set $motorupgrade to 0>>
-		<</if>>
 		
 		<<if Time.dayState is "dusk" and $weather isnot "rain" and $caseyagain is 0 and $caseymet is 0>>
 			You see a young <<if $NPCName[$NPCNameList.indexOf("Casey")].gender is "m">>man<<else>>woman<</if>> wearing a biker jacket and smoking a cigar, leaning against the side of the pub. Their black greased hair shimmering as they let out a puff of smoke.
@@ -140,7 +133,7 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 		<<elseif Time.dayState is "dusk" and $weather isnot "rain" and $caseymet is 1>>
 			You see Casey in their usual spot smoking a cigar.
 			<br><br>
-			<<link [[Hang out (0:20)|Casey Hang Out]]>><<npcincr Casey love 2>><<pass 20>><</link>>
+			<<link [[Hang out (0:20)|Casey Hang Out]]>><<npcincr Casey love 2>><<pass 20>><</link>><<gglove>>
 			<br><br>
 		<</if>>
 		<<if Time.dayState isnot "dawn" and Time.dayState isnot "day">>
