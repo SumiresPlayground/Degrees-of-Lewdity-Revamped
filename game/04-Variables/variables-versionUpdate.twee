@@ -4941,27 +4941,6 @@
 			<</if>>
 		<</if>>
 
-		<<if $tfFIX is undefined or $tfFIX is 1>>
-			<!-- v0.3.13.5 - v0.4.0.8 Fix for virgin fallen angels, moved and fixed from earlier part of versionupdate -->
-			<<if $fallenangel is 2>>
-				<<set $_isHerm to $player.gender is "h">>
-				<<set $_hasVaginalVirginity to $player.vaginaExist and $player.virginity.vaginal is true>>
-				<<set $_hasPenileVirginity to $player.penisExist and $player.virginity.penile is true>>
-				<<if !$_isHerm and ($_hasVaginalVirginity or $_hasPenileVirginity)
-				or $_isHerm and $_hasVaginalVirginity and $_hasPenileVirginity>>
-					<<set $fallenangel to 0>>
-					<<angelTransform>>
-					<<set $transformationParts.fallenAngel.halo to "disabled">>
-					<<set $transformationParts.fallenAngel.wings to "disabled">>
-				<</if>>
-			<</if>>
-
-			<!-- V0.4.0.8 Fix for non-virgin herm angels from bad fix earlier that didn't take herms into account -->
-			<<if $angel gte 6 and $player.gender is "h" and !$virginityProtected and ($player.virginity.vaginal isnot true or $player.virginity.penile isnot true)>>
-				<<fallenTransform>>
-			<</if>>
-		<</if>>
-
 		<<set $tfFIX to 2>>
 	<</if>>
 	
