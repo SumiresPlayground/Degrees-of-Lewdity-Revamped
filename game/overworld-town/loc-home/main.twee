@@ -2,7 +2,9 @@
 
 <<bedclotheson "bed">>
 <<set $outside to 0>><<set $location to "home">><<home_effects>><<effects>><<getTarget true>>
-You are in your bedroom.<br><br>
+<span class="camouflage text"><a onclick="V.codeinput = 0">
+You are in your bedroom.
+</a></span><br><br>
 
 
 /* Wallpaper */
@@ -447,7 +449,7 @@ You are in your bedroom.<br><br>
 /* Settings */
 	<<link [[Settings]]>><<set $settingsExitPassage to "Bedroom">><</link>>
 	<br>
-	<<link [[Code Input|Code]]>><</link>>
+	<<if V.codeinput is 1>><<link [[Code Input|Code]]>><</link>><</if>>
 	<br>
 	<<attitudesControlCheck>>
 	<<if $attitudesControl.showGoldLink is true>>
@@ -459,9 +461,13 @@ You are in your bedroom.<br><br>
 <</if>>
 
 :: Code
+<span class='gold'>Once you input a code, the effect is permanent. You may wish to back up your save beforehand.</span>
+<br><br>
+<i>You can re-hide the code input option by clicking the "You are in your bedroom." message in the previous passage.</i>
+<br><br>
 <<textbox "$code" $code>>
 <br>
-<<link [[Input|Bedroom]]>>
+<<link [[Input|$passage]]>>
 	<<set $code to Util.escape($code)>>
 	<<if $code is "gob">>
 		<<set $bodysize to 0>>
@@ -472,6 +478,8 @@ You are in your bedroom.<br><br>
 		<<set $gob to 1>>
 	<</if>>
 <</link>>
+
+<br><<link [[Go back|Bedroom]]>><</link>>
 
 :: Bedroom Kylar Gift Open
 <<effects>>
