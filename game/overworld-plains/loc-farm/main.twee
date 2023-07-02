@@ -88,6 +88,10 @@ You are in the farmlands.
 			<<link [[Riding school (0:01)|Riding School]]>><<pass 1>><</link>>
 			<br>
 		<</if>>
+		<<if $weather isnot "rain" and $weather isnot "snow">>
+			<<link [[Visit the nearby food stand (0:05)|Moor Food Stand]]>><<pass 5>><</link>>
+			<br>
+		<</if>>
 	<</if>>
 	<<link [[Meadow (0:10)|Meadow]]>><<pass 10>><</link>>
 	<br><br>
@@ -2868,4 +2872,27 @@ Alex punches the wooden post beside <<him>>, startling the <<farm_text_many dog>
 <br><br>
 
 <<link [[Next|Farm Work]]>><<endevent>><</link>>
+<br>
+
+:: Moor Food Stand
+As you approach the stand you see a large, hulking man wearing an apron. He flips a burger on his grill before seeing you. "Only one burger a day kid." He speaks in a gravely voice.
+<br><br>
+<<if $money gte 5000 and $daily.moorEaten isnot 1>>
+	<<if $images is 1>><img id="icon" src="img/misc/icon/food_steak.png"><</if>><<link [[Buy Cheeseburger (0:20 £50)|Moor Hamburger]]>><<set $daily.moorEaten to 1>><<transform dragon 1>><<set $money -= 5000>><<pass 20>><<stress -18>><</link>><<llstress>>
+<<elseif $money gte 5000 and $daily.moorEaten is 1>>
+	You've already had a burger today.
+<<else>>
+	You don't have enough money
+<</if>>
+<br><br>
+<<link [[Leave|Farmland]]>><</link>>
+
+:: Moor Hamburger
+You order a hamburger with tomato and lettuce. It soon arrives.
+<br><br>
+
+It's big and juicy. It's so tasty, it leaves you feeling satisfied.
+<br><br>
+
+<<link [[Next|Farmland]]>><</link>>
 <br>

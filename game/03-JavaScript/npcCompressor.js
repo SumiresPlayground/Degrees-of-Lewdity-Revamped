@@ -119,8 +119,8 @@
 const { npcCompressor, npcDecompressor, childCompressor, childDecompressor } = (function () {
 	const compressorVersionNPC = 1;
 	const compressorVersionChild = 2;
-	const typeList = ["human","dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider", "plant","sheep","deer","bee","wasp","dragon","ant","raccoon"];
-	const beastList = ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon"];
+	const typeList = ["human","dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider", "plant","sheep","deer","bee","wasp","dragon","ant","raccoon","frog"];
+	const beastList = ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog"];
 	const insecurityList = ["none", "vagina", "penis", "ethics", "weak", "skill", "looks"];
 	const genproList = ["mm", "fm", "hm", "mf", "ff", "hf"]; /* stores gender first, pronoun second. */
 	const breastdescList = ["nipple", "budding", "tiny", "small", "pert", "modest", "full", "large", "ample", "massive", "huge", "gigantic", "enormous"];

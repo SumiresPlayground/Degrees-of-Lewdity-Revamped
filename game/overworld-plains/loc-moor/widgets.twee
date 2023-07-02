@@ -279,7 +279,7 @@
 			<br>
 		<</if>>
 	<<elseif $danger gte (9900 - ($allure * $forestmod))>>
-		<<rng 10>>
+		<<rng 11>>
 		<<switch $rng>>
 		<<case 1>>
 			<<beastNEWinit 1 cat>>
@@ -409,6 +409,14 @@
 			<<moor_hunt_start>>
 		<<case 10>>
 			<<moor_fox>>
+		<<case 11>>
+			<span class="blue">You feel watched.</span> You glance around. Anything could be lurking around you.<<gstress>><<stress 6>>
+			<br><br>
+
+			<<link [[Take a detour (0:30)|Moor Dragons Detour]]>><<pass 30>><<trauma 6>><</link>><<gtrauma>>
+			<br>
+			<<link [[Continue|Moor Dragons Continue]]>><<set $rng to random(1,100)>><</link>>
+			<br>
 		<</switch>>
 	<<else>>
 		<<rng 7>>

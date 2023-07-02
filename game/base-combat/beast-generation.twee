@@ -92,38 +92,17 @@
 	<!-- v2.7 $BeastList is 0-7: "dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "creature" -->
 	<!-- v2.13 "horse" added to $BeastList -->
 
-	<<set _h to [200,150,200,300,200,250,500,300,200,500,225,150,400,300,300,250,300,400,500,300,150]>> <!-- Health Max per type -->
-	<<set _t to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon"]>> <!-- Name of each type -->
-	<<set _d to [["large"],
-		["large"],
-		["fat"],
-		["enormous", "girthy", "huge", "mighty", "hefty", "colossal", "humongous", "large"],
-		["bottlenose"],
-		["scaly"],
-		["brown"],
-		["hairy"],
-		["strange"],
-		["huge"],
-		["large"],
-		["fierce"],
-		["huge"],
-		["slimy"],
-		["fluffy"],
-		["sleek"],
-		["strange"],
-		["strange"],
-		["scaly"],
-		["strange"],
-		["sleek"]
-		]>> <!-- Descriptor of each type -->
-	<<set _pd to ["knotted penis","spiked penis","penis","knotted penis","strange penis","penis","penis","penis","penis","equine cock","knotted penis","avian cock","bovine cock","arachnid penis","penis","cock","cock","cock","penis","cock","penis"]>> <!-- Descriptor of Penises -->
+	<<set _h to [200,150,200,300,200,250,500,300,200,500,225,150,400,300,300,250,300,400,500,300,150,200]>> <!-- Health Max per type -->
+	<<set _t to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog"]>> <!-- Name of each type -->
+	<<set _d to ["large","large","fat","large","bottlenose","scaly","brown","hairy","strange","huge","large","fierce","huge","slimy","fluffy","sleek","strange","strange","scaly","strange","sleek","slimy"]>> <!-- Descriptor of each type -->
+	<<set _pd to ["knotted penis","spiked penis","penis","knotted penis","strange penis","penis","penis","penis","penis","equine cock","knotted penis","avian cock","bovine cock","arachnid penis","penis","cock","cock","cock","penis","cock","penis","penis"]>> <!-- Descriptor of Penises -->
 	/% <<set _cla to [1,1,1,1,0,1,1,1]>> %/
-	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,4,3,2,2,5,3,2]>> <!-- Size of penises -->
+	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,4,3,2,2,5,3,2,2]>> <!-- Size of penises -->
 
 	<<set _i to $BeastList.indexOf(_type)>>
 	<<set $NPCList[_n].healthmax to _h[_i]>>
 	<<set $NPCList[_n].health to $NPCList[_n].healthmax>>
-	<<set $NPCList[_n].description to _d[_i].pluck()>>
+	<<set $NPCList[_n].description to _d[_i]>>
 	<<set $NPCList[_n].type to _t[_i]>>
 	<!-- <<set $NPCList[_n].claws to _cla[_i]>> -->
 	<<set $NPCList[_n].breastsize to 0>>
@@ -156,16 +135,22 @@
 		<<set $NPCList[_n].monster to "monster">>
 	<<elseif _beast_monster isnot "beast" and ($monsterchance gte $rng and ($hallucinations gte 1 or $monsterhallucinations is "f")) or (_beast_monster is "monster") or ($bestialitydisable is "t" and $NPCList[0].monster is "monster")>>
 		<<set $NPCList[_n].monster to "monster">>
-		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow","deer","raccoon"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
+		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow","deer","raccoon","frog"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
 			<<run delete $NPCList[_n].claws>> <!-- It can't have claws - using undefined to maintain back compat with previous saves mid-combat ($claws) -->
 		<</if>>
 		<<if $NPCList[_n].type is "horse">>
 			<<set $NPCList[_n].type to "centaur">>
 		<<elseif $NPCList[_n].type is "raccoon">>
-			<<if $NPCList[_n].gender is "f">>>>
+			<<if $NPCList[_n].gender is "f">>
 				<<set $NPCList[_n].type to "raccoongirl">>
 			<<else>>
 				<<set $NPCList[_n].type to "raccoonboy">>
+			<</if>>
+		<<elseif $NPCList[_n].type is "frog">>
+			<<if $NPCList[_n].gender is "f">>
+				<<set $NPCList[_n].type to "froggirl">>
+			<<else>>
+				<<set $NPCList[_n].type to "frogboy">>
 			<</if>>
 		<<elseif $NPCList[_n].type is "hawk">>
 			<<set $NPCList[_n].type to "harpy">>

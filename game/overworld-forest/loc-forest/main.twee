@@ -234,6 +234,7 @@
 	<</if>>
 
 <<elseif $forest lte 99>>
+	<<location "forest">>
 	<<forestmove>>
 	<<if $stress gte $stressmax and !$possessed>>
 		<<passoutforest>>
@@ -301,9 +302,43 @@
 		<</if>>
 	<</if>>
 
-<<elseif $forest gte 100>>
-	<<set $forest to 100>>
-	<<forestmove>>
+<<elseif $forest lte 150>>
+	<<location "bog">>
+	<<bogmove>>
+	<<if $stress gte $stressmax and !$possessed>>
+		<<passoutforest>>
+	<<else>>
+		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+		<<if $eventskip is 0>>
+			<<rng>>
+			<<if $rng gte 81 or ($forest_search is true and $rng gte 61)>>
+				<<eventbogitem>>
+			<<elseif $danger gte (9900 - ($allure * $forestmod))>>
+				<<eventbog>>
+			<<else>>
+				<<eventbogsafe>>
+			<</if>>
+		<<elseif $eventskip gte 1>>
+			<<if $foresthunt gte 1>>
+				<span class="lblue">You're relatively safe in the bog. Whatever was stalking you will have given up.</span>
+				<br><br>
+				<<set $foresthunt to 0>>
+			<</if>>
+			You clear the forest into a large bog. The trees thin out as pools of still water rest, the air hangs with a heavy humidity.
+			<br><br>
+			<<bogdeeper>>
+			<br><br>
+
+			<<bogsearch>>
+			<br><br>
+
+			<<boglessdeep>>
+		<</if>>
+	<</if>>
+	
+<<elseif $forest gte 150>>
+	<<set $forest to 150>>
+	<<bogmove>>
 
 	<<if $stress gte $stressmax and !$possessed>>
 		<<passoutforest>>
@@ -314,20 +349,20 @@
 		<<if $eventskip is 0>>
 			<<rng>>
 			<<if $rng gte 81 or ($forest_search is true and $rng gte 61)>>
-				<<eventforestitem>>
+				<<eventbogitem>>
 			<<elseif $danger gte (9900 - ($allure * $forestmod))>>
-				<<eventforestdeep>>
+				<<eventbog>>
 			<<else>>
-				<<eventforestsafe>>
+				<<eventbogsafe>>
 			<</if>>
 		<<elseif $eventskip gte 1>>
-			You are deep in the forest. You can make out the asylum through the trees.
+			You are deep in the bog. The air has an acrid scent and you don't think you should continue.
 			<br><br>
 
-			<<forestsearch>>
+			<<bogsearch>>
 			<br><br>
 
-			<<forestlessdeep>>
+			<<boglessdeep>>
 		<</if>>
 	<</if>>
 <</if>>
