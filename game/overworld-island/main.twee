@@ -10,97 +10,105 @@ The ship stops a bit off shore. "I'm sorry this is the furthest we can take you.
 
 :: Island
 <<effects>>
-<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
 <<if $islanddistance is 0>>
     <<location "beach">>
 <</if>>
-<<if $arousal gte $arousalmax>>
-	<<orgasmisland>>
-<</if>>
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutisland>>
-<<elseif $danger gte (9900 - ($allure)) and $location is "desert" and $eventskip lte 0 or $danger gte (9900 - ($allure)) and $location is "forest" and $eventskip lte 0 or $danger gte (9900 - ($allure)) and $location is "snowforest" and $eventskip lte 0>>
-	<<eventisland>>
 <<else>>
-    <<if $islanddistance is 0>>
-    <<location "beach">>
-    <<set _weather_display to "normal">>
-    You're standing on the shore of the beach. Harsh waves lap at the sand.
-    <<elseif $islanddistance lt 5>>
-    <<location "beach">>
-    <<set _weather_display to "normal">>
-    You're standing in the middle of a warm beach covered in fine soft sand. Even standing on it causes your feet to sink a bit deeper.
-    <<elseif $islanddistance is 15>>
-    <<location "desert">>
-    <<set _weather_display to "normal">>
-    <<set $weather to "clear">>
-    You come across a small village resting on an oasis of water and palms.
-    <<elseif $islanddistance lt 30>>
-    <<location "desert">>
-    <<set _weather_display to "normal">>
-    <<set $weather to "clear">>
-    Sandy dunes stretch on ahead as the desert heat eats away at you.
-    <<elseif $islanddistance is 30>>
-    <<location "forest">>
-    <<set _weather_display to "normal">>
-    <<set $weather to "rain">>
-    The land slopes as the desert meets a mountain range full of lush vegetation.
-    <<elseif $islanddistance is 40>>
-    <<location "forest">>
-    <<set _weather_display to "normal">>
-    <<set $weather to "rain">>
-    As you climb the mountain path you find an old steel slag. Continuing down the path you find more and more until you come across a large plane. It lies rusting under a layer of overgrowth.
-    <<elseif $islanddistance lt 50>>
-    <<location "forest">>
-    <<set _weather_display to "normal">>
-    <<set $weather to "rain">>
-    The mountains continue to rise rife with vegetation. The treeline blots the sun although the moisture and humidity leave you miserable.
-    <<elseif $islanddistance is 50>>
-    <<location "snowforest">>
-    <<set $weather to "snow">>
-    Halfway up the mountains, the cool air sets in as snow begins to fall lightly over the higher elevation pine trees.
-    <<elseif $islanddistance is 55>>
-    <<location "snowforest">>
-    <<set $weather to "snow">>
-    While wandering the snowy landscape you find an old stone hut, a shattered see-through material lines the inside.
-    <<elseif $islanddistance lt 60>>
-    <<location "snowforest">>
-    <<set $weather to "snow">>
-    The mountains are slick with soft snow. Animal prints dot the land as the pines tower over you.
-    <<elseif $islanddistance is 60>>
-    <<location "glacier">>
-    <<set $weather to "snow">>
-    You reach the peak of the mountains and on the other side is an expansive glacial sheet that seems to stretch into the horizon
-    <<elseif $islanddistance is 61>>
-    <<location "glacier">>
-    <<set $weather to "snow">>
-    Your feet hit the hard icy surface of the glacier and you’re met with freezing gusts of wind. Not much could survive up here. The clouds stuck from going over the mountain peaks leave a thick and permanent fog hanging over the land.
-    <<elseif $islanddistance lte 70>>
-    <<location "glacier">>
-    <<set $weather to "snow">>
-    You're walking along a solid sheet of ice, various crags litter the landscape but not much else.
-    <</if>>
-    <br><br>
-    <<if $islanddistance is 0>>
-    <<link [[Swim back out to sea (0:10)|Sea Reef]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
-    <br>
-    <</if>>
-    <<if $islanddistance is 40>>
-    <<link [[Explore the plane (0:30)|Plane Explore]]>><<pass 30>><</link>>
-    <br>
-    <</if>>
-    <<if $islanddistance is 55>>
-    <<link [[Enter the hut (0:10)|Hut Explore]]>><<pass 10>><</link>>
-    <br>
-    <</if>>
-    <<if $islanddistance gte 1>>
-    <<link [[Head back to shore (0:20)|Island]]>><<pass 20>><<set $eventskip -= 1>><<set $islanddistance -= 1>><</link>>
-    <br>
-    <</if>>
-    <<if $islanddistance lt 70>>
-    <<link [[Head deeper into the island (0:20)|Island]]>><<pass 20>><<set $eventskip -= 1>><<set $islanddistance += 1>><</link>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<if $eventskip is 0>>
+		<<rng>>
+		<<if $rng gte 81>>
+			<<eventislanditem>>
+		<<elseif $danger gte (9900 - ($allure * $forestmod))>>
+			<<eventisland>>
+		<<else>>
+			<<eventislandsafe>>
+		<</if>>
+    <<else>>
+        <<if $islanddistance is 0>>
+        <<location "beach">>
+        <<set _weather_display to "normal">>
+        You're standing on the shore of the beach. Harsh waves lap at the sand.
+        <<elseif $islanddistance lt 5>>
+        <<location "beach">>
+        <<set _weather_display to "normal">>
+        You're standing in the middle of a warm beach covered in fine soft sand. Even standing on it causes your feet to sink a bit deeper.
+        <<elseif $islanddistance is 15>>
+        <<location "desert">>
+        <<set _weather_display to "normal">>
+        <<set $weather to "clear">>
+        You come across a small village resting on an oasis of water and palms.
+        <<elseif $islanddistance lt 30>>
+        <<location "desert">>
+        <<set _weather_display to "normal">>
+        <<set $weather to "clear">>
+        Sandy dunes stretch on ahead as the desert heat eats away at you.
+        <<elseif $islanddistance is 30>>
+        <<location "forest">>
+        <<set _weather_display to "normal">>
+        <<set $weather to "rain">>
+        The land slopes as the desert meets a mountain range full of lush vegetation.
+        <<elseif $islanddistance is 40>>
+        <<location "forest">>
+        <<set _weather_display to "normal">>
+        <<set $weather to "rain">>
+        As you climb the mountain path you find an old steel slag. Continuing down the path you find more and more until you come across a large plane. It lies rusting under a layer of overgrowth.
+        <<elseif $islanddistance lt 50>>
+        <<location "forest">>
+        <<set _weather_display to "normal">>
+        <<set $weather to "rain">>
+        The mountains continue to rise rife with vegetation. The treeline blots the sun although the moisture and humidity leave you miserable.
+        <<elseif $islanddistance is 50>>
+        <<location "snowforest">>
+        <<set $weather to "snow">>
+        Halfway up the mountains, the cool air sets in as snow begins to fall lightly over the higher elevation pine trees.
+        <<elseif $islanddistance is 55>>
+        <<location "snowforest">>
+        <<set $weather to "snow">>
+        While wandering the snowy landscape you find an old stone hut, a shattered see-through material lines the inside.
+        <<elseif $islanddistance lt 60>>
+        <<location "snowforest">>
+        <<set $weather to "snow">>
+        The mountains are slick with soft snow. Animal prints dot the land as the pines tower over you.
+        <<elseif $islanddistance is 60>>
+        <<location "glacier">>
+        <<set $weather to "snow">>
+        You reach the peak of the mountains and on the other side is an expansive glacial sheet that seems to stretch into the horizon
+        <<elseif $islanddistance is 61>>
+        <<location "glacier">>
+        <<set $weather to "snow">>
+        Your feet hit the hard icy surface of the glacier and you’re met with freezing gusts of wind. Not much could survive up here. The clouds stuck from going over the mountain peaks leave a thick and permanent fog hanging over the land.
+        <<elseif $islanddistance lte 70>>
+        <<location "glacier">>
+        <<set $weather to "snow">>
+        You're walking along a solid sheet of ice, various crags litter the landscape but not much else.
+        <</if>>
+        <br><br>
+        <<if $islanddistance is 0>>
+        <<link [[Swim back out to sea (0:10)|Sea Reef]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
+        <br>
+        <</if>>
+        <<if $islanddistance is 40>>
+        <<link [[Explore the plane (0:30)|Plane Explore]]>><<pass 30>><</link>>
+        <br>
+        <</if>>
+        <<if $islanddistance is 55>>
+        <<link [[Enter the hut (0:10)|Hut Explore]]>><<pass 10>><</link>>
+        <br>
+        <</if>>
+        <<if $islanddistance gte 1>>
+        <<link [[Head back to shore (0:20)|Island]]>><<pass 20>><<set $islanddistance -= 1>><</link>>
+        <br>
+        <</if>>
+        <<if $islanddistance lt 70>>
+        <<link [[Head deeper into the island (0:20)|Island]]>><<pass 20>><<set $islanddistance += 1>><</link>>
+        <</if>>
     <</if>>
 <</if>>
+
+<<set $eventskip to 0>>
 
 :: Plane Explore
 You slowly pry open the plane's door with a nearby steel rod and enter. Dozens of lurkers screech and skitter out as you enter. As expected there's not much to scavenge. The interior is pretty overgrown and nothing worthwhile can be found.
