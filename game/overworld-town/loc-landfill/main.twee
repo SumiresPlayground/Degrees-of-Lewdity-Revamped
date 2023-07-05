@@ -139,6 +139,8 @@ You are in the landfill on Elk Street.
 	<<elseif $trash gte 100 and $robinmissing is "landfill" and $robinmistknown>>
 		<<link [[Go towards the sound of heavy machinery (0:10)|Robin Mist Intro]]>><<pass 10>><</link>>
 		<br>
+	<<elseif $trash gte 100 and $bunker is "found">>
+		<<link [[Enter the trapdoor (0:02)|The Bunker Intro]]>><<set $eventskip to 1>><<pass 2>><</link>>
 	<</if>>
 <</if>>
 <<set $eventskip to 0>>
@@ -535,6 +537,9 @@ You search the piles of rubbish for anything of value.
 	<<if $brothel_machine_repair is 2>>
 		You spot a pink light reflect off the base of the compactor. You investigate, and find a small canister. There's a glass window on the side, letting you see the glowing pink gel within. <span class="gold">This must be the fuel used by the brothel sex machine.</span>
 		<<set $brothel_machine_repair to 3>>
+	<<elseif $rng gte 90 and $bunker isnot "found">>
+		As you explore the landfill, you notice an odd gaping hole amidst the trash. A rusted trapdoor is ajar, inviting you to enter.
+		<<set $bunker to "found">>
 	<<elseif $rng gte 80>>
 		You find an ancient incense burner. It's clearly an antique. You're not sure why anyone would throw it out.
 		<<set $antiquemoney += 100>><<museumAntiqueStatus "antiquetrashburner" "found">><<crimeup 100>>
