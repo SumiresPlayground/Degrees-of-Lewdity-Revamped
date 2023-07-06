@@ -16,7 +16,16 @@
 
 <<widget "eventislanditem">>
 	<<cleareventpool>>
-    <<if $location is "desert">>
+    <<if $location is "beach">>
+        <<addinlineevent "cannonball">>
+			You stub your toe on something hard under the sand.
+			<br><br>
+			Digging it up reveals an old cannonball.
+			<br><br>
+			<<set $antiquemoney += 300>><<museumAntiqueStatus "antiquecannonball" "found">>
+			<<link [[Next|Island]]>><<set $eventskip to 1>><</link>>
+		<</addinlineevent>>
+	<<elseif $location is "desert">>
         <<addinlineevent "arttablet">>
 			You spot a small stone corner sticking out of the sand.
 			<br><br>
@@ -75,7 +84,7 @@
 
 <<widget "eventisland">>
 	<<cleareventpool>>
-    <<if $location is "desert">>
+    <<if $location is "desert" or $location is "beach">>
         <<addevent "islandant">>
     <<elseif $location is "forest" or $location is "snowforest">>
         <<addevent "islandwolf" .5>>
@@ -88,7 +97,15 @@
 
 <<widget "eventislandsafe">>
 	<<cleareventpool>>
-    <<if $location is "desert">>
+    <<if $location is "beach">>
+        <<addinlineevent "safeisland_beach">>
+			A fresh ocean breeze brushes your skin and relaxes you.
+			<<lstress>><<stress -1>>
+			<br><br>
+
+			<<link [[Next|Island]]>><<set $eventskip to 1>><</link>>
+		<</addinlineevent>>
+	<<elseif $location is "desert">>
         <<addinlineevent "safeisland_sandstorm">>
 			A gust of wind starts up blowing sand everywhere. It stings your eyes and lowers visability.
 			<<gstress>><<stress 1>>

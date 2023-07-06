@@ -50,6 +50,7 @@
 	<<museumAntiqueStatus "antiquebogtool" "talk">>
 	<<museumAntiqueStatus "antiquebunkertablet" "talk">>
 	<<museumAntiqueStatus "antiquebunkertag" "talk">>
+	<<museumAntiqueStatus "antiquecannonball" "talk">>
 	<<museumAntiqueStatus "antiquearttablet" "talk">>
 	<<museumAntiqueStatus "antiqueterracottastatue" "talk">>
 	<<museumAntiqueStatus "antiqueredvial" "talk">>
@@ -257,6 +258,10 @@
 	<</if>>
 	<<if $museumAntiques.antiques.antiquebunkertag is "talk">>
 		<<link [[Ask about the bunker tag|Museum Bunker Tag]]>><<museumAntiqueStatus "antiquebunkertag" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiqueantiquecannonball is "talk">>
+		<<link [[Ask about the cannonball|Museum Cannonball]]>><<museumAntiqueStatus "antiquecannonball" "museum">><<npcincr Winter love 1>><</link>><<glove>>
 		<br>
 	<</if>>
 	<<if $museumAntiques.antiques.antiquearttablet is "talk">>
@@ -1630,6 +1635,20 @@ Winter goes off on a tangent, but you remain polite, and nod along.
 <</if>>
 
 <<npc Winter>><<person1>>"This seems to be some sort of ID tag." Winter says. "It's written in an odd language but it shares many similarities."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Cannonball
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquecannonball")>>
+	<<run $museumAntiqueJournalHints.delete("antiquecannonball")>>
+<</if>>
+
+<<npc Winter>><<person1>>"This looks like an old cannonball." Winter says. "Was probably used in a naval war last century."
 <br><br>
 
 <<link [[Next|Museum]]>><<endevent>><</link>>
