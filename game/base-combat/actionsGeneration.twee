@@ -1194,44 +1194,27 @@
 	<<set _tailOptions to "free">>
 	<span @class="($lastOptions.tail isnot _tailOptions ?'gold':'')">Your tail is free.</span>
 	<<if $lastOptions.tail isnot _tailOptions>>
-			<<set _tailGold to true>>
-		<</if>>
-		<<if $_changetype isnot true>>
-			<<tailActions>>
-			<<if Object.keys(_tailaction).length gt 0>>
-				<<if Object.values(_tailaction).includes($tailactiondefault) is false or _args[0] is true or $tailactiondefault is "rest">>
-					<<set _defaultsCombatAction to "tailaction">>
-					<<set _actionsSet = DefaultActions.get($defaultsCombatType, $defaultsType, _defaultsCombatAction)>>
-					<<set _pass to false>>
-					<<for _set to 0; _set lt $maxDefaultActionSets; _set++>>
-						<<if Object.values(_tailaction).includes(_actionsSet[_set])>>
-							<<set $_tailactiondefault to clone(_actionsSet[_set])>>
-							<<set _pass to true>>
-							<<break>>
-						<</if>>
-					<</for>>
-					<<if _pass is false>>
-						<<set $_tailactiondefault to Object.values(_tailaction)[0]>>
-					<</if>>
-				<</if>>
+		<<set _tailGold to true>>
+	<</if>>
+	<<if $_changetype isnot true>>
+		<<tailActions>>
+		<<if Object.keys(_tailaction).length gt 0>>
+			<<set $tailaction to $tailactiondefault>>
+			<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "")>>
+			<<generateCombatAction _tailaction "tailaction" _textColor $tailaction>>
 
-				<<set $tailaction to $_tailactiondefault>>
-				<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "")>>
-				<<generateCombatAction _tailaction "tailaction" _textColor $tailaction>>
-
-				/*Checks/Difficulty*/
-				<<if $options.combatControls.includes("ists")>>
-					<div id="tailactionDifficulty">
-						<<tailactionDifficulty>>
-					</div>
-				<</if>>
+			<<if $options.combatControls.includes("ists")>>
+				<div id="tailactionDifficulty">
+					<<tailactionDifficulty>>
+				</div>
 			<</if>>
-			<<set $lastOptions.tail to clone(_tailOptions)>>
-		<<else>>
+		<</if>>
+		<<set $lastOptions.tail to clone(_tailOptions)>>
+	<<else>>
 		<<timed 100ms>>
 			<<run jQuery("#tailaction").remove();>>
 		<</timed>>
-		<</if>>
+	<</if>>
 <</if>>
 <</widget>>
 
