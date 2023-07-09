@@ -11,7 +11,7 @@
 	<<skulduggeryrequired>>
 	<br><br>
 <</if>>
-<<if $ghost is 1>>
+<<if $ghost gte 1>>
 	You can phase through the doors if you concentrate. 
 	<br><br>
 	<<link [[Phase (0:01)|Hairdressers]]>><<pass 1>><</link>>
@@ -31,7 +31,7 @@ You are in the hairdressers. Various hair products are available for sale. You c
 <<else>>
 	There's a seat available.
 	<<if $slime is 1>> <br><br><span class='green'>However, you would just absorb the dye, or gunk up the stylist's tools.</span><</if>>
-	<<if $ghost is 1>> <br><br><span class='wraith'>Not that it would matter in your current condition.</span><</if>> 
+	<<if $ghost gte 1>> <br><br><span class='wraith'>Not that it would matter in your current condition.</span><</if>> 
 <</if>>
 <<if $hairgelBottles is undefined>>
 	<<set $hairgelBottles to 0>>
@@ -74,7 +74,7 @@ You are in the hairdressers. Various hair products are available for sale. You c
 		<<elseif $slime is 1 and Time.daystate is "day">>
 			<span class='green'>Pass. You'd just absorb the dye or gunk up the place, anyway.</span>
 			<br><br>
-		<<elseif $ghost is 1 and Time.daystate is "day">>
+		<<elseif $ghost gte 1 and Time.daystate is "day">>
 			<span class='wraith'>Pass. This would be pointless in your current ephemeral state.</span>
 			<br><br>
 		<</if>>

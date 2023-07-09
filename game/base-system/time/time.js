@@ -753,7 +753,11 @@ function minutePassed(minutes) {
 		V.stress += Math.floor(minutes * 40);
 	}
 
-	if (V.body_temperature === "cold") V.stress += minutes * 2;
+	if (V.ghost === 2 && V.body_temperature === "cold") V.stress -= minutes * 2;
+	else if (V.ghost === 2 && V.body_temperature === "chilly") V.stress -= minutes;
+	else if (V.ghost === 3 && V.body_temperature === "cold") V.stress += minutes;
+	else if (V.ghost === 3 && V.body_temperature === "chilly") V.stress += minutes * 0.5;
+	else if (V.body_temperature === "cold") V.stress += minutes * 2;
 	else if (V.body_temperature === "chilly") V.stress += minutes;
 
 	V.stress = Math.min(V.stress, V.stressmax);

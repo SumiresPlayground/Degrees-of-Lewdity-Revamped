@@ -114,6 +114,7 @@ setup.colours = {
 		ydark: ["#8e7f68", "#483f35"],
 		ygyaru: ["#f0ffe6", "#f0e4bc", "#8e7f68", "#483f35"],
 		ghostly: ["#DBFFFF", "#DBFFFF"],
+		ice: ["#E3FFFE", "#E3FFFE"],
 		slimy: ["#CBFFCB", "#98FF98"],
 		amethyst: ["#bba9f5", "#8451fc"],
 		green: ["#B5C47A", "#81A558"]
@@ -548,6 +549,17 @@ setup.colours.hair = [
 		dye: true,
 		canvasfilter: {
 			blend: "#FFFFFF",
+		},
+	},
+	{
+		variable: "snowblue",
+		name: "snow blue",
+		name_cap: "Snow Blue",
+		csstext: "snowbluehair",
+		natural: false,
+		dye: true,
+		canvasfilter: {
+			blend: "#add8e6",
 		},
 	},
 	{
