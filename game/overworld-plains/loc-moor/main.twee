@@ -244,6 +244,147 @@ You are in the courtyard of a ruined castle. Even derelict and half-sunk, the ru
 <br>
 <<link [[Leave|Moor]]>><<set $moor to 100>><</link>>
 <br>
+<<if $slime gt 0 and $slime isnot 3>>
+<<link [[Search Nearby (0:05)|Pure Pool]]>><<pass 5>><</link>>
+<</if>>
+
+:: Pure Pool
+
+<<set $location to "castle">><<effects>>
+
+As you wander around the premises, you feel oddly drawn towards the gutters. Approaching the area, you notice an ancient storm drain. You subconciously walk towards it. Making sure to avoid errant pools of water, you walk along the gutter and peer into the drain. Oddly enough, there is just enough lighting to see within the area, though the light doesn't seem to be coming from your current surroundings.
+<br><br>
+<<link [[Go Inside|Pure Pool 2]]>><</link>>
+<br>
+<<link [[Leave|Castle]]>><</link>>
+
+:: Pure Pool 2
+
+<<set $location to "castle">><<effects>>
+
+There's a worn staircase leading down into the depths. As expected, stagnant puddles greet you at the bottom. There is a slight decline leading towards a large body of runoff. In the distance, you see the accumulated water flowing through a large hole in the castle wall. The water falls from the castle, and the resulting cascade feeds a nearby stream. 
+<<if time.dayState isnot "night">>
+The sunlight illuminates the cavernous drain though the opening.
+<<else>>
+The cavernous drain is replete with darkness, but there is just enough moonlight to illuminate the pathways.
+<</if>>
+<br><br>
+Continuing on, you approach an embankment within the drain. Wary of the flowing water, you notice a path veering away from it into a shadowy passageway on the opposite side of the room. That instinctual pull you felt earler increases in intensity.
+<br><br>
+You're not sure what's in that room, but you feel the need to enter. Your instincts attempt to pull you further, but you've had almost enough time to get a bearing on your faculties.
+<br><br>
+<<link [[Next (0:05)|Pure Pool 3]]>><<pass 5>><</link>><<willpowerdifficulty 300 700>>
+
+:: Pure Pool 3
+
+<<set $location to "castle">><<effects>>
+
+<<if $willpowerSuccess>>
+	
+	You get ahold of yourself long enough to take a closer look at your surroundings. 
+	<br><br>
+	There doesn't seem to be anything particularly amiss. The compulsion which pulled you forward has all but disappeared. You look back towards the staircase you came in from. The feeling you get from the tenebrous doorway isn't exactly apprehension, but perhaps it's better to be on the safe side. 
+	<br><br>
+	You keep moving forward, mentally noting the direction of the entrance in case you need to make a hasty retreat. You follow the pathway until you reach an incline, which you find yourself struggling to ascend. It's not particularly steep, but it seems to be coated with something slippery.
+	<br><br>
+	You reach the height of the incline and step forward. The remaining lighting in the area only partially reveals the pathway you're taking, but it's just enough to allow you to maintain your footing.
+	<br><br>
+	Despite this, you somehow fail to notice the pool of water you're now ankle-deep in. Perhaps because it did not splash upon entry as you'd expect a body of water to do. Additionally, it doesn't pain you like being in contact with water would. You realize you may have have made a critical mistake entering this abandoned drain. Looking back towards the entrance of the cavern, you consider your options.
+	<br><br>
+	<<link [[Turn Back (0:02)|Pure Pool Retreat]]>><<pass 2>><</link>>
+	<br>
+	<<link [[Continue|Pure Pool 4]]>><</link>>
+	<br>
+<<else>>
+	The compulsion drives you forward through the doorway. You reach an incline. It isn't steep, but you spend more effort than you'd like ascending it. There seems to be an odd, slippery coating on it's surface. You reach the top and continue forward.
+	<br><br>
+	The lighting within the drain tunnel is poor enough to obscure a loose stone tile on the floor. Your foot catches on it and you find yourself tumbing towards a waist-deep pool. You brace yourself as best as you can. Not only to prepare for the impact, but the subsequent feeling of being dissolved.
+	<br><br>
+	You fall into the pool with less of a splash than expected. Surprisingly, there's no pain despite you being in direct contact with water as a slime.
+	<br><br>
+	This is water, isn't it?
+	<br><br>
+	<<link [[Continue on|Pure Pool 4]]>><</link>>
+
+<</if>>
+
+:: Pure Pool Retreat
+
+<<set $location to "castle">><<effects>>
+
+You decide to get going before anything unfortunate happens. You quickly escape the confines of whatever liquid that was and slide down the earlier incline. You make your way back towards the staircase in the earlier part of the drain. 
+<br><br>
+
+	<<if random(1, 5) is 1>>
+		Despite your hurry and the meager lighting, you manage to notice a faint glint on the floor. Bending down to examine the item, you see a ring partially submerged in one of the brackish pools. You quickly pick it up, not even noticing the slight sting of the water on your fingers.
+		<br><br>
+		It's of no use to you, and you're unsure how valuable it may be, but it's worth having on hand to pawn off later.
+		You may as well get something out of this excursion.
+		<br><br>
+		<<set $blackmoney += 250>>
+	<</if>>
+
+Done with this trip, You head up the staircase and make your way towards the castle courtyard.
+<br><br>
+<<link [[Leave|Castle]]>><<pass 2>><</link>>
+
+:: Pure Pool 4
+
+<<set $location to "castle">><<effects>>
+
+There's something to be said about a body of liquid you can actually wade through without being assaulted by constant pain
+It's a feeling you miss from back when your body was more human and water wasn't an issue. Regardless, you find yourself continuing through the fluid. Your instincts seemingly fully taking over and leading you to what appears to be the center of the pool.
+<br><br>
+You're now waist-deep in the liquid. You feel the urge to simply lie down and relax. After all you've been through, it's certainly worth the consideration. You stare at your waist and notice something strange.<span class='gold'> The 
+<<if $slime is 1>>
+green
+<<elseif $slime is 2>>
+purple
+<<else>>
+color
+<</if>>
+your body is normally tinted with seems to be leeching out into the fluid.</span> You don't feel as if you're dissolving, oddly enough. Neither do you feel any sort of trepidation. In fact, you almost want to let it happen.
+<br><br>
+Still, the concern is enough to temporarily return you to your senses.
+<br><br>
+<<link [[Turn Back (0:05)|Pure Pool Retreat]]>><<pass 5>><</link>>
+<br>
+<<link [[Relax (1:00)|Pure Pool 5]]>><<pass 60>><</link>>
+
+:: Pure Pool 5
+
+<<set $location to "castle">><<effects>>
+
+You throw caution to the wind and fully submerge yourself within the liquid. It gradually coalesces around your body, feeling less like water and more like an extension of yourself. It's not long before sleep takes you. During your rest, you awaken at times to find yourself being caressed by globules of... something. These beings, you notice, have a red nucleus similar to yours. 
+<br><br>
+Ordinarily, you'd be overcome with alarm and attempt to flee. You currently feel at peace, innately understanding that these creatures mean you no harm. Your drowsiness takes over yet again. The last thing you notice is the bluish tint your skin takes as your previous color flows out into the surrounding liquid.
+<br><br>
+<<link [[Next|Purified Slime]]>><</link>>
+
+
+:: Purified Slime
+
+<<set $location to "castle">><<effects>>
+
+<<if $slime is not 3>>
+	<<set $skinColor.naturalreset to $skinColor.natural>>
+	<<set $skinColor.natural to "chilly">> 
+	<<set $transformationParts.slime.bubble to "bdefault">>
+	<<set $transformationParts.slime.stream to "bdefault">>
+	<<set $transformationParts.slime.core to "default">>
+	<<set $haircolourreset to $haircolour>>
+	<<set $haircolour to "chillyblue">>
+	<<set $hairfringecolourreset to $hairfringecolour>>
+	<<set $hairfringecolour to "chillyblue">>
+	<<set $slime to 3>>
+<</if>>
+
+You seem to have a habit of passing out underground. The thought would be humorous if it weren't for the change your body has undergone. No longer the color you were before, your skin is suffused with a blue tint. More importantly, your body seems to be slightly more malleable than usual. You feel pure. Untainted. This is the way a slime was meant to be; unfettered by whatever pollutants there may be in the modern world. Or whatever other worlds are out there.
+<br><br>
+Refreshed from your nap, you make your way back through the cavernous storm drain to the castle courtyard.
+<br><br>
+<<link [[Next (0:10)|Castle]]>><<pass 10>><</link>>
+
 
 :: Castle Fly
 <<set $location to "tower">><<effects>>

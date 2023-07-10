@@ -222,11 +222,11 @@
 	<</if>>
 	<<set $inwater to 0>>
 
-	<<if $slime is 1 and $oxygen lte $oxygenmax>>
+	<<if $slime gt 0 and $oxygen lte $oxygenmax>>
 	<<oxygenrefresh>>
 	<</if>>
 
-	<<if $slime is 1>>
+	<<if $slime gt 0>>
 		<<set $pblevel to 0>>
 		<<set $pbgrowth to 0>>
 		<<set $pblevelballs to 0>>
@@ -248,12 +248,12 @@
 		<<set $mouthsensitivity to 4>>
 	<</if>>
 
-	<<if $slime is 1 and $nooxygen is 1>>
+	<<if $slime gt 0 and $nooxygen is 1>>
 		<<set $nooxygen to 0>>
 		<br><span class='green'>Normally, aphyxia would be an issue right now. Good thing you're a slime.</span><br>
 	<</if>>
 
-	<<if $slime is 1>>
+	<<if $slime gt 0>>
 		<<if $outside is 1 and $weather is "rain" and $worn.head.name isnot "umbrella hat">>
     	<<violence 40>>
 		<br>Get out of the rain! <span class='red'>It stings!<br><br></span>
@@ -987,7 +987,7 @@
 	<</for>>
 
 	<<if $inwater is 1>>
-		<<if $slime is 1>>
+		<<if $slime gt 0>>
 			<<violence 60>>
 			<span class="red"><br><br>You're slowly starting to dissolve. Leave the water!<br><br></span>
 		<</if>>

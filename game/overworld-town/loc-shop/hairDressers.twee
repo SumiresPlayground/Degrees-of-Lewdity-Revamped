@@ -30,7 +30,7 @@ You are in the hairdressers. Various hair products are available for sale. You c
 	You hide in a cupboard to protect your dignity.
 <<else>>
 	There's a seat available.
-	<<if $slime is 1>> <br><br><span class='green'>However, you would just absorb the dye, or gunk up the stylist's tools.</span><</if>>
+	<<if $slime gt 0>> <br><br><span class='green'>However, you would just absorb the dye, or gunk up the stylist's tools.</span><</if>>
 	<<if $ghost gte 1>> <br><br><span class='wraith'>Not that it would matter in your current condition.</span><</if>> 
 <</if>>
 <<if $hairgelBottles is undefined>>
@@ -71,7 +71,7 @@ You are in the hairdressers. Various hair products are available for sale. You c
 			<</if>>
 			<<hairchairicon>><<link [[Take a seat|Hairdressers Seat]]>><</link>>
 			<br><br>
-		<<elseif $slime is 1 and Time.daystate is "day">>
+		<<elseif $slime gt 0 and Time.daystate is "day">>
 			<span class='green'>Pass. You'd just absorb the dye or gunk up the place, anyway.</span>
 			<br><br>
 		<<elseif $ghost gte 1 and Time.daystate is "day">>

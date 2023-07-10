@@ -6,7 +6,6 @@
 You are in your bedroom.
 </a></span><br><br>
 
-
 /* Wallpaper */
 <<set _furniture to $furniture.bedroom>>
 <<if _furniture.wallpaper>>
@@ -477,6 +476,48 @@ You are in your bedroom.
 		<<set $skinColor.natural to "green">>
 		<<set $gob to 1>>
 	<</if>>
+
+	<<if $code is "slime">>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "slimy">> 
+		<<set $transformationParts.slime.bubble to "default">>
+		<<set $transformationParts.slime.stream to "default">>
+		<<set $transformationParts.slime.core to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "slimegreen">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "slimegreen">>
+		<<set $slime to 1>>
+	<</if>>
+		
+
+	<<if $code is "pslime">>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "amethyst">> 
+		<<set $transformationParts.slime.bubble to "pdefault">>
+		<<set $transformationParts.slime.stream to "pdefault">>
+		<<set $transformationParts.slime.core to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "lilacpurple">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "lilacpurple">>
+		<<set $slime to 2>>
+	<</if>>
+		
+	
+	<<if $code is "bslime">>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "chilly">> 
+		<<set $transformationParts.slime.bubble to "bdefault">>
+		<<set $transformationParts.slime.stream to "bdefault">>
+		<<set $transformationParts.slime.core to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "chillyblue">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "chillyblue">>
+		<<set $slime to 3>>
+	<</if>>
+
 <</link>>
 
 <br><<link [[Go back|Bedroom]]>><</link>>
@@ -1619,7 +1660,7 @@ The water's getting cold. "I'm squeaky clean," you say. "Thanks for the help." T
 <<elseif $danger gte (9900 - $allure / 3) and $hallucinations gte 2 and $slimedisable is "f" and $controlled is 0>>
 	You wash until you're squeaky clean.<<wash>><br><br>
 		
-		<<if $slime is 1>>
+		<<if $slime gt 0>>
 			<<violence 100>>
 			<span class='red'>You somehow endure the pain. You're a slime. Why did you do that?</span>
 		<</if>>
@@ -1632,7 +1673,7 @@ The water's getting cold. "I'm squeaky clean," you say. "Thanks for the help." T
 	<<generatey1>><<generatey2>><<generatey3>><<fameexhibitionism 3>>
 	You wash until you're squeaky clean.<<wash>><br><br>
 
-		<<if $slime is 1>>
+		<<if $slime gt 0>>
 			<<violence 100>>
 			<span class='red'>You somehow endure the pain. You're a slime. Why did you do that?</span>
 		<</if>>
@@ -1708,7 +1749,7 @@ The water's getting cold. "I'm squeaky clean," you say. "Thanks for the help." T
 You wash until you're squeaky clean.<<wash>>
 <br>
 <br>
-	<<if $slime is 1>>
+	<<if $slime gt 0>>
 		<<violence 100>>
 		<span class='red'>You somehow endure the pain. As a slime, you should try harder to avoid water.
 		<br>
@@ -3763,7 +3804,7 @@ You grab your clothes and dress with haste.
 	Your penis is locked inside the cage. Shaving around it will be a bit more tricky, but that's not a big deal.
 	<br>
 	<</if>>
-	<<if ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2) and $slime is 1>>
+	<<if ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2) and $slime gt 0>>
 		<<shavestyleicon 'clean'>><<link [[Smoothen surface (0:15)->Shave slime]]>><<pass 15>><<arousal 100>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<set $pbstrip to 0>><<set $makeup.pbcolour to 0>><</link>>
 		<br>
 	<</if>>
@@ -3875,7 +3916,7 @@ You sit down, spread your legs, and start carefully trimming your pubes. After a
 <<if _ownedColours.length == 0>>
 	You don't own any hair dyes. Maybe you should visit a cosmetics shop to buy some.
 	<br>
-<<elseif $slime is 1>>
+<<elseif $slime gt 0>>
 	<span class='green'>Nothing to do here. You'd just absorb and break down whatever dye you used.</span>
 	<br>
 <<elseif $ghost gte 1>>
