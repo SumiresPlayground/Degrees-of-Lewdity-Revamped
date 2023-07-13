@@ -344,8 +344,68 @@ Your nude body is engulfed almost entirely, and being teased mercilessly. It's t
 <br><br>
 <<arousal 10000>><<orgasm>>
 <br><br>
+<<if $slime gt 0 and $slime isnot 1>>
+<<link [[Next|Sewers Slime Again]]>><</link>>
+<<else>>
 <<link [[Next|Sewers Slime 4]]>><</link>>
 <br>
+<</if>>
+
+:: Sewers Slime Again
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+
+The massive slime, seemingly finally realizing that you are kin, changes it's behavor. Not satisfied with dissolving your clothing, it begins to absorb you as well. The accumulated filth from it's time spent in the sewers pushes against you. The large slime suddenly turns corrosive and you feel your own skin start to bubble and distort.
+<br><br>
+The pain is scathing at first, but you feel it subside as the core within your body begins to glow.
+Both you and the larger slime are illuminated by a green sheen. You are suddenly filled with agitation and disdain for the creature. More importantly, you feel powerful. You'll make this thing regret thinking of you as food. You're not sure where this surge of strength comes from, but you come to a sudden realization.
+<br><br>
+It's not the predator. You are.
+<br><br>
+
+<<link [[Consume it|Slime Transformation Redux]]>><<pass 20>><</link>>
+<br><br>
+<<link [[Defeat it|Slime Transformation 4]]>><<pass 20>><</link>>
+
+:: Slime Transformation Redux
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+
+	<<if $slime isnot 1>> 
+		<<set $slime to 1>>
+	<</if>>
+	<<if $slime is 1>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "slimy">> /*"amethyst" for alternate color */
+		<<set $transformationParts.slime.bubble to "default">>
+		<<set $transformationParts.slime.stream to "default">>
+		<<set $transformationParts.slime.core to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "slimegreen">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "slimegreen">>
+	<</if>>
+
+Your rage and indignation comes to a head as you lash out around you. You go as far as to start biting the slime, taking no heed of where it's been. Luckily, the filth within it's membrane doesn't seem to affect you. In fact, your body begins absorbing the surrounding slime. It turns green in the process, as if signifying the change from your prior form into this more offensive one.
+<br><br>
+The surroundings echo with your wrathful screams, your core shining brilliantly as you no longer attack the slime, but grab on to it tightly. The rate of absorption increases exponentionally as if you've become a living vacuum. There is a momentary shriek as the core of the opposing slime enters your body. It violently vibrates, then begins to dissolve along with the rest of the slime.
+<br><br>
+The last thing you remember before passing out is a vivid emerald flash.
+<br><br>
+<<link [[Next|Slime Transformation Redux 2]]>><<pass 20>><</link>>
+
+
+:: Slime Transformation Redux 2
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+
+You awaken from unconsciousness few moments later. You're starting to get annoyed how often that seems to happen down here. Recalling the events from before, you become acutely aware of how vulnerable you look. 
+<br><br>
+Looks can be deceiving, however. After consuming that large sewer slime, your body seems to maintain an elevated level of acidity. You're able to control it, as to not dissolve everything you touch, but woe betide any aggressor who tries anything with you. 
+<br><br>
+You get your bearings before continuing onward.
+<br><br>
+
+<<destinationsewersrandom>>
 
 :: Sewers Slime 4
 
@@ -430,12 +490,12 @@ As you come to your senses, you seem to subconsciously reform into your prior hu
 <br><br>
 
 
-	<<if $slime is 0>> 
-	<<set $slime to 1>>
+	<<if $slime isnot 1>> 
+		<<set $slime to 1>>
 	<</if>>
 	<<if $slime is 1>>
 		<<set $skinColor.naturalreset to $skinColor.natural>>
-		<<set $skinColor.natural to "slimy">> /*"amethyst" for alternate color */
+		<<set $skinColor.natural to "slimy">> 
 		<<set $transformationParts.slime.bubble to "default">>
 		<<set $transformationParts.slime.stream to "default">>
 		<<set $transformationParts.slime.core to "default">>
@@ -460,9 +520,11 @@ As you come to your senses, you seem to subconsciously reform into your prior hu
 	<br><br>
 	If you look closely enough, it still retains the barest hint of transparency. You notice a floating red mass in the center of your body. You get the feeling this... core... is of vital importance. For now, you try to make sense of your surroundings. A quick scan tells you you're still in the sewers.
 	<br><br>
-	The damp air feels unusually soothing. You walk forward a few meters when an errant stream of water from an adjacent pipe sprays you on the arm. <span class='red'>It stings.</span><<violence 20>> You flinch and wonder if what hit you really was water. If so, then your predicament may be even more dire that you initially realized.
+	Still somewhat frightened from the overall experience, you attempt to steady yourself by grasping onto an errant tree root which happened to be poking through the brickwork. After a few moments, you hear a quiet hiss and notice burn marks on parts of the root you were in contact with. Did you do that? The curiosity overrides your nervousness as you hold the root again, this time leaving it intact. <span case='green'>It seems you have some minor corrosive capabilities now.</span> You wonder if this is a self-defense mechanism before continuing on.
 	<br><br>
-	Once you're back in town, <span class='green'>perhaps the local hospital will have an idea of how to restore your humanity.</span>
+	The damp air feels unusually soothing. You walk forward a few meters when a stream of water from an adjacent pipe sprays you on the arm. <span class='red'>It stings.</span><<violence 20>> You flinch and wonder if what hit you really was water. If so, then your predicament may be even more dire that you initially realized.
+	<br><br>
+	Once you're back in town, <span class='gold'>perhaps the local hospital will have an idea of how to restore your humanity.</span>
 <</if>>
 
 <br><br>
@@ -474,6 +536,15 @@ As you come to your senses, you seem to subconsciously reform into your prior hu
 Summoning the last of your strength, you thrash within your viscous captor. Your sudden gyrations seem to throw off the synchronicity of the pulsing slimes. You sense the the ear parasites' agitation, yet they begin to calm down. The undulations of the giant slime begin to cease as well. Overcomed by fatigue, you lay suspended within the giant slime, opting to conserve your energy and wait for whatever fate it has in store for you.
 <br><br>
 So disoriented by this point, you hardly register that you are back in the light and the slime creature is gently laying you on the ground. You watch through lidded eyes as it moves away, into the darkness. Several minutes pass, while you catch your breath and regain your vigor. Then, you stand and brush off your nude body. Where are you?
+<br><br>
+<<destinationsewersrandom>>
+
+:: Slime Transformation 4
+
+You're not in the mood to be in contact with this disgusting denizen of the deep any more than you must.
+Your core no longer shines green, but instead reverts back to it's normal red state. The slime, seemingly understanding what nearly became of it, opts to quickly retreat to the dank corners of the sewer after uncerimoniously dropping you to the floor.
+<br><br>
+So disoriented by this point, you hardly register that you are back in the light. Several minutes pass, while you catch your breath and regain your vigor. Then, you stand and brush off your nude body. You and the slime covered some quite some distance during that struggle. Where are you?
 <br><br>
 <<destinationsewersrandom>>
 

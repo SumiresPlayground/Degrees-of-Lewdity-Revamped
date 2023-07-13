@@ -1543,7 +1543,7 @@
 		<<if !_struggletext>>
 			<<if $leftaction is "leftstruggle" and $rightaction is "rightstruggle">>
 				You struggle with all your might.
-			<<elseif $slime is 1>>
+			<<elseif $slime gt 0>>
 				You slip through it's grasp.
 			<<else>>
 				You struggle.
@@ -1553,9 +1553,9 @@
 		<<if $abomination is 1 and ($NPCList[0].lefthand is "arms" or $NPCList[0].righthand is "arms")>>
 			<<if $leftaction is "leftstruggle" and $rightaction is "rightstruggle">>
 				<<set $leftaction to 0>><<set $rightaction to 0>><<set $leftactiondefault to "leftstruggle">><<set $rightactiondefault to "rightstruggle">>
-				<<if currentSkillValue('physique') gte random(1, 32000) or $slime is 1>>
+				<<if currentSkillValue('physique') gte random(1, 32000) or $slime gt 0>>
 					<span class="teal">You manage to twist your arms free.</span>
-					<<if $slime is 1>><span class='green'> That was easy.</span><</if>>
+					<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 					<<defiance 5>>
 					<<set $leftarm to 0>><<set $rightarm to 0>>
 					<<set $NPCList[0].lefthand to 0>>
@@ -1564,9 +1564,9 @@
 					<span class="purple">Your arms remain entangled.</span>
 				<</if>>
 			<<else>>
-				<<if currentSkillValue('physique') gte random(1, 64000) or $slime is 1>>
+				<<if currentSkillValue('physique') gte random(1, 64000) or $slime gt 0>>
 					<span class="teal">You manage to twist your arms free.</span>
-					<<if $slime is 1>><span class='green'> That was easy.</span><</if>>
+					<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 					<<defiance 5>>
 					<<set $leftarm to 0>><<set $rightarm to 0>>
 					<<set $NPCList[0].lefthand to 0>>
@@ -1579,7 +1579,7 @@
 		<<if $leftaction is "leftstruggle" and _tentacle.shaft is "leftarm">>
 			<<set $leftaction to 0>><<set $leftactiondefault to "leftstruggle">>
 			<<set $speechstruggle to 1>><<defiance 1>>
-			<<if currentSkillValue('physique') gte random(1, 64000) or $slime is 1>>
+			<<if currentSkillValue('physique') gte random(1, 64000) or $slime gt 0>>
 				<span class="teal">You manage to twist your left arm free.</span>
 				<<defiance 5>><<tentacleadvdisable _tentacle>>
 				<<set $leftarm to 0>>
@@ -1590,7 +1590,7 @@
 		<<if $rightaction is "rightstruggle" and _tentacle.shaft is "rightarm">>
 			<<set $rightaction to 0>><<set $rightactiondefault to "rightstruggle">>
 			<<defiance 1>><<set $speechstruggle to 1>>
-			<<if currentSkillValue('physique') gte random(1, 64000) or $slime is 1>>
+			<<if currentSkillValue('physique') gte random(1, 64000) or $slime gt 0>>
 				<span class="teal">You manage to twist your right arm free.</span>
 				<<defiance 5>><<tentacleadvdisable _tentacle>>
 				<<set $rightarm to 0>>

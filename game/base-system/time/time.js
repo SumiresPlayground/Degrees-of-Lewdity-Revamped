@@ -770,7 +770,7 @@ function minutePassed(minutes) {
 	fragment.append(wikifier("pain", minutes, -1));
 
 	// Arousal
-	const arousalMultiplier = V.backgroundTraits.includes("lustful") ? 0.2 * (12 - Math.floor(V.purity / 80)) + 1 + (V.purity <= 50 ? 1 : 0) : -10;
+	const arousalMultiplier = V.slime === 2 || V.backgroundTraits.includes("lustful") ? 0.2 * (12 - Math.floor(V.purity / 80)) + 1 + (V.purity <= 50 ? 1 : 0) : -10;
 	fragment.append(wikifier("arousal", minutes * arousalMultiplier + getArousal(minutes)));
 	V.timeSinceArousal = V.arousal < V.arousalmax / 4 ? V.timeSinceArousal + minutes : 1;
 	if (V.player.vaginaExist) fragment.append(passArousalWetness(minutes));

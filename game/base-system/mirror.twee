@@ -177,7 +177,7 @@
 	<<link "Change your hair style">><<set $mirrorMenu to "hair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
 	
-	<<if $slime is 1>>
+	<<if $slime gt 0>>
 	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
 	<</if>>
 
@@ -393,7 +393,7 @@
 			Ghostly
 			<br>
 		<</if>>
-		<<if $slime is 1>>
+		<<if $slime gt 0>>
 			Slimy
 			<br>
 		<</if>>
@@ -566,7 +566,7 @@
 			Ghostly
 			<br>
 		<</if>>
-		<<if $slime is 1>>
+		<<if $slime gt 0>>
 			Slimy
 			<br>
 		<</if>>
@@ -949,7 +949,7 @@
 		<<mirrorwet "penis" $player.bodyliquid.penis.semen $player.bodyliquid.penis.goo $player.bodyliquid.penis.nectar>>
 		<<mirrorwet "anus" $player.bodyliquid.anus.semen $player.bodyliquid.anus.goo $player.bodyliquid.anus.nectar>>
 		<<mirrorwet "mouth" $player.bodyliquid.mouth.semen $player.bodyliquid.mouth.goo $player.bodyliquid.mouth.nectar>>
-	<<elseif $slime is 1>>
+	<<elseif $slime gt 0>>
 		<span class='green'>Your skin feels especially slippery, but it's still clean.</span>
 	<<else>>
 		Your skin feels clean.
@@ -1890,7 +1890,7 @@
 
 <<widget "mirrorMakeup">>
 
-<<if $slime is 1>>
+<<if $slime gt 0>>
 <span class='green'>Due to their composition, these cosmetics should remain on your skin despite your condition.</span>
 <br><br>
 <</if>>
@@ -2057,7 +2057,7 @@
 		<<set _dyes = $makeup.owned.hairdye.filter(x => x.count > 0)>>
 		<<if _dyes.length == 0>>
 			You have no dyes.
-		<<elseif $slime is 1>>
+		<<elseif $slime gt 0>>
 			<span class='green'>Unfortunately, you'd just break down and absorb whatever dye you tried to apply.</span>
 		<<elseif $ghost gte 1>>
 			<span class='green'>Unfortunately, these won't affect you in your ephemeral state.</span>
@@ -2439,13 +2439,13 @@
 		__Horns__<br>
 		<<link "Clear">><<clearhorns>><<updatesidebarimg>><</link>><br>
 		<<if $demon gte 2>>
-			<<link "Demon Default">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><<if $slime isnot 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<link "Demon Default">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
 		<</if>>
 		<<if $demon gte 2>>
-			<<link "Demon Succubus">><<clearhorns>><<set _demon.horns = "succubus">><<updatesidebarimg>><</link>><<if $slime isnot 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<link "Demon Succubus">><<clearhorns>><<set _demon.horns = "succubus">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
 		<</if>>
 		<<if $demon gte 2>>
-			<<link "Demon Classic">><<clearhorns>><<set _demon.horns = "classic">><<updatesidebarimg>><</link>><<if $slime isnot 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<link "Demon Classic">><<clearhorns>><<set _demon.horns = "classic">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
 		<</if>>
 		<<if $cow gte 2 or $cowtf is 1>>
 			<<link "Cow">><<clearhorns>><<set _cow.horns = "default">><<updatesidebarimg>><</link>><br>
@@ -2670,7 +2670,7 @@
 <</widget>>
 
 <<widget "slimehair">>
-	<<if $slime is 1>>
+	<<if $slime gt 0>>
 		<br><br>
 		<span class='green'>You may not be able to alter your body's shape to the degree most slimes can...
 		<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>

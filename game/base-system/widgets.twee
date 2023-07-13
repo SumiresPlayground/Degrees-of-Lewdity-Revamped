@@ -168,7 +168,7 @@
 		<span class="lblue">Air:</span>
 		<<if $oxygen lt 0 and $slime is 0 and $transformationParts.traits.aquatic is "disabled">>
 			<span class="red">You can't breathe! Your stress will increase and you'll soon pass out if you can't find air.</span>
-		<<elseif $oxygen lt 0 and ($slime is 1 or $transformationParts.traits.aquatic isnot "disabled")>>
+		<<elseif $oxygen lt 0 and ($slime gt 0 or $transformationParts.traits.aquatic isnot "disabled")>>
 			<span class="blue">You possess a trait that negates air loss while underwater. You're fine.</span>
 		<</if>>
 		<<oxygencaption>>
@@ -349,6 +349,10 @@
 			<<set $stress += (_violence * _drunkMod * _stressMod) * (1 - ($masochism / 1200))>>
 			<<combattrauma _violence * _traumaMod>>
 			<<if $slime is 1>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.60>>
+			<<elseif $slime is 2>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.60>>
+			<<elseif $slime is 3>>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.30>>
 			<<else>>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod)>>
@@ -461,6 +465,9 @@
 			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.5>>
 		<<else>>
 			<<set _thedamage to (2 * _defiance * ($physique / 4000))>>
+		<</if>>
+		<<if $slime is 1>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.3>>
 		<</if>>
 		<<if $enemyno gte 2>>
 			<<npcdamage _args[1]>>
@@ -577,38 +584,65 @@
 	<<else>>
 		<<set $enemyarousal += ($oralskill / 100)>><<oralskill 5>><<set $oralskillup to 1>>
 	<</if>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($oralskill / 30)>><<oralskill 5>><<set $oralskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "vaginalskilluse">>
 	<<set $enemyarousal += ($vaginalskill / 100)>><<vaginalskill 5>><<set $vaginalskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($vaginalskill / 30)>><<vaginalskill 5>><<set $vaginalskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "analskilluse">>
 	<<set $enemyarousal += ($analskill / 100)>><<analskill 5>><<set $analskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($analskill / 30)>><<analskill 5>><<set $analskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "handskilluse">>
 	<<set $enemyarousal += ($handskill / 100)>><<handskill 5>><<set $handskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($handskill / 30)>><<handskill 5>><<set $handskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "feetskilluse">>
 	<<set $enemyarousal += ($feetskill / 100)>><<feetskill 5>><<set $feetskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($feetskill / 30)>><<feetskill 5>><<set $feetskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "bottomskilluse">>
 	<<set $enemyarousal += ($bottomskill / 100)>><<bottomskill 5>><<set $bottomskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($bottomskill / 30)>><<bottomskill 5>><<set $bottomskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "thighskilluse">>
 	<<set $enemyarousal += ($thighskill / 100)>><<thighskill 5>><<set $thighskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($thighskill / 30)>><<thighskill 5>><<set $thighskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "chestskilluse">>
 	<<set $enemyarousal += ($chestskill / 100)>><<chestskill 5>><<set $chestskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($chestskill / 30)>><<chestskill 5>><<set $chestskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "penileskilluse">>
 	<<set $enemyarousal += ($penileskill / 100)>><<penileskill 5>><<set $penileskillup to 1>>
+	<<if $slime is 2>>
+		<<set $enemyarousal += ($penileskill / 30)>><<penileskill 5>><<set $penileskillup to 1>>
+	<</if>>
 <</widget>>
 
 <<widget "skulduggeryskilluse">>
@@ -1268,7 +1302,7 @@
 		<</if>>
 		<<statbarinverted $oxygen $oxygenmax _showCaptionText>>
 		<div style="clear:both;"></div>
-		<<if $slime is 1>><br>Someone is attempting to suffocate you.  <span class='green'>Not that it matters.</span><</if>>
+		<<if $slime gt 0>><br>Someone is attempting to suffocate you.  <span class='green'>Not that it matters.</span><</if>>
 	</div>
 <</widget>>
 
@@ -2691,7 +2725,7 @@
 <<widget "wet_all">>
 	<<wet_upper>>
 	<<wet_lower>>
-	<<if $slime is 1>>
+	<<if $slime gt 0>>
 	<<violence 50>>
 		<span class='green'>Watch out for water!</span><<gpain>><br><br>
 	<</if>>
@@ -2706,7 +2740,7 @@
 			/* skin wetness system is not implemented... yet? */
 			<<set V[_slot + "wet"] to 200>>
 			<<set V[_slot + "wetstage"] to 3>>
-			<<if $slime is 1>>
+			<<if $slime gt 0>>
 				<<violence 20>>
 			<</if>>
 		<</if>>
@@ -2720,7 +2754,7 @@
 		<<elseif !$worn[_slot].type.includes("naked")>>
 			<<set V[_slot + "wet"] to 200>>
 			<<set V[_slot + "wetstage"] to 3>>
-			<<if $slime is 1>>
+			<<if $slime gt 0>>
 				<<violence 20>>
 			<</if>>
 		<</if>>

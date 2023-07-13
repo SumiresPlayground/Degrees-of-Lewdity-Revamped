@@ -116,7 +116,8 @@ setup.colours = {
 		ghostly: ["#DBFFFF", "#DBFFFF"],
 		ice: ["#E3FFFE", "#E3FFFE"],
 		slimy: ["#CBFFCB", "#98FF98"],
-		amethyst: ["#bba9f5", "#8451fc"],
+		chilly: ["#87e5f8", "#01c9fe"],
+		amethyst: ["#BBA9f5", "#8451FC"],
 		green: ["#B5C47A", "#81A558"]
 	},
 	/**
@@ -575,7 +576,7 @@ setup.colours.hair = [
 		},
 	},
 	{
-		variable: "lilac",
+		variable: "lilacpurple",
 		name: "lilac purple",
 		name_cap: "Lilac Purple",
 		csstext: "lilacpurplehair",
@@ -583,6 +584,18 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#D2AFFF",
+			opacity: 0.9
+		},
+	},
+	{
+		variable: "chillyblue",
+		name: "chilly blue",
+		name_cap: "Chilly Blue",
+		csstext: "chillybluehair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#7ce2fe",
 			opacity: 0.9
 		},
 	},
