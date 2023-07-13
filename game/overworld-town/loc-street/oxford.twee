@@ -155,7 +155,7 @@ You are on Oxford Street. There's an eclectic mix of buildings, but most notable
 			<</if>>
 			<br><br>
 		<</if>>
-		<<<if Time.schoolDay and Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0 and $weather isnot "rain" and $weather isnot "snow">>
+		<<if Time.schoolDay and Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0 and $weather isnot "rain" and $weather isnot "snow">>
 			You see Casey lounging in the shade next to an old scrap motorcycle.
 			<br><br>
 			<<if $motorupgrade is 1>>
@@ -164,7 +164,7 @@ You are on Oxford Street. There's an eclectic mix of buildings, but most notable
 				<<link [[Ride home with Casey (0:10)|Casey Ride Home]]>><<npcincr Casey love 3>><<willpowerdifficulty 1 100>><<pass 10>><</link>><<ggglove>>
 			<</if>>
 			<br><br>
-		<<elseif Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0>>
+		<<elseif Time.schoolDay and Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0>>
 			You see Casey waiting outside the school with an umbrella.
 			<br><br>
 			<<link [[Walk home with Casey (0:20)|Casey Walk Home]]>><<npcincr Casey love 3>><<pass 30>><</link>><<ggglove>>
