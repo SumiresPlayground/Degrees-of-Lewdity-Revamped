@@ -2486,11 +2486,13 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<set $dolphin to 2>><<set $physicalTransform to 1>>
+				<<if $dolphinbuild gte 10 and $transformdisable is "f" and $physicalTransform isnot 1>>
+					<<set $dolphin to 2>><<set $physicalTransform to 1>>
 					<span class="blue">You feel as though you can hold your breath for longer than before.</span>
 					<<set $transformationParts.traits.lungs to "default">>
 					<<set $oxygenmax to 1500>>
 					<br><br>
+				<</if>>
 			<<case 2>>
 				<<if $dolphinbuild gte 25 and $transformdisable is "f">>
 					<<set $dolphin to 4>>
@@ -2899,14 +2901,14 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $spiderbuild gte 5>>
+				<<if $spiderbuild gte 5 and $transformdisable is "f" and $physicalTransform isnot 1>>
 					<<set $spider to 1>>
 					<<set $physicalTransform to 1>>
 					<span class="gold">You have a strange toothache.</span>
 					<br><br>
 				<</if>>
 			<<case 1>>
-				<<if $spiderbuild gte 10>>
+				<<if $spiderbuild gte 10 and $transformdisable is "f">>
 					<<set $spider to 2>>
 					<span class="gold">Your mouth feels different. You explore your mouth and wince as your tongue presses against your new fangs.</span>
 					<<set $transformationParts.traits.fangs to "default">>
@@ -2918,7 +2920,7 @@
 					<br><br>
 				<</if>>
 			<<case 2>>
-				<<if $spiderbuild gte 15>>
+				<<if $spiderbuild gte 15 and $transformdisable is "f">>
 					<<set $spider to 3>>
 					<span class="gold">Your eyes itch. So do your temples, for that matter.</span>
 					<br><br>
@@ -2929,7 +2931,7 @@
 					<br><br>
 				<</if>>
 			<<case 3>>
-				<<if $spiderbuild gte 20>>
+				<<if $spiderbuild gte 20 and $transformdisable is "f">>
 					<<set $spider to 4>>
 					<span class="gold">Your vision scatters. You feel disoriented and start seeing double. Triple. Quadruple. The sensation fades. Your eyesight stabilizes and becomes more clear than before. You have developed multiple pairs of spider eyes.</span>
 					<<cleareyes>>
@@ -2942,11 +2944,11 @@
 					<br><br>
 				<</if>>
 			<<case 4>>
-				<<if $spiderbuild gte 25>>
+				<<if $spiderbuild gte 25 and $transformdisable is "f">>
 					<<set $spider to 5>>
 					<span class="gold">Your lower back itches.</span>
 					<br><br>
-				<<elseif $spiderbuild lt 20>>
+				<<elseif $spiderbuild lte 20>>
 					<<set $spider to 3>>
 					<span class="gold">Your extra eyes have been reabsorbed. Your vision returns to it's original state.</span>
 					<<set $transformationParts.spider.eyes to "disabled">>
@@ -2954,7 +2956,7 @@
 					<br><br>
 				<</if>>
 			<<case 5>>
-				<<if $spiderbuild gte 30>>
+				<<if $spiderbuild gte 30 and $transformdisable is "f">>
 					<<set $permanentTransform = 1>>
 					<<set $spidertf = 1>>
 					<<set $spider to 6>>
@@ -2965,7 +2967,7 @@
 					<<set $thicktail to "true">>
 					<<earnFeat "Spider">>
 					<br><br>
-				<<elseif $spideruild lt 25>>
+				<<elseif $spiderbuild lt 25>>
 					<<set $spider to 4>>
 					<span class="gold">Your lower back has stopped itching.</span>
 					<br><br>
