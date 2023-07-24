@@ -2147,14 +2147,14 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $bearbuild gte 5>>
+				<<if $bearbuild gte 5 and $transformdisable is "f" and $physicalTransform isnot 1>>
 					<<set $bear to 1>>
 					<<set $physicalTransform to 1>>
 					<span class="gold">You have a strange toothache.</span>
 					<br><br>
 				<</if>>
 			<<case 1>>
-				<<if $bearbuild gte 10>>
+				<<if $bearbuild gte 10 and $transformdisable is "f">>
 					<<set $bear to 2>>
 					<span class="gold">Your mouth and eyes feel different. You explore your mouth and yelp in pain as your tongue presses against your new fangs.</span>
 					<<set $transformationParts.traits.fangs to "default">>
@@ -2165,18 +2165,18 @@
 					<span class="gold">Your toothache has stopped.</span>
 					<br><br>
 				<</if>>
-			<<case 3>>
+			<<case 2>>
 				<<if $bearbuild gte 15 and $transformdisable is "f">>
 					<<set $bear to 3>>
 					<span class="gold">Your ears tingle.</span>
 					<br><br>
-				<<elseif $bearbuild lte 10 and $transformdisable is "f">>
+				<<elseif $bearbuild lt 10>>
 					<<set $bear to 1>>
 					<span class="gold">Your fangs have turned into regular teeth.</span>
 					<<set $transformationParts.traits.fangs to "disabled">>
 					<br><br>
 				<</if>>
-			<<case 4>>
+			<<case 3>>
 				<<if $bearbuild gte 20 and $transformdisable is "f">>
 					<<set $bear to 4>>
 					<<clearears>>
@@ -2188,7 +2188,7 @@
 					<span class="gold">Your ears no longer tingle.</span>
 					<br><br>
 				<</if>>
-			<<case 5>>
+			<<case 4>>
 				<<if $bearbuild gte 25 and $transformdisable is "f">>
 					<<set $bear to 5>>
 					<span class="gold">Your lower back tingles.</span>
@@ -2199,7 +2199,7 @@
 					<span class="gold">Your bear ears have disappeared.</span>
 					<br><br>
 				<</if>>
-			<<case 6>>
+			<<case 5>>
 				<<if $bearbuild gte 30 and $transformdisable is "f">>
 					<<set $permanentTransform = 1>>
 					<<set $beartf = 1>>
@@ -2214,14 +2214,14 @@
 					<<set $bear to 4>>
 					<span class="gold">Your lower back has stopped tingling.</span>
 					<br><br>
-				<<elseif $bearbuild lt 30>>
+				<</if>>
+			<<case 6>>
+				<<if $bearbuild lt 30>>
 					<<set $bear to 5>>
 					<<set $transformationParts.bear.tail to "disabled">>
 					<<set $hastail to "false">>
 					<span class="gold">Your tail has disappeared.</span>
 					<br><br>
-					<<set $beartf = 1>>
-					<<set $permanentTransform = 1>>
 				<</if>>
 			<<case 99>>
 				<<set $physicalTransform to 0>>
@@ -2483,18 +2483,16 @@
 <</widget>>
 
 <<widget "dolphinTransform">>
-	<<if $args[0] gte 0>>
+	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $dolphinbuild gte 10 and $transformdisable is "f" and $physicalTransform isnot 1>>
-					<<set $dolphin to 2>><<set $physicalTransform to 1>>
+				<<set $dolphin to 2>><<set $physicalTransform to 1>>
 					<span class="blue">You feel as though you can hold your breath for longer than before.</span>
 					<<set $transformationParts.traits.lungs to "default">>
 					<<set $oxygenmax to 1500>>
 					<br><br>
-				<</if>>
-			<<case 1>>
-				<<if $dolphinbuild gte 20 and $transformdisable is "f">>
+			<<case 2>>
+				<<if $dolphinbuild gte 25 and $transformdisable is "f">>
 					<<set $dolphin to 4>>
 					<span class="gold">Your bottom feels strange. You reach behind you, and find a slick lubricated tail.</span>
 					<<cleartail>>
@@ -2503,14 +2501,14 @@
 					<<set $swimtail to "true">>
 					<<set $thicktail to "true">>
 					<br><br>
-				<<elseif $dolphinbuild lt 10>>
-					<<set $dolphin to 1>><<set $physicalTransform to 0>>
+				<<elseif $dolphinbuild lte 20>>
+					<<set $dolphin to 0>><<set $physicalTransform to 0>>
 					<span class="blue">Your lung capacity has returned to normal.</span>
 					<<set $transformationParts.traits.lungs to "disabled">>
 					<<set $oxygenmax to 1200>>
 					<br><br>
 				<</if>>
-			<<case 2>>
+			<<case 4>>
 				<<if $dolphinbuild gte 30 and $transformdisable is "f">>
 					<<set $dolphin to 6>>
 					<<set $dolphintf to 1>>
@@ -2518,8 +2516,8 @@
 					<span class="gold">Your feel more confident at swimming.</span>
 					<<set $transformationParts.traits.aquatail to "default">>
 					<br><br>
-				<<elseif $dolphinbuild lt 15>>
-					<<set $dolphin to 3>>
+				<<elseif $dolphinbuild lt 25>>
+					<<set $dolphin to 2>>
 					<span class="gold">Your tail has disappeared.</span>
 					<<set $transformationParts.dolphin.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -2527,9 +2525,9 @@
 					<<set $thicktail to "false">>
 					<br><br>
 				<</if>>
-			<<case 3>>
-				<<if $dolphinbuild lt 20>>
-					<<set $dolphin to 2>>
+			<<case 6>>
+				<<if $dolphinbuild lt 30>>
+					<<set $dolphin to 4>>
 					<span class="gold">Your feel less confident at swimming.</span>
 					<<set $transformationParts.traits.aquatail to "disabled">>
 					<br><br>
@@ -2544,7 +2542,6 @@
 				<<set $swimtail to "false">>
 				<<set $thicktail to "false">>
 				<<set $transformationParts.traits.aquatail to "disabled">>
-				
 		<</switch>>
 	<<else>>
 		<<clearAnimalTransformations>>

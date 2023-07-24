@@ -436,6 +436,7 @@ window.startingPlayerTransform = function(){
 			case "dragon": new Wikifier(null, '<<dragonTransform>><<startingPlayerImageUpdate>>'); break;
 			case "dolphin": new Wikifier(null, '<<dolphinTransform>><<startingPlayerImageUpdate>>'); break;
 			case "lizard": new Wikifier(null, '<<lizardTransform>><<startingPlayerImageUpdate>>'); break;
+			case "dog": new Wikifier(null, '<<dogTransform>><<startingPlayerImageUpdate>>'); break;
 			case "bear": new Wikifier(null, '<<bearTransform>><<startingPlayerImageUpdate>>'); break;
 			case "deer": new Wikifier(null, '<<deerTransform>><<startingPlayerImageUpdate>>'); break;
 			case "sheep": new Wikifier(null, '<<sheepTransform>><<startingPlayerImageUpdate>>'); break;
