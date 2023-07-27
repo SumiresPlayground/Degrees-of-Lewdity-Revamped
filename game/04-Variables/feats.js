@@ -640,7 +640,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
-	
+	"Dog":{
+		title: "Man's best friend",
+		desc: "Maybe too friendly.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	"Bee":{
 		title: "All the Buzz",
 		desc: "Watch out for honey.",
