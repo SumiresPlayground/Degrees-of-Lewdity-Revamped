@@ -209,19 +209,19 @@ setup.debugMenu.eventList = {
 		},
 		{
 			link: [`Make all beasts male`, stayOnPassageFn],
-			widgets: [`<<set $monsterchance to 0>>`, `<<set $beastmalechance to 100>>`],
+			widgets: [`<<set $monsterchance to 0>>`, `<<set $beastMaleChanceMale to 100>>`, `<<set $beastMaleChanceFemale to 100>>`],
 		},
 		{
 			link: [`Make all beasts female`, stayOnPassageFn],
-			widgets: [`<<set $monsterchance to 0>>`, `<<set $beastmalechance to 0>>`],
+			widgets: [`<<set $monsterchance to 0>>`, `<<set $beastMaleChanceMale to 0>>`, `<<set $beastMaleChanceFemale to 0>>`],
 		},
 		{
 			link: [`Make all beasts cuntboys`, stayOnPassageFn],
-			widgets: [`<<set $beastmalechance to 100>>`, `<<set $cbchance to 100>>`],
+			widgets: [`<<set $beastMaleChanceMale to 100>>`, `<<set $beastMaleChanceFemale to 100>>`, `<<set $cbchance to 100>>`],
 		},
 		{
 			link: [`Make all beasts dickgirls`, stayOnPassageFn],
-			widgets: [`<<set $beastmalechance to 0>>`, `<<set $dgchance to 100>>`],
+			widgets: [`<<set $beastMaleChanceMale to 0>>`, `<<set $beastMaleChanceFemale to 0>>`, `<<set $dgchance to 100>>`],
 		},
 		{
 			link: [`Make all beasts monster people`, stayOnPassageFn],
@@ -559,6 +559,17 @@ setup.debugMenu.eventList = {
 				`<<set $outside to 1>>`,
 				`<<set $location to "town">>`,
 				`<<set $bus to "domus">>`,
+			],
+		},
+		{
+			link: [`Raccoons Rape Me`, "Raccoons"],
+			widgets: [
+				`<<endcombat>>`,
+				`<<set $molestationstart to 1>>`,
+				`<<beastNEWinit 3 raccoon>>`,
+				`<<set $outside to 1>>`,
+				`<<set $location to "landfill">>`,
+				`<<set $bus to "harvest">>`,
 			],
 		},
 		{

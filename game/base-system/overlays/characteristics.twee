@@ -1,8 +1,9 @@
 :: Characteristics [widget]
 
 <<widget "characteristics">>
+	<br>
 	You are
-	<<if $wolfgirl gte 6 or $cat gte 6 or $cow gte 6 or $harpy gte 6 or $fox gte 6 or $sheep gte 6 or $bee gte 6 or $deer gte 6 or $bear gte 6 or $dragon gte 6 or $lizard gte 6 or $dolphin gte 6 or $dog gte 6>>
+	<<if $wolfgirl gte 6 or $cat gte 6 or $cow gte 6 or $harpy gte 6 or $fox gte 6 or $sheep gte 6 or $bee gte 6 or $deer gte 6 or $bear gte 6 or $dragon gte 6 or $lizard gte 6 or $dolphin gte 6 or $dog gte 6 or $raccoon gte 6 or $fish gte 6 or $horse gte 6 or $pig gte 6 or $frog gte 6 or $spider gte 6>>
 		<<if $angel gte 6>>
 			an angelic
 		<<elseif $fallenangel gte 2>>
@@ -46,13 +47,35 @@
 	    	dragon
 		<<elseif $lizard gte 6>>
 	    	lizard
+		<<elseif $raccoon gte 6>>
+			raccoon
+		<<elseif $spider gte 6>>
+	    	spider
+		<<elseif $pig gte 6>>
+	    	pig
+		<<elseif $frog gte 6>>
+			frog
+		<<elseif $fish gte 6>>
+			fish	
 		<<elseif $dolphin gte 6>>
 	    	dolphin
 		<<elseif $dog gte 6>>
 	    	dog
 		<</if>>
-		<<if $ghost is 1>>
+		<<if $ghost gte 1 and $horse gte 6>>
+			kelpie
+		<<elseif $ghost is 1>>
 			spirit
+		<<elseif $ghost is 2>>
+			Yuki Onna
+		<<elseif $horse gte 6>>
+			horse
+		<</if>>
+		<<if $slime gt 0>>
+			slime
+		<</if>>
+		<<if $gob is 1>>
+			goblin
 		<</if>>
 	<<else>>
 		<<if $angel gte 6>>
@@ -61,8 +84,14 @@
 			a fallen angel
 		<<elseif $demon gte 6>>
 			a demon
+		<<elseif $slime gt 0>>
+			a slime
 		<<elseif $ghost is 1>>
 			a spirit
+		<<elseif $ghost is 2>>
+			a Yuki Onna
+		<<elseif $gob is 1>>
+			a goblin
 		<<else>>
 			a<<if $NudeGenderDC lt 0 and $player.gender_posture is "n">>n<</if>>
 		<</if>>
@@ -83,7 +112,6 @@
 
 	<!-- Eye details -->
 	<<print window.buildEyeDetails()>>
-	<br><br>
 	<!-- -->
 
 	You have a <<skincolourtext>>
@@ -280,7 +308,7 @@
 
 	<!--Lactation Details-->
 	<<if $lactating is 1 and $breastfeedingdisable is "f">>
-		<<set _milkCapacityTextConfig = { currentValue : $milk_volume, preText: 'Your breasts produce a ', postText: ' amount of milk, ', states : [
+		<<set _milkCapacityTextConfig = { currentValue : $milk_volume, preText: 'Your <<breasts>> produce a ', postText: ' amount of milk, ', states : [
 					{ requiredValue: 0,		color: 'red',		description: 'tiny'},
 					{ requiredValue: 100,	color: 'pink',		description: 'small'},
 					{ requiredValue: 300,	color: 'purple',	description: 'limited'},
@@ -345,7 +373,7 @@
 		<<characteristic-text _analWetnessTextConfig>>
 	<</if>>
 
-	<br>
+	<br><br>
 	<<bodywriting>>
 	<div id="characteristics-display">
 
@@ -412,7 +440,7 @@
 						<<default>><<set _pregnancyModifier to 120>>
 					<</switch>>
 					<<set _physiqueConfig.modifier to Math.floor(_physiqueConfig.modifier * (1 - (playerBellySize() / _pregnancyModifier)))>>
-					<<set _physiqueConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _physiqueConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 				<</if>>
 				<<switch $location>>
 					<<case "forest" "moor" "farm" "alex_farm">>
@@ -549,11 +577,7 @@
 				<<set _corruptionConfig =	{ name : "Corruption",	displayType : "none",	currentValue : $corruption_slime,	modifier: 100, modTypes: { good: [], bad: [] },		meterColor: 'red'}>>
 				<<set _skulduggeryConfig =	{ name : "Skulduggery", displayType : "grade",	currentValue : $skulduggery,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _dancingConfig =		{ name : "Dancing",		displayType : "grade",	currentValue : $danceskill,			modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-				<<if $transformationParts.traits.aquatail is "enabled">>
-					<<set _swimmingConfig =		{ name : "Swimming",	displayType : "grade",	currentValue : $swimmingskill,		modifier: 150, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
-				<<else>>
-					<<set _swimmingConfig =		{ name : "Swimming",	displayType : "grade",	currentValue : $swimmingskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
-				<</if>>
+				<<set _swimmingConfig =		{ name : "Swimming",	displayType : "grade",	currentValue : $swimmingskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _athleticsConfig =	{ name : "Athletics",	displayType : "grade",	currentValue : $athletics,			modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _tendingConfig =		{ name : "Tending",		displayType : "grade",	currentValue : $tending,			modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _housekeepingConfig =	{ name : "Housekeeping",displayType : "grade",	currentValue : $housekeeping,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
@@ -568,11 +592,11 @@
 						<<default>><<set _pregnancyModifier to 120>>
 					<</switch>>
 					<<set _dancingConfig.modifier to Math.floor(_dancingConfig.modifier * (1 - (_bellySize / _pregnancyModifier)))>>
-					<<set _dancingConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _dancingConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 					<<set _swimmingConfig.modifier to Math.floor(_swimmingConfig.modifier * (1 - (_bellySize / _pregnancyModifier)))>>
-					<<set _swimmingConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _swimmingConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 					<<set _athleticsConfig.modifier to Math.floor(_athleticsConfig.modifier * (1 - (_bellySize / _pregnancyModifier)))>>
-					<<set _athleticsConfig.modTypes.bad.pushUnique("pregnant")>>
+					<<set _athleticsConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 				<</if>>
 				<<if $worn.hands.type.includes("sticky_fingers")>>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
@@ -582,9 +606,25 @@
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("sharp eyes")>>
 				<</if>>
+				<<if $transformationParts.dragon.eyes isnot "disabled">>
+					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.10)>>
+					<<set _skulduggeryConfig.modTypes.good.pushUnique("dragon eyes")>>
+				<</if>>
 				<<if $fox gte 6>>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.10)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("fox")>>					
+				<</if>>
+				<<if $transformationParts.traits.aquatail is "default">>
+					<<set _swimmingConfig.modifier to Math.floor(_swimmingConfig.modifier * 1.30)>>
+					<<set _swimmingConfig.modTypes.good.pushUnique("aquatail")>>		
+				<</if>>
+				<<if $transformationParts.traits.webbedfeet is "default">>
+					<<set _swimmingConfig.modifier to Math.floor(_swimmingConfig.modifier * 1.20)>>
+					<<set _swimmingConfig.modTypes.good.pushUnique("webbedfeet")>>		
+				<</if>>
+				<<if $transformationParts.traits.vigorous is "default">>
+					<<set _athleticsConfig.modifier to Math.floor(_athleticsConfig.modifier * 1.40)>>
+					<<set _athleticsConfig.modTypes.good.pushUnique("vigorous")>>
 				<</if>>
 				<<if $worn.under_upper.type.includesAny("dance", "naked") and $worn.under_lower.type.includesAny("dance", "naked")
 				and $worn.upper.type.includesAny("dance", "naked")and $worn.lower.type.includesAny("dance", "naked")>>
@@ -870,7 +910,6 @@
 			<</if>>*/
 		</div>
 	</div>
-	<br><br>
 
 	<br>
 	<span class="gold">Insecurities</span>

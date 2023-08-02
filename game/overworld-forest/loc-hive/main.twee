@@ -291,11 +291,9 @@ You squeeze into the pod, feeling the waxy walls against your skin.
 
 :: Hive Barracks Sleep 
 <<set $hiveslept to 1>>
-<<run Save.autosave.save(null, {"saveId":$saveId, "saveName":$saveName})>>
-<<if _preventUpdate is undefined>>
-	<<run setSaveDetail("autosave",{"saveId":$saveId,"saveName":$saveName})>>
-<</if>>
+<<set _autosavehere to true>>
 <<sleep>><<effects>>
+<<sleepeffects>>
 
 <<if $nightmares gte 1 and $controlled is 0>>
 	You dream you are being hunted by something dark and terrible.

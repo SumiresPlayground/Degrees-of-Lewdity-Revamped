@@ -280,6 +280,38 @@
 		<</if>>
 	<</if>>
 
+	<<if $caseygender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $caseygender to "f">>
+		<<else>>
+			<<set $caseygender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $caseygenitals is undefined>>
+		<<if $caseygender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $caseygenitals to "penis">>
+			<<else>>
+				<<set $caseygenitals to "vagina">>
+			<</if>>
+		<<elseif $caseygender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $caseygenitals to "vagina">>
+			<<else>>
+				<<set $caseygenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
+	<<if $caseyagain is undefined>>
+		<<set $caseyagain to 0>>
+		<<set $caseymet to 0>>
+		<<set $caseyridefirst to 0>>
+		<<set $caseyromance to 0>>
+		<<set $motorupgrade to 0>>
+	<</if>>
+
 	<<if $genderknown is undefined>>
 		<<set $genderknown to ["Robin", "Bailey"]>>
 	<</if>>
@@ -915,7 +947,7 @@
 	<</if>>
 
 	<<if $brothelshowdata is undefined>>
-		<<set $brothelshowdata to { counts:{ agreed:0, done:0 }, type:"none", intro:false, done:false, missed:false }>>
+		<<set $brothelshowdata to { counts:{ agreed:0, done:0 }, type:"none", intro:0, done:false, missed:false }>>
 		<<if $brothelshow isnot undefined>>
 			<<set $brothelshowdata.type to $brothelshow>>
 			<<unset $brothelshow>>
@@ -1207,7 +1239,7 @@
 
 	<<unset $clothes>>
 
-	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1>>
+	<<if $cat gte 1 or $wolfgirl gte 1 or $cow gte 1 or $harpy gte 1 or $sheep gte 1 or $bee gte 1 or $fox gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1 or $horse gte 1 or $pig gte 1 or $spider gte 1 or $frog gte 1>>
 		<<set $physicalTransform to 1>>
 		<<set $permanentTransform to 1>>
 	<<else>>
@@ -1541,7 +1573,7 @@
 		<<unset $shoot_stat>>
 	<</if>>
 
-	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","hellhound","dragon"]>>
+	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>>
 
 	<<if $niki_seen is undefined and $chef_state gte 5>>
 		<<set $niki_seen to "chef">>
@@ -1706,17 +1738,73 @@
 		<<set $dog to 0>>
 	<</if>>
 
-	<<if $ghost is undefined>>
+	<<if $raccoonbuild is undefined>>
+		<<set $raccoonbuild to 0>>
+		<<set $raccoon to 0>>
+	<</if>>
+
+	<<if $fishbuild is undefined>>
+		<<set $fishbuild to 0>>
+		<<set $fish to 0>>
+	<</if>>
+
+	<<if $horsebuild is undefined>>
+		<<set $horsebuild to 0>>
+		<<set $horse to 0>>
+	<</if>>
+
+	<<if $pigbuild is undefined>>
+		<<set $pigbuild to 0>>
+		<<set $pig to 0>>
+	<</if>>
+
+	<<if $spiderbuild is undefined>>
+		<<set $spiderbuild to 0>>
+		<<set $spider to 0>>
+	<</if>>
+
+	<<if $frogbuild is undefined>>
+		<<set $frogbuild to 0>>
+		<<set $frog to 0>>
+	<</if>>
+
+	<<if $ghost is undefined or $ghost is 2>>
 		<<set $ghost to 0>>
+	<</if>>
+
+	<<if $robinraccoon is undefined>>
+		<<set $robinraccoon to 0>>
 	<</if>>
 
 	<<if $slime is undefined>>
 		<<set $slime to 0>>
 	<</if>>
 
+	<<if $onemoreslime is undefined>>
+		<<set $onemoreslime to 0>>
+	<</if>>
+
+	<<if $cemeteryfound is undefined>>
+		<<set $cemeteryfound to 0>>
+	<</if>>
+
+	<<if $cellarpassage is undefined>>
+		<<set $cellarpassage to 0>>
+	<</if>>
+
 	<<if $exorcism is undefined>>
 		<<set $exorcism to 0>>
 	<</if>>
+
+	<<if $exorcised is undefined>>
+		<<set $exorcised to 0>>
+	<</if>>
+
+	<<if $dencounter is undefined>>
+		<<set $dencounter to 0>>
+	<</if>>
+
+
 
 	<<if $hirsutedisable>>
 		<<if $hirsutedisable is "f">>
@@ -3714,14 +3802,18 @@
 	/* Code that should not be moved into a check like above */
 	<<set $runWardrobeSanityChecker to true>>
 
-	<<if $objectVersion.updateClothes lt 38 or $objectVersion.updateClothes is undefined>>
+	<<if $objectVersion.updateClothes lt 40 or $objectVersion.updateClothes is undefined>>
 		<<updateClothes>>
 		<<if $objectVersion.updateClothes lt 38>>
 			<!-- V0.4.0.7 return items stuck in $store without proper .location -->
 			<<run for (const slot in V.store) V.store[slot].forEach(i => { if (i.location === 0) i.location = "getBack" })>>
 			<<storeon "getBack" "return">>
 		<</if>>
-		<<set $objectVersion.updateClothes to 38>>
+		<<if $objectVersion.updateClothes lt 40>>
+			<!--Should'nt need to re-run that often-->
+			<<run clothesDataTrimmerLoop()>>
+		<</if>>
+		<<set $objectVersion.updateClothes to 40>>
 		<!--If you have added any `colour_combat` or `accessory_colour_combat` to clothes that need their `colour` or `accessory_colour`, this will clear them.
 		Remove `colour_combat` or `accessory_colour_combat` where this is the case, they are independant so `colour_combat` will only clear `colour`-->
 	<</if>>
@@ -3732,14 +3824,17 @@
 		<<set $objectVersion.specialClothes to 13>>
 	<</if>>
 
-	<<if $objectVersion.museumAntiques lt 12 or $objectVersion.museumAntiques is undefined>>
+	<<if $objectVersion.museumAntiques lte 13 and $museumAntiques.antiques.antiquewhitescrystal isnot undefined>>
+		<<run delete $museumAntiques.antiques.antiquewhitescrystal>>
+	<</if>>
+	<<if $objectVersion.museumAntiques lt 14 or $objectVersion.museumAntiques is undefined>>
 		/*Moved undefined checks for new antiques to the widget below*/
 		<<updateMuseumAntiques>>
-		<<set $objectVersion.museumAntiques to 12>>
+		<<set $objectVersion.museumAntiques to 14>>
 	<</if>>
 
 	<<pregnancyVar>>
-
+	<<variablesModUpdate>>
 	<<updateNewNamedNpcs>>
 
 	<!-- Jimmy: Reset NPC slots if necessary by checking .type === 0
@@ -3841,7 +3936,7 @@
 	/* End of Code that should not be moved */
 
 	<!-- v0.3.6.2: cow update - ToDo: Move to variables-static -->
-	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","hellhound","dragon"]>>
+	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>>
 
 	<!-- Will navigate to V.makeup.eyelenses, and attempt to turn that into the proper object this time. Needs configing if it can be moved to `variablesVersionUpdate2`-->
 	<<run restructureEyeColourVariable()>>
@@ -4163,7 +4258,7 @@
 		<<set $englishPlay to "none">>
 	<</if>>
 
-		<<if $transformationParts.sheep is undefined>>
+	<<if $transformationParts.sheep is undefined>>
 		<<set $sheep to 0>> <<set $sheepbuild to 0>>
 		<<set $transformationParts.sheep to {ears:"disabled", tail:"disabled", horns:"disabled"}>>
 		<<if $sheep gte 2>>
@@ -4175,6 +4270,106 @@
 		<<if $sheep gte 6>>
 			<<set $transformationParts.sheep.tail to "default">>
 			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.raccoon is undefined>>
+		<<set $raccoon to 0>> <<set $raccoonbuild to 0>>
+		<<set $transformationParts.raccoon to {ears:"disabled", tail:"disabled", mask:"disabled"}>>
+		<<if $raccoon gte 2>>
+			<<set $transformationParts.raccoon.mask to "default">>
+			<<set $transformationParts.traits.incognito to "default">>
+			<<set $transformationParts.traits.sharpEyes to "default">>
+		<</if>>
+		<<if $raccoon gte 4>>
+			<<set $transformationParts.raccoon.ears to "default">>
+		<</if>>
+		<<if $raccoon gte 6>>
+			<<set $transformationParts.raccoon.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.fish is undefined>>
+		<<set $fish to 0>> <<set $fishbuild to 0>>
+		<<set $transformationParts.fish to {fins:"disabled", tail:"disabled"}>>
+		<<if $fish gte 2>>
+			<<set $transformationParts.traits.aquatic to "default">>
+		<</if>>
+		<<if $fish gte 4>>
+			<<set $transformationParts.fish.fins to "default">>
+		<</if>>
+		<<if $fish gte 6>>
+			<<set $transformationParts.fish.tail to "default">>
+			<<set $transformationParts.traits.aquatail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $swimtail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.horse is undefined>>
+		<<set $horse to 0>> <<set $horsebuild to 0>>
+		<<set $transformationParts.horse to {ears:"disabled", tail:"disabled"}>>
+		<<if $horse gte 2>>
+			<<set $transformationParts.traits.vigorous to "default">>
+		<</if>>
+		<<if $horse gte 4>>
+			<<set $transformationParts.horse.ears to "default">>
+		<</if>>
+		<<if $horse gte 6>>
+			<<set $transformationParts.horse.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.pig is undefined>>
+		<<set $pig to 0>> <<set $pigbuild to 0>>
+		<<set $transformationParts.pig to {ears:"disabled", tail:"disabled"}>>
+		<<if $pig gte 2>>
+			<<set $transformationParts.traits.strongnose to "default">>
+		<</if>>
+		<<if $pig gte 4>>
+			<<set $transformationParts.pig.ears to "default">>
+		<</if>>
+		<<if $pig gte 6>>
+			<<set $transformationParts.pig.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.spider is undefined>>
+		<<set $spider to 0>> <<set $spiderbuild to 0>>
+		<<set $transformationParts.spider to {eyes:"disabled", tail:"disabled"}>>
+		<<if $spider gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $spider gte 4>>
+			<<set $transformationParts.spider.eyes to "default">>
+			<<set $transformationParts.traits.sharpEyes to "default">>
+		<</if>>
+		<<if $spider gte 6>>
+			<<set $transformationParts.spider.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.frog is undefined>>
+		<<set $frog to 0>> <<set $frogbuild to 0>>
+		<<set $transformationParts.frog to {eyes:"disabled", cheeks:"disabled"}>>
+		<<if $frog gte 2>>
+			<<set $transformationParts.traits.lungs to "default">>
+			<<set $transformationParts.traits.kicks to "default">>
+			<<set $transformationParts.traits.longtongue to "default">>
+			<<set $transformationParts.traits.webbedfeet to "default">>
+		<</if>>
+		<<if $frog gte 4>>
+			<<set $transformationParts.frog.eyes to "default">>
+		<</if>>
+		<<if $frog gte 6>>
+			<<set $transformationParts.frog.cheeks to "default">>
 		<</if>>
 	<</if>>
 
@@ -4297,7 +4492,12 @@
 
 	<<if $transformationParts.ghost is undefined>>
 		<<set $ghost to 0>>
-		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled"}>>
+		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled", mist:"disabled"}>>
+	<</if>>
+
+	<<if $transformationParts.slime is undefined>>
+		<<set $slime to 0>>
+		<<set $transformationParts.slime to {bubble:"disabled", stream:"disabled", core:"disabled"}>>
 	<</if>>
 
 	<<if $hastail is undefined>>
@@ -4308,6 +4508,34 @@
 
 	<<if $transformationParts.traits.lungs is undefined>>
 		<<set $transformationParts.traits.lungs to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.aquatic is undefined>>
+		<<set $transformationParts.traits.aquatic to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.incognito is undefined>>
+		<<set $transformationParts.traits.incognito to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.vigorous is undefined>>
+		<<set $transformationParts.traits.vigorous to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.strongnose is undefined>>
+		<<set $transformationParts.traits.strongnose to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.longtongue is undefined>>
+		<<set $transformationParts.traits.longtongue to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.webbedfeet is undefined>>
+		<<set $transformationParts.traits.webbedfeet to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.kicks is undefined>>
+		<<set $transformationParts.traits.kicks to "disabled">>
 	<</if>>
 
 	<!-- v0.3.13.5 disable combat animations on mobile due to system breakdown.-->
@@ -4513,6 +4741,9 @@
 		<<set $weekly.adultShopWhitney to $adultShopWhitney>>
 		<<unset $adultShopWhitney>>
 	<</if>>
+	<<if $dencounter is undefined>>
+		<<set $dencounter to 0>>
+	<</if>>
 
 	<!-- 
 	v0.4.0.6 change (87f8e633085bb4be8f4f0d099012b1e0b077242a) that I've moved up here.
@@ -4538,7 +4769,7 @@
 		<<script>>
 			/* Tries to set the date to the same as the previous version's date.
 			If weekday is different from the real date, well shit, we're faking it. */
-			const month = DateTime.monthNames.map(month => month.toLowerCase()).indexOf(V.month) + 1;
+			const month = Time.monthNames.map(month => month.toLowerCase()).indexOf(V.month) + 1;
 			const date = new DateTime(V.year, month, V.monthday, Math.min(V.hour, 23), Math.min(V.minute, 59), V.seconds);
 			const startDate = new DateTime(date);
 			T.passMinutes = (V.hour > 23 ? (V.hour - 23) * 60 : 0) + (V.minute > 59 ? V.minute - 59 : 0);
@@ -4696,43 +4927,22 @@
 					<<set $hastail to "true">>
 				<</if>>
 			<</if>>
-		<</if>>
-
-		<<if $tfFIX is undefined or $tfFIX is 1>>
-			<!-- v0.3.13.5 - v0.4.0.8 Fix for virgin fallen angels, moved and fixed from earlier part of versionupdate -->
-			<<if $fallenangel is 2>>
-				<<set $_isHerm to $player.gender is "h">>
-				<<set $_hasVaginalVirginity to $player.vaginaExist and $player.virginity.vaginal is true>>
-				<<set $_hasPenileVirginity to $player.penisExist and $player.virginity.penile is true>>
-				<<if !$_isHerm and ($_hasVaginalVirginity or $_hasPenileVirginity)
-				or $_isHerm and $_hasVaginalVirginity and $_hasPenileVirginity>>
-					<<set $fallenangel to 0>>
-					<<angelTransform>>
-					<<set $transformationParts.fallenAngel.halo to "disabled">>
-					<<set $transformationParts.fallenAngel.wings to "disabled">>
+			
+			<!-- V0.4.0.5 Stop any saves in the above situation from being broken upon leaving -->
+			<<if $real_transformationParts and !$real_transformationParts.fox>>
+				<<set $real_transformationParts.fox to {ears:"disabled", tail:"disabled", cheeks:"disabled"}>>
+				<<if $real_transformationParts.traits.mateForLife is undefined or $real_transformationParts.traits.flaunting is undefined>>
+					<<if $fox gte 3 or $harpy gte 3>>
+						<<set $real_transformationParts.traits.mateForLife to "default">>
+					<<else>>
+						<<set $real_transformationParts.traits.mateForLife to "disabled">>
+					<</if>>
+					<<set $real_transformationParts.traits.flaunting to "disabled">>
 				<</if>>
-			<</if>>
-
-			<!-- V0.4.0.8 Fix for non-virgin herm angels from bad fix earlier that didn't take herms into account -->
-			<<if $angel gte 6 and $player.gender is "h" and !$virginityProtected and ($player.virginity.vaginal isnot true or $player.virginity.penile isnot true)>>
-				<<fallenTransform>>
 			<</if>>
 		<</if>>
 
 		<<set $tfFIX to 2>>
-	<</if>>
-
-	<!-- V0.4.0.5 Stop any saves in the above situation from being broke upon leaving -->
-	<<if $real_transformationParts and !$real_transformationParts.fox>>
-		<<set $real_transformationParts.fox to {ears:"disabled", tail:"disabled", cheeks:"disabled"}>>
-		<<if $real_transformationParts.traits.mateForLife is undefined or $real_transformationParts.traits.flaunting is undefined>>
-			<<if $fox gte 3 or $harpy gte 3>>
-				<<set $real_transformationParts.traits.mateForLife to "default">>
-			<<else>>
-				<<set $real_transformationParts.traits.mateForLife to "disabled">>
-			<</if>>
-			<<set $real_transformationParts.traits.flaunting to "disabled">>
-		<</if>>
 	<</if>>
 	
 	<!-- V0.4.0.5 Old saves with untyped named NPCs -->
@@ -4768,4 +4978,33 @@
 		<<set $transformationParts.wolf.ears to "default">>
 	<</if>>
 
+	<<if $maleChanceMale is undefined>>
+		<<set $maleChanceMale to $malechance>>
+		<<set $maleChanceFemale to $malechance>>
+		<<set $maleChanceSplit to "f">>
+		<<set $beastMaleChanceMale to $beastmalechance>>
+		<<set $beastMaleChanceFemale to $beastmalechance>>
+		<<set $beastMaleChanceSplit to "f">>
+	<</if>>
+
+	<<if $forcedcrossdressingdisable is undefined>>
+		<<set $forcedcrossdressingdisable to "f">>
+	<</if>>
+
+	
+
+	<!-- V0.4.0.9 $currentFurnishing should not be a story variable, and no story variables should be (or include) functions -->
+	<<if $currentFurnishing>>
+		<<unset $currentFurnishing>>
+		<<run State.history.forEach(s => delete s.variables.currentFurnishing)>>
+	<</if>>
+
+	<!-- V0.4.1.1 Fixed for some wolves having "human" sperm -->
+	<<if !$objectVersion.pregnancyFix>>
+		<<physicalAdjustmentsInit>>
+	<</if>>
+
+	<<if $speech_attitude is undefined>>
+		<<set $speech_attitude to "neutral">>
+	<</if>>
 <</widget>>

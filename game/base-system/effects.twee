@@ -20,6 +20,7 @@
 <<widget "effectswater">>
 	<<set $wetintro to 0>>
 
+
 	<<if $squidcount is 1>>
 		<span class="purple">You feel the squid tease your <<genitals>>.</span>
 		<<garousal>><<arousal 100 "genitals">>
@@ -162,6 +163,7 @@
 		<</if>>
 		<br><br>
 	<</if>>
+
 <</widget>>
 
 <<widget "effectsarousalsoak">>
@@ -219,6 +221,44 @@
 		<<set $squidcount to 0>>
 	<</if>>
 	<<set $inwater to 0>>
+
+	<<if $slime gt 0 and $oxygen lte $oxygenmax>>
+	<<oxygenrefresh>>
+	<</if>>
+
+	<<if $slime gt 0>>
+		<<set $pblevel to 0>>
+		<<set $pbgrowth to 0>>
+		<<set $pblevelballs to 0>>
+		<<set $pbgrowthballs to 0>>
+		<<set $pbstrip to 0>>
+		<<set $makeup.pbcolour to 0>>
+	<</if>>
+
+	<<if $ghost gte 1>>
+		<<set $pblevel to 0>>
+		<<set $pbgrowth to 0>>
+		<<set $pblevelballs to 0>>
+		<<set $pbgrowthballs to 0>>
+		<<set $pbstrip to 0>>
+		<<set $makeup.pbcolour to 0>>
+	<</if>>
+
+	<<if $mouthsensitivity lt 4 and $transformationParts.traits.longtongue isnot "disabled">>
+		<<set $mouthsensitivity to 4>>
+	<</if>>
+
+	<<if $slime gt 0 and $nooxygen is 1>>
+		<<set $nooxygen to 0>>
+		<br><span class='green'>Normally, aphyxia would be an issue right now. Good thing you're a slime.</span><br>
+	<</if>>
+
+	<<if $slime gt 0>>
+		<<if $outside is 1 and $weather is "rain" and $worn.head.name isnot "umbrella hat">>
+    	<<violence 40>>
+		<br>Get out of the rain! <span class='red'>It stings!<br><br></span>
+		<</if>>
+	<</if>>
 
 	<<if $scienceproject is "ongoing" and $scienceprojectdays is 0 and $scienceprojectwarning isnot 1>>
 		<<set $scienceprojectwarning to 1>>
@@ -294,7 +334,7 @@
 		<</if>>
 	<</if>>
 	<<if isPlayerNonparasitePregnancyEnding()>>
-		<span class="red">Your water has broken.
+		<span class="red">Your waters have broken.
 		<<if ["asylum","prison","hospital"].includes($location)>>
 			You need to find help, fast!
 		<<else>>
@@ -542,6 +582,14 @@
 					<span class="purple">Your butt feels tiny.</span>
 			<</switch>>
 			<<unset $bottomshrinkmessage>>
+		<</if>>
+		<<if $speech_attitude_bratty_message>>
+			<span class="purple">You've become too submissive to adopt a bratty demeanor in conversation.</span>
+			<<unset $speech_attitude_bratty_message>>
+		<</if>>
+		<<if $speech_attitude_meek_message>>
+			<span class="purple">You've become too defiant to adopt a meek demeanor in conversation.</span>
+			<<unset $speech_attitude_meek_message>>
 		<</if>>
 		<<if $pillsTaken>>
 			<span class="purple">You take your daily pills.</span>
@@ -939,6 +987,10 @@
 	<</for>>
 
 	<<if $inwater is 1>>
+		<<if $slime gt 0>>
+			<<violence 60>>
+			<span class="red"><br><br>You're slowly starting to dissolve. Leave the water!<br><br></span>
+		<</if>>
 		<<if Time.season is "winter" and !["sea", "beach", "school", "underground", "pool"].includes($location)>>
 			<<if $warmth gte 80>>
 				<<set $body_temperature_outside to "comfy">>

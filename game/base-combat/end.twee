@@ -38,6 +38,25 @@
 		<</if>>
 	<</if>>
 
+	/*Slime Auto Heal */
+	<<if $slime gt 0>> 
+		<<if $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gt 10 and $liquidcount gte 2>>
+			<<wash>>
+			<<pain -20>>
+			<span class ='green'>Your body absorbs the copious amount of fluid available and heals itself.</span><br><br>
+		<<elseif $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain gte 10 and $liquidcount lt 2>>
+			<<pain -10>>
+			<<wash>>
+			<span class ='green'>Your body tries to heal itself by absorbing what fluid it can.</span><br><br>
+		<<elseif $weather isnot "rain" and $underwater isnot 1 and $inwater isnot 1 and $pain lt 10>>
+			<<wash>>
+			<span class ='green'>Your body is essentially intact, but absorbs the available fluid anyway.</span><br><br>
+		<<elseif $weather is "rain" and $outside is 1 or $underwater is 1 or $inwater is 1 and $pain gte 0>>
+			<span class ='red'>Your body tries to heal, but the environment is too hostile. Avoid direct contact with water!</span><br><br>
+		<</if>>
+	<</if>>
+
+
 	<<if $assertive gte 1>>
 		You were
 		<<if $assertive lte 5>>
@@ -99,9 +118,11 @@
 
 	<</if>>
 
+
+
 	<<unset $enemytype>>
 
-	<<endevent>>
+	<<endevent _args[0]>>
 	<<struggle_end>>
 
 	<<set $combat to 0>>
@@ -203,8 +224,6 @@
 	<<set $overupperstruggle to 0>>
 	<<set $alarm to 0>>
 	<<set $rescue to 0>>
-	<<set $phase to 0>>
-	<<set $phase2 to 0>>
 	<<set $noise to 0>>
 	<<set $timer to 0>>
 	<<set $beastname to "none">>
@@ -275,6 +294,7 @@
 	<<set $mockaction to "none">>
 	<<set $bodyaction to 0>>
 	<<set $stealdifficulty to 1>>
+	<<set $tailaction to 0>>
 
 	<<set $lefttarget to 0>>
 	<<set $righttarget to 0>>
@@ -502,6 +522,9 @@
 
 <<widget "clearnpc">>
 	<<for _i = 0; _i < $NPCList.length; _i++>>
+		<<if Object.keys($per_npc).includes($NPCList[_i].per)>>
+			<<updateNPC $NPCList[_i]>>
+		<</if>>
 		<<set $NPCList[_i] to clone(setup.baseNPC)>>
 		<<if $NPCList[_i].strapon isnot undefined>>
 			<<run delete $NPCList[_i].strapon>>

@@ -136,11 +136,28 @@ It's your turn. The <<person1>><<person>> waits.
 <</if>>
 <<if $town_projects.green is undefined or $town_projects.green is 1>>
     <span class="black">Project undiscovered.</span>
+    <br>
 <<elseif $town_projects.green is 2>>
     <<link [[Ask about clearing the green behind the school (1:00)|Town Hall Projects Green]]>><<pass 60>><</link>>
     <br>
 <<elseif $town_projects.green gte 3>>
     <span class="green">A student green behind the school is being maintained.</span>
+    <br>
+<</if>>
+<<if $town_projects.green gte 3 and $town_projects.thicket gte 3 and $town_projects.diving gte 3 and $town_projects.road gte 3 and $town_projects.bridge gte 3 and $town_projects.home is 2>>
+    <<link [[Ask about buying a home (1:00)|Town Hall Projects Home 2]]>><<pass 60>><</link>>
+    <br>
+<<elseif $town_projects.green gte 3 and $town_projects.thicket gte 3 and $town_projects.diving gte 3 and $town_projects.road gte 3 and $town_projects.bridge gte 3 and $blackmaildestroyed is 1>>
+    <<link [[Visit Quinn (0:05)|Quinn Blackmail]]>><<pass 5>><</link>>
+    <br>
+<<elseif $town_projects.green gte 3 and $town_projects.thicket gte 3 and $town_projects.diving gte 3 and $town_projects.road gte 3 and $town_projects.bridge gte 3 and $town_projects.home is undefined>>
+    <<link [[Ask about buying a home (0:30)|Town Hall Projects Home 1]]>><<pass 30>><</link>>
+    <br>
+<<elseif $town_projects.home gte 3>>
+    <span class="green">Your home has been built.</span>
+    <br>
+<<else>>
+    <span class="black">Project undiscovered.</span>
     <br>
 <</if>>
 <<if $hookah_plot is 2>>
@@ -171,15 +188,15 @@ It's locked up for the night by a metal shutter.
 :: Town Hall Ask
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "Could you please tell me what this building is for?" you ask.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "What do you do here anyway?" you ask.
 <<else>>
     "What do you do here?" you ask.
 <</if>>
 <br><br>
-The reptionist sighs, then clears <<his>> throat. "This is the mayor's office. There are several departments, each with its own room. The mayor has the floor above, but is kept busy, and can't speak with just anyone."
+The receptionist sighs, then clears <<his>> throat. "This is the mayor's office. There are several departments, each with its own room. The mayor has the floor above, but is kept busy, and can't speak with just anyone."
 <br><br>
 
 "If you have any business here, then I can put you through to the appropriate department." <<He>> looks over your shoulder, which prompts the next person in the queue to shunt you aside.
@@ -200,9 +217,9 @@ You follow the directions, and enter a wide open room. A <<person>> stands facin
 "How can I help you?" <<he>> asks, covering the blueprint with another sheet.
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "I-I'd like to rebuild the bridge on Barb Street," you say. "The one over the canal."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "I'm here to have the bridge on Barb Street rebuilt," you say. "The one over the canal."
 <<else>>
     "I'd like to rebuild the bridge on Barb Street," you say. "The one over the canal."
@@ -212,9 +229,9 @@ You follow the directions, and enter a wide open room. A <<person>> stands facin
 The <<person1>><<person>> frowns. "The canal's drained," <<he>> says. "Permanently. What use is a bridge?"
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "I-It would make things safer," you say. "Hoodlums lurk in the storm drains down there."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "The canal isn't safe," you say. "Unsavoury types ambush people there."
 <<else>>
     "It would make the canal safer," you say. "Nasty people lurk down there."
@@ -232,7 +249,7 @@ The <<person>> shrugs. "The town can't spare the expense," <<he>> says. "But if 
     <br>
 <</if>>
 
-<<link [[Leave|Cliff Street]]>><</link>>
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Town Hall Projects Bridge Buy
@@ -244,7 +261,7 @@ You hand over the money. The <<person>> counts it, then squirrels it away. You'r
 You leave the office, hoping you weren't just robbed.
 <br><br>
 
-<<link [[Next|Cliff Street]]>><<endevent>><</link>>
+<<link [[Next|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Town Hall Projects Road
@@ -260,9 +277,9 @@ You follow the directions, and enter a wide open room. A <<person>> leans on a t
 "What can I do for you?" the <<person1>><<person>> asks.
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "I'd like to restore the road to the lake," you say.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "I'm restoring the road to the lake," you say. "What will it cost?"
 <<else>>
     "I'd like to restore the road to the lake," you say.
@@ -272,9 +289,9 @@ You follow the directions, and enter a wide open room. A <<person>> leans on a t
 The <<person>> regards you. "We know there used to be a road out there," <<he>> says. "And a bus stop, by the lake. But it's considered an extravagant waste. There's nothing there. Except the water."
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "But students from school go out there," you reply. "A road will make it safer."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "They didn't have such a tourism industry back then," you reply. "Right?"
 <<else>>
     "People go out there a lot," you say. "Including students from school."
@@ -292,7 +309,7 @@ The <<person>> drums <<his>> fingers on the table. "I see your point, but the to
     <br>
 <</if>>
 
-<<link [[Leave|Cliff Street]]>><</link>>
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Town Hall Projects Road Buy
@@ -304,7 +321,7 @@ You hand over the money. The <<person>> counts it, then squirrels it away. You'r
 You leave the office, hoping you weren't just robbed.
 <br><br>
 
-<<link [[Next|Cliff Street]]>><<endevent>><</link>>
+<<link [[Next|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Town Hall Projects Diving
@@ -358,9 +375,9 @@ The receptionist frowns. "I'm not sure what to make of-"
 "Now then," Quinn says, sitting on a high-backed chair behind <<his>> desk and gesturing at another in front of <<him>>. "You want to set up an archeological office at the lake?"
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "I-if it's possible," you say.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "That is what I said," you say.
 <<else>>
     "That's right," you say.
@@ -368,9 +385,16 @@ The receptionist frowns. "I'm not sure what to make of-"
 <br><br>
 
 "Excellent idea, I must say," the mayor continues. "I just know that old codger at the museum would jump at the opportunity to run it." <<He>> retrieves a bottle of whisky from beneath <<his>> desk, and two glasses.
+<<if playerBellyVisible()>>
+    <<He>> seems to give no regard to your <<bellyDescription "pc">>.
+<</if>>
 <br><br>
 
-<<link [[Drink|Town Hall Projects Diving 3]]>><<set $phase to 1>><<set $drunk += 180>><</link>>
+<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+	<span class="blue">You can't bring yourself to drink while you know you're with child.</span>
+<<else>>
+    <<link [[Drink|Town Hall Projects Diving 3]]>><<set $phase to 1>><<set $drunk += 180>><</link>>
+<</if>>
 <br>
 <<link [[Refuse|Town Hall Projects Diving 3]]>><<set $phase to 0>><</link>>
 <br>
@@ -399,7 +423,7 @@ The receptionist frowns. "I'm not sure what to make of-"
     <br>
 <</if>>
 
-<<link [[Leave|Cliff Street]]>><</link>>
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Town Hall Projects Diving Buy
@@ -491,9 +515,9 @@ You follow the directions, and enter a small room. A <<person>> sits behind a de
 "Make it quick," <<he>> says.
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "I'd like to make the thicket in the residential area nicer," you say.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "I'm gonna fix up the thicket in the residential area," you say. "What will it take?"
 <<else>>
     "I'd like to fix the thicket in the residential area," you say.
@@ -511,7 +535,7 @@ The <<person>> sighs. "Would end the complaints about those brambles invading ga
     <br>
 <</if>>
 
-<<link [[Leave|Cliff Street]]>><<endevent>><</link>>
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 
@@ -538,9 +562,9 @@ The <<person1>><<person>> hesitates. "That'll be environment?" <<he>> asks no on
 You follow the directions, and enter a small room. A <<person>> stands at the window, and hasn't noticed your arrival.
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "Excuse me," you say.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "Yo," you say.
 <<else>>
     "Hello," you say.
@@ -550,9 +574,9 @@ You follow the directions, and enter a small room. A <<person>> stands at the wi
 <<He>> jumps at your voice, and turns. There's fear on <<his>> face for just a moment, then relief. "Sorry," <<he>> says. "I was expecting someone else. What can I do for you?"
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
     "There's an ugly patch of wild grass at school," you say. "I'd like to keep it trim."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
     "There's this patch of ugly grass at school," you say. "I want it cut down."
 <<else>>
     "There's a patch of wild grass at school," you say. "I'd like to cut it, and clear the space for students."
@@ -570,13 +594,111 @@ You follow the directions, and enter a small room. A <<person>> stands at the wi
     <br>
 <</if>>
 
-<<link [[Leave|Cliff Street]]>><<endevent>><</link>>
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Town Hall Projects Green Buy
 <<effects>>
 
 The <<person1>><<person>> nods. "I'll give the head-" <<he>> catches <<himself>>. "They'll have the green tidy soon. Thanks for your contribution."
+<br><br>
+
+You leave the office, hoping you weren't just robbed.
+<br><br>
+
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Town Hall Projects Home 1
+<<effects>>
+
+The <<person1>><<person>> points down the hall. "That'll be residential. First door on the right."
+<br><br>
+<<endevent>>
+<<npc Quinn>><<person1>>
+You go to follow the directions, but spot Quinn pacing down the hall.
+<br><br>
+
+<<if $submissive gte 1150>>
+    "Excuse me," you say.
+<<elseif $submissive lte 850>>
+    "Yo," you say.
+<<else>>
+    "Hello," you say.
+<</if>>
+<br><br>
+
+<<He>> jumps at your voice, and turns. There's fear on <<his>> face for just a moment, then relief. "Sorry," <<he>> says. "I'm a little busy at the moment. What do you need?"
+<br><br>
+
+<<if $submissive gte 1150>>
+    "There's some open land at the lake," you say. "I'd like to have my own home."
+<<elseif $submissive lte 850>>
+    "Now that I own some land," you say. "I'd like to have a home built."
+<<else>>
+    "Now that I own a plot of land," you say. "I'd like to have a private home built."
+<</if>>
+<br><br>
+
+<<He>> has a look of melancholy about him, clearly upset. "I wish I could. You've done a lot for this town but I'm currently in a bit of a... tricky situation."
+<br><br>
+
+<<He>> looks over his shoulder to make sure he's not being watched before continuing. "Bailey has some dirt on me, so I can't really go against what he wishes. If you truly want this project done, try checking his office."
+<br><br>
+
+"Oh and for the record. This conversation never happened." <<He>> zips his lips before walking away.
+<br><br>
+
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $town_projects.home to 1>><</link>>
+<br>
+
+:: Quinn Blackmail
+<<npc Quinn>><<person1>>
+You make your way to Quinn's office and lay the document and hard drive on <<his>> desk. "What are these?" Quinn looks over the document before closing it. <<He>> seems shocked.
+<br><br>
+"I can't believe you actually managed to get your hands on these." <<He>> smiles dropping the file into the shredder. "Alright now you said you wanted a home? Just head down to the residential department and that can be arranged."
+<br><br>
+<<link [[Leave|Cliff Street]]>><<endevent>><<set $town_projects.home to 2>><</link>>
+
+:: Town Hall Projects Home 2
+<<effects>>
+
+The <<person1>><<person>> points down the hall. "That'll be residential. First door on the right."
+<br><br>
+<<endevent>>
+<<generate1>><<person1>>
+You follow the directions, and enter a small room. A strong looking <<person>> sits behind a desk, staring at a monitor.
+<br><br>
+"What do you want," <<he>> says.
+<br><br>
+
+<<if $submissive gte 1150>>
+    "There's some open land at the lake," you say. "I'd like to have my own home."
+<<elseif $submissive lte 850>>
+    "Now that I own some land," you say. "I'd like to have a home built."
+<<else>>
+    "Now that I own a plot of land," you say. "I'd like to have a private home built."
+<</if>>
+<br><br>
+
+The <<person>> sighs. "I could send out some men to work on it. It'll cost <span class="gold">£25000</span>, and there's no budget for it."
+<br><br>
+
+<<if $money gte 2500000>>
+    <<link [[Pay for the home (£10000)|Town Hall Projects Home Buy]]>><<set $money -= 2500000>><<set $town_projects.home to 3>><<famebusiness 100>><</link>>
+    <br>
+<<else>>
+    <span class="blue">You can't afford such an expense.</span>
+    <br>
+<</if>>
+
+<<link [[Leave|Cliff Street]]>><<endevent>><</link>>
+<br>
+
+:: Town Hall Projects Home Buy
+<<effects>>
+
+The <<person1>><<person>> nods. "I'll give the heads up and send some men right away. They'll have the home ready soon. Thanks for your contribution."
 <br><br>
 
 You leave the office, hoping you weren't just robbed.

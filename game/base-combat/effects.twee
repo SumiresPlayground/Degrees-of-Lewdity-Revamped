@@ -44,6 +44,7 @@
 			<</if>>
 		<</if>>
 
+
 		<<if $underwater is 1>>
 			<<set $underwatertime += 1>>
 			<<if $underwatertime lte 5>>
@@ -132,9 +133,9 @@
 				<<set $leftarm to "handheld">><<set $leftactiondefault to "lefthandholdkeep">>
 				<<submission 1>>
 				<<if isLoveInterest($NPCList[$lefttarget].fullDescription)>>
-					<<takeHandholdingVirginity $NPCList[$lefttarget].fullDescription "romantic">>
+					<<takeHandholdingVirginity $NPCList[$lefttarget] "romantic">>
 				<<else>>
-					<<takeHandholdingVirginity $NPCList[$lefttarget].fullDescription>>
+					<<takeHandholdingVirginity $NPCList[$lefttarget]>>
 				<</if>>
 			<<else>>
 				You reach for <<someones $lefttarget>> left hand, but <<he>> moves away.
@@ -168,9 +169,9 @@
 				<<set $rightarm to "handheld">><<set $leftactiondefault to "righthandholdkeep">>
 				<<submission 1>>
 				<<if isLoveInterest($NPCList[$righttarget].fullDescription)>>
-					<<takeHandholdingVirginity $NPCList[$righttarget].fullDescription "romantic">>
+					<<takeHandholdingVirginity $NPCList[$righttarget] "romantic">>
 				<<else>>
-					<<takeHandholdingVirginity $NPCList[$righttarget].fullDescription>>
+					<<takeHandholdingVirginity $NPCList[$righttarget]>>
 				<</if>>
 			<<else>>
 				You reach for <<someones $righttarget>> but <<he>> moves away.
@@ -357,8 +358,9 @@
 			<<set $leftaction to 0>><<set $rightaction to 0>><<set $leftactiondefault to "leftstruggle">><<set $rightactiondefault to "rightstruggle">>
 			You struggle with all your might.
 			<<defiance 2 $lefttarget>><<set $speechstruggle to 1>>
-			<<if currentSkillValue('physique') gte random(1, 32000) and !$robinRentEvent>>
+			<<if currentSkillValue('physique') gte random(1, 32000) and !$robinRentEvent or $slime gt 0>>
 				<span class="teal">You manage to twist your arms free.</span>
+				<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
 				<<if $NPCList[$lefttarget].lefthand is "arms">>
@@ -376,8 +378,9 @@
 			<<set $leftaction to 0>><<set $leftactiondefault to "leftstruggle">>
 			You struggle.
 			<<set $speechstruggle to 1>><<defiance 1 $lefttarget>>
-			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent>>
+			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime gt 0>>
 				<span class="teal">You manage to twist your arms free.</span>
+				<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
 				<<if $NPCList[$lefttarget].lefthand is "arms">>
@@ -395,8 +398,9 @@
 			<<set $rightaction to 0>><<set $rightactiondefault to "rightstruggle">>
 			You struggle.
 			<<defiance 1 $righttarget>><<set $speechstruggle to 1>>
-			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent>>
+			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime gt 0>>
 				<span class="teal">You manage to twist your arms free.</span>
+				<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $righttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
 				<<if $NPCList[$righttarget].lefthand is "arms">>
@@ -2854,12 +2858,20 @@
 						Your high heels strengthen the blow!
 						<<defiance 1 $feettarget>>
 					<</if>>
+					<<if $transformationParts.traits.kicks isnot "disabled">>
+						Your strong legs strengthen the blow!
+						<<defiance 10 $feettarget>>
+					<</if>>
 				<</if>>
 			<<else>>
 				<<actionskick $feettarget>><<defiance 5 $feettarget>><<set $attackstat += 1>>
 				<<if $worn.feet.type.includes("heels")>>
 					Your high heels strengthen the blow!
 					<<defiance 1 $feettarget>>
+				<</if>>
+				<<if $transformationParts.traits.kicks isnot "disabled">>
+					Your strong legs strengthen the blow!
+					<<defiance 10 $feettarget>>
 				<</if>>
 			<</if>>
 		<</if>>
@@ -3333,8 +3345,18 @@
 
 		/*End of stalked actions */
 		
-		/*tail */
-
+		/***
+		/*████████  ████████  ██████   ██     */ 
+		/*   ██     ██    ██    ██     ██     */
+        /*   ██     ████████    ██     ██     */
+		/*   ██     ██    ██    ██     ██     */
+		/* 	 ██     ██    ██  ██████   ███████*/
+		/*                                    */
+		
+		<<if $newtarget isnot undefined>>
+			<<setnewtarget>>
+		<</if>>
+		
 		<<if $tailaction is "rest">>
 			<<set $tailaction to 0>><<set $tailactiondefault to "rest">>You rest your tail.
 		<</if>>
@@ -3635,7 +3657,10 @@
 
 		<<if $mouthaction is "breastlick" and $NPCList[$mouthtarget].chest is "mouthentrance">>
 			<<set $mouthactiondefault to "breastlick">><<set $mouthaction to 0>><<submission 3>>
-			You lick <<hisselect $mouthtarget>> $NPCList[$mouthtarget].breastsdesc.
+			You lick <<hisselect $mouthtarget>> $NPCList[$mouthtarget].breastsdesc. 
+			<<if $transformationParts.traits.longtongue isnot "disabled">>
+				<span class='lewd'>Your sensitive, prehensile tongue enhances the sensation.</span>
+			<</if>>
 		<</if>>
 
 		<<if $mouthaction is "breastclosed" and $NPCList[$mouthtarget].chest.toString().includes("mouth")>>
@@ -3818,7 +3843,7 @@
 
 		<<if $mouthaction is "peniskiss">>
 			<<set $mouthaction to 0>><<set $mouthactiondefault to "peniskiss">>
-			<<actionspeniskiss $mouthtarget>>
+			<<actionspeniskiss `($chestuse is "penis" ? $chesttarget : $mouthtarget)`>>
 			<<submission 3>><<oralskilluse>>
 		<</if>>
 
@@ -4386,10 +4411,17 @@
 			<<else>>
 				<<set $mouthactiondefault to "rest">><<sub 2>>
 				<<if $NPCList[$mouthtarget].condom and $NPCList[$mouthtarget].condom.willUse is true>><<set $_checkSkip to true>><</if>>
+				<<if $consensual is 0>>
+					<<set $_condomAskBaseDifficulty to 2000 + 10 * (100 - $NPCList[$mouthtarget].pregnancyAvoidance)>>
+					<<set $_condomAskDifficultyMultiplier to 200>>
+				<<else>>
+					<<set $_condomAskBaseDifficulty to 1500 + 5 * (100 - $NPCList[$mouthtarget].pregnancyAvoidance)>>
+					<<set $_condomAskDifficultyMultiplier to 100>>
+				<</if>>
 				<<if !$gloryhole and $gamemode isnot "soft" and !$npcrow.includes($mouthtarget) and !$_checkSkip>><<seductionskillusecombat>><</if>>
 				<<set $NPCList[$mouthtarget].condomAsk to true>>
 				You ask <<combatperson>> to use a condom.
-				<<if combatSkillCheck("seduction", $mouthtarget) or $gamemode is "soft" or $gloryhole or $npcrow.includes($mouthtarget) or $_checkSkip>>
+				<<if combatSkillCheck("seduction", $mouthtarget, $_condomAskBaseDifficulty, $_condomAskDifficultyMultiplier) or $gamemode is "soft" or $gloryhole or $npcrow.includes($mouthtarget) or $_checkSkip>>
 					<<if !$npcrow.includes($mouthtarget)>>
 						<<if $condomLvl is 1 or !$NPCList[$mouthtarget].condom>>
 							<<set $NPCList[$mouthtarget].condomCanGive to true>>
@@ -4620,7 +4652,7 @@
 									<<case "acceptHas">>
 										<<He_Short>> nods. "<span class="teal">I was planning on using one anyways.</span>"
 									<<case "reject">>
-										<span class="red"<<He_Short>> refuses!</span>
+										<span class="red"><<He_Short>> refuses!</span>
 								<</switch>>
 						<</switch>>
 					<</if>>
@@ -4943,13 +4975,18 @@
 			<<else>>
 				<<set $pullOutAsk to true>>
 				<<set $_npcn to $npc[$npcrow.indexOf($mouthtarget)]>>
+				<<if $consensual is 0>>
+					<<set $_pullOutAskBaseDifficulty to 1500 + 10 * (100 - $NPCList[$mouthtarget].pregnancyAvoidance)>>
+				<<else>>
+					<<set $_pullOutAskBaseDifficulty to 1000 + 5 * (100 - $NPCList[$mouthtarget].pregnancyAvoidance)>>
+				<</if>>
 				<<if $NPCList[$mouthtarget].pregnancyAvoidance gte 90 or $_npcn is "Kylar">><<set $_checkSkip to true>><</if>>
 				<<set $mouthactiondefault to "rest">><<if !$gloryhole and $gamemode isnot "soft" and !$_checkSkip>><<seductionskillusecombat>><</if>>
 				<<brat `Math.floor((100 - $NPCList[$mouthtarget].pregnancyAvoidance) / 20)`>>
 				You ask <<combatperson>> to pull out and finish outside.
 				<<if $npc[$npcrow.indexOf($mouthtarget)] is "Kylar">>
 					<<He_Short>> freezes for a moment. <span class="red">"No, my love."</span>
-				<<elseif combatSkillCheck("seduction", $mouthtarget) or $gamemode is "soft" or $gloryhole or $_checkSkip>>
+				<<elseif combatSkillCheck("seduction", $mouthtarget, $_pullOutAskBaseDifficulty) or $gamemode is "soft" or $gloryhole or $_checkSkip>>
 					<<set $pullOut to true>>
 					<<if $consensual is 0>>
 						<<He_Short>> pauses a moment before responding.
@@ -4989,18 +5026,18 @@
 			<<set $mouthaction to 0>><<set $mouthactiondefault to "rest">>
 			<<if $money gte $rentmoney + ($babyRent or 0)>>
 				<<set $speechpay to 1>>
-				<<if $submissive gte 1150>>
+				<<if $speech_attitude is "meek">>
 					"S-stop!" you shout. "I'll pay you, so... j-just let Robin go."
-				<<elseif $submissive lte 850>>
+				<<elseif $speech_attitude is "bratty">>
 					"I'll pay you," you say through gritted teeth. "So get your hands off <<nnpc_him "Robin">>."
 				<<else>>
 					"Let go of <<nnpc_him "Robin">>!" you shout. "I have your money. I'll pay."
 				<</if>>
 			<<else>>
 				<<set $speechpay to -1>>
-				<<if $submissive gte 1150>>
+				<<if $speech_attitude is "meek">>
 					"S-stop!" you shout. "I don't have enough, b-but... just let <<nnpc_him "Robin">> go, please!"
-				<<elseif $submissive lte 850>>
+				<<elseif $speech_attitude is "bratty">>
 					"I don't have enough," you say through gritted teeth. "So get your hands off <<nnpc_him "Robin">>."
 				<<else>>
 					"Let go of <<nnpc_him "Robin">>!" you shout. "I don't have your money. I can't pay."
@@ -5076,19 +5113,21 @@
 			<</if>>
 			<<set $dragonbreathuse += 1>><<set $speechdragonbreath to 1>>
 			<<if $enemytype is "beast">>
-				You breath dragon fire at the <<beasttype>>. It whimpers.
+				You breathe dragon fire at the <<beasttype>>. It whimpers.
 			<<elseif $enemyno gte 2>>
-				You breath dragon fire at the <<group>>. They recoil in pain.
+				You breathe dragon fire at the <<group>>. They recoil in pain.
 				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
 					<<ggcrime>><<crimeup 500>>
 				<</if>>
 			<<else>>
-				You breath dragon fire at the assailant. <<He>> recoils in pain.
+				You breathe dragon fire at the assailant. <<He>> recoils in pain.
 				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
 					<<ggcrime>><<crimeup 500>>
 				<</if>>
 			<</if>>
 		<</if>>
+
+
 
 		/*Stalked actions */
 		<<if !$stalk_end>>
@@ -6620,3 +6659,4 @@
 		<</for>>
 	<</if>>
 <</widget>>
+ |

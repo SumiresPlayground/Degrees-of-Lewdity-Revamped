@@ -1,0 +1,66 @@
+:: Widgets Bunker [widget]
+<<widget "eventbunker">>
+	<<cleareventpool>>
+	<<addinlineevent "bunker_rat">>
+		<<beastNEWinit 1 rat>>
+		The bunker reeks of rot. You plug your nose as you continue onward. The bunker dims significantly until you run into something. It feels gross and matted. It shifts and turns, exposing a large <<beasttype>>.
+		<br><br>
+
+		<<link [[Next|Bunker Rat]]>><<set $molestationstart to 1>><</link>>
+	<</addinlineevent>>
+	<<addinlineevent "bunker_spider">>
+		While exploring the bunker you find yourself tangled in webs, you try to pull apart the web, but your hands get stuck. You manage to pull them free, but the rest of your body becomes tangled in the process, leaving you suspended in the air. Your struggling attracts unwanted attention as thousands of tiny, live spiders that start crawling from holes, cracks and furniture up the web toward you.
+		<br><br>
+
+		<<link [[Next|Bunker Spider]]>><<set $molestationstart to 1>><</link>> 
+	<</addinlineevent>>
+	<<runeventpool>>
+<</widget>>
+
+<<widget "eventbunkersafe">>
+	<<cleareventpool>>
+	<<addinlineevent "safebunker_thud">>
+		You hear a thud deep in the bunker.
+		<<ggstress>><<stress 2>>
+		<br><br>
+
+		<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<addinlineevent "safebunker_rat">>
+		You jump as there's a bang and a couple rats come scurrying from the clutter.
+		<<gstress>><<stress 1>>
+		<br><br>
+
+		<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<runeventpool>>
+<</widget>>
+
+<<widget "eventbunkeritem">>
+	<<cleareventpool>>
+	<<addinlineevent "bunkertablet">>
+		You spot something odd on a nearby table.
+		<br><br>
+
+		You pick up an old stone tablet covered in symbols, like the walls.
+		<br><br>
+
+		<<set $antiquemoney += 500>><<museumAntiqueStatus "antiquebunkertablet" "found">>
+		<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<addinlineevent "bunkertag">>
+		You find an old, dusty skeleton in one of the side rooms. It clutches its head tightly, even in death. Some form of tag dangles around its neck.
+		<br><br>
+
+		You slowly reach down and pull the tag from the body.
+		<br><br>
+
+		<<set $antiquemoney += 800>><<museumAntiqueStatus "antiquebunkertag" "found">>
+		<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<runeventpool>>
+<</widget>>

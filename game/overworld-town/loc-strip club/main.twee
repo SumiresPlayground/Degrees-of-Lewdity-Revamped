@@ -144,7 +144,7 @@ You are in the strip club's dressing room. <<if Time.dayState isnot "day" and Ti
 
 <<wardrobeicon>><<link [[Wardrobe|Strip Club Wardrobe]]>><</link>>
 <br>
-<<mirroricon>><<link [[Mirror|Strip Club Mirror]]>><</link>>
+<<mirroricon>><<link [[Mirror|Strip Club Mirror]]>><<preMirror>><</link>>
 <br><br>
 
 <<if Time.hour is 6>>
@@ -163,7 +163,7 @@ You are in the strip club's dressing room. <<if Time.dayState isnot "day" and Ti
 :: Strip Club Mirror
 <<effects>>
 
-<<link [[Step away|Strip Club Dressing Room]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+<<link [[Step away|Strip Club Dressing Room]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><<postMirror>><</link>>
 <br>
 
 <<mirror>>
@@ -272,6 +272,11 @@ You are in the bathroom at the Strip Club. There are several private cubicles fo
 <<effects>><<set $location to "strip_club">><<set $outside to 0>>
 
 You wash until you're squeaky clean.<<wash>>
+
+<<if $slime gt 0>>
+	<<violence 100>>
+	<span class='red'><br><br>You somehow endure the pain. You are a slime. Try to avoid water.</span>
+<</if>>
 <br><br>
 
 <<link [[Masturbate|Strip Club Shower Masturbation]]>><<set $masturbationstart to 1>><</link>>
@@ -295,6 +300,12 @@ A sign reads: "Open from <<ampm 18 00>>"
 	<<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
+	<</if>>
+		<<if $ghost gte 1>>
+		You can phase through the doors if you concentrate. 
+		<br><br>
+		<<link [[Phase (0:01)|Strip Club]]>><<pass 1>><</link>>
+		<br>
 	<</if>>
 
 <<link [[Leave|Connudatus Street]]>><</link>>
@@ -463,9 +474,9 @@ Some patrons eye you up, but they're mostly distracted by the dancers. <<tiprece
 
 	<<elseif $rng gte 81 and $bartendaction is "vip">>
 		<<generate1>><<generate2>>
-		<<if $malechance gte 1 and $player.gender_appearance is "m">>
+		<<if maleChance() gte 1 and $player.gender_appearance is "m">>
 			<<generatem3>>
-		<<elseif $malechance lte 99 and $player.gender_appearance is "f">>
+		<<elseif maleChance() lte 99 and $player.gender_appearance is "f">>
 			<<generatef3>>
 		<<else>>
 			<<generate3>>
@@ -486,9 +497,9 @@ Some patrons eye you up, but they're mostly distracted by the dancers. <<tiprece
 		<</if>>
 
 	<<elseif $rng gte 61 and $bartendaction is "vip">>
-		<<if $malechance gte 1 and $player.gender_appearance is "m">>
+		<<if maleChance() gte 1 and $player.gender_appearance is "m">>
 			<<generatem1>>
-		<<elseif $malechance lte 99 and $player.gender_appearance is "f">>
+		<<elseif maleChance() lte 99 and $player.gender_appearance is "f">>
 			<<generatef1>>
 		<<else>>
 			<<generate1>>
@@ -604,9 +615,9 @@ Some patrons eye you up, but they're mostly distracted by the dancers. <<tiprece
 	<<elseif $rng gte 21 and $bartend_info_other is undefined>>
 		<<set $bartend_info_other to 0>>
 		<<generate1>><<generate2>>
-		<<if $malechance gte 1 and $player.gender_appearance is "m">>
+		<<if maleChance() gte 1 and $player.gender_appearance is "m">>
 			<<generatem3>>
-		<<elseif $malechance lte 99 and $player.gender_appearance is "f">>
+		<<elseif maleChance() lte 99 and $player.gender_appearance is "f">>
 			<<generatef3>>
 		<<else>>
 			<<generate3>>

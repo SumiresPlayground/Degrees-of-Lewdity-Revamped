@@ -21,7 +21,7 @@
 	<<if _gen is "m" or _gen is "f">>
 		<<set $NPCList[_n].gender to _gen>><<set $NPCList[_n].pronoun to _gen>>
 	<<else>>
-		<<if random(1, 100) lte $beastmalechance>>
+		<<if random(1, 100) lte beastMaleChance()>>
 			<<set $NPCList[_n].gender to "m">><<set $NPCList[_n].pronoun to "m">>
 		<<else>>
 			<<set $NPCList[_n].gender to "f">><<set $NPCList[_n].pronoun to "f">>
@@ -92,12 +92,12 @@
 	<!-- v2.7 $BeastList is 0-7: "dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "creature" -->
 	<!-- v2.13 "horse" added to $BeastList -->
 
-	<<set _h to [200,150,200,300,200,250,500,300,200,500,225,150,400,300,300,250,300,400,500,500]>> <!-- Health Max per type -->
-	<<set _t to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","hellhound","dragon"]>> <!-- Name of each type -->
-	<<set _d to ["large","large","fat","enormous","bottlenose","scaly","brown","hairy","strange","huge","large","fierce","huge","slimy","fluffy","sleek","strange","strange","large","scaly"]>> <!-- Descriptor of each type -->
-	<<set _pd to ["knotted penis","spiked penis","penis","knotted penis","strange penis","penis","penis","penis","penis","equine cock","knotted penis","avian cock","bovine cock","arachnid penis","penis","cock","cock","cock","knotted penis","penis"]>> <!-- Descriptor of Penises -->
+	<<set _h to [200,150,200,300,200,250,500,300,200,500,225,150,400,300,300,250,300,400,500,300,150,200,300]>> <!-- Health Max per type -->
+	<<set _t to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>> <!-- Name of each type -->
+	<<set _d to ["large","large","fat","large","bottlenose","scaly","brown","hairy","strange","huge","large","fierce","huge","slimy","fluffy","sleek","strange","strange","scaly","strange","sleek","slimy","matted"]>> <!-- Descriptor of each type -->
+	<<set _pd to ["knotted penis","spiked penis","penis","knotted penis","strange penis","penis","penis","penis","penis","equine cock","knotted penis","avian cock","bovine cock","arachnid penis","penis","cock","cock","cock","penis","cock","penis","penis","cock"]>> <!-- Descriptor of Penises -->
 	/% <<set _cla to [1,1,1,1,0,1,1,1]>> %/
-	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,4,3,2,2,4,5]>> <!-- Size of penises -->
+	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,4,3,2,2,5,3,2,2,3]>> <!-- Size of penises -->
 
 	<<set _i to $BeastList.indexOf(_type)>>
 	<<set $NPCList[_n].healthmax to _h[_i]>>
@@ -135,7 +135,7 @@
 		<<set $NPCList[_n].monster to "monster">>
 	<<elseif _beast_monster isnot "beast" and ($monsterchance gte $rng and ($hallucinations gte 1 or $monsterhallucinations is "f")) or (_beast_monster is "monster") or ($bestialitydisable is "t" and $NPCList[0].monster is "monster")>>
 		<<set $NPCList[_n].monster to "monster">>
-		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow","deer"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
+		<<if ["dog","pig","wolf","dolphin","boar","fox","hawk","cow","deer","raccoon","frog","rat"].includes($NPCList[_n].type)>> <!-- Remove claws from many monster types -->
 			<<run delete $NPCList[_n].claws>> <!-- It can't have claws - using undefined to maintain back compat with previous saves mid-combat ($claws) -->
 		<</if>>
 		<<if $NPCList[_n].type is "horse">>
@@ -154,12 +154,6 @@
 			<<else>>
 				<<set $NPCList[_n].type to "stagboy">>
 			<</if>>
-		<<elseif $NPCList[_n].type is "bee">>
-			<<if $NPCList[_n].gender is "f">>
-				<<set $NPCList[_n].type to "beegirl">>
-			<<else>>
-				<<set $NPCList[_n].type to "beeboy">>
-			<</if>>
 		<<elseif $NPCList[_n].gender is "f">>
 			<<set $NPCList[_n].type to $NPCList[_n].type + "girl">>
 		<<else>>
@@ -171,7 +165,7 @@
 		<<set $NPCList[_n].lefthand to 0>>
 		<<set $NPCList[_n].righthand to 0>>
 		<!-- female monster people mammals have an accessible chest and might be able to lactate. -->
-		<<if $NPCList[_n].pronoun is "f" and ["catgirl", "doggirl", "wolfgirl", "beargirl", "foxgirl", "cowgirl", "deergirl", "sheepgirl"].includes($NPCList[_n].type)>>
+		<<if $NPCList[_n].pronoun is "f" and ["catgirl", "doggirl", "wolfgirl", "beargirl", "foxgirl", "cowgirl", "deergirl", "sheepgirl", "raccoongirl", "dolphingirl"].includes($NPCList[_n].type)>>
 			<<set $NPCList[_n].chest to 0>>
 			<<if ["beargirl", "cowgirl"].includes($NPCList[_n].type)>> <!-- Bigger monsters = Bigger booba -->
 				<<set $_breastMin to [0,0,0,0,2,2,2,2,2,5,5,5,5,5,5,5,8,8,9,10,12]>>
@@ -223,7 +217,7 @@
 	<</if>>
 	<<set $NPCList[_n].fullDescription += $NPCList[_n].type>>
 
-	<<if $NPCList[_n].type.includes("fox")>>
+	<<if $NPCList[_n].type is "fox">>
 		<<generate_npc_skills>>
 		<<generate_beast_traits>>
 		<<if $NPCList[_n].traits.includes("cowardly")>>
@@ -289,19 +283,43 @@
 <!-- rng is rolled right after this widget runs, so it shouldn't need correction unless this widget is manually called somewhere outside of beast generation -->
 <<widget "generate_beast_traits">>
 	<<set $NPCList[_n].traits to []>>
-	<<rng 5>>
-	<<switch $rng>>
-		<<case 1>>
-			<<set $NPCList[_n].traits.push("cowardly")>>
-		<<case 2>>
-			<<set $NPCList[_n].traits.push("territorial")>>
-		<<case 3>>
-			<<set $NPCList[_n].traits.push("clever")>>
-		<<case 4>>
-			<<set $NPCList[_n].traits.push("friendly")>>
-		<<case 5>>
-			<<set $NPCList[_n].traits.push("clumsy")>>
-	<</switch>>
+	<<if $location is "moor" and $moor>>
+		<<rng 10>>
+		<<if $moor gte 51>>
+			<!-- High moor -->
+			<<switch $rng>>
+				<<case 1 2 3 4 5>><<set $NPCList[_n].traits.push("territorial")>>
+				<<default>><<set $NPCList[_n].traits.push("clever")>>
+			<</switch>>
+		<<elseif $moor gte 21>>
+			<!-- Mid moor -->
+			<<switch $rng>>
+				<<case 1 2>><<set $NPCList[_n].traits.push("cowardly")>>
+				<<case 3 4>><<set $NPCList[_n].traits.push("territorial")>>
+				<<case 5 6>><<set $NPCList[_n].traits.push("clever")>>
+				<<case 7 8>><<set $NPCList[_n].traits.push("friendly")>>
+				<<default>><<set $NPCList[_n].traits.push("clumsy")>>
+			<</switch>>
+		<<else>>
+			<!-- Low moor -->
+			<<switch $rng>>
+				<<case 1 2 3>><<set $NPCList[_n].traits.push("cowardly")>>
+				<<case 4>><<set $NPCList[_n].traits.push("territorial")>>
+				<<case 5>><<set $NPCList[_n].traits.push("clever")>>
+				<<case 6 7 8>><<set $NPCList[_n].traits.push("friendly")>>
+				<<default>><<set $NPCList[_n].traits.push("clumsy")>>
+			<</switch>>
+		<</if>>
+	<<else>>
+		<<rng 5>>
+		<<switch $rng>>
+			<<case 1>><<set $NPCList[_n].traits.push("cowardly")>>
+			<<case 2>><<set $NPCList[_n].traits.push("territorial")>>
+			<<case 3>><<set $NPCList[_n].traits.push("clever")>>
+			<<case 4>><<set $NPCList[_n].traits.push("friendly")>>
+			<<case 5>><<set $NPCList[_n].traits.push("clumsy")>>
+		<</switch>>
+	<</if>>
 <</widget>>
 
 <!-- Dolphin generate calls -->
