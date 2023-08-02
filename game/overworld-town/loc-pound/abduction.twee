@@ -250,6 +250,12 @@ The metal cage is locked tight. It uses an electronic lock more advanced than th
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
 <</if>>
+<<if $ghost gte 1>>
+	You can phase through the doors if you concentrate. 
+	<br><br>
+	<<link [[Phase (0:01)|Pound Door Sneak]]>><<pass 1>><</link>>
+	<br>
+<</if>>
 
 <<link [[Try to force it open (1:00)|Pound Door Force]]>><<pass 60>><<tiredness 12>><</link>><<ggtiredness>>
 <br>
@@ -1057,7 +1063,7 @@ A <<person>> stomps towards you, a leash in <<his>> hand. A keychain rattles at 
 You run back into the pound proper while examining the keychain. Each key is numbered, tied to a corresponding cage. You open them one by one, freeing the <<pound_text>> within. Some stop to lick you, while others rampage deeper into the pound. You hear confused shouting soon after.
 <br><br>
 
-The staff occupied, you explore the adjoining staff room, and find a spare shirt and jeans.
+The staff occupied, you explore the adjoining staff room, and find a spare shirt and <<print playerBellySize() gte 8 ? "sweatpants" : "jeans">>.
 <br><br>
 
 <<link [[Dress|Pound Escape Free Dress]]>><</link>>
@@ -1074,7 +1080,7 @@ You get dressed. An alarm rings out, but the staff are too busy to stop you stro
 <<set $worn.face.type.push("broken")>>
 <<faceruined>>
 <<upperwear 33>>
-<<lowerwear 22>>
+<<if playerBellySize() gte 8>><<lowerwear 67>><<else>><<lowerwear 22>><</if>>
 
 <<link [[Next|Starfish Street]]>><</link>>
 <br>

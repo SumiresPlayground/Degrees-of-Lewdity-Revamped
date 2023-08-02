@@ -1,0 +1,110 @@
+:: Bunker Rat
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $finish is 1>>
+	<span id="next"><<link [[Next|Bunker Rat Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Bunker Rat Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Bunker Rat Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Bunker Rat]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Bunker Rat Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	You manage to defeat the <<beasttype>>. <<bHe>> flees deeper into the bunker.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	Satisfied, the <<beasttype>> moves away from you.
+	<br><br>
+	<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+<<else>>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+<</if>>
+
+:: Bunker Spider
+<<effects>>
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<molested>>
+	<<controlloss>>
+
+	<<set $combat to 1>>
+	<<set $enemytype to "swarm">>
+	<<swarminit "spiders" "sac" "slipping" "break" "steady" 1 9>>
+	<<set $timer to 30>>
+<</if>>
+
+<<if $timer gte 25>>
+The old steel above the web creak. If this keeps up they'll break.
+<<elseif $timer gte 20>>
+Shards break from the ceiling.
+<<elseif $timer gte 10>>
+The steel continues to break down.
+<<elseif $timer gte 1>>
+The steel ceiling creaks ominously.
+<<else>>
+A steel beam breaks from the ceiling and the web tumbles to the ground.
+<</if>>
+<br><br>
+
+<<swarmeffects>>
+<<swarm>>
+<<swarmactions>>
+
+<<if $timer lte 0>>
+	<span id="next"><<link [[Next|Bunker Spider Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Bunker Spider]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Bunker Spider Finish
+<<effects>>
+
+Startled by the collapse, the spiders flee into whatever hiding place they came from. <<tearful>> you struggle to your feet and peel the remaining web from your body.
+<br><br>
+
+<<clotheson>>
+
+<<pass 1 hour>>
+<<endcombat>>
+
+<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>

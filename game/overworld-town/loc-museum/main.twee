@@ -43,7 +43,20 @@
 	<<museumAntiqueStatus "antiquesilvergoblet" "talk">>
 	<<museumAntiqueStatus "antiquesilvercrown" "talk">>
 	<<museumAntiqueStatus "antiquewhitecrystal" "talk">>
+	<<museumAntiqueStatus "antiqueminesign" "talk">>
 	<<museumAntiqueStatus "antiqueliquor" "talk">>
+	<<museumAntiqueStatus "antiquebogplate" "talk">>
+	<<museumAntiqueStatus "antiquebogbone" "talk">>
+	<<museumAntiqueStatus "antiquebogtool" "talk">>
+	<<museumAntiqueStatus "antiquebunkertablet" "talk">>
+	<<museumAntiqueStatus "antiquebunkertag" "talk">>
+	<<museumAntiqueStatus "antiquecannonball" "talk">>
+	<<museumAntiqueStatus "antiquearttablet" "talk">>
+	<<museumAntiqueStatus "antiqueterracottastatue" "talk">>
+	<<museumAntiqueStatus "antiqueredvial" "talk">>
+	<<museumAntiqueStatus "antiquetribemask" "talk">>
+	<<museumAntiqueStatus "antiqueebonystatuette" "talk">>
+	<<museumAntiqueStatus "antiqueglacierplant" "talk">>
 <</widget>>
 
 <<widget "museumtalk">>
@@ -219,8 +232,60 @@
 		<<link [[Ask about the inscribed hourglass|Museum Hourglass]]>><<museumAntiqueStatus "antiquehourglass" "museum">><<npcincr Winter love 1>><</link>><<glove>>
 		<br>
 	<</if>>
+	<<if $museumAntiques.antiques.antiqueminesign is "talk">>
+		<<link [[Ask about the Bailey sign|Museum Mine Sign]]>><<museumAntiqueStatus "antiqueminesign" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
 	<<if $museumAntiques.antiques.antiqueliquor is "talk">>
 		<<link [[Ask about the antique liquor|Museum Antique Liquor]]>><<museumAntiqueStatus "antiqueliquor" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquebogplate is "talk">>
+		<<link [[Ask about the bog plate|Museum Bog Plate]]>><<museumAntiqueStatus "antiquebogplate" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquebogbone is "talk">>
+		<<link [[Ask about the bog bone|Museum Bog Bone]]>><<museumAntiqueStatus "antiquebogbone" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquebogtool is "talk">>
+		<<link [[Ask about the bog tool|Museum Bog Tool]]>><<museumAntiqueStatus "antiquebogtool" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquebunkertablet is "talk">>
+		<<link [[Ask about the bunker tablet|Museum Bunker Tablet]]>><<museumAntiqueStatus "antiquebunkertablet" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquebunkertag is "talk">>
+		<<link [[Ask about the bunker tag|Museum Bunker Tag]]>><<museumAntiqueStatus "antiquebunkertag" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquecannonball is "talk">>
+		<<link [[Ask about the cannonball|Museum Cannonball]]>><<museumAntiqueStatus "antiquecannonball" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquearttablet is "talk">>
+		<<link [[Ask about the art tablet|Museum Art Tablet]]>><<museumAntiqueStatus "antiquearttablet" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiqueterracottastatue is "talk">>
+		<<link [[Ask about the terracotta statue|Museum Terracotta Statue]]>><<museumAntiqueStatus "antiqueterracottastatue" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiqueredvial is "talk">>
+		<<link [[Ask about the red vial|Museum Red Vial]]>><<museumAntiqueStatus "antiqueredvial" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquetribemask is "talk">>
+		<<link [[Ask about the tribal mask|Museum Tribal Mask]]>><<museumAntiqueStatus "antiquetribemask" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiqueebonystatuette is "talk">>
+		<<link [[Ask about the ebony statuette|Museum Ebony Statue]]>><<museumAntiqueStatus "antiqueebonystatuette" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiqueglacierplant is "talk">>
+		<<link [[Ask about the glacial plant|Museum Glacier Plant]]>><<museumAntiqueStatus "antiqueglacierplant" "museum">><<npcincr Winter love 1>><</link>><<glove>>
 		<br>
 	<</if>>
 <</widget>>
@@ -411,9 +476,9 @@ You do so as <<he>> retrieves a set of black iron keys from a hook on the wall, 
 :: Museum Shackle Thank
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"Th-thank you," you say. "I felt so vulnerable."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Thanks," you say. "They were annoying."
 <<else>>
 	"Thank you," you say. "That was troublesome."
@@ -432,9 +497,9 @@ You return to the museum proper.
 :: Museum Shackle Ask
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"Wh-where did you get so many old keys?" you ask.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"What are you doing with so many old keys?" you ask.
 <<else>>
 	"Why do you have so many old keys?" you ask.
@@ -644,9 +709,9 @@ You return to the museum. Winter is on <<his>> feet, busy returning antiques to 
 "Don't you ever do something so stupid again. The police will-" <<he>> sees the bell in your hand, and fails to conceal <<his>> surprise.
 <br><br>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"I-I was careful," you say.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"I can handle myself," you say.
 <<else>>
 	"I didn't take any risks," you say.
@@ -664,9 +729,9 @@ Winter returns the bell to its resting place, and throws a sheet over it. "Not m
 <<set $location to "museum">><<effects>>
 
 You ignore the bell for now, and approach the <<person>>. You try pulling <<his>> hands away from <<his>> throat, but <<he>> won't budge.
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"P-please listen to me," you plead. "There's no danger. You need to relax."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Idiot," you say. "Stop hurting yourself and relax."
 <<else>>
 	"You have to listen to me," you say. "You're hurting yourself. You need to relax."
@@ -674,9 +739,9 @@ You ignore the bell for now, and approach the <<person>>. You try pulling <<his>
 <br><br>
 Whether through your words, or lack of oxygen, <<his>> arms weaken enough for you to pull them away. You pin them to <<his>> side.
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"J-just breath in and out slowly. Please trust me."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Control your fucking breathing. You're a mess."
 <<else>>
 	"Take deep breaths. In and out."
@@ -727,9 +792,9 @@ You emerge from the cottage, into a tidy garden on the edge of Domus Street. "I 
 <<set $outside to 0>><<set $location to "museum">><<effects>>
 
 <<if $phase is 0>>
-	<<if $submissive gte 1150>>
+	<<if $speech_attitude is "meek">>
 	"I-I thought you'd be happy I was showing interest," you say.
-	<<elseif $submissive lte 850>>
+	<<elseif $speech_attitude is "bratty">>
 	You put your hands on your hips. "Is that how you always greet people?" you ask. "I thought you'd be happy I was showing interest."
 	<<else>>
 	"I expected you to be happy I was showing interest," you say.
@@ -738,9 +803,9 @@ You emerge from the cottage, into a tidy garden on the edge of Domus Street. "I 
 A vein twitches on <<his>> forehead as <<he>> stares at you. "You shouldn't speak to your elders that way," <<he>> says. "But that was rude of me."
 
 <<elseif $phase is 1>>
-	<<if $submissive gte 1150>>
+	<<if $speech_attitude is "meek">>
 	You nod, and keep your hands firm at your sides.
-	<<elseif $submissive lte 850>>
+	<<elseif $speech_attitude is "bratty">>
 	You clench your fists and look away. "Sure," you say. "Why would I want to touch these dumb things anyway?"
 	<<else>>
 	"I will," you say, keeping your hands firm at your sides.
@@ -749,9 +814,9 @@ A vein twitches on <<his>> forehead as <<he>> stares at you. "You shouldn't spea
 "Good," <<he>> says. "Forgive my caution, but some of these are very old."
 
 <<else>>
-	<<if $submissive gte 1150>>
+	<<if $speech_attitude is "meek">>
 	"I am very dirty," you purr. "Would you help wash me?"
-	<<elseif $submissive lte 850>>
+	<<elseif $speech_attitude is "bratty">>
 	"That's okay," you purr. "You're the only antique I want to touch."
 	<<else>>
 	"The only thing I want to touch is you," you purr.
@@ -777,7 +842,7 @@ A vein twitches on <<his>> forehead as <<he>> stares at you. "You shouldn't spea
 
 <<npc Winter>><<person1>>
 <<if $phase is 1>><<set $phase to 0>>
-Winter dons a pair of gloves and appraises the goods. "Aha," <<he>> says. "The mask. I'm glad you've decided to put it under my care." <<He>> places £<<print $antiquemoney>> on the table.
+Winter dons a pair of gloves and appraises the goods. "Aha," <<he>> says. "The mask. I'm glad you've decided to put it under my care." <<He>> places <<printmoney `$antiquemoney * 100`>> on the table.
 <<glove>><<npcincr Winter love 1>>
 <br><br>
 
@@ -786,7 +851,7 @@ Winter dons a pair of gloves and appraises the goods. "Aha," <<he>> says. "The m
 
 <<elseif $antiquemoney gte 1000>>
 
-Winter dons a pair of gloves and appraises the goods. <<His>> scepticism fades as <<he>> works. "Where did you get this?" <<he>> asks. <<He>> doesn't wait for an answer, but places £<<print $antiquemoney>> on the table.
+Winter dons a pair of gloves and appraises the goods. <<His>> scepticism fades as <<he>> works. "Where did you get this?" <<he>> asks. <<He>> doesn't wait for an answer, but places <<printmoney `$antiquemoney * 100`>> on the table.
 <<glove>><<npcincr Winter love 1>>
 <br><br>
 
@@ -794,14 +859,14 @@ Winter dons a pair of gloves and appraises the goods. <<His>> scepticism fades a
 <br><br>
 <<elseif $antiquemoney gte 200>>
 
-Winter dons a pair of gloves and appraises the goods. "Thank you," <<he>> says. "Your contribution is noted." <<He>> places £<<print $antiquemoney>> on the table.
+Winter dons a pair of gloves and appraises the goods. "Thank you," <<he>> says. "Your contribution is noted." <<He>> places <<printmoney `$antiquemoney * 100`>> on the table.
 <br><br>
 
 <<He>> takes the goods into a back room.
 <br><br>
 
 <<else>>
-Winter dons a pair of gloves and appraises the goods. Without a word, <<he>> places £<<print $antiquemoney>> on the table.
+Winter dons a pair of gloves and appraises the goods. Without a word, <<he>> places <<printmoney `$antiquemoney * 100`>> on the table.
 <br><br>
 
 <<He>> takes the goods into a back room.
@@ -1249,9 +1314,9 @@ You touch the green gem. A calmness falls over you.
 :: Museum Bullet Tease
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"M-maybe it was you," you say.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"I bet it was you," you say.
 <<else>>
 	"Maybe it was you," you say.
@@ -1480,13 +1545,195 @@ Winter goes off on a tangent, but you remain polite, and nod along.
 <<link [[Next|Museum]]>><<endevent>><</link>>
 <br>
 
+:: Museum Mine Sign
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiqueminesign")>>
+	<<run $museumAntiqueJournalHints.delete("antiqueminesign")>>
+<</if>>
+
+<<npc Winter>><<person1>>"Ah, now this one is easy," Winter says, tracing the engraving. "I remember the Bailey mine before it closed. Or the outside, at least. My parents warned me to stay away. It was deemed unsafe. In the end."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
 :: Museum Antique Liquor
 <<effects>>
 
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiqueliquor")>>
+	<<run $museumAntiqueJournalHints.delete("antiqueliquor")>>
+<</if>>
 
 <<npc Winter>><<person1>>"Back in the days when this town was just getting started wine was it's primary export that allowed it to find its footing." Winter says. "Frankly I'm surprised a bottle has managed to survive until now."
 <br><br>
 
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Bog Plate
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquebogplate")>>
+	<<run $museumAntiqueJournalHints.delete("antiquebogplate")>>
+<</if>>
+
+<<npc Winter>><<person1>>"It seems to be an old antique steel plate." Winter says. "Not too rare but it seems to be in good condition."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Bog Bone
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquebogbone")>>
+	<<run $museumAntiqueJournalHints.delete("antiquebogbone")>>
+<</if>>
+
+<<npc Winter>><<person1>>"This looks to be some sort of well preserved bone." Winter says. "We're not quite sure what it is yet, but our hopes are high."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Bog Tool
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquebogtool")>>
+	<<run $museumAntiqueJournalHints.delete("antiquebogtool")>>
+<</if>>
+
+<<npc Winter>><<person1>>"This one is a very common find." Winter says. "It's just an old farming tool that must have fallen into the mud."
+<br><br>
+
+:: Museum Bunker Tablet
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquebunkertablet")>>
+	<<run $museumAntiqueJournalHints.delete("antiquebunkertablet")>>
+<</if>>
+
+<<npc Winter>><<person1>>"I'm actually at a loss of words for this discovery." Winter says. "I know most of the local languages but this tablet isnt written in any of them."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Bunker Tag
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquebunkertag")>>
+	<<run $museumAntiqueJournalHints.delete("antiquebunkertag")>>
+<</if>>
+
+<<npc Winter>><<person1>>"This seems to be some sort of ID tag." Winter says. "It's written in an odd language but it shares many similarities."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Cannonball
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquecannonball")>>
+	<<run $museumAntiqueJournalHints.delete("antiquecannonball")>>
+<</if>>
+
+<<npc Winter>><<person1>>"This looks like an old cannonball." Winter says. "Was probably used in a naval war last century."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Art Tablet
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquearttablet")>>
+	<<run $museumAntiqueJournalHints.delete("antiquearttablet")>>
+<</if>>
+
+<<npc Winter>><<person1>>"This looks like an old handpainting." Winter says. "It looks to be written on an old stone tablet."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Terracotta Statue
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiqueterracottastatue")>>
+	<<run $museumAntiqueJournalHints.delete("antiqueterracottastatue")>>
+<</if>>
+
+<<npc Winter>><<person1>>"This seems to be some kind of terracotta statue." Winter says. "It looks like it was probably used in rituals for the native people."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Red Vial
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiqueredvial")>>
+	<<run $museumAntiqueJournalHints.delete("antiqueredvial")>>
+<</if>>
+
+<<npc Winter>><<person1>>"What's this?" Winter says. <<He>> glaces inside the vial unsure. "I'll take it off your hands but don't pick up weird stuff like this. Even I don't know what's in here."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Tribal Mask
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquetribemask")>>
+	<<run $museumAntiqueJournalHints.delete("antiquetribemask")>>
+<</if>>
+
+<<npc Winter>><<person1>>"Looks like an old tribal ritual mask." Winter says. "The paint on it is used to portray messages. This one seems to send a message of mourning."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Ebony Statue
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiqueebonystatuette")>>
+	<<run $museumAntiqueJournalHints.delete("antiqueebonystatuette")>>
+<</if>>
+
+<<npc Winter>><<person1>>"Ah an old ebony statuette." Winter says. "Looks like it's very high quality too."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Glacier Plant
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiqueglacierplant")>>
+	<<run $museumAntiqueJournalHints.delete("antiqueglacierplant")>>
+<</if>>
+
+<<npc Winter>><<person1>>"Hmm what are these seeds?" Winter asks. <<He>> spends a few minutes inspecting the seeds before returning. "It looks similar to our modern species but there are some notable differences."
+<br><br>
 
 <<link [[Next|Museum]]>><<endevent>><</link>>
 <br>

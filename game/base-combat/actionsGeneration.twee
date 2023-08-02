@@ -475,11 +475,13 @@
 	/*Generate Actions*/
 	<<set _leftaction to {}>>
 	<<if $position is "stalk">>
-		<<set _leftaction["Clench"] to "clench">>
-		<<set _leftaction["Fold"] to "fold">>
-		<<leftFixAndCoverActions>>
-		<<leftcoverface>>
-		<<left_pursuit_grab>>
+		<<if $leftarm isnot "bound">>
+			<<set _leftaction["Clench"] to "clench">>
+			<<set _leftaction["Fold"] to "fold">>
+			<<leftFixAndCoverActions>>
+			<<leftcoverface>>
+			<<left_pursuit_grab>>
+		<</if>>
 	<<else>>
 		<<switch _leftOptions>>
 			<<case "free">>
@@ -846,11 +848,13 @@
 	/*Generate Actions*/
 	<<set _rightaction to {}>>
 	<<if $position is "stalk">>
-		<<set _rightaction["Clench"] to "clench">>
-		<<set _rightaction["Fold"] to "fold">>
-		<<rightFixAndCoverActions>>
-		<<rightcoverface>>
-		<<right_pursuit_grab>>
+		<<if $rightarm isnot "bound">>
+			<<set _rightaction["Clench"] to "clench">>
+			<<set _rightaction["Fold"] to "fold">>
+			<<rightFixAndCoverActions>>
+			<<rightcoverface>>
+			<<right_pursuit_grab>>
+		<</if>>
 	<<else>>
 		<<switch _rightOptions>>
 			<<case "free">>
@@ -1018,8 +1022,15 @@
 						<<set _feetOptions to "rightFree">>
 						<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your right leg is free.</span>
 					<<elseif $leftleg is "grappled" and $rightleg is "grappled">>
-						<<set _feetOptions to "grappled">>
-						<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are entangled and forced apart, leaving you less able to protect your <<genitals>>.</span>
+						<<if $slime gt 0>>
+							<<set $leftleg to 0>>
+							<<set $rightleg to 0>>
+							<<set _feetOptions to "free">>
+							<br><span class='green'>The attempt to restrain your feet fails. You just slip free!</span><br>
+						<<else>>
+							<<set _feetOptions to "grappled">>
+							<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are entangled and forced apart, leaving you less able to protect your <<genitals>>.</span>
+						<</if>>
 					<<elseif $leftleg is "bound" and $rightleg is "bound">>
 						<<set _feetOptions to "bound">>
 						<span @class="($lastOptions.feet isnot _feetOptions ?'gold':'')">Your legs are bound and forced apart, leaving you less able to protect your <<genitals>>.</span>
@@ -1183,44 +1194,27 @@
 	<<set _tailOptions to "free">>
 	<span @class="($lastOptions.tail isnot _tailOptions ?'gold':'')">Your tail is free.</span>
 	<<if $lastOptions.tail isnot _tailOptions>>
-			<<set _tailGold to true>>
-		<</if>>
-		<<if $_changetype isnot true>>
-			<<tailActions>>
-			<<if Object.keys(_tailaction).length gt 0>>
-				<<if Object.values(_tailaction).includes($tailactiondefault) is false or _args[0] is true or $tailactiondefault is "rest">>
-					<<set _defaultsCombatAction to "tailaction">>
-					<<set _actionsSet = DefaultActions.get($defaultsCombatType, $defaultsType, _defaultsCombatAction)>>
-					<<set _pass to false>>
-					<<for _set to 0; _set lt $maxDefaultActionSets; _set++>>
-						<<if Object.values(_tailaction).includes(_actionsSet[_set])>>
-							<<set $_tailactiondefault to clone(_actionsSet[_set])>>
-							<<set _pass to true>>
-							<<break>>
-						<</if>>
-					<</for>>
-					<<if _pass is false>>
-						<<set $_tailactiondefault to Object.values(_tailaction)[0]>>
-					<</if>>
-				<</if>>
+		<<set _tailGold to true>>
+	<</if>>
+	<<if $_changetype isnot true>>
+		<<tailActions>>
+		<<if Object.keys(_tailaction).length gt 0>>
+			<<set $tailaction to $tailactiondefault>>
+			<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "")>>
+			<<generateCombatAction _tailaction "tailaction" _textColor $tailaction>>
 
-				<<set $tailaction to $_tailactiondefault>>
-				<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "")>>
-				<<generateCombatAction _tailaction "tailaction" _textColor $tailaction>>
-
-				/*Checks/Difficulty*/
-				<<if $options.combatControls.includes("ists")>>
-					<div id="tailactionDifficulty">
-						<<tailactionDifficulty>>
-					</div>
-				<</if>>
+			<<if $options.combatControls.includes("ists")>>
+				<div id="tailactionDifficulty">
+					<<tailactionDifficulty>>
+				</div>
 			<</if>>
-			<<set $lastOptions.tail to clone(_tailOptions)>>
-		<<else>>
+		<</if>>
+		<<set $lastOptions.tail to clone(_tailOptions)>>
+	<<else>>
 		<<timed 100ms>>
 			<<run jQuery("#tailaction").remove();>>
 		<</timed>>
-		<</if>>
+	<</if>>
 <</if>>
 <</widget>>
 

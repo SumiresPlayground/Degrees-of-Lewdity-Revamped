@@ -13,6 +13,12 @@
 	<<skulduggeryrequired>>
 	<br><br>
 <</if>>
+<<if $ghost gte 1>>
+	You can phase through the doors if you concentrate. 
+	<br><br>
+	<<link [[Phase (0:01)|Cosmetics Store]]>><<pass 1>><</link>>
+	<br>
+<</if>>
 
 <<link [[Leave|Shopping Centre Top]]>><</link>>
 <br>
@@ -98,7 +104,7 @@ You are in the cosmetics store. Several shelvings stand before you, filled with 
 		<<set _availableColours = _availableColours.filter(x => !$makeup.owned[_itemType].includes(x))>>
 	<</if>>
 	<<if _availableColours.length == 0>>
-		You have collected all available colours of _itemPlural, there's nothing left for you to buy.
+		You have collected all available colours of _itemPlural. There's nothing left for you to buy.
 		<br><br>
 	<<else>>
 		Each _itemSingular costs <<printmoney _price>><<if _usesPerBuy > 1>> and has _usesPerBuy uses<</if>>.

@@ -30,16 +30,16 @@ You can access several parts of town from here.
 			<<orgasmLocation "sewers">>
 		<</if>>
 		<<if $sewersintro is 1>>
-			<<link [[Climb down|Sewers Industrial]]>><<set $eventskip to 1>><<sewersstart>><</link>>
+			<<laddericon>><<link [[Climb down|Sewers Industrial]]>><<set $eventskip to 1>><<sewersstart>><</link>>
 			<br><br>
 		<<elseif $historytrait gte 1 or isPubfameTaskAccepted("morgan")>>
-			<<link [[Examine a ladder leading down|Drain Ladder]]>><</link>>
+			<<laddericon>><<link [[Examine a ladder leading down|Drain Ladder]]>><</link>>
 			<br><br>
 		<</if>>
-		<<commercialdrain>>
+		<<ind>><<commercialdrain>>
 		<br>
-		<<drainexit>>
-		<br><br>
+		<<ind>><<drainexit>>
+		<br>
 		<<if $exposed gte 1 and Time.dayState isnot "night">>
 		<<else>>
 			<<elk>>
@@ -85,16 +85,15 @@ You can access several parts of town from here.
 			<<orgasmLocation "sewers">>
 		<</if>>
 		<<if $sewersintro is 1>>
-			<<link [[Climb down|Sewers Commercial]]>><<sewersstart>><<set $eventskip to 1>><</link>>
+			<<laddericon>><<link [[Climb down|Sewers Commercial]]>><<sewersstart>><<set $eventskip to 1>><</link>>
 			<br><br>
 		<<elseif $historytrait gte 1 or isPubfameTaskAccepted("morgan")>>
-			<<link [[Examine a ladder leading down|Drain Ladder]]>><</link>>
+			<<laddericon>><<link [[Examine a ladder leading down|Drain Ladder]]>><</link>>
 			<br><br>
 		<</if>>
-		<<residentialdrain>>
+		<<ind>><<residentialdrain>>
 		<br>
-		<<industrialdrain>>
-		<br><br>
+		<<ind>><<industrialdrain>>
 		<<if $exposed gte 1 and Time.dayState isnot "night">>
 		<<else>>
 			<<high>>
@@ -109,7 +108,7 @@ You can access several parts of town from here.
 		<<park>>
 		<br>
 		<<if $historytrait gte 2 and $schooldrainintro gte 1>>
-			<<link [[Secret tunnel to school (0:02)|School Toilets]]>><<pass 2>><</link>>
+			<<schoolbuildingicon>><<link [[Secret tunnel to school (0:02)|School Toilets]]>><<pass 2>><</link>>
 			<br>
 		<</if>>
 	<</if>>
@@ -149,14 +148,14 @@ You can access several parts of town from here.
 			<<orgasmLocation "sewers">>
 		<</if>>
 		<<if $sewersintro is 1>>
-			<<link [[Climb down|Sewers Residential]]>><<sewersstart>><<set $eventskip to 1>><</link>>
+			<<laddericon>><<link [[Climb down|Sewers Residential]]>><<sewersstart>><<set $eventskip to 1>><</link>>
 			<br><br>
 		<<elseif $historytrait gte 1 or isPubfameTaskAccepted("morgan")>>
-			<<link [[Examine a ladder leading down|Drain Ladder]]>><</link>>
+			<<laddericon>><<link [[Examine a ladder leading down|Drain Ladder]]>><</link>>
 			<br><br>
 		<</if>>
-		<<commercialdrain>>
-		<br><br>
+		<<ind>><<commercialdrain>>
+		<br>
 		<<if $exposed gte 1 and Time.dayState isnot "night">>
 		<<else>>
 			<<domus>>
@@ -695,7 +694,15 @@ The water pulls you further along the tunnel.
 :: Drain Water Passout
 
 <<effects>>
-<<if isPlayerNonparasitePregnancyEnding()>>
+<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
+	Your insensate body is carried along by water currents until it hits a bank within the sewer canals. You're awakened by the sudden vibration of your ear slimes. Disoriented from your earlier collapse, you barely manage to make out a mass inching towards you from the darkness.
+	<br>
+	<br>
+	A creature of colossal proportions approaches you. Weakened and further immobilized by your ear slimes, you can only watch in horror as it slowly begins to envelop your body.<br><br>
+
+	<<link [[Next|Sewers Slime]]>><</link>><br><br>
+
+<<elseif isPlayerNonparasitePregnancyEnding()>>
 	<<pregnancyWatersBrokenPassout "drain">>
 <<else>>
 	<<passout>>
@@ -937,10 +944,23 @@ The walls are covered in a violet lichen. You peel some off. <span class="gold">
 :: Drain Ladder
 
 <<effects>><<set $location to "sewers">>
+
 <<if $historytrait gte 1>>
-	You've read about the old sewers beneath the storm drains. They haven't been used in over a century, and are said to be dangerous. There are rumours of monsters and treasure.
+	You've read about the old sewers beneath the storm drains. They haven't been used in over a century, and are said to be dangerous. There are rumours of monsters and treasure. 
+	<<if $slimedisable is "f">>
+	<span class="green">
+	You also recall a tabloid purporting the existence of strange formless creatures located within the sewers and the local landfill. 
+	</span>
+	<</if>>
+	You doubt the veracity of such claims, but maintain a watchful eye regardless.
 <<else>>
-	You remember rumours about the old sewers beneath the storm drains. Apparently there are treasure and monsters down there. You doubt it, but keep on your guard anyway.
+	You remember rumours about the old sewers beneath the storm drains. Apparently, there are treasure and monsters down there. 
+	<<if $slimedisable is "f">>
+	<span class="green">
+	Something about mutated slimes as well. ...Or perhaps that was the local landfill. 
+	</span>
+	<</if>> 
+	You doubt such claims, but keep on your guard anyway.
 <</if>>
 
 <br><br>
@@ -1064,7 +1084,17 @@ The slime jumps in the canal, disappearing underwater.
 	When it reaches your <<bottom>>, it clings to the nearby wall for leverage, and forces you to the ground.
 	<br><br>
 
-	<<link [[Next|Drain Struggle]]>><<set $phase to 1>><<set $struggle_start to 1>><</link>>
+	
+
+	<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
+	The large slime seems to encourage your ear slimes into a frenzy! The frequency is slow, at first, but soon begins to increase. As they do so, a warmth spreads from your head, flowing through your body. <span class='green'>The slime engulfing you pulses in sync to the ear slimes' movement.</span> Despite the situation, you begin to feel eerily calm. The feeling is oddly familiar, as if you were in a womb. Your consciousness begins to shift as your fatigue takes over. You slowly drift asleep as the giant slime rhythmically caresses your body. As sleep begins to take you, you notice how oddly pliable your skin is starting to feel...
+	<br><br>
+	<<link [[Let it happen|Slime Transformation 1]]>><<pass 60>><</link>>
+
+	<</if>>
+	<br>
+
+	<<link [[Resist|Drain Struggle]]>><<set $phase to 1>><<set $struggle_start to 1>><</link>>
 	<br>
 <</if>>
 
@@ -1096,7 +1126,15 @@ You notice a pattern. It spreads by jumping, flattening itself each time.
 	You knees buckle, and you collapse to the ground. The slime takes advantage of your weakness.
 	<br><br>
 
-	<<link [[Next|Drain Struggle]]>><<set $phase to 1>><<set $struggle_start to 1>><</link>>
+		<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
+	Your orgasm seems to encourage your ear slimes into a frenzy! The frequency is slow, at first, but soon begins to increase. As they do so, a warmth spreads from your head, flowing through your body. <span class='green'>The slime engulfing you pulses in sync to the ear slimes' movement.</span> Despite the situation, you begin to feel eerily calm. The feeling is oddly familiar, as if you were in a womb. Your consciousness begins to shift as fatigue takes over. You slowly drift asleep as the giant slime rhythmically caresses your body. As sleep begins to take you, you notice how oddly pliable your skin is starting to feel...
+	<br>
+	<<link [[Let it happen|Slime Transformation 1]]>><<pass 60>><</link>>
+
+	<</if>>
+	<br>
+
+	<<link [[Resist|Drain Struggle]]>><<set $phase to 1>><<set $struggle_start to 1>><</link>>
 	<br>
 <<else>>
 	You wait for your moment, and catch it at a moment of weakness, throwing it across the waterway. It splats against the far wall, and disappears into another drain.

@@ -9,6 +9,12 @@
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
 <</if>>
+<<if $ghost gte 1>>
+	You can phase through the doors if you concentrate. 
+	<br><br>
+	<<link [[Phase (0:01)|Riding School]]>><<pass 1>><</link>>
+	<br>
+<</if>>
 <<link [[Leave|Farmland]]>><</link>>
 <br>
 
@@ -122,7 +128,7 @@ You are at Remy's riding school. Stables surround a central courtyard. A small o
 	<</if>>
 	<!-- Modified for Monster People -->
 	<<if ($monsterchance gte 1 and $hallucinations gte 1) or ($monsterchance gte 1 and $monsterhallucinations is "f")>>
-		<<if $malechance lt random(1, 100)>>
+		<<if maleChance() lt random(1, 100)>>
 			Remy assigns you to a centaur, who watches as you <<thightext>> climb into the saddle.
 			<<set $steed to "female">>
 		<<else>>
@@ -130,7 +136,7 @@ You are at Remy's riding school. Stables surround a central courtyard. A small o
 			<<set $steed to "male">>
 		<</if>>
 	<<else>>
-		<<if $beastmalechance lt random(1, 100)>>
+		<<if beastMaleChance() lt random(1, 100)>>
 			Remy assigns you to a mare. You <<thightext>> climb into the saddle.
 			<<set $steed to "mare">>
 		<<else>>
@@ -148,7 +154,7 @@ You are at Remy's riding school. Stables surround a central courtyard. A small o
 <<elseif $thighskill gte 800>>
 	You keep the <<steed_text>> under control with subtle leg movements, requiring only the occasional correction with the reins.
 <<elseif $thighskill gte 600>>
-	Between careful rein use and thigh movements, you manage to keep control of the <<steed_text>>
+	Between careful rein use and thigh movements, you manage to keep control of the <<steed_text>>.
 <<elseif $thighskill gte 400>>
 	You keep a firm grip on the reins, but the <<steed_text>> considers your movements suggestions, rather than commands.
 <<elseif $thighskill gte 200>>
@@ -580,9 +586,9 @@ You drop to your knees and crawl inside. The interior is dark and dusty. You get
 :: Riding School Lesson Plead
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"St-stop," you say. "That tickles."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Fuck off or you're getting a broken nose," you say.
 <<else>>
 	"Cut it out," you say.
@@ -848,9 +854,9 @@ You lean behind the <<person>>, and tap <<him>> on the opposite shoulder.
 <<effects>>
 
 <<if $steed is "male" or $steed is "female">>
-	<<if $submissive gte 1150>>
+	<<if $speech_attitude is "meek">>
 		"P-please don't hurt me," you say, trying to remain calm. "I didn't do anything to hurt you."
-	<<elseif $submissive lte 850>>
+	<<elseif $speech_attitude is "bratty">>
 		"Knock if off," you say, trying to remain calm. "Or I'll knock some sense into you."
 	<<else>>
 		"Please calm down," you say, trying to remain calm yourself. "I mean you no harm."

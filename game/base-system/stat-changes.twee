@@ -234,8 +234,16 @@
 				<<set _drunk_mod to Math.clamp(Math.floor($drunk / 120), 0, 4)>>
 				<<set _stress_mod to 30 - _drunk_mod * 5>>
 			<</if>>
-
-			<<if $body_temperature is "cold">>
+			
+			<<if $body_temperature is "cold" and $ghost is 2>>
+				<<set _stress_mod /= 3.0>>
+			<<elseif $body_temperature is "chilly" and $ghost is 2>>
+				<<set _stress_mod /= 1.5>>
+			<<elseif $body_temperature is "cold" and $ghost is 3>>
+				<<set _stress_mod *= 1.5>>
+			<<elseif $body_temperature is "chilly" and $ghost is 3>>
+				<<set _stress_mod *= 1>>
+			<<elseif $body_temperature is "cold">>
 				<<set _stress_mod *= 3.0>>
 			<<elseif $body_temperature is "chilly">>
 				<<set _stress_mod *= 1.5>>
@@ -365,8 +373,20 @@
 <</widget>>
 
 <<widget "tiredness">>
-	<<set _tiredness_mod to 1>>
-	<<if $body_temperature is "hot">>
+	<<if $transformationParts.traits.vigorous is "default">>
+		<<set _tiredness_mod to 0.5>>
+	<<else>>
+		<<set _tiredness_mod to 1>>
+	<</if>>
+	<<if $body_temperature is "hot" and $ghost is 2>>
+		<<set _tiredness_mod += 4>>
+	<<elseif $body_temperature is "warm" and $ghost is 2>>
+		<<set _tiredness_mod += 1>>
+	<<elseif $body_temperature is "hot" and $ghost is 3>>
+		<<set _tiredness_mod -= 2>>
+	<<elseif $body_temperature is "warm" and $ghost is 3>>
+		<<set _tiredness_mod -= 0.5>>
+	<<elseif $body_temperature is "hot">>
 		<<set _tiredness_mod += 2>>
 	<<elseif $body_temperature is "warm">>
 		<<set _tiredness_mod += 0.5>>
@@ -565,6 +585,7 @@
 	<<if _args[0] and $statFreeze isnot true>>
 		<<set $submissive += (_args[0] * 4)>>
 		<<set $submissive = Math.clamp($submissive, 0, 2000)>>
+		<<sub_check>>
 	<</if>>
 <</widget>>
 
@@ -572,7 +593,21 @@
 	<<if _args[0] and $statFreeze isnot true>>
 		<<set $submissive -= (_args[0] * 4)>>
 		<<set $submissive = Math.clamp($submissive, 0, 2000)>>
+		<<sub_check>>
 	<</if>>
+<</widget>>
+
+<<widget "sub_check">>
+<<if $submissive gte 1150 and $speech_attitude is "bratty">>
+	<<set $speech_attitude to "neutral">>
+	<<set $effectsmessage to 1>>
+	<<set $speech_attitude_bratty_message to 1>>
+<</if>>
+<<if $submissive lte 850 and $speech_attitude is "meek">>
+	<<set $speech_attitude to "neutral">>
+	<<set $effectsmessage to 1>>
+	<<set $speech_attitude_meek_message to 1>>
+<</if>>
 <</widget>>
 
 <<widget "incgpenisinsecurity">>

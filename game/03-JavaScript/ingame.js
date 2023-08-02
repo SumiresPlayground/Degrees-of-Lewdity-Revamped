@@ -42,6 +42,13 @@ function shopClothingFilterSortOnDescription(traitOne, traitTwo) {
 }
 window.shopClothingFilterSortOnDescription = shopClothingFilterSortOnDescription;
 
+function toggleAllHairTraitsFilter() {
+	const chboxes = $("#hairContainerTraits  input:not(:checked)");
+	if (chboxes.length > 0) chboxes.click();
+	else $("#hairContainerTraits input:checked").click();
+}
+window.toggleAllHairTraitsFilter = toggleAllHairTraitsFilter;
+
 // A wrapper for wikifyEval, only use for singular macro calls.
 function wikifier(widget, ...args) {
 	if (widget == null) return document.createDocumentFragment();
@@ -91,7 +98,7 @@ const combatActionColours = {
 			/* feetaction */
 			"kick",
 			/* tailaction */
-			"tailstab",
+			"tailstab", "tailwhip",
 			/* mouthaction */
 			"bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy", "retribution",
 		],
@@ -416,6 +423,40 @@ function startingPlayerImageReset() {
 	return "";
 }
 DefineMacroS("startingPlayerImageReset", startingPlayerImageReset);
+
+window.startingPlayerTransform = function(){
+	jQuery(document).on('change', '#settingsDiv .macro-radiobutton,#settingsDiv .macro-numberslider,#settingsDiv .macro-checkbox', function (e) {
+		switch(V.startingAnimalTF){
+			case "wolf": new Wikifier(null, '<<wolfTransform>><<startingPlayerImageUpdate>>'); break;
+			case "cat": new Wikifier(null, '<<catTransform>><<startingPlayerImageUpdate>>'); break;
+			case "cow": new Wikifier(null, '<<cowTransform>><<startingPlayerImageUpdate>>'); break;
+			case "harpy": new Wikifier(null, '<<harpyTransform>><<startingPlayerImageUpdate>>'); break;
+			case "fox": new Wikifier(null, '<<foxTransform>><<startingPlayerImageUpdate>>'); break;
+			case "raccoon": new Wikifier(null, '<<raccoonTransform>><<startingPlayerImageUpdate>>'); break;
+			case "dragon": new Wikifier(null, '<<dragonTransform>><<startingPlayerImageUpdate>>'); break;
+			case "dolphin": new Wikifier(null, '<<dolphinTransform>><<startingPlayerImageUpdate>>'); break;
+			case "lizard": new Wikifier(null, '<<lizardTransform>><<startingPlayerImageUpdate>>'); break;
+			case "dog": new Wikifier(null, '<<dogTransform>><<startingPlayerImageUpdate>>'); break;
+			case "bear": new Wikifier(null, '<<bearTransform>><<startingPlayerImageUpdate>>'); break;
+			case "deer": new Wikifier(null, '<<deerTransform>><<startingPlayerImageUpdate>>'); break;
+			case "sheep": new Wikifier(null, '<<sheepTransform>><<startingPlayerImageUpdate>>'); break;
+			case "bee": new Wikifier(null, '<<beeTransform>><<startingPlayerImageUpdate>>'); break;
+			case "fish": new Wikifier(null, '<<fishTransform>><<startingPlayerImageUpdate>>'); break;
+			case "horse": new Wikifier(null, '<<horseTransform>><<startingPlayerImageUpdate>>'); break;
+			case "pig": new Wikifier(null, '<<pigTransform>><<startingPlayerImageUpdate>>'); break;
+			case "spider": new Wikifier(null, '<<spiderTransform>><<startingPlayerImageUpdate>>'); break;
+			case "frog": new Wikifier(null, '<<frogTransform>><<startingPlayerImageUpdate>>'); break;
+			default: new Wikifier(null, '<<clearAnimalTransformations>><<startingPlayerImageUpdate>>'); break;
+		}
+
+		switch(V.startingDivineTF){
+			case "angel": new Wikifier(null, '<<angelTransform>><<startingPlayerImageUpdate>>'); break;
+			case "demon": new Wikifier(null, '<<demonTransform>><<startingPlayerImageUpdate>>'); break;
+			case "fallen": new Wikifier(null, '<<fallenstart>><<startingPlayerImageUpdate>>'); break;
+			default: new Wikifier(null, '<<clearDivineTransformations>><<startingPlayerImageUpdate>>'); break;
+		}
+	});
+}
 
 function deck() {
 	const names = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
@@ -972,9 +1013,11 @@ function clothesDataTrimmer(item) {
 		"shop", // use `Setup example`, should never be added back on to clothing items due to being in `trimmerVersion`
 		"short", // use `Setup example`, should never be added back on to clothing items due to being in `trimmerVersion`
 		"oldVariable", // use `Setup example`, should never be added back on to clothing items due to being in `trimmerVersion`
+		"altDamage", // use `Setup example`
+		"hideUnderLower", // use `Setup example`, should never be added back on to clothing items due to being in `trimmerVersion`
 	];
 	// To prevent it from running on variables multiple times, when updating toDelete, the last of the new additions should be added here
-	const trimmerVersion = ["shop", "short", "oldVariable"];
+	const trimmerVersion = ["shop", "short", "oldVariable", "hideUnderLower"];
 	let version = 0;
 	let indexToUpdateVersion = toDelete.indexOf(trimmerVersion[version]);
 	toDelete.forEach((v, index) => {
@@ -1072,15 +1115,15 @@ function isConnectedToHood(slot) {
 	// Return false if slot is undefined or not a valid clothing category
 	if (!slot || !V.worn[slot]) return false;
 	// Return true if this item IS a hood
-	if (V.worn[slot].hood && V.worn[slot].outfitSecondary[1] !== "broken") return true;
+	if (V.worn[slot].hood && V.worn[slot].outfitSecondary[1] !== "broken" && V.worn[slot].outfitSecondary[1] !== "split") return true;
 
 	// Use the primary clothing slot for the next check if this item is connected to an outfit (and is not the primary item)
-	if (V.worn[slot].outfitSecondary && V.worn[slot].outfitSecondary[1] !== "broken") {
+	if (V.worn[slot].outfitSecondary && V.worn[slot].outfitSecondary[1] !== "broken" && V.worn[slot].outfitSecondary[1] !== "split") {
 		slot = V.worn[slot].outfitSecondary[0];
 	}
 	if (
 		V.worn[slot].hoodposition &&
-		(V.worn[slot].hoodposition === "down" || (V.worn[slot].hoodposition === "up" && V.worn[slot].outfitPrimary.head !== "broken" && V.worn.head.hood === 1))
+		(V.worn[slot].hoodposition === "down" || (V.worn[slot].hoodposition === "up" && V.worn[slot].outfitPrimary.head !== "broken" && V.worn[slot].outfitPrimary.head !== "split" && V.worn.head.hood === 1))
 	) {
 		return true;
 	}
@@ -1122,7 +1165,7 @@ function clothesIndex(slot, itemToIndex) {
 				itemToIndex.iconFile = recovery.iconFile;
 				if(recovery.outfitPrimary) {
 					Object.entries(recovery.outfitPrimary).forEach(([key, value]) => {
-						if(itemToIndex.outfitPrimary && itemToIndex.outfitPrimary[key] === "broken"){
+						if(itemToIndex.outfitPrimary && (itemToIndex.outfitPrimary[key] === "broken" || itemToIndex.outfitPrimary[key] === "split")){
 							// Do Nothing
 						} else {
 							itemToIndex.outfitPrimary[key] = value;
@@ -1130,7 +1173,7 @@ function clothesIndex(slot, itemToIndex) {
 					})
 					itemToIndex.outfitPrimary = recovery.outfitPrimary;
 				}
-				if(recovery.outfitSecondary && itemToIndex.outfitSecondary[1] !== "broken") itemToIndex.outfitSecondary[1] = recovery.outfitSecondary[1];
+				if(recovery.outfitSecondary && itemToIndex.outfitSecondary[1] !== "broken" && itemToIndex.outfitSecondary[1] !== "split") itemToIndex.outfitSecondary[1] = recovery.outfitSecondary[1];
 			}
 			console.log(`attempting to recover the mismatch, new index is '${recovery.index}'`);
 			return recovery.index;
@@ -1191,6 +1234,8 @@ function currentSkillValue(skill) {
 			if (V.transformationParts.traits.sharpEyes !== "disabled") modifier += 0.05;
 			if (V.fox >= 6) modifier += 0.10;
 			if (V.dragon >= 1) modifier += 0.10;
+			if (V.raccoon >= 1) modifier += 0.20;
+			if (V.spider >= 1) modifier += 0.15;
 			result = Math.floor(result * modifier);
 			break;
 		case "physique":
@@ -1446,11 +1491,11 @@ function checkTFparts() {
 window.checkTFparts = checkTFparts;
 
 function getSexesFromRandomGroup() {
-	if (V.malechance <= 0) { /* Only females. */
+	if (maleChance() <= 0) { /* Only females. */
 		if (V.dgchance <= 0) return SexTypes.ALL_FEMALES;		/* All females, no dickgirls. Always vaginal. */
 		if (V.dgchance >= 100) return SexTypes.ALL_DICKGIRLS;	/* All females, all dickgirls. Always penises. */
 	}
-	if (V.malechance >= 100) { /* Only males. */
+	if (maleChance() >= 100) { /* Only males. */
 		if (V.cbchance <= 0) return SexTypes.ALL_MALES;			/* All males, no cuntboys. Always males. */
 		if (V.cbchance >= 100) return SexTypes.ALL_CUNTBOYS;	/* All males, all cuntboys. Always vaginal. */
 	}
@@ -1601,6 +1646,9 @@ function getHalloweenCostume() {
 		return "skeleton";
 	} else if (upper.name === "futuristic bodysuit" && lower.name === "futuristic bodysuit pants") {
 		return "futuresuit";
+	// This is commented out because there are no nurse lines yet.
+	// } else if (upper.name.includes("nurse") && lower.name.includes("nurse")) {
+	// 	return "nurse"; 
 
 	/* Transformations */
 	} else if (T.tf.angelHalo && T.tf.angelWings) {
@@ -1619,6 +1667,18 @@ function getHalloweenCostume() {
 		return "harpy TF";
 	} else if (T.tf.foxEars && T.tf.foxTail) {
 		return "fox TF";
+	} else if (T.tf.raccoonEars && T.tf.raccoonTail) {
+		return "raccoon TF";
+	} else if (T.tf.fishFins && T.tf.fishTail) {
+		return "fish TF";
+	} else if (T.tf.horseEars && T.tf.horseTail) {
+		return "horse TF"
+	} else if (T.tf.spiderEyes && T.tf.spiderTail) {
+		return "spider TF"
+	} else if (T.tf.frogEyes && T.tf.frogCheeks) {
+		return "frog TF"
+	} else if (T.tf.pigEars && T.tf.pigTail) {
+		return "pig TF"
 
 	/* Misc outcomes */
 	} else if (
@@ -1898,3 +1958,28 @@ function npcSemenMod(penisSize){
 	}
 }
 window.npcSemenMod = npcSemenMod;
+
+function maleChance(override){
+	if (V.maleChanceSplit === "f") return V.malechance;
+	const appearence = override || V.player.gender_appearance;
+	if (appearence === "m") return V.maleChanceMale;
+	if (appearence === "f") return V.maleChanceFemale;
+	return 50;	
+}
+window.maleChance = maleChance;
+
+// gender of the npc, rng (between 1 and 100) of their generation
+function attractedToBothChance(gender, rng){
+	if (gender === "m") return maleChance("m") >= rng && maleChance("f") >= rng;
+	return maleChance("m") < rng && maleChance("f") < rng;
+}
+window.attractedToBothChance = attractedToBothChance;
+
+function beastMaleChance(override){
+	if (V.beastMaleChanceSplit === "f") return V.beastmalechance;
+	const appearence = override || V.player.gender_appearance;
+	if (appearence === "m") return V.beastMaleChanceMale;
+	if (appearence === "f") return V.beastMaleChanceFemale;
+	return 50;	
+}
+window.beastMaleChance = beastMaleChance;

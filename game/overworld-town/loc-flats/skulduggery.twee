@@ -12,6 +12,12 @@ The door is locked tight.
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
 <</if>>
+<<if $ghost gte 1>>
+	You can phase through the doors if you concentrate. 
+	<br><br>
+	<<link [[Phase (0:01)|Flats Sneak]]>><<pass 1>><</link>>
+	<br>
+<</if>>
 
 <<link [[Leave|Flats]]>><</link>>
 <br>
@@ -19,7 +25,11 @@ The door is locked tight.
 :: Flats Sneak
 <<effects>>
 
-You successfully pick the lock and enter the abode.
+<<if $ghost gte 1>>
+	You enter into the premises.
+<<else>>
+	You successfully pick the lock and enter the premises.
+<</if>>
 <<if $skulduggery lt 300>>
 	<<skulduggeryskilluse>>
 <<else>>
@@ -74,7 +84,7 @@ You successfully pick the lock and enter the abode.
 	<br><br>
 
 	<<if $flats_vents_init is undefined>>
-		You investigate the terrace. There's nothing there but some hanging washing. A neighbouring terrace is close enough to climb to. You're not sure how that flat is meant to be accessed normally. There were doors on that side.
+		You investigate the terrace. There's nothing there but some hanging washing. A neighbouring terrace is close enough to climb to. You're not sure how that flat is meant to be accessed normally, as there were no doors on that side.
 		<br><br>
 		<<link [[Cross the gap to the other terrace|Flats Sneak Terrace]]>><</link>><<willpowerdifficulty 1 400>>
 		<br>
@@ -454,9 +464,9 @@ You reach the bottom without issue. A head peeks out the window you escaped thro
 <</if>>
 <<seductionskilluse>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"S-sorry for the intrusion," you say. "Someone paid me to provide them company. I must have the wrong address."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Wrong room?" you ask. "Good thing you told me. I'm an escort, you see. And already paid up too."
 <<else>>
 	"I must have the wrong room," you say. "I'm an escort, and I've been paid to provide entertainment."

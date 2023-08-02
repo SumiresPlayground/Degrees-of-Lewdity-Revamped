@@ -163,13 +163,24 @@
 	<<set $worn.neck.collaredpolice to 0>>
 	<<set $bullytimer to 50>>
 	<<set $bullytimeroutside to 0>>
+	<<set $caseyagain to 0>>
+	<<set $caseymet to 0>>
+	<<set $caseyridefirst to 0>>
+	<<set $caseyromance to 0>>
+	<<set $motorupgrade to 0>>
 	<<set $bullyevent to 0>>
 	<<set $bullyeventoutside to 0>>
 	<<set $masturbationorgasm to 0>>
 	<<set $malechance to 50>>
+	<<set $maleChanceMale to 50>>
+	<<set $maleChanceFemale to 50>>
+	<<set $maleChanceSplit to "f">>
 	<<set $malevictimchance to 50>>
 	<<set $homochance to 4>>
 	<<set $beastmalechance to 80>>
+	<<set $beastMaleChanceMale to 80>>
+	<<set $beastMaleChanceFemale to 80>>
+	<<set $beastMaleChanceSplit to "f">>
 	<<set $monsterhallucinations to "t">>
 	<<set $monsterchance to 50>>
 	<<set $deviancy to 0>>
@@ -256,6 +267,7 @@
 	<<set $stat_police.community to 0>>
 	<<set $stat_police.prison to 0>>
 	<<set $child_played to []>>
+	<<set $speech_attitude to "neutral">>
 
 	<<set $orgasmtrait to 0>>
 	<<set $ejactrait to 0>>
@@ -266,6 +278,9 @@
 	<<set $voretrait to 0>>
 	<<set $milkdranktrait to 0>>
 	<<set $choketrait to 0>>
+	<<if $debug>>
+		<<set $options.maxStates to 5>>
+	<</if>>
 
 	<<set $physicalTransform to 0>>
 	<<set $specialTransform to 0>>
@@ -318,9 +333,30 @@
 	<<set $dogbuild to 0>>
 	<<set $dog to 0>>
 	<<set $dogtf to 0>>
+	<<set $raccoonbuild to 0>>
+	<<set $raccoon to 0>>
+	<<set $raccoontf to 0>>
+	<<set $fishbuild to 0>>
+	<<set $fish to 0>>
+	<<set $fishtf to 0>>
+	<<set $horsebuild to 0>>
+	<<set $horse to 0>>
+	<<set $horsetf to 0>>
+	<<set $pigbuild to 0>>
+	<<set $pig to 0>>
+	<<set $pigtf to 0>>
+	<<set $spiderbuild to 0>>
+	<<set $spider to 0>>
+	<<set $spidertf to 0>>
+	<<set $frogbuild to 0>>
+	<<set $frog to 0>>
+	<<set $frogtf to 0>>
 	<<set $slime to 0>>
 	<<set $ghost to 0>>
 	<<set $exorcism to 0>>
+	<<set $exorcised to 0>>
+	<<set $onemoreslime to 0>>
+	<<set $dencounter to 0>>
 	<<set $stray_happiness to 50>>
 
 	<<set $seductionskill to 0>>
@@ -524,7 +560,7 @@
 		<<set $brothel_basement_price to 500>>
 	<</if>>
 
-	<<set $brothelshowdata to { counts:{ agreed:0, done:0 }, type:"none", intro:false, done:false, missed:false }>>
+	<<set $brothelshowdata to { counts:{ agreed:0, done:0 }, type:"none", intro:0, done:false, missed:false }>>
 
 	<<set $speechorgasmweakcumcount to 0>>
 	<<set $speechorgasmnocumcount to 0>>
@@ -989,6 +1025,8 @@
 	<<run window.createInventoryObject()>>
 
 	<<initEstatePersistent>>
+
+	<<variablesModUpdate>>
 
 	<<set $modeloptionsOverride to {}>>
 	<<set $wraith to {"state": "", "init": 0}>>

@@ -1,4 +1,9 @@
 :: Trash Intro
+
+<<if $dencounter is undefined>>
+	<<set $dencounter to 0>>
+<</if>>
+
 <<set $location to "landfill">><<set $bus to "elk">><<set $outside to 1>><<effects>>
 
 You awaken on your back, surrounded by mountains of rubbish. You're in a landfill.
@@ -26,6 +31,33 @@ You are in the landfill on Elk Street.
 	The piles of rubbish get taller the further you move from the street.
 <<else>>
 	You're at the front gate. You can see Elk Street on the other side. A sign reads: "These premises and all objects within are private property."
+	<br><br>
+	<i>You hear strange noises nearby...</i>
+	<br><br>
+		
+	<<if $dencounter is undefined>>
+		<<set $dencounter to 0>>
+	<</if>>
+
+	<<if $stress lt $stressmax and $eventskip is 1>>
+		Within the surrounding hills of waste, you notice a particularly robust pile of trash.
+		<br>
+		There seems to be a clearing situated within it, insulated with what could be hair or cloth.
+		<br><br>
+			<<if $dencounter is 0>>
+				You think you see movement within. Is that a striped tail? 
+				<br><br>
+				<span class='lewd'>Investigating may be a bad idea</span>, but you're curious nontheless.
+				<br><br>
+			<<else>>
+				You've been here before. Or at least somewhere like it. It's a bit hard to tell, as there are piles of trash everywhere here, but you're fairly certain this one is a <span class='green'>raccoon den.</span> 
+				<br><br>
+				You're hesitant to go in, considering what happened the first time you entered one of these.<<if $deviancy gte 15>><br> <span class='lewd'>Still, maybe things can be different this time. More enjoyable.</span><</if>>
+				<br><br>
+			<</if>>
+
+		<<link [[Head inside the opening (0:03)|Trash Mammals]]>><<beastNEWinit 3 raccoon>><<pass 3>><</link>><br><br>
+	<</if>>
 <</if>>
 
 <<if $robinmissing is "landfill" and $robinmistknown>>
@@ -44,7 +76,7 @@ You are in the landfill on Elk Street.
 <<elseif $arousal gte $arousalmax>>
 	The warmth growing within you passes the point of no return. Your knees buckle. <<orgasm>>
 
-	<<if $rng gte 51 and $parasitedisable is "f" and ($parasite.left_ear.name is undefined or $parasite.right_ear.name is undefined) and $slimedisable is "f" and $hallucinations gte 1>>
+	<<if $rng gte 51 and $parasitedisable is "f" and ($parasite.left_ear.name is undefined or $parasite.right_ear.name is undefined) and $slimedisable is "f" and $hallucinations gte 1 and $slime is 0>>
 		Attracted by your orgasm, something stirs within the detritus. It oozes out from deep within one of the mountains, and squirms across the concrete. You see it just before it reaches you, a living slime. It leaps on your back, and squirms up your neck. You try to reach for it, but it's too fast.
 		<br><br>
 
@@ -92,6 +124,10 @@ You are in the landfill on Elk Street.
 				<br>
 			<</if>>
 		<</if>>
+		<<if $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and Time.dayState is "day">>
+			You see Casey scrounging through the garbage heaps occasionally pocketing something or tossing it away.
+			<<link [[Say hello (0:05)|Casey Hello]]>><<pass 5>><</link>>
+		<</if>>
 	<</if>>
 	<<if $trash gte 1>>
 		<<link [[Go towards the sound of traffic (0:10)|Trash]]>><<pass 10>><<set $trash -= 10>><</link>>
@@ -103,9 +139,280 @@ You are in the landfill on Elk Street.
 	<<elseif $trash gte 100 and $robinmissing is "landfill" and $robinmistknown>>
 		<<link [[Go towards the sound of heavy machinery (0:10)|Robin Mist Intro]]>><<pass 10>><</link>>
 		<br>
+	<<elseif $trash gte 100 and $bunker is "found">>
+		<<link [[Enter the trapdoor (0:02)|The Bunker Intro]]>><<set $eventskip to 1>><<pass 2>><</link>>
 	<</if>>
 <</if>>
 <<set $eventskip to 0>>
+
+
+:: Trash Mammals
+
+<<set $location to "landfill">>
+
+<<set $outside to 0>>
+
+<<effects>>
+
+<<if $dencounter is 0>>
+
+	You carefully enter the clearing, curious about the movement you just saw. Once you're fully inside, a smell not dissimilar to a wet dog assaults your faculties. Suddenly, a chittering sound echoes in the area. The sound is replicated soon after, followed by another. The source of the cacophony becomes apparent as you are approached by a <<beasttype>>. Others approach you from the dark recesses of the den. They slowly surround you, blocking any hope of escape.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“...Our den. Not yours,” the one in front of you states. <<bHe>> makes a motion towards <<bhis>> companions. They begin to close in. "You can leave, but..." 
+		<br><br>
+		<<bHe>> suddenly pounces on you, knocking you down. "We take something first. Fair trade for entering." <<bHe>> grasps your body. “No struggle. Will be quick. Maybe you... like.”
+		<br><br>
+	<</if>>
+
+
+	<<link [[Next|Raccoons Rape]]>><<set $molestationstart to 1>><<set $dencounter to 1>><</link>><br>
+
+<<else>>
+
+	You carefully enter the clearing, wary of the denizens within. Once you're fully inside, the smell from last time invades your nostrils. Suddenly, a familiar chittering sound echoes in the area. The sound is replicated soon after, followed by another. The source of the cacophony becomes apparent as you are approached by a <<beasttype>>. Others approach you from the dark recesses of the den. They slowly surround you, blocking any hope of escape. <<bHis>> nose twitches, then <<bhis>> tail begins to wag feverishly. <<bHis>> eyes seem to sparkle with recognition and <<bhe>> bounds over to you, companions following.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“...You again. You know this our home, but you still come,” the one in front of you states. "This time, you want it." <<bHis>> companions approach you, not even waiting for the leader's command.
+		<br><br>
+		<<bHe>> suddenly pounces on you, knocking you down. "Well... we think you want it. You get it, either way." <<bHe>> grasps your body. “Easy way. Hard way. No matter. Still have fun. How you want it?”
+		<br><br>
+	<</if>>
+
+	<<if $deviancy gte 35>>
+	<<link [[Submit|Raccoons Love]]>><<set $sexstart to 1>><</link>><<deviant2>>
+	<br>
+	<</if>>
+	<<link [[Resist|Raccoons Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+
+<</if>>
+
+
+:: Raccoons Love
+
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+	<span class='lewd'>"Everyone, just... let's not get too wild right away," You say. "Alright?"</span>
+	<br><br>
+	<<if $monster is 1>>
+		The lead <<beasttype>> acknowledges your request. "No worry. We all enjoy this. You make good choice."
+	<<else>>
+		The lead <<beasttype>> licks you, as if sensing your trepidation.
+	<</if>>
+	<<set $NPCList[0].stance to "top">>
+	<<if $raccoon gte 4>>
+		<<deviancy1>>
+	<<else>>
+		<<deviancy4>>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<beast $enemyno>>
+<<stateman>>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Raccoons Love Ejaculation]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Raccoons Love]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+
+:: Raccoons Love Ejaculation
+
+<<effects>>
+<<beastejaculation>>
+
+
+<<if $combatTrain.length gt 0>>
+	Satisfied, the <<beasttype>> leaves you be. Another takes its place.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Love]]>><</link>>
+<<else>>
+	Satisfied, the <<beasttype>> leaves you be.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Love Finish]]>><</link>>
+<</if>>
+
+
+:: Raccoons Love Finish
+
+
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation>>
+
+	The <<beasttype>> lays on top of you for a moment before sliding off. The leader nuzzles you as <<bhe>> does so.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“Was easy, yes? You just rest. We take care of everything." The leader gestures towards <<bhis>> companions. They return to the side of the one in charge.
+		<br><br>
+		"Still... too tired for more. Friends too, probably. Come back later. We have more fun." The <<beastsplural>> leave you. Presumably, to rest within the corners of the den.
+		<br><br>
+	<</if>>
+
+	You slowly get up and brush yourself off. You give a curt nod to the group before departing.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+<<elseif $enemyhealth lte 0>>
+
+	In your struggle, you manage to accidently get a clean hit on the <<beasttype>>.
+	<br> 
+	You press your advantage and shrug of the others while they're still surprised. 
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		"Urgh! What...?" The <<beasttype>> yells as <<bhe>> and <<bhis>> companions are thrown off by your unexpected violence.
+		<br><br>
+		"You... change mind?" The leader questions as <<bhe>> nurses a bruise. "N...Now we do this hard wa-"
+		<br><br>
+		Your sudden movement catches <<bhim>> off-guard.
+		<br><br>
+	<</if>>
+
+	<<tearful>> you dart out of the den entrance before the <<beasttypes>> have a chance to fully recover.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+<<else>>
+
+
+	The <<beasttype>> lays on top of you for a moment before sliding off.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“Was easy, yes? You just rest. We take care of everything." The leader gestures towards <<bhis>> companions. They return to the side of the one in charge.
+		<br><br>
+		"Still... too tired for more. Friends too, probably. Come back later. We have more fun." The <<beastsplural>> leave you. Presumably, to rest within the corners of the den.
+		<br><br>
+	<</if>>
+
+	You slowly get up and brush yourself off. You give a curt nod to the group before departing.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+<</if>>
+
+<<link [[Next|Trash]]>><<endevent>><<set $eventskip to 0>><</link>>
+<br>
+
+:: Raccoons Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate 1>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next->Raccoons Rape Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next->Raccoons Rape Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next->Raccoons Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Raccoons Rape Ejaculation
+
+<<effects>>
+<<beastejaculation>>
+
+
+<<if $combatTrain.length gt 0>>
+	Satisfied, the <<beasttype>> leaves you be. Another takes its place.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape]]>><</link>>
+<<else>>
+	Satisfied, the <<beasttype>> leaves you be.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape End]]>><</link>>
+<</if>>
+
+:: Raccoons Rape Escape
+
+<<effects>>
+<<beastwound>>
+<<if $combatTrain.length gt 0>>
+	The <<beasttype>> recoils in pain and fear, but another takes its place.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape]]>><</link>>
+<<else>>
+	The <<beasttype>> recoils in pain and fear.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Raccoons Rape End]]>><</link>>
+<</if>>
+
+:: Raccoons Rape End
+
+<<effects>>
+<<if $enemywounded is 1 and $enemyejaculated is 0>>
+	The <<beasttype>> whimpers and flees into the darkness.
+<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
+	The <<beasttype>> leaves you lying on the ground.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“Was easy, yes? You just rest. We take care of everything." The leader gestures towards <<bhis>> companions. They return to the side of the one in charge. "Maybe you come back again." 
+		<br><br>
+		<<bHis>> companions make a chittering noise oddly reminiscent of snickering. The leader maintains <<bhis>> composure, but you still sense an air of conceit emanating from <<bhim>>. "Now go. Unless you want more."
+		<br><br>
+	<</if>>
+<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
+	Feeling that you're more trouble than you're worth, the <<beastsplural>> flee into the darkness.
+<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+	The <<beastsplural>> leave you spent and shivering on the ground.
+	<br><br>
+	<<if $monster is 1 or $bestialitydisable is "f">>
+		“Was easy, yes? You just rest. We take care of everything." The leader gestures towards <<bhis>> companions. They return to the side of the one in charge. "You probably not come back... but, would not mind if you do." 
+		<br><br>
+		<<bHis>> companions make a chittering noise oddly reminiscent of snickering. The leader maintains <<bhis>> composure, but you still sense an air of conceit emanating from <<bhim>>. "Now go. Unless you want more."
+		<br><br>
+	<</if>>
+<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+	The <<beastsplural>> leave you spent and shivering on the ground. One is slowed by a limp.
+<</if>>
+<br><br>
+<<tearful>> you rise to your feet and flee the den as fast as you can.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+
+
+<<link [[Next|Trash]]>><<endevent>><<set $eventskip to 0>><</link>>
 
 :: Trash Gate Enter
 <<set $location to "landfill">><<set $outside to 1>><<effects>>
@@ -139,6 +446,12 @@ The gate is barred by a heavy-duty padlock.
 		<span class="blue"><i>There must be a key, but you haven't any idea where you could find one.</i></span>
 		<br><br>
 	<</if>>
+	<<if $ghost gte 1>>
+		You can phase through the doors if you concentrate. 
+		<br><br>
+		<<link [[Phase (0:01)|Trash]]>><<pass 1>><<set $trash to 0>><</link>>
+		<br>
+	<</if>>
 <</if>>
 
 <<link [[Leave|Elk Street]]>><</link>>
@@ -161,6 +474,12 @@ The gate is barred by a chain and padlock. You wonder if there's a key somewhere
 	<<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span> <<skulduggeryrequired>>
 	<br><br>
+	<</if>>
+		<<if $ghost gte 1>>
+		You can phase through the doors if you concentrate. 
+		<br><br>
+		<<link [[Phase (0:01)|Elk Street]]>><<pass 1>><</link>>
+		<br>
 	<</if>>
 
 <<link [[Leave|Trash]]>><</link>>
@@ -218,6 +537,9 @@ You search the piles of rubbish for anything of value.
 	<<if $brothel_machine_repair is 2>>
 		You spot a pink light reflect off the base of the compactor. You investigate, and find a small canister. There's a glass window on the side, letting you see the glowing pink gel within. <span class="gold">This must be the fuel used by the brothel sex machine.</span>
 		<<set $brothel_machine_repair to 3>>
+	<<elseif $rng gte 90 and $bunker isnot "found">>
+		As you explore the landfill, you notice an odd gaping hole amidst the trash. A rusted trapdoor is ajar, inviting you to enter.
+		<<set $bunker to "found">>
 	<<elseif $rng gte 80>>
 		You find an ancient incense burner. It's clearly an antique. You're not sure why anyone would throw it out.
 		<<set $antiquemoney += 100>><<museumAntiqueStatus "antiquetrashburner" "found">><<crimeup 100>>
@@ -237,6 +559,8 @@ You search the piles of rubbish for anything of value.
 		<</if>>
 	<<elseif $rng gte 30>>
 		The rubbish gives way in a small avalanche, <span class="red">revealing a baleful eye.</span> It pierces you with its stare, before vanishing into the mountain. It happened so quick you might have imagined it, but when you close your eyes, it's still there, watching.<<ghallucinogens>><<ggstress>><<set $hallucinogen += 90>><<stress 12>>
+	<<elseif $rng gte 20>>
+		As you search the trash for anything useful, you hear the sound of chittering nearby. Turning quickly, you barely see a small black shape run into a nearby crevice. Was that a raccoon?
 	<<else>>
 		You don't find anything.
 	<</if>>
@@ -353,6 +677,111 @@ You search the piles of rubbish for anything of value.
 	<br>
 <</if>>
 
+:: Trash Compare Widgets [widget]
+
+<<widget "TrashComparePlayerChastity">>
+	The <<group>> groan in disappointment at the sight of your <<print $worn.genitals.name>>. "What the fuck is that?" the <<trashSelect>><<person>> asks, waving <<his>> arms at your $worn.genitals.name in disappointment. "How is that fair? Stupid prude."
+	<br><br>
+	<<He>> steps forward, and points at you. "I think we should rip it off, just to teach you a lesson." <<He>> stomps your way.
+	<<stress 6>><<gstress>>
+	<br><br>
+	<<Hes>> pulled back by the <<trashSelect>><<person>>, who huffs. "What? No, we're not doing that. That's dumb. I'm not being a part of that."
+<</widget>>
+
+<<widget "TrashComparePlayerBreastsReact">>
+	<<switch $player.breastsize>>
+		<<case 0>>
+			The <<group>> burst into laughter. "<<pShes>> flat as a board!" the <<trashSelect>><<person>> jeers.
+			<<set _notInsecure to $player.gender is "m" or $acceptance_breasts_tiny gte 1000>>
+			<<set _insecurityType to "breasts_tiny">>
+		<<case 1 2 3>>
+			The <<group>> chuckle as they examine your <<breasts>>. "A bit on the small side," the <<trashSelect>><<person>> says.
+			<<set _notInsecure to $player.gender is "m" or $acceptance_breasts_small gte 1000>>
+			<<set _insecurityType to "breasts_small">>
+		<<case 4 5 6>>
+			The <<group>> chatter at the sight of your <<breasts>>. "Pretty nice," the <<trashSelect>><<person>> says, smiling. "Decent size." The others nod their agreement.
+			<<set _notInsecure to $player.gender is "f" or $acceptance_breasts_big gte 1000>>
+			<<set _insecurityType to "breasts_big">>
+			<<set _kind to true>>
+		<<case 7 8 9>>
+			The <<group>> let out scattered sounds of awe. The <<trashSelect>><<person>> gives a low whistle. "Now those are tits with some heft to them."
+			<<set _notInsecure to $player.gender is "f" or $acceptance_breasts_big gte 1000>>
+			<<set _insecurityType to "breasts_big">>
+		<<case 10 11 12>>
+			"Holy shit," the <<trashSelect>><<person>> gasps. The rest of the <<group>> follow suit. The <<person>> grins and mimes milking a cow. "<<pShes>> massive. You could drown in those!"
+			<<set _notInsecure to $acceptance_breasts_big gte 1000>>
+			<<set _insecurityType to "breasts_big">>
+			<<set _breastEnvy to !_noFollowUp and $trashCompare.enviousBreastIds.length gte 1 and $deviancy gte 55>>
+	<</switch>>
+	<br><br>
+
+	<<if _notInsecure>>
+		You're not particularly bothered.
+	<<else>>
+		<<if _kind>>Despite <<his>> kind tone, shame rises<<else>>Shame rises<</if>>, and blood rushes to your face.
+		<<insecurity _insecurityType 2>><<ginsecurity _insecurityType>>
+	<</if>>
+
+	<<if _breastEnvy>>
+		<br><br>
+		<<set _result to "breastEnvy">>
+		<<personselect $trashCompare.enviousBreastIds.pluck()>>
+		You notice the <<person>> staring at you in envy. <span class="lewd">A lewd idea strikes you.</span> You might be able to help the <<personsimple>>. You might even be able to make a little money from it.
+	<</if>>
+<</widget>>
+
+<<widget "TrashComparePlayerPenisReact">>
+	<<switch $player.penissize>>
+		<<case -2>>
+			The <<group>> burst into uncontrollable laughter. "That's the smallest thing I've ever seen!" the <<trashSelect>><<person>> coos. "Aww, who's a little guy? Can it even get erect?"
+			<<set _notInsecure to $acceptance_penis_tiny gte 1000>>
+			<<set _insecurityType to "penis_tiny">>
+		<<case -1 0>>
+			The <<group>> turn to each other, before laughing. "Anyone have a microscope?" the <<trashSelect>><<person>> jokes.
+			<<set _notInsecure to $acceptance_penis_tiny gte 1000>>
+			<<set _insecurityType to "penis_tiny">>
+		<<case 1>>
+			The <<group>> look down at your <<penis>>, and a couple let out small chuckles. "A little on the small side," the <<trashSelect>><<person>> says. "It's no big deal."
+			<<set _notInsecure to $acceptance_penis_small gte 1000>>
+			<<set _insecurityType to "penis_small">>
+		<<case 2>>
+			The <<group>> look down at your <<penis>>, muttering. "Not a bad size," the <<trashSelect>><<person>> says. "Not too big, but not too small."
+		<<case 3>>
+			The <<group>> look down at your <<penis>>, with a few letting out small gasps. "Bigger than I expected," the <<trashSelect>><<person>> says. "Not that that's a bad thing."
+			<<set _notInsecure to $acceptance_penis_big gte 1000>>
+			<<set _insecurityType to "penis_big">>
+			<<set _kind to true>>
+		<<case 4>>
+			"Holy shit," the <<trashSelect>><<person>> whispers. "It's a fucking monster." The rest of the <<group>> gape in shock.
+			<<set _notInsecure to $acceptance_penis_big gte 1000>>
+			<<set _insecurityType to "penis_big">>
+			<<set _penisEnvy to !_noFollowUp and $trashCompare.enviousPenisIds.length gte 1 and $deviancy gte 55>>
+	<</switch>>
+	<<if $player.penissize isnot 2>>
+		<br><br>
+		<<if _notInsecure>>
+			<<if _kind>>You're glad they're impressed.<<else>>You're not particularly bothered.<</if>>
+		<<else>>
+			<<if _kind>>Despite <<his>> kind tone, shame rises<<else>>Shame rises<</if>>, and blood rushes to your face.
+			<<insecurity _insecurityType 2>><<ginsecurity _insecurityType>>
+		<</if>>
+	<</if>>
+
+	<<if $player.vaginaExist>>
+		<br><br>
+		<<set _result to "herm">>
+		"Hey, wait!" the <<trashSelect>><<person>> shouts. "Look! <<pShe>> has a pussy too!" There are scattered sounds of amazement as the rest of the <<group>> shuffle to get a better angle.
+	<</if>>
+
+	<<if _penisEnvy>>
+		<br><br>
+		<<set _result to "penisEnvy">>
+		<<personselect $trashCompare.enviousPenisIds.pluck()>>
+		You notice the <<person>> staring at you in envy. <span class="lewd">A lewd idea strikes you.</span> You might be able to help the <<personsimple>>. You might even be able to make a little money from it.
+		<<set _boy to _text_output>>
+	<</if>>
+<</widget>>
+
 :: Trash Compare
 <<effects>>
 <<set $trashCompare to {girl: 0, penis: 0}>>
@@ -431,6 +860,9 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 <<set _selectCount to 0>>
 <<effects>>
 <<if $phase is 0>>
+	<<set $trashCompare.phasePool to [0,1,2,3,4,5]>>
+	<<set $trashCompare.enviousPenisIds to []>>
+	<<set $trashCompare.enviousBreastIds to []>>
 	Nervously they motion for you to come closer, before bringing you into the huddled circle they were in before you showed up. "Okay, so here's the thing," the <<person1>><<person>> says, facing you from directly opposite the circle. "Have you ever wanted to know what others are like? Like..."
 	<<if $trashCompare.girl gte 1 and $trashCompare.penis gte 1>>
 		<<He>> taps <<his>> chest. "Up here, and..." <<He>> gestures to <<his>> crotch with <<his>> other hand. "Down here."
@@ -463,7 +895,9 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 
 <<personselect $phase>><<set _npc to clone($NPCList[$phase])>>
 <<set _audience to [0,1,2,3,4,5]>><<run _audience.deleteAt($phase)>>
+<<set _randomLine to $trashCompare.phasePool.pluck()>>
 
+<!-- TODO: Add lactation variants for more breastsizes? -->
 <<if $pronoun is "f">>
 	The <<person>> <<npcUndressText _npc "upper" "self">>, <<npcRevealText _npc "upper">>.
 	<<switch _npc.breastsize>>
@@ -471,20 +905,24 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 			You smirk, as the <<group>> burst into laughter. "Look at <<his>> itty bitty nipples!" The <<trashSelect>><<person>> jeers.
 			<br><br>
 			The <<personselect $phase>><<person>> covers <<his>> nipples and blushes. "I-I like them small!" <<he>> protests. You don't think <<hes>> even convincing <<himself>>, much less you and the group.
+			<<set $trashCompare.enviousBreastIds.push($index, $index, $index)>>
 		<<case 1 2 3>>
 			You look at them, as the <<group>> chatter. "A bit on the small side," the <<trashSelect>><<person>> chuckles.
 			<br><br>
 			The <<trashSelect>><<person>> shakes <<his>> head. "Nah, I don't mind that size. They're perfect, really." <<He>> wiggles <<his>> fingers lewdly.
 			<br><br>
 			"I don't know which one of you I don't like more," the <<personselect $phase>><<person>> mutters, drawing laughs.
+			<<set $trashCompare.enviousBreastIds.push($index, $index)>>
 		<<case 4 5 6>>
 			You look at them, as the <<group>> chatter. "Those are like, ideal boobs," the <<trashSelect>><<person>> says. "You'd see tits like that on magazine covers."
 			<br><br>
 			"...Thank you...?" the <<personselect $phase>><<person>> stammers, not entirely sure how to take it.
+			<<set $trashCompare.enviousBreastIds.push($index)>>
 		<<case 7 8 9>>
-			Your mouth forms an 'o' as the <<group>> gasps. "Now that's what I'm talking about!" the <<trashSelect>><<person>> cheers. "Impressive stuff."
+			Your mouth forms an 'o' as the <<group>> gasp. "Now that's what I'm talking about!" the <<trashSelect>><<person>> cheers. "Impressive stuff."
 			<br><br>
 			The <<personselect $phase>><<person>> puffs <<his>> chest slightly, happy about the attention but still nervous to be this exposed.
+			<<set $trashCompare.enviousBreastIds.push($index)>>
 		<<case 10 11 12>>
 			You gasp audibly, along with the rest of the <<group>>. "Holy shit," the <<trashSelect>><<person>> breathes. "Those are... they're just..." <<He>> gulps. "Wow. Can those things be milked?"
 			<br><br>
@@ -501,31 +939,37 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 		<<else>>
 			The <<personselect `$phase+1`>><<person>> reaches for <<his>> clothes,
 		<</if>>
-		but the <<personselect $phase>><<person>> coughs. "I actually have more." Eager, the <<group>> turns back to <<him>>.
+		but the <<personselect $phase>><<person>> coughs. "I actually have more." Eager, the <<group>> turn back to <<him>>.
 		<br><br>
 	<</if>>
 <</if>>
 
+<!-- TODO: add more reactions based on _randomLine. Each line should have variations that express different personalities. -->
+<!-- Example: lines where the NPC is embarassed, or confident/proud, or aroused, or embarassed AND aroused, or way too aroused -->
+<!-- This should also be done for the breast lines as well. -->
 <<if _npc.penis isnot "none">>
 	The <<person>> <<npcUndressText _npc "lower" "self">>, <<npcRevealText _npc "lower">>.
 	<<switch _npc.penissize>>
 		<<case -1 0>>
 			/* Currently unused. Prepared for if micropenis NPCs ever become a thing */
-			You try not to laugh at the sight. The <<group>> bursts into laughter, and the <<person>> blushes. "I-it's not that small," <<he>> whispers.
+			You try not to laugh at the sight. The <<group>> burst into laughter, and the <<person>> blushes. "I-it's not that small," <<he>> whispers.
 			<br><br>
 			"Oh, it is," the <<trashSelect>><<person>> chuckles. "It's pretty much just a clit!"
 		<<case 1>>
-			You suppress a smirk, as the <<group>> giggles. "Don't worry," the <<trashSelect>><<person>> soothes. "It'll grow someday."
+			You suppress a smirk, as the <<group>> giggle. "Don't worry," the <<trashSelect>><<person>> soothes. "It'll grow someday."
 			<br><br>
 			The <<personselect $phase>><<person>> pouts and turns away. "Maybe I like it this size," <<he>> mutters.
+			<<set $trashCompare.enviousPenisIds.push($index, $index, $index)>>
 		<<case 2>>
 			You look at it, as the <<group>> chatter. "Nothing special," the <<trashSelect>><<person>> yawns. "Can we move on?"
 			<br><br>
 			"H-hey!" the <<personselect $phase>><<person>> protests. "I just showed you my dick, and 'nothing special' is all you have to say? Come on!"
+			<<set $trashCompare.enviousPenisIds.push($index, $index)>>
 		<<case 3>>
-			Your mouth forms an 'o' as the <<group>> gasps. "Now that's a cock," the <<trashSelect>><<person>> grins. "There are penises, and then there are cocks. That right there is a cock."
+			Your mouth forms an 'o' as the <<group>> gasp. "Now that's a cock," the <<trashSelect>><<person>> grins. "There are penises, and then there are cocks. That right there is a cock."
 			<br><br>
 			The <<personselect $phase>><<person>> puts <<his>> hands behind <<his>> head, pretending to be bored. "I'm not even fully erect. You haven't seen anything yet."
+			<<set $trashCompare.enviousPenisIds.push($index)>>
 		<<case 4>>
 			/* Currently unused. Prepared for if max-size penis student NPCs ever become a thing */
 			You gasp audibly along with the <<group>>. Nobody seems to know what to say. The <<person>> pelvic thrusts proudly.
@@ -535,11 +979,11 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 	/* For boys with pussies, who have no penis and no reason to show off their nipples.
 	To ensure variety despite NPC pussies having no variable traits, phase determines variation of scene */
 	The <<person>> <<npcUndressText _npc "lower" "self">>, <<npcRevealText _npc "lower">>.
-	<<switch $phase>>
+	<<switch _randomLine>>
 		<<case 0>>
-			The <<group>> lets out an 'ooh' at the sight. "Wasn't expecting that one," the <<trashSelect>><<person>> mutters.
+			The <<group>> let out an 'ooh' at the sight. "Very pretty," the <<trashSelect>><<person>> declares without an ounce of shame.
 		<<case 1>>
-			The <<group>> frowns at the sight. "Bro," the <<trashSelect>><<person>> mutters. "You have such horrible... horrible taste in underwear."
+			The <<group>> frown at the sight. "Bro," the <<trashSelect>><<person>> mutters. "You have such horrible... horrible taste in underwear."
 			<br><br>
 			"Hey, they're comfy!" the <<personselect $phase>><<person>> whines. "Leave me alone."
 		<<case 2>>
@@ -547,25 +991,43 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 			<br><br>
 			"Thanks!" The <<personselect $phase>><<person>> blinks. "Wait. What did I even do good at?"
 		<<case 3>>
-			"Now show us your ass," the <<trashSelect>><<person>> says immediately.
-			<<silently>><<him>><<set _him to _text_output>><</silently>>
 			<br><br>
-			The <<personselect $phase>><<person>>, and the rest of the <<group>>, give _him weird looks, but <<he>> nonetheless turns around and sticks <<his>> bottom out. <<He>> seems confused.
+			"Now show us your ass," the <<trashSelect>><<person>> says immediately.
+			<<set _firstPerson to $index>>
+			<br><br>
+			The <<personselect $phase>><<person>>, and the rest of the <<group>>, give <<personselect _firstPerson>><<him>> weird looks, but the <<personselect $phase>><<person>> nonetheless turns around and sticks <<his>> bottom out.
+			<<His>> <<if $NPCList[$index].penis isnot "none">>$NPCList[$index].penisdesc is cradeled by <<his>> thighs, and <<his>><</if>> pussy is on full display. <<He>> seems confused, both by the request and by <<his>> own lack of resistance to it.
+			The <<personselect _firstPerson>><<person>>, on the other hand, lets out a quiet gasp.
 		<<case 4>>
-			<<He>> goes so far as to spread <<his>> vagina open, giving you and the <<group>> a look inside. There are a few scattered sounds of appreciation, but nobody says anything.
+			<<He>> goes so far as to spread <<his>> vagina open, giving you and the group a look inside. There are a few scattered sounds of appreciation, but nobody says anything.
+			<br><br>
+
+			"Wait wait wait," the <<trashSelect>><<person>> pipes up. "Do that again. I liked that. A lot."
+			<<set _firstPerson to $index>><<personselect $phase>>
+			<br><br>
+
+			<<if $trashCompare.phasePool.contains(_firstPerson)>>
+				"You did? Okay!" The <<person>> adopts a beaming grin, and a blush spreads across <<his>> face as <<he>> enthusiastically holds <<his>> vagina open for the <<personselect _firstPerson>><<person>>.
+				The <<person>> stares intensely, and the <<personselect $phase>><<person>> slowly grows increasingly aroused, until the <<trashSelect>><<person>> ends the moment with a subtle cough.
+			<<else>>
+				"You did? Hmm," the <<person>> gives the <<personselect _firstPerson>><<person>> a look, first at <<his>> eyes, and then at <<his>>
+				<<if $pronoun is "f">>exposed $NPCList[$index].breastsdesc<<else>><<npcGenitals>><</if>>. "Sure," <<he>> says with a grin, "let's hang out after this."
+				<br><br>
+				The <<trashSelect>><<person>> clears <<his>> throat loudly.
+			<</if>>
 		<<case 5>>
 			"You're dripping!" the <<trashSelect>><<person>> laughs. Indeed, the <<personselect $phase>><<person>> is dripping in arousal.
 			<br><br>
-			<<if $trashCompare.girl gte 1 or $homochance gte 1>>
+			<<if $trashCompare.girl gte 1 or ($pronoun is "m" and maleChance($pronoun) lt 100) or ($pronoun is "f" and maleChance($pronoun) gt 0)>>
 				"I-I mean..." <<He>> glances at the <<trashSelect>><<persons>> exposed
 				<<if $pronoun is "f">>
-					<<print $NPCList[$index].breastdesc>>.
+					<<print $NPCList[$index].breastsdesc>>.
 				<<else>>
 					<<npcGenitals>>.
 				<</if>>
 				"How am I not supposed to be horny?" The <<person>> looks a little uncomfortable, but also flattered.
 			<<else>>
-				<<He>> blushes. "Look, I just... the thought of people looking at me is... nice." The <<group>> laughs.
+				<<He>> blushes. "Look, I just... the thought of people looking at me is... nice." The <<group>> laugh.
 			<</if>>
 	<</switch>>
 <</if>>
@@ -626,58 +1088,7 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 	<<upperstrip>><<exposure>>
 	<<exhibitionism4>>
 
-	<<switch $player.breastsize>>
-		<<case 0>>
-			<<set _result to "flat">>
-			The <<group>> burst into laughter. "<<pShes>> flat as a board!" the <<trashSelect>><<person>> jeers.
-			<br><br>
-			<<if $player.gender is "m" or $acceptance_breasts_tiny gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_tiny" 2>><<ginsecurity "breasts_tiny">>
-			<</if>>
-		<<case 1 2 3>>
-			The <<group>> chuckle as they examine your <<breasts>>. "A bit on the small side," the <<trashSelect>><<person>> says.
-			<br><br>
-			<<if $player.gender is "m" or $acceptance_breasts_tiny gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_small" 1>><<ginsecurity "breasts_small">>
-			<</if>>
-		<<case 4 5 6>>
-			The <<group>> chatter at the sight of your <<breasts>>. "Pretty nice," the <<trashSelect>><<person>> says, smiling. "Decent size." The others nod their agreement.
-			<br><br>
-			<<if $player.gender is "f" or $acceptance_breasts_big gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Despite <<his>> kind tone, shame rises, and blood rushes to your face.
-				<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-			<</if>>
-		<<case 7 8 9>>
-			The <<group>> lets out scattered sounds of awe. The <<trashSelect>><<person>> gives a low whistle. "Now those are tits with some heft to them."
-			<br><br>
-			<<if $player.gender is "f" or $acceptance_breasts_big gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-			<</if>>
-		<<case 10 11 12>>
-			"Holy shit," the <<trashSelect>><<person>> gasps. The rest of the <<group>> follows suit. The <<person>> grins and mimes milking a cow. "<<pShes>> massive. You could drown in those!"
-			<br><br>
-			<<if $acceptance_breasts_big gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-			<</if>>
-			<<if $trashCompare.girl gte 1 and $deviancy gte 55>>
-				<<set _result to "breastEnvy">>
-				You notice one of the girls staring at you in envy. <span class="lewd">A lewd idea strikes you.</span> You might be able to help the girl. You might even be able to make a little money from it.
-			<</if>>
-	<</switch>>
+	<<TrashComparePlayerBreastsReact>>
 
 <<else>>
 	<<if $exhibitionism gte 55>>
@@ -690,71 +1101,9 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 	<<exhibitionism4>>
 
 	<<if playerChastity()>>
-		The <<group>> groan in disappointment at the sight of your chastity belt. "What the fuck is that?" the <<trashSelect>><<person>> asks, waving <<his>> arms at your $worn.genitals.name in disappointment. "How is that fair? Stupid prude."
-		<br><br>
-		<<He>> steps forward, and points at you. "I think we should rip it off, just to teach you a lesson." <<He>> stomps your way.
-		<<stress 6>><<gstress>>
-		<br><br>
-		<<Hes>> pulled back by the <<trashSelect>><<person>>, who huffs. "What? No, we're not doing that. That's dumb. I'm not being a part of that."
+		<<TrashComparePlayerChastity>>
 	<<elseif $player.penisExist>>
-		<<switch $player.penissize>>
-			<<case -2>>
-				The <<group>> burst into uncontrollable laughter. "That's the smallest thing I've ever seen!" the <<trashSelect>><<person>> coos. "Aww, who's a little guy? Can it even get erect?"
-				<br><br>
-				<<if $acceptance_penis_tiny gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_tiny" 2>><<ginsecurity "penis_tiny">>
-				<</if>>
-			<<case -1 0>>
-				The <<group>> turn to each other, before laughing. "Anyone have a microscope?" the <<trashSelect>><<person>> jokes.
-				<br><br>
-				<<if $acceptance_penis_tiny gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_tiny" 2>><<ginsecurity "penis_tiny">>
-				<</if>>
-			<<case 1>>
-				The <<group>> look down at your <<penis>>, and a couple let out small chuckles. "A little on the small side," the <<trashSelect>><<person>> says. "It's no big deal."
-				<br><br>
-				<<if $acceptance_penis_small gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_small" 2>><<ginsecurity "penis_small">>
-				<</if>>
-			<<case 2>>
-				The <<group>> look down at your <<penis>>, muttering. "Not a bad size," the <<trashSelect>><<person>> says. "Not too big, but not too small."
-			<<case 3>>
-				The <<group>> look down at your <<penis>>, with a few letting out small gasps. "Bigger than I expected," the <<trashSelect>><<person>> says. "Not that that's a bad thing."
-				<br><br>
-				<<if $acceptance_penis_big gte 1000>>
-					You're glad they're impressed.
-				<<else>>
-					Despite <<his>> kind tone, shame rises, and blood rushes to your face.
-					<<insecurity "penis_big" 2>><<ginsecurity "penis_big">>
-				<</if>>
-			<<case 4>>
-				"Holy shit," the <<trashSelect>><<person>> whispers. "It's a fucking monster." The rest of the <<group>> gapes in shock.
-				<br><br>
-				<<if $acceptance_penis_big gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_big" 2>><<ginsecurity "penis_big">>
-				<</if>>
-				<<if $trashCompare.penis gte 1 and $deviancy gte 55>>
-					<<set _result to "penisEnvy">>
-					You notice one of the boys staring at you in envy. <span class="lewd">A lewd idea strikes you.</span> You might be able to help the boy. You might even be able to make a little money from it.
-				<</if>>
-		<</switch>>
-		<<if $player.gender is "h">>
-			<<set _result to "herm">>
-			<br><br>
-			"Hey, wait!" the <<trashSelect>><<person>> shouts. "Look! <<pShe>> has a pussy too!" There are scattered sounds of amazement as the rest of the <<group>> shuffles to get a better angle.
-		<</if>>
+		<<TrashComparePlayerPenisReact>>
 	<<else>>
 		<<set _result to "vagina">>
 		The <<group>> gasp in surprise at your <<genitals>>. "Wow, you're a girl?" the <<trashSelect>><<person>> says. The <<trashSelect>><<person>> seems both annoyed and aroused, clearly displeased at your deception but willing to let it go since you played fair. They seem almost entranced by your <<pussy>>, unable to pull their eyes away from it.
@@ -771,7 +1120,7 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 	<</if>>
 	<br><br>
 
-	<<link [[Refuse|Trash Compare Breasts Refuse]]>><</link>>
+	<<link [[Refuse|Trash Compare Show Refuse]]>><<set $phase to 2>><</link>>
 	<br>
 	<<if $exhibitionism gte 55>>
 		<<link [[Show them|Trash Compare Breasts Show All]]>><</link>><<exhibitionist4>>
@@ -784,19 +1133,19 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 	<<He>> takes a step forward. "Show us your pussy. Or, if I'm right... your penis."
 	<br><br>
 
-	<<link [[Refuse|Trash Compare Penis Refuse]]>><</link>>
+	<<link [[Refuse|Trash Compare Show Refuse]]>><<set $phase to 1>><</link>>
 	<br>
 	<<if $exhibitionism gte 55>>
 		<<link [[Show them|Trash Compare Penis Show All]]>><</link>><<exhibitionist4>>
 	<</if>>
 
 <<elseif _result is "breastEnvy">>
-	<<link [[Offer to help the envious girl for a fee|Trash Compare Breast Secret]]>><</link>>
+	<<link [[Offer to help the envious girl for a fee|Trash Compare Secret]]>><<set $phase to 0>><</link>>
 	<br>
 	<<link [[Wrap things up|Trash Compare Wrap It Up]]>><</link>>
 
 <<elseif _result is "penisEnvy">>
-	<<link [[Offer to help the envious boy for a fee|Trash Compare Penis Secret]]>><</link>>
+	<<link [[`Offer to help the envious ${_boy} for a fee`|Trash Compare Secret]]>><<set $phase to 1>><</link>>
 	<br>
 	<<link [[Wrap things up|Trash Compare Wrap It Up]]>><</link>>
 
@@ -809,44 +1158,33 @@ Wary of their offer, you decline, and take your leave. The <<group>> watch you a
 	<<link [[Leave|Trash]]>><<endevent>><<clotheson>><<unset $trashCompare>><<set $eventskip to 1>><</link>>
 <</if>>
 
-:: Trash Compare Penis Secret
+:: Trash Compare Secret
 <<effects>><<set _audience to [0,1,2,3,4,5]>>
-"I can think of a way to help with that," you say to the envious boy. All the boys' ears perk at that, you clearly have their interest. "There's a way you can make your penis grow permanently," you state confidently. "I'll tell it to you, but it'll cost you."
+<<set _target to ($phase is 1 ? "penis" : "breasts")>><<set _it to ($phase is 1 ? "it" : "them")>>
+"I can think of a way to help with that," you say to the envious <<personsimple>>.
+All the <<group>>' ears perk at that, you clearly have their interest. "There's a way you can make your _target grow permanently," you state confidently. "I'll tell it to you, but it'll cost you."
 <br><br>
 
 <<set _offer to random(3001, 8999)>>
-The boys react initially like they want to be angry, but soon realise the offer is worth it.
-<<if $trashCompare.girl gte 1>>The girls decide they're interested too, and add their money to the pool.<</if>>
+The <<group>> react initially like they want to be angry, but soon realise the offer is worth it.
+<<if ($phase is 1 ? $trashCompare.penis lte 5 : $trashCompare.girl lte 5)>>The others decide they're interested too, and add their money to the pool.<</if>>
 Talking together they search their pockets and manage to produce a total of <<printmoney _offer>> from the change in their pockets. "It's all we have on us," the <<trashSelect>><<person>> says.
 <br><br>
 
-Grinning, you take their money and tell them about the urchin parasites they can find in the sea, and how if you let them stay on your penis they make it grow. You neglect to tell them about how it likes to pleasure them too. You can only imagine the boys attempting to try this before realising in shock what it's doing to them and that they can't get it off without showing their <<EZpenis>> to a doctor.
+Grinning, you take their money and tell them about the urchin parasites they can find in the sea, and how if you let them stay on your _target, they make _it grow. You neglect to tell them about how it likes to pleasure them too.
+You can only imagine them attempting to try this before realising in shock what it's doing to them and that they can't get it off without showing their _target to a doctor.
 <<arousal 1000>><<garousal>>
 <<set $money += _offer>>
 <br><br>
 
-Grateful and no doubt full of hopeful thoughts of huge penises swinging between their legs, the boys get dressed and make their way on out. You follow suit and get dressed yourself.
-<br><br>
-
-<<link [[Leave|Trash]]>><<endevent>><<clotheson>><<unset $trashCompare>><<set $eventskip to 1>><</link>>
-
-:: Trash Compare Breast Secret
-<<effects>><<set _audience to [0,1,2,3,4,5]>>
-"I can think of a way to help with that," you say to the envious girl. All the girls' ears perk at that, you clearly have their interest. "There's a way you can make your penis grow permanently," you state confidently. "I'll tell it to you, but it'll cost you."
-<br><br>
-
-<<set _offer to random(3001, 8999)>>
-The girls react initially like they want to be angry, but soon realise the offer is worth it.
-<<if $trashCompare.girl lt 5>>The boys decide they're interested too, and add their money to the pool.<</if>>
-Talking together they search their pockets and manage to produce a total of <<printmoney _offer>> from the change in their pockets. "It's all we have on us," the <<trashSelect>><<person>> says.
-<br><br>
-
-Grinning, you take their money and tell them about the urchin parasites they can find in the sea, and how if you let them stay on your breasts they make them grow. You neglect to tell them about how it likes to pleasure them too. You can only imagine the girls attempting to try this before realising in shock what it's doing to them and that they can't get it off without showing their breasts to a doctor.
-<<arousal 1000>><<garousal>>
-<<set $money += _offer>>
-<br><br>
-
-Grateful and no doubt full of hopeful thoughts of huge tits swaying on their chests, the girls get dressed and make their way on out. You follow suit and get dressed yourself.
+<<if $trashCompare.girl is 6 and $phase is 0>>
+	Grateful and no doubt full of hopeful thoughts of huge tits swaying on their chests, the <<group>> get dressed and make their way on out.
+<<elseif $trashCompare.penis is 6 and $phase is 1>>
+	Grateful and no doubt full of hopeful thoughts of huge penises swinging between their legs, the <<group>> get dressed and make their way on out.
+<<else>>
+	Grateful and no doubt full of hopeful thoughts of huge penises swinging between their legs or huge tits on their chests, the <<group>> get dressed and make their way on out.
+<</if>>
+You follow suit and get dressed yourself.
 <br><br>
 
 <<link [[Leave|Trash]]>><<endevent>><<clotheson>><<unset $trashCompare>><<set $eventskip to 1>><</link>>
@@ -861,9 +1199,9 @@ Grateful and no doubt full of hopeful thoughts of huge tits swaying on their che
 
 <<link [[Leave|Trash]]>><<endevent>><<clotheson>><<unset $trashCompare>><<set $eventskip to 1>><</link>>
 
-:: Trash Compare Breasts Refuse
+:: Trash Compare Show Refuse
 <<effects>><<set _audience to [0,1,2,3,4,5]>>
-You clutch your breasts defensively. "I'd rather not," you tell them.
+You <<if $phase is 1>>cover your crotch<<else>>clutch your breasts<</if>> defensively. "I'd rather not," you tell them.
 <br><br>
 
 The <<person>> looks disappointed, but nods in understanding. "Sorry," <<he>> says. "We were just curious." The other <<group>> nod in agreement, clearly wanting to respect your boundaries, much to your relief.
@@ -880,55 +1218,9 @@ You grin, before grasping your $worn.upper.name.
 <<pullupall>> <<flaunting>> you watch for their reactions.
 <<upperstrip>><<exposure>>
 <<exhibitionism4>>
+<<set _noFollowUp to true>>
 
-<<switch $player.breastsize>>
-	<<case 0>>
-		The <<group>> burst into laughter. "<<pShes>> flat as a board!" the <<trashSelect>><<person>> jeers.
-		<br><br>
-		<<if $player.gender is "m" or $acceptance_breasts_tiny gte 1000>>
-			You're not particularly bothered.
-		<<else>>
-			Shame rises, and blood rushes to your face.
-			<<insecurity "breasts_tiny" 2>><<ginsecurity "breasts_tiny">>
-		<</if>>
-	<<case 1 2 3>>
-		The <<group>> chuckle as they examine your <<breasts>>. "A bit on the small side," the <<trashSelect>><<person>> says.
-		<br><br>
-		<<if $player.gender is "m" or $acceptance_breasts_tiny gte 1000>>
-			You're not particularly bothered.
-		<<else>>
-			Shame rises, and blood rushes to your face.
-			<<insecurity "breasts_small" 1>><<ginsecurity "breasts_small">>
-		<</if>>
-	<<case 4 5 6>>
-		The <<group>> chatter at the sight of your <<breasts>>. "Pretty nice," the <<trashSelect>><<person>> says, smiling. "Decent size." The others nod their agreement.
-		<br><br>
-		<<if $player.gender is "f" or $acceptance_breasts_big gte 1000>>
-			You're not particularly bothered.
-		<<else>>
-			Despite <<his>> kind tone, shame rises, and blood rushes to your face.
-			<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-		<</if>>
-	<<case 7 8 9>>
-		The <<group>> lets out scattered sounds of awe. The <<trashSelect>><<person>> gives a low whistle. "Now those are tits with some heft to them."
-		<br><br>
-		<<if $player.gender is "f" or $acceptance_breasts_big gte 1000>>
-			You're not particularly bothered.
-		<<else>>
-			Shame rises, and blood rushes to your face.
-			<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-		<</if>>
-	<<case 10 11 12>>
-		"Holy shit," the <<trashSelect>><<person>> gasps. The rest of the <<group>> follows suit. The <<person>> grins and mimes milking a cow. "<<pShes>> massive. You could drown in those!"
-		<br><br>
-		<<if $acceptance_breasts_big gte 1000>>
-			You're not particularly bothered.
-		<<else>>
-			Shame rises, and blood rushes to your face.
-			<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-		<</if>>
-<</switch>>
-<br><br>
+<<TrashComparePlayerBreastsReact>>
 
 "Umm, I think we've all seen each other now," you say, gathering your clothes.
 <br><br>
@@ -938,18 +1230,6 @@ You grin, before grasping your $worn.upper.name.
 
 <<link [[Leave|Trash]]>><<endevent>><<clotheson>><<unset $trashCompare>><<set $eventskip to 1>><</link>>
 
-:: Trash Compare Penis Refuse
-<<effects>><<set _audience to [0,1,2,3,4,5]>>
-You cover your crotch defensively. "I'd rather not," you tell them.
-<br><br>
-
-The <<person>> looks disappointed, but nods in understanding. "Sorry," <<he>> says. "We were just curious." The other <<group>> nod in agreement, clearly wanting to respect your boundaries, much to your relief.
-<br><br>
-
-"Think it's time we head out," the <<trashSelect>><<person>> says. The rest of the <<group>> nod in agreement and follow <<him>> in getting dressed again. You follow their lead and get dressed, feeling a little awkward. The <<person>> glances at you once last time and gives you a flirtatious wink, before joining the rest.
-<br><br>
-<<link [[Leave|Trash]]>><<endevent>><<clotheson>><<unset $trashCompare>><<set $eventskip to 1>><</link>>
-
 :: Trash Compare Penis Show All
 <<effects>><<set _audience to [0,1,2,3,4,5]>>
 
@@ -957,71 +1237,12 @@ The <<person>> looks disappointed, but nods in understanding. "Sorry," <<he>> sa
 <<pulldownall>> <<flaunting>> you watch for their reactions.
 <<lowerstrip>><<exposure>>
 <<exhibitionism4>>
+<<set _noFollowUp to true>>
 
 <<if playerChastity()>>
-	The <<group>> groan in disappointment at the sight of your chastity belt. "What the fuck is that?" the <<trashSelect>><<person>> asks, waving <<his>> arms at your $worn.genitals.name in disappointment. "How is that fair? Stupid prude."
-	<br><br>
-	<<He>> steps forward, and points at you. "I think we should rip it off, just to teach you a lesson." <<He>> stomps your way.
-	<<stress 6>><<gstress>>
-	<br><br>
-	<<Hes>> pulled back by the <<trashSelect>><<person>>, who huffs. "What? No, we're not doing that. That's dumb. I'm not being a part of that."
+	<<TrashComparePlayerChastity>>
 <<elseif $player.penisExist>>
-	<<switch $player.penissize>>
-		<<case -2>>
-			The <<group>> burst into uncontrollable laughter. "That's the smallest thing I've ever seen!" the <<trashSelect>><<person>> coos. "Aww, who's a little guy? Can it even get erect?"
-			<br><br>
-			<<if $acceptance_penis_tiny gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "penis_tiny" 2>><<ginsecurity "penis_tiny">>
-			<</if>>
-		<<case -1 0>>
-			The <<group>> turn to each other, before laughing. "Anyone have a microscope?" the <<trashSelect>><<person>> jokes.
-			<br><br>
-			<<if $acceptance_penis_tiny gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "penis_tiny" 2>><<ginsecurity "penis_tiny">>
-			<</if>>
-		<<case 1>>
-			The <<group>> look down at your <<penis>>, and a couple let out small chuckles. "A little on the small side," the <<trashSelect>><<person>> says. "It's no big deal."
-			<br><br>
-			<<if $acceptance_penis_small gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "penis_small" 2>><<ginsecurity "penis_small">>
-			<</if>>
-		<<case 2>>
-			The <<group>> look down at your <<penis>>, muttering. "Not a bad size," the <<trashSelect>><<person>> says. "Not too big, but not too small."
-		<<case 3>>
-			The <<group>> look down at your <<penis>>, with a few letting out small gasps. "Bigger than I expected," the <<trashSelect>><<person>> says. "Not that that's a bad thing."
-			<br><br>
-			<<if $acceptance_penis_big gte 1000>>
-				You're glad they're impressed.
-			<<else>>
-				Despite <<his>> kind tone, shame rises, and blood rushes to your face.
-				<<insecurity "penis_big" 2>><<ginsecurity "penis_big">>
-			<</if>>
-		<<case 4>>
-			"Holy shit," the <<trashSelect>><<person>> whispers. "It's a fucking monster." The rest of the <<group>> gapes in shock.
-			<br><br>
-			<<if $acceptance_penis_big gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "penis_big" 2>><<ginsecurity "penis_big">>
-			<</if>>
-			<<if $trashCompare.penis gte 1 and $deviancy gte 55>>
-				You notice one of the boys staring at you in envy. <span class="lewd">A lewd idea strikes you.</span> You might be able to help the boy. You might even be able to make a little money from it.
-			<</if>>
-	<</switch>>
-	<<if $player.gender is "h">>
-		<br><br>
-		"Hey, wait!" the <<trashSelect>><<person>> shouts. "Look! <<pShe>> has a pussy too!" There are scattered sounds of amazement as the rest of the <<group>> shuffles to get a better angle.
-	<</if>>
+	<<TrashComparePlayerPenisReact>>
 <<else>>
 	The <<group>> gasp in surprise at your <<genitals>>. "Wow, you're actually a girl?" the <<trashSelect>><<person>> says. "Sorry, with how flat you were, we thought for sure you were... well."
 <</if>>
@@ -1080,122 +1301,18 @@ You shove the <<group>> away from you. <<tearful>> you run to safety.
 
 :: Trash Compare Combat Loss
 <<effects>><<set _audience to [0,1,2,3,4,5]>>
+<<set _noFollowUp to true>>
 The <<group>> hold your hands behind your back. "You should have kept your promise, then we wouldn't have had to do this," the <<person1>><<person>> says.
 <br><br>
 They gather around to have a good look at your naked body.
+<!-- TODO: Figure out a logical way to address the player having breasts and a penis; both would be equally noticeable here. -->
 <<if $player.gender_appearance is "f">>
-	<<switch $player.breastsize>>
-		<<case 0>>
-			<<set _result to "flat">>
-			The <<group>> burst into laughter. "<<pShes>> flat as a board!" the <<trashSelect>><<person>> jeers.
-			<br><br>
-			<<if $player.gender is "m" or $acceptance_breasts_tiny gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_tiny" 2>><<ginsecurity "breasts_tiny">>
-			<</if>>
-		<<case 1 2 3>>
-			The <<group>> chuckle as they examine your <<breasts>>. "A bit on the small side," the <<trashSelect>><<person>> says.
-			<br><br>
-			<<if $player.gender is "m" or $acceptance_breasts_tiny gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_small" 1>><<ginsecurity "breasts_small">>
-			<</if>>
-		<<case 4 5 6>>
-			The <<group>> chatter at the sight of your <<breasts>>. "Pretty nice," the <<trashSelect>><<person>> says, smiling. "Decent size." The others nod their agreement.
-			<br><br>
-			<<if $player.gender is "f" or $acceptance_breasts_big gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Despite <<his>> kind tone, shame rises, and blood rushes to your face.
-				<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-			<</if>>
-		<<case 7 8 9>>
-			The <<group>> lets out scattered sounds of awe. The <<trashSelect>><<person>> gives a low whistle. "Now those are tits with some heft to them."
-			<br><br>
-			<<if $player.gender is "f" or $acceptance_breasts_big gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-			<</if>>
-		<<case 10 11 12>>
-			"Holy shit," the <<trashSelect>><<person>> gasps. The rest of the <<group>> follows suit. The <<person>> grins and mimes milking a cow. "<<pShes>> massive. You could drown in those!"
-			<br><br>
-			<<if $acceptance_breasts_big gte 1000>>
-				You're not particularly bothered.
-			<<else>>
-				Shame rises, and blood rushes to your face.
-				<<insecurity "breasts_big" 2>><<ginsecurity "breasts_big">>
-			<</if>>
-	<</switch>>
-
+	<<TrashComparePlayerBreastsReact>>
 <<else>>
 	<<if playerChastity()>>
-		The <<group>> groan in disappointment at the sight of your chastity belt. "What the fuck is that?" the <<trashSelect>><<person>> asks, waving <<his>> arms at your $worn.genitals.name in disappointment. "How is that fair? Stupid prude."
-		<br><br>
-		<<He>> steps forward, and points at you. "I think we should rip it off, just to teach you a lesson." <<He>> stomps your way.
-		<<stress 6>><<gstress>>
-		<br><br>
-		<<Hes>> pulled back by the <<trashSelect>><<person>>, who huffs. "What? No, we're not doing that. That's dumb. I'm not being a part of that."
+		<<TrashComparePlayerChastity>>
 	<<elseif $player.penisExist>>
-		<<switch $player.penissize>>
-			<<case -2>>
-				The <<group>> burst into uncontrollable laughter. "That's the smallest thing I've ever seen!" the <<trashSelect>><<person>> coos. "Aww, who's a little guy? Can it even get erect?"
-				<br><br>
-				<<if $acceptance_penis_tiny gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_tiny" 2>><<ginsecurity "penis_tiny">>
-				<</if>>
-			<<case -1 0>>
-				The <<group>> turn to each other, before laughing. "Anyone have a microscope?" the <<trashSelect>><<person>> jokes.
-				<br><br>
-				<<if $acceptance_penis_tiny gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_tiny" 2>><<ginsecurity "penis_tiny">>
-				<</if>>
-			<<case 1>>
-				The <<group>> look down at your <<penis>>, and a couple let out small chuckles. "A little on the small side," the <<trashSelect>><<person>> says. "It's no big deal."
-				<br><br>
-				<<if $acceptance_penis_small gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_small" 2>><<ginsecurity "penis_small">>
-				<</if>>
-			<<case 2>>
-				The <<group>> look down at your <<penis>>, muttering. "Not a bad size," the <<trashSelect>><<person>> says. "Not too big, but not too small."
-			<<case 3>>
-				The <<group>> look down at your <<penis>>, with a few letting out small gasps. "Bigger than I expected," the <<trashSelect>><<person>> says. "Not that that's a bad thing."
-				<br><br>
-				<<if $acceptance_penis_big gte 1000>>
-					You're glad they're impressed.
-				<<else>>
-					Despite <<his>> kind tone, shame rises, and blood rushes to your face.
-					<<insecurity "penis_big" 2>><<ginsecurity "penis_big">>
-				<</if>>
-			<<case 4>>
-				"Holy shit," the <<trashSelect>><<person>> whispers. "It's a fucking monster." The rest of the <<group>> gapes in shock.
-				<br><br>
-				<<if $acceptance_penis_big gte 1000>>
-					You're not particularly bothered.
-				<<else>>
-					Shame rises, and blood rushes to your face.
-					<<insecurity "penis_big" 2>><<ginsecurity "penis_big">>
-				<</if>>
-		<</switch>>
-		<<if $player.gender is "h">>
-			<<set _result to "herm">>
-			<br><br>
-			"Hey, wait!" the <<trashSelect>><<person>> shouts. "Look! <<pShe>> has a pussy too!" There are scattered sounds of amazement as the rest of the <<group>> shuffles to get a better angle.
-		<</if>>
+		<<TrashComparePlayerPenisReact>>
 	<<else>>
 		The <<group>> gasp in surprise at your <<genitals>>. "Wow, you're a girl?" the <<trashSelect>><<person>> says. The <<trashSelect>><<person>> seems both annoyed and aroused, clearly displeased at your deception. They seem almost entranced by your <<pussy>>, unable to pull their eyes away from it.
 	<</if>>

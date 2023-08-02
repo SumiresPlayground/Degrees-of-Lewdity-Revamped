@@ -129,6 +129,8 @@ Requires prior <<selectmodel "main">>
 		<<set _modeloptions.show_tanlines to false>>
 	<</if>>
 
+	
+
 	<!--
 	-    ██   ██  █████  ██ ██████
 	-    ██   ██ ██   ██ ██ ██   ██
@@ -194,7 +196,7 @@ Requires prior <<selectmodel "main">>
 			<<set _modeloptions.bee_wing_right to "idle">>
 		<<elseif _coverBreasts is true>>
 			<<if !_disabled.includes($transformationParts.demon.wings)>>
-				<<set _modeloptions.demon_wings_state to "cover">>
+				<<set _modeloptions.demon_wings_state to ($transformationParts.traits.flaunting is "default" ? "flaunt" : "cover")>>
 				<<set _modeloptions.arm_left to "idle">>
 			<<elseif !_disabled.includes($transformationParts.angel.wings)>>
 				<<set _modeloptions.angel_wing_right to "cover">>
@@ -226,7 +228,7 @@ Requires prior <<selectmodel "main">>
 			<<set _modeloptions.bee_wing_left to "idle">>
 		<<elseif _coverCrotch is true>>
 			<<if !_disabled.includes($transformationParts.demon.tail)>>
-				<<set _modeloptions.demon_tail_state to "cover">>
+				<<set _modeloptions.demon_tail_state to ($transformationParts.traits.flaunting is "default" ? "flaunt" : "cover")>>
 				<<set _modeloptions.cat_tail_state to "cover">>
 				<<set _modeloptions.arm_right to "idle">>
 			<<elseif !_disabled.includes($transformationParts.angel.wings)>>
@@ -379,6 +381,7 @@ Requires prior <<selectmodel "main">>
 		blend: ColourUtils.toHslString($transformationParts.dragon.horns_colour, $_dragonHsl)
 	}))>>
 
+
 	<<set _modeloptions.wolf_tail_type to $transformationParts.wolf.tail>>
 	<<set _modeloptions.wolf_ears_type to $transformationParts.wolf.ears>>
 	<<set _modeloptions.wolf_pits_type to $transformationParts.wolf.pits>>
@@ -402,6 +405,25 @@ Requires prior <<selectmodel "main">>
 	<<set _modeloptions.fox_tail_type to $transformationParts.fox.tail>>
 	<<set _modeloptions.fox_ears_type to $transformationParts.fox.ears>>
 	<<set _modeloptions.fox_cheeks_type to $transformationParts.fox.cheeks>>
+
+	<<set _modeloptions.raccoon_tail_type to $transformationParts.raccoon.tail>>
+	<<set _modeloptions.raccoon_ears_type to $transformationParts.raccoon.ears>>
+	<<set _modeloptions.raccoon_mask_type to $transformationParts.raccoon.mask>>
+
+	<<set _modeloptions.fish_tail_type to $transformationParts.fish.tail>>
+	<<set _modeloptions.fish_fins_type to $transformationParts.fish.fins>>
+
+	<<set _modeloptions.horse_tail_type to $transformationParts.horse.tail>>
+	<<set _modeloptions.horse_ears_type to $transformationParts.horse.ears>>
+
+	<<set _modeloptions.spider_eyes_type to $transformationParts.spider.eyes>>
+	<<set _modeloptions.spider_tail_type to $transformationParts.spider.tail>>
+
+	<<set _modeloptions.frog_eyes_type to $transformationParts.frog.eyes>>
+	<<set _modeloptions.frog_cheeks_type to $transformationParts.frog.cheeks>>
+
+	<<set _modeloptions.pig_tail_type to $transformationParts.pig.tail>>
+	<<set _modeloptions.pig_ears_type to $transformationParts.pig.ears>>
 
 	<<set _modeloptions.bee_tail_type to $transformationParts.bee.tail>>
 	<<set _modeloptions.bee_ears_type to $transformationParts.bee.ears>>
@@ -433,6 +455,11 @@ Requires prior <<selectmodel "main">>
 
 	<<set _modeloptions.ghost_eyes_type to $transformationParts.ghost.eyes>>
 	<<set _modeloptions.ghost_hitodama_type to $transformationParts.ghost.hitodama>>
+	<<set _modeloptions.ghost_mist_type to $transformationParts.ghost.mist>>
+
+	<<set _modeloptions.slime_bubble_type to $transformationParts.slime.bubble>>
+	<<set _modeloptions.slime_stream_type to $transformationParts.slime.stream>>
+	<<set _modeloptions.slime_core_type to $transformationParts.slime.core>>
 
 	<!--
 	-	 ██████ ██   ██ ██ ███    ███ ███████ ██████   █████

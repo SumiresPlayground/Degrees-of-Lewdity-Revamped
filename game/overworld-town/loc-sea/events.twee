@@ -91,102 +91,6 @@
 	<<destinationeventend>>
 <</if>>
 
-:: Sea Dragons
-<<if $molestationstart is 1>>
-	<<set $molestationstart to 0>>
-	<<controlloss>>
-	<<violence 1>>
-	<<neutral 1>>
-	<<molested>>
-	<<beastCombatInit>>
-	<<beastTrainGenerate>>
-	<<set $water to 1>>
-	<!-- <<set $claws to 0>> -->
-	<<if $daystate isnot "night" and $location is "beach">>
-		<<enable_rescue>>
-	<</if>>
-	<<if $bus isnot "sea">>
-		<span class="pink">The <<beastsplural>> push you out to sea.</span>
-	<</if>>
-	<<location "sea">>
-<</if>>
-<<effects>>
-<<effectsman>>
-<br>
-<<beast $enemyno>>
-<br><br>
-<<stateman>>
-<br><br>
-<<actionsman>>
-<<if $alarm is 1 and $rescue is 1>>
-	<span id="next"><<link [[Next|Sea Dragons Finish]]>><</link>></span><<nexttext>>
-<<elseif $enemyarousal gte $enemyarousalmax>>
-	<span id="next"><<link [[Next|Sea Dragons Finish]]>><</link>></span><<nexttext>>
-<<elseif $enemyhealth lte 0>>
-	<span id="next"><<link [[Next|Sea Dragons Finish]]>><</link>></span><<nexttext>>
-<<else>>
-	<span id="next"><<link [[Next|Sea Dragons]]>><</link>></span><<nexttext>>
-<</if>>
-
-:: Sea Dragons Finish
-
-<<effects>>
-<<if $enemyhealth lte 0>>
-	<<beastwound>>
-	<<if $combatTrain.length gt 0>>
-		The <<beasttype>> recoils in pain and fear, but another is eager for a go.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons]]>><</link>>
-		<br>
-	<<else>>
-		The <<beasttype>> recoils in pain and fear.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons Finish]]>><<set $finish to 1>><</link>>
-	<</if>>
-<<elseif $enemyarousal gte $enemyarousalmax>>
-	<<beastejaculation>>
-	<<if $combatTrain.length gt 0>>
-		Satisfied, the <<beasttype>> moves and another takes its turn.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons]]>><</link>>
-		<br>
-	<<else>>
-		Satisfied, the <<beasttype>> moves away from you.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons Finish]]>><<set $finish to 1>><</link>>
-	<</if>>
-<<elseif $finish is 1>>
-	<<if $enemywounded is 1 and $enemyejaculated is 0>>
-		The <<beasttype>> whimpers and flees into the darkness of the sea.
-	<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
-		The <<beasttype>> leaves you floating in the water.
-	<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
-		Feeling that you're more trouble than you're worth, the <<beastsplural>> flee into the sea.
-	<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
-		The <<beastsplural>> leave you spent and shivering in the water.
-	<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
-		The <<beastsplural>> leave you spent and shivering in the water.
-	<</if>>
-	<br><br>
-	<<tearful>> you gather yourself.
-	<br><br>
-	<<clotheson>>
-	<<endcombat>>
-	<<destinationeventend>>
-<<elseif $alarm is 1 and $rescue is 1>>
-	<<set $rescued += 1>>
-	A whistle blows, startling the <<beastsplural>>. A lifeguard in a small boat races toward you. The <<beastsplural>> make a chittering noise, then flee away from the shore. Seeing them leave, the lifeguard heads back to the beach.
-	<br><br>
-	<<tearful>> you gather yourself.
-	<<clotheson>>
-	<<endcombat>>
-	<<destinationeventend>>
-<</if>>
-
 :: Sea Eels
 
 <<if $location isnot "sea">><<location "sea">><</if>><<effects>>
@@ -648,109 +552,6 @@ The creature loses interest in you, and returns to the depths. <<tearful>> you s
 	<<destinationeventend>>
 <</if>>
 
-:: Sea Dragons Sex
-
-<<if $sexstart is 1>>
-	<<set $sexstart to 0>>
-	<<consensual>>
-	<<set $consensual to 1>>
-	<<neutral 1>>
-	<<beastCombatInit>>
-
-	<<beastTrainGenerate>>
-
-	<<set $water to 1>>
-	<!-- <<set $claws to 0>> -->
-	<<if $daystate isnot "night" and $location is "beach">>
-		<<enable_rescue>>
-	<</if>>
-	You pet further and further down the $NPCList[0].type's belly. They take the hint, and swim closer to you in excitement.
-	<br>
-	<<deviancy3>>
-<</if>>
-<<effects>>
-<<effectsman>>
-<br>
-<<beast $enemyno>>
-<br><br>
-<<stateman>>
-<br><br>
-<<actionsman>>
-<<if $alarm is 1 and $rescue is 1>>
-	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
-<<elseif $finish is 1>>
-	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
-<<elseif $enemyarousal gte $enemyarousalmax>>
-	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
-<<elseif $enemyhealth lte 0>>
-	<span id="next"><<link [[Next|Sea Dragons Sex Finish]]>><</link>></span><<nexttext>>
-<<else>>
-	<span id="next"><<link [[Next|Sea Dragons Sex]]>><</link>></span><<nexttext>>
-<</if>>
-
-:: Sea Dragons Sex Finish
-
-<<effects>>
-
-<<if $enemyhealth lte 0>>
-	<<beastwound>>
-	<<if $combatTrain.length gt 0>>
-		The $NPCList[_na].type recoils in pain and fear, but the next takes its turn.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons Sex]]>><</link>>
-	<<else>>
-		The $NPCList[_na].type recoils in pain and fear.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons Sex Finish]]>><<set $finish to 1>><</link>>
-	<</if>>
-<<elseif $enemyarousal gte $enemyarousalmax>>
-	<<beastejaculation>>
-	<<if $combatTrain.length gt 0>>
-		Satisfied, the $NPCList[_na].type moves and the next takes its turn.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons Sex]]>><</link>>
-	<<else>>
-		Satisfied, the $NPCList[_na].type moves away from you.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Sea Dragons Sex Finish]]>><<set $finish to 1>><</link>>
-	<</if>>
-<<elseif $finish is 1>>
-	<<if $consensual is 1>>
-		The <<beastsplural>> swim away from you.
-		<br><br>
-	<<else>>
-		<<if $enemywounded is 1 and $enemyejaculated is 0>>
-			The $NPCList[_na].type whimpers and flees into the darkness of the sea.
-		<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
-			The $NPCList[_na].type leaves you floating in the water.
-		<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
-			Feeling that you're more trouble than you're worth, the <<beastsplural>> flee into the sea.
-		<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
-			The <<beastsplural>> leave you spent and shivering in the water.
-		<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
-			The <<beastsplural>> leave you spent and shivering in the water.
-		<</if>>
-		<br><br>
-	<</if>>
-	<<tearful>> you gather yourself.
-	<br><br>
-	<<clotheson>>
-	<<endcombat>>
-	<<destinationeventend>>
-<<elseif $alarm is 1 and $rescue is 1>>
-	<<set $rescued += 1>>
-	A whistle blows, startling the <<beastsplural>>. A lifeguard in a small boat races toward you. The <<beastsplural>> make a chittering noise, then flee away from the shore. Seeing them leave, the lifeguard heads back to the beach.
-	<br><br>
-	<<tearful>> you gather yourself.
-	<<clotheson>>
-	<<endcombat>>
-	<<destinationeventend>>
-<</if>>
-
 :: Sea Squid
 
 <<water>><<effects>>
@@ -869,9 +670,9 @@ You shove the <<person3>><<person>>, and <<he>> tumbles overboard. The <<person2
 :: Sea Boat Rape Plead
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"P-please stop," you plead. "I never wanted to fight."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Calm down," you say. "No one has to know you got your asses kicked by a <<girl>> you met at sea."
 <<else>>
 	"I don't want to fight," you say. "I just want to get back to shore."
@@ -896,9 +697,9 @@ You spend the rest of the voyage indoors. You find towels to dry yourself with. 
 :: Sea Boat Rape Intimidate
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"I-I'm not afraid of you," you say, surprised by your confidence.
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Your toys won't help," you say. "Either get me back to shore, or I'm taking your ship and sailing there myself."
 <<else>>
 	"Give up while you still can," you say. "I only want to get back to shore."
@@ -925,9 +726,9 @@ You spend the rest of the voyage indoors. You find towels to dry yourself with, 
 :: Sea Boat Dance
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"W-wait," you say. "I can dance for you. I can entertain you that way."
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"Not letting scum like you touch me," you say. "Sorry. You can look though. How about I give you a dance?"
 <<else>>
 	"I can dance for you instead," you say.
@@ -991,9 +792,9 @@ You dance for the three <<if $NPCList[0].pronoun is "f" and $NPCList[1].pronoun 
 	<br><br>
 
 	<<covered>>
-	<<if $submissive gte 1150>>
+	<<if $speech_attitude is "meek">>
 		"I-I danced for you," you say. "Please bring me to shore."
-	<<elseif $submissive lte 850>>
+	<<elseif $speech_attitude is "bratty">>
 		"That's my end of the agreement," you say. "You better uphold yours."
 	<<else>>
 		"I danced for you," you say. "As we agreed."
@@ -1281,7 +1082,7 @@ As <<he>> speaks, the <<person2>><<person>> swims around and behind you. <<Hes>>
 <<effects>>
 
 <<if $rng lt 41>>
-	You swim to the side, making it clear that you're wary of any funny business. <<person1>>"We don't mean no harm," the <<person>> laughs while the <<person2>> swims back to <<person1>> <<him>>. <span class="green">"But we won't be pushy."</span> They turn and swim away.
+	You swim to the side, making it clear that you're wary of any funny business. <<person1>>"We don't mean no harm," the <<person>> laughs while the <<person2>><<person>> swims back to <<person1>> <<him>>. <span class="green">"But we won't be pushy."</span> They turn and swim away.
 	<br><br>
 	<<endevent>>
 	<<destinationeventend>>
@@ -1336,12 +1137,12 @@ As <<he>> speaks, the <<person2>><<person>> swims around and behind you. <<Hes>>
 :: Sea Pair Practise
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"I-I'm practising swimming," you say. "I didn't mean to get in your way."
 	<br><br>
 	"Don't worry about that," The <<person2>><<person>> laughs. "We appreciated the visit." <<He>> gives your <<bottom>> a swift spank before pulling away.<<gpain>><<garousal>><<pain 1>><<arousal 600>>
 	<br><br>
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"I'm practising swimming," you say. "I trust that's not a problem."
 	<br><br>
 	"Not at all," the <<person2>><<person>> laughs. "We'll leave you to it." <<He>> gives your <<bottom>> a swift spank before pulling away.<<gpain>><<garousal>><<pain 1>><<arousal 600>>
@@ -1362,12 +1163,12 @@ The pair disappear beyond the waves.
 :: Sea Pair Dragged
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"I-I'm looking for people w-who-" you say. "Who need help getting back to shore."
 	<br><br>
 	"A good samaritan!" the <<person2>><<person>> laughs. "We won't interfere." <<He>> gives your <<bottom>> a swift spank before pulling away.<<gpain>><<garousal>><<pain 1>><<arousal 600>>
 	<br><br>
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"I'm looking for people need saving," you say. "You two alright?"
 	<br><br>
 	"We're fine," the <<person2>><<person>> laughs. "I hope your search is fruitless." <<He>> gives your <<bottom>> a swift spank before pulling away.<<gpain>><<garousal>><<pain 1>><<arousal 600>>
@@ -1388,12 +1189,12 @@ The pair disappear behind the waves.
 :: Sea Pair Hunt
 <<effects>>
 
-<<if $submissive gte 1150>>
+<<if $speech_attitude is "meek">>
 	"I-I'm looking for bad people," you say. "So I can teach them the error of their ways."
 	<br><br>
 	"Good luck on your search," the <<person2>><<person>> says. "We'll let you know if we find any ourselves." <<He>> gives your <<bottom>> a swift spank before pulling away.<<gpain>><<garousal>><<pain 1>><<arousal 600>>
 	<br><br>
-<<elseif $submissive lte 850>>
+<<elseif $speech_attitude is "bratty">>
 	"I'm looking for rapists to fuck up," you say. "Know any?"
 	<br><br>
 	"Not a one," the <<person2>><<person>> laughs. "But we know who to find if that changes." <<He>> gives your <<bottom>> a swift spank before pulling away.<<gpain>><<garousal>><<pain 1>><<arousal 600>>
