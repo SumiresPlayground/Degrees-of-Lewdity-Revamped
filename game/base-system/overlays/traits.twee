@@ -258,6 +258,18 @@
 					text: "Your mischievous antics are harder to detect and trace. Criminal activities increase Crime at a reduced rate.",
 				},
 				{
+					name: "Fire Breath",
+					style: `background: linear-gradient(to bottom,#FFFFF0 0%, #FF0000 150%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
+					has: $transformationParts.dragon.tail is "default" and $transformationParts.dragon.horns is "default" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.wings is "default",
+					text: "Your draconic nature is fully awakened, allowing you to breathe fire at your aggressors.",
+				},
+				{
+					name: "Bear Build",
+					style: `background: linear-gradient(to bottom,#FFFFFF 0%, #997950 150%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
+					has: $transformationParts.traits.bearbuild isnot "disabled",
+					text: "Your ursine nature lends itself to more restful sleep and greater aggression during combat.",
+				},
+				{
 					name: "High Kicks",
 					colour: "def",
 					has: $transformationParts.traits.kicks isnot "disabled",
@@ -279,7 +291,7 @@
 					name: "Strong Nose",
 					colour: "green",
 					has: $transformationParts.traits.strongnose isnot "disabled",
-					text: "Your porcine nature allows you to sniff out plant specimens, increasing your harvesting yield.",
+					text: "You are able to sniff out viable plant specimens, increasing your harvesting yield.",
 				},
 				{
 					name: "Vigorous",
@@ -340,6 +352,30 @@
 					colour: "wraith",
 					has: $transformationParts.ghost.eyes isnot "disabled",
 					text: "Locked doors present no obstacle for you.",
+				},
+				{
+					name: "Spore Repellant",
+					colour: "yellow",
+					has: $mushroom gt 0,
+					text: "Something about you is off-putting. People tend to avoid you. It's probably the spores.",
+				},
+				{
+					name: "Nyctophile",
+					colour: "yellow",
+					has: $mushroom gt 0,
+					text: "You slightly heal from injuries and stress indoors or at night.",
+				},
+				{
+					name: "Umbral Umbrella",
+					colour: "yellow",
+					has: $mushroom gt 0,
+					text: "Your mushroom cap doubles as rainproof headgear.",
+				},
+				{
+					name: "Fungal Bloom",
+					colour: "yellow",
+					has: $mushroomtf gte 1,
+					text: "You can generate organic mushroom clothing at your mirror. The more developed your transformation is, the more developed the clothing will be.",
 				},
 				{
 					name: "Heterochromia",
@@ -426,6 +462,12 @@
 					colour: "grey",
 					has: !($harpy gte 6 and $birdFly gte 1 or $dragon gte 6) and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6 or $harpy gte 6 or $bee gte 6),
 					text: "Can glide from high locations.",
+				},
+				{
+					name: "Deathly Chill",
+					colour: "lblue",
+					has: $ghost is 2,
+					text: "You release an aura of extreme cold in nonconsensual encounters, continuously harming enemies.",
 				},
 				{
 					name: "Meek",

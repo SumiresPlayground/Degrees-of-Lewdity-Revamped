@@ -1487,8 +1487,8 @@
 				<<oralnew>>
 				<<speak>>
 				<<combatApologise>>
-				<<if $consensual isnot 1 and $dragon gte 2 and ($dragonbreathuse lt 3 or $dragonbreathuse is undefined)>>
-					<<set _mouthaction["Dragon breath"] to "dragonBreath">>
+				<<if $transformationParts.dragon.tail is "default" and $transformationParts.dragon.horns is "default" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.wings is "default" and $consensual isnot 1 and ($dragonbreathuse lt 3 or $dragonbreathuse is undefined)>>
+					<<set _mouthaction["Dragon Breath"] to "dragonBreath">>
 				<</if>>
 			<<case "othervagina" "facesit">>
 				<<combatOthervagina>>
@@ -1501,6 +1501,9 @@
 				<</if>>
 				<<if $consensual isnot 1 and ($fightTargets is undefined or $fightTargets.includes($mouthtarget))>>
 					<<set _mouthaction["Headbutt"] to "headbutt">>
+				<</if>>
+				<<if $consensual isnot 1 and $slime is 1 and ($fightTargets is undefined or $fightTargets.includes($mouthtarget))>>
+					<<set _mouthaction["Corrode"] to "corrode">>
 				<</if>>
 				<<if $mouthstate isnot "kiss" and $mouthstate isnot "kissimminent">>
 					<<speak>>
