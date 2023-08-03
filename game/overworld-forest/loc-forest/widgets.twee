@@ -302,7 +302,9 @@
 		<<addevent "forestraccoon" 0.15>>
 		<<addevent "forestbear" 0.15>>
 		<<addevent "forestdragon" 0.05>>
-		<<addevent "mushroomgrove" 0.05>>
+		<<if $mushroom is 0>>
+			<<addevent "mushroomgrove" 0.05>>
+		<</if>>
 		<<addevent "forestrock" 0.25>>
 		<<addinlineevent "forest_clothingdamage">>
 			You squeeze through a thicket.
@@ -498,7 +500,9 @@
 	<<if $forest lte 50>>
 		<<addevent "forestriver" 0.33>>
 	<<else>>
-		<<addevent "mushroomgrove" 0.05>>
+		<<if $mushroom is 0>>
+			<<addevent "mushroomgrove" 0.05>>
+		<</if>>
 		<<addevent "forest_deer">>
 	<</if>>
 	<<if $halloween is 1 and Time.monthDay is 31 and !$halloween_lake>>
