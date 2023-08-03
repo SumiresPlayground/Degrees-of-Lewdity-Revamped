@@ -48,6 +48,8 @@ You are in the farmlands.
 	<</if>>
 <</if>>
 <br><br>
+There's a food stand in the area.
+<br><br>
 
 <<if $farm_stage is undefined>>
 	A sign stands beside a dirt track leading up to a farmhouse. It advertises fresh eggs, carrots, and other produce. One line is written in darker paint than the others. It reads: "Farmhands needed. Ask inside." <<if Time.dayState is "night">>You'd need to come back during the day.<</if>>
@@ -78,18 +80,25 @@ You are in the farmlands.
 		<br>
 	<</if>>
 	<<if $exposed lte 0>>
+		<<if $weather is "rain" or $weather is "snow" or Time.dayState is "night">>
+			The food stand is closed.
+			<br>
+		<<else>>
+			<<link [[Visit the nearby food stand (0:05)|Moor Food Stand]]>><<pass 5>><</link>>
+			<br>
+		<</if>>
 		<<if Time.dayState is "night">>
 			<<link [[Riding school|Riding School Lock]]>><</link>>
 			<br>
 		<<elseif Time.hour is $closinghour>>
 			Horses are being stabled at the riding school as it closes for the day.
 			<br><br>
+			<<if $weather isnot "rain" or $weather isnot "snow">>
+			The nearby food stand is closing as well.
+			<br><br>
+			<</if>>
 		<<else>>
 			<<link [[Riding school (0:01)|Riding School]]>><<pass 1>><</link>>
-			<br>
-		<</if>>
-		<<if $weather isnot "rain" and $weather isnot "snow">>
-			<<link [[Visit the nearby food stand (0:05)|Moor Food Stand]]>><<pass 5>><</link>>
 			<br>
 		<</if>>
 	<</if>>
@@ -1618,7 +1627,7 @@ Your penis is locked inside the cage. Shaving around it will be a bit more trick
 	<br>
 <</if>>
 <<if ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2) and $slime is 0>>
-	<<link [[Shave clean (0:15)->Shave clean]]>><<pass 15>><<arousal 100>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<set $pbstrip to 0>><<set $makeup.pbcolour to 0>><</link>>
+	<<link [[Shave clean (0:15)->Farm shave clean]]>><<pass 15>><<arousal 100>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<set $pbstrip to 0>><<set $makeup.pbcolour to 0>><</link>>
 	<br>
 <</if>>
 <<if $pblevel gte 5 or $pbstrip gte 2 or ($pbstrip is 1 and $pblevel gte 2) and $slime is 0>>
@@ -1721,12 +1730,14 @@ You spread your legs, and start carefully trimming your pubes. After a few minut
 <<if _ownedColours.length == 0>>
 	You don't own any hair dyes. Maybe you should visit a cosmetics shop to buy some.
 	<br>
-<<elseif $slime gt 0>>
+<<elseif $slime gte 1>>
 	<span class='green'>Nothing to do here. You'd just absorb and break down whatever dye you used.</span>
 	<br>
 <<elseif $ghost gte 1>>
 	<span class='wraith'>Nothing to do here. Dyes wouldn't do you any good in your current condition.</span>
 	<br>
+<<elseif $mushroom gte 1>>
+	<span class='yellow'>You can't really dye your hair with your mushroom cap in the way.</span>
 <<else>>
 	What colour will it be?<br>
 	<<set _choice = _ownedColours[0].colour>>

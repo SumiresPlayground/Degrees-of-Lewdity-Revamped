@@ -244,6 +244,15 @@
 		<<set $makeup.pbcolour to 0>>
 	<</if>>
 
+	<<if $mushroom gte 1>>
+		<<set $pblevel to 0>>
+		<<set $pbgrowth to 0>>
+		<<set $pblevelballs to 0>>
+		<<set $pbgrowthballs to 0>>
+		<<set $pbstrip to 0>>
+		<<set $makeup.pbcolour to 0>>
+	<</if>>
+
 	<<if $mouthsensitivity lt 4 and $transformationParts.traits.longtongue isnot "disabled">>
 		<<set $mouthsensitivity to 4>>
 	<</if>>
@@ -254,7 +263,7 @@
 	<</if>>
 
 	<<if $slime gt 0>>
-		<<if $outside is 1 and $weather is "rain" and $worn.head.name isnot "umbrella hat">>
+		<<if $outside is 1 and $weather is "rain" and $worn.head.name isnot "umbrella hat" and $worn.over_head.name isnot "froggy hood">>
     	<<violence 40>>
 		<br>Get out of the rain! <span class='red'>It stings!<br><br></span>
 		<</if>>
@@ -1020,5 +1029,47 @@
 		<<set $body_temperature to $body_temperature_outside>>
 	<<else>>
 		<<set $body_temperature to "comfy">>
+	<</if>>
+
+	/*MUSHROOM TF */
+
+	<<if $mushroom is 1 and $fungalgrowth is 0>>
+		<<set $fungalgrowth to 1>>
+	<</if>>
+	<<if $mushroom is 0 and $fungalgrowth gt 1>>
+		<<if $mushroomtf is 1>>
+			<<set $fungalgrowth to 30>>
+		<<elseif $mushroomtf is 2>>
+			<<set $fungalgrowth to 60>>
+		<<elseif $mushroomtf is 3>>
+			<<set $fungalgrowth to 90>>
+		<<else>>
+			<<set $fungalgrowth to 0>>
+		<</if>>
+	<</if>>
+
+	<<if $fungalgrowth gte 30 and $mushroom is 1 and $fungalstagelimiter is 0>>
+		<<set $mushroomtf to 1>>
+		<<set $mushroom to 2>>
+		<<set $fungalstagelimiter to 1>>
+		<span class='yellow'>You've progressed your fungal growth!</span>
+	<<elseif $fungalgrowth gte 60 and $mushroom is 2 and $fungalstagelimiter is 0>>
+		<<set $mushroomtf to 2>>
+		<<set $mushroom to 3>>
+		<<set $fungalstagelimiter to 1>>
+		<span class='yellow'>You've further progressed your fungal growth!</span>
+	<<elseif $fungalgrowth gte 90 and $mushroom is 3 and $fungalstagelimiter is 0>>
+		<<set $mushroomtf to 3>>
+		<<set $mushroom to 4>>
+		<<set $fungalstagelimiter to 1>>
+		<span class='yellow'>Your fungal growth is at it's maximum level!</span>
+	<</if>>
+
+	<<if $mushroom gte 2 and ($worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown")>><br>
+		<<if $combat is 1 and ($worn.lower.state is 0 or $worn.upper.state is 0)>>
+			<<set $mushroom -= 1>>
+			<<set $fungalclotheslimiter to 1>>
+			<span class='yellow'>Your mushroom attire broke! It's been reverted to the previous stage!</span>
+		<</if>>
 	<</if>>
 <</widget>>

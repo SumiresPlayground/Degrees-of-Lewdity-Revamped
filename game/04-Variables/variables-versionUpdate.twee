@@ -4392,12 +4392,14 @@
 		<<set $transformationParts.bear to {ears:"disabled", tail:"disabled"}>>
 		<<if $bear gte 2>>
 			<<set $transformationParts.traits.fangs to "default">>
+			<<set $transformationParts.traits.strongnose to "default">>
 		<</if>>
 		<<if $bear gte 4>>
 			<<set $transformationParts.bear.ears to "default">>
 		<</if>>
 		<<if $bear gte 6>>
 			<<set $transformationParts.bear.tail to "default">>
+			<<set $transformationParts.traits.bearbuild to "default">>
 			<<set $hastail to "true">>
 		<</if>>
 	<</if>>
@@ -4535,6 +4537,10 @@
 
 	<<if $transformationParts.traits.kicks is undefined>>
 		<<set $transformationParts.traits.kicks to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.bearbuild is undefined>>
+		<<set $transformationParts.traits.bearbuild to "disabled">>
 	<</if>>
 
 	<!-- v0.3.13.5 disable combat animations on mobile due to system breakdown.-->

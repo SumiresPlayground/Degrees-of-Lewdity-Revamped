@@ -1116,7 +1116,7 @@
 				<<case 3>>
 					You bite, <span class="red">but your teeth are unable to breach</span> the <<struggle_name mouth>>'s tough <<struggle_skin mouth>>.
 				<<case 4>>
-					You bite into the <<struggle_name mouth>>'s tough <<struggle_skin mouth>>, <span class="red">but it's not enough to provoke a reaction.</span>
+					You bite into the <<struggle_name mouth>>'s tough <<struggle_skin mouth>><<if $slime is 1>><span class='green'> and try to corrode it</span><</if>>, <span class="red">but it's not enough to provoke a reaction.</span>
 				<<default>>
 					You bite down, <span class="red">but your teeth can't get purchase</span> on the <<struggle_name mouth>>'s <<struggle_skin mouth>>.
 			<</switch>>
@@ -1369,7 +1369,7 @@
 			<<case 0>>
 				<<if $struggle.mouth.legs is "tentacles">>
 					The <<print $struggle.mouth.creature>>'s tentacles wrap around your neck.<<neutral 2>>
-				<<elseif $worn.face.type.includes("covered") or $worn.face.type.includes("gag") or $slime gt 0>>
+				<<elseif $worn.face.type.includes("covered") or $worn.face.type.includes("gag")>>
 					The <<print $struggle.mouth.creature>>'s <<struggle_appendage mouth>> rubs against your $worn.face.name.<<neutral 1>>
 				<<else>>
 					The <<print $struggle.mouth.creature>>'s <<struggle_appendage mouth>> rubs against your face.<<neutral 1>>

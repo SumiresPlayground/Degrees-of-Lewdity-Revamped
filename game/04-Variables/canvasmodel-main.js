@@ -391,6 +391,10 @@ Renderer.CanvasModels["main"] = {
 			"slime_bubble_type": "disabled",
 			"slime_stream_type": "disabled",
 			"slime_core_type": "disabled",
+			"mushroom_cap_type": "disabled",
+			"mushroom_eyes_type": "disabled",
+			"mushroom_spores_type": "disabled",
+			"mushroom_mushrooms_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -792,11 +796,6 @@ Renderer.CanvasModels["main"] = {
 				options.belly_mask_under_clip_src = null;
 			}
 		}
-		if (V.ghost >= 1) {
-			options.ghost = true;
-		} else {
-			options.ghost = false;
-		}
 		options.genitals_chastity = options.worn_genitals_setup.type.includes("chastity");
 	},
 	layers: {
@@ -812,13 +811,8 @@ Renderer.CanvasModels["main"] = {
 		 */
 		"base": {
 			srcfn(options) {
-				if (options.mannequin && !options.ghost) {
-				return "img/body/mannequin/basenoarms.png"
-				} else if (options.ghost) {
-				return "img/body/basenoarmsghost.png"
-				} else {
+				if (options.mannequin) return "img/body/mannequin/basenoarms.png"
 				return "img/body/basenoarms.png"
-				}
 			},
 			show: true,
 			filters: ["body"],
@@ -827,8 +821,7 @@ Renderer.CanvasModels["main"] = {
 		},
 		"basehead": {
 			srcfn(options) {
-				if (options.ghost) return "img/body/baseheadghost.png"
-				else if (options.mannequin) return "img/body/mannequin/basehead.png"
+				if (options.mannequin) return "img/body/mannequin/basehead.png"
 				return "img/body/basehead.png"
 			},
 			show: true,
@@ -845,7 +838,6 @@ Renderer.CanvasModels["main"] = {
 				} else {
 					let fn = "breasts" + options.breast_size + (options.breasts === "cleavage" && options.breast_size >= 3 ? "_clothed" : "") + ".png";
 					if (fn === "breasts5_clothed.png") fn = "breasts6_clothed.png";
-					else if (options.ghost) return "img/body/breasts/ghost/" + fn
 					return "img/body/breasts/" + fn;
 				}
 			},
@@ -858,9 +850,8 @@ Renderer.CanvasModels["main"] = {
 		},
 		"belly": {
 			srcfn(options) {
-				if(between(options.belly,1,24)){
-					if (options.ghost) return "img/body/preggyBelly/pregnancy_belly_" + options.belly + ghost + ".png"
-					else return "img/body/preggyBelly/pregnancy_belly_" + options.belly + ".png";
+				if (between(options.belly, 1, 24)) {
+					return "img/body/preggyBelly/pregnancy_belly_" + options.belly + ".png";
 				}
 				return "";
 			},
@@ -893,11 +884,9 @@ Renderer.CanvasModels["main"] = {
 				if (options.mannequin) {
 					return "img/body/mannequin/leftarmidle.png"
 				} else if (options.arm_left === "cover") {
-					if (options.ghost) return "img/body/leftarmghost.png"
-					else return "img/body/leftarm.png"
+					return "img/body/leftarm.png"
 				} else {
-					if (options.ghost) return "img/body/leftarmidleghost.png"
-					else return "img/body/leftarmidle.png"
+					return "img/body/leftarmidle.png"
 				}
 			},
 			showfn(options) {
@@ -915,11 +904,9 @@ Renderer.CanvasModels["main"] = {
 				if (options.mannequin) {
 					return "img/body/mannequin/rightarmidle.png"
 				} else if (options.arm_right === "cover") {
-					if (options.ghost) return "img/body/rightarmghost.png"
-					else return "img/body/rightarm.png"
+					return "img/body/rightarm.png"
 				} else {
-					if (options.ghost) return "img/body/rightarmidleghost.png"
-					else return "img/body/rightarmidle.png"
+					return "img/body/rightarmidle.png"
 				}
 			},
 			showfn(options) {
@@ -2531,6 +2518,51 @@ Renderer.CanvasModels["main"] = {
 			z: ZIndices.skin,
 			animation: "idle"
 		},
+
+		/**Mushroom**/
+
+		"mushroom_cap": {
+			srcfn(options) {
+				return `img/transformations/mushroom/cap/${options.mushroom_cap_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.mushroom_cap_type);
+			},
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+		"mushroom_eyes": {
+			srcfn(options) {
+				return `img/transformations/mushroom/eyes/${options.mushroom_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.mushroom_eyes_type)
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+		"mushroom_spores": {
+			srcfn(options) {
+				return `img/transformations/mushroom/spores/${options.mushroom_spores_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.mushroom_spores_type) 
+			},
+			filters: ["hair"],
+			z: ZIndices.over_upper,
+			animation: "idle"
+		},
+		"mushroom_mushrooms": {
+			srcfn(options) {
+				return `img/transformations/mushroom/mushrooms/${options.mushroom_mushrooms_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.mushroom_mushrooms_type) 
+			},
+			z: ZIndices.neck,
+			animation: "idle"
+		},
+
 
 		/***
 		 *    ██     ██ ██████  ██ ████████ ██ ███    ██  ██████  ███████

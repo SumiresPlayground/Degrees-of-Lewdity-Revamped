@@ -142,6 +142,14 @@ const combatActionColours = {
 			/* mouthaction */
 			"mouthacceptW", "handbiteW",
 		],
+		green: [
+			/* corrosive slime attacks */
+			"corrode",
+		],
+		lblue: [
+			/* Yuki-Onna attacks */
+			"freeze", "deathlychill",
+		],
 	},
 	Tentacle: {
 		def: [

@@ -96,6 +96,15 @@
 		<<effectshandpull>>
 		<<effectsdildowhack>>
 
+		<<if $consensual is 0 and $ghost is 2>>
+			<span class='lblue'>
+			<br><br>
+			A wave of spectral energy emanates from your being, causing the temperature in the vicinity to plummet.
+			<br><br>
+			</span>
+			<<deathlychill>>
+		<</if>>
+
 		<<if $bodyaction is "doggy">>
 			<<set $bodyaction to 0>>
 			You roll onto your knees.
@@ -359,7 +368,7 @@
 			You struggle with all your might.
 			<<defiance 2 $lefttarget>><<set $speechstruggle to 1>>
 			<<if currentSkillValue('physique') gte random(1, 32000) and !$robinRentEvent or $slime gt 0>>
-				<span class="teal">You manage to twist your arms free.</span>
+				<span class="teal">You manage to twist your arms free<<if $slime is 1>><span class='green'>, burning your assailant in the process</span><</if>>.</span>
 				<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -379,7 +388,7 @@
 			You struggle.
 			<<set $speechstruggle to 1>><<defiance 1 $lefttarget>>
 			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime gt 0>>
-				<span class="teal">You manage to twist your arms free.</span>
+				<span class="teal">You manage to twist your arms free<<if $slime is 1>><span class='green'>, burning your assailant in the process</span><</if>>.</span>
 				<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $lefttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -399,7 +408,7 @@
 			You struggle.
 			<<defiance 1 $righttarget>><<set $speechstruggle to 1>>
 			<<if currentSkillValue('physique') gte random(1, 64000) and !$robinRentEvent or $slime gt 0>>
-				<span class="teal">You manage to twist your arms free.</span>
+				<span class="teal">You manage to twist your arms free<<if $slime is 1>><span class='green'>, burning your assailant in the process</span><</if>>.</span>
 				<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 				<<defiance 5 $righttarget>>
 				<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -3357,7 +3366,7 @@
 			<<setnewtarget>>
 		<</if>>
 		
-		<<if $tailaction is "rest">>
+		<<if $hastail is "true" and $tailaction is "rest">>
 			<<set $tailaction to 0>><<set $tailactiondefault to "rest">>You rest your tail.
 		<</if>>
 
@@ -3636,7 +3645,7 @@
 
 		<<if $mouthaction is "breastbite" and $NPCList[$mouthtarget].chest is "mouth">>
 			<<set $mouthaction to 0>><<set $mouthactiondefault to "breastbite">><<personselect $mouthtarget>>
-			You bite down on the nipple, <<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
+			You bite down on the nipple<<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>, <<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 			<<defiance 20 $mouthtarget>><<attackstat>><<set $mouthuse to 0>><<set $breastbitten to 1>><<set $mouthstate to 0>>
 			<<if $transformationParts.traits.fangs isnot "disabled">>
 				<<defiance 40 $mouthtarget>>
@@ -3929,7 +3938,7 @@
 
 		<<if $mouthaction is "bite" and $NPCList[$mouthtarget].penis is "mouth">>
 			<<set $mouthaction to 0>><<set $mouthactiondefault to "bite">><<personselect $mouthtarget>>
-			You bite down on <<his>> <<npcPenisSimple $mouthtarget>>,
+			You bite down on <<his>> <<npcPenisSimple $mouthtarget>><<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>,
 			<<if npcHasStrapon($mouthtarget)>>
 				but it has no effect.
 			<<else>>
@@ -3945,7 +3954,7 @@
 
 		<<if $mouthaction is "bitepussy" and ($NPCList[$mouthtarget].vagina is "mouth" or $NPCList[$mouthtarget].vagina is "facesit")>>
 			<<set $mouthaction to 0>><<set $mouthactiondefault to "bitepussy">><<personselect $mouthtarget>>
-			You bite down on <<hisselect $mouthtarget>> labia. <<He>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
+			You bite down on <<hisselect $mouthtarget>> labia<<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>. <<He>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 			<<set $NPCList[$mouthtarget].vagina to 0>><<set $NPCList[$mouthtarget].location.genitals to 0>>
 			<<defiance 20 $mouthtarget>><<attackstat>><<control 15>><<set $mouthuse to 0>><<set $penisbitten to 1>><<set $mouthstate to 0>><<set $speechhit to 1>>
 			<<if $transformationParts.traits.fangs isnot "disabled">>
@@ -4037,16 +4046,16 @@
 				<<if $NPCList[$mouthtarget].lefthand is "mouth">>
 					<<set $NPCList[$mouthtarget].lefthand to 0>>
 					<<control 15>>
-					<span class="teal"><<He>> flinches away in pain, freeing your mouth.</span>
+					<span class="teal"><<if $slime is 1>><span class='green'>You begin to corrode the appendage. </span><</if>><<He>> flinches away in pain, freeing your mouth.</span>
 				<</if>>
 				<<if $NPCList[$mouthtarget].righthand is "mouth">>
 					<<set $NPCList[$mouthtarget].righthand to 0>>
 					<<control 15>>
-					<span class="teal"><<He>> flinches away in pain, freeing your mouth.</span>
+					<span class="teal"><<if $slime is 1>><span class='green'>You begin to corrode the appendage. </span><</if>><<He>> flinches away in pain, freeing your mouth.</span>
 				<</if>>
 			<<else>>
 				<<control -5>>
-				<span class="purple">It remains over your mouth.</span>
+				<span class="purple"><<if $slime is 1>><span class='green'>You try to corrode the appendage. </span><</if>>It remains over your mouth.</span>
 			<</if>>
 		<</if>>
 
@@ -4085,6 +4094,20 @@
 				<</if>>
 				<<gpain>>
 			<</if>>
+			<<set $head to 0>>
+			<<set $NPCList[$mouthtarget].mouth to 0>>
+			<<set $NPCList[$mouthtarget].location.head to 0>>
+		<</if>>
+
+		<<if $mouthaction is "corrode" and $NPCList[$mouthtarget].mouth.toString().includes("kiss")>>
+			<<set $mouthaction to 0>><<set $mouthactiondefault to "corrode">><<personselect $mouthtarget>>
+			<<if $mouthstate is "kiss">>
+				<span class='green'><<His>> eyes go wide as his lips begin to burn.</span>
+			<<else>>
+				<span class='green'>You quickly move your lips to <<his>> and your corrosive slime does the rest.</span>
+			<</if>>
+			<<He>> <<if $enemytype is "beast">>yelps and backs off<<else>>yells and stumbles back, clutching <<his>> mouth<</if>>.
+			<<defiance 10 $mouthtarget>><<attackstat>><<set $mouthuse to 0>><<set $mouthstate to 0>>
 			<<set $head to 0>>
 			<<set $NPCList[$mouthtarget].mouth to 0>>
 			<<set $NPCList[$mouthtarget].location.head to 0>>
@@ -5113,14 +5136,14 @@
 			<</if>>
 			<<set $dragonbreathuse += 1>><<set $speechdragonbreath to 1>>
 			<<if $enemytype is "beast">>
-				You breathe dragon fire at the <<beasttype>>. It whimpers.
+				<span class='gold'>You breathe dragon fire at the <<beasttype>>. It whimpers.</span>
 			<<elseif $enemyno gte 2>>
-				You breathe dragon fire at the <<group>>. They recoil in pain.
+				<span class='gold'>You breathe dragon fire at the <<group>>. They recoil in pain.</span>
 				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
 					<<ggcrime>><<crimeup 500>>
 				<</if>>
 			<<else>>
-				You breathe dragon fire at the assailant. <<He>> recoils in pain.
+				<span class='gold'>You breathe dragon fire at the assailant. <<He>> recoils in pain.</span>
 				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
 					<<ggcrime>><<crimeup 500>>
 				<</if>>

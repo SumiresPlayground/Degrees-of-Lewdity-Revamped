@@ -316,16 +316,20 @@ You are on the main floor of the shopping centre with Sydney. It's crowded with 
 		<<clothingcategoryicon "face">> <<link [[Optometrist (0:01)|Sydney Shopping Glasses]]>><<pass 1>><</link>>
 		<br>
 	<</if>>
-	<<if !$daily.sydney.shopHair and $slime is 0 and $ghost is 0>>
+	<<if !$daily.sydney.shopHair and $slime is 0 and $ghost is 0 and $mushroom is 0>>
 		<<hairdressericon>><<link [[Hairdressers (0:01)|Sydney Shopping Hairdressers]]>><<pass 1>><</link>>
 		<br>
 	<</if>>
-	<<if !$daily.sydney.shopHair and $slime gt 0>>
+	<<if !$daily.sydney.shopHair and $slime gte 1>>
 		<<hairdressericon>><span class='green'> Your "hair" isn't exactly normal. Perhaps it would be best to take Sydney elsewhere.</span>
 		<br>
 	<</if>>
-	<<if !$daily.sydney.shopHair and $ghost is 1>>
+	<<if !$daily.sydney.shopHair and $ghost gte 1>>
 		<<hairdressericon>><span class='wraith'> Your "hair" isn't exactly normal. Perhaps it would be best to take Sydney elsewhere.</span>
+		<br>
+	<</if>>
+	<<if !$daily.sydney.shopHair and $mushroom gte 1>>
+		<<hairdressericon>><span class='wraith'> You can't really get anything done with that mushroom cap in the way. Perhaps it would be best to take Sydney elsewhere.</span>
 		<br>
 	<</if>>
 	<<if !$daily.sydney.shopSwim and $NPCName[$NPCNameList.indexOf("Sydney")].love gte 50>>
