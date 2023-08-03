@@ -302,6 +302,7 @@
 		<<addevent "forestraccoon" 0.15>>
 		<<addevent "forestbear" 0.15>>
 		<<addevent "forestdragon" 0.05>>
+		<<addevent "mushroomgrove" 0.05>>
 		<<addevent "forestrock" 0.25>>
 		<<addinlineevent "forest_clothingdamage">>
 			You squeeze through a thicket.
@@ -497,6 +498,7 @@
 	<<if $forest lte 50>>
 		<<addevent "forestriver" 0.33>>
 	<<else>>
+		<<addevent "mushroomgrove" 0.05>>
 		<<addevent "forest_deer">>
 	<</if>>
 	<<if $halloween is 1 and Time.monthDay is 31 and !$halloween_lake>>
@@ -1808,4 +1810,14 @@
 		<br>
 	<</addinlineevent>>
 	<<runeventpool>>
+<</widget>>
+
+<<widget "mushroomgrove">>
+	You come to a small trail through the woods. 
+	<br><br>
+
+	<<link [[Follow the trail|Mushroom Grove]]>><</link>>
+	<br>
+	<<link [[Ignore it|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
 <</widget>>
