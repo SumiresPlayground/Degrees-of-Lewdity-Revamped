@@ -2711,46 +2711,51 @@ and !$fromRobinRoom and _robin.cdquest is 2 and _robin.trauma lte 20 and !$daily
 	<</if>>
 	<<gardenicon>><<link [[Garden (0:01)|Garden]]>><<pass 1>><</link>>
 	<br><br>
-	<<if Time.daystate is "night" and $town_projects.home is 1 and $baileypicked is undefined>>
+	<<if Time.dayState is "night" and $town_projects.home is 1 and $baileypicked is undefined>>
 		<<set $lock to 250>>
 		<<if $skulduggery gte $lock>>
 			<span class="green">The locks look easy to pick.</span>
+			<br>
+			<<officeicon>><<link [[Break into Bailey's office (0:05)|Bailey's Office Lockpick]]>><<pass 5>><</link>>
 			<br><br>
-			<<officeicon>><<link [[Break into Bailey's office (0:5)|Bailey's Office Lockpick]]>><<pass 5>><</link>>
 		<<else>>
 			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+			<br><br>
 		<</if>>
 		<<if $ghost gte 1>>
 			You can phase through the doors if you concentrate. 
-			<br><br>
-			<<link [[Phase (0:01)|Bailey's Office Break In]]>><<pass 1>><</link>>
 			<br>
+			<<link [[Phase (0:01)|Bailey's Office Break In]]>><<pass 1>><</link>>
+			<br><br>
 		<</if>>
-	<<elseif Time.daystate is "night" and $town_projects.home is 1 and $baileypicked is 1>>
+	<<elseif Time.dayState is "night" and $town_projects.home is 1 and $baileypicked is 1>>
 		<<officeicon>><<link [[Break into Bailey's office (0:20)|Bailey's Office Break In]]>><<pass 20>><</link>>
+		<br><br>
 	<<else>>
 		<<officeicon>><<link [[Bailey's office (0:01)|Bailey's Office]]>><<pass 1>><</link>>
+		<br><br>
 	<</if>>
-	<br>
-	<<if Time.daystate is "night" and $town_projects.home is 1 and $basement is 1>>
+	<<if Time.dayState is "night" and $town_projects.home is 1 and $basement is 1>>
 		<<set $lock to 1000>>
 		<<if $skulduggery gte $lock>>
 			<span class="green">The locks look easy to pick.</span>
-			<br><br>
+			<br>
 			<<officeicon>><<link [[Break into the basement (0:30)|Basement Lockpick]]>><<pass 30>><</link>>
+			<br>
 		<<else>>
 			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+			<br>
 		<</if>>
 		<<if $ghost gte 1>>
 			You can phase through the doors if you concentrate. 
-			<br><br>
+			<br>
 			<<link [[Phase (0:01)|Orphanage Basement]]>><<pass 1>><</link>>
 			<br>
 		<</if>>
-	<<elseif Time.daystate is "night" and $town_projects.home is 1 and $basement is 1 and $basementpicked is 1>>
+	<<elseif Time.dayState is "night" and $town_projects.home is 1 and $basement is 1 and $basementpicked is 1>>
 		<<officeicon>><<link [[Break into the basement (0:01)|Orphanage Basement]]>><<pass 1>><</link>>
+		<br>
 	<</if>>
-	<br>
 	<<orphanageWard>>
 	<br>
 	<<if Time.hour gte 18 and Time.hour lte 20 and _robin.trauma gte 40 and $robinmissing is 0 and !$robinTraumaVisit>>
@@ -2892,7 +2897,7 @@ You crawl down the vent and find an opening leading to an office. You go to open
 :: Basement Keypad
 <<if $ghost gte 1>>
 	You can phase through the doors if you concentrate. 
-	<br><br>
+	<br>
 	<<link [[Phase (0:01)|Basement Blackmail]]>><<pass 1>><</link>>
 	<br>
 <<elseif $science gte 700>>
