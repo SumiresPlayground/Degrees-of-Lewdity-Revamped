@@ -13,6 +13,9 @@
 	<<set $lakehouse.guardpost to 0>>
 	<<set $lakehouse.dogtraining to 0>>
 	<<set $lakehouse.traps to 0>>
+	<<set $lakehouse.bills to 7>>
+	<<set $lakehouse.billsphase to 0>>
+	<<set $lakehouse.robin to 0>>
 	<<set $lakehouseinit to 1>>
 <</if>>
 
@@ -40,6 +43,13 @@
 	<<if Time.hour gte 6>>
 		<span class="blue">Workers traipse across the lakehouse.</span>
 	<</if>>
+	<br><br>
+<</if>>
+<<if $lakehouse.billsphase gte 4>>
+	There's a <span class="red">Repossessed</span> notice on your door.
+	<br><br>
+<<elseif $lakehouse.billsphase gte 2>>
+	There's a <span class="red">Bills Overdue</span> notice on your door.
 	<br><br>
 <</if>>
 
@@ -95,8 +105,13 @@
 	<</if>>
 	<br><br>
 
-	<<domusicon>><<link [[Go into the house (0:01)|Lake House]]>><<set $phase to 1>><<pass 1>><</link>>
-	<br>
+	<<if $lakehouse.billsphase lt 4>>
+		<<domusicon>><<link [[Go into the house (0:01)|Lake House]]>><<set $phase to 1>><<pass 1>><</link>>
+		<br>
+	<<else>>
+		/* <<domusicon>><<link [[Go into the house (0:01)|Lake House]]>><<set $phase to 1>><<pass 1>><</link>>
+		<br> */
+	<</if>>
 	<<link [[Leave|Lake Shore]]>><</link>>
 	<br>
 <</if>>
@@ -112,7 +127,13 @@
 	<<link [[Answer the door|Lake House Bailey]]>><</link>>
 	<br>
 /* <<elseif $lakehouse_attack_timer lte 0 and Time.hour gte 21>> */
+
+<<elseif $lakehouse_bills>>
+	<spawn class="red">You hear a know at the door.</span>
+	<br><br>
 	
+	<<link [[Answer the door|Lake House Bills]]>><</link>>
+	<br>
 <<elseif $stress gte $stressmax and !$possessed>>
 	<<set $previousPassage to $passage>>
 	<<passoutlakehouse>>
@@ -170,12 +191,22 @@
 	<<gardenicon>><<link [[Go to backyard|Lake House Backyard]]>><</link>>
 	<br>
 	<<if _tv>>
-		<<link [[Watch TV|Lake House TV]]>><</link>>
+		<<if $lakehouse.billsphase gte 3>>
+		You can't use your TV without power.
 		<br>
+		<<else>>
+			<<link [[Watch TV|Lake House TV]]>><</link>>
+			<br>
+		<</if>>
 	<</if>>
 	<<if _tv and _gameconsole>>
-		<<link [[Play console(0:30)|Lake House Console]]>><<trauma -3>><<set $handskill += 1>><</link>><<ghandskill>>
-		<br>
+		<<if $lakehouse.billsphase gte 3>>
+			You can't use your console without power.
+			<br>
+		<<else>>
+			<<link [[Play console(0:30)|Lake House Console]]>><<trauma -3>><<set $handskill += 1>><</link>><<ghandskill>>
+			<br>
+		<</if>>
 	<</if>>
 	<<if $lakehouse.pet1 is "cat" and $lakehouse.pet2 is "cat">>
 		<<link [[Snuggle cat(0:30)|Lake House Snuggle Cats]]>><<pass 30>><<stress -25>><<trauma -25>><</link>><<lllstress>><<llltrauma>>
@@ -457,9 +488,19 @@
 
 		<<set _pc to Furniture.get('pc')>>
 		<<if _pc>>
-			<<link [[Play on computer (0:30)|Lake House Play Computer]]>><<pass 30>><<stress -3>><<trauma -3>><</link>><<lstress>><<ltrauma>>
+			<<if $lakehouse.billsphase gte 3>>
+				You can't use your computer without power.
+				<br>
+			<<else>>
+				<<link [[Play on computer (0:30)|Lake House Play Computer]]>><<pass 30>><<stress -3>><<trauma -3>><</link>><<lstress>><<ltrauma>>
+				<br>
+			<</if>>
+			/* <<link [[Search for job online (0:10)|Lake House Online Search]]>><<pass 10>><</link>>
 			<br>
-			/* insert Online Search here */
+			<<if $exhibitionism gte 55>>
+				<<link [[Host a cam show (0:10)|Lake House Cam Show]]>><<pass 10>><</link>>
+				<br>
+			<</if>> */
 		<</if>>
 
 		<<if _table or _pc>>
@@ -587,11 +628,31 @@ You snuggle under the covers.
 		<<link [[Get up|Lake House Bedroom]]>><<bedclotheson "Lake House Bed">><</link>>
 		<br>
 	<</if>> */
-	<<radiooutfits>>
+	<<if $lakehouse.billsphase gte 4>>
+		You startle awake hearing commotion outside. <span class="red">They're here to repossess the house</span>.
+		<br><br>
+
+		<<radiooutfits>>
+		<br><br>
+
+		<<link [[Get up|Lake House Repossession]]>><<bedclotheson "Lake House Bed">><</link>>
+		<br>
+	<<elseif $lakehouse.billsphase gte 3>>
+		You wake up and try to turn on the lights but they don’t seem to work. In fact it seems like nothing electronic in the house works. A paper pinned to your front door says “Since you haven’t paid your bills on time your utilities have been shut off. Pay the bills now or your home will be repossessed.”
+		<br><br>
+
+		<<radiooutfits>>
+		<br><br>
+
+		<<link [[Get up|Lake House Repossession]]>><<bedclotheson "Lake House Bed">><</link>>
+		<br>
+	<<else>>
+		<<radiooutfits>>
 		<br><br>
 
 		<<link [[Get up|Lake House Bedroom]]>><<bedclotheson "Lake House Bed">><</link>>
 		<br>
+	<</if>>
 <</if>>
 
 :: Lake House Mirror
@@ -612,7 +673,10 @@ You are in the bathroom.
 	<<set $previousPassage to $passage>>
 	<<passoutlakehouse>>
 <<else>>
-	<<if $leftarm is "bound" and $rightarm is "bound">>
+	<<if $lakehouse.billsphase gte 3>>
+		You can't use the bath without water.
+		<br>
+	<<elseif $leftarm is "bound" and $rightarm is "bound">>
 		<<set _clothed = ![V.worn.upper.name, V.worn.lower.name, V.worn.under_upper.name, V.worn.under_lower.name, V.worn.over_upper.name, V.worn.over_lower.name].every(x => x == 'naked')>>
 		<<bathicon>><<link [["Have a bath " + (_clothed ? " in clothes " : "") + "(0:30)"->Lake House Bath]]>><<water>><<pass 30>><<stress -6>><<set $hygiene to 0>><</link>><<lstress>>
 	<<else>>
@@ -620,7 +684,10 @@ You are in the bathroom.
 	<</if>>
 	<br>
 	<!-- Check if there's any hair-->
-	<<if $pbdisable is "f" and ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2)>>
+	<<if $lakehouse.billsphase gte 3>>
+		You can't shave without lights.
+		<br>
+	<<else if $pbdisable is "f" and ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2)>>
 		<<shaveicon>><<link [[Groom pubic hair->Lake House Shave]]>><</link>>
 		<br>
 	<</if>>
@@ -999,6 +1066,9 @@ You sit in your desk chair before playing some PC games. You have a good time an
 
 <<link [[Next|Lake House Bedroom]]>><</link>>
 <br>
+
+:: Lake House Online Search
+<<effects>>
 
 :: Lake House Observe Terrarium
 <<effects>>
@@ -1512,4 +1582,13 @@ Alex arrives at your side, and glares at Bailey. "I'll support you, whatever you
 <br><br>
 
 <<link [[Next|Lake House]]>><</link>>
+<br>
+
+:: Lake House Repossession
+<<effects>>
+
+You hear a knock upon your door. When you open it you see a young man in a suit and tie. He coughs as he pushes open the door further. He stares at you and says “Sorry <<sir>> but since you haven’t paid your bills in a few weeks your home is being repossessed. Please make your way off the premises immediately. If you are found within the property, without first paying the bills that you are due, it will be seen as trespassing and you will be arrested. Have a good day.” The man tips his hat and sees himself out.
+<br><br>
+
+<<link [[Next|Lake House Outdoor]]>><</link>>
 <br>

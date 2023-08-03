@@ -1582,6 +1582,30 @@ function dailyLakeHouseEvents() {
 	fragment.append(wikifier("lakehouse_build_day"));
 	if (V.lakehouse_countdown >= 1) V.lakehouse_countdown--;
 
+	if (V.lakehouse.billsphase <= 1) {
+		V.lakehouse.bills--;
+		if (V.lakehouse.bills < 0){
+			// Bills Overdue
+			if (V.lakehouse.billsphase == 0) {
+				V.lakehouse.billsphase = 2;
+			// Bills Paid
+			} else if (V.lakehouse.billsphase == 1) {
+				V.lakehouse.billsphase = 0
+			// Utility Shut Off
+			}
+			V.lakehouse.bills = 7;
+		}
+	} else {
+		// Utility Shut Off
+		if (V.lakehouse.billsphase == 2) {
+			V.lakehouse.billsphase = 3
+		}
+		// Repossession
+		else {
+			V.lakehouse.billsphase = 4
+		}
+	}
+
 	return fragment;
 }
 
