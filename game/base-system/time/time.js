@@ -649,6 +649,9 @@ function dayPassed() {
 	}
 
 	V.dragonbreathuse = 0;
+
+	V.fungalstagelimiter = 0;
+	V.fungalclotheslimiter = 0;
 	
 	if (V.whitneyRescueStatus) {
 		V.whitneyRescueTimer = (V.whitneyRescueTimer || 8) - 1;
@@ -761,6 +764,11 @@ function minutePassed(minutes) {
 	else if (V.body_temperature === "cold") V.stress += minutes * 2;
 	else if (V.body_temperature === "chilly") V.stress += minutes;
 
+	if (V.mushroom === 1 && V.location === "bog" || "forest") V.stress -= minutes * 2;
+	else if (V.mushroom === 1 && V.outside === "1" && V.Time.dayState === "night") V.stress -= minutes * 2;
+	else if (V.mushroom === 1 && V.location === "bog" || "forest") V.pain -= minutes * 2;
+	else if (V.mushroom === 1 && V.outside === "1" && V.Time.dayState === "night") V.pain -= minutes * 2;
+
 	V.stress = Math.min(V.stress, V.stressmax);
 
 	// Effects
@@ -830,6 +838,9 @@ function dawnCheck() {
 	delete V.alex_bed_spurned;
 	delete V.connudatus_stripped;
 	delete V.robin_kicked_out;
+	if (V.mushroom >= 1 && V.fungalgrowth >= 1) {
+		V.fungalgrowth += 1;
+	}
 
 	return fragment;
 }
@@ -1626,7 +1637,7 @@ function passWater(passMinutes) {
 		if (V.lowerwet) fragment.append(wikifier("lowerwet", -passMinutes * 2));
 		if (V.underlowerwet) fragment.append(wikifier("underlowerwet", -passMinutes * (V.worn.lower.type.includes("naked") ? 2 : 1)));
 		if (V.underupperwet) fragment.append(wikifier("underupperwet", -passMinutes * (V.worn.upper.type.includes("naked") ? 2 : 1)));
-	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof")) {
+	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof") || V.mushroom >= 0) {
 		if (!V.worn.upper.type.includes("naked") && !waterproofCheck(V.worn.upper) && !waterproofCheck(V.worn.over_upper)) {
 			fragment.append(wikifier("upperwet", passMinutes));
 		}

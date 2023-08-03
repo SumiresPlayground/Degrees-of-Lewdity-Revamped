@@ -184,6 +184,10 @@
 	<<if $ghost gte 1>>
 	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
 	<</if>>
+
+	<<if $mushroom gte 1>>
+	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
+	<</if>>
 	
 	__Makeup__
 	<br>
@@ -194,7 +198,7 @@
 		<<set $traumatized to true>>
 	<</if>>
 	<<if !$simpleMirror>>
-		<<if $specialTransform is 1 or $physicalTransform is 1 or $permanentTransform is 1 or $traumatized isnot undefined>>
+		<<if $specialTransform is 1 or $physicalTransform is 1 or $permanentTransform is 1 or $mushroomtf gte 1 or $traumatized isnot undefined>>
 			__Transformation__
 			<br>
 			<<link "Examine your inner self">><<set $mirrorMenu to "transformation">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
@@ -393,6 +397,10 @@
 			Ghostly
 			<br>
 		<</if>>
+		<<if $mushroom gte 1>>
+			Fungal
+			<br>
+		<</if>>
 		<<if $slime gt 0>>
 			Slimy
 			<br>
@@ -568,6 +576,10 @@
 		<</if>>
 		<<if $slime gt 0>>
 			Slimy
+			<br>
+		<</if>>
+		<<if $mushroom gte 1>>
+			Fungal
 			<br>
 		<</if>>
 		<<if $makeup.lipstick != 0 or $makeup.eyeshadow != 0 or $makeup.mascara != 0>>
@@ -2061,6 +2073,8 @@
 			<span class='green'>Unfortunately, you'd just break down and absorb whatever dye you tried to apply.</span>
 		<<elseif $ghost gte 1>>
 			<span class='green'>Unfortunately, these won't affect you in your ephemeral state.</span>
+		<<elseif $mushroom gte 1>>
+			<span class='green'>However, you can't use use the hairdresser with the large mushroom cap in the way.</span>
 		<<else>>
 			<<set _browsDyeOptions to {"Don't dye":"noChange"}>>
 			<<for _i to 0; _i lt _dyes.length; _i++>>
@@ -2282,9 +2296,15 @@
 			Long Tongue:<br>
 			<<link "Set">><<set _traits.longtongue = "default">><</link>> / <<link "Clear">><<set _traits.longtongue = "disabled">><</link>><br>
 		<</if>>
-		<<if $pig gte 2 or $pigtf is 1>>
+		<<if $pig gte 2 or $pigtf is 1 or $bear gte 2 or $beartf is 1>>
 			Strong Nose:<br>
 			<<link "Set">><<set _traits.strongnose = "default">><</link>> / <<link "Clear">><<set _traits.strongnose = "disabled">><</link>><br>
+		<</if>>
+		<<if $transformationParts.bear.ears is "default" and $transformationParts.bear.tail is "default">>
+			Bear Build:<br>
+			<<link "Set">><<set _traits.bearbuild = "default">><</link>> / <<link "Clear">><<set _traits.bearbuild = "disabled">><</link>><br>
+		<<elseif $transformationParts.bear.ears is "disabled" or $transformationParts.bear.tail is "disabled">>
+			<<set _traits.bearbuild = "disabled">>
 		<</if>>
 		<br>
 	<</if>>
@@ -2296,9 +2316,11 @@
 			Aqua Lungs:<br>
 			<<link "Set">><<set _traits.lungs = "disabled">><<set _traits.aquatic = "disabled">><<set _traits.lungs = "default">><<set $oxygenmax to 1500>><</link>> / <<link "Clear">><<set _traits.lungs = "disabled">><<set $oxygenmax to 1200>><</link>><br>
 		<</if>>
-		<<if $fish gte 2 or $fishtf is 1>>
+		<<if $transformationParts.fish.tail is "default" and $transformationParts.fish.fins is "default">>
 			Aquatic:<br>
 			<<link "Set">><<set _traits.lungs = "disabled">><<set _traits.aquatic = "disabled">><<set _traits.aquatic = "default">><</link>> / <<link "Clear">><<set _traits.aquatic = "disabled">><</link>><br>
+		<<elseif $transformationParts.fish.tail is "disabled" or $transformationParts.fish.fins is "disabled">>
+			<<set _traits.aquatic = "disabled">>
 		<</if>>
 		<br>
 	<</if>>
@@ -2610,6 +2632,25 @@
 		<br>
 	<</if>>
 
+	<<if ($mushroomtf gte 1)>>
+		__Mushroom__<br>
+		Organic Attire
+		<br>
+		<<if $mushroom is 2>>
+		<<link [[Equip|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 19>><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $mushroom is 3>>
+		<<link [[Equip|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 99>><<upperwear 110>><<feetwear 31>><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $mushroom is 4>>
+		<<link [[Equip|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 100>><<upperwear 111>><<feetwear 32>><<updatesidebarimg>><</link>>
+		<</if>>
+		<br><br>
+		<<link [[Clear|$passage]]>><<strip>><</link>><br>
+		<br>
+		
+	<</if>>
+
 	<<if _isMenuEnabled>>
 		<div id="transformations-colour-selector" class='list sticky centre'>
 			<<set _options to ['ffffff', 'ff0000', '00ff00', '0000ff', '590099', '000000']>>
@@ -2679,6 +2720,11 @@
 		<br><br>
 		<span class='wraith'>Your supernatural abilities are normally limited to phasing through walls...
 		<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
+		<br><br>
+	<<elseif $mushroom gte 1>>
+		<br><br>
+		<span class='yellow'>It'll take some focus, but you can shift your biomass to elongate or retract your hair length.
+		</span>
 		<br><br>
 	<</if>>
 	<<link "<<<">><<set $hairlength -= 1000>><<clamp>><<replace "#statshairlength">><<print Math.trunc($hairlength)>><</replace>><</link>> |

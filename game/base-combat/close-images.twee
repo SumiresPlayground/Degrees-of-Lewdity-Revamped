@@ -5,8 +5,11 @@
     <<imgOpacity>>
     <<getTentacleColour>>
 
-    <<if $position is "wall">>
+    <<if $position is "wall" and $NPCList[_na].type isnot "deer", "stagboy", "deergirl">>
         <<set _img to setup.tanImg.close["doggy"][($options.tanImgEnabled ? "t" : "f")]>>
+        <<set _position to "doggy">>
+    <<elseif $position is "wall" and $NPCList[_na].type is "deer", "stagboy", "deergirl">>
+          <<set _img to setup.tanImg.close["doggy"][($options.tanImgEnabled ? "t" : "f")]>>
         <<set _position to "doggy">>
     <<else>>
         <<set _img to setup.tanImg.close[$position][($options.tanImgEnabled ? "t" : "f")]>>

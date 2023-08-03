@@ -1554,7 +1554,7 @@
 			<<if $leftaction is "leftstruggle" and $rightaction is "rightstruggle">>
 				<<set $leftaction to 0>><<set $rightaction to 0>><<set $leftactiondefault to "leftstruggle">><<set $rightactiondefault to "rightstruggle">>
 				<<if currentSkillValue('physique') gte random(1, 32000) or $slime gt 0>>
-					<span class="teal">You manage to twist your arms free.</span>
+					<span class="teal">You manage to twist your arms free<<if $slime is 1>><span class='green'>, burning your assailant in the process</span><</if>>.</span>
 					<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 					<<defiance 5>>
 					<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -1565,7 +1565,7 @@
 				<</if>>
 			<<else>>
 				<<if currentSkillValue('physique') gte random(1, 64000) or $slime gt 0>>
-					<span class="teal">You manage to twist your arms free.</span>
+					<span class="teal">You manage to twist your arms free<<if $slime is 1>><span class='green'>, burning your assailant in the process</span><</if>>.</span>
 					<<if $slime gt 0>><span class='green'> That was easy.</span><</if>>
 					<<defiance 5>>
 					<<set $leftarm to 0>><<set $rightarm to 0>>
@@ -2066,7 +2066,7 @@
 
 	<<if $mouthaction is "mouthbite"+_tentacle.id>>
 		<<set $mouthaction to 0>><<set $mouthactiondefault to "mouthbite"+_tentacle.id>><<defiance 5>>
-		You bite down on the _tentacle.fullDesc invading your mouth. <span class="teal">It recoils immediately.</span>
+		You bite down on the _tentacle.fullDesc invading your mouth<<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>. <span class="teal">It recoils immediately.</span>
 		<<tentacleadvdisable _tentacle>><<set $attackstat += 1>><<set _tentacle.tentaclehealth -= 1>>
 		<<if $rng lte (currentSkillValue('physique') / 200)>>
 			<span class="green">It trembles before your strength.</span>

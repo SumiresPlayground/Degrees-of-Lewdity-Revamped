@@ -518,6 +518,75 @@ You are in your bedroom.
 		<<set $slime to 3>>
 	<</if>>
 
+	<<if $code is "ghost">>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "ghostly">>
+		<<set $transformationParts.ghost.eyes to "default">>
+		<<set $transformationParts.ghost.hitodama to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "jetblack">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "jetblack">>
+		<<set $options.lightGlow to 1>>
+		<<set $ghost to 1>>
+	<<elseif $code is "ice" and $ghost is 1>>
+		<<set $skinColor.natural to "ice">>
+		<<set $transformationParts.ghost.hitodama to "disabled">>
+		<<set $transformationParts.ghost.mist to "default">>
+		<<set $haircolour to "snowblue">>
+		<<set $hairfringecolour to "snowwhite">>
+		<<set $options.lightGlow to 1>>
+		<<set $ghost to 2>>
+	<</if>>
+
+	<<if $code is "fungi">>
+		<<mushroomtransform>>
+	<</if>>
+
+	<<if $code is "fungi2">>
+		<<set $mushroom to 2>>
+		<<set $mushroomtf to 1>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "dusky">> 
+		<<set $transformationParts.mushroom.cap to "default">>
+		<<set $transformationParts.mushroom.eyes to "default">>
+		<<set $transformationParts.mushroom.spores to "default">>
+		<<set $transformationParts.mushroom.mushrooms to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "amberyellow">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "amberyellow">>
+	<</if>>
+
+	<<if $code is "fungi3">>
+		<<set $mushroom to 3>>
+		<<set $mushroomtf to 2>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "dusky">> 
+		<<set $transformationParts.mushroom.cap to "default">>
+		<<set $transformationParts.mushroom.eyes to "default">>
+		<<set $transformationParts.mushroom.spores to "default">>
+		<<set $transformationParts.mushroom.mushrooms to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "amberyellow">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "amberyellow">>
+	<</if>>
+
+	<<if $code is "fungi4">>
+		<<set $mushroom to 4>>
+		<<set $mushroomtf to 3>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "dusky">> 
+		<<set $transformationParts.mushroom.cap to "default">>
+		<<set $transformationParts.mushroom.eyes to "default">>
+		<<set $transformationParts.mushroom.spores to "default">>
+		<<set $transformationParts.mushroom.mushrooms to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "amberyellow">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "amberyellow">>
+	<</if>>
 <</link>>
 
 <br><<link [[Go back|Bedroom]]>><</link>>
@@ -874,6 +943,14 @@ You are in the bathroom.
 		<<shaveicon>><<link [[Groom pubic hair->Shave]]>><</link>>
 		<br>
 	<</if>>
+
+	<<if $mushroom gte 2 and $worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown">><br>
+		You can shear mass off your organic attire and revert to a previous transformation stage.
+		<br>
+		<<bathicon>><<link [[Revert (0:10)->Mushroom Shear]]>><<pass 10>><<set $hygiene to 0>><</link>>
+	<</if>>
+
+	
 	<<pregnancyTest "Bedroom">>
 	<br>
 
@@ -886,6 +963,27 @@ You are in the bathroom.
 	<<home_outside>>
 	<br>
 <</if>>
+
+:: Mushroom Shear
+
+<span class='yellow'>Stage Reversion</span>
+<br>
+<i>Reverting your mushroom attire this way has the same effect as it being regressed via attire damage; it will take some time to regenerate.</i><br><br>
+<<if $mushroom is 2>>
+<<link [[Clear|$passage]]>><<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<set $mushroom to 1>><</link>>
+<</if>>
+<<if $mushroom is 3>>
+<<link [[Stage 2|$passage]]>><<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<underupperwear 33>><<underlowerwear 40>><<legswear 19>><<updatesidebarimg>><<set $mushroom to 2>><</link>><br>
+<</if>>
+<<if $mushroom is 4>>
+<<link [[Stage 3|$passage]]>><<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 99>><<upperwear 110>><<feetwear 31>><<updatesidebarimg>><<set $mushroom to 3>><</link>><br>
+<</if>>
+<br><br>
+
+
+
+
+<<link [[Go back|Bathroom]]>><</link>>
 
 :: Sleep
 <<set _autosavehere to true>>
@@ -3405,6 +3503,7 @@ The last of the water drains from the bath, taking the slime with it. <<tearful>
 <<set $rentmoney to 10000>><<rentmod>>
 <<set $renttime to 7>><<set $rentday to Time.weekDay>>
 <<set $rentstage to 1>>
+<<if $demonbuild gte 30 or $demon is 6>><<set $purity to 0>><</if>>
 
 <<npc Bailey>><<person1>>
 You enter Bailey's office. "I know why you're here," <<he>> says, running a hand through <<his>> dark hair. "You want me to release you from my protection, so you'll be an independent citizen. I could do that. But there's a problem. You've been living under my roof without giving anything in return. You owe me. Until you pay me back, I'm not letting you go."
@@ -3920,12 +4019,14 @@ You sit down, spread your legs, and start carefully trimming your pubes. After a
 <<if _ownedColours.length == 0>>
 	You don't own any hair dyes. Maybe you should visit a cosmetics shop to buy some.
 	<br>
-<<elseif $slime gt 0>>
+<<elseif $slime gte 1>>
 	<span class='green'>Nothing to do here. You'd just absorb and break down whatever dye you used.</span>
 	<br>
 <<elseif $ghost gte 1>>
 	<span class='wraith'>Nothing to do here. Dyes would do you no good in your current condition.</span>
 	<br>
+<<elseif $mushroom gte 1>>
+	<span class='yellow'>There's nothing to dye. It seems like this form doesn't grow pubic hair.</span>
 <<else>>
 	What colour will it be?
 	<br>

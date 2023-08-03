@@ -295,12 +295,14 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $transformationParts.bear to {ears:"disabled", tail:"disabled"}>>
 		<<if $bear gte 2>>
 			<<set $transformationParts.traits.fangs to "default">>
+			<<set $transformationParts.traits.strongnose to "default">>
 		<</if>>
 		<<if $bear gte 4>>
 			<<set $transformationParts.bear.ears to "default">>
 		<</if>>
 		<<if $bear gte 6>>
 			<<set $transformationParts.bear.tail to "default">>
+			<<set $transformationParts.traits.bearbuild to "default">>
 			<<set $hastail to "true">>
 		<</if>>
 	<</if>>
@@ -402,6 +404,11 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $transformationParts.slime to {bubble:"disabled", stream:"disabled", core:"disabled"}>>
 	<</if>>
 
+	<<if $transformationParts.mushroom is undefined>>
+		<<set $mushroom to 0>>
+		<<set $transformationParts.mushroom to {cap:"disabled", eyes:"disabled", spores:"disabled", mushrooms:"disabled"}>>
+	<</if>>
+
 	<<if $hastail is undefined>>
 		<<set $hastail to "false">>
 		<<set $thicktail to "false">>
@@ -439,6 +446,11 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<if $transformationParts.traits.kicks is undefined>>
 		<<set $transformationParts.traits.kicks to "disabled">>
 	<</if>>
+
+	<<if $transformationParts.traits.bearbuild is undefined>>
+		<<set $transformationParts.traits.bearbuild to "disabled">>
+	<</if>>
+
 
 	<<if $beebuild is undefined>>
 		<<set $beebuild to 0>>
@@ -527,6 +539,14 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $slime to 0>>
 	<</if>>
 
+	<<if $mushroom is undefined>>
+		<<set $mushroom to 0>>
+	<</if>>
+
+	<<if $fungalgrowth is undefined>>
+		<<set $fungalgrowth to 0>>
+	<</if>>
+
 	<<if $onemoreslime is undefined>>
 		<<set $onemoreslime to 0>>
 	<</if>>
@@ -545,6 +565,18 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 	<<if $exorcised is undefined>>
 		<<set $exorcised to 0>>
+	<</if>>
+
+	<<if $deathlychill is undefined>>
+		<<set $deathlychill to 0>>
+	<</if>>
+
+	<<if $auratimer is undefined>>
+		<<set $auratimer to 0>>
+	<</if>>
+
+	<<if $mushroomtf is undefined>>
+		<<set $mushroomtf to 0>>
 	<</if>>
 
 	<<if $dencounter is undefined>>
