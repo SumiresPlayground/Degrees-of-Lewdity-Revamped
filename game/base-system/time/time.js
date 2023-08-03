@@ -631,6 +631,7 @@ function dayPassed() {
 	fragment.append(dailyNPCEffects());
 	fragment.append(yearlyEventChecks());
 	fragment.append(moonState());
+	fragment.append(dailyLakeHouseEvents());
 
 	parasiteProgressDay();
 	parasiteProgressDay("vagina");
@@ -1580,6 +1581,41 @@ function dailyFarmEvents() {
 	delete V.alex_breakfast;
 	delete V.alex_tea;
 	delete V.alex_to_bed;
+
+	return fragment;
+}
+
+function dailyLakeHouseEvents() {
+	const fragment = document.createDocumentFragment();
+
+	V.lakehouse_attack_timer--;
+	if (V.lakehouse_attack_timer < 0) fragment.append(wikifier("lakehouse_attack_auto"));
+	fragment.append(wikifier("lakehouse_build_day"));
+	if (V.lakehouse_countdown >= 1) V.lakehouse_countdown--;
+
+	if (V.lakehouse.billsphase <= 1) {
+		V.lakehouse.bills--;
+		if (V.lakehouse.bills < 0){
+			// Bills Overdue
+			if (V.lakehouse.billsphase == 0) {
+				V.lakehouse.billsphase = 2;
+			// Bills Paid
+			} else if (V.lakehouse.billsphase == 1) {
+				V.lakehouse.billsphase = 0
+			// Utility Shut Off
+			}
+			V.lakehouse.bills = 7;
+		}
+	} else {
+		// Utility Shut Off
+		if (V.lakehouse.billsphase == 2) {
+			V.lakehouse.billsphase = 3
+		}
+		// Repossession
+		else {
+			V.lakehouse.billsphase = 4
+		}
+	}
 
 	return fragment;
 }

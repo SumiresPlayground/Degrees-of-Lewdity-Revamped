@@ -22,12 +22,17 @@ const Furniture = (() => {
 		wallpaper: "wallpaper",
 		/* Special category for Kylar event */
 		owlplushie: "owlplushie",
+		television: "television",
+		gameconsole: "gameconsole",
+		pc: "pc",
+		bookshelf: "bookshelf",
 	});
 
 	const Locations = Object.freeze({
 		bedroom: "bedroom",
 		cabin: "cabin",
 		cottage: "cottage",
+		lakehouse: "lakehouse",
 	});
 
 	let target = Locations.bedroom;
@@ -452,6 +457,56 @@ const Furniture = (() => {
 			description: "The wallpaper is currently empty.",
 			iconFile: "wallpaper.png",
 		});
+		/* ------------- TELEVISION -------------- */
+		mapper.set("tv", {
+			name: "television",
+			nameCap: "Television",
+			category: ["television"],
+			type: [],
+			cost: setPrice(3000),
+			description: "A television.",
+			iconFile: "indent.png",
+		});
+		/* ------------ GAME CONSOLE ------------- */
+		mapper.set("gameconsole", {
+			name: "game console",
+			nameCap: "Game console",
+			category: ["gameconsole"],
+			type: [],
+			cost: setPrice(400),
+			description: "A game console.",
+			iconFile: "arcade.gif",
+		});
+		/* ----------------- PC ------------------ */
+		mapper.set("pc", {
+			name: "personal computer",
+			nameCap: "Personal computer",
+			category: ["pc"],
+			type: [],
+			cost: setPrice(5000),
+			description: "A PC.",
+			iconFile: "headdesk.png",
+		});
+		/* -------------- BOOKSHELF -------------- */
+		mapper.set("bookshelf", {
+			name: "bookshelf",
+			nameCap: "Bookshelf",
+			category: ["bookshelf"],
+			type: [],
+			cost: setPrice(2000),
+			description: "A bookshelf.",
+			iconFile: "library.png",
+		});
+		/* ---------------- MIRROR --------------- */
+		mapper.set("mirror", {
+			name: "mirror",
+			nameCap: "Mirror",
+			category: ["mirror"],
+			type: [],
+			cost: setPrice(2000),
+			description: "A mirror.",
+			iconFile: "mirrorhome.png",
+		});
 	}
 
 	function furnitureGet(category, onlySetup = false) {
@@ -591,6 +646,10 @@ const Furniture = (() => {
 				}
 				versions.furniture = 3;
 				break;
+			// case 4:
+			// 	/* Lake house */
+			// 	V.furniture.lakehouse = {};
+			// 	furnitureIn(Locations.lakehouse);
 		}
 	}
 

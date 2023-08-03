@@ -1002,10 +1002,10 @@
 		<</if>>
 		<!-- DoLM -->
 		<!-- Milk by hand increases hand skill -->
-		<<link [["Milk by hand (0:" + String(_cattleMilkHand).padStart(2, '0') + ")"|Farm Cattle Milk Hand]]>><<farm_yield 1>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<set $handskill += 5>><<farm_cattle 1>><<set $phase to _cattleMilkHand>><<pass _cattleMilkHand>><</link>><<deviant1>><<gfarm>><<gtending>><<ghandskill>><<grespect>>
+		<<link [["Milk by hand (0:" + String(_cattleMilkHand).padStart(2, '0') + ")"|Farm Cattle Milk Hand]]>><<farm_yield 1>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<set $handskill += 1>><<farm_cattle 1>><<set $phase to _cattleMilkHand>><<pass _cattleMilkHand>><</link>><<deviant1>><<gfarm>><<gtending>><<ghandskill>><<grespect>>
 		<br>
 		<<if $deviancy gte 55 and ($bestialitydisable is "f" or $monster is 1)>>
-			<<link [[Milk with your mouth (0:03)|Farm Cattle Milk Mouth]]>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<farm_count 3>><</link>><<deviant4>><<gtending>>
+			<<link [[Milk with your mouth (0:03)|Farm Cattle Milk Mouth]]>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<farm_count 3>><<oralskill 1>><</link>><<deviant4>><<gtending>><<goralskill>>
 			<<if $NPCList[0].penis isnot "none" and $player.virginity.oral is true>>
 				| <span class="red">This action will take your oral virginity.</span>
 			<</if>>
@@ -2449,6 +2449,10 @@
 <<widget "guard_skill_text">>
 	<<if _args[0] is "tower" and $farm.tower_guard_skill isnot undefined>>
 		<<set _guard_skill to $farm.tower_guard_skill>>
+	<<elseif _args[0] is "lakehouse_tower" and $lakehouse.tower_guard_skill isnot undefined>>
+		<<set _guard_skill to $lakehouse.tower_guard_skill>>
+	<<elseif _args[0] is "lakehouse_post" and $lakehouse.post_guard_skill isnot undefined>>
+		<<set _guard_skill to $lakehouse.post_guard_skill>>
 	<<else>>
 		<<set _guard_skill to $NPCList[0].skills.security>>
 	<</if>>
