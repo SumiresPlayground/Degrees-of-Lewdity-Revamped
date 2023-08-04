@@ -738,6 +738,27 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
+	"Samba": {
+		title: "Mushroom Samba",
+		desc: "Spread them spores.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Ghost": {
+		title: "Who You Gonna Call",
+		desc: "Bustin' makes you feel good.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Slime": {
+		title: "It's Slime Time",
+		desc: "No lube needed.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	Angel: {
 		title: "Walk Like an Angel",
 		desc: "Try not to fall.",
