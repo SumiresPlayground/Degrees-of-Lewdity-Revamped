@@ -66,13 +66,18 @@
 			kelpie
 		<<elseif $ghost is 1>>
 			spirit
-		<<elseif $ghost is 2>>
-			Yuki Onna
+		<<elseif $ghost is 2 and $player.gender_appearance is "m">>
+			yuki-otoko.
+		<<elseif $ghost is 2 and $player.gender_appearance is "f">>
+			yuki-onna.
 		<<elseif $horse gte 6>>
 			horse
 		<</if>>
 		<<if $slime gt 0>>
 			slime
+		<</if>>
+		<<if $mushroom gt 0>>
+			mushroom
 		<</if>>
 		<<if $gob is 1>>
 			goblin
@@ -88,17 +93,21 @@
 			a slime
 		<<elseif $ghost is 1>>
 			a spirit
-		<<elseif $ghost is 2>>
-			a Yuki Onna
+		<<elseif $ghost is 2 and $player.gender_appearance is "m">>
+			a yuki-otoko.
+		<<elseif $ghost is 2 and $player.gender_appearance is "f">>
+			a yuki-onna.
 		<<elseif $gob is 1>>
 			a goblin
+		<<elseif $mushroom is 1>>
+			a mushroom
 		<<else>>
 			a<<if $NudeGenderDC lt 0 and $player.gender_posture is "n">>n<</if>>
 		<</if>>
 	<</if>>
-	<<if $NudeGenderDC gte 0>>
+	<<if $NudeGenderDC gte 0 and $ghost isnot 2>>
 		<<gender>>.
-	<<else>>
+	<<elseif $NudeGenderDC is 0 and $ghost isnot 2>>
 		<<gender_posture>>.
 	<</if>>
 	<br><br>

@@ -2227,6 +2227,14 @@
 <!-- DoLM -->
 <!-- Added some missing teleports -->
 <<widget "cheats-teleport">>
+	<<set setup.majorAreas to [
+		"Orphanage", "Bedroom", "Barb Street", "Cliff Street", "Connudatus Street", "Danube Street", "Domus Street", "Elk Street",
+		"Harvest Street", "High Street", "Mer Street", "Nightingale Street", "Oxford Street", "Starfish Street", "Wolf Street",
+		"Residential alleyways", "Commercial alleyways", "Industrial alleyways", "Park", "Hallways", "Brothel", "Strip Club",
+		"Beach", "Ocean Breeze", "Docks Work", "Residential Drain", "Commercial Drain", "Industrial Drain", "Forest", "Farmland",
+		"Livestock Field", "Moor", "Forest Wolf Cave", "Wolf Cave", "Wolf Cave Clearing", "Asylum", "Asylum Cell", "Underground Cell", "Prison Cell",
+		"Lake Shore", "Farmland", "Farm Work", "Meadow",
+	]>>
 	<<if ["Clothing Shop", "Forest Shop", "School Library Shop", "Adult Shop Store"].includes($passage)>>
 		<span class="red">Teleporting from a clothing store can break your wardrobe.</span> Please leave the shop before teleporting.
 	<<elseif setup.majorAreas.includes($passage) and $event is undefined>>
@@ -3048,14 +3056,12 @@
 		| <<link ">">><<set $farm.coop += 1>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
 		| <<link ">>">><<set $farm.coop += 2>><<set $farm.coop = Math.clamp($farm.coop, 0, 2)>><<replace "#farm_coop">><<print Math.trunc($farm.coop)>><</replace>><</link>>
 		<br>
-		<<if $farm isnot undefined>>
-			<<if $farm.tractor is undefined>>
-				<<set $farm.tractor to 0>>
-				<<set $farm.tractorplough to false>>
-				<<set $farm.tractorseeddrill to false>>
-				<<set $farm.tractorharvester to false>>
-				<<set $farm.tractorloader to false>>
-			<</if>>
+		<<if $farm.tractor is undefined>>
+			<<set $farm.tractor to 0>>
+			<<set $farm.tractorplough to false>>
+			<<set $farm.tractorseeddrill to false>>
+			<<set $farm.tractorharvester to false>>
+			<<set $farm.tractorloader to false>>
 		<</if>>
 		<<link "<<<">><<set $farm.tractor -= 3>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>> |
 		<<link "<<">><<set $farm.tractor -= 2>><<set $farm.tractor = Math.clamp($farm.tractor, 0, 3)>><<replace "#farm_tractor">><<print Math.trunc($farm.tractor)>><</replace>><</link>> |

@@ -476,48 +476,6 @@ You are in your bedroom.
 		<<set $skinColor.natural to "green">>
 		<<set $gob to 1>>
 	<</if>>
-
-	<<if $code is "slime">>
-		<<set $skinColor.naturalreset to $skinColor.natural>>
-		<<set $skinColor.natural to "slimy">> 
-		<<set $transformationParts.slime.bubble to "default">>
-		<<set $transformationParts.slime.stream to "default">>
-		<<set $transformationParts.slime.core to "default">>
-		<<set $haircolourreset to $haircolour>>
-		<<set $haircolour to "slimegreen">>
-		<<set $hairfringecolourreset to $hairfringecolour>>
-		<<set $hairfringecolour to "slimegreen">>
-		<<set $slime to 1>>
-	<</if>>
-		
-
-	<<if $code is "pslime">>
-		<<set $skinColor.naturalreset to $skinColor.natural>>
-		<<set $skinColor.natural to "amethyst">> 
-		<<set $transformationParts.slime.bubble to "pdefault">>
-		<<set $transformationParts.slime.stream to "pdefault">>
-		<<set $transformationParts.slime.core to "default">>
-		<<set $haircolourreset to $haircolour>>
-		<<set $haircolour to "lilacpurple">>
-		<<set $hairfringecolourreset to $hairfringecolour>>
-		<<set $hairfringecolour to "lilacpurple">>
-		<<set $slime to 2>>
-	<</if>>
-		
-	
-	<<if $code is "bslime">>
-		<<set $skinColor.naturalreset to $skinColor.natural>>
-		<<set $skinColor.natural to "chilly">> 
-		<<set $transformationParts.slime.bubble to "bdefault">>
-		<<set $transformationParts.slime.stream to "bdefault">>
-		<<set $transformationParts.slime.core to "default">>
-		<<set $haircolourreset to $haircolour>>
-		<<set $haircolour to "chillyblue">>
-		<<set $hairfringecolourreset to $hairfringecolour>>
-		<<set $hairfringecolour to "chillyblue">>
-		<<set $slime to 3>>
-	<</if>>
-
 <</link>>
 
 <br><<link [[Go back|Bedroom]]>><</link>>
@@ -874,6 +832,14 @@ You are in the bathroom.
 		<<shaveicon>><<link [[Groom pubic hair->Shave]]>><</link>>
 		<br>
 	<</if>>
+
+	<<if $mushroom gte 2 and $worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown">><br>
+		You can shear mass off your organic attire and revert to a previous transformation stage.
+		<br>
+		<<bathicon>><<link [[Revert (0:10)->Mushroom Shear]]>><<pass 10>><<set $hygiene to 0>><</link>>
+	<</if>>
+
+	
 	<<pregnancyTest "Bedroom">>
 	<br>
 
@@ -886,6 +852,27 @@ You are in the bathroom.
 	<<home_outside>>
 	<br>
 <</if>>
+
+:: Mushroom Shear
+
+<span class='yellow'>Stage Reversion</span>
+<br>
+<i>Reverting your mushroom attire this way has the same effect as it being regressed via attire damage; it will take some time to regenerate.</i><br><br>
+<<if $mushroom is 2>>
+<<link [[Clear|$passage]]>><<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<set $mushroom to 1>><</link>>
+<</if>>
+<<if $mushroom is 3>>
+<<link [[Stage 2|$passage]]>><<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<underupperwear 33>><<underlowerwear 40>><<legswear 19>><<updatesidebarimg>><<set $mushroom to 2>><</link>><br>
+<</if>>
+<<if $mushroom is 4>>
+<<link [[Stage 3|$passage]]>><<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 99>><<upperwear 110>><<feetwear 31>><<updatesidebarimg>><<set $mushroom to 3>><</link>><br>
+<</if>>
+<br><br>
+
+
+
+
+<<link [[Go back|Bathroom]]>><</link>>
 
 :: Sleep
 <<set _autosavehere to true>>
@@ -2613,46 +2600,51 @@ and !$fromRobinRoom and _robin.cdquest is 2 and _robin.trauma lte 20 and !$daily
 	<</if>>
 	<<gardenicon>><<link [[Garden (0:01)|Garden]]>><<pass 1>><</link>>
 	<br><br>
-	<<if Time.daystate is "night" and $town_projects.home is 1 and $baileypicked is undefined>>
+	<<if Time.dayState is "night" and $town_projects.home is 1 and $baileypicked is undefined>>
 		<<set $lock to 250>>
 		<<if $skulduggery gte $lock>>
 			<span class="green">The locks look easy to pick.</span>
+			<br>
+			<<officeicon>><<link [[Break into Bailey's office (0:05)|Bailey's Office Lockpick]]>><<pass 5>><</link>>
 			<br><br>
-			<<officeicon>><<link [[Break into Bailey's office (0:5)|Bailey's Office Lockpick]]>><<pass 5>><</link>>
 		<<else>>
 			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+			<br><br>
 		<</if>>
 		<<if $ghost gte 1>>
 			You can phase through the doors if you concentrate. 
-			<br><br>
-			<<link [[Phase (0:01)|Bailey's Office Break In]]>><<pass 1>><</link>>
 			<br>
+			<<link [[Phase (0:01)|Bailey's Office Break In]]>><<pass 1>><</link>>
+			<br><br>
 		<</if>>
-	<<elseif Time.daystate is "night" and $town_projects.home is 1 and $baileypicked is 1>>
+	<<elseif Time.dayState is "night" and $town_projects.home is 1 and $baileypicked is 1>>
 		<<officeicon>><<link [[Break into Bailey's office (0:20)|Bailey's Office Break In]]>><<pass 20>><</link>>
+		<br><br>
 	<<else>>
 		<<officeicon>><<link [[Bailey's office (0:01)|Bailey's Office]]>><<pass 1>><</link>>
+		<br><br>
 	<</if>>
-	<br>
-	<<if Time.daystate is "night" and $town_projects.home is 1 and $basement is 1>>
+	<<if Time.dayState is "night" and $town_projects.home is 1 and $basement is 1>>
 		<<set $lock to 1000>>
 		<<if $skulduggery gte $lock>>
 			<span class="green">The locks look easy to pick.</span>
-			<br><br>
+			<br>
 			<<officeicon>><<link [[Break into the basement (0:30)|Basement Lockpick]]>><<pass 30>><</link>>
+			<br>
 		<<else>>
 			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+			<br>
 		<</if>>
 		<<if $ghost gte 1>>
 			You can phase through the doors if you concentrate. 
-			<br><br>
+			<br>
 			<<link [[Phase (0:01)|Orphanage Basement]]>><<pass 1>><</link>>
 			<br>
 		<</if>>
-	<<elseif Time.daystate is "night" and $town_projects.home is 1 and $basement is 1 and $basementpicked is 1>>
+	<<elseif Time.dayState is "night" and $town_projects.home is 1 and $basement is 1 and $basementpicked is 1>>
 		<<officeicon>><<link [[Break into the basement (0:01)|Orphanage Basement]]>><<pass 1>><</link>>
+		<br>
 	<</if>>
-	<br>
 	<<orphanageWard>>
 	<br>
 	<<if Time.hour gte 18 and Time.hour lte 20 and _robin.trauma gte 40 and $robinmissing is 0 and !$robinTraumaVisit>>
@@ -2794,7 +2786,7 @@ You crawl down the vent and find an opening leading to an office. You go to open
 :: Basement Keypad
 <<if $ghost gte 1>>
 	You can phase through the doors if you concentrate. 
-	<br><br>
+	<br>
 	<<link [[Phase (0:01)|Basement Blackmail]]>><<pass 1>><</link>>
 	<br>
 <<elseif $science gte 700>>
@@ -3314,7 +3306,11 @@ The last of the water drains from the bath, taking the slime with it. <<tearful>
 <<clotheson>>
 <<endcombat>>
 
-<<link [[Next|Bath Finish]]>><</link>>
+<<if $location is "lakehouse">>
+	<<link [[Next|Lake House Bath Finish]]>><</link>>
+<<else>>
+	<<link [[Next|Bath Finish]]>><</link>>
+<</if>>
 
 :: Garden Play
 <<set $outside to 1>><<set $location to "home">><<effects>>
@@ -3401,6 +3397,7 @@ The last of the water drains from the bath, taking the slime with it. <<tearful>
 <<set $rentmoney to 10000>><<rentmod>>
 <<set $renttime to 7>><<set $rentday to Time.weekDay>>
 <<set $rentstage to 1>>
+<<if $demonbuild gte 30 or $demon is 6>><<set $purity to 0>><</if>>
 
 <<npc Bailey>><<person1>>
 You enter Bailey's office. "I know why you're here," <<he>> says, running a hand through <<his>> dark hair. "You want me to release you from my protection, so you'll be an independent citizen. I could do that. But there's a problem. You've been living under my roof without giving anything in return. You owe me. Until you pay me back, I'm not letting you go."
@@ -3916,12 +3913,14 @@ You sit down, spread your legs, and start carefully trimming your pubes. After a
 <<if _ownedColours.length == 0>>
 	You don't own any hair dyes. Maybe you should visit a cosmetics shop to buy some.
 	<br>
-<<elseif $slime gt 0>>
+<<elseif $slime gte 1>>
 	<span class='green'>Nothing to do here. You'd just absorb and break down whatever dye you used.</span>
 	<br>
 <<elseif $ghost gte 1>>
 	<span class='wraith'>Nothing to do here. Dyes would do you no good in your current condition.</span>
 	<br>
+<<elseif $mushroom gte 1>>
+	<span class='yellow'>There's nothing to dye. It seems like this form doesn't grow pubic hair.</span>
 <<else>>
 	What colour will it be?
 	<br>

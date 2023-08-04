@@ -631,6 +631,7 @@ function dayPassed() {
 	fragment.append(dailyNPCEffects());
 	fragment.append(yearlyEventChecks());
 	fragment.append(moonState());
+	fragment.append(dailyLakeHouseEvents());
 
 	if (V.lakehouseinit !== undefined){
 		fragment.append(dailyLakeHouseEvents());
@@ -652,6 +653,9 @@ function dayPassed() {
 	}
 
 	V.dragonbreathuse = 0;
+
+	V.fungalstagelimiter = 0;
+	V.fungalclotheslimiter = 0;
 	
 	if (V.whitneyRescueStatus) {
 		V.whitneyRescueTimer = (V.whitneyRescueTimer || 8) - 1;
@@ -764,6 +768,11 @@ function minutePassed(minutes) {
 	else if (V.body_temperature === "cold") V.stress += minutes * 2;
 	else if (V.body_temperature === "chilly") V.stress += minutes;
 
+	if (V.mushroom === 1 && V.location === "bog" || "forest") V.stress -= minutes * 2;
+	else if (V.mushroom === 1 && V.outside === "1" && V.Time.dayState === "night") V.stress -= minutes * 2;
+	else if (V.mushroom === 1 && V.location === "bog" || "forest") V.pain -= minutes * 2;
+	else if (V.mushroom === 1 && V.outside === "1" && V.Time.dayState === "night") V.pain -= minutes * 2;
+
 	V.stress = Math.min(V.stress, V.stressmax);
 
 	// Effects
@@ -833,6 +842,9 @@ function dawnCheck() {
 	delete V.alex_bed_spurned;
 	delete V.connudatus_stripped;
 	delete V.robin_kicked_out;
+	if (V.mushroom >= 1 && V.fungalgrowth >= 1) {
+		V.fungalgrowth += 1;
+	}
 
 	return fragment;
 }
@@ -1577,6 +1589,41 @@ function dailyFarmEvents() {
 	return fragment;
 }
 
+function dailyLakeHouseEvents() {
+	const fragment = document.createDocumentFragment();
+
+	V.lakehouse_attack_timer--;
+	if (V.lakehouse_attack_timer < 0) fragment.append(wikifier("lakehouse_attack_auto"));
+	fragment.append(wikifier("lakehouse_build_day"));
+	if (V.lakehouse_countdown >= 1) V.lakehouse_countdown--;
+
+	if (V.lakehouse.billsphase <= 1) {
+		V.lakehouse.bills--;
+		if (V.lakehouse.bills < 0){
+			// Bills Overdue
+			if (V.lakehouse.billsphase == 0) {
+				V.lakehouse.billsphase = 2;
+			// Bills Paid
+			} else if (V.lakehouse.billsphase == 1) {
+				V.lakehouse.billsphase = 0
+			// Utility Shut Off
+			}
+			V.lakehouse.bills = 7;
+		}
+	} else {
+		// Utility Shut Off
+		if (V.lakehouse.billsphase == 2) {
+			V.lakehouse.billsphase = 3
+		}
+		// Repossession
+		else {
+			V.lakehouse.billsphase = 4
+		}
+	}
+
+	return fragment;
+}
+
 function temperatureHour() {
 	V.chill = V.chill_day;
 	if (Time.dayState === "night") V.chill += V.weather === "clear" ? 50 : 30;
@@ -1594,7 +1641,7 @@ function passWater(passMinutes) {
 		if (V.lowerwet) fragment.append(wikifier("lowerwet", -passMinutes * 2));
 		if (V.underlowerwet) fragment.append(wikifier("underlowerwet", -passMinutes * (V.worn.lower.type.includes("naked") ? 2 : 1)));
 		if (V.underupperwet) fragment.append(wikifier("underupperwet", -passMinutes * (V.worn.upper.type.includes("naked") ? 2 : 1)));
-	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof")) {
+	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof") || V.mushroom >= 0) {
 		if (!V.worn.upper.type.includes("naked") && !waterproofCheck(V.worn.upper) && !waterproofCheck(V.worn.over_upper)) {
 			fragment.append(wikifier("upperwet", passMinutes));
 		}

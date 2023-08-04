@@ -160,6 +160,42 @@ It's your turn. The <<person1>><<person>> waits.
     <span class="black">Project undiscovered.</span>
     <br>
 <</if>>
+<<if $town_projects.home isnot undefined>>
+    <<if $town_projects.home gte 3>>
+        <<if $lakehouse.billsphase is 0>>
+            <<if $money gte 500000 and $lakehouse.robin is 0>>
+                <<link [[Pay Bills (£5000)|Town Hall Pay Bills]]>><<set $money -= 500000>><<set $lakehouse.billsphase to 1>><</link>>
+                <br>
+            <<elseif $money gte 800000 and $lakehouse.robin is 1>>
+                <<link [[Pay Bills (£8000)|Town Hall Pay Bills]]>><<set $money -= 800000>><<set $lakehouse.billsphase to 1>><</link>>
+                <br>
+            <<elseif $lakehouse.robin is 0>>
+                You don't have £5000 to pay your bills.
+            <<else>>
+                You don't have £8000 to pay your bills.
+            <</if>>
+        <<elseif lakehouse.billsphase gte 4>>
+            <<if $money gte 2000000 and $lakehouse.robin is 0>>
+                <<link [[Repossess your house (£20000)|Town Hall Pay Bills]]>><<set $money -= 2000000>><<set $lakehouse.billsphase to 0>><<set $lakehouse.bills to 7>><</link>>
+                <br>
+            <<else>>
+                You don't have £20000 to repossess your house.
+            <</if>>
+        <<elseif lakehouse.billsphase gte 2>>
+            <<if $money gte 1000000 and $lakehouse.robin is 0>>
+                <<link [[Pay Overdue Bills (£10000)|Town Hall Pay Overdue Bills]]>><<set $money -= 1000000>><<set $lakehouse.billsphase to 1>><</link>>
+                <br>
+            <<elseif $money gte 1600000 and $lakehouse.robin is 1>>
+                <<link [[Pay Overdue Bills (£16000)|Town Hall Pay Overdue Bills]]>><<set $money -= 1600000>><<set $lakehouse.billsphase to 1>><</link>>
+                <br>
+            <<elseif $lakehouse.robin is 0>>
+                You don't have £10000 to pay your bills.
+            <<else>>
+                You don't have £16000 to pay your bills.
+            <</if>>
+        <</if>>
+    <</if>>
+<</if>>
 <<if $hookah_plot is 2>>
     <<link [[Say you need to see the mayor|Town Hall Computer]]>><<set $hookah_plot to 3>><</link>>
     <br>
@@ -640,13 +676,13 @@ You go to follow the directions, but spot Quinn pacing down the hall.
 <</if>>
 <br><br>
 
-<<He>> has a look of melancholy about him, clearly upset. "I wish I could. You've done a lot for this town but I'm currently in a bit of a... tricky situation."
+<<He>> has a look of melancholy about <<him>>, clearly upset. "I wish I could. You've done a lot for this town but I'm currently in a bit of a... tricky situation."
 <br><br>
 
-<<He>> looks over his shoulder to make sure he's not being watched before continuing. "Bailey has some dirt on me, so I can't really go against what he wishes. If you truly want this project done, try checking his office."
+<<He>> looks over <<his>> shoulder to make sure <<he>>'s not being watched before continuing. "Bailey has some dirt on me, so I can't really go against what <<he>> wishes. If you truly want this project done, try checking his office."
 <br><br>
 
-"Oh and for the record. This conversation never happened." <<He>> zips his lips before walking away.
+"Oh and for the record. This conversation never happened." <<He>> zips <<his>> lips before walking away.
 <br><br>
 
 <<link [[Leave|Cliff Street]]>><<endevent>><<set $town_projects.home to 1>><</link>>
@@ -681,11 +717,11 @@ You follow the directions, and enter a small room. A strong looking <<person>> s
 <</if>>
 <br><br>
 
-The <<person>> sighs. "I could send out some men to work on it. It'll cost <span class="gold">£25000</span>, and there's no budget for it."
+The <<person>> sighs. "I could send out some men to work on it. It'll cost <span class="gold">£25000</span>."
 <br><br>
 
 <<if $money gte 2500000>>
-    <<link [[Pay for the home (£10000)|Town Hall Projects Home Buy]]>><<set $money -= 2500000>><<set $town_projects.home to 3>><<famebusiness 100>><</link>>
+    <<link [[Pay for the home (£25000)|Town Hall Projects Home Buy]]>><<set $money -= 2500000>><<set $town_projects.home to 3>><<famebusiness 100>><</link>>
     <br>
 <<else>>
     <span class="blue">You can't afford such an expense.</span>
@@ -831,4 +867,30 @@ You follow Winter from the office. <<person2>>Somewhat deflated, <<he>> leans ag
 <br><br>
 
 <<link [[Next|Cliff Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Town Hall Pay Bills
+“I’m here to pay my bills.” You say as you take out the 
+<<if $lakehouse.robin is 0>>
+    £5000 
+    <<else>>
+    £8000 
+<</if>>
+and hand it to the receptionist. They count the bills, smile and say “Thank you, have a great day.”
+<br><br>
+
+<<link [[Next|Town Hall]]>><</link>>
+<br>
+
+:: Town Hall Pay Overdue Bills
+“I’m here to pay my bills.” You say as you take out the 
+<<if $lakehouse.robin is 0>>
+    £10000 
+    <<else>>
+    £16000 
+<</if>>
+and hand it to the receptionist. They look a bit upset and say “About time” as they count the bills and say “Thank you for finally paying your bills.”
+<br><br>
+
+<<link [[Next|Town Hall]]>><</link>>
 <br>

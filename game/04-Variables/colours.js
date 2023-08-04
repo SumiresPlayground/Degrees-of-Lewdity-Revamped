@@ -118,7 +118,8 @@ setup.colours = {
 		slimy: ["#CBFFCB", "#98FF98"],
 		chilly: ["#87e5f8", "#01c9fe"],
 		amethyst: ["#BBA9f5", "#8451FC"],
-		green: ["#B5C47A", "#81A558"]
+		green: ["#B5C47A", "#81A558"],
+		dusky: ["#cfcba8", "#cfcba8"]
 	},
 	/**
 	 * Get canvas filter for skin of given type and tan progression (0..1).
@@ -596,6 +597,18 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#7ce2fe",
+			opacity: 0.9
+		},
+	},
+	{
+		variable: "amberyellow",
+		name: "amber yellow",
+		name_cap: "Amber Yellow",
+		csstext: "slimegreenhair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#FFBF00",
 			opacity: 0.9
 		},
 	},

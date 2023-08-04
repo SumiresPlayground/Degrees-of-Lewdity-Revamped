@@ -3,7 +3,7 @@
 <<widget "setupTransformationPiecesObject">>
 	<<if $transformationParts is undefined>>
 		<<set $transformationParts to {
-			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", aquatail:"disabled", lungs:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", kicks:"disabled", longtongue:"disabled", strongnose:"disabled"},
+			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", aquatail:"disabled", lungs:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", kicks:"disabled", longtongue:"disabled", strongnose:"disabled", bearbuild:"disabled"},
 			angel: {halo:"disabled", wings:"disabled"},
 			fallenAngel: {halo:"disabled", wings:"disabled"},
 			demon: {horns:"disabled", wings:"disabled", tail: "disabled"},
@@ -22,6 +22,7 @@
 			dog: {ears:"disabled", tail:"disabled"},
 			ghost: {eyes:"disabled", hitodama:"disabled", mist:"disabled"},
 			slime: {bubble:"disabled", stream:"disabled", core:"disabled"},
+			mushroom: {cap:"disabled", eyes:"disabled", spores:"disabled", mushrooms:"disabled"},
 			raccoon: {mask:"disabled", ears: "disabled", tail: "disabled"},
 			fish: {fins:"disabled", tail:"disabled"},
 			horse: {ears:"disabled", tail:"disabled"},
@@ -132,12 +133,14 @@
 			<</if>>
 			<<if $bear gte 2>>
 				<<set $transformationParts.traits.fangs to "default">>
+				<<set $transformationParts.traits.strongnose to "default">>
 			<</if>>
 			<<if $bear gte 4>>
 				<<set $transformationParts.bear.ears to "default">>
 			<</if>>
 			<<if $bear gte 6>>
 				<<set $transformationParts.bear.tail to "default">>
+				<<set $transformationParts.traits.bearbuild to "default">>
 				<<set $hastail to "true">>
 			<</if>>
 			<<if $dragon gte 1>>
@@ -241,10 +244,10 @@
 			<<if $pig gte 2>>
 				<<set $transformationParts.traits.strongnose to "default">>
 			<</if>>
-			<<if $dog gte 4>>
+			<<if $pig gte 4>>
 				<<set $transformationParts.pig.ears to "default">>
 			<</if>>
-			<<if $dog gte 6>>
+			<<if $pig gte 6>>
 				<<set $transformationParts.pig.tail to "default">>
 				<<set $hastail to "true">>
 			<</if>>
@@ -329,8 +332,11 @@
 	<<if $transformationParts.slime is undefined>>
 		<<set $transformationParts.slime to {bubble:"disabled", stream:"disabled", core:"disabled"}>>
 	<</if>>
+	<<if $transformationParts.mushroom is undefined>>
+		<<set $transformationParts.mushroom to {cap:"disabled", eyes:"disabled", spores:"disabled", mushrooms:"disabled"}>>
+	<</if>>
 	<<if $transformationParts.traits is undefined>>
-		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", strongnose:"disabled", longtongue:"disabled", kicks:"disabled"}>>
+		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", strongnose:"disabled", longtongue:"disabled", kicks:"disabled", bearbuild:"disabled"}>>
 		<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
 			<<set $transformationParts.traits.fangs to "default">>
 		<</if>>
@@ -2156,8 +2162,9 @@
 			<<case 1>>
 				<<if $bearbuild gte 10 and $transformdisable is "f">>
 					<<set $bear to 2>>
-					<span class="gold">Your mouth and eyes feel different. You explore your mouth and yelp in pain as your tongue presses against your new fangs.</span>
+					<span class="gold">Your mouth and nose feel different. You explore your mouth and yelp in pain as your tongue presses against your new fangs. Your sense of smell vastly improves.</span>
 					<<set $transformationParts.traits.fangs to "default">>
+					<<set $transformationParts.traits.strongnose to "default">>
 					<br><br>
 				<<elseif $bearbuild lt 5>>
 					<<set $bear to 0>>
@@ -2172,8 +2179,9 @@
 					<br><br>
 				<<elseif $bearbuild lt 10>>
 					<<set $bear to 1>>
-					<span class="gold">Your fangs have turned into regular teeth.</span>
+					<span class="gold">Your fangs have turned into regular teeth and your sense of smell dulls.</span>
 					<<set $transformationParts.traits.fangs to "disabled">>
+					<<set $transformationParts.traits.strongnose to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 3>>
@@ -2181,7 +2189,7 @@
 					<<set $bear to 4>>
 					<<clearears>>
 					<<set $transformationParts.bear.ears to "default">>
-					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of bear ears.</span>
+					<span class="gold">Your ears itch. You reach up to scratch them, and find them much higher than you expected. You've grown a pair of bear ears.</span>
 					<br><br>
 				<<elseif $bearbuild lt 15>>
 					<<set $bear to 2>>
@@ -2191,7 +2199,7 @@
 			<<case 4>>
 				<<if $bearbuild gte 25 and $transformdisable is "f">>
 					<<set $bear to 5>>
-					<span class="gold">Your lower back tingles.</span>
+					<span class="gold">Your body tingles.</span>
 					<br><br>
 				<<elseif $bearbuild lte 20>>
 					<<set $bear to 3>>
@@ -2206,9 +2214,10 @@
 					<<set $bear to 6>>
 					<<cleartail>>
 					<<set $transformationParts.bear.tail to "default">>
+					<<set $transformationParts.traits.bearbuild to "default">>
 					<<set $hastail to "true">>
 					<<earnFeat "Bear">>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new bear tail.</span>
+					<span class="gold">A surge of aggression wells forward, but quickly disappears, replaced by a sense of weariness, which also fades. Something seems to sprout just above your <<bottom>>. You reach behind you and feel your new bear tail.</span>
 					<br><br>
 				<<elseif $bearbuild lt 25>>
 					<<set $bear to 4>>
@@ -2218,16 +2227,19 @@
 			<<case 6>>
 				<<if $bearbuild lt 30>>
 					<<set $bear to 5>>
+					<<set $transformationParts.traits.bearbuild to "disabled">>
 					<<set $transformationParts.bear.tail to "disabled">>
 					<<set $hastail to "false">>
-					<span class="gold">Your tail has disappeared.</span>
+					<span class="gold">Your aggression decreases along with your body mass. Your bear tail vanishes</span>
 					<br><br>
 				<</if>>
 			<<case 99>>
 				<<set $physicalTransform to 0>>
 				<<set $bear to 0>>
 				<<set $bearbuild to 0>>
+				<<set $transformationParts.traits.strongnose to "default">>
 				<<set $transformationParts.bear.tail to "disabled">>
+				<<set $transformationParts.traits.bearbuild to "disabled">>
 				<<set $hastail to "false">>
 				<<set $transformationParts.bear.ears to "disabled">>
 				<<set $transformationParts.traits.fangs to "disabled">>
@@ -2241,6 +2253,8 @@
 		<<set $bearbuild to 100>>
 		<<cleartail>>
 		<<clearears>>
+		<<set $transformationParts.traits.strongnose to "default">>
+		<<set $transformationParts.traits.bearbuild to "default">>
 		<<set $transformationParts.bear.tail to "default">>
 		<<set $hastail to "true">>
 		<<set $transformationParts.bear.ears to "default">>

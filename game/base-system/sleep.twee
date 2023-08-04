@@ -182,6 +182,10 @@
 			<<pass 1 hours>>
 		<</if>>
 
+		<<if $transformationParts.traits.bearbuild isnot "disabled">>
+			<<stress -1000>>
+		<</if>>
+
 		<<if $nightmares gte 1 and $controlled is 0>>
 			<<stress 6>>
 		<</if>>
@@ -223,6 +227,9 @@
 		<<case "prison bed">>
 			<<set $_storeLocation to "prison bed">>
 			<<set $wardrobe_location to "prison">>
+		<<case "Lake House Bed">>
+			<<set $_storeLocation to "Lake House Bed">>
+			<<set $wardrobe_location to "lakehouse">>
 		<<default>>
 			Something went wrong with the "bedclotheson" widget, please report
 			<<run console.log('Something went wrong with the "bedclotheson" widget, please report')>>

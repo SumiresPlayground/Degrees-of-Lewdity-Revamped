@@ -1744,6 +1744,9 @@
 		<<link [[Next|Forest Wolf]]>><<set $molestationstart to 1>><</link>>
 		<br>
 	<</addinlineevent>>
+	<<if $mushroom is 0>>
+		<<addevent "mushroomgrove" 0.05>>
+	<</if>>
 	<<runeventpool>>
 <</widget>>
 
@@ -1769,6 +1772,9 @@
 		<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 		<br>
 	<</addinlineevent>>
+	<<if $mushroom is 0>>
+		<<addevent "mushroomgrove" 0.05>>
+	<</if>>
 	<<runeventpool>>
 <</widget>>
 
@@ -1808,4 +1814,14 @@
 		<br>
 	<</addinlineevent>>
 	<<runeventpool>>
+<</widget>>
+
+<<widget "mushroomgrove">>
+	You come to a small trail through the bog. 
+	<br><br>
+
+	<<link [[Follow the trail|Mushroom Grove]]>><</link>>
+	<br>
+	<<link [[Ignore it|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
 <</widget>>

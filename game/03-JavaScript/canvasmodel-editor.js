@@ -874,6 +874,10 @@ Macro.add("canvasModelEditor", {
 						selectOption("pig_tail_type", ["disabled", "hidden", "default"]),
 						selectOption("dog_ears_type", ["disabled", "hidden", "default"]),
 						selectOption("dog_tail_type", ["disabled", "hidden", "default"]),
+						selectOption("mushroom_cap_type", ["disabled", "hidden", "default"]),
+						selectOption("mushroom_eyes_type", ["disabled", "hidden", "default"]),
+						selectOption("mushroom_spores_type", ["disabled", "hidden", "default"]),
+						selectOption("mushroom_mushroom_type", ["disabled", "hidden", "default"]),
 
 						optionCategory("Body writings"),
 						selectOption("writing_forehead", bodyWritings),
