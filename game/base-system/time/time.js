@@ -768,10 +768,10 @@ function minutePassed(minutes) {
 	else if (V.body_temperature === "cold") V.stress += minutes * 2;
 	else if (V.body_temperature === "chilly") V.stress += minutes;
 
-	if (V.mushroom === 1 && V.location === "bog" || "forest") V.stress -= minutes * 2;
-	else if (V.mushroom === 1 && V.outside === "1" && V.Time.dayState === "night") V.stress -= minutes * 2;
-	else if (V.mushroom === 1 && V.location === "bog" || "forest") V.pain -= minutes * 2;
-	else if (V.mushroom === 1 && V.outside === "1" && V.Time.dayState === "night") V.pain -= minutes * 2;
+	if (V.mushroom >= 1 && V.location === "bog" || "forest") V.stress -= minutes * 2;
+	else if (V.mushroom >= 1 && V.outside === "1" && V.Time.dayState === "night") V.stress -= minutes * 2;
+	else if (V.mushroom >= 1 && V.location === "bog" || "forest") V.pain -= minutes * 2;
+	else if (V.mushroom >= 1 && V.outside === "1" && V.Time.dayState === "night") V.pain -= minutes * 2;
 
 	V.stress = Math.min(V.stress, V.stressmax);
 
@@ -1641,7 +1641,7 @@ function passWater(passMinutes) {
 		if (V.lowerwet) fragment.append(wikifier("lowerwet", -passMinutes * 2));
 		if (V.underlowerwet) fragment.append(wikifier("underlowerwet", -passMinutes * (V.worn.lower.type.includes("naked") ? 2 : 1)));
 		if (V.underupperwet) fragment.append(wikifier("underupperwet", -passMinutes * (V.worn.upper.type.includes("naked") ? 2 : 1)));
-	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof") || V.mushroom >= 0) {
+	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof") || V.mushroom >= 1) {
 		if (!V.worn.upper.type.includes("naked") && !waterproofCheck(V.worn.upper) && !waterproofCheck(V.worn.over_upper)) {
 			fragment.append(wikifier("upperwet", passMinutes));
 		}
