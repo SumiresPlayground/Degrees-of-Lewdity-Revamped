@@ -632,6 +632,10 @@ function dayPassed() {
 	fragment.append(yearlyEventChecks());
 	fragment.append(moonState());
 
+	if (V.lakehouseinit !== undefined){
+		fragment.append(dailyLakeHouseEvents());
+	}
+
 	parasiteProgressDay();
 	parasiteProgressDay("vagina");
 	fragment.append(wikifier("tending_day"));
