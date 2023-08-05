@@ -100,7 +100,7 @@ const combatActionColours = {
 			/* tailaction */
 			"tailstab", "tailwhip",
 			/* mouthaction */
-			"bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy", "retribution",
+			"bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy", "retribution", "dragonBreath",
 		],
 		meek: [
 			/* leftaction or rightaction */
