@@ -631,7 +631,6 @@ function dayPassed() {
 	fragment.append(dailyNPCEffects());
 	fragment.append(yearlyEventChecks());
 	fragment.append(moonState());
-	fragment.append(dailyLakeHouseEvents());
 
 	if (V.lakehouseinit !== undefined){
 		fragment.append(dailyLakeHouseEvents());
