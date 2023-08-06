@@ -2637,20 +2637,19 @@
 
 	<<if ($mushroomtf gte 1)>>
 		__Mushroom__<br>
-		Organic Attire
+		<<link [[Clear Outfit|$passage]]>><<strip>><</link>>
 		<br>
 		<<if $mushroom is 2>>
-		<<link [[Equip|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 19>><<updatesidebarimg>><</link>><br>
+		<<link [[Manifest Outfit|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 19>><<updatesidebarimg>><</link>>
 		<</if>>
 		<<if $mushroom is 3>>
-		<<link [[Equip|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 99>><<upperwear 110>><<feetwear 31>><<updatesidebarimg>><</link>><br>
+		<<link [[Manifest Outfit|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 99>><<upperwear 110>><<feetwear 31>><<updatesidebarimg>><</link>>
 		<</if>>
 		<<if $mushroom is 4>>
-		<<link [[Equip|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 100>><<upperwear 111>><<feetwear 32>><<updatesidebarimg>><</link>>
+		<<link [[Manifest Outfit|$passage]]>><<underupperwear 33>><<underlowerwear 40>><<legswear 20>><<lowerwear 100>><<upperwear 111>><<feetwear 32>><<updatesidebarimg>><</link>>
 		<</if>>
-		<br><br>
-		<<link [[Clear|$passage]]>><<strip>><</link>><br>
 		<br>
+	
 		
 	<</if>>
 
@@ -2661,14 +2660,25 @@
 			<<gencolourpicker>>
 		</div>
 	<</if>>
+
+	<br>
+	<<link "Top of Page">>
+		<<script>>
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		<</script>>
+	<</link>>
+	<br>
+	/*
 	<<link [[Confirm|$passage]]>>
 		<<set $mirrorMenu to "transformation">>
 		/* <<if _cat.heterochromia is "hidden">>
 			<<catHeterochromiaTF "hide">>
 		<<elseif $cat gte 7 and $cat lte 10>>
 			<<catHeterochromiaTF `$cat - 7`>>
-		<</if>> */
+		<</if>> 
 	<</link>>
+	*/
 	<!-- Attach an event to every listbox item to update the PC on the sidebar. -->
 	<<script>>
 	jQuery('.passage').on('change', 'select.macro-listbox', function (e) {
