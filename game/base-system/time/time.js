@@ -651,10 +651,7 @@ function dayPassed() {
 		if (V.challengetimer < 0) delete V.challengetimer;
 	}
 
-	V.dragonbreathuse = 0;
 
-	V.fungalstagelimiter = 0;
-	V.fungalclotheslimiter = 0;
 	
 	if (V.whitneyRescueStatus) {
 		V.whitneyRescueTimer = (V.whitneyRescueTimer || 8) - 1;
@@ -668,6 +665,15 @@ function dayPassed() {
 			}
 		}
 	}
+
+	/* World Expanded Daily Variables*/
+
+	V.dragonbreathuse = 0;
+
+	V.fungalstagelimiter = 0;
+	V.fungalclotheslimiter = 0;
+
+	V.moorburger = 0;
 
 	return fragment;
 }
