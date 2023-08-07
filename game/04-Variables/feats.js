@@ -738,7 +738,7 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
-	"Samba": {
+	"Mushroom": {
 		title: "Mushroom Samba",
 		desc: "Spread them spores.",
 		difficulty: 1,
@@ -746,15 +746,15 @@ setup.feats = {
 		filter: ["All", "Transformation"],
 	},
 	"Ghost": {
-		title: "Who You Gonna Call",
+		title: "Who You Gonna Call?",
 		desc: "Bustin' makes you feel good.",
 		difficulty: 1,
 		series: "",
 		filter: ["All", "Transformation"],
 	},
 	"Slime": {
-		title: "It's Slime Time",
-		desc: "No lube needed.",
+		title: "It's Slime Time!",
+		desc: "No lube, no problem.",
 		difficulty: 1,
 		series: "",
 		filter: ["All", "Transformation"],
