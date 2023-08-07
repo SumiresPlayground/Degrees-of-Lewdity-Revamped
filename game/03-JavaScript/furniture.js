@@ -463,7 +463,7 @@ const Furniture = (() => {
 			nameCap: "Television",
 			category: ["television"],
 			type: [],
-			cost: setPrice(3000),
+			cost: 3000,
 			description: "A television.",
 			iconFile: "indent.png",
 		});
@@ -473,7 +473,7 @@ const Furniture = (() => {
 			nameCap: "Game console",
 			category: ["gameconsole"],
 			type: [],
-			cost: setPrice(400),
+			cost: 400,
 			description: "A game console.",
 			iconFile: "arcade.gif",
 		});
@@ -483,7 +483,7 @@ const Furniture = (() => {
 			nameCap: "Personal computer",
 			category: ["pc"],
 			type: [],
-			cost: setPrice(5000),
+			cost:5000,
 			description: "A PC.",
 			iconFile: "headdesk.png",
 		});
@@ -493,7 +493,7 @@ const Furniture = (() => {
 			nameCap: "Bookshelf",
 			category: ["bookshelf"],
 			type: [],
-			cost: setPrice(2000),
+			cost: 2000,
 			description: "A bookshelf.",
 			iconFile: "library.png",
 		});
@@ -503,7 +503,7 @@ const Furniture = (() => {
 			nameCap: "Mirror",
 			category: ["mirror"],
 			type: [],
-			cost: setPrice(2000),
+			cost: 2000,
 			description: "A mirror.",
 			iconFile: "mirrorhome.png",
 		});
