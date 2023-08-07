@@ -651,10 +651,7 @@ function dayPassed() {
 		if (V.challengetimer < 0) delete V.challengetimer;
 	}
 
-	V.dragonbreathuse = 0;
 
-	V.fungalstagelimiter = 0;
-	V.fungalclotheslimiter = 0;
 	
 	if (V.whitneyRescueStatus) {
 		V.whitneyRescueTimer = (V.whitneyRescueTimer || 8) - 1;
@@ -668,6 +665,15 @@ function dayPassed() {
 			}
 		}
 	}
+
+	/* World Expanded Daily Variables*/
+
+	V.dragonbreathuse = 0;
+
+	V.fungalstagelimiter = 0;
+	V.fungalclotheslimiter = 0;
+
+	V.moorburger = 0;
 
 	return fragment;
 }
@@ -1640,7 +1646,7 @@ function passWater(passMinutes) {
 		if (V.lowerwet) fragment.append(wikifier("lowerwet", -passMinutes * 2));
 		if (V.underlowerwet) fragment.append(wikifier("underlowerwet", -passMinutes * (V.worn.lower.type.includes("naked") ? 2 : 1)));
 		if (V.underupperwet) fragment.append(wikifier("underupperwet", -passMinutes * (V.worn.upper.type.includes("naked") ? 2 : 1)));
-	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof") || V.mushroom >= 1) {
+	} else if (V.outside && V.weather === "rain" && !V.worn.head.type.includes("rainproof")) {
 		if (!V.worn.upper.type.includes("naked") && !waterproofCheck(V.worn.upper) && !waterproofCheck(V.worn.over_upper)) {
 			fragment.append(wikifier("upperwet", passMinutes));
 		}
