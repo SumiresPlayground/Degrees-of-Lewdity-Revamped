@@ -50,7 +50,7 @@ Your home is nearby.
 	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
 	<<if ($danger gte (9900 - $allure) or $eventforced) and $eventskip is 0>>
 		<<eventsstreet>>
-	<<elseif $town_projects.thicket is 1 || ($historytrait gte 3 && $town_projects.thicket lt 2)>>
+	<<elseif $town_projects.thicket is 1 || ($historytrait gte 3 && ($town_projects.thicket lt 2 || $town_projects.thicket is undefined))>>
 		<<set $town_projects.thicket to 2>>
 		You walk by a small but dense cluster of trees. It used to be a recreational area, but has long been neglected, left to wild brambles. People pass it every day without sparing it a thought.
 		<br><br>
