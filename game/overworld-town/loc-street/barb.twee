@@ -58,7 +58,7 @@ You are on Barb Street. Silver blocks of flats tower all around, most separated 
 <</if>>
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutstreet>>
-<<elseif $town_projects.bridge is 1 || ($history gte 100 && $town_projects.bridge lt 2)>>
+<<elseif $town_projects.bridge is 1 || ($history gte 100 && ($town_projects.bridge lt 2 || $town_projects.bridge is undefined))>>
 	<<set $town_projects.bridge to 2>>
 	You notice the remains of a bridge that once spanned the canal. <<if $town_projects.bridge is 2>>You saw the same ruin in your hookah dream. It must have been removed after the canal was drained.<<else>>You remember reading that it was removed after the canal was drained.<</if>>
 	<br><br>
