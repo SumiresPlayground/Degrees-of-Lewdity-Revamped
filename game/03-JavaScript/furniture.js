@@ -504,7 +504,7 @@ const Furniture = (() => {
 			category: ["mirror"],
 			type: [],
 			cost: 2000,
-			description: "A mirror.",
+			description: "A mirror so cool it's expensive.",
 			iconFile: "mirrorhome.png",
 		});
 	}
