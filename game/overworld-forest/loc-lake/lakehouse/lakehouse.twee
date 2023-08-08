@@ -1,23 +1,6 @@
 :: Lake House Outdoor
 <<set $outside to 1>><<set $location to "lakehouse">><<effects>>
 /* <<run Furniture.in($location)>> */
-<<if $lakehouseinit is undefined>>
-	/* <<set $objectVersion to 4>>
-	<<run Furniture.update()>> */
-	<<set $lakehouse = {}>>
-	<<set $lakehouse.plots to 0>>
-	<<set $lakehouse.clearing to 25>>
-	<<set $lakehouse_countdown to 14>>
-	<<set $lakehouse.wall to 0>>
-	<<set $lakehouse.tower to 0>>
-	<<set $lakehouse.guardpost to 0>>
-	<<set $lakehouse.dogtraining to 0>>
-	<<set $lakehouse.traps to 0>>
-	<<set $lakehouse.bills to 7>>
-	<<set $lakehouse.billsphase to 0>>
-	<<set $lakehouse.robin to 0>>
-	<<set $lakehouseinit to 1>>
-<</if>>
 
 <<if $lakehouse.build isnot undefined and $lakehouse.build isnot 0>>
 	<<switch $lakehouse.build>>
@@ -496,11 +479,9 @@
 				<br>
 			<</if>>
 			/* <<link [[Search for job online (0:10)|Lake House Online Search]]>><<pass 10>><</link>>
+			<br> */
+			<<link [[Host a cam show dance (0:30)|Lake House Cam Show Dance]]>><<danceinit>><<set $dancing to 1>><<set $venuemod to 1>><<stress -4>><<tiredness 4>><<set $dancelocation to "lakehouse">><<set $camshowrounds to 0>><</link>><<lstress>><<gtiredness>>
 			<br>
-			<<if $exhibitionism gte 55>>
-				<<link [[Host a cam show (0:10)|Lake House Cam Show]]>><<pass 10>><</link>>
-				<br>
-			<</if>> */
 		<</if>>
 
 		<<if _table or _pc>>
@@ -1584,4 +1565,69 @@ You hear a knock upon your door. When you open it you see a young man in a suit 
 <br><br>
 
 <<link [[Next|Lake House Outdoor]]>><</link>>
+<br>
+
+:: Lake House Cam Show Dance
+<<location "lakehouse">><<effects>>
+<<danceeffects>>
+<<danceaudience>>
+<<if $camshowrounds lte 30>>
+	<<danceactions>>
+<</if>>
+
+<<if $danceevent is 0 and $exhibitionism lte 34 and $exposed gte 2>>
+	There's no way you can continue dancing while so exposed! Face reddening, you stop the show.
+	<br><br>
+<<elseif $danceevent is 0 and $exhibitionism lte 14 and $exposed gte 1 and !$worn.under_lower.type.includes("dance")>>
+	There's no way you can continue dancing while so exposed! Face reddening, you stop the show.
+	<br><br>
+<</if>>
+
+<<if $danceevent is 0>>
+	<<if $exposed gte 2 and $exhibitionism lte 34>>
+		<<link [[Flee|Lake House Bedroom]]>><<clotheson>><<endevent>><<set $dancelocation to 0>><</link>>
+	<<elseif $exposed gte 1 and $exhibitionism lte 14>>
+		<<link [[Flee|Lake House Bedroom]]>><<clotheson>><<endevent>><<set $dancelocation to 0>><</link>>
+	<<else>>
+		<<if $exhibitionism gte 55>>
+			<<link [[Masturbation Show|Lake House Cam Show Masturbate]]>><<endevent>><</link>>
+			<br>
+		<</if>>
+		<<link [[Stop|Lake House Bedroom]]>><<clotheson>><<endevent>><<set $dancelocation to 0>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Lake House Cam Show Masturbate
+<<effects>><<set _enableSexToys to true>>
+<<if $masturbationstart is 1>>
+	<<set $masturbationstart to 0>>
+	<<set $masturbationstat += 1>>
+	<<masturbationstart>>
+<</if>>
+<<rng>>
+<<if $speechcum is 1 and $rng gte 61 and $speechorgasmrepeat lte 1 and $speechorgasmcount lte 6>>
+	<<cumspeech>>
+<<elseif $rng gte 91>>
+	<<basespeech>>
+<<elseif $rng gte 61>>
+	<<dancespeech>>
+<<elseif $rng gte 41>>
+	<<clothesspeech>>
+<</if>>
+
+<<masturbationeffects>>
+<<masturbationactions>>
+
+<div id="masturbationButtons">
+	<div><<link [[Continue|$passage]]>><</link>><<nexttext>></div>
+
+	<<if $corruptionMasturbation isnot true and random(0,3) gt $orgasmcurrent and $corruption_slime gt (currentSkillValue('willpower') / 10)>>
+		<div><<link [[Stop|$passage]]>><<set $corruptionMasturbation to true>><<set $dancelocation to 0>><</link>></div>
+	<<elseif $corruptionMasturbation isnot true>>
+		<div><<link [[Stop|Lake House Cam Show Masturbation Finish]]>><<set $finish to 1>><<set $dancelocation to 0>><</link>></div>
+	<<else>>
+		<div class="red">The slime in your ear will not allow you to stop.</div>
+	<</if>>
+</div>
 <br>
