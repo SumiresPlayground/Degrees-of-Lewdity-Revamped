@@ -1597,8 +1597,8 @@ function dailyFarmEvents() {
 function dailyLakeHouseEvents() {
 	const fragment = document.createDocumentFragment();
 
-	V.lakehouse_attack_timer--;
-	if (V.lakehouse_attack_timer < 0) fragment.append(wikifier("lakehouse_attack_auto"));
+	// V.lakehouse_attack_timer--;
+	// if (V.lakehouse_attack_timer < 0) fragment.append(wikifier("lakehouse_attack_auto"));
 	fragment.append(wikifier("lakehouse_build_day"));
 	if (V.lakehouse_countdown >= 1) V.lakehouse_countdown--;
 
