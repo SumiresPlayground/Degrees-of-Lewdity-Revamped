@@ -263,7 +263,7 @@
 	<</if>>
 
 	<<if $slime gt 0>>
-		<<if $outside is 1 and $weather is "rain" and $worn.head.name isnot "umbrella hat" and $worn.over_head.name isnot "froggy hood">>
+		<<if $outside is 1 and $weather is "rain" and !$worn.head.type.includes("rainproof") and !$worn.over_head.type.includes("rainproof")>>
     	<<violence 40>>
 		<br>Get out of the rain! <span class='red'>It stings!<br><br></span>
 		<</if>>
@@ -1066,12 +1066,14 @@
 		<span class='yellow'>Your fungal growth is at it's maximum level!</span>
 	<</if>>
 
-	<<if $mushroom gte 2 and ($worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown")>><br>
+	<<if $fungalclotheslimiter isnot 0 and $mushroom gte 2 and ($worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown")>>
 		<<if $combat is 1 and ($worn.lower.state is 0 or $worn.upper.state is 0)>>
 			<<set $mushroom -= 1>>
-			<<set $fungalclotheslimiter to 1>>
-			<span class='yellow'>Your mushroom attire broke! It's been reverted to the previous stage!</span>
+			<br>
+			<span class='yellow'>Your mushroom attire broke! Your transformation has been reverted to the previous stage!</span>
 			<<updatesidebarimg>>
+			<<set $fungalclotheslimiter -= 1>>
 		<</if>>
 	<</if>>
 <</widget>>
+
