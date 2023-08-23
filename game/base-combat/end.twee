@@ -60,6 +60,17 @@
 		<<set $deathlychill to 0>>
 	<</if>>
 
+	<<if $mushroom gte 2 and ($worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown")>>
+		<<if $mushroom gte 2 and $worn.lower.state is 0>>
+			<<lowerruined>>
+		<<elseif $mushroom gte 2 and $worn.upper.state is 0>>
+			<<upperruined>>
+		<<elseif $mushroom gte 2 and $worn.lower.state is 0 and $worn.upper.state is 0>>
+			<<lowerruined>>
+			<<upperruined>>
+		<</if>>
+	<</if>>
+
 
 	<<if $assertive gte 1>>
 		You were

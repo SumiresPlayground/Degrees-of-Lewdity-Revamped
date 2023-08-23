@@ -394,7 +394,7 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 	<</if>>
 
-	<<if $transformationParts.ghost.mist is undefined or $transformationParts.ghost is undefined>>
+	<<if $transformationParts.ghost is undefined or $transformationParts.ghost.mist is undefined>>
 		<<set $ghost to 0>>
 		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled", mist:"disabled"}>>
 	<</if>>
@@ -547,6 +547,14 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $fungalgrowth to 0>>
 	<</if>>
 
+	<<if $fungalstagelimiter is undefined>>
+		<<set $fungalstagelimiter to 0>>
+	<</if>>
+
+	<<if $fungalclotheslimiter is undefined>>
+		<<set $fungalclotheslimiter to 0>>
+	<</if>>
+
 	<<if $onemoreslime is undefined>>
 		<<set $onemoreslime to 0>>
 	<</if>>
@@ -581,6 +589,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 	<<if $mushroomtf is undefined>>
 		<<set $mushroomtf to 0>>
+	<</if>>
+
+	<<if $mushroom gte 1>>
+		<<headwear 54>>
 	<</if>>
 
 	<<if $dencounter is undefined>>
