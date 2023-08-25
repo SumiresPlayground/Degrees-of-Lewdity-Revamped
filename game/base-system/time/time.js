@@ -671,7 +671,7 @@ function dayPassed() {
 	V.dragonbreathuse = 0;
 
 	V.fungalstagelimiter = 0;
-	V.fungalclotheslimiter = 0;
+	V.fungalclotheslimiter = 1;
 
 	V.moorburger = 0;
 
@@ -773,10 +773,16 @@ function minutePassed(minutes) {
 	else if (V.body_temperature === "cold") V.stress += minutes * 2;
 	else if (V.body_temperature === "chilly") V.stress += minutes;
 
-	if (V.mushroom >= 1 && V.location === "bog" || "forest") V.stress -= minutes * 2;
-	else if (V.mushroom >= 1 && V.outside === "1" && V.Time.dayState === "night") V.stress -= minutes * 2;
-	else if (V.mushroom >= 1 && V.location === "bog" || "forest") V.pain -= minutes * 2;
-	else if (V.mushroom >= 1 && V.outside === "1" && V.Time.dayState === "night") V.pain -= minutes * 2;
+
+
+	if (V.mushroom >= 1) {
+
+		if (V.location === "bog" || "forest") V.stress -= minutes * 3;
+		if (V.outside === "1" && V.Time.dayState === "night") V.stress -= minutes * 2;
+		if (V.location === "bog" || "forest") V.pain -= minutes * 3;
+		if (V.outside === "1" && V.Time.dayState === "night") V.pain -= minutes * 2;
+	
+	}
 
 	V.stress = Math.min(V.stress, V.stressmax);
 
