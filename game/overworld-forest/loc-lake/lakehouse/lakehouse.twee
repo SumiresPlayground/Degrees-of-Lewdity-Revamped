@@ -136,9 +136,9 @@
 		<<if $lakehouse.petBed is 1>>
 			In the corner rests an soft looking pet bed
 			<<if $lakehouse.pet1 isnot undefined>>
-				<<if $lakehouse.pet1 is "cat">>
+				<<if $lakehouse.pet1.type to "cat">>
 					, your cat lies alseep on it
-				<<elseif $lakehouse.pet1 is "dog">>
+				<<elseif $lakehouse.pet1.type to "dog">>
 					, your dog lies asleep on it
 				<</if>>
 			<</if>>
@@ -147,17 +147,17 @@
 			In the corner lie two soft looking pet beds
 			<<if $lakehouse.pet1 isnot undefined>>
 				<<if $lakehouse.pet2 isnot undefined>>
-					<<if $lakehouse.pet1 is "cat" and $lakehouse.pet2 is "cat">>
+					<<if $lakehouse.pet1.type to "cat" and $lakehouse.pet2.type to "cat">>
 						, your cats lie asleep in them
-					<<elseif $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog">>
+					<<elseif $lakehouse.pet1.type to "dog" and $lakehouse.pet2.type to "dog">>
 						, your dogs lie asleep in them
-					<<elseif ($lakehouse.pet1 is "cat" and $lakehouse.pet2 is "dog") or ($lakehouse.pet1 is "dog" and $lakehouse.pet2 is "cat")>>
+					<<elseif ($lakehouse.pet1.type to "cat" and $lakehouse.pet2.type to "dog") or ($lakehouse.pet1.type to "dog" and $lakehouse.pet2.type to "cat")>>
 						, your cat and dog lie asleep in them
 					<</if>>
 				<<else>>
-					<<if $lakehouse.pet1 is "cat">>
+					<<if $lakehouse.pet1.type to "cat">>
 						, your cat lies alseep in one
-					<<elseif $lakehouse.pet1 is "dog">>
+					<<elseif $lakehouse.pet1.type to "dog">>
 						, your dog lies asleep in one
 					<</if>>
 				<</if>>
@@ -191,33 +191,33 @@
 			<br>
 		<</if>>
 	<</if>>
-	<<if $lakehouse.pet1 is "cat" and $lakehouse.pet2 is "cat">>
+	<<if $lakehouse.pet1.type to "cat" and $lakehouse.pet2.type to "cat">>
 		<<link [[Snuggle cat(0:30)|Lake House Snuggle Cats]]>><<pass 30>><<stress -25>><<trauma -25>><</link>><<lllstress>><<llltrauma>>
 		<br>
-	<<elseif $lakehouse.pet1 is "cat" or $lakehouse.pet2 is "cat">>
+	<<elseif $lakehouse.pet1.type to "cat" or $lakehouse.pet2.type to "cat">>
 		<<link [[Snuggle cat(0:30)|Lake House Snuggle Cat]]>><<pass 30>><<stress -10>><<trauma -10>><</link>><<llstress>><<lltrauma>>
 		<br>
 	<</if>>
-	<<if $lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog">>
+	<<if $lakehouse.pet1.type to "dog" and $lakehouse.pet2.type to "dog">>
 		<<link [[Play fetch with Dogs(1:00)|Lake House Fetch Dogs]]>><<pass 60>><<stress -25>><<trauma -25>><<physique 3>><<tiredness 3>><</link>><<lllstress>><<llltrauma>><<gphysique>><<gtiredness>>
 		<br>
-	<<elseif $lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog">>
+	<<elseif $lakehouse.pet1.type to "dog" or $lakehouse.pet2.type to "dog">>
 		<<link [[Play fetch with Dog(1:00)|Lake House Fetch Dog]]>><<pass 60>><<stress -10>><<trauma -10>><<physique 3>><<tiredness 3>><</link>><<llstress>><<lltrauma>><<gphysique>><<gtiredness>>
 		<br>
 	<</if>>
-	<<if ($lakehouse.pet1 is "cat" or $lakehouse.pet2 is "cat") and $deviancy gte 15>>
+	<<if ($lakehouse.pet1.type to "cat" or $lakehouse.pet2.type to "cat") and $deviancy gte 15>>
 		<<link [[Fuck cat|Lake House Fuck Cats]]>><<pass 30>><</link>><<deviant2>>
 		<br>
 	<</if>>
-	<<if ($lakehouse.pet1 is "cat" and $lakehouse.pet2 is "cat") and $deviancy gte 35>>
+	<<if ($lakehouse.pet1.type to "cat" and $lakehouse.pet2.type to "cat") and $deviancy gte 35>>
 		<<link [[Fuck cats|Lake House Fuck Cats]]>><<pass 60>><</link>><<deviant3>>
 		<br>
 	<</if>>
-	<<if ($lakehouse.pet1 is "dog" or $lakehouse.pet2 is "dog") and $deviancy gte 15>>
+	<<if ($lakehouse.pet1.type to "dog" or $lakehouse.pet2.type to "dog") and $deviancy gte 15>>
 		<<link [[Fuck dog|Lake House Fuck Dog]]>><<pass 30>><</link>><<deviant2>>
 		<br>
 	<</if>>
-	<<if ($lakehouse.pet1 is "dog" and $lakehouse.pet2 is "dog") and $deviancy gte 35>>
+	<<if ($lakehouse.pet1.type to "dog" and $lakehouse.pet2.type to "dog") and $deviancy gte 35>>
 		<<link [[Fuck dogs|Lake House Fuck Dogs]]>><<pass 60>><</link>><<deviant3>>
 		<br>
 	<</if>>
@@ -1186,7 +1186,7 @@ Watching them interact for a while calms you down.
 
 :: Lake House Snuggle Cat
 <<effects>>
-<<if $lakehouse.pet1 is "cat">>
+<<if $lakehouse.pet1.type to "cat">>
 	<<beastNEWinit 1 cat $lakehouse.pet1.gender>>
 <<else>>
 	<<beastNEWinit 1 cat $lakehouse.pet2.gender>>
@@ -1219,7 +1219,7 @@ You head outside with your dogs. You find a large stick and throw it as they cha
 
 :: Lake House Fuck Cat
 <<effects>>
-<<if $lakehouse.pet1 is "cat">>
+<<if $lakehouse.pet1.type to "cat">>
 	<<beastNEWinit 1 cat $lakehouse.pet1.gender>>
 <<else>>
 	<<beastNEWinit 1 cat $lakehouse.pet2.gender>>
@@ -1373,7 +1373,7 @@ You drop to your knees and give your ass a little wiggle. The <<beasttype>> moun
 
 :: Lake House Fuck Dog
 <<effects>>
-<<if $lakehouse.pet1 is "dog">>
+<<if $lakehouse.pet1.type to "dog">>
 	<<beastNEWinit 1 dog $lakehouse.pet1.gender>>
 <<else>>
 	<<beastNEWinit 1 dog $lakehouse.pet2.gender>>
