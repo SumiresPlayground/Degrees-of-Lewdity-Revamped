@@ -1,10 +1,11 @@
 :: Island Landing
+<<water>>
 You swim past many large bunches of coral and jagged chunks of rock before reaching a warm and sandy beach where you pull yourself out of the water.
 <br><br>
 <<link [[Next|Island]]>><<set $islanddistance to 0>><<location "beach">><</link>>
 
 :: Island Landing Boat
-The ship pulls into a small inlet river and into a small oasis village. "Well we're here. Get your stuff and get off."
+The ship pulls into a small inlet river and into a small oasis village. "Well, we're here. Get your stuff and get off."
 <br><br>
 <<link [[Next|Desert Village]]>><<set $islanddistance to 20>><<location "desert">><</link>>
 
@@ -111,11 +112,11 @@ The ship pulls into a small inlet river and into a small oasis village. "Well we
             <<link [[Swim back out to sea (0:10)|Sea Reef]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
             <br>
         <</if>>
-        <<if $islanddistance is 20 and $exposed lte 0>>
-            <<link [[Enter the village (0:05)|Desert Village]]>><<pass 5>><</link>>
-            <br>
-        <<elseif $islanddistance is 15>>
+        <<if $islanddistance is 20 and $exposed gt 0>>
             You can't enter the village dressed like this.
+            <br>
+        <<elseif $islanddistance is 20>>
+            <<link [[Enter the village (0:05)|Desert Village]]>><<pass 5>><</link>>
             <br>
         <</if>>
         <<if $islanddistance is 40>>
