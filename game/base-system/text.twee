@@ -4633,6 +4633,113 @@
 	<</if>>
 <</widget>>
 
+<<widget "tearoptions">>
+	<br><br>
+	<<set $stripintegrity to 15>>
+	<<updatesidebarimg>>
+	<<clothestear>>
+	<br><br>
+	You take a look at your reflection.
+	<br><br>
+
+	<<if $parasite.clit.name is "livingclothes" or $parasite.penis.name is "livingclothes" or
+	$parasite.nipples.name is "livingclothes" or $parasite.bottom.name is "livingclothes">>
+
+		This weird clothing will need to be taken off another way.
+		<br>
+		Tearing at it will probably just agitate the tentacles within.
+
+	<<else>>
+
+		<<if $worn.upper.integrity gt 0 or $worn.lower.integrity gt 0 or $worn.under_lower.integrity gt 0 or $worn.under_upper.integrity gt 0>>
+			You can deliberately tear your clothing to give it a more roguish look.
+			<br><br>
+			Just be careful not to overdo it, or they'll be destroyed. 
+			<br><br>
+			<<if $worn.upper.integrity gt 0>>
+			<<link [[Tear Upper Clothing|$passage]]>><<set $worn.upper.integrity -= $stripintegrity>><</link>><br><br>
+			<</if>>
+			<<if $worn.lower.integrity gt 0>>
+			<<link [[Tear Lower Clothing|$passage]]>><<set $worn.lower.integrity -= $stripintegrity>><</link>><br><br>
+			<</if>>
+			<<if $worn.under_upper.integrity gt 0>>
+			<<link [[Tear Upper Underwear|$passage]]>><<set $worn.under_upper.integrity -= $stripintegrity>><</link>><br><br>
+			<</if>>
+			<<if $worn.under_lower.integrity gt 0>>
+				<<if $worn.genitals.name is "chastity belt" or $worn.genitals.name is "gold chastity belt">>
+					The chastity belt is too tough for you to just tear at it.
+				<<else>>
+					<<link [[Tear Lower Underwear|$passage]]>><<set $worn.under_lower.integrity -= $stripintegrity>><</link>><br><br>
+				<</if>>
+			<</if>> 
+
+		<<elseif $leftarm is "bound" and $rightarm is "bound">>
+
+			You could tear your clothes to give them a more roguish look, but you can't do that with your arms bound.
+
+		<<elseif $worn.upper.type.includes("naked") and $worn.upper.integrity lte 0 and $worn.lower.type.includes("naked") and $worn.lower.integrity lte 0 and $worn.under_lower.type.includes("naked") and $worn.under_lower.integrity lte 0 and $worn.under_upper.type.includes("naked") and $worn.under_upper.integrity lte 0>>
+
+			You could tear your clothes to give them a more roguish look, but you'd need to have some first.
+
+		<<else>>
+
+			You could tear your clothes to give them a more roguish look, but you'd need to have some first.
+
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "clothestear">>
+	
+	<<if !$worn.upper.type.includes("naked") and $worn.upper.integrity lte 0 and !$worn.lower.type.includes("naked") and $worn.lower.integrity lte 0 and !$worn.under_lower.type.includes("naked") and $worn.under_lower.integrity lte 0>>
+	<span class="lewd">You tear your clothing to make it more suited for your tastes, but you're a bit too careless and end up destroying them.</span>
+
+	<<elseif !$worn.upper.type.includes("naked") and $worn.upper.integrity lte 0 and !$worn.lower.type.includes("naked") and $worn.lower.integrity lte 0>>
+	<span class="lewd">You tear your clothing to make it more suited for your tastes, but you're a bit too careless and end up destroying them.</span>
+
+	<<elseif !$worn.upper.type.includes("naked") and $worn.upper.integrity lte 0 and !$worn.under_lower.type.includes("naked") and $worn.under_lower.integrity lte 0>>
+	<span class="lewd">You're a bit too careless with your $worn.upper.name and $worn.under_lower.name and up destroying them. </span>
+
+	<<elseif !$worn.lower.type.includes("naked") and $worn.lower.integrity lte 0 and !$worn.under_lower.type.includes("naked") and $worn.under_lower.integrity lte 0>>
+	<span class="lewd">Your $worn.lower.name and $worn.under_lower.name are destroyed due to your overzealous tearing.</span>
+
+	<<elseif !$worn.upper.type.includes("naked") and $worn.upper.integrity lte 0>>
+	<span class="lewd">Your $worn.upper.name is destroyed due to your tearing.</span>
+
+	<<elseif !$worn.lower.type.includes("naked") and $worn.lower.integrity lte 0>>
+	<span class="lewd">Your $worn.lower.name <<if $worn.lower.plural is 1>>are destroyed by your tearing.<<else>>is completely destroyed by your tearing.<</if>></span>
+
+	<<elseif !$worn.under_lower.type.includes("naked") and $worn.under_lower.integrity lte 0>>
+	<span class="lewd">Your $worn.under_lower.name <<if $worn.under_lower.plural is 1>>are destroyed by your tearing.<<else>>is destroyed by your tearing.<</if>></span>
+
+	<</if>>
+
+	<<if $worn.upper.name isnot "naked">>
+		<<if $worn.upper.integrity lte 0>><<upperruined>><<clothesruinstat>><<set $upperoff to 0>>
+		<</if>>
+	<</if>>
+	<<if $worn.lower.name isnot "naked">>
+		<<if $worn.lower.integrity lte 0>><<lowerruined>><<clothesruinstat>><<set $loweroff to 0>>
+		<</if>>
+	<</if>>
+	<<if $worn.under_lower.name isnot "naked">>
+		<<if $worn.under_lower.integrity lte 0>>
+			<<set $worn.under_lower.type.push("broken")>>
+			<<underlowerruined>><<clothesruinstat>><<set $underloweroff to 0>>
+		<</if>>
+	<</if>>
+	<<if $worn.under_upper.name isnot "naked">>
+		<<if $worn.under_upper.integrity lte 0>><<underupperruined>><<clothesruinstat>><<set $underupperoff to 0>>
+		<</if>>
+	<</if>>
+
+	<<exposure>>
+
+	<<if $exposed gte 1>>
+		You can't help but be conscious of your <<nudity>>.
+	<</if>>
+<</widget>>
+
 <<widget "seductiontext">><<silently>>
 	<<if $seductionskill gte 0 and $seductionskill lt 200>><<set _text_output to '<span class="pink">awkwardly</span>'>>
 	<<elseif $seductionskill gte 200 and $seductionskill lt 400>><<set _text_output to '<span class="purple">cautiously</span>'>>
