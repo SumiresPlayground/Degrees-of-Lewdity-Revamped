@@ -168,7 +168,7 @@
 		<span class="lblue">Air:</span>
 		<<if $oxygen lt 0 and $slime is 0 and $transformationParts.traits.aquatic is "disabled">>
 			<span class="red">You can't breathe! Your stress will increase and you'll soon pass out if you can't find air.</span>
-		<<elseif $oxygen lt 0 and ($slime gt 0 or $transformationParts.traits.aquatic isnot "disabled")>>
+		<<elseif $oxygen lt 0 and ($slime gt 0 or $transformationParts.fish.tail is "default" and $transformationParts.fish.fins is "default")>>
 			<span class="blue">You possess a trait that negates air loss while underwater. You're fine.</span>
 		<</if>>
 		<<oxygencaption>>
@@ -477,7 +477,7 @@
 		<<if $slime is 1>>
 			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.25>>
 		<</if>>
-		<<if $transformationParts.traits.bearbuild isnot "disabled">>
+		<<if $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
 			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.4>>
 		<</if>>
 		<<if $enemyno gte 2>>

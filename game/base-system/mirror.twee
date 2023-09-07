@@ -2307,27 +2307,14 @@
 			Strong Nose:<br>
 			<<link "Set">><<set _traits.strongnose = "default">><</link>> / <<link "Clear">><<set _traits.strongnose = "disabled">><</link>><br>
 		<</if>>
-		<<if $transformationParts.bear.ears is "default" and $transformationParts.bear.tail is "default">>
-			Bear Build:<br>
-			<<link "Set">><<set _traits.bearbuild = "default">><</link>> / <<link "Clear">><<set _traits.bearbuild = "disabled">><</link>><br>
-		<<elseif $transformationParts.bear.ears is "disabled" or $transformationParts.bear.tail is "disabled">>
-			<<set _traits.bearbuild = "disabled">>
-		<</if>>
 		<br>
 	<</if>>
 
 	<<if $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $fish gte 2 or $fishtf is 1 or $frog gte 2 or $frogtf is 1>>
 		__Lungs__<br>
-		<<link "Clear">><<set _traits.lungs = "disabled">><<set _traits.aquatic = "disabled">><</link>><br>
 		<<if $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $frog gte 2 or $frogtf is 1>>
 			Aqua Lungs:<br>
-			<<link "Set">><<set _traits.lungs = "disabled">><<set _traits.aquatic = "disabled">><<set _traits.lungs = "default">><<set $oxygenmax to 1500>><</link>> / <<link "Clear">><<set _traits.lungs = "disabled">><<set $oxygenmax to 1200>><</link>><br>
-		<</if>>
-		<<if $transformationParts.fish.tail is "default" and $transformationParts.fish.fins is "default">>
-			Aquatic:<br>
-			<<link "Set">><<set _traits.lungs = "disabled">><<set _traits.aquatic = "disabled">><<set _traits.aquatic = "default">><</link>> / <<link "Clear">><<set _traits.aquatic = "disabled">><</link>><br>
-		<<elseif $transformationParts.fish.tail is "disabled" or $transformationParts.fish.fins is "disabled">>
-			<<set _traits.aquatic = "disabled">>
+			<<link "Set">><<set _traits.lungs = "default">><<set $oxygenmax to 1500>><</link>> / <<link "Clear">><<set _traits.lungs = "disabled">><<set $oxygenmax to 1200>><</link>><br>
 		<</if>>
 		<br>
 	<</if>>
