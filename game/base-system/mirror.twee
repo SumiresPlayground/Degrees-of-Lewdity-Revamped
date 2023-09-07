@@ -61,10 +61,12 @@
 			<<mirrorSkin>>
 		<<case "hair">>
 			<<mirrorHair>>
-		<<case "slimehair">>
-			<<slimehair>>
+		<<case "specialHair">>
+			<<specialHair>>
 		<<case "makeup">>
 			<<mirrorMakeup>>
+		<<case "clothingtear">>
+			<<tearoptions>>
 		<<case "transformation">>
 			<<mirrorTransformation>>
 		<<case "debug">>
@@ -178,20 +180,25 @@
 	<br><br>
 	
 	<<if $slime gt 0>>
-	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
+	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
 	<</if>>
 
 	<<if $ghost gte 1>>
-	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
+	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
 	<</if>>
 
 	<<if $mushroom gte 1>>
-	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "slimehair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
+	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
 	<</if>>
 	
 	__Makeup__
 	<br>
 	<<link "Apply makeup">><<set $mirrorMenu to "makeup">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
+	<br><br>
+
+	__Clothing__
+	<br>
+	<<link "Tear clothes">><<set $mirrorMenu to "clothingtear">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
 
 	<<if $trauma gte ($traumamax * 0.9)>>
@@ -2723,7 +2730,7 @@
 	<br>
 <</widget>>
 
-<<widget "slimehair">>
+<<widget "specialHair">>
 	<<if $slime gt 0>>
 		<br><br>
 		<span class='green'>You may not be able to alter your body's shape to the degree most slimes can...
