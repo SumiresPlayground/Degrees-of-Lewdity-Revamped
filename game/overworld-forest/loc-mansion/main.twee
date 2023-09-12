@@ -1,0 +1,631 @@
+:: Forest Mansion Explore
+
+<<set $outside to 1>><<set $location to "kylar_manor">><<set $forestmansionstage to 0>><<effects>>
+
+<<if $foresthunt gte 1 and $edenforesthunt is 1>>
+	<<set $rng to random(1, 60)>>
+	<<if $rng lte 20>>
+	<span class="red">You are being hunted. You see shotgun shells lying on the ground.</span>
+	<br><br>
+	<<elseif $rng lte 40>>
+	<span class="red">You are being hunted. You see boot prints on the ground.</span>
+	<br><br>
+	<<else>>
+	<span class="red"> You are being hunted. You hear a gun firing from afar.</span>
+	<br><br>
+	<</if>>
+<<elseif $foresthunt gte 1 and $blackwolfhunt is 1>>
+	<<set $rng to random(1, 60)>>
+	<<if $rng lte 20>>
+	<span class="red">You are being hunted. You see wolf fur tangled in the trees.</span>
+	<br><br>
+	<<elseif $rng lte 40>>
+	<span class="red">You are being hunted. You see wolf prints on the ground.</span>
+	<br><br>
+	<<else>>
+	<span class="red">You are being hunted. You hear a growl in the distance.</span>
+	<br><br>
+	<</if>>
+<</if>>
+
+<<if $arousal gte 10000>>
+	<<orgasmforest>>
+<</if>>
+
+<<if $stress gte 10000 and $TaylorWith is 0>>
+	<<passoutforest>>
+<<elseif $foresthunt gte 10 and $TaylorWith is 0>>
+	<<foresthunt>>
+<<elseif $exorcism is 1>>
+	<<npc Jordan>><<person1>>
+	As you enter you find Jordan in a large robe holding a tome, waiting.
+	<br><br>
+	"Ah finally here. Ready to get your body back?" <<He>> has a serious look on <<his>> face.
+	<br><br>
+	<<He>> leads you to the empty bedroom where your body was only to find it empty. 
+	<br><br>
+	"Looks like your body's got a hitchhiker." <<He>> grumbles as <<he>> spreads a white powder in the air that reveals a slimy trail along the ground.
+	<br><br>
+	You follow the trail through the house and into the kitchen. The slime stops at the edge of the trapdoor.
+	<br><br>
+	"Seems like our invader is hiding in the cellar. Be careful." <<He>> casts you a cautionary glance before opening the trapdoor and climbing down.
+	<br><br>
+	<<link [[Next|Forest Mansion Cellar Exorcism]]>><<pass 5>><</link>>
+<<else>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<set $lock to 1000>>
+	<<if $TaylorWith is 1>>
+		<<npc Taylor>><<person1>>
+		You and Taylor walk through the woods to an old decrepit mansion.
+	<<else>>
+		You creep through the woods and arrive at an old decrepit mansion. 
+	<</if>>
+	<<if $forestmansionpicked is 0>>
+		The front door is locked with a strange looking lock you haven't seen before.
+		<br><br>
+
+		<<if $skulduggery gte $lock>>
+			<span class="green">The locks look easy to pick.</span>
+			<br><br>
+			<<link [[Pick lock (0:05)|Forest Mansion Pick Lock]]>><<pass 5>><</link>>
+			<br>
+		<<else>>
+			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+			<br><br>
+		<</if>>
+		<<if $ghost gte 1>>
+			You can phase through the doors if you concentrate. 
+			<br>
+			<<link [[Phase (0:01)|Forest Mansion Entrance]]>><<pass 1>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		The front door is unlocked and slightly ajar.
+		<br><br>
+
+		<<link [[Enter (0:05)|Forest Mansion Entrance]]>><<pass 5>><</link>>
+		<br>
+	<</if>>
+	<<if $TaylorWith is 1>>
+		<<link [[Ask Taylor (0:20)|Forest Mansion Look Around]]>><<pass 20>><</link>>
+	<<else>>
+		<<link [[Look around (0:30)|Forest Mansion Look Around]]>><</link>>
+	<</if>>
+	<br>
+	<<link [[Go back (0:10)|Forest]]>><<pass 10>><</link>>
+<</if>>
+
+:: Forest Mansion Pick Lock
+<<effects>><<skulduggeryskilluse>>
+<<set $forestmansionpicked to 1>>
+You take some time fiddling with the lock before popping it open and opening the door.
+<br><br>
+
+<<if $forestmansionstage is 0>>
+	<<link [[Enter|Forest Mansion Entrance]]>><</link>>
+	<br>
+	<<link [[Go back|Forest Mansion Explore]]>><</link>>
+<<else>>
+	<<link [[Leave|Forest Mansion Explore]]>><</link>>
+	<br>
+	<<link [[Go back|Forest Mansion Entrance]]>><</link>>
+<</if>>
+
+:: Forest Mansion Look Around
+<<effects>>
+<<if $forestmansionkitchen is 0>>
+	<<set $forestmansionkitchen to 1>>
+	<<if $TaylorWith is 1>>
+		<<pass 20>>
+		"Yeah I can't do anything about this lock. Apparently some people have managed to get their hands on a key but I have no clue where to even begin looking." <<He>> starts to pace. "For now we should just go around and check the windows."
+		<br><br>
+	<<else>>
+		<<pass 30>>
+	<</if>>
+<<else>>
+	<<pass 10>>
+<</if>>
+<<if $TaylorWith is 1>>
+	You two walk around for a while before finally finding an open window into what looks like a kitchen.
+<<else>>
+	You walk around the building for a while before finally finding an open window into what looks like a kitchen.
+<</if>>
+<br><br>
+
+<<link [[Enter|Forest Mansion Kitchen]]>><</link>>
+<br>
+<<link [[Go back|Forest Mansion Explore]]>><</link>>
+
+:: Forest Mansion Entrance
+
+<<if $foresthunt gte 1>>
+	<span class="lblue">You're relatively safe at this abandoned mansion. Whatever was hunting you will have given up.</span>
+	<br><br>
+	<<set $foresthunt to 0>>
+<</if>>
+
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 1>><<effects>>
+You find yourself in a large dusty entrance room. A coat rack sits to the side with an old looking coat and hat caked in years of dust and grime.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+	<<if $TaylorWith is 1>>
+		"This place is still in quite remarkable condition for being as old as it is." Taylor remarks.
+	<</if>>
+
+	There’s doors to the left and right as well as a staircase upwards.
+	<br><br>
+
+	<<link [[Go left (0:05)|Forest Mansion Left Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Go right (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Go upstairs (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<if $forestmansionpicked is 0>>
+		<<if $skulduggery gte $lock>>
+			<span class="green">The locks look easy to pick.</span>
+			<br><br>
+			<<link [[Pick lock (0:05)|Forest Mansion Pick Lock]]>><<pass 5>><</link>>
+			<br>
+		<<else>>
+			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
+			<br>
+		<</if>>
+		<<if $ghost gte 1>>
+			You can phase through the doors if you concentrate.
+			<br><br>
+			<<link [[Phase (0:01)|Forest Mansion Explore]]>><<pass 1>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<link [[Leave (0:05)|Forest Mansion Explore]]>><<pass 5>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Forest Mansion Left Hallway
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 2>><<effects>>
+You find yourself in a long hallway with doors on either side.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+	<<link [[First door (0:05)|Forest Mansion Kitchen]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Second door (0:05)|Forest Mansion Dining Room]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Towards the entrance (0:05)|Forest Mansion Entrance]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+<</if>>
+
+:: Forest Mansion Kitchen
+
+<<if $foresthunt gte 1>>
+	<span class="lblue">You're relatively safe at this location. Whatever was hunting you will have given up.</span>
+	<br><br>
+	<<set $foresthunt to 0>>
+<</if>>
+
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 3>><<effects>>
+You enter a small room full of cooking appliances and utensils long past. An old wood oven and ice box sit against the wall and silverware lines the counter tops. In the corner is a dust covered trapdoor leading down.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<if $TaylorWith is 1>>
+		"This must be the wine cellar. Our town used to pride itself on its high quality wine as a deluxe export. I can't believe some of this stuff still exists."
+		<br>
+	<</if>>
+
+	<<link [[Go down to the cellar (0:05)|Forest Mansion Cellar]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Go to the hallway (0:05)|Forest Mansion Left Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<if $TaylorWith is 1>>
+		<<link [[Leave through the window|Forest Mansion Taylor Leave]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Leave through the window|Forest Mansion Look Around]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Forest Mansion Cellar
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 4>><<effects>>
+You step down a creaky old ladder to a damp and pitch black room. <<if $TaylorWith is 1>>Taylor switches on <<his>> electric torch and looks around the room.<<else>>You switch on your electric torch and look around the room.<</if>> There's dozens of old empty bottles with a few full of a red substance. 
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<if $forestmansionsleep is 1>>
+		You see a small stone that wasn’t there before lies on the floor.
+	<</if>>
+	<br><br>
+
+	<<if $TaylorWith is 1>>
+		"This must be the wine cellar. Our town used to pride itself on its high quality wine as a deluxe export. I can't believe some of this stuff still exists."
+	<</if>>
+
+	<<if $museumAntiques.antiques.antiqueliquor is "notFound">>
+		<<link [[Take a bottle (0:02)|Forest Mansion Bottle Take]]>><<pass 2>><<museumAntiqueStatus "antiqueliquor" "found">><<set $antiquemoney += 5000>><</link>>
+		<br>
+		<<link [[Drink a bottle (0:02)|Forest Mansion Bottle Drink]]>><<pass 2>><<museumAntiqueStatus "antiqueliquor" "found">><<set $antiquemoney += 500>><<set $drunk += 480>><<set $hallucinogen += 80>><<npcincr Taylor love -1>><</link>> | <span class="red">+ + + + Alcohol</span> | <span class="red">+ + + Hallucinogen</span>
+		<br>
+	<</if>>
+
+	<<if $forestmansionrunestone is 0 and $forestmansionsleep is 1>>
+		<<link [[Pick up the stone|Forest Mansion Stone]]>><</link>>
+		<br>
+	<</if>>
+
+	<<link [[Go back to the kitchen (0:05)|Forest Mansion Kitchen]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+<</if>>
+
+:: Forest Mansion Bottle Take
+You decide it's not a good idea to drink god-knows how old bottle of alcohol and instead grab it and put it in your bag. 
+<br><br>
+<<if $TaylorWith is 1>>
+	"Hey what do you think you're doing? That's a priceless part of our town's history."
+<</if>>
+<br><br>
+
+<<if $TaylorWith is 1>>
+	<<link [[Tell saving for later|Forest Mansion Save For Later]]>><<npcincr Taylor love -1>><</link>>
+	<br>
+	<<link [[Tell giving to museum|Forest Mansion Giving to Museum]]>><<npcincr Taylor love 3>><</link>>
+<<else>>
+	<<link [[Next|Forest Mansion Cellar]]>><</link>>
+<</if>>
+
+:: Forest Mansion Save For Later
+<<set $TaylorSaveForLater to 1>>
+You tell Taylor that you're saving it to drink later against <<his>> wishes. <<He>> looks upset and shakes his head dropping the subject. <<llove>>
+<br><br>
+
+<<link [[Next|Forest Mansion Cellar]]>><</link>>
+
+:: Forest Mansion Giving to Museum
+You inform Taylor that you intend to give the wine to the museum for safe keeping. Taylor looks surprised and says "That's actually a good idea, nice going." <<gglove>>
+<br><br>
+
+<<link [[Next|Forest Mansion Cellar]]>><</link>>
+
+:: Forest Mansion Bottle Drink
+You pop the cork and take a large swig of the drink. 
+<br>
+You finish the bottle and put the empty bottle into your bag.
+<br>
+WOW that is one strong drink...
+<br><br>
+
+<<if $TaylorWith is 1>>
+	"Hey what do you think you're doing? That's a priceless part of our town's history." <<llove>>
+	<br><br>
+
+	You shrug it off and finish the bottle and put the empty bottle back.
+	<br><br>
+<</if>>
+
+<<if $location is "home">>
+	<<link [[Next|Bedroom]]>><</link>>
+<<else>>
+	<<link [[Next|Forest Mansion Cellar]]>><</link>>
+<</if>>
+:: Forest Mansion Dining Room
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 5>><<effects>>
+You enter a large dining room. A long table spans most of the room. Various dishes line the table, still set for a dinner.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<if $TaylorWith is 1>>
+		"This is certainly strange. Why would this table still be set if the owner moved out. The servants would have definitely needed to clean it up after the meal. It's almost as if everyone in the house just disappeared."
+	<</if>>
+
+	<<link [[Go back to the hallway (0:05)|Forest Mansion Left Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+<</if>>
+
+:: Forest Mansion Right Hallway
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 6>><<effects>>
+You find yourself in a long hallway with doors on either side.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<link [[First door (0:05)|Forest Mansion Servant Quarters]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Second door (0:05)|Forest Mansion Study]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Towards the entrance (0:05)|Forest Mansion Entrance]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+<</if>>
+
+:: Forest Mansion Servant Quarters
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 7>><<effects>>
+You enter a messy room full of beds in various states of disarray. Many are unmade and a few have collapsed. The wardrobe door has fallen off its hinges and all of the clothes are gone.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<if $TaylorWith is 1>>
+		“Wow the servants quarters seems to be a lot worse off than most of what we’ve seen. Servants must have been given a lot lower quality furniture.” 
+		<br><br>
+	<</if>>
+
+	<<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+<</if>>
+
+:: Forest Mansion Study
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 8>><<effects>>
+You walk into a large room lined with bookshelves with a desk in the middle. This is where the master of the mansion would have read and worked. The books are all much older than the mansion and falling apart. You try to open one but it falls apart in your hands, even on the scraps the words are so faded you can’t read them.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<if $TaylorWith is 1>>
+		“It’s a shame these books are so destroyed, they could have been something undocumented or important reads.” Taylor looks upset. “I’ll take some anyway. Maybe I can find a way to restore them.”
+		<br><br>
+	<</if>>
+
+	<<if $forestmansionrunestone is 1>>
+		<<link [[Double check the books for the stone's symbol (1:00)|Forest Mansion Research Rune]]>><<pass 60>><</link>>
+		<br>
+	<<elseif $forestmansionrunestone is 2>>
+		<<link [[Redraw the faded rune on the stone (0:20)|Forest Mansion Redraw]]>><<pass 20>><</link>>
+		<br>
+	<</if>>
+	<<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+<</if>>
+
+:: Forest Mansion Landing
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 9>><<effects>>
+You climb the stairs to the upstairs landing. Large paintings line the walls staring intimidatingly upon you. There’s doorways to the left and right leading to other rooms.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<link [[Go left (0:05)|Forest Mansion Guest Suite]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Go right (0:05)|Forest Mansion Master Suite]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<br>
+	<<link [[Go downstairs (0:05)|Forest Mansion Entrance]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+<</if>>
+
+:: Forest Mansion Guest Suite
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 10>><<effects>>
+You find yourself in a nicely built and kept bedroom. The room looks almost unused lying under a thin blanket of dust. The bed is made and there’s clothes still in remarkable condition in the wardrobe.
+<br><br>
+
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+
+	<<link [[Sleep|Forest Mansion Bed]]>><</link>>
+	<br>
+	<<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
+	<br>
+	<<link [[Mirror|Forest Mansion Mirror]]>><</link>>
+	<br>
+	<<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+<</if>>
+
+:: Forest Mansion Master Suite
+<<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 11>><<effects>>
+<<if $rng lte 50 and $eventskip is 0>>
+	<<forestmansionrandomevents>>
+<<else>>
+	<<if $forestmansionhaunt is 1>>
+		The master suite is destroyed. The door is busted, the window shattered, the bed is crooked and a painting lies face down on the floor.
+		<br><br>
+
+	<<if $TaylorWith is 1>>
+		“This is recent. Look, the bed and debris aren’t covered in dust like everything else. It looks like an earthquake came through but all the other rooms are fine so it can’t have been that. Besides that look at this door, the hinges are completely busted. Maybe those ghost stories were onto something, though it’s more likely that somebody trashed the room. Makes me sad how much people disrespect these old places” Taylor sighs as <<he>> starts jotting notes in <<his>> notebook.
+		<br><br>
+	<</if>>
+
+	<<else>>
+		The master suite looks much like the guest suite, a large bed and wardrobe except this wardrobe is empty. A large painting of a young man is hung on the wall gazing menacingly.
+		<br><br>
+
+		<<if $TaylorWith is 1>>
+			“Hmm I expected more of the master of the mansion’s suite. Do you think that painting is of him? He must have been pretty egotistical.”
+			<br><br>
+		<</if>>
+
+		<<link [[Sleep|Forest Mansion Bed]]>><</link>>
+		<br>
+		<<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
+		<br>
+		<<link [[Mirror|Forest Mansion Mirror]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+<</if>>
+
+:: Forest Mansion Bed
+<<effects>>
+You snuggle under the covers.
+<br><br>
+<<if $sleeptrouble is 1 and $controlled is 0>>
+	<<link [[Sleep for 10 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 10>><<incrementautosave>><</link>> (<<timeAfterXHours 10>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 9 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 9>><<incrementautosave>><</link>> (<<timeAfterXHours 9>>)<<ltiredness>>
+	<br>
+<</if>>
+<<link [[Sleep for 8 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 8>><<incrementautosave>><</link>> (<<timeAfterXHours 8>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 7 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 7>><<incrementautosave>><</link>> (<<timeAfterXHours 7>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 6 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 6>><<incrementautosave>><</link>> (<<timeAfterXHours 6>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 5 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 5>><<incrementautosave>><</link>> (<<timeAfterXHours 5>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 4 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 4>><<incrementautosave>><</link>> (<<timeAfterXHours 4>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 3 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 3>><<incrementautosave>><</link>> (<<timeAfterXHours 3>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 2 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 2>><<incrementautosave>><</link>> (<<timeAfterXHours 2>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 1 hours|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to 1>><<incrementautosave>><</link>> (<<timeAfterXHours 1>>)<<ltiredness>>
+<br>
+<<link [[Just sleep|Forest Mansion Sleep]]>><<set $rng to random(1,100)>><<set $sleephour to -1>><<incrementautosave>><</link>> (??:??)<<ltiredness>>
+<br>
+<<if $forestmansionstage is 11>>
+	<<link [[Climb out of bed|Forest Mansion Master Suite]]>><</link>>
+<<else>>
+	<<link [[Climb out of bed|Forest Mansion Guest Suite]]>><</link>>
+<</if>>
+
+:: Forest Mansion Sleep
+<<set _autosavehere to true>>
+<<sleep>><<effects>>
+<<sleepeffects>>
+<<if $TaylorWith is 1>>
+	“Wait, you want to sleep here? Well it is past dark and we're in the middle of the woods.” <<He>> sighs “How will I explain this to my mother, especially after the last incident.” The two of you lie in bed and try to sleep. Most of the night you're plagued with chills before the sun comes back up. 
+<<elseif $ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 0 and $rng lte 10>>
+	You rest your head on the old mansion's pillow and drift off to sleep. You don't get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+	<br><br>
+	Although, something feels... wrong. You go to rub your temple but feel nothing. You panic, pulling the cover from a mirror to find yourself changed.
+	<br><br>
+	Your skin is ghostly pale. Blue flaming orbs loom around you. You go to touch your face but shockingly your hand phases through into your head. You start to breathe heavily, panic setting in, as your hand becomes stuck in place.
+	<br><br>
+	You pull and finally rip it loose as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
+	<<set $skinColor.naturalreset to $skinColor.natural>>
+	<<set $skinColor.natural to "ghostly">>
+	<<set $transformationParts.ghost.eyes to "default">>
+	<<set $transformationParts.ghost.hitodama to "default">>
+	<<set $haircolourreset to $haircolour>>
+	<<set $haircolour to "jetblack">>
+	<<set $hairfringecolourreset to $hairfringecolour>>
+	<<set $hairfringecolour to "jetblack">>
+	<<set $options.lightGlow to 1>>
+	<<set $ghost to 1>>
+	<<earnFeat "Ghost">>
+<<elseif $ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 1 and $rng lte 15>>
+	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+	<br><br>
+	Although, something feels... wrong. You go to rub your temple but feel nothing. You panic, pulling the cover from a mirror to find yourself changed.
+	<br><br>
+	Your skin is ghostly pale. Blue flaming orbs loom around you. You go to touch your face but shockingly your hand phases through into your head. You start to breath heavily, panic setting in, as your hand becomes stuck in place.
+	<br><br>
+	You pull and finally rip it loose as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
+	<<set $skinColor.naturalreset to $skinColor.natural>>
+	<<set $skinColor.natural to "ghostly">>
+	<<set $transformationParts.ghost.eyes to "default">>
+	<<set $transformationParts.ghost.hitodama to "default">>
+	<<set $haircolourreset to $haircolour>>
+	<<set $haircolour to "jetblack">>
+	<<set $hairfringecolourreset to $hairfringecolour>>
+	<<set $hairfringecolour to "jetblack">>
+	<<set $options.lightGlow to 1>>
+	<<set $ghost to 1>>
+<<else>>
+	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+<</if>>
+<br><br>
+<<if $TaylorWith is 1>>
+	<<link [[Agree|Forest Mansion Coffee Ending]]>><</link>>
+	<br>
+	<<link [[Disagree|Forest Mansion Goodbye]]>><</link>>
+<<else>>
+	<<if $forestmansionstage is 11>>
+		<<link [[Next|Forest Mansion Master Suite]]>><</link>>
+	<<else>>
+		<<link [[Next|Forest Mansion Guest Suite]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Forest Mansion Coffee Ending
+<<set $TaylorWith to 0>>
+“Great! Let's go to the Ocean Breeze Cafe then.” You two make your way to the cafe and take a seat. Taylor sighs “That expedition was less exciting than I thought. So much for being haunted that place barely had anything worthwhile. Oh two coffees please.” <<He>> says to the barista. “The only part that made that trip fun was you so thanks for coming with.” <<He>> smiles. “Anyway I better get home before my mom kills me. See you soon.”
+<br><br>
+<<endevent>>
+
+<<link [[Next|Cliff Street]]>><<pass 90>><</link>>
+
+:: Forest Mansion Goodbye
+<<set $TaylorWith to 0>>
+“Okay I understand. Have a great day then I better get home.” <<He>> says waving as he heads inside.
+<br><br>
+<<endevent>>
+
+<<link [[Next|Danube Street]]>><<pass 90>><</link>>
+
+:: Forest Mansion Taylor Leave
+<<set $TaylorWith to 0>>
+“You want to leave already?” Taylor asks sadly “Okay I guess if you’re not having a good time we can.” You walk together back to the town. “If you ever want to go to another location you know where to find me.” <<He>> says as <<he>> gives you a hug and heads home.
+<br><br>
+<<endevent>>
+
+<<link [[Next|Danube Street]]>><<pass 90>><</link>>
+
+:: Forest Mansion Cellar Exorcism
+You follow after Jordan down into the dark damp cellar. Liquid drips from the ceiling as Jordan reaches into <<his>> robe and removes a torch to light the room.
+<br><br>
+Broken bottles lie on the floor and large casks block your view. Something growls in the back of the room causing your hairs to raise.
+<br><br>
+Jordan steps around a cask and shines <<his>> light around. A rat skitters out of the light but there's no sign of your body.
+<br><br>
+Suddenly something lunges out from the shadows and attacks Jordan. <<Hes>> knocked unto his back and the torch spins away to your feet.
+<br><br>
+You hurredly pick it up and illuminate the scene. Within the dim torch light you find Jordan pinned under your thin body. Your cheeks sunken in and your eyes nearly black.
+<br><br>
+Jordan shouts something as <<he>> smashes a glass bottle on your body's forehead. Your body screams in pain as it crumples to the ground in pain.
+<br><br>
+"Hurry hold it down." Jordan yells as <<he>> removes the tomb from his robe and opens to a bookmark.
+<br><br>
+<<link [[Hold it down|Forest Mansion Exorcism]]>><</link>>
+
+:: Forest Mansion Exorcism
+You hold down the body as Jordan begins to read from the old tome. You can't understand the language but your body starts to twitch and scream in agony.
+<br><br>
+Black fluid poors from your body's pours and pools on the ground as it writhes under you.
+<br><br>
+"Hurry get back inside." Jordan yells.
+<br><br>
+You waste no time forcing yourself back inside your body before blacking out.
+<br><br>
+<<link [[Wake up (6:00)|Forest Mansion Awaken]]>><<pass 360>><<set $options.lightGlow to .1>><<set $skinColor.natural to $skinColor.naturalreset>><<set $transformationParts.ghost.eyes to "disabled">><<set $transformationParts.ghost.hitodama to "disabled">><<set $haircolour to $haircolourreset>>
+<<set $hairfringecolour to $hairfringecolourreset>><</link>>
+
+:: Forest Mansion Awaken
+Your eyes flutter open and you sit up quickly. You find yourself sitting in a plush bed, Jordan sits in a chair beside you sleeping peacefully.
+<br><br>
+As you start to get up Jordan comes to and stretches, standing up. "Morning." <<He>> mutters grogily. "Seems the exorcism took a lot out of us both. I barely made it back to the temple before passing out."
+<br><br>
+<<He>> smiles as <<he>> helps you up. "Glad to help with your spiritual problem. Next time try not to stay in such a cursed place."
+<br><br>
+<<He>> walks you back into the temple's main room and bids you farewell.
+<br><br>
+<<link [[Next|Temple]]>><<set $ghost to 0>><<set $exorcism to 0>><<set $exorcised to 1>><</link>>
+
+
+:: Forest Mansion Mirror
+<<effects>>
+
+<<if $forestmansionstage is 11>>
+	<<link [[Next|Forest Mansion Master Suite]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+<<else>>
+	<<link [[Next|Forest Mansion Guest Suite]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+<</if>>
+<br>
+
+<<mirror>>
+<br><br>

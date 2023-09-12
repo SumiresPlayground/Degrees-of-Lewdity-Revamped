@@ -1,0 +1,838 @@
+:: Sewers Lizard Vore
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+You walk forward, careful not to make any sudden movements. You grind your <<genitals>> against the beast's mouth. It pushes you onto your back, turning you over and grasping your crotch with its teeth.<<deviancy3>>
+<<if $deviancy gte 55>>
+	<<link [[Give it more|Sewers Lizard Vore 2]]>><</link>><<deviant4>>
+	<br>
+<</if>>
+<<link [[Struggle|Sewers Lizard Rape]]>><<set $molestationstart to 1>><<set $phase to 1>><</link>>
+<br>
+
+:: Sewers Lizard Vore 2
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+You thrust your <<genitals>> against the beasts tongue as it twists and folds underneath your crotch. <<if $player.penisExist>>The tongue fondles your penis, squeezing and twirling around it, jerking you again and again.<<else>>The tongue fondles your clit, flicking it again and again.<</if>>
+<<deviancy4>>
+The beast continues its assault, and begins lowering your body into its mouth, swallowing you down.
+<br><br>
+<<if $deviancy gte 55>>
+	<<link [[Give it more|Sewers Lizard Vore 3]]>><</link>><<deviant4>>
+	<br>
+<</if>>
+<<link [[Struggle|Sewers Lizard Rape]]>><<set $molestationstart to 1>><<set $phase to 1>><</link>>
+<br>
+
+:: Sewers Lizard Vore 3
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+The tongue continues to move as you go deeper, caressing your <<nipples>> and sweeping your body, while the lizards tight throat squeezes and grinds your crotch. It rumbles, enjoying the feeling, as the throat clenches tight around your lower body.<<deviancy4>>
+<<if $deviancy gte 75>>
+	<<link [[Let it swallow you|Sewers Lizard Vore 4]]>><</link>><<deviant5>>
+	<br>
+<</if>>
+<<link [[Struggle|Sewers Lizard Rape]]>><<set $molestationstart to 1>><<set $phase to 2>><</link>>
+<br>
+
+:: Sewers Lizard Vore 4
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+The beast pushes you down its throat in a single, powerful, swallow. You land in a small, tight chamber, with pulsing walls. They press in on you, squeezing and caressing your body with each movement. Viscous fluids seep into the stomach, making your body slippery with slime.
+<<deviancy5>>
+The lizard starts to move, and with each step the walls of the stomach compress your body, rubbing against your <<breasts>> and your slime-covered <<genitals>>. Your body arches from the pleasure, straining against the smothering flesh around you while your <<if $player.penisExist>>penis<<else>>clit<</if>> presses into the folds of the lizard's stomach. The stomach tightens around your shaking body, as if responding to your thrashes.
+<br><br>
+The stimulation is too much for you. You pass out.
+<<passout>>
+<br><br>
+<<link [[Next|Sewers Lizard Vore 5]]>><</link>>
+<br>
+
+:: Sewers Lizard Vore 5
+
+<<location "forest">><<effects>>
+<<swallowedstat>><<sewersend>><<outergoo>>
+You awaken in the woods, lying inside the lizards mouth. It's sleeping. You wiggle out, shivering in pleasure as your <<genitals>> slides along its tongue once more.
+<br><br>
+<<link [[Next|Forest]]>><<set $eventskip to 1>><<set $forest to 20>><</link>>
+<br>
+
+:: Sewers Lizard Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<if $phase is 1>>
+		You struggle free of the beast's maw. It hisses.
+		<br><br>
+	<<elseif $phase is 2>>
+		You whack at the beast's mouth. It spits you out and hisses.
+		<br><br>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br><br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Sewers Lizard Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Sewers Lizard Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Sewers Lizard Rape Finish
+
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	Satisfied, the <<beasttype>> loses interest in you.
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<set $eventskip to 1>>
+	<<destinationsewers>>
+<<else>>
+	<<bHe>> hisses and flees into the darkness.
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<set $eventskip to 1>>
+	<<destinationsewers>>
+<</if>>
+
+:: Sewers Return
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+Morgan drags you back to <<his>> lair. "I was worried, so worried," <<he>> says. "You're a bad <<girl>> <<charles>>. There's only one thing for it."
+<br><br>
+<<link [[Next|Sewers Spank]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Sewers Fight
+
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<set $enemyhealthmax += 100>><<set $enemyhealth += 100>><<set $enemyarousalmax += 100>>
+	<<npcidlegenitals>>
+	"Don't you dare," Morgan snarls. "Your bottom will be red when I'm done."
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Sewers Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Sewers Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Sewers Fight Finish
+
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<set $sewersevent to random(5, 12)>>
+	You seize the opportunity. <<tearful>> you escape into the tunnels.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<destinationsewers>>
+<<elseif $enemyhealth lte 0>>
+	<<set $sewersevent to random(10, 18)>>
+	Morgan recoils, giving you the chance you need. <<tearful>> you escape into the tunnels.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<destinationsewers>>
+<<else>>
+	<<tearful>> you fall to the ground, too hurt to continue.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Morgan>><<person1>>
+	<<link [[Next|Sewers Return]]>><</link>>
+<</if>>
+
+:: Sewers Shackle Struggle
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+<<if $sewerschasedstep lte 0>>
+	<<npc Morgan>><<person1>>"Oh, you poor little thing. This simply won't do," Morgan says, stepping out of the shadows. <<He>> twists a pin at the base of the shackle, freeing you. "Now <<charles>>, don't make things harder on yourself than they need to be." <<He>> grasps your arm and pulls.
+	<br><br>
+	<<set $sewerschased to 0>>
+	<<link [[Go quietly|Sewers Return]]>><</link>>
+	<br>
+	<<link [[Fight|Sewers Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<elseif $physiqueSuccess and $phase is 0>>
+	<<set $phase += 1>>
+	You rip the shackle open and run.
+	<br><br>
+	You hear Morgan screech, and the clang of metal soon after.
+	<br><br>
+	<<endevent>>
+	<<destinationsewers>>
+	<<set $sewerschased to 0>>
+<<elseif $physiqueSuccess and $phase is 1>>
+	<<set $phase += 1>>
+	You rip the shackle open and run.
+	<br><br>
+	You hear Morgan screech, and the clang of metal soon after.
+	<br><br>
+	<<endevent>>
+	<<destinationsewers>>
+	<<set $sewerschased to 0>>
+<<elseif $physiqueSuccess and $phase gte 2>>
+	<<set $phase += 1>>
+	You rip the shackle open and run.
+	<br><br>
+	You hear Morgan screech, and the clang of metal soon after.
+	<br><br>
+	<<set $sewerschased to 0>>
+	<<endevent>>
+	<<destinationsewers>>
+<<else>>
+	You try to rip the shackle off. It gives a little, but remains stuck. Further attempts should be more likely to succeed. <<morganhunt>>
+	<br><br>
+	<<set $phase += 1>>
+	<<link [[Struggle|Sewers Shackle Struggle]]>><</link>>
+	<<if $phase is 1>>
+		<<physiquedifficulty 6000 16000>>
+	<<elseif $phase gte 2>>
+		<<physiquedifficulty 1 10000>>
+	<<else>>
+		<<physiquedifficulty 10000 20000>>
+	<</if>>
+	<br>
+	<!-- DoLM -->
+	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
+	<<set $skulduggerydifficulty to 600>>
+	<<link [[Pick the lock|Sewers Shackle Pick]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
+	<br>
+<</if>>
+
+:: Sewers Shackle Pick
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+<<effects>>
+You crouch and try to pick the lock.
+<br><br>
+<<if $sewerschasedstep gt 0>>
+	<<skulduggerycheck>>
+<</if>>
+<<if $sewerschasedstep lte 0>>
+	<<npc Morgan>><<person1>>"Oh, you poor little thing. This simply won't do," Morgan says, stepping out of the shadows. <<He>> twists a pin at the base of the shackle, freeing you. "Now <<charles>>, don't make things harder on yourself than they need to be." <<He>> grasps your arm and pulls.
+	<br><br>
+	<<set $sewerschased to 0>>
+	<<link [[Go quietly|Sewers Return]]>><</link>>
+	<br>
+	<<link [[Fight|Sewers Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<elseif $skulduggerysuccess is 1>>
+	You unlock the shackle and run.
+	<br><br>
+	<<skulduggeryuse>>
+
+	You hear Morgan screech, and the clang of metal soon after.
+	<br><br>
+	<<set $sewerschased to 0>>
+	<<destinationsewers>>
+<<else>>
+	Your fingers fumble under the pressure. <<morganhunt>>
+	<br><br>
+	<<skulduggeryuse>>
+
+	<<link [[Struggle|Sewers Shackle Struggle]]>><</link>>
+	<<if $phase is 1>>
+		<<physiquedifficulty 6000 16000>>
+	<<elseif $phase gte 2>>
+		<<physiquedifficulty 1 10000>>
+	<<else>>
+		<<physiquedifficulty 10000 20000>>
+	<</if>>
+	<br>
+	<!-- DoLM -->
+	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
+	<<set $skulduggerydifficulty to 600>>
+	<<link [[Pick the lock|Sewers Shackle Pick]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
+	<br>
+<</if>>
+
+:: Sewers Slime
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+You try to pull yourself free. The muck, slimy and suspiciously warm, coats you from your hands to your elbows. It's a 
+
+<<if $onemoreslime is 1>> 
+	familiar 
+<<else>>
+	strange 
+<</if>>
+
+feeling. To make matters worse, your feet, ankles, and calves are also stuck in the substance. You are trapped, unable to free yourself no matter how much you twist and turn.
+<br><br>
+The light down here is minimal, making it difficult to see. The fact that much of the blob is cast in the shadows is alarming as well, and you wonder just how big this mountain of goo really is. It could stretch out a dozen or more feet into the darkness, making you shiver at the thought. Something about this stuff gives you chills.
+<br><br>
+Suddenly, and without warning, the slime covering your arms and legs tighten around your appendages and lift you off the ground, your momentum pulling you above to the substance. Staring down, your eyes rise in horror as this new angle lets you see more of the slime. More of the creature.
+<br><br>
+<<link [[Next|Sewers Slime 2]]>><</link>>
+<br>
+
+:: Sewers Slime 2
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+The wide mouth below you opens and you yell in alarm as you are pulled into it. Though you struggle, it makes no difference. First your thighs disappear. Then your waist. Then your stomach. Then your chest. Before you know it, all but your head is swallowed up and you close your eyes in terror, expecting to feel pain. Slime pushes against every part of you and you just know you are done for.
+
+
+<br><br>
+Your end doesn't come. Instead, air begins rushing past your ears as you and the creature move at a rapid pace down the tunnel, into the darkness. You exhale for a moment, cautiously optimistic.
+<<if !$worn.upper.type.includes("naked") or !$worn.lower.type.includes("naked") or !$worn.under_lower.type.includes("naked")>>
+	Your optimism only lasts a moment, though, as you shout in alarm while your clothing dissolves.
+	<br><br>
+	It happens so fast, you almost don't realise it. Within the span of a few heartbeats, every stitch of clothing you were wearing simply breaks apart and the goo comes crashing down onto your nude body.
+	Every bit of skin feels the slick warm substance pressed against it and you wonder if you will be dissolved next.
+	<<upperruined>><<lowerruined>><<underruined>>
+<</if>>
+<br><br>
+Then the slime begins to tease your body.
+<br><br>
+<<link [[Next|Sewers Slime 3]]>><</link>>
+<br>
+
+:: Sewers Slime 3
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+It starts between your fingers and toes, the goo vibrating as the slick stuff forces itself between your clenched digits. Next comes a gentle suckling of your underarms and the back of your knees. Your <<nipples>> experience tingles as the slime pinches them, causing you to let out a low moan.
+<br><br>
+Emboldened, the slime slides between your thighs, teasing your taint as your rear is parted and the slime begins to lap at your hole. You groan, feeling your <<genitals 1>> react to the attention. This warmth spreads all across your skin, this creature playing with your body as you move through the darkness.
+<br><br>
+Then the slime pressed up against your <<genitals>> seems to come alive, the goo
+<<if playerChastity("hidden")>>
+	finds its way inside of your $worn.genitals.name and despite the lack of space, causes immense pleasure to your <<genitals 1>>.
+<<else>>
+	<<if $player.penisExist>>
+		feeling as if it is stroking you from <<if $player.ballsExist>>your balls<<else>>the bottom<</if>> to the tip of your
+		boycock<<if $player.vaginaExist>>, while rubbing up, down, and between your pussy lips<</if>>.
+	<<elseif $player.vaginaExist>>
+		vibrating right on top of your excited clit as it rubs up, down, and between your pussy lips.
+	<</if>>
+<</if>>
+You let out a cry of surprise as sharp pleasurable feelings run up your spine. You struggle weakly, causing the creature to redouble its attentions.
+<br><br>
+Your nude body is engulfed almost entirely, and being teased mercilessly. It's too much. With a loud squeak, you cum. Hard.
+<br><br>
+<<arousal 10000>><<orgasm>>
+<br><br>
+<<if $slime gt 0 and $slime isnot 1>>
+<<link [[Next|Sewers Slime Again]]>><</link>>
+<<else>>
+<<link [[Next|Sewers Slime 4]]>><</link>>
+<br>
+<</if>>
+
+:: Sewers Slime Again
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+
+The massive slime, seemingly finally realizing that you are kin, changes it's behavor. Not satisfied with dissolving your clothing, it begins to absorb you as well. The accumulated filth from it's time spent in the sewers pushes against you. The large slime suddenly turns corrosive and you feel your own skin start to bubble and distort.
+<br><br>
+The pain is scathing at first, but you feel it subside as the core within your body begins to glow.
+Both you and the larger slime are illuminated by a green sheen. You are suddenly filled with agitation and disdain for the creature. More importantly, you feel powerful. You'll make this thing regret thinking of you as food. You're not sure where this surge of strength comes from, but you come to a sudden realization.
+<br><br>
+It's not the predator. You are.
+<br><br>
+
+<<link [[Consume it|Slime Transformation Redux]]>><<pass 20>><</link>>
+<br><br>
+<<link [[Defeat it|Slime Transformation 4]]>><<pass 20>><</link>>
+
+:: Slime Transformation Redux
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+
+	<<if $slime isnot 1>> 
+		<<set $slime to 1>>
+	<</if>>
+	<<if $slime is 1>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "slimy">> /*"amethyst" for alternate color */
+		<<set $transformationParts.slime.bubble to "default">>
+		<<set $transformationParts.slime.stream to "default">>
+		<<set $transformationParts.slime.core to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "slimegreen">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "slimegreen">>
+	<</if>>
+
+Your rage and indignation comes to a head as you lash out around you. You go as far as to start biting the slime, taking no heed of where it's been. Luckily, the filth within it's membrane doesn't seem to affect you. In fact, your body begins absorbing the surrounding slime. It turns green in the process, as if signifying the change from your prior form into this more offensive one.
+<br><br>
+The surroundings echo with your wrathful screams, your core shining brilliantly as you no longer attack the slime, but grab on to it tightly. The rate of absorption increases exponentionally as if you've become a living vacuum. There is a momentary shriek as the core of the opposing slime enters your body. It violently vibrates, then begins to dissolve along with the rest of the slime.
+<br><br>
+The last thing you remember before passing out is a vivid emerald flash.
+<br><br>
+<<link [[Next|Slime Transformation Redux 2]]>><<pass 20>><</link>>
+
+
+:: Slime Transformation Redux 2
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+
+You awaken from unconsciousness few moments later. You're starting to get annoyed how often that seems to happen down here. Recalling the events from before, you become acutely aware of how vulnerable you look. 
+<br><br>
+Looks can be deceiving, however. After consuming that large sewer slime, your body seems to maintain an elevated level of acidity. You're able to control it, as to not dissolve everything you touch, but woe betide any aggressor who tries anything with you. 
+<br><br>
+You get your bearings before continuing onward.
+<br><br>
+
+<<destinationsewersrandom>>
+
+:: Sewers Slime 4
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+<<if playerChastity("hidden")>>
+<<elseif $player.penisExist>>
+	Your cum erupts from your throbbing cock, the blast firing deep into the slime before it is stopped. You watch in pleasurable fascination as your cum begins to dissolve into nothingness. Almost, you realise, as if the creature is feeding on it. The creature does not relent its assault as your climax fades, though, and you soon find yourself back in the darkness as you and the creature move through the tunnels at breakneck speed.
+	<br><br>
+<<else>>
+	A powerful suction suddenly engulfs your spasming cunt, forcing any of your juices out and into the eager creature. It's almost as if it is feeding off your powerful orgasm, gorging on your wetness. The creature does not relent its assault as your climax fades, though, and you soon find yourself back in the darkness as you and the creature move through the tunnels at breakneck speed.
+	<br><br>
+<</if>>
+
+<<arousal 10000>><<orgasm>>
+<br><br>
+You cum again quickly, the pinching of your <<nipples>> and licking of your asshole merging with the stimulation of your <<genitals 1>> to send you over the edge once more. Your moans echo off the tunnels, filling your ears. Your third climax happens a short while later and you swoon. The stimulation is too much.
+<br><br>
+<<arousal 10000>><<orgasm>>
+
+<br><br>
+<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0 and $mushroom is 0>>
+
+Your repeated orgasms seem to drive your ear slimes into a frenzy! The frequency is slow, at first, but soon begins to increase. As they do so, a warmth spreads from your head, flowing through your body. <span class='green'>The slime engulfing you pulses in sync to the ear slimes' movement.</span> Despite the situation, you begin to feel eerily calm. The feeling is oddly familiar, as if you were in a womb. Your consciousness begins to shift as your fatigue takes over. You slowly drift asleep as the giant slime rhythmically caresses your body. The last thing you notice before sleep takes you is <span class='green'>how malleable you suddenly feel...</span>
+<br><br>
+
+<<link [[Resist|Slime Transformation 3]]>><<pass 20>><</link>>
+<br>
+<<link [[Let it take you|Slime Transformation 1]]>><<pass 60>><</link>>
+
+
+
+<<else>>
+<br><br>
+So disoriented by this point, you hardly register that you are back in the light and the slime creature is gently laying you on the ground. You watch through lidded eyes as it moves away, into the darkness. Several minutes pass, while you catch your breath and gain your strength. Then, you stand and brush off your nude body. Where are you?
+<br><br>
+<<destinationsewersrandom>>
+
+<</if>>
+
+:: Slime Transformation 1
+
+<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
+	<<set $corruption_slime to 1>>
+
+	<<if $slime_tf is 1>>
+		<<set $slime_tf to 0>>
+		<<set $physicalTransform to 0>>
+	<</if>>
+
+	<<if $parasite.left_ear.name is "slime" or $parasite.right_ear.name is "slime">>
+		<<unset $alwaysSleepNaked>>
+		<<unset $slimeEvent>>
+	<</if>>
+
+	<<if $parasite.left_ear.name is "slime">>
+		<<removeparasite left_ear>>
+	<</if>>
+	<<if $parasite.right_ear.name is "slime">>
+		<<removeparasite right_ear>>
+	<</if>>
+<<set $noEarSlime to true>>
+<</if>>
+
+<<if $onemoreslime is undefined>>
+	<<set $onemoreslime to 0>>
+<</if>>
+
+
+
+You awaken in an unknown location. The giant slime is nowhere to be seen. Lacking clothes, you notice just how slimy your skin is. Understandable. You were just consumed by a massive slime, after all.
+<br><br>
+Something seems off, though. Your vision seems oddly unfocused, as if peering through a green foggy lens. There's something odd about your body. Your skin can barely be called that anymore. In fact, your entire body seems to be a murky mint-green color.
+<br><br>
+The malleability you noticed before comes to a head as you realise you're literally a gelatious mass on the floor. You notice something else. <span class='gold'>The ear slimes which were plaguing you seem to be gone.</span> 
+
+<<if $onemoreslime is 1>>
+	No longer being a hindrance to you and your thoughts, they've merged with you completely.
+<<else>>
+	Perhaps, no longer having actual ears to infest, they simply abandoned you. Though, considering the current state of your body, maybe they never actually left...
+<</if>>
+
+<br><br>
+As you come to your senses, you seem to subconsciously reform into your prior human state.<br><br> Your vision clarifies as you put thoughts of ear slimes out of your mind. Your visual perception returns to normal, and you slowly come to realize that <span class='green'> you now seem to share the properties of a slime!</span>
+<br><br>
+
+
+	<<if $slime isnot 1>> 
+		<<set $slime to 1>>
+		<<earnFeat "Slime">>
+	<</if>>
+	<<if $slime is 1>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $skinColor.natural to "slimy">> 
+		<<set $transformationParts.slime.bubble to "default">>
+		<<set $transformationParts.slime.stream to "default">>
+		<<set $transformationParts.slime.core to "default">>
+		<<set $haircolourreset to $haircolour>>
+		<<set $haircolour to "slimegreen">>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+		<<set $hairfringecolour to "slimegreen">>
+	<</if>>
+
+<<link [[Next|Slime Transformation 2]]>><</link>>
+
+:: Slime Transformation 2
+
+<<if $onemoreslime is 1>>
+	You remember this sensation. This ...experience. You're not entirely sure how to to feel about it. While there were some benefits to being a slime, the necessary avoidance of water was a considerable complication. Looking down, you become aware of the slime core suspended within your body. You'll be careful to ensure it's safety. You know that if it goes, so do you.
+	<br><br>
+	Recalling the process to undo the transformation, you remember the area to do so is accessible only under certain conditions. <span class='gold'>You'll need to make your way to the sealed room in the lake ruins during the blood moon</span>. Until then, you'll just have to manage with your slime body. Given your experience, it should be easier this time around. Hopefully.
+	<br><br>
+	You survey the area and get your bearings.
+<<else>>
+	As you get your bearings together, you begin to dread your new life as an amorphous mass of goo. You try to force yourself to calm down. In doing so, you notice your new body seems to solidify somewhat.<br><br> It becomes drier and your body almost seems to resemble that of a normal human's again. Almost.
+	<br><br>
+	If you look closely enough, it still retains the barest hint of transparency. You notice a floating red mass in the center of your body. You get the feeling this... core... is of vital importance. For now, you try to make sense of your surroundings. A quick scan tells you you're still in the sewers.
+	<br><br>
+	Still somewhat frightened from the overall experience, you attempt to steady yourself by grasping onto an errant tree root which happened to be poking through the brickwork. After a few moments, you hear a quiet hiss and notice burn marks on parts of the root you were in contact with. Did you do that? The curiosity overrides your nervousness as you hold the root again, this time leaving it intact. <span case='green'>It seems you have some minor corrosive capabilities now.</span> You wonder if this is a self-defense mechanism before continuing on.
+	<br><br>
+	The damp air feels unusually soothing. You walk forward a few meters when a stream of water from an adjacent pipe sprays you on the arm. <span class='red'>It stings.</span><<violence 20>> You flinch and wonder if what hit you really was water. If so, then your predicament may be even more dire that you initially realized.
+	<br><br>
+	Once you're back in town, <span class='gold'>perhaps the local hospital will have an idea of how to restore your humanity.</span>
+<</if>>
+
+<br><br>
+
+<<destinationsewersrandom>>
+
+:: Slime Transformation 3
+
+Summoning the last of your strength, you thrash within your viscous captor. Your sudden gyrations seem to throw off the synchronicity of the pulsing slimes. You sense the the ear parasites' agitation, yet they begin to calm down. The undulations of the giant slime begin to cease as well. Overcomed by fatigue, you lay suspended within the giant slime, opting to conserve your energy and wait for whatever fate it has in store for you.
+<br><br>
+So disoriented by this point, you hardly register that you are back in the light and the slime creature is gently laying you on the ground. You watch through lidded eyes as it moves away, into the darkness. Several minutes pass, while you catch your breath and regain your vigor. Then, you stand and brush off your nude body. Where are you?
+<br><br>
+<<destinationsewersrandom>>
+
+:: Slime Transformation 4
+
+You're not in the mood to be in contact with this disgusting denizen of the deep any more than you must.
+Your core no longer shines green, but instead reverts back to it's normal red state. The slime, seemingly understanding what nearly became of it, opts to quickly retreat to the dank corners of the sewer after uncerimoniously dropping you to the floor.
+<br><br>
+So disoriented by this point, you hardly register that you are back in the light. Several minutes pass, while you catch your breath and regain your vigor. Then, you stand and brush off your nude body. You and the slime covered some quite some distance during that struggle. Where are you?
+<br><br>
+<<destinationsewersrandom>>
+
+:: Sewers Over Upper Struggle
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+Your tear free from Morgan's clutches, leaving <<him>> grasping your ruined $worn.over_upper.name. <<tearful>> you escape into the darkness. <<He>> buries <<his>> face in the garment and sniffs. <<covered>>
+<br><br>
+<<overupperruined>>
+<<endevent>>
+<<destinationsewers>>
+
+:: Sewers Over Lower Struggle
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+Your tear free from Morgan's clutches, leaving <<him>> grasping your ruined $worn.over_lower.name. <<tearful>> you escape into the darkness. <<He>> buries <<his>> face in the garment and sniffs. <<covered>>
+<br><br>
+<<overlowerruined>>
+<<endevent>>
+<<destinationsewers>>
+
+:: Sewers Upper Struggle
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+Your tear free from Morgan's clutches, leaving <<him>> grasping your ruined $worn.upper.name. <<tearful>> you escape into the darkness. <<He>> buries <<his>> face in the garment and sniffs. <<covered>>
+<br><br>
+<<upperruined>>
+<<endevent>>
+<<destinationsewers>>
+
+:: Sewers Lower Struggle
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+Your tear free from Morgan's clutches, leaving <<him>> grasping your ruined $worn.lower.name. <<tearful>> you escape into the darkness. <<He>> buries <<his>> face in the garment and sniffs. <<covered>>
+<br><br>
+<<lowerruined>>
+<<endevent>>
+<<destinationsewers>>
+
+:: Sewers Under Struggle
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+Your tear free from Morgan's clutches, leaving <<him>> grasping your ruined $worn.under_lower.name. <<tearful>> you escape into the darkness. <<He>> buries <<his>> face in the garment and sniffs. <<covered>>
+<br><br>
+<<underlowerruined>>
+<<endevent>>
+<<destinationsewers>>
+
+:: Sewers Slime Lower Lost
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+<<if $worn.lower.outfitSecondary is undefined>>
+	You struggle free from your $worn.lower.name, and leave it on the sticky floor. You shiver.<<lowerruined>> <<exposure>> You're conscious of your <<nudity>>.
+	<br><br>
+<<elseif $worn.lower.outfitSecondary[1] is "broken" or $worn.lower.outfitSecondary[1] is "split">>
+	You struggle free from your $worn.lower.name, and leave it on the sticky floor. You shiver.<<lowerruined>> <<exposure>> You're conscious of your <<nudity>>.
+	<br><br>
+<<else>>
+	You struggle free from your <<print $worn[$worn.lower.outfitSecondary[0]].name>>, and leave it on the sticky floor. You shiver.<<generalRuined $worn.lower.outfitSecondary[0]>> <<exposure>> You're conscious of your <<nudity>>.
+	<br><br>
+<</if>>
+<<destinationsewers>>
+
+:: Sewers Slime Lower Try
+
+<<effects>><<set $location to "sewers">><<set $outside to 0>>
+You try to work your $worn.lower.name free from the sticky floor. You make progress, until you're able to free yourself with a tear.
+<br><br>
+<<set $worn.lower.integrity -= 20>>
+<<if $worn.lower.integrity lte 0>>
+	You feel a breeze. You look down, and see your clothes still stuck to the floor.
+	<br><br>
+	<<integritycheck>>
+<<else>>
+	The struggle left your clothes a little worse for wear.
+	<br><br>
+<</if>>
+<<destinationsewers>>
+
+:: Sewers Cult Ignore
+<<effects>>
+
+You turn away from the source of the noise. At least you think you are. The voices echo all around.
+<br><br>
+
+<<skulduggerycheck>>
+<<if $skulduggerysuccess is 1>>
+
+	You keep walking, <span class="green">until the voices fade.</span>
+	<br><br>
+
+	<<if $skulduggery lte ($skulduggerydifficulty + 100)>>
+		<<skulduggeryskilluse>>
+	<<else>>
+		<span class="blue">That was too easy. You didn't learn anything.</span>
+		<br><br>
+	<</if>>
+
+	<<destinationsewers>>
+
+<<else>>
+
+	You keep walking, but the voices grow louder. Suspecting you're going the wrong direction, you turn a corner, then another, but no matter where you turn, <span class="red">the voices grow.</span>
+	<br><br>
+
+
+	<<link [[Next|Sewers Cult Investigate]]>><</link>>
+	<br>
+
+<</if>>
+
+:: Sewers Cult Investigate
+<<effects>>
+
+The voices draw you in. They lead you through shadowed alcoves you might not have otherwise noticed, until you enter a large circular room. The walls and floor are similar to the stone elsewhere in the sewers, but the ceiling rises much higher, forming a dome. Your eyes are drawn elsewhere.
+<br><br>
+
+Several robed figures stand equidistant from each other, arms raised in supplication. You can hear the words clearly now, but it's no language you understand. The room is bathed in a flickering purple light. You can't see the shifting source.
+<br><br>
+
+<<link [[Next|Sewers Cult Lizard]]>><</link>>
+<br>
+
+:: Sewers Cult Lizard
+<<effects>>
+
+A crate between the robed figures shakes. You hear a snarl within, then one of the wooden panels bursts free.
+<br><br>
+
+The figures cease their chanting, and dash for the tunnel opposite you. The wet bottoms of their skirts drag behind them as they run, leaving a trail of moisture.
+<br><br>
+<<beastNEWinit 1 lizard>>
+<<if $monster is 1 or $bestialitydisable is "f">>
+	A <<beasttype>> claws its way from the crate. There's something unusual about its eyes. <<bHe>> takes an instant to regard and measure you, then snakes across the floor, lust on <<bhis>> mind.
+	<br><br>
+
+	<<link [[Next|Sewers Cult Lizard Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	A lizard claws its way from the crate. There's something unusual about its eyes. It takes an instant to regard and measure you, then snakes across the floor, violence on its mind.
+	<br><br>
+
+	You turn and run through the tunnels. You hear feet patter after you. You manage to escape, but not unscathed.<<beastescape>>
+	<br><br>
+	<<endevent>>
+	<<destinationsewers>>
+<</if>>
+
+:: Sewers Cult Lizard Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br><br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Sewers Cult Lizard Rape Finish]]>><</link>></span><<nexttext>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Sewers Cult Lizard Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Sewers Cult Lizard Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Sewers Cult Lizard Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation>>
+
+	The <<beasttype>> races into the dark, in search of fresh prey.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<destinationsewers>>
+
+<<else>>
+
+	Defeated, the <<beasttype>> flees into the dark.	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<destinationsewers>>
+
+<</if>>
+
+:: Sewers Floor Slime Physique
+<<effects>>
+
+<<if $physiqueSuccess>>
+	You grasp the tendril, <span class="green">and pull it away from your leg.</span> You move on before its groping finds you again.
+	<br><br>
+
+	<<destinationsewers>>
+<<else>>
+	You grasp the tendril and pull, <span class="red">but its grip remains firm.</span> More emerge from the dark, grasping your arms and pulling them back.
+	<br><br>
+
+	<<link [[Next|Sewers Floor Slime Tentacles]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<</if>>
+
+:: Sewers Floor Slime Soothe
+<<effects>>
+
+<<if $tendingSuccess>>
+	You sing a soothing seranade. The tendril quivers, <span class="green">and returns to the dark,</span> leaving you free to continue.
+	<br><br>
+
+	<<destinationsewers>>
+<<else>>
+	You coo at the tendril, trying to lull it to slumber, <span class="red">but your voice attracts more creatures.</span> They emerge from the dark, seeking to bind you.
+	<br><br>
+
+	<<link [[Next|Sewers Floor Slime Tentacles]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Sewers Floor Slime Struggle
+<<effects>>
+
+You try to kick the tendril off, but it's stuck firm. More emerge from the dark, seeking your skin.
+<br><br>
+
+<<link [[Next|Sewers Floor Slime Tentacles]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Sewers Floor Slime Tentacles
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<set $combat to 1>>
+	<<set $enemytype to "tentacles">>
+	<<molested>>
+	<<controlloss>>
+
+	<<tentaclestart 6 15 "tendril">>
+
+<</if>>
+
+<<statetentacles>>
+
+
+<<effects>>
+<<effectstentacles>>
+<<tentacles>>
+<<actionstentacles>>
+
+<<if $tentacles.active lte ($tentacles.max / 2)>>
+	<span id="next"><<link [[Next|Sewers Floor Slime Tentacles Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Sewers Floor Slime Tentacles]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Sewers Floor Slime Tentacles Finish
+<<effects>>
+
+The tendrils retreat, vanishing into the dark.
+<br><br>
+
+<<tearful>> you continue down the tunnel.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<destinationsewers>>

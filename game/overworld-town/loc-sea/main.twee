@@ -1,0 +1,983 @@
+:: Sea Beach
+
+<<location "seabeach">><<water>><<effects>>
+You are swimming in the sea along the beach.
+<<if Time.dayState is "day">>
+	<<if $weather is "clear">>
+		It is awash with visitors, children build sandcastles and play in the water while their parents bask in the sun. A group of students are playing volleyball.
+	<<elseif $weather is "overcast">>
+		The clouds have driven away most would-be visitors, but there are still people strolling along the water's edge.
+	<<elseif $weather is "rain">>
+		The beach itself is mostly deserted due to the rain, but the violent waves have attracted surfers.
+	<<elseif $weather is "snow">>
+		The cold has kept most away, but the violent waves have attracted surfers.
+	<</if>>
+<<elseif Time.dayState is "dawn">>
+	<<if $weather is "clear">>
+		It is a popular destination for joggers, some have dogs with them. A few families are setting up windbreakers. A group of students are playing volleyball.
+	<<elseif $weather is "overcast">>
+		It is a popular destination for joggers, some have dogs with them. Fog blocks your view of the ocean.
+	<<elseif $weather is "rain">>
+		The beach itself is mostly deserted due to the rain, but the violent waves have attracted surfers.
+	<<elseif $weather is "snow">>
+		The cold has kept most away, but the violent waves have attracted surfers.
+	<</if>>
+<<elseif Time.dayState is "dusk">>
+	<<if $weather is "clear">>
+		Families are leaving as the sun sets. A group of students are playing volleyball.
+	<<elseif $weather is "overcast">>
+		It is mostly deserted, but some people are strolling along the water's edge.
+	<<elseif $weather is "rain">>
+		The beach itself is mostly deserted due to the rain, but the violent waves have attracted surfers.
+	<<elseif $weather is "snow">>
+		The cold has kept most away, but the violent waves have attracted surfers.
+	<</if>>
+<<elseif Time.dayState is "night">>
+	<<if $weather is "clear">>
+		It appears deserted, save for a group of students who are drinking around a fire.
+	<<elseif $weather is "overcast">>
+		It appears deserted.
+	<<elseif $weather is "rain">>
+		It appears deserted.
+	<<elseif $weather is "snow">>
+		It appears deserted
+	<</if>>
+<</if>>
+<br><br>
+<<if $seaswim is 1>>
+	<<set $seaswim to 0>>
+	You spend some time swimming.
+	<<physique 3>><<swimmingskilluse>>
+	<br><br>
+<</if>>
+<<if $exposed gte 1>>
+	You keep your <<lewdness>> hidden beneath the surface of the water.
+	<<if Time.dayState isnot "night">>
+		You can't leave the water here, people would see you!
+	<</if>>
+	<br><br>
+<</if>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+		<<eventsseabeach>>
+	<<else>>
+		<<if $exposed lte 0 or Time.dayState is "night">>
+			<<ind>><<link [[Leave the water (0:02)|Beach]]>><<pass 2>><</link>>
+			<br>
+		<<elseif $exposed is 1 and $exhibitionism gte 15>>
+			<<ind>><<link [[Leave the water (0:02)|Beach Exposed]]>><<pass 2>><<set $phase to 1>><</link>><<exhibitionist2>>
+			<br>
+		<<elseif $exposed gte 2 and $exhibitionism gte 75>>
+			<<ind>><<link [[Leave the water (0:02)|Beach Exposed]]>><<pass 2>><<set $phase to 0>><</link>><<exhibitionist5>>
+			<br>
+		<</if>>
+		<<ind>><<link [[Practise swimming (0:30)|Sea Beach]]>><<pass 30>><<stress -6>><<tiredness 6>><<set $seaswim to 1>><<slimeEventEnd>><</link>><<gswimming>><<lstress>><<gtiredness>>
+		<br>
+		<<swimicon>><<link [[Swim out to sea (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea to 0>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+		<br><br>
+		<<searocks>><<swimmingdifficultytext0>>
+		<br>
+		<<seadocks>><<swimmingdifficultytext0>>
+		<br>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Sea Rocks
+
+<<location "searocks">><<water>><<effects>>
+You are swimming in the sea near some rocks, west of the beach.
+<<if Time.dayState is "night">>
+	<<if $weather is "rain">>
+		The dark water is hammered by rain all around you.
+	<<elseif $weather is "snow">>
+		Dark water devours the falling snow.
+	<<else>>
+		The water is dark and foreboding.
+	<</if>>
+<<else>>
+	<<if $weather is "rain">>
+		The surface is agitated by the deluge of rain.
+	<<elseif $weather is "snow">>
+		Snow settles on the dryer areas.
+	<<else>>
+		The water is calm and clear.
+	<</if>>
+<</if>>
+<br><br>
+<<if $seaswim is 1>>
+	<<set $seaswim to 0>>
+	You spend some time swimming.
+	<<physique 3>><<swimmingskilluse>>
+	<br><br>
+<</if>>
+<<if $exposed gte 1>>
+	You keep your <<lewdness>> hidden beneath the surface of the water.
+	<br><br>
+<</if>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+		<<eventssea>>
+	<<else>>
+		<<ind>><<link [[Climb onto the rocks (0:02)|Rocks]]>><<pass 2>><</link>>
+		<br>
+		<<ind>><<link [[Practise swimming (0:30)|Sea Rocks]]>><<pass 30>><<stress -6>><<tiredness 6>><<set $seaswim to 1>><<slimeEventEnd>><</link>><<gswimming>><<lstress>><<gtiredness>>
+		<br>
+		<<swimicon>><<link [[Swim out to sea (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea to 0>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+		<br><br>
+		<<seabeach>><<swimmingdifficultytext0>>
+		<br>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Rocks
+
+<<location "searocks">><<effects>>
+You are on the rocks to the west of the beach. Most of them become covered by water depending on the tide. The rocks hide you from view of the town.
+<br><br>
+There's a sheltered space atop one of the rocks, above a deep pool.
+<br>
+<<storeactions "beachrocks">>
+<<if $smuggler_location is "beach" and $smuggler_timer is 0 and Time.dayState is "night" and Time.hour gte 18>>
+	<<smugglerdifficultytext>>
+<</if>>
+<<if $phase is 1>>
+	<<set $phase to 0>>
+	You search for pieces of seaweed long and sturdy enough to build an improvised garment. You find some suitable specimens and tie them together around your chest. It's fragile and revealing, and you don't think you could take it off without breaking it, but it's better than nothing.
+	<<plantupper>>
+	<br><br>
+	<<if $rng gte 91 and $parasite.nipples.name is undefined and $parasitedisable is "f">>
+		Your satisfaction is interrupted by a pinching sensation on your <<nipples>>. Shocked, you pull down your top to find the culprit. Two small sea urchins have latched to your teats. They massage and suck your nipples as if trying to nurse. They don't hurt at all, but the sensations are arousing you. You tug them in a bid to be free of their molestation, but they cling too tightly. What's more, touching them with any amount of force makes them suck more intensely. You'll need help to remove them.
+		<<parasite nipples urchin>><<garousal>><<arousal 600 "breasts">>
+		<br><br>
+	<</if>>
+<</if>>
+<<if $phase is 2>>
+	<<set $phase to 0>>
+	You search for pieces of seaweed long and sturdy enough to build an improvised garment. You find some suitable specimens and tie them together around your waist. It's fragile and revealing, and you don't think you could take it off without breaking it, but it's better than nothing.
+	<<plantlower>>
+	<br><br>
+	<<if $rng gte 91 and $parasite.penis.name is undefined and $player.penisExist and $parasitedisable is "f" and !playerChastity("penis")>>
+		Your satisfaction is interrupted by a pinching sensation on your <<penis>>. Shocked, you lift your skirt to find the culprit. A small sea urchin has latched on. It massages and sucks as if trying to nurse. It doesn't hurt at all, but the sensations are making you feel shamefully aroused. You tug it in a bid to be free of its molestation, but it clings too tightly. What's more, touching it with any amount of force makes it suck more intensely. You'll need help to remove it.
+		<<parasite penis urchin>><<garousal>><<arousal 600 "genitals">>
+		<br><br>
+	<<elseif $rng gte 91 and $parasite.clit.name is undefined and $player.vaginaExist and $parasitedisable is "f" and !playerChastity("hidden") and !$player.penisExist>>
+		Your satisfaction is interrupted by a pinching sensation on your <<pussy>>. Shocked, you lift your skirt to find the culprit. A small sea urchin has latched onto your clit. It massages and sucks as if trying to nurse. It doesn't hurt at all, but the sensations are making you feel shamefully aroused. You tug it in a bid to be free of its molestation, but it clings too tightly. What's more, touching it with any amount of force makes it suck more intensely. You'll need help to remove it.
+		<<parasite clit urchin>><<garousal>><<arousal 600 "genitals">>
+		<br><br>
+	<</if>>
+<</if>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<if $smuggler_location is "beach" and $smuggler_timer is 0 and Time.dayState is "night" and Time.hour gte 18>>
+		<<smugglerdifficultyactions>>
+		<br>
+	<</if>>
+	<<if $worn.upper.exposed gte 2 and $worn.under_upper.exposed gte 1
+	or $worn.upper.exposed gte 2 and $underupperwetstage gte 3
+	or $upperwetstage gte 3 and $worn.under_upper.exposed gte 1
+	or $upperwetstage gte 3 and $underupperwetstage gte 3>>
+		<<link [[Make a top out of seaweed (0:20)|Rocks]]>><<pass 20>><<set $phase to 1>><</link>>
+		<br>
+	<</if>>
+	<<if $worn.lower.exposed gte 2 and $worn.under_lower.exposed gte 1
+	or $worn.lower.exposed gte 2 and $underlowerwetstage gte 3
+	or $lowerwetstage gte 3 and $worn.under_lower.exposed gte 1
+	or $lowerwetstage gte 3 and $underlowerwetstage gte 3>>
+		<<link [[Make a skirt out of seaweed (0:20)|Rocks]]>><<pass 20>><<set $phase to 2>><</link>>
+		<br>
+	<</if>>
+	<<link [[Slip into the pool (0:01)|Rocks Pool]]>><<pass 1>><</link>>
+	<br>
+	<br>
+	<<link [[Swim into the sea (0:02)|Sea Rocks]]>><<pass 2>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+<<storecleanup>>
+
+:: Rocks Pool
+<<water>><<effects>>
+
+You slip into the pool, disturbing a school of small fish. It's warmer than the sea.
+<br><br>
+
+<<if $museumAntiques.antiques.antiquediamond isnot "found" and $museumAntiques.antiques.antiquediamond isnot "talk" and $museumAntiques.antiques.antiquediamond isnot "museum">>
+	Light catches on something far below. The pool is deep.
+	<br><br>
+<<else>>
+<</if>>
+
+<<if $swarmdisable is "f" and $deviancy gte 75 and $daily.rocksPoolInvite isnot 1>>
+	<<link [[Invite the fish (0:05)|Rocks Swarm Invite]]>><<set $daily.rocksPoolInvite to 1>><<pass 5>><</link>><<deviant5>>
+	<br>
+<</if>>
+<<link [[Dive (0:01)|Rocks Dive]]>><<pass 1>><<set $phase to 0>><</link>>
+<br>
+<<link [[Climb out (0:01)|Rocks]]>><<pass 1>><</link>>
+<br>
+
+
+:: Rocks Up
+<<effects>>
+
+<<if Time.dayState is "night">>
+	<<if $weather is "clear">>
+		You swim toward the moonlight above, emerging in the cold night breeze.
+	<<else>>
+		Such is the darkness that it's hard to tell which way is up. You emerge into the cold night breeze before panic sets in.<<gstress>><<stress 6>>
+	<</if>>
+<<else>>
+	You swim toward the light above, emerging in the cool sea breeze
+<</if>>
+<br><br>
+
+<<link [[Next|Rocks Pool]]>><</link>>
+<br>
+
+:: Rocks Dive
+<<set $outside to 0>><<underwater>><<effects>>
+
+<<if $phase is 0>>
+	You dive beneath the water.
+	<<if $museumAntiques.antiques.antiquediamond isnot "found" and $museumAntiques.antiques.antiquediamond isnot "talk" and $museumAntiques.antiques.antiquediamond isnot "museum">>
+		An unmistakable light glints below.
+	<<else>>
+		You see the shadowy outline of the cave below.
+	<</if>>
+<<elseif $phase is 1>>
+	You swim deeper into the pool, startling fish as you pass.
+<<elseif $phase is 2>>
+	You swim deeper into the pool. The urchins lining the walls close as you pass.
+<<elseif $phase is 3>>
+	You swim deeper into the pool. Seaweed surrounds you, rising in tufts from the sides of the pool.
+<<elseif $phase is 4>>
+	You swim deeper into the pool. The pool narrows.
+<<elseif $phase is 5>>
+	You swim deeper into the pool. The seaweed thins.
+<<elseif $phase is 6>>
+	You swim deeper into the pool. You've passed the halfway point.
+<<elseif $phase is 7>>
+	<<if $hallucinations gte 2>>
+		You swim deeper into the pool. Sharp outcrops jut from the rocky walls, pointing downwards. Barbed teeth.
+	<<else>>
+		You swim deeper into the pool, avoiding sharp outcrops of rock.
+	<</if>>
+<<elseif $phase is 8>>
+	You swim deeper into the pool. The walls become smoother, and darker.
+<<elseif $phase is 9>>
+	You swim deeper into the pool. Jet black rock surrounds you.
+	<<if $museumAntiques.antiques.antiquediamond isnot "found" and $museumAntiques.antiques.antiquediamond isnot "talk" and $museumAntiques.antiques.antiquediamond isnot "museum">>
+		The light is close.
+	<<else>>
+		The cave is close.
+	<</if>>
+<<elseif $phase is 10>>
+	You swim deeper,
+	<<if $museumAntiques.antiques.antiquediamond isnot "found" and $museumAntiques.antiques.antiquediamond isnot "talk" and $museumAntiques.antiques.antiquediamond isnot "museum">>
+		within arm's reach of the glint.
+	<<else>>
+		until you're level with the cave.
+	<</if>>
+<</if>>
+<br><br>
+
+
+<<link [[Swim up|Rocks Up]]>><<set $phase to 0>><</link>>
+<br>
+<<if $phase is 10>>
+	<<if $museumAntiques.antiques.antiquediamond isnot "found" and $museumAntiques.antiques.antiquediamond isnot "talk" and $museumAntiques.antiques.antiquediamond isnot "museum">>
+		<<link [[Grasp it|Rocks Diamond]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+	<<else>>
+		<<link [[Swim inside|Beach Cave Entrance]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<link [[Swim deeper|Rocks Dive]]>><<wateraction>><<set $phase += 1>><</link>><<loxygen>>
+	<br>
+<</if>>
+
+:: Rocks Diamond
+<<underwater>><<effects>>
+
+<<set $antiquemoney += 2000>><<museumAntiqueStatus "antiquediamond" "found">>
+You grasp the light, along with a handful of sand, and examine it. It's a white jewel, no bigger than a fingernail, but it might be worth something to a collector.
+<br><br>
+<<earnFeat "Spelunking">>
+You plant your feet against the sand, and notice a cave leading away from the pool, lit by a dim blue light.
+<br><br>
+
+<<link [[Swim up|Rocks Up]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Swim into the cave|Beach Cave Entrance]]>><</link>>
+<br>
+
+:: Rocks Swarm Invite
+<<effects>>
+
+You float into the middle of the pool, and open your legs. The fish are cautious, swimming close, then darting back into the murk. Then you feel one brush against your <<bottom>>. Then against your <<breasts>>. More join them, and they're soon sliding against every inch of your skin.
+<<deviancy5>>
+
+<<link [[Next|Rocks Swarm]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Rocks Swarm
+<<location "searocks">><<effects>>
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<set $combat to 1>>
+	<<set $enemytype to "swarm">>
+	<<swarminit "fish" "swarm" "moving towards you" "encircle you" "fend off" 6 6>>
+	<<set $water to 1>>
+	<<set $timer to 17>>
+<</if>>
+<br><br>
+<<swarmeffects>>
+<<swarm>>
+<<swarmactions>>
+<<if $orgasmdown gte 1>>
+	<span id="next"><<link [[Next|Rocks Swarm Finish]]>><</link>></span><<nexttext>>
+<<elseif $timer lte 0>>
+	<span id="next"><<link [[Next|Rocks Swarm Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Rocks Swarm]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Rocks Swarm Finish
+<<effects>>
+
+<<if $orgasmdown gte 1>>
+	Your orgasmic convulsions startle the fish. They swim deep, leaving you to shudder in the water.
+	<br><br>
+<<else>>
+	Satisfied, the fish swim into the depths, leaving you alone in the pool.
+	<br><br>
+<</if>>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Rocks Pool]]>><</link>>
+
+
+:: Sea Docks
+
+<<location "seadocks">><<water>><<effects>>
+You are swimming in the sea near the docks, east of the beach.
+<<if Time.dayState is "night">>
+	<<if $weather is "rain">>
+		The dark water is hammered by rain all around you.
+	<<elseif $weather is "snow">>
+		Dark water devours snow all around you.
+	<<else>>
+		The water is dark and foreboding.
+	<</if>>
+<<else>>
+	<<if $weather is "rain">>
+		The surface is agitated by the deluge of rain.
+	<<elseif $weather is "snow">>
+		The docks bustle with activity, workers wrapped warm against the cold.
+	<<else>>
+		The docks bustle with activity. The water is calm and clear.
+	<</if>>
+<</if>>
+<br><br>
+<<if $seaswim is 1>>
+	<<set $seaswim to 0>>
+	You spend some time swimming.
+	<<physique 3>><<swimmingskilluse>>
+	<br><br>
+<</if>>
+<<if $exposed gte 1>>
+	You keep your <<lewdness>> hidden beneath the surface of the water.
+	<br><br>
+<</if>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+		<<eventssea>>
+	<<else>>
+		<<ind>><<link [[Climb onto the docks (0:02)|Mer Street]]>><<pass 2>><</link>>
+		<br>
+		<<ind>><<link [[Practise swimming (0:30)|Sea Docks]]>><<pass 30>><<stress -6>><<tiredness 6>><<set $seaswim to 1>><<slimeEventEnd>><</link>><<gswimming>><<lstress>><<gtiredness>>
+		<br>
+		<<swimicon>><<link [[Swim out to sea (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea to 0>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+		<br><br>
+		<<seabeach>><<swimmingdifficultytext0>>
+		<br>
+		<<seacliffs>><<swimmingdifficulty 1 100>>
+		<br>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Sea Cliffs
+
+<<location "seacliffs">><<water>><<effects>>
+You are swimming in the sea at the base of some cliffs, east of the docks. A large storm drain exits above you, creating a waterfall.
+<<if Time.dayState is "night">>
+	<<if $weather is "rain">>
+		The dark water is hammered by rain all around you.
+	<<elseif $weather is "snow">>
+		Dark water devours the snow.
+	<<else>>
+		The water is dark and foreboding.
+	<</if>>
+<<else>>
+	<<if $weather is "rain">>
+		The surface is agitated by the deluge of rain.
+	<<elseif $weather is "snow">>
+		The water is calm beneath the snowy sky.
+	<<else>>
+		The water is calm and clear.
+	<</if>>
+<</if>>
+<br><br>
+<<if $seaswim is 1>>
+	<<set $seaswim to 0>>
+	You spend some time swimming.
+	<<physique 3>><<swimmingskilluse>>
+	<br><br>
+<</if>>
+<<if $exposed gte 1>>
+	You keep your <<lewdness>> hidden beneath the surface of the water.
+	<br><br>
+<</if>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+		<<eventssea>>
+	<<else>>
+		<<swimmingdifficulty 1 100 true>>
+		<<if $swimmingSuccess>>
+			<span class="green">You successfully swim against the tide.</span>
+			<br><br>
+			<<ind>><<link [[Practise swimming (0:30)|Sea Cliffs]]>><<pass 30>><<stress -6>><<tiredness 6>><<set $seaswim to 1>><<slimeEventEnd>><</link>><<gswimming>><<lstress>><<gtiredness>><<swimmingdifficulty 1 100>>
+			<br>
+			<<swimicon>><<link [[Swim out to sea (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea to 0>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+			<br><br>
+			<<seadocks>><<swimmingdifficultytext0>>
+			<br>
+		<<else>>
+			You try to swim against the tide, but <span class="red">it's too strong for you.</span> You are swept out to sea.
+			<br><br>
+			<<link [[Next|Sea]]>><<set $sea to 0>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Sea
+
+<<location "sea">><<water>><<effects>>
+<<if $sea is 0>>
+	You are swimming in the sea. You are near the beach outside town.
+	<<if Time.dayState is "night">>
+		Lights glimmer across the water.
+	<<elseif Time.dayState is "dawn">>
+		The shadows lengthen in the morning sun.
+	<<elseif Time.dayState is "dusk">>
+		The shadows lengthen in the setting sun.
+	<<else>>
+		It bustles with activity.
+	<</if>>
+	<<physique>>
+	<br><br>
+	<<if $stress gte $stressmax>>
+		<<passoutbeach>>
+	<<else>>
+		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+		<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+			<<eventsdeepsea>>
+		<<else>>
+			<<swimmingdifficulty 1 100 true>>
+			<<if $swimmingSuccess>>
+				<span class="green">You successfully swim against the tide.</span>
+				<br><br>
+				<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<set $sea += 10>><<pass 10>><<tiredness 2>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+				<br>
+				<<swimbackicon>><<link [[Swim towards shore (0:10)|Sea Beach]]>><<pass 10>><<tiredness 2>><<set $sea to 0>><</link>><<gtiredness>><<swimmingdifficultytext0>>
+				<br>
+			<<else>>
+				You try to swim against the tide, <span class="red">but it's too strong for you.</span> You are swept further out to sea.
+				<br><br><br>
+				<<link [[Next|Sea]]>><<set $sea += 10>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+<<elseif $sea lte 20>>
+	You are swimming in the sea.
+	<<if Time.dayState is "night">>
+		You can see the town nearby, its light glimmering on the water.
+	<<else>>
+		You can see the town nearby.
+	<</if>>
+	<<physique>>
+	<br><br>
+	<<if $stress gte $stressmax>>
+		<<passoutbeach>>
+	<<else>>
+		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+		<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+			<<eventsdeepsea>>
+		<<else>>
+			<<swimmingdifficulty 1 100 true>>
+			<<if $swimmingSuccess>>
+				<span class="green">You successfully swim against the tide.</span>
+				<br><br>
+				<<if $sea gte 40>>
+					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 200>>
+					<br>
+				<<else>>
+					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+					<br>
+				<</if>>
+				<<swimbackicon>><<link [[Swim towards shore (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea -= 10>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+				<br>
+			<<else>>
+				You try to swim against the tide, <span class="red">but it's too strong for you.</span> You are swept further out to sea.
+				<br><br>
+				<<link [[Next|Sea]]>><<set $sea += 10>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+<<elseif $sea lte 50>>
+	You are swimming in the sea.
+	<<if Time.dayState is "night">>
+		<<if $weather is "clear">>
+			The town glows against the night in the distance.
+		<<else>>
+			You can see the town in the distance. An orange glow lights the clouds above.
+		<</if>>
+	<<else>>
+		You can see the town in the distance.
+		<br>
+		Something colorful specks the water in the distance.
+	<</if>>
+	<<physique>>
+	<br><br>
+	<<if $stress gte $stressmax>>
+		<<passoutbeach>>
+	<<else>>
+		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+		<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+			<<eventsdeepsea>>
+		<<else>>
+			<<swimmingdifficulty 1 200 true>>
+			<<if $swimmingSuccess>>
+				<span class="green">You successfully swim against the tide.</span>
+				<br><br>
+				<<if $sea gte 40>>
+					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+					<br>
+					<<swimicon>><<link [[Swim toward the color (0:10)|Sea Reef]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+					<br>
+				<<else>>
+					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 200>>
+					<br>
+				<</if>>
+				<<swimbackicon>><<link [[Swim towards shore (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea -= 10>><</link>><<gtiredness>><<swimmingdifficulty 1 100>>
+				<br>
+			<<else>>
+				You try to swim against the tide, <span class="red">but it's too strong for you.</span> You are swept further out to sea.
+				<br><br><br>
+				<<link [[Next|Sea]]>><<set $sea += 10>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+<<elseif $sea lte 99>>
+	You are swimming in the sea.
+	<<if Time.dayState is "night">>
+		<<if $weather is "clear">>
+			You can see the town glowing on the horizon.
+			<br>
+			The ocean drops into deep darkness below you
+		<<else>>
+			You can see the town on the horizon, lighting the clodus above.
+		<</if>>
+	<<else>>
+		You can see the town on the horizon.
+	<</if>>
+	<<physique>>
+	<br><br>
+	<<if $stress gte $stressmax>>
+		<<passoutbeach>>
+	<<else>>
+		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+		<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+			<<eventsdeepsea>>
+		<<else>>
+			<<swimmingdifficulty 1 300 true>>
+			<<if $swimmingSuccess>>
+				<span class="green">You successfully swim against the tide.</span>
+				<br><br>
+				<<if $sea gte 90>>
+					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 400>>
+					<br>
+					<<swimicon>><<link [[Dive (0:10)|Sea Dive]]>><<pass 10>><<tiredness 2>><<set $phase to 0>><</link>><<gtiredness>>
+					<br>
+				<<else>>
+					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+					<br>
+				<</if>>
+				<<if $sea lte 60>>
+					<<swimbackicon>><<link [[Swim towards shore (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea -= 10>><</link>><<gtiredness>><<swimmingdifficulty 1 200>>
+					<br>
+				<<else>>
+					<<swimbackicon>><<link [[Swim towards shore (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea -= 10>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+					<br>
+				<</if>>
+			<<else>>
+				You try to swim against the tide, <span class="red">but it's too strong for you.</span> You are swept further out to sea.
+				<br><br>
+				<<link [[Next|Sea]]>><<set $sea += 10>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+<<elseif $sea gte 100>>
+	<<set $sea to 100>>
+	You are swimming in the sea.
+	<<if Time.dayState is "night">>
+		There's an island nearby, hidden by the night. You wouldn't see it if not for the lighthouse. The beam angles and arcs in irregular patterns.
+	<<else>>
+		There's an island nearby, dominated by a fortress and surrounded by jagged rocks.
+	<</if>>
+	<<physique>>
+	<br><br>
+	<<earnFeat "The Endless Deep">>
+	<<if $stress gte $stressmax>>
+		<<passoutbeach>>
+	<<else>>
+		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+		<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+			<<eventsdeepsea>>
+		<<else>>
+			<<swimmingdifficulty 1 400 true>>
+			<<if $swimmingSuccess>>
+				<span class="green">You successfully swim against the tide.</span>
+				<br><br>
+				<<link [[Swim towards shore (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea -= 10>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+				<br>
+			<<else>>
+				You try to swim against the tide, <span class="red">but it's too strong for you.</span> You are swept further out to sea.
+				<br><br>
+				<<link [[Next|Sea]]>><<set $sea += 10>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Sea Reef
+<<set $location to "sea">><<water>><<effects>>
+You are swimming in the sea.
+<<physique>>
+<br><br>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<swimmingdifficulty 1 100 true>>
+	<<if $swimmingSuccess>>
+		<span class="green">You successfully swim against the tide.</span>
+		<br><br>
+		<<link [[Swim back toward the town (0:10)|Sea]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
+		<br>
+		<<link [[Swim to the small island (0:10)|Island Landing]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
+		<br>
+	<<else>>
+		You try to swim against the tide, <span class="red">but it's too strong for you.</span> You are swept further out to sea.
+		<br><br>
+		<<link [[Next|Sea]]>><<set $sea += 10>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Sea Dive
+<<location "seadive">><<set $bus to "seadive">><<set $outside to 0>><<underwater>><<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+		<<eventsdeepseadive>>
+	<<else>>
+		<<if $phase is 0>>
+			You dive beneath the water. Light streams through, calmly lighting the open water.
+		<<elseif $phase is 1>>
+			The light from above fades at this depth of the ocean.
+		<<elseif $phase is 2>>
+			You can see the faint silhouette of a coral reef in the distance.
+		<<elseif $phase is 3>>
+			Your sun grows dimmer in the deeper waters, but you keep swimming.
+		<<elseif $phase is 4>>
+			You notice small fish darting in and out of view. They're quickly followed by even smaller fish, swimming around them in a circle.
+		<<elseif $phase is 5>>
+			As you move further, you begin to see strange shapes in the distance. You move towards them, curious to see what they are. They turn out to be massive cliffs, rising up from the ocean floor like forgotten sentinels of ancient times.
+		<<elseif $phase is 6>>
+			The sun's rays no longer penetration here, but the water still glows with an eerie blue radiance.
+		<<elseif $phase is 7>>
+			You start to see strange, pulsating shapes in the distance. As you move closer, they become more defined. They're giant sea creatures, moving with grace and power.
+		<<elseif $phase is 8>>
+			You are surrounded by complete blackness. The only sound is the faint echos of the deep.
+		<<elseif $phase is 9>>
+			Despite the limited visibility, you can still make out the shapes of various sea creatures swimming around you. You see a large group of jelly-fish drifting past, their shimmering tentacles glowing in the darkness. You even glimpse the shadow of a large whale as it swims in the distance.
+		<<elseif $phase is 10>>
+			After what feels like an eternity of descending, you finally reach the bottom. You take a moment to collect yourself and soak in the unique sense of isolation that comes from being so deep underwater.
+		<</if>>
+		<br><br>
+
+		<<if $phase is 0>>
+			<<link [[Resurface|Sea]]>><<wateraction>><</link>>
+			<br>
+		<</if>>
+		<<if $phase is 1>>
+			<<link [[Resurface|Sea]]>><<wateraction>><</link>>
+			<br>
+		<</if>>
+		<<if $phase gt 1>>
+			<<link [[Swim up|Sea Dive]]>><<wateraction>><<set $phase -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+			<br>
+		<</if>>
+		<<if $phase lt 10>>
+			<<link [[Swim deeper|Sea Dive]]>><<wateraction>><<set $phase += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+			<br>
+		<</if>>
+		<<if $phase is 10 and $ship is undefined>>
+			<<link [[Explore the sea floor|Deep Sea Ship Find]]>><<wateraction>><</link>><<loxygen>>
+			<br>
+		<<elseif $phase is 10>>
+			<<link [[Swim to the sunken ship|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+:: Deep Sea Ship Find
+<<underwater>><<effects>>
+As you swim along the seafloor you see it - a sunken ship, looming in the distance. Your heart races as you approach it, and you can see the damage that the sea has inflicted upon it. The wood and metal have rusted and pitted over time, and the entire ship seems to have a sort of haunted feeling. The sight of it is almost otherworldly, as if it's a ghost ship.
+<br><br>
+As you approach the ship, you start to notice the damage in more detail. You see a large hole in the side of the ship, and you can even make out some of the rooms that used to be inside. The ship is completely overgrown with sea life, and you can see fish swimming around it. The whole scene is almost eerie, and you're reminded of the power of nature to claim what was once man-made.
+<br><br>
+As you swim around the ship, you can get a better idea of its size. It's massive, almost as if it's a small town on the sea floor. You can see where the propeller used to be, and you try to imagine what it was like when the ship was still floating.
+<br><br>
+<<link [[Swim to the sunken ship|Deep Sea Ship]]>><<set $ship to 1>><<set $shiproom to 0>><</link>>
+
+:: Deep Sea Ship
+<<underwater>><<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<if $shiproom is 0>>
+		You enter the galleons galley. An ancient stove lies in disrepair, rusted over and overgrown by weeds. Fish dart between the shelves, hiding in the many crevices. A long hallway leads deeper into the ship, most of the doors are sealed shut but one was blown off the hinges leaving a door-shaped hole.
+	<<elseif $shiproom is 1>>
+		You're in a room full of ceramic pots of all shapes and sizes. It seems like the galleon probably used this space to store loot. A lot of pots were broken and the loot has been rusted into nothing, however plenty of pots seem to still be intact. A doorway leads back into the galley and a gaping hole in the floor leads deeper into the ship still.
+	<<elseif $shiproom is 2>>
+		You're in the hull of the ship. The floor is shredded for the most part and you can see the seafloor below. A large stone statue adorns the room, casting a calming blue light. Luminous mosses grow over it, but despite that, you can make out a beautiful statue of a mermaid. 
+	<</if>>
+	<br><br>
+	<<if $shiproom is 0>>
+		<<link [[Leave the ship|Sea Dive]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+	<</if>>
+	<<if $shiproom is 1>>
+		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+	<</if>>
+	<<if $shiproom is 2>>
+		<<link [[Pray to the statue|Deep Sea Ship Statue]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+	<</if>>
+	<<if $shiproom gt 0>>
+		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+	<</if>>
+	<<if $shiproom lt 2>>
+		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Deep Sea Ship Pots
+<<underwater>><<effects>>
+<<if $stress gte $stressmax and !$possessed>>
+	<<passoutbeach>>
+<<else>>
+	<<if $rng gte 80>>
+		<<rng>>
+		<<if $rng gte 95>>
+			You find a gold bullion.
+			<<set $antiquemoney += 800>><<museumAntiqueStatus "antiquebullion" "found">>
+			<br><br>
+		<<elseif $rng gte 30>>
+			You find a pristine Spanish real.
+			<<set $antiquemoney += 40>><<museumAntiqueStatus "antiquereal" "found">>
+			<br><br>
+		<<elseif $rng gte 0>>
+			You find a small bottle of indigo powder.
+			<<set $antiquemoney += 60>><<museumAntiqueStatus "antiqueindigo" "found">>
+			<br><br>
+		<</if>>
+		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+	<<elseif $rng gte 60 and $swarmdisable is "f">>
+		You reach inside one of the pots. Swarms of small fish surge out, surrounding you.
+		<br><br>
+		<<link [[Next|Deep Sea Ship Swarm]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		<<rng>>
+		<<if $rng gte 81>>
+			You reach inside one of the pots. It's full of broken ceramics.
+		<<elseif $rng gte 61>>
+			You reach inside one of the pots. Something inside snaps at you. You pull your hand away in time, but it was close.
+			<<gstress>><<stress 3>>
+		<<elseif $rng gte 41>>
+			You reach inside one of the pots. It's full of mud.
+		<<elseif $rng gte 21>>
+			You reach inside one of the pots. It's full of pebbles.
+		<<else>>
+			You reach inside one of the pots. It's empty.
+		<</if>>
+		<br><br>
+		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+	<</if>>
+<</if>>
+
+:: Deep Sea Ship Swarm
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<molested>>
+	<<controlloss>>
+	<<set $combat to 1>>
+
+	<<set $enemytype to "swarm">>
+	<<swarminit "fish" "container" "shaking" "shatter" "steady" 4 6>>
+	<<set $swimdistance to 8>>
+	<<set $water to 1>>
+<</if>>
+<<if $swimdistance gte 8>>
+	You're caught in the middle of the swarm.
+<<elseif $swimdistance gte 2>>
+	You're escaping the swarm.
+<<else>>
+	You've almost escaped.
+<</if>>
+<<underwater>><<effects>><<swarmeffects>>
+<<swarm>>
+<<swarmactions>>
+<<if $stress gte $stressmax>>
+	<span id="next"><<link [[Next|Deep Sea Ship Swarm Finish]]>><</link>></span><<nexttext>>
+<<elseif $swimdistance lte 0>>
+	<span id="next"><<link [[Next|Deep Sea Ship Swarm Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Deep Sea Ship Swarm]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Deep Sea Ship Swarm Finish
+<<underwater>><<effects>>
+<<if $stress gte $stressmax>>
+	It's all just too much for you. You pass out.
+	<br><br>
+	<<if $upperoff isnot 0>>
+		<<upperruined>>
+	<</if>>
+	<<if $loweroff isnot 0>>
+		<<lowerruined>>
+	<</if>>
+	<<if $underloweroff isnot 0>>
+		<<underlowerruined>>
+	<</if>>
+	<<if $underupperoff isnot 0>>
+		<<underupperruined>>
+	<</if>>
+	<<endcombat>>
+	<<passoutlake>>
+<<else>>
+	<<tearful>> you swim away from the swarms of fish, who stay near their pots. They disappear inside them.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Swim towards exit|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
+	<br>
+	<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+	<br>
+<</if>>
+
+:: Deep Sea Ship Statue
+<<if $ghost is 1>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	You're overcome by a tingling sensation.
+	<br><br>
+	<<set $skinColor.natural to "water">>
+	<<set $transformationParts.ghost.hitodama to "disabled">>
+    <<set $transformationParts.ghost.stream to "default">>
+	<<set $haircolour to "blue">>
+	<<set $hairfringecolour to "deepblue">>
+	<<set $options.lightGlow to 1>>
+	<<set $ghost to 4>>
+	<<if $purity gte ((1000 / 7) * 7)>>
+		<<awareness -2>><<arousal -120>>
+	<<elseif $purity gte ((1000 / 7) * 6)>>
+		<<awareness -1>><<arousal -100>>
+	<<elseif $purity gte ((1000 / 7) * 5)>>
+		<<awareness -1>><<arousal -80>>
+	<<elseif $purity gte ((1000 / 7) * 4)>>
+		<<awareness -1>><<arousal -60>>
+	<<elseif $purity gte ((1000 / 7) * 3)>>
+		<<awareness -1>><<arousal -50>>
+	<<elseif $purity gte ((1000 / 7) * 2)>>
+		<<awareness -1>><<arousal -40>>
+	<<else>>
+		<<awareness -1>><<arousal -30>>
+	<</if>>
+	<<link [[Leave|Deep Sea Ship]]>><</link>>
+<<else>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	You feel less burdened.
+	<br><br>
+	<<if $purity gte ((1000 / 7) * 7)>>
+		<<awareness -2>><<arousal -120>>
+	<<elseif $purity gte ((1000 / 7) * 6)>>
+		<<awareness -1>><<arousal -100>>
+	<<elseif $purity gte ((1000 / 7) * 5)>>
+		<<awareness -1>><<arousal -80>>
+	<<elseif $purity gte ((1000 / 7) * 4)>>
+		<<awareness -1>><<arousal -60>>
+	<<elseif $purity gte ((1000 / 7) * 3)>>
+		<<awareness -1>><<arousal -50>>
+	<<elseif $purity gte ((1000 / 7) * 2)>>
+		<<awareness -1>><<arousal -40>>
+	<<else>>
+		<<awareness -1>><<arousal -30>>
+	<</if>>
+	<<link [[Leave|Deep Sea Ship]]>><</link>>
+<</if>>

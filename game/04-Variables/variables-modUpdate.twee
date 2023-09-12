@@ -1,0 +1,687 @@
+:: Widgets variablesModUpdate [widget]
+<<widget "variablesModUpdate">>
+	/* * * * * * * * * * * * * * * * * *
+Put variables specific to World Expansion here. 
+These variables will be by referred to by both new and old WE saves.
+
+If you are encountering an issue with World Expansion variables, utilize the console in the web browser tab you're playing DoL on. Go to the console tab that also says "console". There should be an empty terminal below. Enter "V.modtest" without the quotes. 
+
+If the result is "undefined", this widget is not called for some reason. If the result is "success", then either everything works, or the issue lies elsewhere. You may also use this method to test individual variables such as "V.slime" or "V.ghost".
+
+
+
+	*/
+	<<if $objectVersion is undefined>>
+		<<set $objectVersion to {}>>
+	<</if>>
+	<<if $saveVersions is undefined>>
+		<<set $saveVersions to [StartConfig.version]>>
+	<<elseif $saveVersions.last() isnot StartConfig.version>>
+		<<set $saveVersions.push(StartConfig.version)>>
+	<</if>>
+	<<if $saveId is undefined>>
+		<<set $saveId to random(10000, 99999)>>
+	<</if>>
+	<<if $saveName is undefined>>
+		<<set $saveName to "">>
+	<</if>>
+
+	<<if $modtest is undefined>>
+		<<set $modtest to "success">>
+	<</if>>
+
+
+	
+	
+	
+	<<if $taylorgender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $taylorgender to "f">>
+		<<else>>
+			<<set $taylorgender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $taylorgenitals is undefined>>
+		<<if $taylorgender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $taylorgenitals to "penis">>
+			<<else>>
+				<<set $taylorgenitals to "vagina">>
+			<</if>>
+		<<elseif $taylorgender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $taylorgenitals to "vagina">>
+			<<else>>
+				<<set $taylorgenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
+	<<if $caseygender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $caseygender to "f">>
+		<<else>>
+			<<set $caseygender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $caseygenitals is undefined>>
+		<<if $caseygender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $caseygenitals to "penis">>
+			<<else>>
+				<<set $caseygenitals to "vagina">>
+			<</if>>
+		<<elseif $caseygender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $caseygenitals to "vagina">>
+			<<else>>
+				<<set $caseygenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
+	<<if $caseyagain is undefined>>
+		<<set $caseyagain to 0>>
+		<<set $caseymet to 0>>
+		<<set $caseyridefirst to 0>>
+		<<set $caseyromance to 0>>
+		<<set $motorupgrade to 0>>
+	<</if>>
+
+
+	<!-- Put basegame and new beast types here-->
+	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>>
+
+	<<if $wolf gte 1 or $cat gte 1 or $harpy gte 1 or $cow gte 1 or $fox gte 1 or $sheep gte 1 or $bee gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1 or $horse gte 1 or $pig gte 1 or $spider gte 1 or $frog gte 1>>
+		<<set $physicalTransform to 1>>
+		<<set $permanentTransform to 1>>
+	<<else>>
+		<<set $physicalTransform to 0>>
+		<<set $permanentTransform to 0>>
+	<</if>>
+
+
+		<!-- DoLM -->
+	<!-- If the action involves hands -->
+	<<if $skulduggeryhands is undefined>>
+		<<set $skulduggeryhands to 0>>
+	<</if>>
+
+	<<if $bjob is undefined>>
+		<<set $bjob to 0>>
+	<</if>>
+
+	<<if $TaylorArrested is undefined>>
+		<<set $TaylorArrested to 0>>
+	<</if>>
+
+	<<if $TaylorChase is undefined>>
+		<<set $TaylorChase to 0>>
+	<</if>>
+
+	<<if $TaylorFreed is undefined>>
+		<<set $TaylorFreed to 0>>
+	<</if>>
+
+	<<if $TaylorMissing is undefined>>
+		<<set $TaylorMissing to 0>>
+	<</if>>
+
+	<<if $TaylorSeen is undefined>>
+		<<set $TaylorSeen to 0>>
+	<</if>>
+
+	<<if $forestmansionstage is undefined>>
+		<<set $forestmansionstage to 0>>
+	<</if>>
+
+	<<if $forestmansionpicked is undefined>>
+		<<set $forestmansionpicked to 0>>
+	<</if>>
+
+	<<if $forestmansionkitchen is undefined>>
+		<<set $forestmansionkitchen to 0>>
+	<</if>>
+
+	<<if $forestmansionhaunt is undefined>>
+		<<set $forestmansionhaunt to 0>>
+	<</if>>
+
+	<<if $TaylorReadMansion is undefined>>
+		<<set $TaylorReadMansion to 0>>
+	<</if>>
+
+	<<if $TaylorWith is undefined>>
+		<<set $TaylorWith to 0>>
+	<</if>>
+	<<if $dencounter is undefined>>
+		<<set $dencounter to 0>>
+	<</if>>
+	
+	<<if $transformationParts.sheep is undefined>>
+		<<set $sheep to 0>> <<set $sheepbuild to 0>>
+		<<set $transformationParts.sheep to {ears:"disabled", tail:"disabled", horns:"disabled"}>>
+		<<if $sheep gte 2>>
+			<<set $transformationParts.sheep.horns to "default">>
+		<</if>>
+		<<if $sheep gte 4>>
+			<<set $transformationParts.sheep.ears to "default">>
+		<</if>>
+		<<if $sheep gte 6>>
+			<<set $transformationParts.sheep.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.raccoon is undefined>>
+		<<set $raccoon to 0>> <<set $raccoonbuild to 0>>
+		<<set $transformationParts.raccoon to {ears:"disabled", tail:"disabled", mask:"disabled"}>>
+		<<if $raccoon gte 2>>
+			<<set $transformationParts.raccoon.mask to "default">>
+			<<set $transformationParts.traits.incognito to "default">>
+			<<set $transformationParts.traits.sharpEyes to "default">>
+		<</if>>
+		<<if $raccoon gte 4>>
+			<<set $transformationParts.raccoon.ears to "default">>
+		<</if>>
+		<<if $raccoon gte 6>>
+			<<set $transformationParts.raccoon.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.fish is undefined>>
+		<<set $fish to 0>> <<set $fishbuild to 0>>
+		<<set $transformationParts.fish to {fins:"disabled", tail:"disabled"}>>
+		<<if $fish gte 2>>
+			<<set $transformationParts.traits.aquatic to "default">>
+		<</if>>
+		<<if $fish gte 4>>
+			<<set $transformationParts.fish.fins to "default">>
+		<</if>>
+		<<if $fish gte 6>>
+			<<set $transformationParts.fish.tail to "default">>
+			<<set $transformationParts.traits.aquatail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $swimtail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.horse is undefined>>
+		<<set $horse to 0>> <<set $horsebuild to 0>>
+		<<set $transformationParts.horse to {ears:"disabled", tail:"disabled"}>>
+		<<if $horse gte 2>>
+			<<set $transformationParts.traits.vigorous to "default">>
+		<</if>>
+		<<if $horse gte 4>>
+			<<set $transformationParts.horse.ears to "default">>
+		<</if>>
+		<<if $horse gte 6>>
+			<<set $transformationParts.horse.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.pig is undefined>>
+		<<set $pig to 0>> <<set $pigbuild to 0>>
+		<<set $transformationParts.pig to {ears:"disabled", tail:"disabled"}>>
+		<<if $pig gte 2>>
+			<<set $transformationParts.traits.strongnose to "default">>
+		<</if>>
+		<<if $pig gte 4>>
+			<<set $transformationParts.pig.ears to "default">>
+		<</if>>
+		<<if $pig gte 6>>
+			<<set $transformationParts.pig.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.spider is undefined>>
+		<<set $spider to 0>> <<set $spiderbuild to 0>>
+		<<set $transformationParts.spider to {eyes:"disabled", tail:"disabled"}>>
+		<<if $spider gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $spider gte 4>>
+			<<set $transformationParts.spider.eyes to "default">>
+			<<set $transformationParts.traits.sharpEyes to "default">>
+		<</if>>
+		<<if $spider gte 6>>
+			<<set $transformationParts.spider.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.frog is undefined>>
+		<<set $frog to 0>> <<set $frogbuild to 0>>
+		<<set $transformationParts.frog to {eyes:"disabled", cheeks:"disabled"}>>
+		<<if $frog gte 2>>
+			<<set $transformationParts.traits.lungs to "default">>
+			<<set $transformationParts.traits.kicks to "default">>
+			<<set $transformationParts.traits.longtongue to "default">>
+			<<set $transformationParts.traits.webbedfeet to "default">>
+		<</if>>
+		<<if $frog gte 4>>
+			<<set $transformationParts.frog.eyes to "default">>
+		<</if>>
+		<<if $frog gte 6>>
+			<<set $transformationParts.frog.cheeks to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.deer is undefined>>
+		<<set $deer to 0>> <<set $deerbuild to 0>>
+		<<set $transformationParts.deer to {ears:"disabled", tail:"disabled", horns:"disabled"}>>
+		<<if $deer gte 2>>
+			<<set $transformationParts.deer.horns to "default">>
+		<</if>>
+		<<if $deer gte 4>>
+			<<set $transformationParts.deer.ears to "default">>
+		<</if>>
+		<<if $deer gte 6>>
+			<<set $transformationParts.deer.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.bear is undefined>>
+		<<set $bear to 0>> <<set $bearbuild to 0>>
+		<<set $transformationParts.bear to {ears:"disabled", tail:"disabled"}>>
+		<<if $bear gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+			<<set $transformationParts.traits.strongnose to "default">>
+		<</if>>
+		<<if $bear gte 4>>
+			<<set $transformationParts.bear.ears to "default">>
+		<</if>>
+		<<if $bear gte 6>>
+			<<set $transformationParts.bear.tail to "default">>
+			<<set $transformationParts.traits.bearbuild to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.bee is undefined>>
+		<<set $bee to 0>> <<set $beebuild to 0>>
+		<<set $transformationParts.bee to {ears:"disabled", tail:"disabled", wings:"disabled"}>>
+		<<if $bee gte 2>>
+			<<set $transformationParts.bee.ears to "default">>
+		<</if>>
+		<<if $bee gte 4>>
+			<<set $transformationParts.bee.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+		<<if $bee gte 6>>
+			<<set $transformationParts.bee.wings to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dragon is undefined>>
+		<<set $dragon to 0>> <<set $dragonbuild to 0>>
+		<<set $transformationParts.dragon to {eyes:"disabled", fangs:"disabled", horns:"disabled", tail:"disabled", wings:"disabled"}>>
+		<<if $dragon gte 1>>
+			<<set $transformationParts.dragon.eyes to "default">>
+		<</if>>
+		<<if $dragon gte 2>>
+			<<set $transformationParts.dragon.fangs to "default">>
+		<</if>>
+		<<if $dragon gte 3>>
+			<<set $transformationParts.dragon.horns to "default">>
+		<</if>>
+		<<if $dragon gte 4>>
+			<<set $transformationParts.dragon.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+		<</if>>
+		<<if $dragon gte 6>>
+			<<set $transformationParts.dragon.wings to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.lizard is undefined>>
+		<<set $lizard to 0>> <<set $lizardbuild to 0>>
+		<<set $transformationParts.lizard to {eyes:"disabled", tail:"disabled"}>>
+		<<if $lizard gte 1>>
+			<<set $transformationParts.lizard.eyes to "default">>
+		<</if>>
+		<<if $lizard gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $lizard gte 6>>
+			<<set $transformationParts.lizard.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $transformationParts.traits.lungs to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dolphin is undefined>>
+		<<set $dolphin to 0>> <<set $dolphinbuild to 0>>
+		<<set $transformationParts.dolphin to {tail:"disabled"}>>
+		<<if $dolphin gte 2>>
+			<<set $transformationParts.traits.lungs to "default">>
+		<</if>>
+		<<if $dolphin gte 4>>
+			<<set $transformationParts.dolphin.tail to "default">>
+			<<set $hastail to "true">>
+			<<set $thicktail to "true">>
+			<<set $swimtail to "true">>
+		<</if>>
+		<<if $dolphin gte 6>>
+			<<set $transformationParts.traits.aquatail to "default">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.dog is undefined>>
+		<<set $dog to 0>> <<set $dogbuild to 0>>
+		<<set $transformationParts.dog to {ears:"disabled", tail:"disabled"}>>
+		<<if $dog gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $dog gte 4>>
+			<<set $transformationParts.dog.ears to "default">>
+		<</if>>
+		<<if $dog gte 6>>
+			<<set $transformationParts.dog.tail to "default">>
+			<<set $hastail to "true">>
+		<</if>>
+	<</if>>
+
+	<<if $transformationParts.ghost is undefined>>
+		<<set $ghost to 0>>
+		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled", mist:"disabled", stream:"disabled"}>>
+	<</if>>
+
+	<<if $transformationParts.ghost.mist is undefined>>
+		<<set $transformationParts.ghost.mist to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.ghost.stream is undefined>>
+		<<set $transformationParts.ghost.stream to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.slime is undefined>>
+		<<set $slime to 0>>
+		<<set $transformationParts.slime to {bubble:"disabled", stream:"disabled", core:"disabled"}>>
+	<</if>>
+
+	<<if $transformationParts.mushroom is undefined>>
+		<<set $mushroom to 0>>
+		<<set $transformationParts.mushroom to {cap:"disabled", eyes:"disabled", spores:"disabled", mushrooms:"disabled"}>>
+	<</if>>
+
+	<<if $hastail is undefined>>
+		<<set $hastail to "false">>
+		<<set $thicktail to "false">>
+		<<set $swimtail to "false">>
+	<</if>>
+
+	<<if $transformationParts.traits.lungs is undefined>>
+		<<set $transformationParts.traits.lungs to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.aquatic is undefined>>
+		<<set $transformationParts.traits.aquatic to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.incognito is undefined>>
+		<<set $transformationParts.traits.incognito to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.vigorous is undefined>>
+		<<set $transformationParts.traits.vigorous to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.strongnose is undefined>>
+		<<set $transformationParts.traits.strongnose to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.longtongue is undefined>>
+		<<set $transformationParts.traits.longtongue to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.webbedfeet is undefined>>
+		<<set $transformationParts.traits.webbedfeet to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.kicks is undefined>>
+		<<set $transformationParts.traits.kicks to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.traits.bearbuild is undefined>>
+		<<set $transformationParts.traits.bearbuild to "disabled">>
+	<</if>>
+
+
+	<<if $beebuild is undefined>>
+		<<set $beebuild to 0>>
+		<<set $bee to 0>>
+	<</if>>
+
+	<<if $sheepbuild is undefined>>
+		<<set $sheepbuild to 0>>
+		<<set $sheep to 0>>
+	<</if>>
+	
+	<<if $deerbuild is undefined>>
+		<<set $deerbuild to 0>>
+		<<set $deer to 0>>
+	<</if>>
+
+	<<if $bearbuild is undefined>>
+		<<set $bearbuild to 0>>
+		<<set $bear to 0>>
+	<</if>>
+
+	<<if $tail is undefined>>
+		<<set $tail to 0>>
+		<<set $tailuse to 0>>
+	<</if>>
+
+	<<if $dragonbuild is undefined>>
+		<<set $dragonbuild to 0>>
+		<<set $dragon to 0>>
+	<</if>>
+
+	<<if $lizardbuild is undefined>>
+		<<set $lizardbuild to 0>>
+		<<set $lizard to 0>>
+	<</if>>
+
+	<<if $dolphinbuild is undefined>>
+		<<set $dolphinbuild to 0>>
+		<<set $dolphin to 0>>
+	<</if>>
+
+	<<if $dogbuild is undefined>>
+		<<set $dogbuild to 0>>
+		<<set $dog to 0>>
+	<</if>>
+
+	<<if $raccoonbuild is undefined>>
+		<<set $raccoonbuild to 0>>
+		<<set $raccoon to 0>>
+	<</if>>
+
+	<<if $fishbuild is undefined>>
+		<<set $fishbuild to 0>>
+		<<set $fish to 0>>
+	<</if>>
+
+	<<if $horsebuild is undefined>>
+		<<set $horsebuild to 0>>
+		<<set $horse to 0>>
+	<</if>>
+
+	<<if $pigbuild is undefined>>
+		<<set $pigbuild to 0>>
+		<<set $pig to 0>>
+	<</if>>
+
+	<<if $spiderbuild is undefined>>
+		<<set $spiderbuild to 0>>
+		<<set $spider to 0>>
+	<</if>>
+
+	<<if $frogbuild is undefined>>
+		<<set $frogbuild to 0>>
+		<<set $frog to 0>>
+	<</if>>
+
+	<<if $ghost is undefined>>
+		<<set $ghost to 0>>
+	<</if>>
+
+	<<if $robinraccoon is undefined>>
+		<<set $robinraccoon to 0>>
+	<</if>>
+
+	<<if $slime is undefined>>
+		<<set $slime to 0>>
+	<</if>>
+
+	<<if $mushroom is undefined>>
+		<<set $mushroom to 0>>
+	<</if>>
+
+	<<if $fungalgrowth is undefined>>
+		<<set $fungalgrowth to 0>>
+	<</if>>
+
+	<<if $fungalstagelimiter is undefined>>
+		<<set $fungalstagelimiter to 0>>
+	<</if>>
+
+	<<if $fungalclotheslimiter is undefined>>
+		<<set $fungalclotheslimiter to 0>>
+	<</if>>
+
+	<<if $onemoreslime is undefined>>
+		<<set $onemoreslime to 0>>
+	<</if>>
+
+	<<if $cemeteryfound is undefined>>
+		<<set $cemeteryfound to 0>>
+	<</if>>
+
+	<<if $cellarpassage is undefined>>
+		<<set $cellarpassage to 0>>
+	<</if>>
+
+	<<if $exorcism is undefined>>
+		<<set $exorcism to 0>>
+	<</if>>
+
+	<<if $exorcised is undefined>>
+		<<set $exorcised to 0>>
+	<</if>>
+
+	<<if $moorburger is undefined>>
+		<<set $moorburger to 0>>
+	<</if>>
+
+	<<if $deathlychill is undefined>>
+		<<set $deathlychill to 0>>
+	<</if>>
+
+	<<if $auratimer is undefined>>
+		<<set $auratimer to 0>>
+	<</if>>
+
+	<<if $mushroomtf is undefined>>
+		<<set $mushroomtf to 0>>
+	<</if>>
+
+	<<if $mushroom gte 1>>
+		<<headwear 54>>
+	<</if>>
+
+	<<if $dencounter is undefined>>
+		<<set $dencounter to 0>>
+	<</if>>
+
+	<<if $wolfbuild gte 30>>
+		<<set $wolftf = 1>>
+	<</if>>
+
+	<<if $catbuild gte 30>>
+		<<set $cattf = 1>>
+	<</if>>
+
+	<<if $cowbuild gte 30>>
+		<<set $cowtf = 1>>
+	<</if>>
+
+	<<if $birdbuild gte 30>>
+		<<set $harpytf = 1>>
+	<</if>>
+
+	<<if $raccoonbuild gte 30>>
+		<<set $raccoontf = 1>>
+	<</if>>
+
+	<<if $foxbuild gte 30>>
+		<<set $foxtf = 1>>
+	<</if>>
+
+	<<if $beebuild gte 30>>
+		<<set $beetf = 1>>
+	<</if>>
+
+	<<if $sheepbuild gte 30>>
+		<<set $sheeptf = 1>>
+	<</if>>
+
+	<<if $deerbuild gte 30>>
+		<<set $deertf = 1>>
+	<</if>>
+
+	<<if $bearbuild gte 30>>
+		<<set $beartf = 1>>
+	<</if>>
+
+	<<if $dragonbuild gte 30>>
+		<<set $dragontf = 1>>
+	<</if>>
+
+	<<if $lizardbuild gte 30>>
+		<<set $lizardtf = 1>>
+	<</if>>
+
+	<<if $dogbuild gte 30>>
+		<<set $dogtf = 1>>
+	<</if>>
+
+	<<if $fishbuild gte 30>>
+		<<set $fishtf = 1>>
+	<</if>>
+
+	<<if $horsebuild gte 30>>
+		<<set $horsetf = 1>>
+	<</if>>
+
+	<<if $spiderbuild gte 30>>
+		<<set $spidertf = 1>>
+	<</if>>
+
+	<<if $pigbuild gte 30>>
+		<<set $pigtf = 1>>
+	<</if>>
+
+	<<if $frogbuild gte 30>>
+		<<set $frogtf = 1>>
+	<</if>>
+
+	<<updateMuseumAntiques>>
+	
+	<<if $tailactiondefault is undefined>>
+		<<set $tailaction to "rest">>
+	<</if>>
+<</widget>>
