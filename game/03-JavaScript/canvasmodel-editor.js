@@ -879,10 +879,6 @@ Macro.add("canvasModelEditor", {
 						selectOption("mushroom_eyes_type", ["disabled", "hidden", "default"]),
 						selectOption("mushroom_spores_type", ["disabled", "hidden", "default"]),
 						selectOption("mushroom_mushroom_type", ["disabled", "hidden", "default"]),
-						selectOption("eldritch_crown_type", ["disabled", "hidden", "default"]),
-						selectOption("eldrich_eyes_type", ["disabled", "hidden", "default"]),
-						selectOption("eldritch_mist_type", ["disabled", "hidden", "default"]),
-						selectOption("eldritch_tentacle_type", ["disabled", "hidden", "default"]),
 
 						optionCategory("Body writings"),
 						selectOption("writing_forehead", bodyWritings),

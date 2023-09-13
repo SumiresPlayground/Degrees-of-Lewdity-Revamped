@@ -120,8 +120,7 @@ setup.colours = {
 		amethyst: ["#BBA9f5", "#8451FC"],
 		green: ["#B5C47A", "#81A558"],
 		dusky: ["#cfcba8", "#cfcba8"],
-		water: ["#70a0d7", "#70a0d7"],
-		flame: ["#db665e", "#db665e"]
+		water: ["#70a0d7", "#70a0d7"]
 	},
 	/**
 	 * Get canvas filter for skin of given type and tan progression (0..1).
