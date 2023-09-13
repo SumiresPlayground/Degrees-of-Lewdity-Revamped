@@ -112,6 +112,10 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
             <<link [[Swim back out to sea (0:10)|Sea Reef]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
             <br>
         <</if>>
+        <<if $islanddistance is 10>>
+            <<link [[Approach the large sand hill (0:05)|Anthill]]>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><<set $sandmound to 1>><<pass 5>><</link>>
+            <br>
+        <</if>>
         <<if $islanddistance is 20 and $exposed gt 0>>
             You can't enter the village dressed like this.
             <br>
@@ -454,7 +458,7 @@ You send one final punch to the <<personsimple>>'s face and <<he>> falls back mo
 <</if>>
 
 :: Ice Shrine
-Deep inside the hole you find an opening. A small shrine fills the room lighting it up with small glowing bulbs.
+Deep inside the hole you find an opening. A small shrine fills the room, lighting it up with small glowing bulbs.
 <br><br>
 <<link [[Pray|Ice Shrine Pray]]>><<set $phase to 1>><</link>>
 <br>
@@ -501,4 +505,426 @@ Deep inside the hole you find an opening. A small shrine fills the room lighting
 	<</if>>
 <</link>>
 <br>
-<<link [[Leave (0:10)|Island]]>><</link>>
+<<link [[Leave (0:10)|Island]]>><<pass 10>><</link>>
+
+:: Anthill
+<<if $sandmound is 1>>
+    <<set $outdoors to 1>><<effects>>
+    You reach the mouth of a deep hole into the sand. It stretches down into the dark with no end in sight.
+<<elseif $sandmound is 2>>
+    <<set $outdoors to 0>><<effects>>
+    You're in the mouth of the anthill. Loud crunches echo from deep in the hive.
+<<elseif $sandmound is 3>>
+    <<set $outdoors to 0>><<effects>>
+    You're in the mouth of the anthill. You feel like you're about halfway through. Tunnels stretch in every direction with no end in sight.
+<<elseif $sandmound is 4>>
+    <<set $outdoors to 0>><<effects>>
+    You're deep in the hill. The sound of writhing and scuttering surrounds you. The tunnels increase in number even further.
+<<elseif $sandmound is 5>>
+    <<set $outdoors to 0>><<effects>>
+    You've reached the bottom of the hill. You sense something extremely overwhelming behind a large crude gateway.
+<</if>>
+<br><br>
+
+<<if $sandmound is 2 and $guard1 is 0>>
+    As you climb deeper a guard catches your scent and approaches ready to fight.
+    <br><br>
+    <<link [[Ready yourself|Ant Guard 1]]>><<beastNEWinit 1 ant>><<set $molestationstart to 1>><</link>>
+<<elseif $sandmound is 3 and $guard2 is 0>>
+    As you climb deeper another group of guards catches your scent and approaches ready to fight.
+    <br><br>
+    <<link [[Ready yourself|Ant Guard 2]]>><<beastNEWinit 3 ant>><<set $molestationstart to 1>><</link>>
+<<elseif $sandmound is 4 and $guard3 is 0>>
+    As you climb deeper a large towering guard catches your scent and approaches ready to fight.
+    <br><br>
+    <<link [[Ready yourself|Ant Guard 3]]>><<beastNEWinit 1 ant>><<set $molestationstart to 1>><</link>>
+<<else>>
+    <<if $sandmound is 1>>
+        <<link [[Leave (0:05)|Anthill]]>><<pass 5>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><</link>>
+    <</if>>
+    <<if $sandmound gt 1>>
+        <<link [[Delve deeper (0:05)|Anthill]]>><<pass 5>><</link>>
+    <</if>>
+    <<if $sandmound lt 5>>
+        <<link [[Climb back up (0:10)|Anthill]]>><<pass 10>><</link>>
+    <</if>>
+<</if>>
+
+:: Ant Colony Shrine
+You come before a large wax statue. It towers over you, stretching towards the ceiling. It seems to emit an almost otherworldly buzz.
+<br><br>
+<<link [[Pray|Ant Shrine Pray]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Leave|Anthill]]>><</link>>
+
+:: Ant Shrine Pray
+<<if $phase is 1>>
+	You sit on the rugged uneven terrain and bow your head.
+	<br><br>
+<<elseif $phase is 2 and $ghost is 1>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	An hour passes, but you're overcome by a tingling sensation.
+	<br><br>
+	<<set $skinColor.natural to "flame">>
+	<<set $transformationParts.ghost.hitodama to "disabled">>
+    <<set $transformationParts.ghost.flame to "default">>
+	<<set $haircolour to "jetblack">>
+	<<set $hairfringecolour to "jetblack">>
+	<<set $options.lightGlow to 1>>
+	<<set $ghost to 3>>
+<<elseif $phase is 2>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	An hour passes, and you feel less burdened.
+	<br><br>
+<</if>>
+<<link [[Pray for salvation (1:00)|Ant Shrine Pray]]>>
+	<<pass 60>><<set $phase to 2>>
+	<<if $purity gte ((1000 / 7) * 7)>>
+		<<stress -6>><<awareness -2>><<arousal -1200>>
+	<<elseif $purity gte ((1000 / 7) * 6)>>
+		<<stress -6>><<awareness -1>><<arousal -1000>>
+	<<elseif $purity gte ((1000 / 7) * 5)>>
+		<<stress -5>><<awareness -1>><<arousal -800>>
+	<<elseif $purity gte ((1000 / 7) * 4)>>
+		<<stress -4>><<awareness -1>><<arousal -600>>
+	<<elseif $purity gte ((1000 / 7) * 3)>>
+		<<stress -3>><<awareness -1>><<arousal -500>>
+	<<elseif $purity gte ((1000 / 7) * 2)>>
+		<<stress -2>><<awareness -1>><<arousal -400>>
+	<<else>>
+		<<stress -1>><<awareness -1>><<arousal -300>>
+	<</if>>
+<</link>>
+<br>
+<<link [[Leave|Anthill]]>><</link>>
+
+:: Ant Guard 1
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+    <<set $enemyhealth to 400>><<set $enemyhealthmax to 400>><<set $enemyanger += 50>><<set $enemytrust to -200>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Ant Guard 1 Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Ant Guard 1]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Ant Guard 2
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+    <<beastTrainGenerate>>
+    <<set $enemyhealth to 400>><<set $enemyhealthmax to 400>><<set $enemyanger += 50>><<set $enemytrust to -200>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Ant Guard 2 Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Ant Guard 2]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Ant Guard 3
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+    <<set $enemyhealth to 800>><<set $enemyhealthmax to 800>><<set $enemyanger += 50>><<set $enemytrust to -200>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Ant Guard 3 Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Ant Guard 3]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Ant Guard 1 Finish
+<<if $enemyhealth lte 0>>
+    The guard crumbles on the ground exhausted. 
+    <br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+    <<link [[Next|Anthill]]>><<set $guard1 to 1>><</link>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+    <<beastejaculation>>
+    The guard shifts off of you, before spitting on you. The spit hardens into a hard cocoon keeping you in place. The guard lifts you and carries you off deeper into the colony.
+    <br><br>
+    <<clotheson>>
+	<<endcombat>>
+    <<link [[Next|Ant Kidnapped]]>><<pass 60>><</link>>
+<</if>>
+
+:: Ant Guard 2 Finish
+<<if $enemyhealth lte 0>>
+    <<if $combatTrain.length gt 0>>
+        The <<beasttype>> recoils in pain and fear, but another is eager for a go.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Ant Guard 2]]>><</link>>
+    <<else>>
+        The guard crumbles on the ground exhausted. 
+        <br><br>
+        <<tearful>> you gather yourself.
+        <br><br>
+        <<clotheson>>
+        <<endcombat>>
+        <<link [[Next|Anthill]]>><<set $guard2 to 1>><</link>>
+    <</if>>
+<<elseif $enemyarousal gte $enemyarousalmax and $combatTrain.length gt 0>>
+    <<beastejaculation>>
+    Satisfied, the <<beasttype>> moves and another takes its turn.
+	<<combatTrainAdvance>>
+	<br><br>
+	<<link [[Next|Ant Guard 2]]>><</link>>
+	<br>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+    <<beastejaculation>>
+    One of the guards shifts off of you, before spitting on you. The spit hardens into a hard cocoon keeping you in place. The guard lifts you and carries you off deeper into the colony.
+    <br><br>
+    <<clotheson>>
+	<<endcombat>>
+    <<link [[Next|Ant Kidnapped]]>><<pass 60>><</link>>
+<</if>>
+
+:: Ant Guard 3 Finish
+<<if $enemyhealth lte 0>>
+    The guard crumbles on the ground exhausted. 
+    <br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+    <<link [[Next|Anthill]]>><<set $guard3 to 1>><</link>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+    <<beastejaculation>>
+    The huge guard shifts off of you, before spitting on you. The spit hardens into a hard cocoon keeping you in place. The guard lifts you and carries you off deeper into the colony.
+    <br><br>
+    <<clotheson>>
+	<<endcombat>>
+    <<link [[Next|Ant Kidnapped]]>><<pass 60>><</link>>
+<</if>>
+
+:: Ant Kidnapped
+You're jolted awake by the sound of thousands of feet scuttling around you. It's dark, with only a soft glow from a small tunnel that leads out of the colony. The air is thick with the acrid smell of chemicals and decay. Looking down, you realize you're lying on a pile of rotten wood and mold, covered in dozens of ants crawling over and around you. Suddenly, you realize that you're trapped in an ant hive, and that you're now a slave!
+<br><br>
+<<link [[Next|Ant Slavery]]>><<set $antdig to 0>><</link>>
+
+:: Ant Slavery
+<<set $rng to random(1,3)>>
+<<if $stress gte $stressmax>>
+    It's too much for you. You pass out.
+    <br><br>
+    <<link [[Next|Ant Passout]]>><<passout>><</link>>
+<<elseif $exposed gte 1>>
+    <<covered>> There's a pile of cloth scraps in an adjoining room. Some are large enough to wear.
+    <br><br>
+    <<ragup>>
+    <<link [[Next|Ant Slavery]]>><<endevent>><<set $eventskip to 1>><</link>>
+<<elseif $rng is 3 and $eventskip isnot 1>>
+    <<beastNEWinit 1 ant>>
+    A <<beasttype>> attempts to mount you.
+    <br><br>
+    <<link [[Submit quietly|Colony Ant]]>><<set $sexstart to 1>><<stress 6>><</link>><<gstress>>
+    <br>
+    <<link [[Pull away|Colony Ant Rape]]>><<set $molestationstart to 1>><</link>>
+<<else>>
+    <<link [[Clean (1:00)|Ant Colony Clean]]>><<pass 60>><</link>>
+    <br>
+    <<link [[Search for a way to escape (1:00)|Ant Colony Dig]]>><<pass 60>><</link>>
+<</if>>
+
+:: Colony Ant
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+	<<set $NPCList[0].stance to "top">><<set $enemytrust -= 20>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Colony Ant Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Colony Ant]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Colony Ant Finish
+<<beastejaculation>>
+The <<beasttype>> clicks in satisfaction, and leaves you lying in the sand.
+<br><br>
+<<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<set $eventskip to 1>>
+<<link [[Next|Ant Slavery]]>><</link>>
+<br>
+
+:: Colony Ant Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<set $enemytrust -= 40>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Colony Ant Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Colony Ant Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Colony Ant Rape Finish
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	The <<beasttype>> clicks in satisfaction, and leaves you lying in the sand.
+	<br><br>
+	<<tearful>> you rise to your feet.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+    <<set $eventskip to 1>>
+	<<link [[Next|Ant Slavery]]>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+	The <<beasttype>> screeches and skitters away.
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+    <<set $eventskip to 1>>
+	<<link [[Next|Ant Slavery]]>><</link>>
+	<br>
+<<else>>
+	The <<beasttype>> screeches and skitters away.
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+    <<set $eventskip to 1>>
+	<<link [[Next|Ant Slavery]]>><</link>>
+	<br>	
+<</if>>
+
+:: Ant Colony Clean
+<<effects>>
+You focus on cleaning up after the ants, hoping to blend into the background.
+<<set $rng to random(1, 3)>>
+<<if $rng gte 3>>
+    They spill saliva on the floor. You sweep up after them.
+<<elseif $rng gte 2>>
+    You take a moment to clean up the rancid moldy boards.
+<<else>>
+    You sweep up crumbs from the floor.
+<</if>>
+<br><br>
+<<link [[Next|Ant Slavery]]>><</link>>
+<br>
+
+:: Ant Colony Dig
+<<if $antdig gte 10>>
+    You return to the soft tunnel and keep digging. All of a sudden, you hear the sound of sand trickling through the stone. You step back as you realize the roof is about to collapse. You quickly climb up, hoping to escape the oncoming rocks and sand. As you reach the surface, you take a deep breath, grateful to be out of the tunnels. You know you have to make your way to a safer place as soon as possible.
+    <br><br>
+    <<link [[Next|Island]]>><<set $islanddistance to 10>><</link>>
+<<elseif $antdig gte 8>>
+    You return to the soft tunnel and keep digging. You start to hear the sound of sand shifting through the stone. It's coming from somewhere up ahead. You're not entirely sure what this means, but you know that you're close to finding something. You press on, determined to keep digging until you find a way out. You'll have to trust your intuition and hope that you're on the right track.
+    <br><br>
+    <<link [[Next|Ant Slavery]]>><<set $antdig += 1>><</link>>
+<<elseif $antdig gte 6>>
+    You return to the soft tunnel and start digging again. You find that the wall is softer here, and you can easily make good progress through the sandstone. You work as quickly as you can, but you're still aware of the risks of being caught. You'll have to keep a low profile and be careful not to make too much noise.
+    <br><br>
+    <<link [[Next|Ant Slavery]]>><<set $antdig += 1>><</link>>
+<<elseif $antdig gte 3>>
+    You return to the soft tunnel and dig as long as you can. The tunnel is a bit longer than when you first found it, but you have no idea how far you have left to go. You're worried about the risk of being discovered, but you're also desperate to find a way out.
+    <<link [[Next|Ant Slavery]]>><<set $antdig += 1>><</link>>
+<<elseif $antdig gte 1>>
+    You return to the soft tunnel and start digging away at the wall. Your progress is slow, and you're not sure how long you can keep this up. You're worried that the guards might find this tunnel if you spend too much time digging. They might be preoccupied for now, but a dedicated search would reveal your hiding spot quickly. You'll have to work fast and be cautious.
+    <br><br>
+    <<link [[Next|Ant Slavery]]>><<set $antdig += 1>><</link>>
+<<elseif $antdig is 0>>
+    Searching these labyrinthine tunnels is a daunting task, and you wonder if you'll ever find a way out. The tunnels stretch deep into the rock, some no more than a few feet across, while others seem to extend for an eternity before twisting back on themselves. You're walking through one tunnel when the sand catches your eye - it seems softer, as if it were disturbed. Could this be a way up and out of here?
+    <br><br>
+    <<link [[Next|Ant Slavery]]>><<set $antdig += 1>><</link>>
+<</if>>
+
+:: Ant Passout
+The world seems to fade in and out as you're jostled around. Suddenly, you jolt up, feeling a strong burning sensation in your stomach. You're unable to hold back and vomit up odd-looking pieces of meat and green fluid. As the ants surround you, curious about the new figure in front of them, you make eye contact with them. Upon seeing you are awake, they quickly return to their work and leave you alone, feeling slightly ill. You take a deep breath, trying to collect yourself and make sense of what happened.
+<br><br>
+<<link [[Next|Ant Slavery]]>><</link>>
