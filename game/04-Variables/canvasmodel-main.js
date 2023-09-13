@@ -396,6 +396,10 @@ Renderer.CanvasModels["main"] = {
 			"mushroom_eyes_type": "disabled",
 			"mushroom_spores_type": "disabled",
 			"mushroom_mushrooms_type": "disabled",
+			"eldrich_crown_type": "disabled",
+			"eldrich_eyes_type": "disabled",
+			"eldritch_mist_type": "disabled",
+			"eldritch_tentacle_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2572,6 +2576,54 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.mushroom_mushrooms_type) 
 			},
 			z: ZIndices.neck,
+			animation: "idle"
+		},
+
+		/***
+		Eldritch
+		*/
+
+		"eldritch_crown": {
+			srcfn(options) {
+				return `img/transformations/eldritch/crown/${options.eldrich_crown_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type)
+			},
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+
+		"eldritch_eyes": {
+			srcfn(options) {
+				return `img/transformations/eldritch/eyes/${options.eldrich_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_eyes_type)
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+
+		"eldritch_mist": {
+			srcfn(options) {
+				return `img/transformations/eldritch/mist/${options.eldritch_mist_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_mist_type)
+			},
+			z: ZIndices.bg,
+			animation: "idle"
+		},
+
+		"eldritch_tentacle": {
+			srcfn(options) {
+				return `img/transformations/eldritch/tentacle/${options.eldritch_tentacle_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_tentacle_type)
+			},
+			z: ZIndices.backhair,
 			animation: "idle"
 		},
 
