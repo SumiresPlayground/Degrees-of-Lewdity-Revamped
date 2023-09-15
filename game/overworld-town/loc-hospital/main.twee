@@ -157,6 +157,10 @@ You are inside the hospital foyer. <<if $psych is 1>>You see a sign directing to
 				<<break>>
 			<</if>>
 		<</for>>
+		<<if $worn.under_upper.name is "tentacle top" or $worn.under_lower.name is "tentacle bottom" or $worn.hands.name is "tentacle gloves" or $worn.legs.name is "tentacle stockings" or $worn.feet.name is "tentacle heels">>
+			<<link [[Inquire about the tentacle clothing (0:10)|Livingclothes Inquiry]]>><<pass 10>><</link>>
+			<br>
+		<</if>>
 		<br>
 
 		<<link [[Pharmacy (0:02)|Pharmacy]]>><<pass 2>><</link>>
@@ -873,6 +877,37 @@ The nurse lets you stay in the waiting room until the sun rises.
 
 <</if>>
 
+
+:: Livingclothes Inquiry
+<<set $outside to 0>><<set $location to "hospital">><<effects>>
+
+<<generate1>><<person1>>
+The receptionist taps something into <<his>> computer and instructs you to take a seat in the waiting room.
+<br><br>
+<<endevent>>
+
+<<harper_intro>>
+
+"So what's this about ...tentacle clothing?" <<he>> says. "Please don't be nervous. Can you explain the problem?" Though embarrassed, manage to stammer a description of your issue. You reveal the creature to Harper as if to emphasize your predicament.
+<br><br>
+
+
+<<He>> listens to you intently, nodding along as if there's nothing strange about anything you're saying. When you are finished <<he>> silently turns to <<his>> computer and starts reading something. "Okay," <<he>> says.
+<br><br>
+"I'll admit, this is rather remarkable. This type of organism is extremely rare." You feel a lump form in your throat. "Not to worry; I have an idea. I'll just be a moment." <<He>> turns back to <<his>> computer.
+<br><br>
+
+A minute later <<he>> turns back to you. "We can apply a special form of electrolysis to the creature. The wavelength should disable this type of parasite, as well as certain others. It's completely harmless to people, but you might feel a tingle."
+<br><br>
+
+"The procedure will cost you £2500." <<He>> said.
+<br><br>
+<<if $money gte 250000>>
+	<<link [[Remove the creature (£2500 0:30)|Hospital Parasite Private Livingclothes]]>><<set $money -= 250000>><<pass 30>><</link>>
+	<br>
+<</if>>
+<<link [[Leave without treatment|Hospital Foyer]]>><<endevent>><</link>>
+<br>
 
 :: Hospital Breast Reduction
 <<set $outside to 0>><<set $location to "hospital">><<effects>>
