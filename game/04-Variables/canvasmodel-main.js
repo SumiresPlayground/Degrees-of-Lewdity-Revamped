@@ -388,6 +388,7 @@ Renderer.CanvasModels["main"] = {
 			"ghost_eyes_type": "disabled",
 			"ghost_hitodama_type": "disabled",
 			"ghost_mist_type": "disabled",
+			"ghost_stream_type": "disabled",
 			"slime_bubble_type": "disabled",
 			"slime_stream_type": "disabled",
 			"slime_core_type": "disabled",
@@ -395,6 +396,10 @@ Renderer.CanvasModels["main"] = {
 			"mushroom_eyes_type": "disabled",
 			"mushroom_spores_type": "disabled",
 			"mushroom_mushrooms_type": "disabled",
+			"eldrich_crown_type": "disabled",
+			"eldrich_eyes_type": "disabled",
+			"eldritch_mist_type": "disabled",
+			"eldritch_tentacle_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2317,6 +2322,17 @@ Renderer.CanvasModels["main"] = {
 			animation: "idle"
 		},
 
+		"ghost_stream": {
+			srcfn(options) {
+				return `img/transformations/ghost/stream/${options.ghost_stream_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.ghost_stream_type)
+			},
+			z: ZIndices.over_upper,
+			animation: "idle"
+		},
+
 		/*Raccoon*/
 
 		"raccoon_ears": {
@@ -2560,6 +2576,54 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.mushroom_mushrooms_type) 
 			},
 			z: ZIndices.neck,
+			animation: "idle"
+		},
+
+		/***
+		Eldritch
+		*/
+
+		"eldritch_crown": {
+			srcfn(options) {
+				return `img/transformations/eldritch/crown/${options.eldrich_crown_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type)
+			},
+			z: ZIndices.over_head,
+			animation: "idle"
+		},
+
+		"eldritch_eyes": {
+			srcfn(options) {
+				return `img/transformations/eldritch/eyes/${options.eldrich_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_eyes_type)
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+
+		"eldritch_mist": {
+			srcfn(options) {
+				return `img/transformations/eldritch/mist/${options.eldritch_mist_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_mist_type)
+			},
+			z: ZIndices.bg,
+			animation: "idle"
+		},
+
+		"eldritch_tentacle": {
+			srcfn(options) {
+				return `img/transformations/eldritch/tentacle/${options.eldritch_tentacle_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_tentacle_type)
+			},
+			z: ZIndices.backhair,
 			animation: "idle"
 		},
 

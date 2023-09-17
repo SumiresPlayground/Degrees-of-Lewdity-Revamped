@@ -394,9 +394,21 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 	<</if>>
 
-	<<if $transformationParts.ghost is undefined or $transformationParts.ghost.mist is undefined>>
+	<<if $transformationParts.ghost is undefined>>
 		<<set $ghost to 0>>
-		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled", mist:"disabled"}>>
+		<<set $transformationParts.ghost to {eyes:"disabled", hitodama:"disabled", mist:"disabled", stream:"disabled", flame:"disabled"}>>
+	<</if>>
+
+	<<if $transformationParts.ghost.mist is undefined>>
+		<<set $transformationParts.ghost.mist to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.ghost.stream is undefined>>
+		<<set $transformationParts.ghost.stream to "disabled">>
+	<</if>>
+
+	<<if $transformationParts.ghost.flame is undefined>>
+		<<set $transformationParts.ghost.flame to "disabled">>
 	<</if>>
 
 	<<if $transformationParts.slime is undefined>>
@@ -407,6 +419,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<if $transformationParts.mushroom is undefined>>
 		<<set $mushroom to 0>>
 		<<set $transformationParts.mushroom to {cap:"disabled", eyes:"disabled", spores:"disabled", mushrooms:"disabled"}>>
+	<</if>>
+
+	<<if $transformationParts.eldritch is undefined>>
+		<<set $transformationParts.eldritch to {crown:"disabled", eyes:"disabled", mist:"disabled", tentacle:"disabled"}>>
 	<</if>>
 
 	<<if $hastail is undefined>>

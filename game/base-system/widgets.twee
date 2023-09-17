@@ -154,6 +154,7 @@
 <</widget>>
 
 <<widget "underwater">>
+	<<ruffleHair>>
 	<<water>>
 	<<set $underwater to 1>>
 	<<set $underwatercheck to 1>>
@@ -166,9 +167,9 @@
 			<<set $nooxygen to 0>>
 		<</if>>
 		<span class="lblue">Air:</span>
-		<<if $oxygen lt 0 and $slime is 0 and $transformationParts.traits.aquatic is "disabled">>
+		<<if $oxygen lt 0 and $slime is 0 and ($transformationParts.fish.tail is "disabled" and $transformationParts.fish.fins is "disabled") and $ghost isnot 4>>
 			<span class="red">You can't breathe! Your stress will increase and you'll soon pass out if you can't find air.</span>
-		<<elseif $oxygen lt 0 and ($slime gt 0 or $transformationParts.traits.aquatic isnot "disabled")>>
+		<<elseif $oxygen lt 0 and ($slime gt 0 or $transformationParts.fish.tail is "default" and $transformationParts.fish.fins is "default" or $ghost is 4)>>
 			<span class="blue">You possess a trait that negates air loss while underwater. You're fine.</span>
 		<</if>>
 		<<oxygencaption>>
@@ -358,10 +359,10 @@
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod)>>
 			<</if>>
 			<<if $mushroom gte 1>>
-				<<if $worn.upper.type.includes("mushroom")>>
+				<<if $worn.upper.type.includes("mushroom bodice")>>
 					<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.60>>
 				<</if>>
-				<<if $worn.lower.type.includes("mushroom")>>
+				<<if $worn.lower.type.includes("mushroom gown")>>
 					<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.60>>
 				<</if>>
 			<</if>>
@@ -477,7 +478,7 @@
 		<<if $slime is 1>>
 			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.25>>
 		<</if>>
-		<<if $transformationParts.traits.bearbuild isnot "disabled">>
+		<<if $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
 			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.4>>
 		<</if>>
 		<<if $enemyno gte 2>>
@@ -1775,6 +1776,8 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/hive_day.png'">
 				<<case "bog">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/bog_day.png'">
+				<<case "seadive">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/ocean_day.gif'">
 			<</switch>>
 		<<elseif Time.dayState is "night">>
 			<!-- if bloodmoon -->
@@ -1954,6 +1957,8 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/hive_night.png'">
 				<<case "bog">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/bog_night.png'">
+				<<case "seadive">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/ocean_night.gif'">
 			<</switch>>
 		<<elseif Time.dayState is "dawn">>
 			<<if $location is "tentworld">>
@@ -2122,6 +2127,8 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/hive_dawn.png'">
 				<<case "bog">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/bog_dawn.png'">
+				<<case "seadive">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/ocean_dawn.gif'">
 			<</switch>>
 		<<elseif Time.dayState is "dusk">>
 			<<if $location is "tentworld">>
@@ -2294,6 +2301,8 @@
 					<img id="location" @src="'img/misc/' + _weather_display + '/hive_dusk.png'">
 				<<case "bog">>
 					<img id="location" @src="'img/misc/' + _weather_display + '/bog_dusk.png'">
+				<<case "seadive">>
+					<img id="location" @src="'img/misc/' + _weather_display + '/ocean_dusk.gif'">
 			<</switch>>
 		<</if>>
 	<<else>>
@@ -3065,6 +3074,7 @@
 <</widget>>
 
 <<widget "wash">>
+	<<ruffleHair>>
 	<<washRecordedSperm "vagina" "pc">>
 	<<washRecordedSperm "anus" "pc">>
 	<<bodyliquid "clear">>

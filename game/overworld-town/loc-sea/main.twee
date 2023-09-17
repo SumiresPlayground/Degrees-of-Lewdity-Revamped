@@ -632,6 +632,8 @@ You are swimming in the sea at the base of some cliffs, east of the docks. A lar
 				<<if $sea gte 90>>
 					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 400>>
 					<br>
+					<<swimicon>><<link [[Dive (0:10)|Sea Dive]]>><<pass 10>><<tiredness 2>><<set $phase to 0>><</link>><<gtiredness>>
+					<br>
 				<<else>>
 					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
 					<br>
@@ -708,4 +710,274 @@ You are swimming in the sea.
 		<<link [[Next|Sea]]>><<set $sea += 10>><</link>>
 		<br>
 	<</if>>
+<</if>>
+
+:: Sea Dive
+<<location "seadive">><<set $bus to "seadive">><<set $outside to 0>><<underwater>><<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+	<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+		<<eventsdeepseadive>>
+	<<else>>
+		<<if $phase is 0>>
+			You dive beneath the water. Light streams through, calmly lighting the open water.
+		<<elseif $phase is 1>>
+			The light from above fades at this depth of the ocean.
+		<<elseif $phase is 2>>
+			You can see the faint silhouette of a coral reef in the distance.
+		<<elseif $phase is 3>>
+			Your sun grows dimmer in the deeper waters, but you keep swimming.
+		<<elseif $phase is 4>>
+			You notice small fish darting in and out of view. They're quickly followed by even smaller fish, swimming around them in a circle.
+		<<elseif $phase is 5>>
+			As you move further, you begin to see strange shapes in the distance. You move towards them, curious to see what they are. They turn out to be massive cliffs, rising up from the ocean floor like forgotten sentinels of ancient times.
+		<<elseif $phase is 6>>
+			The sun's rays no longer penetration here, but the water still glows with an eerie blue radiance.
+		<<elseif $phase is 7>>
+			You start to see strange, pulsating shapes in the distance. As you move closer, they become more defined. They're giant sea creatures, moving with grace and power.
+		<<elseif $phase is 8>>
+			You are surrounded by complete blackness. The only sound is the faint echos of the deep.
+		<<elseif $phase is 9>>
+			Despite the limited visibility, you can still make out the shapes of various sea creatures swimming around you. You see a large group of jelly-fish drifting past, their shimmering tentacles glowing in the darkness. You even glimpse the shadow of a large whale as it swims in the distance.
+		<<elseif $phase is 10>>
+			After what feels like an eternity of descending, you finally reach the bottom. You take a moment to collect yourself and soak in the unique sense of isolation that comes from being so deep underwater.
+		<</if>>
+		<br><br>
+
+		<<if $phase is 0>>
+			<<link [[Resurface|Sea]]>><<wateraction>><</link>>
+			<br>
+		<</if>>
+		<<if $phase is 1>>
+			<<link [[Resurface|Sea]]>><<wateraction>><</link>>
+			<br>
+		<</if>>
+		<<if $phase gt 1>>
+			<<link [[Swim up|Sea Dive]]>><<wateraction>><<set $phase -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+			<br>
+		<</if>>
+		<<if $phase lt 10>>
+			<<link [[Swim deeper|Sea Dive]]>><<wateraction>><<set $phase += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+			<br>
+		<</if>>
+		<<if $phase is 10 and $ship is undefined>>
+			<<link [[Explore the sea floor|Deep Sea Ship Find]]>><<wateraction>><</link>><<loxygen>>
+			<br>
+		<<elseif $phase is 10>>
+			<<link [[Swim to the sunken ship|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+:: Deep Sea Ship Find
+<<underwater>><<effects>>
+As you swim along the seafloor you see it - a sunken ship, looming in the distance. Your heart races as you approach it, and you can see the damage that the sea has inflicted upon it. The wood and metal have rusted and pitted over time, and the entire ship seems to have a sort of haunted feeling. The sight of it is almost otherworldly, as if it's a ghost ship.
+<br><br>
+As you approach the ship, you start to notice the damage in more detail. You see a large hole in the side of the ship, and you can even make out some of the rooms that used to be inside. The ship is completely overgrown with sea life, and you can see fish swimming around it. The whole scene is almost eerie, and you're reminded of the power of nature to claim what was once man-made.
+<br><br>
+As you swim around the ship, you can get a better idea of its size. It's massive, almost as if it's a small town on the sea floor. You can see where the propeller used to be, and you try to imagine what it was like when the ship was still floating.
+<br><br>
+<<link [[Swim to the sunken ship|Deep Sea Ship]]>><<set $ship to 1>><<set $shiproom to 0>><</link>>
+
+:: Deep Sea Ship
+<<underwater>><<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutbeach>>
+<<else>>
+	<<if $shiproom is 0>>
+		You enter the galleons galley. An ancient stove lies in disrepair, rusted over and overgrown by weeds. Fish dart between the shelves, hiding in the many crevices. A long hallway leads deeper into the ship, most of the doors are sealed shut but one was blown off the hinges leaving a door-shaped hole.
+	<<elseif $shiproom is 1>>
+		You're in a room full of ceramic pots of all shapes and sizes. It seems like the galleon probably used this space to store loot. A lot of pots were broken and the loot has been rusted into nothing, however plenty of pots seem to still be intact. A doorway leads back into the galley and a gaping hole in the floor leads deeper into the ship still.
+	<<elseif $shiproom is 2>>
+		You're in the hull of the ship. The floor is shredded for the most part and you can see the seafloor below. A large stone statue adorns the room, casting a calming blue light. Luminous mosses grow over it, but despite that, you can make out a beautiful statue of a mermaid. 
+	<</if>>
+	<br><br>
+	<<if $shiproom is 0>>
+		<<link [[Leave the ship|Sea Dive]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+	<</if>>
+	<<if $shiproom is 1>>
+		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+	<</if>>
+	<<if $shiproom is 2>>
+		<<link [[Pray to the statue|Deep Sea Ship Statue]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+	<</if>>
+	<<if $shiproom gt 0>>
+		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+	<</if>>
+	<<if $shiproom lt 2>>
+		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Deep Sea Ship Pots
+<<underwater>><<effects>>
+<<if $stress gte $stressmax and !$possessed>>
+	<<passoutbeach>>
+<<else>>
+	<<if $rng gte 80>>
+		<<rng>>
+		<<if $rng gte 95>>
+			You find a gold bullion.
+			<<set $antiquemoney += 800>><<museumAntiqueStatus "antiquebullion" "found">>
+			<br><br>
+		<<elseif $rng gte 30>>
+			You find a pristine Spanish real.
+			<<set $antiquemoney += 40>><<museumAntiqueStatus "antiquereal" "found">>
+			<br><br>
+		<<elseif $rng gte 0>>
+			You find a small bottle of indigo powder.
+			<<set $antiquemoney += 60>><<museumAntiqueStatus "antiqueindigo" "found">>
+			<br><br>
+		<</if>>
+		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+	<<elseif $rng gte 60 and $swarmdisable is "f">>
+		You reach inside one of the pots. Swarms of small fish surge out, surrounding you.
+		<br><br>
+		<<link [[Next|Deep Sea Ship Swarm]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		<<rng>>
+		<<if $rng gte 81>>
+			You reach inside one of the pots. It's full of broken ceramics.
+		<<elseif $rng gte 61>>
+			You reach inside one of the pots. Something inside snaps at you. You pull your hand away in time, but it was close.
+			<<gstress>><<stress 3>>
+		<<elseif $rng gte 41>>
+			You reach inside one of the pots. It's full of mud.
+		<<elseif $rng gte 21>>
+			You reach inside one of the pots. It's full of pebbles.
+		<<else>>
+			You reach inside one of the pots. It's empty.
+		<</if>>
+		<br><br>
+		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<br>
+		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<br>
+		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+	<</if>>
+<</if>>
+
+:: Deep Sea Ship Swarm
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<molested>>
+	<<controlloss>>
+	<<set $combat to 1>>
+
+	<<set $enemytype to "swarm">>
+	<<swarminit "fish" "container" "shaking" "shatter" "steady" 4 6>>
+	<<set $swimdistance to 8>>
+	<<set $water to 1>>
+<</if>>
+<<if $swimdistance gte 8>>
+	You're caught in the middle of the swarm.
+<<elseif $swimdistance gte 2>>
+	You're escaping the swarm.
+<<else>>
+	You've almost escaped.
+<</if>>
+<<underwater>><<effects>><<swarmeffects>>
+<<swarm>>
+<<swarmactions>>
+<<if $stress gte $stressmax>>
+	<span id="next"><<link [[Next|Deep Sea Ship Swarm Finish]]>><</link>></span><<nexttext>>
+<<elseif $swimdistance lte 0>>
+	<span id="next"><<link [[Next|Deep Sea Ship Swarm Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Deep Sea Ship Swarm]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Deep Sea Ship Swarm Finish
+<<underwater>><<effects>>
+<<if $stress gte $stressmax>>
+	It's all just too much for you. You pass out.
+	<br><br>
+	<<if $upperoff isnot 0>>
+		<<upperruined>>
+	<</if>>
+	<<if $loweroff isnot 0>>
+		<<lowerruined>>
+	<</if>>
+	<<if $underloweroff isnot 0>>
+		<<underlowerruined>>
+	<</if>>
+	<<if $underupperoff isnot 0>>
+		<<underupperruined>>
+	<</if>>
+	<<endcombat>>
+	<<passoutlake>>
+<<else>>
+	<<tearful>> you swim away from the swarms of fish, who stay near their pots. They disappear inside them.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Swim towards exit|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
+	<br>
+	<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+	<br>
+<</if>>
+
+:: Deep Sea Ship Statue
+<<if $ghost is 1>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	You're overcome by a tingling sensation.
+	<br><br>
+	<<set $skinColor.natural to "water">>
+	<<set $transformationParts.ghost.hitodama to "disabled">>
+    <<set $transformationParts.ghost.stream to "default">>
+	<<set $haircolour to "blue">>
+	<<set $hairfringecolour to "deepblue">>
+	<<set $options.lightGlow to 1>>
+	<<set $ghost to 4>>
+	<<if $purity gte ((1000 / 7) * 7)>>
+		<<awareness -2>><<arousal -120>>
+	<<elseif $purity gte ((1000 / 7) * 6)>>
+		<<awareness -1>><<arousal -100>>
+	<<elseif $purity gte ((1000 / 7) * 5)>>
+		<<awareness -1>><<arousal -80>>
+	<<elseif $purity gte ((1000 / 7) * 4)>>
+		<<awareness -1>><<arousal -60>>
+	<<elseif $purity gte ((1000 / 7) * 3)>>
+		<<awareness -1>><<arousal -50>>
+	<<elseif $purity gte ((1000 / 7) * 2)>>
+		<<awareness -1>><<arousal -40>>
+	<<else>>
+		<<awareness -1>><<arousal -30>>
+	<</if>>
+	<<link [[Leave|Deep Sea Ship]]>><</link>>
+<<else>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	You feel less burdened.
+	<br><br>
+	<<if $purity gte ((1000 / 7) * 7)>>
+		<<awareness -2>><<arousal -120>>
+	<<elseif $purity gte ((1000 / 7) * 6)>>
+		<<awareness -1>><<arousal -100>>
+	<<elseif $purity gte ((1000 / 7) * 5)>>
+		<<awareness -1>><<arousal -80>>
+	<<elseif $purity gte ((1000 / 7) * 4)>>
+		<<awareness -1>><<arousal -60>>
+	<<elseif $purity gte ((1000 / 7) * 3)>>
+		<<awareness -1>><<arousal -50>>
+	<<elseif $purity gte ((1000 / 7) * 2)>>
+		<<awareness -1>><<arousal -40>>
+	<<else>>
+		<<awareness -1>><<arousal -30>>
+	<</if>>
+	<<link [[Leave|Deep Sea Ship]]>><</link>>
 <</if>>

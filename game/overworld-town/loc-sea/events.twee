@@ -289,9 +289,67 @@
 	<br>
 <</if>>
 
+:: Sea Swarm
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<molested>>
+	<<controlloss>>
+	<<set $combat to 1>>
+
+	<<set $enemytype to "swarm">>
+	<<swarminit "fish" "swarm" "moving towards you" "encircle you" "fend off" 1 9>>
+	<<set $swimdistance to 8>>
+	<<set $water to 1>>
+<</if>>
+<<if $swimdistance gte 8>>
+	You're caught in the middle of the swarm.
+<<elseif $swimdistance gte 2>>
+	You're escaping the swarm.
+<<else>>
+	You've almost escaped.
+<</if>>
+<<underwater>><<effects>><<swarmeffects>>
+<<swarm>>
+<<swarmactions>>
+<<if $stress gte $stressmax>>
+	<span id="next"><<link [[Next|Sea Swarm Finish]]>><</link>></span><<nexttext>>
+<<elseif $swimdistance lte 0>>
+	<span id="next"><<link [[Next|Sea Swarm Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Sea Swarm]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Sea Swarm Finish
+
+<<set $outside to 0>><<underwater>><<effects>>
+<<if $stress gte $stressmax>>
+	It's all just too much for you. You pass out.
+	<br><br>
+	<<if $upperoff isnot 0>>
+		<<upperruined>>
+	<</if>>
+	<<if $loweroff isnot 0>>
+		<<lowerruined>>
+	<</if>>
+	<<if $underloweroff isnot 0>>
+		<<underlowerruined>>
+	<</if>>
+	<<if $underupperoff isnot 0>>
+		<<underupperruined>>
+	<</if>>
+	<<endcombat>>
+	<<link [[Next|Passout Beach]]>><<pass 1 hour>><</link>>
+<<else>>
+	<<tearful>> you swim away from the swarms of fish, who stay near their pots. They disappear inside them.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<destinationeventend>>
+<</if>>
+
 :: Sea Vore
 
-<<if $location isnot "sea">><<location "sea">><</if>><<effects>>
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
 	<<set $combat to 1>>
@@ -424,7 +482,6 @@ You start to untangle yourself without undressing. It takes a minute to free you
 
 :: Sea Tentacles
 
-<<if $location isnot "sea">><<location "sea">><</if>>
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
 	<<set $combat to 1>>
@@ -947,7 +1004,7 @@ The squid return to the deep. <<tearful>> you tread water.
 <<clotheson>>
 <<endcombat>>
 
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+<<destinationeventend>>
 <br>
 
 :: Sea Eye
@@ -959,7 +1016,7 @@ You look down, beneath your treading feet. You see nothing, at first. The surfac
 A small wave washes over it, hiding it once more.
 <br><br>
 
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+<<destinationeventend>>
 <br>
 
 :: Sea Eye Refuse
@@ -968,7 +1025,7 @@ A small wave washes over it, hiding it once more.
 You resist the urge to look, until the feeling passes.
 <br><br>
 
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+<<destinationeventend>>
 <br>
 
 :: Sea Chest

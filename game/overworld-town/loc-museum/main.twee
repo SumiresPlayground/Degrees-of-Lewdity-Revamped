@@ -57,6 +57,9 @@
 	<<museumAntiqueStatus "antiquetribemask" "talk">>
 	<<museumAntiqueStatus "antiqueebonystatuette" "talk">>
 	<<museumAntiqueStatus "antiqueglacierplant" "talk">>
+	<<museumAntiqueStatus "antiquebullion" "talk">>
+	<<museumAntiqueStatus "antiquereal" "talk">>
+	<<museumAntiqueStatus "antiqueindigo" "talk">>
 <</widget>>
 
 <<widget "museumtalk">>
@@ -286,6 +289,18 @@
 	<</if>>
 	<<if $museumAntiques.antiques.antiqueglacierplant is "talk">>
 		<<link [[Ask about the glacial plant|Museum Glacier Plant]]>><<museumAntiqueStatus "antiqueglacierplant" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquebullion is "talk">>
+		<<link [[Ask about the gold bullion|Museum Bullion]]>><<museumAntiqueStatus "antiquebullion" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiquereal is "talk">>
+		<<link [[Ask about the pristine real|Museum Real]]>><<museumAntiqueStatus "antiquereal" "museum">><<npcincr Winter love 1>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $museumAntiques.antiques.antiqueindigo is "talk">>
+		<<link [[Ask about the bottle of indigo|Museum Indigo]]>><<museumAntiqueStatus "antiqueindigo" "museum">><<npcincr Winter love 1>><</link>><<glove>>
 		<br>
 	<</if>>
 <</widget>>
@@ -1735,6 +1750,48 @@ Winter goes off on a tangent, but you remain polite, and nod along.
 <</if>>
 
 <<npc Winter>><<person1>>"Hmm what are these seeds?" Winter asks. <<He>> spends a few minutes inspecting the seeds before returning. "It looks similar to our modern species but there are some notable differences."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Bullion
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquebullion")>>
+	<<run $museumAntiqueJournalHints.delete("antiquebullion")>>
+<</if>>
+
+<<npc Winter>><<person1>>"What's this crusty old bar?" Winter asks. <<He>> grabs a rag and rubs the crust from the surface revealing a shiny glint. "It looks to be a bar of gold, surely this would have fetched quite the price, were it not degraded to this point."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Real
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiquereal")>>
+	<<run $museumAntiqueJournalHints.delete("antiquereal")>>
+<</if>>
+
+<<npc Winter>><<person1>>"Hmm what are these coins?" Winter asks. <<He>> spends a few minutes inspecting the coins before returning. "They seem to read, 'CAROLVS ET IOHANA REGES'. That would seem to date these in the early 15th century under the rule of King Charles I."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Indigo
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("antiqueindigo")>>
+	<<run $museumAntiqueJournalHints.delete("antiqueindigo")>>
+<</if>>
+
+<<npc Winter>><<person1>>"Powder?" Winter asks confused. <<He>> removes a pair of glasses from under the counter and inspects the bottle closely. "It looks to be an old sealed bottle of indigo. Even nowadays natural indigo is rare so this seems like quite the find."
 <br><br>
 
 <<link [[Next|Museum]]>><<endevent>><</link>>
