@@ -764,10 +764,11 @@ You're jolted awake by the sound of thousands of feet scuttling around you. It's
     It's too much for you. You pass out.
     <br><br>
     <<link [[Next|Ant Passout]]>><<passout>><</link>>
-<<elseif $exposed gte 1>>
+<<elseif $worn.upper.exposed gte 2 and $worn.lower.exposed gte 2>>
+	<<upperwear 79>>
+	<<lowerwear 71>>
     <<covered>> There's a pile of cloth scraps in an adjoining room. Some are large enough to wear.
     <br><br>
-    <<ragup>>
     <<link [[Next|Ant Slavery]]>><<endevent>><<set $eventskip to 1>><</link>>
 <<elseif $rng is 3 and $eventskip isnot 1>>
     <<beastNEWinit 1 ant>>
