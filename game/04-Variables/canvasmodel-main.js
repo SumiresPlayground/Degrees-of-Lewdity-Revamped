@@ -400,6 +400,7 @@ Renderer.CanvasModels["main"] = {
 			"eldrich_eyes_type": "disabled",
 			"eldritch_mist_type": "disabled",
 			"eldritch_tentacle_type": "disabled",
+			"eldritch_skin_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2623,6 +2624,18 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_tentacle_type)
 			},
+			z: ZIndices.tail,
+			animation: "idle"
+		},
+
+		"eldritch_skin": {
+			srcfn(options) {
+				return `img/transformations/eldritch/skin/${options.eldritch_skin_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type)
+			},
+			filters: ["body"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
