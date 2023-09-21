@@ -669,6 +669,7 @@ function dayPassed() {
 	/* World Expanded Daily Variables*/
 
 	V.dragonbreathuse = 0;
+	V.sirensong = 3;
 
 	V.fungalstagelimiter = 0;
 	V.fungalclotheslimiter = 1;
