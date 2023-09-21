@@ -2055,7 +2055,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.bee_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 		"bee_wings_right": {
@@ -2211,7 +2211,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.dragon_tail_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 		/*** 
@@ -2241,7 +2241,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.lizard_tail_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 
@@ -2256,7 +2256,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && isPartEnabled(options.dolphin_tail_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.backhair,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 
