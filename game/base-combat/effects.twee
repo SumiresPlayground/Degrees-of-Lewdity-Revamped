@@ -3352,6 +3352,40 @@
 			<</if>>
 		<</if>>
 
+		<<if $rightaction is "burn">>
+			<<set $rightaction to 0>><<set $rightactiondefault to "burn">><<personselect $righttarget>>
+			<<if $parasite.left_ear.name is "slime" and random(1, 3) is 3 or $parasite.right_ear.name is "slime" and random(1, 3) is 3>>
+				<<if $corruption_slime gte (currentSkillValue('willpower') / 10)>>
+					You try to aim a blast of heat at the <<if $enemytype is "beast">><<beasttype>><<else>><<person>><</if>>
+					with your right hand, <span class="red">but the slime immobilises your limb.</span>
+					<<gwillpower>><<willpower 1>>
+				<<else>>
+					The slime tries to immobilise your right arm, <span class="green">but you wrestle control away from it.</span>
+					<<actionsburn $righttarget>><<defiance 5 $righttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
+				<</if>>
+			<<else>>
+				<<actionsburn $righttarget>><<set $speechhit to 1>><<defiance 8 $righttarget>><<set $attackstat += 1>>
+			<</if>>
+		<</if>>
+
+		<<if $leftaction is "burn">>
+			<<set $leftaction to 0>><<set $leftactiondefault to "burn">>
+			<<if $parasite.left_ear.name is "slime" and random(1, 3) is 3 or $parasite.right_ear.name is "slime" and random(1, 3) is 3>>
+				<<if $corruption_slime gte (currentSkillValue('willpower') / 10)>>
+					You try to aim a blast of heat at the <<if $enemytype is "beast">><<beasttype>><<else>><<personselect $lefttarget>><<person>><</if>>
+					with your left hand, <span class="red">but the slime immobilises your limb.</span>
+					<<gwillpower>><<willpower 1>>
+				<<else>>
+					The slime tries to immobilise your left arm, <span class="green">but you wrestle control away from it.</span>
+					<<actionsburn $lefttarget>><<defiance 5 $lefttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
+				<</if>>
+			<<else>>
+				<<actionsburn $lefttarget>><<defiance 8 $lefttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
+			<</if>>
+		<</if>>
+
+		
+
 		/*End of stalked actions */
 		
 		/***
@@ -3543,6 +3577,30 @@
 						<<combatcontrol `1 + $englishtrait`>>
 					<</if>>
 				<</if>>
+			<</if>>
+		<</if>>
+
+		<<if $mouthaction is "sing">>
+			<<set $mouthaction to 0>><<set _sound to 1>>
+			<<if $neckuse is "hand" and $oxygen lt $oxygenmax and $asphyxiaLvl gte 2>>
+				<<wheeze "sing" 2>>
+			<<else>>
+				<br><span class='lblue'>A soothing aria flows from the depths of your being.</span><br>
+				<<if $enemytype is "beast">>
+					<span class='lblue'>The <<beasttype>> is lost in the song, before their attention returns to you.<br><br></span>
+				<<elseif $enemyno gte 2>>
+					<span class='lblue'>The <<group>> are lost in the song, before their attention returns to you.<br><br></span>
+				<<else>>
+					<span class='lblue'>Your assailant is lost in the song, before their attention returns to you.<br><br></span>
+				<</if>>
+				<<set $mouthactiondefault to "sing">>
+				<<submission `1 + $englishtrait`>>
+				<<set $enemytrust += 500>>
+				<<set $enemyanger -= 500>>
+				<<if $sirensong is undefined>>
+					<<set $sirensong to 3>>
+				<</if>>
+				<<set $sirensong -= 1>>
 			<</if>>
 		<</if>>
 

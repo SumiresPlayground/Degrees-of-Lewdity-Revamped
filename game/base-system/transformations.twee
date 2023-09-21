@@ -3,7 +3,7 @@
 <<widget "setupTransformationPiecesObject">>
 	<<if $transformationParts is undefined>>
 		<<set $transformationParts to {
-			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", aquatail:"disabled", lungs:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", kicks:"disabled", longtongue:"disabled", strongnose:"disabled", bearbuild:"disabled"},
+			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", aquatail:"disabled", lungs:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", kicks:"disabled", longtongue:"disabled", strongnose:"disabled", bearbuild:"disabled", armorscales:"disabled"},
 			angel: {halo:"disabled", wings:"disabled"},
 			fallenAngel: {halo:"disabled", wings:"disabled"},
 			demon: {horns:"disabled", wings:"disabled", tail: "disabled"},
@@ -211,6 +211,7 @@
 			<<if $fish gte 6>>
 				<<set $transformationParts.fish.tail to "default">>
 				<<set $transformationParts.traits.aquatail to "default">>
+				<<set $transformationParts.traits.armorscales to "default">>
 				<<set $hastail to "true">>
 				<<set $thicktail to "true">>
 				<<set $swimtail to "true">>
@@ -347,7 +348,7 @@
 		<<set $transformationParts.mushroom to {cap:"disabled", eyes:"disabled", spores:"disabled", mushrooms:"disabled"}>>
 	<</if>>
 	<<if $transformationParts.traits is undefined>>
-		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", strongnose:"disabled", longtongue:"disabled", kicks:"disabled", bearbuild:"disabled"}>>
+		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", strongnose:"disabled", longtongue:"disabled", kicks:"disabled", bearbuild:"disabled", armorscales:"disabled"}>>
 		<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
 			<<set $transformationParts.traits.fangs to "default">>
 		<</if>>
@@ -2143,10 +2144,11 @@
 					<<set $deer to 6>>
 					<<cleartail>>
 					<<set $transformationParts.deer.tail to "default">>
+					<<set $transformationParts.traits.kicks to "default">>
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
 					<<earnFeat "Deer">>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new deer tail.</span>
+					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new deer tail. Your legs inexplicably feel more powerful.</span>
 					<br><br>
 				<<elseif $deerbuild lt 25>>
 					<<set $deer to 4>>
@@ -2155,9 +2157,10 @@
 				<</if>>
 			<<case 6>>
 				<<if $deerbuild lt 30>>
-					<span class="gold">Your balance feels different. Your deer tail has disappeared.</span>
+					<span class="gold">Your balance feels different. Your deer tail has disappeared. Your legs also seem to atrophy, somewhat.</span>
 					<<set $deer to 5>>
 					<<set $transformationParts.deer.tail to "disabled">>
+					<<set $transformationParts.traits.kicks to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thintail to "false">>
 					<br><br>
@@ -2173,6 +2176,7 @@
 				<<set $thintail to "false">>
 				<<set $transformationParts.deer.ears to "disabled">>
 				<<set $transformationParts.deer.horns to "disabled">>
+				<<set $transformationParts.traits.kicks to "disabled">>
 		<</switch>>
 	<<else>>
 		<<clearAnimalTransformations>>
@@ -2189,6 +2193,7 @@
 		<<set $thintail to "true">>
 		<<set $transformationParts.deer.ears to "default">>
 		<<set $transformationParts.deer.horns to "default">>
+		<<set $transformationParts.traits.kicks to "default">>
 	<</if>>
 <</widget>>
 
@@ -2796,10 +2801,11 @@
 					<<set $permanentTransform = 1>>
 					<<set $fishtf = 1>>
 					<<set $fish to 6>>
-					<span class="gold">An appendage extends from the scaled area along your back. The protrusion seems to have a caudal fin on the end. You have grown a fish tail.</span>
+					<span class="gold">An appendage extends from the scaled area along your back. The protrusion seems to have a caudal fin on the end. You have grown a fish tail. The remainder of your skin takes on the scaly qualities of your tail and ears.</span>
 					<<cleartail>>
 					<<set $transformationParts.fish.tail to "default">>
 					<<set $transformationParts.traits.aquatail to "default">>
+					<<set $transformationParts.traits.armorscales to "default">>
 					<<set $hastail to "true">>
 					<<set $thicktail to "true">>
 					<<set $swimtail to "true">>
@@ -2812,10 +2818,11 @@
 				<</if>>
 			<<case 6>>
 				<<if $fishbuild lt 30>>
-					<span class="gold">Your balance feels different. Your scaly fish tail has been reabsorbed into your body.</span>
+					<span class="gold">Your balance feels different. Your scaly fish tail has been reabsorbed into your body. The scales lining your body fall off and your skin returns to normal.</span>
 					<<set $fish to 5>>
 					<<set $transformationParts.fish.tail to "disabled">>
 					<<set $transformationParts.traits.aquatail to "disabled">>
+					<<set $transformationParts.traits.armorscales to "disabled">>
 					<<set $hastail to "false">>
 					<br><br>
 					<<set $fishtf = 1>>
@@ -2829,6 +2836,7 @@
 				<<set $fishbuild to 0>>
 				<<set $transformationParts.traits.aquatic to "disabled">>
 				<<set $transformationParts.traits.aquatail to "disabled">>
+				<<set $transformationParts.traits.armorscales to "disabled">>
 				<<set $transformationParts.fish.fins to "disabled">>
 				<<set $transformationParts.fish.tail to "disabled">>
 				<<set $hastail to "false">>
@@ -2846,6 +2854,7 @@
 		<<cleartail>>
 		<<set $transformationParts.traits.aquatail to "default">>
 		<<set $transformationParts.traits.aquatic to "default">>
+		<<set $transformationParts.traits.armorscales to "default">>
 		<<set $transformationParts.fish.fins to "default">>
 		<<set $transformationParts.fish.tail to "default">>
 		<<set $hastail to "true">>
