@@ -152,7 +152,15 @@ const combatActionColours = {
 		],
 		lblue: [
 			/* Yuki-Onna attacks */
-			"freeze", "deathlychill",
+			"deathlychill",
+		],
+		orange: [
+			/* Ifrit attacks */
+			"burn",
+		],
+		blue: [
+			/* Undine attacks */
+			"sing",
 		],
 	},
 	Tentacle: {
