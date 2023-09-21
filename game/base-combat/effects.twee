@@ -3361,10 +3361,10 @@
 					<<gwillpower>><<willpower 1>>
 				<<else>>
 					The slime tries to immobilise your right arm, <span class="green">but you wrestle control away from it.</span>
-					<<actionsburn $righttarget>><<defiance 5 $righttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
+					<<actionsburn $righttarget>><<defiance 3 $righttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
 				<</if>>
 			<<else>>
-				<<actionsburn $righttarget>><<set $speechhit to 1>><<defiance 8 $righttarget>><<set $attackstat += 1>>
+				<<actionsburn $righttarget>><<set $speechhit to 1>><<defiance 5 $righttarget>><<set $attackstat += 1>>
 			<</if>>
 		<</if>>
 
@@ -3377,10 +3377,10 @@
 					<<gwillpower>><<willpower 1>>
 				<<else>>
 					The slime tries to immobilise your left arm, <span class="green">but you wrestle control away from it.</span>
-					<<actionsburn $lefttarget>><<defiance 5 $lefttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
+					<<actionsburn $lefttarget>><<defiance 3 $lefttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
 				<</if>>
 			<<else>>
-				<<actionsburn $lefttarget>><<defiance 8 $lefttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
+				<<actionsburn $lefttarget>><<defiance 5 $lefttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
 			<</if>>
 		<</if>>
 
@@ -3583,15 +3583,15 @@
 		<<if $mouthaction is "sing">>
 			<<set $mouthaction to 0>><<set _sound to 1>>
 			<<if $neckuse is "hand" and $oxygen lt $oxygenmax and $asphyxiaLvl gte 2>>
-				<<wheeze "sing" 2>>
+				<<wheeze "sing">>
 			<<else>>
-				<br><span class='lblue'>A soothing aria flows from the depths of your being.</span><br>
+				<br><span class='blue'>A soothing aria flows from the depths of your being.</span> 
 				<<if $enemytype is "beast">>
-					<span class='lblue'>The <<beasttype>> is lost in the song, before their attention returns to you.<br><br></span>
+					<span class='blue'>The <<beasttype>> is lost in the song, before <<his>> attention returns to you.<br><br></span>
 				<<elseif $enemyno gte 2>>
-					<span class='lblue'>The <<group>> are lost in the song, before their attention returns to you.<br><br></span>
+					<span class='blue'>The <<group>> are lost in the song, before <<his>> attention returns to you.<br><br></span>
 				<<else>>
-					<span class='lblue'>Your assailant is lost in the song, before their attention returns to you.<br><br></span>
+					<span class='blue'>Your audience is held captive by the melody before <<his>> attention returns to you.<br><br></span>
 				<</if>>
 				<<set $mouthactiondefault to "sing">>
 				<<submission `1 + $englishtrait`>>
