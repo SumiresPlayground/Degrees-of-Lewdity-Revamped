@@ -81,15 +81,17 @@ YP  YP  YP ~Y8888P' `8888Y' YP   YP 88   YD  `Y88P'   `Y88P'  YP  YP  YP
 
 <<widget "mushroomtransform">>
 	<<set $mushroom to 1>>
-	<<set $skinColor.naturalreset to $skinColor.natural>>
+	<<if $haircolourreset is undefined>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $haircolourreset to $haircolour>>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+	<</if>>
 	<<set $skinColor.natural to "dusky">> 
 	<<set $transformationParts.mushroom.cap to "default">>
 	<<set $transformationParts.mushroom.eyes to "default">>
 	<<set $transformationParts.mushroom.spores to "default">>
 	<<set $transformationParts.mushroom.mushrooms to "default">>
-	<<set $haircolourreset to $haircolour>>
 	<<set $haircolour to "amberyellow">>
-	<<set $hairfringecolourreset to $hairfringecolour>>
 	<<set $hairfringecolour to "amberyellow">>
 	<<headruined>>
 	<<headwear 54>>

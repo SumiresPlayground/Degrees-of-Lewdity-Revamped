@@ -391,14 +391,16 @@ Instead, you feel a warmth as the tentacles seem to meld into your very being. T
 
 
 	<<if $slime isnot 2>>
-		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<if $haircolourreset is undefined>>
+			<<set $skinColor.naturalreset to $skinColor.natural>>
+			<<set $haircolourreset to $haircolour>>
+			<<set $hairfringecolourreset to $hairfringecolour>>
+		<</if>>
 		<<set $skinColor.natural to "amethyst">> 
 		<<set $transformationParts.slime.bubble to "pdefault">>
 		<<set $transformationParts.slime.stream to "pdefault">>
 		<<set $transformationParts.slime.core to "default">>
-		<<set $haircolourreset to $haircolour>>
 		<<set $haircolour to "lilacpurple">>
-		<<set $hairfringecolourreset to $hairfringecolour>>
 		<<set $hairfringecolour to "lilacpurple">>
 		<<set $slime to 2>>
 	<</if>>

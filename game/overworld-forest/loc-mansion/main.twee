@@ -507,13 +507,15 @@ You snuggle under the covers.
 	Your skin is ghostly pale. Blue flaming orbs loom around you. You go to touch your face but shockingly your hand phases through into your head. You start to breathe heavily, panic setting in, as your hand becomes stuck in place.
 	<br><br>
 	You pull and finally rip it loose as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
-	<<set $skinColor.naturalreset to $skinColor.natural>>
+	<<if $haircolourreset is undefined>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $haircolourreset to $haircolour>>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+	<</if>>
 	<<set $skinColor.natural to "ghostly">>
 	<<set $transformationParts.ghost.eyes to "default">>
 	<<set $transformationParts.ghost.hitodama to "default">>
-	<<set $haircolourreset to $haircolour>>
 	<<set $haircolour to "jetblack">>
-	<<set $hairfringecolourreset to $hairfringecolour>>
 	<<set $hairfringecolour to "jetblack">>
 	<<set $options.lightGlow to 1>>
 	<<set $ghost to 1>>
@@ -526,16 +528,19 @@ You snuggle under the covers.
 	Your skin is ghostly pale. Blue flaming orbs loom around you. You go to touch your face but shockingly your hand phases through into your head. You start to breath heavily, panic setting in, as your hand becomes stuck in place.
 	<br><br>
 	You pull and finally rip it loose as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
-	<<set $skinColor.naturalreset to $skinColor.natural>>
+	<<if $haircolourreset is undefined>>
+		<<set $skinColor.naturalreset to $skinColor.natural>>
+		<<set $haircolourreset to $haircolour>>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+	<</if>>
 	<<set $skinColor.natural to "ghostly">>
 	<<set $transformationParts.ghost.eyes to "default">>
 	<<set $transformationParts.ghost.hitodama to "default">>
-	<<set $haircolourreset to $haircolour>>
 	<<set $haircolour to "jetblack">>
-	<<set $hairfringecolourreset to $hairfringecolour>>
 	<<set $hairfringecolour to "jetblack">>
 	<<set $options.lightGlow to 1>>
 	<<set $ghost to 1>>
+	<<earnFeat "Ghost">>
 <<else>>
 	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
 <</if>>
