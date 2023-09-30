@@ -26,6 +26,7 @@ const Furniture = (() => {
 		gameconsole: "gameconsole",
 		pc: "pc",
 		bookshelf: "bookshelf",
+		mirror: "mirror",
 	});
 
 	const Locations = Object.freeze({
