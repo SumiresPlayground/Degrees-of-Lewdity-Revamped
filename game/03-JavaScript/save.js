@@ -934,6 +934,7 @@ function settingsObjects(type) {
 				vaginaldoubledisable: { boolLetter: true, bool: true, displayName: "Double Vaginal:" },
 				transformdisable: { boolLetter: true, bool: true, displayName: "Animal Transformations:" },
 				transformdisabledivine: { boolLetter: true, bool: true, displayName: "Divine Transformations:" },
+				transformdisabletheseus: { boolLetter: true, bool: true, displayName: "Theseus Transformations:" },
 				hirsutedisable: { boolLetter: true, bool: true },
 				pbdisable: { boolLetter: true, bool: true, displayName: "Pubic hair:" },
 				breastfeedingdisable: { boolLetter: true, bool: true, displayName: "Breastfeeding:" },

@@ -1,0 +1,248 @@
+:: Bog Cult Intro
+Following the trail of strange activities, you find yourself in the bog. Suspiciously, the trail cut off as the forest opened up into the bog. You begin to scan your surroundings before a throbbing pain fills your head and the world goes black.
+<br><br>
+<<link [[Next|Bog Cult Dream]]>><</link>>
+
+:: Bog Cult Dream
+<<set $outside to 1>>
+Your eyes blink open and you find yourself in a small wooden room, a flickering florescent light strobes the room revealing rotten walls and floorboards. Black ooze drips from the cracks and you swear you can spot eyes hiding between the crevices. Suddenly, you feel a damp touch to your skin as tentacles stretch from the dark holes in the floorboards binding you.
+<br><br>
+You start to panic, but a voice permeates the entire room drawing your full attention. It speaks in a language you cannot understand but the words alone seem to calm your soul. The tentacles caress your skin, oozing black fluid over your body as the voice slowly fades to silence.
+<br><br>
+<<link [[Next|Bog Cult Wake]]>><<pass 60>><</link>>
+
+:: Bog Cult Wake
+<<npc Salem>><<person1>>
+<<if $worn.upper.exposed gte 2 or $worn.lower.exposed gte 2>>
+	<<upperwear 79>>
+	<<lowerwear 71>>
+<</if>>
+You awaken once again in yet another unfamiliar room. You to get up but you seem to be tied down to a bed, wrist and ankle cuffs bind you to the posts. You seem to be in some kind of cell. Your thoughts are interupted as someone else in the room clears their throat. "Um hello please don't panic, I can explain."
+<br><br>
+A young <<personsimple>> steps out from the shadows nervously. <<His>> hair is long and black matching <<his>> flowing black robe. <<His>> eyes shine a faint purple and almost seem to glow in the darkness. "U-um... I'm sorry we have to meet under such circumstances. My name's Salem." <<His>> eyes dart around nervously. "The fellowship has felt your presence getting close to the truth and decided they needed to stop you before you did anything hasty." <<He>> whispers. "I swear we're not bad people. You just have to hear me out."
+<br><br>
+<<He>> unlocks your cuffs and helps you sit up. "We're the true religion of this town. That other group, the ones on Wolf Street, they're heretics. They forsook our way of life and banished our ancestors from the church. Sure our ceremonies can look dangerous from an outsiders perspective but we'd never harm anybody." <<He>> seems to believe what <<hes>> saying at least and seems to be more confident and comfortable speaking about the subject. "Um... If you would please follow me, I'd like to show you something."
+<br><br>
+<<link [[Next (0:10)|Bog Cult Salem Intro]]>><<pass 10>><</link>>
+
+:: Bog Cult Salem Intro
+You follow Salem out from the cell and down a long corridor that opens into a large central room. "T-this is the main prayer chamber." The room is large and open, lit only by candles placed on the altar and lining the walls. "I-If you don't mind, I'd like to speak to you privately for a moment..." <<He>> stands awkwardly for a moment before walking away again.
+<br><br>
+You follow <<him>> down another corridor, past many doors, until you reach a door near the end of the hall. "T-this is it..." Salem slowly opens the door and beckons you to enter. The room is made of stone like the others, illuminated by smooth candles, but potted plants intersperce the room. Vines covered in flowers drape down the walls painting the would be drab room in a rainbow of shades.
+<br><br>
+"T-this is my room..." Salem whispers embarrassed. "I've never really shown it to anybody... But I have something important I want to discuss with you." <<He>> breathes out a sigh and continues. "Now that you know we exist, the elders aren't going to want you to leave here, but I have a plan. You can become an initiate in the fellowship. It should allow you to enter and leave as you like." Once again you notice that Salem seems to be more confident when <<hes>> thinking of solutions instead of worrying. "The initiation ceremony shouldn't take long. Just speak to me when you're ready."
+<br><br>
+<<link [[Next|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Room
+<<npc Salem>><<person1>>
+<<if $salempunishment is 0 and $salemgone is 1>>
+    Salem returns for the first time since the initiation. <<He>> looks exhausted. "Oh... hey you're still here. I wasn't sure if you'd immediately leave after the initiation or not." <<He>> begins to sit but winces and stands back up. Under <<his>> flowy sleeves you can make out faint burn marks. <<He>> notices you looking and hastily covers them up. "O-oh uh... I... It's because I let you out without letting anybody know... Please don't worry about it. I'll be fine." <<He>> gives a pained smile before sitting once more.
+    <<set $salemgone to 0>>
+    <br><br>
+    <<link [[Next|Bog Cult Salem Room]]>><</link>>
+<<else>>
+    You're in Salem's room. The room is made of stone like the others, illuminated by smooth candles, but potted plants intersperce the room. Vines covered in flowers drape down the walls painting the would be drab room in a rainbow of shades.
+    <br><br>
+    <<if $salemgone is 0 and Time.daystate isnot "night">>
+        Salem seems to be meditating in silence on his bed.
+        <br><br>
+        <<link [[Speak to Salem|Bog Cult Salem Speak]]>><</link>>
+        <br>
+    <<elseif $salemgone is 0>>
+        Salem is fast asleep. You can hear quite whispers under <<his>> breath.
+        <br><br>
+    <</if>>
+    <<if $cultjoined isnot 1>>
+        <<link [[Speak to Salem|Bog Cult Salem Initiation]]>><</link>>
+    <<else>>
+        <<link [[Lay in your bed|Bog Cult Bed]]>><</link>>
+    <</if>>
+    <br>
+    <<link [[Read a book off the shelf (0:10)|Bog Cult Salem Read]]>><<pass 10>><</link>>
+    <br>
+    <<link [[Observe the plants|Bog Cult Salem Plant]]>><</link>>
+    <br>
+    <<if $cultjoined is 1>>
+        <<link [[Leave (0:05)|Bog Cult]]>><<pass 5>><</link>>
+    <</if>>
+<</if>>
+
+:: Bog Cult Salem Plant
+The plants seem to be of all types. You can spot Asters and Vervain among other more dangerous species like Nightshade. You probably shouldn't touch them.
+<br><br>
+<<link [[Back|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Read
+You take a book off the shelf and read the title. "Magnus Liber Ultra" its pages are clean and new but it looks to have been copied from an older text. It seems to be something of an old journal or Bible. It documents the life of an unnamed author and their pursuit of the truth of the universe. In the end the author writes of their approaching demise and desire to preserve their knowledge. You assume something bad must have happened to the original members of the fellowship. 
+<br><br>
+<<link [[Back|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Initiation
+"You ready?" <<He>> asks calmly. It appears that <<he>> has steeled himself in anticipation. "Please follow me one more time."
+<br><br>
+Salem leads you back to the main hall of the temple where a large group has begun to gather. "Honorable elders." Salem speaks up and bows, prostrating himself before the elders. "I have taken it upon myself to speak to the interloper and have reached a conclusion. I humbly request that we innitate <<pher>> as a member of the fellowship." <<He>> continues to hold his head to the floor in reverence as the group stands in a moment of silence.
+<br><br>
+"Salem." A raspy voice rises from the body of one of the elders. "We have... much to discuss." They look down upon <<him>> for several minutes before speaking once more. "We... Shall carry out this initiation... However... We wish to speak with you alone afterward... Salem..." The room is hushed once again, the only noise breaking the silence is the flickering of candles.
+<br><br>
+"You... Child..." The elder points their long bony finger in your direction. "Lie upon the altar..." Everyone's eyes are on you and you feel compelled to listen. You lie upon the alter as the elders surround you. You feel cloth cover your eyes as the surroundings fade to black. You feel a tingle before a searing pain on your stomach. The pain spreads to your sides and chest as you breath more heavily. The elders begin to chant in a language you're unfamiliar with before you feel a strong ripping sensation, leaving your torso feeling raw. Finally after a moment, the blindfold is removed. Your skin is red raw and strips of wax line the altar. "You child... You will share a room with Salem..." Deeming their job done, the elders hobble away slowly. 
+<br><br>
+<<link [[Next|Bog Cult]]>><<set $cultjoined to 1>><<set $salempunishment to 1>><<set $salemgone to 1>><</link>>
+
+:: Bog Cult
+You're in the main ritual room of the fellowship. The room is large and open, lit only by candles placed on the altar and lining the walls. Monks and nuns kneel in prayer as many others enter and leave through the rooms many corridors.
+<br><br>
+<<link [[Speak to the elders (0:05)|Bog Cult Elder Task]]>><<pass 5>><</link>>
+<br>
+<<link [[Enter Salem's room (0:05)|Bog Cult Salem Room]]>><<pass 5>><</link>>
+<br>
+<<link [[Leave (0:10)|Forest]]>><<pass 10>><<endevent>><</link>>
+
+:: Bog Cult Bed
+<<effects>>
+
+You lie in your bed, the blankets are firm and slightly uncomfortable. 
+<br><br>
+
+<<if $sleeptrouble is 1 and $controlled is 0>>
+	<<link [[Sleep for 10 hours|Bog Cult Sleep]]>><<set $sleephour to 10>><<incrementautosave>><</link>> (<<timeAfterXHours 10>>)<<ltiredness>>
+	<br>
+	<<link [[Sleep for 9 hours|Bog Cult Sleep]]>><<set $sleephour to 9>><<incrementautosave>><</link>> (<<timeAfterXHours 9>>)<<ltiredness>>
+	<br>
+<</if>>
+
+<<link [[Sleep for 8 hours|Bog Cult Sleep]]>><<set $sleephour to 8>><<incrementautosave>><</link>> (<<timeAfterXHours 8>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 7 hours|Bog Cult Sleep]]>><<set $sleephour to 7>><<incrementautosave>><</link>> (<<timeAfterXHours 7>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 6 hours|Bog Cult Sleep]]>><<set $sleephour to 6>><<incrementautosave>><</link>> (<<timeAfterXHours 6>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 5 hours|Bog Cult Sleep]]>><<set $sleephour to 5>><<incrementautosave>><</link>> (<<timeAfterXHours 5>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 4 hours|Bog Cult Sleep]]>><<set $sleephour to 4>><<incrementautosave>><</link>> (<<timeAfterXHours 4>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 3 hours|Bog Cult Sleep]]>><<set $sleephour to 3>><<incrementautosave>><</link>> (<<timeAfterXHours 3>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 2 hours|Bog Cult Sleep]]>><<set $sleephour to 2>><<incrementautosave>><</link>> (<<timeAfterXHours 2>>)<<ltiredness>>
+<br>
+<<link [[Sleep for 1 hours|Bog Cult Sleep]]>><<set $sleephour to 1>><<incrementautosave>><</link>> (<<timeAfterXHours 1>>)<<ltiredness>>
+<br><br>
+
+<<link [[Get up|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+
+:: Bog Cult Sleep
+<<set _autosavehere to true>>
+<<sleep>><<effects>>
+
+You dream you are in the presence of something dark... The darkness whispers incomprehensible words into your ear.
+<br><br>
+<<if $culttaskphase is 4 and $culttaskcomplete is 0>>
+    The whispers intenify as a seed that was planted within you begins to grow. You find yourself back in the faded room. Darkness oozes through the walls as tentacles grip at you through the walls. A tentacle rises before you. It leaks the same dark fluid as the rest of the room. Within its grasp lies a glowing purple idol of the Dark Mother.
+    <br><br>
+    <<set $culttaskcomplete to 1>>
+<</if>>
+
+<<sleepeffects>>
+<br><br>
+
+<<link [[Get up|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Speak
+As you speak, Salem is startled for a moment before answering. "O-oh geez sorry. I was meditating and didn't notice you speaking. What do you need?"
+<br><br>
+<<link [[Hangout (0:30)|Bog Cult Salem Hangout]]>><<npcincr Salem love 1>><<pass 30>><</link>><<glove>>
+<br>
+<<link [[Ask for more info about the fellowship (0:10)|Bog Cult Salem Info]]>><<pass 10>><</link>>
+<br>
+<<link [[Back|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Hangout
+You spend time hanging out with Salem. You sit next to <<him>> and follow in <<his>> example. It might just be your mind playing tricks on you, but you can swear you hear faint whispers.
+<br><br>
+After about 30 minutes the whispers intensify and you're shocked out of your meditation. Salem glaces at you concerned. "Are you alright?"
+<br><br>
+<<link [[Explain what happened|Bog Cult Salem Explain]]>><</link>>
+<br>
+<<link [[Yeah it's nothing|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Explain
+"Oh that's nothing to worry about." Salem smiles. "That's the Dark Mother. She's our tutelary diety. Members of the fellowship can connect with her through meditation."
+<br><br>
+<<He>> blushes under your blank stare. "U-um I swear it's nothing I promise..."
+<br><br>
+<<link [[Back|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Info
+"O-oh you want to know more about our fellowship?" Salem's eyes sparkle in the candle light. "Okay so... Our founders were originally part of the church in town, but upon connecting with the Dark Mother, they were cast out and forced out of town. They wandered the forest for many days and nights before finally settling and building a temple in the woods. The records of the event are lost but the ruins of the temple still exist in the deepest depths of the lake. The elders uncovered the knowledge of the founders and refounded the cult out here in the bogs. It's quite interesting don't you think?"
+<br><br>
+"O-oh! Sorry was I speaking too fast I- I uh..." <<He>> blushes and falls silent.
+<br><br>
+<<link [[Back|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Elder Task
+<<if $culttask is 1>>
+    You approach the elders once again. They look at you expectantly.
+    <br><br>
+    <<if $culttaskcomplete is 1>>
+        <<link [[Turn in the idol|Bog Cult Elder Task]]>><<set $culttaskphase += 1>><<set $culttaskcomplete to 0>><<set $culttask to 0>><</link>>
+    <<else>>
+        <<link [[Back|Bog Cult]]>><</link>>
+    <</if>>
+
+<<elseif $culttask is undefined>>
+    You approach the elders for the first time since your initiation. They gaze upon you, not quite sure where you stand. "So... you have joined the fellowship." An elder speaks up. "You must still... prove your loyalty." The elder lets out a raspy cough before continuing. "For your first task... retrive an idol of the Dark Mother from the old temple." The elder rests for a moment before speaking once more. "Well?... What are you waiting for..."
+    <br><br>
+    <<link [[Back|Bog Cult]]>><<set $culttask to 1>><<set $culttaskphase to 0>><</link>>
+
+<<elseif $culttaskphase is 1>>
+    An elder speaks up. "You have done well with the last task..." The elder lights a purple candle on the alter. "This time we require... another idol. Search within the tomb of peasants..."
+    <br><br>
+    <<link [[Back|Bog Cult]]>><<set $culttask to 1>><</link>>
+
+<<elseif $culttaskphase is 2>>
+    They light a second purple candle that flickers to life over the altar. "You have proven yourself to be quite... capable." The elder rasps. "The next idol is hidden within a maze of filth and grime... May your search be swift."
+    <br><br>
+    <<link [[Back|Bog Cult]]>><<set $culttask to 1>><</link>>
+
+<<elseif $culttaskphase is 3>>
+    They light a third purple candle that flickers to life over the altar. "Your dedication is quite... admirable. We near the finale... Find the next idol within the home of the old god..."
+    <br><br>
+    <<link [[Back|Bog Cult]]>><<set $culttask to 1>><</link>>
+
+<<elseif $culttaskphase is 4>>
+    They light a fourth purple candle that flickers to life over the altar. "You have almost restored the Dark Mother's altar... The joyous day cometh... The final idol is... inside yourself."
+    <br><br>
+    <<link [[Back|Bog Cult]]>><<set $culttask to 1>><</link>>
+<<elseif $culttaskphase is 5>>
+    They light the fifth and final purple candle over the altar. "The old altar is complete..." The elders gather around the altar. "The gift of the Dark Mother is ready to be bequeathed... Come soon, on the reddest of moons and her gift will be granted upon you." 
+    <br><br>
+    <<link [[Back|Bog Cult]]>><<set $darkaltar to 1>><</link>>
+<<elseif $darkaltar is 1 and _bmoon>>
+    "The time is nigh... Lie upon the altar child..." The elders gather around the altar in their ritual robes as you lie in the center. "Partake of the Dark Mother's milk child... and be shaped to her will..." The elder hands you a vial filled with the same oozing black liquid that haunted your dreams.
+    <br><br>
+    <span class = "red">Warning, this tf is a one time event and will replace your current divine tf.</span>
+    <br><br>
+    <<link [[Drink|Bog Cult Drink]]>><</link>>
+    <br>
+    <<link [[Back|Bog Cult]]>><</link>>
+<<elseif $darkaltar is 1>>
+    "Not now..." The elder speaks. "The moon must be the reddest object in all of the sky for the ritual..."
+    <br><br>
+    <<link [[Back|Bog Cult]]>><</link>>
+<</if>>
+
+:: Bog Cult Drink
+You bring the vial to your lips and drink the thick black ooze. You begin to feel ill as the liquid affects your body. Black ooze flows from your orifaces as the dormant seed layed within you sprouts. Tentacles rip from your back as a crown of tentacled thorns sprouts from your head, digging into your skull.
+<br><br>
+You look over the members of the fellowship as they gaze upon you in reverence. The chosen one of the Dark Mother. They remove themselves from your path as you sit up and stretch your new tentacles.
+<br><br>
+<<clearDivineTransformations>>
+<<set $eldritch to 1>>
+<<set $specialTransform to 1>>
+<<set $transformationParts.eldritch.crown to "default">>
+<<set $transformationParts.eldritch.skin to "default">>
+<<set $transformationParts.eldritch.eyes to "default">>
+<<set $transformationParts.eldritch.mist to "default">>
+<<set $transformationParts.eldritch.tentacle to "default">>
+<<link [[Next|Bog Cult]]>><</link>>
