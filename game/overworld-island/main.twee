@@ -108,6 +108,14 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
 			<<eventislandsafe>>
 		<</if>>
     <<else>>
+        <<if !$plants_known.includes("mouse_ear") and $islanddistance lt 50 and $islanddistance gt 30>>
+            <<link [[Search for seeds (0:30)|Island Mouseear]]>><<pass 30>><<tending 6>><<set $plants_known.push("mouse_ear")>><</link>><<gtending>>
+            <br>
+        <</if>>
+        <<if !$plants_known.includes("glacier_crowfoot") and $islanddistance lt 60 and $islanddistance gt 50>>
+            <<link [[Search for seeds (0:30)|Island Crowfoot]]>><<pass 30>><<tending 6>><<set $plants_known.push("glacier_crowfoot")>><</link>><<gtending>>
+            <br>
+        <</if>>
         <<if $islanddistance is 0>>
             <<link [[Swim back out to sea (0:10)|Sea Reef]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
             <br>
@@ -118,6 +126,8 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
         <</if>>
         <<if $islanddistance is 20 and $exposed gt 0>>
             You can't enter the village dressed like this.
+            <br>
+            <<link [[Search for scraps (0:10)|Desert Search]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
             <br>
         <<elseif $islanddistance is 20>>
             <<link [[Enter the village (0:05)|Desert Village]]>><<pass 5>><</link>>
@@ -132,7 +142,7 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
             <br>
         <</if>>
         <<if $islanddistance is 65>>
-            <<link [[Enter the hole (0:5)|Ice Shrine]]>><<pass 5>><</link>>
+            <<link [[Enter the hole (0:05)|Ice Shrine]]>><<pass 5>><</link>>
             <br>
         <</if>>
         <<if $islanddistance gte 1>>
@@ -415,7 +425,7 @@ You and the crew board the ship and take off to sea. You catch the sketchy <<peo
 <<if $rng lte 50>>
 As you look across the ocean sky you feel a hand land on your shoulder. You turn around and see the gang of sketchy <<people>>. “Excuse me little thing but you can't have thought 500 was enough for this trip. The rest we want as another form of payment.” <<He>> licks his lips as <<his>> gang pin you to the ground.
 <br><br>
-<<link [[Refuse|Boat Rape]]>><</link>>
+<<link [[Refuse|Boat Return Rape]]>><</link>>
 <<else>>
 The ride is fairly uneventful. The sketchy <<people>> give you cursory glances but in the end make no moves. You reach your location and dismount from the ship.
 <br><br>
@@ -766,7 +776,7 @@ You're jolted awake by the sound of thousands of feet scuttling around you. It's
     It's too much for you. You pass out.
     <br><br>
     <<link [[Next|Ant Passout]]>><<passout>><</link>>
-<<elseif $worn.upper.exposed gte 2 and $worn.lower.exposed gte 2>>
+<<elseif $worn.upper.exposed gte 2 or $worn.lower.exposed gte 2>>
 	<<upperwear 79>>
 	<<lowerwear 71>>
     <<covered>> There's a pile of cloth scraps in an adjoining room. Some are large enough to wear.
@@ -932,3 +942,28 @@ You focus on cleaning up after the ants, hoping to blend into the background.
 The world seems to fade in and out as you're jostled around. Suddenly, you jolt up, feeling a strong burning sensation in your stomach. You're unable to hold back and vomit up odd-looking pieces of meat and green fluid. As the ants surround you, curious about the new figure in front of them, you make eye contact with them. Upon seeing you are awake, they quickly return to their work and leave you alone, feeling slightly ill. You take a deep breath, trying to collect yourself and make sense of what happened.
 <br><br>
 <<link [[Next|Ant Slavery]]>><</link>>
+
+:: Desert Search
+<<upperwear 79>>
+<<lowerwear 71>>
+You search the dunes for anything that could be considered clothing. You only find an old faded cloth that you rip into rags.
+<br><br>
+<<link [[Next|Island]]>><</link>>
+
+:: Island Mouseear
+<<effects>>
+You search the forest for seeding flowers. You find a beautiful bunch of mouse-ear you could probably cultivate back home.
+<br><br>
+<span class="gold">You can now grow mouse-ear.</span>
+<br><br>
+<<link [[Next|Island]]>><</link>>
+<br>
+
+:: Island Crowfoot
+<<effects>>
+You search the soft powdery snow for any plants. You're careful extract the flowers carefully and pull out a glacier crowfoot.
+<br><br>
+<span class="gold">You can now grow glacier crowfoot.</span>
+<br><br>
+<<link [[Next|Island]]>><</link>>
+<br>

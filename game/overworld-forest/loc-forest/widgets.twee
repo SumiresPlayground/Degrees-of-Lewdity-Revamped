@@ -187,6 +187,11 @@
 	<</addinlineevent>>
 	<<addevent "forestwolfspy">>
 	<<addevent "forestraccoon">>
+	<<if $cultjoined isnot 1 and $cultsuspicion lte 5>>
+		<<addevent "forestcult">>
+	<<elseif $cultjoined isnot 1 and $cultsuspicion lte 9>>
+		<<addevent "forestcult2">>
+	<</if>>
 	<<addinlineevent "forest_wolf" 0.33>>
 		<<beastNEWinit 1 wolf>>
 
@@ -300,6 +305,11 @@
 			<</if>>
 		<</addinlineevent>>
 		<<addevent "forestraccoon" 0.15>>
+		<<if $cultjoined isnot 1 and $cultsuspicion lte 5>>
+			<<addevent "forestcult" 0.15>>
+		<<elseif $cultjoined isnot 1 and $cultsuspicion lte 9>>
+			<<addevent "forestcult2" 0.15>>
+		<</if>>
 		<<addevent "forestbear" 0.15>>
 		<<addevent "forestdragon" 0.05>>
 		<<addevent "forestrock" 0.25>>
@@ -376,6 +386,11 @@
 			<<addevent "forestsnake" 0.33>>
 		<</if>>
 		<<addevent "forestraccoon">>
+		<<if $cultjoined isnot 1 and $cultsuspicion lte 5>>
+			<<addevent "forestcult">>
+		<<elseif $cultjoined isnot 1 and $cultsuspicion lte 9>>
+			<<addevent "forestcult2">>
+		<</if>>
 		<<addevent "forestbear">>
 		<<addevent "forestdragon">>
 		<<if $tentacledisable is "f" and $voredisable is "f" and ($hallucinations gte 2 or $backgroundTraits.includes("plantlover"))>>
@@ -602,6 +617,31 @@
 	<br>
 <</widget>>
 
+<<widget "forestcult">>
+	<<set $cultsuspicion += 1>>
+	You find what looks like a shrine. A crude effigy made from animal bones rests next to a table covered in wax candles, the sight sends a shiver down your spine. There may be something going on that you're not sure you want to find out.
+	<<gstress>><<stress 6>>
+	<br><br>
+	<<if $cultsuspicion is 10>>
+		<span class="red">You've observed enough strange phenomena. You're certain something strange lurks in the woods. Perhaps investigating deeper will yeild some new result.</span>
+	<</if>>
+	<br><br>
+	<<link [[Continue|Forest]]>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
+	<br>
+<</widget>>
+
+<<widget "forestcult2">>
+	<<set $cultsuspicion += 1>>
+	Something slips out of sight as you round a tree, upon investigating the area, you find a scrap of black cloth and some blood left on a jagged tree branch.
+	<<gstress>><<stress 6>>
+	<br><br>
+	<<if $cultsuspicion is 10>>
+		<span class="red">You've observed enough strange phenomena. You're certain something strange lurks in the woods. Perhaps investigating deeper will yeild some new result.</span>
+	<</if>>
+	<br><br>
+	<<link [[Continue|Forest]]>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
+	<br>
+<</widget>>
 
 <<widget "forestcutter">>
 	<<generate1>><<person1>>
@@ -1744,7 +1784,7 @@
 		<<link [[Next|Forest Wolf]]>><<set $molestationstart to 1>><</link>>
 		<br>
 	<</addinlineevent>>
-	<<if $mushroom is 0 and $ghost is 0 and $slime is 0>>
+	<<if $mushroom is 0 and $ghost is 0 and $slime is 0 and $transformdisabledivine is "f">>
 		<<addevent "mushroomgrove" 0.05>>
 	<</if>>
 	<<runeventpool>>
@@ -1772,7 +1812,7 @@
 		<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 		<br>
 	<</addinlineevent>>
-	<<if $mushroom is 0 and $ghost is 0 and $slime is 0>>
+	<<if $mushroom is 0 and $ghost is 0 and $slime is 0 and $transformdisabledivine is "f">>
 		<<addevent "mushroomgrove" 0.05>>
 	<</if>>
 	<<runeventpool>>

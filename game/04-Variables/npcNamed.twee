@@ -132,6 +132,7 @@
 			"ivorywraith": {nam : "Ivory Wraith", title: "reflection", insecurity: "looks", adult: 1},
 			"taylor": {nam : "Taylor", title: "explorer", insecurity: "weak", teen: 1},
 			"casey": {nam : "Casey", title: "delinquent", insecurity: "weak", teen: 1},
+			"salem": {nam : "Salem", title: "initiate", insecurity: "skill", teen: 1},
 		}>>
 		<<for _npc range Object.keys(_newNNPCs)>>
 			<<if !$NPCNameList.includes(_newNNPCs[_npc].nam)>>
@@ -273,6 +274,13 @@
 				<<if $NPCName[_i].hairColour is 0 or $NPCName[_i].hairColour is undefined or $args[0] is "default">>
 					<<set $NPCName[_i].hairColour to "black">>
 				<</if>>
+			<<case "Salem">>
+				<<if $NPCName[_i].eyeColour is 0 or $NPCName[_i].eyeColour is undefined>>
+					<<set $NPCName[_i].eyeColour to ["purple"].pluck()>>
+				<</if>>
+				<<if $NPCName[_i].hairColour is 0 or $NPCName[_i].hairColour is undefined or $args[0] is "default">>
+					<<set $NPCName[_i].hairColour to "black">>
+				<</if>>
 			<<default>>
 				<<if $NPCName[_i].eyeColour is 0 or $NPCName[_i].eyeColour is undefined>>
 					<<set $NPCName[_i].eyeColour to ["purple","dark blue","light blue","amber","hazel","green","red","pink","grey", "light grey", "lime green"].pluck()>>
@@ -297,7 +305,7 @@
 		<<case "Sydney">>
 			/* Has all virginities + temple virginity. */
 			<<set $NPCName[_args[0]].virginity to {"anal": true, "oral": true, "penile": true, "vaginal": true, "handholding": true, "temple": true, "kiss": true}>>
-		<<case "Robin" "Kylar" "Great Hawk" "Taylor">>
+		<<case "Robin" "Kylar" "Great Hawk" "Taylor" "Salem">>
 			/* Has all virginities. */
 		<<case "Jordan">>
 			/* Has anal, oral, penile/vaginal, and kiss virginities. Missing handholding. */

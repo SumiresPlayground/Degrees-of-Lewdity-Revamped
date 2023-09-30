@@ -90,6 +90,30 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $motorupgrade to 0>>
 	<</if>>
 
+	<<if $salemgender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $salemgender to "f">>
+		<<else>>
+			<<set $salemgender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $salemgenitals is undefined>>
+		<<if $salemgender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $salemgenitals to "penis">>
+			<<else>>
+				<<set $salemgenitals to "vagina">>
+			<</if>>
+		<<elseif $salemgender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $salemgenitals to "vagina">>
+			<<else>>
+				<<set $salemgenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
 
 	<!-- Put basegame and new beast types here-->
 	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>>
@@ -437,6 +461,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $transformationParts.eldritch to {crown:"disabled", eyes:"disabled", mist:"disabled", tentacle:"disabled", skin:"disabled"}>>
 	<</if>>
 
+	<<if $transformationParts.dragon.whisker is undefined>>
+		<<set $transformationParts.dragon.whisker to "disabled">>
+	<</if>>
+
 	<<if $hastail is undefined>>
 		<<set $hastail to "false">>
 		<<set $thintail to "false">>
@@ -713,5 +741,13 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $skinColor.naturalreset to $skinColor.natural>>
 		<<set $haircolourreset to $haircolour>>
 		<<set $hairfringecolourreset to $hairfringecolour>>
+	<</if>>
+
+	<<if $transformdisabletheseus is undefined>>
+		<<if $transformdisable is "f">>
+			<<set $transformdisabletheseus to "f">>
+		<<else>>
+			<<set $transformdisabletheseus to "t">>
+		<</if>>
 	<</if>>
 <</widget>>

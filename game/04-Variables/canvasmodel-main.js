@@ -369,6 +369,7 @@ Renderer.CanvasModels["main"] = {
 			"dragon_tail_type": "disabled",
 			"dragon_horns_type": "disabled",
 			"dragon_eyes_type": "disabled",
+			"dragon_whisker_type": "disabled",
 			"lizard_eyes_type": "disabled",
 			"lizard_tail_type": "disabled",
 			"lizard_horns_type": "disabled",
@@ -2212,6 +2213,17 @@ Renderer.CanvasModels["main"] = {
 			},
 			filters: ["hair"],
 			z: ZIndices.tail,
+			animation: "idle"
+		},
+		"dragon_whisker": {
+			srcfn(options) {
+				return `img/transformations/dragon/whisker/${options.dragon_whisker_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_whisker_type)
+			},
+			filters: ["hair"],
+			z: ZIndices.face,
 			animation: "idle"
 		},
 		/*** 
