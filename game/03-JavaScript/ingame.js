@@ -158,6 +158,10 @@ const combatActionColours = {
 			/* Ifrit attacks */
 			"burn",
 		],
+		black: [
+			/* Dark attacks */
+			"whisper", "rend",
+		],
 		blue: [
 			/* Undine attacks */
 			"sing",
