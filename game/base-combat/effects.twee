@@ -98,12 +98,24 @@
 
 		<<if $consensual is 0 and $ghost is 2>>
 			<span class='lblue'>
-			<br><br>
 			A wave of spectral energy emanates from your being, causing the temperature in the vicinity to plummet.
 			<br><br>
 			</span>
 			<<deathlychill>>
 		<</if>>
+
+		
+
+		<<if $consensual is 0 and ($wraith.gen is "arms" or $wraith.gen is "man" or $wraith.gen is "slime" or $wraith.gen is "tentacles" or $wraith.gen is "slimetentacles" or $abomination is 1) and $eldritch gte 1>>
+			<span class='black'>
+			The entity seems somewhat weakened by your eldritch presence...
+			<br><br>
+			</span>
+			<<eldritchpower>>
+		<</if>>
+
+		
+
 
 		<<if $bodyaction is "doggy">>
 			<<set $bodyaction to 0>>
@@ -3601,6 +3613,37 @@
 					<<set $sirensong to 3>>
 				<</if>>
 				<<set $sirensong -= 1>>
+			<</if>>
+		<</if>>
+
+		<<if $mouthaction is "whisper">>
+			<<set $mouthaction to 0>><<set _sound to 1>>
+			<<if $neckuse is "hand" and $oxygen lt $oxygenmax and $asphyxiaLvl gte 2>>
+				<<wheeze "whisper">>
+			<<else>>
+				<br><span class='black'>You whisper a wretched incantation.<br></span> 
+				<<if $enemytype is "beast">>
+					<span class='black'>The <<beasttype>> suddenly writhes in pain as the eldritch sounds assail <<his>> mind.<br><br></span>
+				<<elseif $enemyno gte 2>>
+					<span class='black'>The <<group>> writhe in pain, the eldritch whispers being almost more than they can bear.<br><br></span>
+				<<else>>
+					<span class='black'>Sounds never meant to be known permeate the area, driving your listener mad with pain.<br><br></span>
+				<</if>>
+				<span class='black'>You feel your body mend as you feed on <<his>> anguish.</span>
+				<br>
+				<<set $mouthactiondefault to "whisper">>
+				<<set $enemyhealth -= 40>>
+				<<set $enemytrust -= 200>>
+				<<pain -= 60>>
+				<<set $purity -= 3>>
+				<<for _npctodamage to 0; _npctodamage lt $enemynomax; _npctodamage++>>
+					<<if $NPCList[_npctodamage].active is "active" and $NPCList[_npctodamage].stance isnot "defeated">>
+						<<set $NPCList[_npctodamage].health -= (40/$enemyno)>>/* Divide damage by all current active enemies. */
+						<<if $enemyno gte 2>>
+							<<npcdamage _npctodamage>>
+						<</if>>
+					<</if>>
+				<</for>>
 			<</if>>
 		<</if>>
 

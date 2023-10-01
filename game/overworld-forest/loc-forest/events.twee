@@ -2027,7 +2027,17 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 
 :: Forest Deer
 <<location "forest">><<effects>><<transform deer 1>><<beastNEWinit 1 deer>>
-<<if $danger gte (9900 - ($allure * $forestmod))>>
+
+<<if $eldritch gte 1>>
+	You creep forward. The deer immediately darts off in the opposite direction. 
+	<br><br>
+	<span class='black'>You know it didn't see you; your foreboding aura was enough to make it flee.</span>
+	<br><br>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
+
+<<elseif $danger gte (9900 - ($allure * $forestmod))>>
 	You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
 	<br><br>
 

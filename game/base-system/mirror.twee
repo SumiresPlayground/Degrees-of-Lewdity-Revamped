@@ -148,7 +148,7 @@
 		You stare into the void, and the void
 	<<elseif $hallucinogen gte 100>>
 		The surface folds over itself at an angle you can't quite understand, and something unrecognisable
-	<<elseif $hallucinogen gt 0>>
+	<<elseif $hallucinogen gt 0 or $eldritch gte 1>>
 		The surface ripples at your presence, and a vaguely familiar <<girl>>
 	<<elseif $trauma gte $traumamax>>
 		A <<girl>> with glazed eyes
@@ -352,6 +352,10 @@
 			Demon
 			<br>
 		<</if>>
+		<<if $eldritch gte 1>>
+			Eldritch
+			<br>
+		<</if>>
 		<<if $sheep gte 6>>
 			Sheepish
 			<br>
@@ -539,6 +543,10 @@
 		<</if>>
 		<<if $demon gte 6>>
 			Demon
+			<br>
+		<</if>>
+		<<if $eldritch gte 1>>
+			Eldritch
 			<br>
 		<</if>>
 		<<if $sheep gte 6>>
@@ -2240,6 +2248,7 @@
 	<<set _angel to $transformationParts.angel>>
 	<<set _fallen to $transformationParts.fallenAngel>>
 	<<set _demon to $transformationParts.demon>>
+	<<set _eldritch to $transformationParts.eldritch>>
 	<<set _cat to $transformationParts.cat>>
 	<<set _cow to $transformationParts.cow>>
 	<<set _wolf to $transformationParts.wolf>>
