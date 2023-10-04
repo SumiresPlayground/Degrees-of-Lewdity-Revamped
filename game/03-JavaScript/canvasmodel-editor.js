@@ -860,6 +860,7 @@ Macro.add("canvasModelEditor", {
 						selectOption("ghost_hitodama_type", ["disabled", "hidden", "default"]),
 						selectOption("ghost_mist_type", ["disabled", "hidden", "default"]),
 						selectOption("ghost_stream_type", ["disabled", "hidden", "default"]),
+						selectOption("ghost_flame_type", ["disabled", "hidden", "default"]),
 						selectOption("raccoon_ears_type", ["disabled", "hidden", "default"]),
 						selectOption("raccoon_mask_type", ["disabled", "hidden", "default"]),
 						selectOption("raccoon_tail_type", ["disabled", "hidden", "default"]),

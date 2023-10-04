@@ -551,14 +551,20 @@ Deep inside the hole you find an opening. A small shrine fills the room, lightin
     <br><br>
     <<link [[Ready yourself|Ant Guard 3]]>><<beastNEWinit 1 ant>><<set $molestationstart to 1>><</link>>
 <<else>>
+    <<if $sandmound is 5>>
+        <<link [[Continue through the gate (0:05)|Ant Colony Shrine]]>><<pass 5>><</link>>
+        <br>
+    <</if>>
     <<if $sandmound is 1>>
-        <<link [[Leave (0:05)|Anthill]]>><<pass 5>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><</link>>
+        <<link [[Leave (0:05)|Island]]>><<pass 5>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><</link>>
+        <br>
     <</if>>
-    <<if $sandmound gt 1>>
-        <<link [[Delve deeper (0:05)|Anthill]]>><<pass 5>><</link>>
+    <<if $sandmound gte 1 and $sandmound lt 5>>
+        <<link [[Delve deeper (0:05)|Anthill]]>><<set $sandmound += 1>><<pass 5>><</link>>
+        <br>
     <</if>>
-    <<if $sandmound lt 5>>
-        <<link [[Climb back up (0:10)|Anthill]]>><<pass 10>><</link>>
+    <<if $sandmound gt 1 and $sandmound lte 5>>
+        <<link [[Climb back up (0:10)|Anthill]]>><<set $sandmound -= 1>><<pass 10>><</link>>
     <</if>>
 <</if>>
 
@@ -717,6 +723,7 @@ You come before a large wax statue. It towers over you, stretching towards the c
 
 :: Ant Guard 2 Finish
 <<if $enemyhealth lte 0>>
+    <<beastwound>>
     <<if $combatTrain.length gt 0>>
         The <<beasttype>> recoils in pain and fear, but another is eager for a go.
 		<<combatTrainAdvance>>

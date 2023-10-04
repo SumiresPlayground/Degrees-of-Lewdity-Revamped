@@ -390,6 +390,7 @@ Renderer.CanvasModels["main"] = {
 			"ghost_hitodama_type": "disabled",
 			"ghost_mist_type": "disabled",
 			"ghost_stream_type": "disabled",
+			"ghost_flame_type": "disabled",
 			"slime_bubble_type": "disabled",
 			"slime_stream_type": "disabled",
 			"slime_core_type": "disabled",
@@ -2341,6 +2342,17 @@ Renderer.CanvasModels["main"] = {
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_stream_type)
+			},
+			z: ZIndices.over_upper,
+			animation: "idle"
+		},
+
+		"ghost_flame": {
+			srcfn(options) {
+				return `img/transformations/ghost/flame/${options.ghost_flame_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.ghost_flame_type)
 			},
 			z: ZIndices.over_upper,
 			animation: "idle"
