@@ -440,6 +440,12 @@ The creature recoils from you and disappears into darkness. <<tearful>> you look
 
 <<set $outside to 0>><<set $location to "lake_ruin">><<underwater>><<effects>><<lakeeffects>>
 You are deep in the lake ruin, in a small room with a plinth.
+<<if $culttaskphase is 0 and $culttaskcomplete is 0>>
+	<br><br>
+	You search the room for anything that could be considered an idol. Eventually hidden under some rubble you find a small purple statue of the Dark Mother.
+	<<set $culttaskcomplete to 1>>
+	<br><br>
+<</if>>
 <<if $museumAntiques.antiques.antiqueivorynecklace is "notFound">>
 	An ivory necklace sits atop it. It's studded with blue jewels.
 <</if>>
@@ -477,11 +483,6 @@ You are deep in the lake ruin, in a small room with a plinth.
 	<<link [[Reach out|Lake Ruin Sit]]>><</link>>
 	<br>
 <<elseif $tentacledisable is "f" and $hallucinations gte 2 and !_bmoon>>
-	<<if $culttaskphase is 0 and $culttaskcomplete is 0>>
-		You search the room for anything that could be considered an idol. Eventually hidden under some rubble you find a small purple statue of the Dark Mother.
-		<br><br>
-		<<set $culttaskcomplete to 1>>
-	<</if>>
 	You look around the barren room. You don't see anything besides the plinth<<if $museumAntiques.antiques.antiqueivorynecklace is "notFound">> and necklace<</if>>, but you hear a faint slithering sound. <span class="blue">Something's watching you.</span>
 	<br><br>
 
@@ -507,11 +508,6 @@ You are deep in the lake ruin, in a small room with a plinth.
 <<else>>
 	The water sways with your movements in the dark room.
 	<br><br>
-	<<if $culttaskphase is 0 and $culttaskcomplete is 0>>
-		You search the room for anything that could be considered an idol. Eventually hidden under some rubble you find a small purple statue of the Dark Mother.
-		<br><br>
-		<<set $culttaskcomplete to 1>>
-	<</if>>
 <</if>>
 <<if _leave>>
 	<<if $museumAntiques.antiques.antiqueivorynecklace is "notFound">>
