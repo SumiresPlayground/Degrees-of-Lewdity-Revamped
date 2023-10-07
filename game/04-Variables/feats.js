@@ -780,6 +780,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
+	"Eldritch": {
+		title: "Cthu-who?",
+		desc: "The Mother from the Other",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	"A Special Trait": {
 		title: "A Special Trait",
 		desc: "Gain a special trait.",
