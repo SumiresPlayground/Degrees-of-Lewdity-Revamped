@@ -154,7 +154,7 @@
 		<<case "vaginadouble" "vaginaimminentdouble" "vaginaentrancedouble">>
 			<<set $NPCList[_i].penis to "none">>
 			<<for $_k = 0; $_k lt $NPCList.length; $_k++>>
-				<<if ["vaginadouble","vaginaimminentdouble","vaginaentrancedouble"].includes($NPCList[$_k].penis)>>
+				<<if ["vaginadouble","vaginaimminentdouble","vaginaentrancedouble"].includes($NPCList[$_k].penis)>>/* 
 					<<switch $NPCList[$_k].penis>>
 					<<case "vaginadouble">>
 						<<set $NPCList[$_k].penis to "vagina">><<set $vaginastate to "penetrated">><<set $vaginaaction to $vaginaaction.replace('double','')>>
@@ -162,6 +162,18 @@
 						<<set $NPCList[$_k].penis to "vaginaimminent">><<set $vaginastate to "imminent">><<set $vaginaaction to $vaginaaction.replace('double','')>>
 					<<case "vaginaentrancedouble">>
 						<<set $NPCList[$_k].penis to "vaginaentrance">><<set $vaginastate to "entrance">><<set $vaginaaction to $vaginaaction.replace('double','')>>
+					<<default>>
+						<span class="red">ERROR - Vaginal double penetration: second NPC's penis wrong value!</span>
+					<</switch>>
+					<<set $vaginause to "penis">>
+					<<break>>*/
+					<<switch $NPCList[$_k].penis>>
+					<<case "vaginadouble">>
+						<<set $NPCList[$_k].penis to "vagina">><<set $vaginastate to "penetrated">><<set $vaginaaction to ''>>
+					<<case "vaginaimminentdouble">>
+						<<set $NPCList[$_k].penis to "vaginaimminent">><<set $vaginastate to "imminent">><<set $vaginaaction to ''>>
+					<<case "vaginaentrancedouble">>
+						<<set $NPCList[$_k].penis to "vaginaentrance">><<set $vaginastate to "entrance">><<set $vaginaaction to ''>>
 					<<default>>
 						<span class="red">ERROR - Vaginal double penetration: second NPC's penis wrong value!</span>
 					<</switch>>
