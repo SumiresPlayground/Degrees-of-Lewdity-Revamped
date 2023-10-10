@@ -958,7 +958,36 @@ function initNeck() {
 		Clothes that modders add go into this array, this should be empty in the base game at all times.
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
-	setup.moddedClothes.neck = [];
+	setup.moddedClothes.neck = [
+		{index: 1,
+			name: "horseshoe pendant",
+			name_cap: "Horseshoe pendant",
+			variable: "horseshoependant",
+			integrity: 200,
+			integrity_max: 200,
+			fabric_strength: 20,
+			reveal: 1,
+			word: "n",
+			plural: 1,
+			colour: 0,
+			colour_options: [],
+			colour_combat:"black",
+			type: ["eerie"],
+			gender: "n",
+			warmth: 1,
+			cost: 5000,
+			description: "This pendant, sporting a worn horseshoe, seems to have been made to commemorate something.",
+			shop: ["forest"],
+			collared: 0,
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			cursed: 0,
+			location: 0,
+			iconFile: "horseshoe_pendant.png",
+			accIcon: 0
+	}	
+	];
 
 	setup.moddedClothes.neck.forEach((x, i) => (x.index = setup.clothes.neck.length + i));
 	setup.clothes.neck.push(...setup.moddedClothes.neck);

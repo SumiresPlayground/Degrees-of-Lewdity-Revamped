@@ -319,7 +319,7 @@ This small maintenance cupboard contains a variety of cleaning implements and ch
 <<if $stress gte $stressmax>>
 	<<passouthospital>>
 <<else>>
-	<<link [[Leave the cupboard (0:01)|Recovery ward]]>><<pass 1>><</link>>
+	<<getouticon>><<link [[Leave the cupboard (0:01)|Recovery ward]]>><<pass 1>><</link>>
 	<br>
 <</if>>
 
@@ -341,7 +341,7 @@ You are in the recovery ward of the hospital. Several nurses go about their busi
 		<<link [[Slide the bed closer (0:10)|Hospital Exhibition]]>><<set $phase to 1>><<pass 10>><</link>>
 		<br><br>
 	<<else>>
-		<<link [[Leave the ward (0:01)->Hospital Foyer]]>><<pass 1>><</link>>
+		<<getouticon>><<link [[Leave the ward (0:01)->Hospital Foyer]]>><<pass 1>><</link>>
 		<br>
 
 		<<link [[Maintenance cupboard (0:01)|Hospital cupboard]]>><<pass 1>><</link>>
@@ -418,16 +418,16 @@ You've pushed yourself too much.
 		<<link [[Wait (0:10)|Hospital Wait]]>><<pass 10>><<endevent>><<incrementautosave>><</link>><<ltiredness>>
 		<br>
 		<<if $renttime lte 0>>
-			<<link [[Leave now (0:10)|Hospital Rent]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)|Hospital Rent]]>><<pass 10>><<endevent>><</link>>
 			<br>
 		<<elseif crimeSumCurrent() gte 1000>>
-			<<link [[Leave now (0:10)|Hospital Arrest]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)|Hospital Arrest]]>><<pass 10>><<endevent>><</link>>
 			<br>
 		<<elseif $baileyhospital lte 2>>
-			<<link [[Leave now (0:10)->Hospital Journey Home]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)->Hospital Journey Home]]>><<pass 10>><<endevent>><</link>>
 			<br>
 		<<else>>
-			<<link [[Leave now (0:10)->Hospital front]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)->Hospital front]]>><<pass 10>><<endevent>><</link>>
 			<br>
 		<</if>>
 	<<else>>
@@ -472,16 +472,16 @@ You've pushed yourself too much.
 		<br>
 
 		<<if $renttime lte 0>>
-			<<link [[Leave now (0:10)|Hospital Rent]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)|Hospital Rent]]>><<pass 10>><<endevent>><</link>>
 			<br>
 		<<elseif crimeSumCurrent() gte 1000>>
-			<<link [[Leave now (0:10)|Hospital Arrest]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)|Hospital Arrest]]>><<pass 10>><<endevent>><</link>>
 			<br>
 		<<elseif $baileyhospital lte 2>>
-			<<link [[Leave now (0:10)->Hospital Journey Home]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)->Hospital Journey Home]]>><<pass 10>><<endevent>><</link>>
 		<br>
 		<<else>>
-			<<link [[Leave now (0:10)->Hospital front]]>><<pass 10>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave now (0:10)->Hospital front]]>><<pass 10>><<endevent>><</link>>
 			<br>
 		<</if>>
 	<<else>>
@@ -912,7 +912,7 @@ A minute later <<he>> turns back to you. "We can apply a special form of electro
 	<<link [[Remove the creature (£2500 0:30)|Hospital Parasite Private Livingclothes]]>><<set $money -= 250000>><<pass 30>><</link>>
 	<br>
 <</if>>
-<<link [[Leave without treatment|Hospital Foyer]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave without treatment|Hospital Foyer]]>><<endevent>><</link>>
 <br>
 
 :: Hospital Paternity Test
@@ -1120,7 +1120,7 @@ The receptionist taps something into <<his>> computer and instructs you to take 
 	<br><br>
 <</if>>
 
-<<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
 <br>
 
 :: Hospital Breast Reduction 3
@@ -1286,7 +1286,7 @@ The receptionist taps something into <<his>> computer and instructs you to take 
 	<br><br>
 <</if>>
 
-<<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
 <br>
 
 :: Hospital Breast Enlargement 3
@@ -1389,7 +1389,7 @@ The receptionist taps something into <<his>> computer and instructs you to take 
 	<br><br>
 <</if>>
 
-<<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
 <br>
 
 :: Hospital Penis Reduction 3
@@ -1527,7 +1527,7 @@ The receptionist taps something into <<his>> computer and instructs you to take 
 	<br><br>
 <</if>>
 
-<<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
 <br>
 
 :: Hospital Penis Enlargement 3
@@ -1580,7 +1580,7 @@ The receptionist taps something into <<his>> computer and instructs you to take 
 	<</for>>
 <br>
 <</if>>
-<<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Hospital Foyer]]>><<endevent>><</link>>
 <br>
 
 :: Hospital Tattoo Removal 2
@@ -1742,7 +1742,7 @@ Doctor Harper sighs. "Very well. But I must still evaluate <<phim>>."
 	Sydney helps you to your feet, and you soon find yourself being discharged.
 	<br><br>
 
-	<<link [[Leave (0:10)|Hospital Journey Home Sydney]]>><<pass 10>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave (0:10)|Hospital Journey Home Sydney]]>><<pass 10>><<endevent>><</link>>
 	<br>
 <<elseif $trauma lt ($traumamax / 10) * 9>>
 	<<He>> gently interrogates you on a variety of subjects relating to your home life, how school is going and how your well-being has been faring. After a short while, <<he>> summons a nurse and they have a brief conversation in the corner of the room. They talk quietly, and after a short while the nurse nods and leave the room.
@@ -1762,7 +1762,7 @@ Doctor Harper sighs. "Very well. But I must still evaluate <<phim>>."
 		<br><br>
 	<</if>>
 
-	<<link [[Leave|Hospital Journey Home Sydney]]>><<pass 10>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Hospital Journey Home Sydney]]>><<pass 10>><<endevent>><</link>>
 	<br>
 <<else>>
 	<<He>> gently interrogates you on a variety of subjects relating to your home life, how school is going and how your well-being has been faring. A look of concern grows on <<his>> face, but you've no idea why. After a short while, <<he>> summons a nurse into the room and they talk quietly for a short time. The nurse keeps glancing at you, looking concerned.

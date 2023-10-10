@@ -109,7 +109,7 @@
 
 			<<if Time.dayState is "night" or $tryOn.value is 0>>
 				<<if Time.dayState is "night" and $adultShop.spotted is true and $adultShop.stolenClothes gt 0>>
-					<<link [[Leave|Adult Shop Night Guard Found]]>>
+					<<getouticon>><<link [[Leave|Adult Shop Night Guard Found]]>>
 						<<shopClothingFilterReset>>
 						<<ShowUnderEquip "normal">>
 						<<ShowUnderEquip "over">>
@@ -118,7 +118,7 @@
 						<<set $adultshopstate to "closed">>
 					<</link>>
 				<<else>>
-					<<link [[Leave|Adult Shop]]>>
+					<<getouticon>><<link [[Leave|Adult Shop]]>>
 						<<shopClothingFilterReset>>
 						<<ShowUnderEquip "normal">>
 						<<ShowUnderEquip "over">>
@@ -159,7 +159,7 @@
 					<</link>>
 					<br>
 				<</if>>
-				<<link [[Leave with stolen clothes|Stolen Adult Shop Result]]>><<shopClothingFilterReset>><</link>>
+				<<getouticon>><<link [[Leave with stolen clothes|Stolen Adult Shop Result]]>><<shopClothingFilterReset>><</link>>
 				<br>
 			<</if>>
 		<</if>>
@@ -289,7 +289,7 @@ You decide to run and hide.
 	<br><br>
 	<<He>> flips you the bird as you leave.
 	<br><br>
-	<<link [[Leave|Elk Street]]>><<adultShopClear>><</link>>
+	<<getouticon>><<link [[Leave|Elk Street]]>><<adultShopClear>><</link>>
 <</if>>
 
 :: Adult Shop Night Guard Molestation
@@ -333,7 +333,7 @@ You decide to run and hide.
 	"Well, that was fun," <<he>> says, "But I think it's time for you to leave."
 	<<clotheson>>
 	<<endcombat>>
-	<<link [[Leave|Elk Street]]>><<adultShopClear>><</link>>
+	<<getouticon>><<link [[Leave|Elk Street]]>><<adultShopClear>><</link>>
 <</if>>
 
 :: Adult Shop Register
@@ -372,6 +372,6 @@ There's <<printmoney $tip>>.
 <<else>>
 	<<link [[Take it|Adult Shop]]>><<set $money += $tip>><<crimeUp `$tip / 100` "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<link [[Leave it|Adult Shop]]>><</link>>
+	<<getouticon>><<link [[Leave it|Adult Shop]]>><</link>>
 	<br>
 <</if>>

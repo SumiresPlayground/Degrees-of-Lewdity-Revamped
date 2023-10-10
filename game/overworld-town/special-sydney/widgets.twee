@@ -122,7 +122,7 @@
 	<<elseif $daily.sydney.classWarn and $daily.sydney.classWarn gte 3 and !_sydneyStatus.includes("corrupt") and Time.hour isnot 12 and Time.hour.between(9,14)>>
 		Sydney shoos you away. "If the <<nnpc_Title "Leighton">> catches you skipping class, we'll both be in big trouble!"
 		<br><br>
-		<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+		<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 		<br>
 	<<elseif _counterApproach is 1>>
 		<<if $sydneyChastityRemoveIntro is 1>>
@@ -253,7 +253,7 @@
 				<<if $daily.sydney.classWarn gte 3 and !_sydneyStatus.includes("corrupt") and Time.hour isnot 12 and Time.hour.between(9,14)>>
 					<<He>> shoos you away from the rental counter. "If the <<nnpc_Title "Leighton">> catches you skipping class, we'll both be in big trouble!"
 					<br><br>
-					<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+					<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 					<br>
 				<<else>>
 					<<if $daily.sydney.classWarn is 1>>
@@ -286,7 +286,7 @@
 				<br><br>
 				<<scienceicon>><<link [[Go with Sydney|Science Classroom]]>><<endevent>><<set $daily.sydney.scienceWalk to 1>><</link>>
 				<br>
-				<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 			<<case "class">>
 				Sydney's eyes grow wide. "Sh<<if _sydneyStatus.includes("corrupt")>>i<<else>>oo<</if>>t! I'm late for class!" <<He>> begins to pack up <<his>> things.
@@ -296,7 +296,7 @@
 					<<He>> <<if $sydneyromance is 1>>blows you a kiss and <</if>>waves you off as <<he>> exits the library.
 				<</if>>
 				<br><br>
-				<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 			<<case "canteen">>
 				Sydney stands up, stretching, before placing a small sign on the front of the counter. <span class="blue">"At lunch"</span>.
@@ -310,7 +310,7 @@
 					<<He>> begins gathering some books. "I'm off to lunch, should only be about fifteen minutes."
 					<br><br>
 				<</if>>
-				<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 			<<case "temple">>
 				Sydney stands up, yawning.
@@ -334,7 +334,7 @@
 						<br><br>
 					<</if>>
 				<</if>>
-				<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 			<<case "shop">>
 				<<if $adultshopgrandopening is true>>
@@ -365,7 +365,7 @@
 					"It's closing time. I'm off to help my <<sydneymum>> with some work." <<He>> gathers <<his>> things,<<if $sydneyromance is 1>> kisses you on the cheek,<</if>> and starts to lead any lingering students out of the library. <<if $sydneySeen.includes("mass") or $sydneySeen.includes("initiate")>>Once <<he>> exits, you notice that <<hes>> not heading towards the temple, and instead towards Elk Street.<</if>>
 					<br><br>
 				<</if>>
-				<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 			<<case "rehearsal">>
 				<<if $englishPlayLate>>
@@ -377,7 +377,7 @@
 				<</if>>
 				<br><br>
 
-				<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 			<<case "englishPlay">>
 				<<if $englishPlayRoles.Player isnot "none">>
@@ -392,11 +392,11 @@
 
 					<<link [[Walk with Sydney (0:15)|English Play Attend]]>><<endevent>><<pass 15>><</link>>
 					<br>
-					<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+					<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 					<br>
 				<</if>>
 			<<default>>
-				<<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|School Library]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 		<</switch>>
 	<<elseif $location is "temple">>
@@ -412,7 +412,7 @@
 							<<link [[Gift Sydney a strap-on|Gift Strap-on Sydney Temple]]>><</link>>
 						<</if>>
 						<br><br>
-						<<link [[Leave|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
+						<<getouticon>><<link [[Leave|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
 						<br>
 					<<default>>
 						Sydney stretches. "Time to get back to work. I'll be around." <<if $sydneyromance is 1>><<He>> kisses you on the cheek before leaving.<</if>>
@@ -473,7 +473,7 @@
 					Sydney stretches. "I'm off to help my <<sydneymum>> with some work." <<He>> gathers <<his>> things<<if $sydneyromance is 1>>, and kisses you on the cheek before leaving<</if>>.
 				<</if>>
 				<br><br>
-				<<link [[Leave|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<<getouticon>><<link [[Leave|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
 				<br>
 			<<case "englishPlay">>
 				<<if $englishPlayRoles.Player isnot "none">>
@@ -488,7 +488,7 @@
 
 					<<link [[Walk with Sydney (0:15)|English Play Attend]]>><<endevent>><<pass 15>><</link>>
 					<br>
-					<<link [[Leave|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
+					<<getouticon>><<link [[Leave|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
 					<br>
 				<</if>>
 			<<default>>
@@ -524,7 +524,7 @@
 
 					<<link [[Walk with Sydney (0:15)|English Play Attend]]>><<endevent>><<pass 15>><</link>>
 					<br>
-					<<link [[Leave|Adult Shop]]>><<endevent>><<set $eventskip to 1>><</link>>
+					<<getouticon>><<link [[Leave|Adult Shop]]>><<endevent>><<set $eventskip to 1>><</link>>
 					<br>
 				<</if>>
 			<<default>>
@@ -606,7 +606,7 @@
 	<</switch>>
 	<br><br>
 	<<if !$_noLeave>>
-		<<link [[Leave (0:01)|$sydneyExit]]>><<unset $sydneyExit>><<endevent>><<pass 1>><<set $eventskip to 1>><</link>>
+		<<getouticon>><<link [[Leave (0:01)|$sydneyExit]]>><<unset $sydneyExit>><<endevent>><<pass 1>><<set $eventskip to 1>><</link>>
 		<br>
 	<</if>>
 <</widget>>

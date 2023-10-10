@@ -228,7 +228,7 @@ Deciding there's no chance of danger in public like this, you agree. <<He>> lead
 <br><br>
 
 <<landryoptions>>
-<<link [[Leave|Pub]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 <br>
 
 :: Pub Spray
@@ -243,7 +243,7 @@ You put the money on the table. Landry swaps it with a small canister.
 	<br><br>
 <</if>>
 <<landryoptions>>
-<<link [[Leave|Pub]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 <br>
 
 :: Pub Sell
@@ -262,7 +262,7 @@ You put the money on the table. Landry swaps it with a small canister.
 You make <span class="gold">£<<print $blackmoney>>.</span>
 <<set $money += $blackmoney * 100>><<set $blackmoney to 0>>
 <br><br>
-<<link [[Leave|Pub]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 <br>
 
 :: Pub Task
@@ -276,7 +276,7 @@ You make <span class="gold">£<<print $blackmoney>>.</span>
 	<br><br>
 	<<set $pubtask to "forest">>
 	<<set $pubstage to 1>>
-	<<link [[Leave|Pub]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 	<br>
 <<elseif $pubstage is 1>>
 	"I can help again," Landry says, reclining. "But I have another job for you. Another package failed to arrive. <span class="gold">This one was lost on the moor</span>, some distance from town. You'll need to leave on the Harvest road to reach it."
@@ -285,7 +285,7 @@ You make <span class="gold">£<<print $blackmoney>>.</span>
 	<br><br>
 	<<set $pubtask to "moor">>
 	<<unset $pubstage>>
-	<<link [[Leave|Pub]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
@@ -298,7 +298,7 @@ You make <span class="gold">£<<print $blackmoney>>.</span>
 <<unset $pubtask2>>
 <<unset $pubtasksetting>>
 <<crimeDown 10000>>
-<<link [[Leave|Pub]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 <br>
 
 :: Pub Hack
@@ -315,12 +315,12 @@ You make <span class="gold">£<<print $blackmoney>>.</span>
 			<<He>> shakes <<his>> head before you can say anything. "Don't apologise. I've said worse under torture. They'll be able to hook you up once they're back in business. Should be fine <span class="gold"><<if $pubfame.timer gt 1>>in <<number $pubfame.timer>> days<<else>>tomorrow<</if>></span>."
 			<br><br>
 
-			<<link [[Leave|Pub]]>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 		<<elseif $pubfame.status is "hidingKnown">>
 			I can't help you there, and unfortunately our friend is still lying low. They'll be able to hook you up once they're back in business, though."
 			<br><br>
 
-			<<link [[Leave|Pub]]>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 		<<else>>
 			<<set $police_hack to 4>>
 			I can't help you here, but I think I know who can." <<He>> checks to make sure nobody's nearby, then jerks a thumb toward a door behind the table. "<span class="teal">Our mutual friend should be able to hook you up.</span>"
@@ -370,7 +370,7 @@ You make <span class="gold">£<<print $blackmoney>>.</span>
 	"Here you are," Landry says. "One new police master password. And our mutual friend says hi."
 	<br><br>
 	<<set $police_hack to 5>>
-	<<link [[Leave|Pub]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 	<br>
 <<else>>/*Was elseif $pub_hack_job is 4*/
 	"Mickey showed up," Landry says. "Strange one. Said you'd have a bunch of SD cards for me to take?"
@@ -382,7 +382,7 @@ You make <span class="gold">£<<print $blackmoney>>.</span>
 	"There's also this," <<he>> says, holding out a USB stick. "A virus. Wipes computer systems clean. Should be able to cause some trouble. Or make old trouble disappear. Good luck."
 	<br><br>
 	<<set $money += 50000>><<set $police_hack to 5>><<set $mickeyPub to 2>>
-	<<link [[Leave|Pub]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
@@ -428,7 +428,7 @@ Landry glances around the corner when you mention the estate. <<He>> waits until
 <br>
 
 <<landryoptions>>
-<<link [[Leave|Pub]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 <br>
 
 
@@ -446,7 +446,7 @@ You push the money across the table.
 <br><br>
 
 <<landryoptions>>
-<<link [[Leave|Pub]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
 <br>
 
 :: Pub Guard
@@ -613,7 +613,7 @@ You scan the room for anything you can cover up with.
 		<<set $skulduggerydifficulty to 600>>
 		<<link [[Swipe it|Pub Exposed Sweater]]>><</link>><<skulduggerydifficulty>>
 		<br>
-		<<link [[Leave it|Pub Exposed Kitchen]]>><</link>>
+		<<getouticon>><<link [[Leave it|Pub Exposed Kitchen]]>><</link>>
 		<br>
 	<<case 1>>
 		By the bar, a <<person>> folds a stack of towels, until <<hes>> called away. The towels are left unguarded.

@@ -18,7 +18,7 @@ The door is locked tight.
 	<<link [[Phase (0:01)|Domus House Sneak]]>><<pass 1>><</link>>
 	<br>
 <</if>>
-<<link [[Leave|Domus Street]]>><</link>>
+<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 <br>
 
 :: Domus House Sneak
@@ -64,7 +64,7 @@ You sneak around the house and look for anything of value.
 	<br><br>
 	<<link [[Try to open it|Domus House Safe]]>><</link>>
 	<br>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <<elseif $rng gte 56>>
 	<<generate1>><<person1>>
@@ -92,7 +92,7 @@ You sneak around the house and look for anything of value.
 	You find nothing and leave empty handed.
 	<br><br>
 	<<endevent>>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <<elseif $rng gte 51>>
 	While searching a room for valuables you find a drawer containing a number of phones. Most are used but all are fairly new.
@@ -107,7 +107,7 @@ You sneak around the house and look for anything of value.
 		<<link [[Take it|Domus Street]]>><<set $blackmoney += 60>><<crimeUp 60 "thievery">><</link>><<crime "thievery">>
 	<</if>>
 	<br>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <<elseif $rng gte 41>>
 	<<generate1>><<person1>>You're rummaging through the lounge when you hear footsteps approaching. You take cover behind the curtains, just before a <<person>> enters the room. <<He>> sits down and switches on the television like <<he>> plans to be there awhile.
@@ -125,7 +125,7 @@ You sneak around the house and look for anything of value.
 	<br><br>
 	<<link [[Climb down|Domus House Dungeon]]>><</link>>
 	<br>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <<elseif $rng gte 21>>
 	<<switch $rng % 4>>
@@ -149,7 +149,7 @@ You sneak around the house and look for anything of value.
 	<br><br>
 	<<link [[Take it|Domus Street]]>><<set $blackmoney += _blackmoney>><<crimeUp _blackmoney "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <<elseif $rng gte 16>>
 	There's nothing of value in the entire house. Even the beds are just greasy sheets over old soiled mattresses on bare wooden floors.
@@ -158,15 +158,15 @@ You sneak around the house and look for anything of value.
 	You can't steal from these people. You should probably leave <i>them</i> money.
 	<br><br>
 	<<if $money gte 10000>>
-		<<link [[Leave £100|Domus Leave Money]]>><<set $phase to 0>><<set $money -= 10000>><<stress -6>><<trauma -6>><</link>><<lstress>><<ltrauma>>
+		<<getouticon>><<link [[Leave £100|Domus Leave Money]]>><<set $phase to 0>><<set $money -= 10000>><<stress -6>><<trauma -6>><</link>><<lstress>><<ltrauma>>
 		<br>
 	<</if>>
 	<<if $money gte 50000>>
-		<<link [[Leave £500|Domus Leave Money]]>><<set $phase to 1>><<set $money -= 50000>><<stress -24>><<trauma -12>><</link>><<llstress>><<lltrauma>>
+		<<getouticon>><<link [[Leave £500|Domus Leave Money]]>><<set $phase to 1>><<set $money -= 50000>><<stress -24>><<trauma -12>><</link>><<llstress>><<lltrauma>>
 		<br>
 	<</if>>
 	<<if $money gte 100000>>
-		<<link [[Leave £1000|Domus Leave Money]]>><<set $phase to 2>><<set $money -= 100000>><<stress -50>><<trauma -18>><</link>><<lllstress>><<llltrauma>>
+		<<getouticon>><<link [[Leave £1000|Domus Leave Money]]>><<set $phase to 2>><<set $money -= 100000>><<stress -50>><<trauma -18>><</link>><<lllstress>><<llltrauma>>
 		<br>
 	<</if>>
 	<<link [[Just leave|Domus Street]]>><</link>>
@@ -178,70 +178,70 @@ You sneak around the house and look for anything of value.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 81>>
 		You don't find much, just some loose change worth <<moneyGainDisplay 2 true true>>.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 71>>
 		You find <<moneyGainDisplay 5 true true>> hidden in a drawer.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 61>>
 		You find a nice-looking brooch in a drawer.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $blackmoney += 5>><<crimeUp 5 "thievery">><</link>><<crime "thievery">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 51>>
 		You find <<moneyGainDisplay 10 true true>> under a cushion on the sofa.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 41>>
 		You find a necklace on a stool beside the coat stand.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $blackmoney += 10>><<crimeUp 10 "thievery">><</link>><<crime "thievery">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 31>>
 		You find <<moneyGainDisplay 15 true true>> lying on the kitchen worktop.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 21>>
 		You find a set of silverware.
 		<br>
 		<<link [[Take it|Domus Street]]>><<set $blackmoney += 15>><<crimeUp 15 "thievery">><</link>><<crime "thievery">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<elseif $rng gte 11>>
 		You find a pair of gold cufflinks in a coat pocket.
 		<br><br>
 		<<link [[Take them|Domus Street]]>><<set $blackmoney += 20>><<crimeUp 20 "thievery">><</link>><<crime "thievery">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<<else>>
 		You find <<moneyGainDisplay 30 true true>> in a pot beside the front door.
 		<br><br>
 		<<link [[Take it|Domus Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
 		<br>
-		<<link [[Leave|Domus Street]]>><</link>>
+		<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 		<br>
 	<</if>>
 <</if>>
@@ -334,7 +334,7 @@ You flee out the house, the <<beasttype>> snapping at your heels. <<bHe>> doesn'
 	<br><br>
 	<<link [[Take it|Domus House Collar]]>><<crimeUp 50 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><<endevent>><</link>>
 	<br>
 <<elseif $enemyhealth lte 0>>
 	The <<beasttype>> cowers and rolls over in submission.
@@ -349,7 +349,7 @@ You flee out the house, the <<beasttype>> snapping at your heels. <<bHe>> doesn'
 	<br><br>
 	<<link [[Take it|Domus House Collar]]>><<crimeUp 50 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><<endevent>><</link>>
 	<br>
 <<elseif $alarm is 1 and $rescue is 1>>
 	<<set $rescue to 0>>
@@ -375,7 +375,7 @@ You flee out the house, the <<beasttype>> snapping at your heels. <<bHe>> doesn'
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <</if>>
 
@@ -386,7 +386,7 @@ The <<beasttypes>> ears twitch, but other than that <<bhe>> makes no move as you
 <br><br>
 <<set $blackmoney += 50>>
 <br><br>
-<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Domus Street]]>><<endevent>><</link>>
 <br>
 
 :: Domus House Sneak Molestation
@@ -471,7 +471,7 @@ The safe doesn't look too fancy.
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
 <</if>>
-<<link [[Leave|Domus Street]]>><</link>>
+<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 <br>
 
 :: Domus House Safe Open
@@ -488,14 +488,14 @@ The safe doesn't look too fancy.
 	<br><br>
 	<<link [[Take it|Domus Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <<else>>
 	You successfully open the safe, and find an expensive-looking watch inside.
 	<br><br>
 	<<link [[Take it|Domus Street]]>><<set $blackmoney += 100>><<crimeUp 100 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<link [[Leave|Domus Street]]>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><</link>>
 	<br>
 <</if>>
 
@@ -507,12 +507,12 @@ The safe doesn't look too fancy.
 	<br><br>
 	<<link [[Take it|Domus Street]]>><<crimeUp 30 "thievery">><<endevent>><<set $blackmoney += 30>><</link>><<crime "thievery">>
 	<br>
-	<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><<endevent>><</link>>
 	<br>
 <<else>>
 	You stay behind the curtain, remaining as still and quiet as possible. After thirty minutes, the <<person>> gets up, stretches, and walks to the kitchen. You creep outside.
 	<br><br>
-	<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
@@ -529,7 +529,7 @@ The <<person>> can't see you from where <<he>> sits, so you slowly start to cree
 <<else>>
 	<<He>> remains glued to <<his>> television, letting you slip out with no difficulty.
 	<br><br>
-	<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
@@ -575,7 +575,7 @@ You open the trapdoor and peek out.
 <<if $rng gt _risk>>
 	The room remains empty and silent. You climb from the trapdoor, close it and silently escape the property.
 	<br><br>
-	<<link [[Leave|Domus Street]]>><<unset $resc>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><<unset $resc>><</link>>
 <<else>>
 	The room looks empty. Climbing out, <span class="red">hands seize you.</span>
 	<br><br>
@@ -712,7 +712,7 @@ You lead <<him>> from the room, and hand <<him>> the towels from the bed. <<He>>
 	<<lstress>><<ltrauma>><<gcontrol>><<stress -2>><<trauma -4>><<control 10>>
 	<br><br>
 	<<endevent>>
-	<<link [[Leave|Domus Street]]>><<unset $resc>><</link>>
+	<<getouticon>><<link [[Leave|Domus Street]]>><<unset $resc>><</link>>
 <<else>>
 	The room above looks empty. <span class="red">Hands seize you as you climb out.</span>
 	<br><br>
@@ -735,5 +735,5 @@ You leave
 on the counter for them to find. You hope it will help.
 <br><br>
 
-<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+<<getouticon>><<link [[Leave|Domus Street]]>><<endevent>><</link>>
 <br>

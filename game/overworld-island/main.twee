@@ -1,15 +1,15 @@
-:: Island Landing
+:: Misland Landing
 <<water>>
 You swim past many large bunches of coral and jagged chunks of rock before reaching a warm and sandy beach where you pull yourself out of the water.
 <br><br>
-<<link [[Next|Island]]>><<set $islanddistance to 0>><<location "beach">><</link>>
+<<link [[Next|Misland]]>><<set $islanddistance to 0>><<location "beach">><</link>>
 
-:: Island Landing Boat
+:: Misland Landing Boat
 The ship pulls into a small inlet river and into a small oasis village. "Well, we're here. Get your stuff and get off."
 <br><br>
 <<link [[Next|Desert Village]]>><<set $islanddistance to 20>><<set $chill_day to -120>><<location "desert">><</link>>
 
-:: Island
+:: Misland
 <<effects>>
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutisland>>
@@ -109,11 +109,11 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
 		<</if>>
     <<else>>
         <<if !$plants_known.includes("mouse_ear") and $islanddistance lt 50 and $islanddistance gt 30>>
-            <<link [[Search for seeds (0:30)|Island Mouseear]]>><<pass 30>><<tending 6>><<set $plants_known.push("mouse_ear")>><</link>><<gtending>>
+            <<link [[Search for seeds (0:30)|Misland Mouseear]]>><<pass 30>><<tending 6>><<set $plants_known.push("mouse_ear")>><</link>><<gtending>>
             <br>
         <</if>>
         <<if !$plants_known.includes("glacier_crowfoot") and $islanddistance lt 60 and $islanddistance gt 50>>
-            <<link [[Search for seeds (0:30)|Island Crowfoot]]>><<pass 30>><<tending 6>><<set $plants_known.push("glacier_crowfoot")>><</link>><<gtending>>
+            <<link [[Search for seeds (0:30)|Misland Crowfoot]]>><<pass 30>><<tending 6>><<set $plants_known.push("glacier_crowfoot")>><</link>><<gtending>>
             <br>
         <</if>>
         <<if $islanddistance is 0>>
@@ -146,11 +146,11 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
             <br>
         <</if>>
         <<if $islanddistance gte 1>>
-            <<link [[Head back to shore (0:20)|Island]]>><<pass 20>><<set $islanddistance -= 1>><</link>>
+            <<link [[Head back to shore (0:20)|Misland]]>><<pass 20>><<set $islanddistance -= 1>><</link>>
             <br>
         <</if>>
         <<if $islanddistance lt 70>>
-            <<link [[Head deeper into the island (0:20)|Island]]>><<pass 20>><<set $islanddistance += 1>><</link>>
+            <<link [[Head deeper into the island (0:20)|Misland]]>><<pass 20>><<set $islanddistance += 1>><</link>>
         <</if>>
     <</if>>
 <</if>>
@@ -166,7 +166,7 @@ However upon searching within the surrounding area you find a small stone makesh
 <br><br>
 <<link [[Read the notes (0:10)|Notes 1]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 1
 The crash was brutal. I may be the only survivor, but it's hard to say. My companion is most certainly dead and buried somewhere under this mess. The creature is probably also deceased, though not because of anything I did. But that is neither here nor there; at the moment my only concern is surviving this terrible storm and whatever might come out of it.
@@ -177,21 +177,21 @@ As I got up to see where the sound came from, I tripped over something on the fl
 <br><br>
 <<link [[Continue reading the next page (0:10)|Notes 2]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 2
 I'm beginning to doubt my sanity. What does the music mean? Is it just the sounds I'm hearing or does it represent something else? It's so strange. When the weather gets bad, it starts sounding more beautiful and when the weather clears, the sound becomes sad, as though some great tragedy took place when the sun went away. The rain seems to be making it worse too. Now it's raining even harder than it was yesterday, and though I have shelter, I'm worried about whatever lies outside in the darkness. Maybe the storm will pass in time for tomorrow—the weather doesn't seem to last forever. At least the rain has stopped for now, allowing me a bit more visibility, though everything is still covered in fog.
 <br><br>
 <<link [[Continue reading the next page (0:10)|Notes 3]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 3
 Still alive! Though, to tell you the truth, I don't feel too good. The fever seems to be getting worse and this cough won't stop. Whatever is growing inside of me isn't doing me any favors either—I think-
 <br><br>
 The page is ripped beyond this point and unreadable.
 <br><br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Hut Explore
 As expected there's not much open first glance. The shattered window covers the floor. You're shocked to find an old dusty skeleton in the back. One of its legs are missing.
@@ -200,7 +200,7 @@ Beside the skeleton there's an old bloody notebook and pen.
 <br><br>
 <<link [[Read the notes (0:10)|Notes 4]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 4
 I don't know what day it is anymore, but I must have slept through at least three days because of the way I feel. This sickness has gotten worse and it feels like whatever disease I caught is trying to eat its way out.
@@ -213,7 +213,7 @@ I have to write, though; it's my only link to sanity and reason. It allows me to
 <br><br>
 <<link [[Continue reading the next page (0:10)|Notes 5]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 5
 Oh God. Please make it stop, please make it-
@@ -226,65 +226,65 @@ And so, I write one last note—though I'm certain no one will ever read it or u
 <br><br>
 <<link [[Continue reading the next page (0:10)|Notes 6]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 6
 The page is illegible, the words are scribbled beyond comprehension and dried blood obscures the page.
 <br><br>
-<<link [[Back (0:05)|Island]]>><<pass 5>><</link>>
+<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Desert Village
 <<effects>>
 The village is small, a handful of makeshift structures surrounding the oasis. You can see people going about their daily lives, tending crops and grazing animals, and children playing in the water. Despite the harsh desert climate, this oasis is an oasis of life, a refuge from the treacherous surroundings.
 <br><br>
-<<link [[Market (0:05)|Island Market]]>><<pass 5>><</link>>
+<<link [[Market (0:05)|Misland Market]]>><<pass 5>><</link>>
 <br>
-<<link [[Inn (0:05)|Island Inn]]>><<pass 5>><</link>>
+<<link [[Inn (0:05)|Misland Inn]]>><<pass 5>><</link>>
 <br>
-<<link [[Shrine (0:05)|Island Shrine]]>><<pass 5>><</link>>
+<<link [[Shrine (0:05)|Misland Shrine]]>><<pass 5>><</link>>
 <br>
-<<link [[Dock (0:05)|Island Dock]]>><<pass 5>><</link>>
+<<link [[Dock (0:05)|Misland Dock]]>><<pass 5>><</link>>
 <br>
-<<link [[Leave the village (0:05)|Island]]>><<set $islanddistance to 20>><<pass 5>><</link>>
+<<getouticon>><<link [[Leave the village (0:05)|Misland]]>><<set $islanddistance to 20>><<pass 5>><</link>>
 
-:: Island Market
+:: Misland Market
 You're in the market, fruit stalls line along the oasis selling goods.
 <br><br>
 <<if $money gte 1500>>
-<<link [[Buy fifty oranges for £15 (0:02)|Island Market]]>><<tending_give orange 50>><<pass 2>><<set $money -= 1500>><</link>>
+<<link [[Buy fifty oranges for £15 (0:02)|Misland Market]]>><<tending_give orange 50>><<pass 2>><<set $money -= 1500>><</link>>
 <br>
 <</if>>
 <<if $money gte 2000>>
-<<link [[Buy fifty apples for £20 (0:02)|Island Market]]>><<tending_give apple 50>><<pass 2>><<set $money -= 2000>><</link>>
+<<link [[Buy fifty apples for £20 (0:02)|Misland Market]]>><<tending_give apple 50>><<pass 2>><<set $money -= 2000>><</link>>
 <br>
 <</if>>
 <<if $money gte 2000>>
-<<link [[Buy fifty cabbages for £20 (0:02)|Island Market]]>><<tending_give cabbage 50>><<pass 2>><<set $money -= 2000>><</link>>
+<<link [[Buy fifty cabbages for £20 (0:02)|Misland Market]]>><<tending_give cabbage 50>><<pass 2>><<set $money -= 2000>><</link>>
 <br>
 <</if>>
 <<if $money gte 2500>>
-<<link [[Buy fifty bananas for £25 (0:02)|Island Market]]>><<tending_give banana 50>><<pass 2>><<set $money -= 2500>><</link>>
+<<link [[Buy fifty bananas for £25 (0:02)|Misland Market]]>><<tending_give banana 50>><<pass 2>><<set $money -= 2500>><</link>>
 <br>
 <</if>>
 <<if $money gte 2500>>
-<<link [[Buy fifty peaches for £25 (0:02)|Island Market]]>><<tending_give peach 50>><<pass 2>><<set $money -= 2500>><</link>>
+<<link [[Buy fifty peaches for £25 (0:02)|Misland Market]]>><<tending_give peach 50>><<pass 2>><<set $money -= 2500>><</link>>
 <br>
 <</if>>
 <<if $money gte 3500>>
-<<link [[Buy fifty pears for £35 (0:02)|Island Market]]>><<tending_give pear 50>><<pass 2>><<set $money -= 3500>><</link>>
+<<link [[Buy fifty pears for £35 (0:02)|Misland Market]]>><<tending_give pear 50>><<pass 2>><<set $money -= 3500>><</link>>
 <br>
 <</if>>
 <<if $money gte 3500>>
-<<link [[Buy fifty plumbs for £35 (0:02)|Island Market]]>><<tending_give plum 50>><<pass 2>><<set $money -= 3500>><</link>>
+<<link [[Buy fifty plumbs for £35 (0:02)|Misland Market]]>><<tending_give plum 50>><<pass 2>><<set $money -= 3500>><</link>>
 <br>
 <</if>>
 <<if $money gte 8000>>
-<<link [[Buy fifty strawberries for £80 (0:02)|Island Market]]>><<tending_give strawberry 50>><<set $money -= 8000>><<pass 2>><</link>>
+<<link [[Buy fifty strawberries for £80 (0:02)|Misland Market]]>><<tending_give strawberry 50>><<set $money -= 8000>><<pass 2>><</link>>
 <br>
 <</if>>
 <<link [[Back (0:05)|Desert Village]]>><<pass 5>><</link>>
 
-:: Island Inn
+:: Misland Inn
 You're in a larger stone building, small tables litter the room and a large tanned man sits at the counter. He looks up as you enter. "What do you need?" A board says the inn costs 800 for a night.
 <br><br>
 <<if $money gte 80000 and $desertinn isnot 1 and Time.hour isnot 6>>
@@ -297,51 +297,51 @@ You're in a larger stone building, small tables litter the room and a large tann
     <<link [[Enter your room|Desert Village Room]]>><</link>>
     <br>
 <</if>>
-<<link [[Leave (0:05)|Desert Village]]>><<pass 5>><<set $desertinn to 0>><</link>>
+<<getouticon>><<link [[Leave (0:05)|Desert Village]]>><<pass 5>><<set $desertinn to 0>><</link>>
 
 :: Desert Village Pay
 You pay the man and he hands you a key. "First room on the right. As soon as you leave I'll be taking the key back. I want you up and out by 6 AM."
 <br><br>
-<<link [[Next|Island Inn]]>><<set $desertinn to 1>><</link>>
+<<link [[Next|Misland Inn]]>><<set $desertinn to 1>><</link>>
 
 :: Desert Village Room
 You're in a small room with nothing but a bed.
 <br><br>
-<<link [[Sleep|Island Inn Bed]]>><</link>>
+<<link [[Sleep|Misland Inn Bed]]>><</link>>
 <br>
-<<link [[Leave|Island Inn]]>><</link>>
+<<getouticon>><<link [[Leave|Misland Inn]]>><</link>>
 
-:: Island Inn Bed
+:: Misland Inn Bed
 <<effects>>
 You snuggle under the covers.
 <br><br>
 <<if $sleeptrouble is 1 and $controlled is 0>>
-	<<link [[Sleep for 10 hours|Island Inn Sleep]]>><<set $sleephour to 10>><<incrementautosave>><</link>> (<<timeAfterXHours 10>>)<<ltiredness>>
+	<<link [[Sleep for 10 hours|Misland Inn Sleep]]>><<set $sleephour to 10>><<incrementautosave>><</link>> (<<timeAfterXHours 10>>)<<ltiredness>>
 	<br>
-	<<link [[Sleep for 9 hours|Island Inn Sleep]]>><<set $sleephour to 9>><<incrementautosave>><</link>> (<<timeAfterXHours 9>>)<<ltiredness>>
+	<<link [[Sleep for 9 hours|Misland Inn Sleep]]>><<set $sleephour to 9>><<incrementautosave>><</link>> (<<timeAfterXHours 9>>)<<ltiredness>>
 	<br>
 <</if>>
-<<link [[Sleep for 8 hours|Island Inn Sleep]]>><<set $sleephour to 8>><<incrementautosave>><</link>> (<<timeAfterXHours 8>>)<<ltiredness>>
+<<link [[Sleep for 8 hours|Misland Inn Sleep]]>><<set $sleephour to 8>><<incrementautosave>><</link>> (<<timeAfterXHours 8>>)<<ltiredness>>
 <br>
-<<link [[Sleep for 7 hours|Island Inn Sleep]]>><<set $sleephour to 7>><<incrementautosave>><</link>> (<<timeAfterXHours 7>>)<<ltiredness>>
+<<link [[Sleep for 7 hours|Misland Inn Sleep]]>><<set $sleephour to 7>><<incrementautosave>><</link>> (<<timeAfterXHours 7>>)<<ltiredness>>
 <br>
-<<link [[Sleep for 6 hours|Island Inn Sleep]]>><<set $sleephour to 6>><<incrementautosave>><</link>> (<<timeAfterXHours 6>>)<<ltiredness>>
+<<link [[Sleep for 6 hours|Misland Inn Sleep]]>><<set $sleephour to 6>><<incrementautosave>><</link>> (<<timeAfterXHours 6>>)<<ltiredness>>
 <br>
-<<link [[Sleep for 5 hours|Island Inn Sleep]]>><<set $sleephour to 5>><<incrementautosave>><</link>> (<<timeAfterXHours 5>>)<<ltiredness>>
+<<link [[Sleep for 5 hours|Misland Inn Sleep]]>><<set $sleephour to 5>><<incrementautosave>><</link>> (<<timeAfterXHours 5>>)<<ltiredness>>
 <br>
-<<link [[Sleep for 4 hours|Island Inn Sleep]]>><<set $sleephour to 4>><<incrementautosave>><</link>> (<<timeAfterXHours 4>>)<<ltiredness>>
+<<link [[Sleep for 4 hours|Misland Inn Sleep]]>><<set $sleephour to 4>><<incrementautosave>><</link>> (<<timeAfterXHours 4>>)<<ltiredness>>
 <br>
-<<link [[Sleep for 3 hours|Island Inn Sleep]]>><<set $sleephour to 3>><<incrementautosave>><</link>> (<<timeAfterXHours 3>>)<<ltiredness>>
+<<link [[Sleep for 3 hours|Misland Inn Sleep]]>><<set $sleephour to 3>><<incrementautosave>><</link>> (<<timeAfterXHours 3>>)<<ltiredness>>
 <br>
-<<link [[Sleep for 2 hours|Island Inn Sleep]]>><<set $sleephour to 2>><<incrementautosave>><</link>> (<<timeAfterXHours 2>>)<<ltiredness>>
+<<link [[Sleep for 2 hours|Misland Inn Sleep]]>><<set $sleephour to 2>><<incrementautosave>><</link>> (<<timeAfterXHours 2>>)<<ltiredness>>
 <br>
-<<link [[Sleep for 1 hours|Island Inn Sleep]]>><<set $sleephour to 1>><<incrementautosave>><</link>> (<<timeAfterXHours 1>>)<<ltiredness>>
+<<link [[Sleep for 1 hours|Misland Inn Sleep]]>><<set $sleephour to 1>><<incrementautosave>><</link>> (<<timeAfterXHours 1>>)<<ltiredness>>
 <br>
-<<link [[Just sleep|Island Inn Sleep]]>><<set $sleephour to -1>><<incrementautosave>><</link>> (??:??)<<ltiredness>>
+<<link [[Just sleep|Misland Inn Sleep]]>><<set $sleephour to -1>><<incrementautosave>><</link>> (??:??)<<ltiredness>>
 <br>
 <<link [[Climb out of bed|Desert Village Room]]>><</link>>
 
-:: Island Inn Sleep
+:: Misland Inn Sleep
 <<set _autosavehere to true>>
 <<sleep>><<effects>>
 <<sleepeffects>>
@@ -360,14 +360,14 @@ You snuggle under the covers.
     <<link [[Next|Desert Village Room]]>><</link>>
 <</if>>
 
-:: Island Shrine
+:: Misland Shrine
 The village's shrine is a small and humble structure, nestled within the trees alongside the oasis. The shrine is dedicated to the divine entity that the villagers worship, and it serves as a place of prayer, meditation, and spiritual healing.
 <br><br>
 The shrine's exterior is made of simple stone, with a small opening to allow the villagers to enter and exit. Inside, there is a central altar, upon which the villagers place offerings and flowers in honor of their deity. The altar is adorned with small statues and symbols of the deity, and the air is filled with the delicate scent of incense.
 <br><br>
 <<link [[Pray|Shrine Pray]]>><<set $phase to 1>><</link>>
 <br>
-<<link [[Leave (0:05)|Desert Village]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Leave (0:05)|Desert Village]]>><<pass 5>><</link>>
 
 :: Shrine Pray
 <<if $phase is 1>>
@@ -398,16 +398,16 @@ The shrine's exterior is made of simple stone, with a small opening to allow the
 	<</if>>
 <</link>>
 <br>
-<<link [[Leave (0:05)|Desert Village]]>><</link>>
+<<getouticon>><<link [[Leave (0:05)|Desert Village]]>><</link>>
 
-:: Island Dock
+:: Misland Dock
 The dock is made of weathered wooden planks, with a few old and dilapidated fishing boats tied up alongside it. There's a strong scent of fish in the air, along with a hint of salt and decay.
 <br><br>
 You notice a few suspicious-looking characters loitering around the dock, whispering to each other and looking around nervously. They seem to be engaged in some sort of illegal activity, such as transporting illegal goods or substances. The dock seems to be a hub for criminal activity, and you should probably stay away from it.
 <br><br>
 <<link [[Look for a ride (0:20)|Desert Dock Ride]]>><<pass 20>><</link>>
 <br>
-<<link [[Leave (0:05)|Desert Village]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Leave (0:05)|Desert Village]]>><<pass 5>><</link>>
 
 :: Desert Dock Ride
 <<generate1>><<person1>><<generate2>><<person2>><<generate3>><<person3>>
@@ -417,7 +417,7 @@ You ask some of the sketchy <<people>> on the dock about renting their vessel fo
 <<link [[Accept payment|Take Off Island]]>><<set $money -= 50000>><<set $chill_day to 0>><<set $rng to random(1,100)>><</link>>
 <br>
 <</if>>
-<<link [[Decline|Island Dock]]>><<endevent>><</link>>
+<<link [[Decline|Misland Dock]]>><<endevent>><</link>>
 
 :: Take Off Island
 You and the crew board the ship and take off to sea. You catch the sketchy <<people>> occasionally casting glances your way.
@@ -474,7 +474,7 @@ Deep inside the hole you find an opening. A small shrine fills the room, lightin
 <br><br>
 <<link [[Pray|Ice Shrine Pray]]>><<set $phase to 1>><</link>>
 <br>
-<<link [[Leave (0:10)|Island]]>><<pass 10>><</link>>
+<<getouticon>><<link [[Leave (0:10)|Misland]]>><<pass 10>><</link>>
 
 :: Ice Shrine Pray
 <<if $phase is 1>>
@@ -517,7 +517,7 @@ Deep inside the hole you find an opening. A small shrine fills the room, lightin
 	<</if>>
 <</link>>
 <br>
-<<link [[Leave (0:10)|Island]]>><<pass 10>><</link>>
+<<getouticon>><<link [[Leave (0:10)|Misland]]>><<pass 10>><</link>>
 
 :: Anthill
 <<if $sandmound is 1>>
@@ -556,7 +556,7 @@ Deep inside the hole you find an opening. A small shrine fills the room, lightin
         <br>
     <</if>>
     <<if $sandmound is 1>>
-        <<link [[Leave (0:05)|Island]]>><<pass 5>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><</link>>
+        <<getouticon>><<link [[Leave (0:05)|Misland]]>><<pass 5>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><</link>>
         <br>
     <</if>>
     <<if $sandmound gte 1 and $sandmound lt 5>>
@@ -573,7 +573,7 @@ You come before a large wax statue. It towers over you, stretching towards the c
 <br><br>
 <<link [[Pray|Ant Shrine Pray]]>><<set $phase to 1>><</link>>
 <br>
-<<link [[Leave|Anthill]]>><</link>>
+<<getouticon>><<link [[Leave|Anthill]]>><</link>>
 
 :: Ant Shrine Pray
 <<if $phase is 1>>
@@ -616,7 +616,7 @@ You come before a large wax statue. It towers over you, stretching towards the c
 	<</if>>
 <</link>>
 <br>
-<<link [[Leave|Anthill]]>><</link>>
+<<getouticon>><<link [[Leave|Anthill]]>><</link>>
 
 :: Ant Guard 1
 <<if $molestationstart is 1>>
@@ -922,7 +922,7 @@ You focus on cleaning up after the ants, hoping to blend into the background.
 <<if $antdig gte 10>>
     You return to the soft tunnel and keep digging. All of a sudden, you hear the sound of sand trickling through the stone. You step back as you realize the roof is about to collapse. You quickly climb up, hoping to escape the oncoming rocks and sand. As you reach the surface, you take a deep breath, grateful to be out of the tunnels. You know you have to make your way to a safer place as soon as possible.
     <br><br>
-    <<link [[Next|Island]]>><<set $islanddistance to 10>><</link>>
+    <<link [[Next|Misland]]>><<set $islanddistance to 10>><</link>>
 <<elseif $antdig gte 8>>
     You return to the soft tunnel and keep digging. You start to hear the sound of sand shifting through the stone. It's coming from somewhere up ahead. You're not entirely sure what this means, but you know that you're close to finding something. You press on, determined to keep digging until you find a way out. You'll have to trust your intuition and hope that you're on the right track.
     <br><br>
@@ -955,22 +955,22 @@ The world seems to fade in and out as you're jostled around. Suddenly, you jolt 
 <<lowerwear 71>>
 You search the dunes for anything that could be considered clothing. You only find an old faded cloth that you rip into rags.
 <br><br>
-<<link [[Next|Island]]>><</link>>
+<<link [[Next|Misland]]>><</link>>
 
-:: Island Mouseear
+:: Misland Mouseear
 <<effects>>
 You search the forest for seeding flowers. You find a beautiful bunch of mouse-ear you could probably cultivate back home.
 <br><br>
 <span class="gold">You can now grow mouse-ear.</span>
 <br><br>
-<<link [[Next|Island]]>><</link>>
+<<link [[Next|Misland]]>><</link>>
 <br>
 
-:: Island Crowfoot
+:: Misland Crowfoot
 <<effects>>
 You search the soft powdery snow for any plants. You extract the flowers carefully and pull out a glacier crowfoot.
 <br><br>
 <span class="gold">You can now grow glacier crowfoot.</span>
 <br><br>
-<<link [[Next|Island]]>><</link>>
+<<link [[Next|Misland]]>><</link>>
 <br>

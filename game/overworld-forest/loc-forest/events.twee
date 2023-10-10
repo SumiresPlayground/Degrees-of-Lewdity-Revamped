@@ -3743,7 +3743,7 @@ You start to climb the tree towards the nest. You make it up half way, before ne
 			<<link [[Try to lure out a fox (0:05)|Forest Nest Bait]]>><<set $forest_nest.eggs -= 3>><<pass 5>><</link>><<note "Less eggs" "red">>
 			<br>
 		<</if>>
-		<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 		<br>
 	<<else>>
 		A branch cracks under your weight, and <span class="red">you fall</span>.
@@ -3783,7 +3783,7 @@ You start to climb the tree towards the nest. You make it up half way, before ne
 				<<link [[Eat one|Forest Nest Share]]>><<transform fox 1>><<stress 2>><</link>><<gstress>>
 				<br>
 			<</if>>
-			<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+			<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 			<br>
 		<<else>>
 			You hit a few branches on the way down, and ground is not kind. <<gstress>><<stress 6>><<gpain>><<pain 8>>
@@ -3798,7 +3798,7 @@ You start to climb the tree towards the nest. You make it up half way, before ne
 				<<link [[Hide and wait (0:05)|Forest Nest Hide]]>><<unset $athleticsSuccess>><<set $forest_nest.eggs -= 2>><<pass 5>><</link>><<note "Less eggs" "red">>
 				<br>
 			<</if>>
-			<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+			<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 			<br>
 		<</if>>
 	<</if>>
@@ -3853,7 +3853,7 @@ You approach the nest and look inside.
 	<<link [[Try to lure out a fox (0:05)|Forest Nest Bait]]>><<set $forest_nest.eggs -= 3>><<pass 5>><</link>><<note "Less eggs" "red">>
 	<br>
 <</if>>
-<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Forest Nest Search Eggs
@@ -3883,19 +3883,19 @@ You approach the nest and look inside.
 
 		<<link [[Offer an egg|Forest Nest Search Offer]]>><<set $plants.bird_egg.amount -= 1>><</link>><<note "- Egg" "red">>
 		<br>
-		<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 		<br>
 	<<else>>
 		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 		<br>
-		<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 		<br>
 	<</if>>
 <<else>>
 	<span class="red">None of the eggs look suitable for market.</span><<gtending>><<tending 2>>
 	<br><br>
 
-	<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+	<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 	<br>
 <</if>>
 
@@ -3912,7 +3912,7 @@ You hold out one of the eggs for the <<beasttype>>. <<bHe>> hesitantly approache
 
 <<link [[Pet|Forest Fox Nest Pet]]>><<set $tendingSuccess to true>><<set $phase2 to 1>><</link>><<llstress>>
 <br>
-<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Forest Nest Bury
@@ -3930,7 +3930,7 @@ You hold out one of the eggs for the <<beasttype>>. <<bHe>> hesitantly approache
 <</if>>
 <br><br>
 
-<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Forest Nest Bait
@@ -4013,7 +4013,7 @@ That is, until you hear rapid footsteps behind you. You turn just in time to be
 		<<link [[Eat one|Forest Nest Share]]>><<transform fox 1>><<stress 2>><</link>><<gstress>>
 		<br>
 	<</if>>
-	<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+	<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 	<br>
 <</if>>
 
@@ -4042,7 +4042,7 @@ That is, until you hear rapid footsteps behind you. You turn just in time to be
 You eventually say goodbye.
 <br><br>
 
-<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Forest Nest Hide
@@ -4223,7 +4223,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
-		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 		<br>
 	<<elseif $NPCList[0].traits.includes("territorial")>>
 		The <<beasttypes>> ear twitches. <<bHe>> stays completely still for a moment. Then, in one swift movement, <<bhe>> bounds around and pounces!
@@ -4283,7 +4283,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
-		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 		<br>
 	<<elseif $NPCList[0].traits.includes("clumsy")>>
 		The <<beasttypes>> tail stands on end and puffs out as <<bhe>> quickly turns to you.
@@ -4301,7 +4301,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 			<<link [["Lick " + $NPCList[0].pronouns.him + " clean"|Forest Fox Nest Lick]]>><<set $phase2 to 1>><</link>><<deviant1>><<fox>>
 			<br>
 		<</if>>
-		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 		<br>
 	<<else>>
 		The <<beasttypes>> tail stands on end and puffs out. <<bHe>> dashes away without hesitation, crushing an egg in the process. <<bHe>> stops to look at you after <<bhe>> gets far enough away, before continuing to scamper off.
@@ -4312,7 +4312,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
-		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 		<br>
 	<</if>>
 <</if>>
@@ -4548,7 +4548,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 		<<link [["Lick " + $NPCList[0].pronouns.him + " clean"|Forest Fox Nest Lick]]>><<set $phase2 to 1>><</link>><<deviant1>><<fox>>
 		<br>
 	<</if>>
-	<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+	<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 	<br>
 <<elseif $NPCList[0].traits.includes("cowardly")>>
 	Before you can follow through, however, <<bhis>> tail puffs up and <<bhe>> flees. <<bHe>> took some of the eggs with <<bhim>>. This particular <<beasttype>> seemed especially cowardly.
@@ -4562,7 +4562,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 		<br>
 	<</if>>
-	<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+	<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 	<br>
 <<else>>
 	You make yourself appear as large as possible,
@@ -4586,7 +4586,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
-		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 		<br>
 	<<else>>
 		<<if $NPCList[0].traits.includes("territorial")>>
@@ -4621,7 +4621,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 				<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 				<br>
 			<</if>>
-			<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+			<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 			<br>
 		<<elseif $NPCList[0].traits.includes("friendly")>>
 			but <<bhe>> <span class="red">merely tilts <<bhis>> head at you.</span> Unwavering, <<bhe>> approaches you and sniffs you.
@@ -4656,7 +4656,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 				<<link [[Eat one|Forest Nest Share]]>><<transform fox 1>><<stress 2>><</link>><<gstress>>
 				<br>
 			<</if>>
-			<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+			<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 			<br>
 		<</if>>
 	<<if !$NPCList[0].traits.includesAny("territorial","clever","clumsy","friendly","cowardly")>>
@@ -4664,7 +4664,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 	<br><br>
 	You leave the area, feeling somewhat dejected.
 	<br><br>
-	<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
+	<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 	<</if>>
 	<</if>>
 <</if>>
@@ -5063,7 +5063,7 @@ You put your head right next to the <<beasttype>>.
 		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $plants.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 		<br>
 	<</if>>
-	<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
+	<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
 	<br>
 <</if>>
 
@@ -5352,7 +5352,7 @@ You put your head right next to the <<beasttype>>.
 			<span class="blue">You aren't deviant enough to show your appreciation.</span>
 			<br>
 		<</if>>
-		<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><<stress -3>><</link>><<lstress>>
+		<<getouticon>><<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><<stress -3>><</link>><<lstress>>
 		<br>
 	<</if>>
 <<else>>
@@ -5992,7 +5992,7 @@ You follow the trail down the winding path into an alcove between the trees. Upo
 <br><br>
 The mushrooms sway as you begin to feel ill.
 <br><br>
-<<link [[Leave|Forest]]>><<set $eventskip to 1>><</link>>
+<<getouticon>><<link [[Leave|Forest]]>><<set $eventskip to 1>><</link>>
 <br>
 <<link [[Lie down|Mushroom Grove Lie Down]]>><<set $eventskip to 1>><</link>>
 
@@ -6006,11 +6006,11 @@ Unable to withstand the immense pressure within your body, you lay down in an at
 :: Mushroom Grove Rip
 You grip the mushroom head and rip. It burns as the tendrils are removed from your body. You continue to remove the mushrooms until all of them are gone.
 <br><br>
-<<link [[Leave|Forest]]>><<set $eventskip to 1>><</link>>
+<<getouticon>><<link [[Leave|Forest]]>><<set $eventskip to 1>><</link>>
 
 :: Mushroom Grove Grow
 Despite the overwhelming urge to remove the invading mushrooms, you maintain composure as they penetrate even deeper into your body. A root digs into your head as a large bulbous shroom implants itself on your skull, your eyes slowly dim as you feel yourself losing control of your own body.
 <br><br>
 The shrooms release burning spores into your lungs, causing you to gag and choke. With one sudden burst of will, you regain control and wrench yourself free from their grip.
 <br><br>
-<<link [[Leave|Forest]]>><<set $eventskip to 1>><<mushroomtransform>><</link>>
+<<getouticon>><<link [[Leave|Forest]]>><<set $eventskip to 1>><<mushroomtransform>><</link>>
