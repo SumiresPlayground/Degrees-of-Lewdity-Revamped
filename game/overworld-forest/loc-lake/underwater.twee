@@ -97,9 +97,9 @@
 		<br>
 	<<else>>
 		<<if $nextPassageCheck is "Lake Ruin">>
-			<span class="nextLink"><<link [[Swim inside ruin|Lake Ruin]]>><<wateraction>><</link>><<loxygen>></span>
+			<<swimicon>><span class="nextLink"><<link [[Swim inside ruin|Lake Ruin]]>><<wateraction>><</link>><<loxygen>></span>
 		<<else>>
-			<<link [[Swim inside ruin|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+			<<swimicon>><<link [[Swim inside ruin|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 		<</if>>
 		<br><br>
 		<<if !Time.schoolDay and $weather is "snow" and Time.dayState is "day">>
@@ -107,14 +107,14 @@
 		<</if>>
 		<<if Time.season is "winter">>
 			<<if $lake_ice_broken is undefined>>
-				<<link [[Surface|Lake Underwater Ice]]>><</link>>
+				<<swimicon "up">><<link [[Surface|Lake Underwater Ice]]>><</link>>
 				<br>
 			<<else>>
-				<<link [[Surface|Lake Depths Ice]]>><</link>>
+				<<swimicon "up">><<link [[Surface|Lake Depths Ice]]>><</link>>
 				<br>
 			<</if>>
 		<<else>>
-			<<link [[Surface|Lake Depths]]>><<set $lakesurface to 1>><</link>>
+			<<swimicon "up">><<link [[Surface|Lake Depths]]>><<set $lakesurface to 1>><</link>>
 			<br>
 		<</if>>
 	<</if>>
@@ -204,19 +204,19 @@ You are in the submerged ruin beneath the lake. Glowing purple lichen covers anc
 	<<wHunt "lake">>
 <<else>>
 	<<if $sciencelichenknown is 1 and $sciencelichenlake isnot 1 and $scienceproject is "ongoing">>
-		<<link [[Retrieve lichen for your science project|Lake Lichen]]>><<set $sciencelichenlake to 1>><<wateraction>><</link>><<loxygen>>
+		<<scienceicon "purple lichen">><<link [[Retrieve lichen for your science project|Lake Lichen]]>><<set $sciencelichenlake to 1>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
 	<<if $nextPassageCheck is "Lake Ruin Prison Intro">>
-		<span class="nextLink"><<link [[Inspect the rune|Lake Ruin Prison Intro]]>><<wateraction>><</link>><<loxygen>></span>
+		<<investigateicon>><span class="nextLink"><<link [[Inspect the rune|Lake Ruin Prison Intro]]>><<wateraction>><</link>><<loxygen>></span>
 		<br>
 	<<elseif $wraithPrison or $sciencelichenlake is 1 or $scienceproject is "won" or $scienceproject is "done">>
-		<<link [[Inspect the rune|Lake Ruin Symbol]]>><<wateraction>><</link>><<loxygen>>
+		<<investigateicon>><<link [[Inspect the rune|Lake Ruin Symbol]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
-	<<link [[Swim deeper|Lake Ruin Deep]]>><<wateraction>><</link>><<loxygen>>
+	<<swimicon "down">><<link [[Swim deeper|Lake Ruin Deep]]>><<wateraction>><</link>><<loxygen>>
 	<br>
-	<<link [[Swim towards the surface|Lake Underwater]]>><<wateraction>><</link>><<loxygen>>
+	<<swimicon "up">><<link [[Swim towards the surface|Lake Underwater]]>><<wateraction>><</link>><<loxygen>>
 	<br>
 <</if>>
 
@@ -249,20 +249,20 @@ You are deep in the submerged ruin beneath the lake. Pots of different sizes fil
 	<<wHunt "lake">>
 <<else>>
 	<<if $lakeruinkey is 1>>
-		<<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "key">><<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
-	<<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
+	<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
 	<br>
 	<<if $lakeruinkey is 2>>
-		<<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
+		<<swimicon>><<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
 	<br>
 	<<if $nextPassageCheck is "Lake Ruin">>
-		<span class="nextLink"><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>></span>
+		<<swimicon "up">><span class="nextLink"><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>></span>
 	<<else>>
-		<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+		<<swimicon "up">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 	<</if>>
 	<br>
 <</if>>
@@ -273,7 +273,7 @@ You are deep in the submerged ruin beneath the lake. Pots of different sizes fil
 <<set $lakeruinkey to 2>>
 You hear the ancient mechanism creak and the door groans open. Beyond is a plinth, stood alone in a rubble-strewn room. Atop it sits an ivory necklace. It's studded with blue jewels.
 <br><br>
-<<link [[Swim inside|Lake Ruin Plinth]]>><</link>>
+<<swimicon>><<link [[Swim inside|Lake Ruin Plinth]]>><</link>>
 <br>
 
 :: Lake Ruin Sit
@@ -293,6 +293,28 @@ You hear the ancient mechanism creak and the door groans open. Beyond is a plint
 
 
 
+	<<if $parasite.left_ear.name is "slime">>
+		<<removeparasite left_ear>>
+	<</if>>
+	<<if $parasite.right_ear.name is "slime">>
+		<<removeparasite right_ear>>
+	<</if>>
+	<<set $noEarSlime to true>>
+
+	<<if $tentacledisable is "f">>
+		The light fades, and all falls quiet. Yet you feel a presence. Something stayed behind.
+		<br><br>
+
+		Over a dozen tentacles curl up the side of the plinth, forming a prison around you.
+		<br><br>
+
+		<<link [[Next|Lake Ruin Sit Tentacles]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+
+		<<link [[Next|Lake Ruin Plinth]]>><</link>>
+		<br>
+	<</if>>
 <<else>>
 	
 	You grip the plinth, and pull your <<bottom>> against it. The instant you do, a red light blazes into life, illuminating the room. Previously unseen statues stare down at you from above.
@@ -669,26 +691,26 @@ Deciding you've had enough, you attempt to unravel yourself and leave the room.
 		<<if $historytrait gte 4>>
 			The box itself is very old. It must be valuable.
 			<br><br>
-			<<link [[Just take the box|Lake Ruin Deep]]>><<set $antiquemoney += 20>><<museumAntiqueStatus "antiquebox" "found">><</link>>
+			<<ind>><<link [[Just take the box|Lake Ruin Deep]]>><<set $antiquemoney += 20>><<museumAntiqueStatus "antiquebox" "found">><</link>>
 			<br>
 		<</if>>
 		<!-- DoLM -->
 		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 		<<set $skulduggerydifficulty to 300>>
-		<<link [[Open it|Lake Ruin Box]]>><<wateraction>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>><<loxygen>>
+		<<templeicon "chastity release">><<link [[Open it|Lake Ruin Box]]>><<wateraction>><</link>><<skulduggerydifficulty>><<loxygen>>
 		<br>
 		<<if $lakeruinkey is 1>>
-			<<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
+			<<lakeicon "key">><<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
-		<<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 		<<if $lakeruinkey is 2>>
-			<<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
+			<<swimicon>><<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
 		<br>
-		<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+		<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<<elseif $rng gte 78 and $swarmdisable is "f">>
 		You reach inside one of the pots. Swarms of small fish surge out, surrounding you.
@@ -700,32 +722,32 @@ Deciding you've had enough, you attempt to unravel yourself and leave the room.
 		<<gstress>><<stress `$swarmdisable is "t" and $rng gte 78 ? 6 : 3`>><<garousal>><<arousal 600>>
 		<br><br>
 		<<if $lakeruinkey is 1>>
-			<<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
+			<<lakeicon "key">><<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
-		<<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 		<<if $lakeruinkey is 2>>
-			<<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
+			<<swimicon>><<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
 		<br>
-		<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+		<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<<elseif $rng gte 41 and $lakeruinkey is undefined>>
 		You reach inside one of the pots. You find a decaying bronze key.
 		<br><br>
 		<<set $lakeruinkey to 1>>
-		<<link [[Open door with bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "key">><<link [[Open door with bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
 		<br>
-		<<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 		<<if $lakeruinkey is 2>>
-			<<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
+			<<swimicon>><<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
 		<br>
-		<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+		<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<<else>>
 		<<rng>>
@@ -743,17 +765,17 @@ Deciding you've had enough, you attempt to unravel yourself and leave the room.
 		<</if>>
 		<br><br>
 		<<if $lakeruinkey is 1>>
-			<<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
+			<<lakeicon "key">><<link [[Use bronze key|Lake Ruin Door]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
-		<<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 		<<if $lakeruinkey is 2>>
-			<<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
+			<<swimicon>><<link [[Swim inside plinth room|Lake Ruin Plinth]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
 		<br>
-		<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+		<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
 <</if>>
@@ -814,9 +836,9 @@ Deciding you've had enough, you attempt to unravel yourself and leave the room.
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-	<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+	<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 	<br>
-	<<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
+	<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
 	<br>
 <</if>>
 
@@ -850,16 +872,16 @@ Deciding you've had enough, you attempt to unravel yourself and leave the room.
 	<</if>>
 
 	<<if $worn.genitals.name is "naked" and _goldchastity and playerBellySize() lte 7>>
-		<<link [[Wear it|Lake Gold Chastity Belt]]>><<wateraction>><</link>><<loxygen>>
+		<<templeicon "chastity">><<link [[Wear it|Lake Gold Chastity Belt]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
-	<<link [[Search pots|Lake Pots]]>>
+	<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>>
 	<<if _goldchastity>>
 		<<set $gold_chastity_held to true>>
 	<</if>>
 	<<wateraction>><</link>><<loxygen>>
 	<br>
-	<<link [[Swim towards exit|Lake Ruin]]>>
+	<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>>
 	<<if _goldchastity>>
 		<<set $gold_chastity_held to true>>
 	<</if>>
@@ -869,14 +891,14 @@ Deciding you've had enough, you attempt to unravel yourself and leave the room.
 	You fail to pick the lock.
 	<br><br>
 	<<if $historytrait gte 4>>
-		<<link [[Just take the box|Lake Ruin Deep]]>><<set $antiquemoney += 20>><<museumAntiqueStatus "antiquebox" "found">><</link>>
+		<<ind>><<link [[Just take the box|Lake Ruin Deep]]>><<set $antiquemoney += 20>><<museumAntiqueStatus "antiquebox" "found">><</link>>
 		<br>
 	<</if>>
-	<<link [[Try again|Lake Ruin Box]]>><<wateraction>><</link>><<skulduggerydifficulty>><<loxygen>>
+	<<ind>><<link [[Try again|Lake Ruin Box]]>><<wateraction>><</link>><<skulduggerydifficulty>><<loxygen>>
 	<br>
-	<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
+	<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><</link>><<loxygen>>
 	<br>
-	<<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
+	<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><</link>><<loxygen>>
 	<br>
 <</if>>
 
@@ -894,9 +916,9 @@ You feel an urge to try it on. You wrap it around your waist. As it clicks shut 
 <<earnFeat "Locked In Gold">>
 <<set $worn.genitals.origin to "Underwater Temple">>
 
-<<link [[Search pots|Lake Pots]]>><<wateraction>><<clotheson>><</link>><<loxygen>>
+<<lakeicon "pots">><<link [[Search pots|Lake Pots]]>><<wateraction>><<clotheson>><</link>><<loxygen>>
 <br>
-<<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><<clotheson>><</link>><<loxygen>>
+<<swimicon "back">><<link [[Swim towards exit|Lake Ruin]]>><<wateraction>><<clotheson>><</link>><<loxygen>>
 <br>
 
 :: Lake Lichen

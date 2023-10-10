@@ -33,7 +33,11 @@
 
 <<widget "mirror">>
 	<div id="mirror">
-		<<mirrorDisplay>>
+		<<if _args[0] isnot undefined>>
+			<<mirrorDisplay _args[0]>>
+		<<else>>
+			<<mirrorDisplay>>
+		<</if>>
 	</div>
 <</widget>>
 
@@ -165,7 +169,7 @@
 	<<if ["haunt", "despair"].includes($wraith.state) and $hallucinations gte 1 and random(1, 100) is 1>>
 		<span class="fading">A pale figure stands behind.</span>
 	<</if>>
-	<br>
+	<br><br>
 	<<link "Examine how you are seen by others">><<set $mirrorMenu to "appearance">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
 	<<if !$simpleMirror>>
@@ -204,6 +208,13 @@
 	<<if $trauma gte ($traumamax * 0.9)>>
 		<<set $traumatized to true>>
 	<</if>>
+	<<if $worn.neck.name is "love locket">>
+		__Locket__
+		<br>
+		<<link [[Customise locket|Mirror Locket]]>><<set $passage_mirror to $passage>><</link>>
+		<br><br>
+	<</if>>
+
 	<<if !$simpleMirror>>
 		<<if $specialTransform is 1 or $physicalTransform is 1 or $permanentTransform is 1 or $mushroomtf gte 1 or $traumatized isnot undefined>>
 			__Transformation__
@@ -595,6 +606,10 @@
 		<</if>>
 		<<if $mushroom gte 1>>
 			Fungal
+			<br>
+		<</if>>
+		<<if $earSlime.growth gt 50>>
+			Ear slime pheromones
 			<br>
 		<</if>>
 		<<if $makeup.lipstick != 0 or $makeup.eyeshadow != 0 or $makeup.mascara != 0>>
@@ -1005,6 +1020,14 @@
 	<</if>>
 	<<bodywriting>>
 	<br>
+
+	<<bodywritingOptions>>
+
+	/*Needs to be last*/
+	<<bodywritingMenuLinks>>
+<</widget>>
+
+<<widget "bodywritingOptions">>
 	<<set _bodyWritingOptions to {
 		General: {
 		"Cute boy":"cute_boy",
@@ -1154,10 +1177,10 @@
 		<<set _bodyWritingOptions["Love Interests"]["Robin's Protector"] to "robins_protector">>
 		<<set _bodyWritingOptions["Love Interests"]["Robin & I"] to "robin_and_i">>
 		<<set _bodyWritingOptions["Love Interests"]["The Orphan Lover"] to "the_orphan_lover">>
-		<<if ($player.gender is "m" or $player.gender is "h" or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.penisExist or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Robin's Boyfriend"] to "robins_boyfriend">>
 		<</if>>
-		<<if ($player.gender is "f" or $player.gender is "h" or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.vaginaExist or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Robin's Girlfriend"] to "robins_girlfriend">>
 		<</if>>
 	<</if>>
@@ -1165,10 +1188,10 @@
 		<<set _bodyWritingOptions["Love Interests"]["Whitney's Pet"] to "whitneys_pet">>
 		<<set _bodyWritingOptions["Love Interests"]["Property of Whitney"] to "property_of_whitney">>
 		<<set _bodyWritingOptions["Love Interests"]["Whitney's Toy"] to "whitneys_toy">>
-		<<if ($player.gender is "m" or $player.gender is "h" or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.penisExist or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Whitney's Boyslut"] to "whitneys_boyslut">>
 		<</if>>
-		<<if ($player.gender is "f" or $player.gender is "h" or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.vaginaExist or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Whitney's Slut"] to "whitneys_slut">>
 		<</if>>
 	<</if>>
@@ -1187,10 +1210,10 @@
 	<<if $dateCount.Avery gte 3 and $NPCName[$NPCNameList.indexOf("Avery")].state isnot "dismissed">>
 		<<set _bodyWritingOptions["Love Interests"]["Avery's Trophy"] to "averys_trophy">>
 		<<set _bodyWritingOptions["Love Interests"]["Endearing"] to "endearing">>
-		<<if ($player.gender is "m" or $player.gender is "h" or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.penisExist or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Uptown Boy"] to "uptown_boy">>
 		<</if>>
-		<<if ($player.gender is "f" or $player.gender is "h" or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.vaginaExist or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Uptown Girl"] to "uptown_girl">>
 		<</if>>
 		<<set _bodyWritingOptions["Love Interests"]["Avery's Monopoly"] to "averys_monopoly">>
@@ -1199,10 +1222,10 @@
 		<<set _bodyWritingOptions["Love Interests"]["Alex's Partner"] to "alexs_partner">>
 		<<set _bodyWritingOptions["Love Interests"]["Sunrise to Sunset"] to "sunrise_to_sunset">>
 		<<set _bodyWritingOptions["Love Interests"]["Hay Baler"] to "hay_baler">>
-		<<if ($player.gender is "m" or $player.gender is "h" or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.penisExist or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Cowboy"] to "cowboy">>
 		<</if>>
-		<<if ($player.gender is "f" or $player.gender is "h" or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
+		<<if ($player.vaginaExist or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
 			<<set _bodyWritingOptions["Love Interests"]["Cowgirl"] to "cowgirl">>
 		<</if>>
 	<</if>>
@@ -1244,8 +1267,9 @@
 		<br/>
 		<<print Object.values(setup.bodywriting).length>> known bodywriting options.
 	<</if>>
+<</widget>>
 
-	/*Needs to be last*/
+<<widget "bodywritingMenuLinks">>
 	<div id="bodywritingMenuLinks">
 	<<set _keys to Object.keys(_bodyWritingOptions)>>
 	<<if $bodywritingSet is undefined>>
@@ -1258,15 +1282,16 @@
 				<<removeclass `'#link-'+$bodywritingSet.replace(/ /g,'-')` "selected">>
 				<<set $bodywritingSet to clone(_keys[_i])>>
 				<<addclass `'#link-'+$bodywritingSet.replace(/ /g,'-')` "selected">>
-				<<replace "#bodywritingMenu">><<bodywritingMenu>><</replace>>
+				<<replace "#bodywritingMenu">><<bodywritingMenu _args[0]>><</replace>>
 			<</link>> |
 			</span>
 		<</capture>>
 	<</for>>
 	</div>
+
 	<br>
 	<div id="bodywritingMenu" class="no-numberify">
-		<<bodywritingMenu>>
+		<<bodywritingMenu _args[0]>>
 	</div>
 	<br><br>
 <</widget>>
@@ -1274,7 +1299,11 @@
 <<widget "bodywritingMenu">>
 	<<if Object.keys(_bodyWritingOptions[$bodywritingSet]).length gt 0>>
 		<<set _bodyPartOptions to {}>>
-		<<set _bodyPartOptionsSkip to ["back", "left_bottom", "right_bottom"]>>
+		<<if _args[0] isnot undefined>>
+			<<set _bodyPartOptionsSkip to _args[0]>>
+		<<else>>
+			<<set _bodyPartOptionsSkip to ["back", "left_bottom", "right_bottom"]>>
+		<</if>>
 		<<for _label, _value range $skin>>
 			<<if _bodyPartOptionsSkip.includes(_label)>>
 				<<continue>>
@@ -1348,7 +1377,8 @@
 				<<set _fringeType to Object.values(_fringeTypeByName)>>
 				<<set $fringetype to _fringeType[random(0,_fringeType.length - 1)]>>
 				<<set $hairposition to ["front","back"][random(0,1)]>>
-			<</link>> |
+			<</link>>
+			|
 			<<switch $hairposition>>
 				<<case "front">>
 					<<link "Position sides behind body">>
@@ -1366,6 +1396,42 @@
 						<<run Engine.show()>>
 					<</link>>
 			<</switch>>
+			|
+			<<switch $earsposition>>
+				<<case "front">>
+					<<link "Tuck hair behind ears">>
+						<<run State.setVar("$earsposition", "front")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<case "back">>
+					<<link "Position hair in front of ears">>
+						<<run State.setVar("$earsposition", "back")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<default>>
+					<<link "Tuck hair behind ears">>
+						<<run State.setVar("$earsposition", "front")>>
+						<<run Engine.show()>>
+					<</link>>
+			<</switch>>
+			|
+			<<switch $browsposition>>
+				<<case "front">>
+					<<link "Position brows behind hair">>
+						<<run State.setVar("$browsposition", "back")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<case "back">>
+					<<link "Position brows in front of hair">>
+						<<run State.setVar("$browsposition", "front")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<default>>
+					<<link "Position brows behind hair">>
+						<<run State.setVar("$browsposition", "back")>>
+						<<run Engine.show()>>
+					<</link>>
+			<</switch>>
 			<br><br>
 		</div>
 	<<else>>
@@ -1376,8 +1442,14 @@
 		<<else>>
 			Currently, your fringe is in the <span class="gold">$fringetype</span> style. Your sides are in the <span class="gold">$hairtype</span> style and are positioned <<if $hairposition is "front">>in front of<<else>>behind<</if>> your body.
 		<</if>>
-			Your hair is
+			Your hair
 			<<if $hairgelBottles is undefined>><<set $hairgelBottles to 0>><</if>>
+			<<if $earsposition is "front">>
+				 <span class="gold"> is tucked behind your ears</span>
+			<<else>>
+				 <span class="gold">hangs in front of your ears</span>
+			<</if>>
+			and is
 			<<if $ruffledisable is "t">>
 				<mouse class = "gold tooltip-small" style="border-bottom-color:white">
 					fixed in place.
@@ -1396,7 +1468,8 @@
 				<<set _fringeType to Object.values(_fringeTypeByName)>>
 				<<set $fringetype to _fringeType[random(0,_fringeType.length - 1)]>>
 				<<set $hairposition to ["front","back"][random(0,1)]>>
-			<</link>> |
+			<</link>>
+			|
 			<<switch $hairposition>>
 				<<case "front">>
 					<<link "Position sides behind body">>
@@ -1411,6 +1484,42 @@
 				<<default>>
 					<<link "Position sides in front of body">>
 						<<run State.setVar("$hairposition", "front")>>
+						<<run Engine.show()>>
+					<</link>>
+			<</switch>>
+			|
+			<<switch $earsposition>>
+				<<case "front">>
+					<<link "Position hair in front of ears">>
+						<<run State.setVar("$earsposition", "back")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<case "back">>
+					<<link "Tuck hair behind ears">>
+						<<run State.setVar("$earsposition", "front")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<default>>
+					<<link "Tuck hair behind ears">>
+						<<run State.setVar("$earsposition", "front")>>
+						<<run Engine.show()>>
+					<</link>>
+			<</switch>>
+			|
+			<<switch $browsposition>>
+				<<case "front">>
+					<<link "Position brows behind hair">>
+						<<run State.setVar("$browsposition", "back")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<case "back">>
+					<<link "Position brows in front of hair">>
+						<<run State.setVar("$browsposition", "front")>>
+						<<run Engine.show()>>
+					<</link>>
+				<<default>>
+					<<link "Position brows behind hair">>
+						<<run State.setVar("$browsposition", "back")>>
 						<<run Engine.show()>>
 					<</link>>
 			<</switch>>
@@ -1506,7 +1615,7 @@
 <<widget "mirrorhairdisplay">>
 	<<if _hairCategory isnot _args[0]>>
 		<<set _perPage to $showMannequins ? 14 : 100>>
-		<<set _page to 0>>
+		<<set _page to 1>>
 	<</if>>
 	<<set _hairCategory to _args[0]>>
 	<<mirrorhairOptions _args[1]>>
@@ -1520,14 +1629,12 @@
 <</widget>>
 
 <<widget "mirrorhairControls">>
-	<<set _pagereal to _page + 1>>
-	<<set _pagemaxreal to _pageMax + 1>>
 	<<if $showMannequins>>
 		<div id="hairContainerFooter">
 			<div class="tab">
-			<<if _page gt 0>>
+			<<if _page gt 1>>
 				<<button '<span class="fa-icon fa-left"></span> Previous'>>
-					<<if _page gt 0>><<set _page-->><</if>>
+					<<if _page gt 1>><<set _page-->><</if>>
 					<<mirrorhairOptions _args[0]>>
 					<<replace "#hairContainerElements">><<mirrorhairdisplayElements _hairOptions>><</replace>>
 					<<replace "#hairContainerPages">><<mirrorhairControls _args[0]>><</replace>>
@@ -1546,7 +1653,7 @@
 			</div>
 			<div class="tab">
 				<div id="buttonpage">
-					<<button '_pagereal/_pagemaxreal'>>
+					<<button '_page/_pageMax'>>
 					<</button>>
 				</div>
 			</div>
@@ -1578,10 +1685,10 @@
 	<<run setup.hairstyles[_args[0]].forEach(style => {
 		if (!V.shopClothingFilter.active || !V.shopClothingFilter.traits.length || style.type.find(type => V.shopClothingFilter.traits.includes(type))) T.hairOptions[style.name_cap] = style.variable;
 	})>>
-	<<set _pageMax to Math.floor(Object.keys(_hairOptions).length / (_perPage + 1))>>
+	<<set _pageMax to Math.ceil(Object.keys(_hairOptions).length / _perPage)>>
 
-	<<run Object.keys(clone(_hairOptions)).forEach((key, index) => {
-        if (!between(index, T.perPage * T.page, (T.perPage * (T.page + 1)) - 1)) {
+	<<run Object.keys(_hairOptions).forEach((key, index) => {
+    if (!between(index, T.perPage * (T.page - 1), (T.perPage * T.page) - 1)) {
             delete T.hairOptions[key];
         }
     })>>
@@ -1655,6 +1762,7 @@
 							<<set _modeloptions.hair_fringe_type to _hairName>>
 							<<set _modeloptions.hair_sides_type to $hairtype>>
 						<</if>>
+						<<set _modeloptions.ears_position to $earsposition>>
 						<<rendermodel "hairstyleMannequin">>
 						<br>
 					<</if>>
@@ -1730,7 +1838,7 @@
 	<<set _shopLocation to "mirrorhair">>
 	<div class="hairGridTraits">
 		<div class="traitCategory">
-			<<set _textureTraits to ["curly", "sleek", "wavy"]>>
+			<<set _textureTraits to ["curly", "sleek", "wavy", "textured"]>>
 			<span class="gold" style="padding-left:5px">Texture:</span>
 				<<for _trait range _textureTraits.sort()>>
 					<<silently>><< _trait>><</silently>>
