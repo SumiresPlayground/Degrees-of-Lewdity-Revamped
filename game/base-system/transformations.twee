@@ -443,7 +443,7 @@
 		<<if _args[0] isnot "dog" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
 			<<set $dogbuild = Math.clamp($dogbuild - _args[1], 0, 100)>>
 		<</if>>
-		<<if _args[0] isnot "raccoon" and $worn.hands.name isnot "scuffed ring">>
+		<<if _args[0] isnot "raccoon" and ($worn.hands.name isnot "scuffed ring" or $worn.head.name isnot "raccoon cap")>>
 			<<set $raccoonbuild = Math.clamp($raccoonbuild - _args[1], 0, 100)>>
 		<</if>>
 		<<if _args[0] isnot "fish" and $worn.head.name isnot "fish hairpin">>
@@ -514,7 +514,7 @@
 		<<transform dolphin -1>>
 	<</if>>
 
-	<<if $raccoonbuild gte 1 and $worn.hands.name isnot "scuffed ring">>
+	<<if $raccoonbuild gte 1 and ($worn.hands.name isnot "scuffed ring" or $worn.head.name isnot "raccoon cap")>>
 		<<transform raccoon -1>>
 	<</if>>
 

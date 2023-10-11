@@ -850,7 +850,7 @@ function initLegs() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.legs = [
-		{index: 1,
+		{index: 26,
 			name: "tentacle stockings",
 			name_cap: "Tentacle stockings",
 			variable: "tentacle",
@@ -880,9 +880,9 @@ function initLegs() {
 			iconFile: ""
 		},
 	
-			{index: 2,
-			name: "mushroom leggings",
-			name_cap: "Mushroom leggings",
+			{index: 27,
+			name: "mushroom leggings partial",
+			name_cap: "Mushroom leggings partial",
 			variable: "mushroom2",
 			integrity: 100,
 			integrity_max: 100,
@@ -912,7 +912,7 @@ function initLegs() {
 			accIcon: ""
 		},
 		
-			{index: 3,
+			{index: 28,
 			name: "mushroom leggings",
 			name_cap: "Mushroom leggings",
 			variable: "mushroom3",

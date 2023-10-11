@@ -1441,7 +1441,8 @@ function initUnderUpper() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.under_upper = [
-		{index: 1,
+		{
+			index: 33,
 			name: "tentacle top",
 			name_cap: "Tentacle suit",
 			variable: "tentacle",
@@ -1483,7 +1484,7 @@ function initUnderUpper() {
 			accIcon: 0,
 		},
 		
-			{index: 2,
+			{index: 34,
 			name: "mushroom top",
 			name_cap: "Mushroom top",
 			variable: "mushroom2",
