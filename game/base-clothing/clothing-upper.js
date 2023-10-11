@@ -5882,7 +5882,8 @@ function initUpper() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.upper = [
-		{index: 1,
+		{
+			index: 126,
 			name: "mushroom dress",
 			name_cap: "Mushroom dress",
 			variable: "mushroom3",
@@ -5926,7 +5927,7 @@ function initUpper() {
 			pregType: 0
 		},
 	
-			{index: 2,
+			{index: 127,
 			name: "mushroom bodice",
 			name_cap: "Mushroom bodice",
 			variable: "mushroom4",

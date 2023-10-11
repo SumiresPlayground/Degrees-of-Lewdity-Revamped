@@ -5446,7 +5446,7 @@ function initLower() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.lower = [
-		{index: 1,
+		{index: 116,
 			name: "mushroom skirt",
 			name_cap: "Mushroom skirt",
 			variable: "mushroom3",
@@ -5492,7 +5492,7 @@ function initLower() {
 			
 		},
 	
-			{index: 2,
+			{index: 117,
 			name: "mushroom gown",
 			name_cap: "Mushroom gown",
 			variable: "mushroom4",

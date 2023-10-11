@@ -1925,7 +1925,7 @@ function initUnderLower() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.under_lower = [
-		{index: 1,
+		{index: 42,
 			name: "tentacle bottom",
 			name_cap: "Tentacle suit bottom",
 			variable: "tentacle",
@@ -1970,7 +1970,7 @@ function initUnderLower() {
 			outfitSecondary: ["under_upper","tentacle"]
 		},
 		
-			{index: 2,
+			{index: 43,
 			name: "mushroom bottoms",
 			name_cap: "Mushroom bottoms",
 			variable: "mushroom2",
