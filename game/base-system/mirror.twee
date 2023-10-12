@@ -1578,7 +1578,7 @@
 
 <<widget "hairgelApply">>
 	<<if $slime gte 1 or $ghost gte 1 or $mushroom gte 1>>
-		<<set $hairgelBottles += -1>>
+		<<set $hairgelBottles += 0>>
 	<<elseif $leftarm isnot "bound" and $rightarm isnot "bound">>
 		<<set $ruffledisable to "t">>
 		<<set $hairgelBottles += -1>>
@@ -1588,6 +1588,7 @@
 		<span class="red">Both of your arms are bound</span>, and you find it difficult to do anything about your hair this way.
 		<br>
 	<<elseif $slime gte 1 or $ghost gte 1 or $mushroom gte 1>>
+		<<set $hairgelBottles += -1>>
 		<<span class="red">>Unfortunately, you're unable to successfully apply the hairgel and end up wasting the bottle.<</span>>
 		<br><br>
 		<<if $slime gte 1>>Your body simply absorbs the gel. <<set $pain -= 20>><</if>>
