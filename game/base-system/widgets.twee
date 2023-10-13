@@ -564,11 +564,7 @@
 					<<set $_stealthReduce1 to expCurve($_normcrime1, 3.0)>>
 					<!-- First 5k of crime at a curve to 5000 -->
 				*/
-				<<if $transformationParts.traits.incognito is "default">>
-					<<set $_stealthfactor to ( 0.35 * ( 1 - normalise($crime, C.crime.max / 5 ) ) )>>
-				<<else>>
-					<<set $_stealthfactor to ( 0.15 * ( 1 - normalise($crime, C.crime.max / 5 ) ) )>>
-				<</if>>
+
 				<!-- Stealth gives 15%, but reduced by existing crime stat down to 0 at C.crime.max / 5 -->
 				<!-- At 10k crime of the current type, stealthy equipment is effectively useless - too much evidence -->
 
@@ -590,6 +586,10 @@
 				<<if ["petty"].includes(_crimeType) and $skulduggery gte 500>>
 					<!-- Petty thievery has extra flat reduction if skulduggery skill above 500 (C+), possibly negating the crime gain entirely -->
 					<<set $_crimemod -= Math.floor($skulduggery / 10)>>
+				<</if>>
+
+				<<if $transformationParts.traits.incognito is "default">>
+					<<set $_crimemod -= Math.floor($skulduggery / 50)>>
 				<</if>>
 			<</if>>
 
@@ -5732,6 +5732,7 @@
 	<<set $transformationParts.fish.fins = "disabled">>
 	<<set $transformationParts.horse.ears = "disabled">>
 	<<set $transformationParts.pig.ears = "disabled">>
+	<<set $transformationParts.goblin.ears = "disabled">>
 <</widget>>
 
 <<widget "cleareyes">>

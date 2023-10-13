@@ -1577,13 +1577,23 @@
 <</widget>>
 
 <<widget "hairgelApply">>
-	<<if $leftarm isnot "bound" and $rightarm isnot "bound">>
+	<<if $slime gte 1 or $ghost gte 1 or $mushroom gte 1>>
+		<<set $hairgelBottles += 0>>
+	<<elseif $leftarm isnot "bound" and $rightarm isnot "bound">>
 		<<set $ruffledisable to "t">>
 		<<set $hairgelBottles += -1>>
 	<</if>>
 	<<hairDescription>>
 	<<if $leftarm is "bound" and $rightarm is "bound">>
 		<span class="red">Both of your arms are bound</span>, and you find it difficult to do anything about your hair this way.
+		<br>
+	<<elseif $slime gte 1 or $ghost gte 1 or $mushroom gte 1>>
+		<<set $hairgelBottles += -1>>
+		<<span class="red">>Unfortunately, you're unable to successfully apply the hairgel and end up wasting the bottle.<</span>>
+		<br><br>
+		<<if $slime gte 1>>Your body simply absorbs the gel. <<set $pain -= 20>><</if>>
+		<<if $ghost gte 1>>It simply doesn't fixate your hair like it normally should. Must be your ephemeral nature.<</if>>
+		<<if $mushroom gte 1>>You can't really do much with that cap in the way...<</if>>
 		<br>
 	<<else>>
 		You squirt a hefty dollop of hair gel onto your hand and slick it through your hair. By the time you're finished, your hairstyle is securely in place, and the small bottle is empty. <span class="pink">If you decide to change up your hairstyle, you'll need to <<print ($hairgelBottles is 0) ? "acquire" : "apply">> more.</span>
@@ -2376,6 +2386,7 @@
 	<<set _spider to $transformationParts.spider>>
 	<<set _frog to $transformationParts.frog>>
 	<<set _pig to $transformationParts.pig>>
+	<<set _goblin to $transformationParts.goblin>>
 	<<set _traits to $transformationParts.traits>>
 
 	<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 3 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $dog gte 2 or $dogtf is 1 or $harpy gte 3 or $harpytf is 1 or $raccoon gte 2 or $raccoontf is 1 or $cow gte 6 or $cowtf is 1 or $sheep gte 6 or $sheeptf is 1 or $fish gte 2 or $fishtf is 1 or $horse gte 2 or $horsetf is 1 or $frog gte 2 or $frogtf is 1 or $spider gte 2 or $spidertf is 1 or $pig gte 2 or $pigtf is 1>>
@@ -2506,7 +2517,7 @@
 		<br>
 	<</if>>
 
-	<<if $cat gte 4 or $cattf is 1 or $cow gte 4 or $cowtf is 1 or $wolfgirl gte 4 or $wolftf is 1 or $fox gte 4 or $foxtf is 1 or $bee gte 2 or $beetf is 1 or $sheep gte 4 or $sheeptf is 1 or $deer gte 4 or $deertf is 1 or $bear gte 4 or $beartf is 1 or $dog gte 4 or $dogtf is 1 or $raccoon gte 4 or $raccoontf is 1 or $fish gte 4 or $fishtf is 1 or $horse gte 4 or $horsetf is 1 or $pig gte 2 or $pigtf is 1>>
+	<<if $cat gte 4 or $cattf is 1 or $cow gte 4 or $cowtf is 1 or $wolfgirl gte 4 or $wolftf is 1 or $fox gte 4 or $foxtf is 1 or $bee gte 2 or $beetf is 1 or $sheep gte 4 or $sheeptf is 1 or $deer gte 4 or $deertf is 1 or $bear gte 4 or $beartf is 1 or $dog gte 4 or $dogtf is 1 or $raccoon gte 4 or $raccoontf is 1 or $fish gte 4 or $fishtf is 1 or $horse gte 4 or $horsetf is 1 or $pig gte 2 or $pigtf is 1 or $gob is 1>>
 		__Ears__<br>
 		<<link "Clear">><<clearears>><<updatesidebarimg>><</link>><br>
 		<<if $cat gte 4 or $cattf is 1>>
@@ -2547,6 +2558,9 @@
 		<</if>>
 		<<if $pig gte 4 or $pigtf is 1>>
 			<<link "Pig">><<clearears>><<set _pig.ears = "default">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if $gob is 1>>
+			<<link "Goblin">><<clearears>><<set _goblin.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<br>
 	<</if>>

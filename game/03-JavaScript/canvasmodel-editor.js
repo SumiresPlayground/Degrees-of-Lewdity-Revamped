@@ -907,6 +907,7 @@ Macro.add("canvasModelEditor", {
 						selectOption("eldritch_mist_type", ["disabled", "hidden", "default"]),
 						selectOption("eldritch_tentacle_type", ["disabled", "hidden", "default"]),
 						selectOption("eldritch_skin_type", ["disabled", "hidden", "default"]),
+						selectOption("goblin_ears_type", ["disabled", "hidden", "default"]),
 
 						optionCategory("Body writings"),
 						selectOption("writing_forehead", bodyWritings),
