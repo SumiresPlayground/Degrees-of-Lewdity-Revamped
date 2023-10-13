@@ -433,6 +433,7 @@ Renderer.CanvasModels["main"] = {
 			"eldritch_mist_type": "disabled",
 			"eldritch_tentacle_type": "disabled",
 			"eldritch_skin_type": "disabled",
+			"goblin_ears_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -2826,6 +2827,20 @@ Renderer.CanvasModels["main"] = {
 			},
 			filters: ["body"],
 			z: ZIndices.backhair,
+			animation: "idle"
+		},
+
+		/*Goblin*/
+
+		"goblin_ears": {
+			srcfn(options) {
+				return `img/transformations/goblin/ears/${options.goblin_ears_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.goblin_ears_type)
+			},
+			filters: ["body"],
+			z: ZIndices.hair,
 			animation: "idle"
 		},
 
