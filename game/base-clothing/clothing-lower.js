@@ -2526,7 +2526,7 @@ function initLower() {
 			warmth: 15,
 			cost: 2200,
 			description: "Old fashioned PE bloomers from a foreign land.",
-			shop: ["clothing", "school", "adult"],
+			shop: ["misland", "adult"],
 			accessory: 0,
 			accessory_colour: 0,
 			accessory_colour_options: [],

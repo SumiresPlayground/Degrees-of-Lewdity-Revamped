@@ -1,0 +1,110 @@
+:: Misland Clothing Shop [exitCheckBypass]
+
+<div id="clothingShop-div" class="main-shop-div">
+	<<mislandShop-main>>
+</div>
+
+:: Misland Clothing Shop Widgets [widget]
+
+<<widget "mislandShop-main">>
+<<if $tryOn.autoReset isnot false>><<tryOnReset>><</if>><<unset $tempDisable>>
+	<<silently>><<dry>><<effects>><<effects>><<effects>><</silently>>
+    <<set $shopName = "misland">>
+
+	You are in the open market. Various shops sell exotic outfits from their native regions.
+	<br><br>
+
+			<div id="tryonstats-div"><<tryOnStats>></div>
+			<<unset $shopListStartCount>>
+			<<unset $clothes_choice>>
+			<<set $shopPage = 0>>
+
+			<span>Warmth:</span>
+			<<warmthscale>>
+			<div id="warmth-description">
+				<<warmth_description>>
+			</div>
+			<br><br>
+			<<clothingcategoryicon "all">>
+			<<link "View All">><<replace "#clothingShop-div">><<AllShop>><</replace>><</link>>
+			<br><br>
+			<<if $debug is 1>>
+				<<clothingcategoryicon "overoutfit">>
+				<<link "View Over Outfits">><<replace "#clothingShop-div">><<OverOutfitShop>><</replace>><</link>>
+				<br><br>
+			<</if>>
+			<<clothingcategoryicon "outfit">>
+			<<link "View Outfits">><<replace "#clothingShop-div">><<OutfitShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "upper">>
+			<<link "View Tops">><<replace "#clothingShop-div">><<TopShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "lower">>
+			<<link "View Bottoms">><<replace "#clothingShop-div">><<BottomShop>><</replace>><</link>>
+			<br><br>
+			<<clothingcategoryicon "underoutfit">>
+			<<link "View Under Outfits">><<replace "#clothingShop-div">><<UnderOutfitShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "underupper">>
+			<<link "View Under Tops">><<replace "#clothingShop-div">><<UnderTopShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "underlower">>
+			<<link "View Under Bottoms">><<replace "#clothingShop-div">><<UnderBottomShop>><</replace>><</link>>
+			<br><br>
+			<<clothingcategoryicon "head">>
+			<<link "View Head Accessories">><<replace "#clothingShop-div">><<HeadShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "face">>
+			<<link "View Face Accessories">><<replace "#clothingShop-div">><<FaceShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "neck">>
+			<<link "View Neck Accessories">><<replace "#clothingShop-div">><<NeckShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "hand">>
+			<<link "View Hand Accessories">><<replace "#clothingShop-div">><<HandsShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "legs">>
+			<<link "View Legwear">><<replace "#clothingShop-div">><<LegsShop>><</replace>><</link>>
+			<br>
+			<<clothingcategoryicon "feet">>
+			<<link "View Shoes">><<replace "#clothingShop-div">><<FeetShop>><</replace>><</link>>
+			/*<br>
+			*<<clothingcategoryicon "strapon">> <!-- disable for now-->
+			*<<link "View Genital Wear">><<replace "#clothingShop-div">><<GenitalShop>><</replace>><</link>>*/
+			<br><br>
+			<<run linkifyDivs('.button-back-to-shop')>>
+
+			<<if $tryOn.value gt 0>>
+				<<ind>><<link "Return clothes">><<clothingReset>>
+					<<updatesidebarimg>>
+					<<updatesidebardescription>>
+					<<updateallure>>
+					<<updatewarmthscale>>
+					<<updatewarmthdescription>>
+					<<updateclothingshop>>
+					<<run updateMoment()>>
+				<</link>>
+				<br>
+				<<if $tryOn.value lt $money>>
+					<<sendItemsToDropdown>>
+					<<ind>><<link "Buy clothes">><<buyTryOnClothes "wear">><<updateclothingshop>><</link>>
+					<br>
+					<<ind>><<link "Buy clothes and send to wardrobe">>
+						<<buyTryOnClothes "wardrobe">>
+						<<updatesidebarmoney>>
+						<<updatesidebarimg>>
+						<<updatesidebardescription>>
+						<<updateallure>>
+						<<updatewarmthscale>>
+						<<updatewarmthdescription>>
+						<<updateclothingshop>>
+						<<run updateMoment()>>
+					<</link>>
+					<br>
+				<</if>>
+			<</if>>
+            <<if $tryOn.value is 0>>
+                <<getouticon>><<link [[Leave|Misland Dock]]>><<shopClothingFilterReset>><<ShowUnderEquip "normal">><<endnpc>><<unset $clothes_choice>><<set $tryOn.autoReset to true>><<set $eventskip to 1>><<unset $tempDisable>><<endevent>><</link>>
+                <br><br>
+            <</if>>
+<</widget>>

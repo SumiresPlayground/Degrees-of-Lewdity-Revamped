@@ -3,7 +3,6 @@
 <<widget "characteristics">>
 	<br>
 	You are
-	<<if $wolfgirl gte 6 or $cat gte 6 or $cow gte 6 or $harpy gte 6 or $fox gte 6 or $sheep gte 6 or $bee gte 6 or $deer gte 6 or $bear gte 6 or $dragon gte 6 or $lizard gte 6 or $dolphin gte 6 or $dog gte 6 or $raccoon gte 6 or $fish gte 6 or $horse gte 6 or $pig gte 6 or $frog gte 6 or $spider gte 6>>
 		<<if $angel gte 6>>
 			an angelic
 		<<elseif $fallenangel gte 2>>
@@ -15,67 +14,69 @@
 		<<else>>
 			a
 		<</if>>
-		<<if $wolfgirl gte 6 and ($demon gte 6 or $fallenangel gte 2)>>
+		<<if $transformationParts.wolf.tail is "default" and $transformationParts.wolf.ears is "default" and ($demon gte 6 or $fallenangel gte 2)>>
 			hellhound
-		<<elseif $wolfgirl gte 6 and $angel gte 6>>
-			dog
-		<<elseif $wolfgirl gte 6>>
+		<<elseif $transformationParts.wolf.tail is "default" and $transformationParts.wolf.ears is "default">>
 			wolf
-		<<elseif $cat gte 6>>
+		<<elseif $transformationParts.cat.tail is "default" and $transformationParts.cat.ears is "default">>
 			cat
-		<<elseif $cow gte 6>>
+		<<elseif $transformationParts.cow.tail is "default" and $transformationParts.cow.ears is "default" and $transformationParts.cow.horns is "default">>
 			<<if $player.gender_appearance is "m">>
 				bull
 			<<else>>
 				cow
 			<</if>>
-		<<elseif $harpy gte 6>>
+		<<elseif $transformationParts.bird.tail is "default" and $transformationParts.bird.eyes is "default" and $transformationParts.bird.wings is "default">>
 			<<if $hallucinations gte 2 or $bestialitydisable is "t">>
 				harpy
 			<<else>>
 				bird
 			<</if>>
-		<<elseif $fox gte 6>>
+		<<elseif $transformationParts.fox.tail is "default" and $transformationParts.fox.ears is "default">>
 			fox
-		<<elseif $sheep gte 6>>
+		<<elseif $transformationParts.sheep.tail is "default" and $transformationParts.sheep.ears is "default" and $transformationParts.sheep.horns is "default">>
 			sheep
-		<<elseif $bee gte 6>>
+		<<elseif $transformationParts.bee.tail is "default" and $transformationParts.bee.ears is "default" and $transformationParts.bee.wings is "default">>
 			bee
-		<<elseif $deer gte 6>>
+		<<elseif $transformationParts.deer.tail is "default" and $transformationParts.deer.ears is "default" and $transformationParts.deer.horns is "default">>
 			deer
-		<<elseif $bear gte 6>>
+		<<elseif $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
 			bear
-		<<elseif $dragon gte 6>>
+		<<elseif $transformationParts.dragon.tail is "default" and $transformationParts.dragon.horns is "default" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.wings is "default">>
 	    	dragon
-		<<elseif $lizard gte 6>>
+		<<elseif $transformationParts.dragon.tail is "chinese" and $transformationParts.dragon.horns is "chinese" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.whisker is "default">>
+	    	chinese dragon
+		<<elseif $transformationParts.lizard.tail is "default" and $transformationParts.lizard.eyes is "default">>
 	    	lizard
-		<<elseif $raccoon gte 6>>
+		<<elseif $transformationParts.raccoon.tail is "default" and $transformationParts.raccoon.ears is "default" and $transformationParts.raccoon.mask is "default">>
 			raccoon
-		<<elseif $spider gte 6>>
+		<<elseif $transformationParts.spider.tail is "default" and $transformationParts.spider.eyes is "default">>
 	    	spider
-		<<elseif $pig gte 6>>
+		<<elseif $transformationParts.pig.tail is "default" and $transformationParts.pig.ears is "default">>
 	    	pig
-		<<elseif $frog gte 6>>
+		<<elseif $transformationParts.frog.eyes is "default" and $transformationParts.frog.cheeks is "default">>
 			frog
-		<<elseif $fish gte 6>>
+		<<elseif $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
+			horse
+		<<elseif $transformationParts.fish.tail is "default" and $transformationParts.fish.fins is "default">>
 			fish	
-		<<elseif $dolphin gte 6>>
+		<<elseif $transformationParts.dolphin.tail is "default">>
 	    	dolphin
-		<<elseif $dog gte 6>>
+		<<elseif $transformationParts.dog.tail is "default" and $transformationParts.dog.ears is "default">>
 	    	dog
 		<</if>>
-		<<if $ghost gte 1 and $horse gte 6>>
+		<<if $ghost gte 1 and $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
 			kelpie
+		<<elseif $ghost gte 1 and $transformationParts.fox.tail is "default" and $transformationParts.fox.ears is "default">>
+			kitsune
 		<<elseif $ghost is 1>>
 			spirit
 		<<elseif $ghost is 2 and $player.gender_appearance is "m">>
-			yuki-otoko.
+			yuki-otoko
 		<<elseif $ghost is 2 and $player.gender_appearance is "f">>
-			yuki-onna.
+			yuki-onna
 		<<elseif $ghost is 4>>
-			undine.
-		<<elseif $horse gte 6>>
-			horse
+			undine
 		<</if>>
 		<<if $slime gt 0>>
 			slime
@@ -86,33 +87,6 @@
 		<<if $gob is 1>>
 			goblin
 		<</if>>
-	<<else>>
-		<<if $angel gte 6>>
-			an angel
-		<<elseif $fallenangel gte 2>>
-			a fallen angel
-		<<elseif $demon gte 6>>
-			a demon
-		<<elseif $eldritch gte 1>>
-			an eldritch
-		<<elseif $slime gt 0>>
-			a slime
-		<<elseif $ghost is 1>>
-			a spirit
-		<<elseif $ghost is 2 and $player.gender_appearance is "m">>
-			a yuki-otoko.
-		<<elseif $ghost is 2 and $player.gender_appearance is "f">>
-			a yuki-onna.
-		<<elseif $ghost is 4>>
-			an undine
-		<<elseif $gob is 1>>
-			a goblin
-		<<elseif $mushroom gt 0>>
-			a mushroom
-		<<else>>
-			a<<if $NudeGenderDC lt 0 and $player.gender_posture is "n">>n<</if>>
-		<</if>>
-	<</if>>
 	<<if $NudeGenderDC gte 0 and $ghost isnot 2>>
 		<<gender>>.
 	<<elseif $NudeGenderDC is 0 and $ghost isnot 2>>

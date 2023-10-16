@@ -1591,7 +1591,7 @@ function initHead() {
 			warmth: 0,
 			cost: 6000,
 			description: "Doesn't fit over your face.",
-			shop: ["forest"],
+			shop: ["misland","forest"],
 			accessory: 1,
 			accessory_colour: 0,
 			accessory_colour_options: ["black", "blue", "brown", "green", "pink", "purple", "red", "tangerine", "teal", "yellow", "custom"],
