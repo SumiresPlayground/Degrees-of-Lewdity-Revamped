@@ -3959,10 +3959,86 @@
 				<span class='green'>You quickly move your lips to <<his>> and your corrosive slime does the rest.</span>
 			<</if>>
 			<<He>> <<if $enemytype is "beast">>yelps and backs off<<else>>yells and stumbles back, clutching <<his>> mouth<</if>>.
-			<<defiance 10 $mouthtarget>><<attackstat>><<set $mouthuse to 0>><<set $mouthstate to 0>>
+			<<if $player.virginity.kiss is true>>
+				<<set $speechkissvirgin to 1>>
+				<<if $npcrow.includes(_n)>>
+					<<takeKissVirginityNamed `$npc[$npcrow.indexOf(_n)]`>>
+				<<else>>
+					<<takeKissVirginity $NPCList[_n] `($consensual is 1?"":"rape")`>>
+				<</if>>
+			<</if>>
+			<<defiance 10 $mouthtarget>>
+			<<attackstat>>
+			<<set $enemyarousal -= 30>>
+			<<set $mouthuse to 0>>
+			<<set $mouthstate to 0>>
 			<<set $head to 0>>
 			<<set $NPCList[$mouthtarget].mouth to 0>>
 			<<set $NPCList[$mouthtarget].location.head to 0>>
+		<</if>>
+
+		<<if $mouthaction is "soulsucc" and $NPCList[$mouthtarget].mouth.toString().includes("kiss")>>
+			<<set $mouthaction to 0>><<set $mouthactiondefault to "rest">><<personselect $mouthtarget>>
+			<<if $mouthstate is "kiss">>
+				<span class='wraith'>You seemingly submit to the kiss. <<His>> eyes glaze over as <<his>> strength suddenly fades.</span>
+			<<else>>
+				<span class='wraith'>You quickly move your lips to <<his>>. Your strength is replenished as your victim's fades.</span>
+			<</if>>
+			<<He>> pulls away, panting weakly.
+			<<if $player.virginity.kiss is true>>
+				<<set $speechkissvirgin to 1>>
+				<<if $npcrow.includes(_n)>>
+					<<takeKissVirginityNamed `$npc[$npcrow.indexOf(_n)]`>>
+				<<else>>
+					<<takeKissVirginity $NPCList[_n] `($consensual is 1?"":"rape")`>>
+				<</if>>
+			<</if>>
+			<<defiance 3 $mouthtarget>>
+			<<set $enemyarousal -= 40>>
+			<<set $enemyanger -= 30>>
+			<<set $tiredness -= 100>>
+			<<pain -= 40>>
+			<<set $physique += 120>>
+			<<attackstat>>
+			<<set $mouthuse to 0>>
+			<<set $mouthstate to 0>>
+			<<set $head to 0>>
+			<<set $NPCList[$mouthtarget].mouth to 0>>
+			<<set $NPCList[$mouthtarget].location.head to 0>>
+		<</if>>
+
+		<<if $mouthaction is "soulsucc" and $NPCList[$mouthtarget].penis is "mouth">>
+			<<if $earSlime.growth gt 50 and $earSlime.growth - random(0, Math.clamp(50 - ($earSlime.defyCooldown * 5), 0, 50)) gte (currentSkillValue('willpower')/ 10)>>
+				You try to suck life force out of your assailant, <span class="red">but find you're unable to.</span> You feel the slime steal your control away.
+				<<set $mouthaction to 0>><<set $mouthactiondefault to "suck">><<actionspenissuck $mouthtarget>><<submission 10>><<oralskilluse>>
+				<<if $earSlime.growth gte 100>><<set $earSlime.defyCooldown++>><</if>>
+			<<else>>
+				<<set $mouthaction to 0>><<set $mouthactiondefault to "soulsucc">><<personselect $mouthtarget>>
+				
+				<<if npcHasStrapon($mouthtarget)>>
+					
+				<<else>>
+					<<set $mouthaction to 0>><<set $mouthactiondefault to "soulsucc">><<personselect $mouthtarget>>
+					<span class='wraith'>You firmly secure your lips on <<his>> <<npcPenisSimple $mouthtarget>> and focus your ghostly power, intending to literally suck the life out of him.</span>
+					<<if npcHasStrapon($mouthtarget)>>
+						Unfortunately, it has no effect.
+					<<else>>
+						<span class='wraith'><<He>> <<if $enemytype is "man">>groans<<elseif $enemytype is "beast">>whines<<else>>gasps<</if>> weakly before using the remainder of <<his>> strength to pull away.</span>
+						<<set $NPCList[$mouthtarget].penis to 0>>
+						<<set $NPCList[$mouthtarget].location.genitals to 0>>
+						<<defiance 5 $mouthtarget>>
+						<<set $enemyarousal -= 60>>
+						<<set $enemyanger -= 30>>
+						<<set $tiredness -= 100>>
+						<<pain -= 40>>
+						<<set $physique += 120>>
+						<<attackstat>>
+						<<control 15>>
+						<<set $mouthuse to 0>>
+						<<set $mouthstate to 0>>
+					<</if>>
+				<</if>>
+			<</if>>
 		<</if>>
 
 		<<if $mouthaction is "grasp" and $NPCList[$mouthtarget].penis is "mouthentrance">>
