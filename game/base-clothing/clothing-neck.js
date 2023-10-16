@@ -909,7 +909,7 @@ function initNeck() {
 			warmth: 0,
 			cost: 1000,
 			description: "Worn in a style popular with sailors and schoolgirls.",
-			shop: ["forest"],
+			shop: ["misland", "forest"],
 			collared: 0,
 			accessory: 0,
 			accessory_colour: 0,
