@@ -144,7 +144,7 @@ const combatActionColours = {
 			/* feetaction */
 			"feetacceptW",
 			/* mouthaction */
-			"mouthacceptW", "handbiteW",
+			"mouthacceptW", "handbiteW","soulsucc",
 		],
 		green: [
 			/* corrosive slime attacks */
