@@ -766,8 +766,14 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<if $culttaskcomplete is undefined>>
 		<<set $culttaskcomplete to 0>>
 	<</if>>
+
 	<<updateNewNamedNpcs>>
+
 	<<if $ghost is 0>>
 		<<set $options.lightGlow to .1>><<set $skinColor.natural to $skinColor.naturalreset>><<set $transformationParts.ghost.eyes to "disabled">><<set $transformationParts.ghost.hitodama to "disabled">><<set $transformationParts.ghost.mist to "disabled">><<set $transformationParts.ghost.flame to "disabled">><<set $transformationParts.ghost.stream to "disabled">><<set $haircolour to $haircolourreset>><<set $hairfringecolour to $hairfringecolourreset>><<set $makeup.browscolour to clone($haircolourreset)>>
+	<</if>>
+	
+	<<if $beedisable is undefined>>
+		<<set $beedisable to "f">>
 	<</if>>
 <</widget>>
