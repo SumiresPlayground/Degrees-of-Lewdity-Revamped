@@ -1770,12 +1770,14 @@
 
 		<<link [[Next|Bog Frog]]>><<set $molestationstart to 1>><</link>>
 	<</addinlineevent>>
-	<<addinlineevent "bog_mosquito">>
-		As you make your way across the bog, you get the sense that you're being followed. A loud buzz assaults your ears as mosquitoes swarm you.
-		<br><br>
+	<<if $mosquitodisable is "f">>
+		<<addinlineevent "bog_mosquito">>
+			As you make your way across the bog, you get the sense that you're being followed. A loud buzz assaults your ears as mosquitoes swarm you.
+			<br><br>
 
-		<<link [[Next|Bog Mosquito]]>><<set $struggle_start to 1>><</link>>
-	<</addinlineevent>>
+			<<link [[Next|Bog Mosquito]]>><<set $struggle_start to 1>><</link>>
+		<</addinlineevent>>
+	<</if>>
 	<<addinlineevent "bog_wolf">>
 		<<beastNEWinit 1 wolf>>
 		A lone <<beasttype>> emerges from between the trees, teeth bared.

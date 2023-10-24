@@ -269,6 +269,7 @@ function beastTogglesCheck() {
 		"slugdisable",
 		"waspdisable",
 		"beedisable",
+		"mosquitodisable",
 		"lurkerdisable",
 		"horsedisable",
 		"plantdisable",
