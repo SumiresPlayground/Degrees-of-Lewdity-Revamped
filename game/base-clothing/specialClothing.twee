@@ -77,7 +77,11 @@
 <<widget "heelsUpdate">>
 	<<if $worn.feet.type.includes("heels")>>
 		<<if currentSkillValue("feetskill") lt $worn.feet.reveal>>
-			<<set $tiredness += (($worn.feet.reveal - currentSkillValue("feetskill")) / 150)>>
+			<<if $android is 0>>
+				<<set $tiredness += (($worn.feet.reveal - currentSkillValue("feetskill")) / 150)>>
+			<<else>>
+				<<set $energy -= (($worn.feet.reveal - currentSkillValue("feetskill")) / 150)>>
+			<</if>>
 		<</if>>
 	<</if>>
 <</widget>>

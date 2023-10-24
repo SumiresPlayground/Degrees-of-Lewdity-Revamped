@@ -205,11 +205,17 @@
 		<<goo>>
 
 		<div id="statmeters">
-			<<if $gamemode isnot "soft">>
+			<<if $gamemode isnot "soft" and $android is 0>>
 				<<paincaption>>
+			<<elseif $android is 1>>
+				<<durabilitycaption>>
+			<</if>>
+			<<if $android is 0>>
+				<<tirednesscaption>>
+			<<elseif $android is 1>>
+				<<energycaption>>
 			<</if>>
 			<<arousalcaption>>
-			<<tirednesscaption>>
 			<<stresscaption>>
 			<<if $innocencestate is 1>>
 				<<innocencecaption>>

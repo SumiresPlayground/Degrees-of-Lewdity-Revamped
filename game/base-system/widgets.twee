@@ -361,6 +361,9 @@
 			<<if  $transformationParts.traits.armorscales is "default">>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.75>>
 			<</if>>
+			<<if $android is 1>>
+				<<set $durability -= (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.5>>
+			<</if>>
 			<<if $mushroom gte 1>>
 				<<if $worn.upper.name is "mushroom bodice" and $worn.lower.name is "mushroom gown">>
 					<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.20>>
@@ -411,7 +414,11 @@
 			<</if>>
 			<<set $stress += (_violence * _drunkMod * _stressMod) * (1 - ($masochism / 1200))>>
 			<<trauma _violence * _traumaMod>>
-			<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)))>>
+			<<if $android is 1>>
+				<<set $durability -= (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10))) * 0.5>>
+			<<else>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)))>>
+			<</if>>
 			<<set _arousal to (_violence * _arousalMod * (0 + ($masochism / 18)))>>
 			<<arousal _arousal "maso">>
 			<<set $arousalmasochism += (_violence * (0 + ($masochism / 7)))>>
@@ -1479,6 +1486,66 @@
 			</div>
 			<<set _showCaptionText to !$options.showCaptionText>>
 			<<statbar $arousal $arousalmax _showCaptionText>>
+			<div style="clear:both;"></div>
+		</div>
+	<</if>>
+<</widget>>
+
+<<widget "energycaption">>
+	<<if Number.isFinite($energy)>>
+		<div id="energycaption" @title="'Energy: ' + $energy.toFixed(2)">
+			<div @class="($options.showCaptionText is true ? '' : 'rightMeterText')">
+				Energy:
+				<<if $options.showCaptionText is true>>
+					<<if $energy gte $energymax>>
+						<span class="green">You feel energized.</span>
+					<<elseif $energy gte ($energymax / 5) * 4>>
+						<span class="teal">You feel fine.</span>
+					<<elseif $energy gte ($energymax / 5) * 3>>
+						<span class="lblue">You feel like you're starting to run a bit low on energy.</span>
+					<<elseif $energy gte ($energymax / 5) * 2>>
+						<span class="blue">You feel slow.</span>
+					<<elseif $energy gte $energymax / 5>>
+						<span class="purple">You feel sluggish.</span>
+					<<elseif $energy gte 1>>
+						<span class="pink">You can barely move, your inner workings slowly stopping.</span>
+					<<else>>
+						<span class="red">You shutter before powering down.</span>
+					<</if>>
+				<</if>>
+			</div>
+			<<set _showCaptionText to !$options.showCaptionText>>
+			<<statbar $energy $energymax _showCaptionText>>
+			<div style="clear:both;"></div>
+		</div>
+	<</if>>
+<</widget>>
+
+<<widget "durabilitycaption">>
+	<<if Number.isFinite($durability)>>
+		<div id="durabilitycaption" @title="'Durability: ' + $durability.toFixed(2)">
+			<div @class="($options.showCaptionText is true ? '' : 'rightMeterText')">
+				Durability:
+				<<if $options.showCaptionText is true>>
+					<<if $durability gte $durabilitymax>>
+						<span class="green">You feel well constructed.</span>
+					<<elseif $durability gte 160>>
+						<span class="teal">You feel fine.</span>
+					<<elseif $durability gte 120>>
+						<span class="lblue">You feel like you're starting to fall apart.</span>
+					<<elseif $durability gte 80>>
+						<span class="blue">Occasional parts fall off your body.</span>
+					<<elseif $durability gte 40>>
+						<span class="purple">You constantly drop parts from your wounds.</span>
+					<<elseif $durability gte 1>>
+						<span class="pink">You can barely move, your body falling apart.</span>
+					<<else>>
+						<span class="red">You shutter before falling apart.</span>
+					<</if>>
+				<</if>>
+			</div>
+			<<set _showCaptionText to !$options.showCaptionText>>
+			<<statbar $durability $durabilitymax _showCaptionText>>
 			<div style="clear:both;"></div>
 		</div>
 	<</if>>
