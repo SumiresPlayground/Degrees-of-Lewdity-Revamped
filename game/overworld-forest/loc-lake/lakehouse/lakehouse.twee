@@ -1569,18 +1569,91 @@ You hear a knock upon your door. When you open it you see a young man in a suit 
 
 :: Lake House Cam Show Dance
 <<location "lakehouse">><<effects>>
-<<danceeffects>>
-<<danceaudience>>
-<<if $camshowrounds lte 30>>
-	<<danceactions>>
-<</if>>
 
-<<if $danceevent is 0 and $exhibitionism lte 34 and $exposed gte 2>>
-	There's no way you can continue dancing while so exposed! Face reddening, you stop the show.
-	<br><br>
-<<elseif $danceevent is 0 and $exhibitionism lte 14 and $exposed gte 1 and !$worn.under_lower.type.includes("dance")>>
-	There's no way you can continue dancing while so exposed! Face reddening, you stop the show.
-	<br><br>
+<<if _danceExhibition isnot undefined>>
+	<<if _danceExhibition.overOutfit isnot null>>
+		<<if $exhibitionism gte _danceExhibition.overOutfit[1]>>
+			<label>
+				<span class="meek">Strip $worn.over_upper.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.overOutfit[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripOverOutfit">>
+				<<set $danceaction to "stripOverOutfit">>
+				<<camdancestripeffects>>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.over_upper isnot null>>
+		<<if $exhibitionism gte _danceExhibition.over_upper[1]>>
+			<label>
+				<span class="meek">Strip $worn.over_upper.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.over_upper[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripOverUpper">>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.over_lower isnot null>>
+		<<if $exhibitionism gte _danceExhibition.over_lower[1]>>
+			<label>
+				<span class="meek">Strip $worn.over_lower.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.over_lower[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripOverLower">>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.middleOutfit isnot null and $worn.upper.cursed isnot 1>>
+		<<if $exhibitionism gte _danceExhibition.middleOutfit[1]>>
+			<label>
+				<span class="meek">Strip $worn.upper.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.middleOutfit[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripOutfit">>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.upper isnot null and $worn.upper.cursed isnot 1>>
+		<<if $exhibitionism gte _danceExhibition.upper[1]>>
+			<label>
+				<span class="meek">Strip $worn.upper.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.upper[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripUpper">>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.lower isnot null and $worn.lower.cursed isnot 1>>
+		<<if $exhibitionism gte _danceExhibition.lower[1]>>
+			<label>
+				<span class="meek">Strip $worn.lower.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.lower[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripLower">>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.underOutfit isnot null>>
+		<<if $exhibitionism gte _danceExhibition.underOutfit[1]>>
+			<label>
+				<span class="meek">Strip $worn.under_upper.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.underOutfit[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripUnderOutfit">>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.under_upper isnot null>>
+		<<if $exhibitionism gte _danceExhibition.under_upper[1]>>
+			<label>
+				<span class="meek">Strip $worn.under_upper.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.under_upper[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripUnderUpper">>
+			</label> |
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.under_lower isnot null>>
+		<<if $exhibitionism gte _danceExhibition.under_lower[1]>>
+			<label>
+				<span class="meek">Strip $worn.under_lower.name</span>
+				<<print '<<combatexhibitionist'+_danceExhibition.under_lower[0]+'>>'>>
+				<<radiobutton "$danceaction" "stripUnderLower">>
+			</label> |
+		<</if>>
+	<</if>>
 <</if>>
 
 <<if $danceevent is 0>>
