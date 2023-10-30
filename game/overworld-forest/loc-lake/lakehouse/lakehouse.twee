@@ -480,7 +480,7 @@
 			<</if>>
 			/* <<link [[Search for job online (0:10)|Lake House Online Search]]>><<pass 10>><</link>>
 			<br> */
-			<<link [[Host a cam show dance (0:30)|Lake House Cam Show Dance]]>><<danceinit>><<set $dancing to 1>><<set $venuemod to 1>><<stress -4>><<tiredness 4>><<set $dancelocation to "lakehouse">><<set $camshowrounds to 0>><</link>><<lstress>><<gtiredness>>
+			<<link [[Host a cam show dance (0:30)|Lake House Cam Show Dance]]>><<set $dancelocation to "lakehouse">><</link>><<llstress>><<ggtiredness>>
 			<br>
 		<</if>>
 
@@ -1569,138 +1569,216 @@ You hear a knock upon your door. When you open it you see a young man in a suit 
 
 :: Lake House Cam Show Dance
 <<location "lakehouse">><<effects>>
-
+<<outfitChecks>>
+<<danceStripActionObject>>
+<<set _campayoutmultiplier to 0>>
 <<if _danceExhibition isnot undefined>>
-	<<if _danceExhibition.overOutfit isnot null>>
-		<<if $exhibitionism gte _danceExhibition.overOutfit[1]>>
-			<label>
-				<span class="meek">Strip $worn.over_upper.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.overOutfit[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripOverOutfit">>
-				<<set $danceaction to "stripOverOutfit">>
-				<<camdancestripeffects>>
-			</label> |
+	<<if _danceExhibition.overOutfit isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.overOutfit[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.overOutfit[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.overOutfit[0]>>
+			<</if>>
+			<<set $danceaction to "stripOverOutfit">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.over_upper isnot null>>
-		<<if $exhibitionism gte _danceExhibition.over_upper[1]>>
-			<label>
-				<span class="meek">Strip $worn.over_upper.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.over_upper[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripOverUpper">>
-			</label> |
+	<<if _danceExhibition.over_upper isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.over_upper[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.over_upper[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.over_upper[0]>>
+			<</if>>
+			<<set $danceaction to "stripOverUpper">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.over_lower isnot null>>
-		<<if $exhibitionism gte _danceExhibition.over_lower[1]>>
-			<label>
-				<span class="meek">Strip $worn.over_lower.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.over_lower[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripOverLower">>
-			</label> |
+	<<if _danceExhibition.over_lower isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.over_lower[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.over_lower[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.over_lower[0]>>
+			<</if>>
+			<<set $danceaction to "stripOverLower">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.middleOutfit isnot null and $worn.upper.cursed isnot 1>>
-		<<if $exhibitionism gte _danceExhibition.middleOutfit[1]>>
-			<label>
-				<span class="meek">Strip $worn.upper.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.middleOutfit[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripOutfit">>
-			</label> |
+	<<if _danceExhibition.middleOutfit isnot null and $worn.upper.cursed isnot 1 and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.middleOutfit[1] - 20)>>
+			<<if _campayoutmultiplier lt _danceExhibition.middleOutfit[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.middleOutfit[0]>>
+			<</if>>
+			<<set $danceaction to "stripOutfit">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.upper isnot null and $worn.upper.cursed isnot 1>>
-		<<if $exhibitionism gte _danceExhibition.upper[1]>>
-			<label>
-				<span class="meek">Strip $worn.upper.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.upper[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripUpper">>
-			</label> |
+	<<if _danceExhibition.upper isnot null and $worn.upper.cursed isnot 1 and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.upper[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.upper[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.upper[0]>>
+			<</if>>
+			<<set $danceaction to "stripUpper">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.lower isnot null and $worn.lower.cursed isnot 1>>
-		<<if $exhibitionism gte _danceExhibition.lower[1]>>
-			<label>
-				<span class="meek">Strip $worn.lower.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.lower[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripLower">>
-			</label> |
+	<<if _danceExhibition.lower isnot null and $worn.lower.cursed isnot 1 and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.lower[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.lower[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.lower[0]>>
+			<</if>>
+			<<set $danceaction to "stripLower">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.underOutfit isnot null>>
-		<<if $exhibitionism gte _danceExhibition.underOutfit[1]>>
-			<label>
-				<span class="meek">Strip $worn.under_upper.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.underOutfit[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripUnderOutfit">>
-			</label> |
+	<<if _danceExhibition.underOutfit isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.underOutfit[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.underOutfit[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.underOutfit[0]>>
+			<</if>>
+			<<set $danceaction to "stripUnderOutfit">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.under_upper isnot null>>
-		<<if $exhibitionism gte _danceExhibition.under_upper[1]>>
-			<label>
-				<span class="meek">Strip $worn.under_upper.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.under_upper[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripUnderUpper">>
-			</label> |
+	<<if _danceExhibition.under_upper isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.under_upper[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.under_upper[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.under_upper[0]>>
+			<</if>>
+			<<set $danceaction to "stripUnderUpper">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
-	<<if _danceExhibition.under_lower isnot null>>
-		<<if $exhibitionism gte _danceExhibition.under_lower[1]>>
-			<label>
-				<span class="meek">Strip $worn.under_lower.name</span>
-				<<print '<<combatexhibitionist'+_danceExhibition.under_lower[0]+'>>'>>
-				<<radiobutton "$danceaction" "stripUnderLower">>
-			</label> |
+	<<if _danceExhibition.under_lower isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.under_lower[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.under_lower[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.under_lower[0]>>
+			<</if>>
+			<<set $danceaction to "stripUnderLower">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
 		<</if>>
 	<</if>>
 <</if>>
+<br><br>
 
-<<if $danceevent is 0>>
-	<<if $exposed gte 2 and $exhibitionism lte 34>>
-		<<link [[Flee|Lake House Bedroom]]>><<clotheson>><<endevent>><<set $dancelocation to 0>><</link>>
-	<<elseif $exposed gte 1 and $exhibitionism lte 14>>
-		<<link [[Flee|Lake House Bedroom]]>><<clotheson>><<endevent>><<set $dancelocation to 0>><</link>>
-	<<else>>
-		<<if $exhibitionism gte 55>>
-			<<link [[Masturbation Show|Lake House Cam Show Masturbate]]>><<endevent>><</link>>
-			<br>
-		<</if>>
-		<<link [[Stop|Lake House Bedroom]]>><<clotheson>><<endevent>><<set $dancelocation to 0>><</link>>
+<<stress -60>><<tiredness 30>><<dancestat>>
+<<if currentSkillValue('danceskill') lte 200>>
+	You try to dance provocatively. Due to your lack of skill, this amounts to little more than waving your buttocks around.
+<<elseif currentSkillValue('danceskill') lte 400>>
+	You shake your assets, giving a show to anyone who looks.
+<<elseif currentSkillValue('danceskill') lte 600>>
+	You dance flirtatiously, your movements emphasising your lewder parts.
+<<elseif currentSkillValue('danceskill') lte 800>>
+	You dance skilfully and provocatively, your movements emphasising your lewder parts.
+<<elseif currentSkillValue('danceskill') lte 999>>
+	You dance skilfully and provocatively, your entire body advertising a raw sexual energy.
+<<else>>
+	Your moves radiate a primal and intoxicating sexuality.
+<</if>>
+<<danceskilluse>>
+<<pass 30>>
+<<set $dancephysique += 1>>
+<<if $dancephysique gte 10>>
+	<<set $dancephysique -= 10>>
+	<<physique>>
+<</if>>
+
+<<cam1payout _campayoutmultiplier>>
+<<if $campayout is 15000>>
+	The audience absolutely loved you! They tipped <<printmoney $campayout>>!
+<<else>>
+	The audience tipped you <<printmoney $campayout>>.
+<</if>>
+<<set $money += $campayout>>
+<br><br>
+
+<<if $exposed gte 2 and $exhibitionism lte 54>>
+	<<link [[Flee|Lake House Bedroom]]>><<clotheson>><<endevent>><</link>>
+<<elseif $exposed gte 1 and $exhibitionism lte 34>>
+	<<link [[Flee|Lake House Bedroom]]>><<clotheson>><<endevent>><</link>>
+<<else>>
+	<<if $exhibitionism gte 75>>
+		<<link [[Masturbation Show|Lake House Cam Show Masturbate]]>><<endevent>><</link>>
 		<br>
 	<</if>>
+	<<link [[Stop|Lake House Bedroom]]>><<clotheson>><<endevent>><</link>>
+	<br>
 <</if>>
 
 :: Lake House Cam Show Masturbate
-<<effects>><<set _enableSexToys to true>>
-<<if $masturbationstart is 1>>
-	<<set $masturbationstart to 0>>
-	<<set $masturbationstat += 1>>
-	<<masturbationstart>>
+<<effects>>
+<<cam2payout>>
+<<if $awareness is 1000>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+<<elseif $awareness gte 500>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+<<elseif $awareness gte 400>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+<<elseif $awareness gte 300>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+<<elseif $awareness gte 200>>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+<<elseif $awareness gte 100>>
+	<<orgasm>>
+	<<orgasm>>
+<<elseif $awareness gte 1>>
+	<<orgasm>>
+<<elseif $awareness gte -200>>
+	<<orgasm>>
 <</if>>
-<<rng>>
-<<if $speechcum is 1 and $rng gte 61 and $speechorgasmrepeat lte 1 and $speechorgasmcount lte 6>>
-	<<cumspeech>>
-<<elseif $rng gte 91>>
-	<<basespeech>>
-<<elseif $rng gte 61>>
-	<<dancespeech>>
-<<elseif $rng gte 41>>
-	<<clothesspeech>>
+<br>
+<<if $campayout is 30000>>
+	The audience absolutely loved you! They tipped <<printmoney $campayout>>!
+<<else>>
+	The audience tipped you <<printmoney $campayout>>.
 <</if>>
+<<set $money += $campayout>>
+<br><br>
 
-<<masturbationeffects>>
-<<masturbationactions>>
-
-<div id="masturbationButtons">
-	<div><<link [[Continue|$passage]]>><</link>><<nexttext>></div>
-
-	<<if $corruptionMasturbation isnot true and random(0,3) gt $orgasmcurrent and $corruption_slime gt (currentSkillValue('willpower') / 10)>>
-		<div><<link [[Stop|$passage]]>><<set $corruptionMasturbation to true>><<set $dancelocation to 0>><</link>></div>
-	<<elseif $corruptionMasturbation isnot true>>
-		<div><<link [[Stop|Lake House Cam Show Masturbation Finish]]>><<set $finish to 1>><<set $dancelocation to 0>><</link>></div>
-	<<else>>
-		<div class="red">The slime in your ear will not allow you to stop.</div>
-	<</if>>
-</div>
+<<link [[Stop|Lake House Bedroom]]>><<unset $campayout>><</link>>
 <br>

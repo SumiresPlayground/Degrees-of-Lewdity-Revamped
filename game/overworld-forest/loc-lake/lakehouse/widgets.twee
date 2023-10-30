@@ -574,3 +574,54 @@
 			<<set $danceaction to 0>>
 	<</switch>>
 <</widget>>
+
+<<widget "cam1payout">>
+	/* Dance Exhibitionism */
+	<<set _payoutStatMod to _args[0]>>
+
+	<<if _args[1] is undefined>>
+		<<set _payoutDuoMod to 1>>
+	<<else>>
+		<<set _payoutDuoMod to _args[1]>>
+	<</if>>
+
+	/* Total Fame */
+	<<set _fame to ($fame.sex + $fame.prostitution + $fame.rape + $fame.bestiality + $fame.exhibitionism + $fame.pregnancy + $fame.impreg + $fame.scrap + $fame.good + $fame.business + $fame.social + $fame.model)>>
+	
+	/* Base */
+	<<set _payout to 3000>>
+	/* Dance Exhibitionism */
+	<<set _payout += (3000 * Math.clamp(_payoutStatMod / 4, 0, 1))>>
+	/* Dance Skill */
+	<<set _payout += (3000 * Math.clamp(currentSkillValue('danceskill') / 1000, 0, 1))>>
+	/* Allure */
+	<<set _payout += (3000 * Math.clamp($allure / (6000 * $alluremod), 0, 1))>>
+	/* Fame */
+	<<set _payout += (3000 * Math.clamp(_fame / 4000, 0, 1))>>
+	
+	<<set $campayout to (_payout * _payoutDuoMod)>>
+<</widget>>
+
+<<widget "cam2payout">>
+	<<if _args[0] is undefined>>
+		<<set _payoutDuoMod to 1>>
+	<<else>>
+		<<set _payoutDuoMod to _args[0]>>
+	<</if>>
+
+	/* Total Fame */
+	<<set _fame to $fame.sex + $fame.prostitution + $fame.rape + $fame.bestiality + $fame.exhibitionism + $fame.pregnancy + $fame.impreg + $fame.scrap + $fame.good + $fame.business + $fame.social + $fame.model>>
+	
+	/* Base */
+	<<set _payout to 6000>>
+	/* Awareness */
+	<<set _payout += (6000 * ($awareness / 1000))>>
+	/* Seduction Skill */
+	<<set _payout += (6000 * Math.clamp($seductionskill / 1000, 0, 1))>>
+	/* Allure */
+	<<set _payout += (6000 * Math.clamp($allure / (6000 * $alluremod), 0, 1))>>
+	/* Fame */
+	<<set _payout += (6000 * Math.clamp(_fame / 4000, 0, 1))>>
+	
+	<<set $campayout to (_payout * _payoutDuoMod)>>
+<</widget>>
