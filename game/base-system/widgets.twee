@@ -361,9 +361,6 @@
 			<<if  $transformationParts.traits.armorscales is "default">>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.75>>
 			<</if>>
-			<<if $android is 1>>
-				<<set $durability -= (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.5>>
-			<</if>>
 			<<if $mushroom gte 1>>
 				<<if $worn.upper.name is "mushroom bodice" and $worn.lower.name is "mushroom gown">>
 					<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.20>>
@@ -414,11 +411,7 @@
 			<</if>>
 			<<set $stress += (_violence * _drunkMod * _stressMod) * (1 - ($masochism / 1200))>>
 			<<trauma _violence * _traumaMod>>
-			<<if $android is 1>>
-				<<set $durability -= (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10))) * 0.5>>
-			<<else>>
-				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)))>>
-			<</if>>
+			<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)))>>
 			<<set _arousal to (_violence * _arousalMod * (0 + ($masochism / 18)))>>
 			<<arousal _arousal "maso">>
 			<<set $arousalmasochism += (_violence * (0 + ($masochism / 7)))>>
