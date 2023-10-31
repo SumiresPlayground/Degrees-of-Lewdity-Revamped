@@ -131,17 +131,15 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
             <br>
         <</if>>
         <<if $islanddistance gte 1>>
-            <<link [[Head back to shore (0:20)|Misland]]>><<pass 20>><<set $islanddistance -= 1>><</link>>
+            <<link [[Head back to shore (0:20)|Misland]]>><<pass 20>><<set $islanddistance -= 1>><<set $eventskip -= 1>><</link>>
             <br>
         <</if>>
+        <<link [[Search this area (0:20)|Misland]]>><<pass 20>><<set $eventskip -= 1>><</link>>
+        <br>
         <<if $islanddistance lt 70>>
-            <<link [[Head deeper into the island (0:20)|Misland]]>><<pass 20>><<set $islanddistance += 1>><</link>>
+            <<link [[Head deeper into the island (0:20)|Misland]]>><<pass 20>><<set $islanddistance += 1>><<set $eventskip -= 1>><</link>>
         <</if>>
     <</if>>
-<</if>>
-
-<<if $eventskip gt 0>>
-    <<set $eventskip -= 1>>
 <</if>>
 
 :: Plane Explore
@@ -185,7 +183,14 @@ Beside the skeleton there's an old bloody notebook and pen.
 <br><br>
 <<link [[Read the notes (0:10)|Notes 4]]>><<pass 10>><</link>>
 <br>
+<<link [[Take a rest (1:00)|Hut Rest]]>><<pass 60>><<set $tiredness -= 200>><</link>>
+<br>
 <<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+
+:: Hut Rest
+You lie down in the old musty cabin trying to pay the skeleton no mind, the bed is rough and pains your back but you can manage out an hour of rest before having to get up. Better than nothing.
+<br><br>
+<<link [[Back|Hut Explore]]>><<pass 5>><</link>>
 
 :: Notes 4
 I don't know what day it is anymore, but I must have slept through at least three days because of the way I feel. This sickness has gotten worse and it feels like whatever disease I caught is trying to eat its way out.
@@ -780,7 +785,7 @@ You're jolted awake by the sound of thousands of feet scuttling around you. It's
 	<<lowerwear 71>>
     <<covered>> There's a pile of cloth scraps in an adjoining room. Some are large enough to wear.
     <br><br>
-    <<link [[Next|Ant Slavery]]>><<set $eventskip to 1>><</link>>
+    <<link [[Next|Ant Slavery]]>><<set $eventskip to 2>><</link>>
 <<elseif $rng is 3 and $eventskip isnot 1>>
     <<beastNEWinit 1 ant>>
     A <<beasttype>> attempts to mount you.
@@ -829,7 +834,7 @@ The <<beasttype>> clicks in satisfaction, and leaves you lying in the sand.
 <br><br>
 <<clotheson>>
 <<endcombat>>
-<<set $eventskip to 1>>
+<<set $eventskip to 2>>
 <<link [[Next|Ant Slavery]]>><</link>>
 <br>
 
@@ -870,7 +875,7 @@ The <<beasttype>> clicks in satisfaction, and leaves you lying in the sand.
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-    <<set $eventskip to 1>>
+    <<set $eventskip to 2>>
 	<<link [[Next|Ant Slavery]]>><</link>>
 	<br>
 <<elseif $enemyhealth lte 0>>
@@ -880,7 +885,7 @@ The <<beasttype>> clicks in satisfaction, and leaves you lying in the sand.
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-    <<set $eventskip to 1>>
+    <<set $eventskip to 2>>
 	<<link [[Next|Ant Slavery]]>><</link>>
 	<br>
 <<else>>
@@ -890,7 +895,7 @@ The <<beasttype>> clicks in satisfaction, and leaves you lying in the sand.
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-    <<set $eventskip to 1>>
+    <<set $eventskip to 2>>
 	<<link [[Next|Ant Slavery]]>><</link>>
 	<br>	
 <</if>>
