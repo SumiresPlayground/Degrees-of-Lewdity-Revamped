@@ -7,7 +7,7 @@ You swim past many large bunches of coral and jagged chunks of rock before reach
 :: Misland Landing Boat
 The ship pulls into a small inlet river and into a small oasis village. "Well, we're here. Get your stuff and get off."
 <br><br>
-<<link [[Next|Misland Dock]]>><<set $islanddistance to 20>><<set $chill_day to -120>><<set $weather to "clear">><<location "desert">><</link>>
+<<link [[Next|Misland Dock]]>><<set $islanddistance to 20>><<set $weather to "clear">><<location "desert">><</link>>
 
 :: Misland
 <<effects>>
@@ -16,83 +16,68 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
 <<else>>
     <<if $islanddistance is 0>>
         <<location "beach">>
-        <<set $chill_day to 0>>
         <<set _weather_display to "normal">>
         You're standing on the shore of the beach. Harsh waves lap at the sand.
     <<elseif $islanddistance lt 5>>
         <<location "beach">>
-        <<set $chill_day to 0>>
         <<set _weather_display to "normal">>
         You're standing in the middle of a warm beach covered in fine soft sand. Even standing on it causes your feet to sink a bit deeper.
     <<elseif $islanddistance is 10>>
         <<location "desert">>
-        <<set $chill_day to -120>>
         <<set _weather_display to "normal">>
         <<set $weather to "clear">>
         You find a massive mound of sand. It looks like some kind of insect nest.
     <<elseif $islanddistance is 20>>
         <<location "desert">>
-        <<set $chill_day to -120>>
         <<set _weather_display to "normal">>
         <<set $weather to "clear">>
         You come across a small village resting on an oasis of water and palms.
     <<elseif $islanddistance lt 30>>
         <<location "desert">>
-        <<set $chill_day to -120>>
         <<set _weather_display to "normal">>
         <<set $weather to "clear">>
         Sandy dunes stretch on ahead as the desert heat eats away at you.
     <<elseif $islanddistance is 30>>
         <<location "forest">>
-        <<set $chill_day to 0>>
         <<set _weather_display to "normal">>
         <<set $weather to "rain">>
         The land slopes as the desert meets a mountain range full of lush vegetation.
     <<elseif $islanddistance is 40>>
         <<location "forest">>
-        <<set $chill_day to 0>>
         <<set _weather_display to "normal">>
         <<set $weather to "rain">>
         As you climb the mountain path you find an old steel slag. Continuing down the path you find more and more until you come across a large plane. It lies rusting under a layer of overgrowth.
     <<elseif $islanddistance lt 50>>
         <<location "forest">>
-        <<set $chill_day to 0>>
         <<set _weather_display to "normal">>
         <<set $weather to "rain">>
         The mountains continue to rise rife with vegetation. The treeline blots the sun although the moisture and humidity leave you miserable.
     <<elseif $islanddistance is 50>>
         <<location "snowforest">>
-        <<set $chill_day to 150>>
         <<set $weather to "snow">>
         Halfway up the mountains, the cool air sets in as snow begins to fall lightly over the higher elevation pine trees.
     <<elseif $islanddistance is 55>>
         <<location "snowforest">>
-        <<set $chill_day to 150>>
         <<set $weather to "snow">>
         While wandering the snowy landscape you find an old stone hut, a shattered see-through material lines the inside.
     <<elseif $islanddistance lt 60>>
         <<location "snowforest">>
-        <<set $chill_day to 150>>
         <<set $weather to "snow">>
         The mountains are slick with soft snow. Animal prints dot the land as the pines tower over you.
     <<elseif $islanddistance is 60>>
         <<location "glacier">>
-        <<set $chill_day to 150>>
         <<set $weather to "snow">>
         You reach the peak of the mountains and on the other side is an expansive glacial sheet that seems to stretch into the horizon
     <<elseif $islanddistance is 61>>
         <<location "glacier">>
-        <<set $chill_day to 150>>
         <<set $weather to "snow">>
         Your feet hit the hard icy surface of the glacier and you’re met with freezing gusts of wind. Not much could survive up here. The clouds stuck from going over the mountain peaks leave a thick and permanent fog hanging over the land.
     <<elseif $islanddistance is 65>>
         <<location "glacier">>
-        <<set $chill_day to 150>>
         <<set $weather to "snow">>
         As you walk further into the ice sheet you find an odd carved hole into the ice.
     <<elseif $islanddistance lte 70>>
         <<location "glacier">>
-        <<set $chill_day to 150>>
         <<set $weather to "snow">>
         You're walking along a solid sheet of ice, various crags litter the landscape but not much else.
     <</if>>
@@ -146,17 +131,15 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
             <br>
         <</if>>
         <<if $islanddistance gte 1>>
-            <<link [[Head back to shore (0:20)|Misland]]>><<pass 20>><<set $islanddistance -= 1>><</link>>
+            <<link [[Head back to shore (0:20)|Misland]]>><<pass 20>><<set $islanddistance -= 1>><<set $eventskip -= 1>><</link>>
             <br>
         <</if>>
+        <<link [[Search this area (0:20)|Misland]]>><<pass 20>><<set $eventskip -= 1>><</link>>
+        <br>
         <<if $islanddistance lt 70>>
-            <<link [[Head deeper into the island (0:20)|Misland]]>><<pass 20>><<set $islanddistance += 1>><</link>>
+            <<link [[Head deeper into the island (0:20)|Misland]]>><<pass 20>><<set $islanddistance += 1>><<set $eventskip -= 1>><</link>>
         <</if>>
     <</if>>
-<</if>>
-
-<<if $eventskip gt 0>>
-    <<set $eventskip -= 1>>
 <</if>>
 
 :: Plane Explore
@@ -200,7 +183,14 @@ Beside the skeleton there's an old bloody notebook and pen.
 <br><br>
 <<link [[Read the notes (0:10)|Notes 4]]>><<pass 10>><</link>>
 <br>
+<<link [[Take a rest (1:00)|Hut Rest]]>><<pass 60>><<set $tiredness -= 200>><</link>>
+<br>
 <<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+
+:: Hut Rest
+You lie down in the old musty cabin trying to pay the skeleton no mind, the bed is rough and pains your back but you can manage out an hour of rest before having to get up. Better than nothing.
+<br><br>
+<<link [[Back|Hut Explore]]>><<pass 5>><</link>>
 
 :: Notes 4
 I don't know what day it is anymore, but I must have slept through at least three days because of the way I feel. This sickness has gotten worse and it feels like whatever disease I caught is trying to eat its way out.
@@ -416,7 +406,7 @@ You notice a few suspicious-looking characters loitering around the dock, whispe
 You ask some of the sketchy <<people>> on the dock about renting their vessel for a ride back to the mainland. They offer you a ride for a mere 500 pounds.
 <br><br>
 <<if $money gte 50000>>
-<<link [[Accept payment|Take Off Island]]>><<set $money -= 50000>><<set $chill_day to 0>><<set $rng to random(1,100)>><</link>>
+<<link [[Accept payment|Take Off Island]]>><<set $money -= 50000>><<set $rng to random(1,100)>><</link>>
 <br>
 <</if>>
 <<link [[Decline|Misland Dock]]>><<endevent>><</link>>
@@ -427,7 +417,7 @@ You and the crew board the ship and take off to sea. You catch the sketchy <<peo
 <<if $rng lte 50>>
 As you look across the ocean sky you feel a hand land on your shoulder. You turn around and see the gang of sketchy <<people>>. “Excuse me little thing but you can't have thought 500 was enough for this trip. The rest we want as another form of payment.” <<He>> licks his lips as <<his>> gang pin you to the ground.
 <br><br>
-<<link [[Refuse|Boat Return Rape]]>><</link>>
+<<link [[Refuse|Boat Return Rape]]>><<set $molestationstart to 1>><</link>>
 <<else>>
 The ride is fairly uneventful. The sketchy <<people>> give you cursory glances but in the end make no moves. You reach your location and dismount from the ship.
 <br><br>
@@ -461,14 +451,19 @@ The ride is fairly uneventful. The sketchy <<people>> give you cursory glances b
 
 :: Boat Return Rape Finish
 <<if $enemyarousal gte $enemyarousalmax>>
+<<ejaculation>>
 The <<people>> finish and put their clothes back on <<his>> clothes. “That should about cover the rest.” <<He>> grins a crooked smile and walks away leaving you to tearfully gather yourself.
 <br><br>
-<<link [[Next|Docks]]>><<endevent>><</link>>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Docks]]>><</link>>
 
 <<elseif $enemyhealth lte 0>>
 You send one final punch to the <<personsimple>>'s face and <<he>> falls back momentarily stunned. You contemplate attacking again but before you see even more crew rush onto the deck. You retreat and jump overboard swimming the rest of the way.
 <br><br>
-<<link [[Next|Docks]]>><<endevent>><</link>>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Docks]]>><</link>>
 <</if>>
 
 :: Ice Shrine
@@ -790,7 +785,7 @@ You're jolted awake by the sound of thousands of feet scuttling around you. It's
 	<<lowerwear 71>>
     <<covered>> There's a pile of cloth scraps in an adjoining room. Some are large enough to wear.
     <br><br>
-    <<link [[Next|Ant Slavery]]>><<endevent>><<set $eventskip to 2>><</link>>
+    <<link [[Next|Ant Slavery]]>><<set $eventskip to 2>><</link>>
 <<elseif $rng is 3 and $eventskip isnot 1>>
     <<beastNEWinit 1 ant>>
     A <<beasttype>> attempts to mount you.

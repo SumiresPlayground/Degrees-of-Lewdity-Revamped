@@ -23,7 +23,7 @@
 			Digging it up reveals an old cannonball.
 			<br><br>
 			<<set $antiquemoney += 300>><<museumAntiqueStatus "antiquecannonball" "found">>
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 	<<elseif $location is "desert">>
         <<addinlineevent "arttablet">>
@@ -32,7 +32,7 @@
 			Digging it up reveals an old painted stone tablet.
 			<br><br>
 			<<set $antiquemoney += 200>><<museumAntiqueStatus "antiquearttablet" "found">>
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 		<<addinlineevent "terracottastatue">>
 			You find a small structure in the desert.
@@ -40,7 +40,7 @@
 			The place is completely empty except for a small terracotta statue.
 			<br><br>
 			<<set $antiquemoney += 500>><<museumAntiqueStatus "antiqueterracottastatue" "found">>
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
     <<elseif $location is "forest" or $location is "snowforest">>
         <<if $redvial isnot 1>>
@@ -50,7 +50,7 @@
 				You get up wiping yourself up before something catches your eye. Half sunk in the mud you find an odd red vial.
 				<br><br>
 				<<set $antiquemoney += 1500>><<museumAntiqueStatus "antiqueredvial" "found">>
-				<<link [[Next|Misland]]>><<set $redvial to 1>><<set $eventskip to 2>><</link>>
+				<<link [[Next|Misland]]>><<set $redvial to 1>><<set $eventskip to 1>><</link>>
 			<</addinlineevent>>
 		<</if>>
 		<<addinlineevent "tribemask">>
@@ -59,7 +59,7 @@
 			Hanging on a nearby tree is an old looking stone mask.
 			<br><br>
 			<<set $antiquemoney += 500>><<museumAntiqueStatus "antiquetribemask" "found">>
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 		<<addinlineevent "ebonystatuette">>
 			While exploring you find a dilapidated wooden shack.
@@ -67,7 +67,7 @@
 			The place looks like a mess but you find an old ebony statuette tucked inside a drawer.
 			<br><br>
 			<<set $antiquemoney += 800>><<museumAntiqueStatus "antiqueebonystatuette" "found">>
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 	<<elseif $location is "glacier">>
         <<addinlineevent "glacierplant">>
@@ -76,7 +76,7 @@
 			You start to get up but see something under the ice. You take a moment to dig them out and find some frozen seeds.
 			<br><br>
 			<<set $antiquemoney += 1000>><<museumAntiqueStatus "antiqueglacierplant" "found">>
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 	<</if>>
 	<<runeventpool>>
@@ -86,11 +86,19 @@
 	<<cleareventpool>>
     <<if $location is "desert" or $location is "beach">>
         <<addevent "islandant">>
+		<<addevent "islandhawk">>
+		<<addevent "islandlizard">>
     <<elseif $location is "forest" or $location is "snowforest">>
-        <<addevent "islandwolf" .5>>
-        <<addevent "islandlurker" .5>>
+        <<addevent "islandwolf">>
+        <<addevent "islandlurker">>
+		<<if $voredisable is "f">>
+			<<addevent "islandsnake">>
+		<</if>>
+		<<addevent "islandboar">>
+		<<addevent "islandcat">>
 	<<elseif $location is "glacier">>
         <<addevent "islandbear">>
+		<<addevent "islandgwolf">>
 	<</if>>
 	<<runeventpool>>
 <</widget>>
@@ -103,7 +111,7 @@
 			<<lstress>><<stress -1>>
 			<br><br>
 
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 	<<elseif $location is "desert">>
         <<addinlineevent "safeisland_sandstorm">>
@@ -112,7 +120,7 @@
 			<<gpain>><<pain 2>>
 			<br><br>
 
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
     <<elseif $location is "forest" or $location is "snowforest">>
         <<addinlineevent "safeisland_wolfhowl">>
@@ -124,7 +132,7 @@
 			<</if>>
 			<br><br>
 
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 			<br>
 		<</addinlineevent>>
 	<<elseif $location is "glacier">>
@@ -133,7 +141,7 @@
 			<<gstress>><<stress 1>>
 			<br><br>
 
-			<<link [[Next|Misland]]>><<set $eventskip to 2>><</link>>
+			<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 	<</if>>
 	<<runeventpool>>
@@ -148,6 +156,73 @@
 	<</if>>
 	<br><br>
 	<<link [[Next|Misland Wolf]]>><<set $molestationstart to 1>><<set $eventskip to 2>><</link>>
+	<br>
+<</widget>>
+
+<<widget "islandgwolf">>
+	<<beastNEWinit 1 wolf>>
+	<!-- Modified for monster people -->
+	A lone <<beasttype>> emerges from the snowy mist.
+	<<if $monster is 1>>
+		"Found you," <<bhe>> barks. "Mine."
+	<</if>>
+	<br><br>
+	<<link [[Next|Misland Wolf]]>><<set $molestationstart to 1>><<set $eventskip to 2>><</link>>
+	<br>
+<</widget>>
+
+<<widget "islandhawk">>
+	<<beastNEWinit 1 hawk>>
+	<!-- Modified for monster people -->
+	A lone <<beasttype>> swoops down from the sky, talons at the ready.
+	<<if $monster is 1>>
+		"Lets play." <<bhe>> screeches.
+	<</if>>
+	<br><br>
+	<<link [[Next|Misland Hawk]]>><<set $molestationstart to 1>><<set $eventskip to 2>><</link>>
+	<br>
+<</widget>>
+
+<<widget "islandcat">>
+	<<beastNEWinit 1 cat>>
+	<!-- Modified for monster people -->
+	A lone <<beasttype>> slinks silently from the tree tops, claws sharpened toward you.
+	<<if $monster is 1>>
+		"My next meal." <<bhe>> licks <<bhis>> lips.
+	<</if>>
+	<br><br>
+	<<link [[Next|Misland Cat]]>><<set $molestationstart to 1>><<set $eventskip to 2>><</link>>
+	<br>
+<</widget>>
+
+<<widget "islandlizard">>
+	<<beastNEWinit 1 lizard>>
+	<!-- Modified for monster people -->
+	A lone <<beasttype>> digs up from the sand, fangs bared.
+	<<if $monster is 1>>
+		"Come into the sand." <<bhe>> croaks.
+	<</if>>
+	<br><br>
+	<<link [[Next|Misland Lizard]]>><<set $molestationstart to 1>><<set $eventskip to 2>><</link>>
+	<br>
+<</widget>>
+
+<<widget "islandsnake">>
+	A long snake slides down from the treetops blocking your path with its huge slick body, it bares its fangs as it grabs you and begins to force you into its throat.
+	<br><br>
+	<<link [[Next|Misland Snake]]>><<set $molestationstart to 1>><<set $trance to 1>><<set $eventskip to 2>><</link>>
+	<br>
+<</widget>>
+
+<<widget "islandboar">>
+	<<beastNEWinit 1 boar>>
+	<!-- Modified for monster people -->
+	A lone <<beasttype>> scampers from the brush, its tusks aim menacingly toward you.
+	<<if $monster is 1>>
+		"Get down now." <<bhe>> snorts.
+	<</if>>
+	<br><br>
+	<<link [[Next|Misland Boar]]>><<set $molestationstart to 1>><<set $eventskip to 2>><</link>>
 	<br>
 <</widget>>
 
