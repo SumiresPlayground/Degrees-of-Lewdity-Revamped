@@ -79154,7 +79154,11 @@ function dailySchoolEffects() {
 				}
 			}
 		}
-		if (V.studyBooks.stolen !== "none" && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		// if (V.studyBooks.stolen !== "none" && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.science !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.maths !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.english !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.history !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
 		if (V.recentReturnTimer) {
 			V.recentReturnTimer--;
 			if (V.recentReturnTimer <= 0) delete V.recentReturnTimer;
@@ -246557,7 +246561,7 @@ Argument 2, where appropriate, determines whether it&#39;s the player undressing
 				&lt;&lt;historyskill 6 &quot;no_star&quot;&gt;&gt;
 			&lt;&lt;default&gt;&gt;
 		&lt;&lt;/switch&gt;&gt;
-		&lt;&lt;switch $studyBooks.stolen&gt;&gt;
+		/* &lt;&lt;switch $studyBooks.stolen&gt;&gt;
 			&lt;&lt;case &quot;science&quot;&gt;&gt;
 				&lt;&lt;scienceskill 6 &quot;no_star&quot;&gt;&gt;
 			&lt;&lt;case &quot;maths&quot;&gt;&gt;
@@ -246567,7 +246571,19 @@ Argument 2, where appropriate, determines whether it&#39;s the player undressing
 			&lt;&lt;case &quot;history&quot;&gt;&gt;
 				&lt;&lt;historyskill 6 &quot;no_star&quot;&gt;&gt;
 			&lt;&lt;default&gt;&gt;
-		&lt;&lt;/switch&gt;&gt;
+		&lt;&lt;/switch&gt;&gt; */
+		&lt;&lt;if $studyBooks.stolen.science is 1&gt;&gt;
+			&lt;&lt;scienceskill 6 &quot;no_star&quot;&gt;&gt;
+		&lt;&lt;/if&gt;&gt;
+		&lt;&lt;if $studyBooks.stolen.maths is 1&gt;&gt;
+			&lt;&lt;mathsskill 6 &quot;no_star&quot;&gt;&gt;
+		&lt;&lt;/if&gt;&gt;
+		&lt;&lt;if $studyBooks.stolen.english is 1&gt;&gt;
+			&lt;&lt;englishskill 6 &quot;no_star&quot;&gt;&gt;
+		&lt;&lt;/if&gt;&gt;
+		&lt;&lt;if $studyBooks.stolen.history is 1&gt;&gt;
+			&lt;&lt;historyskill 6 &quot;no_star&quot;&gt;&gt;
+		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
@@ -250822,7 +250838,7 @@ Argument 2, where appropriate, determines whether it&#39;s the player undressing
 &lt;&lt;set _desk to Furniture.get(&#39;desk&#39;)&gt;&gt;
 &lt;&lt;set _chair to Furniture.get(&#39;chair&#39;)&gt;&gt;
 &lt;&lt;set _projectOptions to [$scienceproject, $mathsproject].includes(&quot;ongoing&quot;)&gt;&gt;
-&lt;&lt;set _bookOptions to ($studyBooks.stolen is &#39;Raul and Janet&#39; or $studyBooks.rented is &#39;Raul and Janet&#39; or $studyBooks.stolen is &#39;Pinch&#39; or $studyBooks.rented is &#39;Pinch&#39;)&gt;&gt;
+&lt;&lt;set _bookOptions to ($studyBooks.stolen.RaulAndJanet is 1 or $studyBooks.rented is &#39;Raul and Janet&#39; or $studyBooks.stolen.pinch is 1 or $studyBooks.rented is &#39;Pinch&#39;)&gt;&gt;
 &lt;&lt;set _wardrobe to Furniture.get(&#39;wardrobe&#39;)&gt;&gt;
 &lt;&lt;set _playOptions to ($englishPlay is &#39;ongoing&#39; and $englishPlayRoles.Player isnot &#39;none&#39;)&gt;&gt;
 
@@ -285272,11 +285288,11 @@ You rush outside.
 			&lt;&lt;else&gt;&gt;
 				&lt;&lt;link [[Play on computer (0:30)|Lake House Play Computer]]&gt;&gt;&lt;&lt;pass 30&gt;&gt;&lt;&lt;stress -3&gt;&gt;&lt;&lt;trauma -3&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;lstress&gt;&gt;&lt;&lt;ltrauma&gt;&gt;
 				&lt;br&gt;
+				&lt;&lt;link [[Host a cam show dance (0:30)|Lake House Cam Show Dance]]&gt;&gt;&lt;&lt;set $dancelocation to &quot;lakehouse&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;llstress&gt;&gt;&lt;&lt;ggtiredness&gt;&gt;
+				&lt;br&gt;
 			&lt;&lt;/if&gt;&gt;
 			/* &lt;&lt;link [[Search for job online (0:10)|Lake House Online Search]]&gt;&gt;&lt;&lt;pass 10&gt;&gt;&lt;&lt;/link&gt;&gt;
 			&lt;br&gt; */
-			&lt;&lt;link [[Host a cam show dance (0:30)|Lake House Cam Show Dance]]&gt;&gt;&lt;&lt;set $dancelocation to &quot;lakehouse&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;llstress&gt;&gt;&lt;&lt;ggtiredness&gt;&gt;
-			&lt;br&gt;
 		&lt;&lt;/if&gt;&gt;
 
 		&lt;&lt;if _table or _pc&gt;&gt;
@@ -484036,7 +484052,7 @@ Next to it is a small basket with returned and not yet sorted books.
 		&lt;&lt;npc &quot;Sydney&quot;&gt;&gt;&lt;&lt;person1&gt;&gt;
 		You hear footsteps behind you, and feel a hand on your shoulder. &quot;Perfect timing.&quot; It&#39;s Leighton. &quot;It seems you just can&#39;t learn your lesson. I should get the police involved with how often you&#39;ve been stealing from us, but I&#39;ll settle for a more... homely punishment instead.&quot;
 		&lt;br&gt;&lt;br&gt;
-		&lt;&lt;nnpc_He &quot;Leighton&quot;&gt;&gt; begins to lead you towards the rental counter. &quot;Your friend will be sharing in your punishment.&lt;&lt;if $studyBooks.stolen isnot &quot;none&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;none&quot;&gt;&gt;&lt;&lt;unset $sydneyStolenKnown&gt;&gt; Oh, and I&#39;ll be taking that stolen book back.&lt;&lt;/if&gt;&gt;&quot;
+		&lt;&lt;nnpc_He &quot;Leighton&quot;&gt;&gt; begins to lead you towards the rental counter. &quot;Your friend will be sharing in your punishment.&lt;&lt;if $studyBooks.stolen isnot &quot;none&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen.science to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.maths to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.english to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.history to 0&gt;&gt;&lt;&lt;unset $sydneyStolenKnown&gt;&gt; Oh, and I&#39;ll be taking that stolen book back.&lt;&lt;/if&gt;&gt;&quot;
 		&lt;br&gt;&lt;br&gt;
 		A few students linger, but a glare from Leighton hurries them out. Leighton locks the door behind them.
 		&lt;br&gt;&lt;br&gt;
@@ -491680,7 +491696,7 @@ You liked it,
 		&lt;&lt;unset $pinchPronoun&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 
-	&lt;&lt;if ($studyBooks and $studyBooks.rented isnot &quot;Pinch&quot; and $studyBooks.stolen isnot &quot;Pinch&quot;) or $studyBooks is undefined&gt;&gt;
+	&lt;&lt;if ($studyBooks and $studyBooks.rented isnot &quot;Pinch&quot; and $studyBooks.stolen.pinch isnot 1) or $studyBooks is undefined&gt;&gt;
 		&lt;&lt;clearNPC pinch&gt;&gt;
 	&lt;&lt;/if&gt;&gt;
 
@@ -498570,7 +498586,7 @@ You deftly open the vending machine and count out the money inside. There&#39;s 
 			&lt;br&gt;
 		&lt;&lt;default&gt;&gt;
 	&lt;&lt;/switch&gt;&gt;
-	&lt;&lt;switch $studyBooks.stolen&gt;&gt;
+	/* &lt;&lt;switch $studyBooks.stolen&gt;&gt;
 		&lt;&lt;case &quot;science&quot; &quot;maths&quot; &quot;English&quot; &quot;history&quot;&gt;&gt;
 			&lt;&lt;libraryicon&gt;&gt;&lt;&lt;link [[`Return your stolen ${$studyBooks.stolen} textbook`|Book Rental Return Stolen]]&gt;&gt;&lt;&lt;/link&gt;&gt;
 			&lt;br&gt;
@@ -498581,32 +498597,48 @@ You deftly open the vending machine and count out the money inside. There&#39;s 
 			&lt;&lt;libraryicon&gt;&gt;&lt;&lt;link [[Return the olive-coloured book|Book Rental Return Stolen]]&gt;&gt;&lt;&lt;set $phase to 6&gt;&gt;&lt;&lt;/link&gt;&gt;
 			&lt;br&gt;
 		&lt;&lt;default&gt;&gt;
-	&lt;&lt;/switch&gt;&gt;
+	&lt;&lt;/switch&gt;&gt; */
+	&lt;&lt;if $studyBooks.stolen.science is 1&gt;&gt;
+		&lt;&lt;libraryicon&gt;&gt;&lt;&lt;link [[`Return your stolen science textbook`|Book Rental Return Stolen]]&gt;&gt;&lt;&lt;/link&gt;&gt;
+		&lt;br&gt;
+	&lt;&lt;/if&gt;&gt;
+	&lt;&lt;if $studyBooks.stolen.maths is 1&gt;&gt;
+		&lt;&lt;libraryicon&gt;&gt;&lt;&lt;link [[`Return your stolen maths textbook`|Book Rental Return Stolen]]&gt;&gt;&lt;&lt;/link&gt;&gt;
+		&lt;br&gt;
+	&lt;&lt;/if&gt;&gt;
+	&lt;&lt;if $studyBooks.stolen.english is 1&gt;&gt;
+		&lt;&lt;libraryicon&gt;&gt;&lt;&lt;link [[`Return your stolen english textbook`|Book Rental Return Stolen]]&gt;&gt;&lt;&lt;/link&gt;&gt;
+		&lt;br&gt;
+	&lt;&lt;/if&gt;&gt;
+	&lt;&lt;if $studyBooks.stolen.history is 1&gt;&gt;
+		&lt;&lt;libraryicon&gt;&gt;&lt;&lt;link [[`Return your stolen history textbook`|Book Rental Return Stolen]]&gt;&gt;&lt;&lt;/link&gt;&gt;
+		&lt;br&gt;
+	&lt;&lt;/if&gt;&gt;
 	&lt;&lt;sydneySchedule&gt;&gt;
 	&lt;&lt;if _sydney_location is &quot;library&quot;&gt;&gt;
 		&lt;&lt;if $money gte 2000&gt;&gt;
 			&lt;&lt;if $studyBooks.rented is &quot;none&quot;&gt;&gt;
-				&lt;&lt;if $studyBooks.stolen isnot &quot;science&quot;&gt;&gt;
+				&lt;&lt;if $studyBooks.stolen.science isnot 1&gt;&gt;
 					&lt;&lt;scienceicon&gt;&gt;&lt;&lt;link [[Rent a science textbook (£20)|Book Rental]]&gt;&gt;&lt;&lt;set $money -= 2000&gt;&gt;&lt;&lt;set $bookRent to &quot;rent&quot;&gt;&gt;&lt;&lt;set $phase to 1&gt;&gt;&lt;&lt;set $studyBooks.rented to &quot;science&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;note &quot;+ Passive Science&quot; &quot;green&quot;&gt;&gt;
 					&lt;br&gt;
 				&lt;&lt;/if&gt;&gt;
-				&lt;&lt;if $studyBooks.stolen isnot &quot;maths&quot;&gt;&gt;
+				&lt;&lt;if $studyBooks.stolen.maths isnot 1&gt;&gt;
 					&lt;&lt;mathicon&gt;&gt;&lt;&lt;link [[Rent a maths textbook (£20)|Book Rental]]&gt;&gt;&lt;&lt;set $money -= 2000&gt;&gt;&lt;&lt;set $bookRent to &quot;rent&quot;&gt;&gt;&lt;&lt;set $phase to 2&gt;&gt;&lt;&lt;set $studyBooks.rented to &quot;maths&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;note &quot;+ Passive Maths&quot; &quot;green&quot;&gt;&gt;
 					&lt;br&gt;
 				&lt;&lt;/if&gt;&gt;
-				&lt;&lt;if $studyBooks.stolen isnot &quot;English&quot;&gt;&gt;
+				&lt;&lt;if $studyBooks.stolen.english isnot 1&gt;&gt;
 					&lt;&lt;englishicon&gt;&gt;&lt;&lt;link [[Rent an English textbook (£20)|Book Rental]]&gt;&gt;&lt;&lt;set $money -= 2000&gt;&gt;&lt;&lt;set $bookRent to &quot;rent&quot;&gt;&gt;&lt;&lt;set $phase to 3&gt;&gt;&lt;&lt;set $studyBooks.rented to &quot;English&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;note &quot;+ Passive English&quot; &quot;green&quot;&gt;&gt;
 					&lt;br&gt;
 				&lt;&lt;/if&gt;&gt;
-				&lt;&lt;if $studyBooks.stolen isnot &quot;history&quot;&gt;&gt;
+				&lt;&lt;if $studyBooks.stolen.history isnot 1&gt;&gt;
 					&lt;&lt;historyicon&gt;&gt;&lt;&lt;link [[Rent a history textbook (£20)|Book Rental]]&gt;&gt;&lt;&lt;set $money -= 2000&gt;&gt;&lt;&lt;set $bookRent to &quot;rent&quot;&gt;&gt;&lt;&lt;set $phase to 4&gt;&gt;&lt;&lt;set $studyBooks.rented to &quot;history&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;note &quot;+ Passive History&quot; &quot;green&quot;&gt;&gt;
 					&lt;br&gt;
 				&lt;&lt;/if&gt;&gt;
-				&lt;&lt;if currentSkillValue(&#39;english&#39;) gte 300 and $studyBooks.stolen isnot &quot;Raul and Janet&quot;&gt;&gt;
+				&lt;&lt;if currentSkillValue(&#39;english&#39;) gte 300 and $studyBooks.stolen.RaulAndJanet isnot 1&gt;&gt;
 					&lt;&lt;scarleticon&gt;&gt;&lt;&lt;link [[Rent &quot;Raul and Janet&quot; (£20)|Book Rental]]&gt;&gt;&lt;&lt;set $money -= 2000&gt;&gt;&lt;&lt;set $bookRent to &quot;rent&quot;&gt;&gt;&lt;&lt;set $phase to 5&gt;&gt;&lt;&lt;set $studyBooks.rented to &quot;Raul and Janet&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 					&lt;br&gt;
 				&lt;&lt;/if&gt;&gt;
-				&lt;&lt;if ((Time.monthName is &quot;November&quot; and Time.monthDay gte 24) or Time.monthName is &quot;December&quot;) and $studyBooks.stolen isnot &quot;Pinch&quot;&gt;&gt;
+				&lt;&lt;if ((Time.monthName is &quot;November&quot; and Time.monthDay gte 24) or Time.monthName is &quot;December&quot;) and $studyBooks.stolen.pinch isnot 1&gt;&gt;
 					&lt;&lt;oliveicon&gt;&gt;&lt;&lt;link [[Rent the olive-coloured book (£20)|Book Rental]]&gt;&gt;&lt;&lt;set $money -= 2000&gt;&gt;&lt;&lt;set $bookRent to &quot;rent&quot;&gt;&gt;&lt;&lt;set $phase to 6&gt;&gt;&lt;&lt;set $studyBooks.rented to &quot;Pinch&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 					&lt;br&gt;
 				&lt;&lt;/if&gt;&gt;
@@ -498626,7 +498658,7 @@ You deftly open the vending machine and count out the money inside. There&#39;s 
 		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;else&gt;&gt;
 		&lt;&lt;if (!Time.schoolDay or $schoolstate is &quot;early&quot; or $schoolstate is &quot;late&quot;)&gt;&gt;
-			&lt;&lt;if $studyBooks.stolen is &quot;none&quot;&gt;&gt;
+			/* &lt;&lt;if $studyBooks.stolen is &quot;none&quot;&gt;&gt;
 				&lt;&lt;if $studyBooks.rented isnot &quot;science&quot;&gt;&gt;
 					&lt;&lt;scienceicon&gt;&gt;&lt;&lt;link [[Steal a science textbook|Book Rental]]&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;science&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;&lt;&lt;note &quot;+ Passive Science&quot; &quot;green&quot;&gt;&gt;
 					&lt;br&gt;
@@ -498650,12 +498682,67 @@ You deftly open the vending machine and count out the money inside. There&#39;s 
 				&lt;&lt;if ((Time.monthName is &quot;November&quot; and Time.monthDay gte 24) or Time.monthName is &quot;December&quot;) and $studyBooks.stolen isnot &quot;Pinch&quot;&gt;&gt;
 					&lt;&lt;oliveicon&gt;&gt;&lt;&lt;link [[Steal the olive-coloured book|Book Rental]]&gt;&gt;&lt;&lt;set $phase to 6&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;Pinch&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;
 					&lt;br&gt;
+				&lt;&lt;/if&gt;&gt; */
+				&lt;&lt;if $studyBooks.rented isnot &quot;science&quot;&gt;&gt;
+					&lt;&lt;if $studyBooks.stolen.maths is 1 || $studyBooks.stolen.english is 1 || $studyBooks.stolen.history isnot 1 || $studyBooks.stolen.RaulAndJanet isnot 1 || $studyBooks.stolen.pinch isnot 1&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 2&gt;&gt;
+					&lt;&lt;else&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 1&gt;&gt;
+					&lt;&lt;/if&gt;&gt;
+					&lt;&lt;scienceicon&gt;&gt;&lt;&lt;link [[Steal a science textbook|Book Rental]]&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;science&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen.science to 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;&lt;&lt;note &quot;+ Passive Science&quot; &quot;green&quot;&gt;&gt;
+					&lt;br&gt;
+				&lt;&lt;/if&gt;&gt;
+				&lt;&lt;if $studyBooks.rented isnot &quot;maths&quot;&gt;&gt;
+					&lt;&lt;if $studyBooks.stolen.science is 1 || $studyBooks.stolen.english is 1 || $studyBooks.stolen.history isnot 1 || $studyBooks.stolen.RaulAndJanet isnot 1 || $studyBooks.stolen.pinch isnot 1&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 2&gt;&gt;
+					&lt;&lt;else&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 1&gt;&gt;
+					&lt;&lt;/if&gt;&gt;
+					&lt;&lt;mathicon&gt;&gt;&lt;&lt;link [[Steal a maths textbook|Book Rental]]&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;maths&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen.maths to 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;&lt;&lt;note &quot;+ Passive Maths&quot; &quot;green&quot;&gt;&gt;
+					&lt;br&gt;
+				&lt;&lt;/if&gt;&gt;
+				&lt;&lt;if $studyBooks.rented isnot &quot;English&quot;&gt;&gt;
+					&lt;&lt;if $studyBooks.stolen.maths is 1 || $studyBooks.stolen.science is 1 || $studyBooks.stolen.history isnot 1 || $studyBooks.stolen.RaulAndJanet isnot 1 || $studyBooks.stolen.pinch isnot 1&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 2&gt;&gt;
+					&lt;&lt;else&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 1&gt;&gt;
+					&lt;&lt;/if&gt;&gt;
+					&lt;&lt;englishicon&gt;&gt;&lt;&lt;link [[Steal an English textbook|Book Rental]]&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;English&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen.english to 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;&lt;&lt;note &quot;+ Passive English&quot; &quot;green&quot;&gt;&gt;
+					&lt;br&gt;
+				&lt;&lt;/if&gt;&gt;
+				&lt;&lt;if $studyBooks.rented isnot &quot;history&quot;&gt;&gt;
+					&lt;&lt;if $studyBooks.stolen.maths is 1 || $studyBooks.stolen.english is 1 || $studyBooks.stolen.science isnot 1 || $studyBooks.stolen.RaulAndJanet isnot 1 || $studyBooks.stolen.pinch isnot 1&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 2&gt;&gt;
+					&lt;&lt;else&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 1&gt;&gt;
+					&lt;&lt;/if&gt;&gt;
+					&lt;&lt;historyicon&gt;&gt;&lt;&lt;link [[Steal a history textbook|Book Rental]]&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;history&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen.history to 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;&lt;&lt;note &quot;+ Passive History&quot; &quot;green&quot;&gt;&gt;
+					&lt;br&gt;
+				&lt;&lt;/if&gt;&gt;
+				&lt;&lt;if currentSkillValue(&#39;english&#39;) gte 300 and $studyBooks.rented isnot &quot;Raul and Janet&quot;&gt;&gt;
+					&lt;&lt;if $studyBooks.stolen.maths is 1 || $studyBooks.stolen.english is 1 || $studyBooks.stolen.history isnot 1 || $studyBooks.stolen.science isnot 1 || $studyBooks.stolen.pinch isnot 1&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 2&gt;&gt;
+					&lt;&lt;else&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 1&gt;&gt;
+					&lt;&lt;/if&gt;&gt;
+					&lt;&lt;scarleticon&gt;&gt;&lt;&lt;link [[Steal &quot;Raul and Janet&quot;|Book Rental]]&gt;&gt;&lt;&lt;set $phase to 5&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;Raul and Janet&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen.RaulAndJanet to 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;
+					&lt;br&gt;
+				&lt;&lt;/if&gt;&gt;
+				&lt;&lt;if ((Time.monthName is &quot;November&quot; and Time.monthDay gte 24) or Time.monthName is &quot;December&quot;) and $studyBooks.stolen.pinch isnot 1&gt;&gt;
+					&lt;&lt;if $studyBooks.stolen.maths is 1 || $studyBooks.stolen.english is 1 || $studyBooks.stolen.history isnot 1 || $studyBooks.stolen.RaulAndJanet isnot 1 || $studyBooks.stolen.science isnot 1&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 2&gt;&gt;
+					&lt;&lt;else&gt;&gt;
+						&lt;&lt;set $studyBooks.stolen.count to 1&gt;&gt;
+					&lt;&lt;/if&gt;&gt;
+					&lt;&lt;oliveicon&gt;&gt;&lt;&lt;link [[Steal the olive-coloured book|Book Rental]]&gt;&gt;&lt;&lt;set $phase to 6&gt;&gt;&lt;&lt;set $bookRent to &quot;steal&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;pinch&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen.pinch to 1&gt;&gt;&lt;&lt;/link&gt;&gt;&lt;&lt;crime &quot;thievery&quot;&gt;&gt;
+					&lt;br&gt;
 				&lt;&lt;/if&gt;&gt;
 			&lt;&lt;else&gt;&gt;
-				You can only carry one stolen book at a time.
+				/* You can only carry one stolen book at a time. */
+				You&#39;ve stolen all the useful books.
 				&lt;br&gt;
 			&lt;&lt;/if&gt;&gt;
-		&lt;&lt;/if&gt;&gt;
+		/* &lt;&lt;/if&gt;&gt; */
 	&lt;&lt;/if&gt;&gt;
 &lt;&lt;/widget&gt;&gt;
 
@@ -574182,7 +574269,8 @@ Leighton takes Sydney by the arm again. You spring into action.
 	&lt;br&gt;&lt;br&gt;
 	&quot;What do you mean? How could it be your fault?&quot;
 	&lt;br&gt;&lt;br&gt;
-	&quot;I&#39;m the one that stole from the library.&quot; &lt;&lt;if $bookStolenKnown isnot undefined&gt;&gt;&lt;&lt;if $studyBooks.stolen isnot &quot;none&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;none&quot;&gt;&gt;&lt;&lt;unset $sydneyStolenKnown&gt;&gt;&lt;&lt;set $bookStolenKnown += 1&gt;&gt;&lt;&lt;set $recentReturnTimer to 14&gt;&gt;You hand &lt;&lt;him&gt;&gt; the stolen book.&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt;
+	/* &quot;I&#39;m the one that stole from the library.&quot; &lt;&lt;if $bookStolenKnown isnot undefined&gt;&gt;&lt;&lt;if $studyBooks.stolen isnot &quot;none&quot;&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;none&quot;&gt;&gt;&lt;&lt;unset $sydneyStolenKnown&gt;&gt;&lt;&lt;set $bookStolenKnown += 1&gt;&gt;&lt;&lt;set $recentReturnTimer to 14&gt;&gt;You hand &lt;&lt;him&gt;&gt; the stolen book.&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt; */
+	&quot;I&#39;m the one that stole from the library.&quot; &lt;&lt;if $bookStolenKnown isnot undefined&gt;&gt;&lt;&lt;if $studyBooks.stolen.science is 1 || $studyBooks.stolen.maths is 1 || $studyBooks.stolen.english is 1 || $studyBooks.stolen.history is 1&gt;&gt;&lt;&lt;set $studyBooks.stolen.science to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.maths to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.english to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.history to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.RaulAndJanet to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen.pinch to 0&gt;&gt;&lt;&lt;set $studyBooks.stolen to &quot;none&quot;&gt;&gt;&lt;&lt;unset $sydneyStolenKnown&gt;&gt;&lt;&lt;set $bookStolenKnown += 1&gt;&gt;&lt;&lt;set $recentReturnTimer to 14&gt;&gt;You hand &lt;&lt;him&gt;&gt; the stolen &lt;&lt;if $studyBooks.stolen.count is 2&gt;&gt;books&lt;&lt;else&gt;&gt;book&lt;&lt;/if&gt;&gt;.&lt;&lt;/if&gt;&gt;&lt;&lt;/if&gt;&gt;
 	&lt;br&gt;&lt;br&gt;
 	&lt;&lt;if $NPCName[$NPCNameList.indexOf(&quot;Sydney&quot;)].love gte 40&gt;&gt;
 		Sydney looks to you with shock, but it soon fades. &quot;That was a nasty thing to do. I&#39;m disappointed in you, but thank you for being honest with me in the end. You have a good heart.&quot; &lt;&lt;He&gt;&gt; releases your arm.
