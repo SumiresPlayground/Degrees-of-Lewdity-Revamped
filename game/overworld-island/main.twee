@@ -47,6 +47,16 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
         <<set _weather_display to "normal">>
         <<set $weather to "rain">>
         As you climb the mountain path you find an old steel slag. Continuing down the path you find more and more until you come across a large plane. It lies rusting under a layer of overgrowth.
+    <<elseif $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love lt 50>>
+        <<location "forest">>
+        <<set _weather_display to "normal">>
+        <<set $weather to "rain">>
+        As you climb the mountain path you find an old wooden hut. It looks like someone was here recently. It's probably a good idea to leave quickly.
+    <<elseif $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
+        <<location "forest">>
+        <<set _weather_display to "normal">>
+        <<set $weather to "rain">>
+        As you climb the mountain path you find Pruti's old wooden hut.
     <<elseif $islanddistance lt 50>>
         <<location "forest">>
         <<set _weather_display to "normal">>
@@ -120,6 +130,10 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
         <</if>>
         <<if $islanddistance is 40>>
             <<link [[Explore the plane (0:30)|Plane Explore]]>><<pass 30>><</link>>
+            <br>
+        <</if>>
+        <<if $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
+            <<link [[Enter Pruti's Hut (0:30)|Witch Hut Return]]>><<pass 30>><</link>>
             <br>
         <</if>>
         <<if $islanddistance is 55>>
