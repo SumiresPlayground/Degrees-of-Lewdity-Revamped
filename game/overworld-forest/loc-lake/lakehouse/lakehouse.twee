@@ -366,8 +366,14 @@
 			<br><br>
 		<</if>> */
 		<<projectoptions>>
-		<br>
+		<br><br>
 		/* <<christmas_options>> */
+		<<if _deco>>
+			<<if _deco.name is "large bear plushie">>
+				<<furnitureicon _deco.iconFile>><<link [[Cuddle with the large bear plushie (0:10)|Lake House Large Bear Plushie Cuddle]]>><<pass 10>><<trauma -1>><<stress -1>><</link>><<ltrauma>><<lstress>>
+				<br><br>
+			<</if>>
+		<</if>>
 		<<set _bed to Furniture.get('bed')>>
 
 		<<if _bed.type.includes('comfy')>>
@@ -972,8 +978,10 @@ After several minutes you rinse your private area with water and behold your <<g
 <<else>>
 	You step out to your backyard.
 	<br><br>
+	Dev Note: Gardening is unfortunately broken at the moment! Please have some patience D:
+	<br><br>
 
-	<<if $lakehouse.plots lt 3>>
+	/* <<if $lakehouse.plots lt 3>>
 		<<set _clearing to (25 - $lakehouse.clearing)>>
 		<<set $percent=Math.floor((_clearing/25)*100)>>
 		One of the fields is being cleared,
@@ -1023,14 +1031,14 @@ After several minutes you rinse your private area with water and behold your <<g
 	<<if $lakehouse.plots is 3 and $lakehouse.wetplot is undefined>>
 		<<link [[Set up a water plot (4:00)|$passage]]>><<pass 4 hour>><<tiredness 24>><<add_plot lakehouse water 3 medium>><<set $lakehouse.wetplot to 1>><</link>>
 		<br>
-	<</if>>
+	<</if>> */
 	<<link [[Go back into the house (0:01)|Lake House]]>><<pass 1>><</link>>
 	<br>
 
-	<<if $lakehouse.plots gte 1>>
+	/* <<if $lakehouse.plots gte 1>>
 		<<display_plot lakehouse>>
-	<</if>>
-<</if>>.
+	<</if>> */
+<</if>>
 
 
 :: Lake House Play Computer
@@ -1782,3 +1790,18 @@ You hear a knock upon your door. When you open it you see a young man in a suit 
 
 <<link [[Stop|Lake House Bedroom]]>><<unset $campayout>><</link>>
 <br>
+
+:: Lake House Large Bear Plushie Cuddle
+<<effects>>
+<<if $trauma gte ($traumamax / 7) * 3 or $stress gte ($stressmax / 7) * 5>>
+		You desperately cling onto the large bear plushie with your entire body and almost wind up pulling it down onto the ground, whimpering and crying loudly into it.
+	<<elseif $trauma gte ($traumamax / 7) * 2 or $stress gte ($stressmax / 7) * 3>>
+		You cling to the large bear plushie and bury your head in it's back, silently crying into it.
+	<<elseif $trauma gte ($traumamax / 7) * 1 or $stress gte ($stressmax / 7) * 1>>
+		You wrap your arms around the large bear plushie from behind and rest your head against it's shoulder, hugging it quietly.
+	<<else>>
+		You happily take the large bear plushie in your arms.
+	<</if>>
+<br><br>
+
+<<link [[Next|Lake House Bedroom]]>><</link>>
