@@ -12,8 +12,8 @@
 			<<set $enemyhealth += $NPCList[_i].health>>
 		<</if>>
 	<</for>>
-	<<if $enemyhealth is 0>><<set $enemyhealth to 199>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
-	<<set $enemyarousalmax to (500 * $arousalmult) * $enemyno>>
+	<<if $enemyhealth is 0>><<set $enemyhealth to 199  * $npchealthmult>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
+	<<set $enemyarousalmax to (500 * $npcarousalmult) * $enemyno>>
 	<<set $enemyangermax to 200>>
 	<<set $enemyhealthmax to $enemyhealth>>
 	<<if $enemyhealthmax is 0>><<set $enemyhealthmax to 199>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
@@ -73,12 +73,12 @@
 	<!-- NEW NNPC beast intitiation widget v2.6. Replaces beast(1-6)init widgets -->
 	<!-- Probably just temporary... fix for Black Wolf -->
 
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $beasthealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $beastarousalmult>>
 	<<set $enemyangermax to 200>>
 	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
@@ -134,14 +134,14 @@
 	<<set $traumagain to 0>>
 	<<set $stressgain to 0>>
 
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $beasthealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $beastarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $beasthealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -228,12 +228,12 @@
 	<!-- The main reason to use this NOGEN call is so that a variety of beasts can be called, rather than all 1 type -->
 	<!-- Eventually all the <<beastXXXinit>> calls should be collapsed under man1init, which will require rework of $enemytype="beast" + other stuff -->
 
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $beasthealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $beastarousalmult>>
 	<<set $enemyangermax to 200>>
 	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
@@ -299,15 +299,15 @@
 <</widget>>
 
 <<widget "strangeman1init">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $NPCList[0].lefthand to "mouth">>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -332,14 +332,14 @@
 <</widget>>
 
 <<widget "strangeman2init">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -364,14 +364,14 @@
 <</widget>>
 
 <<widget "strangewoman1init">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -396,14 +396,14 @@
 <</widget>>
 
 <<widget "tailorinit">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -431,14 +431,14 @@
 <</widget>>
 
 <<widget "molestbusinit">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -467,14 +467,14 @@
 <</widget>>
 
 <<widget "busmoveinit">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 200>>
+	<<set $enemyarousalmax to 200 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -501,7 +501,7 @@
 <</widget>>
 
 <<widget "lefthandinit">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
@@ -510,9 +510,9 @@
 	<<set $NPCList[0].penis to "none">>
 	<<set $NPCList[0].vagina to "none">>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 100>>
+	<<set $enemyarousalmax to 100 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -539,14 +539,14 @@
 <</widget>>
 
 <<widget "nurseinit">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 400>>
+	<<set $enemyarousalmax to 400 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -573,14 +573,14 @@
 <</widget>>
 
 <<widget "pharmnurseinit">>
-	<<set $enemyhealth to $NPCList[0].health>>
+	<<set $enemyhealth to $NPCList[0].health * $npchealthmult>>
 	<<set $enemyarousal to $allure / 100>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 1000>>
+	<<set $enemyarousalmax to 1000 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to $NPCList[0].healthmax>>
+	<<set $enemyhealthmax to $NPCList[0].healthmax * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -624,16 +624,16 @@
 <</widget>>
 
 <<widget "spankmaninit">>
-	<<set $enemyhealth to 200>>
+	<<set $enemyhealth to 200 * $npchealthmult>>
 	<<set $enemyarousal to 0>>
 	<<set $enemyanger to 300>>
 	<<set $enemystrength to 20000>>
 	<<set $NPCList[0].lefthand to "arms">>
 	<<set $NPCList[0].righthand to "spank">>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $npcarousalmult>>
 	<<set $enemyangermax to 300>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -662,14 +662,14 @@
 <</widget>>
 
 <<widget "bound2init">>
-	<<set $enemyhealth to 400>>
+	<<set $enemyhealth to 400 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 1000>>
+	<<set $enemyarousalmax to 1000 * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 400>>
+	<<set $enemyhealthmax to 400 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -694,15 +694,15 @@
 <</widget>>
 
 <<widget "ganginit">>
-	<<set $enemyhealth to 1200>>
+	<<set $enemyhealth to 1200 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 3000>>
+	<<set $enemyarousalmax to 3000  * $npcarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 1200>>
+	<<set $enemyhealthmax to 1200 * $npchealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
