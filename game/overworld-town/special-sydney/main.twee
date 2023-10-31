@@ -1676,7 +1676,8 @@ Leighton takes Sydney by the arm again. You spring into action.
 	<br><br>
 	"What do you mean? How could it be your fault?"
 	<br><br>
-	"I'm the one that stole from the library." <<if $bookStolenKnown isnot undefined>><<if $studyBooks.stolen isnot "none">><<set $studyBooks.stolen to "none">><<unset $sydneyStolenKnown>><<set $bookStolenKnown += 1>><<set $recentReturnTimer to 14>>You hand <<him>> the stolen book.<</if>><</if>>
+	/* "I'm the one that stole from the library." <<if $bookStolenKnown isnot undefined>><<if $studyBooks.stolen isnot "none">><<set $studyBooks.stolen to "none">><<unset $sydneyStolenKnown>><<set $bookStolenKnown += 1>><<set $recentReturnTimer to 14>>You hand <<him>> the stolen book.<</if>><</if>> */
+	"I'm the one that stole from the library." <<if $bookStolenKnown isnot undefined>><<if $studyBooks.stolen.science is 1 || $studyBooks.stolen.maths is 1 || $studyBooks.stolen.english is 1 || $studyBooks.stolen.history is 1>><<set $studyBooks.stolen.science to 0>><<set $studyBooks.stolen.maths to 0>><<set $studyBooks.stolen.english to 0>><<set $studyBooks.stolen.history to 0>><<set $studyBooks.stolen.RaulAndJanet to 0>><<set $studyBooks.stolen.pinch to 0>><<set $studyBooks.stolen to "none">><<unset $sydneyStolenKnown>><<set $bookStolenKnown += 1>><<set $recentReturnTimer to 14>>You hand <<him>> the stolen <<if $studyBooks.stolen.count is 2>>books<<else>>book<</if>>.<</if>><</if>>
 	<br><br>
 	<<if $NPCName[$NPCNameList.indexOf("Sydney")].love gte 40>>
 		Sydney looks to you with shock, but it soon fades. "That was a nasty thing to do. I'm disappointed in you, but thank you for being honest with me in the end. You have a good heart." <<He>> releases your arm.
