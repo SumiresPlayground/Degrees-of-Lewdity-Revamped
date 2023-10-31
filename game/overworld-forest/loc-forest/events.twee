@@ -2028,7 +2028,7 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 :: Forest Deer
 <<location "forest">><<effects>><<transform deer 1>><<beastNEWinit 1 deer>>
 
-<<if $transformationParts.eldritch.mist is "default">>>>
+<<if $transformationParts.eldritch.mist is "default">>
 	You creep forward. The deer immediately darts off in the opposite direction. 
 	<br><br>
 	<span class='black'>You know it didn't see you; your foreboding aura was enough to make it flee.</span>
@@ -5986,6 +5986,65 @@ The buzzing fades into the trees. <<tearful>> you continue through the bog.
 
 <<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 <br>
+
+:: Bog Lizard
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Bog Lizard Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Bog Lizard]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Bog Lizard Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	Despite <<bhis>> power, you manage to defeat the <<beasttype>>. <<bHe>> flees under the sludge.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	Satisfied, the <<beasttype>> moves away from you.
+	<br><br>
+	<<endcombat>>
+	<<clotheson>>
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+<<else>>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+<</if>>
 
 :: Mushroom Grove
 You follow the trail down the winding path into an alcove between the trees. Upon entering the alcove you find yourself in a damp and musty grove, you're surrounded by tall trees that block out the sun, casting the area in a gloom that only intensifies the pungent smell of mold and mildew. You are immediately assailed by the spores that clog the air, causing you to cough and wheeze as they make their way into your lungs. The forest floor and walls are alive with a diverse array of fungi, each shaped and colored differently, but all equally fascinating and potentially dangerous.

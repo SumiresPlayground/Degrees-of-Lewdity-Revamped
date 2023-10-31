@@ -1485,7 +1485,11 @@ function dailySchoolEffects() {
 				}
 			}
 		}
-		if (V.studyBooks.stolen !== "none" && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		// if (V.studyBooks.stolen !== "none" && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.science !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.maths !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.english !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
+		if (V.studyBooks.stolen.history !== 1 && Time.schoolTerm) fragment.append(wikifier("crimeUp", 1, "thievery"));
 		if (V.recentReturnTimer) {
 			V.recentReturnTimer--;
 			if (V.recentReturnTimer <= 0) delete V.recentReturnTimer;

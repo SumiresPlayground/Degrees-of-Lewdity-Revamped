@@ -9,9 +9,9 @@
 	<<if $options.playtime>>
 		Play Time: <<print msToTime(($saveDetails.playTime ? $saveDetails.playTime : 0) + ($saveDetails.loadTime ? new Date() - $saveDetails.loadTime : 0))>> |
 	<</if>>
-	<<print StartConfig.version>><<if StartConfig.versionName>> <<print StartConfig.versionName>><</if>><<if StartConfig.sneaky>> SNEAKY<</if>>
+	<<print StartConfig.version>><<if StartConfig.versionName>> <<print StartConfig.versionName>><</if>><<if StartConfig.sneaky>> SNEAKY<</if>><<if StartConfig.cm>><br>Chylli's Mod<</if>>
 </div>
-<div id="gameVersionDisplay2"><<print StartConfig.version.slice(1)>></div>
+<div id="gameVersionDisplay2"><<print StartConfig.version.slice(1)>><<if StartConfig.cm>><br>Chylli's Mod<</if>></div>
 <<if $passage isnot "Start">>
 	<div id="feat"></div>
 	<div id="mobileStats"></div>

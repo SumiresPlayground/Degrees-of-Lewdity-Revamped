@@ -1903,6 +1903,24 @@
 	| <<link ">>>">><<npcincr "Salem" love 100>><<clamp>><<replace "#statssalemlove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Salem")].love)>><</replace>><</link>> (100 = full)
 	<br><br>
 
+	<<link "<<<">><<npcincr "Pruti" love -100>><<clamp>><<replace "#statsprutilove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].love)>><</replace>><</link>> |
+	<<link "<<">><<npcincr "Pruti" love -10>><<clamp>><<replace "#statsprutilove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].love)>><</replace>><</link>> |
+	<<link "<">><<npcincr "Pruti" love -1>><<clamp>><<replace "#statsprutilove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].love)>><</replace>><</link>> |
+	Pruti love: <span id="statsprutilove"><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].love)>></span>
+	| <<link ">">><<npcincr "Pruti" love 1>><<clamp>><<replace "#statsprutilove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].love)>><</replace>><</link>>
+	| <<link ">>">><<npcincr "Pruti" love 10>><<clamp>><<replace "#statsprutilove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].love)>><</replace>><</link>>
+	| <<link ">>>">><<npcincr "Pruti" love 100>><<clamp>><<replace "#statsprutilove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].love)>><</replace>><</link>> (100 = full)
+	<br>
+
+	<<link "<<<">><<npcincr "Pruti" dom -100>><<clamp>><<replace "#statsprutidom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].dom)>><</replace>><</link>> |
+	<<link "<<">><<npcincr "Pruti" dom -10>><<clamp>><<replace "#statsprutidom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].dom)>><</replace>><</link>> |
+	<<link "<">><<npcincr "Pruti" dom -1>><<clamp>><<replace "#statsprutidom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].dom)>><</replace>><</link>> |
+	Pruti dominance: <span id="statsprutidom"><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].dom)>></span>
+	| <<link ">">><<npcincr "Pruti" dom 1>><<clamp>><<replace "#statsprutidom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].dom)>><</replace>><</link>>
+	| <<link ">>">><<npcincr "Pruti" dom 10>><<clamp>><<replace "#statsprutidom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].dom)>><</replace>><</link>>
+	| <<link ">>>">><<npcincr "Pruti" dom 100>><<clamp>><<replace "#statsprutidom">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Pruti")].dom)>><</replace>><</link>> (50 = full)
+	<br>
+
 	<<link "<<<">><<npcincr "Great Hawk" love -100>><<clamp>><<replace "#statsgreathawklove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].love)>><</replace>><</link>> |
 	<<link "<<">><<npcincr "Great Hawk" love -10>><<clamp>><<replace "#statsgreathawklove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].love)>><</replace>><</link>> |
 	<<link "<">><<npcincr "Great Hawk" love -1>><<clamp>><<replace "#statsgreathawklove">><<print Math.trunc($NPCName[$NPCNameList.indexOf("Great Hawk")].love)>><</replace>><</link>> |
@@ -2302,7 +2320,7 @@
 		"Residential alleyways", "Commercial alleyways", "Industrial alleyways", "Park", "Hallways", "Brothel", "Strip Club",
 		"Beach", "Ocean Breeze", "Docks Work", "Residential Drain", "Commercial Drain", "Industrial Drain", "Forest", "Farmland",
 		"Livestock Field", "Moor", "Forest Wolf Cave", "Wolf Cave", "Wolf Cave Clearing", "Asylum", "Asylum Cell", "Underground Cell", "Prison Cell",
-		"Lake Shore", "Farmland", "Farm Work", "Meadow",
+		"Lake Shore", "Farmland", "Farm Work", "Meadow", "Misland", "Desert Village",
 	]>>
 	<<if ["Clothing Shop", "Forest Shop", "School Library Shop", "Adult Shop Store"].includes($passage)>>
 		<span class="red">Teleporting from a clothing store can break your wardrobe.</span> Please leave the shop before teleporting.
@@ -2422,7 +2440,7 @@
 	<<link [[Moor Castle|Moor]]>><<set $moor = 100>><</link>><br>
 	<br>
 	<u>Island</u><br>
-	<<link [[Island Shore|Misland]]>><<set $islanddistance = 0>><</link>><br>\
+	<<link [[Island Shore|Misland]]>><<set $islanddistance = 0>><</link>><br>
 	<<link [[Anthill|Misland]]>><<set $islanddistance = 10>><</link>><br>
 	<<link [[Desert Village|Desert Village]]>><<set $islanddistance = 20>><</link>><br>
 	<<link [[Plane|Misland]]>><<set $islanddistance = 40>><</link>><br>

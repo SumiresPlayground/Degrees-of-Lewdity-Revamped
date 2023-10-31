@@ -1135,6 +1135,7 @@
 		You rest your legs.
 	<<elseif $feetaction is "evade">>
 		<<set $dodging to 1>>
+		<<danceskill 1>>
 		<<if $underwater is 1 or ["sea","lake"].includes($location)>>
 			You relax your legs and let yourself float, ready to dodge incoming attacks.
 		<<else>>
@@ -1816,6 +1817,7 @@
 			<<if $dodging gte 1>>
 				<<set _doge_chance to ((currentSkillValue("feetskill") / 3) + (currentSkillValue('danceskill') / 3) - $drunk - (!!$worn.feet.type.includes("heels") * 200))>>
 				<<feetskilluse>>
+				<<danceskill 1>>
 			<</if>>
 			<<if $left_guard is 1>>
 				<<set _left_guard_chance to (currentSkillValue("handskill") / 3)>>

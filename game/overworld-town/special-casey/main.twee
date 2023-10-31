@@ -193,14 +193,14 @@ You ask if Robin can come along. Casey stands silent for a moment before saying 
 
 :: Casey Hello
 <<npc Casey>><<person1>>
-"Oh hey didn't expect to see you here, the lock to get in is quite hard to pick." Casey grins and flashed <<his>> lockpick. "Of course it's nothing to me. I'm just digging for some scrap to build with. You might not know but I'm pretty handy with this stuff."
+"Oh hey didn't expect to see you here, the lock to get in is quite hard to pick." Casey grins and flashes <<his>> lockpick. "Of course it's nothing to me. I'm just digging for some scrap to build with. You might not know but I'm pretty handy with this stuff."
 <br><br>
-<<link [[Help Scavenge|Help Scavenge]]>><<set $rng to random(1,100)>><<npcincr Casey love 3>><</link>><<ggglove>>
+<<link [[Help Scavenge (1:00)|Help Scavenge]]>><<pass 60>><<set $rng to random(1,100)>><<npcincr Casey love 3>><</link>><<ggglove>>
 <br>
 <<getouticon>><<link [[Leave|Trash]]>><<endevent>><</link>>
 
 :: Help Scavenge
-"Wait really? I didn't take you for the type to do that. I appreciate the help." <<He>> says as he continues to dig. 
+"Wait really? I didn't take you for the type to do that. I appreciate the help." <<He>> says as <<he>> continues to dig. 
 <br><br>
 <<if $rng is 1>>
 You start scrounging through a scrap pile and find a seemingly intact nice looking motor. "Wow this is an incredible find." Casey runs over and gives it a touch. "Extremely nice condition, this is the best thing I could have asked for." <<He>> gives you a hug "I'm gonna bring this home and get to work.
@@ -209,5 +209,9 @@ You start scrounging through a scrap pile and find a seemingly intact nice looki
 <<else>>
 You start scrounging through a scrap pile. You don't find anything of use but Casey seems to appreciate the effort.
 <br><br>
-<<link [[Next|Trash]]>><<endevent>><</link>>
+<<if Time.dayState is "day">>
+    <<link [[Continue to scavenge (1:00)|Help Scavenge]]>><<pass 60>><<set $rng to random(1,100)>><<npcincr Casey love 3>><<endevent>><</link>>
+    <br>
+<</if>>
+<<link [[Leave|Trash]]>><<endevent>><</link>>
 <</if>>

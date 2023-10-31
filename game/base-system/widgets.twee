@@ -361,9 +361,6 @@
 			<<if  $transformationParts.traits.armorscales is "default">>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.75>>
 			<</if>>
-			<<if $android is 1>>
-				<<set $durability -= (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.5>>
-			<</if>>
 			<<if $mushroom gte 1>>
 				<<if $worn.upper.name is "mushroom bodice" and $worn.lower.name is "mushroom gown">>
 					<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.20>>
@@ -414,11 +411,7 @@
 			<</if>>
 			<<set $stress += (_violence * _drunkMod * _stressMod) * (1 - ($masochism / 1200))>>
 			<<trauma _violence * _traumaMod>>
-			<<if $android is 1>>
-				<<set $durability -= (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10))) * 0.5>>
-			<<else>>
-				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)))>>
-			<</if>>
+			<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)))>>
 			<<set _arousal to (_violence * _arousalMod * (0 + ($masochism / 18)))>>
 			<<arousal _arousal "maso">>
 			<<set $arousalmasochism += (_violence * (0 + ($masochism / 7)))>>
@@ -980,18 +973,37 @@
 
 <<widget "passiveStudy">>
 	<<if $statFreeze isnot true>>
+		<<set _chair to Furniture.get('chair')>>
+		<<if _chair is null>>
+			<<set _chair to Furniture.set('chair','chair')>>
+		<</if>>
+		<<if _chair.name is "chair">>
+			<<set _studyGain to 6>>
+		<<elseif _chair.name is "stools">>
+			<<set _studyGain to 7>>
+		<<elseif _chair.name is "wooden chairs">>
+			<<set _studyGain to 8>>
+		<<elseif _chair.name is "swivel chairs">>
+			<<set _studyGain to 9>>
+		<<elseif _chair.name is "shell chairs">>
+			<<set _studyGain to 10>>
+		<<elseif _chair.name is "armchairs">>
+			<<set _studyGain to 11>>
+		<<elseif _chair.name is "egg armchairs">>
+			<<set _studyGain to 12>>
+		<</if>>
 		<<switch $studyBooks.rented>>
 			<<case "science">>
-				<<scienceskill 6 "no_star">>
+				<<scienceskill _studyGain "no_star">>
 			<<case "maths">>
-				<<mathsskill 6 "no_star">>
+				<<mathsskill _studyGain "no_star">>
 			<<case "English">>
-				<<englishskill 6 "no_star">>
+				<<englishskill _studyGain "no_star">>
 			<<case "history">>
-				<<historyskill 6 "no_star">>
+				<<historyskill _studyGain "no_star">>
 			<<default>>
 		<</switch>>
-		<<switch $studyBooks.stolen>>
+		/* <<switch $studyBooks.stolen>>
 			<<case "science">>
 				<<scienceskill 6 "no_star">>
 			<<case "maths">>
@@ -1001,7 +1013,19 @@
 			<<case "history">>
 				<<historyskill 6 "no_star">>
 			<<default>>
-		<</switch>>
+		<</switch>> */
+		<<if $studyBooks.stolen.science is 1>>
+			<<scienceskill _studyGain "no_star">>
+		<</if>>
+		<<if $studyBooks.stolen.maths is 1>>
+			<<mathsskill _studyGain "no_star">>
+		<</if>>
+		<<if $studyBooks.stolen.english is 1>>
+			<<englishskill _studyGain "no_star">>
+		<</if>>
+		<<if $studyBooks.stolen.history is 1>>
+			<<historyskill _studyGain "no_star">>
+		<</if>>
 	<</if>>
 <</widget>>
 
@@ -4417,6 +4441,9 @@
 	<<set _i to $NPCNameList.indexOf("Zephyr")>>
 	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, -100, 100)>>
 	<<set $NPCName[_i].dom = Math.clamp($NPCName[_i].dom, -50, 50)>>
+	<<set _i to $NPCNameList.indexOf("Pruti")>>
+	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, -100, 100)>>
+	<<set $NPCName[_i].dom = Math.clamp($NPCName[_i].dom, -50, 50)>>
 
 	<<set _i to $NPCNameList.indexOf("Ivory Wraith")>>
 	<<if $wraith.state is "haunt">>
@@ -5248,12 +5275,18 @@
 <<if $studyBooks is undefined>>
 	<<set $studyBooks to {}>>
 	<<set $studyBooks.rented to "none">>
-	<<set $studyBooks.stolen to "none">>
+	/* <<set $studyBooks.stolen to "none">> */
+	<<set $studyBooks.stolen.science to 0>>
+	<<set $studyBooks.stolen.maths to 0>>
+	<<set $studyBooks.stolen.english to 0>>
+	<<set $studyBooks.stolen.history to 0>>
+	<<set $studyBooks.stolen.RaulAndJanet to 0>>
+	<<set $studyBooks.stolen.pinch to 0>>
 <</if>>
 <<set _desk to Furniture.get('desk')>>
 <<set _chair to Furniture.get('chair')>>
 <<set _projectOptions to [$scienceproject, $mathsproject].includes("ongoing")>>
-<<set _bookOptions to ($studyBooks.stolen is 'Raul and Janet' or $studyBooks.rented is 'Raul and Janet' or $studyBooks.stolen is 'Pinch' or $studyBooks.rented is 'Pinch')>>
+<<set _bookOptions to ($studyBooks.stolen.RaulAndJanet is 1 or $studyBooks.rented is 'Raul and Janet' or $studyBooks.stolen.pinch is 1 or $studyBooks.rented is 'Pinch')>>
 <<set _wardrobe to Furniture.get('wardrobe')>>
 <<set _playOptions to ($englishPlay is 'ongoing' and $englishPlayRoles.Player isnot 'none')>>
 

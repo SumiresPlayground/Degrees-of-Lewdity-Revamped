@@ -343,3 +343,285 @@
 		<<set $lakehouseinit to 1>>
 	<</if>>
 <</widget>>
+
+<<widget "camdancestripeffects">>
+	<<switch $danceaction>>
+		<<case "stripOverOutfit">>
+			<<if $worn.upper.name isnot "naked" and $worn.lower.name isnot "naked">>
+				You gracefully remove your $worn.over_upper.name exposing your <<outfit>>. You're careful not to give too much away, but such a lewd gesture thrills you nonetheless.
+				<<arousal 100>><<overupperstrip>><<exhibitionism1>>
+			<<elseif $worn.upper.name isnot "naked">>
+				<<if !$worn.under_lower.type.includes("naked")>>
+					You gracefully remove your $worn.over_upper.name, exposing your $worn.under_lower.name. Being seen in your underwear excites you.
+					<<arousal 300>><<overupperstrip>><<exhibitionism3>>
+				<<else>>
+					You gracefully remove your $worn.over_upper.name, exposing your <<genitals 1>>.
+					<<if $worn.upper.type.includes("naked")>>
+						You shiver with excitement, your body laid totally bare.
+					<<else>>
+						Your <<allTops>> makes your naked lower half feel particularly conspicuous.
+					<</if>>
+					<<arousal 300>><<overupperstrip>><<exhibitionism5>>
+					<<dance_crossdress_reveal>>
+				<</if>>
+			<<elseif $worn.lower.name isnot "naked">>
+				<<if !$worn.under_upper.type.includes("naked")>>
+					You gracefully remove your $worn.over_upper.name, exposing your $worn.under_upper.name. Being seen in your underwear excites you.
+					<<arousal 300>><<overupperstrip>><<exhibitionism3>>
+				<<else>>
+					<<if $player.breastsize gte 3>>
+						You gracefully remove your $worn.over_upper.name, exposing your $worn.lower.name and <<breasts>>. The exhibition of your breasts makes them feel raw and sensitive.
+						<<arousal 300>><<overupperstrip>><<exhibitionism4>>
+					<<elseif $player.gender_appearance isnot "m" and $worn.lower.gender isnot "m">>
+						<<if $player.gender is "m">>
+							You gracefully remove your $worn.over_upper.name, exposing your $worn.lower.name and <<breasts>>. Your feminine countenance makes your revealed chest feel especially lewd.
+						<<else>>
+							You gracefully remove your $worn.over_upper.name, exposing your $worn.lower.name and <<breasts>>. You feel your nipples harden in response to being revealed.
+						<</if>>
+						<<arousal 300>><<overupperstrip>><<exhibitionism4>>
+					<<else>>
+						You gracefully remove your $worn.over_upper.name, exposing your $worn.lower.name and <<breasts>>. You feel your nipples harden in response to being revealed.
+						<<arousal 300>><<overupperstrip>><<exhibitionism3>>
+					<</if>>
+				<</if>>
+			<<else>>
+				<<if !$worn.under_upper.type.includes("naked") and !$worn.under_lower.type.includes("naked")>>
+					You gracefully remove your $worn.over_upper.name, exposing your $worn.under_upper.name and $worn.under_lower.name. Being seen in your underwear excites you.
+					<<arousal 300>><<overupperstrip>><<exhibitionism3>>
+				<<elseif !$worn.under_lower.type.includes("naked")>>
+					<<if $player.breastsize gte 3>>
+						You gracefully remove your $worn.over_upper.name, exposing your $worn.under_lower.name and <<breasts>>. The exhibition of your breasts makes them feel raw and sensitive.
+						<<arousal 300>><<overupperstrip>><<exhibitionism4>>
+					<<elseif $player.gender_appearance isnot "m" and $worn.lower.gender isnot "m">>
+						<<if $player.gender is "m">>
+							You gracefully remove your $worn.over_upper.name, exposing your $worn.under_lower.name and <<breasts>>. Your feminine countenance makes your revealed chest feel especially lewd.
+						<<else>>
+							You gracefully remove your $worn.over_upper.name, exposing your $worn.under_lower.name and <<breasts>>. You feel your nipples harden in response to being revealed.
+						<</if>>
+						<<arousal 300>><<overupperstrip>><<exhibitionism4>>
+					<<else>>
+						You gracefully remove your $worn.over_upper.name, exposing your $worn.under_lower.name and <<breasts>>. You feel your nipples harden in response to being revealed.
+						<<arousal 300>><<overupperstrip>><<exhibitionism3>>
+					<</if>>
+				<<elseif !$worn.under_upper.type.includes("naked")>>
+					You gracefully remove your $worn.over_upper.name, exposing your <<genitals 1>>.
+					<<arousal 300>><<overupperstrip>><<exhibitionism5>>
+					<<dance_crossdress_reveal>>
+				<<else>>
+					You gracefully remove your $worn.over_upper.name, exposing your <<genitals 1>>. You shiver with excitement, your body laid totally bare.
+					<<arousal 300>><<overupperstrip>><<exhibitionism5>>
+					<<dance_crossdress_reveal>>
+				<</if>>
+			<</if>>
+			<<set $danceaction to 0>>
+		<<case "stripOverUpper">>
+			<<if $worn.upper.name isnot "naked">>
+				You gracefully remove your $worn.over_upper.name exposing your $worn.upper.name. You're careful not to give too much away, but such a lewd gesture thrills you nonetheless.
+				<<arousal 100>><<overupperstrip>><<exhibitionism1>>
+			<<elseif !$worn.under_upper.type.includes("naked")>>
+				You gracefully remove your $worn.over_upper.name, exposing your $worn.under_upper.name. Only one garment protects your chest from the hungry eyes surrounding you.
+				<<arousal 100>><<overupperstrip>><<exhibitionism1>>
+			<<else>>
+				<<if $player.breastsize gte 3>>
+					You gracefully remove your $worn.over_upper.name, exposing your <<breasts>>. The exhibition of your breasts makes them feel raw and sensitive.
+					<<arousal 300>><<overupperstrip>><<exhibitionism4>>
+				<<elseif $player.gender_appearance isnot "m" and $worn.lower.gender isnot "m">>
+					<<if $player.gender is "m">>
+						You gracefully remove your $worn.over_upper.name, exposing your <<breasts>>. Your feminine countenance makes your revealed chest feel especially lewd.
+					<<else>>
+						You gracefully remove your $worn.over_upper.name, exposing your <<breasts>>. You feel your nipples harden in response to being revealed.
+					<</if>>
+					<<arousal 300>><<overupperstrip>><<exhibitionism4>>
+				<<else>>
+					You gracefully remove your $worn.over_upper.name, exposing your <<breasts>>. You feel your nipples harden in response to being revealed.
+					<<arousal 300>><<overupperstrip>><<exhibitionism1>>
+				<</if>>
+			<</if>>
+			<<set $danceaction to 0>>
+		<<case "stripOverLower">>
+			<<if $worn.lower.name isnot "naked">>
+				You gracefully remove your $worn.over_lower.name exposing your $worn.lower.name. You're careful not to give too much away, but such a lewd gesture thrills you nonetheless.
+				<<arousal 100>><<overlowerstrip>><<exhibitionism1>>
+			<<elseif !$worn.under_lower.type.includes("naked")>>
+				You gracefully remove your $worn.over_lower.name, exposing your $worn.under_lower.name. Being seen in your underwear excites you.
+				<<arousal 300>><<overlowerstrip>><<exhibitionism3>>
+			<<else>>
+				You gracefully remove your $worn.over_lower.name, exposing your <<genitals 1>>.
+				<<if $worn.upper.type.includes("naked") or $worn.over_upper.type.includes("naked")>>
+					You shiver with excitement, your body laid totally bare.
+				<<else>>
+					Your <<allTops>> makes your naked lower half feel particularly conspicuous.
+				<</if>>
+				<<arousal 300>><<overlowerstrip>><<exhibitionism5>>
+				<<dance_crossdress_reveal>>
+			<</if>>
+			<<set $danceaction to 0>>
+		<<case "stripOutfit">>
+			<<if !$worn.under_upper.type.includes("naked") and !$worn.under_lower.type.includes("naked")>>
+				<<if $player.breastsize gte 3 or $player.gender_appearance isnot "m">>
+					You gracefully remove your $worn.upper.name, exposing your <<upperstrip>><<lowerstrip>><<underoutfit>>. Being seen in your underwear excites you.
+					<<arousal 500>><<exhibitionism4>>
+				<<else>>
+					You gracefully remove your $worn.upper.name, exposing your <<upperstrip>><<lowerstrip>><<underoutfit>>. Being seen in your underwear excites you.
+					<<arousal 300>><<exhibitionism3>>
+				<</if>>
+			<<elseif !$worn.under_lower.type.includes("naked")>>
+				<<if $player.breastsize gte 3>>
+					You gracefully remove your $worn.upper.name, exposing your <<upperstrip>><<lowerstrip>><<underoutfit>>. The exhibition of your breasts makes them feel raw and sensitive.
+					<<arousal 300>><<exhibitionism4>>
+				<<elseif $player.gender_appearance isnot "m" and $worn.lower.gender isnot "m">>
+					<<if $player.gender is "m">>
+						You gracefully remove your $worn.upper.name, exposing your <<upperstrip>><<lowerstrip>><<underoutfit>>. Your feminine countenance makes your revealed chest feel especially lewd.
+					<<else>>
+						You gracefully remove your $worn.upper.name, exposing your <<upperstrip>><<lowerstrip>><<underoutfit>>. You feel your <<nipples>> harden in response to being revealed.
+					<</if>>
+					<<arousal 300>><<exhibitionism4>>
+				<<else>>
+					You gracefully remove your $worn.upper.name, exposing your <<upperstrip>><<lowerstrip>><<underoutfit>>. Being seen in your underwear excites you.
+					<<arousal 300>><<exhibitionism3>>
+				<</if>>
+			<<else>>
+				You gracefully remove your $worn.upper.name, exposing your nude form. You shiver with excitement, your <<genitals 1>> laid totally bare.
+				<<arousal 300>><<upperstrip>><<lowerstrip>><<exhibitionism5>>
+				<<dance_crossdress_reveal>>
+			<</if>>
+			<<set $danceaction to 0>>
+		<<case "stripUpper">>
+			<<if !$worn.under_upper.type.includes("naked")>>
+				<<if $player.breastsize gte 3 or $player.gender_appearance isnot "m">>
+					You gracefully remove your $worn.upper.name, exposing your $worn.under_upper.name. Only one garment protects your chest from the hungry eyes surrounding you.
+					<<arousal 200>><<upperstrip>><<exhibitionism3>>
+				<<else>>
+					You gracefully remove your $worn.upper.name, exposing your $worn.under_upper.name. Only one garment protects your chest from the hungry eyes surrounding you.
+					<<arousal 100>><<upperstrip>><<exhibitionism1>>
+				<</if>>
+			<<else>>
+				<<if $player.breastsize gte 3>>
+					You gracefully remove your $worn.upper.name, exposing your <<breasts>>. The exhibition of your breasts makes them feel raw and sensitive.
+					<<arousal 300>><<upperstrip>><<exhibitionism4>>
+				<<elseif $player.gender_appearance isnot "m" and $worn.lower.gender isnot "m">>
+					<<if $player.gender is "m">>
+						You gracefully remove your $worn.upper.name, exposing your <<breasts>>. Your feminine countenance makes your revealed chest feel especially lewd.
+					<<else>>
+						You gracefully remove your $worn.upper.name, exposing your <<breasts>>. You feel your nipples harden in response to being revealed.
+					<</if>>
+					<<arousal 300>><<upperstrip>><<exhibitionism4>>
+				<<else>>
+					You gracefully remove your $worn.upper.name, exposing your <<breasts>>. You feel your nipples harden in response to being revealed.
+					<<arousal 300>><<upperstrip>><<exhibitionism1>>
+				<</if>>
+			<</if>>
+			<<set $danceaction to 0>>
+		<<case "stripLower">>
+			<<if $worn.over_lower.name isnot "naked">>
+				You gracefully remove your $worn.lower.name from below your $worn.over_lower.name. You're careful not to give too much away, but such a lewd gesture thrills you nonetheless.
+				<<arousal 100>><<lowerstrip>><<exhibitionism1>>
+			<<elseif !$worn.under_lower.type.includes("naked")>>
+				You gracefully remove your $worn.lower.name, exposing your $worn.under_lower.name. Being seen in your underwear excites you.
+				<<arousal 300>><<lowerstrip>><<exhibitionism3>>
+			<<else>>
+				You gracefully remove your $worn.lower.name, exposing your <<genitals 1>>.
+				<<if $worn.upper.type.includes("naked") or $worn.over_upper.type.includes("naked")>>
+					You shiver with excitement, your body laid totally bare.
+				<<else>>
+					Your <<allTops>> makes your naked lower half feel particularly conspicuous.
+				<</if>>
+				<<arousal 300>><<lowerstrip>><<exhibitionism5>>
+				<<dance_crossdress_reveal>>
+			<</if>>
+			<<set $danceaction to 0>>
+		<<case "stripUnderOutfit">>
+			You gracefully remove your $worn.under_upper.name, exposing your <<genitals 1>>. You shiver with excitement, now laid totally bare.
+			<<arousal 300>><<underupperstrip>><<exhibitionism5>>
+			<<dance_crossdress_reveal>>
+			<<set $danceaction to 0>>
+		<<case "stripUnderUpper">>
+			<<if (!$worn.upper.type.includes("naked") and $worn.upper.open is 1) and $worn.over_upper.type.includes("naked")>>
+				You gracefully remove your $worn.under_upper.name from beneath your $worn.upper.name. You're careful not to give too much away, but such a lewd gesture thrills you nonetheless.
+				<<arousal 100>><<underupperstrip>><<exhibitionism1>>
+			<<elseif $player.breastsize gte 3>>
+				You gracefully remove your $worn.under_upper.name, <<if $worn.under_upper.type.includes("naked")>>despite them not concealing your <<breasts>> at all.<<else>>exposing your <<breasts>>. The exhibition of your breasts makes them feel raw and sensitive.<</if>>
+				<<arousal 300>><<underupperstrip>><<exhibitionism4>>
+			<<elseif $player.gender_appearance isnot "m" and $worn.under_lower.gender isnot "m">>
+				<<set $danceaction to 0>>
+				<<if $player.gender is "m">>
+					You gracefully remove your $worn.under_upper.name, <<if $worn.under_upper.type.includes("naked")>>despite them not concealing your <<breasts>> at all, you feel more exposed.<<else>>exposing your <<breasts>>. Your feminine countenance makes your revealed chest feel especially lewd.<</if>>
+				<<else>>
+					You gracefully remove your $worn.under_upper.name, <<if $worn.under_upper.type.includes("naked")>>despite them not concealing your <<breasts>> at all, you feel more exposed.<<else>>exposing your <<breasts>>. You feel your nipples harden in response to being revealed.<</if>>
+				<</if>>
+				<<arousal 300>><<underupperstrip>><<exhibitionism4>>
+			<<else>>
+				You gracefully remove your $worn.under_upper.name, <<if $worn.under_upper.type.includes("naked")>>despite them not concealing your <<breasts>> at all, you feel more exposed.<<else>>exposing your <<breasts>>. You feel your nipples harden in response to being revealed.<</if>>
+				<<arousal 300>><<underupperstrip>><<exhibitionism1>>
+			<</if>>
+			<<set $danceaction to 0>>
+		<<case "stripUnderLower">>
+			<<if $worn.under_lower.type.includes("naked")>>
+				<<if (!$worn.lower.type.includes("naked") or !$worn.over_lower.type.includes("naked"))>>
+					You gracefully remove your $worn.under_lower.name from beneath your <<allBottoms>>. You're careful not to give too much away, but such a lewd gesture thrills you nonetheless.
+				<<else>>
+					You gracefully remove your $worn.under_lower.name, despite having your <<genitals 1>> exposed already.
+				<</if>>
+				<<arousal 300>><<underlowerstrip>><<exhibitionism3>>
+			<<elseif !$worn.lower.type.includes("naked") or !$worn.over_lower.type.includes("naked")>>
+				You gracefully remove your $worn.under_lower.name from beneath your <<allBottoms>>. You're careful not to give too much away, but such a lewd gesture thrills you nonetheless.
+				<<arousal 300>><<underlowerstrip>><<exhibitionism3>>
+			<<else>>
+				You gracefully remove your $worn.under_lower.name, exposing your <<genitals 1>>. You shiver with excitement, your body laid totally bare.
+				<<arousal 300>><<underlowerstrip>><<exhibitionism5>>
+				<<dance_crossdress_reveal>>
+			<</if>>
+			<<set $danceaction to 0>>
+	<</switch>>
+<</widget>>
+
+<<widget "cam1payout">>
+	/* Dance Exhibitionism */
+	<<set _payoutStatMod to _args[0]>>
+
+	<<if _args[1] is undefined>>
+		<<set _payoutDuoMod to 1>>
+	<<else>>
+		<<set _payoutDuoMod to _args[1]>>
+	<</if>>
+
+	/* Total Fame */
+	<<set _fame to ($fame.sex + $fame.prostitution + $fame.rape + $fame.bestiality + $fame.exhibitionism + $fame.pregnancy + $fame.impreg + $fame.scrap + $fame.good + $fame.business + $fame.social + $fame.model)>>
+	
+	/* Base */
+	<<set _payout to 3000>>
+	/* Dance Exhibitionism */
+	<<set _payout += (3000 * Math.clamp(_payoutStatMod / 4, 0, 1))>>
+	/* Dance Skill */
+	<<set _payout += (3000 * Math.clamp(currentSkillValue('danceskill') / 1000, 0, 1))>>
+	/* Allure */
+	<<set _payout += (3000 * Math.clamp($allure / (6000 * $alluremod), 0, 1))>>
+	/* Fame */
+	<<set _payout += (3000 * Math.clamp(_fame / 4000, 0, 1))>>
+	
+	<<set $campayout to (_payout * _payoutDuoMod)>>
+<</widget>>
+
+<<widget "cam2payout">>
+	<<if _args[0] is undefined>>
+		<<set _payoutDuoMod to 1>>
+	<<else>>
+		<<set _payoutDuoMod to _args[0]>>
+	<</if>>
+
+	/* Total Fame */
+	<<set _fame to $fame.sex + $fame.prostitution + $fame.rape + $fame.bestiality + $fame.exhibitionism + $fame.pregnancy + $fame.impreg + $fame.scrap + $fame.good + $fame.business + $fame.social + $fame.model>>
+	
+	/* Base */
+	<<set _payout to 6000>>
+	/* Awareness */
+	<<set _payout += (6000 * ($awareness / 1000))>>
+	/* Seduction Skill */
+	<<set _payout += (6000 * Math.clamp($seductionskill / 1000, 0, 1))>>
+	/* Allure */
+	<<set _payout += (6000 * Math.clamp($allure / (6000 * $alluremod), 0, 1))>>
+	/* Fame */
+	<<set _payout += (6000 * Math.clamp(_fame / 4000, 0, 1))>>
+	
+	<<set $campayout to (_payout * _payoutDuoMod)>>
+<</widget>>

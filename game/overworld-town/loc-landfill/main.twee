@@ -39,6 +39,16 @@ You are in the landfill on Elk Street.
 		<<set $dencounter to 0>>
 	<</if>>
 
+	<<if $robinmissing is "landfill" and $robinmistknown>>
+		<<print either(
+			"You call out Robin's name. There's no response.",
+			"You scan the area for Robin, to no avail.",
+			"You try to climb a nearby trash pile for a better view, but you can't see Robin.",
+			"Your voice echoes throughout the landfill as you call for Robin."
+		)>>
+		<br><br>
+	<</if>>
+
 	<<if $stress lt $stressmax and $eventskip is 1>>
 		Within the surrounding hills of waste, you notice a particularly robust pile of trash.
 		<br>
@@ -56,19 +66,10 @@ You are in the landfill on Elk Street.
 				<br><br>
 			<</if>>
 
-		<<link [[Head inside the opening (0:03)|Trash Mammals]]>><<beastNEWinit 3 raccoon>><<pass 3>><</link>><br><br>
+		<<link [[Head inside the opening (0:03)|Trash Mammals]]>><<beastNEWinit 3 raccoon>><<pass 3>><</link>>
+		<br>
 	<</if>>
 <</if>>
-
-<<if $robinmissing is "landfill" and $robinmistknown>>
-	<<print either(
-		"You call out Robin's name. There's no response.",
-		"You scan the area for Robin, to no avail.",
-		"You try to climb a nearby trash pile for a better view, but you can't see Robin.",
-		"Your voice echoes throughout the landfill as you call for Robin."
-	)>>
-<</if>>
-<br><br>
 
 <<set $danger to random(1, 10000)>>
 <<if $stress gte $stressmax>>
@@ -126,7 +127,9 @@ You are in the landfill on Elk Street.
 		<</if>>
 		<<if $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and Time.dayState is "day">>
 			You see Casey scrounging through the garbage heaps occasionally pocketing something or tossing it away.
+			<br>
 			<<link [[Say hello (0:05)|Casey Hello]]>><<pass 5>><</link>>
+			<br>
 		<</if>>
 	<</if>>
 	<<if $trash gte 1>>

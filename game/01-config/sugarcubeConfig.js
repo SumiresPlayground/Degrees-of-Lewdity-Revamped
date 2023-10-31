@@ -64,6 +64,7 @@ window.StartConfig = {
 	version: "0.4.2.7",
 	versionName: "",
 	sneaky: false,
+	cm: true,
 };
 
 /* convert version string to numeric value */

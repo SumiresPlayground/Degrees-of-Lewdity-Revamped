@@ -114,6 +114,30 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 	<</if>>
 
+	<<if $prutigender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $prutigender to "f">>
+		<<else>>
+			<<set $prutigender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $prutigenitals is undefined>>
+		<<if $prutigender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $prutigenitals to "penis">>
+			<<else>>
+				<<set $prutigenitals to "vagina">>
+			<</if>>
+		<<elseif $prutigender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $prutigenitals to "vagina">>
+			<<else>>
+				<<set $prutigenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
 
 	<!-- Put basegame and new beast types here-->
 	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>>
@@ -249,6 +273,7 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 		<<if $horse gte 6>>
 			<<set $transformationParts.horse.tail to "default">>
+			<<set $transformationParts.traits.kicks to "default">>
 			<<set $hastail to "true">>
 			<<set $thintail to "true">>
 		<</if>>
@@ -779,4 +804,52 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<if $beedisable is undefined>>
 		<<set $beedisable to "f">>
 	<</if>>
+
+	<<if $prutimonster is undefined>>
+		<<set $prutimonster to 2>>
+	<</if>>
+
+	<<if $studyBooks is undefined>>
+		<<set $studyBooks to {}>>
+		<<set $studyBooks.rented to "none">>
+		<<set $studyBooks.stolen to {}>>
+		<<set $studyBooks.stolen.count to 0>>
+		<<set $studyBooks.stolen.science to 0>>
+		<<set $studyBooks.stolen.maths to 0>>
+		<<set $studyBooks.stolen.english to 0>>
+		<<set $studyBooks.stolen.history to 0>>
+		<<set $studyBooks.stolen.RaulAndJanet to 0>>
+		<<set $studyBooks.stolen.pinch to 0>>
+	<</if>>
+
+	<<if $studyBooks.stolen is "none">>
+		<<set $studyBooks.stolen to {}>>
+		<<set $studyBooks.stolen.count to 0>>
+		<<set $studyBooks.stolen.science to 0>>
+		<<set $studyBooks.stolen.maths to 0>>
+		<<set $studyBooks.stolen.english to 0>>
+		<<set $studyBooks.stolen.history to 0>>
+		<<set $studyBooks.stolen.RaulAndJanet to 0>>
+		<<set $studyBooks.stolen.pinch to 0>>
+	<</if>>
+
+	<<if $npchealthmult is undefined>>
+		<<set $npchealthmult to 1>>
+	<</if>>
+
+	<<if $npcarousalmult is undefined>>
+		<<set $npcarousalmult to 1>>
+	<</if>>
+
+	<<if $beasthealthmult is undefined>>
+		<<set $beasthealthmult to 1>>
+	<</if>>
+
+	<<if $beastarousalmult is undefined>>
+		<<set $beastarousalmult to 1>>
+	<</if>>
+	
+	<<if $tiredness is null>>
+		<<set $tiredness to 0>>
+	<</if>>	
 <</widget>>
