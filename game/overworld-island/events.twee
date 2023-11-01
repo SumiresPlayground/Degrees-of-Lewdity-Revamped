@@ -928,11 +928,11 @@ You surrender to Pruti, not wanting to anger <<bhim>> any further. The beast's e
 		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 3)>>
 		<<makeAbomination _wraithtentacles 8 "tentacle" "pale" true>>
 	<<else>>
-		<<set $enemyhealthmax to 1500>>
-		<<set $enemyhealth +to 1500>>
+		<<set $enemyhealthmax to 1200>>
+		<<set $enemyhealth to 1200>>
 		<<for _i to 0; _i lt $tentacles.active; _i++>>
-			<<set $enemyhealthmax += ($tentacles[_i].tentaclehealth * 15)>>
-			<<set $enemyhealth += ($tentacles[_i].tentaclehealth * 15)>>
+			<<set $enemyhealthmax += ($tentacles[_i].tentaclehealth * 0.5) + 120>>
+			<<set $enemyhealth += ($tentacles[_i].tentaclehealth * 0.5) + 120>>
 			<<set $enemyarousalmax += $tentacles[_i].tentaclehealth>>
 		<</for>>
 		<<set $enemyanger += 500>>
