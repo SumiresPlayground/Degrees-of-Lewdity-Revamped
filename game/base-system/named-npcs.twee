@@ -1063,6 +1063,47 @@ Zohar
 		<</if>>
 	<</if>>
 
+	<<if $NPCList[_npcno].type is "cat">>
+		<<set $beastname to "pruti">>
+		<<set $NPCList[_npcno].lefthand to "none">>
+		<<set $NPCList[_npcno].righthand to "none">>
+		<<set $NPCList[_npcno].stance to "approach">>
+		<<if $daily.pMonsterRoll isnot undefined and $prutimonster is 1>>
+			<<if $daily.pMonsterRoll is true>>
+				<<set $NPCList[_npcno].monster to "monster">>
+				<<set $monster to 1>>
+				<<set $NPCList[_npcno].type to ($NPCList[0].pronoun is "f" ? "catgirl" : "catboy")>>
+				<<set $NPCList[_npcno].lefthand to 0>>
+				<<set $NPCList[_npcno].righthand to 0>>
+				<<run delete $NPCList[_npcno].claws>>
+			<<else>>
+				<<set $NPCList[_npcno].monster to 0>>
+				<<set $NPCList[_npcno].pronoun to "i">>
+				<<set $NPCList[_npcno].claws to "claws">>
+			<</if>>
+		<<elseif $prutimonster gte 1 or $bestialitydisable is "t">>
+			<<if ($monsterchance gte $rng and ($hallucinations gte 1 or $monsterhallucinations is "f")) or ($prutimonster is 2) or ($bestialitydisable is "t")>>
+				<<set $daily.pMonsterRoll to true>>
+				<<set $NPCList[_npcno].monster to "monster">>
+				<<set $monster to 1>>
+				<<set $NPCList[_npcno].type to ($NPCList[0].pronoun is "f" ? "catgirl" : "catboy")>>
+				<<set $NPCList[_npcno].lefthand to 0>>
+				<<set $NPCList[_npcno].righthand to 0>>
+				<<run delete $NPCList[_npcno].claws>>
+			<<else>>
+				<<set $daily.pMonsterRoll to false>>
+				<<set $NPCList[_npcno].monster to 0>>
+				<<set $NPCList[_npcno].pronoun to "i">>
+				<<set $NPCList[_npcno].claws to "claws">>
+			<</if>>
+		<<else>>
+			<<set $daily.pMonsterRoll to false>>
+			<<set $NPCList[_npcno].monster to 0>>
+			<<set $NPCList[_npcno].pronoun to "i">>
+			<<set $NPCList[_npcno].claws to "claws">>
+		<</if>>
+	<</if>>
+
 	<<if $enemyno lt 6>><<set $enemyno += 1>><</if>>
 
 	<<if $NPCList[0].monster is "monster">>
