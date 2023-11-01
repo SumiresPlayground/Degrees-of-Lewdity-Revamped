@@ -930,12 +930,25 @@ You surrender to Pruti, not wanting to anger <<bhim>> any further. The beast's e
 	<<neutral 1>>
 	<<molested>>
 	<<maninit "beast">><<npcexpose>>
-	<<set $enemyhealthmax to 500>>
-	<<set $enemyhealth to 500>>
-	<<set $enemyarousalmax to 1300>>
-	<<set $enemyanger += ($NPCName[$NPCNameList.indexOf("Pruti")].love * 5)>>
-	<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 2)>>
-	<<makeAbomination _randomtentacles 8 "tentacle" "pale" true>>
+	<<if $ghost gte 1>>
+		<<set $enemyhealthmax to 800>>
+		<<set $enemyhealth to 800>>
+		<<set $enemyarousalmax to 1500>>
+		<<set $enemyanger += ($NPCName[$NPCNameList.indexOf("Pruti")].love * 5)>>
+		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 3)>>
+		<<makeAbomination _wraithtentacles 8 "tentacle" "pale" true>>
+	<<else>>
+		<<set $enemyhealthmax to 1200>>
+		<<set $enemyhealth to 1200>>
+		<<for _i to 0; _i lt $tentacles.active; _i++>>
+			<<set $enemyhealthmax += ($tentacles[_i].tentaclehealth * 0.5) + 120>>
+			<<set $enemyhealth += ($tentacles[_i].tentaclehealth * 0.5) + 120>>
+			<<set $enemyarousalmax += $tentacles[_i].tentaclehealth>>
+		<</for>>
+		<<set $enemyanger += 500>>
+		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 2)>>
+		<<makeAbomination _wraithtentacles 16 "tentacle" "pale">>
+	<</if>>
 <</if>>
 
 <br>
