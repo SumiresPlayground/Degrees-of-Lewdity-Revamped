@@ -23,7 +23,7 @@
 	<!-- Type needs to conform to beast type: wolf, dog, etc. -->
 	<<set _tpe to ["human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "wolf", "human", "human", "human", "human", "hawk", "human", "human", "human", "human", "human", "human", "human", "cat"]>>
 
-	<<set _swi to ["a","a","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","t","t","t","a"]>>
+	<<set _swi to ["a","a","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","t","t","t","t"]>>
 
 	<<for _i to 0; _i lt $NPCName.length; _i++>>
 
@@ -46,6 +46,8 @@
 			<<set $NPCName[_i].claws to "claws">> <!-- Adjusted Wolf and Hawk for the changes converting $claws to .claws -->
 		<<elseif _tpe[_i] is "hawk">>
 			<<set $NPCName[_i].claws to "talons">>
+		<<elseif _tpe[_i] is "cat">>
+			<<set $NPCName[_i].claws to "claws">>
 		<</if>>
 	<</for>>
 	<<generateNPCNameHairAndEyeColors true>>
@@ -134,7 +136,7 @@
 			"taylor": {nam : "Taylor", title: "explorer", insecurity: "weak", teen: 1},
 			"casey": {nam : "Casey", title: "delinquent", insecurity: "weak", teen: 1},
 			"salem": {nam : "Salem", title: "initiate", insecurity: "skill", teen: 1},
-			"pruti": {nam : "Pruti", title: "witch", insecurity: "skill", teen: 1},
+			"pruti": {nam : "Pruti", title: "witch", insecurity: "skill", teen: 1, type: "cat", claws: "claws"},
 		}>>
 		<<for _npc range Object.keys(_newNNPCs)>>
 			<<if !$NPCNameList.includes(_newNNPCs[_npc].nam)>>
