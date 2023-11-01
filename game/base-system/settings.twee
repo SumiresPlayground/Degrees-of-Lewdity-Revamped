@@ -86,7 +86,7 @@
 	<<set $incompletePregnancyDisable to "t">>
 	<<set $cycledisable to "f">>
 	<<set $pregnancytype to "realistic">>
-	<<set $rentmod to 1>>
+	<<set $baileyrentmod to 1>>
 	<<set $condomLvl to 3>>
 	<<set $condomChance to 60>>
 	<<set $condomUseChanceRape to 33>>
@@ -397,7 +397,7 @@
 					<<set $incompletePregnancyDisable to "t">>
 					<<set $cycledisable to "f">>
 					<<set $pregnancytype to "realistic">>
-					<<set $rentmod to 1>>
+					<<set $baileyrentmod to 1>>
 					<<set $condomLvl to 3>>
 					<<set $condomChance to 60>>
 					<<set $condomUseChanceRape to 33>>
@@ -469,7 +469,7 @@
 						<<set $incompletePregnancyDisable to _incompletePregnancyDisable>>
 						<<npcPregnancyUpdater>>
 					<</if>>
-					<<if ($feats.locked or ($cheatdisabletoggle is "t" and $rentmod gte 1)) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
+					<<if ($feats.locked or ($cheatdisabletoggle is "t" and ($baileyrentmod gte 1 and $lakerentmod gte 1))) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
 						<<settingsExitFunction>>
 					<<else>><!-- confirm cheats -->
 						<<replace #settingsExit>><<settingsExitConfirm>><</replace>>
@@ -479,7 +479,7 @@
 		<<case "custom">>
 				<div><span class="gold bold">Current Settings:</span> <i style="color:var(--000);">Customisable</i></div>
 				<<button "Start Game!">>
-					<<if ($feats.locked or ($cheatdisabletoggle is "t" and $rentmod gte 1)) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
+					<<if ($feats.locked or ($cheatdisabletoggle is "t" and ($baileyrentmod gte 1 and $lakerentmod gte 1))) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
 						<<settingsExitFunction>>
 					<<else>><!-- confirm cheats -->
 						<<replace #settingsExit>><<settingsExitConfirm>><</replace>>
@@ -490,7 +490,7 @@
 				<<button "Start Game!">>
 						/*Rerolls all settings*/
 					<<presets "randomize" "characterSettings" `randomizeSettings()`>>
-					<<if ($feats.locked or ($cheatdisabletoggle is "t" and $rentmod gte 1)) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
+					<<if ($feats.locked or ($cheatdisabletoggle is "t" and ($baileyrentmod gte 1 and $lakerentmod gte 1))) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
 						<<settingsExitFunction>>
 					<<else>><!-- confirm cheats -->
 						<<replace #startOptions>><<startOptions>><</replace>>
@@ -500,7 +500,7 @@
 		<</switch>>
 	<<else>>
 		<<button "Save changes">>
-			<<if ($feats.locked or ($cheatdisabletoggle is "t" and $rentmod gte 1)) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
+			<<if ($feats.locked or ($cheatdisabletoggle is "t" and ($baileyrentmod gte 1 and $lakerentmod gte 1))) and ($feats.soft or ($gamemode isnot "soft" and $alluremod gte 1)) and ($feats.pregnancyLocked or ($humanPregnancyMonths gte 3 and $wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $pregnancytype isnot "silly")>>
 				<<settingsExitFunction>>
 			<<else>><!-- confirm cheats -->
 				<<replace #settingsExit>><<settingsExitConfirm>><</replace>>
@@ -515,7 +515,7 @@
 		<span class="red">Certain feats have been disabled due to randomly generated settings.</span>
 		<ul>
 			<<if $cheatdisabletoggle is "f">><li>Enabled cheats: disables all feats.</li><</if>>
-			<<if $rentmod lt 1>><li>Lowered rent: disables all feats.</li><</if>>
+			<<if $baileyrentmod lt 1>><li>Lowered rent: disables all feats.</li><</if>>
 			<<if !$feats.soft and $gamemode is "soft">><li>Soft mode: disables some feats.</li><</if>>
 			<<if !$feats.soft and $alluremod lt 1>><li>Lowered allure: disables some feats.</li><</if>>
 			<<if !$feats.pregnancyLocked and $humanPregnancyMonths lt 3>><li>Human pregnancy set to under 3 months: disables some pregnancy feats.</li><</if>>
@@ -532,8 +532,8 @@
 			<<if $alluremod lt 1>>
 				<<set $alluremod to 1>>
 			<</if>>
-			<<if $rentmod lt 1>>
-				<<set $rentmod to 1>>
+			<<if $baileyrentmod lt 1>>
+				<<set $baileyrentmod to 1>>
 			<</if>>
 			<<if !$feats.pregnancyLocked and $humanPregnancyMonths lt 3>>
 				<<set $humanPregnancyMonths to 3>>
@@ -561,7 +561,7 @@
 
 		<ul>
 			<<if $cheatdisabletoggle is "f">><li>Enabled cheats: disables all feats.</li><</if>>
-			<<if $rentmod lt 1>><li>Lowered rent: disables all feats.</li><</if>>
+			<<if $baileyrentmod lt 1>><li>Lowered rent: disables all feats.</li><</if>>
 			<<if !$feats.soft and $gamemode is "soft">><li>Soft mode: disables some feats.</li><</if>>
 			<<if !$feats.soft and $alluremod lt 1>><li>Lowered allure: disables some feats</li><</if>>
 			<<if !$feats.pregnancyLocked and $humanPregnancyMonths lt 3>><li>Human pregnancy set to under 3 months: disables some pregnancy feats.</li><</if>>
@@ -578,8 +578,8 @@
 			<<if $alluremod lt 1>>
 				<<set $alluremod to 1>>
 			<</if>>
-			<<if $rentmod lt 1>>
-				<<set $rentmod to 1>>
+			<<if $baileyrentmod lt 1>>
+				<<set $baileyrentmod to 1>>
 			<</if>>
 			<<if !$feats.pregnancyLocked and $humanPregnancyMonths lt 3>>
 				<<set $humanPregnancyMonths to 3>>
@@ -637,7 +637,7 @@
 	<<if !$ironmanmode>>
 		<<set $cheatdisable to $cheatdisabletoggle>>
 	<</if>>
-	<<if $cheatdisable is "f" or $rentmod lt 1>>
+	<<if $cheatdisable is "f" or $baileyrentmod lt 1>>
 		<<set $feats.locked to true>>
 	<</if>>
 	<<unset $cheatdisabletoggle>>
@@ -1880,13 +1880,22 @@
 			<div class="settingsHeader">
 				Bailey's Rent
 			</div>
-			<div class="settingsToggleItemWide">
+			<div class="settingsToggleItem">
 				<div class="small-description">
 					Modifies the amount of money Bailey demands weekly. 100% is default. <br>
 					<span class="red">Setting this below 100% will prevent feats being earned in that save.</span>
 				</div>
 				<div class="ironman-slider" id="sliderRentMode">
-					<<numberslider "$rentmod" $rentmod 0.1 10 0.1 $ironmanmode>>
+					<<numberslider "$baileyrentmod" $baileyrentmod 0.1 10 0.1 $ironmanmode>>
+				</div>
+			</div>
+			<div class="settingsToggleItem">
+				<div class="small-description">
+					Modifies the amount of money the utility bills charges weekly. 100% is default. <br>
+					<span class="red">Setting this below 100% will prevent feats being earned in that save.</span>
+				</div>
+				<div class="ironman-slider" id="sliderRentMode">
+					<<numberslider "$lakerentmod" $lakerentmod 0.1 10 0.1 $ironmanmode>>
 				</div>
 			</div>
 		</div>

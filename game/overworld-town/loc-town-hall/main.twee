@@ -165,34 +165,52 @@ It's your turn. The <<person1>><<person>> waits.
 		<<lakehouseinit>>
         <<if $lakehouse.billsphase is 0>>
             <<if $money gte 500000 and $lakehouse.robin is 0>>
-                <<link [[Pay Bills (£5000)|Town Hall Pay Bills]]>><<set $money -= 500000>><<set $lakehouse.billsphase to 1>><</link>>
+                <<set _rent to 500000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                <<link [[Pay Bills (£" + _rentstring + ")|Town Hall Pay Bills]]>><<set $money -= _rent>><<set $lakehouse.billsphase to 1>><</link>>
                 <br>
             <<elseif $money gte 800000 and $lakehouse.robin is 1>>
-                <<link [[Pay Bills (£8000)|Town Hall Pay Bills]]>><<set $money -= 800000>><<set $lakehouse.billsphase to 1>><</link>>
+                <<set _rent to 800000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                <<link [[Pay Bills (£" + _rentstring + ")|Town Hall Pay Bills]]>><<set $money -= _rent>><<set $lakehouse.billsphase to 1>><</link>>
                 <br>
             <<elseif $lakehouse.robin is 0>>
-                You don't have £5000 to pay your bills.
+                <<set _rent to 500000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                You don't have <<printmoney _rent>> to pay your bills.
             <<else>>
-                You don't have £8000 to pay your bills.
+                <<set _rent to 800000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                You don't have <<printmoney _rent>> to pay your bills.
             <</if>>
         <<elseif $lakehouse.billsphase gte 4>>
             <<if $money gte 2000000 and $lakehouse.robin is 0>>
-                <<link [[Repossess your house (£20000)|Town Hall Pay Bills]]>><<set $money -= 2000000>><<set $lakehouse.billsphase to 0>><<set $lakehouse.bills to 7>><</link>>
+                <<set _rent to 2000000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                <<link [[Repossess your house (£" + _rentstring + ")|Town Hall Pay Bills]]>><<set $money -= _rent>><<set $lakehouse.billsphase to 0>><<set $lakehouse.bills to 7>><</link>>
                 <br>
             <<else>>
-                You don't have £20000 to repossess your house.
+                <<set _rent to 2000000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                You don't have <<printmoney _rent>> to repossess your house.
             <</if>>
         <<elseif $lakehouse.billsphase gte 2>>
             <<if $money gte 1000000 and $lakehouse.robin is 0>>
-                <<link [[Pay Overdue Bills (£10000)|Town Hall Pay Overdue Bills]]>><<set $money -= 1000000>><<set $lakehouse.billsphase to 1>><</link>>
+                <<set _rent to 1000000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                <<link [[Pay Overdue Bills (£" + _rentstring + ")|Town Hall Pay Overdue Bills]]>><<set $money -= _rent>><<set $lakehouse.billsphase to 1>><</link>>
                 <br>
             <<elseif $money gte 1600000 and $lakehouse.robin is 1>>
-                <<link [[Pay Overdue Bills (£16000)|Town Hall Pay Overdue Bills]]>><<set $money -= 1600000>><<set $lakehouse.billsphase to 1>><</link>>
+                <<set _rent to 1600000 * $lakerentmod>>
+                <<set _rentstring to _rent / 100>>
+                <<link [["Pay Overdue Bills (£" + _rentstring + ")"|Town Hall Pay Overdue Bills]]>><<set $money -= _rent>><<set $lakehouse.billsphase to 1>><</link>>
                 <br>
             <<elseif $lakehouse.robin is 0>>
-                You don't have £10000 to pay your bills.
+                <<set _rent to 1000000 * $lakerentmod>>
+                You don't have <<printmoney _rent>> to pay your bills.
             <<else>>
-                You don't have £16000 to pay your bills.
+                <<set _rent to 1600000 * $lakerentmod>>
+                You don't have <<printmoney _rent>> to pay your bills.
             <</if>>
         <</if>>
     <</if>>
