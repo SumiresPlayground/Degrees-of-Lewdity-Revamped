@@ -822,15 +822,45 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $studyBooks.stolen.pinch to 0>>
 	<</if>>
 
-	<<if $studyBooks.stolen is "none">>
+	<<if $studyBooks.stolen is "none" or $studyBooks.stolen is "science" or $studyBooks.stolen is "maths" or $studyBooks.stolen is "English" or $studyBooks.stolen is "history" or $studyBooks.stolen is "Raul and Janet" or $studyBooks.stolen is "Pinch">>
 		<<set $studyBooks.stolen to {}>>
 		<<set $studyBooks.stolen.count to 0>>
-		<<set $studyBooks.stolen.science to 0>>
-		<<set $studyBooks.stolen.maths to 0>>
-		<<set $studyBooks.stolen.english to 0>>
-		<<set $studyBooks.stolen.history to 0>>
-		<<set $studyBooks.stolen.RaulAndJanet to 0>>
-		<<set $studyBooks.stolen.pinch to 0>>
+		<<if $studyBooks.stolen is "science">>
+			<<set $studyBooks.stolen.science to 1>>
+			<<set $studyBooks.stolen.count to 1>>
+		<<else>>
+			<<set $studyBooks.stolen.science to 0>>
+		<</if>>
+		<<if $studyBooks.stolen is "maths">>
+			<<set $studyBooks.stolen.maths to 1>>
+			<<set $studyBooks.stolen.count to 1>>
+		<<else>>
+			<<set $studyBooks.stolen.maths to 0>>
+		<</if>>
+		<<if $studyBooks.stolen is "English">>
+			<<set $studyBooks.stolen.english to 1>>
+			<<set $studyBooks.stolen.count to 1>>
+		<<else>>
+			<<set $studyBooks.stolen.english to 0>>
+		<</if>>
+		<<if $studyBooks.stolen is "history">>
+			<<set $studyBooks.stolen.history to 1>>
+			<<set $studyBooks.stolen.count to 1>>
+		<<else>>
+			<<set $studyBooks.stolen.history to 0>>
+		<</if>>
+		<<if $studyBooks.stolen is "Raul and Janet">>
+			<<set $studyBooks.stolen.RaulAndJanet to 1>>
+			<<set $studyBooks.stolen.count to 1>>
+		<<else>>
+			<<set $studyBooks.stolen.RaulAndJanet to 0>>
+		<</if>>
+		<<if $studyBooks.stolen is "Pinch">>
+			<<set $studyBooks.stolen.pinch to 1>>
+			<<set $studyBooks.stolen.count to 1>>
+		<<else>>
+			<<set $studyBooks.stolen.pinch to 0>>
+		<</if>>
 	<</if>>
 
 	<<if $npchealthmult is undefined>>
