@@ -143,6 +143,6 @@ function initOverLower() {
 	setup.moddedClothes.over_lower = [];
 
 	setup.moddedClothes.over_lower.forEach((x, i) => (x.index = setup.clothes.over_lower.length + i));
-	setup.clothes.over_lower.push(...setup.moddedClothes.over_lower);
+	setup.clothes.over_lower = setup.clothes.over_lower.concat(setup.moddedClothes.over_lower);
 }
 window.initOverLower = initOverLower;

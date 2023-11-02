@@ -335,7 +335,7 @@ function initHands() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.hands = [
-		{index: 10,
+		{index: 1,
 		name: "dragonstone ring",
 		name_cap: "Dragonstone Ring",
 		variable: "dragonstone ring",
@@ -363,7 +363,7 @@ function initHands() {
 		accIcon: 0,
 		mainImage:0
 	},
-		{index: 11,
+		{index: 2,
 		name: "tentacle gloves",
 		name_cap: "Tentacle gloves",
 		variable: "tentacle",
@@ -394,7 +394,7 @@ function initHands() {
 		leftImage:1,
 		rightImage:1
 	},
-		{index: 12,
+		{index: 3,
 		name: "scuffed ring",
 		name_cap: "Scuffed Ring",
 		variable: "scuffed ring",
@@ -424,6 +424,6 @@ function initHands() {
 	}];
 
 	setup.moddedClothes.hands.forEach((x, i) => (x.index = setup.clothes.hands.length + i));
-	setup.clothes.hands.push(...setup.moddedClothes.hands);
+	setup.clothes.hands = setup.clothes.hands.concat(setup.moddedClothes.hands);
 }
 window.initHands = initHands;

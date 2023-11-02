@@ -1442,7 +1442,7 @@ function initUnderUpper() {
 	*/
 	setup.moddedClothes.under_upper = [
 		{
-			index: 33,
+			index: 1,
 			name: "tentacle top",
 			name_cap: "Tentacle suit",
 			variable: "tentacle",
@@ -1484,7 +1484,7 @@ function initUnderUpper() {
 			accIcon: 0,
 		},
 		
-			{index: 34,
+			{index: 2,
 			name: "mushroom top",
 			name_cap: "Mushroom top",
 			variable: "mushroom2",
@@ -1527,6 +1527,6 @@ function initUnderUpper() {
 	];
 
 	setup.moddedClothes.under_upper.forEach((x, i) => (x.index = setup.clothes.under_upper.length + i));
-	setup.clothes.under_upper.push(...setup.moddedClothes.under_upper);
+	setup.clothes.under_upper = setup.clothes.under_upper.concat(setup.moddedClothes.under_upper);
 }
 window.initUnderUpper = initUnderUpper;

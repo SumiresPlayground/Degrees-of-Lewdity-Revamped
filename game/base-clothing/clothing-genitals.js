@@ -517,6 +517,6 @@ function initGenitals() {
 	setup.moddedClothes.genitals = [];
 
 	setup.moddedClothes.genitals.forEach((x, i) => (x.index = setup.clothes.genitals.length + i));
-	setup.clothes.genitals.push(...setup.moddedClothes.genitals);
+	setup.clothes.genitals = setup.clothes.genitals.concat(setup.moddedClothes.genitals);
 }
 window.initGenitals = initGenitals;

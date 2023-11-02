@@ -1925,7 +1925,7 @@ function initUnderLower() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.under_lower = [
-		{index: 42,
+		{index: 1,
 			name: "tentacle bottom",
 			name_cap: "Tentacle suit bottom",
 			variable: "tentacle",
@@ -1970,7 +1970,7 @@ function initUnderLower() {
 			outfitSecondary: ["under_upper","tentacle"]
 		},
 		
-			{index: 43,
+			{index: 2,
 			name: "mushroom bottoms",
 			name_cap: "Mushroom bottoms",
 			variable: "mushroom2",
@@ -2018,6 +2018,6 @@ function initUnderLower() {
 	];
 
 	setup.moddedClothes.under_lower.forEach((x, i) => (x.index = setup.clothes.under_lower.length + i));
-	setup.clothes.under_lower.push(...setup.moddedClothes.under_lower);
+	setup.clothes.under_lower = setup.clothes.under_lower.concat(setup.moddedClothes.under_lower);
 }
 window.initUnderLower = initUnderLower;

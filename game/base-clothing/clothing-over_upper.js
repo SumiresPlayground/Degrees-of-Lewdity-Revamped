@@ -140,6 +140,6 @@ function initOverUpper() {
 	setup.moddedClothes.over_upper = [];
 
 	setup.moddedClothes.over_upper.forEach((x, i) => (x.index = setup.clothes.over_upper.length + i));
-	setup.clothes.over_upper.push(...setup.moddedClothes.over_upper);
+	setup.clothes.over_upper = setup.clothes.over_upper.concat(setup.moddedClothes.over_upper);
 }
 window.initOverUpper = initOverUpper;

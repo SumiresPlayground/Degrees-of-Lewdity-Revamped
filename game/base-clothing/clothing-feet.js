@@ -933,7 +933,7 @@ function initFeet() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.feet = [
-		{index: 31,
+		{index: 1,
 		name: "tentacle heels",
 		name_cap: "Tentacle heels",
 		variable: "tentacle",
@@ -962,7 +962,7 @@ function initFeet() {
 		accIcon: 0
 	},
 	
-		{index: 32,
+		{index: 2,
 		name: "mushroom shoes partial",
 		name_cap: "Mushroom shoes partial",
 		variable: "mushroom3",
@@ -991,7 +991,7 @@ function initFeet() {
 		accIcon: 0
 	},
 		
-		{index: 33,
+		{index: 3,
 		name: "mushroom shoes",
 		name_cap: "Mushroom shoes",
 		variable: "mushroom4",
@@ -1021,6 +1021,6 @@ function initFeet() {
 	}],
 
 	setup.moddedClothes.feet.forEach((x, i) => (x.index = setup.clothes.feet.length + i));
-	setup.clothes.feet.push(...setup.moddedClothes.feet);
+	setup.clothes.feet = setup.clothes.feet.concat(setup.moddedClothes.feet);
 }
 window.initFeet = initFeet;
