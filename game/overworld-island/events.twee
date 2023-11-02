@@ -799,14 +799,24 @@ Pruti leads you back through the door of the hut and locks you back into your pl
 
 :: Witch Run 
 <<npc "Pruti">>
-You take start to sprint and try to escape from Pruti. Thorns and branches scratch at you, cutting open your flesh and causing cotton to seep from your wounds.
-<br><br>
-You make it to Pruti's hut and frantically bar the door. It doesn't take long for the door to start banging as Pruti yells from the other side. "You better open up this door right now, doll! You don't want to get me angry. I'll give you to the count of three!"
-<br><br>
-<<link [[Open the door|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
-<br>
-<<link [[Look for a way to escape|Witch Search]]>><<pass 120>><<endevent>><</link>>
-
+<<set $rng to random(1,100)>>
+<<if $rng gte 20>>
+	You take start to sprint and try to escape from Pruti. Thorns and branches scratch at you, cutting open your flesh and causing cotton to seep from your wounds.
+	<br><br>
+	A beast crashes to the ground before you, before standing high on its hind legs. <<bHis>> body seems all sorts of wrong. Claws match oddly animalistic paws as <<bhis>> body sprouts fur all the way across. <<bHis>> fangs are bared sharp and <<bhis>> animalistic eyes glare at you a brilliant yellow. "You're being a bad doll. I think I need to punish you..." It comes out as a gutteral growl as Pruti's mostly animalistic body twitches and <<bhis>> pupils shake unsteadily. "Surrender now... Before I tear you apart, little doll."
+	<br><br>
+	<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+	<br>
+	<<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
+<<else>>
+	You take start to sprint and try to escape from Pruti. Thorns and branches scratch at you, cutting open your flesh and causing cotton to seep from your wounds.
+	<br><br>
+	You make it to Pruti's hut and frantically bar the door. It doesn't take long for the door to start banging as Pruti yells from the other side. "You better open up this door right now, doll! You don't want to get me angry. I'll give you to the count of three!"
+	<br><br>
+	<<link [[Open the door|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+	<br>
+	<<link [[Look for a way to escape|Witch Search]]>><<endevent>><</link>>
+<</if>>
 
 :: Witch Search
 You search around the hut for anything at all that could be of use.
@@ -920,12 +930,25 @@ You surrender to Pruti, not wanting to anger <<bhim>> any further. The beast's e
 	<<neutral 1>>
 	<<molested>>
 	<<maninit "beast">><<npcexpose>>
-	<<set $enemyhealthmax to 500>>
-	<<set $enemyhealth to 500>>
-	<<set $enemyarousalmax to 1300>>
-	<<set $enemyanger += ($NPCName[$NPCNameList.indexOf("Pruti")].love * 5)>>
-	<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 2)>>
-	<<makeAbomination _randomtentacles 8 "tentacle" "pale" true>>
+	<<if $ghost gte 1>>
+		<<set $enemyhealthmax to 800>>
+		<<set $enemyhealth to 800>>
+		<<set $enemyarousalmax to 1500>>
+		<<set $enemyanger += ($NPCName[$NPCNameList.indexOf("Pruti")].love * 5)>>
+		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 3)>>
+		<<makeAbomination _wraithtentacles 8 "tentacle" "pale" true>>
+	<<else>>
+		<<set $enemyhealthmax to 1200>>
+		<<set $enemyhealth to 1200>>
+		<<for _i to 0; _i lt $tentacles.active; _i++>>
+			<<set $enemyhealthmax += ($tentacles[_i].tentaclehealth * 0.5) + 120>>
+			<<set $enemyhealth += ($tentacles[_i].tentaclehealth * 0.5) + 120>>
+			<<set $enemyarousalmax += $tentacles[_i].tentaclehealth>>
+		<</for>>
+		<<set $enemyanger += 500>>
+		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 2)>>
+		<<makeAbomination _wraithtentacles 16 "tentacle" "pale">>
+	<</if>>
 <</if>>
 
 <br>
