@@ -288,10 +288,10 @@
 
 	<<for _plantType range $plants_known>>
 		<br>
-		<<set $_plant to setup.plants[_plantType]>>
-		<<if $_plant.season.includes(Time.season) or (_location is "garden" and $alex_greenhouse gte 3)>>
+		<<set _plant to setup.plants[_plantType]>>
+		<<if _plant.season.includes(Time.season) or (_location is "garden" and $alex_greenhouse gte 3)>>
 			/* comparing soil types; check if target bed is compatible with the seed's soil type */
-			<<if $_plant.bed is _plantbed.bed>>
+			<<if _plant.bed is _plantbed.bed>>
 				<<switch _plantbed.size>>
 					<<case "small">><<set _passTime to 30>>
 					<<case "medium">><<set _passTime to 90>>
@@ -299,19 +299,19 @@
 				<</switch>>
 				<<set $_timeString to getTimeString(_passTime)>>
 				<<capture _passTime _plantbed _plantType>>
-					<<if $options.images is 1 and $_plant.icon>>
-						<img class="tending_icon" @src="`img/misc/icon/tending/` + $_plant.icon">
+					<<if $options.images is 1 and _plant.icon>>
+						<img class="tending_icon" @src="`img/misc/icon/tending/` + _plant.icon">
 					<</if>>
-					<<link "Plant $_plant.plural ($_timeString)" $passage>><<pass _passTime>><<run plantSeedsInPlot(_plantbed, _plantType)>><</link>>
+					<<link "Plant _plant.plural ($_timeString)" $passage>><<pass _passTime>><<run plantSeedsInPlot(_plantbed, _plantType)>><</link>>
 				<</capture>>
 				<<if $statdisable is "f">>
-					<span class="orange">(<<print $_plant.days>> days)</span>
+					<span class="orange">(<<print _plant.days>> days)</span>
 				<</if>>
 			<<else>>
-				<span class="blue"><<print $_plant.plural.toLocaleUpperFirst()>> only grow in <<print $_plant.bed>>.</span>
+				<span class="blue"><<print _plant.plural.toLocaleUpperFirst()>> only grow in <<print _plant.bed>>.</span>
 			<</if>>
 		<<else>>
-			<<tending_season_notice $_plant>>
+			<<tending_season_notice _plant>>
 		<</if>>
 
 	<</for>>
@@ -589,9 +589,9 @@
 <</widget>>
 
 <<widget "tending_season_notice">>
-	<<set $_plant to _args[0]>>
+	<<set _plant to _args[0]>>
 	<span class="blue">
-		<<set $_seasons to formatList($_plant.season)>>
-		<<print $_plant.plural.toLocaleUpperFirst()>> can only be planted in $_seasons.
+		<<set $_seasons to formatList(_plant.season)>>
+		<<print _plant.plural.toLocaleUpperFirst()>> can only be planted in $_seasons.
 	</span>
 <</widget>>
