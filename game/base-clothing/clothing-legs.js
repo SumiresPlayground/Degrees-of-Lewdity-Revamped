@@ -945,7 +945,7 @@ function initLegs() {
 		}
 	];
 
-	setup.moddedClothes.legs.forEach((x, i) => (x.index = setup.clothes.legs.length + i));
-	setup.clothes.legs = setup.clothes.legs.concat(setup.moddedClothes.legs);
+	setup.moddedClothes.legs.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.legs.push(...setup.moddedClothes.legs);
 }
 window.initLegs = initLegs;

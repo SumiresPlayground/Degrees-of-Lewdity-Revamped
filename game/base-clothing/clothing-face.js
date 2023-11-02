@@ -1124,7 +1124,7 @@ function initFace() {
 	*/
 	setup.moddedClothes.face = [];
 
-	setup.moddedClothes.face.forEach((x, i) => (x.index = setup.clothes.face.length + i));
-	setup.clothes.face = setup.clothes.face.concat(setup.moddedClothes.face);
+	setup.moddedClothes.face.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.face.push(...setup.moddedClothes.face);
 }
 window.initFace = initFace;

@@ -2068,7 +2068,7 @@ function initHead() {
 			accIcon: 0
 },];
 
-	setup.moddedClothes.head.forEach((x, i) => (x.index = setup.clothes.head.length + i));
-	setup.clothes.head = setup.clothes.head.concat(setup.moddedClothes.head);
+	setup.moddedClothes.head.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.head.push(...setup.moddedClothes.head);
 }
 window.initHead = initHead;
