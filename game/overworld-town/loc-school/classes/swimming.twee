@@ -1,4 +1,4 @@
-:: School PoolSchool Pool
+:: School Pool
 <<set $outside to 0>><<set $location to "pool">><<schooleffects>><<effects>>
 
 <<set _masonCanUnlock to playerChastity() and $worn.genitals.origin is "Winter" and C.npc.Mason.chastityKeyCarried and !$weekly.masonChastityRemovalDeclined and !$daily.masonChastityRemovalDeclined
@@ -379,7 +379,7 @@ Once done, Leighton takes the swimwear and puts it in a hamper.
 
 	<<link [[Next|Pool Leighton Nude Punishment]]>><<pass 5>><</link>>
 <<else>>
-	<<if Time.minute gte 40 and Time.minute lt 45 and $weekday is 6>>
+	<<if Time.weekDay is 6 and Time.minute gte 37>>
 		<<npc Mason>><<person1>>
 		"Time to show off your progress," Mason says, taking our a clipboard and a pen. "Take your positons. Any false starts will get a penalty."<<gstress>><<stress 6>>
 		<br><br>
@@ -396,7 +396,7 @@ Once done, Leighton takes the swimwear and puts it in a hamper.
 		<br>
 		<<link [[Try to relax|Swimming Exam]]>><<set $phase to 1>><</link>>
 		<br>
-		<<link [[Cheat|Swimming Exam]]>><<set $phase to 2>><</link>><<set $skulduggerydifficulty 500>><<skulduggerydifficulty>>
+		<<link [[Cheat|Swimming Exam]]>><<set $phase to 2>><</link>><<set $skulduggerydifficulty to 500>><<skulduggerydifficulty>>
 		<br>
 	<<else>>
 		<<if Time.minute lte 5>>
