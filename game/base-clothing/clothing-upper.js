@@ -5972,7 +5972,7 @@ function initUpper() {
 		}
 	];
 
-	setup.moddedClothes.upper.forEach((x, i) => (x.index = setup.clothes.upper.length + i));
-	setup.clothes.upper = setup.clothes.upper.concat(setup.moddedClothes.upper);
+	setup.moddedClothes.upper.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.upper.push(...setup.moddedClothes.upper);
 }
 window.initUpper = initUpper;

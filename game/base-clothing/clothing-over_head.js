@@ -69,7 +69,7 @@ function initOverHead() {
 	*/
 	setup.moddedClothes.over_head = [];
 
-	setup.moddedClothes.over_head.forEach((x, i) => (x.index = setup.clothes.over_head.length + i));
-	setup.clothes.over_head = setup.clothes.over_head.concat(setup.moddedClothes.over_head);
+	setup.moddedClothes.over_head.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.over_head.push(...setup.moddedClothes.over_head);
 }
 window.initOverHead = initOverHead;

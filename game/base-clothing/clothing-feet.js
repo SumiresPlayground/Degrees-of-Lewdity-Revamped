@@ -1020,7 +1020,7 @@ function initFeet() {
 		accIcon: 0
 	}],
 
-	setup.moddedClothes.feet.forEach((x, i) => (x.index = setup.clothes.feet.length + i));
-	setup.clothes.feet = setup.clothes.feet.concat(setup.moddedClothes.feet);
+	setup.moddedClothes.feet.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.feet.push(...setup.moddedClothes.feet);
 }
 window.initFeet = initFeet;

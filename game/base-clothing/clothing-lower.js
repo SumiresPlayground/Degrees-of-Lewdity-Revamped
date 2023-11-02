@@ -5539,7 +5539,7 @@ function initLower() {
 		}
 	];
 
-	setup.moddedClothes.lower.forEach((x, i) => (x.index = setup.clothes.lower.length + i));
-	setup.clothes.lower = setup.clothes.lower.concat(setup.moddedClothes.lower);
+	setup.moddedClothes.lower.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.lower.push(...setup.moddedClothes.lower);
 }
 window.initLower = initLower;

@@ -989,7 +989,7 @@ function initNeck() {
 	}	
 	];
 
-	setup.moddedClothes.neck.forEach((x, i) => (x.index = setup.clothes.neck.length + i));
-	setup.clothes.neck = setup.clothes.neck.concat(setup.moddedClothes.neck);
+	setup.moddedClothes.neck.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.neck.push(...setup.moddedClothes.neck);
 }
 window.initNeck = initNeck;

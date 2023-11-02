@@ -423,7 +423,7 @@ function initHands() {
 		mainImage:0
 	}];
 
-	setup.moddedClothes.hands.forEach((x, i) => (x.index = setup.clothes.hands.length + i));
-	setup.clothes.hands = setup.clothes.hands.concat(setup.moddedClothes.hands);
+	setup.moddedClothes.hands.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.hands.push(...setup.moddedClothes.hands);
 }
 window.initHands = initHands;

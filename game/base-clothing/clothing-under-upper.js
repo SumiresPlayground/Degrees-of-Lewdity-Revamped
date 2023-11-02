@@ -1526,7 +1526,7 @@ function initUnderUpper() {
 		}
 	];
 
-	setup.moddedClothes.under_upper.forEach((x, i) => (x.index = setup.clothes.under_upper.length + i));
-	setup.clothes.under_upper = setup.clothes.under_upper.concat(setup.moddedClothes.under_upper);
+	setup.moddedClothes.under_upper.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.under_upper.push(...setup.moddedClothes.under_upper);
 }
 window.initUnderUpper = initUnderUpper;

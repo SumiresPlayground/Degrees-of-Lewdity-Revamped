@@ -2017,7 +2017,7 @@ function initUnderLower() {
 		}
 	];
 
-	setup.moddedClothes.under_lower.forEach((x, i) => (x.index = setup.clothes.under_lower.length + i));
-	setup.clothes.under_lower = setup.clothes.under_lower.concat(setup.moddedClothes.under_lower);
+	setup.moddedClothes.under_lower.forEach((x, i) => (x.index = 10000 + i + 1));
+	setup.clothes.under_lower.push(...setup.moddedClothes.under_lower);
 }
 window.initUnderLower = initUnderLower;
