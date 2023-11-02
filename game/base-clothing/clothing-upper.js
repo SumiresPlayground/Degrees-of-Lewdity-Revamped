@@ -5883,7 +5883,7 @@ function initUpper() {
 	*/
 	setup.moddedClothes.upper = [
 		{
-			index: 126,
+			index: 1,
 			name: "mushroom dress",
 			name_cap: "Mushroom dress",
 			variable: "mushroom3",
@@ -5927,7 +5927,7 @@ function initUpper() {
 			pregType: 0
 		},
 	
-			{index: 127,
+			{index: 2,
 			name: "mushroom bodice",
 			name_cap: "Mushroom bodice",
 			variable: "mushroom4",
@@ -5973,6 +5973,6 @@ function initUpper() {
 	];
 
 	setup.moddedClothes.upper.forEach((x, i) => (x.index = setup.clothes.upper.length + i));
-	setup.clothes.upper.push(...setup.moddedClothes.upper);
+	setup.clothes.upper = setup.clothes.upper.concat(setup.moddedClothes.upper);
 }
 window.initUpper = initUpper;

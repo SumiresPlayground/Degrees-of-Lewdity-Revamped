@@ -850,7 +850,7 @@ function initLegs() {
 		These items should have a `modder` variable with a the modders name in a short string
 	*/
 	setup.moddedClothes.legs = [
-		{index: 26,
+		{index: 1,
 			name: "tentacle stockings",
 			name_cap: "Tentacle stockings",
 			variable: "tentacle",
@@ -880,7 +880,7 @@ function initLegs() {
 			iconFile: ""
 		},
 	
-			{index: 27,
+			{index: 2,
 			name: "mushroom leggings partial",
 			name_cap: "Mushroom leggings partial",
 			variable: "mushroom2",
@@ -912,7 +912,7 @@ function initLegs() {
 			accIcon: ""
 		},
 		
-			{index: 28,
+			{index: 3,
 			name: "mushroom leggings",
 			name_cap: "Mushroom leggings",
 			variable: "mushroom3",
@@ -946,6 +946,6 @@ function initLegs() {
 	];
 
 	setup.moddedClothes.legs.forEach((x, i) => (x.index = setup.clothes.legs.length + i));
-	setup.clothes.legs.push(...setup.moddedClothes.legs);
+	setup.clothes.legs = setup.clothes.legs.concat(setup.moddedClothes.legs);
 }
 window.initLegs = initLegs;

@@ -990,6 +990,6 @@ function initNeck() {
 	];
 
 	setup.moddedClothes.neck.forEach((x, i) => (x.index = setup.clothes.neck.length + i));
-	setup.clothes.neck.push(...setup.moddedClothes.neck);
+	setup.clothes.neck = setup.clothes.neck.concat(setup.moddedClothes.neck);
 }
 window.initNeck = initNeck;

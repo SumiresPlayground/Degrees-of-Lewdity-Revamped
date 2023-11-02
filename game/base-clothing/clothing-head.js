@@ -1875,7 +1875,7 @@ function initHead() {
 	*/
 	setup.moddedClothes.head = [
 		{
-			index: 57,
+			index: 1,
 			name: "cloud hair clip",
 			name_cap: "Cloud hair clip",
 			variable: "cloudhairclip",
@@ -1907,7 +1907,7 @@ function initHead() {
 		},
 
 		{
-			index: 58,
+			index: 2,
 			name: "honeycomb hair clip",
 			name_cap: "Honeycomb hair clip",
 			variable: "honeycombhairclip",
@@ -1939,7 +1939,7 @@ function initHead() {
 		},
 
 		{
-			index: 59,
+			index: 3,
 			name: "spotted hair clip",
 			name_cap: "Spotted hair clip",
 			variable: "spottedhairclip",
@@ -1971,7 +1971,7 @@ function initHead() {
 		},
 
 		{
-			index: 60,
+			index: 4,
 			name: "truffle hair clip",
 			name_cap: "Truffle hair clip",
 			variable: "trufflehairclip",
@@ -2003,7 +2003,7 @@ function initHead() {
 		},
 
 		{
-			index: 61,
+			index: 5,
 			name: "frog hat",
 			name_cap: "Frog hat",
 			variable: "frog",
@@ -2037,7 +2037,7 @@ function initHead() {
 		},
 
 		{
-			index: 62,
+			index: 6,
 			name: "mushroom cap",
 			name_cap: "Mushroom cap",
 			variable: "mushroom",
@@ -2069,6 +2069,6 @@ function initHead() {
 },];
 
 	setup.moddedClothes.head.forEach((x, i) => (x.index = setup.clothes.head.length + i));
-	setup.clothes.head.push(...setup.moddedClothes.head);
+	setup.clothes.head = setup.clothes.head.concat(setup.moddedClothes.head);
 }
 window.initHead = initHead;
