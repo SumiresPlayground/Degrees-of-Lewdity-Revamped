@@ -1712,8 +1712,9 @@
 	<<if _i lt setup.clothes[_args[0]].length>>
 		<<if setup.clothes[_args[0]][_i].index is _args[1]>>
 			<<set _x to _i>>
+		<<else>>
+			<<set _i += 1>>
+			<<searchClothingByIndex _args[0] _args[1]>>
 		<</if>>
-		<<set _i += 1>>
-		<<searchClothingByIndex _args[0] _args[1]>>
 	<</if>>
 <</widget>>
