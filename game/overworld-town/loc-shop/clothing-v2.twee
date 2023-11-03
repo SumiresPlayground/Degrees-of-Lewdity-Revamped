@@ -479,7 +479,7 @@
 		<<set _temp_choice to clone(setup.clothes[$clothingShopSlot][$clothes_choice])>>
 		<<set _realSlot to ($clothingShopSlot is "all" ? _item.realSlot : $clothingShopSlot)>>
 		<<set _realIndex to _temp_choice.index>>
-
+		<<set _i to 0>><<searchClothingByIndex _realSlot _realIndex>><<set _realIndex to _x>>
 		<!-- Unlocked text -->
 		<<if $specialClothes[_temp_choice.name.replace(/ /g,"")] is "unlocked">>
 			<<specialClothesHint>>
@@ -1038,6 +1038,7 @@
 	<<if $options.images is 1>>
 		<<set _slot = _args[0] or _realSlot>>
 		<<set _index = _args[1] or _realIndex>>
+		<<set _i to 0>><<searchClothingByIndex _slot _index>><<set _index to _x>>
 		<<set _item = setup.clothes[_slot][_index]>>
 
 		<<if _item.colour_options.length > 0>>
