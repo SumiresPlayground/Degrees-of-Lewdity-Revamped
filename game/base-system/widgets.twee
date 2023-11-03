@@ -349,7 +349,12 @@
 			<</if>>
 			<<set $stress += (_violence * _drunkMod * _stressMod) * (1 - ($masochism / 1200))>>
 			<<combattrauma _violence * _traumaMod>>
-			<<if $slime is 1>>
+			<<if ($wraith.gen is "arms" or $wraith.gen is "man" or $wraith.gen is "slime" or $wraith.gen is "tentacles" or $wraith.gen is "slimetentacles" or $abomination is 1) and $transformationParts.eldritch.tentacle is "default">>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.10>>
+				<<set $pain -= 20>>
+				<<set $arousal -= 200>>
+				<<set $stress -= 250>>
+			<<elseif $slime is 1>>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.50>>
 			<<elseif $slime is 2>>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod) * 0.50>>
@@ -489,6 +494,8 @@
 		<</if>>
 		<<if $fallenangelretribution is 1>>
 			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.5>>
+		<<elseif ($wraith.gen is "arms" or $wraith.gen is "man" or $wraith.gen is "slime" or $wraith.gen is "tentacles" or $wraith.gen is "slimetentacles" or $abomination is 1) and $transformationParts.eldritch.tentacle is "default">>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.3>>
 		<<else>>
 			<<set _thedamage to (2 * _defiance * ($physique / 4000))>>
 		<</if>>
