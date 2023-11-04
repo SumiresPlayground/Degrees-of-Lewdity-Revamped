@@ -73,6 +73,8 @@
 			<<tearoptions>>
 		<<case "transformation">>
 			<<mirrorTransformation>>
+		<<case "genomedump">>
+			<<genomedump>>
 		<<case "debug">>
 			<<mirrorDebug>>
 		<<default>>
@@ -220,6 +222,7 @@
 			__Transformation__
 			<br>
 			<<link "Examine your inner self">><<set $mirrorMenu to "transformation">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
+			<br><br>
 		<<else>>
 			Obtain otherworldly powers to examine further.
 		<</if>>
@@ -2361,6 +2364,10 @@
 	<br><br>
 	/*Hiding parts of your Inner Self will slowly increase your Trauma over time (excludes pubes and pits).
 	If your Trauma gets too high, you will be unable to hide.*/
+
+	__Genome Dump__
+	<br>
+	<<link "Reset Transformation">><<set $mirrorMenu to "genomedump">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
 
 	<<set _angel to $transformationParts.angel>>
@@ -2945,3 +2952,74 @@
 	<br>
 <</widget>>
 
+<<widget "genomedump">>
+	<br><br>
+	<span class="red">Warning: This will reset your manifestation and transformation points for the specified transformation. 
+	<br><br>
+	<i>It is highly reccomended you only do this after completing the transformation in it's entirety.</i></span>
+	<br><br>
+	<<if $angelbuild gte 1>>
+	Angel Transform: <<link [[Reset|$passage]]>><<angelTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $demonbuild gte 1>>
+	Demon Transform: <<link [[Reset|$passage]]>><<demonTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $wolfbuild gte 1>>
+	Wolf Transform: <<link [[Reset|$passage]]>><<wolfTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $catbuild gte 1>>
+	Cat Transform: <<link [[Reset|$passage]]>><<catTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $cowbuild gte 1>>
+	Cow Transform: <<link [[Reset|$passage]]>><<cowTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $birdbuild gte 1>>
+	Bird Transform: <<link [[Reset|$passage]]>><<harpyTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $foxbuild gte 1>>
+	Fox Transform: <<link [[Reset|$passage]]>><<foxTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $beebuild gte 1>>
+	Bee Transform: <<link [[Reset|$passage]]>><<beeTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $sheepbuild gte 1>>
+	Sheep Transform: <<link [[Reset|$passage]]>><<sheepTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $deerbuild gte 1>>
+	Deer Transform: <<link [[Reset|$passage]]>><<deerTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $bearbuild gte 1>>
+	Bear Transform: <<link [[Reset|$passage]]>><<bearTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $dragonbuild gte 1>>
+	Dragon Transform: <<link [[Reset|$passage]]>><<dragonTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $lizardbuild gte 1>>
+	Lizard Transform: <<link [[Reset|$passage]]>><<lizardTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $dolphinbuild gte 1>>
+	Dolphin Transform: <<link [[Reset|$passage]]>><<dolphinTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $dogbuild gte 1>>
+	Dog Transform: <<link [[Reset|$passage]]>><<dogTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $raccoonbuild gte 1>>
+	Raccoon Transform: <<link [[Reset|$passage]]>><<raccoonTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $fishbuild gte 1>>
+	Fish Transform: <<link [[Reset|$passage]]>><<fishTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $horsebuild gte 1>>
+	Horse Transform: <<link [[Reset|$passage]]>><<horseTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $horsebuild gte 1>>
+	Spider Transform: <<link [[Reset|$passage]]>><<spiderTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $frogbuild gte 1>>
+	Frog Transform: <<link [[Reset|$passage]]>><<frogTransform 99>><<updatesidebarimg>><</link>><br>
+	<</if>>
+	<<if $pigbuild gte 1>>
+	Pig Transform: <<link [[Reset|$passage]]>><<pigTransform 99>><<updatesidebarimg>><</link>><br>
+	<br>
+	<</if>>
+<</widget>>
