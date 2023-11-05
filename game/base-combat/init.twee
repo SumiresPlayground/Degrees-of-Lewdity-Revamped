@@ -16,7 +16,7 @@
 	<<set $enemyarousalmax to (500 * $npcarousalmult) * $enemyno>>
 	<<set $enemyangermax to 200>>
 	<<set $enemyhealthmax to $enemyhealth>>
-	<<if $enemyhealthmax is 0>><<set $enemyhealthmax to 199>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
+	<<if $enemyhealthmax is 0>><<set $enemyhealthmax to 199  * $npchealthmult>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
 	<<for _i = 0; _i < $NPCList.length; _i++>>
 		<<set $NPCList[_i].bold to $allure / 10>>
 	<</for>>
@@ -80,7 +80,7 @@
 	<<set $combat to 1>>
 	<<set $enemyarousalmax to 500 * $beastarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200>>
+	<<set $enemyhealthmax to 200 * $beasthealthmult>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -727,7 +727,7 @@
 <</widget>>
 
 <<widget "abominationold">>
-	<<set $enemyhealth to 5555>>
+	<<set $enemyhealth to 5555 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
@@ -763,9 +763,9 @@
 	<<set $NPCList[5].mouth to "none">>
 
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $beastarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 5555>>
+	<<set $enemyhealthmax to 5555  * $beasthealthmult>>
 	<<set $enemytrust to 4444>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -791,7 +791,7 @@
 <</widget>>
 
 <<widget "abominationold2">>
-	<<set $enemyhealth to 5555>>
+	<<set $enemyhealth to 5555 * $npchealthmult>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
@@ -807,9 +807,9 @@
 	<<set $NPCList[1].mouth to 0>>
 
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500>>
+	<<set $enemyarousalmax to 500 * $beastarousalmult>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 5555>>
+	<<set $enemyhealthmax to 5555 * $beasthealthmult>>
 	<<set $enemytrust to 4444>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
