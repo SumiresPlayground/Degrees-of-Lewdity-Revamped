@@ -5701,6 +5701,61 @@
 	<<set $plants_known.push("glacier_crowfoot")>>
 <</widget>>
 
+<<widget "unlockspecialclothing">>
+	<<set $specialClothes to {
+		"witchdress":"unlocked",
+		"christmasdress":"unlocked",
+		"serafuku":"unlocked",
+		"vampirejacket":"unlocked",
+		"slutshirt":"unlocked",
+		"christmasshirt":"unlocked",
+		"bellydancer'stop":"unlocked",
+		"christmastrousers":"unlocked",
+		"bellydancer'sbottoms":"unlocked",
+		"loincloth":"unlocked",
+		"witchhat":"unlocked",
+		"christmashat":"unlocked",
+		"chefhat":"unlocked",
+		"fedora":"unlocked",
+		"holypendant":"unlocked",
+		"darkpendant":"unlocked",
+		"stonependant":"unlocked",
+		"christmaslegwarmers":"unlocked",
+		"witchshoes":"unlocked",
+		"mummyfacewrap":"unlocked",
+		"mummytop":"unlocked",
+		"mummyskirt":"unlocked",
+		"cowbell":"unlocked",
+		"featheredhairclip":"unlocked",
+		"catsuit":"unlocked",
+		"holystole":"unlocked",
+		"minisnowman":"unlocked",
+		"cowbra":"unlocked",
+		"cowpanties":"unlocked",
+		"cowsocks":"unlocked",
+		"cowsleeves":"unlocked",
+		"bellydancer'sveil":"unlocked",
+		"rose":"unlocked",
+		"scarecrowshirt":"unlocked",
+		"scarecrowhat":"unlocked",
+		"skeletonmask":"unlocked",
+		"skeletonoutfit":"unlocked",
+		"classyvampirejacket":"unlocked",
+		"bellydancer'sshoes":"unlocked",
+		"futuristicbodysuit":"unlocked",
+		"daisy":"unlocked",
+		"esotericspectacles":"unlocked",
+		"spiritmask":"unlocked",
+		"ragtop":"unlocked",
+		"ragskirt":"unlocked",
+		"minipumpkin":"unlocked",
+		"gakuran":"unlocked",
+		"classicserafuku":"unlocked",
+		"sailorribbon":"unlocked",
+		"islandermask":"unlocked",
+	}>>
+<</widget>>
+
 <<widget "giftSexToys">>
 	<!-- _args[0] is the named NPC. -->
 	<!-- Currently only works for strap-ons. Will need a refactor when other toy scenes are written. -->
@@ -5911,6 +5966,7 @@
 	<<if $transformationParts.demon.wings !== "disabled" and $transformationParts.bird.wings !== "disabled">>
 		<<set $transformationParts.demon.wings = "disabled">>
 		<<set $transformationParts.bird.wings = "disabled">>
+		<<set $birdFly to 0>>
 	<</if>>
 	<<set $transformationParts.angel.wings = "disabled">>
 	<<if $transformationParts.bird.wings == "disabled">>
@@ -5919,6 +5975,7 @@
 	<<set $transformationParts.fallenAngel.wings = "disabled">>
 	<<if $transformationParts.demon.wings == "disabled">>
 		<<set $transformationParts.bird.wings = "disabled">>
+		<<set $birdFly to 0>>
 	<</if>>
 	<<set $transformationParts.bee.wings = "disabled">>
 	<<set $transformationParts.dragon.wings = "disabled">>
