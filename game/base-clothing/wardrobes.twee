@@ -1199,9 +1199,9 @@
 			<</for>>
 		<<case "outfit">>
 			<<if _descending>>
-				<<set _status to ["broken",0,1]>> /* NO SPLIT ADDED */
+				<<set _status to ["broken","split",0,1]>> /* NO SPLIT ADDED */
 			<<else>>
-				<<set _status to [1,0,"broken"]>> /* NO SPLIT ADDED */
+				<<set _status to [1,0,"split","broken"]>> /* NO SPLIT ADDED */
 			<</if>>
 			<<for _i to 0; _i lt _status.length; _i++>>
 				<<for _j to 0; _j lt _wardrobeItems.length; _j++>>
@@ -1516,6 +1516,8 @@
 			<<else>>
 				<<link [[Close|Forest Mansion Guest Suite]]>><<cleanupOnWardrobeExit>><</link>>
 			<</if>>
+		<<case "Temple Wardrobe">>
+			<<link [[Close|Temple Bunk]]>><<cleanupOnWardrobeExit>><</link>>
 	<</switch>>
 	<br><br>
 <</widget>>
@@ -1574,7 +1576,6 @@ You look through the rustic wardrobe.
 
 <<wardrobe>>
 
-
 :: Strip Club Wardrobe [exitCheckBypass]
 <<effects>>
 <<set $wardrobe_location to "stripClub">>
@@ -1612,6 +1613,18 @@ You stand in front of your open locker.
 <<wardrobeSelection>>
 You look in your wardrobe.
 <br><br>
+<div id="wardrobewear"><<wardrobewear>></div>
+<div id="wardrobeExits"><<wardrobeExits>></div>
+
+<<wardrobe>>
+
+:: Temple Wardrobe [exitCheckBypass]
+
+<<effects>>
+You look through the cupboard containing your clothes.
+<br><br>
+<<set $wardrobe_location to "temple">>
+<<wardrobeSelection>>
 <div id="wardrobewear"><<wardrobewear>></div>
 <div id="wardrobeExits"><<wardrobeExits>></div>
 
