@@ -549,8 +549,8 @@ setup.colours.hair = [
 		name: "snow white",
 		name_cap: "Snow White",
 		csstext: "snowwhitehair",
-		natural: false,
-		dye: true,
+		natural: true,
+		dye: false,
 		canvasfilter: {
 			blend: "#FFFFFF",
 		},
@@ -560,8 +560,8 @@ setup.colours.hair = [
 		name: "snow blue",
 		name_cap: "Snow Blue",
 		csstext: "snowbluehair",
-		natural: false,
-		dye: true,
+		natural: true,
+		dye: false,
 		canvasfilter: {
 			blend: "#add8e6",
 		},
