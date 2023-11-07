@@ -896,6 +896,25 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $plants_known.push("glacier_crowfoot")>>
 	<</if>>
 
+	<<if $lakehouse is undefined>>
+		<<unset $lakehouseinit>>
+	<</if>>
+
+	<<if $lakehouse isnot undefined>>
+		<<if $lakehouse.petbed isnot undefined>>
+			<<if $lakehouse.petbed is 1>>
+				<<set $lakehouse.petBed to 1>>
+			<<elseif $lakehouse.petbed is 2>>
+				<<set $lakehouse.petBed to 2>>
+			<</if>>
+			<<unset $lakehouse.petbed>>
+		<</if>>
+	<</if>>
+
+	<<if !$plants_known.includes("green_manure")>>
+		<<set $plants_known.push("green_manure")>>
+	<</if>>
+
 	/* I'll leave it here just in case anyone wants it. 
 	   But yeah... "witch" is actually gender-neutral. Huh.
 

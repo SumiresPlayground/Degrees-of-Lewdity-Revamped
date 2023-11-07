@@ -144,7 +144,7 @@
 				<<switch _plantbed.size>>
 					<<case "small">> <<set $_timeStr to "0:05">><<set _pass to 5>>
 					<<case "medium">> <<set $_timeStr to "0:15">><<set _pass to 15>>
-					<<default>> <<set $_timeStr to "1:00">><<set _pass to _baseTime>>
+					<<default>> <<set $_timeStr to getTimeString(_baseTime)>><<set _pass to _baseTime>>
 				<</switch>>
 
 				<<if $leftarm is "bound" and $rightarm is "bound">>
@@ -153,7 +153,7 @@
 					<<if $options.images is 1 and $_plantedPlant.icon>>
 						<img class="tending_icon" @src="`img/misc/icon/tending/` + $_plantedPlant.icon">
 					<</if>>
-					<<link "Pick ($_timeStr)" $passage>><<pass _pass>><<tending_harvest _plantbed>><<clear_plot _plantbed>><</link>>
+					<<link [["Pick (" + $_timeStr + ")"|$passage]]>><<pass _baseTime>><<tending_harvest _plantbed>><<clear_plot _plantbed>><</link>>
 				<</if>>
 				<br>
 
