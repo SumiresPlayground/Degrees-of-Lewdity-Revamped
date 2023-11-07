@@ -15,6 +15,13 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 		<<set $farm.tractorharvester to false>>
 		<<set $farm.tractorloader to false>>
 	<</if>>
+	<<if $farm.compostbin is undefined>>
+		<<set $farm.compostbin to 0>>
+		<<set $farm.compostToProduce to 0>>
+		<<set $farm.compostWaiting to 0>>
+		<<set $farm.compostProducing to {-1,-1,-1,-1}>>
+		<<set $farm.compostReady to 0>>
+	<</if>>
 <</if>>
 
 <<if $farm.build isnot undefined and $farm.build isnot 0>>
@@ -55,6 +62,10 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 		<span class="lblue">The parasite barn is being expanded.</span>
 	<<case "irrigation">>
 		<span class="lblue">Irrigation is being installed in a field.</span>
+	<<case "compost bin 1">>
+		<span class="lblue">A compost bin is being installed.</span>
+	<<case "compost bin 2" "compost bin 3">>
+		<span class="lblue">The compost bin is being expanded.</span>
 	<</switch>>
 	<<if Time.hour gte 6>>
 		<span class="blue">Workers traipse across the farm.</span>
@@ -568,6 +579,30 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 	<br><br>
 	<<link [[Next|Farm Work]]>><<endevent>><</link>>
 	<br>
+<<elseif $farm.build_finished.includes("compost bin 1")>>
+	<<run $farm.build_finished.delete("compost bin 1")>>
+	<<set $farm.compostbin to 1>>
+	<span class="gold">You approach the newly built compost bin.</span>
+	It has just about enough space for you to compost 1 batch of fertilizer.
+	<br><br>
+	<<link [[Next|Farm Work]]>><<endevent>><</link>>
+	<br>
+<<elseif $farm.build_finished.includes("compost bin 2")>>
+	<<run $farm.build_finished.delete("compost bin 2")>>
+	<<set $farm.compostbin to 2>>
+	<span class="gold">You approach the expanded compost bin.</span>
+	It has enough space for you to compost 2 batches of fertilizer.
+	<br><br>
+	<<link [[Next|Farm Work]]>><<endevent>><</link>>
+	<br>
+<<elseif $farm.build_finished.includes("compost bin 3")>>
+	<<run $farm.build_finished.delete("compost bin 3")>>
+	<<set $farm.compostbin to 3>>
+	<span class="gold">You approach the expanded compost bin.</span>
+	It now has enough space for you to compost 4 batches of fertilizer.
+	<br><br>
+	<<link [[Next|Farm Work]]>><<endevent>><</link>>
+	<br>
 <<elseif $farm.tower_guard and $farm.tower_guard_unpaid gte 2 and $farm.tower_guard_patience isnot 1>>
 	<<loadNPC 0 "farm_tower_guard">><<person1>>
 	<<if $NPCList[0].traits.includes("relaxed")>>
@@ -844,6 +879,10 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 		<</if>>
 		<<if $farm_stage gte 7 and !$farm_kennel>>
 			<<farmicon "kennel">><<link [[Kennel (0:03)|Farm Kennel]]>><<pass 3>><</link>>
+			<br>
+		<</if>>
+		<<if $farm.compostbin gte 1>>
+			<<link [[Compost Bin (0:03)|Farm Compost Bin]]>><<pass 3>><</link>>
 			<br>
 		<</if>>
 		<<if $farm.parasitebarn gte 1>>
@@ -3052,3 +3091,61 @@ You remain on your hands and knees as the machine milks you again and again, suc
 <<He>> turns to leave, but pauses, "As long as the cattle aren't neglected, I don't mind."
 <br><br>
 <<link [[Next|Farm Barn]]>><<clotheson>><<endevent>><</link>>
+
+:: Farm Compost Bin
+<<effects>>
+You approach the composting bin.
+<br><br>
+<<if $farm.compostProducing[0] gt 1>>
+	The first slot still needs <<print $farm.compostProducing[0]>> days.
+	<br>
+<<elseif $farm.compostProducing[0] is 1>>
+	The first slot will finish composting <span="blue">tomorrow</span>.
+	<br>
+<</if>>
+<<if $farm.compostProducing[1] gt 1>>
+	The second slot still needs <<print $farm.compostProducing[1]>> days.
+	<br>
+<<elseif $farm.compostProducing[1] is 1>>
+	The second slot will finish composting <span="blue">tomorrow</span>.
+	<br>
+<</if>>
+<<if $farm.compostProducing[2] gt 1>>
+	The third slot still needs <<print $farm.compostProducing[2]>> days.
+	<br>
+<<elseif $farm.compostProducing[2] is 1>>
+	The third slot will finish composting <span="blue">tomorrow</span>.
+	<br>
+<</if>>
+<<if $farm.compostProducing[3] gt 1>>
+	The fourth slot still needs <<print $farm.compostProducing[3]>> days.
+	<br>
+<<elseif $farm.compostProducing[3] is 1>>
+	The fourth slot will finish composting <span="blue">tomorrow</span>.
+	<br>
+<</if>>
+<<if $farm.compostReady gt 1>>
+	You pick up <span="green"><<print $farm.compostReady>> fertilizers</span>.
+	<br>
+<<elseif $farm.compostReady is 1>>
+	You pick up <span="green"><<print $farm.compostReady>> fertilizer</span>.
+	<br>
+<</if>>
+
+<<link [[Make compost|Farm Compost Bin Make]]>><</link>>
+<br>
+<<link [[Leave|Farm Work]]>><</link>>
+
+:: Farm Compost Bin Make
+<<set $farm.compostToProduce to 0>>
+<<if $plants.green_manure.amount gte 3000>>
+	<<set _max to Math.floor($plants.green_manure.amount / 3000)>>
+	<<numberslider "$farm.compostToProduce" $farm.compostToProduce 0 _max 3000>>
+
+	<<link [[Confirm|$passage]]>><<set $farm.compostWaiting += $farm.compostToProduce>><<set $plants.green_manure.amount -= $farm.compostToProduce>><</link>>
+<<else>>
+	You don't have enough green manure.
+	<br><br>
+<</if>>
+<br><br>
+<<getouticon>><<link [[Leave|Farm Compost Bin]]>><<set $farm.compostToProduce to 0>><</link>>
