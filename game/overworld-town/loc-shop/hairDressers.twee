@@ -52,22 +52,22 @@ You are in the hairdressers. Various hair products are available for sale. You c
 		<</if>>
 	<<else>>
 		<<if Time.dayState is "night" and Time.hour isnot $closinghour>>
-			<<hairdressericon "gel">><<link [[Steal a bottle of hair gel|$passage]]>><<crimeUp `8 / 100` "petty">><<set $hairgelBottles += 1>><</link>><<crime "petty">>
+			<<hairgelicon>><<link [[Steal a bottle of hair gel|$passage]]>><<crimeUp `8 / 100` "petty">><<set $hairgelBottles += 1>><</link>><<crime "petty">>
 			<br>
 			<<if !$weekly.theft.hairDressers>>
-				<<shopicon "register">><<link [[Examine the cash register|Hairdressers Register]]>><</link>>
+				<<registericon>><<link [[Examine the cash register|Hairdressers Register]]>><</link>>
 				<br><br>
 			<</if>>
 		<</if>>
 		<<if $exposed lte 1 and Time.dayState isnot "night" and Time.hour isnot 21 and $slime is 0 and $ghost is 0 and $mushroom is 0>>
 			<<if $money gte 800>>
-				<<hairdressericon "gel">> <<link [[Purchase hair gel (£8)|Hairdressers Gel]]>><<set $money -= 800>><<set $hairgelBottles += 1>><</link>>
+				<<hairgelicon>> <<link [[Purchase hair gel (£8)|Hairdressers Gel]]>><<set $money -= 800>><<set $hairgelBottles += 1>><</link>>
 				<br>
 			<<else>>
-				<<hairdressericon "gel">> <span class="blue">You can't afford any hair gel.</span>
+				<<hairgelicon>> <span class="blue">You can't afford any hair gel.</span>
 				<br>
 			<</if>>
-			<<hairdressericon "chair">><<link [[Take a seat|Hairdressers Seat]]>><</link>>
+			<<hairchairicon>><<link [[Take a seat|Hairdressers Seat]]>><</link>>
 			<br><br>
 		<<elseif $slime gt 0 and Time.dayState is "day">>
 			<span class='green'>Pass. You'd just absorb the dye or gunk up the place, anyway.</span>

@@ -19,7 +19,10 @@
 		<span class="red">You haven't exported your save in a while</span> |
 		<<if !Browser.isMobile.any()>>
 			<<link "Export">>
-				<<run Save.export("degrees-of-lewdity")>>
+				<<script>>
+					updateExportDay();
+					Save.export("degrees-of-lewdity");
+				<</script>>
 			<</link>> |
 		<</if>>
 		<<link "Help me export">>

@@ -16,7 +16,6 @@ setup.hair = {
 				"ruffled",
 				"sidecut",
 				"space buns",
-				"messy bun",
 				"all down",
 				"half-up"
 			],
@@ -29,12 +28,12 @@ setup.hair = {
 		},
 		{
 			name: "double tail",
-			list: ["pigtails", "twintails", "curly pigtails", "sailor buns", "loop braid", "thick twintails", "drill ringlets", "low tails", "thick pigtails"],
+			list: ["pigtails", "twintails", "curly pigtails", "sailor buns", "loop braid", "thick twintails", "drill ringlets", "low tails"],
 			devolve: ["twintails"],
 		},
 		{
 			name: "single braid",
-			list: ["braid left", "braid right", "left fishtail", "right fishtail"],
+			list: ["braid left", "braid right"],
 			devolve: ["braid left"],
 		},
 		{
@@ -90,6 +89,7 @@ setup.hair = {
 				"blunt sidelocks",
 				"short air vents",
 				"side-pinned",
+				"left fishtail braid",
 				"ruffled",
 				"sectioned",
 				"bowl",

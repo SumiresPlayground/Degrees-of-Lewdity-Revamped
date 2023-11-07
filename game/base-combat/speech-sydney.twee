@@ -234,11 +234,7 @@
 		<<switch _sydneyStatus>>
 			<<case "pure" "pureLust">>
 				<<if $enemyarousal gte ($enemyarousalmax / 5) * 4>>
-					<<if $pregnancyspeechdisable is "f" and !$player.vaginaExist and _sydney.gender is "m" and knowsAboutAnyPregnancy("pc","Sydney")>>
-						<<set _sydneyText to `<<He>> barely manages <<printTo>> speak. "Sh... should I... pull out?"`>>
-					<<else>>
-						<<set _sydneyText to `<<He>> barely manages <<printTo>> speak. "If... if you... I'm going to..."`>>
-					<</if>>
+					<<set _sydneyText to `<<He>> barely manages <<printTo>> speak. "If... if you... I'm going to..."`>>
 				<<elseif $enemyarousal gte ($enemyarousalmax / 5) * 2>>
 					<<set _sydneyText to `<<He>> speaks. "This... still feels so wrong... but..."`>>
 				<<else>>
@@ -246,11 +242,7 @@
 				<</if>>
 			<<case "corrupt" "corruptLust">>
 				<<if $enemyarousal gte ($enemyarousalmax / 5) * 4>>
-					<<if $rng gte 80 and $pregnancyspeechdisable is "f" and !$player.vaginaExist and _sydney.gender is "m" and knowsAboutAnyPregnancy("pc","Sydney")>>
-						<<set _sydneyText to `<<He>> grabs you by the head <<printAnd>> pulls your face close <<printTo>> <<hers>>. "I want <<printTo>> put a child in you."`>>
-					<<else>>
-						<<set _sydneyText to `<<He>> moans. "I'm almost there! Are you ready?"`>>
-					<</if>>
+					<<set _sydneyText to `<<He>> moans. "I'm almost there! Are you ready?"`>>
 				<<elseif $enemyarousal gte ($enemyarousalmax / 5) * 2>>
 					<<set _sydneyText to `<<He>> speaks. "Are you sure this feels good for you?"`>>
 				<<else>>
@@ -551,9 +543,7 @@
 		<<set $sydneyUniqueComments.pushUnique("chastity")>>
 		<<switch _sydneyStatus>>
 			<<case "pure" "pureLust" "neutral" "neutralLust">>
-				<<if $worn.genitals.name is "chastity parasite">>
-					<<set _sydneyText to "What is that? Do you need to go to the hospital?">>
-				<<elseif _sydneyChastity>>
+				<<if _sydneyChastity>>
 					<<set _sydneyText to (
 						`<<He>> stares at your <<printChastity>>. "We're matching!"`,
 						`<<He>> speaks. "We're both still pure if we both have chastity devices, right?"`,
@@ -567,9 +557,7 @@
 					)>>
 				<</if>>
 			<<case "corrupt" "corruptLust">>
-				<<if $worn.genitals.name is "chastity parasite">>
-					<<set _sydneyText to "I'm always up for trying new things, but that's a little freaky.">>
-				<<elseif _sydneyChastity>>
+				<<if _sydneyChastity>>
 					<<set _sydneyText to (
 						`<<He>> speaks. "Okay, hear me out, if we smash the chastity devices together really hard..."`,
 						`<<He>> speaks. "We need <<printTo>> find the keys for our chastity devices soon."`,

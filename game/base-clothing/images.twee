@@ -1061,7 +1061,7 @@
 		<img @class="'layer-sexunder colour-under_lower anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/under_lower/highmicrokini/' + $worn.under_lower.state + '.png'" @style="($worn.under_lower.colour is 'custom'? $worn.under_lower.colourCustom + _underLowerOpacity : '')">
 	<<elseif $worn.under_lower.name is "cow panties">>
 		<img @class="'layer-sexunder colour-under_lower anim-doggy-4f-'+_animspeed" src="img/sex/doggy/active/cowpanties/waist.png">
-	<<elseif $worn.under_lower.type.includes("strap-on") and $worn.lower.vagina_exposed is 1>>
+	<<elseif $worn.under_lower.type.includes("strap-on")>>
 		<img @class="'layer-sexunder colour-under_lower anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/strapon/doggyactive_strapon_' + $worn.under_lower.state + '.png'" @style="($worn.under_lower.colour is 'custom'? $worn.under_lower.colourCustom + _underLowerOpacity : '')">
 	<<elseif $worn.under_lower.name is "thong" or $worn.under_lower.name is "microkini bottom">>
 		<<if $worn.under_lower.state is "waist">>
@@ -1422,23 +1422,21 @@
 			<<set _legAccColour to $worn.legs.accessory_colourCustom>>
 		<</if>>
 
-		<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].colour_combat is 0>>
-			<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
-				<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
-			<<elseif setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "ankles">>
-				<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
-				<img @class="'layer-sexskinback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
-			<<else>>
-				<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
-				<img @class="'layer-sexskinback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
-			<</if>>
+		<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
+			<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
+		<<elseif setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "ankles">>
+			<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
+			<img @class="'layer-sexskinback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
+		<<else>>
+			<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
+			<img @class="'layer-sexskinback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
 		<</if>>
-		<<if $worn.legs.accessory and setup.clothes.legs[clothesIndex('legs', $worn.legs)].accessory_colour_combat is 0>>
+		<<if $worn.legs.accessory>>
 			<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
 				<img @class="'layer-sexlegsacc colour-legs_acc anim-doggy-4f-'+_animspeed" @src="'img/sex/doggy/active/legs/'
 				+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'acc.png'" @style="_legAccColour">
@@ -1646,7 +1644,7 @@
 		@src="'img/sex/doggy/active/under_lower/highmicrokini/' + $worn.under_lower.state + '.png'" @style="($worn.under_lower.colour is 'custom'? $worn.under_lower.colourCustom + _underLowerOpacity : '')">
 	<<elseif $worn.under_lower.name is "cow panties">>
 		<img class="layer-sexunder colour-under_lower anim-doggy-2f" src="img/sex/doggy/active/cowpanties/waist.png">
-	<<elseif $worn.under_lower.type.includes("strap-on") and $worn.lower.vagina_exposed is 1>>
+	<<elseif $worn.under_lower.type.includes("strap-on")>>
 		<img class="layer-sexunder colour-under_lower anim-idle-2f"
 		@src="'img/sex/doggy/active/strapon/doggyactive_strapon_' + $worn.under_lower.state + '.png'" @style="($worn.under_lower.colour is 'custom'? $worn.under_lower.colourCustom + _underLowerOpacity : '')">
 	<<elseif $worn.under_lower.name is "thong" or $worn.under_lower.name is "microkini bottom">>
@@ -2016,23 +2014,21 @@
 			<<set _legAccColour to $worn.legs.accessory_colourCustom>>
 		<</if>>
 
-		<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].colour_combat is 0>>
-			<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
-				<img class="layer-sexlegs colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
-			<<elseif setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "ankles">>
-				<img class="layer-sexlegs colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
-				<img class="layer-sexskinback colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
-			<<else>>
-				<img class="layer-sexlegs colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
-				<img class="layer-sexskinback colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
-			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
-			<</if>>
+		<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
+			<img class="layer-sexlegs colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
+		<<elseif setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "ankles">>
+			<img class="layer-sexlegs colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
+			<img class="layer-sexskinback colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
+		<<else>>
+			<img class="layer-sexlegs colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
+			<img class="layer-sexskinback colour-legs anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
 		<</if>>
-		<<if $worn.legs.accessory and setup.clothes.legs[clothesIndex('legs', $worn.legs)].accessory_colour_combat is 0>>
+		<<if $worn.legs.accessory>>
 			<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
 				<img class="layer-sexlegsacc colour-legs_acc anim-doggy-2f" @src="'img/sex/doggy/active/legs/'
 				+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'acc.png'" @style="_legAccColour">
@@ -2395,9 +2391,6 @@
 		<</if>>
 	<<elseif $worn.under_lower.name is "cow panties">>
 		<img class="layer-sexunder colour-under_lower anim-doggy-2f" src="img/sex/missionary/active/cowpanties/waist.png">
-	<<elseif $worn.under_lower.type.includes("strap-on") and $worn.lower.vagina_exposed is 1 >>
-		<img class="layer-sexunder colour-under_lower anim-idle-2f"
-		@src="'img/sex/missionary/active/strapon/' + $worn.under_lower.state + '.png'" @style="($worn.under_lower.colour is 'custom'? $worn.under_lower.colourCustom + _underLowerOpacity : '')">
 	<<elseif !$worn.under_lower.type.includes("naked")>>
 		<<if $worn.under_lower.state is "waist" or $worn.under_lower.state is "totheside">>
 			<<if $anususe is "penis" or _leg_position is "up">>
@@ -2602,33 +2595,31 @@
 			<<set _legAccColour to $worn.legs.accessory_colourCustom>>
 		<</if>>
 
-		<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].colour_combat is 0>>
-			<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
+		<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
+			<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
+		+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
+		<<elseif setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "ankles">>
+			<<if _feetjob is "feetjob">>
 				<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
 			+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
-			<<elseif setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "ankles">>
-				<<if _feetjob is "feetjob">>
-					<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
-				+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
-				<<else>>
-					<img class="layer-sexlegsback colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
-				+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
-					<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
-				+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
-				<</if>>
 			<<else>>
-				<<if _feetjob is "feetjob">>
-					<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
-				+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
-				<<else>>
-					<img class="layer-sexlegsback colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
-				+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
-					<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
-				+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
-				<</if>>
+				<img class="layer-sexlegsback colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
+			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
+				<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
+			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
+			<</if>>
+		<<else>>
+			<<if _feetjob is "feetjob">>
+				<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
+			+ $worn.legs.variable + '/' + _feetposition + _feetjob + '.png'" @style="_legColour">
+			<<else>>
+				<img class="layer-sexlegsback colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
+			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'left' + '.png'" @style="_legColour">
+				<img class="layer-sexlegs colour-legs anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
+			+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'right' + '.png'" @style="_legColour">
 			<</if>>
 		<</if>>
-		<<if $worn.legs.accessory and setup.clothes.legs[clothesIndex('legs', $worn.legs)].accessory_colour_combat is 0>>
+		<<if $worn.legs.accessory>>
 			<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].state_base is "waist">>
 				<img class="layer-sexlegsbackacc colour-legs_acc anim-missionary-2f" @src="'img/sex/missionary/active/legs/'
 				+ $worn.legs.variable + '/' + _feetposition + _feetjob + 'acc.png'" @style="_legAccColour">
@@ -2940,8 +2931,6 @@
 		<</if>>
 	<<elseif $worn.under_lower.name is "cow panties">>
 		<img @class="'layer-sexunder colour-under_lower anim-doggy-4f-'+_animspeed" src="img/sex/missionary/active/cowpanties/waist.png">
-	<<elseif $worn.under_lower.type.includes("strap-on") and $worn.lower.vagina_exposed is 1>>
-		<img @class="'layer-sexunder colour-under_lower anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/strapon/' + $worn.under_lower.state + '.png'" @style="($worn.under_lower.colour is 'custom'? $worn.under_lower.colourCustom + _underLowerOpacity : '')">	
 	<<elseif !$worn.under_lower.type.includes("naked")>>
 		<<if $worn.under_lower.state is "waist" or $worn.under_lower.state is "totheside">>
 			<<if $penisuse is "othervagina" or $penisuse is "otheranus">>
@@ -3171,35 +3160,33 @@
 			<<set _legAccColour to $worn.legs.accessory_colourCustom || "">>
 		<</if>>
 
-		<<if setup.clothes.legs[clothesIndex('legs', $worn.legs)].colour_combat is 0>>
-			<<if $_legsClothing.state_base is "waist">>
+		<<if $_legsClothing.state_base is "waist">>
+			<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
+				+ $worn.legs.variable + '/' + _feetposition + _legr + '.png'" @style="_legColour">
+		<<elseif $_legsClothing.state_base is "ankles">>
+			<<if _legr is "feetjob">>
 				<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
 					+ $worn.legs.variable + '/' + _feetposition + _legr + '.png'" @style="_legColour">
-			<<elseif $_legsClothing.state_base is "ankles">>
-				<<if _legr is "feetjob">>
-					<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
-						+ $worn.legs.variable + '/' + _feetposition + _legr + '.png'" @style="_legColour">
-				<<else>>
-					<img @class="'layer-sexlegsback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
-						+ $worn.legs.variable + '/' + _feetposition + _legl + 'left' + '.png'" @style="_legColour">
-					<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
-						+ $worn.legs.variable + '/' + _feetposition + _legr + 'right' + '.png'" @style="_legColour">
-				<</if>>
 			<<else>>
-				<<if _legr is "feetjob">>
-					<img @class="'layer-sexlegsback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
-						+ $worn.legs.variable + '/' + _feetposition + _legl + 'left' + '.png'" @style="_legColour">
-					<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
-						+ $worn.legs.variable + '/' + _feetposition + _legr + '.png'" @style="_legColour">
-				<<else>>
-					<img @class="'layer-sexlegsback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
-						+ $worn.legs.variable + '/' + _feetposition + _legl + 'left' + '.png'" @style="_legColour">
-					<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
-						+ $worn.legs.variable + '/' + _feetposition + _legr + 'right' + '.png'" @style="_legColour">
-				<</if>>
+				<img @class="'layer-sexlegsback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
+					+ $worn.legs.variable + '/' + _feetposition + _legl + 'left' + '.png'" @style="_legColour">
+				<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
+					+ $worn.legs.variable + '/' + _feetposition + _legr + 'right' + '.png'" @style="_legColour">
+			<</if>>
+		<<else>>
+			<<if _legr is "feetjob">>
+				<img @class="'layer-sexlegsback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
+					+ $worn.legs.variable + '/' + _feetposition + _legl + 'left' + '.png'" @style="_legColour">
+				<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
+					+ $worn.legs.variable + '/' + _feetposition + _legr + '.png'" @style="_legColour">
+			<<else>>
+				<img @class="'layer-sexlegsback colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
+					+ $worn.legs.variable + '/' + _feetposition + _legl + 'left' + '.png'" @style="_legColour">
+				<img @class="'layer-sexlegs colour-legs anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
+					+ $worn.legs.variable + '/' + _feetposition + _legr + 'right' + '.png'" @style="_legColour">
 			<</if>>
 		<</if>>
-		<<if $worn.legs.accessory and setup.clothes.legs[clothesIndex('legs', $worn.legs)].accessory_colour_combat is 0>>
+		<<if $worn.legs.accessory>>
 			<<if $_legsClothing.state_base is "waist">>
 				<img @class="'layer-sexlegsacc colour-legs_acc anim-doggy-4f-'+_animspeed" @src="'img/sex/missionary/active/legs/'
 					+ $worn.legs.variable + '/' + _feetposition + _legr + 'acc.png'" @style="_legAccColour">

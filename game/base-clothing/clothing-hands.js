@@ -312,7 +312,7 @@ function initHands() {
 			colour_sidebar: 0,
 			type: ["normal"],
 			gender: "n",
-			warmth: 20,
+			warmth: 50,
 			cost: 1500,
 			description: "For getting your hands dirty.",
 			shop: ["clothing"],
