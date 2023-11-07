@@ -3096,6 +3096,16 @@ You remain on your hands and knees as the machine milks you again and again, suc
 <<effects>>
 You approach the composting bin.
 <br><br>
+<<if $farm.compostWaiting gt 3000>>
+	You have <<print ($farm.compostWaiting / 3000)>> bags worth of fertiliser waiting for their turn in the compost bin.
+	<br>
+<<elseif $farm.compostWaiting is 3000>>
+	You have <<print ($farm.compostWaiting / 3000)>> bag worth of fertiliser waiting for its turn in the compost bin.
+	<br>
+<<else>>
+	You don't have any green manure waiting to be composted.
+	<br>
+<</if>>
 <<if $farm.compostProducing[0] gt 1>>
 	The first slot still needs <<print $farm.compostProducing[0]>> days.
 	<br>
@@ -3147,7 +3157,7 @@ You approach the composting bin.
 		How much green manure to compost?
 		<<numberslider "$farm.compostToProduce" $farm.compostToProduce 0 _max 3000>>
 
-		<<link [[Confirm|$passage]]>><<set $farm.compostWaiting += $farm.compostToProduce>><<set $plants.green_manure.amount -= $farm.compostToProduce>><</link>>
+		<<link [[Confirm|$passage]]>><<set $farm.compostWaiting += $farm.compostToProduce>><<set $plants.green_manure.amount -= $farm.compostToProduce>><<composting>><</link>>
 	<<else>>
 		You don't have enough green manure.
 		<br><br>

@@ -2971,7 +2971,7 @@
 				<<set $farm.compostbin = 0>>
 			<</if>>
 		<</if>>
-		<<if $farm.compostbin gte 3>>
+		<<if $farm.compostbin gte 3 or $farm.build is "compost bin 3">>
 			<span class="green">As large as it can be</span>
 			<br>
 		<<elseif $farm.compostbin gte 2>>
@@ -3304,6 +3304,13 @@
 <</widget>>
 
 <<widget "composting">>
+	<<composting1>>
+	<<composting2>>
+	<<composting3>>
+	<<composting4>>
+<</widget>>
+
+<<widget "composting1">>
 	<<if $farm.compostbin gte 1 and $farm.compostProducing[0] is -1 and $farm.compostWaiting gte 3000>>
 		<<set $farm.compostProducing[0] to random(2, 4)>>
 		<<set $farm.compostWaiting -= 3000>>
@@ -3311,8 +3318,13 @@
 		<<set $farm.compostProducing[0] -= 1>>
 		<<if $farm.compostProducing[0] is 0>>
 			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[0] -= 1>>
+			<<composting1>>
 		<</if>>
 	<</if>>
+<</widget>>
+
+<<widget "composting2">>
 	<<if $farm.compostbin gte 2 and $farm.compostProducing[1] is -1 and $farm.compostWaiting gte 3000>>
 		<<set $farm.compostProducing[1] to random(2, 4)>>
 		<<set $farm.compostWaiting -= 3000>>
@@ -3320,8 +3332,13 @@
 		<<set $farm.compostProducing[1] -= 1>>
 		<<if $farm.compostProducing[1] is 0>>
 			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[1] -= 1>>
+			<<composting2>>
 		<</if>>
 	<</if>>
+<</widget>>
+
+<<widget "composting3">>
 	<<if $farm.compostbin gte 3 and $farm.compostProducing[2] is -1 and $farm.compostWaiting gte 3000>>
 		<<set $farm.compostProducing[2] to random(2, 4)>>
 		<<set $farm.compostWaiting -= 3000>>
@@ -3329,8 +3346,13 @@
 		<<set $farm.compostProducing[2] -= 1>>
 		<<if $farm.compostProducing[2] is 0>>
 			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[2] -= 1>>
+			<<composting3>>
 		<</if>>
 	<</if>>
+<</widget>>
+
+<<widget "composting4">>
 	<<if $farm.compostbin gte 3 and $farm.compostProducing[3] is -1 and $farm.compostWaiting gte 3000>>
 		<<set $farm.compostProducing[3] to random(2, 4)>>
 		<<set $farm.compostWaiting -= 3000>>
@@ -3338,6 +3360,8 @@
 		<<set $farm.compostProducing[3] -= 1>>
 		<<if $farm.compostProducing[3] is 0>>
 			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[3] -= 1>>
+			<<composting4>>
 		<</if>>
 	<</if>>
 <</widget>>
