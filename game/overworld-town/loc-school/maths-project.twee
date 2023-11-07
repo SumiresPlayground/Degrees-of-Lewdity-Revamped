@@ -53,7 +53,7 @@
 	<<set _timeMult2 to 0.5>>
 <</if>>
 
-<<set _finalTime to (_baseTime * _timeMult1) * _timeMult2>>
+<<set _finalTime to Math.round((_baseTime * _timeMult1) * _timeMult2)>>
 
 <<set _timeString to getTimeString(_finalTime)>>
 
@@ -430,7 +430,7 @@ You tell Robin you're fine, and thank <<him>> for bringing you to your bed. <<He
 	<<neutral 1>>
 	<<maninit>>
 	<<set $enemytrust += 500>>
-	<<set $enemyarousalmax to 600>>
+	<<set $enemyarousalmax to 600 * $npcarousalmult>>
 <</if>>
 
 <<set $enemyanger to 0>>

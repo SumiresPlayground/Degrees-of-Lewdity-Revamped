@@ -2897,20 +2897,20 @@
 
 <<widget "homeStudyOptions">>
 	<<if $studyBooks isnot undefined>>
-		<<switch $studyBooks.rented>>
-			<<case "science">>
+		/* <<switch $studyBooks.rented>>
+			<<case "science">> */
 				/*<<link [[Study science (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 1>><</link>><<gscience>>
 				<br>*/
-			<<case "maths">>
+			/* <<case "maths">> */
 				/*<<link [[Study maths (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 2>><</link>><<gmaths>>
 				<br>*/
-			<<case "English">>
+			/* <<case "English">> */
 				/*<<link [[Study English (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 3>><</link>><<genglish>>
 				<br>*/
-			<<case "history">>
+			/* <<case "history">> */
 				/*<<link [[Study history (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 4>><</link>><<ghistory>>
 				<br>*/
-			<<case "Raul and Janet">>
+			/* <<case "Raul and Janet">>
 				<<scarletnewicon>><<link [[Read "Raul and Janet" (0:01)|ScarletBook1]]>><<pass 1>><<set $scarletExitPassage to $passage>><</link>>
 				<br>
 			<<case "Pinch">>
@@ -2919,18 +2919,58 @@
 			<<default>>
 		<</switch>>
 		<<switch $studyBooks.stolen>>
-			<<case "science">>
+			<<case "science">> */
 				/*<<link [[Study science (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 1>><</link>><<gscience>>
 				<br>*/
-			<<case "maths">>
+			/* <<case "maths">> */
 				/*<<link [[Study maths (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 2>><</link>><<gmaths>>
 				<br>*/
-			<<case "English">>
+			/* <<case "English">> */
 				/*<<link [[Study English (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 3>><</link>><<genglish>>
 				<br>*/
-			<<case "history">>
+			/* <<case "history">> */
 				/*<<link [[Study history (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 4>><</link>><<ghistory>>
 				<br>*/
+			/* <<case "Raul and Janet">>
+				<<scarletnewicon>><<link [[Read "Raul and Janet" (0:01)|ScarletBook1]]>><<pass 1>><<set $scarletExitPassage to $passage>><</link>>
+				<br>
+			<<case "Pinch">>
+				<<olivenewicon>><<link [[Read the olive-coloured book (0:01)|Olive Book 1]]>><<pass 1>><<set $oliveExitPassage to $passage>><</link>>
+				<br>
+			<<default>>
+		<</switch>> */
+		<<set _chair to Furniture.get('chair')>>
+		<<if _chair is null>>
+			<<set _chair to Furniture.set('chair','chair')>>
+		<</if>>
+		<<if _chair.name is "chair">>
+			<<set _studyGain to 6>>
+		<<elseif _chair.name is "stools">>
+			<<set _studyGain to 7>>
+		<<elseif _chair.name is "wooden chairs">>
+			<<set _studyGain to 8>>
+		<<elseif _chair.name is "swivel chairs">>
+			<<set _studyGain to 9>>
+		<<elseif _chair.name is "shell chairs">>
+			<<set _studyGain to 10>>
+		<<elseif _chair.name is "armchairs">>
+			<<set _studyGain to 11>>
+		<<elseif _chair.name is "egg armchairs">>
+			<<set _studyGain to 12>>
+		<</if>>
+		<<switch $studyBooks.rented>>
+			<<case "science">>
+				<<link [[Study science (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 1>><</link>><<gscience>>
+				<br>
+			<<case "maths">>
+				<<link [[Study maths (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 2>><</link>><<gmaths>>
+				<br>
+			<<case "English">>
+				<<link [[Study English (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 3>><</link>><<genglish>>
+				<br>
+			<<case "history">>
+				<<link [[Study history (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 4>><</link>><<ghistory>>
+				<br>
 			<<case "Raul and Janet">>
 				<<scarletnewicon>><<link [[Read "Raul and Janet" (0:01)|ScarletBook1]]>><<pass 1>><<set $scarletExitPassage to $passage>><</link>>
 				<br>
@@ -2939,6 +2979,30 @@
 				<br>
 			<<default>>
 		<</switch>>
+		<<if $studyBooks.stolen.science is 1>>
+			<<link [[Study science (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 1>><</link>><<gscience>>
+			<br>
+		<</if>>
+		<<if $studyBooks.stolen.maths is 1>>
+			<<link [[Study maths (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 2>><</link>><<gmaths>>
+			<br>
+		<</if>>
+		<<if $studyBooks.stolen.english is 1>>
+			<<link [[Study English (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 3>><</link>><<genglish>>
+			<br>
+		<</if>>
+		<<if $studyBooks.stolen.history is 1>>
+			<<link [[Study history (0:20)|$passage]]>><<set $study to 1>><<pass 20>><<set $phase to 4>><</link>><<ghistory>>
+			<br>
+		<</if>>
+		<<if $studyBooks.stolen.RaulAndJanet is 1>>
+			<<scarletnewicon>><<link [[Read "Raul and Janet" (0:01)|ScarletBook1]]>><<pass 1>><<set $scarletExitPassage to $passage>><</link>>
+			<br>
+		<</if>>
+		<<if $studyBooks.stolen.Pinch is 1>>
+			<<olivenewicon>><<link [[Read the olive-coloured book (0:01)|Olive Book 1]]>><<pass 1>><<set $oliveExitPassage to $passage>><</link>>
+			<br>
+		<</if>>
 	<</if>>
 <</widget>>
 

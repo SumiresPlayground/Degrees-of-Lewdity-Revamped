@@ -234,6 +234,12 @@
 <<else>><!-- $poolroomstate is "empty" -->
 	You are in the swimming pool room. It's saturated with the smell of chlorine.
 	<br><br>
+	<<if $poolswim isnot undefined>>
+		<<water>>
+		You spend some time swimming.
+		<<physique 3>><<swimmingskilluse>>
+		<br><br>
+	<</if>>
 	<<if $arousal gte $arousalmax>>
 		<<orgasmLocation "emptySwimClassroom">>
 	<</if>>

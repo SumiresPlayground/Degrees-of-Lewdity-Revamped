@@ -204,7 +204,7 @@ You are in your bedroom.
 	<</if>> */
 	<<if _deco>>
 		<<if _deco.name is "large bear plushie">>
-			<<furnitureicon _deco.iconFile>><<link [[Cuddle with the large bear plushie (0:10)|Home Large Bear Plushie Cuddle]]>><<pass 10>><<trauma -1>><<stress -1>><</link>><<ltrauma>><<lstress>>
+			<<furnitureicon _deco.iconFile>><<link [[Cuddle with the large bear plushie (0:10)|Home Large Bear Plushie Cuddle]]>><<pass 10>><</link>><<ltrauma>><<lstress>>
 			<br><br>
 		<</if>>
 	<</if>>
@@ -4717,14 +4717,17 @@ The pair blame each other for the mishap, and spend a few moments arguing before
 :: Home Large Bear Plushie Cuddle
 <<effects>>
 <<if $trauma gte ($traumamax / 7) * 3 or $stress gte ($stressmax / 7) * 5>>
-		You desperately cling onto the large bear plushie with your entire body and almost wind up pulling it down onto the ground, whimpering and crying loudly into it.
-	<<elseif $trauma gte ($traumamax / 7) * 2 or $stress gte ($stressmax / 7) * 3>>
-		You cling to the large bear plushie and bury your head in it's back, silently crying into it.
-	<<elseif $trauma gte ($traumamax / 7) * 1 or $stress gte ($stressmax / 7) * 1>>
-		You wrap your arms around the large bear plushie from behind and rest your head against it's shoulder, hugging it quietly.
-	<<else>>
-		You happily take the large bear plushie in your arms.
-	<</if>>
+	You desperately cling onto the large bear plushie with your entire body and almost wind up pulling it down onto the ground, whimpering and crying loudly into it.<<trauma -6>><<stress -6>>
+<<elseif $trauma gte ($traumamax / 7) * 2 or $stress gte ($stressmax / 7) * 3>>
+	You cling to the large bear plushie and bury your head in it's back, silently crying into it.<<trauma -4>><<stress -4>>
+<<elseif $trauma gte ($traumamax / 7) * 1 or $stress gte ($stressmax / 7) * 1>>
+	You wrap your arms around the large bear plushie from behind and rest your head against it's shoulder, hugging it quietly.<<trauma -2>><<stress -2>>
+<<else>>
+	You happily take the large bear plushie in your arms.<<trauma -1>><<stress -1>>
+<</if>>
 <br><br>
 
+
+<<link [[Cuddle with the large bear plushie (0:10)|Home Large Bear Plushie Cuddle]]>><<pass 10>><</link>><<ltrauma>><<lstress>>
+<br>
 <<link [[Next|Bedroom]]>><</link>>

@@ -643,6 +643,12 @@ function dayPassed() {
 		fragment.append(dailyLakeHouseEvents());
 	}
 
+	if (V.farm !== undefined){
+		if (V.farm.compostbin >= 1){
+			fragment.append(wikifier("composting"))
+		}
+	}
+
 	parasiteProgressDay();
 	parasiteProgressDay("vagina");
 	fragment.append(wikifier("tending_day"));

@@ -2818,6 +2818,10 @@
 				Irrigation is being installed in a field.
 			<<case "nursery">>
 				A nursery is being built in the cottage.
+			<<case "compost bin 1">>
+				A compost bin is being installed.
+			<<case "compost bin 2" "compost bin 3">>
+				The compost bin is being expanded.
 		<</switch>>
 		<<if $farm.build_timer is 1>>
 			It'll be finished tomorrow.
@@ -2958,6 +2962,26 @@
 			<<else>>
 				<<link [[Purchase|Farm Upgrades Tractor Loader]]>><</link>>
 			<</if>>
+			<br>
+		<</if>>
+		<br>
+		Compost Bin:
+		<<if $farm isnot undefined>>
+			<<if $farm.compostbin is undefined>>
+				<<set $farm.compostbin = 0>>
+			<</if>>
+		<</if>>
+		<<if $farm.compostbin gte 3 or $farm.build is "compost bin 3">>
+			<span class="green">As large as it can be</span>
+			<br>
+		<<elseif $farm.compostbin gte 2>>
+			<<link [[Upgrade|Farm Upgrades Compost Bin 3]]>><</link>>
+			<br>
+		<<elseif $farm.compostbin gte 1>>
+			<<link [[Upgrade|Farm Upgrades Compost Bin 2]]>><</link>>
+			<br>
+		<<else>>
+			<<link [[Purchase|Farm Upgrades Compost Bin 1]]>><</link>>
 			<br>
 		<</if>>
 		<br>
@@ -3277,4 +3301,67 @@
 
 	<<link [[Next|Farm PC Birth]]>><</link>>
 
+<</widget>>
+
+<<widget "composting">>
+	<<composting1>>
+	<<composting2>>
+	<<composting3>>
+	<<composting4>>
+<</widget>>
+
+<<widget "composting1">>
+	<<if $farm.compostbin gte 1 and $farm.compostProducing[0] is -1 and $farm.compostWaiting gte 3000>>
+		<<set $farm.compostProducing[0] to random(2, 4)>>
+		<<set $farm.compostWaiting -= 3000>>
+	<<elseif $farm.compostProducing[0] gte 0>>
+		<<set $farm.compostProducing[0] -= 1>>
+		<<if $farm.compostProducing[0] is 0>>
+			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[0] -= 1>>
+			<<composting1>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "composting2">>
+	<<if $farm.compostbin gte 2 and $farm.compostProducing[1] is -1 and $farm.compostWaiting gte 3000>>
+		<<set $farm.compostProducing[1] to random(2, 4)>>
+		<<set $farm.compostWaiting -= 3000>>
+	<<elseif $farm.compostProducing[1] gte 0>>
+		<<set $farm.compostProducing[1] -= 1>>
+		<<if $farm.compostProducing[1] is 0>>
+			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[1] -= 1>>
+			<<composting2>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "composting3">>
+	<<if $farm.compostbin gte 3 and $farm.compostProducing[2] is -1 and $farm.compostWaiting gte 3000>>
+		<<set $farm.compostProducing[2] to random(2, 4)>>
+		<<set $farm.compostWaiting -= 3000>>
+	<<elseif $farm.compostProducing[2] gte 0>>
+		<<set $farm.compostProducing[2] -= 1>>
+		<<if $farm.compostProducing[2] is 0>>
+			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[2] -= 1>>
+			<<composting3>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "composting4">>
+	<<if $farm.compostbin gte 3 and $farm.compostProducing[3] is -1 and $farm.compostWaiting gte 3000>>
+		<<set $farm.compostProducing[3] to random(2, 4)>>
+		<<set $farm.compostWaiting -= 3000>>
+	<<elseif $farm.compostProducing[3] gte 0>>
+		<<set $farm.compostProducing[3] -= 1>>
+		<<if $farm.compostProducing[3] is 0>>
+			<<set $farm.compostReady += 1>>
+			<<set $farm.compostProducing[3] -= 1>>
+			<<composting4>>
+		<</if>>
+	<</if>>
 <</widget>>
