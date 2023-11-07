@@ -583,7 +583,7 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 	<<run $farm.build_finished.delete("compost bin 1")>>
 	<<set $farm.compostbin to 1>>
 	<span class="gold">You approach the newly built compost bin.</span>
-	It has just about enough space for you to compost 1 batch of fertilizer.
+	It has just about enough space for you to compost 1 batch of fertiliser.
 	<br><br>
 	<<link [[Next|Farm Work]]>><<endevent>><</link>>
 	<br>
@@ -591,7 +591,7 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 	<<run $farm.build_finished.delete("compost bin 2")>>
 	<<set $farm.compostbin to 2>>
 	<span class="gold">You approach the expanded compost bin.</span>
-	It has enough space for you to compost 2 batches of fertilizer.
+	It has enough space for you to compost 2 batches of fertiliser.
 	<br><br>
 	<<link [[Next|Farm Work]]>><<endevent>><</link>>
 	<br>
@@ -599,7 +599,7 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 	<<run $farm.build_finished.delete("compost bin 3")>>
 	<<set $farm.compostbin to 3>>
 	<span class="gold">You approach the expanded compost bin.</span>
-	It now has enough space for you to compost 4 batches of fertilizer.
+	It now has enough space for you to compost 4 batches of fertiliser.
 	<br><br>
 	<<link [[Next|Farm Work]]>><<endevent>><</link>>
 	<br>
@@ -3100,35 +3100,37 @@ You approach the composting bin.
 	The first slot still needs <<print $farm.compostProducing[0]>> days.
 	<br>
 <<elseif $farm.compostProducing[0] is 1>>
-	The first slot will finish composting <span="blue">tomorrow</span>.
+	The first slot will finish composting <span class="blue">tomorrow</span>.
 	<br>
 <</if>>
 <<if $farm.compostProducing[1] gt 1>>
 	The second slot still needs <<print $farm.compostProducing[1]>> days.
 	<br>
 <<elseif $farm.compostProducing[1] is 1>>
-	The second slot will finish composting <span="blue">tomorrow</span>.
+	The second slot will finish composting <span class="blue">tomorrow</span>.
 	<br>
 <</if>>
 <<if $farm.compostProducing[2] gt 1>>
 	The third slot still needs <<print $farm.compostProducing[2]>> days.
 	<br>
 <<elseif $farm.compostProducing[2] is 1>>
-	The third slot will finish composting <span="blue">tomorrow</span>.
+	The third slot will finish composting <span class="blue">tomorrow</span>.
 	<br>
 <</if>>
 <<if $farm.compostProducing[3] gt 1>>
 	The fourth slot still needs <<print $farm.compostProducing[3]>> days.
 	<br>
 <<elseif $farm.compostProducing[3] is 1>>
-	The fourth slot will finish composting <span="blue">tomorrow</span>.
+	The fourth slot will finish composting <span class="blue">tomorrow</span>.
 	<br>
 <</if>>
 <<if $farm.compostReady gt 1>>
-	You pick up <span="green"><<print $farm.compostReady>> fertilizers</span>.
+	<<set $fertiliser.current+= $farm.compostReady>>
+	You pick up <span class="green"><<print $farm.compostReady>> fertilisers</span>.
 	<br>
 <<elseif $farm.compostReady is 1>>
-	You pick up <span="green"><<print $farm.compostReady>> fertilizer</span>.
+	<<set $fertiliser.current++>>
+	You pick up <span class="green"><<print $farm.compostReady>> fertiliser</span>.
 	<br>
 <</if>>
 <br>
