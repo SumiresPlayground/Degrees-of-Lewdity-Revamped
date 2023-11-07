@@ -3131,6 +3131,7 @@ You approach the composting bin.
 	You pick up <span="green"><<print $farm.compostReady>> fertilizer</span>.
 	<br>
 <</if>>
+<br>
 
 <<link [[Make compost|Farm Compost Bin Make]]>><</link>>
 <br>
@@ -3138,14 +3139,19 @@ You approach the composting bin.
 
 :: Farm Compost Bin Make
 <<set $farm.compostToProduce to 0>>
-<<if $plants.green_manure.amount gte 3000>>
-	<<set _max to Math.floor($plants.green_manure.amount / 3000)>>
-	<<numberslider "$farm.compostToProduce" $farm.compostToProduce 0 _max 3000>>
+<<if $plants.green_manure isnot undefined>>
+	<<if $plants.green_manure.amount gte 3000>>
+		<<set _max to $plants.green_manure.amount - ($plants.green_manure.amount % 3000)>>
+		How much green manure to compost?
+		<<numberslider "$farm.compostToProduce" $farm.compostToProduce 0 _max 3000>>
 
-	<<link [[Confirm|$passage]]>><<set $farm.compostWaiting += $farm.compostToProduce>><<set $plants.green_manure.amount -= $farm.compostToProduce>><</link>>
+		<<link [[Confirm|$passage]]>><<set $farm.compostWaiting += $farm.compostToProduce>><<set $plants.green_manure.amount -= $farm.compostToProduce>><</link>>
+	<<else>>
+		You don't have enough green manure.
+		<br><br>
+	<</if>>
 <<else>>
-	You don't have enough green manure.
+	You don't have any green manure.
 	<br><br>
 <</if>>
-<br><br>
 <<getouticon>><<link [[Leave|Farm Compost Bin]]>><<set $farm.compostToProduce to 0>><</link>>
