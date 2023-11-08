@@ -1848,9 +1848,9 @@
 					but you stumble aside,
 				<</if>>
 				<<if _doge_chance - _hit_chance gte 200>>
-					<span class="green">dodging it.</span>
+					<span class="green">dodging it. </span>
 				<<else>>
-					<span class="teal">narrowly dodging it.</span>
+					<span class="teal">narrowly dodging it. </span>
 					<<for $_slot range setup.clothingLayer.torso>>
 						<<if $worn[$_slot].name isnot "naked">>
 							<<set $worn[$_slot].integrity -= random(10, 15)>>
@@ -1863,6 +1863,20 @@
 						It whips you as it passes. <<pain 2>>
 					<</if>>
 					<<neutral 2>>
+				<</if>>
+				<<if $struggle.enemy[_i].dodge is undefined>>
+					<<set $struggle.enemy[_i].dodge to 1>>
+				<<elseif $struggle.enemy[_i].dodge lt 3>>
+					<<set $struggle.enemy[_i].dodge ++>>
+				<<else>>
+					<span class="green">Its running out of steam. </span>
+					<<set $struggle.enemy[_i].dodge to 0>>
+					<<set $struggle.enemy[_i].health -= 1>>
+					<<if $struggle.enemy[_i].health lte 0>>
+						<span class="green">It won't return.</span>
+						<<set $struggle.done += 1>>
+						<<set $struggle.enemy[_i].location to "fled">>
+					<</if>>
 				<</if>>
 			<<elseif _left_guard_chance gte _hit_chance or _right_guard_chance gte _hit_chance>>
 				<<struggle_bide_the>> <<print $struggle.enemy[_i].description>> <<print $struggle.enemy[_i].name>>
