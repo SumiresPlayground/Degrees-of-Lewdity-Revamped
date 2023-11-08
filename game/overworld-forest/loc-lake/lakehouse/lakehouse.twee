@@ -121,8 +121,10 @@
 	<<set $previousPassage to $passage>>
 	<<passoutlakehouse>>
 <<else>>
-	<<set _tv to Furniture.get('tv')>>
-	<<set _gameconsole to Furniture.get('gameconsole')>>
+	<<if $furnitureLocation is "lakehouse">>
+		<<set _tv to Furniture.get('tv')>>
+		<<set _gameconsole to Furniture.get('gameconsole')>>
+	<</if>>
 
 	You enter the living room. 
 	<<if _tv>>
@@ -279,7 +281,19 @@
 		Bleak walls protect you from the outside.
 	<</if>>
 
-	<<set _deco to Furniture.get('decoration')>>
+	<<if $furnitureLocation is "lakehouse">>
+		<<set _deco to Furniture.get('decoration')>>
+		<<set _owlplush to Furniture.get('owlplushie')>>
+		<<set _windowsill to Furniture.get('windowsill')>>
+		<<set _bed to Furniture.get('bed')>>
+		<<set _wardrobe to Furniture.get('wardrobe')>>
+		<<set _mirror to Furniture.get('mirror')>>
+		<<set _table to Furniture.get('table')>>
+		<<set _chair to Furniture.get('chair')>>
+		<<set _bookshelf to Furniture.get('bookshelf')>>
+		<<set _pc to Furniture.get('pc')>>
+	<</if>>
+
 	<<if _deco>>
 		<br>
 		<<switch _deco.name>>
@@ -290,7 +304,6 @@
 		<</switch>>
 	<</if>>
 
-	<<set _owlplush to Furniture.get('owlplushie')>>
 	<<if _owlplush>>
 		<br>
 		<<switch _owlplush.id>>
@@ -299,7 +312,6 @@
 		<</switch>>
 	<</if>>
 
-	<<set _windowsill to Furniture.get('windowsill')>>
 	<<if _windowsill>>
 		<br>
 		<<switch _windowsill.name>> /* can be expanded further */
@@ -376,7 +388,7 @@
 				<br><br>
 			<</if>>
 		<</if>>
-		<<set _bed to Furniture.get('bed')>>
+		
 
 		<<if _bed.type.includes('comfy')>>
 			Your bed takes up most of the room.
@@ -408,7 +420,7 @@
 		<</if>>
 		<<roomoptions>>
 		<br>
-		<<set _wardrobe to Furniture.get('wardrobe')>>
+		
 		<<if !_wardrobe.type.includes("starter")>>
 			<<if _wardrobe>>
 				Your clothes are kept in the wardrobe.
@@ -424,7 +436,7 @@
 			<<sextoysicon>><<link [[Sex toys|Sextoys Inventory]]>><<set $sextoyInvReturnLink to $passage>><</link>>
 			<br>
 		<</if>>
-		<<set _mirror to Furniture.get('mirror')>>
+		
 		<<if _mirror>>
 			<<if $nextPassageCheck is "Lake House Mirror">>
 				<span class="nextLink"><<mirroricon>><<link [[Mirror|Lake House Mirror]]>><</link>></span>
@@ -450,8 +462,6 @@
 			<br>
 		<</if>>
 
-		<<set _table to Furniture.get('table')>>
-		<<set _chair to Furniture.get('chair')>>
 		<<if _table>>
 			<br>
 			Your _table.name <<if _chair>>and a pair of _chair.name are <<else>>is <</if>> situated next to a wall.
@@ -462,7 +472,6 @@
 			<</if>> -->
 		<</if>>
 
-		<<set _bookshelf to Furniture.get('bookshelf')>>
 		<<if _bookshelf>>
 			<<link [[Read science material (0:20)|$passage]]>><<pass 20>><<scienceskill>><</link>><<gscience>>
 			<br>
@@ -477,7 +486,6 @@
 			<br>
 		<</if>>
 
-		<<set _pc to Furniture.get('pc')>>
 		<<if _pc>>
 			<<if $lakehouse.billsphase gte 3>>
 				You can't use your computer without power.

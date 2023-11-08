@@ -45,6 +45,10 @@ You are in the furniture shop. Most of its stock is too large for your room.
 			<<furnitureicon "wallpaper.png">><<link [[Paperhangings|Furniture Shop Papers]]>><</link>>
 			<br>
 		<</if>>
+		<<if $exposed lte 0 and Time.dayState isnot "night" and Time.hour isnot 21>>
+			<<link [[Furniture Moving Services|Furniture Shop Moving Services]]>><</link>>
+			<br>
+		<</if>>
 		<br>
 		<<getouticon>><<link [[Leave|Shopping Centre]]>><</link>>
 		<br>
@@ -396,3 +400,22 @@ Currently installed in your bedroom:
 		<<unset $furnitureDowngrade>>
 	<</link>>
 <</widget>>
+
+:: Furniture Shop Moving Services
+<<generate1>><<person1>>
+You are at the furniture moving services kiosk. You consider your options:
+<br><br>
+
+<<if $furnitureLocation isnot "orphanage">>
+	<<link [[Move to the Orphanage|$passage]]>><<set $furnitureLocation to "orphanage">><</link>>
+	<br>
+<</if>>
+<<if $furnitureLocation isnot "farm cottage" and $farm_stage gte 7>>
+	<<link [[Move to the Alex's Cottage|$passage]]>><<set $furnitureLocation to "farm cottage">><</link>>
+	<br>
+<</if>>
+<<if $furnitureLocation isnot "lake house" and $lakehouse isnot undefined>>
+	<<link [[Move to the Lake House|$passage]]>><<set $furnitureLocation to "lake house">><</link>>
+	<br>
+<</if>>
+<<link [[Leave|Furniture Shop]]>><</link>>

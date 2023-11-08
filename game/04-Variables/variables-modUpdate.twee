@@ -896,9 +896,15 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $plants_known.push("glacier_crowfoot")>>
 	<</if>>
 
-	<<if $lakehouse is undefined>>
-		<<unset $lakehouseinit>>
-		<<lakehouseinit>>
+	<<if $lakehouse isnot undefined and $town_projects.home is undefined>>
+		<<unset $lakehouse>>
+	<</if>>
+
+	<<if $town_projects.home isnot undefined>>
+		<<if $lakehouse is undefined and $town_projects.home gte 3>>
+			<<unset $lakehouseinit>>
+			<<lakehouseinit>>
+		<</if>>
 	<</if>>
 
 	<<if $lakehouse isnot undefined>>
@@ -914,6 +920,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 	<<if !$plants_known.includes("green_manure")>>
 		<<set $plants_known.push("green_manure")>>
+	<</if>>
+
+	<<if $furnitureLocation is undefined>>
+		<<set $furnitureLocation to "orphanage">>
 	<</if>>
 
 	/* I'll leave it here just in case anyone wants it. 
