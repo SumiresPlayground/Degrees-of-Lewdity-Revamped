@@ -651,12 +651,6 @@ function dayPassed() {
 		fragment.append(dailyLakeHouseEvents());
 	}
 
-	if (V.farm !== undefined){
-		if (V.farm.compostbin >= 1){
-			fragment.append(wikifier("composting"))
-		}
-	}
-
 	parasiteProgressDay();
 	parasiteProgressDay("vagina");
 	fragment.append(wikifier("tending_day"));
@@ -1662,6 +1656,14 @@ function dailyFarmEvents() {
 		delete V.farm_yield;
 	}
 	if (V.alex_countdown >= 1) V.alex_countdown--;
+
+	if (V.farm.compostbin >= 1){
+		fragment.append(wikifier("composting"));
+	}
+
+	if (V.farm.watchtowerDailyAttempt == 1){
+		V.farm.watchtowerDailyAttempt = 0;
+	}
 
 	delete V.farm_work;
 	delete V.farm_count;
