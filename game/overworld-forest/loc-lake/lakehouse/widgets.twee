@@ -323,10 +323,13 @@
 <</widget>>
 
 <<widget "lakehouseinit">>
+	<<if $lakehouse is undefined>>
+		<<unset $lakehouseinit>>
+	<</if>>
 	<<if $lakehouseinit is undefined>>
 		/* <<set $objectVersion to 4>>
 		<<run Furniture.update()>> */
-		<<set $lakehouse = {}>>
+		<<set $lakehouse to {}>>
 		<<set $lakehouse.plots to 0>>
 		<<set $lakehouse.clearing to 25>>
 		<<set $lakehouse_countdown to 14>>
