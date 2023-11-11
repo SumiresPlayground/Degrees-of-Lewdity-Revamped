@@ -2021,7 +2021,6 @@ function initUnderLower() {
 			location: 0,
 			iconFile: "",
 			accIcon: 0,
-			outfitSecondary: ["under_upper","tentacle"]
 		},
 		
 			{index: 2,
