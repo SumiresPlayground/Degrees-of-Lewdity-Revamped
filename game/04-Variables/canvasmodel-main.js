@@ -2814,7 +2814,7 @@ Renderer.CanvasModels["main"] = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_tentacle_type)
 			},
-			z: ZIndices.tail,
+			z: ZIndices.basehead,
 			animation: "idle"
 		},
 
@@ -2826,7 +2826,7 @@ Renderer.CanvasModels["main"] = {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type)
 			},
 			filters: ["body"],
-			z: ZIndices.backhair,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 
