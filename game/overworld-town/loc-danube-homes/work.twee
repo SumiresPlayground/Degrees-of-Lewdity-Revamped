@@ -74,16 +74,12 @@ You walk up to one of the mansions and knock on the door.
 		<<set $phase to 8>>
 	<</addinlineevent>>
 	<<if Time.days gte 30 and $hivemember is 0>>
-	<<addinlineevent "Danube Taylor Mom">>
-		<<set $TaylorMissing to 1>>
-		You walk up to a very nice looking house and knock on the door. A sad looking woman with red puffy eyes opens the door. "Oh a child, what do you want dear?"
-		<br><br>
-
-		<<link [[Ask what's wrong|Missing Poster]]>><</link>>
-		<br>
-		<<link [[Say you've got the wrong address and leave|Danube Street]]>><</link>>
-		<br>
-	<</addinlineevent>>
+		<<addinlineevent "Danube Taylor Mom">>
+			<<set $TaylorMissing to 1>>
+			You walk up to a very nice looking house and knock on the door. A sad looking woman with red puffy eyes opens the door. "Oh a child, what do you want dear?"
+			<br><br>
+			<<set $phase to 9>>
+		<</addinlineevent>>
 	<</if>>
 
 	<<runeventpool>>
@@ -91,6 +87,8 @@ You walk up to one of the mansions and knock on the door.
 	<br><br>
 	<<if $phase is 0>>
 		<<errorp "Eventpool selection failed! Please export your save on this screen and report this bug.">>
+	<<elseif $phase is 9>>
+		<<link [[Ask what's wrong|Missing Poster]]>><</link>>
 	<<elseif $phase is 8>>
 		<<link [[Ask for work|Danube Catperson Intro]]>><</link>>
 	<<else>>
