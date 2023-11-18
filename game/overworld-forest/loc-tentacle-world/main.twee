@@ -406,7 +406,7 @@ Despite everything, the swaying begins to lull you into a deep sleep. You feel c
 <br><br>
 With that thought in mind, You finally let sleep take you.
 <br><br>
-<<link [[Pass out|Passout Tentacle World 4]]>><<clotheson>><</link>>
+<<link [[Pass out|Passout Tentacle World 4]]>><<set $lustwake to 1>><<clotheson>><</link>>
 
 :: Passout Tentacle World 4
 
@@ -415,13 +415,13 @@ With that thought in mind, You finally let sleep take you.
 	You wake up on the floor next to your mirror. That was quite the nightmare.
 	<br><br>
 	<<tentacleworldend>>
-	<<if $slime is 2>>
+	<<if $slime is 2 and $lustwake is 1>>
 		...But it seemed far to real to be one. As your grogginess subsides, you take a closer look at the mirror. Your skin is a translucent purple and your mind is wracked with a lustful haze. It isn't enough to influence your actions, but your orgasmic experience seems to have affected your slimy body, somehow. <span class='lust'>You innately understand your new capabilities would be best utilized during sexual encounters.</span>
 		<br><br>
 		Contemplating your options, you pick yourself up from the floor.
 		<br><br>
 	<</if>>
-	<<link [[Next|Bedroom]]>><</link>>
+	<<link [[Next|Bedroom]]>><<set $lustwake to 0>><</link>>
 <<elseif $tentacleEntrance is "lakehouse">>
 	<<set $location to "lakehouse">>
 	You wake up on the floor next to your mirror. That was quite the nightmare.
@@ -433,13 +433,13 @@ With that thought in mind, You finally let sleep take you.
 	You wake in darkness. You're back in the asylum, in the tiny room.<<endevent>><<npc Harper>><<person1>>
 	<br><br>
 	<<tentacleworldend>>
-	<<if $slime is 2>>
+	<<if $slime is 2 and $lustwake is 1>>
 		Your mind is wracked with a lustful haze. It isn't enough to influence your actions, but your orgasmic experience seems to have affected your body, somehow. <span class='lust'>You innately understand your new capabilities would be best utilized during sexual encounters.</span>
 		<br><br>
 		You shake your head as if to clear your thoughts.
 		<br><br>
 	<</if>>
-	<<link [[Next|Asylum Room 2]]>><</link>>
+	<<link [[Next|Asylum Room 2]]>><<set $lustwake to 0>><</link>>
 <</if>>
 <br>
 
@@ -1097,7 +1097,7 @@ You turn away,
 :: Living Clothes Continue
 
 <<set $outside to 0>><<set $location to "tentworld">><<effects>>
-<<underupperwear 10001>><<underlowerwear 10001>><<legswear 10001>><<feetwear 10001>><<handswear 10002>>
+<<underupperwear 10001>><<underlowerwear 10001>>
 As soon as you finished putting it on, thousand of tiny tentacles on the inside of the clothes become alive and wiggle around inside you.<<ggarousal>><<arousal 4000>><br>
 	With your <<breasts>> encased within the living clothes there nothing you can do to stop it from stimulating your <<breasts>>.
 			<<parasite nipples livingclothes>><<arousal 200>><<garousal>><br>
@@ -1113,15 +1113,15 @@ As soon as you finished putting it on, thousand of tiny tentacles on the inside 
 			<<parasite bottom livingclothes>><<garousal>><<arousal 1200>><br><<orgasm>>
 <</if>>
 <span class="red">You can't tell if this is a good sign or a bad sign.</span><br><br>
-<<link [[Try To Remove It|Living Clothes Resisting]]>><</link>><br>
+<<link [[Try to remove it|Living Clothes Resisting]]>><</link>><br>
 <<link [[Move on with it|Tentacle Plains]]>><</link>>
 <br>
 
 :: Living Clothes Resisting
 
 <<set $outside to 0>><<set $location to "tentworld">><<effects>>
-<span class="purple">You attempt to remove the living clothes from your body.</span> As you attempt to tear off the living clothes off your <<breasts>>.
-<<gpain>><<pain 10>> the tentacles cling around your <<nipples>> when you attempt to tear it off, it pulls on your <<nipples>> along with it. <<garousal>><<arousal 200>><br> The tentacles on your lower part start to move as some of the tentacles wiggles around your <<genitals>> rubbing it.<<garousal>><<arousal 500>><br><br>
+You attempt to remove the living clothes from your body.
+<<gpain>><<pain 10>> The tentacles adhere to your <<nipples>> as you attempt to tear it off. They pull on your <<nipples>> as you try to remove the clothing. <span class="purple">The clothing allows itself to be pulled just enough for your <<genitals>> and <<breasts>> to be exposed to the air. Though, the tentacles still cling to them.</span><<garousal>><<arousal 200>><br> You feel the tentacles on the lower half of the outfit snake their way around your crotch. Some of them try to enter you and suceed.<<garousal>><<arousal 500>><br><br>
 <<link [[Try to remove the bottom|Living Clothes Resisting 2]]>><</link>><br>
 <<link [[Give up|Tentacle Plains]]>><</link>>
 <br>
@@ -1130,7 +1130,7 @@ As soon as you finished putting it on, thousand of tiny tentacles on the inside 
 :: Living Clothes Resisting 2
 
 <<set $outside to 0>><<set $location to "tentworld">><<effects>>
-<span class="purple">You attempt to remove the living clothes from your bottom.</span> As you grab a hold of the tentacles and try to tear it off yourself, <span class="red"> you don't notice as some of the tentacles from the clothes grab onto your hands and bind them behind your back.</span>
+<span class="purple">You attempt to remove the living clothes from your bottom.</span> As you grab ahold of the tentacles and try to tear them off yourself, <span class="red">some of the tentacles from the clothes grab onto your hands and bind them behind your back.</span>
 <<gpain>><<pain 20>><br><br>
 <<link [[Try to remove the binding|Living Clothes Test]]>><</link>><<physiquedifficulty 1 $physiquemax>><br>
 <<link [[Let them bind you|Living Clothes Surrender]]>><</link>>
@@ -1140,65 +1140,68 @@ As soon as you finished putting it on, thousand of tiny tentacles on the inside 
 :: Living Clothes Test
 
 <<if $physiqueSuccess>>
-You somehow manage to break free from their grasp but the living clothes aren't deterred as it ramps up the pleasure you feel on your <<genitals>> and <<nipples>> rapidly.<<gggarousal>><<set $arousal to 10000>><<orgasm>> It feels like the whole world is spinning all around you as you can feel the tentacles moving even faster then before 
-	<<if $penisexist is 1>>
-	around <<genitals>> as it continue to rubbing your <<genitals>> to orgasm again.
-		<<gggarousal>><<set $arousal to 10000>><br>
-	<<elseif $vaginaexist is 1 and $penisexist isnot 1>>
-	inside <<genitals>> as it continue to rubbing your <<genitals>> to orgasm again.
-		<<gggarousal>><<set $arousal to 10000>><br>
-	<</if>>
-<span class="red">You feel like you slowly losing your mind.</span><<llcontrol>><<set $control -= 100>><br><br>
+You somehow manage to break free from their grasp, but the living clothes aren't deterred. It ramps up the pleasure you feel on your <<genitals>> and <<nipples>>.<<gggarousal>><<set $arousal to 10000>><<orgasm>> It feels like the whole world is spinning all around you. The clothing stimulates you more fervently. It incessantly strokes your body. <<garousal>><<arousal 500>>
+<br><br>
+<span class="red">You feel like you're slowly losing your mind.</span><<llcontrol>><<set $control -= 100>><br><br>
 <<link [[Try to resist|Living Clothes Pre Edging]]>><</link>><<willpowerdifficulty 1 1000>><br><br>
 <<link [[Surrender|Living Clothes Edging]]>><</link>>
 <<else>>
-	You failed to break free from the binding as the living clothes stimulates your <<genitals>> teasing you.<<garousal>><<arousal 400>><br>
+	You failed to break free from the binding. Your defiance only causes its ministrations to increase in intensity.<<gggarousal>><<set $arousal to 10000>><br>
 	<<link [[Next|Living Clothes Surrender]]>><</link>>
 <</if>>
 <br>
 
 :: Living Clothes Pre Edging
 
-<span class="blue">You managed to keep your mind straight</span>,
+<span class="blue">You managed to keep your mind focused.</span>
+<br><br>
 <<if $willpowerSuccess>>
-	however the living clothes continues to torments you as you slowly reach the edge of the orgasm. But somethings wrong, the tentacles stop moving as soon as you about to orgasm. The tentacles start to move once more until you nearly reach another orgasm, then they stop again. At that point you realize in panic as you try to reach your hand down to touch your <<genitals>>, <span class="red">but the tentacles hold both of your arms behind your back.</span><<set $arousal to 9999>><br><br>
+	However, the living clothes continue to torment you as you slowly reach the plateau of another orgasm. But something's feels off...
+	<br><br> 
+	The tentacles stop moving as soon as you're about to peak. After a few moments, they resume their undulations until you nearly reach another orgasm. They suddenly stop again. 
+	<br><br>
+	Your heat skips a beat as realization dawns on you. In order to elicit stronger orgasms from your body, the living clothes seem to be edging you. In desperation, you reach down to your <<genitals>>, <span class="red">but the tentacles hold both of your arms behind your back.</span><<set $arousal to 9999>><br><br>
 	<<link [[Next|Living Clothes Edging]]>><<pass 60>><</link>>
 <<else>>
-	<span clas="red"> Your mind gives in as the tentacles bind your arms together and continues to stimulate your <<genitals>>.<<ggarousal>><<arousal 1200>>
+	<span clas="red"> Your mind gives in as the tentacles bind your arms together and continue to stimulate your <<genitals>>.<<ggarousal>><<arousal 1200>>
 	<<link [[Next|Living Clothes Surrender]]>><</link>>
 <</if>><br>
 
 
 
 :: Living Clothes Edging
-You loose count of the times that you've been put on the edge over and over, as the living clothes show no sign of stopping. You can feel a stinging sensation in to your <<breasts>> and <<genitals>>.<<set $genitalsensitivity += 0.5>><<set $breastsensitivity += 0.5>>
+The living clothes show no sign of stopping. You lose count of the amount of times you've been brought near-orgasm. You can feel a stinging sensation in to your <<breasts>> and <<genitals>>.<<set $genitalsensitivity += 0.5>><<set $breastsensitivity += 0.5>>
     <<if $penisexist is 1>>
-    You can feel the tentacles coiling around your <<genitals>> stimulating it again as it stop before you can orgasm.
+    The tentacles coil around your <<genitals>> once again.
         <<gggarousal>><<set $arousal to 9999>><br>
     <<elseif $vaginaexist is 1 and $penisexist isnot 1>>
-    You can feel the tentacles moving around inside of your <<genitals>> as it stop before you can orgasm.
+    You can feel the tentacles moving around inside of your <<genitals>>.
         <<gggarousal>><<set $arousal to 9999>><br>
     <</if>>
-    You're being edged again and again till you loose count of how many time you've nearly orgasmed. <span class="purple"> You cannot do anything to stop this torment as you're too weak to do anything about it.</span><br><br>
-    Time passes very slowly as you continue to be tormented by the tentacles, they continue to edge you seemingly relentlessly. As you're about to pass out from over stimulation the tentacles seem to stop and allow you to have a break, but it doesn't seem to be helpful due to the aphrodisiac that fills the air in the Tentacle Plains. The living clothes take note of your helpless body as it thinks that you've had enough punishment for now. You can feel them wiggle around again but this time they don't stop.<<orgasm>><br>
+    You're being edged again and again. <span class="purple"> You cannot do anything to stop this torment. You're too weak to stop it.</span><br><br>
+    Time passes very slowly as you continue to be caressed by the tentacles. They manipulate your body relentlessly. As you're about to pass out from over-stimulation, the tentacles pause. The momentary reprieve is somewhat mitigated due to the aphrodisiac that fills the surrounding air of the landscape. The tentacles begin to move again, the sudden movement being all it takes to finally bring you to a mind-shattering climax.<<orgasm>><br>
     You slowly drift into unconsciousness right after your orgasm.<br><br>
-    <<link [[You pass out...|Passout Tentacle World 4]]>><</link>>
+    <<link [[You've had enough...|Passout Tentacle World 4]]>><</link>>
     <br>
 
 
 :: Living Clothes Surrender
-Your arms are bound behind your back. As the tentacles take it's opportunity to play with your <<breasts>>, it slowly massages them. 
+Your arms are bound behind your back. As the clothing takes it's opportunity to play with your <<breasts>>, it slowly massages them in tandem with 
     <<if $penisexist is 1>>
-    You feel that your <<genitals>> are being massaged, it strokes you over and over.
+    your penis.
         <<ggarousal>><<arousal 1200>><br>
     <<elseif $vaginaexist is 1 and $penisexist isnot 1>>
-    You can feel your <<genitals>> being massaged, as it rubs against the wall of your <<genitals>> over and over.
+    your pussy.
+        <<ggarousal>><<arousal 1200>><br>
+	<<else>>
+    your <<genitals>>.
         <<ggarousal>><<arousal 1200>><br>
     <</if>>
-Soon after you loose all your strength to resist as the living clothes force you to orgasm.<<orgasm>><br><br>
+<br><br>
+<<orgasm>><br><br>
 Again and again.<<orgasm>><br><br>
-As the living clothes slowly start to unbind you. It gives you one more orgasm.<<orgasm>><br><br>
-<span class="purple">You think to yourself that you might be addicted to this.</span><br>
+Satisfied by the amount of fluids wrung out of you, the clothing loosens it's hold. The sudden lack of pressure somehow brings you to one last climax.<<orgasm>><br><br>
+<span class="purple">Despite your mental haze and physical exhaustion, you think to yourself that you may start enjoying this.</span><br><br>
 <<link [[Next|Tentacle Plains]]>><</link>>
 <br>
 
