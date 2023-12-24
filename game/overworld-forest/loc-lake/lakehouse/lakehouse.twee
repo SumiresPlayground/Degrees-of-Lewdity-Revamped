@@ -137,32 +137,30 @@
 			In the corner rests an soft looking pet bed
 			<<if $lakehouse.pet1 isnot undefined>>
 				<<if $lakehouse.pet1.type is "cat">>
-					, your cat lies asleep on it
+					, your cat lies asleep on it.
 				<<elseif $lakehouse.pet1.type is "dog">>
-					, your dog lies asleep on it
+					, your dog lies asleep on it.
 				<</if>>
 			<</if>>
-			. 
 		<<elseif $lakehouse.petBed is 2>>
 			In the corner lie two soft looking pet beds
 			<<if $lakehouse.pet1 isnot undefined>>
 				<<if $lakehouse.pet2 isnot undefined>>
 					<<if $lakehouse.pet1.type is "cat" and $lakehouse.pet2.type is "cat">>
-						, your cats lie asleep in them
+						, your cats lie asleep in them.
 					<<elseif $lakehouse.pet1.type is "dog" and $lakehouse.pet2.type is "dog">>
-						, your dogs lie asleep in them
+						, your dogs lie asleep in them.
 					<<elseif ($lakehouse.pet1.type is "cat" and $lakehouse.pet2.type is "dog") or ($lakehouse.pet1.type is "dog" and $lakehouse.pet2.type is "cat")>>
-						, your cat and dog lie asleep in them
+						, your cat and dog lie asleep in them.
 					<</if>>
 				<<else>>
 					<<if $lakehouse.pet1.type is "cat">>
-						, your cat lies alseep in one
+						, your cat lies alseep in one.
 					<<elseif $lakehouse.pet1.type is "dog">>
-						, your dog lies asleep in one
+						, your dog lies asleep in one.
 					<</if>>
 				<</if>>
 			<</if>>
-			. 
 		<</if>>
 	<</if>>
 	<br><br>
@@ -438,22 +436,22 @@
 		
 		<<if _mirror>>
 			<<if $nextPassageCheck is "Lake House Mirror">>
-				<span class="nextLink"><<mirroricon>><<link [[Mirror|Lake House Mirror]]>><</link>></span>
+				<span class="nextLink"><<mirroricon>><<preMirror>><<link [[Mirror|Lake House Mirror]]>><</link>></span>
 				<br>
 			<<elseif $christmas is 1 and !$christmas_wraith and _wraithEvent>>
 				<br>
 				<span class="purple">You catch a strange glint in your mirror.</span>
 				<br>
-				<<bloodmirroricon>><<link [[Mirror|Christmas Mirror]]>><</link>>
+				<<mirroricon "blood">><<preMirror>><<link [[Mirror|Christmas Mirror]]>><</link>>
 				<br>
 			<<elseif Time.hour is 3 and $hallucinations gte 2 and $daily.mirrorTentacles isnot 1 and $tentacledisable is "f">>
 				<br>
 				<span class="purple">An eerie light spills from your mirror.</span>
 				<br>
-				<<bloodmirroricon>><<link [[Mirror|Eerie Mirror]]>><<set $daily.mirrorTentacles to 1>><<set $phase to 0>><</link>>
+				<<mirroricon "blood">><<preMirror>><<link [[Mirror|Eerie Mirror]]>><<set $daily.mirrorTentacles to 1>><<set $phase to 0>><</link>>
 				<br>
 			<<else>>
-				<<homemirroricon>><<link [[Mirror|Lake House Mirror]]>><</link>>
+				<<mirroricon "home">><<preMirror>><<link [[Mirror|Lake House Mirror]]>><</link>>
 				<br>
 			<</if>>
 		<<else>>
