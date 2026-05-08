@@ -1,23 +1,17 @@
 :: Test
-<<location "seapirates">><<set $outside to 0>><<effects>>
-<<endcombat>>
-<<link [[Test]]>><</link>>
-<br><br>
-
-
-
-:: Robin
-<<set $NPCName[$NPCNameList.indexOf("Robin")].love to 50>>
-<<if $NPCName[$NPCNameList.indexOf("Robin")].love gte 50>>
+<<set $location to "avery_mansion">><<set $outside to 0>><<effects>>
+<<endcombat>><<set $options.historyControls to true>><<set $options.maxStates to 20>>
+<<if !$avery_mansion>>
+	<<avery_mansion_init>>
 <</if>>
-<<nnpc_he Robin>>
+<<set $testingVariable to $testingVariable or 1>>
+Currently testing slot: <<= $testingVariable>>
+<<link [[Increment slot|Test]]>>
+	<<set $testingVariable++>>
+<</link>><br>
+<br>
 
-<<link [["Ask " + $NPCList[0].pronouns.him + " how " + $NPCList[0].pronouns.he + " gets in and out"|Prison Wren Ask 2]]>><</link>>
 
-<<run Furniture.set('owlplushie', 'owlplushie', {
-	name	: 'owl plushie',
-	nameCap	: 'Owl plushie'
-})>>
 
 :: Sex
 <<if $sexstart is 1>>
@@ -194,6 +188,11 @@
 <<link [[Next|Skulduggery 2]]>><</link>><<skulduggerydifficulty>>
 <br>
 
+
+<<if hasSexStat("promiscuity", 2)>>
+	<<promiscuous 2>>
+<</if>>
+
 :: Skulduggery 2
 <<effects>>
 
@@ -206,12 +205,7 @@ Possible text describing your attempt.
 	Text describing your success.
 	<br><br>
 
-	<<if $skulduggery lte ($skulduggerydifficulty + 100)>>
-		<<skulduggeryskilluse>>
-	<<else>>
-		<span class="blue">That was too easy. You didn't learn anything.</span>
-		<br><br>
-	<</if>>
+	<<skulduggeryuse>>
 
 	<<link [[Next|Skulduggery]]>><</link>>
 	<br>
@@ -221,12 +215,7 @@ Possible text describing your attempt.
 	Text describing your failure.
 	<br><br>
 
-	<<if $skulduggery lte ($skulduggerydifficulty + 100)>>
-		<<skulduggeryskilluse>>
-	<<else>>
-		<span class="blue">That was too easy. You didn't learn anything.</span>
-		<br><br>
-	<</if>>
+	<<skulduggeryuse>>
 
 	<<link [[Next|Skulduggery]]>><</link>>
 	<br>
@@ -472,11 +461,7 @@ Possible text describing your attempt.
 
 <<set $seductiondifficulty to 6000>>
 <<seductioncheck>>
-<br><br>
-<<if $seductionskill lt 1000>>
-	<span class="gold">You feel more confident in your powers of seduction.</span>
-	<br><br>
-<</if>>
+<<seductionskilluptext>>
 <<seductionskilluse>>
 
 Text detailing your seduction attempt.
@@ -501,29 +486,26 @@ Text detailing your seduction attempt.
 The door is locked tight.
 <br><br>
 
-	<<if currentSkillValue('skulduggery') gte $lock>>
-	<span class="green">The lock looks easy to pick.</span>
-	<br><br>
-
-	<<link [[Break in (0:05)|Elk Compound Interior]]>><<pass 5>><<crimeUp 10 "trespassing">><</link>><<crime "trespassing">>
-	<br>
+<<if currentSkillValue('skulduggery') gte $lock>>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
 	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+		<<lockicon "pick">><<link [[Break in (0:05)|Elk Compound Interior]]>><<handheldon>><<pass 5>><<crimeUp 10 "trespassing">><</link>><<crime "trespassing">>
+		<br>
+	<</if>>
+<<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
-	<</if>>
-
-<<if $ghost gte 1>>
-	You enter into the premises.
-<<else>>
-	You successfully pick the lock and enter the building.
 <</if>>
-<<set $compoundcentre to 1>><<set $compoundalarm += 1>>
 
-<<if $skulduggery lt 400>>
-<<skulduggeryskilluse>>
-<<else>>
-<span class="blue">There's nothing more you can learn from locks this simple.</span>
-<</if>>
+You successfully pick the lock and enter the building.
+<<set $compound.alarm += 1>>
+
+<<skulduggeryuse 400 "locks">>
 
 :: Template for a widget that outputs text based on character's state
 
@@ -692,8 +674,8 @@ The door is locked tight.
 	<</if>>
 <</widget>>
 
-<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
-	<<if $danger gte (9900 - $allure)>>
+
+	<<if dangerEvent()>>
 
 	<<else>>
 
@@ -747,8 +729,10 @@ The door is locked tight.
 
 :: Misc
 
-$NPCName[$NPCNameList.indexOf("Robin")].love
+C.npc.Robin.love
 <<npcincr Robin love 1>>
+
+currentSkillValue('tending')
 
 <<for _i to 0; _i lt $NPCName.length; _i++>>
 <</for>>
@@ -809,10 +793,10 @@ Description of escaping/being left alone by the tentacles.
 <br>
 
 /*How to destroy a cursed item, replacing "face" with the slot in question:*/
-<<set $worn.face.type.push("broken")>>
+<<set $worn.face.type.push("broken")>><<faceruined>>
 <<faceruined>>
 
-<<if $exposed gte 2 and $exhibitionism lt 95 or $exposed gte 2 and $uncomfortable.nude is true>>
+<<if $exposed gte 2 and !hasSexStat("exhibitionism", 6) or $exposed gte 2 and $uncomfortable.nude is true>>
 
 <<else>>
 
@@ -894,7 +878,7 @@ Text about failing the physique check.
 
 :: Monster Selection
 <!-- Modified for Monster People -->
-<<if ($monsterchance gte 1 and $hallucinations gte 1) or ($monsterchance gte 1 and $monsterhallucinations is "f")>>
+<<if ($settings.monsterChance gte 1 and $hallucinations gte 1) or ($settings.monsterChance gte 1 and !$settings.monsterHallucinationsOnly)>>
 	<<if maleChance() lt random(1, 100)>>
 		Monstergirl
 	<<else>>
@@ -956,7 +940,7 @@ Number of active machines: <<print $machine.number>><br>
 	Phallic machine health: <<print $machine.vaginal.health>><br>
 	Phallic machine hack: <<print $machine.vaginal.hack>><br>
 	Phallic machine ammo: <<print $machine.vaginal.ammo>><br>
-	Phallic machine speed: <<print $machine.vaginal.speed>><br>
+	Phallic machine speed: <<print $machine.speed>><br>
 <</if>>
 <br>
 <<if $machine.anal>>
@@ -965,7 +949,7 @@ Number of active machines: <<print $machine.number>><br>
 	Small phallic machine health: <<print $machine.anal.health>><br>
 	Small phallic machine hack: <<print $machine.anal.hack>><br>
 	Small phallic machine ammo: <<print $machine.anal.ammo>><br>
-	Small phallic machine speed: <<print $machine.anal.speed>><br>
+	Small phallic machine speed: <<print $machine.speed>><br>
 <</if>>
 <br>
 <<if $machine.arm_chains>>
@@ -994,9 +978,9 @@ Number of active machines: <<print $machine.number>><br>
 	<<if $machine.vaginal or $machine.anal>>
 		<br>
 		<<if $machine.vaginal.speed is "high" or $machine.anal.speed is "high">>
-			<<link [[SLOW DOWN|Machine]]>><<machine_speed "normal">><</link>>
+			<<link [[Slow down|Machine]]>><<machine_speed "normal">><</link>>
 		<<else>>
-			<<link [[SPEED UP|Machine]]>><<machine_speed "high">><</link>>
+			<<link [[Speed up|Machine]]>><<machine_speed "high">><</link>>
 		<</if>>
 	<</if>>
 <</if>>
@@ -1022,7 +1006,7 @@ Number of active machines: <<print $machine.number>><br>
 <<if $struggle_start is 1>>
 	<<struggle_init>>
 	<<set $struggle.creature to "lurker">>/*Creature species*/
-	<<struggle_creatures 5 2>>/*How many creatures will be involved, and their health.*/
+	<<struggle_creatures 5 2>>/*How many creatures will be involved and their health.*/
 	<<set $combat to 1>>
 	<<controlloss>>
 	<<violence 1>>
@@ -1053,7 +1037,7 @@ Number of active machines: <<print $machine.number>><br>
 :: Struggle End
 <<effects>>
 
-Stuff happens.
+Happenings.
 <br><br>
 
 <<clotheson>>
@@ -1174,6 +1158,18 @@ $kylar_camera = 7: Camera left.
 
 	<<link [[Next|Stalk]]>><<set $molestationstart to 1>><</link>>
 	<br>
+<<elseif $stalk_end is "ambush">>
+	<<stalk_ambush_text>>
+	<<covered>> <<tearful>> you leave <<him>> far behind.
+	<br><br>
+
+	<<set $stealtextskip to 1>>
+	<<stealclothes>>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Stalk]]>><<set $molestationstart to 1>><</link>>
+	<br>
 <<elseif $stalk_end is "outpaced">>/*Unnecessary if the PC can't become the pursuer */
 	<<if $exposed gte 1>>
 		<<switch $location>>
@@ -1232,12 +1228,12 @@ $kylar_camera = 7: Camera left.
 <<danceaudience>>
 <<danceactions>>
 
-<<if $corruptionDancing gt 0 and $danceevent is 0 and (($exhibitionism lte 74 and $exposed gte 2) or ($exhibitionism lte 34 and $exposed gte 1))>>
+<<if $corruptionDancing gt 0 and $danceevent is 0 and ((!hasSexStat("exhibitionism", 5) and $exposed gte 2) or (!hasSexStat("exhibitionism", 3) and $exposed gte 1))>>
 	There's no way you could normally continue dancing while so exposed.
-<<elseif $danceevent is 0 and $exhibitionism lte 74 and $exposed gte 2>>
+<<elseif $danceevent is 0 and !hasSexStat("exhibitionism", 5) and $exposed gte 2>>
 	There's no way you can continue dancing while so exposed! Face reddening, you flee the scene.
 	<br><br>
-<<elseif $danceevent is 0 and $exhibitionism lte 34 and $exposed gte 1 and !$worn.under_lower.type.includes("dance")>>
+<<elseif $danceevent is 0 and !hasSexStat("exhibitionism", 3) and $exposed gte 1 and !$worn.under_lower.type.includes("dance")>>
 	There's no way you can continue dancing while so exposed! Face reddening, you flee the scene.
 	<br><br>
 <</if>>
@@ -1248,10 +1244,11 @@ $kylar_camera = 7: Camera left.
 <<elseif $danceevent is "private">>
 	<<if $corruptionDancing is 2>>
 		The slime wants you to have fun with more than an individual.
-	<<elseif $promiscuity gte 35>>
+	<<elseif hasSexStat("promiscuity", 3)>>
 		<<link [[Private room|Brothel Private]]>><<set $phase to 0>><<set $enemyno to 1>><<set $enemynomax to 1>><<unset $corruptionDancing>><</link>><<promiscuous3>>
-	<<elseif $promiscuity lte 34 and $uncomfortable.prostituting is false>>
-		<<link [[Private room|Brothel Private]]>><<set $phase to 0>><<set $enemyno to 1>><<set $enemynomax to 1>><<unset $corruptionDancing>><<set $desperateaction to 1>><</link>><<promiscuous3>>
+	<<elseif $uncomfortable.prostituting is false>>
+		<<set _desperateaction to 1>>
+		<<link [[Private room|Brothel Private]]>><<set $phase to 0>><<set $enemyno to 1>><<set $enemynomax to 1>><<unset $corruptionDancing>><<set $desperateaction to _desperateaction>><</link>><<promiscuous3>>
 		<br>
 	<</if>>
 <<elseif $danceevent is "rape">>
@@ -1259,7 +1256,7 @@ $kylar_camera = 7: Camera left.
 <<elseif $danceevent is "leighton">>
 	<<if $corruptionDancing is 2>>
 		The slime wants you to have fun with more than an individual.
-	<<elseif $promiscuity gte 35>>
+	<<elseif hasSexStat("promiscuity", 3)>>
 		<<link [[Private room|Leighton Private]]>><<clotheson>><<endevent>><<unset $corruptionDancing>><</link>><<promiscuous3>>
 		<br>
 	<</if>>
@@ -1273,9 +1270,9 @@ $kylar_camera = 7: Camera left.
 <<elseif $danceevent is 0>>
 	<<if $corruptionDancing isnot undefined>>
 		The slime in your ear is forcing you.
-	<<elseif $exposed gte 2 and $exhibitionism lte 74>>
+	<<elseif $exposed gte 2 and !hasSexStat("exhibitionism", 5)>>
 		<<link [[Flee|Brothel Dressing Room]]>><<clotheson>><<endevent>><<unset $corruptionDancing>><</link>>
-	<<elseif $exposed gte 1 and $exhibitionism lte 34>>
+	<<elseif $exposed gte 1 and !hasSexStat("exhibitionism", 3)>>
 		<<link [[Flee|Brothel Dressing Room]]>><<clotheson>><<endevent>><<unset $corruptionDancing>><</link>>
 	<<else>>
 		<<link [[Stop|Brothel]]>><<clotheson>><<endevent>><<unset $corruptionDancing>><</link>>
@@ -1287,9 +1284,9 @@ $kylar_camera = 7: Camera left.
 <<elseif $danceevent is "finish">>
 	<<link [[Next|Beach Party]]>><<clotheson>><<endevent>><</link>>
 <<elseif $danceevent is 0>>
-	<<if $exposed gte 2 and $exhibitionism lte 74>>
+	<<if $exposed gte 2 and !hasSexStat("exhibitionism", 5)>>
 		<<link [[Flee|Changing Room]]>><<clotheson>><<endevent>><</link>>
-	<<elseif $exposed gte 1 and $exhibitionism lte 34>>
+	<<elseif $exposed gte 1 and !hasSexStat("exhibitionism", 3)>>
 		<<link [[Flee|Changing Room]]>><<clotheson>><<endevent>><</link>>
 	<<else>>
 		<<link [[Stop|Beach Party]]>><<clotheson>><<endevent>><</link>>
@@ -1302,3 +1299,22 @@ $kylar_camera = 7: Camera left.
 <<print $sexStats.vagina.sperm["plump man"].count>><br>
 Menstruation state: <<print $sexStats.vagina.menstruation.currentState>><br>
 Menstruation day: <<print $sexStats.vagina.menstruation.currentDay>><br>
+
+:: Sneaky Temple Spear Pirate Test
+<<effects>>
+<<npc "Jordan">><<person1>>
+Jordan materialises from the background radiation of the universe.
+<br><br>
+"I'm glad you're here," <<he>> says. "There's a holiday approaching, one that happens just once a century. Each century a member of our order is chosen to go on a pilgrimage to an island off the coast, to retrieve an artefact spear. The spear is the centrepiece of the holiday. We'd like to give this role to you."
+<br><br>
+"There is a problem though," <<he>> continues. "There's no record of the island existing. We've lots of records here at the temple, but we seem to be the only ones. The historian at the museum suggested that our tales have confused it with the prison, or with somewhere along the shore."
+<br><br>
+"Your first task is to find where the island is and how to get there. I'm sorry I can't be more helpful. Perhaps this is part of the pilgrimage. I have every faith in you."
+<br><br>
+<<set $spearQuestions to []>>
+<<link [[Ask why they're sending you in particular|Temple Spear Questions]]>><<set $temple_spear_mission to 1>><<set $spearQuestion to "why">><<set $spearQuestions.push("why")>><</link>>
+<br>
+<<link [[Ask what the festival involves|Temple Spear Questions]]>><<set $temple_spear_mission to 1>><<set $spearQuestion to "what">><<set $spearQuestions.push("what")>><</link>>
+<br>
+<<link [[Ask where you should look|Temple Spear Questions]]>><<set $spearQuestion to "where">><<set $spearQuestions.push("where")>><</link>>
+<br><br>

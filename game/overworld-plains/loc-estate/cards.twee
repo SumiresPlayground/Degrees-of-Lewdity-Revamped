@@ -1,45 +1,50 @@
 :: Estate Cards Intro
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<npc "Wren">><<person1>>
 <<generate2>><<generate3>><<generate4>><<generate5>><<generate6>>
 <<if $wren_intro is undefined>>
-	<<if $wren_seen is "catsuit">>
-		"Sneaking where we don't belong?" says a young <<if $pronoun is "m">>man with short<<else>>woman with shoulder-length<</if>> hair. <span class="gold">It's Wren.</span> "Just like you were when we met at the docks." <<He>> doesn't look armed this time.
-		<br>
-		"Maybe <<pshe>> wants to play?" a <<person2>><<person>> suggests, eyeing up your body. "<<pShe>> has a few assets I'd see <<phim>> lose."
-		<br>
-		"How about it <<girl>>?" Wren asks. "Fancy some blackjack?"
-		<br><br>
-		<i><span class="blue">An idea strikes you.</span> They don't seem hostile. For now. You could twist the situation to your advantage, but be careful.</i>
-		<br><br>
-	<<elseif $wren_seen is "prison">>
-		"Sneaking where we don't belong?" says a young <<if $pronoun is "m">>man with short<<else>>woman with shoulder-length<</if>> hair. <span class="gold">It's Wren.</span> "Hope you stay out of prison this time."
-		<br>
-		"Maybe <<pshe>> wants to play?" a <<person2>><<person>> suggests, eyeing up your body. "<<pShe>> has a few assets I'd see <<phim>> lose."
-		<br>
-		"How about it <<girl>>?" Wren asks. "Fancy some blackjack?"
-		<br><br>
-		<i><span class="blue">An idea strikes you.</span> They don't seem hostile. For now. You could twist the situation to your advantage, but be careful.</i>
-		<br><br>
+	"Sneaking where we don't belong?" says a young <<if $pronoun is "m">>man with short<<else>>woman with shoulder-length<</if>> hair.
+	<<if $wrenSeenLast is "pregnancy">>
+		<span class="gold">It's the person who rescued you when you were in labour.</span> "Dangerous caves aren't the only place you like to poke around, I guess. <<= playerBellyVisible() ? "Already knocked up again, huh?" : "At least you're otherwise staying out of trouble.">>" <<He>> nods at your belly, flashing an amused grin. "Try not to pass out this time."
+	<<elseif $wrenSeenLast is "catsuit">>
+		<span class="gold">It's Wren.</span> "Just like you were when we met at the docks." <<He>> doesn't look armed this time.
+	<<elseif $wrenSeenLast is "prison">>
+		<span class="gold">It's Wren.</span> "Hope you stay out of prison this time."
 	<<else>>
-		"Sneaking where we don't belong?" says a young <<if $pronoun is "m">>man with short<<else>>woman with shoulder-length<</if>> hair. "Naughty."
-		<br>
-		"Maybe <<pshe>> wants to play?" a <<person2>><<person>> suggests, eyeing up your body. "<<pShe>> has a few assets I'd see <<phim>> lose."
-		<br>
-		"How about it <<girl>>?" the first <<person1>><<nnpc_gender "Wren">> asks. <<Hes>> not much older than you. "Fancy some blackjack?"
-		<br><br>
-		<<if $farm_stage lte 4 or $farm_stage is undefined>>
-			<i><span class="blue">A realisation strikes you.</span> This is likely the Wren that Mickey mentioned.</i>
-		<<else>>
-			<i><span class="blue">An idea strikes you.</span> They don't seem hostile. For now. You could twist the situation to your advantage, but be careful.</i>
-		<</if>>
-		<br><br>
+		"Naughty."
 	<</if>>
-
+	<br>
+	"Maybe <<pshe>> wants to play?" a <<person2>><<person>> suggests, eyeing up your body. "<<pShe>> has a few assets I'd see <<phim>> lose."
+	<br>
+	"How about it <<girl>>?" the first <<person1>><<nnpc_gender "Wren">> asks. <<Hes>> not much older than you. "Fancy some blackjack?"
+	<br><br>
+	<<if $farm_stage lte 4 or $farm_stage is undefined>>
+		<i><span class="blue">A realisation strikes you.</span> This is likely the Wren that Mickey mentioned.</i>
+	<<else>>
+		<i><span class="blue">An idea strikes you.</span> They don't seem hostile. For now. You could twist the situation to your advantage, but be careful.</i>
+	<</if>>
 <<else>>
 
-	<<if $estate_cards_end is "naked">>
+	<<if $wrenHeistMissed is true or ($wrenHeist is true and $wrenHeistDance.attended isnot true and Time.hour gte 21)>>
+		"Look who it is," Wren says. "You stood me up," <<= C.npc.Wren.love gte 40 ? "You know Wren well enough by now to see" : "You can't tell if">> <<hes>> hurt. "Luckily, I didn't need your help."<<npcincr Wren love -1>><<llove>><<set $wrenHeist to false>><<unset $wrenHeistMissed>><<unset $wrenHeistDance>>
+	<<elseif $wrenSeenLast is "letter">>
+		"Look who it is," Wren says. "Got another letter for me<<if $farm_stage gte 5>>, or are you up for a game<</if>>?"
+	<<elseif $wrenSeenLast is "winter">>
+		"Look who it is," Wren says. "Taking a break from helping the fossil dig up graves?"
+	<<elseif $wrenSeenLast is "catsuit">>
+		"Look who it is," Wren says. "It was fun to run into you during work."
+	<<elseif $wrenSeenLast is "pregnancy">>
+		"Look who it is," Wren says. "I didn't expect to see you poking around that cave. Naughty <<girl>>." <<His>> eyes land on your belly.
+		<<if playerBellyVisible()>>
+			"You're already knocked up again?" <<He>> laughs. "Careful not to pass out this time.
+		<<else>>
+			"At least you're otherwise staying out of trouble. Mind where you pass out next time.
+		<</if>>
+		I won't always be around to save you."
+	<<elseif $wrenSeenLast is "heist">>
+		"Look who it is," Wren says. "Fancy seeing you here, partner.<<if $wrenHeistCricketBall is true>> You owe me. Big.<<set $wrenHeistCricketBall to false>><</if>>"
+	<<elseif $estate_cards_end is "naked">>
 		"Look who it is," Wren says, a smug smile on <<his>> face. "We left you with nothing last time. Hope the journey home wasn't too cold." <<His>> friends laugh.
 	<<elseif $estate_cards_end is "left_early">>
 		"Look who it is," Wren says. "Planning to stay around a bit longer this time, I hope."
@@ -56,8 +61,6 @@
 		"Look who it is," Wren says. "Still playing it safe with that belt of yours, I bet."
 	<<elseif $estate_cards_end is "oral" or $estate_cards_end is "pc_won_and_oral">>
 		"Look who it is," Wren says. "Glad you're here. My friends enjoyed you last time. I promised I'd have you on your knees again."
-	<<elseif $wren_seen is "letter">>
-		"Look who it is," Wren says. "Got another letter for me, or are you up for a game?"
 	<<elseif $estate_cards_end is "cheat_run">>
 		"Look who it is," Wren says. "You were a very bad <<girl>> last time, cheating and booking it like that. Ready to be taught a lesson?"
 	<<elseif $estate_cards_end is "cheat_moor">>
@@ -65,24 +68,24 @@
 	<<elseif $estate_cards_end is "pc_won">>
 		"Look who it is," Wren says. "You left us hanging last time, blanking on favours like that. Fancy a game?"
 	<<elseif $estate_cards_end is "cheat_remy">>
-		<<if $NPCName[$NPCNameList.indexOf('Wren')].love gte 20>>
+		<<if C.npc.Wren.love gte 20>>
 			"Look who it is," Wren says. "I knew you'd be back soon - you won me a bet."
 		<<else>>
 			"Look who it is," Wren says. "Not too surprised to meet you again. Hope you didn't cause them too much trouble."
 		<</if>>
-	<<elseif $wren_seen is "catsuit">>
-		"Look who it is," Wren says. "It was fun to run into you during work."
 	<<else>>
 		"Look who it is," Wren says. "Fancy a game?"
 	<</if>>
 	<<unset $estate_cards_end>>
 <</if>>
+<<set $wrenSeen.pushUnique("cards")>>
+<<set $wrenSeenLast to "cards">>
 
 <br><br>
 <<cards_start_play_options>>
 
 :: Estate Cards Intro Leave
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 You turn to leave.
 <<if $wren_intro is undefined>>
@@ -96,7 +99,8 @@ You turn to leave.
 <br>
 
 :: Estate Cards Enter
-<<effects>>
+<<effects>><<set $outside to 0>><<set $bus to "estate_cottage">>
+<<set $outside to 0>>
 
 
 You enter the cottage. A group of <<people>> play cards around a table. They all face you. <<covered>>
@@ -107,7 +111,7 @@ You enter the cottage. A group of <<people>> play cards around a table. They all
 
 
 :: Estate Cards Suggest Betting Init
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<set $estate.cards.suggestedRaisingStakesToday to true>>
 <<set $estatePersistent.suggestedRaisingStakes to true>>
@@ -130,10 +134,10 @@ Wren raises <<his>> eyebrows in curiosity, a smirk playing on <<his>> lips.<br><
 	"I-I pay a lot for my clothes," you say, "and y-you get to keep your clothes, so... M-maybe if I g-got something from you when you lost..."
 	<br><br>
 <<elseif $speech_attitude is "bratty">>
-	"Do you even have to ask?" you glare at <<him>>. "You want to take my hard-earned clothing when I lose, and in return you do some stupid dare?"
+	"Do you even have to ask?" You glare at <<him>>. "You want to take my hard-earned clothing when I lose, and in return you do some stupid dare?"
 	<br><br>
 <<else>>
-	"I don't feel like the favours are enough compensation for the clothes I lose", you say.
+	"I don't feel like the favours are enough compensation for the clothes I lose," you say.
 	<br><br>
 <</if>>
 
@@ -141,16 +145,16 @@ Wren raises <<his>> eyebrows in curiosity, a smirk playing on <<his>> lips.<br><
 
 
 :: Estate Cards Suggest Betting Init 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<person1>>
 <<if $speech_attitude is "meek">>
-	Wren looks at you with amusement. "Playing for <i>"favours"</i> was your idea," <<he>> says, "and I'm already risking a lot, you know."
+	Wren looks at you with amusement. "Playing for <i>'favours'</i> was your idea," <<he>> says, "and I'm already risking a lot, you know."
 	<br><br>
 
 	"I-I'm sorry... C-could you give me some money back for the clothes if I win?" you ask.
 <<elseif $speech_attitude is "bratty">>
-	"Those "stupid" <i>favours</i> were your idea, you know?" Wren says, <<his>> relaxed expression unchanged. "Do you have any idea how risky some of them are for me?"
+	"Those 'stupid' <i>favours</i> were your idea, you know?" Wren says, <<his>> relaxed expression unchanged. "Do you have any idea how risky some of them are for me?"
 	<br><br>
 
 	"You keeping my damn clothes wasn't my idea," you argue back. "Least you can do is put some money forward when you lose, you know."
@@ -158,14 +162,14 @@ Wren raises <<his>> eyebrows in curiosity, a smirk playing on <<his>> lips.<br><
 	"You say that, even though the favours were your idea..." Wren says, leaning back on <<his>> chair. "Real shame you consider them unfair, considering how risky they can get for me."
 	<br><br>
 
-	"Risking going back home buck naked is also risky, and for what?" You argue. "It will be a bit more fair if I make some money back if I win."
+	"Risking going back home buck naked is also risky, and for what?" you argue. "It will be a bit more fair if I make some money back if I win."
 <</if>>
 
 <br><br>
 Wren lets out a light chuckle before turning to <<his>> friends. You can hear them discussing it for a few seconds, before Wren turns back to you.
 <br><br>
 
-<<if $NPCName[$NPCNameList.indexOf('Wren')].love gte 20>>
+<<if C.npc.Wren.love gte 20>>
 	<<set $phase to 1>>
 	<<link [[Next|Estate Cards Suggest Betting Success]]>><</link>>
 <<else>>
@@ -175,7 +179,7 @@ Wren lets out a light chuckle before turning to <<his>> friends. You can hear th
 
 
 :: Estate Cards Suggest Betting Success
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<person1>>
 <<if $phase is 1>>
@@ -189,7 +193,7 @@ Wren lets out a light chuckle before turning to <<his>> friends. You can hear th
 <</if>>
 
 <br><br>
-"We can add some money into the mix, on top of the favors and the clothes. My friends over here also wouldn't mind to throw in some extra for the eye candy, isn't that right?" Wren says, turning to look at <<his>> goons.
+"We can add some money into the mix, on top of the favours and the clothes. My friends over here also wouldn't mind to throw in some extra for the eye candy, isn't that right?" Wren says, turning to look at <<his>> goons.
 <br><br>
 
 The goons look up and down your body, and you don't hear any objections.
@@ -200,7 +204,7 @@ The goons look up and down your body, and you don't hear any objections.
 
 
 :: Estate Cards Suggest Betting Success 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<person1>>
 "However," <<he>> continues. "You'll obviously need to put forward some money, as well. I'm sure you didn't think I'd just give you free money, did you?" Wren says with a smirk.
@@ -208,7 +212,7 @@ The goons look up and down your body, and you don't hear any objections.
 
 "Whatever you bet, I will match, and my friends will throw in some extra. We'll ante up before the game, and we'll bet hand-to-hand, before the cards are dealt," Wren says.<br><br>
 
-"Of course, you still want the favors, so I still want the clothes. We're just adding a bit of money to the mix. Sound good?" Wren asks.
+"Of course, you still want the favours, so I still want the clothes. We're just adding a bit of money to the mix. Sound good?" Wren asks.
 <br><br>
 
 <<link [[Accept|Estate Cards Accept Betting]]>><</link>>
@@ -217,7 +221,7 @@ The goons look up and down your body, and you don't hear any objections.
 <br>
 
 :: Estate Cards Reject Betting
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<set $estatePersistent.playerRejectedRaisingStakes to true>>
 
@@ -241,7 +245,7 @@ The goons look up and down your body, and you don't hear any objections.
 
 
 :: Estate Cards Accept Betting
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<set $estatePersistent.playerRejectedRaisingStakes to false>>
 <<set $estatePersistent.stakesRaised to true>>
@@ -263,7 +267,7 @@ Wren smiles. "Alright, it's decided then," <<he>> says. "So, wanna play?"
 
 
 :: Estate Cards Suggest Betting Failure
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <span class="red">"Nah. No deal,"</span> Wren says. "This isn't a charity."
 <br><br>
@@ -277,7 +281,7 @@ Wren smiles. "Alright, it's decided then," <<he>> says. "So, wanna play?"
 
 
 :: Estate Cards Suggest Betting Again
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<set $estate.cards.suggestedRaisingStakesToday to true>>
 
@@ -293,7 +297,7 @@ Wren smiles. "Alright, it's decided then," <<he>> says. "So, wanna play?"
 "You're a persistent one," Wren says. <<He>> turns to look at <<his>> goons, before turning back to you.
 <br><br>
 
-<<if $NPCName[$NPCNameList.indexOf('Wren')].love gte 20>>
+<<if C.npc.Wren.love gte 20>>
 	"You're just gonna keep asking, aren't you?" Wren says.
 	<br><br>
 
@@ -313,7 +317,7 @@ Wren smiles. "Alright, it's decided then," <<he>> says. "So, wanna play?"
 
 
 :: Estate Cards Reconsider Accept Betting
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<set $estatePersistent.playerRejectedRaisingStakes to false>>
 <<set $estatePersistent.stakesRaised to true>>
@@ -370,7 +374,8 @@ Wren smiles. "Alright, it's decided then," <<he>> says. "So, wanna play?"
 	You hear footsteps pursue. You've barely made it outside when Wren <span class="red">tackles you to the ground.</span> "What should we do with <<phim>>?" <<he>> asks as more arms hold you down.
 	<br><br>
 
-	<<if $worn.upper.type.includes("naked") and $worn.under_upper.type.includes("naked") and $worn.lower.type.includes("naked") and $worn.under_lower.type.includes("naked")>>
+	<<outfitChecks>>
+	<<if _fullyNaked>>
 		"The moor will take <<phim>>," the <<person2>><<person>> replies.
 	<<else>>
 		<<clothesruined>><<exposure>>
@@ -427,7 +432,7 @@ You turn and run.
 
 :: Estate Cards Cheating Plead
 <<effects>>
-<!-- <<if $estate.cards.state is "ride">>  is omitted because in that state the apologise option isn't given -->
+<!-- <<if $estate.cards.state is "ride">> is omitted because in that state the apologise option isn't given -->
 
 
 <<if $speech_attitude is "meek">>
@@ -451,9 +456,10 @@ You turn and run.
 	<br><br>
 	"Can't give this one to <span class="pink"><<nnpc_him "Remy">></span>, would cause them too much trouble," Wren says.
 	<br>
-	"What should we do with <<phim>>?", <<he>> asks <<his>> friends, who have completely surrounded you.
+	"What should we do with <<phim>>?" <<he>> asks <<his>> friends, who have completely surrounded you.
 	<br><br>
-	<<if $worn.upper.type.includes("naked") and $worn.under_upper.type.includes("naked") and $worn.lower.type.includes("naked") and $worn.under_lower.type.includes("naked")>>
+	<<outfitChecks>>
+	<<if _fullyNaked>>
 		"Let's take <<phim>> to the moor," the <<person2>><<person>> replies.
 	<<else>>
 		<<clothesruined>><<exposure>>
@@ -484,19 +490,19 @@ You turn and run.
 	<</if>>
 
 	<br><br>
-	"Now, be a good <<girl>> and don't try anything stupid", <<he>> says with a smile.
+	"Now, be a good <<girl>> and don't try anything stupid," <<he>> says with a smile.
 
 	<br><br>
 	<<blackjackCaughtControls 2>>
 <</if>>
 
 :: Estate Cards Cheating Protest
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<if $speech_attitude is "meek">>
 	"T-this is a misunderstanding, please!" you plead.<br><br>
 <<elseif $speech_attitude is "bratty">>
-	"Oh come on, this is bullshit!", you cry out. "You're a cheat yourself. You don't even have any proof!"
+	"Oh come on, this is bullshit!" you cry out. "You're a cheat yourself. You don't even have any proof!"
 <<else>>
 	"I have no idea what you're talking about," you say. "You're making a mistake."
 <</if>>
@@ -505,36 +511,36 @@ You turn and run.
 Your words fall on deaf ears. "We both know what you did," Wren says. "Gotta make sure you learn your lesson."
 <br><br>
 
-"Now, be a good <<girl>> and don't try anything stupid", <<he>> says with a smile.
+"Now, be a good <<girl>> and don't try anything stupid," <<he>> says with a smile.
 <br><br>
 <<blackjackCaughtControls 2>>
 
 :: Estate Cards Cheat Surrender
-<<effects>>
+<<effects>><<set $outside to 0>>
 You stay in place, allowing Wren's goons to surround you.
 <br><br>
 <!-- estate end 4 -->
 <<blackjackCaughtCheatingSurrender>>
-<!--  basically same stuff as in run, but less forced -->
+<!-- basically same stuff as in run, but less forced -->
 
 
 :: Estate Cards Intro 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<blackjackStart "Blackjack Finish">>
 <<person1>>
-<<set $wren_seen to "cards">>
+<<set $wrenSeenLast to "cards">>
 <<if $wren_intro is undefined>>
 	<<set $wren_intro to true>>
 	You pull back a chair, and sit at the table. "Nice," the <<if $pronoun is "m">>blond man<<else>>blonde woman<</if>> says. "<span class="gold">The name's Wren.</span> Now, how about we make this interesting?"
 	<br><br>
 
 	<<if $speech_attitude is "meek">>
-		"I-If I win," you say. "You have to do me a favour."
+		"I-If I win," you say, "you have to do me a favour."
 	<<elseif $speech_attitude is "bratty">>
 		"I don't want your money," you say. "If I win, you owe me a favour."
 	<<else>>
-		"Instead of money," you say. "If I win, you owe me a favour."
+		"Instead of money," you say, "if I win, you owe me a favour."
 	<</if>>
 
 	<br><br>
@@ -574,7 +580,7 @@ You stay in place, allowing Wren's goons to surround you.
 
 
 :: Estate Blackjack Cheat
-<<effects>>
+<<effects>><<set $outside to 0>>
 <<switch $blackjack.cheatChoice>>
 <<case "mark">>
 	<<blackjackGetCanMarkCount>>
@@ -610,28 +616,30 @@ You stay in place, allowing Wren's goons to surround you.
 		<br><br>
 		<<if $estate.cards.state is "ride">>
 			Suddenly, the dealer approaches Wren and whispers something. Afterwards, you hear Wren <span class="red">chuckling.</span>
-			<br>
-			<<skulduggeryuse>>
 			<br><br>
+
+			<<skulduggeryuse>>
+
 			<<He>> reaches <<his>> hand behind <<his>> back and snatches the card from your grasp. <<He>> then shows you the mark you've placed on it.
 			<br>
 		<<else>>
 			When you look back up, you see Wren <span class="red">staring right into your eyes.</span>
-			<br>
-			<<skulduggeryuse>>
 			<br><br>
+
+			<<skulduggeryuse>>
+
 			<<He>> takes your card and points to the mark you've just placed. "Good thing I caught you right in the act."
 			<br>
 		<</if>>
 
-		"Ruining our cards, eh? Thought we wouldn't notice?" <<he>> says. "Tsk, tks. This won't do."
+		"Ruining our cards, eh? Thought we wouldn't notice?" <<he>> says. "Tsk, tsk. This won't do."
 		<br><br>
 		<<if $speech_attitude is "meek">>
-			"I-I'm sorry, it was an accident!", you say.
+			"I-I'm sorry, it was an accident!" you say.
 		<<elseif $speech_attitude is "bratty">>
 			"Blame your dealer, I'm not the one who damaged the card," you say.
 		<<else>>
-			"I didn't do anything", you say.
+			"I didn't do anything," you say.
 		<</if>>
 		<br><br>
 
@@ -642,7 +650,7 @@ You stay in place, allowing Wren's goons to surround you.
 
 
 :: Estate Blackjack Win
-<<effects>>
+<<effects>><<set $outside to 0>>
 <<blackjackEnd "win">>
 <<blackjackStart "Blackjack Finish">>
 
@@ -703,7 +711,7 @@ You stay in place, allowing Wren's goons to surround you.
 <<case 7>>
 	<span class="lblue">Wren looks adventurous.</span>
 <<case 8>>
-	<span class="lblue">Wren looks bold</span>
+	<span class="lblue">Wren looks bold.</span>
 <<case 9>>
 	<span class="teal">Wren looks brave.</span>
 <<case 10>>
@@ -779,14 +787,14 @@ What do you ask?
 <<if $estate.cards.wren_bottoms is 1>>
 	<<set _favoursRemaining += 1>>
 	<<if $estate.cards.daring gte 5>>
-		<<if $NPCName[$NPCNameList.indexOf("Wren")].pronoun is "f">>
+		<<if C.npc.Wren.pronoun is "f">>
 			<<link [[Strip your skirt|Estate Cards Bottoms]]>><<set $estate.cards.daring += 2>><<set $estate.cards.wren_bottoms to 0>><<arousal 600>><</link>><<ggdaring>><<garousal>>
 		<<else>>
 			<<link [[Strip your trousers|Estate Cards Bottoms]]>><<set $estate.cards.daring += 2>><<set $estate.cards.wren_bottoms to 0>><<arousal 600>><</link>><<ggdaring>><<garousal>>
 		<</if>>
 		<br>
 	<<else>>
-		<<if $NPCName[$NPCNameList.indexOf("Wren")].pronoun is "f">>
+		<<if C.npc.Wren.pronoun is "f">>
 			<span class="blue">Strip your skirt: More daring required.</span>
 		<<else>>
 			<span class="blue">Strip your trousers: More daring required.</span>
@@ -820,14 +828,14 @@ What do you ask?
 <<if $estate.cards.wren_top isnot 1 and $estate.cards.wren_under_top is 1>>
 	<<set _favoursRemaining += 1>>
 	<<if $estate.cards.daring gte 7>>
-		<<if $NPCName[$NPCNameList.indexOf("Wren")].pronoun is "f">>
+		<<if C.npc.Wren.pronoun is "f">>
 			<<link [[Strip your bra|Estate Cards Under Top]]>><<set $estate.cards.daring += 2>><<set $estate.cards.wren_under_top to 0>><<arousal 600>><</link>><<ggdaring>><<garousal>>
 		<<else>>
 			<<link [[Strip your vest|Estate Cards Under Top]]>><<set $estate.cards.daring += 2>><<set $estate.cards.wren_under_top to 0>><<arousal 600>><</link>><<ggdaring>><<garousal>>
 		<</if>>
 		<br>
 	<<else>>
-		<<if $NPCName[$NPCNameList.indexOf("Wren")].pronoun is "f">>
+		<<if C.npc.Wren.pronoun is "f">>
 			<span class="blue">Strip your bra: More daring required.</span>
 		<<else>>
 			<span class="blue">Strip your vest: More daring required.</span>
@@ -850,14 +858,14 @@ What do you ask?
 <<if $estate.cards.wren_bottoms isnot 1 and $estate.cards.wren_under_bottoms is 1>>
 	<<set _favoursRemaining += 1>>
 	<<if $estate.cards.daring gte 9>>
-		<<if $NPCName[$NPCNameList.indexOf("Wren")].pronoun is "f">>
+		<<if C.npc.Wren.pronoun is "f">>
 			<<link [[Strip your panties|Estate Cards Under Bottoms]]>><<set $estate.cards.daring += 2>><<set $estate.cards.wren_under_bottoms to 0>><<arousal 600>><</link>><<ggdaring>><<garousal>>
 		<<else>>
 			<<link [[Strip your briefs|Estate Cards Under Bottoms]]>><<set $estate.cards.daring += 2>><<set $estate.cards.wren_under_bottoms to 0>><<arousal 600>><</link>><<ggdaring>><<garousal>>
 		<</if>>
 		<br>
 	<<else>>
-		<<if $NPCName[$NPCNameList.indexOf("Wren")].pronoun is "f">>
+		<<if C.npc.Wren.pronoun is "f">>
 			<span class="blue">Strip your panties: More daring required.</span>
 		<<else>>
 			<span class="blue">Strip your briefs: More daring required.</span>
@@ -873,7 +881,7 @@ What do you ask?
 		<br>
 	<<elseif _favoursRemaining is 1>>
 		<!-- if this is the very last favour remaining, but daring is low - we let the player know about this option,
-		     so that they realize they've mismanaged the daring and need to increase it again so that they can get all favours
+			 so that they realise they've mismanaged the daring and need to increase it again so that they can get all favours
 			 we do not show this option if they haven't gotten all other favours first, though
 		-->
 		<span class="blue">Start a fire: More daring required.</span>
@@ -884,8 +892,8 @@ What do you ask?
 
 <!-- we could allow the player to announce victory earlier, too, but it makes sense to require ALL dares to be completed -->
 <!-- we could also ignore the ones where we get Wren to get more daring with no actual benefit for us
-     since PC doesn't particularly care about Wren's state of undress
-	 however, I figured I'll count them too since Wren being undressed definitely plays a role in them feeling defeated when the PC leaves  -->
+	 since PC doesn't particularly care about Wren's state of undress
+	 however, I figured I'll count them too since Wren being undressed definitely plays a role in them feeling defeated when the PC leaves -->
 <<if _favoursRemaining is 0>>
 	<i>You realise there are no more favours you can think of. You could end the game by declaring yourself victorious.</i>
 	<<if $estate.cards.confiscatedClothes and $estate.cards.confiscatedClothes.length gt 0>>
@@ -901,7 +909,7 @@ What do you ask?
 
 
 :: Estate Cards Player Victory
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<person1>>
 <<if $speech_attitude is "meek">>
@@ -926,9 +934,9 @@ Wren raises <<his>> eyebrows in surprise. It looks like your comment has caught 
 
 	<<link [[Say you want your clothing back|Estate Cards Rebuy Clothing]]>><</link>>
 	<br>
-	<<getouticon>><<link [[Leave your clothing behind|Estate Cards Player Victory Leave]]>><</link>>
+	<<link [[Leave your clothing behind|Estate Cards Player Victory Leave]]>><</link>>
 <<else>>
-	<<getouticon>><<link [[Leave|Estate Cards Player Victory Leave]]>><</link>>
+	<<link [[Leave|Estate Cards Player Victory Leave]]>><</link>>
 <</if>>
 <br>
 
@@ -941,7 +949,11 @@ Wren raises <<his>> eyebrows in surprise. It looks like your comment has caught 
 "Well, don't let us stop you," <<he>> says. "When you want to play again, you know where to find us."
 <br><br>
 
-You walk outside, leaving your confiscated clothing behind.
+<<if $estate.cards.confiscatedClothes and $estate.cards.confiscatedClothes.length gt 0>>
+	You walk outside, leaving your confiscated clothing behind.
+<<else>>
+	You walk outside.
+<</if>>
 <<if $exposed gte 2>>
 	A breeze makes you shiver.
 <</if>>
@@ -953,7 +965,7 @@ You walk outside, leaving your confiscated clothing behind.
 
 
 :: Estate Cards Rebuy Clothing
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 Before <<he>> can say anything, you continue.
 <br><br>
@@ -989,10 +1001,10 @@ Before <<he>> can say anything, you continue.
 
 
 :: Estate Cards Rebuy Clothing 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 
-<<set _s1 to $estate.cards.confiscatedClothes.length gt 1 ? "souvenirs" : "souvenir">>
+<<set _s1 to pluralise($estate.cards.confiscatedClothes.length, "souvenir")>>
 
 <<if $estate.cards.clothesRebuyTerms.price gt 0>>
 	<<set _s2 to $estate.cards.confiscatedClothes.length gt 1 ? "it all" : "it">>
@@ -1002,7 +1014,7 @@ Before <<he>> can say anything, you continue.
 	"A great offer like that needs to be earned, though," Wren says. "I think my friends here deserve some fun."
 	<br><br>
 
-	"Satisfy them with your mouth," <<he>> continues. "And I'll cut you that sweet deal."
+	"Satisfy them with your mouth," <<he>> continues, "and I'll cut you that sweet deal."
 	<br><br>
 <<else>>
 	"Sure, I can give our _s1 back to you," Wren says. "Tell you what, I don't even want your money for it."
@@ -1011,7 +1023,7 @@ Before <<he>> can say anything, you continue.
 	"A gift like that needs to be earned, though," Wren says. "I think my friends here deserve some fun."
 	<br><br>
 
-	"Satisfy them with your mouth," <<he>> continues. "And you can have it back."
+	"Satisfy them with your mouth," <<he>> continues, "and you can have it back."
 	<br><br>
 <</if>>
 
@@ -1019,7 +1031,7 @@ Before <<he>> can say anything, you continue.
 
 
 :: Estate Blackjack Lose
-<<effects>>
+<<effects>><<set $outside to 0>>
 <<blackjackEnd "loss">>
 <<blackjackStart "Blackjack Finish">>
 
@@ -1032,24 +1044,27 @@ Before <<he>> can say anything, you continue.
 <<case "over_upper">>
 	<<set _cards_desire to "strip">>
 	<<cards_strip_text>>
-	<br><br>
 
 	<<if $worn.over_upper.set is $worn.over_lower.set>>
 		<<if $worn.upper.type.includes("naked") and $worn.lower.type.includes("naked")>>
 			<<if $worn.under_upper.type.includes("naked") and $worn.under_upper.type.includes("naked")>>
+				<br><br>
 				<<set $estate.cards.exposure to 5>>
 				<span class="pink">They don't know you're naked beneath.</span>
-			<<elseif $worn.under_upper.type.includes("naked") and ($player.gender is "f" or $player.gender_appearance is "f")>>
+			<<elseif $worn.under_upper.type.includes("naked") and ($player.sex is "f" or $player.gender_appearance is "f")>>
+				<br><br>
 				<<set $estate.cards.exposure to 4>>
 				<span class="purple">They don't know you're topless beneath.</span>
 			<<elseif $worn.under_lower.type.includes("naked")>>
+				<br><br>
 				<<set $estate.cards.exposure to 5>>
 				<span class="pink">They don't know you're bottomless beneath.</span>
 			<<else>>
 
 			<</if>>
 		<<elseif $worn.upper.type.includes("naked")>>
-			<<if $worn.under_upper.type.includes("naked") and ($player.gender is "f" or $player.gender_appearance is "f")>>
+			<br><br>
+			<<if $worn.under_upper.type.includes("naked") and ($player.sex is "f" or $player.gender_appearance is "f")>>
 				<<set $estate.cards.exposure to 4>>
 				<span class="purple">They don't know you're topless beneath.</span>
 			<<else>>
@@ -1057,6 +1072,7 @@ Before <<he>> can say anything, you continue.
 				<span class="blue">They don't know you're only wearing underwear beneath.</span>
 			<</if>>
 		<<elseif $worn.lower.type.includes("naked")>>
+			<br><br>
 			<<if $worn.under_lower.type.includes("naked")>>
 				<<set $estate.cards.exposure to 5>>
 				<span class="pink">They don't know you're bottomless beneath.</span>
@@ -1069,10 +1085,11 @@ Before <<he>> can say anything, you continue.
 		<</if>>
 	<<else>>
 		<<if $worn.upper.type.includes("naked")>>
-			<<if $worn.under_upper.type.includes("naked") and ($player.gender is "f" or $player.gender_appearance is "f")>>
+			<br><br>
+			<<if $worn.under_upper.type.includes("naked") and ($player.sex is "f" or $player.gender_appearance is "f")>>
 				<<set $estate.cards.exposure to 4>>
 				<span class="purple">They don't know you're topless beneath.</span>
-			<<elseif $player.gender is "f" or $player.gender_appearance is "f">>
+			<<elseif $player.sex is "f" or $player.gender_appearance is "f">>
 				<<set $estate.cards.exposure to 3>>
 				<span class="blue">They don't know you're only wearing underwear beneath.</span>
 			<</if>>
@@ -1083,8 +1100,8 @@ Before <<he>> can say anything, you continue.
 <<case "over_lower">>
 	<<set _cards_desire to "strip">>
 	<<cards_strip_text>>
-	<br><br>
 	<<if $worn.lower.type.includes("naked")>>
+		<br><br>
 		<<if $worn.under_lower.type.includes("naked")>>
 			<<set $estate.cards.exposure to 5>>
 			<span class="pink">They don't know you're bottomless beneath.</span>
@@ -1098,22 +1115,25 @@ Before <<he>> can say anything, you continue.
 <<case "upper">>
 	<<set _cards_desire to "strip">>
 	<<cards_strip_text>>
-	<br><br>
 	<<if $worn.upper.set is $worn.lower.set>>
 		<<if $worn.under_upper.type.includes("naked") and $worn.under_lower.type.includes("naked")>>
+			<br><br>
 			<<set $estate.cards.exposure to 5>>
 			<span class="pink">They don't know you're naked beneath.</span>
-		<<elseif $worn.under_upper.type.includes("naked") and ($player.gender is "f" and $player.gender_appearance is "f")>>
+		<<elseif $worn.under_upper.type.includes("naked") and ($player.sex is "f" and $player.gender_appearance is "f")>>
+			<br><br>
 			<<set $estate.cards.exposure to 4>>
 			<span class="purple">They don't know you're topless beneath.</span>
 		<<elseif $worn.under_lower.type.includes("naked")>>
+			<br><br>
 			<<set $estate.cards.exposure to 5>>
 			<span class="pink">They don't know you're bottomless beneath.</span>
 		<<else>>
 
 		<</if>>
 	<<else>>
-		<<if $worn.under_upper.type.includes("naked") and ($player.gender_appearance is "f" or $player.gender is "f")>>
+		<<if $worn.under_upper.type.includes("naked") and ($player.gender_appearance is "f" or $player.sex is "f")>>
+			<br><br>
 			<<set $estate.cards.exposure to 4>>
 			<span class="purple">They don't know you're topless beneath.</span>
 		<<else>>
@@ -1123,8 +1143,8 @@ Before <<he>> can say anything, you continue.
 <<case "lower">>
 	<<set _cards_desire to "strip">>
 	<<cards_strip_text>>
-	<br><br>
 	<<if $worn.under_lower.type.includes("naked")>>
+		<br><br>
 		<<set $estate.cards.exposure to 5>>
 		<span class="pink">They don't know you're wearing nothing beneath.</span>
 	<<else>>
@@ -1246,7 +1266,7 @@ Before <<he>> can say anything, you continue.
 	<</switch>>
 <<case "penis_grope">>
 	<<set _cards_desire to "ride">>
-	<<if $player.penissize gte 4>>
+	<<if $player.penissize gte 6>>
 		<<set _rng to random(1, 3)>>
 		<<switch _rng>>
 		<<case 1>>
@@ -1256,7 +1276,7 @@ Before <<he>> can say anything, you continue.
 		<<default>>
 			Wren holds your <<penis>> in <<his>> hand while rubbing <<his>> crotch against your length. "Not sure if such a monster will fit," Wren says. "But I have to try."
 		<</switch>>
-	<<elseif $player.penissize gte 3>>
+	<<elseif $player.penissize gte 5>>
 		<<set _rng to random(1, 3)>>
 		<<switch _rng>>
 		<<case 1>>
@@ -1266,7 +1286,7 @@ Before <<he>> can say anything, you continue.
 		<<default>>
 			Wren holds your <<penis>> in <<his>> hand while rubbing <<his>> crotch against your length. "You're a big one," <<he>> says. "Might be hard to take you all the way."
 		<</switch>>
-	<<elseif $player.penissize gte 1>>
+	<<elseif $player.penissize gte 3>>
 		<<set _rng to random(1, 3)>>
 		<<switch _rng>>
 		<<case 1>>
@@ -1327,17 +1347,17 @@ Before <<he>> can say anything, you continue.
 	<<link [[Strip reluctantly|Estate Cards Strip]]>><<set $phase to 0>><<stress 6>><<npcincr Wren love 1>><</link>><<glove>><<gstress>>
 	<br>
 	<<if $estate.cards.exposure is 5>>
-		<<if $exhibitionism gte 75>>
+		<<if hasSexStat("exhibitionism", 5)>>
 			<<link [[Strip flauntingly|Estate Cards Strip]]>><<set $phase to 1>><<npcincr Wren love 1>><<set $estate.cards.degree to "exhibitionism5">><</link>><<exhibitionist5>><<glove>>
 			<br>
 		<</if>>
 	<<elseif $estate.cards.exposure is 4>>
-		<<if $exhibitionism gte 55>>
+		<<if hasSexStat("exhibitionism", 4)>>
 			<<link [[Strip flauntingly|Estate Cards Strip]]>><<set $phase to 1>><<npcincr Wren love 1>><<set $estate.cards.degree to "exhibitionism4">><</link>><<exhibitionist4>><<glove>>
 			<br>
 		<</if>>
 	<<elseif $estate.cards.exposure is 3>>
-		<<if $exhibitionism gte 35>>
+		<<if hasSexStat("exhibitionism", 3)>>
 			<<link [[Strip flauntingly|Estate Cards Strip]]>><<set $phase to 1>><<npcincr Wren love 1>><<set $estate.cards.degree to "exhibitionism3">><</link>><<exhibitionist3>><<glove>>
 			<br>
 		<</if>>
@@ -1347,7 +1367,7 @@ Before <<he>> can say anything, you continue.
 <<elseif _cards_desire is "still">>
 	<<link [[Stay still|Estate Cards Strip]]>><<set $phase to 0>><<stress 6>><<npcincr Wren love 1>><</link>><<gstress>><<glove>>
 	<br>
-	<<if $promiscuity gte 15>>
+	<<if hasSexStat("promiscuity", 2)>>
 		<<link [[Flirt|Estate Cards Strip]]>><<set $phase to 1>><<npcincr Wren love 1>><<set $estate.cards.degree to "promiscuity2">><</link>><<promiscuous2>>
 		<br>
 	<</if>>
@@ -1362,7 +1382,7 @@ Before <<he>> can say anything, you continue.
 <<else>>
 	<<link [[Do as asked|Estate Cards Strip]]>><<set $phase to 0>><<stress 6>><<npcincr Wren love 1>><</link>><<gstress>><<glove>>
 	<br>
-	<<if $exhibitionism gte 75>>
+	<<if hasSexStat("exhibitionism", 5)>>
 		<<link [[Flaunt|Estate Cards Strip]]>><<set $phase to 1>><<npcincr Wren love 1>><<set $estate.cards.degree to "exhibitionism5">><</link>><<exhibitionist5>><<glove>>
 		<br>
 	<</if>>
@@ -1380,7 +1400,7 @@ Before <<he>> can say anything, you continue.
 <</if>>
 
 :: Estate Cards Strip
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<switch $estate.cards.desire>>
 <<case "over_upper">>
@@ -1398,7 +1418,7 @@ Before <<he>> can say anything, you continue.
 				<<cards_naked_cover>>
 				Wren just smiles, taking in the sight.
 				<br><br>
-			<<elseif $worn.under_upper.type.includes("naked") and ($player.gender is "f" or $player.gender_appearance is "f")>>
+			<<elseif $worn.under_upper.type.includes("naked") and ($player.sex is "f" or $player.gender_appearance is "f")>>
 				<span class="purple">revealing your <<breasts>>.</span> Someone laughs. "You really are a naughty <<girl>>," Wren laughs.
 				<br><br>
 
@@ -1414,9 +1434,9 @@ Before <<he>> can say anything, you continue.
 				<br><br>
 				<<cards_underwear_cover>>
 			<</if>>
-		<<elseif $worn.upper.type.includes("naked")>>
-			pull off your $worn.over_upper,
-			<<if $worn.under_upper.type.includes("naked") and ($player.gender is "f" or $player.gender_appearance is "f")>>
+		<<elseif $worn.upper.type.includes("naked") and !$worn.lower.type.includes("covered")>>
+			pull off your $worn.over_upper.name,
+			<<if $worn.under_upper.type.includes("naked") and ($player.sex is "f" or $player.gender_appearance is "f")>>
 				<<set $estate.cards.exposure to 4>>
 				<span class="purple">revealing your <<breasts>>.</span> "I knew it," a <<person2>><<person>> says. "The slut's half stripped already."
 				<br><br>
@@ -1457,13 +1477,13 @@ Before <<he>> can say anything, you continue.
 	<<else>>
 		remove your $worn.over_upper.name,
 		<<if $worn.upper.type.includes("naked")>>
-			<<if $worn.under_upper.type.includes("naked") and ($player.gender is "f" or $player.gender_appearance is "f")>>
+			<<if $worn.under_upper.type.includes("naked") and ($player.sex is "f" or $player.gender_appearance is "f")>>
 				<<set $estate.cards.exposure to 4>>
 				<span class="purple">revealing your <<breasts>>.</span> A cheer erupts as they see you're already topless. Wren leers at you.
 				<br><br>
 
 				<<cards_top_cover>>
-			<<elseif $player.gender is "f" or $player.gender_appearance is "f">>
+			<<elseif $player.sex is "f" or $player.gender_appearance is "f">>
 				<<set $estate.cards.exposure to 3>>
 				<span class="blue">revealing your $worn.under_upper.name.</span> "Not wearing much," Wren says. "Are we? I won't complain."
 				<br><br>
@@ -1515,7 +1535,7 @@ Before <<he>> can say anything, you continue.
 			<br><br>
 
 			<<cards_naked_cover>>
-		<<elseif $worn.under_upper.type.includes("naked") and ($player.gender is "f" and $player.gender_appearance is "f")>>
+		<<elseif $worn.under_upper.type.includes("naked") and ($player.sex is "f" and $player.gender_appearance is "f")>>
 			<<set $estate.cards.exposure to 4>>
 			<span class="purple">revealing your <<breasts>>.</span> The room cheers. Wren leans forward for a closer look. "I knew you weren't a bra wearer," <<he>> says.
 			<br><br>
@@ -1536,7 +1556,7 @@ Before <<he>> can say anything, you continue.
 		<<card_clothes_lost "upper">><<card_clothes_lost "lower">>
 	<<else>>
 		pull off your $worn.upper.name,
-		<<if $worn.under_upper.type.includes("naked") and ($player.gender_appearance is "f" or $player.gender is "f")>>
+		<<if $worn.under_upper.type.includes("naked") and ($player.gender_appearance is "f" or $player.sex is "f")>>
 			<<set $estate.cards.exposure to 4>>
 			<span class="purple">revealing your <<breasts>>.</span> The room cheers. "No bra?" Wren muses. "Should have guessed."
 			<br><br>
@@ -1648,7 +1668,7 @@ Before <<he>> can say anything, you continue.
 	<<if $phase is 1>>
 		<<flaunting>> you turn and climb onto your chair. You stick your <<bottom>> out, and wiggle. You know they can see your <<genitals 1>> from this angle.
 	<<else>>
-		You turn and climb onto the chair. You feel self conscious as you stick out your <<bottom>>. You keep your thighs closed tight, but you suspect they can see your <<genitals 1>> from this angle.
+		You turn and climb onto the chair. You feel self-conscious as you stick out your <<bottom>>. You keep your thighs closed tight, but you suspect they can see your <<genitals 1>> from this angle.
 	<</if>>
 	The room gathers around Wren for a better look.
 <<case "chest_grope">>
@@ -1671,7 +1691,7 @@ Before <<he>> can say anything, you continue.
 	<<set $estate.cards.lust += 1>>
 	<<set _wren_action to "arouse">>
 	<<if $phase is 1>>
-		You lean forward, and <<oraltext>> push your tongue between Wren's lips.
+		You lean forward and <<oraltext>> push your tongue between Wren's lips.
 		<<if currentSkillValue("oralskill") gte random(400, 1000)>>
 			<<set $estate.cards.lust += 2>>
 			<span class="green">You catch <<him>> by surprise,</span> disarming <<him>>. You feel <<him>> relax, and for a moment <<he>> seems content to let you lead.
@@ -1682,6 +1702,9 @@ Before <<he>> can say anything, you continue.
 		Wren kisses you, sucking on your upper lip, then pushing <<his>> tongue into your mouth.
 	<</if>>
 	<<takeKissVirginity "Wren" "consensual">>
+	<<if _pcKissVirginityTaken>>
+		<br><br>
+	<</if>>
 <<case "pc_lap">>
 	<<set $estate.cards.position to $estate.cards.desire>>
 	<<set $estate.cards.state to "ride">>
@@ -1692,7 +1715,7 @@ Before <<he>> can say anything, you continue.
 	"This way we can't see each other's cards."
 	<br><br>
 
-	"We'll keep playing," <<he>> continues. <span class="blue">"Until you cum.</span> How's that?"
+	"We'll keep playing," <<he>> continues. "<span class="blue">Until you cum.</span> How's that?"
 <<case "penile">>
 	<<set $estate.cards.position to $estate.cards.desire>>
 	<<set $estate.cards.state to "ride">>
@@ -1726,7 +1749,7 @@ Before <<he>> can say anything, you continue.
 	<</if>>
 	<br><br>
 
-	"We'll keep playing," <<he>> continues. <span class="blue">"Until you cum.</span> How's that?"
+	"We'll keep playing," <<he>> continues. "<span class="blue">Until you cum.</span> How's that?"
 <<case "vaginal">>
 	<<set $estate.cards.position to $estate.cards.desire>>
 	<<set $estate.cards.state to "ride">>
@@ -1741,7 +1764,7 @@ Before <<he>> can say anything, you continue.
 	<<cards_lap_clothes_intro>>
 	<br><br>
 
-	"Don't worry," <<he>> says. "I won't just take you. <span class="purple">I'm gonna make you cum first.</span> <span class="pink">Then your pussy's mine."</span>
+	"Don't worry," <<he>> says. "I won't just take you. <span class="purple">I'm gonna make you cum first.</span> <span class="pink">Then your pussy's mine.</span>"
 <<case "anal">>
 	<<set $estate.cards.position to $estate.cards.desire>>
 	<<set $estate.cards.state to "ride">>
@@ -1756,7 +1779,7 @@ Before <<he>> can say anything, you continue.
 	<<cards_lap_clothes_intro>>
 	<br><br>
 
-	"Don't worry," <<he>> says. "I won't just take you. <span class="purple">I'm gonna make you cum first.</span> <span class="pink">Then your ass is mine."</span>
+	"Don't worry," <<he>> says. "I won't just take you. <span class="purple">I'm gonna make you cum first.</span> <span class="pink">Then your ass is mine.</span>"
 
 <</switch>>
 
@@ -1828,8 +1851,10 @@ Before <<he>> can say anything, you continue.
 		<<case "penile">>
 			<<He>> throws <<his>> arms around your neck and cries out as <<his>> body spasms in orgasm.
 		<<case "vaginal">>
+			<<bodyliquid "tummy" "semen">>
 			<<He>> grasps your hips and thrusts as <<he>> ejaculates on your tummy.
 		<<case "anal">>
+			<<bodyliquid "bottom" "semen">>
 			<<He>> grasps your hips and thrusts as <<he>> ejaculates.
 		<<case "pc_lap">>
 			<<He>> cries out as <<his>> body spasms in orgasm.
@@ -1869,14 +1894,14 @@ Before <<he>> can say anything, you continue.
 			"I love the anticipation," Wren says.
 		<<else>>
 			<<if $player.perceived_breastsize gte 7>>
-				"Think <<pher>> breasts are as big as they look?" Wren laughs.
+				"Think <<pher>> breasts are as big as they look?" Wren laughs. <<insecurity "breasts_big" 1>><<ginsecurity "breasts_big">>
 			<<else>>
-				"I bet you look good without a top on," Wren smirks.
+				"I bet you look good without a top on." Wren smirks.
 			<</if>>
 		<</if>>
 	<<elseif $worn.lower.name isnot "naked">>
 		<<if $rng gte 81>>
-			"I know what I want next," Wren says."
+			"I know what I want next," Wren says.
 		<<elseif $rng gte 61>>
 			"How far do you think <<pshe>> will go?" Wren asks the room.
 		<<elseif $rng gte 41>>
@@ -1918,9 +1943,9 @@ Before <<he>> can say anything, you continue.
 		<<if $rng gte 91>>
 			"There are more ways you can debase yourself," Wren says.
 		<<elseif $rng gte 81>>
-			"I'm not done yet if you're not," Wren smirks.
+			"I'm not done yet if you're not." Wren smirks.
 		<<elseif $rng gte 71>>
-			"Wanna keep going? There's more you can give." Wren says.
+			"Wanna keep going? There's more you can give," Wren says.
 		<<elseif $rng gte 61>>
 			"What shall I have <<phim>> do next?" Wren says.
 		<<elseif $rng gte 51>>
@@ -1950,55 +1975,75 @@ Before <<he>> can say anything, you continue.
 
 
 :: Estate Cards Leave
-<<effects>>
+<<effects>><<set $outside to 0>>
 
-<!--  estate end 9 -->
+<!-- estate end 9 -->
 <<if $exposed gte 2>>
 	You leave your seat. You feel Wren and <<his>> friends stare at your <<bottom>>. "Have a safe trip home," Wren says. <<His>> friends laugh.
 	<br><br>
 	<<card_pot_collected>>
 	<<set $estate_cards_end to "naked">>
 	<<cards_naked_end>>
+	<<unset $passoutReason>>
 <<else>>
-	You leave your seat. Wren's friends murmur their disappointment. "We won't keep you," Wren says. "If you want favours, you know where to find me."
-	<br><br>
-	<<card_pot_collected>>
+	You leave your seat.
+	<<if $passoutReason is "hypothermia">>
+		<<card_pot_collected>>
+
+		Wren speaks up. "I meant what I said: we'll be needing those clothes back. If you don't want to play for them, well... that'll be <<printmoney 15000>>." <<He>> holds out <<his>> hand.
+		<br><br>
+
+		<<if $money gte 15000>>
+			<<link [[Pay|Passout Estate Wren Pay]]>><<money -15000>><</link>>
+		<<else>>
+			<span class="blue">You can't afford it.</span>
+		<</if>>
+		<br>
+		<<link [[Return clothes|Passout Estate Wren Return]]>><</link>>
+	<<else>>
+		Wren's friends murmur their disappointment. "We won't keep you," Wren says. "If you want favours, you know where to find me."
+		<br><br>
+		<<card_pot_collected>>
+		<<link [[Next|Estate]]>><<unset $passoutReason>><<endevent>><</link>>
+	<</if>>
 	<<estate_cards_finish>>
 	<<set $estate_cards_end to "left_early">>
-	<<link [[Next|Estate]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
 
 
 :: Estate Cards Sex
-<<effects>>
+<<effects>><<set $outside to 0>>
 <<pass 3>>
 Wren doesn't hesitate.
 <<if $estate.cards.position is "penile">>
-	<<He>> pushes down on your shoulders, moving <<his>> pelvis above yours and resting <<his>> pussy against your <<penis>><<if $semen_amount gte 1>>, catching your seed.<<else>>.<</if>> Your spasms leave you helpless as <<he>> lets <<his>> weight push <<him>> down, <span class="pink">swallowing you to the base.</span>
+	<<He>> pushes down on your shoulders, moving <<his>> pelvis above yours and resting <<his>> pussy against your <<penis>><<if $semen_amount gte 1>>, catching your seed<</if>>. Your spasms leave you helpless as <<he>> lets <<his>> weight push <<him>> down, <span class="pink">swallowing you to the base.</span>
 	<<if $player.virginity.penile is true>>
 		<span class="red">Your foreskin separates from your glans, forever robbing you of your purity.</span>
 		<br><br>
-		<<penileejacstat>>
 		You feel <<his>> breath on your ear. "I felt that," <<he>> whispers, low enough that only you can hear. "Bold to put your virginity on the line. I think I like you."<<ggglove>><<npcincr Wren love 12>>
 	<<else>>
 		<<He>> gasps against your ear as you enter <<him>>. "I need this," <<he>> whispers. "Now be a good <<girl>> and hold still."
 	<</if>>
 	<<takeVirginity "Wren" "penile">><<takeNPCVirginity "Wren" "vaginal">>
-	<br><br>
-	<<bruise penis>><<penilestat>><<raped>><<penisraped>>
+	<br>
+	<<penileejacstat>><<creampie "npc" "vagina">><<bruise penis>><<penilestat>><<raped>><<penisraped>>
 	<<if $semen_amount gte 1>>
 		You twitch inside <<him>>, spurting cum into <<his>> womb as <<he>> fucks you.
 	<<else>>
 		You twitch inside <<him>> as <<he>> fucks you.
 	<</if>>
+	<<internalejac true>>
 	<<He>> speeds up as your spasms subside, <<his>> bottom slapping against your thighs each time <<he>> brings <<his>> body down. <<His>> friends are too busy enjoying the show for their usual banter.
-	<br><br>
 <<elseif $estate.cards.position is "vaginal">>
 	<<He>> grasps your <<bottom>> and lifts you, pushing your <<pussy>> against the tip of <<his>> <<print $NPCList[0].penisdesc>>. <<He>> eases you down, your spasms leaving you helpless as <<he>> <span class="pink">pushes into you,</span>
 	<<if $player.virginity.vaginal is true>>
-		<span class="red">tearing your hymen and forever robbing you of your purity.</span>
+		<<if $sexStats.vagina.pregnancy.totalBirthEvents gt 0>>
+			<span class="red">despite your lack of a hymen, you feel something inside you change as your virginity and purity are taken.</span>
+		<<else>>
+			<span class="red"><<if $NPCList[0].penissize gte 4>>obliterating<<elseif $NPCList[0].penissize lte 1>>breaking<<else>>tearing<</if>> your hymen and forever robbing you of your purity.</span>
+		<</if>>
 		<br><br>
 
 		You feel <<his>> breath on your ear. "I felt that," <<he>> whispers, low enough that only you can hear. "Bold to put your virginity on the line. I think I like you."<<ggglove>><<npcincr Wren love 12>>
@@ -2006,11 +2051,10 @@ Wren doesn't hesitate.
 		filling you. <<He>> gasps against your ear as <<he>> enters. "I need this," <<he>> whispers. "Now be a good <<girl>> and hold still."
 	<</if>>
 	<<takeVirginity "Wren" "vaginal">><<takeNPCVirginity "Wren" "penile">>
-	<br><br>
+	<br>
 	<<bruise vagina>><<vaginalstat>><<raped>><<vaginaraped>>
 
 	You twitch around <<his>> length as <<he>> fucks you, lifting you in time with <<his>> thrusts. <<He>> speeds up as your spasms subside. <<His>> friends are too busy enjoying the show for their usual banter.
-	<br><br>
 <<elseif $estate.cards.position is "anal">>
 	<<He>> grasps your <<bottom>> and lifts you, pushing your <<bottom>> against the tip of <<his>> <<print $NPCList[0].penisdesc>>. <<He>> eases you down, your spasms leaving you helpless as <<he>> <span class="pink">pushes into you,</span>
 	<<if $player.virginity.anal is true>>
@@ -2025,62 +2069,53 @@ Wren doesn't hesitate.
 	<br><br>
 	<<bruise anus>><<analstat>><<raped>><<anusraped>>
 	<<He>> fucks you, lifting you in time with <<his>> thrusts. <<He>> speeds up as your spasms subside. <<His>> friends are too busy enjoying the show for their usual banter.
-	<br><br>
 <<elseif $estate.cards.position is "pc_lap">>
-	One leg hooks around your waist, the other weaves under yours. From cramped to constricted, you're left helpless as <<he>> <span class="pink">grinds against your crotch,</span> pressing your pussies together. <<Hes>> already wet. "I need this," <<he>> whispers. "Now be a good <<girl>> and hold still."
+	One leg hooks around your waist, the other weaves under yours. From cramped to constricted, you're left helpless as <<he>> <span class="pink">grinds against your crotch</span><<if V.player.vaginaExist>>, pressing your pussies together<</if>>. <<Hes>> already wet. "I need this," <<he>> whispers. "Now be a good <<girl>> and hold still."
 	<<purity -10>>
 	<br><br>
 
 	<<He>> fucks you, your body pinned tight beneath <<hers>>. You can hardly move in <<his>> embrace, only permitted a few fleeting spasms. <<His>> friends are too busy enjoying the show for their usual banter.
-	<br><br>
 <</if>>
+<br><br>
 
 <<link [[Next|Estate Cards Sex 2]]>><</link>>
 <br>
 
 
 :: Estate Cards Sex 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 <<pass 3>>
 <<if $estate.cards.position is "penile">>
 	Your arousal builds as Wren bounces on your <<penis>>. "Almost there," <<he>> says, <<his>> voice a higher pitch than normal.
 	<br><br>
-	<<penileejacstat>>
+	<<penileejacstat>><<creampie "npc" "vagina">>
 	<<orgasm>>
 	<<recordVaginalSperm "Wren" "pc" "human">>
-	<br>
-
 	Your second orgasm pushes Wren over the edge. <span class="lewd"><<His>> body shakes in ecstasy,</span> but <<he>> throws a hand over <<his>> mouth to muffle <<his>> moans.
 	<br><br>
 
 	<<He>> leans against you, panting into your chest. <<He>> recovers fast, climbing from your body and rearranging <<his>> clothes.
-	<br><br>
-
-
 <<elseif $estate.cards.position is "vaginal">>
 	Your arousal builds as Wren bounces you on <<his>> <<print $NPCList[0].penisdesc>>. "Almost there," <<he>> says.
 	<br><br>
 	<<vaginalejacstat>>
 	<<orgasm>>
 	<<recordVaginalSperm "pc" "Wren" "human">>
-	<br>
-	Your second orgasms pushes Wren over the edge. <span class="lewd"><<His>> body shakes in ecstasy as <<he>> pumps your <<pussy>> full of semen.</span><<bodyliquid "vagina" "semen">>
+	Your second orgasm pushes Wren over the edge. <span class="lewd"><<His>> body shakes in ecstasy as <<he>> pumps your <<pussy>> full of semen.</span><<bodyliquid "vagina" "semen">><<internalejac true>>
 	<br><br>
 
 	You slump against <<his>> chest as <<he>> gasps and wraps an arm around your waist. <<He>> recovers fast, and lifts you to your feet before rearranging <<his>> clothes.
-	<br><br>
 <<elseif $estate.cards.position is "anal">>
 	Your arousal builds as Wren bounces you on <<his>> <<print $NPCList[0].penisdesc>>. "Almost there," <<he>> says.
 	<br><br>
 	<<analejacstat>>
 	<<orgasm>>
-	<br>
-	Your second orgasms pushes Wren over the edge. <span class="lewd"><<His>> body shakes in ecstasy as <<he>> pumps your <<bottom>> full of semen.</span><<bodyliquid "anus" "semen">>
+
+	Your second orgasm pushes Wren over the edge. <span class="lewd"><<His>> body shakes in ecstasy as <<he>> pumps your <<bottom>> full of semen.</span><<bodyliquid "anus" "semen">><<internalejac true>>
 	<<recordAnusSperm "pc" "Wren" "human">>
 	<br><br>
 
 	You slump against <<his>> chest as <<he>> gasps and wraps an arm around your waist. <<He>> recovers fast, and lifts you to your feet before rearranging <<his>> clothes.
-	<br><br>
 <<elseif $estate.cards.position is "pc_lap">>
 	Your arousal builds as Wren grinds on your <<pussy>>. "Almost there," <<he>> says, <<his>> voice a higher pitch than normal.
 	<br><br>
@@ -2097,8 +2132,8 @@ Wren doesn't hesitate.
 	<br><br>
 
 	<<He>> leans against you, chest heaving against yours. <<He>> recovers fast, untwining <<himself>> and rearranging <<his>> clothes.
-	<br><br>
 <</if>>
+<br><br>
 <<fetishPregnancyImg>>
 
 <<link [[Next|Estate Cards Sex 3]]>><</link>>
@@ -2106,7 +2141,7 @@ Wren doesn't hesitate.
 
 
 :: Estate Cards Sex 3
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 Wren smirks as <<he>> reclines. "You're a good lay," <<he>> says. "That's all I want from you today. Better luck next time."
 <br><br>
@@ -2120,7 +2155,7 @@ Wren smirks as <<he>> reclines. "You're a good lay," <<he>> says. "That's all I 
 
 
 :: Estate Cards Sex Safe
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<if $estate.cards.position is "pc_lap">>
 	Wren smirks as <<he>> climbs from your lap. "That's enough for you today," <<he>> says. "Better luck next time."
@@ -2162,7 +2197,7 @@ Wren smirks as <<he>> reclines. "You're a good lay," <<he>> says. "That's all I 
 
 
 :: Estate Cards Oral
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<set $consensual to 1>>
 
@@ -2174,13 +2209,13 @@ Wren smirks as <<he>> reclines. "You're a good lay," <<he>> says. "That's all I 
 	"I'll do as you wish," you say.
 <</if>>
 
-<<if $promiscuity gte 55>>
+<<if hasSexStat("promiscuity", 4)>>
 	<<promiscuity4>>
 <<else>>
 	<br><br>
 <</if>>
 
-Wren's friends cheer. "Get under the table then," Wren says. "Don't keep em waiting."
+Wren's friends cheer. "Get under the table then," Wren says. "Don't keep 'em waiting."
 <br><br>
 
 You drop to your knees, and crawl beneath the table. They're already beginning another game of cards.
@@ -2190,7 +2225,7 @@ You drop to your knees, and crawl beneath the table. They're already beginning a
 <br>
 
 :: Estate Cards Oral 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<if $estate.cards.oral gt 7>>
 	<<set $estate.cards.oral to 7>>
@@ -2220,14 +2255,14 @@ You drop to your knees, and crawl beneath the table. They're already beginning a
 	<</if>>
 
 	<<rng>>
-	<<if $rng gte 86 - ($estate.cards.rim || 0) * 10 and $analingusdisablegiving is "f">>
-		<<He>> puts a foot up on his chair, <<npcUndressText $NPCList[$estate.cards.oral - 1] "lower" "self">>, and reclines directing you to <<his>> asshole.
+	<<if $rng gte 86 - ($estate.cards.rim || 0) * 10 and $settings.analingusGivingEnabled>>
+		<<He>> puts a foot up on <<his>> chair, <<npcUndressText $NPCList[$estate.cards.oral-1] "lower" "self">>, and reclines directing you to <<his>> asshole.
 		<br><br>
 
 		Wren said you had to use your mouth.
 		<br><br>
-		<<link [[Lick|Estate Cards Oral Anus]]>><<if $promiscuity lt 55>><<trauma 6>><<stress 6>><</if>><<arousal 600 "mouth">><</link>><<skill_difficulty `currentSkillValue("oralskill")` "Oral Skill" 1 1000>>
-		<<if $promiscuity lt 55>>
+		<<link [[Lick|Estate Cards Oral Anus]]>><<if !hasSexStat("promiscuity", 4)>><<trauma 6>><<stress 6>><</if>><<arousal 600 "mouth">><</link>><<skill_difficulty `currentSkillValue("oralskill")` "Oral Skill" 1 1000>>
+		<<if !hasSexStat("promiscuity", 4)>>
 			<<gtrauma>><<gstress>>
 		<</if>>
 		<<garousal>>
@@ -2245,15 +2280,15 @@ You drop to your knees, and crawl beneath the table. They're already beginning a
 			Wren said you had to use your mouth.
 			<br><br>
 
-			<<link [[Lick|Estate Cards Oral Penis]]>><<if $promiscuity lt 55>><<trauma 6>><<stress 6>><</if>><<arousal 600 "mouth">><</link>><<skill_difficulty `currentSkillValue("oralskill")` "Oral Skill" 1 1000>>
-			<<if $promiscuity lt 55>>
+			<<link [[Lick|Estate Cards Oral Penis]]>><<if !hasSexStat("promiscuity", 4)>><<trauma 6>><<stress 6>><</if>><<arousal 600 "mouth">><</link>><<skill_difficulty `currentSkillValue("oralskill")` "Oral Skill" 1 1000>>
+			<<if !hasSexStat("promiscuity", 4)>>
 				<<gtrauma>><<gstress>>
 			<</if>>
 			<<garousal>>
 			<br>
 			<<if $ejactrait gte 1>>
 				<<if $exposed gte 2>>
-					<<link [[Put on a show|Estate Cards Oral Penis Cumslut]]>><</link>><<ejacTrait>>
+					<<link [[Put on a show|Estate Cards Oral Penis Cumslut]]>><</link>><<ejacTrait>><<oralvirginitywarning>>
 					<<arousal 600>><<garousal>>
 				<<else>>
 					<!-- means PC won, lost at least one piece of clothing, refused the clothes rebuy offer, and is at least somewhat clothed -->
@@ -2268,8 +2303,8 @@ You drop to your knees, and crawl beneath the table. They're already beginning a
 
 			Wren said you had to use your mouth.
 			<br><br>
-			<<link [[Lick|Estate Cards Oral Vagina]]>><<if $promiscuity lt 55>><<trauma 6>><<stress 6>><</if>><<arousal 600 "mouth">><</link>><<skill_difficulty `currentSkillValue("oralskill")` "Oral Skill" 1 1000>>
-			<<if $promiscuity lt 55>>
+			<<link [[Lick|Estate Cards Oral Vagina]]>><<if !hasSexStat("promiscuity", 4)>><<trauma 6>><<stress 6>><</if>><<arousal 600 "mouth">><</link>><<skill_difficulty `currentSkillValue("oralskill")` "Oral Skill" 1 1000>>
+			<<if !hasSexStat("promiscuity", 4)>>
 				<<gtrauma>><<gstress>>
 			<</if>>
 			<<garousal>>
@@ -2292,7 +2327,7 @@ You drop to your knees, and crawl beneath the table. They're already beginning a
 			If they wanted to rob you, they would've done so already. You hand Wren the <<printmoney `_price`>>.
 			<br><br>
 
-			<<set $money -= _price>>
+			<<money `-_price` "blackjack">>
 
 			Wren tosses your clothing to you, with a satisfied smirk.
 			<br><br>
@@ -2343,12 +2378,12 @@ You drop to your knees, and crawl beneath the table. They're already beginning a
 <<estate_cards_finish>>
 
 <<if $phase is 0>>
-	<<upperwear 3>>
+	<<upperwear "towel top">>
 	You turn your back to the table, and tie the sparse thing around your chest. It feels like a gust of wind will tear it off your body, but it's better than nothing.
 <<elseif $phase is 2>>
 	You walk up to Wren and wrap the towel round <<his>> waist. <<He>> looks surprised. "Well," <<he>> says. "Aren't you a sweetheart?"
 <<else>>
-	<<lowerwear 3>>
+	<<lowerwear "towel skirt">>
 	You turn your back to the table, and tie the sparse thing around your waist. You're not sure you're properly covered, but it's better than nothing.
 <</if>>
 <br><br>
@@ -2360,7 +2395,7 @@ You drop to your knees, and crawl beneath the table. They're already beginning a
 <br>
 
 :: Estate Cards Oral Penis
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 You stroke the tip of the <<print $NPCList[($estate.cards.oral - 1)].penisdesc>> with your tongue, feeling the blood pulse into it. You <<oraltext>> lick up and down the shaft, then circle around the glans.
 
@@ -2368,7 +2403,7 @@ You stroke the tip of the <<print $NPCList[($estate.cards.oral - 1)].penisdesc>>
 	<span class="green">The <<person>> twitches,</span> and cum spurts.
 		<<if currentSkillValue('danceskill') gte random(1, 1000)>>
 			<span class="green">You manage to react in time,</span> letting the semen splatter against the floor and underside of the table.
-			<<else>>
+		<<else>>
 			It splatters on your face.<<bodyliquid "face" "semen">><<oralejacstat>>
 		<</if>>
 	<br><br>
@@ -2400,7 +2435,7 @@ You stroke the tip of the <<print $NPCList[($estate.cards.oral - 1)].penisdesc>>
 
 
 :: Estate Cards Oral Vagina
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 You flick the <<persons>> pussy with your tongue, then <<oraltext>> run the tip up and down <<his>> slit, before circling <<his>> clit.
 <<if currentSkillValue("oralskill") gte random(1, 1000)>>
@@ -2428,11 +2463,12 @@ You flick the <<persons>> pussy with your tongue, then <<oraltext>> run the tip 
 
 
 :: Estate Cards Oral Penis 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCList[($estate.cards.oral - 1)].penisdesc>>. With a final shove, <<he>> pushes it into your mouth.
 <<if $player.virginity.oral is true>>
-	<<takeVirginity $NPCList[($estate.cards.oral - 1)].fullDescription "oral">>
+	<<set _target to $NPCList[($estate.cards.oral - 1)].fullDescription>>
+	<<takeVirginity _target "oral">>
 	<span class="red">It tastes strange.</span>
 <</if>>
 <<bruise face>><<oralstat>><<violence 1>><<raped>>
@@ -2455,10 +2491,15 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 <br>
 
 :: Estate Cards Oral Penis Cumslut
-<<effects>>
+<<effects>><<set $outside to 0>>
 <<set _penisdesc to $NPCList[($estate.cards.oral - 1)].penisdesc>>
 <<if $NPCList[($estate.cards.oral - 1)].penissize lte 1>>
 	You <<oraltext>> suck on the <<persons>> _penisdesc.
+	<<if $player.virginity.oral is true>>
+		<<set _target to $NPCList[($estate.cards.oral - 1)].fullDescription>>
+		<<takeVirginity _target "oral">>
+		<span class="red">It tastes strange.</span>
+	<</if>>
 	<<if $speech_attitude is "bratty">>
 		After a couple of minutes, the goon twitches and ejaculates a string of semen that you swirl and swallow before moving on.
 	<<else>>
@@ -2474,6 +2515,11 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 	<<switch $estate.cards.oral>>
 	<<case 2>>
 		You engulf the _penisdesc with your mouth, <<oraltext>> deepthroating as it hardens.
+		<<if $player.virginity.oral is true>>
+			<<set _target to $NPCList[($estate.cards.oral - 1)].fullDescription>>
+			<<takeVirginity _target "oral">>
+			<span class="red">It tastes strange.</span>
+		<</if>>
 		<br><br>
 
 		The <<person>> grasps the back of your head <span class="red">forcing <<his>> _penisdesc down your throat.</span>
@@ -2496,9 +2542,13 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 		<<ejacstat>>
 		<<oralejacstat>>
 		<<set $hygiene += 500>>
-
 	<<case 3>>
 		The second goon, a <<person>>, is ready and erect, waiting for you as soon as you turn to face <<him>>. You <<oraltext>> work the _penisdesc with your mouth while they begin a game of cards.
+		<<if $player.virginity.oral is true>>
+			<<set _target to $NPCList[($estate.cards.oral - 1)].fullDescription>>
+			<<takeVirginity _target "oral">>
+			<span class="red">It tastes strange.</span>
+		<</if>>
 		<br><br>
 		<<He>> starts twitching, and you pull the cock from your mouth, letting the <span class="lewd">massive spurt of cum unload over your forehead</span> while you milk it with your hand.
 		<br><br>
@@ -2511,7 +2561,7 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 		<<if $speech_attitude is "bratty">>
 			Your eyes water, and you refuse to smile, but as the streams of cum reach the sides of your mouth, you can't resist the urge to <span class="lewd">provocatively push your tongue out and lick some of the fluid around your lips.</span> "I knew it! You can't help yourself."
 		<<else>>
-			<span class="lewd">You make a big smile for the camera.</span> "Ah, perfect" says one of the goons as the others reach for their phones.
+			<span class="lewd">You make a big smile for the camera.</span> "Ah, perfect," says one of the goons as the others reach for their phones.
 		<</if>>
 		<br><br>
 
@@ -2528,9 +2578,15 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 		<<set $hygiene += 500>>
 		<<arousal 600>><<garousal>><<lstress>><<stress -5>>
 	<<case 4>>
-		You start sucking a <<persons>> _penisdesc. <<He>> watches you from above. "What nice <<haircolourtext>> hair you've got. But I can make it nicer."
+		You start sucking a <<persons>> _penisdesc.
+		<<if $player.virginity.oral is true>>
+			<<set _target to $NPCList[($estate.cards.oral - 1)].fullDescription>>
+			<<takeVirginity _target "oral">>
+			<span class="red">It tastes strange.</span>
+		<</if>>
+		<<He>> watches you from above. "What nice <<haircolourtext>> hair you've got. But I can make it nicer."
 		<br><br>
-		<<He>> shoves you away, and <span class="lewd">aims <<his>> cock at your scalp as <<he>> ejaculates.</span> "Something to wash your hair with."
+		<<He>> shoves you away and <span class="lewd">aims <<his>> cock at your scalp as <<he>> ejaculates.</span> "Something to wash your hair with."
 		<br><br>
 
 		<<He>> looks delighted as <span class="lewd">you spread <<his>> load all over your hair</span>.
@@ -2541,12 +2597,11 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 		<<set $hygiene += 500>>
 		<<arousal 600>><<garousal>><<lstress>><<stress -5>>
 	<<case 5>>
-		The <<persons>> _penisdesc is already hard when you turn to it. "Aah, aah..." <<he>> twitches and, without further warning, <span class="lewd">ejaculates over your body.</span> <<He>> looks at you kneeling between <<his>> thighs, panting.
+		The <<persons>> _penisdesc is already hard when you turn to it. "Aah, aah..." <<He>> twitches and, without further warning, <span class="lewd">ejaculates over your body.</span> <<He>> looks at you kneeling between <<his>> thighs, panting.
 		<br><br>
 
-
 		<<if $speech_attitude is "bratty">>
-			"You're a quickshot," you exclaim while restraining a laugh. The other goons show less restraint, and openly mock the <<person>>. <<His>> face reddens. "F-fucking <<bitch>>," <<he>> says. "I'd slap that smug look off your face if it wasn't covered in jizz."
+			"You're a quick shot," you exclaim while restraining a laugh. The other goons show less restraint, and openly mock the <<person>>. <<His>> face reddens. "F-fucking <<bitch>>," <<he>> says. "I'd slap that smug look off your face if it wasn't covered in jizz."
 		<<else>>
 			"I'm sorry <<sir>>," you whisper. "I might have been too eager." <span class="lewd">You pretend to suck on <<his>> limp dick while rubbing the semen over your neck and <<breasts>>.</span>
 		<</if>>
@@ -2558,14 +2613,20 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 		<<set $hygiene += 500>>
 		<<arousal 600>><<garousal>><<lstress>><<stress -5>>
 	<<case 6>>
-		You suck the <<persons>> _penisdesc. It's the last one. <<He>> soon twitches, the <span class="lewd">hard cock pulsating in your mouth.</span>
+		You suck the <<persons>> _penisdesc.
+		<<if $player.virginity.oral is true>>
+			<<set _target to $NPCList[($estate.cards.oral - 1)].fullDescription>>
+			<<takeVirginity _target "oral">>
+			<span class="red">It tastes strange.</span>
+		<</if>>
+		It's the last one. <<He>> soon twitches, the <span class="lewd">hard cock pulsating in your mouth.</span>
 		<br><br>
 
 		"I've been waiting for this," <<he>> says, holding your head firm with both hands. <<He>> starts thrusting.
 		<br><br>
 
 		The first spurt is so voluminous that it <span class="lewd">makes you cough and splutter, and comes bursting out of your nose.</span> It comes too quick, and too thick, to swallow it all in time. With every thrust, more cum surges into your mouth, spilling out the sides of your lips.
-		<<cumswallow "human" 80>>
+		<<cumswallow "human" 80>><<oralejacstat>>
 		<br><br>
 
 		"Fuck," the <<person>> says. <<He>> shoves you away. "Look at this fucking slut." The other goons interrupt their game of cards. Everyone stares at you, the kneeling, naked, cum-covered mess trying to catch <<pher>> breath.
@@ -2578,8 +2639,8 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 		<br><br>
 		<<if $speech_attitude is "bratty">>
 			Still kneeling, you scoop up the semen and <span class="lewd">rub it over your chest.</span>
-			<<bodyliquid "leftarm" "semen">>
-			<<bodyliquid "rightarm" "semen">>
+			<<if random(0,1) is 1>><<bodyliquid "rightarm" "semen">><<else>><<bodyliquid "leftarm" "semen">><</if>>
+			<<bodyliquid "chest" "semen">>
 		<<else>>
 			You get on your hands and knees, <span class="lewd">and lick the floor clean of semen.</span> "Hey <<girl>>," says the <<person6>><<person>>. "You got some on my shoes." You lick them next. You swallow the last of it.
 			<<semenswallowedstat 100>>
@@ -2595,10 +2656,7 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 		<<bodyliquid "tummy" "semen">>
 		<<set $hygiene += 1000>>
 		<<arousal 600>><<garousal>><<lstress>><<stress -5>>
-
 	<</switch>>
-	<br><br>
-
 <</if>>
 <br><br>
 
@@ -2611,7 +2669,7 @@ Your lips part as the <<person>> pushes your face against <<his>> <<print $NPCLi
 <br>
 
 :: Estate Cards Oral Cumslut Orgasm
-<<effects>>
+<<effects>><<set $outside to 0>>
 The building arousal overwhelms you. Your muscles spasm as a <span class="lewd">massive orgasm builds.</span>
 <br><br>
 The <<person6>><<person>> notices. "This slut's really gonna cum from being jizzed on," <<he>> says.
@@ -2628,11 +2686,10 @@ They record as you shake and moan uncontrollably, cumming beneath their blackjac
 <<orgasm>>
 <<famesex 4>>
 
-<br><br>
 <<link [[Next|Estate Cards Oral 2]]>><</link>>
 
 :: Estate Cards Oral Vagina 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 
 You fuck the <<person>> with your tongue, until you feel <<his>> pussy shudder in orgasm. <<He>> releases your hair.
@@ -2643,32 +2700,32 @@ You fuck the <<person>> with your tongue, until you feel <<his>> pussy shudder i
 <br>
 
 :: Estate Cards Oral Anus
-<<effects>>
+<<effects>><<set $outside to 0>>
 
-You <<oraltext>> lap at <<his>> asshole. 
+You <<oraltext>> lap at <<his>> asshole.
 <<if currentSkillValue("oralskill") gte random(1, 1000)>>
-	<<He>> moans and grinds back against your tongue. You keep licking until 
+	<<He>> moans and grinds back against your tongue. You keep licking until
 	<<if $NPCList[($estate.cards.oral - 1)].penis isnot "none" and !npcHasStrapon($estate.cards.oral - 1)>>
 		<span class="green"><<he>> ejaculates onto the floor.</span>
 	<<else>>
-		<span class="green">shudders with a sigh.</span> Lewd fluid drips onto the floor.
+		<span class="green"><<he>> shudders with a sigh.</span> Lewd fluid drips onto the floor.
 	<</if>>
 	<<set $estate.cards.rim = $estate.cards.rim || 0 + 1>>
 <<else>>
 	<<rng>>
-	<<if $rng gte 91 and $facesitdisable is "f">>
+	<<if $rng gte 91 and $settings.facesitEnabled>>
 			Unimpressed with your skills, <<he>> grasps the back of your head <span class="pink">and smothers your face with <<his>> ass.</span><<arousal 600 "mouth">><<garousal>><<control -10>><<lcontrol>>
 			<br><br>
 
-			<<He>> holds you in place as <<he>> twitches, 
+			<<He>> holds you in place as <<he>> twitches,
 			<<if $NPCList[($estate.cards.oral - 1)].penis isnot "none" and !npcHasStrapon($estate.cards.oral - 1)>>
-				ejaculating onto the floor. 
+				ejaculating onto the floor.
 			<<else>>
-				squirting onto the floor. 
+				squirting onto the floor.
 			<</if>>
 			<<He>> releases you, and you gasp for air.
 	<<else>>
-			<<He>> grips the back of your head, but allows you to rim <<him>> until <<he>> twitches, 
+			<<He>> grips the back of your head, but allows you to rim <<him>> until <<he>> twitches,
 			<<if $NPCList[($estate.cards.oral - 1)].penis isnot "none" and !npcHasStrapon($estate.cards.oral - 1)>>
 				ejaculating onto the floor.
 			<<else>>
@@ -2697,7 +2754,7 @@ You walk outside. <<if $exposed gte 2>>A breeze makes you shiver.<</if>>
 
 
 :: Estate Cards Orgasm
-<<effects>>
+<<effects>><<set $outside to 0>>
 
 <<if $estate.cards.position is "wren_lap" or $estate.cards.position is "vaginal" or $estate.cards.position is "anal">>
 	<<He>> keeps <<his>> hands firm on your hips as <<he>> reclines in the chair, still panting.
@@ -2715,7 +2772,7 @@ You walk outside. <<if $exposed gte 2>>A breeze makes you shiver.<</if>>
 <<cards_naked_end>>
 
 :: Estate Fame Letter
-<<effects>><<person1>><<set $wren_seen to "letter">>
+<<effects>><<set $outside to 0>><<person1>><<set $wrenSeen.pushUnique("letter")>><<set $wrenSeenLast to "letter">><<wearProp "manila envelope">>
 
 <<if $wren_intro is undefined>>
 	<<set $wren_intro to true>>
@@ -2728,11 +2785,11 @@ You walk outside. <<if $exposed gte 2>>A breeze makes you shiver.<</if>>
 	<</if>>
 	<br><br>
 
-	"<span class="gold">Yep, that's me,</span>" the <<personsimple>> says. "Who sent you? Santa Claus?"
+	<span class="gold">"Yep, that's me,"</span> the <<personsimple>> says. "Who sent you? Santa Claus?"
 	<br><br>
 <</if>>
 
-You take out the Manila envelope Mickey gave you and hold it out to Wren.
+You take out the manila envelope Mickey gave you and hold it out to Wren.
 <<if $speech_attitude is "meek">>
 	"This is from the old man."
 <<elseif $speech_attitude is "bratty">>
@@ -2761,7 +2818,7 @@ Wren takes it, examines it from both sides and smirks. <<He>> tosses it onto a n
 	"You mind asking 'Mickey' why they sent you instead of Landry?" Wren whispers. "Seems like they're going a bit out of their way."
 
 <<elseif $pubfame.seen.includes("wrenKiss")>>
-	You hold your hand out for Wren, and <<he>> takes it and winks. <<takeHandholdingVirginity "Wren" "romantic">> In one smooth, familiar motion, <<he>> pulls you toward <<him>>, leans back in <<his>> chair and pulls you under the table. <<He>> leans in until you're face to face. <<His>> friends whoop and cheer. "<<pShes>> down bad for <<him>>," the <<person2>><<person>> laughs.
+	You hold your hand out for Wren, and <<he>> takes it and winks. <<takeHandholdingVirginity "Wren" "romantic" null true>> In one smooth, familiar motion, <<he>> pulls you toward <<him>>, leans back in <<his>> chair and pulls you under the table. <<He>> leans in until you're face to face. <<His>> friends whoop and cheer. "<<pShes>> down bad for <<him>>," the <<person2>><<person>> laughs.
 	<br><br>
 
 	"So?" you ask. "Do you have any more of Mickey's secrets to dig up?"
@@ -2785,9 +2842,12 @@ Wren takes it, examines it from both sides and smirks. <<He>> tosses it onto a n
 <<link [[Pull away|Estate Fame Letter 2]]>><<set $phase to 1>><</link>>
 
 :: Estate Fame Letter 2
-<<effects>>
+<<effects>><<set $outside to 0>>
 <<if $phase is 0>>
 	You lean up slightly and press your lips against Wren's. <<takeKissVirginity "Wren" "romantic">>
+	<<if _pcKissVirginityTaken>>
+		<br><br>
+	<</if>>
 	<<if !$pubfame.seen.includes("wrenKiss")>>
 		<<set $pubfame.seen.pushUnique("wrenKiss")>>
 		<<Hes>> caught off guard for a second, but then <<he>> smiles and kisses back. <<He>> sucks on your upper lip for a moment, before pushing <<his>> tongue into your mouth.
@@ -2821,7 +2881,7 @@ Wren takes it, examines it from both sides and smirks. <<He>> tosses it onto a n
 <<if $farm_stage lte 4 or $farm_stage is undefined>>
 	"Well, good seeing you," Wren says, nodding. "Take care."
 	<br><br>
-	<<getouticon>><<link [[Leave|Estate Cards Intro Leave]]>><</link>>
+	<<link [[Leave|Estate Cards Intro Leave]]>><</link>>
 <<else>>
 	"While you're here, fancy some blackjack?" Wren asks.
 	<br><br>

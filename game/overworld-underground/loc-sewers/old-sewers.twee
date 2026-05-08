@@ -5,17 +5,13 @@
 You are in the old sewers. A canal runs past, disappearing through a metal grate. Water rushes through gaps in the ceiling, carrying litter to join the river. The current looks gentle.
 <<wPersist>><<wHunt "sewers">>
 <br><br>
-<<if $sewerschased is 1>>
-	There's a ladder leading up to the town's drain system, but it's retracted and out of reach.
-	<br><br>
-<<else>>
-	There's a ladder leading up to the town's drain system.
-	<br><br>
-<</if>>
+
+There's a ladder leading up to the town's drain system<<if $sewerschased is 1>>, but it's retracted and out of reach<</if>>.
+<br><br>
+
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -52,17 +48,13 @@ You are in the old sewers. A canal runs past, disappearing through a metal grate
 You are in the old sewers. A canal runs past, disappearing into the dark. Piles of rubbish line the sides. The current looks rough.
 <<wPersist>><<wHunt "sewers">>
 <br><br>
-<<if $sewerschased is 1>>
-	There's a ladder leading up to the town's drain system, but it's retracted and out of reach.
-	<br><br>
-<<else>>
-	There's a ladder leading up to the town's drain system.
-	<br><br>
-<</if>>
+
+There's a ladder leading up to the town's drain system<<if $sewerschased is 1>>, but it's retracted and out of reach<</if>>.
+<br><br>
+
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -101,17 +93,13 @@ You are in the old sewers. A canal runs past, disappearing into the dark. Piles 
 You are in the old sewers. A canal runs past, disappearing into the dark. Much of the ceiling and walls have collapsed, almost damming the water. The current looks violent.
 <<wPersist>><<wHunt "sewers">>
 <br><br>
-<<if $sewerschased is 1>>
-	There's a ladder leading up to the town's drain system, but it's retracted and out of reach.
-	<br><br>
-<<else>>
-	There's a ladder leading up to the town's drain system.
-	<br><br>
-<</if>>
+
+There's a ladder leading up to the town's drain system<<if $sewerschased is 1>>, but it's retracted and out of reach<</if>>.
+<br><br>
+
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -153,7 +141,6 @@ You are in the old sewers. Torrents of water crash down from multiple breaches i
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -197,6 +184,7 @@ You are in the old sewers. Torrents of water crash down from multiple breaches i
 
 <<effects>><<set $location to "sewers">><<set $outside to 0>><<set $bus to "sewerslake">><<getTarget true>>
 <<set $sewersevent -= 1>>
+<<if $phase2 is "crystal">><<wearProp "antique crystal pink">><</if>>
 You are in a cavern near the old sewers, beside a pool of water. The pool stretches into darkness.
 <<if $hallucinations gte 2>>
 	You see shapes moving out there, at the edge of your awareness, but you can't focus on them. You forget as soon as you turn away.
@@ -214,7 +202,6 @@ You are in a cavern near the old sewers, beside a pool of water. The pool stretc
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -234,7 +221,7 @@ You are in a cavern near the old sewers, beside a pool of water. The pool stretc
 		<br>
 	<</if>>
 	<<if !$weekly.sewers.antiqueCrystal>>
-		<<antiqueicon "pink crystal">><<link [[Take the crystal|Sewers Lake]]>><<arousal 600>><<set $weekly.sewers.antiqueCrystal to true>><<set $antiquemoney += 200>><<museumAntiqueStatus "antiquecrystal" "found">><</link>><<garousal>>
+		<<antiqueicon "crystal_pink">><<link [[Take the crystal|Sewers Lake]]>><<set $phase2 to "crystal">><<arousal 600>><<set $weekly.sewers.antiqueCrystal to true>><<set $antiquemoney += 200>><<museumAntiqueStatus "antiquecrystal" "found">><</link>><<garousal>>
 		<br><br>
 	<</if>>
 	<<if $nextPassageCheck is "Sewers Waterfall">>
@@ -247,7 +234,7 @@ You are in a cavern near the old sewers, beside a pool of water. The pool stretc
 
 :: Sewers Lake Cylinder
 
-<<effects>><<set $location to "sewers">><<set $outside to 0>>
+<<effects>><<set $location to "sewers">><<set $outside to 0>><<wearProp "pepper spray">>
 It looks like a charge for your pepper spray, but with an exposed computer chip at the base. You put it in.
 <br><br>
 <span class="gold">You've gained an additional pepper spray charge.</span>
@@ -265,7 +252,6 @@ You are in the old sewers. The tunnel is full of metal scrap.
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -290,7 +276,7 @@ You are in the old sewers. The tunnel is full of metal scrap.
 		<<sewericon "main">><<link [[Tunnel filled with litter (0:05)|Sewers Residential]]>><<pass 5>><</link>>
 	<</if>>
 	<br>
-	<<ind>><<link [[Tunnel filled with sculptures (0:05)|Sewers Workshop]]>><<pass 5>><</link>>
+	<<sewericon "sculpture">><<link [[Tunnel filled with sculptures (0:05)|Sewers Workshop]]>><<pass 5>><</link>>
 	<br><br>
 <</if>>
 
@@ -315,7 +301,6 @@ You are in the old sewers. Decaying logs litter the tunnel.
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -334,6 +319,10 @@ You are in the old sewers. Decaying logs litter the tunnel.
 		<<sewericon "wood">><<link [[Hide in a log|Sewers Wood Hide]]>><</link>>
 		<br>
 	<</if>>
+	<<if $pubtask is "sewers" and $pubtask2 isnot 1 and [undefined, "sewersWood"].includes($sewersBox) and $sewerschased isnot 1>>
+		<<crimeicon "black box">><<link [[Search for Landry's black box|Sewers Box Lizard]]>><</link>><<set $sewersBox to "sewersWood">>
+		<br>
+	<</if>>
 	<<sewericon "webs">><<link [[Tunnel covered in webs (0:05)|Sewers Webs]]>><<pass 5>><</link>>
 	<br>
 	<<if $nextPassageCheck is "Sewers Residential">>
@@ -349,14 +338,16 @@ You are in the old sewers. Decaying logs litter the tunnel.
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
 <<set $sewerschased to 0>>
 <<set $sewersevent to random(5,12)>>
+<<npc Morgan>><<person1>>
+You crawl into a hollow log. Morgan enters the tunnel, creeping between the decaying wood.
 <<if $rng gte 51>>
-	<<npc Morgan>><<person1>>You crawl into a hollow log. Morgan enters the tunnel, creeping between the decaying wood. <<He>> disappears from view, and a few moments later you peek out. You're safe for now.
+	<<He>> disappears from view, and a few moments later you peek out. You're safe for now.
 	<<lstress>><<stress -6>>
 	<br><br>
 	<<endevent>>
 	<<destinationsewers>>
 <<else>>
-	<<npc Morgan>><<person1>>You crawl into a hollow log. Morgan enters the tunnel, creeping between the decaying wood. <<He>> disappears from view, and you almost think you're in the clear, when <<his>> face appears at the entrance. <<He>> grasps your hair and tugs you from your hiding place.
+	<<He>> disappears from view, and you almost think you're in the clear, when <<his>> face appears at the entrance. <<He>> grasps your hair and tugs you from your hiding place.
 	<br><br>
 	<<morganoptions>>
 <</if>>
@@ -375,7 +366,6 @@ You are in the old sewers. The walls are covered in huge spider webs.
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -406,11 +396,12 @@ You are in the old sewers. The walls are covered in huge spider webs.
 
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
 <<set $weekly.sewers.antiqueCandlestick to true>>
+<<wearProp "antique candlestick">>
 <<set $antiquemoney += 50>><<museumAntiqueStatus "antiquecandlestick" "found">>
 You reach into the web and tug out the candlestick.
 <<if $rng gte 81>>
 	It's covered with sticky web. You pull it off, but it sticks to your hand. You try to pull it off your hand, but get your hands stuck together.
-	<<set $leftarm to "bound">><<set $rightarm to "bound">>
+	<<bind>>
 <</if>>
 <br><br>
 <<link [[Next|Sewers Webs]]>><</link>>
@@ -430,7 +421,6 @@ You are in the old sewers. The walls and floor here are covered in fungus. Some 
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -446,7 +436,7 @@ You are in the old sewers. The walls and floor here are covered in fungus. Some 
 		<<orgasmLocation "sewers" `($sewerschased is 1 ? true : false)`>>
 	<</if>>
 	<<if !$weekly.sewers.antiqueDildo>>
-		<<ind>><<link [[Take the antique|Sewers Dildo]]>><</link>>
+		<<antiqueicon "dildo">><<link [[Take the antique|Sewers Dildo]]>><</link>>
 		<br>
 	<</if>>
 	<<if $nextPassageCheck is "Sewers Mud">>
@@ -460,9 +450,10 @@ You are in the old sewers. The walls and floor here are covered in fungus. Some 
 :: Sewers Dildo
 
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
+<<wearProp "antique dildo">>
 <<set $weekly.sewers.antiqueDildo to true>>
 <<set $antiquemoney += 50>><<museumAntiqueStatus "antiquedildo" "found">>
-You squeeze between the mushrooms and grasp the object. Even up close you've no clue what it is. A cucumber ornament?
+You squeeze between the mushrooms and grasp the object. <<if $museumAntiques.antiques.antiquedildo isnot "museum">>Even up close you've no clue what it is. A cucumber ornament?<<else>>You remember Winter mentioning that it's an old medical aid.<</if>>
 <br><br>
 You squeeze out of the mushroom forest and sneeze. You feel warm.
 <<drugs 360>><<garousal>><<arousal 600>>
@@ -486,7 +477,6 @@ A breeze emerges from the pit. It makes your <<genitals 1>> tingle.
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -502,7 +492,7 @@ A breeze emerges from the pit. It makes your <<genitals 1>> tingle.
 		<<orgasmLocation "sewers" `($sewerschased is 1 ? true : false)`>>
 	<</if>>
 	<<if !$weekly.sewers.antiqueHorn>>
-		<<ind>><<link [[Take the antique|Sewers Horn]]>><<arousal 1800>><</link>><<ggarousal>>
+		<<antiqueicon "horn">><<link [[Take the antique|Sewers Horn]]>><<arousal 1800>><</link>><<ggarousal>>
 		<br>
 	<</if>>
 	<<if $nextPassageCheck is "Sewers Ruins">>
@@ -520,7 +510,7 @@ A breeze emerges from the pit. It makes your <<genitals 1>> tingle.
 	Arms stretched out either side, you walk across the gap. A warm air gushes up from the pit and caresses you. It's too much. Your knees buckle.
 	<br><br>
 	<<orgasm>>
-	<br><br>
+
 	You fall from the walkway, plunging into dark water below.
 	<br><br>
 	<<sewersend>>
@@ -528,6 +518,7 @@ A breeze emerges from the pit. It makes your <<genitals 1>> tingle.
 	<br>
 <<else>>
 	<<set $weekly.sewers.antiqueHorn to true>>
+	<<wearProp "antique horn">>
 	<<set $antiquemoney += 100>><<museumAntiqueStatus "antiquehorn" "found">>
 	Arms stretched out either side, you walk across the gap. A warm air gushes up from the pit and caresses you, but you make it to the other side.
 	<br><br>
@@ -552,10 +543,18 @@ You are in the old sewers. You can't walk too fast, lest you slip on the algae c
 		<<smugglerdifficultytext>>
 	<</if>>
 <</if>>
+<<if $sewerschased is 1>>
+	<<if $smuggler_pub_known is 1>>
+		The passage to the smuggler's pub is blocked by a crisscross of metal bars, preventing passage, for now.
+		<br><br>
+	<<elseif $historytrait gte 4 or ($temple_spear_mission gte 1 and $temple_spear_mission_winter is 1)>>
+		You notice a hole in a brick wall, large enough to squeeze through. Metal bars crisscross the opening, preventing access, for now.
+		<br><br>
+	<</if>>
+<</if>>
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -580,6 +579,13 @@ You are in the old sewers. You can't walk too fast, lest you slip on the algae c
 			<<smugglerdifficultyactions>>
 		<</if>>
 	<</if>>
+	<<if $smuggler_pub_known is 1 and $sewerschased isnot 1>>
+		<<sewericon "smuggler">><<link [[Crawl through passage to smuggler's pub (0:05)|Smuggler Pub]]>><<pass 5>><<sewersend>><</link>>
+		<br>
+	<<elseif ($historytrait gte 4 or ($temple_spear_mission gte 1 and $temple_spear_mission_winter is 1)) and $sewerschased isnot 1>>
+		<<getouticon "hole">><<link [[Crawl through the hole in the broken wall (0:05)|Smuggler Pub Sewer Intro]]>><<pass 5>><<sewersend>><</link>>
+		<br>
+	<</if>>
 	<<sewericon "mud">><<link [[Muddy tunnel (0:05)|Sewers Mud]]>><<pass 5>><</link>>
 	<br>
 	<<if $nextPassageCheck is "Sewers Industrial">>
@@ -595,14 +601,16 @@ You are in the old sewers. You can't walk too fast, lest you slip on the algae c
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
 <<set $sewerschased to 0>>
 <<set $sewersevent to random(5,12)>>
+<<npc Morgan>><<person1>>
+You crawl beneath a pile of algae, just before Morgan enters the tunnel.
 <<if $rng gte 51>>
-	<<npc Morgan>><<person1>>You crawl beneath a pile of algae, just before Morgan enters the tunnel. <<He>> almost steps on you, but doesn't notice. You're safe for now.
+	<<He>> almost steps on you, but doesn't notice. You're safe for now.
 	<<lstress>><<stress -6>>
 	<br><br>
 	<<endevent>>
 	<<destinationsewers>>
 <<else>>
-	<<npc Morgan>><<person1>>You crawl beneath a pile of algae, just before Morgan enters the tunnel. <<He>> steps on your arm, eliciting a muffled cry. Enough for <<him>> to hear. "<<charles>>," <<he>> says. "What are you doing down there?" <<He>> grasps your hair and tugs you from your hiding place.
+	<<He>> steps on your arm, eliciting a muffled cry. Enough for <<him>> to hear. "<<charles>>," <<he>> says. "What are you doing down there?" <<He>> grasps your hair and tugs you from your hiding place.
 	<br><br>
 	<<morganoptions>>
 <</if>>
@@ -617,7 +625,6 @@ You are in the old sewers. You're up to your ankles in mud.
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -636,7 +643,7 @@ You are in the old sewers. You're up to your ankles in mud.
 		<<sewericon "mud">><<link [[Hide in the mud|Sewers Mud Hide]]>><</link>>
 		<br>
 	<</if>>
-	<<tendingicon "mushrooms">><<link [[Fungus-coated tunnel (0:05)|Sewers Shrooms]]>><<pass 5>><</link>>
+	<<foodstufficon "mushroom">><<link [[Fungus-coated tunnel (0:05)|Sewers Shrooms]]>><<pass 5>><</link>>
 	<br>
 	<<sewericon "algae">><<link [[Algae-coated tunnel (0:05)|Sewers Algae]]>><<pass 5>><</link>>
 	<br>
@@ -653,14 +660,16 @@ You are in the old sewers. You're up to your ankles in mud.
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
 <<set $sewerschased to 0>>
 <<set $sewersevent to random(5,12)>>
+<<npc Morgan>><<person1>>
+The mud is deeper in places. You lie in one such place and await Morgan's arrival.
 <<if $rng gte 51>>
-	<<npc Morgan>><<person1>>The mud is deeper in places. You lie in one such place and await Morgan's arrival. <<He>> sloshes through. "Where are you <<charles>>," <<he>> says. "I heard you." <<He>> passes through. You're safe for now.
+	<<He>> sloshes through. "Where are you, <<charles>>," <<he>> says. "I heard you." <<He>> passes through. You're safe for now.
 	<<lstress>><<stress -6>>
 	<br><br>
 	<<endevent>>
 	<<destinationsewers>>
 <<else>>
-	<<npc Morgan>><<person1>>The mud is deeper in places. You lie in one such place and await Morgan's arrival. <<He>> stares straight at your hiding place. "I see you <<charles>>," <<he>> cackles. You try to stand, but slip and fall back down. <<He>> grasps your hair and tugs you from your hiding place.
+	<<He>> stares straight at your hiding place. "I see you, <<charles>>," <<he>> cackles. You try to stand, but slip and fall back down. <<He>> grasps your hair and tugs you from your hiding place.
 	<br><br>
 	<<morganoptions>>
 <</if>>
@@ -672,15 +681,9 @@ You are in the old sewers. You're up to your ankles in mud.
 You are in the old sewers. The tunnels have collapsed here, revealing ancient stonework. A strange breeze blows.
 <<wPersist>><<wHunt "sewers">>
 <br><br>
-<<if $culttaskphase is 2 and $culttaskcomplete is 0>>
-	<span class="purple">You search the room for anything that could be considered an idol. Eventually within the collapsing stonework you find a small purple statue of the Dark Mother.</span>
-	<br><br>
-	<<set $culttaskcomplete to 1>>
-<</if>>
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -701,7 +704,7 @@ You are in the old sewers. The tunnels have collapsed here, revealing ancient st
 	<</if>>
 	<<sewericon "rubble">><<link [[Crumbling tunnel (0:05)|Sewers Rubble]]>><<pass 5>><</link>>
 	<br>
-	<<askicon>><<link [[Follow the breeze (0:05)|Sewers Hole]]>><<pass 5>><</link>>
+	<<sewericon "breeze">><<link [[Follow the breeze (0:05)|Sewers Hole]]>><<pass 5>><</link>>
 	<br>
 	<<if $nextPassageCheck is "Sewers Commercial">>
 		<<sewericon "main">><span class="nextLink"><<link [[Tunnel filled with rubbish (0:05)|Sewers Commercial]]>><<pass 5>><</link>></span>
@@ -732,7 +735,6 @@ You are in the old sewers. Rubble is strewn throughout this tunnel. The stone is
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -766,14 +768,16 @@ You are in the old sewers. Rubble is strewn throughout this tunnel. The stone is
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
 <<set $sewerschased to 0>>
 <<set $sewersevent to random(5,12)>>
+<<npc Morgan>><<person1>>
+You hide behind the rubble. Morgan enters the tunnel.
 <<if $rng gte 51>>
-	<<npc Morgan>><<person1>>You hide behind the rubble. Morgan enters the tunnel. <<He>> searches behind some of the rubble, but becomes impatient and walks away, babbling. You're safe for now.
+	<<He>> searches behind some of the rubble, but becomes impatient and walks away, babbling. You're safe for now.
 	<<lstress>><<stress -6>>
 	<br><br>
 	<<endevent>>
 	<<destinationsewers>>
 <<else>>
-	<<npc Morgan>><<person1>>You hide behind the rubble. Morgan enters the tunnel. A piece of stone breaks and falls behind you, drawing <<his>> attention. <<He>> spots you, grasps your hair and tugs you from your hiding place.
+	A piece of stone breaks and falls behind you, drawing <<his>> attention. <<He>> spots you, grasps your hair and tugs you from your hiding place.
 	<br><br>
 	<<morganoptions>>
 <</if>>
@@ -792,7 +796,6 @@ You are in the old sewers. You are surrounded by metal scrap, twisted into a par
 <<if $stress gte $stressmax>>
 	It's too much for you. You pass out.
 	<br><br>
-	<<sewersend>>
 	<<sewerspassout>>
 <<elseif $sewerschased is 1 and $sewerschasedstep lte 0>>
 	<<morgancaught>>
@@ -850,7 +853,7 @@ You type in the three numbers, but what of the fourth?
 
 <<effects>><<set $location to "sewers">><<set $outside to 0>>
 
-<<if $slimedisable is "f" and $hallucinations gte 1 and $sewerscountdown isnot 3>>
+<<if $settings.slimesEnabled and $hallucinations gte 1 and $sewerscountdown isnot 3>>
 	You peel off the slime, run and hide around the corner.
 <<else>>
 	You run and hide around the corner.
@@ -866,15 +869,16 @@ You wait. Nothing happens. You peek, then walk back to the safe. It's still lock
 <<if $sewerswatchattempt is $sewerswatchnumber>>
 	You press $sewerswatchattempt and the door swings open. Inside is an antique watch. You take it.
 	<<set $antiquemoney += 200>><<museumAntiqueStatus "antiquewatch" "found">>
+	<<wearProp "antique watch">>
 	<br><br>
-	<<if $slimedisable is "f" and $hallucinations gte 1 and $sewerscountdown is 0>>
+	<<if $settings.slimesEnabled and $hallucinations gte 1 and $sewerscountdown is 0>>
 		The slime spreads to your other arm.
 		<br><br>
 
 		<<link [[Next|Sewers Slime]]>><</link>>
 		<br>
 	<<else>>
-		<<if $slimedisable is "f" and $hallucinations gte 1 and $sewerscountdown lt 3>>
+		<<if $settings.slimesEnabled and $hallucinations gte 1 and $sewerscountdown lt 3>>
 			You peel the slime off your limbs.
 			<br><br>
 		<</if>>
@@ -884,7 +888,7 @@ You wait. Nothing happens. You peek, then walk back to the safe. It's still lock
 <<elseif $sewerscountdown is 0>>
 	You brace yourself as the countdown reaches 0. The safe clicks, and the lights turn off. The ticking hasn't stopped, but the safe won't open.
 	<br><br>
-	<<if $slimedisable is "f" and $hallucinations gte 1>>
+	<<if $settings.slimesEnabled and $hallucinations gte 1>>
 		The slime spreads to your other arm.
 		<br><br>
 		<<link [[Next|Sewers Slime]]>><</link>>
@@ -898,7 +902,7 @@ You wait. Nothing happens. You peek, then walk back to the safe. It's still lock
 	<br><br>
 	"10...9...8..."
 	<br><br>
-	<<if $slimedisable is "f" and $hallucinations gte 1>>
+	<<if $settings.slimesEnabled and $hallucinations gte 1>>
 		One of your arms gets caught up in the slime.
 		<br><br>
 	<</if>>
@@ -908,7 +912,7 @@ You wait. Nothing happens. You peek, then walk back to the safe. It's still lock
 	<br><br>
 	"20...19...18..."
 	<br><br>
-	<<if $slimedisable is "f" and $hallucinations gte 1>>
+	<<if $settings.slimesEnabled and $hallucinations gte 1>>
 		The slime spreads to your other leg.
 		<br><br>
 	<</if>>
@@ -918,7 +922,7 @@ You wait. Nothing happens. You peek, then walk back to the safe. It's still lock
 	<br><br>
 	"30...29...28..."
 	<br><br>
-	<<if $slimedisable is "f" and $hallucinations gte 1>>
+	<<if $settings.slimesEnabled and $hallucinations gte 1>>
 		Something crawls up your leg. It's a tendril of slime. It trails off into the darkness. Its grip is firm, but you should be able to pry it off. If you weren't distracted.
 		<br><br>
 	<</if>>
@@ -928,7 +932,7 @@ You wait. Nothing happens. You peek, then walk back to the safe. It's still lock
 
 :: Sewers Residential Swim
 
-<<effects>><<set $location to "sewers">><<set $outside to 0>><<water>>
+<<set $location to "sewers">><<set $outside to 0>><<water>><<waterbr 2>><<effects>>
 <<set $swimmingdifficulty to random(1, 200)>>
 You lower yourself into the water and try to swim against the current.
 <<if currentSkillValue('swimmingskill') gte $swimmingdifficulty>>
@@ -945,7 +949,7 @@ You lower yourself into the water and try to swim against the current.
 
 :: Sewers Commercial Swim
 
-<<effects>><<set $location to "sewers">><<set $outside to 0>><<water>>
+<<set $location to "sewers">><<set $outside to 0>><<water>><<waterbr 2>><<effects>>
 <<set $swimmingdifficulty to random(1, 400)>>
 You lower yourself into the water and try to swim against the current.
 <<if currentSkillValue('swimmingskill') gte $swimmingdifficulty>>
@@ -962,7 +966,7 @@ You lower yourself into the water and try to swim against the current.
 
 :: Sewers Industrial Swim
 
-<<effects>><<set $location to "sewers">><<set $outside to 0>><<water>>
+<<set $location to "sewers">><<set $outside to 0>><<water>><<waterbr 2>><<effects>>
 <<set $swimmingdifficulty to random(1, 800)>>
 You lower yourself into the water and try to swim against the current.
 <<if currentSkillValue('swimmingskill') gte $swimmingdifficulty>>

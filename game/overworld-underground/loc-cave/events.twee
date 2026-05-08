@@ -1,27 +1,24 @@
 :: Beach Cave Hollow Open
 <<effects>>
 
-
-
 <<skulduggerycheck>>
 <<if $skulduggerysuccess is 1>>
-
 	You're not unfamiliar with locks from this period, but this one is cleverer than most. Not clever enough. <span class="green">It snaps open,</span> and you lift the lid.
 	<br><br>
 	The interior is dry.
 	<<if random(1, 3) is 3>>
+		<<wearProp "antique silver dagger">>
 		Inside is a steel cutlass, mostly free of rust and other tarnish. Beside it is a dagger. It's made of silver. A collector would be interested in both.
 		<<set $antiquemoney += 120>><<museumAntiqueStatus "antiquecutlass" "found">>
 		<<set $antiquemoney += 240>><<museumAntiqueStatus "antiquesilverdagger" "found">>
 	<<else>>
+		<<wearProp "antique cutlass">>
 		Inside is a steel cutlass, mostly free of rust and other tarnish. A collector would be interested in this.
 		<<set $antiquemoney += 120>><<museumAntiqueStatus "antiquecutlass" "found">>
 	<</if>>
 	<br><br>
 	<<skulduggeryuse>>
 
-
-	<<endevent>>
 	<<beach_cave_caught>>
 
 <<else>>
@@ -43,26 +40,24 @@
 :: Beach Cave Heavy Open
 <<effects>>
 
-
-
 <<skulduggerycheck>>
 <<if $skulduggerysuccess is 1>>
-
 	You're not unfamiliar with locks from this period, <span class="green">and manage to snap it open.</span> You lift the lid.
 	<br><br>
 	It's full of water.
 	<<if random(1, 3) is 3 and $cave gte 15>>
+		<<wearProp "antique silver dagger">>
 		You find the remains of a cutlass, now rusted beyond repair. It won't be worth much, but beside it is a silver dagger. A collector would be interested in both.
 		<<set $antiquemoney += 10>><<museumAntiqueStatus "antiquerustedcutlass" "found">>
 		<<set $antiquemoney += 240>><<museumAntiqueStatus "antiquesilverdagger" "found">>
 	<<else>>
+		<<wearProp "antique rusted cutlass">>
 		You find the remains of a cutlass, now rusted beyond repair. It won't be worth much, but a collector might be interested all the same.
 		<<set $antiquemoney += 10>><<museumAntiqueStatus "antiquerustedcutlass" "found">>
 	<</if>>
 	<br><br>
 	<<skulduggeryuse>>
 
-	<<endevent>>
 	<<beach_cave_caught>>
 
 <<else>>
@@ -92,16 +87,17 @@
 You spot an unlocked chest half-concealed behind an outcrop.
 
 <<if random(1, 2) is 2>>
+	<<wearProp "antique silver dagger">>
 	You find a silver dagger inside. It would be worth something to a collector.
 	<<set $antiquemoney += 240>><<museumAntiqueStatus "antiquesilverdagger" "found">>
 	<br><br>
 <<else>>
+	<<wearProp "antique rusted cutlass">>
 	There's a rusty old cutlass inside. Might be worth a little to a collector.
 	<<set $antiquemoney += 10>><<museumAntiqueStatus "antiquerustedcutlass" "found">>
 	<br><br>
 <</if>>
 
-<<endevent>>
 <<beach_cave_caught>>
 
 
@@ -153,15 +149,16 @@ You swim against the current,
 
 
 :: Beach Cave Explore
-<<effects>>
 
-You dive beneath the water, and follow the cave.
+You dive beneath the water and follow the cave.
+
+<<water>><<waterbr 2>><<effects>>
 
 <<if $swimmingSuccess>>
 	<span class="green">You emerge from the water</span> on the other side, and look around. The air is warmer here. You see a lichen-light glint behind an outcrop. It's a dagger, made of silver and in good condition. A collector would be interested in this.
 	<br><br>
+	<<wearProp "antique silver dagger">>
 	<<set $antiquemoney += 240>><<museumAntiqueStatus "antiquesilverdagger" "found">>
-	<br><br>
 	You swim back to the main cave.
 	<br><br>
 	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
@@ -246,6 +243,16 @@ Your voice echoes through the cave. The eyes wink and shut.
 	<br>
 <</if>>
 
+:: Beach Cave Tentacle Banish
+<<effects>>
+
+You focus your mind on the abomination molesting your <<= $player.breastsize gte 3 ? "breasts" : "chest">>, then make an intricate gesture with your hand. <span class="green">The tentacle shimmers and flinches violently,</span> then frantically uncoils from around you. You're dropped into the water below.
+<br><br>
+You look up, but the creature has already fled into the darkness above, leaving you in peace.
+<br><br>
+
+<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
+<br>
 
 :: Beach Cave Tentacle
 <<effects>>
@@ -257,7 +264,7 @@ Your voice echoes through the cave. The eyes wink and shut.
 <</if>>
 <<garousal>><<arousal 600 "breasts">>
 <br><br>
-<<if random(1, 2) is 2 and $bestialitydisable is "f" and $slugdisable is "f">>
+<<if random(1, 2) is 2 and $settings.bestialityEnabled and $settings.slugsEnabled>>
 	You hear a squelch, and the tentacle unravels. It points at the water, as if watching something. A shape lunges from the water. The tentacle unravels the rest of the way, dropping you and recoiling in fright.
 	<br><br>
 
@@ -280,7 +287,7 @@ Your voice echoes through the cave. The eyes wink and shut.
 	<<if $pursuit gte 6>>
 		<<generate6>>
 	<</if>>
-	<<person1>>You hear a <<personsimple>>'s laughter behind you. "Got ourselves a little more than dinner," says a gruff voice. A pair of hands grasp your hips, spinning you to face them.
+	<<person1>>You hear a <<personssimple>> laughter behind you. "Got ourselves a little more than dinner," says a gruff voice. A pair of hands grasp your hips, spinning you to face them.
 
 	A <<person>> <<if $cave gte 20>>stands<<else>>floats<</if>> there, a <<person2>><<person>> beside <<person1>><<him>>. Both wear wetsuits.
 	<<if $pursuit gte 4>>
@@ -303,10 +310,10 @@ Your voice echoes through the cave. The eyes wink and shut.
 
 :: Beach Cave Tentacle Top
 <<effects>>
-
-<<set $worn.upper.integrity -= 50>>
-<<if $worn.upper.integrity lte 0>>
-	You squirm and twist free of the creature, splashing into the water below. You look up. The tentacle still clutches the remains of your $worn.upper.name. <<covered>> It carries it into the dark.
+<<outfitChecks>>
+<<set _top.integrity -= 50>>
+<<if _top.integrity lte 0>>
+	You squirm and twist free of the creature, splashing into the water below. You look up. The tentacle still clutches the remains of your _top.name. <<covered>> It carries them into the dark.
 	<br><br>
 	<<integritycheck no_text>>
 	<<exposure>>
@@ -314,29 +321,7 @@ Your voice echoes through the cave. The eyes wink and shut.
 	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
 	<br>
 <<else>>
-	You squirm and twist free of the creature, splashing into the water below. Your $worn.upper.name feels worse for wear, but you manage to escape down the tunnel.
-	<br><br>
-
-	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
-	<br>
-<</if>>
-
-
-
-:: Beach Cave Tentacle Under Top
-<<effects>>
-
-<<set $worn.under_upper.integrity -= 50>>
-<<if $worn.under_upper.integrity lte 0>>
-	You squirm and twist free of the creature, splashing into the water below. You look up. The tentacle still clutches the remains of your $worn.under_upper.name. <<covered>> It carries it into the dark.
-	<br><br>
-	<<integritycheck no_text>>
-	<<exposure>>
-
-	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
-	<br>
-<<else>>
-	You squirm and twist free of the creature, splashing into the water below. Your $worn.under_upper.name feels worse for wear, but you manage to escape down the tunnel.
+	You squirm and twist free of the creature, splashing into the water below. Your _top.name <<= _top.plural ? "feel" : "feels">> worse for wear, but you manage to escape down the tunnel.
 	<br><br>
 
 	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
@@ -347,9 +332,8 @@ Your voice echoes through the cave. The eyes wink and shut.
 :: Beach Cave Rope
 <<effects>>
 
-
 The presence draws closer.
-<<if random(1, 2) is 2 and $bestialitydisable is "f" and $slugdisable is "f">>
+<<if random(1, 2) is 2 and $settings.bestialityEnabled and $settings.slugsEnabled>>
 	You hear a squelch, and a shape lunges from the water, landing on your thigh. A slug, as large as a cat. Another joins it, wrapping around the rope. It gnaws through with disturbing speed, and you splash into the water.
 	<br><br>
 
@@ -369,7 +353,7 @@ The presence draws closer.
 	<<if $pursuit gte 6>>
 		<<generate6>>
 	<</if>>
-	<<person1>>You hear a <<personsimple>>'s laughter behind you. "Got ourselves a little more than dinner," says a gruff voice. A pair of hands grasp your hips, spinning you to face them.
+	<<person1>>You hear a <<personssimple>> laughter behind you. "Got ourselves a little more than dinner," says a gruff voice. A pair of hands grasp your hips, spinning you to face them.
 
 	A <<person>> <<if $cave gte 20>>stands<<else>>floats<</if>> there, a <<person2>><<person>> beside <<person1>><<him>>. Both wear wetsuits.
 	<<if $pursuit gte 4>>
@@ -389,32 +373,12 @@ The presence draws closer.
 	<br>
 <</if>>
 
-:: Beach Cave Rope Over Top
-<<effects>>
-
-<<set $worn.over_upper.integrity -= 50>>
-<<if $worn.over_upper.integrity lte 0>>
-	The rope tears at your $worn.over_upper.name as you squirm and twist, but you manage to free yourself, splashing into the water below. You look up. The tattered remains of your $worn.over_upper.name dangle above.
-	<br><br>
-	<<integritycheck no_text>>
-	<<exposure>>
-
-	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
-	<br>
-<<else>>
-	The rope tears at your $worn.over_upper.name as you squirm and twist, but you manage to free yourself, splashing into the water below.
-	<br><br>
-
-	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
-	<br>
-<</if>>
-
 :: Beach Cave Rope Top
 <<effects>>
-
-<<set $worn.upper.integrity -= 50>>
-<<if $worn.upper.integrity lte 0>>
-	The rope tears at your $worn.upper.name as you squirm and twist, but you manage to free yourself, splashing into the water below. You look up. The tattered remains of your $worn.upper.name dangle above.
+<<outfitChecks>>
+<<set _top.integrity -= 50>>
+<<if _top.integrity lte 0>>
+	The rope tears at your _top.name as you squirm and twist, but you manage to free yourself, splashing into the water below. You look up. The tattered remains of your _top.name dangle above.
 	<br><br>
 	<<integritycheck no_text>>
 	<<exposure>>
@@ -422,33 +386,12 @@ The presence draws closer.
 	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
 	<br>
 <<else>>
-	The rope tears at your $worn.upper.name as you squirm and twist, but you manage to free yourself, splashing into the water below.
+	The rope tears at your _top.name as you squirm and twist, but you manage to free yourself, splashing into the water below.
 	<br><br>
 
 	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
 	<br>
 <</if>>
-
-:: Beach Cave Rope Under Top
-<<effects>>
-
-<<set $worn.under_upper.integrity -= 50>>
-<<if $worn.under_upper.integrity lte 0>>
-	The rope tears at your $worn.under_upper.name as you squirm and twist, but you manage to free yourself, splashing into the water below. You look up. The tattered remains of your $worn.under_upper.name dangle above.
-	<br><br>
-	<<integritycheck no_text>>
-	<<exposure>>
-
-	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
-	<br>
-<<else>>
-	The rope tears at your $worn.under_upper.name as you squirm and twist, but you manage to free yourself, splashing into the water below.
-	<br><br>
-
-	<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
-	<br>
-<</if>>
-
 
 :: Beach Cave Rape
 <<if $molestationstart is 1>>
@@ -479,7 +422,7 @@ The presence draws closer.
 	<<ejaculation>>
 	"Let's take <<phim>>," the <<person1>><<person>> says. "The others will want a turn." A blindfold is thrown over your head from behind, blinding you as your arms are bound with rope.
 	<br><br>
-	<<facewear 5>>
+	<<facewear "blindfold">>
 	<<bind>>
 	<<pass 10>>
 
@@ -506,11 +449,21 @@ The presence draws closer.
 
 <<pub_cave_arrival>>
 
+:: Beach Cave Tentacles Banish
+<<effects>>
 
+You focus your mind on the encroaching abomination between your legs, then make an intricate gesture with your hand. <span class="green">The third tentacles shimmers and recoils violently,</span> then splashes down into the water and out of sight.
+<br><br>
+The other tentacles shudder and release your ankles. You kick your feet free and step away as they retract into an unknown crevice. You keep your mind focused, but nothing else emerges.
+<br><br>
+After a few tense moments you relax, certain that you're alone again.
+<br><br>
+
+<<link [[Next|Beach Cave]]>><<set $eventskip to 1>><</link>>
+<br>
 
 :: Beach Cave Soothe
 <<effects>>
-
 
 <<if $tendingSuccess>>
 	You sing a soothing tune, <span class="green">and the tentacles release their grip</span> before retracting to some unknown crevice.
@@ -574,8 +527,8 @@ The tentacles retract, disappearing into some hidden crevice.
 <<effects>>
 
 You ignore your anxiety, and walk by the crack.
-<<if $rng gte (100 - ($pursuit * 15))>>
-	<<if $bestialitydisable is "f" and $slugdisable is "f" and random(1, 2) is 2>>
+<<if $pursuit gt 0 and $rng gte (100 - ($pursuit * 15))>>
+	<<if $settings.bestialityEnabled and $settings.slugsEnabled and random(1, 2) is 2>>
 		<span class="red">A slug leaps out as you pass,</span> narrowly missing you.<<set $pursuit += 1>>
 		<<if $pursuit gte 6>>
 			You break into a run as it splashes into the water, <span class="red">but others swim to the surface.</span> You're surrounded.
@@ -634,7 +587,7 @@ You rush past the crack, sloshing water as you go.
 	<br><br>
 
 	<<if $pursuit gte 6>>
-		<<if $bestialitydisable is "f" and $slugdisable is "f" and random(1, 2) is 2>>
+		<<if $settings.bestialityEnabled and $settings.slugsEnabled and random(1, 2) is 2>>
 			<span class="red">A shape lunges from the water.</span> It misses, landing on the cave wall behind you. A large slug. Another swims towards you.
 			<br><br>
 
@@ -649,7 +602,7 @@ You rush past the crack, sloshing water as you go.
 			<br>
 			"I think <<pshe>> needs a lesson."
 			<br>
-			"Don't you think about going nowhere <<girl>>."
+			"Don't you think about going nowhere, <<girl>>."
 			<br><br>
 
 			They walk closer. You turn, and come face-to-face with a <<person4>><<person>>. Two others flank <<him>> as well. You're surrounded.

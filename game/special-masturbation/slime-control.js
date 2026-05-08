@@ -1,4 +1,6 @@
-/* eslint-disable no-undef */
+/*
+	Old version can be found at https://gitgud.io/Vrelnir/degrees-of-lewdity/-/blob/master/game/special-masturbation/slimeControl.twee?ref_type=a2cb7190
+*/
 
 // eslint-disable-next-line no-unused-vars
 function masturbationSlimeControl() {
@@ -11,31 +13,47 @@ function masturbationSlimeControl() {
 	const fragment = document.createDocumentFragment();
 	const genitalsExposed = V.worn.over_lower.vagina_exposed >= 1 && V.worn.lower.vagina_exposed >= 1 && V.worn.under_lower.vagina_exposed >= 1;
 	const playerToys = listUniqueCarriedSextoys().filter(
-		toy => (V.player.penisExist && !playerChastity("penis") && toy.type.includesAny("stroker")) || toy.type.includesAny("dildo", "breastpump")
+		toy => (V.player.penisExist && !playerChastity("penis") && toy.type.includesAny("stroker")) || toy.type.includesAny("dildo", "breastpump", "vibrator")
 	);
-	const toysId = Array.from(Array(playerToys.length).keys()).filter(i => !playerToys[i].type.includes("stroker"));
+	const toysId = clone(Array.from(Array(playerToys.length).keys()).filter(i => !playerToys[i].type.includes("stroker")));
+
+	let alternateForcedActions = "";
+	let disableArmActions;
+	if (V.earSlime.event.includes("get your own sperm into your")) {
+		alternateForcedActions = V.earSlime.event.includes("vagina") ? "selfImpregVagina" : "selfImpregAnus";
+	}
 
 	if (V.leftaction === 0 || V.leftaction === "mrest") V.leftaction = "slime";
 	if (V.rightaction === 0 || V.rightaction === "mrest") V.rightaction = "slime";
 
 	if (
 		(V.leftaction === "mpenisstop" && !(V.mouth === "mpenis" && V.selfsuckDepth === V.penisHeight)) ||
-		["mvaginastop", "manusstop", "mchastityparasitestop"].includes(V.leftaction)
+		["mvaginastop", "manusstop", "mchastityparasitestop", "mbreaststop"].includes(V.leftaction)
 	) {
-		fragment.append(redText("The slime prevents you from moving your left hand away."));
-		fragment.append(" ");
-		V.leftaction = "slime";
+		if (alternateForcedActions.includes("selfImpreg")) {
+			disableArmActions = true;
+		} else {
+			fragment.append(redText("The slime prevents you from moving your left hand away."));
+			fragment.append(" ");
+			V.leftaction = "slime";
+		}
 	}
 	if (
 		(V.rightaction === "mpenisstop" && !(V.mouth === "mpenis" && V.selfsuckDepth === V.penisHeight)) ||
 		["mvaginastop", "manusstop", "mchastityparasitestop"].includes(V.rightaction)
 	) {
-		fragment.append(redText("The slime prevents you from moving your right hand away."));
-		fragment.append(" ");
-		V.rightaction = "slime";
+		if (alternateForcedActions.includes("selfImpreg")) {
+			disableArmActions = true;
+		} else {
+			fragment.append(redText("The slime prevents you from moving your right hand away."));
+			fragment.append(" ");
+			V.rightaction = "slime";
+		}
 	}
 
-	if (V.mouthaction === "mpenisstop" || V.mouthaction === "mpenismouthoff") {
+	if (alternateForcedActions.includes("selfImpreg")) {
+		// Do nothing
+	} else if (V.mouthaction === "mpenisstop" || V.mouthaction === "mpenismouthoff") {
 		fragment.append(Wikifier.wikifyEval('<span class="red">The slime prevents you from moving your mouth away from your <<penis>>.</span>'));
 		fragment.append(" ");
 		V.mouthaction = "slime";
@@ -56,6 +74,11 @@ function masturbationSlimeControl() {
 	}
 
 	if (
+		alternateForcedActions.includes("selfImpreg") ||
+		(V.leftaction === "mdildostop" && V.mouth !== 0 && V.anususe !== 0 && V.vaginause !== 0 && playerToys[V.currentToyLeft].type.includes("dildo"))
+	) {
+		// Do nothing
+	} else if (
 		["mdildostop", "mvaginastopdildo", "manusstopdildo", "mpenisstopstroker", "mmouthstopdildo", "mstopbreastpump"].includes(V.leftaction) &&
 		!(V.mouth !== 0 && playerToys[V.currentToyLeft].type.includes("stroker"))
 	) {
@@ -64,6 +87,11 @@ function masturbationSlimeControl() {
 		V.leftaction = "slime";
 	}
 	if (
+		alternateForcedActions.includes("selfImpreg") ||
+		(V.rightaction === "mdildostop" && V.mouth !== 0 && V.anususe !== 0 && V.vaginause !== 0 && playerToys[V.currentToyRight].type.includes("dildo"))
+	) {
+		// Do nothing
+	} else if (
 		["mdildostop", "mvaginastopdildo", "manusstopdildo", "mpenisstopstroker", "mmouthstopdildo", "mstopbreastpump"].includes(V.rightaction) &&
 		!(V.mouth !== 0 && playerToys[V.currentToyRight].type.includes("stroker"))
 	) {
@@ -73,8 +101,15 @@ function masturbationSlimeControl() {
 	}
 
 	if (V.corruptionMasturbation) {
-		fragment.append(Wikifier.wikifyEval("<span class='red'>It continues to force you to play with yourself.</span>"));
-		fragment.append(" ");
+		if (V.earSlime.event.includes("get your own sperm into your")) {
+			fragment.append(
+				Wikifier.wikifyEval("<span class='red'>It continues to force you to play with yourself, but limits its control so you can do your task.</span>")
+			);
+			fragment.append(" ");
+		} else {
+			fragment.append(Wikifier.wikifyEval("<span class='red'>It continues to force you to play with yourself.</span>"));
+			fragment.append(" ");
+		}
 	}
 	wikifier("arousal", 100);
 
@@ -99,31 +134,52 @@ function masturbationSlimeControl() {
 	["left", "right"].forEach(arm => {
 		const armCap = arm.toUpperFirst();
 		const armAction = arm + "action";
+		const otherArm = arm === "left" ? "right" : "left";
+		const otherArmCap = otherArm.toUpperFirst();
+		const otherArmAction = otherArm + "action";
 		if (
 			(arm === "left" && ["moverlower", "mlower", "munder"].includes(V.leftaction)) ||
-			(arm === "right" && ["moverupper", "mupper", "munder_upper"].includes(V.rightaction))
+			(arm === "right" && ["moverupper", "mupper", "munder_upper"].includes(V.rightaction)) ||
+			disableArmActions
 		) {
 			// Do nothing
 		} else {
 			const currentToy = playerToys[V["currentToy" + armCap]];
+			if (!isNaN(V["currentToy" + otherArmCap])) toysId.delete(V["currentToy" + otherArmCap]);
+			if (!isNaN(V.currentToyVagina)) toysId.delete(V.currentToyVagina);
+			if (!isNaN(V.currentToyAnus)) toysId.delete(V.currentToyAnus);
+			if (arm === "right" && V[otherArmAction] === "mpickupdildo" && !isNaN(V["selectedToy" + otherArmCap])) {
+				toysId.delete(V["selectedToy" + otherArmCap]);
+			}
 			const currentToyType = currentToy ? currentToy.type : null;
 			const actions = [];
 			switch (V[arm + "arm"]) {
 				case 0:
 					if (V.worn.genitals.name === "chastity parasite" && V.earSlime.defyCooldown) {
 						// Tries to punish the player
-						V[armAction] = V.worn.genitals.name === "chastity parasite";
+						V[armAction] = "mchastityparasiteentrance";
 					} else if (random(0, 100) >= 80 && toysId.length > 0 && (["home", "brothel", "cafe"].includes(V.location) || T.enableSexToys)) {
 						V[armAction] = "mpickupdildo";
 						V["selectedToy" + armCap] = toysId[random(0, toysId.length - 1)];
 					} else if (
 						arm === "left" &&
+						V.earSlime.focus === "pregnancy" &&
+						V.player.breastsize < V.breastsizemax &&
+						V.canSelfSuckPenis &&
+						V.worn.genitals.name === "chastity parasite" &&
+						V[armAction] === "slime"
+					) {
+						V[armAction] = "mchest";
+					} else if (
+						(arm === "left" || (arm === "right" && V.earSlime.focus === "impregnation")) &&
 						V.player.penisExist &&
-						(V[armAction] === "slime" || (V[armAction] === "mchest" && random(0, 100) >= 97)) &&
+						(V[armAction] === "slime" || (V[armAction] === "mchest" && (random(0, 100) >= 97 || V.earSlime.focus === "impregnation"))) &&
 						!(V.mouth === "mpenis" && V.selfsuckDepth === V.penisHeight) &&
 						(!playerChastity("penis") || V.worn.genitals.name === "chastity parasite")
 					) {
 						V[armAction] = V.worn.genitals.name === "chastity parasite" ? "mchastityparasiteentrance" : "mpenisentrance";
+					} else if (arm === "right" && V.earSlime.focus === "pregnancy" && V.player.breastsize < V.breastsizemax && V[armAction] === "slime") {
+						V[armAction] = "mchest";
 					} else if (
 						arm === "right" &&
 						V.player.vaginaExist &&
@@ -137,6 +193,7 @@ function masturbationSlimeControl() {
 					) {
 						V[armAction] = "manusentrance";
 					} else if (V[armAction] === "slime") {
+						if (V.player.breastsize >= 3 && random(0, 100) <= 10) V[armAction] = "mbreasthold";
 						V[armAction] = "mchest";
 					}
 					break;
@@ -173,15 +230,22 @@ function masturbationSlimeControl() {
 				case "mvaginafist":
 					V[armAction] = "mvaginafist";
 					break;
+				case "mbreast":
+					if (random(0, 100) >= 50 - V.earSlime.defyCooldown * 5 && !V.bugsinside) {
+						V[armAction] = "mbreastpinch";
+					} else {
+						V[armAction] = "mbreastfondle";
+					}
+					break;
 				case "manusentrance":
-					if ([0, "manus"].includes(V.anususe) && random(0, 100) > 50) {
+					if (([0, "manus"].includes(V.anususe) && random(0, 100) > 50) || V[armAction] === "manus") {
 						V[armAction] = "manus";
 					} else {
 						V[armAction] = "manusrub";
 					}
 					break;
 				case "manus":
-					if (V.player.penisExist && random(0, 100) > 20) {
+					if (V.player.sex !== "f" && random(0, 100) > 20) {
 						V[armAction] = "manusprostate";
 					} else {
 						V[armAction] = "manustease";
@@ -191,7 +255,7 @@ function masturbationSlimeControl() {
 					if (currentToyType && (["home", "brothel", "cafe"].includes(V.location) || T.enableSexToys)) {
 						if (currentToyType.includes("stroker")) {
 							if (V.penisuse !== 0) {
-								// When no action is avaliable
+								// When no action is available
 								V[armAction] = "mdildostop";
 							} else if (V.player.penisExist && random(0, 100) >= 50) {
 								// ToDo: check that this is the correct action
@@ -205,9 +269,9 @@ function masturbationSlimeControl() {
 						} else if (currentToyType.includes("dildo")) {
 							if (["manusentrancedildofloor", "mvaginaentrancedildofloor"].includes(V[armAction])) {
 								// Do Nothing
-							} else if (V.player.vaginaExist && random(0, 100) >= 75) {
+							} else if (V.player.vaginaExist && V.vaginause === 0 && random(0, 100) >= 75) {
 								V[armAction] = "mvaginaentrancedildo";
-							} else if (random(0, 100) >= 75) {
+							} else if (V.anususe === 0 && random(0, 100) >= 75) {
 								V[armAction] = "manusentrancedildo";
 							} else if (
 								// eslint-disable-next-line no-dupe-else-if
@@ -217,7 +281,10 @@ function masturbationSlimeControl() {
 								!(V.canSelfSuckPenis && V.penisuse === 0)
 							) {
 								V[armAction] = "mdildomouthentrance";
-							} else if (!["mvaginaentrancedildo", "manusentrancedildo"].includes(V.leftaction) && currentToy.name === "bullet vibe") {
+							} else if (
+								!["mvaginaentrancedildo", "manusentrancedildo"].includes(V.leftaction) &&
+								["bullet vibe", "wand vibe"].includes(currentToy.name)
+							) {
 								actions.push("mchestvibrate");
 								if (V.player.penisExist && V.penisuse === 0 && !playerChastity("penis")) actions.push("mpenisvibrate");
 								if (!V.player.penisExist && !playerChastity("vagina")) {
@@ -228,7 +295,7 @@ function masturbationSlimeControl() {
 									}
 								}
 								V[armAction] = actions[random(0, actions.length - 1)];
-							} else {
+							} else if (V.anususe === 0) {
 								// To ensure there is a default action, not a duplicate
 								V[armAction] = "manusentrancedildo";
 							}
@@ -269,7 +336,7 @@ function masturbationSlimeControl() {
 					}
 					break;
 				case "manusdildo":
-					if (V.player.penisExist && random(0, 100) >= 50) {
+					if (V.player.sex !== "f" && random(0, 100) >= 50) {
 						V[armAction] = "manusprostatedildo";
 					} else {
 						V[armAction] = "manusteasedildo";
@@ -300,7 +367,7 @@ function masturbationSlimeControl() {
 	});
 
 	// Mouth
-	if (genitalsExposed) {
+	if (genitalsExposed && !alternateForcedActions.includes("selfImpreg")) {
 		switch (V.mouth) {
 			case 0:
 				if (V.canSelfSuckPenis && V.penisuse === 0 && V.worn.genitals.name === "chastity parasite" && V.earSlime.defyCooldown) {
@@ -314,6 +381,8 @@ function masturbationSlimeControl() {
 					V.mouthaction = V.worn.genitals.name === "chastity parasite" ? "mchastityparasiteentrance" : "mpenisentrance";
 				} else if (V.canSelfSuckVagina && V.vaginause === 0 && V.fingersInVagina === 0) {
 					V.mouthaction = "mvaginaentrance";
+				} else if (V.player.breastsize >= 8 && (V.leftarm === "mbreasthold" || V.rightarm === "mbreasthold")) {
+					V.mouthaction = "mbreastentrance";
 				}
 				break;
 			case "mpenisentrance":
@@ -332,6 +401,13 @@ function masturbationSlimeControl() {
 				break;
 			case "mchastityparasiteentrance":
 				V.mouthaction = "mchastityparasitelick";
+				break;
+			case "mbreast":
+				if (random(0, 100) >= 20) {
+					V.mouthaction = "mbreastsuck";
+				} else {
+					V.mouthaction = "mbreastlick";
+				}
 				break;
 			case "mvaginaentrance":
 				if (random(0, 100) >= 50 && !V.parasite.clit.name) {
