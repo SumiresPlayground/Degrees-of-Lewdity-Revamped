@@ -30,7 +30,7 @@
 
 	<<if _eventAlertMajorArea is true>>
 		<span class="red">You are in a major area, which means an NPC escaped!</span>
-		<<if $cheatdisable is "f">>
+		<<if $cheatsEnabled is true>>
 			Ignore this message if you've just used a cheat. Otherwise, <span class="red">please report this!</span>
 		<<else>>
 			<span class="red">Please report this!</span>
@@ -69,7 +69,7 @@
 		<<set $_npc to $NPCList[$_i]>>
 		<<set $_eventNPC to EventSystem.get($_i)>>
 		<<if $_npc.type isnot undefined and $_eventNPC isnot undefined>>
-			<<set $_time to new DateTime($_eventNPC.time)>>
+			<<set $_time to new DateTime($_eventNPC.time + V.startDate)>>
 			<div class="debug-event-item debug-event-success">
 				ID: $_i | $_npc.fullDescription<br>
 				Sex: $_npc.gender | Gender: $_npc.pronouns.man<br>
@@ -88,7 +88,7 @@
 		<br>Extra debugging:<br>
 		<<for $_i to 0; $_i lt $event.buffer.length; $_i++>>
 			<<set $_eventNPC to $event.buffer[$_i]>>
-			<<set $_time to new DateTime($_eventNPC.time)>>
+			<<set $_time to new DateTime($_eventNPC.time + V.startDate)>>
 			<<print ($NPCList[$_eventNPC.slot] || {}).fullDescription || "No description.">><br>
 			Defined in passage <<print $_eventNPC.area[0]>>, at <<ampm $_time.getHours() $_time.getMinutes()>>.<br>
 			<<if $_eventNPC.area.length gt 1>>
@@ -127,8 +127,43 @@
 	<</if>>
 <</widget>>
 
+:: Foodstuff Prop Debug
+<div class="gold">Foodstuff prop tester</div>
+<<set _foodstuffKeys to Object.keys(setup.foodstuff)>>
+<<set _foodstuffKeys.sort()>>
+
+<table class="customisable_table">
+	<thead>
+		<tr>
+			<th>Icon</th>
+			<th>Foodstuff</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<<for _i to 0; _i lt _foodstuffKeys.length; _i++>>
+			<<set _foodstuffKey to _foodstuffKeys[_i]>>
+			<<set _foodstuff to setup.foodstuff[_foodstuffKey]>>
+			<tr>
+				<td>
+					<<foodstufficon _foodstuffKey>>
+				</td>
+				<td><<print _foodstuffKey>></td>
+				<td>
+					<<capture _foodstuffKey>>
+						<<button _foodstuffKey>>
+							<<wearProp _foodstuffKey>>
+							<<updatesidebarimg>>
+						<</button>>
+					<</capture>>
+				</td>
+			</tr>
+		<</for>>
+	</tbody>
+</table>
+
 <!-- <<widget "eventAlert">>
- <<if $event[0] is $passage>>
+<<if $event[0] is $passage>>
 	<span class="green" style="text-align: center">Event Active</span>
 	<<if $debug is 1>>
 		<<set _eventAlertMajorArea to false>>
@@ -136,7 +171,7 @@
 			<<overlayReplace "eventExtraInfo">>
 		<</button>></span>
 	<</if>>
-<<elseif ["Orphanage", "Bedroom", "Barb Street", "Cliff Street", "Connudatus Street", "Danube Street", "Domus Street", "Elk Street", "Harvest Street", "High Street", "Mer Street", "Nightingale Street", "Oxford Street", "Starfish Street", "Wolf Street", "Residential alleyways", "Commercial alleyways", "Industrial alleyways", "Park", "Hallways", "Brothel", "Strip Club", "Beach", "Ocean Breeze", "Docks Work", "Residential Drain", "Commercial Drain", "Industrial Drain", "Forest", "Farmland", "Livestock Field", "Forest Wolf Cave", "Wolf Cave", "Wolf Cave Clearing", "Asylum", "Asylum Cell", "Underground Cell"].includes($passage)>>
+<<elseif ["Orphanage", "Bedroom", "Barb Street", "Cliff Street", "Connudatus Street", "Danube Street", "Domus Street", "Elk Street", "Harvest Street", "High Street", "Mer Street", "Nightingale Street", "Oxford Street", "Starfish Street", "Wolf Street", "Residential Alleyways", "Commercial Alleyways", "Industrial Alleyways", "Park", "Hallways", "Brothel", "Strip Club", "Beach", "Ocean Breeze", "Docks Work", "Residential Drain", "Commercial Drain", "Industrial Drain", "Forest", "Farmland", "Livestock Field", "Forest Wolf Cave", "Wolf Cave", "Wolf Cave Clearing", "Asylum", "Asylum Cell", "Underground Cell"].includes($passage)>>
 	<span class="red" style="text-align: center">Event Active</span>
 	<<set _eventAlertMajorArea to true>>
 	<span class="rainbow"><<button "More Event Info">>

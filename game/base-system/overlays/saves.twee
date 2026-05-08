@@ -10,15 +10,15 @@
 				Be careful when saving, especially if the issue is affecting your ability to play the game.
 			</p>
 		</div>
+		<br>
 	<</if>>
-	<br>
 	<<if $ironmanmode is true>>
 		<span style="background-color: #ffffff1a;">Ironman mode enabled:</span>
 		<ul class="ironman-ul"><li>You can save your game in Ironman mode, but it will lead you back to the Start menu.</li>
 			<li style="text-decoration: underline;">Loading an Ironman save <span style="color: #ff0000;">will delete the save</span> after loading it</li>
 			<li>Automatic save every 5 to 8 days (in-game time), those won't be deleted on loading. Regular auto-saves that used to happen after sleep are disabled. </li>
 			<li>Cheats disabled</li>
-			<li>Ironman saves are recognisable by the <img src="img/ui/SilverCoin.gif" style="max-width: 16px;filter: brightness(2.2);"> next to them</li>
+			<li>Ironman saves are recognisable by the <img src="img/ui/coin-silver.gif" style="max-width: 16px;filter: brightness(2.2);"> next to them</li>
 		</ul>
 	<</if>>
 
@@ -31,6 +31,20 @@
 			<<saveList>>
 		<</if>>
 	</div>
+	<<if $saveDetails isnot undefined>>
+		<br>
+		<div>
+			How many days after exporting will the export warning show:
+			<br>
+			<label><<radiobutton "$saveDetails.exported.frequency" 5 autocheck>>5</label> |
+			<label><<radiobutton "$saveDetails.exported.frequency" 10 autocheck>>10</label> |
+			<label><<radiobutton "$saveDetails.exported.frequency" 15 autocheck>>15</label> |
+			<label><<radiobutton "$saveDetails.exported.frequency" 20 autocheck>>20</label> |
+			<label><<radiobutton "$saveDetails.exported.frequency" 30 autocheck>>30</label> |
+			<label><<radiobutton "$saveDetails.exported.frequency" 60 autocheck>>60</label> |
+			<label><<radiobutton "$saveDetails.exported.frequency" 365 autocheck>>365</label>
+		</div>
+	<</if>>
 <</widget>>
 
 <<widget "saveList">>
@@ -51,7 +65,7 @@
 		</span></mouse>
 	</p>
 	<<set _saveDetails = getSaveDetails()>>
-	<!--Extra checks incase the above fails for some reason-->
+	<!--Extra checks in case the above fails for some reason-->
 	<<if _saveDetails eq null>>
 		<<set _saveDetails to returnSaveDetails()>>
 	<<elseif _saveDetails.autosave is undefined or _saveDetails.slots is undefined>>
@@ -105,7 +119,7 @@
 								<</if>>
 								<div class="saveDetails">
 									<span><<print Util.escapeMarkup(_saveDetails.autosave.title.replace(/</g, "< "))>></span>
-									<span @class="'datestamp' + _highlight"><<print new Date(_saveDetails.autosave.date).toLocaleString()>></span>
+									<span @class="'datestamp' + _highlight"><<print new Date(_saveDetails.autosave.date).toLocaleString(returnTimeFormat())>></span>
 								</div>
 							</div>
 							<div class="deleteButton">
@@ -138,7 +152,7 @@
 							<div class="saveGroup">
 								<<if _saveDetails.slots[_slot].metadata.ironman === true>>
 									<div class="saveId" style="width: 10px;">
-										<img src="img/ui/SilverCoin.gif" class="ironman-icon" @onclick="'IronMan.UI.exportHandler(' + _slot + ')'">
+										<img src="img/ui/coin-silver.gif" class="ironman-icon" @onclick="'IronMan.UI.exportHandler(' + _slot + ')'">
 									</div>
 								<<else>>
 									<div class="saveId" style="width: 10px;">
@@ -165,7 +179,7 @@
 								</div>
 								<div class="saveDetails">
 									<span><<print Util.escapeMarkup(_saveDetails.slots[_slot].title.replace(/</g, "< "))>></span>
-									<span @class="'datestamp' + _highlight"><<print new Date(_saveDetails.slots[_slot].date).toLocaleString()>></span>
+									<span @class="'datestamp' + _highlight"><<print new Date(_saveDetails.slots[_slot].date).toLocaleString(returnTimeFormat())>></span>
 								</div>
 							</div>
 							<<if _i is _ironmanSlot>>
@@ -190,7 +204,7 @@
 								<input class="right" type="button" value="Delete" disabled/>
 							</div>
 						<</if>>
-					<<else>>
+					<<else>>/* */
 						<div class="saveGroup">
 							<span style="margin: 0;">Special thanks to all those who [[Support Degrees of Lewdity| "https://subscribestar.adult/vrelnir"]]</span>
 							<div class="saveId"></div>
@@ -233,17 +247,6 @@
 			.prependTo("#idbToggleSaves"))>> Enable indexedDB<<if $ironmanmode>> (unavailable in ironman mode)<</if>>
 	</label>
 	<br><br>
-	<<if $saveDetails isnot undefined>>
-		How many days after exporting will the export warning show:
-		<br>
-		<label><<radiobutton "$saveDetails.exported.frequency" 5 autocheck>>5</label> |
-		<label><<radiobutton "$saveDetails.exported.frequency" 10 autocheck>>10</label> |
-		<label><<radiobutton "$saveDetails.exported.frequency" 15 autocheck>>15</label> |
-		<label><<radiobutton "$saveDetails.exported.frequency" 20 autocheck>>20</label> |
-		<label><<radiobutton "$saveDetails.exported.frequency" 30 autocheck>>30</label> |
-		<label><<radiobutton "$saveDetails.exported.frequency" 60 autocheck>>60</label> |
-		<label><<radiobutton "$saveDetails.exported.frequency" 365 autocheck>>365</label>
-	<</if>>
 	<<if $debug is 1>>
 		<br>
 		<label><<print '<<checkbox "$prepareSaveDetails" false true '+($prepareSaveDetails is true ? "checked" : "")+'>>'>>
@@ -298,7 +301,7 @@
 			<</if>>
 			Old Save: <<print Util.escapeMarkup(_saveDetails.slots[_args[0]].title)>>
 			<br>
-			<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString()>>
+			<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString(returnTimeFormat())>>
 			<br>
 		<</if>>
 		<<if _saveDetails.slots[_args[0]].metadata isnot undefined>>
@@ -329,13 +332,13 @@
 		<<if _args[0] is "auto">>
 			<<print Util.escapeMarkup(_saveDetails.autosave.title)>>
 			<br>
-			<<print new Date(_saveDetails.autosave.date).toLocaleString()>>
+			<<print new Date(_saveDetails.autosave.date).toLocaleString(returnTimeFormat())>>
 			<br>
 			<input type="button" class="saveMenuButton saveMenuConfirm" value="Load" onclick="DoLSave.loadHandler('auto', true)"/>
 		<<else>>
 			<<print Util.escapeMarkup(_saveDetails.slots[_args[0]].title)>>
 			<br>
-			<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString()>>
+			<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString(returnTimeFormat())>>
 			<br>
 			<input type="button" class="saveMenuButton saveMenuConfirm" value="Load" @onclick="'DoLSave.loadHandler('+ _args[0] +', true)'"/>
 		<</if>>
@@ -365,14 +368,14 @@
 			<<set _title to _saveDetails.autosave.title>>
 			<<print Util.escapeMarkup(_title)>>
 			<br>
-			<<print new Date(_saveDetails.autosave.date).toLocaleString()>>
+			<<print new Date(_saveDetails.autosave.date).toLocaleString(returnTimeFormat())>>
 			<br>
 			<input type="button" class="saveMenuButton" value="Delete Auto" onclick="deleteSave('auto', true)"/>
 		<<else>>
 			<<set _title to _saveDetails.slots[_args[0]].title>>
 			<<print Util.escapeMarkup(_title)>>
 			<br>
-			<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString()>>
+			<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString(returnTimeFormat())>>
 			<br>
 			<input type="button" class="saveMenuButton" value="Delete" @onclick="'deleteSave('+ _args[0] +', true)'"/>
 		<</if>>
@@ -391,7 +394,7 @@
 		</ul>
 		<<print Util.escapeMarkup(_saveDetails.slots[_args[0]].title)>>
 		<br>
-		<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString()>>
+		<<print new Date(_saveDetails.slots[_args[0]].date).toLocaleString(returnTimeFormat())>>
 		<br>
 		<input type="button" class="saveMenuButton saveMenuConfirm" value="Cancel" onclick="resetSaveMenu();"/>
 		<br>

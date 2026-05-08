@@ -12,11 +12,11 @@
 			<<set $enemyhealth += $NPCList[_i].health>>
 		<</if>>
 	<</for>>
-	<<if $enemyhealth is 0>><<set $enemyhealth to 199  * $npchealthmult>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
-	<<set $enemyarousalmax to (500 * $npcarousalmult) * $enemyno>>
+	<<if $enemyhealth is 0>><<set $enemyhealth to 199>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
+	<<set $enemyarousalmax to 500 * $enemyno>>
 	<<set $enemyangermax to 200>>
 	<<set $enemyhealthmax to $enemyhealth>>
-	<<if $enemyhealthmax is 0>><<set $enemyhealthmax to 199  * $npchealthmult>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
+	<<if $enemyhealthmax is 0>><<set $enemyhealthmax to 199>><</if>><!-- This is set for compatibility elsewhere if needed, v2.2.0... -->
 	<<for _i = 0; _i < $NPCList.length; _i++>>
 		<<set $NPCList[_i].bold to $allure / 10>>
 	<</for>>
@@ -54,14 +54,14 @@
 		<<set $monster to 0>>
 	<</if>>
 
-	<<if $condomLvl gte 2>>
+	<<if $settings.condomLevel gte 2>>
 		<<for _i to 0; _i lt $enemyno; _i++>>
-			<<if $condomLvl is 2 and $NPCList[_i].condom and pregnancyCompatible($NPCList[_i]) is false>>
+			<<if $settings.condomLevel is 2 and $NPCList[_i].condom and pregnancyCompatible($NPCList[_i]) is false>>
 				<<set $NPCList[_i].condom.willUse to false>>
 			<<elseif $NPCList[_i].condom and $NPCList[_i].pregnancyAvoidance gte 80>>
 				<<set $NPCList[_i].condom.willUse to true>>
 			<<elseif $NPCList[_i].condom and typeof $NPCList[_i].condom.willUse is "number">>
-				<<set $NPCList[_i].condom.willUse to ($NPCList[_i].condom.willUse lt ($consensual is 1 ? $condomUseChanceCon : $condomUseChanceRape))>>
+				<<set $NPCList[_i].condom.willUse to ($NPCList[_i].condom.willUse lt ($consensual is 1 ? $settings.condomUseChanceConsensual : $settings.condomUseChanceRape))>>
 			<</if>>
 		<</for>>
 	<</if>>
@@ -73,14 +73,14 @@
 	<!-- NEW NNPC beast intitiation widget v2.6. Replaces beast(1-6)init widgets -->
 	<!-- Probably just temporary... fix for Black Wolf -->
 
-	<<set $enemyhealth to 200 * $beasthealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $beastarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $beasthealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -134,14 +134,14 @@
 	<<set $traumagain to 0>>
 	<<set $stressgain to 0>>
 
-	<<set $enemyhealth to 200 * $beasthealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $beastarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $beasthealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -194,7 +194,7 @@
 <<widget "beastNEWinit">>
 	<!-- NEW beast intitiation widget v2.6. Replaces beast(1-6)init widgets -->
 	<!-- Args are number of beasts(1-6), Type, Gender, Genitals and Monster status-->
-	<!-- Last three args are optional, and override generation based on settings. Use with care -->
+	<!-- Last three args are optional and override generation based on settings. Use with care -->
 	<!-- Example: <<beastNEWinit 1 dog m>> would generate 1 male dog -->
 	<!-- Example: <<beastNEWinit 2 wolf f>> would generate 2 female wolves -->
 	<!-- Example: <<beastNEWinit 1 horse f penis monster>> would generate 1 dickgirl centaur -->
@@ -222,18 +222,44 @@
 	<<set $monster to ($NPCList[0].monster is "monster" ? 1 : 0)>>
 <</widget>>
 
+<<widget "beastPARTNERinit">>
+	<!-- Widget to force a beast to generate as a partner for an NPC, whether it be a human or beast. -->
+	<!-- This will probably brick any combat it's called into. -->
+	<!-- Args are number of beasts(1-6), Type, Gender, Genitals and Monster status-->
+	<!-- Last three args are optional and override generation based on settings. Use with care -->
+	<!-- Example: <<beastNEWinit 1 dog m>> would generate 1 male dog -->
+	<!-- Example: <<beastNEWinit 2 wolf f>> would generate 2 female wolves -->
+	<!-- Example: <<beastNEWinit 1 horse f penis monster>> would generate 1 dickgirl centaur -->
+
+	<<set _nn to _args[0]>> <!-- NPC Slot of beast -->
+	<<set _tpe to _args[1]>> <!-- Type -->
+	<<set _partner to _args[2]>> <!-- NPC slot of partner -->
+	<<set $active_enemy to 0>>
+	<<set _generate_partner to _partner || _nn -1>>
+	<!-- Error Checking -->
+	<<if !$BeastList.includes(_tpe)>>
+		<span class="red">ERROR: beastPARTNERinit unknown type</span>
+	<</if>>
+
+	<<set _xx to _nn +1>>
+	<<generateBEAST _xx _tpe>>
+	<<set $enemyno++>>
+
+	<<set $monster to ($NPCList[_partner].monster is "monster" ? 1 : 0)>>
+<</widget>>
+
 <<widget "beastNOGENinit">>
 	<!-- NEW beast initiation widget v2.6. Replaces beast(1-6)init widgets -->
 	<!-- This works like ManInit widget and requires prior beast initialisation, no args -->
 	<!-- The main reason to use this NOGEN call is so that a variety of beasts can be called, rather than all 1 type -->
 	<!-- Eventually all the <<beastXXXinit>> calls should be collapsed under man1init, which will require rework of $enemytype="beast" + other stuff -->
 
-	<<set $enemyhealth to 200 * $beasthealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $beastarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
 	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
@@ -299,15 +325,15 @@
 <</widget>>
 
 <<widget "strangeman1init">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $NPCList[0].lefthand to "mouth">>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $npcarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -332,14 +358,14 @@
 <</widget>>
 
 <<widget "strangeman2init">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $npcarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -364,14 +390,14 @@
 <</widget>>
 
 <<widget "strangewoman1init">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $npcarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -396,14 +422,14 @@
 <</widget>>
 
 <<widget "tailorinit">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $npcarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -431,14 +457,14 @@
 <</widget>>
 
 <<widget "molestbusinit">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $npcarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -466,42 +492,8 @@
 	<<combatinit>>
 <</widget>>
 
-<<widget "busmoveinit">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
-	<<set $enemyarousal to $allure / 50>>
-	<<set $enemyanger to 0>>
-	<<set $enemystrength to 20000>>
-	<<set $combat to 1>>
-	<<set $enemyarousalmax to 200 * $npcarousalmult>>
-	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
-	<<set $enemytrust to 0>>
-	<<if $dissociation gte 1>>
-		<<set $enemytrust -= 40>>
-	<</if>>
-	<<set $enemytype to "man">>
-
-	<<set $rapeavoid to 1>>
-	<<set $orgasmdown to 0>>
-	<<set $penisbitten to 0>>
-	<<set $apologised to 0>>
-	<<set $underlowerstruggle to 0>>
-	<<set $lowerstruggle to 0>>
-	<<set $upperstruggle to 0>>
-	<<set $leftaction to 0>>
-	<<set $rightaction to 0>>
-	<<set $traumasaved to $trauma>>
-	<<set $stresssaved to $stress>>
-	<<set $traumagain to 0>>
-	<<set $stressgain to 0>>
-
-	<<if Time.dayState isnot "night">><<enable_rescue>><</if>>
-
-	<<combatinit>>
-<</widget>>
-
 <<widget "lefthandinit">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
@@ -510,9 +502,9 @@
 	<<set $NPCList[0].penis to "none">>
 	<<set $NPCList[0].vagina to "none">>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 100 * $npcarousalmult>>
+	<<set $enemyarousalmax to 100>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -539,14 +531,14 @@
 <</widget>>
 
 <<widget "nurseinit">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 400 * $npcarousalmult>>
+	<<set $enemyarousalmax to 400>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -573,14 +565,14 @@
 <</widget>>
 
 <<widget "pharmnurseinit">>
-	<<set $enemyhealth to $NPCList[0].health * $npchealthmult>>
+	<<set $enemyhealth to $NPCList[0].health>>
 	<<set $enemyarousal to $allure / 100>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 1000 * $npcarousalmult>>
+	<<set $enemyarousalmax to 1000>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to $NPCList[0].healthmax * $npchealthmult>>
+	<<set $enemyhealthmax to $NPCList[0].healthmax>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -624,16 +616,16 @@
 <</widget>>
 
 <<widget "spankmaninit">>
-	<<set $enemyhealth to 200 * $npchealthmult>>
+	<<set $enemyhealth to 200>>
 	<<set $enemyarousal to 0>>
 	<<set $enemyanger to 300>>
 	<<set $enemystrength to 20000>>
 	<<set $NPCList[0].lefthand to "arms">>
 	<<set $NPCList[0].righthand to "spank">>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $npcarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 300>>
-	<<set $enemyhealthmax to 200 * $npchealthmult>>
+	<<set $enemyhealthmax to 200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -662,14 +654,14 @@
 <</widget>>
 
 <<widget "bound2init">>
-	<<set $enemyhealth to 400 * $npchealthmult>>
+	<<set $enemyhealth to 400>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 1000 * $npcarousalmult>>
+	<<set $enemyarousalmax to 1000>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 400 * $npchealthmult>>
+	<<set $enemyhealthmax to 400>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -694,15 +686,15 @@
 <</widget>>
 
 <<widget "ganginit">>
-	<<set $enemyhealth to 1200 * $npchealthmult>>
+	<<set $enemyhealth to 1200>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
 
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 3000  * $npcarousalmult>>
+	<<set $enemyarousalmax to 3000>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 1200 * $npchealthmult>>
+	<<set $enemyhealthmax to 1200>>
 	<<set $enemytrust to 0>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -727,7 +719,7 @@
 <</widget>>
 
 <<widget "abominationold">>
-	<<set $enemyhealth to 5555 * $npchealthmult>>
+	<<set $enemyhealth to 5555>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
@@ -763,9 +755,9 @@
 	<<set $NPCList[5].mouth to "none">>
 
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $beastarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 5555  * $beasthealthmult>>
+	<<set $enemyhealthmax to 5555>>
 	<<set $enemytrust to 4444>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -791,7 +783,7 @@
 <</widget>>
 
 <<widget "abominationold2">>
-	<<set $enemyhealth to 5555 * $npchealthmult>>
+	<<set $enemyhealth to 5555>>
 	<<set $enemyarousal to $allure / 50>>
 	<<set $enemyanger to 0>>
 	<<set $enemystrength to 20000>>
@@ -807,9 +799,9 @@
 	<<set $NPCList[1].mouth to 0>>
 
 	<<set $combat to 1>>
-	<<set $enemyarousalmax to 500 * $beastarousalmult>>
+	<<set $enemyarousalmax to 500>>
 	<<set $enemyangermax to 200>>
-	<<set $enemyhealthmax to 5555 * $beasthealthmult>>
+	<<set $enemyhealthmax to 5555>>
 	<<set $enemytrust to 4444>>
 	<<if $dissociation gte 1>>
 		<<set $enemytrust -= 40>>
@@ -818,6 +810,7 @@
 	<<set $rapeavoid to 1>>
 	<<set $orgasmdown to 0>>
 	<<set $penisbitten to 0>>
+	<<set $mouthsubmit to 0>>
 	<<set $apologised to 0>>
 	<<set $underlowerstruggle to 0>>
 	<<set $lowerstruggle to 0>>
@@ -837,7 +830,7 @@
 <<widget "crossdressing_check">>
 	<<if $player.penisExist and $player.vaginaExist>>
 		<<set $crossdressing to 2>>
-	<<elseif $player.gender isnot $player.gender_appearance>>
+	<<elseif isCrossdressing()>>
 		<<set $crossdressing to 1>>
 	<<else>>
 		<<set $crossdressing to 0>>
@@ -851,7 +844,8 @@
 <</widget>>
 
 <<widget "combatinit">>
-	<<if $consensual is 1>>
+	<<if !_controlloss>>
+		/* save $control state at the combat start, unless it's already been saved by <<controlloss>> earlier in the passage */
 		<<set $controlstart to $control>>
 	<</if>>
 	<<set $arousalmasochism to 0>>
@@ -885,23 +879,23 @@
 			<<set $position to "missionary">>
 		<<else>>
 			<<if random(1, 100) gte 20>>
-				<<set $position to "doggy">>
+			<<set $position to "doggy">>
 			<<else>>
-				<<set $position to "missionary">>
+			<<set $position to "missionary">>
 			<</if>>
 		<</if>>
 	<<else>>
 		<<if $NPCList[0].penis is "none">>
 			<<if random(1, 100) gte 80>>
-				<<set $position to "doggy">>
+			<<set $position to "doggy">>
 			<<else>>
-				<<set $position to "missionary">>
+			<<set $position to "missionary">>
 			<</if>>
 		<<else>>
 			<<if random(1, 100) gte 50>>
-				<<set $position to "doggy">>
+			<<set $position to "doggy">>
 			<<else>>
-				<<set $position to "missionary">>
+			<<set $position to "missionary">>
 			<</if>>
 		<</if>>
 	<</if>>
@@ -909,6 +903,15 @@
 	<<for _i to 0; _i lt $enemynomax; _i++>>
 		<<if $NPCList[_i].stance isnot "defeated">>
 			<<set $NPCList[_i].active to "active">>
+		<</if>>
+		<<if $NPCList[_i].fullDescription is "Avery">>
+			<<if $avery_mansion>>
+				<<if $avery_mansion.injury_timer gte 1>>
+					<<set $NPCList[_i].righthand to "idle">>
+					<span class="lblue">Avery's right hand is too injured to engage.</span>
+					<br>
+				<</if>>
+			<</if>>
 		<</if>>
 	<</for>>
 
@@ -936,29 +939,6 @@
 	<<resetLastOptions>>
 	<<getCombatDefaultsType>>
 	<<wetnessCalculate>>
-<</widget>>
-
-<<widget "deactivateNPC">>
-	/* How to use:
-	* Call this widget as <<deactivateNPC _n>> where _n is any number between 0 and 5, and is an active NPC.
-	* This will prevent said NPC from entering combat plus deal with all the rest of the math.
-	* Optional arguments [1] and [2] for health and arousal respectivelly. If the original health or arousal values for the NPCs haven't been changed, no need to use those arguments.
-	*/
-	<<set $_hpToReduce to _args[1] || $NPCList[_args[0]].healthmax>>
-	<<set $_arousalToReduce to _args[2] || $enemyarousalmax/$enemyno>>
-	<<if _args[0] isnot undefined and $NPCList[_args[0]]>>
-		<<if $NPCList[_args[0]].active isnot "inactive">>
-			<<set $NPCList[_args[0]].active to "inactive">>
-			<<set $enemyhealth -= $_hpToReduce>>
-			<<set $enemyhealthmax to $enemyhealth>>
-			<<set $enemyarousalmax -= $_arousalToReduce>>
-			<<set $enemyno-->>
-		<<else>>
-			<span class="red">deactivateNPC ERROR: NPC _args[0] is already inactive.</span>
-		<</if>>
-	<<else>>
-		<span class="red">deactivateNPC ERROR: Invalid or missing index specified.</span>
-	<</if>>
 <</widget>>
 
 <<widget "man">>
@@ -999,7 +979,7 @@
 		<<run $npc.forEach(npc => $genderknown.pushUnique(npc))>>
 	<</if>>
 
-	<<if $worn.genitals.type.includesAll("chastity", "hidden") or $NPCList[0].state is "stalk" or $NPCList[0].state is "pursuit">>
+	<<if $worn.genitals.type.includesAll("chastity", "hidden") or $NPCList[0].state is "stalk" or $NPCList[0].state is "pursuit" or $NPCList[0].state is "chased" or $gloryhole>>
 	<<elseif $crossdressing gte 1 and $worn.over_lower.vagina_exposed gte 1 and $worn.under_lower.vagina_exposed gte 1 and $worn.lower.vagina_exposed gte 1>>
 		<<exposedcheck true>>
 		<<if $NPCList[0].teen is 1 and $location is "school" and !($npc.length is 1 and (["Kylar","Sydney"].includes($npc[0])))>>
@@ -1008,8 +988,8 @@
 		<<if $genitalReactionDisable>>
 			<!-- No reaction -->
 		<<elseif $crossdressing is 2>> <!-- Herm PC -->
-			<<if $npc.length is 1 and (["Kylar","Sydney"].includes($npc[0]))>>
-				<!-- Only Kylar and Sydney have fixed reactions, other named NPCs CAN react with anything from disgust to arousal to anger if they don't know your gender. -->
+			<<if $npc.length is 1 and (["Kylar","Sydney","Gwylan"].includes($npc[0]))>>
+				<!-- Only Kylar, Sydney and Gwylan have fixed reactions, other named NPCs CAN react with anything from disgust to arousal to anger if they don't know your gender. -->
 				<<if $npc[0] is "Sydney" and !$sydneySeen.includes("herm")>>
 					<<set $sydneySeen.pushUnique("herm")>>
 					<<if _sydneyStatus.includes("corrupt")>>
@@ -1022,28 +1002,32 @@
 					<!-- TODO: Give Kylar a unique reaction? -->
 					<span class="purple"><<His>> hands shake and <<his>> breath quickens at the sight of your <<genitals>>.</span>
 					<<set $enemyarousal += 50>><<set $speechhermaroused to 2>>
+				<<elseif $npc[0] is "Gwylan" and !$gwylanSeen.includes("herm")>>
+					<<set $gwylanSeen.pushUnique("herm")>>
+					<<His>> eyebrows raise upon seeing your <<genitals>>.
+					<<set $speechhermaroused to 2>>
 				<</if>>
-			<<elseif $NPCList[0].type is "plant" or $rng lt 30>>
+			<<elseif $NPCList[0].type is "plant" or $rng lte 30>>
 				<<if $enemyno gte 2>>
 					They take both your <<genitals>> in stride, seeming unbothered.
 				<<else>>
 					<<He>> takes both your <<genitals>> in stride, seeming unbothered.
 				<</if>>
-			<<elseif $rng lt 50>>
+			<<elseif $rng lte 50>>
 				<<if $enemyno gte 2>>
 					They're taken aback by your <<genitals>>. They don't seem angry, at least.
 				<<else>>
 					<<Hes>> taken aback by your <<genitals>>. <<He>> doesn't seem angry, at least.
 				<</if>>
 				<<set $enemyarousal -= 100>><<set $enemytrust -= 50>><<set $speechhermdisappointed to 2>>
-			<<elseif $rng lt 85>>
+			<<elseif $rng lte 85>>
 				<<if $enemyno gte 2>>
 					<span class="blue">They recoil in shock at the sight of your <<genitals>>.</span>
 				<<else>>
 					<span class="blue"><<He>> recoils in shock at the sight of your <<genitals>>.</span>
 				<</if>>
 				<<set $enemyanger -= 50>><<set $enemytrust -= 50>><<set $speechhermshock to 2>>
-			<<elseif $rng lt 95>>
+			<<elseif $rng lte 95>>
 				<<if $enemyno gte 2>>
 					<span class="purple">Their hands shake and their breath quickens at the sight of your <<genitals>>.</span>
 				<<else>>
@@ -1059,7 +1043,7 @@
 				<<set $enemyanger += 200>><<set $enemytrust -= 100>><<set $speechhermangry to 2>>
 			<</if>>
 		<<else>> <!-- Crossdressing PC -->
-			<<if $npc.length is 1 and (["Kylar","Sydney"].includes($npc[0]))>>
+			<<if $npc.length is 1 and (["Kylar","Sydney","Gwylan"].includes($npc[0]))>>
 				<<if $npc[0] is "Sydney" and !$sydneySeen.includes("crossdress")>>
 					<<set $sydneySeen.pushUnique("crossdress")>>
 					<<run statusCheck("Sydney")>>
@@ -1072,35 +1056,38 @@
 				<<elseif $npc[0] is "Kylar">>
 					<!-- TODO: Give Kylar unique reactions? -->
 					<<set _kylar to statusCheck("Kylar")>>
-					<<if _kylar.gender isnot $player.gender or _kylar.gender is "h">>
+					<<if _kylar.gender isnot $player.sex or _kylar.gender is "h">>
 						Your <<genitals 1>> was clearly not what <<he>> was expecting, but <<he>> doesn't seem to mind. <<if _kylar.gender isnot "h">><span class="purple">In fact, if <<his>> shaking hands are anything to go by <<he>> is quite pleased.</span><</if>>
 						<<set $enemyarousal += 50>><<set $speechcrossdressaroused to 2>>
 					<<else>>
 						<<He>> looks disappointed by your <<genitals>>. It wasn't what <<he>> was expecting.
 						<<set $enemyarousal -= 100>><<set $enemytrust -= 50>><<set $speechcrossdressdisappointed to 2>>
 					<</if>>
+				<<elseif $npc[0] is "Gwylan" and !$gwylanSeen.includes("crossdress")>>
+					<<He>> scratches <<his>> head upon seeing your <<genitals>>. It wasn't what <<he>> was expecting, but <<he>> doesn't seem to mind.
+					<<set $speechcrossdressaroused to 2>>
 				<</if>>
-			<<elseif $NPCList[0].type is "plant" or $rng lt 30>>
+			<<elseif $NPCList[0].type is "plant" or $rng lte 30>>
 				<<if $enemyno gte 2>>
 					Your <<genitals>> was clearly not what they were expecting, but they don't seem to mind.
 				<<else>>
 					Your <<genitals 1>> was clearly not what <<he>> was expecting, but <<he>> doesn't seem to mind.
 				<</if>>
-			<<elseif $rng lt 50>>
+			<<elseif $rng lte 50>>
 				<<if $enemyno gte 2>>
 					They look disappointed by your <<genitals>>. It wasn't what they were expecting.
 				<<else>>
 					<<He>> looks disappointed by your <<genitals>>. It wasn't what <<he>> was expecting.
 				<</if>>
 				<<set $enemyarousal -= 100>><<set $enemytrust -= 50>><<set $speechcrossdressdisappointed to 2>>
-			<<elseif $rng lt 85>>
+			<<elseif $rng lte 85>>
 				<<if $enemyno gte 2>>
 					Their eyes widen in shock when they see your <<genitals>>. They seem unsure what to do.
 				<<else>>
 					<<His>> eyes widen in shock when <<he>> sees your <<genitals>>. <<He>> seems unsure what to do.
 				<</if>>
 				<<set $enemyanger -= 50>><<set $enemytrust -= 50>><<set $speechcrossdressshock to 2>>
-			<<elseif $rng lt 95>>
+			<<elseif $rng lte 95>>
 				<<if $enemyno gte 2>>
 					Your <<genitals>> was clearly not what they were expecting, but they don't seem to mind. <span class="purple">In fact, if their shaking hands are anything to go by they're quite pleased.</span>
 				<<else>>
@@ -1137,30 +1124,46 @@
 		<<set $_was to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "were" : "was")>>
 
 		<<if $enemyno gte 2>>
-			/* if statements so we can fine tune the percentages for balance */
-			<<set _rng to random(0,99)>>
-			<<if _rng lt 20>>
-				Your $_sexToy $_was clearly unexpected, but they don't seem to mind.
-			<<elseif _rng lt 40>>
-				Their breath quickens at the sight of your $_sexToy.
-				<<set $enemyarousal += 50>><<set $speechsextoyaroused to 1>>
-			<<elseif _rng lt 60>>
-				They seem pleased to see your $_sexToy.
-				<<set $speechsextoyaroused to 1>>
-			<<elseif _rng lt 70>>
-				They look disappointed by your $_sexToy. It wasn't what they was expecting.
-				<<set $enemyarousal -= 100>><<set $enemytrust -= 50>><<set $speechsextoydisappointed to 1>>
-			<<elseif _rng lt 80>>
-				Their eyes widen in shock at the reveal of your $_sexToy.
-				<<set $enemyanger -= 50>><<set $enemytrust -= 50>><<set $speechsextoyshocked to 1>>
-			<<elseif _rng lt 90>>
-				They recoil in disgust at the sight of your $_sexToy.
-				<<set $enemyanger += 75>><<set $enemytrust -= 75>><<set $speechsextoyangry to 1>>
-			<<else>>
-				They're taken aback by your $_sexToy, but seem excited by it.
-				<<set $speechsextoyaroused to 1>>
-			<</if>>
-
+			<<set $speechSextoyState to $speechSextoyState || either("aroused", "neutral", "disappointed", "shocked", "angry")>>
+			<<cleareventpool>>
+			<<switch $speechSextoyState>>
+				<<case "aroused">>
+					<<addinlineevent>>
+						Their breath quickens at the sight of your $_sexToy.
+						<<set $enemyarousal += 50>>
+					<</addinlineevent>>
+					<<addinlineevent>>
+						They seem pleased to see your $_sexToy.
+					<</addinlineevent>>
+					<<addinlineevent>>
+						They're taken aback by your $_sexToy, but seem excited by it.
+					<</addinlineevent>>
+				<<case "neutral">>
+					<<addinlineevent>>
+						Your $_sexToy $_was clearly unexpected, but they don't seem to mind.
+					<</addinlineevent>>
+				<<case "disappointed">>
+					<<addinlineevent 0.5>>
+						They look disappointed by your $_sexToy. It wasn't what they was expecting.
+						<<set $enemyarousal -= 100>><<set $enemytrust -= 50>>
+					<</addinlineevent>>
+				<<case "shocked">>
+					<<addinlineevent 0.5>>
+						Their eyes widen in shock at the reveal of your $_sexToy.
+						<<set $enemyanger -= 50>><<set $enemytrust -= 50>>
+					<</addinlineevent>>
+				<<case "angry">>
+					<<addinlineevent 0.5>>
+						They recoil in disgust at the sight of your $_sexToy.
+						<<set $enemyanger += 75>><<set $enemytrust -= 75>>
+					<</addinlineevent>>
+				<<default>>
+					<<addinlineevent>>
+						They appear confused. Not sure what to think of your $_sexToy.
+						<span class="blue">You should inform Vrelnir.</span>
+					<</addinlineevent>>
+			<</switch>>
+			<<runeventpool>>
 		<<else>>
 			<<switch $NPCList[0].fullDescription>>
 				<<case "Robin">>
@@ -1178,31 +1181,51 @@
 					<<set $enemytrust -=25>>
 				<<case "Avery">>
 					<<set $speechsextoy to 1>>
+				<<case "Gwylan">>
+					<<set $speechsextoy to 1>>
 				<<case "Leighton">>
 					<<set $speechsextoy to 1>>
 				<<default>>
-					<<set _rng to random(0,99)>>
-					<<if _rng lt 20>>
-						<<His>> breath quickens at the sight of your $_sexToy.
-						<<set $enemyarousal += 50>><<set $speechsextoyaroused to 1>>
-					<<elseif _rng lt 40>>
-						<<He>> seems pleased to see your $_sexToy.
-						<<set $speechsextoyaroused to 1>>
-					<<elseif _rng lt 60>>
-						Your $_sexToy $_was clearly unexpected, but <<he>> doesn't seem to mind.
-					<<elseif _rng lt 70>>
-						<<He>> looks disappointed by your $_sexToy. It wasn't what <<he>> was expecting.
-						<<set $enemyarousal -= 100>><<set $enemytrust -= 50>><<set $speechsextoydisappointed to 1>>
-					<<elseif _rng lt 80>>
-						<<His>> eyes widen in shock at the reveal of your $_sexToy.
-						<<set $enemyanger -= 50>><<set $enemytrust -= 50>><<set $speechsextoyshocked to 1>>
-					<<elseif _rng lt 90>>
-						<<He>> recoils in disgust at the sight of your $_sexToy.
-						<<set $enemyanger += 75>><<set $enemytrust -= 75>><<set $speechsextoyangry to 1>>
-					<<else>>
-						<<Hes>> taken aback by your $_sexToy, but seems excited by it.
-						<<set $speechsextoyaroused to 1>>
-					<</if>>
+					<<set $speechSextoyState to $speechSextoyState || either("aroused", "neutral", "disappointed", "shocked", "angry")>>
+					<<cleareventpool>>
+					<<switch $speechSextoyState>>
+						<<case "aroused">>
+							<<addinlineevent>>
+								<<His>> breath quickens at the sight of your $_sexToy.
+								<<set $enemyarousal += 50>>
+							<</addinlineevent>>
+							<<addinlineevent>>
+								<<He>> seems pleased to see your $_sexToy.
+							<</addinlineevent>>
+							<<addinlineevent>>
+								<<Hes>> taken aback by your $_sexToy, but seems excited by it.
+							<</addinlineevent>>
+						<<case "neutral">>
+							<<addinlineevent>>
+								Your $_sexToy $_was clearly unexpected, but <<he>> doesn't seem to mind.
+							<</addinlineevent>>
+						<<case "disappointed">>
+							<<addinlineevent 0.5>>
+								<<He>> looks disappointed by your $_sexToy. It wasn't what <<he>> was expecting.
+								<<set $enemyarousal -= 100>><<set $enemytrust -= 50>>
+							<</addinlineevent>>
+						<<case "shocked">>
+							<<addinlineevent 0.5>>
+								<<His>> eyes widen in shock at the reveal of your $_sexToy.
+								<<set $enemyanger -= 50>><<set $enemytrust -= 50>>
+							<</addinlineevent>>
+						<<case "angry">>
+							<<addinlineevent 0.5>>
+								<<He>> recoils in disgust at the sight of your $_sexToy.
+								<<set $enemyanger += 75>><<set $enemytrust -= 75>>
+							<</addinlineevent>>
+						<<default>>
+							<<addinlineevent>>
+								<<He>> appears confused. Not sure what to think of your $_sexToy.
+								<span class="blue">You should inform Vrelnir.</span>
+							<</addinlineevent>>
+					<</switch>>
+					<<runeventpool>>
 			<</switch>>
 		<</if>>
 	<</if>>

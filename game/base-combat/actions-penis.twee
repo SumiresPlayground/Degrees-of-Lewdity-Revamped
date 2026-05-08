@@ -33,7 +33,7 @@
 			<<if playerHasStrapon()>>
 				<<set _penisaction["Push your strap-on against " + $_target.pronouns.his + " " + _pp] to "penistopenisfuck">>
 			<<elseif playerChastity("penis")>>
-				<<set _penisaction["Push your chastity against " + $_target.pronouns.his + " " + _pp] to "penistopenisfuck">>
+				<<set _penisaction["Push your " + $worn.genitals.name +" against " + $_target.pronouns.his + " " + _pp] to "penistopenisfuck">>
 			<<else>>
 				<<set _penisaction["Push your penis against " + $_target.pronouns.his + " " + _pp] to "penistopenisfuck">>
 			<</if>>
@@ -67,16 +67,16 @@
 	<<if $thighuse is 0>>
 		<<set _penisaction["Try to keep it away with your thighs"] to "penisthighs">>
 	<</if>>
-	<<if $analdisable is "f" and $anususe is 0 and !playerChastity("anus")>>
+	<<if $settings.analEnabled and $anususe is 0 and !playerChastity("anus")>>
 		<<set _penisaction["Offer your anus instead"] to "penisanus">>
 	<</if>>
-	<<if $vaginause is 0 and !playerChastity("vagina")>>
+	<<if $player.vaginaExist and $vaginause is 0 and !playerChastity("vagina")>>
 		<<set _penisaction["Offer your pussy instead"] to "penispussy">>
 	<</if>>
-	<<if $vaginaldoubledisable is "f" and $awareness gt 300 and $vaginause is "penis" and $NPCList[$vaginatarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !playerChastity("vagina") and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.vaginalDoubleEnabled and $awareness gt 300 and $vaginause is "penis" and $NPCList[$vaginatarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !playerChastity("vagina") and !["legLock","legLocked"].includes($feetuse)>>
 		<<set _penisaction["Offer double vaginal instead"] to "penispussydouble">>
 	<</if>>
-	<<if $analdoubledisable is "f" and $awareness gt 300 and $anususe is "penis" and !playerChastity("anus") and $NPCList[$anustarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.analDoubleEnabled and $awareness gt 300 and $anususe is "penis" and !playerChastity("anus") and $NPCList[$anustarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !["legLock","legLocked"].includes($feetuse)>>
 		<<set _penisaction["Offer double anal instead"] to "penisanusdouble">>
 	<</if>>
 <</widget>>
@@ -87,16 +87,16 @@
 	<<else>>
 		<<set _penisaction["Rub"] to "otherpenisrub">>
 	<</if>>
-	<<if $analdisable is "f" and $anususe is 0 and !playerChastity("anus")>>
+	<<if $settings.analEnabled and $anususe is 0 and !playerChastity("anus")>>
 		<<set _penisaction["Offer your anus instead"] to "penisanus">>
 	<</if>>
-	<<if $vaginause is 0 and !playerChastity("vagina")>>
+	<<if $player.vaginaExist and $vaginause is 0 and !playerChastity("vagina")>>
 		<<set _penisaction["Offer your pussy instead"] to "penispussy">>
 	<</if>>
-	<<if $vaginaldoubledisable is "f" and $awareness gt 300 and $vaginause is "penis" and $NPCList[$vaginatarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !playerChastity("vagina") and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.vaginalDoubleEnabled and $awareness gt 300 and $vaginause is "penis" and $NPCList[$vaginatarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !playerChastity("vagina") and !["legLock","legLocked"].includes($feetuse)>>
 		<<set _penisaction["Offer double vaginal instead"] to "penispussydouble">>
 	<</if>>
-	<<if $analdoubledisable is "f" and $awareness gt 300 and $anususe is "penis" and !playerChastity("anus") and $NPCList[$anustarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.analDoubleEnabled and $awareness gt 300 and $anususe is "penis" and !playerChastity("anus") and $NPCList[$anustarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !["legLock","legLocked"].includes($feetuse)>>
 		<<set _penisaction["Offer double anal instead"] to "penisanusdouble">>
 	<</if>>
 	<<set _penisaction["Pull away"] to "fencingescape">>
@@ -217,7 +217,7 @@
 	<</if>>
 		<<set _penisaction["Take it"] to "fencingtake">>
 		<<set _penisaction["Pull away"] to "fencingescape">>
-	<<if $analdoubledisable is "f" and $awareness gt 300 and $anususe is "penis" and $NPCList[$anustarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.analDoubleEnabled and $awareness gt 300 and $anususe is "penis" and $NPCList[$anustarget].penissize gte 2 and $NPCList[$penistarget].penissize gte 2 and !["legLock","legLocked"].includes($feetuse)>>
 		<<if !($consensual is 1 and ($enemytype is "man" ? $promiscuity : $deviancy) lte 74 and !$promiscuityIgnore)>>
 			<<set _penisaction["Offer double anal instead"] to "penisanusdouble">>
 		<</if>>
@@ -437,7 +437,7 @@
 <<widget "effectspenistopenis">>
 	<<if $penisaction is "penistopenis">>
 		<<personselect $penistarget>>
-		<<set $penisaction to 0>><<submission 5>><<penileskilluse>><<combatpromiscuity5>>
+		<<set $penisaction to 0>><<submission 5>><<penileskilluse>><<combatpromiscuity4>>
 		<<if combatSkillCheck("penile", $penistarget)>>
 			<<if $NPCList[$penistarget].penis is 0>>
 				<<set $_target to $NPCList[$penistarget]>>
@@ -466,7 +466,7 @@
 <<widget "effectspenistopenisfuck">>
 	<<if $penisaction is "penistopenisfuck" and ["penisentrance", "penisimminent"].includes($NPCList[$penistarget].penis)>>
 		<<personselect $penistarget>>
-		<<set $penisaction to 0>><<submission 5>><<penileskilluse>><<combatpromiscuity5>>
+		<<set $penisaction to 0>><<submission 5>><<penileskilluse>><<combatpromiscuity4>>
 		<<if combatSkillCheck("penile", $penistarget)>>
 			<<submission 5>><<set $penisuse to "otherpenis">><<set $penisstate to "otherpenis">>
 			<<set $NPCList[$penistarget].penis to "penis">><<set $penisactiondefault to "fencingcooperate">>

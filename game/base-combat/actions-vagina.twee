@@ -9,7 +9,7 @@
 
 	<<for _j = $enemyno-1; _j gte _end; _j-->>
 		<<if $NPCList[_j].penis is 0>>
-			<<if $consensual is 1 and $promiscuity lte 74 and $enemytype is "man" or $consensual is 1 and $deviancy lte 74 and $enemytype isnot "man">>
+			<<if $consensual is 1 and !hasSexStat("promiscuity", 5) and $enemytype is "man" or $consensual is 1 and !hasSexStat("deviancy", 5) and $enemytype isnot "man">>
 			<!-- Do Nothing -->
 			<<elseif $NPCList[_j].stance isnot "topface">>
 				<<if $vaginaactiondefault is "vaginatopenis">>
@@ -33,7 +33,7 @@
 	<<if !playerChastity("vagina")>>
 		<<for _j = $enemyno-1; _j gte _end; _j-->>
 			<<if $NPCList[_j].vagina is 0>>
-				<<if $consensual is 1 and $promiscuity lte 74 and $enemytype is "man" or $consensual is 1 and $deviancy lte 74 and $enemytype isnot "man">>
+				<<if $consensual is 1 and !hasSexStat("promiscuity", 5) and $enemytype is "man" or $consensual is 1 and !hasSexStat("deviancy", 5) and $enemytype isnot "man">>
 				<!-- Do Nothing -->
 				<<elseif $NPCList[_j].stance isnot "topface">>
 					<<if $vaginaactiondefault is "vaginatovagina">>
@@ -58,7 +58,7 @@
 	<<if !playerChastity("vagina")>>
 		<<for _j = $enemyno-1; _j gte _end; _j-->>
 			<<if $NPCList[_j].vagina is "vaginaentrance" or $NPCList[_j].vagina is "vaginaimminent">>
-				<<if $consensual is 1 and $promiscuity lte 74 and $enemytype is "man" or $consensual is 1 and $deviancy lte 74 and $enemytype isnot "man">>
+				<<if $consensual is 1 and !hasSexStat("promiscuity", 5) and $enemytype is "man" or $consensual is 1 and !hasSexStat("deviancy", 5) and $enemytype isnot "man">>
 				<!-- Do Nothing -->
 				<<elseif $NPCList[_j].stance isnot "topface">>
 					<<if $vaginaactiondefault is "vaginatovaginafuck">>
@@ -75,7 +75,7 @@
 
 <<widget "actionsvaginatopenisnew">>
 	<<if $NPCList[$vaginatarget].penis is 0>>
-		<<if $consensual is 1 and ($promiscuity lte 74 and $enemytype is "man" or $deviancy lte 74 and $enemytype isnot "man") and !$promiscuityIgnore>>
+		<<if $consensual is 1 and (!hasSexStat("promiscuity", 5) and $enemytype is "man" or !hasSexStat("deviancy", 5) and $enemytype isnot "man") and !$promiscuityIgnore>>
 		<!-- Do Nothing -->
 		<<elseif $NPCList[$vaginatarget].stance isnot "topface" and ($enemytype isnot "man" or ($NPCList[$vaginatarget].location.genitals is 0 and $NPCList[$vaginatarget].location.head isnot "genitals"))>>
 			<<if $NPCList[$vaginatarget].chastity.penis.includes("chastity")>>
@@ -91,7 +91,7 @@
 
 <<widget "actionsvaginatovaginanew">>
 	<<if $NPCList[$vaginatarget].vagina is 0>>
-		<<if $consensual is 1 and ($promiscuity lte 74 and $enemytype is "man" or $deviancy lte 74 and $enemytype isnot "man") and !$promiscuityIgnore>>
+		<<if $consensual is 1 and (!hasSexStat("promiscuity", 5) and $enemytype is "man" or !hasSexStat("deviancy", 5) and $enemytype isnot "man") and !$promiscuityIgnore>>
 		<!-- Do Nothing -->
 		<<elseif $NPCList[$vaginatarget].stance isnot "topface" and ($enemytype isnot "man" or ($NPCList[$vaginatarget].location.genitals is 0 and $NPCList[$vaginatarget].location.head isnot "genitals"))>>
 			<<if $NPCList[$vaginatarget].chastity.penis.includes("chastity")>>
@@ -105,7 +105,7 @@
 
 <<widget "actionsvaginatovaginafucknew">>
 	<<if $NPCList[$vaginatarget].vagina is "vaginaentrance" or $NPCList[$vaginatarget].vagina is "vaginaimminent">>
-		<<if $consensual is 1 and (($promiscuity lte 74 and $enemytype is "man" or $deviancy lte 74 and $enemytype isnot "man") and !$promiscuityIgnore) or $NPCList[$vaginatarget].chastity.vagina.includes("chastity")>>
+		<<if $consensual is 1 and ((!hasSexStat("promiscuity", 5) and $enemytype is "man" or !hasSexStat("deviancy", 5) and $enemytype isnot "man") and !$promiscuityIgnore) or $NPCList[$vaginatarget].chastity.vagina.includes("chastity")>>
 		<!-- Do Nothing -->
 		<<else>>
 			<<set _vaginaaction["Push your pussy against " + $NPCList[$vaginatarget].pronouns.hers] to "vaginatovaginafuck">>
@@ -123,13 +123,13 @@
 	<<if !playerChastity("vagina") and $worn.under_lower.vagina_exposed is 1 and $worn.lower.vagina_exposed is 1>>
 		<<for _j = $enemyno-1; _j gte _end; _j-->>
 			<<if $NPCList[_j].penis is "vaginaentrance" or $NPCList[_j].penis is "vaginaimminent">>
-				<<if $consensual is 1 and $promiscuity lte 74 and $enemytype is "man" or $consensual is 1 and $deviancy lte 74 and $enemytype isnot "man">>
+				<<if $consensual is 1 and !hasSexStat("promiscuity", 5) and $enemytype is "man" or $consensual is 1 and !hasSexStat("deviancy", 5) and $enemytype isnot "man">>
 					<!-- Do Nothing -->
 				<<else>>
 					<<if $vaginaactiondefault is "vaginapenisfuck">>
-						| <label><span class="sub">Envelop <<his>> penis</span> <<radiobutton "$vaginaaction" "vaginapenisfuck" checked>> <<combatpromiscuous5>><<vaginalvirginitywarning>><<NPCvirginitywarning $NPCList[_j].fullDescription "penile">></label>
+						| <label><span class="sub">Envelop <<his>> penis</span> <<radiobutton "$vaginaaction" "vaginapenisfuck" checked>> <<combatpromiscuous5>><<vaginalvirginitywarning $NPCList[_j].fullDescription>><<NPCvirginitywarning $NPCList[_j].fullDescription "penile">></label>
 					<<else>>
-						| <label><span class="sub">Envelop <<his>> penis</span> <<radiobutton "$vaginaaction" "vaginapenisfuck">> <<combatpromiscuous5>><<vaginalvirginitywarning>><<NPCvirginitywarning $NPCList[_j].fullDescription "penile">></label>
+						| <label><span class="sub">Envelop <<his>> penis</span> <<radiobutton "$vaginaaction" "vaginapenisfuck">> <<combatpromiscuous5>><<vaginalvirginitywarning $NPCList[_j].fullDescription>><<NPCvirginitywarning $NPCList[_j].fullDescription "penile">></label>
 					<</if>>
 					<<break>>
 				<</if>>
@@ -141,7 +141,7 @@
 <<widget "actionsvaginapenisfucknew">>
 	<<if !playerChastity("vagina") and $worn.under_lower.vagina_exposed is 1 and $worn.lower.vagina_exposed is 1>>
 		<<if $NPCList[$vaginatarget].penis is "vaginaentrance" or $NPCList[$vaginatarget].penis is "vaginaimminent">>
-			<<if $consensual is 1 and (($promiscuity lte 74 and $enemytype is "man" or $deviancy lte 74 and $enemytype isnot "man") and !$promiscuityIgnore) or $NPCList[$vaginatarget].chastity.penis.includes("chastity")>>
+			<<if $consensual is 1 and ((!hasSexStat("promiscuity", 5) and $enemytype is "man" or !hasSexStat("deviancy", 5) and $enemytype isnot "man") and !$promiscuityIgnore) or $NPCList[$vaginatarget].chastity.penis.includes("chastity")>>
 				<!-- Do Nothing -->
 			<<else>>
 				<<set _penis to (npcHasStrapon($vaginatarget) ? "strap-on" : "penis")>>
@@ -160,7 +160,7 @@
 <</widget>>
 
 <<widget "actionsvaginaVaginaImminent">>
-	<<if $consensual is 0 or ($promiscuity lte 54 and $enemytype is "man" and !$promiscuityIgnore) or ($deviancy lte 54 and $enemytype isnot "man" and !$promiscuityIgnore)>>
+	<<if $consensual is 0 or (!hasSexStat("promiscuity", 4) and $enemytype is "man" and !$promiscuityIgnore) or (!hasSexStat("deviancy", 4) and $enemytype isnot "man" and !$promiscuityIgnore)>>
 		<<set _vaginaaction["Cooperate"] to "othervaginarub">>
 	<<else>>
 		<<set _vaginaaction["Rub"] to "othervaginarub">>
@@ -179,7 +179,7 @@
 <</widget>>
 
 <<widget "actionsvaginaMouthPenetrated">>
-	<<if $consensual is 0 or ($promiscuity lte 54 and $enemytype is "man" and !$promiscuityIgnore) or ($deviancy lte 54 and $enemytype isnot "man" and !$promiscuityIgnore)>>
+	<<if $consensual is 0 or (!hasSexStat("promiscuity", 4) and $enemytype is "man" and !$promiscuityIgnore) or (!hasSexStat("deviancy", 4) and $enemytype isnot "man" and !$promiscuityIgnore)>>
 		<<set _vaginaaction["Cooperate"] to "othermouthcooperate">>
 	<<else>>
 		<<set _vaginaaction["Hump"] to "othermouthcooperate">>
@@ -188,7 +188,7 @@
 
 <<widget "actionsvaginaPenisEntrance">>
 	<<actionsvaginapenisfucknew>>
-	<<if $consensual is 1 and ($promiscuity lte 54 and $enemytype is "man" or $deviancy lte 54 and $enemytype isnot "man") and !$promiscuityIgnore>>
+	<<if $consensual is 1 and (!hasSexStat("promiscuity", 4) and $enemytype is "man" or !hasSexStat("deviancy", 4) and $enemytype isnot "man") and !$promiscuityIgnore>>
 	<<else>>
 		<<if $thighuse is 0>>
 			<<set _vaginaaction["Try to keep it away with your thighs"] to "penisthighs">>
@@ -197,13 +197,13 @@
 	<<if $anususe is 0 and !playerChastity("anus")>>
 		<<set _vaginaaction["Offer your anus instead"] to "penisanus">>
 	<</if>>
-	<<if $analdoubledisable is "f" and $awareness gt 300 and $anususe is "penis" and !playerChastity("anus")>>
-		<<if $NPCList[$anustarget].penissize gte 2 and !($consensual is 1 and ($promiscuity lte 74 and $enemytype is "man" or $deviancy lte 74 and $enemytype isnot "man") and !$promiscuityIgnore) and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.analDoubleEnabled and $awareness gt 300 and $anususe is "penis" and !playerChastity("anus")>>
+		<<if $NPCList[$anustarget].penissize gte 2 and !($consensual is 1 and (!hasSexStat("promiscuity", 5) and $enemytype is "man" or !hasSexStat("deviancy", 5) and $enemytype isnot "man") and !$promiscuityIgnore) and !["legLock","legLocked"].includes($feetuse)>>
 			<<set _vaginaaction["Offer double anal instead"] to "penisanusdouble">>
 		<</if>>
 	<</if>>
 	<<set _vaginaaction["Tease the tip"] to "penistease">>
-	<<if $vaginaldoubledisable is "f" and _secondtarget is true and ($anususe is 0 or ($anususe isnot 0 and $anususe isnot "penisdouble")) and $awareness gte 300 and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.vaginalDoubleEnabled and _secondtarget is true and ($anususe is 0 or ($anususe isnot 0 and $anususe isnot "penisdouble")) and $awareness gte 300 and !["legLock","legLocked"].includes($feetuse)>>
 		<<if $npc.includes($NPCList[$vaginadoubletarget].fullDescription)>>
 			<<set _vaginaaction["Straddle " + $NPCList[$vaginadoubletarget].fullDescription + "'s " + $NPCList[$vaginadoubletarget].penisdesc] to "vaginatopenisdouble">>
 		<<else>>
@@ -213,7 +213,7 @@
 <</widget>>
 
 <<widget "actionsvaginaVaginaEntrance">>
-	<<if $consensual is 0 or ($promiscuity lte 54 and $enemytype is "man" and !$promiscuityIgnore) or ($deviancy lte 54 and $enemytype isnot "man" and !$promiscuityIgnore)>>
+	<<if $consensual is 0 or (!hasSexStat("promiscuity", 4) and $enemytype is "man" and !$promiscuityIgnore) or (!hasSexStat("deviancy", 4) and $enemytype isnot "man" and !$promiscuityIgnore)>>
 		<<set _vaginaaction["Cooperate"] to "othervaginarub">>
 	<<else>>
 		<<set _vaginaaction["Rub"] to "othervaginarub">>
@@ -223,7 +223,7 @@
 <<widget "actionsvaginaPenisImminent">>
 	<<actionsvaginapenisfucknew>>
 	<<set _vaginaaction["Rub"] to "rub">>
-	<<if ($consensual is 0 or ($promiscuity gte 55 and $enemytype is "man") or ($deviancy gte 55 and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
+	<<if ($consensual is 0 or (hasSexStat("promiscuity", 4) and $enemytype is "man") or (hasSexStat("deviancy", 4) and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
 		<<set _vaginaaction["Edge " + $NPCList[$vaginatarget].pronouns.him] to "penisEdging">>
 	<</if>>
 	<<set _vaginaaction["Pull away"] to "escape">>
@@ -231,18 +231,18 @@
 
 <<widget "actionsvaginaPenisPenetrated">>
 	<<set _vaginaaction["Take it"] to "take">>
-	<<if $consensual is 0 or ($promiscuity lte 54 and $enemytype is "man" and !$promiscuityIgnore) or ($deviancy lte 54 and $enemytype isnot "man" and !$promiscuityIgnore)>>
+	<<if $consensual is 0 or (!hasSexStat("promiscuity", 4) and $enemytype is "man" and !$promiscuityIgnore) or (!hasSexStat("deviancy", 4) and $enemytype isnot "man" and !$promiscuityIgnore)>>
 		<<set _vaginaaction["Cooperate"] to "cooperate">>
 	<<else>>
 		<<set _vaginaaction["Fuck"] to "cooperate">>
 	<</if>>
-	<<if ($consensual is 0 or ($promiscuity gte 55 and $enemytype is "man") or ($deviancy gte 55 and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
+	<<if ($consensual is 0 or (hasSexStat("promiscuity", 4) and $enemytype is "man") or (hasSexStat("deviancy", 4) and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
 		<<set _vaginaaction["Edge " + $NPCList[$vaginatarget].pronouns.him] to "penisEdging">>
 	<</if>>
-	<<if !playerIsPregnant() and playerPregnancyPossibleWith($NPCList[$vaginatarget]) and $enemyarousal gte $enemyarousalmax and $demon gte 6 and $demonbuild gte 90>>
+	<<if !playerIsPregnant() and $sexStats.vagina.menstruation.currentState isnot "recovering" and playerPregnancyPossibleWith($NPCList[$vaginatarget]) and $enemyarousal gte $enemyarousalmax and $demon gte 6 and $demonbuild gte 90>>
 		<<set _vaginaaction["Force impregnation"] to "forceImpregnation">>
 	<</if>>
-	<<if $vaginaldoubledisable is "f" and _secondtarget is true and ($anususe is 0 or ($anususe isnot 0 and $anususe isnot "penisdouble")) and $awareness gte 300 and !["legLock","legLocked"].includes($feetuse)>>
+	<<if $settings.vaginalDoubleEnabled and _secondtarget is true and ($anususe is 0 or ($anususe isnot 0 and $anususe isnot "penisdouble")) and $awareness gte 300 and !["legLock","legLocked"].includes($feetuse)>>
 		<<if $npc.includes($NPCList[$vaginadoubletarget].fullDescription)>>
 			<<set _vaginaaction["Straddle " + $NPCList[$vaginadoubletarget].fullDescription + "'s " + $NPCList[$vaginadoubletarget].penisdesc] to "vaginatopenisdouble">>
 		<<else>>
@@ -252,7 +252,7 @@
 <</widget>>
 
 <<widget "actionsvaginaVagina">>
-	<<if $consensual is 0 or ($promiscuity lte 54 and $enemytype is "man" and !$promiscuityIgnore) or ($deviancy lte 54 and $enemytype isnot "man" and !$promiscuityIgnore)>>
+	<<if $consensual is 0 or (!hasSexStat("promiscuity", 4) and $enemytype is "man" and !$promiscuityIgnore) or (!hasSexStat("deviancy", 4) and $enemytype isnot "man" and !$promiscuityIgnore)>>
 		<<set _vaginaaction["Cooperate"] to "tribcooperate">>
 	<<else>>
 		<<set _vaginaaction["Rub"] to "tribcooperate">>
@@ -270,7 +270,7 @@
 
 <<widget "actionsvaginaPenisDoubleEntrance">>
 	<<actionsvaginapenisdoublefuck>>
-	<<if $consensual is 1 and ($promiscuity lte 54 and $enemytype is "man" or $deviancy lte 54 and $enemytype isnot "man") and !$promiscuityIgnore>>
+	<<if $consensual is 1 and (!hasSexStat("promiscuity", 4) and $enemytype is "man" or !hasSexStat("deviancy", 4) and $enemytype isnot "man") and !$promiscuityIgnore>>
 	<<else>>/*
 		<<if $thighuse is 0>>
 			<<set _vaginaaction["Try to keep it away with your thighs"] to "penisthighs">>
@@ -285,8 +285,8 @@
 <<widget "actionsvaginaPenisDoubleImminent">>
 	<<actionsvaginapenisdoublefuck>>
 	<<set _vaginaaction["Rub"] to "rub">>
-	<<if ($consensual is 0 or ($promiscuity gte 55 and $enemytype is "man") or ($deviancy gte 55 and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
-	<<set _vaginaaction["Edge " + $NPCList[$vaginatarget].pronouns.him] to "penisDoubleEdging">>
+	<<if ($consensual is 0 or (hasSexStat("promiscuity", 5) and $enemytype is "man") or (hasSexStat("deviancy", 5) and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
+	<<set _vaginaaction["Edge them"] to "penisDoubleEdging">>
 	<</if>>
 	<<if $anususe is 0 and !playerChastity("anus")>>
 		<<set _vaginaaction["Offer your anus instead"] to "penisanusdvp">>
@@ -296,19 +296,19 @@
 
 <<widget "actionsvaginaPenisDoublePenetrated">>
 	<<set _vaginaaction["Take it"] to "take">>
-	<<if $consensual is 0 or ($promiscuity lte 54 and $enemytype is "man" and !$promiscuityIgnore) or ($deviancy lte 54 and $enemytype isnot "man" and !$promiscuityIgnore)>>
+	<<if $consensual is 0 or (!hasSexStat("promiscuity", 4) and $enemytype is "man" and !$promiscuityIgnore) or (!hasSexStat("deviancy", 4) and $enemytype isnot "man" and !$promiscuityIgnore)>>
 		<<set _vaginaaction["Cooperate"] to "doublecooperate">>
 	<<else>>
 		<<set _vaginaaction["Fuck"] to "doublecooperate">>
 	<</if>>
-	<<if ($consensual is 0 or ($promiscuity gte 55 and $enemytype is "man") or ($deviancy gte 55 and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
-		<<set _vaginaaction["Edge " + $NPCList[$vaginatarget].pronouns.him] to "penisDoubleEdging">>
+	<<if ($consensual is 0 or (hasSexStat("promiscuity", 5) and $enemytype is "man") or (hasSexStat("deviancy", 5) and $enemytype isnot "man")) and currentSkillValue("vaginalskill") gte 800>>
+		<<set _vaginaaction["Edge them"] to "penisDoubleEdging">>
 	<</if>>
 <</widget>>
 
 <<widget "actionsvaginapenisdoublefuck">>
 	<<if !playerChastity("vagina") and $worn.under_lower.vagina_exposed is 1 and $worn.lower.vagina_exposed is 1 and $awareness gte 300>>
-		<<if $consensual is 1 and (($promiscuity lte 74 and $enemytype is "man" or $deviancy lte 74 and $enemytype isnot "man" and $awareness lt 300) and !$promiscuityIgnore) or $NPCList[$vaginatarget].chastity.penis.includes("chastity")>>
+		<<if $consensual is 1 and ((!hasSexStat("promiscuity", 5) and $enemytype is "man" or !hasSexStat("deviancy", 5) and $enemytype isnot "man" and $awareness lt 300) and !$promiscuityIgnore) or $NPCList[$vaginatarget].chastity.penis.includes("chastity")>>
 			<!-- Do Nothing -->
 		<<else>>
 			<<if $NPCList[$vaginatarget].penis is "vaginadouble" or $NPCList[$vaginatarget].chastity.penis.includes("chastity")>>
@@ -376,7 +376,7 @@
 				<<if $rightarm is "vagina">>
 					<<set $rightarm to 0>>
 				<</if>>
-				<span class="lblue">You kiss <<combatperson>>'s pussy with your own<<if $NPCList[$vaginatarget].chastity.vagina.includes("chastity")>> through <<his>> $NPCList[$vaginatarget].chastity.vagina<</if>>.</span>
+				<span class="lblue">You kiss <<combatpersons>> pussy with your own<<if $NPCList[$vaginatarget].chastity.vagina.includes("chastity")>> through <<his>> $NPCList[$vaginatarget].chastity.vagina<</if>>.</span>
 				<<if $enemytype is "beast">><<set $NPCList[$vaginatarget].stance to "top">><</if>>
 				<<set $NPCList[$vaginatarget].location.genitals to "genitals">>
 			<<else>>
@@ -393,9 +393,9 @@
 		<<set $vaginaaction to 0>><<submission 5>><<vaginalskilluse>><<combatpromiscuity5>>
 		<<if combatSkillCheck("vaginal", $vaginatarget)>>
 			<<submission 5>><<set $vaginause to "othervagina">><<set $vaginastate to "othervagina">><<set $NPCList[$vaginatarget].vagina to "vagina">><<set $vaginaactiondefault to "tribcooperate">>
-			<span class="blue">You press <<personselect $vaginatarget>><<combatperson>>'s pussy with your own.</span>
+			<span class="blue">You press <<personselect $vaginatarget>><<combatpersons>> pussy with your own.</span>
 		<<else>>
-			<span class="blue">You try to press your <<pussy>> against <<personselect $vaginatarget>><<combatperson>>'s, but <<ohe>> keeps you away.</span><<set $vaginaactiondefault to "vaginatovaginafuck">>
+			<span class="blue">You try to press your <<pussy>> against <<personselect $vaginatarget>><<combatpersons>>, but <<ohe>> keeps you away.</span><<set $vaginaactiondefault to "vaginatovaginafuck">>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -433,7 +433,7 @@
 							<span class="red">Your hymen is destroyed, <<virginitylosttext $NPCList[_n].fullDescription>></span>
 							<<violence 40>>
 						<<case 1>>
-							<span class="red">You feel your hymen tear despite its size, <<virginitylosttext $NPCList[_n].fullDescription>></span> <span class="green"> While technically no longer a virgin, you can barely feel it.</span>
+							<span class="red">You feel your hymen tear despite its size, <<virginitylosttext $NPCList[_n].fullDescription>></span> <span class="green">While technically no longer a virgin, you can barely feel it.</span>
 							<<violence 20>>
 						<<default>>
 							<span class="red">You feel your hymen tear, <<virginitylosttext $NPCList[_n].fullDescription>></span>
@@ -515,14 +515,14 @@
 					<<case 5>>
 						<span class="lewd">The sheer size of them forces the breath from your body.</span>
 					<<case 4>>
-						<span class="lewd">You shudder as your <<pussy>> stretches to accommodate their cocks.</span>
+						<span class="lewd">You shudder as your <<pussy>> stretches to accommodate their <<penises>>.</span>
 					<<default>>
 						<span class="lewd"></span>
 				<</switch>>
 				<span class="pink">Your nipples harden while your body shivers from taking two cocks.</span>
 				<<set _mydesc to ($NPCList[_npcA].fullDescription + " and " + $NPCList[_npcB].fullDescription)>>
 				<<sex 15 "genitals" $vaginatarget>><<sex 15 "genitals" $vaginadoubletarget>><<vaginalstat>><<vaginaldoublestat>><<raped>><<vaginaraped>><<set $vaginastate to "doublepenetrated">>
-				<<takeVirginity _mydesc "vaginal">><<takeNPCVirginity _npcA "penile">><<takeNPCVirginity _npcB "penile">>
+				<<takeVirginity `[_npcA, _npcB]` "vaginal">><<takeNPCVirginity _npcA "penile">><<takeNPCVirginity _npcB "penile">>
 			<<elseif $player.virginity.vaginal is true>>
 				<<set $NPCList[_npcA].penis to "vaginadouble">>
 				<<set $NPCList[_npcB].penis to "vaginadouble">>
@@ -545,7 +545,7 @@
 				<</if>>
 				<span class="pink">Your nipples harden while your body shivers from taking two cocks.</span>
 				<<set _mydesc to ($NPCList[_npcA].fullDescription + " and " + $NPCList[_npcB].fullDescription)>>
-				<<sex 50 "genitals" $vaginatarget>><<sex 50 "genitals" $vaginadoubletarget>><<bruise vagina>><<vaginalstat>><<vaginaldoublestat>><<raped>><<vaginaraped>><<takeVirginity _mydesc "vaginal">><<takeNPCVirginity _npcA "penile">><<takeNPCVirginity _npcB "penile">><<set $vaginastate to "doublepenetrated">><<set $speechvaginavirgin to 1>>
+				<<sex 50 "genitals" $vaginatarget>><<sex 50 "genitals" $vaginadoubletarget>><<bruise vagina>><<vaginalstat>><<vaginaldoublestat>><<raped>><<vaginaraped>><<takeVirginity `[_npcA, _npcB]` "vaginal">><<takeNPCVirginity _npcA "penile">><<takeNPCVirginity _npcB "penile">><<set $vaginastate to "doublepenetrated">><<set $speechvaginavirgin to 1>>
 			<</if>>
 		<<else>>
 			You <<vaginaltext>> press your <<pussy>> against <<personselect $vaginatarget>><<combatpersons>> <<print $NPCList[$vaginatarget].penisdesc>>, <span class="blue">but fail to envelop.</span> <<His>> penis angles away and rubs against your <<if $player.penisExist>><<penis>><<else>>clit<</if>>.

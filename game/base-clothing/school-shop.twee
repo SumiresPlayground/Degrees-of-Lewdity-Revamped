@@ -54,7 +54,7 @@
 		<<link "View All">><<replace "#clothingShop-div">><<AllShop>><</replace>><</link>>
 		<br><br>
 		<<if $debug is 1>>
-			<<clothingcategoryicon "overoutfit">>
+			<<clothingcategoryicon "over-outfit">>
 			<<link "View Over Outfits">><<replace "#clothingShop-div">><<OverOutfitShop>><</replace>><</link>>
 			<br><br>
 		<</if>>
@@ -69,13 +69,13 @@
 		<<clothingcategoryicon "lower">>
 		<<link "View Bottoms">><<replace "#clothingShop-div">><<BottomShop>><</replace>><</link>>
 		<br><br>
-		<<clothingcategoryicon "underoutfit">>
+		<<clothingcategoryicon "under-outfit">>
 		<<link "View Under Outfits">><<replace "#clothingShop-div">><<UnderOutfitShop>><</replace>><</link>>
 		<br>
-		<<clothingcategoryicon "underupper">>
+		<<clothingcategoryicon "under-upper">>
 		<<link "View Under Tops">><<replace "#clothingShop-div">><<UnderTopShop>><</replace>><</link>>
 		<br>
-		<<clothingcategoryicon "underlower">>
+		<<clothingcategoryicon "under-lower">>
 		<<link "View Under Bottoms">><<replace "#clothingShop-div">><<UnderBottomShop>><</replace>><</link>>
 		<br><br>
 		<<clothingcategoryicon "head">>
@@ -87,8 +87,10 @@
 		/*
 		*<<clothingcategoryicon "neck">>
 		*<<link "View Neck Accessories">><<replace "#clothingShop-div">><<NeckShop>><</replace>><</link>>
-		*<br>
-		*/
+		*<br>*/
+		<<clothingcategoryicon "handheld">>
+		<<link "View Handheld Items">><<replace "#clothingShop-div">><<HandheldShop>><</replace>><</link>>
+		<br>
 		<<clothingcategoryicon "hand">>
 		<<link "View Hand Accessories">><<replace "#clothingShop-div">><<HandsShop>><</replace>><</link>>
 		<br>
@@ -100,21 +102,35 @@
 		<br><br>
 		<<run linkifyDivs('.button-back-to-shop')>>
 
-		<<if $tryOn.value gt 0 and $tryOn.value lt $money>>
-			<<sendItemsToDropdown>>
-			<<link "Buy clothes and send to wardrobe">>
-				<<buyTryOnClothes "wardrobe">>
-				<<updatesidebarmoney>>
+		<<if $tryOn.value isnot 0>>
+			<<icon "hanger.png">><<link "Return clothes">><<clothingReset>>
 				<<updatesidebarimg>>
 				<<updatesidebardescription>>
 				<<updateallure>>
 				<<updatewarmthscale>>
 				<<updatewarmthdescription>>
 				<<updateclothingshop>>
+				<<run updateMoment()>>
 			<</link>>
 			<br>
+			<<if $tryOn.value gt 0 and $tryOn.value lte $money>>
+				<<sendItemsToDropdown>>
+				<<highicon>><<link "Buy clothes">><<buyTryOnClothes "wear">><<updatesidebarmoney>><<updateclothingshop>><</link>>
+				<br>
+				<<wardrobeicon>><<link "Buy clothes and send to wardrobe">>
+					<<buyTryOnClothes "wardrobe">>
+					<<updatesidebarmoney>>
+					<<updatesidebarimg>>
+					<<updatesidebardescription>>
+					<<updateallure>>
+					<<updatewarmthscale>>
+					<<updatewarmthdescription>>
+					<<updateclothingshop>>
+				<</link>>
+				<br>
+			<</if>>
 		<<elseif $tryOn.value is 0>>
-			<<getouticon>><<link [[Leave|Library Rental Counter]]>><<shopClothingFilterReset>><<ShowUnderEquip "normal">><<endnpc>><<unset $clothes_choice>><<set $tryOn.autoReset to true>><<set $eventskip to 1>><<unset $tempDisable>><<endevent>><</link>>
+			<<getouticon>><<link [[Leave|Library Rental Counter]]>><<shopClothingFilterReset>><<ShowUnderEquip "normal">><<endnpc>><<unset $clothes_choice>><<set $tryOn.autoReset to true>><<set $eventskip to 1>><<unset $tempDisable>><<shopCommandoCheck>><<endevent>><</link>>
 			<br><br>
 		<</if>>
 	<</if>>

@@ -10,6 +10,7 @@
 			npcTotalBirthEvents:0,
 			humanToysUnlocked: false,
 			wolfToysUnlocked: false,
+			hawkToysUnlocked: false,
 			mother: 0,
 			aftermorningpills: 0,
 			pregnancyTestsTaken: 0,
@@ -61,6 +62,9 @@
 			'birthid:["pc","NPCNameIndex"]'
 		*/
 		<<set $pregnancyStats.talkedAboutPregnancy to {}>>
+	<</if>>
+	<<if $pregnancyStats.hawkChildren is undefined>>
+		<<set $pregnancyStats.hawkChildren to 0>>
 	<</if>>
 <</widget>>
 
@@ -137,7 +141,7 @@
 		}>>
 		<<set $container.list.pushUnique("farm")>>
 	<</if>>
-
+	
 		<<if $container.lakehouse is undefined>>
 		<<set $container.lakehouse to {
 			"upgrades":{

@@ -1,25 +1,7 @@
-:: Widgets Effects [widget]
+:: Widgets EffectsOld [widget]
 
-/* Deprecated */
-/* <<widget "effectstime">>
-	<<time>>
-	<<if $time gte 1440>>
-		<<set $time -= 1440>><<set $days += 1>><<set $weekday += 1>>
-		<<if $weekday gte 8>><<set $weekday -= 7>><<week>><</if>>
-		<<print "<<if $"+"o"+"bj"+"ec"+"t"+"Ve"+"rs"+"io"+"n"+".t"+"es"+"t isnot undefined>><<set $"+"f"+"e"+"at"+"s."+"lo"+"c"+"k"+"e"+"d to true>><</if>>">>
-		<<time>>
-		<<day>>
-		<<set $physiquechange to 1>>
-	<</if>>
-	<<time>>
-	<<if $minute gte 60>>
-		<<hour>>
-	<</if>>
-<</widget>> */
-
-<<widget "effectswater">>
+<<widget "effectswaterold">>
 	<<set $wetintro to 0>>
-
 
 	<<if $squidcount is 1>>
 		<span class="purple">You feel the squid tease your <<genitals>>.</span>
@@ -132,7 +114,7 @@
 
 	<<if $wetintro gte 2 and !$possessed>>
 		<<exposure>>
-		<<if $exhibitionism gte 55>>
+		<<if hasSexStat("exhibitionism", 4)>>
 			<<if !$worn.face.type.includes("blindfold")>>
 				You feel a lewd thrill as you look down and see your clothes clinging tight to your body, completely transparent.
 			<<else>>
@@ -148,7 +130,7 @@
 		<<covered>>
 		<br><br>
 	<<elseif $wetintro gte 1 and !$possessed>>
-		<<if $exhibitionism gte 35>>
+		<<if hasSexStat("exhibitionism", 3)>>
 			<<if !$worn.face.type.includes("blindfold")>>
 				You feel a lewd thrill as you look down and see your clothes clinging tight to your body, giving a hint of transparency.
 			<<else>>
@@ -163,7 +145,6 @@
 		<</if>>
 		<br><br>
 	<</if>>
-
 <</widget>>
 
 <<widget "effectsarousalsoak">>
@@ -177,7 +158,7 @@
 		<span class="lewd">Your bodily fluids soak through your $worn.under_lower.name. </span>
 	<</if>>
 	<<if $wetintro is 0 and $underupperwet lt 100>>
-		<<if $exhibitionism lt 55>>
+		<<if !hasSexStat("exhibitionism", 4)>>
 			You hope nobody notices.
 		<<else>>
 			You hope somebody notices.
@@ -189,7 +170,7 @@
 <<widget "effectsmakeup">>
 	<<if $makeupWashed>>
 		<<unset $makeupWashed>>
-		<span class="teal">Your makeup is washed away<<if $beauty gte ($beautymax / 7) * 4>> revealing your natural beauty<</if>>.</span><br>
+		<span class="teal">Your makeup is washed away<<if $beauty gte ($beautymax / 7) * 4>>, revealing your natural beauty<</if>>.</span><br>
 	<</if>>
 	<<if $makeup.mascara and $makeup.mascara_running lt painToTearsLvl($pain) and !$makeup.mascara.includes("waterproof")>>
 		<<set $makeup.mascara_running to painToTearsLvl($pain)>>
@@ -197,10 +178,6 @@
 <</widget>>
 
 <<widget "effects">>
-	<<if $newVersionData>>
-		<<newversionnotification>>
-	<</if>>
-
 	<<autoTakePillCheck>>
 
 	<<effectswater>>
@@ -253,7 +230,7 @@
 		<<set $makeup.pbcolour to 0>>
 	<</if>>
 
-	<<if $mouthsensitivity lt 4 and $transformationParts.traits.longtongue isnot "disabled">>
+	<<if $mouthsensitivity lt 4 and V.transformationParts.traits.longtongue isnot "disabled">>
 		<<set $mouthsensitivity to 4>>
 	<</if>>
 

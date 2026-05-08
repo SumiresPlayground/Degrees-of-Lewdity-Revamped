@@ -1,9 +1,9 @@
 :: Transformation Widgets [widget]
 
 <<widget "setupTransformationPiecesObject">>
-	<<if $transformationParts is undefined>>
-		<<set $transformationParts to {
-			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", aquatail:"disabled", lungs:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", kicks:"disabled", longtongue:"disabled", strongnose:"disabled", bearbuild:"disabled", armorscales:"disabled"},
+	<<if V.transformationParts is undefined>>
+		<<set V.transformationParts to {
+			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", chase:"disabled", flaunting:"disabled"},
 			angel: {halo:"disabled", wings:"disabled"},
 			fallenAngel: {halo:"disabled", wings:"disabled"},
 			demon: {horns:"disabled", wings:"disabled", tail: "disabled"},
@@ -32,63 +32,63 @@
 		}>>
 		<<if $specialTransform is 1>>
 			<<if $angel gte 4>>
-				<<set $transformationParts.angel.halo to "default">>
+				<<set V.transformationParts.angel.halo to "default">>
 			<</if>>
 			<<if $angel gte 6>>
-				<<set $transformationParts.angel.wings to "default">>
+				<<set V.transformationParts.angel.wings to "default">>
 			<</if>>
 			<<if $fallenangel gte 2>>
-				<<set $transformationParts.fallenAngel.halo to "default">>
-				<<set $transformationParts.fallenAngel.wings to "default">>
+				<<set V.transformationParts.fallenAngel.halo to "default">>
+				<<set V.transformationParts.fallenAngel.wings to "default">>
 			<</if>>
 			<<if $demon gte 2>>
-				<<set $transformationParts.demon.horns to "default">>
+				<<set V.transformationParts.demon.horns to "default">>
 			<</if>>
 			<<if $demon gte 4>>
-				<<set $transformationParts.demon.tail to "default">>
+				<<set V.transformationParts.demon.tail to "default">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
 			<</if>>
 			<<if $demon gte 6>>
-				<<set $transformationParts.demon.wings to "default">>
+				<<set V.transformationParts.demon.wings to "default">>
 			<</if>>
 		<</if>>
 		<<if $physicalTransform is 1>>
 			<<if $wolfgirl gte 2>>
-				<<set $transformationParts.traits.fangs to "default">>
+				<<set V.transformationParts.traits.fangs to "default">>
 			<</if>>
 			<<if $wolfgirl gte 4>>
-				<<set $transformationParts.wolf.ears to "default">>
-				<<set $transformationParts.wolf.pubes to "default">>
-				<<set $transformationParts.wolf.pits to "default">>
+				<<set V.transformationParts.wolf.ears to "default">>
+				<<set V.transformationParts.wolf.pubes to "default">>
+				<<set V.transformationParts.wolf.pits to "default">>
 			<</if>>
 			<<if $wolfgirl gte 6>>
-				<<set $transformationParts.wolf.tail to "default">>
+				<<set V.transformationParts.wolf.tail to "default">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
 			<</if>>
 			<<if $cat gte 2>>
-				<<set $transformationParts.traits.fangs to "default">>
+				<<set V.transformationParts.traits.fangs to "default">>
 			<</if>>
 			<<if $cat gte 4>>
-				<<set $transformationParts.cat.ears to "default">>
+				<<set V.transformationParts.cat.ears to "default">>
 			<</if>>
 			<<if $cat gte 6>>
-				<<set $transformationParts.cat.tail to "default">>
+				<<set V.transformationParts.cat.tail to "default">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
 			<</if>>
 			<<if $cat gte 7>>
-				<<set $transformationParts.cat.heterochromia to "default">>
+				<<set V.transformationParts.cat.heterochromia to "default">>
 			<</if>>
 			<<if $cow gte 2>>
-				<<set $transformationParts.cow.horns to "default">>
+				<<set V.transformationParts.cow.horns to "default">>
 			<</if>>
 			<<if $cow gte 4>>
-				<<set $transformationParts.cow.ears to "default">>
+				<<set V.transformationParts.cow.ears to "default">>
 			<</if>>
 			<<if $cow gte 6>>
-				<<set $transformationParts.cow.tail to "default">>
+				<<set V.transformationParts.cow.tail to "default">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
 			<</if>>
@@ -266,48 +266,48 @@
 			<</if>>
 		<</if>>
 	<</if>>
-	<<if $transformationParts.fallenAngel.halo is 1>>
-		<<set $transformationParts.fallenAngel.halo to "default">>
-		<<set $transformationParts.fallenAngel.wings to "default">>
+	<<if V.transformationParts.fallenAngel.halo is 1>>
+		<<set V.transformationParts.fallenAngel.halo to "default">>
+		<<set V.transformationParts.fallenAngel.wings to "default">>
 	<</if>>
-	<<if $transformationParts.demon.horns is 1>>
-		<<set $transformationParts.demon.horns to "default">>
-		<<set $transformationParts.demon.tail to "default">>
-		<<set $hastail to "true">>
-		<<set $thintail to "true">>
-		<<set $transformationParts.demon.wings to "default">>
+	<<if V.transformationParts.demon.horns is 1>>
+		<<set V.transformationParts.demon.horns to "default">>
+		<<set V.transformationParts.demon.tail to "default">>
+		<<set V.transformationParts.demon.wings to "default">>
 	<</if>>
 	<<if $angel lt 4>>
-		<<set $transformationParts.angel.halo to "disabled">>
+		<<set V.transformationParts.angel.halo to "disabled">>
 	<</if>>
 	<<if $angel lt 6>>
-		<<set $transformationParts.angel.wings to "disabled">>
+		<<set V.transformationParts.angel.wings to "disabled">>
 	<</if>>
 	<<if $fallenangel is 1>>
-		<<set $transformationParts.fallenAngel.halo to "disabled">>
-		<<set $transformationParts.fallenAngel.wings to "disabled">>
+		<<set V.transformationParts.fallenAngel.halo to "disabled">>
+		<<set V.transformationParts.fallenAngel.wings to "disabled">>
 	<</if>>
-	<<if $transformationParts.wolf.cheeks is undefined>>
-		<<if $wolfgirl gte 6>>
-			<<set $transformationParts.wolf.cheeks to "feral">>
+	<<if V.transformationParts.wolf.cheeks is undefined>>
+		<<if $wolfgirl gte 5>>
+			<<set V.transformationParts.wolf.cheeks to "feral">>
 		<<else>>
-			<<set $transformationParts.wolf.cheeks to "disabled">>
+			<<set V.transformationParts.wolf.cheeks to "disabled">>
 		<</if>>
 	<</if>>
-	<<if $transformationParts.bird is undefined>>
-		<<set $transformationParts.bird to {tail:"disabled", wings:"disabled", eyes:"disabled", malar:"disabled", plumage:"disabled"}>>
+	<<if V.transformationParts.bird is undefined>>
+		<<set V.transformationParts.bird to {tail:"disabled", wings:"disabled", eyes:"disabled", malar:"disabled", plumage:"disabled"}>>
 	<</if>>
-	<<if $transformationParts.bird.pubes is undefined>>
+	<<if V.transformationParts.bird.pubes is undefined>>
 		<<if $harpy gte 6>>
-			<<set $transformationParts.bird.pubes to "hidden">>
+			<<set V.transformationParts.bird.pubes to "hidden">>
 		<<else>>
-			<<set $transformationParts.bird.pubes to "disabled">>
+			<<set V.transformationParts.bird.pubes to "disabled">>
 		<</if>>
 	<</if>>
-	<<if $transformationParts.fox is undefined>>
-		<<set $transformationParts.fox to {ears:"disabled", tail:"disabled", cheeks:"disabled"}>>
+	<<if V.transformationParts.fox is undefined>>
+		<<set V.transformationParts.fox to {ears:"disabled", tail:"disabled", cheeks:"disabled"}>>
 	<</if>>
-	<<if $transformationParts.dragon is undefined>>
+	<<if V.transformationParts.traits is undefined>>
+		<<set V.transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", chase:"disabled", flaunting:"disabled"}>>
+		<<if $transformationParts.dragon is undefined>>
 		<<set $transformationParts.dragon to {tail:"disabled", wings:"disabled", eyes:"disabled", fangs:"disabled", horns:"disabled",whisker:"disabled"}>>
 	<</if>>	
 	<<if $transformationParts.lizard is undefined>>
@@ -352,10 +352,10 @@
 	<<if $transformationParts.traits is undefined>>
 		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", flaunting:"disabled", lungs:"disabled", aquatail:"disabled", incognito:"disabled", aquatic:"disabled", vigorous:"disabled", webbedfeet:"disabled", strongnose:"disabled", longtongue:"disabled", kicks:"disabled", bearbuild:"disabled", armorscales:"disabled"}>>
 		<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
-			<<set $transformationParts.traits.fangs to "default">>
+			<<set V.transformationParts.traits.fangs to "default">>
 		<</if>>
-		<<if $cat gte 2 or $harpy gte 2 or $fox gte 2 or $raccoon gte 2>>
-			<<set $transformationParts.traits.sharpEyes to "default">>
+		<<if $cat gte 2 or $harpy gte 2 or $fox gte 2>>
+			<<set V.transformationParts.traits.sharpEyes to "default">>
 		<</if>>
 	<</if>>
 	/* Setup chimera's config */
@@ -364,9 +364,23 @@
 			tail: true
 		},
 		demoncow: {
-			horns: true
+			tail: true,
+			horns: true,
+		},
+		demonwolf: {
+			tail: true
+		},
+		demonfox: {
+			tail: true,
+			ears: true
 		},
 		demonharpy: {
+			wings: true
+		},
+		angelharpy: {
+			wings: true
+		},
+		fallenharpy: {
 			wings: true
 		},
 	}>>
@@ -374,8 +388,11 @@
 	<<if typeof $chimera !== 'object'>>
 		<<set $chimera to {}>>
 	<</if>>
-	/* Takes default object, and transposes chimera config ontop of it, assigning the result to chimera config. */
-	<<set $chimera to Object.assign(_defaultChimeraConfig, $chimera || {})>>
+	/* Takes default object and transposes chimera config ontop of it, assigning the result to chimera config. */
+	<<set $chimera = Object.keys(_defaultChimeraConfig).reduce((acc, key) => {
+		acc[key] = Object.assign({}, _defaultChimeraConfig[key], $chimera[key] || {});
+		return acc;
+	}, {})>>
 <</widget>>
 
 <<widget "transform">>/*First arg is transformation, second is the intensity of change.*/
@@ -405,7 +422,7 @@
 			<<case "pig">> <<set $pigbuild = Math.clamp($pigbuild + _args[1], 0, 100)>>
 		<</switch>>
 	<</if>>
-	<<if _args[0] isnot "angel" and _args[0] isnot "demon" and _args[1] gte 1>>
+	<<if !["angel", "fallen", "demon"].includes(_args[0]) and _args[1] gte 1 and !($worn.neck.name is "familiar collar" and $worn.neck.cursed is 1)>>
 		<<if _args[0] isnot "wolf" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
 			<<set $wolfbuild = Math.clamp($wolfbuild - _args[1], 0, 100)>>
 		<</if>>
@@ -415,78 +432,37 @@
 		<<if _args[0] isnot "cow" and $worn.neck.name isnot "cow bell">>
 			<<set $cowbuild  = Math.clamp($cowbuild  - _args[1], 0, 100)>>
 		<</if>>
-		<<if _args[0] isnot "bird" and $worn.head.name isnot "feathered hair clip">>
+		<<if _args[0] isnot "bird" and $worn.head.name isnot "feathered hair clip" and $worn.neck.name isnot "feather necklace">>
 			<<set $birdbuild = Math.clamp($birdbuild - _args[1], 0, 100)>>
 		<</if>>
-		<<if _args[0] isnot "fox" and $worn.head.name isnot "spirit mask">>
+		<<if _args[0] isnot "fox" and $worn.head.name isnot "spirit mask" and $worn.neck.name isnot "jasper pendant">>
 			<<set $foxbuild = Math.clamp($foxbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "bee" and $worn.head.name isnot "honeycomb hair clip">>
-			<<set $beebuild = Math.clamp($beebuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "sheep" and $worn.head.name isnot "cloud hair clip">>
-			<<set $sheepbuild = Math.clamp($sheepbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "deer" and $worn.head.name isnot "spotted hair clip">>
-			<<set $deerbuild = Math.clamp($deerbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "bear" and $worn.head.name isnot "honeycomb hair clip">>
-			<<set $bearbuild = Math.clamp($bearbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "dragon" and $worn.hands.name isnot "dragonstone ring">>
-			<<set $dragonbuild = Math.clamp($dragonbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "lizard" and $worn.hands.name isnot "dragonstone ring">>
-			<<set $lizardbuild = Math.clamp($lizardbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "dolphin" and $worn.upper.name isnot "fish hairpin">>
-			<<set $dolphinbuild = Math.clamp($dolphinbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "dog" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
-			<<set $dogbuild = Math.clamp($dogbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "raccoon" and ($worn.hands.name isnot "scuffed ring" or $worn.head.name isnot "raccoon cap")>>
-			<<set $raccoonbuild = Math.clamp($raccoonbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "fish" and $worn.head.name isnot "fish hairpin">>
-			<<set $fishbuild = Math.clamp($fishbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "horse" and $worn.neck.name isnot "horseshoe pendant">>
-			<<set $horsebuild = Math.clamp($horsebuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "spider" and $worn.neck.name isnot "cloth choker">>
-			<<set $spiderbuild = Math.clamp($spiderbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "frog" and $worn.head.name isnot "frog hat">>
-			<<set $frogbuild = Math.clamp($frogbuild - _args[1], 0, 100)>>
-		<</if>>
-		<<if _args[0] isnot "pig" and $worn.head.name isnot "truffle hair clip">>
-			<<set $pigbuild = Math.clamp($pigbuild - _args[1], 0, 100)>>
 		<</if>>
 	<</if>>
 <</widget>>
 
 
 <<widget "transformationStateUpdate">>
-	<<if $wolfbuild gte 1 and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash" and playerNormalPregnancyType() isnot "wolf">>
-		<<transform wolf -1>>
-	<</if>>
+	<<if !($worn.neck.name is "familiar collar" and $worn.neck.cursed is 1)>>
+		<<if $wolfbuild gte 1 and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash" and playerNormalPregnancyType() isnot "wolf">>
+			<<transform wolf -1>>
+		<</if>>
 
-	<<if $catbuild gte 1 and $worn.neck.name isnot "cat bell collar" and playerNormalPregnancyType() isnot "cat">>
-		<<transform cat -1>>
-	<</if>>
+		<<if $catbuild gte 1 and $worn.neck.name isnot "cat bell collar" and playerNormalPregnancyType() isnot "cat">>
+			<<transform cat -1>>
+		<</if>>
 
-	<<if $cowbuild gte 1 and $worn.neck.name isnot "cow bell" and playerNormalPregnancyType() isnot "cow">>
-		<<transform cow -1>>
-	<</if>>
+		<<if $cowbuild gte 1 and $worn.neck.name isnot "cow bell" and playerNormalPregnancyType() isnot "cow">>
+			<<transform cow -1>>
+		<</if>>
 
-	<<if $birdbuild gte 1 and $worn.head.name isnot "feathered hair clip" and playerNormalPregnancyType() isnot "bird">>
-		<<transform bird -1>>
-	<</if>>
+		<<if $birdbuild gte 1 and $worn.head.name isnot "feathered hair clip" and $worn.neck.name isnot "feather necklace" and playerNormalPregnancyType() isnot "hawk">>
+			<<transform bird -1>>
+		<</if>>
 
-	<<if $foxbuild gte 1 and $worn.head.name isnot "spirit mask" and playerNormalPregnancyType() isnot "fox">>
-		<<transform fox -1>>
-	<</if>>
+		<<if $foxbuild gte 1 and $worn.head.name isnot "spirit mask" and $worn.neck.name isnot "jasper pendant" and playerNormalPregnancyType() isnot "fox">>
+			<<transform fox -1>>
+		<</if>>
 
 	<<if $sheepbuild gte 1 and $worn.head.name isnot "cloud hair clip">>
 		<<transform sheep -1>>
@@ -547,65 +523,64 @@
 	<<if $wolfgirl gte 6>>
 		<<def 5>>
 	<</if>>
+	<</if>>
 
 	<<transformationAlteration>>
 
-	<<if $cat gt 0 or $wolfgirl gt 0 or $cow gt 0 or $harpy gt 0 or $fox gt 0 or $horse gt 0>>
+	<<if $cat gt 0 or $wolfgirl gt 0 or $cow gt 0 or $harpy gt 0 or $fox gt 0>>
 		<<set $physicalTransform to 1>>
 	<<else>>
 		<<set $physicalTransform to 0>>
 	<</if>>
-	<<if $physicalTransform is 1 or $specialTransform is 1>>
+	<<if ($physicalTransform is 1 or $specialTransform is 1) and !($hypnosis_traits.peace and $settings.hypnosisEnabled)>>
 		<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
 			<<if ($transformationParts.bird.wings is "hidden" or $transformationParts.dragon.wings is "hidden") and ($transformationParts.demon.wings is "hidden" or $transformationParts.angel.wings is "hidden" or $transformationParts.fallenAngel.wings is "hidden" or $transformationParts.bee.wings is "hidden")>>
 			<<else>>
 				<<set _excludeWings to true>>
 			<</if>>
 		<</if>>
-		<<set _keys to Object.keys($transformationParts)>>
-		<<if $panicattacks gte 2>>
-			/*<<for _i to 0; _i lt _keys.length; _i++>>
-				<<set _key to _keys[_i]>>
-				<<for _label, _value range $transformationParts[_key]>>
-					<<if _value is "hidden" and !["pubes", "pits", "cheeks", "flaunting", "eyes"].includes(_label) and !(_label is "wings" and _excludeWings is true)>>
-						<<set $transformationParts[clone(_key)][clone(_label)] to "default">>
+		<<set _keys to Object.keys(V.transformationParts)>>
+		<<for _i to 0; _i lt _keys.length; _i++>>
+			<<set _key to _keys[_i]>>
+			<<for _label, _value range V.transformationParts[_key]>>
+				<<if _value is "hidden" and _key isnot "traits" and !["pubes", "pits"].includes(_label) and !(_label is "wings" and _excludeWings is true)>>
+					<<if $panicattacks gte 2>>
+						<<set V.transformationParts[clone(_key)][clone(_label)] to "default">>
 						<<set _hidingFailed to true>>
-					<</if>>
-				<</for>>
-			<</for>>
-			<<if _hidingFailed>>
-				<span class="red">Your mental state is too fragile to continue hiding your inner self.</span>
-			<</if>>*/
-		<<else>>
-			<<for _i to 0; _i lt _keys.length; _i++>>
-				<<set _key to _keys[_i]>>
-				<<for _label, _value range $transformationParts[_key]>>
-					/*<<if _value is "hidden" and !["pubes", "pits", "cheeks", "flaunting", "eyes"].includes(_label) and !(_label is "wings" and _excludeWings is true)>>
+						<<set $effectsmessage to 1>>
+						<<set $hiddenTransformMessage to 1>>
+					<<else>>
 						<<trauma 15>>
-						<<set _hiddenTrauma to true>>
-					<</if>>*/
-				<</for>>
+						<<set $effectsmessage to 1>>
+						<<set $hiddenTransformMessage to 2>>
+					<</if>>
+				<</if>>
 			<</for>>
-			<<if _hiddenTrauma is true>>
-				<span class="red">Hiding your inner self takes a toll on your mental state.</span>
-			<</if>>
-		<</if>>
+		<</for>>
 	<</if>>
+
+	<<set _tfs to ["angel", "fallenangel", "demon", "dryad", "wolfgirl", "cat", "cow", "harpy", "fox"]>>
+	<<for _i to 0; _i lt _tfs.length; _i++>>
+		<<set _tf to _tfs[_i]>>
+		<<if V[_tf] gte (_tf is "fallenangel" ? 2 : 6)>>
+			<<set $transformationHistory.pushUnique(_tf)>>
+		<</if>>
+	<</for>>
 <</widget>>
 
 <<widget "transformationAlteration">>
-	<<if $transformdisabledivine is "f">>
+	<<if $settings.transformDivineEnabled>>
 		<<if ($demonbuild gte 5 and $specialTransform isnot 1) or ($demon gte 1 and $specialTransform is 1)>>
 			<<demonTransform $demon>>
 		<<elseif ($angelbuild gte 5 and $specialTransform isnot 1) or ($angel gte 1 and $specialTransform is 1)>>
 			<<angelTransform $angel>>
- 		<<elseif $fallenangel gte 2>>
+		<<elseif $fallenangel gte 2>>
 			<<fallenButNotOut $fallenangel>>
 		<</if>>
 	<</if>>
 
-
-	<<if $transformdisable is "f">>
+	<<if $settings.transformAnimalEnabled>>
+		<<if $transformdisable is "f">>
 		<<if ($wolfbuild gte 5 and $physicalTransform isnot 1) or ($wolfgirl gte 1 and $physicalTransform is 1)>>
 			<<wolfTransform $wolfgirl>>
 		<<elseif ($catbuild gte 5 and $physicalTransform isnot 1) or ($cat gte 1 and $physicalTransform is 1)>>
@@ -647,35 +622,34 @@
 		<</if>>
 	<</if>>
 <</widget>>
-
 <<widget "hirsuteHideCheck">>
-	<<if $pbdisable is "t" and !["hidden", "disabled"].includes($transformationParts.wolf.pubes)>>
-		<<set $transformationParts.wolf.pubes to "hidden">>
+	<<if !$settings.pubicHairEnabled and !["hidden", "disabled"].includes(V.transformationParts.wolf.pubes)>>
+		<<set V.transformationParts.wolf.pubes to "hidden">>
 	<</if>>
-	<<if $pbdisable is "t" and !["hidden", "disabled"].includes($transformationParts.wolf.pits)>>
-		<<set $transformationParts.wolf.pits to "hidden">>
+	<<if !$settings.pubicHairEnabled and !["hidden", "disabled"].includes(V.transformationParts.wolf.pits)>>
+		<<set V.transformationParts.wolf.pits to "hidden">>
 	<</if>>
-	<<if $pbdisable is "t" and !["hidden", "disabled"].includes($transformationParts.bird.pubes)>>
-		<<set $transformationParts.bird.pubes to "hidden">>
+	<<if !$settings.pubicHairEnabled and !["hidden", "disabled"].includes(V.transformationParts.bird.pubes)>>
+		<<set V.transformationParts.bird.pubes to "hidden">>
 	<</if>>
 <</widget>>
 
 /* Used to temporarily hide all transformation parts, such as when needing to turn the player into Janet. showTransformations will bring back all parts this widget hid. */
 <<widget "hideTransformations">>
-	<<set $saveTransformtaions to clone($transformationParts)>>
-	<<for _transformation, _parts range $transformationParts>>
+	<<set $saveTransformations to clone(V.transformationParts)>>
+	<<for _transformation, _parts range V.transformationParts>>
 		<<for _part, _value range _parts>>
 			<<if _value isnot "disabled" and _value isnot "hidden">>
-				<<set $transformationParts[_transformation][_part] to "hidden">>
+				<<set V.transformationParts[_transformation][_part] to "hidden">>
 			<</if>>
 		<</for>>
 	<</for>>
 <</widget>>
 
 <<widget "showTransformations">>
-	<<if $saveTransformtaions isnot undefined>>
-		<<set $transformationParts to clone($saveTransformtaions)>>
-		<<unset $saveTransformtaions>>
+	<<if $saveTransformations isnot undefined>>
+		<<set V.transformationParts to clone($saveTransformations)>>
+		<<unset $saveTransformations>>
 	<</if>>
 <</widget>>
 
@@ -3339,4 +3313,42 @@
 	<<set $transformationParts.eldritch.eyes to "disabled">>
 	<<set $transformationParts.eldritch.mist to "disabled">>
 	<<set $transformationParts.eldritch.tentacle to "disabled">>
+<</widget>>
+
+
+<<widget "revealTransformations">>
+	/* DO NOT USE without calling rehideTransformations before scene end */
+	<<set $tfPartsHidden to clone(V.transformationParts)>>
+	<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
+		<<if V.transformationParts.bird.wings is "hidden" and (V.transformationParts.demon.wings is "hidden" or V.transformationParts.angel.wings is "hidden" or V.transformationParts.fallenAngel.wings is "hidden")>>
+		<<else>>
+			<<set $_excludeWings to true>>
+		<</if>>
+	<</if>>
+	<<set $_keys to Object.keys(V.transformationParts)>>
+	<<for $_i to 0; $_i lt $_keys.length; $_i++>>
+		<<set $_key to $_keys[$_i]>>
+		<<for $_label, $_value range V.transformationParts[$_key]>>
+			<<if $_value is "hidden" and $_key isnot "traits" and !["pubes", "pits", "cheeks"].includes($_label) and !($_label is "wings" and $_excludeWings is true)>>
+				<<set V.transformationParts[clone($_key)][clone($_label)] to "default">>
+				<<set $tfPartsHidden[clone($_key)][clone($_label)] to "hideLater">>
+				<<set _unhidden to true>>
+			<</if>>
+		<</for>>
+	<</for>>
+<</widget>>
+
+<<widget "rehideTransformations">>
+	<<if $tfPartsHidden>>
+		<<set $_keys to Object.keys($tfPartsHidden)>>
+		<<for $_i to 0; $_i lt $_keys.length; $_i++>>
+			<<set $_key to $_keys[$_i]>>
+			<<for $_label, $_value range $tfPartsHidden[$_key]>>
+				<<if $_value is "hideLater">>
+					<<set V.transformationParts[clone($_key)][clone($_label)] to "hidden">>
+				<</if>>
+			<</for>>
+		<</for>>
+		<<unset $tfPartsHidden>>
+	<</if>>
 <</widget>>

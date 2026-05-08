@@ -3,12 +3,17 @@
 <<widget "characteristics">>
 	<br>
 	You are
+	<<if $wraithSkin>>
+		a spirit
+	<<else>>
 		<<if $angel gte 6>>
 			an angelic
 		<<elseif $fallenangel gte 2>>
 			a fallen
 		<<elseif $demon gte 6>>
 			a demonic
+		<<elseif $dryad gte 6>>
+			a verdant
 		<<elseif $eldritch gte 1>>
 			an eldritch
 		<<else>>
@@ -87,11 +92,8 @@
 		<<if $gob is 1>>
 			goblin
 		<</if>>
-	<<if $NudeGenderDC gte 0 and $ghost isnot 2>>
-		<<gender>>.
-	<<elseif $NudeGenderDC is 0 and $ghost isnot 2>>
-		<<gender_posture>>.
 	<</if>>
+	<<pcGender>>.
 	<br><br>
 
 	<<switch $bodysize>>
@@ -125,14 +127,14 @@
 	You have a <<bottom true>>.
 	<<if $player.penisExist and $player.vaginaExist>>
 		<<silently>>
-		<<penis>><<set _penis to _text_output>>
-		<<pussy true true>><<set _pussy to _text_output>>
+			<<penis false true>><<set _penis to _text_output>>
+			<<pussy false true>><<set _pussy to _text_output>>
 		<</silently>>
 		You have <<a _penis>> and <<a _pussy>>.
 	<<else>>
 		You have
 		<<if $player.penisExist>>
-			<<silently>><<penis>><<set _penis to _text_output>><</silently>>
+			<<silently>><<penis false true>><<set _penis to _text_output>><</silently>>
 			<<a _penis>>.
 		<</if>>
 		<<if $player.vaginaExist>>
@@ -146,7 +148,7 @@
 			{ requiredValue: 0,		color: '',	preText: 'Your ',									description: '<<haircolourtext>>', postText: ' hair is short.' },
 			{ requiredValue: 100,	color: '',	preText: 'When left natural, your ',				description: '<<haircolourtext>>', postText: ' hair passes your chin, <<fringedescription>>' },
 			{ requiredValue: 200,	color: '',	preText: 'When left natural, your ',				description: '<<haircolourtext>>', postText: ' hair comes down to your shoulders, <<fringedescription>>' },
-			{ requiredValue: 300,	color: '',	preText: 'When left natural, your ',				description: '<<haircolourtext>>', postText: ' hair is quite long, and comes down to the top of your chest, <<fringedescription>>' },
+			{ requiredValue: 300,	color: '',	preText: 'When left natural, your ',				description: '<<haircolourtext>>', postText: ' hair is quite long and comes down to the top of your chest, <<fringedescription>>' },
 			{ requiredValue: 400,	color: '',	preText: 'When left natural, your long ',			description: '<<haircolourtext>>', postText: ' hair hangs down to your nipples, <<fringedescription>>' },
 			{ requiredValue: 500,	color: '',	preText: 'When left natural, your long ',			description: '<<haircolourtext>>', postText: ' hair reaches the top of your tummy, <<fringedescription>>' },
 			{ requiredValue: 600,	color: '',	preText: 'When left natural, your long ',			description: '<<haircolourtext>>', postText: ' hair reaches your navel, <<fringedescription>>' },
@@ -163,7 +165,7 @@
 	<<set $_pregnancy to getPregnancyObject()>>
 	<<set $_menstruation to $sexStats.vagina.menstruation>>
 	<<set $_pills to $sexStats.pills>>
-	<<set $_knowsTheyCanBecomePregnant to ($playerPregnancyHumanDisable is "f" or $playerPregnancyBeastDisable is "f") and playerAwareTheyCanBePregnant()>>
+	<<set $_knowsTheyCanBecomePregnant to ($settings.playerPregnancyHumanEnabled or $settings.playerPregnancyBeastEnabled) and playerAwareTheyCanBePregnant()>>
 	<<set $_heatArousal to playerHeatMinArousal()>>
 	<<set $_rutArousal to playerRutMinArousal()>>
 	<<set $_heatRutDisplay to ($_heatArousal and playerAwareTheyAreInHeat() ? "heat" : "") + ($_heatArousal and playerAwareTheyAreInHeat() and $_rutArousal ? " and " : "") + ($_rutArousal ? "rut" : "")>>
@@ -196,8 +198,19 @@
 					<</if>>
 				<<case "wolf">>
 					<<set _childType to ($_number is 1 || $_number is "more than one" ? "wolf pup" : "wolf pups")>>
+				<<case "hawk">>
+					<<set _childType to ($_number is 1 || $_number is "more than one" ? "hawk egg" : "hawk eggs")>>
 			<</switch>>
-			You're pregnant with <<number $_number>> _childType, in the _trimester trimester of your pregnancy.
+			<<if $_pregnancy.type is "hawk">>
+				You're pregnant with <<number $_number>> _childType,
+				<<switch _trimester>>
+					<<case "first">>and it will be a while before you can lay <<if $_number is 1>>it<<else>>them<</if>>.
+					<<case "second">>but it will still take some time to lay <<if $_number is 1>>it<<else>>them<</if>>.
+					<<case "third">>and you'll be ready to lay <<if $_number is 1>>it<<else>>them<</if>> soon.
+				<</switch>>
+			<<else>>
+				You're pregnant with <<if !["twins", "identical twins", "triplets"].includes(_childType)>><<number $_number>><</if>> _childType, in the _trimester trimester of your pregnancy.
+			<</if>>
 		<<else>>
 			You know you're in the _trimester trimester of your pregnancy.
 		<</if>>
@@ -227,7 +240,7 @@
 			<<switch $_risk>>
 				<<case 6>><<set $_pregnancyRisk to "very safe">><<set $_pregnancyRiskColour to "green">>
 				<<case 5>><<set $_pregnancyRisk to "safe">><<set $_pregnancyRiskColour to "teal">>
-				<<case 3 4>><<set $_pregnancyRisk to "some-what safe">><<set $_pregnancyRiskColour to "lblue">>
+				<<case 3 4>><<set $_pregnancyRisk to "somewhat safe">><<set $_pregnancyRiskColour to "lblue">>
 				<<case 1 2>><<set $_pregnancyRisk to "risky">><<set $_pregnancyRiskColour to "pink">>
 				<<case 0>><<set $_pregnancyRisk to "dangerous">><<set $_pregnancyRiskColour to "red">>
 			<</switch>>
@@ -245,7 +258,7 @@
 	<</if>>
 
 	<!--Semen Details-->
-	<<if $player.penisExist and $player.penissize gte -1>>
+	<<if $player.penisExist and $player.penissize gte 1>>
 		<<set _semenCapacityTextConfig = { currentValue : $semen_volume, preText: 'You produce ', states : [
 				{ requiredValue: 0,		color: '',			description: '',				postText: ' no cum.' },
 				{ requiredValue: 1,		color: 'red',		description: 'a tiny',			postText: ' amount of cum, ' },
@@ -259,7 +272,7 @@
 		}>>
 		<<set _semenVolumeTextConfig = { currentValue : $semen_amount, states : [
 				{ requiredValue: 0,							color: 'red',		preText: "",				description: "but you\'ve been milked completely dry."},
-				{ requiredValue: 1,							color: 'pink',		preText: "but you\'re ", 	description: 'almost empty. '},
+				{ requiredValue: 1,							color: 'pink',		preText: "but you\'re ",	description: 'almost empty. '},
 				{ requiredValue: ($semen_volume / 7) * 2,	color: 'pink',		preText: "but you\'re ",	description: 'running out. '},
 				{ requiredValue: ($semen_volume / 7) * 3,	color: 'purple',	preText: "but you\'re ",	description: 'running low. '},
 				{ requiredValue: ($semen_volume / 7) * 4,	color: 'blue',		preText: "and you\'ve ",	description: 'about half left. '},
@@ -289,7 +302,7 @@
 	<</if>>
 
 	<!--Lactation Details-->
-	<<if $lactating is 1 and $breastfeedingdisable is "f">>
+	<<if $lactating is 1 and $settings.breastFeedingEnabled>>
 		<<set _milkCapacityTextConfig = { currentValue : $milk_volume, preText: 'Your <<breasts>> produce a ', postText: ' amount of milk, ', states : [
 					{ requiredValue: 0,		color: 'red',		description: 'tiny'},
 					{ requiredValue: 100,	color: 'pink',		description: 'small'},
@@ -338,19 +351,19 @@
 	<!--Penis Wetness-->
 	<<if $player.penisExist>>
 		<<set _penisWetnessTextConfig = { currentValue : $penisWetness, preText: 'Your penis is ', states: [
-			{ requiredValue: 0,		color: 'green',	description: 'dry.',				postText: ($player.penissize >= 2) ? " Insertions may be difficult." : ''},
+			{ requiredValue: 0,		color: 'green',	description: 'dry.',				postText: ($player.penissize >= 4) ? " Insertions may be difficult." : ''},
 			{ requiredValue: 15,	color: 'teal',	description: 'a little slick.',	postText: ''},
 			{ requiredValue: 30,	color: 'lblue',	description: 'slick.',			postText: ''},
 			{ requiredValue: 45,	color: 'blue',	description: 'moist.',			postText: ''},
 			{ requiredValue: 60,	color: 'purple',description: 'wet.',			postText: ''},
 			{ requiredValue: 75,	color: 'pink',	description: 'dripping.',		postText: ''},
-			{ requiredValue: 90,	color: 'red',	description: 'well-lubricated.',	postText: ($player.penissize >= 4) ? " It shouldn\'t have much trouble sliding into places, even at your size." : ''}
+			{ requiredValue: 90,	color: 'red',	description: 'well-lubricated.',	postText: ($player.penissize >= 6) ? " It shouldn\'t have much trouble sliding into places, even at your size." : ''}
 		]}>>
 		<<characteristic-text _penisWetnessTextConfig>>
 		<br>
 	<</if>>
 	<!--Anal Wetness-->
-	<<if $analdisable is "f">>
+	<<if $settings.analEnabled>>
 		<<set _analWetnessTextConfig = { currentValue : $anusWetness, preText: 'Your ass is ', states: _holeWetnessStates}>>
 		<<characteristic-text _analWetnessTextConfig>>
 	<</if>>
@@ -367,11 +380,11 @@
 
 				<!--PURITY-->
 				<<if $demon gte 6>>
-					<<set _purityIcon='ui/sym_demon_purity'>>
+					<<set _purityIcon='ui/tf-demon'>>
 				<<elseif $fallenangel gte 2>>
-					<<set _purityIcon='ui/sym_fallen_purity'>>
+					<<set _purityIcon='ui/tf-fallen-angel'>>
 				<<else>>
-					<<set _purityIcon='ui/sym_purity'>>
+					<<set _purityIcon='ui/tf-angel'>>
 				<</if>>
 				<<set _purityConfig = { name : "Purity", icon : _purityIcon, displayType : "level", currentValue : $purity, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
@@ -387,7 +400,7 @@
 				}>>
 
 				<!--AWARENESS-->
-				<<set _awarenessConfig = { name : "Awareness", icon : "ui/sym_awareness", displayType : "level", currentValue : $awareness, modifier: 100, modTypes: { good: [], bad: [] },
+				<<set _awarenessConfig = { name : "Awareness", icon : "ui/sym-awareness", displayType : "level", currentValue : $awareness, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
 						{ requiredValue: -200,	level: 0, color: 'green',	description: 'You are innocent.'},
 						{ requiredValue: 1,		level: 1, color: 'teal',	description: 'You are almost entirely innocent.'},
@@ -401,15 +414,15 @@
 				}>>
 
 				<!--PHYSIQUE-->
-				<<set _physiqueConfig = { name : "Physique", icon : "ui/sym_physique", displayType : "level", currentValue : $physique, maxValue: $physiquesize, modifier: 100, modTypes: { good: [], bad: [] },
+				<<set _physiqueConfig = { name : "Physique", icon : "ui/sym-physique", displayType : "level", currentValue : $physique, maxValue: $physiquesize, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
-						{ requiredValue:	0,							level: 0, color: 'red',		description: 'You are emaciated.'},
-						{ requiredValue:	$physiquesize / 7,			level: 1, color: 'pink',	description: 'You are skinny.'},
-						{ requiredValue:	($physiquesize / 7) * 2,	level: 2, color: 'purple',	description: 'Your body is lithe and slender.'},
-						{ requiredValue:	($physiquesize / 7) * 3,	level: 3, color: 'blue',	description: 'Your body is slim.'},
-						{ requiredValue:	($physiquesize / 7) * 4,	level: 4, color: 'lblue',	description: 'Your body is slim and athletic.'},
-						{ requiredValue:	($physiquesize / 7) * 5,	level: 5, color: 'teal',	description: 'Your body is toned and firm.'},
-						{ requiredValue:	($physiquesize / 7) * 6,	level: 6, color: 'green',	description: 'Your body is toned and powerful.'}
+						{ requiredValue:	0,							level: 0, color: 'red',		description: `You are ${$player.bodyshape === "soft" ? "malnourished" : "emaciated"}.`},
+						{ requiredValue:	$physiquesize / 7,			level: 1, color: 'pink',	description: `Your body is ${$player.bodyshape === "soft" ? "squishy" : "skinny"}.`},
+						{ requiredValue:	($physiquesize / 7) * 2,	level: 2, color: 'purple',	description: `Your body is ${$player.bodyshape === "soft" ? "soft and supple" : "lithe and slender"}.`},
+						{ requiredValue:	($physiquesize / 7) * 3,	level: 3, color: 'blue',	description: `Your body is ${$player.bodyshape === "soft" ? "well built" : "slim"}.`},
+						{ requiredValue:	($physiquesize / 7) * 4,	level: 4, color: 'lblue',	description: `Your body is ${$player.bodyshape === "soft" ? "sturdy" : "slim"} and athletic.`},
+						{ requiredValue:	($physiquesize / 7) * 5,	level: 5, color: 'teal',	description: `Your body is ${$player.bodyshape === "soft" ? "robust" : "toned"} and firm.`},
+						{ requiredValue:	($physiquesize / 7) * 6,	level: 6, color: 'green',	description: `Your body is ${$player.bodyshape === "soft" ? "robust" : "toned"} and powerful.`}
 					]
 				}>>
 				<<if playerBellySize() gte 10 and playerNormalPregnancyTotal() lt 50>>
@@ -435,9 +448,13 @@
 							<<set _physiqueConfig.modTypes.good.pushUnique("rugged footwear")>>
 						<</if>>
 				<</switch>>
+				<<if $auriga_artefact is "pc">>
+					<<set _physiqueConfig.modifier to Math.floor(_physiqueConfig.modifier * 1.1)>>
+					<<set _physiqueConfig.modTypes.good.pushUnique("<i>a white so pale</i>")>>
+				<</if>>
 
 				<!--WILLPOWER-->
-				<<set _willpowerConfig = { name : "Willpower", icon : "ui/redbolt", displayType : "level", currentValue : $willpower, maxValue: $willpowermax, modifier: 100, modTypes: { good: [], bad: [] },
+				<<set _willpowerConfig = { name : "Willpower", icon : "ui/sym-trauma", displayType : "level", currentValue : $willpower, maxValue: $willpowermax, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
 						{ requiredValue:	0,						level: 0, color: 'red',		description: 'You are timid.'},
 						{ requiredValue:	$willpowermax / 7,		level: 1, color: 'pink',	description: 'You are fainthearted.'},
@@ -448,16 +465,16 @@
 						{ requiredValue:	($willpowermax / 7) * 6,	level: 6, color: 'green',	description: 'Your will is iron.'}
 					]
 				}>>
-				<<if $earSlime.growth gt 50>>
+				<<if numberOfEarSlime() gte 2 and $earSlime.growth gt 50>>
 					<<set _willpowerConfig.modifier to Math.floor(_willpowerConfig.modifier * (0.9 - Math.clamp(($earSlime.growth - 50) / 1000, 0, 0.1)))>>
 					<<set _willpowerConfig.modTypes.bad.pushUnique("ear slimes")>>
-				<<elseif $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime">>
+				<<elseif numberOfEarSlime() gte 2>>
 					<<set _willpowerConfig.modifier to Math.floor(_willpowerConfig.modifier * 0.9)>>
 					<<set _willpowerConfig.modTypes.bad.pushUnique("ear slimes")>>
 				<</if>>
 
 				<!--BEAUTY-->
-				<<set _beautyConfig = { name : "Beauty", icon : "ui/sym_beauty", displayType : "level", currentValue : $beauty, maxValue: $beautymax, modifier: 100, modTypes: { good: [], bad: [] },
+				<<set _beautyConfig = { name : "Beauty", icon : "ui/sym-beauty", displayType : "level", currentValue : $beauty, maxValue: $beautymax, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
 						{ requiredValue:	0,						level: 0, color: 'red',		description: 'You are plain.'},
 						{ requiredValue:	$beautymax / 7,			level: 1, color: 'pink',	description: 'You are cute.'},
@@ -470,7 +487,7 @@
 				}>>
 
 				<!--PROMISCUITY-->
-				<<set _promiscuityConfig = { name : "Promiscuity", icon : "ui/sym_promiscuity", displayType : "level", currentValue : $promiscuity, maxValue: 100, modifier: 100, modTypes: { good: [], bad: [] },
+				<<set _promiscuityConfig = { name : "Promiscuity", icon : "ui/sym-lust", displayType : "level", currentValue : $promiscuity, maxValue: 100, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
 						{ requiredValue: 0,		level: 0, color: 'green',	description: 'You are chaste and pure.'},
 						{ requiredValue: 1,		level: 1, color: 'teal',	description: 'You are prudish.'},
@@ -483,7 +500,7 @@
 				}>>
 
 				<!--EXHIBITIONISM-->
-				<<set _exhibitionismConfig = { name : "Exhibitionism", icon : "ui/sym_exhibitionism", displayType : "level", currentValue : $exhibitionism, maxValue: 100, modifier: 100, modTypes: { good: [], bad: [] },
+				<<set _exhibitionismConfig = { name : "Exhibitionism", icon : "ui/sym-exhibitionism", displayType : "level", currentValue : $exhibitionism, maxValue: 100, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
 						{ requiredValue: 0,		level: 0, color: 'green',	description: 'You are coy.'},
 						{ requiredValue: 1,		level: 1, color: 'teal',	description: 'You are shy.'},
@@ -496,7 +513,7 @@
 				}>>
 
 				<!--DEVIANCY-->
-				<<set _deviancyConfig = { name : "Deviancy", icon : "ui/sym_deviancy", displayType : "level", currentValue : $deviancy, maxValue: 100, modifier: 100, modTypes: { good: [], bad: [] },
+				<<set _deviancyConfig = { name : "Deviancy", icon : "ui/sym-deviancy", displayType : "level", currentValue : $deviancy, maxValue: 100, modifier: 100, modTypes: { good: [], bad: [] },
 					states : [
 						{ requiredValue: 0,		level: 0, color: 'green',	description: 'You are squeamish.'},
 						{ requiredValue: 1,		level: 1, color: 'teal',	description: 'You are conventional.'},
@@ -507,6 +524,25 @@
 						{ requiredValue: 95,	level: 6, color: 'red',		description: 'You lust for the unspeakable.'}
 					]
 				}>>
+
+				<!-- Visual indicator for lewd stats being affected by alcohol -->
+				<<if $drunk gte 1>>
+					<<set _promiscuityConfig.modTypes.good.pushUnique("alcohol")>>
+					<<set _exhibitionismConfig.modTypes.good.pushUnique("alcohol")>>
+					<<set _deviancyConfig.modTypes.good.pushUnique("alcohol")>>
+				<</if>>
+
+				<!-- Visual indicator for lewd stats being affected by heat -->
+				<<if playerHeatMinArousal() gte 1>>
+					<<set _promiscuityConfig.modTypes.good.pushUnique("in heat")>>
+					<<set _deviancyConfig.modTypes.good.pushUnique("in heat")>>
+				<</if>>
+
+				<!-- Visual indicator for lewd stats being affected by rut -->
+				<<if playerRutMinArousal() gte 1>>
+					<<set _promiscuityConfig.modTypes.good.pushUnique("in rut")>>
+					<<set _deviancyConfig.modTypes.good.pushUnique("in rut")>>
+				<</if>>
 
 				<!-- MOOR LUCK, at the end so it appears at the end of the mouseover tooltip -->
 				<<if $moorLuck gt 0>>
@@ -559,9 +595,9 @@
 		<div id="base-skills" class="characteristic-box-list" @style="($parasite.left_ear.name == 'slime' || $parasite.right_ear.name == 'slime') ? '--min-width: 30%;' : ''">
 			<!--Additional skills configurations-->
 			<<silently>>
-				<<set _corruptionConfig =	{ name : "Corruption",	displayType : "none",	currentValue : $earSlime.corruption,	modifier: 100, modTypes: { good: [], bad: [] },		meterColor: 'red'}>>
+				<<set _corruptionConfig =	{ name : "Corruption",	displayType : "none",	currentValue : $earSlime.corruption,	modifier: 100, modTypes: { good: [], bad: [] },		meterColor: $earSlime.startedThreats ? "purple" : "blue", secondValue: $earSlime.growth / 2, secondMeterColor: "red"}>>
 				<<set _skulduggeryConfig =	{ name : "Skulduggery", displayType : "grade",	currentValue : $skulduggery,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
-				<<set _dancingConfig =		{ name : "Dancing",		displayType : "grade",	currentValue : $danceskill,			modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
+				<<set _dancingConfig =		{ name : "Dancing",		displayType : "grade",	currentValue : $danceskill,			modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _swimmingConfig =		{ name : "Swimming",	displayType : "grade",	currentValue : $swimmingskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _athleticsConfig =	{ name : "Athletics",	displayType : "grade",	currentValue : $athletics,			modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
 				<<set _tendingConfig =		{ name : "Tending",		displayType : "grade",	currentValue : $tending,			modifier: 100, modTypes: { good: [], bad: [] },		states : _detailedSkillGrades}>>
@@ -583,11 +619,15 @@
 					<<set _athleticsConfig.modifier to Math.floor(_athleticsConfig.modifier * (1 - (_bellySize / _pregnancyModifier)))>>
 					<<set _athleticsConfig.modTypes.bad.pushUnique(playerAwareTheyArePregnant() ? "Pregnant" : "Large Belly")>>
 				<</if>>
+				<<if V.transformationParts.traits.chase isnot "disabled">>
+					<<set _athleticsConfig.modifier to Math.floor(_athleticsConfig.modifier * 1.10)>>
+					<<set _athleticsConfig.modTypes.good.pushUnique("thrill of the chase")>>
+				<</if>>
 				<<if $worn.hands.type.includes("sticky_fingers")>>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("sticky fingers")>>
 				<</if>>
-				<<if $transformationParts.traits.sharpEyes isnot "disabled">>
+				<<if V.transformationParts.traits.sharpEyes isnot "disabled">>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("sharp eyes")>>
 				<</if>>
@@ -663,6 +703,14 @@
 					<<set _dancingConfig.modifier to Math.floor(_dancingConfig.modifier * 0.5)>>
 					<<set _dancingConfig.modTypes.bad.pushUnique("<b>shackled</b>")>>
 				<</if>>
+				<<if $worn.upper.type.includes("heavy") or $worn.lower.type.includes("heavy")>>
+					<<set _athleticsConfig.modifier to Math.floor(_athleticsConfig.modifier * (V.physique / V.physiquesize) / 1.5)>>
+					<<set _athleticsConfig.modTypes.bad.pushUnique("<b>armoured</b>")>>
+					<<set _swimmingConfig.modifier to Math.floor(_swimmingConfig.modifier * ((V.physique / V.physiquesize) / 3))>>
+					<<set _swimmingConfig.modTypes.bad.pushUnique("<b>armoured</b>")>>
+					<<set _dancingConfig.modifier to Math.floor(_dancingConfig.modifier * ((V.physique / V.physiquesize) / 3))>>
+					<<set _dancingConfig.modTypes.bad.pushUnique("<b>armoured</b>")>>
+				<</if>>
 				<<if $backgroundTraits.includes("plantlover")>>
 					<<set _tendingConfig.modifier to Math.floor(_tendingConfig.modifier * (1 + ($trauma / ($traumamax * 2))))>>
 					<<if $submissive lte 850>>
@@ -683,6 +731,10 @@
 					<<set _housekeepingConfig.modifier to Math.floor(_housekeepingConfig.modifier * 1.05)>>
 					<<set _housekeepingConfig.modTypes.good.pushUnique("maid outfit")>>
 				<</if>>
+				<<if $worn.handheld.type.includes("maid")>>
+					<<set _housekeepingConfig.modifier to Math.floor(_housekeepingConfig.modifier * 1.05)>>
+					<<set _housekeepingConfig.modTypes.good.pushUnique("cleaning supplies")>>
+				<</if>>
 				<<if $moorLuck gt 0>>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * (1 + ($moorLuck / 100)))>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("<i>????</i>")>>
@@ -698,38 +750,37 @@
 					<<set _housekeepingConfig.modTypes.good.pushUnique("<i>????</i>")>>
 				<</if>>
 			<</silently>>
-
-			<<if $parasite.left_ear.name is "slime" or $parasite.right_ear.name is "slime">>
-				<<characteristic-box _corruptionConfig>>
-			<</if>>
 			<<characteristic-box _skulduggeryConfig>>
 			<<characteristic-box _dancingConfig>>
 			<<characteristic-box _swimmingConfig>>
 			<<characteristic-box _athleticsConfig>>
 			<<characteristic-box _tendingConfig>>
 			<<characteristic-box _housekeepingConfig>>
+			<<if numberOfEarSlime()>>
+				<<characteristic-box _corruptionConfig>>
+			<</if>>
 		</div>
 
 		<br>
 		<span class="gold">Sex Skills</span>
 		<!--Sex skills configurations-->
 		<<silently>>
-			<<set _seductionConfig =	{ name : "Seduction",	displayType : "grade",	currentValue : $seductionskill, modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-			<<set _oralConfig =			{ name : "Oral",		displayType : "grade",	currentValue : $oralskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-			<<set _chestConfig =		{ name : "Chest",		displayType : "grade",	currentValue : $chestskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-			<<set _handsConfig =		{ name : "Hands",		displayType : "grade",	currentValue : $handskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-			<<set _buttocksConfig =		{ name : "Buttocks",	displayType : "grade",	currentValue : $bottomskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-			<<set _analConfig =			{ name : "Anal",		displayType : "grade",	currentValue : $analskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-			<<set _thighsConfig =		{ name : "Thighs",		displayType : "grade",	currentValue : $thighskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-			<<set _feetConfig =			{ name : "Feet",		displayType : "grade",	currentValue : $feetskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
+			<<set _seductionConfig =	{ name : "Seduction",	displayType : "grade",	currentValue : $seductionskill, modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : 0}>>
+			<<set _oralConfig =			{ name : "Oral",		displayType : "grade",	currentValue : $oralskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : $mouthsensitivity}>>
+			<<set _chestConfig =		{ name : "Chest",		displayType : "grade",	currentValue : $chestskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : $breastsensitivity}>>
+			<<set _handsConfig =		{ name : "Hands",		displayType : "grade",	currentValue : $handskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : 0}>>
+			<<set _buttocksConfig =		{ name : "Buttocks",	displayType : "grade",	currentValue : $bottomskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : $bottomsensitivity}>>
+			<<set _analConfig =			{ name : "Anal",		displayType : "grade",	currentValue : $analskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : $bottomsensitivity}>>
+			<<set _thighsConfig =		{ name : "Thighs",		displayType : "grade",	currentValue : $thighskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : 0}>>
+			<<set _feetConfig =			{ name : "Feet",		displayType : "grade",	currentValue : $feetskill,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : 0}>>
 			<<if $player.penisExist>>
-				<<set _penileConfig =	{ name : "Penile",		displayType : "grade",	currentValue : $penileskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
+				<<set _penileConfig =	{ name : "Penile",		displayType : "grade",	currentValue : $penileskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : $genitalsensitivity}>>
 			<</if>>
 			<<if playerHasStrapon()>>
-				<<set _penileConfig =	{ name : "Strap-on use",displayType : "grade",	currentValue : $penileskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
+				<<set _penileConfig =	{ name : "Strap-on use",displayType : "grade",	currentValue : $penileskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : 0}>>
 			<</if>>
 			<<if $player.vaginaExist>>
-				<<set _vaginalConfig =	{ name : "Vaginal",		displayType : "grade",	currentValue : $vaginalskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
+				<<set _vaginalConfig =	{ name : "Vaginal",		displayType : "grade",	currentValue : $vaginalskill,	modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades, 	sensitivity : $genitalsensitivity}>>
 			<</if>>
 			<<if $earSlime.growth gt 50 and !V.earSlime.defyCooldown>>
 				<<set _seductionConfig.modTypes.good.pushUnique("ear slimes")>>
@@ -762,16 +813,16 @@
 			<<if playerHeatMinArousal()>>
 				<<if _vaginalConfig>>
 					<<set _vaginalConfig.modTypes.good.pushUnique("in heat")>>
-					<<set _vaginalConfig.modifier to Math.floor(_vaginalConfig.modifier * (1 + (playerHeatMinArousal() / 10000)))>>
+					<<set _vaginalConfig.modifier to Math.floor(_vaginalConfig.modifier * (1 + (Math.clamp(playerHeatMinArousal(), 0, 4000) / 20000)))>>
 				<</if>>
 				<<if !$player.vaginaExist>>
 					<<set _analConfig.modTypes.good.pushUnique(playerAwareTheyCanBePregnant() ? "in heat" : "<i>????</i>")>>
-					<<set _analConfig.modifier to Math.floor(_analConfig.modifier * (1 + (playerHeatMinArousal() / 10000)))>>
+					<<set _analConfig.modifier to Math.floor(_analConfig.modifier * (1 + (Math.clamp(playerHeatMinArousal(), 0, 4000) / 20000)))>>
 				<</if>>
 			<</if>>
 			<<if playerRutMinArousal()>>
 				<<set _penileConfig.modTypes.good.pushUnique("in rut")>>
-				<<set _penileConfig.modifier to Math.floor(_penileConfig.modifier * (1 + (playerRutMinArousal() / 10000)))>>
+				<<set _penileConfig.modifier to Math.floor(_penileConfig.modifier * (1 + (Math.clamp(playerRutMinArousal(), 0, 4000) / 20000)))>>
 			<</if>>
 		<</silently>>
 		<<if $options.images is 1>>
@@ -787,57 +838,57 @@
 					</div>
 					<div class="sex-diagram-box">
 						<<characteristic-box _chestConfig>>
-						<<connector-box 52 35 10>>
+						<<connector-box 52 35 5>>
 					</div>
 					<div class="sex-diagram-box">
 						<<characteristic-box _buttocksConfig>>
-						<<connector-box 37 50 20>>
+						<<connector-box 37 50 13>>
 					</div>
 					<<if $player.vaginaExist>>
 						<div class="sex-diagram-box">
 							<<characteristic-box _vaginalConfig>>
-							<<connector-box 0 50 3>>
+							<<connector-box 10 -3 0 true>>
 						</div>
 						<div class="sex-diagram-box">
 							<<characteristic-box _thighsConfig>>
-							<<connector-box 37 35 10 true>>
+							<<connector-box 37 35 7 true>>
 						</div>
 					<<else>>
 						<div class="sex-diagram-box">
 							<<characteristic-box _thighsConfig>>
-							<<connector-box 0 35 10>>
+							<<connector-box 0 35 7>>
 						</div>
 					<</if>>
 				</div>
 				<div class="characteristic-box-list right-column">
 					<div class="sex-diagram-box">
-						<<connector-box 71 35 3>>
+						<<connector-box 73 35 16>>
 						<<characteristic-box _oralConfig>>
 					</div>
 					<div class="sex-diagram-box">
-						<<connector-box 74 50 15>>
+						<<connector-box 74 50 23>>
 						<<characteristic-box _handsConfig>>
 					</div>
 					<<if $player.penisExist or playerHasStrapon()>>
 						<div class="sex-diagram-box">
-							<<connector-box 36 65 2>>
+							<<connector-box 34 65 10>>
 							<<characteristic-box _penileConfig>>
 						</div>
 						<div class="sex-diagram-box">
-							<<connector-box 2 50 12 true>>
+							<<connector-box 2 50 20 true>>
 							<<characteristic-box _analConfig>>
 						</div>
 						<div class="sex-diagram-box">
-							<<connector-box 0 50 14>>
+							<<connector-box 5 50 25 true>>
 							<<characteristic-box _feetConfig>>
 						</div>
 					<<else>>
 						<div class="sex-diagram-box">
-							<<connector-box 39 65 12>>
+							<<connector-box 39 65 20>>
 							<<characteristic-box _analConfig>>
 						</div>
 						<div class="sex-diagram-box">
-							<<connector-box 45 80 15>>
+							<<connector-box 40 80 25>>
 							<<characteristic-box _feetConfig>>
 						</div>
 					<</if>>
@@ -916,12 +967,12 @@
 		</div>
 
 		<br>
-		<span class="gold">Weapon skills</span>
+		<span class="gold">Weapon Skills</span>
 		<div id="prof" class="characteristic-box-list">
 			<<silently>>
 				<<set _sprayConfig =		{ name : "Sprays",		displayType : "grade",	currentValue : $prof.spray,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
 				<<set _netConfig =			{ name : "Nets",		displayType : "grade",	currentValue : $prof.net,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
-				<<set _batonConfig =			{ name : "Batons",		displayType : "grade",	currentValue : $prof.baton,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
+				<<set _batonConfig =		{ name : "Batons",		displayType : "grade",	currentValue : $prof.baton,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
 				<<set _whipConfig =			{ name : "Whips",		displayType : "grade",	currentValue : $prof.whip,		modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
 				<<set _hiddenConfig =		{ name : "<i>????</i>",	displayType : "grade",	currentValue : 0,				modifier: 100, modTypes: { good: [], bad: [] },		states : _basicSkillGrades}>>
 			<</silently>>
@@ -954,132 +1005,72 @@
 	<span class="gold">Insecurities</span>
 	<div class="description">Scrutiny becomes harder to take as insecurity increases, inflicting more stress and damaging control. Acceptance renders you immune to the effect.</div>
 	<br><br>
-	<<if $insecurity_penis_tiny gte 1 and $player.penissize lte 0 and $acceptance_penis_tiny lte 999>>
-		<span class="red">Insecurity: Tiny Penis</span>
-		<div class="meter">
-			<<set _percent=Math.floor(($insecurity_penis_tiny/1000)*100)>>
-			<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
-		</div>
-		<<if $acceptance_penis_tiny gte 1 and $acceptance_penis_tiny lte 999 and $player.penissize lte 0>>
-			<span class="green">Acceptance: Tiny Penis</span>
-			<div class="meter">
-				<<set _percent=Math.floor(($acceptance_penis_tiny/1000)*100)>>
-				<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
-			</div>
-		<</if>>
-	<</if>>
-	<<if $insecurity_penis_small gte 1 and $player.penissize is 1 and $acceptance_penis_small lte 999>>
-		<span class="red">Insecurity: Small Penis</span>
+	<<set $_penisSize to setup.penisSizes[$player.penissize].toUpperFirst()>>
+	<<if insecurityExists("penis_small")>>
+		<span class="red">Insecurity: <<print $_penisSize>> Penis</span>
 		<div class="meter">
 			<<set _percent=Math.floor(($insecurity_penis_small/1000)*100)>>
 			<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
 		</div>
-		<<if $acceptance_penis_small gte 1 and $acceptance_penis_small lte 999 and $player.penissize is 1>>
-			<span class="green">Acceptance: Small Penis</span>
+		<<if $acceptance_penis_small gte 1>>
+			<span class="green">Acceptance: <<print $_penisSize>> Penis</span>
 			<div class="meter">
 				<<set _percent=Math.floor(($acceptance_penis_small/1000)*100)>>
 				<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
 			</div>
 		<</if>>
 	<</if>>
-	<<if $player.gender is "m">>
-		<<if $insecurity_penis_big gte 1 and $player.penissize gte 4 and $acceptance_penis_big lte 999>>
-			<span class="red">Insecurity: Enormous Penis</span>
-			<div class="meter">
-				<<set _percent=Math.floor(($insecurity_penis_big/1000)*100)>>
-				<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
-			</div>
-			<<if $acceptance_penis_big gte 1 and $acceptance_penis_big lte 999 and $player.penissize gte 4>>
-				<span class="green">Acceptance: Big Penis</span>
-				<div class="meter">
-					<<set _percent=Math.floor(($acceptance_penis_big/1000)*100)>>
-					<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
-				</div>
-			<</if>>
-		<</if>>
-	<<else>>
-		<<if $insecurity_penis_big gte 1 and $player.penissize gte 2 and $acceptance_penis_big lte 999>>
-			<span class="red">Insecurity: Enormous Penis</span>
-			<div class="meter">
-				<<set _percent=Math.floor(($insecurity_penis_big/1000)*100)>>
-				<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
-			</div>
-			<<if $acceptance_penis_big gte 1 and $acceptance_penis_big lte 999 and $player.penissize gte 2>>
-				<span class="green">Acceptance: Big Penis</span>
-				<div class="meter">
-					<<set _percent=Math.floor(($acceptance_penis_big/1000)*100)>>
-					<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
-				</div>
-			<</if>>
-		<</if>>
-	<</if>>
-	<<if $insecurity_breasts_tiny gte 1 and $player.breastsize lte 0 and $player.gender is "f" and $acceptance_breasts_tiny lte 999>>
-		<span class="red">Insecurity: Flat Chest</span>
+	<<if insecurityExists("penis_big")>>
+		<span class="red">Insecurity: <<print $_penisSize>> Penis</span>
 		<div class="meter">
-			<<set _percent=Math.floor(($insecurity_breasts_tiny/1000)*100)>>
+			<<set _percent=Math.floor(($insecurity_penis_big/1000)*100)>>
 			<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
 		</div>
-		<<if $acceptance_breasts_tiny gte 1 and $acceptance_breasts_tiny lte 999 and $player.breastsize lte 0 and $player.gender is "f">>
-			<span class="green">Acceptance: Tiny Breasts</span>
+		<<if $acceptance_penis_big gte 1>>
+			<span class="green">Acceptance: <<print $_penisSize>> Penis</span>
 			<div class="meter">
-				<<set _percent=Math.floor(($acceptance_breasts_tiny/1000)*100)>>
+				<<set _percent=Math.floor(($acceptance_penis_big/1000)*100)>>
 				<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
 			</div>
 		<</if>>
 	<</if>>
-	<<if $insecurity_breasts_small gte 1 and $player.breastsize gte 1 and $player.breastsize lte 5 and $acceptance_breasts_small lte 999>>
-		<span class="red">Insecurity: Small Breasts</span>
+	<<set $_breastSize to setup.breastsizes[$player.breastsize].toUpperFirst()>>
+	<<if insecurityExists("breasts_small")>>
+		<span class="red">Insecurity: <<print $player.breastsize ? "$_breastSize Breasts" : "Flat Chest">></span>
 		<div class="meter">
 			<<set _percent=Math.floor(($insecurity_breasts_small/1000)*100)>>
 			<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
 		</div>
-		<<if $acceptance_breasts_small gte 1 and $acceptance_breasts_small lte 999 and $player.breastsize gte 1 and $player.breastsize lte 5>>
-			<span class="green">Acceptance: Small Breasts</span>
+		<<if $acceptance_breasts_small gte 1>>
+			<span class="green">Acceptance: <<print $player.breastsize ? "$_breastSize Breasts" : "Flat Chest">></span>
 			<div class="meter">
 				<<set _percent=Math.floor(($acceptance_breasts_small/1000)*100)>>
 				<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
 			</div>
 		<</if>>
 	<</if>>
-	<<if $player.gender is "f">>
-		<<if $insecurity_breasts_big gte 1 and $player.breastsize gte 8 and $acceptance_breasts_big lte 999>>
-		<span class="red">Insecurity: Huge Breasts</span>
+	<<if insecurityExists("breasts_big")>>
+	<span class="red">Insecurity: <<print $player.gender is "m" ? "Male" : $_breastSize>> Breasts</span>
+		<div class="meter">
+			<<set _percent=Math.floor(($insecurity_breasts_big/1000)*100)>>
+			<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
+		</div>
+		<<if $acceptance_breasts_big gte 1>>
+			<span class="green">Acceptance: <<print $player.gender is "m" ? "Male" : $_breastSize>> Breasts</span>
 			<div class="meter">
-				<<set _percent=Math.floor(($insecurity_breasts_big/1000)*100)>>
-				<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
+				<<set _percent=Math.floor(($acceptance_breasts_big/1000)*100)>>
+				<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
 			</div>
-			<<if $acceptance_breasts_big gte 1 and $acceptance_breasts_big lte 999 and $player.breastsize gte 8>>
-				<span class="green">Acceptance: Big Breasts</span>
-				<div class="meter">
-					<<set _percent=Math.floor(($acceptance_breasts_big/1000)*100)>>
-					<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
-				</div>
-			<</if>>
-		<</if>>
-	<<else>>
-		<<if $insecurity_breasts_big gte 1 and $player.breastsize gte 6 and $acceptance_breasts_big lte 999>>
-			<span class="red">Insecurity: Huge Breasts</span>
-			<div class="meter">
-				<<set _percent=Math.floor(($insecurity_breasts_big/1000)*100)>>
-				<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
-			</div>
-			<<if $acceptance_breasts_big gte 1 and $acceptance_breasts_big lte 999 and $player.breastsize gte 6>>
-				<span class="green">Acceptance: Big Breasts</span>
-				<div class="meter">
-					<<set _percent=Math.floor(($acceptance_breasts_big/1000)*100)>>
-					<<print '<div class="greenbar" style="width:' + _percent + '%"></div>'>>
-				</div>
-			<</if>>
 		<</if>>
 	<</if>>
-	<<if $insecurity_pregnancy gte 1 and $acceptance_pregnancy lte 999 and playerBellySize() gte 8>>
+	<<if insecurityExists("pregnancy")>>
 		<<set $_bellyText to (playerAwareTheyArePregnant() ? "Pregnant Belly" : "Pregnant Looking Belly")>>
 		<span class="red">Insecurity: <<print $_bellyText>></span>
 		<div class="meter">
 			<<set _percent=Math.floor(($insecurity_pregnancy/1000)*100)>>
 			<<print '<div class="redbar" style="width:' + _percent + '%"></div>'>>
 		</div>
-		<<if between($acceptance_pregnancy, 1, 999)>>
+		<<if $acceptance_pregnancy gte 1>>
 			<span class="green">Acceptance: <<print $_bellyText>></span>
 			<div class="meter">
 				<<set _percent=Math.floor(($acceptance_pregnancy/1000)*100)>>
@@ -1092,7 +1083,7 @@
 <</widget>>
 
 <<widget "heatRutDisplay">><<silently>>
-	<<set $_knowsTheyCanBecomePregnant to ($playerPregnancyHumanDisable is "f" or $playerPregnancyBeastDisable is "f") and playerAwareTheyCanBePregnant()>>
+	<<set $_knowsTheyCanBecomePregnant to ($settings.playerPregnancyHumanEnabled or $settings.playerPregnancyBeastEnabled) and playerAwareTheyCanBePregnant()>>
 	<<set $_heatArousal to playerHeatMinArousal()>>
 	<<set $_rutArousal to playerRutMinArousal()>>
 	<<if $_heatArousal or $_rutArousal>>
@@ -1123,5 +1114,5 @@
 			<<set $_arousedText to "sending you into " + formatList($_arousal, "and")>>
 		<</if>>
 	<</if>>
-	<</silently>><<if $_sourceText>><<print $_sourceText>> is <<print $_arousedText>>.<<if _args[0]>><br><br><</if>><</if>>
+	<</silently>><<if $_sourceText>><<print $_sourceText>><<print $_source.length and $_source.length gte 2 ? " are " : " is">> <<print $_arousedText>>.<<if _args[0]>><br><br><</if>><</if>>
 <</widget>>
