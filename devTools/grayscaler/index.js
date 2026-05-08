@@ -38,7 +38,7 @@ function desaturate(image, params=[2,1,1,1,1]) {
 }
 
 /**
- * Convert one file, and save result with "_gray" suffix
+ * Convert one file and save result with "_gray" suffix
  * @param path Relative path to PNG file
  * @param params Processing params: [r_factor, g_factor, b_factor, scale, gamma]
  * @param skipexisting Do nothing if "_gray" file exists (does not check contents)
@@ -142,7 +142,7 @@ function processSlot(setupfile,imgdir,varname,hasIntegrity) {
 				if (json.colour_sidebar) {
 					let ifiles = ["full"];
 					if (hasIntegrity) {
-						ifiles.push("frayed", "tattered", "torn");
+						ifiles.push("frayed", "torn", "tattered");
 					}
 					files.push(...ifiles);
 					if (json.hood) {
@@ -172,7 +172,7 @@ function processSlot(setupfile,imgdir,varname,hasIntegrity) {
 				if (json.accessory === 1 && json.accessory_colour_sidebar) {
 					let accfiles = [];
 					if (json.accessory_integrity_img) {
-						accfiles.push("full_acc", "frayed_acc", "tattered_acc", "torn_acc");
+						accfiles.push("full_acc", "frayed_acc", "torn_acc", "tattered_acc");
 					} else {
 						accfiles.push("acc")
 					}
@@ -212,7 +212,7 @@ function processSlot(setupfile,imgdir,varname,hasIntegrity) {
 }
 
 function convertAllClothes() {
-	let slots = ["hands", "face", "feet", "genitals", "hands", "head", "legs", "lower", "neck", "over_head", "over_lower", "over_upper", "upper"];
+	let slots = ["hands", "face", "feet", "genitals", "hands", "head", "legs", "lower", "neck", "over_head", "over_lower", "over_upper", "upper", "handheld"];
 	for (let slot of slots) {
 		processSlot(`game/base-clothing/clothing-${slot}.twee`, `img/clothes/${slot}/`, `setup.clothes.${slot}`, true);
 	}
@@ -220,39 +220,7 @@ function convertAllClothes() {
 	processSlot("game/base-clothing/clothing-under-upper.twee", "img/clothes/under_upper/", "setup.clothes.under_upper", true);
 }
 
-function convertAllHair() {
-	let lengths = ["short","shoulder","chest","navel","thighs","feet"];
-	let sidedir = baseurl+"img/hair/sides";
-	let fringedir = baseurl+"img/hair/fringe";
-	let files = [];
-	for (let sidestyle of fs.readdirSync(sidedir)) {
-		for (let l of lengths) {
-			let path = sidedir+"/"+sidestyle+"/"+l+".png";
-			files.push(path);
-		}
-	}
-	for (let fringestyle of fs.readdirSync(fringedir)) {
-		for (let l of lengths) {
-			let path = fringedir+"/"+fringestyle+"/"+l+".png";
-			files.push(path);
-		}
-	}
-	files.push(baseurl+"img/hair/red/backhairthighsred.png");
-	files.push(baseurl+"img/hair/red/backhairfeetred.png");
-	for (let path of files) {
-		if (!fs.existsSync(path)) continue;
-		console.log("Processing ",path);
-		try {
-			desaturateFile(path,hairpreset)
-		} catch (e) {
-			console.error(e.message);
-			failedFiles.push(path);
-		}
-	}
-}
-
 convertAllClothes();
-// convertAllHair();
 
 
 if (failedFiles.length>0) {
