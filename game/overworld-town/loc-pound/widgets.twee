@@ -8,11 +8,11 @@
 <</widget>>
 
 <<widget "pound_text">>
-	<<if ($monsterchance gte $rng and $hallucinations gte 1) or ($monsterchance gte $rng and $monsterhallucinations is "f")>>
-		<<if $monsterchance gte 100 or $bestialitydisable is "f">>
-			<<if maleChance() is 100>>
+	<<if ($settings.monsterChance gte $rng and $hallucinations gte 1) or ($settings.monsterChance gte $rng and !$settings.monsterHallucinationsOnly)>>
+		<<if $settings.monsterChance gte 100 or $settings.bestialityEnabled>>
+			<<if beastMaleChance() is 100>>
 				<<set _text_output to "dogboys">>
-			<<elseif maleChance() is 0>>
+			<<elseif beastMaleChance() is 0>>
 				<<set _text_output to "doggirls">>
 			<<else>>
 				<<set _text_output to "dogpeople">>
@@ -74,43 +74,55 @@
 <</widget>>
 
 <<widget "gstray_happiness">>
-	<<if $statdisable is "f">> |
+	<<if !$settings.blindStatsEnabled>> |
 		<span class="green">+ Stray contentment</span>
 	<</if>>
 <</widget>>
 
+<<widget "ggstray_happiness">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="green">+ + Stray contentment</span>
+	<</if>>
+<</widget>>
+
+<<widget "gggstray_happiness">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="green">+ + + Stray contentment</span>
+	<</if>>
+<</widget>>
+
 <<widget "gpound_status">>
-	<<if $statdisable is "f">> |
+	<<if !$settings.blindStatsEnabled>> |
 		<span class="green">+ Pound respect</span>
 	<</if>>
 <</widget>>
 
 <<widget "ggpound_status">>
-	<<if $statdisable is "f">> |
+	<<if !$settings.blindStatsEnabled>> |
 		<span class="green">+ + Pound respect</span>
 	<</if>>
 <</widget>>
 
 <<widget "gggpound_status">>
-	<<if $statdisable is "f">> |
+	<<if !$settings.blindStatsEnabled>> |
 		<span class="green">+ + + Pound respect</span>
 	<</if>>
 <</widget>>
 
 <<widget "lpound_status">>
-	<<if $statdisable is "f">> |
+	<<if !$settings.blindStatsEnabled>> |
 		<span class="red">- Pound respect</span>
 	<</if>>
 <</widget>>
 
 <<widget "llpound_status">>
-	<<if $statdisable is "f">> |
+	<<if !$settings.blindStatsEnabled>> |
 		<span class="red">- - Pound respect</span>
 	<</if>>
 <</widget>>
 
 <<widget "lllpound_status">>
-	<<if $statdisable is "f">> |
+	<<if !$settings.blindStatsEnabled>> |
 		<span class="red">- - - Pound respect</span>
 	<</if>>
 <</widget>>
@@ -149,6 +161,7 @@
 <</widget>>
 
 <<widget "pound_walk_end">>
+	<<wearProp "dog leash">>
 	You make <<moneyGain $pound.money>>.<<if $phase isnot 2>><<pass 60>><</if>>
 	<br><br>
 	<<exposure>>
@@ -165,10 +178,61 @@
 
 <<widget "pound_muzzle">>
 	<<if $wolfgirl gte 6>>
-		<<facewear 24>>
+		<<facewear "wolf muzzle">>
 	<<elseif $cat gte 6 or $fox gte 6>>
-		<<facewear 25>>
+		<<facewear "kitty muzzle">>
 	<<else>>
-		<<facewear 17>>
+		<<facewear "muzzle">>
+	<</if>>
+<</widget>>
+
+<<widget "earSlimePoundLinks">>
+	<<set _linkName to _args[0] or "Next">>
+	<<switch $slimePoundTask>>
+		<<case "Sweep">>
+			<<link [[_linkName|Pound Work Sweep]]>>
+				<<if !$pound.tasks.includes("sweep")>><<stray_happiness 1>><<set $pound.tasks.push("sweep")>><</if>><<set $pound.money to 5>>
+				<<if _linkName is "Obey">><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>><</if>>
+			<</link>><<if _linkName is "Obey">><<gcorruption>><<lpain>><<lltrauma>><<lstress>><</if>>
+		<<case "Feed">>
+			<<link [[_linkName|Pound Work Feed]]>>
+				<<if !$pound.tasks.includes("feed")>><<stray_happiness 1>><<set $pound.tasks.push("feed")>><</if>><<set $pound.money to 8>>
+				<<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>>
+				<<if _linkName is "Obey">><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>><</if>>
+			<</link>><<if _linkName is "Obey">><<gcorruption>><<lpain>><<lltrauma>><<lstress>><</if>>
+		<<case "Brush">>
+			<<link [[_linkName|Pound Work Brush]]>>
+				<<if !$pound.tasks.includes("brush")>><<stray_happiness 2>><<set $pound.tasks.push("brush")>><</if>><<set $pound.money to 10>>
+				<<if _linkName is "Obey">><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>><</if>>
+			<</link>><<if _linkName is "Obey">><<gcorruption>><<lpain>><<lltrauma>><<lstress>><</if>>
+		<<case "Wash">>
+			<<link [[_linkName|Pound Work Wash]]>>
+				<<if !$pound.tasks.includes("wash")>><<stray_happiness 2>><<set $pound.tasks.push("wash")>><</if>><<set $pound.money to 12>>
+				<<if _linkName is "Obey">><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>><</if>>
+			<</link>><<if _linkName is "Obey">><<gcorruption>><<lpain>><<lltrauma>><<lstress>><</if>>
+		<<case "Walk">>
+			<<link [[_linkName|Pound Work Walk]]>>
+				<<if !$pound.tasks.includes("walk")>><<stray_happiness 3>><<set $pound.tasks.push("walk")>><</if>><<set $pound.money to 15>>
+				<<if _linkName is "Obey">><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>><</if>>
+			<</link>><<if _linkName is "Obey">><<gcorruption>><<lpain>><<lltrauma>><<lstress>><</if>>
+	<</switch>>
+<</widget>>
+
+<<widget "poundEndEvent">>
+	<<if $exposed gte 1>>
+		<<covered>> <span class="pink">You'll be in danger if you're caught like this.</span>
+		<br><br>
+
+		<<link [[Next|Pound Exposed]]>><<endevent>><</link>>
+	<<else>>
+		<<pass 60>>
+		You make <<moneyGain $pound.money>>.
+		<br><br>
+
+		<<if _args[0] or Time.hour gte $closinghour>>
+			<<link [[Next|Pound]]>><<endevent>><</link>>
+		<<else>>
+			<<link [[Next|Pound Work]]>><<endevent>><</link>>
+		<</if>>
 	<</if>>
 <</widget>>

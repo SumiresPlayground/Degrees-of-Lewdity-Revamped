@@ -1,4 +1,5 @@
 :: Clothing Shop [exitCheckBypass]
+<<set $bus to "clothingshop">>
 <div id="clothingShop-div" class="main-shop-div">
 	<<clothingShop-main>>
 </div>
@@ -24,7 +25,7 @@
 				<<highicon>><<link [[Go outside|High Street]]>><</link>>
 				<br>
 			<<else>>
-				<<link [["Hide until it's over (1:00)"|Clothing Shop]]>><<pass 1 hour>><</link>>
+				<<ind>><<link [["Hide until it's over (1:00)"|Clothing Shop]]>><<pass 1 hour>><</link>>
 			<</if>>
 		<<else>>
 			<div id="tryonstats-div"><<tryOnStats>></div>
@@ -50,7 +51,7 @@
 			<<link "View All">><<replace "#clothingShop-div">><<AllShop>><</replace>><</link>>
 			<br><br>
 			<<if $debug is 1>>
-				<<clothingcategoryicon "overoutfit">>
+				<<clothingcategoryicon "over-outfit">>
 				<<link "View Over Outfits">><<replace "#clothingShop-div">><<OverOutfitShop>><</replace>><</link>>
 				<br><br>
 			<</if>>
@@ -63,13 +64,13 @@
 			<<clothingcategoryicon "lower">>
 			<<link "View Bottoms">><<replace "#clothingShop-div">><<BottomShop>><</replace>><</link>>
 			<br><br>
-			<<clothingcategoryicon "underoutfit">>
+			<<clothingcategoryicon "under-outfit">>
 			<<link "View Under Outfits">><<replace "#clothingShop-div">><<UnderOutfitShop>><</replace>><</link>>
 			<br>
-			<<clothingcategoryicon "underupper">>
+			<<clothingcategoryicon "under-upper">>
 			<<link "View Under Tops">><<replace "#clothingShop-div">><<UnderTopShop>><</replace>><</link>>
 			<br>
-			<<clothingcategoryicon "underlower">>
+			<<clothingcategoryicon "under-lower">>
 			<<link "View Under Bottoms">><<replace "#clothingShop-div">><<UnderBottomShop>><</replace>><</link>>
 			<br><br>
 			<<clothingcategoryicon "head">>
@@ -80,6 +81,9 @@
 			<br>
 			<<clothingcategoryicon "neck">>
 			<<link "View Neck Accessories">><<replace "#clothingShop-div">><<NeckShop>><</replace>><</link>>
+			<br><br>
+			<<clothingcategoryicon "handheld">>
+			<<link "View Handheld Items">><<replace "#clothingShop-div">><<HandheldShop>><</replace>><</link>>
 			<br>
 			<<clothingcategoryicon "hand">>
 			<<link "View Hand Accessories">><<replace "#clothingShop-div">><<HandsShop>><</replace>><</link>>
@@ -95,6 +99,10 @@
 			<br><br>
 			<<run linkifyDivs('.button-back-to-shop')>>
 
+			<<if (Time.dayState isnot "night" or Time.hour isnot $closinghour) and $tryOn.value is 0>>
+				<<icon "hanger.png">><<link [[Changing room|Changing Room]]>><<ShowUnderEquip "normal">><<set $wardrobeExit to "Clothing Shop">><</link>>
+				<br>
+			<</if>>
 			<<if $clothingrebuy is 1>>
 				<<rebuyicon "disable">><<link [[Disable automatic clothing rebuy|Rebuy Shop]]>><</link>>
 				<br>
@@ -102,7 +110,6 @@
 				<<rebuyicon "enable">><<link [[Enable automatic clothing rebuy|Rebuy Shop]]>><</link>>
 				<br>
 			<</if>>
-
 			<<if Time.dayState is "night" and Time.hour isnot $closinghour and !$weekly.theft.clothingShop>>
 				<<shopicon "register">><<link [[Examine the cash register|Clothing Shop Register]]>><</link>>
 				<br>
@@ -111,33 +118,42 @@
 			<br>
 
 			<<if Time.dayState is "night" or $tryOn.value is 0>>
-				<<if Time.dayState is "night" and $clothingShop.spotted is true and $clothingShop.stolenClothes gt 0>>
+				<<if $tryOn.value gt 0 and Object.values(V.tryOn?.tryingOn).some(slot => slot?.type.includes("heavy"))>>
+					<span class="red">The clothes you're trying on are too heavy to steal!</span>
+				<<elseif Time.dayState is "night" and $clothingShop.spotted is true and $clothingShop.stolenClothes gt 0>>
 					<<getouticon>>
 					<<link [[Leave|Clothing Shop Night Guard Found]]>>
 						<<shopClothingFilterReset>>
 						<<ShowUnderEquip "normal">>
 						<<ShowUnderEquip "over">>
+						<<buyTryOnClothes "wear" "steal">>
 						<<set $tryOn.autoReset to true>>
 						<<crimeUp `$tryOn.value / 100` "thievery">>
 						<<shopHoodCheck>>
+						<<shopCommandoCheck>>
 					<</link>>
+					<<if $tryOn.value gt 0>>
+						<<crime "thievery">>
+					<</if>>
 				<<else>>
 					<<getouticon>>
 					<<link [[Leave|Shopping Centre Top]]>>
 						<<shopClothingFilterReset>>
 						<<ShowUnderEquip "normal">>
 						<<ShowUnderEquip "over">>
+						<<buyTryOnClothes "wear" "steal">>
 						<<set $tryOn.autoReset to true>>
 						<<crimeUp `$tryOn.value / 100` "thievery">>
 						<<shopHoodCheck>>
+						<<shopCommandoCheck>>
 					<</link>>
-				<</if>>
-				<<if $tryOn.value gt 0>>
-					<<crime "thievery">>
+					<<if $tryOn.value gt 0>>
+						<<crime "thievery">>
+					<</if>>
 				<</if>>
 				<br><br>
-			<<elseif $tryOn.value gt 0>>
-				<<ind>><<link "Return clothes">><<clothingReset>>
+			<<elseif $tryOn.value isnot 0>>
+				<<icon "hanger.png">><<link "Return clothes">><<clothingReset>>
 					<<updatesidebarimg>>
 					<<updatesidebardescription>>
 					<<updateallure>>
@@ -147,11 +163,11 @@
 					<<run updateMoment()>>
 				<</link>>
 				<br>
-				<<if $tryOn.value lt $money>>
+				<<if $tryOn.value gt 0 and $tryOn.value lte $money>>
 					<<sendItemsToDropdown>>
-					<<ind>><<link "Buy clothes">><<buyTryOnClothes "wear">><<updateclothingshop>><</link>>
+					<<highicon>><<link "Buy clothes">><<buyTryOnClothes "wear">><<updatesidebarmoney>><<updateclothingshop>><</link>>
 					<br>
-					<<ind>><<link "Buy clothes and send to wardrobe">>
+					<<wardrobeicon>><<link "Buy clothes and send to wardrobe">>
 						<<buyTryOnClothes "wardrobe">>
 						<<updatesidebarmoney>>
 						<<updatesidebarimg>>
@@ -164,43 +180,55 @@
 					<</link>>
 					<br>
 				<</if>>
-				<<getouticon>><<link [[Leave with stolen clothes|Stolen Clothing Shop Result]]>><<shopClothingFilterReset>><<shopHoodCheck>><</link>><<crime "thievery">>
-				<br>
+				<<if $tryOn.value gt 0>>
+					<<if Object.values(V.tryOn.tryingOn).some(slot => slot?.type.includes("heavy"))>>
+						<span class="red">The clothes you're trying on are too heavy to steal!</span>
+					<<else>>
+						<<getouticon>><<link [[Leave with stolen clothes|Stolen Clothing Shop Result]]>><<shopClothingFilterReset>><<shopHoodCheck>><<shopCommandoCheck>><</link>><<crime "thievery">>
+					<</if>>
+					<br>
+				<</if>>
 			<</if>>
 		<</if>>
 	<</if>>
 <</widget>>
 
 <<widget "clothingcategoryicon">>
-	<<icon `"clothes/categories/" + _args[0] + ".png"`>>
+	<img class="icon" @src="`img/ui/clothes/categories/` + _args[0] + `.png`">
 <</widget>>
 
 :: Clothing Shop Sneak
 <<set $outside to 0>><<effects>><<set $lock to 0>>
 
-	<<if currentSkillValue('skulduggery') gte $lock>>
-	<span class="green">The lock looks easy to pick.</span>
-	<br><br>
-	<<lockpickicon>>
-	<<link [[Pick it (0:10)|Clothing Shop]]>>
-		<<pass 10>><<crimeUp 5 "trespassing">>
-		<<if $clothingShop.ban gt 0 or crimeSumCurrent() gte 50000 or $clothingShop.rng gte $skulduggery>>
-			<<set $clothingShop.spotted to true>>
-		<</if>>
-		<<set $clothingShop.rng to random(0,1000)>>
-	<</link>><<crime "trespassing">>
-	<br>
+<<if currentSkillValue('skulduggery') gte $lock>>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
 	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+		<<lockicon "pick">>
+		<<link [[Pick it (0:10)|Clothing Shop]]>>
+			<<pass 10>><<crimeUp 5 "trespassing">>
+			<<if $clothingShop.ban gt 0 or crimeSumCurrent() gte 50000 or $clothingShop.rng gte $skulduggery>>
+				<<set $clothingShop.spotted to true>>
+			<</if>>
+			<<set $clothingShop.rng to random(0,1000)>>
+		<</link>><<crime "trespassing">>
+		<br>
+	<</if>>
+<<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span>
 	<<skulduggeryrequired>>
 	<br><br>
-	<</if>>
-	<<if $ghost gte 1>>
+<</if>>
+<<if $ghost gte 1>>
 		You can phase through the doors if you concentrate. 
 		<br>
 		<<link [[Phase (0:01)|Clothing Shop]]>><<tiredness 20>><<pass 1>><</link>><<ggtiredness>>
 		<br>
-	<</if>>
+<</if>>
 
 <<getouticon>><<link [[Leave|Shopping Centre Top]]>><</link>>
 <br>

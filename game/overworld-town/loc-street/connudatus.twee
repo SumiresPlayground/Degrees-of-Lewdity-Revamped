@@ -3,33 +3,33 @@
 <<set $outside to 1>><<set $location to "town">><<effects>><<set $bus to "connudatus">><<getTarget true>>
 You are on Connudatus Street. The numerous clubs, bars and restaurants make it the town's most lively locale by night. During the day the street is lined by hawkers selling various wares.
 <<if Time.dayState is "day">>
-	<<if $weather is "rain">>
+	<<if Weather.precipitation is "rain">>
 		Shoppers huddle around roofed stalls.
-	<<elseif $weather is "snow">>
+	<<elseif Weather.isFreezing>>
 		The street is crowded by shoppers, well-wrapped against the cold.
 	<<else>>
 		The street is crowded with shoppers.
 	<</if>>
 <<elseif Time.dayState is "dawn">>
-	<<if $weather is "rain">>
+	<<if Weather.precipitation is "rain">>
 		Vendors are setting up their stalls, getting the roofs up quick to escape the rain.
-	<<elseif $weather is "snow">>
+	<<elseif Weather.isFreezing>>
 		Well-wrapped vendors are setting up their stalls.
 	<<else>>
 		Vendors are setting up their stalls.
 	<</if>>
 <<elseif Time.dayState is "dusk">>
-	<<if $weather is "rain">>
+	<<if Weather.precipitation is "rain">>
 		Vendors are taking down their stalls, hurrying to be out of the rain.
-	<<elseif $weather is "snow">>
+	<<elseif Weather.isFreezing>>
 		Vendors are taking down their stalls, eager to be out of the cold.
 	<<else>>
 		Vendors are taking down their stalls. The restaurants are packed.
 	<</if>>
 <<elseif Time.dayState is "night">>
-	<<if $weather is "rain">>
+	<<if Weather.precipitation is "rain">>
 		The nightlife is in full swing, undeterred by the rain.
-	<<elseif $weather is "snow">>
+	<<elseif Weather.isFreezing>>
 		The nightlife is in full swing, undeterred by the cold.
 	<<else>>
 		The nightlife is in full swing. Neon lights glow above.
@@ -88,7 +88,7 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 	<</if>>
 	<<link [[Next|Connudatus VIP Rape]]>><<set $molestationstart to 1>><</link>>
 	<br>
-<<elseif $brothel_rivalry is undefined and $NPCName[$NPCNameList.indexOf("Darryl")].love gte 10 and !$possessed>>
+<<elseif $brothel_rivalry is undefined and C.npc.Darryl.love gte 10 and !$possessed>>
 
 	A car screeches to a halt in front of you. A door swings open, <span class="pink">and a strong pair of arms pull you in.</span>
 	<br><br>
@@ -96,7 +96,7 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 	<<link [[Next|Connudatus Briar Abduct]]>><<set $brothel_rivalry to 1>><<set $brothel_rivalry_timer to 7>><</link>>
 	<br>
 
-<<elseif $rng gte 95 and Time.dayState is "day">>
+<<elseif $rng gte 96 and Time.dayState is "day" and $eventskip isnot 1>>
 	<<generatey1>><<person1>>
 	There's a noise from the market and some loud shouting. A market stall owner has just grabbed a <<person>>
 	<<if $rng % 2 == 0>>you recognise from the orphanage<<set $phase to 0>>
@@ -105,12 +105,12 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 	<br><br>
 	<<link [[Try to help (0:05)|Market Street Urchin Help]]>><<pass 5>><</link>>
 	<br>
-	<<link [[Ignore|Connudatus Street]]>><<endevent>><</link>>
+	<<link [[Ignore|Connudatus Street]]>><<set $eventskip to 1>><<endevent>><</link>>
 	<br>
 
 <<else>>
-	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
-	<<if ($danger gte (9900 - $allure) or $eventforced) and $eventskip is 0>>
+
+	<<if (dangerEvent() or $eventforced) and $eventskip is 0>>
 		<<eventsstreet>>
 	<<else>>
 		<<if $options.mapTop is true>>
@@ -120,12 +120,12 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 		Places of interest
 		<br>
 		<<if Time.dayState is "dusk" and $weather isnot "rain" and $caseyagain is 0 and $caseymet is 0>>
-			You see a young <<if $NPCName[$NPCNameList.indexOf("Casey")].gender is "m">>man<<else>>woman<</if>> wearing a biker jacket and smoking a cigar, leaning against the side of the pub. Their black greased hair shimmering as they let out a puff of smoke.
+			You see a young <<if C.npc.Casey.gender is "m">>man<<else>>woman<</if>> wearing a biker jacket and smoking a cigar, leaning against the side of the pub. Their black greased hair shimmering as they let out a puff of smoke.
 			<br><br>
 			<<link [[Introduce yourself (0:05)|Casey Introduction]]>><<pass 5>><</link>>
 			<br>
 		<<elseif Time.dayState is "dusk" and $weather isnot "rain" and $caseyagain is 1 and $caseymet is 0>>
-			You see a young <<if $NPCName[$NPCNameList.indexOf("Casey")].gender is "m">>man<<else>>woman<</if>> wearing a biker jacket and smoking a cigar, leaning against the side of the pub. Their black greased hair shimmering as they let out a puff of smoke.
+			You see a young <<if C.npc.Casey.gender is "m">>man<<else>>woman<</if>> wearing a biker jacket and smoking a cigar, leaning against the side of the pub. Their black greased hair shimmering as they let out a puff of smoke.
 			<br>
 			<<link [[Try to talk to them again (0:05)|Casey Again]]>><<pass 5>><</link>>
 			<br>
@@ -139,7 +139,7 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 			<<if $exposed gte 1 and $stripclubintro is 1>>
 				<<stripclubicon>><<link [[Strip club (0:02)|Strip Club Exposed]]>><<pass 2>><</link>>
 				<br>
-			<<else>>
+			<<elseif $exposed lte 0>>
 				<<stripclubicon>><<link [[Strip club (0:02)|Strip Club]]>><<pass 2>><</link>>
 				<br>
 			<</if>>
@@ -148,7 +148,7 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 			<<stripclubicon>><<link [[Strip club (0:01)|Strip Club Lock]]>><<pass 1>><</link>>
 			<br>
 		<<elseif Time.hour is 6>>
-			<span class="blue">People are leaving the club.</span> It must be closing time.
+			<<stripclubicon>><span class="blue">People are leaving the club.</span> It must be closing time.
 			<br>
 		<</if>>
 		<<if $skulduggeryDintro is 1 and $exposed lte 0>>
@@ -156,21 +156,45 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 			<br>
 		<</if>>
 		<<if Time.dayState is "dawn" and $exposed lte 0 and $daily.stallRented isnot 1>>
-			<<if $money gte 1500>>
+			<<if $worn.face.type.includes("gag") and pcAreArmsBound("both")>>
+				<<stallicon>><span class="blue">You can't rent a stall while you're gagged and your arms are bound.</span>
+				<br>
+			<<elseif $worn.face.type.includes("gag")>>
+				<<stallicon>><span class="blue">You can't rent a stall while you're gagged.</span>
+				<br>
+			<<elseif pcAreArmsBound("both")>>
+				<<stallicon>><span class="blue">You can't rent a stall while your arms are bound.</span>
+				<br>
+			<<elseif $money gte 1500>>
 				<<stallicon>><<link [[Rent a stall (0:20 £15)|Stall Rent]]>><</link>>
 				<br>
 			<<else>>
-				<span class="blue">You could rent a stall here if you had the money.</span>
+				<<stallicon>><span class="blue">You could rent a stall here if you had the money.</span>
 				<br>
 			<</if>>
 		<<elseif $daily.stallRented is 1 and Time.dayState isnot "night" and $exposed lte 0>>
-			<<stallicon "open">><<link [[Attend your stall (0:20)|Stall]]>><<pass 20>><</link>>
+			<<if $worn.face.type.includes("gag") and pcAreArmsBound("both")>>
+				<<stallicon>><span class="blue">You can't attend your stall while you're gagged and your arms are bound.</span>
+				<br>
+			<<elseif $worn.face.type.includes("gag")>>
+				<<stallicon>><span class="blue">You can't attend your stall while you're gagged.</span>
+				<br>
+			<<elseif pcAreArmsBound("both")>>
+				<<stallicon>><span class="blue">You can't attend your stall while your arms are bound.</span>
+				<br>
+			<<else>>
+				<<stallicon "open">><<link [[Attend your stall (0:20)|Stall]]>><<pass 20>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+		<<if Time.hour gte 6 and Time.hour lte 20 and $exposed lte 0>>
+			<<stallicon "open">><<link [[Explore the markets (0:30)|Connudatus Markets]]>><<pass 30>><</link>>
 			<br>
 		<</if>>
-		<<if Time.dayState is "night" and $exposed gte 2 and $exhibitionism gte 55 and $daily.ex.connudatus isnot 1>>
+		<<if Time.dayState is "night" and $exposed gte 2 and hasSexStat("exhibitionism", 4) and $daily.ex.connudatus isnot 1>>
 			<<ind>><<link [[Streak (0:05)|Streak Naked]]>><<pass 5>><<set $daily.ex.connudatus to 1>><</link>><<exhibitionist4>>
 			<br>
-		<<elseif Time.dayState is "night" and $exposed gte 1 and $exhibitionism gte 15 and $daily.ex.connudatus isnot 1>>
+		<<elseif Time.dayState is "night" and $exposed gte 1 and hasSexStat("exhibitionism", 2) and $daily.ex.connudatus isnot 1>>
 			<<ind>><<link [[Streak (0:05)|Streak Undies]]>><<pass 5>><<set $daily.ex.connudatus to 1>><</link>><<exhibitionist2>>
 			<br>
 		<</if>>
@@ -234,7 +258,7 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 	<<ejaculation>>
 	<<if $pain gte 100 and $willpowerpain is 0>>
 		"It's not over yet, slut," the <<person1>><<person>> says, reaching into <<his>> coat. <span class="red"><<He>> pulls out a gag and blindfold.</span> You're too hurt to resist as <<he>> forces the former into your mouth, and ties them both around your head. You can't see a thing. Your arms are then pulled behind your back as <<he>> binds them in place.
-		<<facewear 6>>
+		<<facewear "gag and blindfold">>
 		<<bind>>
 		<br><br>
 
@@ -280,7 +304,7 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 <<else>>
 	<<set $rescued += 1>>
 
-	A car pulls up, and <<generate4>><<person4>><<person>> climbs out. "Leave the <<girl>> alone," <<he>> says. "Or you're gonna get beat."
+	A car pulls up, and a <<generate4>><<person4>><<person>> climbs out. "Leave the <<girl>> alone," <<he>> says. "Or you're gonna get beat."
 	<br><br>
 	The <<person1>><<person>> glares at the <<person4>><<person>>, incensed. "Who the fuck do you think you are?" <<he>> says, releasing you and marching over.
 	<br><br>
@@ -343,7 +367,7 @@ The car lurches into motion before you can get your bearings. "Darling," says a 
 "I hear you've met my... colleague, Darryl," <<person1>>Briar continues. <<He>> lounges across three seats. "I do worry about <<nnpc_him "Darryl">>. Could I ask a favour of you? Keep an eye on the people around <<nnpc_him "Darryl">>. The security, the clientele, that sort of thing. It would ease my mind."
 <br><br>
 
-The car pulls to a stop. You're on Domus Street. The <<person2>><<person>> opens a door. "This your home? How cozy. Have a good
+The car pulls to a stop. You're on Domus Street. The <<person2>><<person>> opens a door. "This your home? How cosy. Have a good
 <<if Time.dayState is "day">>
 	day."
 <<elseif Time.dayState is "night">>
@@ -359,3 +383,95 @@ You leave the car, and it drives away.
 <br><br>
 
 <<link [[Next|Domus Street]]>><<endevent>><</link>>
+
+:: Connudatus Markets
+<<effects>><<set $location to "market">>
+
+<<if dangerEvent(1, 14000)>>
+	<<connudatusMarketsLewdEvents>>
+<<elseif $rng gte 51>>
+	<<connudatusMarketsStatusEvents>>
+<<else>>
+	<<connudatusMarketsProductsEvents>>
+<</if>>
+
+:: Connudatus Markets Hook Up
+<<effects>>
+
+<<if $phase is 1>>
+	Disgusted by the creep, you decide to leave the stall and continue your walk. The <<person1>><<person>> still stares as you leave, but doesn't do anything otherwise.<<gstress>><<gtrauma>><<garousal>><<stress 6>><<trauma 3>><<arousal 600>>
+	<br><br>
+
+	<<link [[Next|Connudatus Street]]>><<pass 15>><<endevent>><</link>>
+
+<<else>>
+	You pretend to ignore the <<personsimple>>, but gently swing your hips, rubbing your ass on <<his>> hand. <<He>> takes the hint and starts to openly fondle you.<<garousal>><<arousal 600>>
+	<br><br>
+
+	"You're quite the naughty <<girl>>, aren't you? How about you come with me and we get to know each other a little better?"
+	<br><br>
+
+	<<link [[Agree|Connudatus Markets Hook Up Sex]]>><<set $sexstart to 1>><</link>>
+	<br>
+	<<link [[Decline|Connudatus Markets Hook Up Decline]]>><</link>>
+
+<</if>>
+
+:: Connudatus Markets Hook Up Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 200>>
+	The two of you distance yourselves from the busy market, walking into the nearby alley. "Not a hotel room, but you don't mind, right?" the <<person1>><<person>> says, <<his>> hands already running over your body.
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Connudatus Markets Hook Up Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Connudatus Markets Hook Up Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Connudatus Markets Hook Up Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<if $consensual>>
+		"Always nice finding a willing slut," the <<person1>><<person>> says, as you both fix your clothes. "Thanks, <<girl>>, hope to see you around again sometime," <<he>> adds before leaving.
+	<<else>>
+		"That's what you get for fighting back, <<bitch>>," the <<person1>><<person>> says as <<he>> fixes <<his>> clothes. "Better be more careful next time," <<he>> adds, before leaving the alley.
+	<</if>>
+<<elseif $enemyhealth lte 0>>
+	With a final push, you manage to free yourself from the <<person1>><<persons>> grasp, running away from the alley. <<He>> shouldn't follow you to the busy streets.
+<<else>>
+	<<He>> pulls away from you, mumbling something about "stupid tease" under <<his>> breath, before redressing and leaving the alley without looking back.
+<</if>>
+<br><br>
+
+<<clotheson>>
+<<tearful>> you walk back to the streets.
+<br><br>
+<<endcombat>>
+
+<<link [[Next|Connudatus Street]]>><<pass 15>><<endevent>><</link>>
+
+:: Connudatus Markets Hook Up Decline
+<<effects>>
+
+The <<person1>><<person>> scoffs and removes <<his>> hand.
+<br><br>
+
+"Fucking slut. Think you can lead people on and just walk away? You better watch your back," <<he>> says before leaving.<<gstress>><<gtrauma>><<stress 6>><<trauma 3>>
+<br><br>
+
+<<link [[Next|Connudatus Street]]>><<pass 15>><<endevent>><</link>>

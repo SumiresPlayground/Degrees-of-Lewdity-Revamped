@@ -4,19 +4,19 @@
 The door is locked tight.
 <br><br>
 <<if currentSkillValue('skulduggery') gte $lock>>
-	<span class="green">The lock looks easy to pick.</span>
-	<br><br>
-	<<link [[Break in (0:05)|Flats Sneak]]>><<pass 5>><<crimeUp 5 "trespassing">><</link>><<crime "trespassing">>
-	<br>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
+	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+		<<lockicon "pick">><<link [[Break in (0:05)|Flats Sneak]]>><<pass 5>><<crimeUp 5 "trespassing">><</link>><<crime "trespassing">>
+		<br>
+	<</if>>
 <<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
-<</if>>
-<<if $ghost gte 1>>
-	You can phase through the doors if you concentrate. 
-	<br>
-	<<link [[Phase (0:01)|Flats Sneak]]>><<tiredness 20>><<pass 1>><</link>><<ggtiredness>>
-	<br>
 <</if>>
 
 <<getouticon>><<link [[Leave|Flats]]>><</link>>
@@ -28,39 +28,39 @@ The door is locked tight.
 <<if $ghost gte 1>>
 	You enter into the premises.
 <<else>>
-	You successfully pick the lock and enter the premises.
-<</if>>
-<<if $skulduggery lt 300>>
-	<<skulduggeryskilluse>>
-<<else>>
-	<span class="blue">There's nothing more you can learn from locks this simple.</span>
+	You successfully pick the lock and enter the abode.
 <</if>>
 <br><br>
+
+<<skulduggeryuse 300 "locks">>
 
 <<cleareventpool>>
 
 <<addinlineevent "flats_sneak_1" 1>>
-    The interior is lit by a soft, pink light. Pornographic photographs decorate the walls, and the sofa has an odd curvature. It looks like a valuable antique, but it's too big to carry.
+	The interior is lit by a soft, pink light. Pornographic photographs decorate the walls, and the sofa has an odd curvature. It looks like a valuable antique, but it's too big to carry.
 	<br><br>
 	<<set _blackmoney to 0>>
 	<<set _rng to random(1, 5)>>
 	<<switch _rng>>
 		<<case 1>>
-			There's a vintage magazine on the floor however. It might be worth something on the black market.<<set _blackmoney += 10>>
+			There's a vintage magazine on the floor, however. It might be worth something on the black market.<<set _blackmoney += 10>>
 		<<case 2>>
-			There's £20 in foreign cash lying on the table beside it however. It might be worth something on the black market.<<set _blackmoney += 20>>
+			<<wearProp "cash two">>
+			There's £20 in foreign cash lying on the table beside it, however. It might be worth something on the black market.<<set _blackmoney += 20>>
 		<<case 3>>
-			There's a pearl necklace lying on the table beside it however. It might be worth something on the black market.<<set _blackmoney += 30>>
+			<<wearProp "pearl necklace">>
+			There's a pearl necklace lying on the table beside it, however. It might be worth something on the black market.<<set _blackmoney += 30>>
 		<<case 4>>
-			A pair of gold cufflinks sit on the table beside it however. It might be worth something on the black market.<<set _blackmoney += 40>>
+			A pair of gold cufflinks sit on the table beside it, however. It might be worth something on the black market.<<set _blackmoney += 40>>
 		<<default>>
-			There's a vintage ring on a table beside it however. It has a strange honeycomb shape, but it's made of real gold. It might be worth something on the black market.<<set _blackmoney += 80>>
+			<<wearProp "honeycomb ring">>
+			There's a vintage ring on a table beside it, however. It has a strange honeycomb shape, but it's made of real gold. It might be worth something on the black market.<<set _blackmoney += 80>>
 	<</switch>>
 	<br><br>
 
 	<<link [[Take it|Flats]]>><<set $blackmoney += _blackmoney>><<crimeUp _blackmoney "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Flats]]>><</link>>
+	<<link [[Leave|Flats]]>><</link>>
 	<br>
 <</addinlineevent>>
 
@@ -69,13 +69,13 @@ The door is locked tight.
 	<<generate1>><<person1>><<npcClothesType $NPCList[0] "bathrobe">>
 	You hear running water. Someone's in the shower. There's nothing unusual about the flat, but you can't find any valuables, until you come across a safe hidden in the bedroom. It has an old-fashioned locking mechanism you should be able to crack, but it might take a bit of time.
 	<br><br>
-	You hear a <<personsimple>>'s voice, singing in the shower.
+	You hear a <<personssimple>> voice, singing in the shower.
 	<br><br>
 
 	<<set $skulduggerydifficulty to 400>>
 	<<link [[Crack|Flats Sneak Crack]]>><</link>><<skulduggerydifficulty>>
 	<br>
-	<<getouticon>><<link [[Leave|Flats]]>><<endevent>><</link>>
+	<<link [[Leave|Flats]]>><<endevent>><</link>>
 	<br>
 <</addinlineevent>>
 
@@ -91,7 +91,7 @@ The door is locked tight.
 		<<link [[Investigate this flat|Flats Sneak Investigate]]>><</link>>
 		<br>
 	<<else>>
-		You search the flat for any valuables, and find <span class="gold">£30</span> under the mattress.
+		You search the flat for any valuables, and find <<printmoney 3000>> under the mattress.
 		<br><br>
 
 		<<link [[Take it|Flats]]>><<moneyGain 30>><<crimeUp 30 "petty">><</link>><<crime "petty">>
@@ -103,13 +103,13 @@ The door is locked tight.
 
 <<addinlineevent "flats_sneak_4" 1>>
 	<<generate1>><<person1>>
-	You close the door behind you. Thick curtains have been drawn over the windows, leaving the room dark. You fumble for the light switch. It illuminates the room, and reveals a <<person>> sat in a chair, a cat on <<his>> lap. <<He>>'s staring right at you.
+	You close the door behind you. Thick curtains have been drawn over the windows, leaving the room dark. You fumble for the light switch. It illuminates the room, and reveals a <<person>> sat in a chair, a cat on <<his>> lap. <<Hes>> staring right at you.
 	<br><br>
 
 	"I wasn't expecting a guest," <<he>> says. "Much less an intruder. What do you have to say for yourself?" You can't help but notice <<his>> expensive watch. You avoid looking right at it.
 	<br><br>
 
-	<<if $promiscuity gte 15>>
+	<<if hasSexStat("promiscuity", 2)>>
 		<<link [[Seduce|Flats Sneak Seduce]]>><</link>><<promiscuous2>>
 		<br>
 	<</if>>
@@ -145,7 +145,7 @@ The door is locked tight.
 
 	<<link [[Take it|Flats Sneak Snore]]>><<set $blackmoney += 30>><<crimeUp 30 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Flats]]>><<endevent>><</link>>
+	<<link [[Leave|Flats]]>><<endevent>><</link>>
 	<br>
 <</addinlineevent>>
 
@@ -154,46 +154,47 @@ The door is locked tight.
 	The smell of roast vegetables greets you. A <<person>> stands in the kitchen, talking on a phone and looking out the window.
 	<br><br>
 
-	<<His>> <<wallet>> sits on the table not far from <<him>>. There's <span class="gold">£40</span> inside.
+	<<His>> <<wallet>> sits on the table not far from <<him>>. There's <<printmoney 4000>> inside.
 	<br><br>
 
 	<<link [[Take it|Flats Sneak Wallet]]>><<moneyGain 40>><<crimeUp 40 "petty">><</link>><<crime "petty">>
 	<br>
-	<<getouticon>><<link [[Leave|Flats]]>><<endevent>><</link>>
+	<<link [[Leave|Flats]]>><<endevent>><</link>>
 	<br>
 <</addinlineevent>>
 
 <<addinlineevent "flats_sneak_8" 1>>
-	There's an antique gun on the wall, but it's affixed too firmly to take with you. You rummage around, and find <span class="gold">£20</span> in a drawer.
+	There's an antique gun on the wall, but it's affixed too firmly to take with you. You rummage around, and find <<printmoney 2000>> in a drawer.
 	<br><br>
 
 	<<link [[Take it|Flats]]>><<moneyGain 20>><<crimeUp 20 "petty">><</link>><<crime "petty">>
 	<br>
-	<<getouticon>><<link [[Leave|Flats]]>><<endevent>><</link>>
+	<<link [[Leave|Flats]]>><<endevent>><</link>>
 	<br>
 <</addinlineevent>>
 
 <<addinlineevent "flats_sneak_9" 1>>
+	<<wearProp "shoebox">>
 	A lava lamp glows in the corner, illuminating old-fashioned decor with a soft glow. There's little of value that you can carry however, though you do find some jewellery hidden in a shoebox.
 	<br><br>
 
-	<<link [[Take it|Flats]]>><<set $blackmoney += 30>><<crimeUp 30 "petty">><</link>><<crime "petty">>
+	<<link [[Take it|Flats]]>><<set $blackmoney += 30>><<crimeUp 30 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Flats]]>><</link>>
+	<<link [[Leave|Flats]]>><</link>>
 	<br>
 <</addinlineevent>>
 
 <<addinlineevent "flats_sneak_10" 1>>
 	It's empty. Even the lights and switches are missing, letting their cables dangle. You'll have to try somewhere else.
 	<br><br>
-	<<getouticon>><<link [[Leave|Flats]]>><<endevent>><</link>>
+	<<link [[Leave|Flats]]>><<endevent>><</link>>
 	<br>
 <</addinlineevent>>
 
 <<runeventpool>>
 
 :: Flats Sneak Wallet
-<<effects>>
+<<effects>><<wearProp "wallet empty">>
 
 The <<person>> turns as you swipe the <<wallet>> from the table. <<He>> jumps in fright, almost dropping the phone, then furiously dials a number. You turn and run.
 <br><br>
@@ -264,7 +265,6 @@ You escape the flat while the occupant shouts into <<his>> phone.
 	<<tearful>> you escape the flat.
 	<br><br>
 <</if>>
-<<endcombat>>
 
 <<clotheson>>
 <<endcombat>>
@@ -279,24 +279,28 @@ You escape the flat while the occupant shouts into <<his>> phone.
 You ransack the flat for sheets, clothing, towels, and anything else you can tie together.
 <<if $housekeepingSuccess>>
 	<<set $flats_alarm_fabric += 1>>
-		You give it a good tug.
+	You give it a good tug.
 	<<if $flats_alarm_fabric gte 3>>
+		<<set _ropeLength to 2>>
 		<span class="green">It feels firm.</span> You throw it out a window, and watch it tumble to the pavement below.
 		<br><br>
 
 		<<link [[Escape!|Flats Sneak Rope]]>><</link>>
 		<br>
 	<<else>>
+		<<set _ropeLength to 3>>
 		<span class="green">It feels firm,</span> but needs to be longer.
 		<br><br>
 		<<flats_alarm_time>>
 	<</if>>
 <<else>>
+	<<set _ropeLength to 4>>
 	The raging alarm doesn't make it easy. You think you've tied the fabric securely, <span class="red">but your makeshift rope falls apart at your tugging.</span>
 	<br><br>
 
 	<<flats_alarm_time>>
 <</if>>
+<<wearProp "fabric rope climb">>
 
 :: Flats Sneak Physique
 <<effects>>
@@ -310,7 +314,7 @@ You throw your body against the door, hammering it with all your might.
 	<<earnFeat "Panic Room">>
 	<<flats_alarm_end>>
 
-	You dash into the corridor outside, and away from the alarm. Away from the alarm, you can hear sirens outside. You avoid the main stairwell.
+	You dash into the corridor outside, and away from the alarm. You can hear sirens outside. You avoid the main stairwell.
 	<br><br>
 
 	<<link [[Next|Flats]]>><</link>>
@@ -333,7 +337,7 @@ You drop to all fours and stick your <<bottom>> in the air, awaiting the arrival
 <span class="red">"POLICE ON SCENE," announces the voice. "HAVE A NICE DAY."</span> The shutter opens, and two police officers, a <<person1>><<person>> and <<person2>><<person>>, march in.
 <br><br>
 
-"Looks like <<pshe>>'s ready to come quietly," the <<person1>><<person>> chuckles. "Hold still." The <<person2>><<person>> advances with a pair of cuffs.
+"Looks like <<pshes>> ready to come quietly," the <<person1>><<person>> chuckles. "Hold still." The <<person2>><<person>> advances with a pair of cuffs.
 <br><br>
 
 <<link [[Go quietly|Hospital Arrest Journey]]>><<flats_alarm_end>><</link>>
@@ -356,7 +360,7 @@ You're still searching when you feel the thump of footsteps from the corridor ou
 
 "I'll check the cupboard," the <<person1>><<person>> says.
 <br>
-"No need," the <<person2>><<person>> replies, nodding your way. "<<pShe>>'s under the table."
+"No need," the <<person2>><<person>> replies, nodding your way. "<<pShes>> under the table."
 <br>
 "Best come quietly," the <<person1>><<person>> laughs as <<his>> partner advances with a pair of cuffs.
 <br><br>
@@ -457,11 +461,7 @@ You reach the bottom without issue. A head peeks out the window you escaped thro
 
 <<set $seductiondifficulty to 6000>>
 <<seductioncheck>>
-<br><br>
-<<if $seductionskill lt 1000>>
-	<span class="gold">You feel more confident in your powers of seduction.</span>
-	<br><br>
-<</if>>
+<<seductionskilluptext>>
 <<seductionskilluse>>
 
 <<if $speech_attitude is "meek">>
@@ -628,12 +628,12 @@ You try to open the front door, but the <<person>> leaps to <<his>> feet and rus
 :: Flats Sneak Terrace 2
 <<effects>>
 
-You climb the ladder, and look up and down a vent. It's wide enough for you to squeeze through. One direction leads to a dead-end, but the other slopes down, and disappears around a bend. It's wide enough to squeeze through.
+You climb the ladder, and look up and down a vent. It's wide enough for you to squeeze through. One direction leads to a dead-end, but the other slopes down, and disappears around a bend.
 <br><br>
 
 <<link [[Explore (0:10)|Flats Sneak Terrace Explore]]>><<pass 10>><</link>>
 <br>
-<<getouticon>><<link [[Leave|Flats]]>><<endevent>><</link>>
+<<link [[Leave|Flats]]>><<endevent>><</link>>
 <br>
 
 
@@ -654,7 +654,7 @@ There are no other entrances however, until you at last arrive at the bottom of 
 :: Flats Sneak Investigate
 <<effects>>
 
-You search the flat for any valuables, and find <span class="gold">£30</span> under the mattress.
+You search the flat for any valuables, and find <<printmoney 3000>> under the mattress.
 <br><br>
 
 <<link [[Take it|Flats]]>><<moneyGain 30>><<crimeUp 30 "petty">><</link>><<crime "petty">>
@@ -672,19 +672,14 @@ You press your ear against the safe, and listen for telltale clicks as you turn 
 <<skulduggerycheck>>
 <<if $skulduggerysuccess is 1>>
 
-	<span class="green">The safe opens,</span> yielding its contents. You find <span class="gold">£120</span> inside.
+	<span class="green">The safe opens,</span> yielding its contents. You find <<printmoney 12000>> inside.
 	<br><br>
 
-	<<if $skulduggery lte ($skulduggerydifficulty + 100)>>
-		<<skulduggeryskilluse>>
-	<<else>>
-		<span class="blue">That was too easy. You didn't learn anything.</span>
-		<br><br>
-	<</if>>
+	<<skulduggeryuse>>
 
 	<<link [[Take it|Flats]]>><<moneyGain 120>><<crimeUp 120 "thievery">><<endevent>><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Flats]]>><<endevent>><</link>>
+	<<link [[Leave|Flats]]>><<endevent>><</link>>
 	<br>
 
 <<else>>
@@ -695,12 +690,7 @@ You press your ear against the safe, and listen for telltale clicks as you turn 
 	"Steal from me would you?" <<he>> says. "Time for a lesson."
 	<br><br>
 
-	<<if $skulduggery lte ($skulduggerydifficulty + 100)>>
-		<<skulduggeryskilluse>>
-	<<else>>
-		<span class="blue">That was too easy. You didn't learn anything.</span>
-		<br><br>
-	<</if>>
+	<<skulduggeryuse>>
 
 	<<link [[Next|Flats Sneak Rape]]>><<set $molestationstart to 1>><</link>>
 	<br>
@@ -746,7 +736,6 @@ You press your ear against the safe, and listen for telltale clicks as you turn 
 	<<tearful>> you escape the flat.
 	<br><br>
 <</if>>
-<<endcombat>>
 
 <<clotheson>>
 <<endcombat>>

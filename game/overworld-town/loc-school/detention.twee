@@ -10,12 +10,12 @@
 <br>
 
 :: School Detention
-<<set $outside to 1>><<set $location to "school">><<schooleffects>><<effects>>
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
 <<npc Leighton>><<person1>><<rng>>
 <<set $daily.school.detentionAttended to 1>>
 
 <<if $detention lte 10>>
-	<<if $rng gte 50>>
+	<<if $rng gte 51>>
 		You enter Leighton's office. <<He>> takes <<his>> seat in front of <<his>> desk and beckons you to sit at a small desk in the corner.
 		<br><br>
 		"It's only a minor infringement, I won't keep you long." <<He>> turns to <<his>> computer and seemingly forgets about you.
@@ -26,14 +26,14 @@
 	<<else>>
 		You enter Leighton's office. <<He>> sits at <<his>> desk and looks up at you.
 		<<if $delinquency gte 400>>
-			"Every day the same faces," <<he>> sighs. "So what now?"
+			"Every day, the same faces," <<he>> sighs. "So what now?"
 		<<else>>
 			"You? What did you do to end up here?"
 		<</if>>
 		<br><br>
 		<<He>> looks at <<his>> computer screen for a moment. Clicks a few times.
 		<br><br>
-		<<if $delinquency gte 400>>"Looks like only a minor infringement today," <<he>> stares you down. "How kind of you. Well...<<else>>"Looks like it's only a minor infringement," <<he>> says. "<</if>>Might as well make yourself useful. Deliver these notes to staff and bring back any replies. Shouldn't take 10 minutes."
+		<<if $delinquency gte 400>>"Looks like only a minor infringement today." <<He>> stares you down. "How kind of you. Well... <<else>>"Looks like it's only a minor infringement," <<he>> says. "<</if>>Might as well make yourself useful. Deliver these notes to staff and bring back any replies. Shouldn't take 10 minutes."
 		<br><br>
 		Sure enough, 10 minutes later you're back in Leighton's office with a couple of replies. Leighton nods and gestures for you to leave.
 		<<pass 10>>
@@ -45,8 +45,8 @@
 <<elseif $detention lte 20>>
 	You enter Leighton's office. <<He>> takes <<his>> seat in front of <<his>> desk, then points at the whiteboard opposite <<him>>. "Write 'I will obey the rules,' repeatedly. Don't stop until I say stop."
 	<br><br>
-	<<if $rightarm is "bound" or $leftarm is "bound" or $feetuse is "bound">>
-		You turn to show Leighton your bound <<if $rightarm is "bound" or $leftarm is "bound">>arms<</if>><<if ($rightarm is "bound" or $leftarm is "bound") and $feetuse is "bound">> and <</if>><<if $feetuse is "bound">>legs<</if>>. <<His>> eyes flash. For a moment you think you see lust. "How did that happen?" <<he>> asks, walking behind you. "Actually, never mind. I don't want to know."
+	<<if pcAreArmsBound("any") or $feetuse is "bound">>
+		You turn to show Leighton your bound <<if pcAreArmsBound("any")>>arms<<if $feetuse is "bound">> and <</if>><</if>><<if $feetuse is "bound">>legs<</if>>. <<His>> eyes flash. For a moment you think you see lust. "How did that happen?" <<he>> asks, walking behind you. "Actually, never mind. I don't want to know."
 		<br><br>
 		<span class = "green">You feel your limbs come loose.</span><<unbind>>
 		<br><br>
@@ -61,10 +61,11 @@
 <<elseif $detention lte 30>>
 	<<generates2>>
 	<<if $rng gte 51>>
+		<<wearProp "marker">>
 		You enter Leighton's office. A <<person2>><<person>> stands sheepishly in the corner. "Two of you today." <<person1>>Leighton says, taking the seat at <<his>> desk. <<He>> points at the whiteboard opposite <<him>>. "Write 'I will obey the rules,' repeatedly. Both of you. Don't stop until I say stop."
 		<br><br>
-		<<if $rightarm is "bound" or $leftarm is "bound" or $feetuse is "bound">>
-			You turn to show Leighton your bound <<if $rightarm is "bound" or $leftarm is "bound">>arms<</if>><<if ($rightarm is "bound" or $leftarm is "bound") and $feetuse is "bound">> and <</if>><<if $feetuse is "bound">>legs<</if>>. <<His>> eyes flash. For a moment you think you see lust. "How did that happen?" <<he>> asks, walking behind you. "Actually, never mind. I don't want to know."
+		<<if pcAreArmsBound("any") or $feetuse is "bound">>
+			You turn to show Leighton your bound <<if pcAreArmsBound("any")>>arms<<if $feetuse is "bound">> and <</if>><</if>><<if $feetuse is "bound">>legs<</if>>. <<His>> eyes flash. For a moment you think you see lust. "How did that happen?" <<he>> asks, walking behind you. "Actually, never mind. I don't want to know."
 			<br>
 			<span class = "green">You feel your limbs come loose.</span><<unbind>>
 			<br>
@@ -79,7 +80,7 @@
 		<<link [[Tell Leighton|School Detention Grope]]>><<set $phase to 1>><</link>>
 		<br>
 	<<else>>
-		You enter the office to find Leighton sitting at <<his>> desk, a <<person2>><<person>> sitting opposite looking sorry for <<himself>>. Leighton pauses and turns to you as you enter, cutting off an angry lecture. "Ah, there you are, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>. Today you get to see what happens to naughty <<personsimple>>s who break the rules." The <<person>> slumps down in <<his>> chair. It seems <<he>> knows what this means. "<<He>> was caught touching another student inappropriately during <<his>> maths lesson. Isn't that right?"
+		You enter the office to find Leighton sitting at <<his>> desk, a <<person2>><<person>> sitting opposite looking sorry for <<himself>>. Leighton pauses and turns to you as you enter, cutting off an angry lecture. "Ah, there you are, young <<lady>>. Today you get to see what happens to naughty <<personsimple>>s who break the rules." The <<person>> slumps down in <<his>> chair. It seems <<he>> knows what this means. "<<He>> was caught touching another student inappropriately during <<his>> maths lesson. Isn't that right?"
 		<br><br>
 
 		The <<person>> whimpers quietly in assent.
@@ -91,10 +92,10 @@
 		The <<person>> does as told, still whimpering. <<Hes>> wearing a pair of red <<if $pronoun is "m">>briefs<<else>>panties<</if>>. <<He>> tugs at them, obviously uncomfortable with you watching. <<Hes>> looking at everything in the room except for you. Leighton nods at <<him>>, smirking. "Now, over the desk. You know how this goes."
 		<br><br>
 
-		The <<person>> bends over the desk, trembling slightly. <<His>> ass is right in your face. Leighton takes a moment to admire the <<personsimple>>'s body before retrieving a large wooden paddle from <<person1>><<his>> desk drawer and thwacking it against <<his>> palm. "Are you ready?" <<he>> asks the <<person2>><<person>>, who mumbles in response. Leighton raises the paddle.
+		The <<person>> bends over the desk, trembling slightly. <<His>> ass is right in your face. Leighton takes a moment to admire the <<personssimple>> body before retrieving a large wooden paddle from <<person1>><<his>> desk drawer and thwacking it against <<his>> palm. "Are you ready?" <<he>> asks the <<person2>><<person>>, who mumbles in response. Leighton raises the paddle.
 		<br><br>
 
-		<<if $exhibitionism gte 75>>
+		<<if hasSexStat("exhibitionism", 5)>>
 			<<link [[Masturbate|School Detention Paddle Masturbate]]>><<set $masturbationstart to 1>><</link>><<exhibitionist5>>
 			<br>
 		<</if>>
@@ -110,8 +111,8 @@
 
 		You look at <<him>> with incredulity. <<He>> chuckles. "Don't worry, it's an enclosed area so no one else will see you. Now, hop to it."
 		<br><br>
-		<<if $rightarm is "bound" or $leftarm is "bound" or $feetuse is "bound">>
-			You turn to show Leighton your bound <<if $rightarm is "bound" or $leftarm is "bound">>arms<</if>><<if ($rightarm is "bound" or $leftarm is "bound") and $feetuse is "bound">> and <</if>><<if $feetuse is "bound">>legs<</if>>. <<His>> eyes flash. For a moment you think you see lust. "How did that happen?" <<he>> asks, walking behind you. "Actually, never mind. I don't want to know."
+		<<if pcAreArmsBound("any") or $feetuse is "bound">>
+			You turn to show Leighton your bound <<if pcAreArmsBound("any")>>arms<<if $feetuse is "bound">> and <</if>><</if>><<if $feetuse is "bound">>legs<</if>>. <<His>> eyes flash. For a moment you think you see lust. "How did that happen?" <<he>> asks, walking behind you. "Actually, never mind. I don't want to know."
 			<br>
 			<span class = "green">You feel your limbs come loose.</span><<unbind>>
 			<br><br>
@@ -124,7 +125,7 @@
 		<<if $worn.under_lower.type.includes("naked")>>
 			You avoid looking <<him>> in the eyes. "I'm n-not wearing any underwear," you say.
 			<br><br>
-			You think you catch a smile start to form on <<his>> face, but it's gone so fast you may have imagined it. "I'll overlook that rule violation, but you still need to wash my car. Maybe next time you'll dress appropriately for school.
+			You think you catch a smile start to form on <<his>> face, but it's gone so fast you may have imagined it. "I'll overlook that rule violation, but you still need to wash my car. Maybe next time you'll dress appropriately for school."
 			<br><br>
 		<</if>>
 
@@ -134,29 +135,29 @@
 		<br>
 	<<else>>
 		<<generateyv2>>
-		You enter the office to find Leighton sitting at <<person1>><<his>> desk, a <<person2>><<person>> sitting opposite looking sorry for <<himself>>. Leighton pauses and turns to you as you enter, cutting off an angry lecture. "Ah, there you are, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>. Today you'll be helping me teach this troublemaker a lesson." The <<person>> slumps down in <<his>> chair. It seems <<he>> knows what this means. "<<He>> was caught masturbating in the <<personsimple>>s' changing rooms during <<his>> swimming lesson. Isn't that right?"
-		<br>
-		The <<person>> whimpers slightly in assent.
+		You enter the office to find Leighton sitting at <<person1>><<his>> desk, a <<person2>><<person>> sitting opposite looking sorry for <<himself>>. Leighton pauses and turns to you as you enter, cutting off an angry lecture.
+		<br><br>
+		"Ah, there you are, young <<lady>>. Today you'll be helping me teach this troublemaker a lesson." The <<person>> slumps down in <<his>> chair. It seems <<he>> knows what this means. "<<He>> was caught masturbating in the <<personsimple>>s' changing rooms during <<his>> swimming lesson. Isn't that right?" The <<person>> whimpers slightly in assent.
 		<br><br>
 
-		Leighton stands, gesturing for <<person>> to do the same. "<<if $pronoun is "m">>Pull down those shorts<<else>>Lift up that skirt<</if>>, if you please."
-		<br>
+		Leighton stands, gesturing for the <<person>> to do the same. "<<if $pronoun is "m">>Pull down those shorts<<else>>Lift up that skirt<</if>>, if you please."
+		<br><br>
 		The <<person>> does as instructed, still whimpering. <<Hes>> wearing a pair of red <<if $pronoun is "m">>briefs<<else>>panties<</if>>.
 		<br><br>
 
 		"Now, let's get started, shall we?" Leighton grabs the <<person>> and pushes <<him>> over the desk, <<his>> butt quivering in fear. The <<nnpc_title "Leighton">> withdraws a large wooden paddle from <<person1>><<his>> desk and hands it to you. It feels heavy in your hands - a blow from this would really hurt!
 		<br><br>
-		<!-- DoLM -->
-		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
+
 		<<set $skulduggerydifficulty to 600>>
-		<<link [[Paddle hard|School Detention Paddle Hard]]>><<def 1>><<set $phase to 0>><<npcincr Leighton love 1>><<npcincr Leighton dom 1>><<status -10>><</link>><<if $speech_attitude is "bratty" or $sadism_level gte 1>><<garousal>><<else>><<gstress>><</if>><<lcool>>
+		<<link [[Paddle hard|School Detention Paddle Hard]]>><<def 1>><<set $phase to 0>><<npcincr Leighton love 1>><<npcincr Leighton dom 1>><<status -10>><</link>><<if $speech_attitude is "bratty" or $sadism_level gte 1>><<garousal>><<else>><<gstress>><</if>><<llcool>>
 		<br>
-		<<link [[Pretend to paddle|School Detention Paddle Gentle]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
+		<<link [[Pretend to paddle|School Detention Paddle Gentle]]>><</link>><<skulduggerydifficulty>>
 		<br>
-		<<if $promiscuity gte 35>>
-			<<link [[Pull their underwear down|School Detention Paddle Hard]]>><<set $phase to 1>><<npcincr Leighton love 3>><<npcincr Leighton dom 1>><</link>><<promiscuous3>>
+		<<if hasSexStat("promiscuity", 3)>>
+			<<person2>>
+			<<link [[Pull <<his>> underwear down|School Detention Paddle Hard]]>><<set $phase to 1>><<npcincr Leighton love 3>><<npcincr Leighton dom 1>><</link>><<promiscuous3>>
+			<br>
 		<</if>>
-		<br>
 		<<link [[Refuse|School Detention Paddle Refuse]]>><<npcincr Leighton love -1>><<npcincr Leighton dom -1>><<status 5>><<delinquency 12>><</link>><<ggdelinquency>><<gcool>>
 	<</if>>
 <<elseif $detention lte 50>>
@@ -165,29 +166,29 @@
 		<br><br>
 
 		You do as told, hands trembling.<<lowerstrip>>
-		<br>
+		<br><br>
 
 		<<if $worn.under_lower.name is "naked" and !playerChastity("hidden")>>
 			<<set $genderknown.pushUnique("Leighton")>>
-			Leighton gets to <<his>> feet, eyes wide as <<he>> ogles your <<genitals>>. "Oh my, you are a naughty<<if $player.gender is "m">> boy,<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "m">>... um, boy...<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "f">>... um, girl...<<else>> girl,<</if>> aren't you? Showing off to your <<nnpc_title "Leighton">> like this."
-			<<if $player.penisExist and $player.penissize isnot 2>>
-				<<if $player.penissize gte 3>>
+			Leighton gets to <<his>> feet, eyes wide as <<he>> ogles your <<genitals>>. "Oh my, you are a naughty<<if $player.sex is "m">> boy,<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "m">>... um, boy...<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "f">>... um, girl...<<else>> girl,<</if>> aren't you? Showing off to your <<nnpc_title "Leighton">> like this."
+			<<if $player.penisExist and $player.penissize isnot 4>>
+				<<if $player.penissize gte 5>>
 					<<He>> licks <<his>> lips hungrily. "Especially being so... gifted."
 					<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
 
-					<<if $player.penissize is 3 and $player.penisExist and $player.vaginaExist>>
+					<<if $player.penissize is 5 and $player.penisExist and $player.vaginaExist>>
 						<<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
-					<<elseif $player.penissize is 4>>
+					<<elseif $player.penissize is 6>>
 						<<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
 					<</if>>
-				<<elseif $player.penissize lte 1>>
+				<<elseif $player.penissize lte 3>>
 					<<He>> stifles a laugh. "Especially being so... shall we say, under-developed."
 					<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
 
-					<<if $player.penissize is 1>>
+					<<if $player.penissize is 3>>
 						<<insecurity "penis_small" 1>><<ginsecurity "penis_small">>
 					<<else>>
-						<<insecurity "penis_tiny" 1>><<ginsecurity "penis_tiny">>
+						<<insecurity "penis_small" 2>><<ginsecurity "penis_small">>
 					<</if>>
 				<</if>>
 			<<else>>
@@ -223,25 +224,25 @@
 		<<if $worn.under_lower.name is "naked" and !playerChastity("hidden")>>
 			<<set $genderknown.pushUnique("Leighton")>>
 
-			Leighton gets to <<his>> feet, eyes wide as <<he>> ogles your <<genitals>>. "Oh my, you are a naughty<<if $player.gender is "m">> boy,<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "m">>... um, boy...<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "f">>... um, girl...<<else>> girl,<</if>> aren't you? Showing off to your <<nnpc_title "Leighton">> like this."
-			<<if $player.penisExist and $player.penissize isnot 2>>
-				<<if $player.penissize gte 3>>
+			Leighton gets to <<his>> feet, eyes wide as <<he>> ogles your <<genitals>>. "Oh my, you are a naughty<<if $player.sex is "m">> boy,<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "m">>... um, boy...<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "f">>... um, girl...<<else>> girl,<</if>> aren't you? Showing off to your <<nnpc_title "Leighton">> like this."
+			<<if $player.penisExist and $player.penissize isnot 4>>
+				<<if $player.penissize gte 5>>
 					<<He>> licks <<his>> lips hungrily. "Especially being so... gifted."
 					<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
 
-					<<if $player.penissize is 3 and $player.penisExist and $player.vaginaExist>>
+					<<if $player.penissize is 5 and $player.penisExist and $player.vaginaExist>>
 						<<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
-					<<elseif $player.penissize is 4>>
+					<<elseif $player.penissize is 6>>
 						<<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
 					<</if>>
-				<<elseif $player.penissize lte 1>>
+				<<elseif $player.penissize lte 3>>
 					<<He>> stifles a laugh. "Especially being so... shall we say, under-developed."
 					<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
 
-					<<if $player.penissize is 1>>
+					<<if $player.penissize is 3>>
 						<<insecurity "penis_small" 1>><<ginsecurity "penis_small">>
 					<<else>>
-						<<insecurity "penis_tiny" 1>><<ginsecurity "penis_tiny">>
+						<<insecurity "penis_small" 2>><<ginsecurity "penis_small">>
 					<</if>>
 				<</if>>
 			<<else>>
@@ -271,17 +272,14 @@
 	<<if $delinquency gte random(1, 1000)>>
 		/* Leighton paddling PC while other watches */
 		<<generates2>><<person1>>
-		You enter the office to find Leighton sitting at <<his>> desk, a <<person2>><<person>> sitting opposite, looking sorry for <<himself>>. Leighton pauses and turns to you as you enter, cutting off an angry lecture. "It's your lucky day, young <<if $pronoun is "m">>man<<else>>lady<</if>>, today you can observe what happens to naughty <<girls>> who break the rules."
-		<br>
-
-		The <<person>> looks relieved, turning to watch Leighton yell at you.
+		You enter the office to find Leighton sitting at <<his>> desk, a <<person2>><<person>> sitting opposite, looking sorry for <<himself>>. Leighton pauses and turns to you as you enter, cutting off an angry lecture. "It's your lucky day, young <<print $pronoun is "m" ? "man" : "lady">>. Today you can observe what happens to naughty <<girls>> who break the rules."
 		<br><br>
 
-		"What are you waiting for?" demands Leighton. "Get your clothes off, <<girl>>."
-		<br>
+		The <<person>> looks relieved, turning to watch Leighton yell at you. "What are you waiting for?" demands Leighton. "Get your clothes off, <<girl>>."
+		<br><br>
 
 		You do as you're told, feeling the <<persons>> gaze on you the entire time. When you're finished, your clothes lie in a pile at your feet. Leighton stands up, eyes wandering all over your naked body, then <span class="lewd">pulls a large wooden paddle from <<person1>><<his>> desk drawer.</span><<stress 2>><<gstress>>
-		<<clothesstrip>>
+		<<clothesstrip>><<schoolrep_naked>>
 		<<if !playerChastity("hidden")>>
 			<<set $genderknown.pushUnique("Leighton")>>
 		<</if>>
@@ -308,10 +306,10 @@
 		"Give me your clothes. All of them. Now. I'm searching them for drugs. And yes, I'm serious."
 		<br><br>
 
-		<<if $rightarm is "bound" or $leftarm is "bound" or $feetuse is "bound">>
-			You roll your eyes and turn to show <<him>> your bound <<if $rightarm is "bound" or $leftarm is "bound">>arms<</if>><<if ($rightarm is "bound" or $leftarm is "bound") and $feetuse is "bound">> and <</if>><<if $feetuse is "bound">>legs<</if>>.
+		<<if pcAreArmsBound("any") or $feetuse is "bound">>
+			You roll your eyes and turn to show <<him>> your bound <<if pcAreArmsBound("any")>>arms<<if $feetuse is "bound">> and <</if>><</if>><<if $feetuse is "bound">>legs<</if>>.
 
-			<<His>> eyes flash. For a moment you think you see lust. "How did you..? Never mind," <<he>> walks over to you. "I really don't want to know."
+			<<His>> eyes flash. For a moment you think you see lust. "How did you..? Never mind." <<He>> walks over to you. "I really don't want to know."
 			<br><br>
 
 			You feel your limbs come loose.<<unbind>>
@@ -337,13 +335,16 @@
 			<<underlowerruined>><<underupperruined>><<set $phase to 4>>
 		<<else>>
 			"No underwear?" <<he>> comments. "That's against the rules,
-			young<<if $player.gender is "m">> man.<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "m">>... man?<<elseif $player.penisExist and $player.vaginaExist and $player.gender_appearance is "f">>... lady?<<else>> lady.<</if>>"
+			<<if $player.penisExist and $player.vaginaExist>>
+				young... <<lady>>?"
+			<<else>>
+				young <<lady>>."
+			<</if>>
 			<br><br>
 		<</if>>
 		<<if playerChastity()>>
-			<<He>> does a double-take. "Oh, you're wearing
-			<<if $worn.genitals.name is "chastity parasite">>a... device.<<else>>a $worn.genitals.name.<</if>>			
-			Okay, let me see that." <<He>> crouches by you, closely examining and probing around your $worn.genitals.name with <<his>> fingers. "Doesn't feel like you're hiding anything," <<he>> says.
+			<<He>> does a double-take. "Oh, you're wearing <<if $worn.genitals.name is "chastity parasite">>a... parasite?<<else>>a $worn.genitals.name.<</if>>
+			Okay, let me see that." <<He>> crouches by you, closely examining and probing around your $worn.genitals.name with <<his>> fingers.<<if $worn.genitals.name is "chastity parasite">> It squirms in response to the touch.<<garousal>><<arousal 200 "genitals">><br><br><</if>> "Doesn't feel like you're hiding anything," <<he>> says.
 			<br><br>
 		<</if>>
 		<<He>> sits back at <<his>> desk and beckons you over. When you're close, <<he>> grabs you by the arms and bends you over <<his>> knee.
@@ -354,34 +355,42 @@
 	<</if>>
 <<else>>
 	<<generates2>><<generates3>><<generates4>>
-	You enter the office to find Leighton sitting at <<his>> desk. Three students are sitting opposite, looking <<print either (`bored`,`sorry for themselves`,`bitter`)>>.
-	<br>
-	Leighton pauses and faces you as you enter, cutting off an angry lecture.
+	You enter the office to find Leighton sitting at <<his>> desk. Three students are sitting opposite, looking <<print either (`bored`,`sorry for themselves`,`bitter`)>>. Leighton pauses and faces you as you enter, cutting off an angry lecture.
 	<br><br>
 
 	"It's your lucky day," Leighton says to the other students, before turning to you with an evil grin.
 	<br><br>
 
-	"Take off your clothes and place your hands on my desk," <<he>> demands. You reluctantly do as told, feeling the stares of the other students on you as you strip.
-	<<clothesstrip>>
+	"Take off your clothes and place your hands on my desk," <<he>> demands. You reluctantly do as told, feeling the stares of the other students on you as you strip. <span class="lewd">Leighton pulls a large wooden paddle from <<his>> desk drawer.</span><<stress 2>><<gstress>>
+	<<clothesstrip>><<schoolrep_naked>>
 	<<if !playerChastity("hidden")>>
 		<<set $genderknown.pushUnique("Leighton")>>
 	<</if>>
 	<br><br>
 
-	Leighton gets to <<his>> feet, eyes wide as <<he>> ogles your nudity.
+	<<He>> gets to <<his>> feet, eyes wide as <<he>> ogles your nudity.
 
-	<<if $player.penisExist and $player.penissize gte 3>>
+	<<if playerChastity()>>
+		A moment later they narrow at the sight of your <<if $worn.genitals.name is "chastity parasite">>parasite<<else>>$worn.genitals.name<</if>>. The others are similarly surprised.
+		<br><br>
+		"<<if $worn.genitals.name is "chastity parasite">>Ew, what is that?<<else>><<pShes>> wearing a $worn.genitals.name?<</if>>" the <<person3>><<person>> says as the other two gawk.
+		<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+		<br><br>
+		"Let me see that," Leighton says as <<person1>><<he>> crouches by you, closely examining and probing around your $worn.genitals.name with <<his>> fingers.<<if $worn.genitals.name is "chastity parasite">> It squirms in response to the touch.<<garousal>><<arousal 200 "genitals">><br><br><</if>> "Doesn't feel like you're hiding anything," <<he>> says.
+
+		<<He>> stands up and presses <<his>> hand against your back, shoving you against the desk.
+	<<elseif $player.penisExist and $player.penissize gte 5>>
 		<<He>> licks <<his>> lips hungrily at the sight of your <<penis>>. The others are equally enthralled.
-		<br>
+		<br><br>
 		<<Penisremarkquote>> the <<person3>><<person>> says as the other two giggle.
 		<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
 
-		<<if $player.penissize is 3 and $player.penisExist and $player.vaginaExist>>
+		<<if $player.penissize is 5 and $player.penisExist and $player.vaginaExist>>
 			<<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
-		<<elseif $player.penissize is 4>>
+		<<elseif $player.penissize is 6>>
 			<<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
 		<</if>>
+		<br><br>
 
 		"That's quite enough," Leighton interjects, an amused smile on <<person1>><<his>> lips.
 		<br><br>
@@ -389,14 +398,14 @@
 		<<He>> turns back to you and presses <<his>> hand against your back, shoving you against the desk.
 	<<elseif $player.penisExist and $player.penissize lte 1>>
 		<<He>> stifles a laugh as <<his>> gaze falls on your <<penis>>. The others aren't so considerate.
-		<br>
+		<br><br>
 		<<Penisremarkquote>> the <<person3>><<person>> jeers as the other two giggle.
 		<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
 
-		<<if $player.penissize is 1>>
+		<<if $player.penissize is 3>>
 			<<insecurity "penis_small" 1>><<ginsecurity "penis_small">>
 		<<else>>
-			<<insecurity "penis_tiny" 1>><<ginsecurity "penis_tiny">>
+			<<insecurity "penis_small" 2>><<ginsecurity "penis_small">>
 		<</if>>
 		<br><br>
 
@@ -407,7 +416,7 @@
 	<<else>>
 		Once you're exposed, Leighton presses a hand against your back and shoves you against the desk.
 	<</if>>
-
+	<br><br>
 	"Today you will observe what happens to those who break the rules," <<he>> announces to the other students. <<He>> raises the paddle.
 	<br><br>
 
@@ -439,7 +448,7 @@ You shake off <<his>> hand and run for the exit, escaping onto the street.
 
 :: School Detention Lines
 <<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
-
+<<wearProp "marker">>
 <<if $phase is 0>>
 	You get to work, hoping to get out of here quickly. Twenty minutes pass before Leighton speaks again. "That should do it." <<He>> gestures for you to leave.
 <<elseif $phase is 1>>
@@ -528,11 +537,11 @@ You shake off <<his>> hand and run for the exit, escaping onto the street.
 		<<He>> shouts after you as you flee down the corridor. "Hey, <<bitch>>, forget something?"
 		<br>
 		You were unable to rescue your clothes on the way out. <<tearful>> you keep running.
+		<br><br>
 	<<else>>
 		<<He>> shouts after you as you flee down the corridor. "You've made things much worse for yourself, <<bitch>>. Mark my words." <<tearful>> you keep running.
 		<<clotheson>>
 	<</if>>
-	<br><br>
 	<<endcombat>>
 
 	<<link [[Next|Hallways]]>><</link>>
@@ -550,7 +559,7 @@ You shake off <<his>> hand and run for the exit, escaping onto the street.
 
 :: School Detention Car
 
-<<set $outside to 1>><<set $location to "school">><<schooleffects>><<effects>>
+<<set $outside to 1>><<set $location to "school">><<schooleffects>><<effects>><<wearProp "sponge">>
 
 You leave the office and walk to the set of double doors leading outside. You <<nervously>> remove your clothing and leave it lying just inside the doorway. You cover your <<undies>> with a hand before walking over to the car. Leighton watches you as promised, with a blank expression on <<his>> face.
 <br><br>
@@ -564,12 +573,12 @@ You keep your <<lewdness>> covered as best you can as you move round the car. Yo
 <<link [[Crouch|School Detention Car2]]>><<set $phase to 0>><</link>>
 <br>
 <<if $worn.under_lower.type.includes("naked")>>
-	<<if $exhibitionism gte 75>>
+	<<if hasSexStat("exhibitionism", 5)>>
 		<<link [[Bend over|School Detention Car2]]>><<set $phase to 2>><</link>><<exhibitionist5>>
 		<br>
 	<</if>>
 <<elseif !$worn.under_lower.type.includes("naked")>>
-	<<if $exhibitionism gte 35>>
+	<<if hasSexStat("exhibitionism", 3)>>
 		<<link [[Bend over|School Detention Car2]]>><<set $phase to 1>><</link>><<exhibitionist3>>
 		<br>
 	<</if>>
@@ -591,18 +600,17 @@ You leave the office, but rather than head toward your punishment, you make for 
 	<br><br>
 	<<link [[Next|Oxford Street]]>><<clotheson>><<endevent>><</link>>
 <<elseif $phase is 1>>
-	You bend over to clean off the dirt, sticking your <<bottom>> out toward Leighton. You feel it wiggle as you rub the car. Leighton's face reddens. "T-that will be all. You can go now." <<He>> stammers, shutting the blinds. You dress and leave the premises.
+	You bend over to clean off the dirt, sticking your <<bottom>> out toward Leighton. You feel it wiggle as you rub the car. Leighton's face reddens. "T-that will be all. You can go now," <<he>> stammers, shutting the blinds. You dress and leave the premises.
 	<<exhibitionism3>>
 	<<link [[Next|Oxford Street]]>><<clotheson>><<endevent>><</link>>
 <<elseif $phase is 2>>
-	You bend over to clean off the dirt, sticking your bare <<bottom>> out toward Leighton. You feel it wiggle as you rub the car. Leighton's face reddens. "M-make sure to get it all." <<He>> stammers, shutting the window and retreating out of sight.
+	You bend over to clean off the dirt, sticking your bare <<bottom>> out toward Leighton. You feel it wiggle as you rub the car. Leighton's face reddens. "M-make sure to get it all," <<he>> stammers, shutting the window and retreating out of sight.
 	<<exhibitionism3>>
 
-	<<endevent>>
-	<<beastNEWinit 1 dog>>
-
 	Pleased with yourself, you spend another minute polishing the troublesome spot. You make sure to put an extra wiggle in your hips, in case Leighton is still secretly watching.
-	<<if random(0, 100) lt 5 and ($bestialitydisable is "f" or $monster is 1)>>
+	<<if random(0, 100) lt 5 and ($settings.bestialityEnabled or $monster is 1)>>
+		<<endevent>><<wearProp "sponge">>
+		<<beastNEWinit 1 dog>>
 		You get so focused on picturing <<nnpc_his "Leighton">> embarrassed face, sounds of soft and rapid steps behind you elude your attention, until there's a sudden weight on your bent back and a growl in your ear.
 		<br><br>
 		<<link [[Next|School Detention Car Surprise Dog]]>><<set $molestationstart to 1>><</link>>
@@ -651,22 +659,10 @@ You leave the office, but rather than head toward your punishment, you make for 
 	<<beastejaculation>>
 	The <<beasttype>> grunts in satisfaction, then trots off. You're left lying on the ground. <<tearful>> you dust yourself off.
 	<<famebestiality 10>>
-	<br>
-	<<endcombat>>
-	<<npc Leighton>><<person1>>
-	"I hope this was a valuable lesson for you, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>." The window to Leighton's office is open again and <<he>> is back, watching you impassively. "Do try to remember it next time you think of getting cheeky with your superiors."
-	<br><br>
-	<<He>> shuts the blinds before you can answer, leaving you all alone.
-	<<clotheson>>
+
 <<elseif $enemyhealth lte 0>>
-	The <<beasttype>> yelps and flees, its tail between its legs. <<tearful>> you dust yourself off.
-	<br>
-	<<endcombat>>
-	<<npc Leighton>><<person1>>
-	"I hope this was a precious lesson for you, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>." The window to Leighton's office is open again and <<he>> is back, watching you impassively. "Do try to remember it next time you think of getting cheeky with your superiors."
-	<br><br>
-	<<He>> shuts the blinds before you can answer, leaving you all alone.
-	<<clotheson>>
+	The <<beasttype>> yelps and flees, <<bhis>> tail between <<bhis>> legs. <<tearful>> you dust yourself off.
+
 <<else>>
 	<<set $rescued += 1>>
 	<<npc Leighton 2>>
@@ -677,19 +673,19 @@ You leave the office, but rather than head toward your punishment, you make for 
 	<</if>>
 	<br><br>
 	Following another whistle from Leighton the <<beasttype>> backs away, then reluctantly trots off towards <<bhis>> owner's office. You're left lying on the ground. <<tearful>> you dust yourself off.
-	<br>
-	<<endcombat>>
-	<<npc Leighton>><<person1>>
-	"I hope this was a valuable lesson for you, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>." Leighton fixes you with <<his>> stare. "Do try to remember it next time you think of getting cheeky with your superiors."
-	<br><br>
-	<<He>> shuts the blinds before you can answer, leaving you all alone.
-	<<clotheson>>
 <</if>>
+<br>
+<<endcombat>>
+<<npc Leighton>><<person1>>
+"I hope this was a valuable lesson for you, young <<lady>>." Leighton fixes you with <<his>> stare. "Do try to remember it next time you think of getting cheeky with your superiors."
+<br><br>
+<<He>> shuts the blinds before you can answer, leaving you all alone.
+<<clotheson>>
 
 <<link [[Next|Oxford Street]]>><<endevent>><</link>>
 
 :: School Detention Paddle Hard
-<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>><<wearProp "wooden paddle">>
 
 <<if $phase is 1>>
 	You hold the paddle in one hand, reaching out with the other to pull down <<person2>><<persons>> <<if $pronoun is "m">>briefs<<else>>panties<</if>>. <<He>> yelps in surprise as <<his>> bare butt comes into view. You feel a surge of arousal at the sight. <<promiscuity3>>
@@ -707,10 +703,10 @@ You raise the paddle high and bring it down on the <<person2>><<persons>><<if $p
 <<set _defiance_arousal to ($sadism / 40)>>
 <<arousal _defiance_arousal>>
 <<if $arousal gte ($arousalmax * 0.8)>>
-	<<sadism _args[0]>>
+	<<sadism 20>>
 <</if>>
 
-You oblige, bringing the paddle down on the <<personsimple>>'s other cheek this time. <<He>> jerks <<his>> whole body on the desk, but Leighton presses down on the small of <<his>> back, holding <<him>> down.
+You oblige, bringing the paddle down on the <<personssimple>> other cheek this time. <<He>> jerks <<his>> whole body on the desk, but Leighton presses down on the small of <<his>> back, holding <<him>> down.
 
 <<if $arousal gte 8000>>
 	<<if $player.penisExist and $player.vaginaExist>>
@@ -724,7 +720,7 @@ You oblige, bringing the paddle down on the <<personsimple>>'s other cheek this 
 <</if>>
 <br><br>
 
-The sound of paddle meeting<<if $phase is 1>> bare<</if>> flesh echoes around the room, mixing with the <<personsimple>>'s sobs.
+The sound of paddle meeting<<if $phase is 1>> bare<</if>> flesh echoes around the room, mixing with the <<personssimple>> sobs.
 
 <<if $phase is 1>>
 	<<His>> butt is an angry red colour, nasty welts all along <<his>> buttocks where you hit <<him>>.
@@ -740,14 +736,14 @@ By the end, the <<person>> is left a sobbing mess, holding onto the desk for sup
 <br>
 
 :: School Detention Paddle Gentle
-<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>><<wearProp "wooden paddle">>
 
 You lift the paddle a little and swing it down upon <<person2>><<persons>> upturned ass, stopping just shy of <<his>> cheek. <<He>> yelps in surprise, but then turns to you, looking relieved. You do the same to <<his>> other cheek. <<He>> flinches and cries out, but you know <<hes>> not in any real pain.
 <br><br>
 
-<<skulduggeryuse>>
 
 <<skulduggerycheck>>
+<<skulduggeryuse>>
 <<if $skulduggerysuccess is 1>>
 	<span class="green">Leighton looks pleased,</span> getting out <<person1>><<his>> camera and snapping pictures as you pretend to beat your classmate. The <<person2>><<person>> makes a show of yelping and wriggling, so you put a hand on the small of <<his>> back, holding <<him>> down to the desk. "P-please stop!" <<he>> sobs dramatically.
 	<br><br>
@@ -815,7 +811,7 @@ Leighton brings the paddle down on the <<persons>> upturned butt. <<He>> cries o
 The <<persons>> pleas only serve to encourage Leighton. <<person1>><<He>> brings the paddle down again and again, clearly enjoying the way the <<person2>><<personsimple>> struggles and cries. "Beg all you want, we all know you deserve this."
 <br><br>
 
-The <<personsimple>> tries to respond, but any words are lost in the yelps and cries coming out of <<his>> mouth. <<His>> butt is almost in your face now, every blow from the paddle making it ripple inside <<his>> <<if $pronoun is "m">>briefs<<else>>panties<</if>>. Leighton pauses, pulling the <<personsimple>>'s <<if $pronoun is "m">>briefs<<else>>panties<</if>> up between <<his>> cheeks to admire <<person1>><<his>> handiwork. An angry red covers the <<person2>><<personsimple>>'s buttocks. If <<hes>> ashamed to let you see <<his>> ass, <<he>> doesn't show it. <<His>> attention is clearly on the pain in <<his>> butt.
+The <<personsimple>> tries to respond, but any words are lost in the yelps and cries coming out of <<his>> mouth. <<His>> butt is almost in your face now, every blow from the paddle making it ripple inside <<his>> <<if $pronoun is "m">>briefs<<else>>panties<</if>>. Leighton pauses, pulling the <<personssimple>> <<if $pronoun is "m">>briefs<<else>>panties<</if>> up between <<his>> cheeks to admire <<person1>><<his>> handiwork. An angry red covers the <<person2>><<personssimple>> buttocks. If <<hes>> ashamed to let you see <<his>> ass, <<he>> doesn't show it. <<His>> attention is clearly on the pain in <<his>> butt.
 <br><br>
 
 "I think that should be enough, don't you?" asks Leighton, giving the <<persons>> bare cheek a light spank.
@@ -823,7 +819,7 @@ The <<personsimple>> tries to respond, but any words are lost in the yelps and c
 
 <<link [[Nod|School Detention Paddle Other End]]>><<set $phase to 2>><</link>>
 <br>
-<<link [[Harder|School Detention Paddle Harder]]>><<npcincr Leighton love 1>><<control 10>><<status -10>><<arousal 500>><</link>><<gcontrol>><<garousal>><<lcool>>
+<<link [[Harder|School Detention Paddle Harder]]>><<npcincr Leighton love 1>><<control 10>><<status -10>><<arousal 500>><</link>><<gcontrol>><<garousal>><<llcool>>
 <br>
 
 :: School Detention Paddle Harder
@@ -832,7 +828,7 @@ The <<personsimple>> tries to respond, but any words are lost in the yelps and c
 Leighton raises <<person1>><<his>> eyebrows at you. "You're enjoying this, aren't you?" <<He>> chuckles and turns to the <<person2>><<person>>. "You heard <<phim>>, we're going to really make you sorry."
 <br><br>
 
-The <<person>> glares at you through <<his>> tears, lying limp over Leighton's desk. <<He>> doesn't speak, but <<he>> doesn't need to. <<Hes>> clearly furious. Leighton raises the paddle, not bothering to fix the <<personsimple>>'s underwear, bringing it down hard on <<his>> exposed buttocks. <<He>> cries out and tries to stand, but Leighton leans <<person1>><<his>> weight against the small of the <<person2>><<personsimple>>'s back. "You're not getting off that easy. I'm going to give you six more. Count them!"
+The <<person>> glares at you through <<his>> tears, lying limp over Leighton's desk. <<He>> doesn't speak, but <<he>> doesn't need to. <<Hes>> clearly furious. Leighton raises the paddle, not bothering to fix the <<personssimple>> underwear, bringing it down hard on <<his>> exposed buttocks. <<He>> cries out and tries to stand, but Leighton leans <<person1>><<his>> weight against the small of the <<person2>><<personssimple>> back. "You're not getting off that easy. I'm going to give you six more. Count them!"
 <br><br>
 
 "O-one!" cries the <<person>>, trying in vain to push Leighton off <<him>>.
@@ -881,7 +877,7 @@ Leighton raises the paddle to strike,
 <</if>>
 <br><br>
 
-Leighton fixes you with a glare. "I'm the <<nnpc_title "Leighton">>, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>. I can do whatever I want. If you don't want to watch, then you can join <<person2>><<him>>."
+Leighton fixes you with a glare. "I'm the <<nnpc_title "Leighton">>, young <<lady>>. I can do whatever I want. If you don't want to watch, then you can join <<person2>><<him>>."
 <br><br>
 
 The <<person>> gives you a commiserating look, but <<he>> seems grateful that you tried. <<His>> relief is short-lived, however, as Leighton grabs you by the scruff of your neck, pushing you over the desk and raising the paddle over your <<bottom>>.
@@ -916,18 +912,24 @@ The <<person>> gives you a commiserating look, but <<he>> seems grateful that yo
 
 	as Leighton brings the paddle down on the <<person2>><<persons>> upturned ass.
 	<br><br>
-
-	Unable to help yourself, you reach down your $worn.lower.name and fumble with your <<genitals>>. You're already
-
-	<<if $player.penisExist and $player.vaginaExist>>
-		hard and wet, precum mingling with your juices.
-	<<elseif $player.penisExist>>
-		hard, precum oozing from the tip of your penis.
+	<<if $worn.genitals.name is "chastity parasite">>
+		Unable to help yourself, you reach down your $worn.lower.name and squeeze with your $worn.genitals.name, waves of pleasure quickly following<<if $player.vaginaExist>>, your pussy soaking through the fabric of your $worn.lower.name<</if>>. <<arousal 1000>><<ggarousal>>
+	<<elseif playerChastity("cage")>>
+		Unable to help yourself, you reach down your $worn.lower.name and tug on your $worn.genitals.name, frustrated that you're unable to touch your <<penis>>.<<if $player.vaginaExist>>You instead start to rub your vagina, it quickly soaking through the fabric of your $worn.lower.name.<</if>>
+	<<elseif playerChastity("hidden")>>
+		Unable to help yourself, you reach down your $worn.lower.name and tug on your $worn.genitals.name, frustrated that you're unable to touch your <<genitals>>.
 	<<else>>
-		wet, your pussy soaking through the fabric of your $worn.lower.name.
+		Unable to help yourself, you reach down your $worn.lower.name and fumble with your <<genitals>>. You're already
+		<<if $player.penisExist and $player.vaginaExist>>
+			hard and wet, precum mingling with your juices.
+		<<elseif $player.penisExist>>
+			hard, precum oozing from the tip of your penis.
+		<<else>>
+			wet, your pussy soaking through the fabric of your $worn.lower.name.
+		<</if>>
+		Leaning forward against the desk, you continue, feeling waves of pleasure wash over you in time with the panicked <<personssimple>> yelps.
 	<</if>>
-
-	Leaning forward against the desk, you continue, feeling waves of pleasure wash over you in time with the panicked <<personsimple>>'s yelps. <<exhibitionism5>>
+	<<exhibitionism5>>
 
 	<<masturbationstart>>
 	<<set $timer to 20>>
@@ -965,7 +967,7 @@ The <<person>> gives you a commiserating look, but <<he>> seems grateful that yo
 	"You're done here," Leighton says. "Get out of my office."
 	<br><br>
 
-	The <<person>> stares vacantly for a moment, still stunned by your display. <<He>> eventually shakes out of <<his>> stupor and scurries out of the room, though not before giving you one last disapproving glare. You're sure you'll be hearing about this for a while yet.<<status -10>><<lcool>>
+	The <<person>> stares vacantly for a moment, still stunned by your display. <<He>> eventually shakes out of <<his>> stupor and scurries out of the room, though not before giving you one last disapproving glare. You're sure you'll be hearing about this for a while yet.<<status -10>><<llcool>>
 	<br><br>
 
 	<<clotheson>>
@@ -1068,7 +1070,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 		<<case 7>>
 			<<if $delinquency gte 800>>
 				"This is what brats like you deserve," Leighton sneers, bringing the paddle down hard.<<violence 4>><<gpain>>
-			<<elseif $physique gte $physiquesize * 0.75>>
+			<<elseif $physique gte ($physiquesize / 7) * 5>>
 				Leighton laughs, enjoying your degradation. "Not so tough now, are you?"<<combattrauma 4>><<gtrauma>>
 			<<else>>
 				Leighton tuts as <<he>> prepares another strike. "You'll be a good <<girl>> from now on, won't you?"<<combattrauma 2>><<gtrauma>>
@@ -1150,7 +1152,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 <<else>>
 	<<loadNPC 1 paddle_other_student_1>>
 	Leighton takes a step back, looking satisfied. "That's a good <<girl>>. Don't you see how much easier things would be if you just did as you were told?"
-	<br>
+	<br><br>
 
 	<<if $speech_attitude is "meek">>
 		<<tearful>> you mumble, "Yes, <<sir>>."
@@ -1224,7 +1226,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 		<<case 7>>
 			<<if $delinquency gte 800>>
 				"This is what brats like you deserve," Leighton sneers, bringing the paddle down hard.<<violence 4>><<gpain>>
-			<<elseif $physique gte $physiquesize * 0.75>>
+			<<elseif $physique gte ($physiquesize / 7) * 5>>
 				Leighton laughs, enjoying your degradation. "Not so tough now, are you?"<<combattrauma 4>><<gtrauma>>
 			<<else>>
 				Leighton tuts as <<he>> prepares another strike. "You'll be a good <<girl>> from now on, won't you?"<<combattrauma 2>><<gtrauma>>
@@ -1294,7 +1296,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 	<br>
 <<else>>
 	Leighton places the paddle down next to you on the desk. "That's a good <<girl>>. Don't you see how much easier things would be if you just did as you were told?"
-	<br>
+	<br><br>
 
 	<<clotheson>>
 	<<endcombat>>
@@ -1364,7 +1366,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 		<<case 7>>
 			<<if $delinquency gte 800>>
 				"This is what brats like you deserve," Leighton sneers, bringing the paddle down hard.<<violence 4>><<gpain>>
-			<<elseif $physique gte $physiquesize * 0.75>>
+			<<elseif $physique gte ($physiquesize / 7) * 5>>
 				Leighton laughs, enjoying your degradation. "Not so tough now, are you?"<<combattrauma 4>><<gtrauma>>
 			<<else>>
 				Leighton tuts as <<he>> prepares another strike. "You'll be a good <<girl>> from now on, won't you?"<<combattrauma 2>><<gtrauma>>
@@ -1446,7 +1448,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 	<br>
 <<else>>
 	Leighton places the paddle down next to you on the desk. "That's a good <<girl>>. Don't you see how much easier things would be if you just did as you were told?"
-	<br>
+	<br><br>
 
 	<<endcombat>>
 	<<npc Leighton>>
@@ -1504,7 +1506,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 <<if _audienceComment>>
 	<<switch _audienceComment>>
 		<<case "apologise">>
-			The <<print $paddle_other_student_A>> mimics your apology in a mocking tone. The other two burst into laughter.<<set $stress += 12>><<combattrauma 5>><<status -10>><<gstress>><<gtrauma>><<lcool>>
+			The <<print $paddle_other_student_A>> mimics your apology in a mocking tone. The other two burst into laughter.<<set $stress += 12>><<combattrauma 5>><<status -10>><<gstress>><<gtrauma>><<llcool>>
 		<<case "orgasm">>
 			The students watch, mouths agape, as you shudder in climax. "Is <<pshe>> seriously cumming from getting <<pher>> ass beaten?" the <<print $paddle_other_student_B>> gawks.
 			<br>
@@ -1539,7 +1541,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 		<<case 7>>
 			<<if $delinquency gte 800>>
 				"This is what brats like you deserve," Leighton sneers, bringing the paddle down hard.<<violence 4>><<gpain>>
-			<<elseif $physique gte $physiquesize * 0.75>>
+			<<elseif $physique gte ($physiquesize / 7) * 5>>
 				Leighton laughs, enjoying your degradation. "Not so tough now, are you?"<<combattrauma 4>><<gtrauma>>
 			<<else>>
 				Leighton tuts as <<he>> prepares another strike. "You'll be a good <<girl>> from now on, won't you?"<<combattrauma 2>><<gtrauma>>
@@ -1589,7 +1591,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 	The students erupt into laughter. You're not sure if it's directed at you or Leighton, but the <<nnpc_title "Leighton">> seems unamused regardless. <<He>> smacks the paddle against the desk, promptly shutting them up.
 	<br><br>
 
-	"If any of you little shits breathe a word about this to anyone," <<he>> growls through laboured breaths, "It'll be your asses up here next time. Understood?" They quickly nod in assent.
+	"If any of you little shits breathe a word about this to anyone," <<he>> growls through laboured breaths, "it'll be your asses up here next time. Understood?" They quickly nod in assent.
 	<br><br>
 
 	"And you," Leighton says, turning <<his>> attention back to you. "Get out of my office." <<tearful>> you get dressed and scurry into the hallway.
@@ -1618,7 +1620,7 @@ Leighton puts the paddle down on the desk and gives the <<person2>><<person>> on
 	<br>
 <<else>>
 	Leighton places the paddle down next to you on the desk. "That's a good <<girl>>. Don't you see how much easier things would be if you just did as you were told?"
-	<br>
+	<br><br>
 
 	<<endcombat>>
 	<<npc Leighton>>
@@ -1689,7 +1691,7 @@ The pain in your <<bottom>> is very much still there, but it lessens the more Le
 	Leighton continues to caress your sore behind, <<person1>><<his>> fingers eventually slipping between your cheeks. <<He>> gives a quiet, curious murmur when <<he>> brushes <<his>> thumb over your anal shield. "Is this to protect you or keep you under control?" <<he>> snickers.<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
 	<br><br>
 
-	After a while, Leighton withdraws <<his>> hand and gives your ass one last light pat. "I hope that teaches you to follow the rules, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>."
+	After a while, Leighton withdraws <<his>> hand and gives your ass one last light pat. "I hope that teaches you to follow the rules, young <<lady>>."
 	<br><br>
 
 	With that, you fix your clothing, heading back out into the hallway.
@@ -1697,7 +1699,7 @@ The pain in your <<bottom>> is very much still there, but it lessens the more Le
 
 	<<link [[Next|Hallways]]>><<endevent>><<clotheson>><</link>>
 	<br>
-<<elseif $analdisable is "f">>
+<<elseif $settings.analEnabled>>
 	Leighton seems to be enjoying <<person1>><<himself>> a little too much as <<he>> rubs your sore butt. <<His>> fingers begin to prod against your anus with each pass over.
 	<br><br>
 
@@ -1736,7 +1738,7 @@ The pain in your <<bottom>> is very much still there, but it lessens the more Le
 		<<link [[Next|School Detention Paddle Cream 2]]>><</link>>
 		<br>
 	<<else>>
-		<<if $promiscuity gte 35>>
+		<<if hasSexStat("promiscuity", 3)>>
 			<<link [[Enjoy it|School Detention Paddle Cream Leighton]]>><<set $phase to 2>><<arousal 5000 "genitals">><<npcincr Leighton love 1>><<npcincr Leighton dom 1>><</link>><<promiscuous3>><<ggarousal>>
 			<br>
 		<</if>>
@@ -1746,7 +1748,7 @@ The pain in your <<bottom>> is very much still there, but it lessens the more Le
 		<br>
 	<</if>>
 <<else>>
-	After a while, Leighton withdraws <<person1>><<his>> hand and gives your ass one last light pat. "I hope that teaches you to follow the rules, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>."
+	After a while, Leighton withdraws <<person1>><<his>> hand and gives your ass one last light pat. "I hope that teaches you to follow the rules, young <<lady>>."
 	<br><br>
 
 	With that, you fix your clothing, heading back out into the hallway.
@@ -1769,7 +1771,7 @@ The <<person>> looks just as shocked as you are, but it doesn't take long for <<
 <br>
 You feel the <<persons>> hands hovering above your cheeks, but they don't make contact. It appears <<hes>> lost <<his>> nerve. "What are you waiting for?" Leighton demands. "Get to work."
 <br>
-"I-I don't know if I should do this," <<he>> stammers. "It's just too-"
+"I-I don't know if I should do this," <<he>> stammers. "It's just too—"
 <br>
 Leighton slams <<nnpc_his "Leighton">> palm against the desk, cutting <<him>> off. "Either do as you're told, or next time, you can take <<pher>> place."
 <br><br>
@@ -1777,7 +1779,7 @@ Leighton slams <<nnpc_his "Leighton">> palm against the desk, cutting <<him>> of
 The <<person>> gulps and nods. Suddenly, you feel a pair of hands on your bottom. You gasp at the sensation. <<His>> motions are much clumsier than Leighton's, rubbing around your anus with a lustful fervour.
 <br><br>
 
-<<if $promiscuity gte 35>>
+<<if hasSexStat("promiscuity", 3)>>
 	<<link [[Enjoy it|School Detention Paddle Cream 3]]>><<set $phase to 2>><<arousal 5000 "genitals">><<npcincr Leighton love 1>><<npcincr Leighton dom 1>><</link>><<promiscuous3>><<ggarousal>>
 	<br>
 <</if>>
@@ -1813,7 +1815,7 @@ The <<person>> gulps and nods. Suddenly, you feel a pair of hands on your bottom
 The <<person>> continues to rub your ass, <<his>> fingers treading dangerously close to your anus. <<He>> seems reluctant to go any further.
 <br><br>
 
-Leighton notices the <<personsimple>>'s hesitation. "You can do better than that," <<nnpc_he "Leighton">> tuts. "I certainly wouldn't want to punish you for your lack of enthusiasm."
+Leighton notices the <<personssimple>> hesitation. "You can do better than that," <<nnpc_he "Leighton">> tuts. "I certainly wouldn't want to punish you for your lack of enthusiasm."
 <br><br>
 
 The <<person>> pauses, <<if $phase is 0>>sniffles<<else>>takes a deep breath<</if>>, and presses <<his>> hand against your <<bottom>>.
@@ -1890,7 +1892,7 @@ The <<person>> pauses, <<if $phase is 0>>sniffles<<else>>takes a deep breath<</i
 	<<case 1, 2>>
 		Leighton sits at <<nnpc_his "Leighton">> desk, leaning close to observe your expression.
 	<<case 3, 4>>
-		"You like how that feels, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>?" asks Leighton. <<nnpc_His "Leighton">> breath is hot against your face as <<nnpc_he "Leighton">> stares into your eyes.
+		"You like how that feels, young <<lady>>?" asks Leighton. <<nnpc_His "Leighton">> breath is hot against your face as <<nnpc_he "Leighton">> stares into your eyes.
 	<<case 4, 5>>
 		<<person1>>"<<Hes>> good at this, isn't <<he>>?" says Leighton with a smirk, looking up at the <<person>>.
 	<<case 6>>
@@ -1931,7 +1933,7 @@ The <<person>> pauses, <<if $phase is 0>>sniffles<<else>>takes a deep breath<</i
 
 			"Mind your language," Leighton mutters. <<nnpc_He "Leighton">> doesn't sound the slightest bit bothered.
 		<<elseif $cool gte 240>>
-			"I've wanted to do that for a while. I've always had a bit of crush..." <<he>> trails off, staring at <<his>> feet and giggling.
+			"I've wanted to do that for a while. I've always had a bit of a crush..." <<He>> trails off, staring at <<his>> feet and giggling.
 			<br><br>
 
 			"How cute," Leighton mutters. <<nnpc_He "Leighton">> doesn't sound particularly interested.
@@ -1953,7 +1955,7 @@ The <<person>> pauses, <<if $phase is 0>>sniffles<<else>>takes a deep breath<</i
 		"I hope you've both learnt a valuable lesson," <<nnpc_he "Leighton">> says. <<nnpc_He "Leighton">> holds up <<nnpc_his "Leighton">> camera and smiles. "A lesson I'd suggest you keep to yourselves."
 		<br><br>
 
-		<<tearful>> you and the <<person>> are led out of the office. <<He>> winks as <<he>> disappears down the hallway.
+		<<tearful>> you are led out of the office with the <<person>> in tow. <<He>> winks as <<he>> disappears down the hallway.
 	<</if>>
 	<br><br>
 
@@ -2002,14 +2004,15 @@ The <<person>> pauses, <<if $phase is 0>>sniffles<<else>>takes a deep breath<</i
 	"Now, now," <<he>> tuts. "As your <<nnpc_title "Leighton">>, I know what's best for you. Hold still."
 	<br>
 	Stuck in such a vulnerable position, there's little else you can do besides let Leighton have <<his>> way.<<gstress>><<gtrauma>>
+	<br><br>
 <<elseif $phase is 1>>
 	Despite your discomfort, you think better of talking back to the <<nnpc_title "Leighton">>. You bite your lip and clench your eyes shut as Leighton's fingers assault your <<bottom>>.
+	<br><br>
 <<else>>
 	You sigh in contentment as Leighton's fingers brush against your anus, and you spread your legs a little to allow <<him>> easier access. You think you hear <<him>> chuckling behind you. <<promiscuity3>>
 <</if>>
-<br><br>
 
-<<if $phase is 2>>Taking your invitation<<else>>Without warning<</if>>, Leighton slides <<his>> finger inside you, the soothing cream acting as lubricant. You gasp at the sensation, <<if $phase is 2>>but it isn't unpleasant<<else>>feeling utterly violated<</if>>. <<His>> finger moves in and out, <<if $player.penisExist>>rubbing against your prostate<<else>>causing you to shudder and moan involuntarily<</if>>.
+<<if $phase is 2>>Taking your invitation<<else>>Without warning<</if>>, Leighton slides <<his>> finger inside you, the soothing cream acting as lubricant. You gasp at the sensation, <<if $phase is 2>>but it isn't unpleasant<<else>>feeling utterly violated<</if>>. <<His>> finger moves in and out, <<if $player.sex isnot "f">>rubbing against your prostate<<else>>causing you to shudder and moan involuntarily<</if>>.
 
 <<if $arousal gte 8000>>
 	<br>
@@ -2026,11 +2029,11 @@ The <<person>> pauses, <<if $phase is 0>>sniffles<<else>>takes a deep breath<</i
 	<<else>>
 		much to your shame.
 	<</if>>
-	Judging by Leighton's dark laughter behind you, <<he>> noticed.<<if $phase isnot 2>><<trauma 6>><<gtrauma>><</if>>
+	Judging by Leighton's dark laughter behind you, <<he>> notices.<<if $phase isnot 2>><<trauma 6>><<gtrauma>><</if>>
 <</if>>
 <br><br>
 
-After a while, Leighton removes <<his>> finger and gives your ass one last light pat. "I hope that'll teach you to follow the rules, young <<if $player.gender_appearance is "m">>man<<else>>lady<</if>>." With that, you fix your clothing, heading back out into the hallway.
+After a while, Leighton removes <<his>> finger and gives your ass one last light pat. "I hope that'll teach you to follow the rules, young <<lady>>." With that, you fix your clothing, heading back out into the hallway.
 <br><br>
 
 <<link [[Next|Hallways]]>><<endevent>><<clotheson>><</link>>
@@ -2067,7 +2070,7 @@ Leighton sighs and shakes <<his>> head as <<he>> places the tube back in its dra
 <br><br>
 <<actionsman>>
 
-<<if _combatend or $enemyanger lte 0>>
+<<if _combatend>>
 	<span id="next"><<link [[Next|School Detention Paddle Rape Finish]]>><</link>></span><<nexttext>>
 <<else>>
 	<span id="next"><<link [[Next|School Detention Paddle Rape]]>><</link>></span><<nexttext>>

@@ -12,17 +12,17 @@
 	<<set $prison.punishment_intro to 1>>
 	The guard leads you through the prison block, back into the room with the gaping hole on one side. The other guards are already here. <<methodical_guard 0 cap>><<person1>> sits behind the desk.
 	<br><br>
-	"You were warned," <<he>> says. "The warden allows me to dole out punishments-"
+	"You were warned," <<he>> says. "The warden allows me to dole out punishments—"
 	<br>
 	The door opens, and <<relaxed_guard 1>> steps through. "We using the list?"
 	<br>
-	<<methodical_guard 0 cap>> rubs <<his>> temple. "We're not-"
+	<<methodical_guard 0 cap>> rubs <<his>> temple. "We're not—"
 	<br>
 	<<anxious_guard 2 cap>><<person3>> enters. "Come on," <<he>> says. "It's much more fun."
 	<br>
-	"It's unpro-"
+	"It's unpro—"
 	<br>
-	"If the warden had a problem with it," says <<veteran_guard 3>>, leaning against the door frame. "We'd have heard something."
+	"If the warden had a problem with it," says <<veteran_guard 3>>, leaning against the door frame, "we'd have heard something."
 	<br><br>
 	<<methodical_guard 0 cap>><<person1>> sighs. "Fine." <<He>> reaches beneath the desk.
 	<br><br>
@@ -53,7 +53,7 @@ Writing is engraved on its surface.
 <<relaxed_guard 1 cap>> pulls a pair of dice from <<his>> pocket. <<He>> cups <<his>> hands together, and leans over the desk.
 <br><br>
 
-<<link [[Roll|Prison Punishment Roll]]>><</link>>
+<<gameicon "dice">><<link [[Roll|Prison Punishment Roll]]>><</link>>
 <br>
 
 :: Prison Punishment Roll
@@ -69,7 +69,7 @@ Writing is engraved on its surface.
 <div id="die_text">
 	<span id="die_1">
 		<<if $options.images is 1>>
-			<img src="img/misc/die_roll.gif">
+			<img src="img/misc/prop/die-roll.gif">
 		<<else>>
 			?
 		<</if>>
@@ -77,7 +77,7 @@ Writing is engraved on its surface.
 	+
 	<span id="die_2">
 		<<if $options.images is 1>>
-			<img src="img/misc/die_roll.gif">
+			<img src="img/misc/prop/die-roll.gif">
 		<<else>>
 			?
 		<</if>>
@@ -96,7 +96,7 @@ Writing is engraved on its surface.
 <<timed 2s>>
 	<<replace "#die_1">>
 	<<if $options.images is 1>>
-		<img @src="'img/misc/die_' + _die_1 + '.png'">
+		<img @src="'img/misc/prop/die-' + _die_1 + '.png'">
 	<<else>>
 		_die_1
 	<</if>>
@@ -105,7 +105,7 @@ Writing is engraved on its surface.
 <<timed 3s>>
 	<<replace "#die_2">>
 	<<if $options.images is 1>>
-		<img @src="'img/misc/die_' + _die_2 + '.png'">
+		<img @src="'img/misc/prop/die-' + _die_2 + '.png'">
 	<<else>>
 		_die_2
 	<</if>>
@@ -118,7 +118,7 @@ Writing is engraved on its surface.
 	<<case 3>>
 		<<set $prison_punishment to "nude">>
 	<<case 4>>
-	<<set $prison_punishment to "blindfold">>
+		<<set $prison_punishment to "blindfold">>
 	<<case 5>>
 		<<set $prison_punishment to "topless">>
 	<<case 6>>
@@ -199,26 +199,31 @@ Writing is engraved on its surface.
 	<<prison_list_speech>> <<methodical_guard 0>> says.
 	<br><br>
 <</if>>
-
+<<outfitChecks>>
 <<switch $prison_punishment>>
 	<<case "free use">>
+		"Oh my <<girl>>," <<veteran_guard 3>> chuckles. "The prisoners will be pleased."
+		<br><br>
+
+		<<methodical_guard 0 cap>> rummages beneath once more. Jagged metal clanks onto the desk, a metal collar with grotesque wording melted to one side. <span class="red">"Free use."</span>
+		<br><br>
+
+		<<if $worn.neck.collared is 1>>
+			<<relaxed_guard 1 cap>> <<= $worn.neck.cursed is 1 ? "unlocks" : "removes">> your collar, but the freedom is short-lived. The new metal is even weightier.
+		<<else>>
+			<<relaxed_guard 1 cap>> fastens the collar around your neck. It's heavy.
+		<</if>>
+		<br><br>
+
 		<<leash 20>>
 		<<if $prison.active_punishments.includes("leash")>>
 			<<attach_leash>>
 		<</if>>
-		"Oh my <<girl>>," <<veteran_guard 3>> chuckles. "The prisoners will be pleased."
-		<br><br>
-		<<methodical_guard 0 cap>> rummages beneath once more. Jagged metal clanks onto the desk, a metal collar with grotesque wording melted to one side. <span class="red">"Free use."</span>
-		<br><br>
-
-		<<relaxed_guard 1 cap>> unlocks your collar, but the freedom is short-lived. The new metal is even weightier.
-		<br><br>
 
 		<<link [[Next|Prison Punishment Free]]>><<prison_punishment_init>><</link>>
 		<br>
-
 	<<case "nude">>
-		<<if $worn.upper.name is "naked" and $worn.lower.name is "naked" and $worn.under_upper.name is "naked" and $worn.under_lower.name is "naked">>
+		<<if _fullyNaked>>
 			<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses. <span class="pink">"You are allowed no clothes,"</span> <<he>> says. "Judged by your peers. Seems you're ahead of us."
 		<<else>>
 			<<clothesruined>>
@@ -235,9 +240,9 @@ Writing is engraved on its surface.
 		<<if $worn.face.name is "gag">>
 			<<set $worn.face.type.push("broken")>>
 			<<faceruined>>
-			<<facewear 6>>
+			<<facewear "gag and blindfold">>
 		<<else>>
-			<<facewear 5>>
+			<<facewear "blindfold">>
 		<</if>>
 		"You'll need to watch your step," <<methodical_guard 0>><<person1>> says. You hear footsteps behind, but your vision is blocked by a piece of fabric before you can turn. <span class="purple">You've been blindfolded.</span>
 		<br><br>
@@ -245,39 +250,52 @@ Writing is engraved on its surface.
 		<<link [[Next|Prison Punishment Blindfold]]>><<prison_punishment_init>><</link>>
 		<br>
 	<<case "topless">>
-		<<if $worn.upper.name is "naked" and $worn.under_upper.name is "naked">>
-			<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses. <span class="blue">"You are allowed no clothes above the waist,"</span> <<he>> says. "To prove your devotion. Seems you're ahead of us."
-			<br><br>
+		<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses. <span class="blue">"You are allowed no clothes above the waist,"</span> <<he>> says.
+		<<if _topless>>
+			"To prove your devotion. Seems you're ahead of us."
 		<<else>>
-			<<upperruined>><<underupperruined>>
-			<<methodical_guard 0 cap>><<person1>>adjusts <<his>> glasses as the other guards close in. <span class="blue">"You are allowed no clothes above the waist,"</span> <<he>> says. "To prove your devotion."
+			<<overupperruined>><<upperruined>><<underupperruined>>
+			"To prove your devotion."
 			<br><br>
 			Their hands grasp and tug the fabric. You're left topless in the middle of the room.
-			<br><br>
-
 		<</if>>
+		<br><br>
+
 		<<link [[Next|Prison Punishment Topless]]>><<prison_punishment_init>><</link>>
 		<br>
-		<br><br>
 	<<case "leash">>
-		<<attach_leash>>
-		<<veteran_guard 3 cap>><<person4>>produces a length of cord as <<he>> approaches. <span class="lblue"><<He>> affixes one end to the collar around your neck,</span> before handing the other to <<relaxed_guard 1>>. "There's a good <<bitch>>."
+		<<if $worn.neck.collared is 1>> /* Attach a leash or replace a collar */
+			<<if $worn.neck.type.includes("leash")>>
+				<<veteran_guard 3 cap>><<person4>> looks at your $worn.neck.name. "Seems you're ahead of us. There's a good <<bitch>>." <<He>> hands the end of your leash to <<relaxed_guard 1>>.
+			<<elseif ["collar", "free use collar", "leather collar", "spiked collar"].includes($worn.neck.name)>>
+				<<attach_leash>>
+				<<veteran_guard 3 cap>><<person4>> produces a length of cord as <<he>> approaches. <span class="lblue"><<He>> affixes one end to the $worn.neck.name around your neck,</span> then hands the other end to <<relaxed_guard 1>>. "There's a good <<bitch>>."
+			<<else>>
+				<<leash 21>>
+				<<veteran_guard 3 cap>><<person4>> produces a collar attached to a length of cord as <<he>> approaches. <span class="lblue"><<He>> confiscates your $worn.neck.name and affixes the new collar around your neck,</span> then hands the leash to <<relaxed_guard 1>>. "There's a good <<bitch>>."
+			<</if>>
+		<<else>> /* Add a new collar  */
+			<<leash 21>>
+			<<veteran_guard 3 cap>><<person4>> produces a collar attached to a length of cord as <<he>> approaches. <span class="lblue"><<He>> affixes the collar around your neck,</span> then hands the leash to <<relaxed_guard 1>>. "There's a good <<bitch>>."
+		<</if>>
 		<br><br>
 
 		<<link [[Next|Prison Punishment Leash]]>><<prison_punishment_init>><</link>>
 		<br>
 	<<case "underwear">>
-		<<if $worn.upper.name is "naked" and $worn.lower.name is "naked">>
-			<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses. <span class="teal">"You are allowed no clothes other than underwear,"</span> <<he>> says. "That's your atonement. Though it seems you're ahead of us."
+		<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses as the other guards close in. <span class="teal">"You are allowed no clothes other than underwear,"</span> <<he>> says.
+		<<if _overNaked and _middleNaked>>
+			"That's your atonement. Though it seems you're ahead of us."
 		<<else>>
-			<<upperruined>><<lowerruined>>
-			<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses as the other guards close in. <span class="teal">"You are allowed no clothes other than underwear,"</span> <<he>> says. "That's your atonement." Hands reach from all around, pulling and tugging at the fabric covering your body, until you're left exposed in the middle of the room.
+			<<overupperruined>><<overlowerruined>><<upperruined>><<lowerruined>>
+			"That's your atonement." Hands reach from all around, pulling and tugging at the fabric covering your body, until you're left exposed in the middle of the room.
 		<</if>>
 		<br><br>
+
 		<<link [[Next|Prison Punishment Underwear]]>><<prison_punishment_init>><</link>>
 		<br>
 	<<case "cuffs">>
-		<<feetwear 26>>
+		<<feetwear "ball and chain">>
 		<<methodical_guard 0 cap>><<person1>> rummages beneath the desk again. <span class="lblue">A metal ball chained to a shackle thuds onto the wood.</span> <<veteran_guard 3 cap>><<person4>> takes it in hand, and crouches beside you.
 		<br><br>
 		"Maybe this bondage will remind you of your place."
@@ -286,16 +304,14 @@ Writing is engraved on its surface.
 		<<link [[Next|Prison Punishment Cuffs]]>><<prison_punishment_init>><</link>>
 		<br>
 	<<case "bottomless">>
+		<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses. "You are to be chastised," <<he>> says.
 		<<if $worn.lower.name is "naked" and $worn.under_lower.name is "naked">>
-			<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses. "You are to be chastised," <<he>> says. <span class="blue">"Allowed no clothes below the waist.</span> Seems you're ahead of us."
-			<br><br>
+			"<span class="blue">Allowed no clothes below the waist.</span> Seems you're ahead of us."
 		<<else>>
-			<<lowerruined>><<underlowerruined>>
-			<<methodical_guard 0 cap>><<person1>> adjusts <<his>> glasses as the other guards close in. "You are to be chastised," <<he>> says <span class="blue">"Allowed no clothes below the waist."</span>
-			<br><br>
-			Their hands grasp and tug the fabric. You're left bottomless in the middle of the room.
-			<br><br>
+			<<overlowerruined>><<lowerruined>><<underlowerruined>>
+			<span class="blue">"Allowed no clothes below the waist."</span> Their hands grasp and tug the fabric. You're left bottomless in the middle of the room.
 		<</if>>
+		<br><br>
 
 		<<link [[Next|Prison Punishment Bottomless]]>><<prison_punishment_init>><</link>>
 		<br>
@@ -303,18 +319,18 @@ Writing is engraved on its surface.
 		<<if $worn.face.name is "blindfold">>
 			<<set $worn.face.type.push("broken")>>
 			<<faceruined>>
-			<<facewear 6>>
+			<<facewear "gag and blindfold">>
 		<<else>>
-			<<facewear 4>>
+			<<facewear "gag">>
 		<</if>>
-		<<methodical_guard 0 cap>><<person1>> reaches beneath the desk. <span class="purple"><<He>> slaps a plastic gag onto the table.</span> <<anxious_guard 2 cap>><<person3>>picks it up, and affixes it around your face.
+		<<methodical_guard 0 cap>><<person1>> reaches beneath the desk. <span class="purple"><<He>> slaps a plastic gag onto the table.</span> <<anxious_guard 2 cap>><<person3>> picks it up and affixes it around your face.
 		<br><br>
 
 		<<link [[Next|Prison Punishment Mask]]>><<prison_punishment_init>><</link>>
 		<br>
 	<<case "bindings">>
 		<<set $leftarm to "bound">><<set $rightarm to "bound">>
-		<<methodical_guard 0 cap>> nods at <<veteran_guard 3>><<person4>>, who produces a length of rope. "Hold still <<girl>>." <<He>> binds your arms together, leaving you helpless.
+		<<methodical_guard 0 cap>> nods at <<veteran_guard 3>><<person4>>, who produces a length of rope. "Hold still, <<girl>>." <<He>> binds your arms together<<print $worn.handheld.name isnot "naked" ? " after taking your $worn.handheld.name,<<handheldruined>>" : ",">> leaving you helpless.
 		<br><br>
 
 		<<link [[Next|Prison Punishment Bindings]]>><<prison_punishment_init>><</link>>
@@ -322,7 +338,7 @@ Writing is engraved on its surface.
 	<<case "rut">>
 		<<veteran_guard 3 cap>><<person4>> laughs. "Nice knowing you," <<he>> says, pushing you towards the gaping hole across from the desk.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
 		<br>
-		"If <<pshe>> brings us something valuable," <<anxious_guard 2>> says. "We let <<phim>> back up, right?"<<lstress>><<stress -6>>
+		"If <<pshe>> brings us something valuable," <<anxious_guard 2>> says, "we let <<phim>> back up, right?"<<lstress>><<stress -6>>
 		<br>
 		"Right," <<veteran_guard 3>> replies. "But the rut was picked clean a long time ago."<<gstress>><<stress 6>>
 		<br>
@@ -334,16 +350,23 @@ Writing is engraved on its surface.
 		<<link [[Next|Prison Punishment Rut]]>><</link>>
 		<br>
 	<<default>>
+		<span class="red">This is a bug, please inform Vrelnir.</span>
+		<br>
+		Active punishments: $prison.active_punishments
+		<br><br>
 
+		<<link [[Next|Prison Cell]]>><</link>>
+		<br>
 <</switch>>
 
 
 :: Prison Punishment Rut
-<<effects>>
+
 
 You fall through darkness, and land in a pool of cold water.
-<<water>>
-<<if $leftarm is "bound" and $rightarm is "bound">>
+<<water>><<waterbr 2>><<effects>>
+
+<<if pcAreArmsBound("both")>>
 	You writhe to the shore.
 <<else>>
 	You swim to the shore.
@@ -401,7 +424,7 @@ You're able to follow the railing back to your cell.
 <<else>>
 	<<generate1>><<person1>>You think you're at the right one, anyway.
 	<br><br>
-	You're interrupted when a pair of hands grasp your <<breasts>> from behind. "Boo," says a <<personsimple>>'s voice from behind. <<He>> releases you, but smacks your <<bottom>> before walking away.<<gtrauma>><<gstress>><<garousal>><<trauma 6>><<stress 6>><<arousal 600 "breasts">>
+	You're interrupted when a pair of hands grasp your <<breasts>> from behind. "Boo," says a <<personssimple>> voice from behind. <<He>> releases you, but smacks your <<bottom>> before walking away.<<gtrauma>><<gstress>><<garousal>><<trauma 6>><<stress 6>><<arousal 600 "breasts">>
 <</if>>
 <br><br>
 
@@ -422,14 +445,13 @@ You're able to follow the railing back to your cell.
 <<effects>>
 
 <<prison_punishment_end>>
-<br><br>
 
 "On your knees, <<bitch>>," <<he>> says once <<he>> has their attention.
 <br><br>
 
 <<link [[Drop to your knees|Prison Punishment Knees]]>><<sub 1>><</link>>
 <br>
-<<link [[Refuse|Prison Punishment Knees Refuse]]>><<def 1>><</link>><<physiquedifficulty 1 16000>>
+<<link [[Refuse|Prison Punishment Knees Refuse]]>><<def 1>><</link>><<physiquedifficulty 1 15000>>
 <br>
 
 :: Prison Punishment Knees
@@ -465,11 +487,11 @@ You drop to your knees. "Good slut," <<relaxed_guard 1>><<person2>> says. <<He>>
 <<effects>>
 
 <<if $speech_attitude is "meek">>
-	<<gagged_speech "I-I'm sorry but I don't want-">>
+	<<gagged_speech "I-I'm sorry but I don't want—">>
 <<elseif $speech_attitude is "bratty">>
-	<<gagged_speech "I'm not a dog you piece of-">>
+	<<gagged_speech "I'm not a dog you piece of—">>
 <<else>>
-	<<gagged_speech "I don't want-">>
+	<<gagged_speech "I don't want—">>
 <</if>>
 <br><br>
 <<if $physiqueSuccess>>
@@ -579,9 +601,9 @@ You endure until the <<person5>><<person>> is satisfied. <<relaxed_guard 1 cap>>
 
 <<if $cow gte 6>>
 	<<trauma -6>><<stress -6>>
-	You slam your forehead into the <<person5>><<person>>'s forehead, wiping the idiotic smirk from <<his>> face. You barely feel it, but the inmate is sent reeling.
+	You slam your forehead into the <<person5>><<persons>> forehead, wiping the idiotic smirk from <<his>> face. You barely feel it, but the inmate is sent reeling.
 <<else>>
-	You slam your forehead into the <<person5>><<person>>'s. It hurts, but it's worth it to wipe the idiotic smirk from <<his>> face.<<pain 4>><<trauma -6>>
+	You slam your forehead into the <<person5>><<persons>>. It hurts, but it's worth it to wipe the idiotic smirk from <<his>> face.<<pain 4>><<trauma -6>>
 <</if>>
 <br><br>
 
@@ -637,7 +659,6 @@ You endure until the <<person5>><<person>> is satisfied. <<relaxed_guard 1 cap>>
 	You fall to the ground, too hurt to continue. <<He>> cuffs you, and pulls to you to your feet. The other inmates tease you as you pass, but it doesn't sound malicious.<<grespect>><<prison_inmates 1>>
 	<<bind>>
 	<br><br>
-	<br><br>
 	<<clotheson>>
 	<<endcombat>>
 	<<link [[Next|Prison Punishment]]>><</link>>
@@ -678,7 +699,7 @@ The pliers bite through the leash, leaving your collar bare.
 
 <<set $worn.feet.type.push("broken")>>
 <<feetruined>>
-
+<<leg_unbind>>
 <<destination_prison>>
 
 :: Prison Remove Gag
@@ -687,7 +708,7 @@ The pliers bite through the leash, leaving your collar bare.
 <<if $worn.face.type.includes("blindfold")>>
 	<<set $worn.face.type.push("broken")>>
 	<<faceruined>>
-	<<facewear 5>>
+	<<facewear "blindfold">>
 <<else>>
 	<<set $worn.face.type.push("broken")>>
 	<<faceruined>>
@@ -707,7 +728,7 @@ You stay still as <<he>> fiddles with the strap behind your head, until your gag
 <<if $worn.face.type.includes("gag")>>
 	<<set $worn.face.type.push("broken")>>
 	<<faceruined>>
-	<<facewear 4>>
+	<<facewear "gag">>
 <<else>>
 	<<set $worn.face.type.push("broken")>>
 	<<faceruined>>
@@ -727,15 +748,10 @@ You stay still as <<he>> fiddles with the strap behind your head. It comes loose
 "I hope that demonstrated why obedience is best for you," <<he>> says.
 <br><br>
 
-
-<<if $worn.neck.cursed is 1>>
-	<<set $worn.neck.type.push("broken")>>
-	<<neckruined>>
-	<<if $prison.active_punishments.includes("leash")>>
-		<<neckwear 21>>
-	<<else>>
-		<<neckwear 1>>
-	<</if>>
+<<if $prison.active_punishments.includes("leash")>>
+	<<leash 21>>
+<<else>>
+	<<leash 1>>
 <</if>>
 
 <<destination_prison>>
@@ -771,9 +787,9 @@ You stay still as <<he>> fiddles with the strap behind your head. It comes loose
 	<<if $worn.face.name is "gag">>
 		<<set $worn.face.type.push("broken")>>
 		<<faceruined>>
-		<<facewear 6>>
+		<<facewear "gag and blindfold">>
 	<<else>>
-		<<facewear 5>>
+		<<facewear "blindfold">>
 	<</if>>
 	<<He>> wraps the blindfold around your head, and ties it firm.
 <<elseif $prison.active_punishments.includes("topless") and ($worn.upper.name isnot "naked" or $worn.under_upper.name isnot "naked")>>
@@ -784,28 +800,38 @@ You stay still as <<he>> fiddles with the strap behind your head. It comes loose
 	<<lowerruined>><<underlowerruined>>
 	<<He>> pulls a blade from <<his>> pocket, grasps your clothing, and tears through it with rough strokes.<<covered>>
 	<br><br>
-<<elseif $prison.active_punishments.includes("leash") and $worn.neck.collared isnot 1>>
-	<<He>> fastens a leash to your $worn.neck.name.
-	<<attach_leash>>
+<<elseif $prison.active_punishments.includes("leash") and ($worn.neck.collared isnot 1 or !$worn.neck.type.includes("leash"))>>
+	<<if $worn.neck.collared is 1 and ["collar", "free use collar", "leather collar", "spiked collar"].includes($worn.neck.name)>>
+		<<He>> fastens a leash to your $worn.neck.name.
+		<<attach_leash>>
+	<<else>>
+		<<He>> produces a collar, <<= $worn.neck.collared is 1 ? "replaces the one" : "fastens it">> around your neck, and attaches a leash to it.
+		<<leash 21>>
+	<</if>>
 <<elseif $prison.active_punishments.includes("underwear") and ($worn.upper.name isnot "naked" or $worn.lower.name isnot "naked")>>
 	<<upperruined>><<lowerruined>>
 	<<He>> pulls a blade from <<his>> pocket, grasps your clothing, and tears through it with rough strokes.<<covered>>
 	<br><br>
 <<elseif $prison.active_punishments.includes("cuffs") and !$worn.feet.type.includes("shackle")>>
-	<<feetwear 26>>
+	<<feetwear "ball and chain">>
 	<<He>> clamps cold metal around your ankle, linked to a heavy ball.
 <<elseif $prison.active_punishments.includes("gag") and !$worn.face.type.includes("gag")>>
 	<<if $worn.face.name is "blindfold">>
 		<<set $worn.face.type.push("broken")>>
 		<<faceruined>>
-		<<facewear 6>>
+		<<facewear "gag and blindfold">>
 	<<else>>
-		<<facewear 4>>
+		<<facewear "gag">>
 	<</if>>
 	<<He>> pushes a gag into your mouth, and ties it tight around your head.
-<<elseif $prison.active_punishments.includes("bindings") and ($leftarm isnot "bound" or $rightarm isnot "bound")>>
+<<elseif $prison.active_punishments.includes("bindings") and !pcAreArmsBound("both")>>
 	<<He>> binds your arms tight behind your back.
 	<<bind>>
+<<else>>
+	<span class="red">This is a bug, please inform Vrelnir.</span>
+	<br>
+	Active punishments: $prison.active_punishments
+	<br><br>
 <</if>>
 
 "See that you stick to the rules from now on," <<he>> says. "Perhaps you need another reminder."

@@ -1,15 +1,22 @@
 :: Robin Chocolate Widgets [widget]
 
 <<widget "robinChocolateOfferHelp">>
-	<!-- Note: Don't try to move the <<endevent>> outside these links, that would make this widget less portable. -->
-	<<if $money gte 200>>
-		<<foodicon "cocoa">><<link [[Buy hot chocolate (0:15)|Robin Chocolate Purchase]]>><<stress -6>><<trauma -1>><<pass 15>><</link>><<lstress>><<ltrauma>>
+	<<if ["helped", "sabotaged"].includes($balloonStand.robin.status) and $balloonStand.robin.talked is false and $robin.timer.customer is 0>>
+		<<balloonRobinTalk>>
+		<br><br>
+		<<link [[Tell Robin the truth|Balloon Robin Check-In]]>><<endevent>><<set $phase to ("confess_"+$balloonStand.robin.status)>><</link>>
 		<br>
+		<<link [[Stay silent|Balloon Robin Check-In]]>><<endevent>><<set $phase to ("quiet_"+$balloonStand.robin.status)>><</link>>
+	<<else>>
+		<!-- Note: Don't try to move the <<endevent>> outside these links, that would make this widget less portable. -->
+		<<if $money gte 200>>
+			<<foodicon "cocoa">><<link [[Buy hot chocolate (0:15 £2)|Robin Chocolate Purchase]]>><<stress -6>><<trauma -1>><<pass 15>><<clotheson>><<endevent>><</link>><<lstress>><<ltrauma>>
+			<br>
+		<</if>>
+		<<robinicon "cocoa">><<link [[Offer help (0:30)|Robin Chocolate Help]]>><<endevent>><<npcincr Robin love 1>><<npcincr Robin trauma -1>><<pass 30>><<clotheson>><</link>><<glove>><<lrtrauma>>
+		<br>
+		<<getouticon>><<link [[Leave|Park]]>><<endevent>><<clotheson>><</link>>
 	<</if>>
-	<<robinicon "cocoa">><<link [[Offer help (0:30)|Robin Chocolate Help]]>><<endevent>><<npcincr Robin love 1>><<npcincr Robin trauma -1>><<pass 30>><</link>><<glove>><<lrtrauma>>
-	<br>
-	<<getouticon>><<link [[Leave|Park]]>><<endevent>><</link>>
-	<br>
 <</widget>>
 
 :: Robin Chocolate
@@ -21,35 +28,38 @@
 
 	Robin waves when <<he>> sees you. <<He>> stirs a steaming pot with <<his>> other hand. "Hey," <<he>> says. "People don't buy much lemonade when it's so cold. I'm selling hot chocolate instead. Here." <<He>> mixes warm milk from the pot with cocoa powder and sugar, then hands you the mug. It's very sweet.<<lstress>><<stress -6>>
 <<else>>
-	You see Robin stood behind <<his>> hot chocolate stand, wrapped up warm against the cold. <<He>> waves when <<he>> sees you.
+	You see Robin <<if $robin.stayup isnot 2>>stood<<else>>nodding off<</if>> behind <<his>> hot chocolate stand, wrapped up warm against the cold. <<print $robin.timer.hurt gte 1 ? "<<He>> glances away when <<he>> sees you." : C.npc.Robin.trauma gte 40 ? "<<He>> flinches whenever somebody passes <<him>>. When <<he>> sees you, <<he>> gives a timid wave." : $robin.stayup is 2 ? "<<He>> startles awake when you approach <<him>>." : "<<He>> waves when <<he>> sees you.">>
 <</if>>
 <br><br>
-
 <<robinChocolateOfferHelp>>
 
 :: Robin Chocolate Purchase
-
 <<effects>><<npc Robin>><<person1>>
-<<set $money -= 200>>
+<<money -200>>
+<<wearProp "hot cocoa">>
 
-"Sure! One hot chocolate, coming right up!" Robin says, turning to warm up the milk.
+"<<print $robin.timer.hurt gte 1 ? "I guess." : "Sure!">> One hot chocolate, coming right up!" Robin says, turning to warm up the milk.
 <br><br>
 
 You slip £2 across the counter to <<him>>, and accept the offered mug once it's ready.
 <br><br>
 
-<<if $robinpaid is 1 and $daily.robin.freeDrink isnot 1>>
+<<if $robin.timer.hurt gte 1>>
+	<<set $robinmoney += 2>>
+	<<balloonRobinAngryPurchase>>
+
+<<elseif $robinpaid is 1 and $daily.robin.freeDrink isnot 1>>
 	<<set $daily.robin.freeDrink to 1>>
-	"I-I can't take this from you..." <<He>> says, sliding the money back across the counter to you. "You're already paying Bailey for me. Besides, I'd just end up giving it back to you."
-	<<set $money += 200>>
+	"I-I can't take this from you..." <<he>> says, sliding the money back across the counter to you. "You're already paying Bailey for me. Besides, I'd just end up giving it back to you."
+	<<money 200>>
 
 <<elseif $robinpaid is 1>>
 	<<set $robinmoney += 2>>
-	"I... do have to take it from you this time." <<He>> says, frowning as <<he>> looks down at the money. "I have to pay for the powder and milk. I can't keep giving it away, even if I want to."
+	"I... do have to take it from you this time," <<he>> says, frowning as <<he>> looks down at the money. "I have to pay for the powder and milk. I can't keep giving it away, even if I want to."
 
 <<else>>
 	<<set $robinmoney += 2>>
-	"Thanks for your purchase!" <<He>> says with a smile, putting the money somewhere under the counter.
+	"Thanks for your purchase!" <<he>> says with a smile, putting the money somewhere under the counter.
 
 <</if>>
 <br><br>
@@ -58,23 +68,20 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 <br><br>
 
 "<<print either(
-"...Have you ever watched the sky on a clear night? There's so many stars out there… So many worlds just like ours. ...It might be a little too cold for that now, though.",
+"...Have you ever watched the sky on a clear night? There's so many stars out there... So many worlds just like ours. ...It might be a little too cold for that now, though.",
 "...Do you think Bailey will ever be gone? There has to be someone powerful out there who hates <<nnpc_him Bailey>>, right?",
 "It's hard to keep the stand running some days. But it's worth it in the end.")>>"
 <br><br>
 
 <<if Time.hour gte 17>>
 	"It's getting nippy out," Robin says. "Could you help me carry my stuff home?"
-	<<endevent>>
 	<br><br>
-	<<link [[Accept (0:30)|Orphanage]]>><<npcincr Robin love 1>><<pass 30>><</link>><<glove>>
+	<<link [[Accept (0:30)|Orphanage]]>><<endevent>><<npcincr Robin love 1>><<pass 30>><<clotheson>><</link>><<glove>>
 	<br>
-	<<link [[Refuse|Park]]>><</link>>
+	<<link [[Refuse|Park]]>><<clotheson>><<endevent>><</link>>
 	<br>
 
 <<else>>
-	<<endevent>>
-
 	<<robinChocolateOfferHelp>>
 
 <</if>>
@@ -83,7 +90,7 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 <<npc Robin>><<person1>>
 <<set _robin to statusCheck("Robin")>>
 <<effects>>
-<<if $leftarm is "bound" or $rightarm is "bound">>
+<<if pcAreArmsBound("any")>>
 	<<He>> looks at your arms. "Oh. You can't help like that. Here." <<He>> walks behind you, and undoes your bindings with deft hands.<<unbind>>
 	<br><br>
 <</if>>
@@ -101,14 +108,17 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 		You're almost back when your body finally betrays you.
 		<<orgasm>>
 		Robin politely looks away, but can't help but be affected.<<npcincr Robin lust 1>>
-		<br>
+		<br><br>
 	<</if>>
 	<<endevent>>
 	<<link [[Next|Orphanage]]>><</link>>
 	<br>
+<<elseif $robin.timer.hurt gte 1>>
+	<<balloonRobinAngryHelp>>
+	<<robinChocolateOfferHelp>>
 <<else>>
 	<<He>> smiles.
-	<<if $rng gte 81 and $cow gte 6 and $livestock_intro isnot undefined>>
+	<<if $rng gte 81 and $cow gte 6 and $livestock.intro isnot undefined>>
 		<<if _robin.trauma gte 40>>
 			"I think I'm okay right now, but could you please stay with me?" Robin asks you as <<he>> fidgets.
 		<<else>>
@@ -127,18 +137,18 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 			"Welcome," Robin says. "Two pounds for a warm mug of chocolate."
 		<</if>>
 		<br><br>
-		"Sure, sweetie," the <<person>> says before turning to you. They sprout a lecherous, crooked smile. "I remember you. From the farm. Why don't you come with me? I'll bring you home." They hold their hand out.
+		"Sure, sweetie," the <<person>> says before turning to you. <<He>> sprouts a lecherous, crooked smile. "I remember you. From the farm. Why don't you come with me? I'll bring you home." <<He>> holds <<his>> hand out.
 		<br><br>
-		You feel conflicted. Memories of your abuse conflict with pleasant thoughts of open fields. You hesitate, then bring your hand to theirs.
+		You feel conflicted. Memories of your abuse conflict with pleasant thoughts of open fields. You hesitate, then bring your hand to <<hers>>.
 		<<if _robin.dom gte 60>>
 			<br><br>
 			<<link [[Next|Robin Chocolate Cow]]>><</link>>
 			<br>
 
 		<<else>>
-			Robin interrupts. "E-Excuse me, <<sir>>," Robin interrupts. "Your hot chocolate."
+			"E-Excuse me, <<sir>>," Robin interrupts. "Your hot chocolate."
 			<br><br>
-			The <<person>> looks surprised, but their smile doesn't fade. "Thanks, sweetheart," <<he>> says, taking the proffered mug. "Keep a close eye on your friend." <<He>> walks away.
+			The <<person>> looks surprised, but <<his>> smile doesn't fade. "Thanks, sweetheart," <<he>> says, taking the proffered mug. "Keep a close eye on your friend." <<He>> walks away.
 			<br><br>
 			The other customers are less creepy, but Robin seems shaken.
 			<br><br>
@@ -147,6 +157,7 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 		<</if>>
 	<<elseif $rng gte 61>>
 		"I'd like to give out free samples. Could you take this tray around the park, and offer them to anyone who looks cold? I hope it's not too heavy."
+		<<wearProp "tray">>
 		<<if _robin.trauma gte 40>>
 			<<He>> pauses before handing you the tray. "Hurry back please," <<he>> adds in a quiet voice.
 		<</if>>
@@ -154,8 +165,8 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 		You take the tray, and walk through the park. You find no shortage of cold and thirsty hands, and make sure to mention Robin's stand.
 		<<set $robinmoney += 5>>
 		<<generate2>><<person2>>
-		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
-		<<if $danger gte (9900 - $allure)>>
+
+		<<if dangerEvent()>>
 			<br><br>
 			A <<person>> creeps up behind you,
 			<<if setup.clothes.lower[clothesIndex('lower', $worn.lower)].skirt is 1>>
@@ -196,35 +207,7 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 			<br><br>
 			<<robinChocolateOfferHelp>>
 		<</if>>
-	<<elseif $rng gte 21>>
-		<<if _robin.trauma gte 40>>
-			"I need some more milk. I'm sorry. I know it's heavy, but could you buy some more?" <<He>> shivers even through <<his>> warm attire. "Harvest street has some." <<He>> hands you £5 and a large bottle. "That should be enough."
-		<<else>>
-			"I need to start heating another pot of milk. I don't like asking because it's heavy, but could you buy some more? You'll need to go to Harvest Street for the fresh stuff." <<He>> hands you £5 and a large bottle. "That should be enough to fill it."
-		<</if>>
-		<br><br>
-		<<if $breastfeedingdisable is "f" and $lactating is 1 and $promiscuity gte 35 and $awareness gte 100>>
-			A thought strikes as you pass the toilets. There's a closer source of fresh milk.
-			<br><br>
-
-			<<link [[Milk yourself|Robin Milk Masturbation]]>><<set $masturbationstart to 1>><</link>><<promiscuous3>>
-			<br>
-		<<else>>
-			You leave the park, and follow the road to Harvest Street.
-			<br><br>
-		<</if>>
-		<<link [[Buy the milk|Robin Milk Buy]]>><</link>>
-		<br>
-		<!-- DoLM -->
-		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
-		<<set $skulduggerydifficulty to 400>>
-		<<link [[Steal the milk|Robin Milk Steal]]>><<crimeUp 5 "petty">><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>><<crime "petty">>
-		<br>
-		<<if $promiscuity gte 15>>
-			<<link [[Flirt for cheaper milk|Robin Milk Seduction]]>><</link>><<promiscuous2>>
-			<br>
-		<</if>>
-	<<else>>
+	<<elseif $rng gte 41 and Weather.isSnow>>
 		<<if _robin.trauma gte 40>>
 			"I think I'm okay right now, but could you please stay with me?" Robin asks you as <<he>> fidgets.
 		<<else>>
@@ -234,8 +217,8 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 		You keep Robin company while <<he>> runs the stand, and chat with <<him>> while there are no customers.
 		<<npcincr Robin love 1>><<glove>><<ltrauma>><<lstress>><<trauma -3>><<stress -6>>
 		<br><br>
-		<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
-		<<if $danger gte (9900 - $allure) and !$daily.robin.parkSnow>>
+
+		<<if dangerEvent() and !$daily.robin.parkSnow>>
 			<<set $daily.robin.parkSnow to 1>>
 			A snowball hurtles through the air.
 			<<if _robin.trauma gte 40>>
@@ -263,6 +246,32 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 			<br><br>
 			<<robinChocolateOfferHelp>>
 		<</if>>
+	<<else>>
+		<<if _robin.trauma gte 40>>
+			"I need some more milk. I'm sorry. I know it's heavy, but could you buy some more?" <<He>> shivers even through <<his>> warm attire. "Harvest Street has some." <<He>> hands you £5 and a large bottle. "That should be enough."
+		<<else>>
+			"I need to start heating another pot of milk. I don't like asking because it's heavy, but could you buy some more? You'll need to go to Harvest Street for the fresh stuff." <<He>> hands you £5 and a large bottle. "That should be enough to fill it."
+		<</if>>
+		<br><br>
+		<<if $settings.breastFeedingEnabled and $lactating is 1 and hasSexStat("promiscuity", 3) and $awareness gte 100>>
+			A thought strikes as you pass the toilets. There's a closer source of fresh milk.
+			<br><br>
+
+			<<link [[Milk yourself|Robin Milk Masturbation]]>><<set $masturbationstart to 1>><</link>><<promiscuous3>>
+			<br>
+		<<else>>
+			You leave the park, and follow the road to Harvest Street.
+			<br><br>
+		<</if>>
+		<<link [[Buy the milk|Robin Milk Buy]]>><</link>>
+		<br>
+		<<set $skulduggerydifficulty to 400>>
+		<<link [[Steal the milk|Robin Milk Steal]]>><<crimeUp 5 "petty">><</link>><<skulduggerydifficulty>><<crime "petty">>
+		<br>
+		<<if hasSexStat("promiscuity", 2)>>
+			<<link [[Flirt for cheaper milk|Robin Milk Seduction]]>><<endevent>><</link>><<promiscuous2>>
+			<br>
+		<</if>>
 	<</if>>
 <</if>>
 
@@ -271,6 +280,10 @@ You take your time with the mug, letting it warm your hands as you sip away at t
 <<set $outside to 1>><<set $location to "park">><<effects>>
 <<set _robin to statusCheck("Robin")>>
 
+<<if pcAreArmsBound("any")>>
+	<<He>> looks at your arms. "Oh. You can't help like that. Here." <<He>> walks behind you, and undoes your bindings with deft hands.<<unbind>>
+	<br><br>
+<</if>>
 You help Robin carry <<his>> equipment to the park. "Thank you for the help," <<he>> says.
 <<if _robin.trauma gte 40>>
 	"I don't know what I'd do if I was by myself."
@@ -305,7 +318,7 @@ Before your hand meets the <<persons>>, someone pulls your arm back. Robin pushe
 <<if _robin.trauma gte 40>>
 	"Y-you're not taking <<phim>>!" <<he>> says, handing the <<person2>><<person>> <<his>> cup with a shaky hand.
 <<else>>
-	"I need to ask you to leave," <<He>> says, handing the <<person2>><<person>> <<his>> cup.
+	"I need to ask you to leave," <<he>> says, handing the <<person2>><<person>> <<his>> cup.
 <</if>>
 <br><br>
 
@@ -372,7 +385,6 @@ Robin smiles when you return to <<him>>.
 :: Robin Chocolate Confess
 <<effects>>
 <<set _robin to statusCheck("Robin")>>
-
 
 <<if $speech_attitude is "meek">>
 	"I-I'm sorry," you say. "I spilled some of the hot chocolate."
@@ -500,7 +512,7 @@ Robin smiles when you return to <<him>>.
 <<npc Robin>><<person1>>
 <<set _robin to statusCheck("Robin")>>
 <<if $masturbation_fluid gte 500>>
-
+	<<wearProp "bottle of breast milk">>
 	<span class="green">The bottle filled with milk,</span> you leave the toilets.
 	<br><br>
 	Robin smiles when <<he>> sees you.
@@ -514,7 +526,7 @@ Robin smiles when you return to <<him>>.
 	<br><br>
 
 <<else>>
-
+	<<wearProp "bottle of milk">>
 	You stop masturbating.
 	<<if $finish isnot 1>>
 		You've been trying a while, and Robin is waiting.
@@ -540,7 +552,7 @@ Robin smiles when you return to <<him>>.
 	<<set _moneySaved to Math.round($masturbation_fluid / 100)>>
 	<<set $robinmoney += _moneySaved>>
 
-	You walk to Harvest street, to a rustic shop advertising fresh farm produce. They sell milk by the millilitre, and the proprietor is willing to top up your bottle.
+	You walk to Harvest Street, to a rustic shop advertising fresh farm produce. They sell milk by the millilitre, and the proprietor is willing to top up your bottle.
 	<br><br>
 
 	<<if $masturbation_fluid gte 1>>
@@ -556,18 +568,14 @@ Robin smiles when you return to <<him>>.
 
 :: Robin Milk Seduction
 <<effects>>
-
+<<wearProp "bottle of milk">>
 <<endevent>><<generate1>><<generate2>><<person1>>
 You arrive at Harvest Street, and enter a rustic shop. The proprietor, a <<person>>, is willing to sell milk by the millilitre. You lean over the counter while <<he>> fills the bottle.
 <br><br>
 
 <<set $seductiondifficulty to 6000>>
 <<seductioncheck>>
-<br><br>
-<<if $seductionskill lt 1000>>
-	<span class="gold">You feel more confident in your powers of seduction.</span>
-	<br><br>
-<</if>>
+<<seductionskilluptext>>
 <<seductionskilluse>>
 
 "Is there any other way I could pay?" you coo.
@@ -645,7 +653,7 @@ You enter a large room, full of tall metal tanks. You hear a low hum from deeper
 :: Robin Milk Buy
 <<effects>>
 
-You arrive at Harvest street, and enter a rustic shop. The proprietor fills your bottle from a tank behind the counter.
+You arrive at Harvest Street, and enter a rustic shop. The proprietor fills your bottle from a tank behind the counter.
 <br><br>
 
 You return to the park. Robin smiles when <<he>> sees you, and pours the milk into a pot.
@@ -705,7 +713,7 @@ More snowballs follow. You wait with Robin until the delinquents find someone el
 
 
 :: Robin Chocolate Challenge Attack
-<<effects>>
+<<effects>><<wearProp "snowball">>
 
 "..Three!"
 <br><br>
@@ -713,12 +721,12 @@ More snowballs follow. You wait with Robin until the delinquents find someone el
 You crouch and gather snow, aware that the <<person>> is doing the same. Robin watches with <<person1>><<his>> hands over <<his>> mouth.
 <br><br>
 
-You finish first. You hurl the snowball at your opponent. <<He>> flinches, covering <<his>> face with <<his>> hands,
+You finish first. You hurl the snowball at your opponent. <<person2>><<He>> flinches, covering <<his>> face with <<his>> hands,
 
 <<if currentSkillValue("handskill") gte random(1, 800)>>
 	<span class="green">but the snowball thuds into <<his>> chest.</span> <<He>> loses <<his>> footing, and slips on the ice.<<ltrauma>><<trauma -6>>
 	<br><br>
-	Robin gasps. Your opponent's friends laugh. You return to a grateful Robin's side, the honour of the hot chocolate stand defended.<<person1>><<npcincr Robin love 1>><<glove>>
+	<<person1>>Robin gasps. Your opponent's friends laugh. You return to a grateful Robin's side, the honour of the hot chocolate stand defended.<<person1>><<npcincr Robin love 1>><<glove>>
 	<br><br>
 	<<earnFeat "Flurry">>
 <<else>>
@@ -736,7 +744,7 @@ You finish first. You hurl the snowball at your opponent. <<He>> flinches, cover
 
 
 :: Robin Chocolate Challenge Bide
-<<effects>>
+<<effects>><<wearProp "snowball">>
 
 You focus on making the snowball as sturdy as possible, until the <<person2>><<person>> prepares to fire. You plant your feet,
 
@@ -760,7 +768,7 @@ You focus on making the snowball as sturdy as possible, until the <<person2>><<p
 <<robinChocolateOfferHelp>>
 
 :: Robin Chocolate Take
-<<effects>>
+<<effects>><<wearProp "snowball">>
 <<set _robin to statusCheck("Robin")>>
 
 You start preparing your ammunition.

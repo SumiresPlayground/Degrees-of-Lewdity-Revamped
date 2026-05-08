@@ -9,14 +9,14 @@ With enough elbow grease, you should be able to make simple furniture.
 	You have no more space for furniture.
 	<br><br>
 <<else>>
-	You have space for <<number $island[$island.home].space>> more furniture.
+	You have space for <<number $island[$island.home].space>> more furniture <<pluralise $island[$island.home].space "piece">>.
 	<br><br>
 <</if>>
 
-You have <<number $island.wood>> wood.
+<<birdicon "wood">>You have <span class="gold"><<number $island.wood>></span> wood.
 <br><br>
 
-<<if $tiredness gte $tirednessmax>>
+<<if $tiredness gte C.tiredness.max>>
 	You're too tired to build anything.
 <<else>>
 	<div id="islandUpgrades">
@@ -175,7 +175,7 @@ You carve a bowl and place it in the centre of your bird feeder. This should mak
 :: Island Build Advanced Bird Feeder
 <<effects>>
 
-It's not an easy process with your tools limited to different shaped rocks, but you're able to to carve your wood into the facsimile of a cage. Slotted into the middle of your bird feeder and filled with seeds, this should prove a popular feeding area for passing birds.
+It's not an easy process with your tools limited to different shaped rocks, but you're able to carve your wood into the facsimile of a cage. Slotted into the middle of your bird feeder and filled with seeds, this should prove a popular feeding area for passing birds.
 <br><br>
 
 <<link [[Next|Island Build]]>><</link>>
@@ -203,7 +203,7 @@ You carve notches in one side of the seat of your stool, and slot in more pieces
 :: Island Build Throne
 <<effects>>
 <<earnFeat "Wild Monarch">>
-You sit down with a few sharp stones, and get to work caring elegent curves into wood. Once finished, you affix them to your chair, creating a throne worthy a monarch. Among thrones made from sticks and stones on remote islands, anyway.
+You sit down with a few sharp stones, and get to work carving elegant curves into wood. Once finished, you affix them to your chair, creating a throne worthy a monarch. Among thrones made from sticks and stones on remote islands, anyway.
 <br><br>
 
 <<link [[Next|Island Build]]>><</link>>
@@ -240,12 +240,28 @@ A strategic pruning, and a scattering of stones, just so. Now your passage in an
 <<effects>>
 
 <<if $islander_mask gte 100>>
+	The wood endures your ministrations, yielding to the stone without breaking, until you have a near-perfect angular frame in imitation of the islander masks. The eyes and mouth come next, then the strap.
+	<br><br>
+	You hold the completed mask in your hands.
+	<<if Object.keys($feats.currentSave).includes("Face of a Guardian")>>
+		It's not any better than the last mask you built, but you still feel a sense of accomplishment.<<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+	<<else>>
+		It stares up at you. You look away.
+	<</if>>
+	<br><br>
+	<<if $worn.face.name is "islander mask">>
+		You stow the extra mask away.
+	<<else>>
+		The roaming islanders will remain suspicious, <span class="gold">but this should help fool the guards at the castle.</span>
+		<<if $worn.face.cursed is 1>>
+			<<set $worn.face.type.push("broken")>>
+			<<faceruined>>
+		<</if>>
+		<<facewear "islander mask">>
+	<</if>>
+	<br><br>
 	<<earnFeat "Face of a Guardian">>
-	<<facewear 38>>
-	The wood endures your ministrations, yielding to the stone without breaking, until you have a near-perfect angular frame in immitation of the islander masks. The eyes and mouth come next, then the strap.
-	<br><br>
-	You hold the completed mask in your hands. It stares up at you. You look away. The roaming islanders will remain suspicious, <span class="gold">but this should help fool the guards at the castle.</span>
-	<br><br>
+	<<specialClothesUnlock "item" "islander mask">>
 <<elseif $islander_mask gte 40>>
 	You carve the wood with a sharp stone, and manage to shape it into an angular frame. It cracks right down the middle as you try to add the eyes.<<note "Mask carving proficiency" "green">>
 	<br><br>
@@ -270,7 +286,7 @@ You carry the wood across the island, to the secluded bay where the raft waits. 
 <<elseif $island.raft gte 80>>
 	<span class="teal">The raft is almost finished.</span>
 <<elseif $island.raft gte 50>>
-	<span class="lblue">The raft is over half-way done.</span>
+	<span class="lblue">The raft is over halfway done.</span>
 <<elseif $island.raft gte 20>>
 	<span class="blue">The raft is taking shape.</span>
 <<else>>

@@ -9,14 +9,22 @@
 			<<set $exam_chance to $english_exam>><<set $_teacher_name to "Doren">>
 		<<case "history">>
 			<<set $exam_chance to $history_exam>><<set $_teacher_name to "Winter">>
+		<<case "housekeeping">>
+			<<set $exam_chance to $housekeeping / (2 * setup.foodstuff[$chosen_recipe].recipe.difficulty)>>
+			<<set $_teacher_name to "River">>
 		<<default>>
 			<<run throw new Error("Invalid argument passed to 'exam' widget: ", _args[0])>>
 	<</switch>>
 	Understanding: <span class="black"><<print Math.trunc($exam_chance)>>%</span>
 	<br>
-	<<if $NPCName[$NPCNameList.indexOf($_teacher_name)].love gte 10>>
+	<<if C.npc[$_teacher_name].love gte 10>>
 		<<set $exam_chance += 5>>
-		<span class="green">$_teacher_name's love:</span> <span class="black">+5%</span>
+		<span class="green">$_teacher_name's <<print setup.loveAlias[$_teacher_name]()>>:</span> <span class="black">+5%</span>
+		<br>
+	<</if>>
+	<<if $delinquency lte 400>>
+		<<set $exam_chance += 5>>
+		<span class="green">Model student:</span> <span class="black">+5%</span>
 		<br>
 	<</if>>
 	<<if _args[0] is "maths">>
@@ -30,6 +38,12 @@
 			<br>
 		<</if>>
 	<</if>>
+	<<if $drunk gte 1>>
+		<<set _drunk to Math.ceil($drunk / 50)>>
+		<<set $exam_chance -= _drunk>>
+		<span class="purple">Drunk:</span> <span class="black">-_drunk%</span>
+		<br>
+	<</if>>
 	<<if $anxiety gte 2>>
 		<<set $exam_chance -= 20>>
 		<span class="red">Very anxious:</span> <span class="black">-20%</span>
@@ -37,6 +51,15 @@
 	<<elseif $anxiety gte 1>>
 		<<set $exam_chance -= 10>>
 		<span class="red">Anxious:</span> <span class="black">-10%</span>
+		<br>
+	<</if>>
+	<<if $arousal gte 8000>>
+		<<set $exam_chance -= 10>>
+		<span class="lewd">Horny:</span> <span class="black">-10%</span>
+		<br>
+	<<elseif $arousal gte 6000>>
+		<<set $exam_chance -= 5>>
+		<span class="lewd">Aroused:</span> <span class="black">-5%</span>
 		<br>
 	<</if>>
 
@@ -93,7 +116,7 @@
 	<!-- args[0] is the school subject, while args[1] is the change in value (1 or -1) -->
 	<<set $_skill to _args[0]>>
 	<<set $_change to _args[1]>>
-	<<set $_trait to  $_skill + "trait">>
+	<<set $_trait to $_skill + "trait">>
 
 	<<set V[$_trait] to Math.clamp(V[$_trait] + $_change, -1, 4)>>
 	<<set V[$_skill] to [0,100,200,400,700,1000][V[$_trait] + 1]>>
@@ -164,14 +187,14 @@
 				<</switch>>
 		<</switch>>
 	<</if>>
-	<<if $_trait lt 4 and ($passage is "Science Exam" or $passage is "Maths Exam" or $passage is "English Exam" or $passage is "History Exam")>>
+	<<if $_trait lt 4>>
 		However, the next exam will be harder.
 	<</if>>
 <</widget>>
 
 
 :: Science Exam
-<<schooleffects>><<effects>>
+<<schooleffects>><<effects>><<wearProp "pen">>
 
 <<set _time_temp to (59 - Time.minute)>>
 <<pass _time_temp>>
@@ -183,22 +206,36 @@
 		You focus on the exam, doing your best to tune out the scribbling and groans of other students.
 	<<case 1>>
 		You take a deep breath, and try not to let the pressure get to you.
-	<<case 2>>
-		<<skulduggerycheck>>
-		You watch Sirris. <<Hes>> supposed to keep an eye on the room, but spends more time looking out the window. You should be able to copy your neighbours if you're
-
-		<<if $skulduggerysuccess is 1>>
-			careful. <span class="green">You manage to glean a few answers to some of the tougher questions.</span>
-			<<set $exam_chance += 10>><<passPercent 10>>
+	<<case 2 3 5>>
+		<<if $phase is 5>>
+			<<if $earSlime.corruption gte (currentSkillValue('willpower') / 10)>>
+				<<skulduggerycheck>><<set _cheating to true>>
+				The slime tries to assert control. <span class="red">It overpowers your will,</span> forcing you to look for ways to cheat in the exam.
+			<<else>>
+				You attempt to ignore the command from the slime and focus on the exam. You feel it try, <span class="green">but fail,</span> to force you to cheat, however, it is still a distraction. <<set $exam_chance -= 5>><<passPercent -5>>
+			<</if>>
 		<<else>>
-			care-
-			<br><br>
-			<span class="red">"Focus on your own paper,"</span> Sirris says, looking right at you. <<He>> wasn't as distracted as <<he>> appeared.
-			<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+			<<skulduggerycheck>><<set _cheating to true>>
+			<<if $phase is 3>>You follow the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command and look for ways to cheat in the exam.<</if>>
 		<</if>>
-		<br><br>
 
-		<<skulduggeryuse true>>
+		<<if _cheating>>
+			You watch Sirris. <<Hes>> supposed to keep an eye on the room, but spends more time looking out the window. You should be able to copy your neighbours if you're
+			<<if $skulduggerysuccess is 1>>
+				careful. <span class="green">You manage to glean a few answers to some of the tougher questions.</span>
+				<<set $exam_chance += 10>><<passPercent 10>>
+			<<else>>
+				care-
+				<br><br>
+				<span class="red">"Focus on your own paper,"</span> Sirris says, looking right at you. <<He>> wasn't as distracted as <<he>> appeared.
+				<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+			<</if>>
+			<br><br>
+
+			<<skulduggeryuseinline>>
+		<</if>>
+	<<case 4>>
+		You ignore the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command, and focus on doing your best to tune out the scribbling and groans of other students.
 <</switch>>
 <br><br>
 
@@ -220,7 +257,7 @@ You join the throng of students in the hallway.
 
 
 :: Maths Exam
-<<schooleffects>><<effects>>
+<<schooleffects>><<effects>><<wearProp "pencil">>
 
 <<set _time_temp to (59 - Time.minute)>>
 <<pass _time_temp>>
@@ -229,13 +266,14 @@ You join the throng of students in the hallway.
 <<generatey2>> <!-- student who doesn't stop writing when the exam is over -->
 
 <<switch $phase>>
-	<<case 0>>
+	<<case 0 7>>
+		<<if $phase is 7>>You ignore the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command, and<<else>>You<</if>>
 		<<if $whitneymaths is "active">>
-			You try to focus on the exam, but Whitney's frequent distractions make it difficult to concentrate.
+			try to focus on the exam, but Whitney's frequent distractions make it difficult to concentrate.
 		<<elseif $whitneymaths is "seat">>
-			You try to focus on the exam, but Whitney's sporadic groping makes it difficult to concentrate. <<garousal>><<arousal 300 "genitals">><<arousal 300 "bottom">>
+			try to focus on the exam, but Whitney's sporadic groping makes it difficult to concentrate. <<garousal>><<arousal 300 "genitals">><<arousal 300 "bottom">>
 		<<else>>
-			You focus on the exam, doing your best to tune out the scribbling and groans of other students.
+			focus on the exam, doing your best to tune out the scribbling and groans of other students.
 		<</if>>
 	<<case 1>>
 		<<if $whitneymaths is "active">>
@@ -245,26 +283,39 @@ You join the throng of students in the hallway.
 		<<else>>
 			You take a deep breath, and try not to let the pressure get to you.
 		<</if>>
-	<<case 2>>
-		<<skulduggerycheck>>
-		<<generatey3>><<person3>>
-		You glance sideways. The <<person>> beside you seems confident. You cover your glances with innocuous movements,
-
-		<<if $skulduggerysuccess is 1>>
-			hoping to avoid River's gaze. <span class="green">You manage to glean a few answers to some of the tougher questions.</span>
-			<<set $exam_chance += 10>><<passPercent 10>>
+	<<case 2 6 8>>
+		<<if $phase is 8>>
+			<<if $earSlime.corruption gte (currentSkillValue('willpower') / 10)>>
+				<<skulduggerycheck>><<set _cheating to true>>
+				The slime tries to assert control. <span class="red">It overpowers your will,</span> forcing you to look for ways to cheat in the exam.
+			<<else>>
+				You attempt to ignore the command from the slime and focus on the exam. You feel it try, <span class="green">but fail,</span> to force you to cheat, however, it is still a distraction. <<set $exam_chance -= 5>><<passPercent -5>>
+			<</if>>
 		<<else>>
-			hoping to-
-			<br><br>
-			<span class="red">"Eyes in front,"</span> River says, piercing you with <<person1>><<his>> gaze. <<He>> doesn't say another word on the matter, but you know your paper will be under thorough scrutiny.
-			<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+			<<skulduggerycheck>><<set _cheating to true>>
+			<<if $phase is 6>>You follow the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command and look for ways to cheat in the exam.<</if>>
 		<</if>>
-		<br><br>
+		<<generatey3>><<person3>>
 
-		<<skulduggeryuse true>>
+		<<if _cheating>>
+			You glance sideways. The <<person>> beside you seems confident. You cover your glances with innocuous movements,
+			<<if $skulduggerysuccess is 1>>
+				hoping to avoid River's gaze. <span class="green">You manage to glean a few answers to some of the tougher questions.</span>
+				<<set $exam_chance += 10>><<passPercent 10>>
+			<<else>>
+				hoping to-
+				<br><br>
+				<span class="red">"Eyes in front,"</span> River says, piercing you with <<person1>><<his>> gaze. <<He>> doesn't say another word on the matter, but you know your paper will be under thorough scrutiny.
+				<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+			<</if>>
+			<br><br>
+
+			<<skulduggeryuseinline>>
+		<</if>>
 	<<case 3>>
 		<<npc Whitney 3>>
 		<<if $danceSuccess>>
+			<<wearProp "rubber">>
 			You glance behind you as Whitney throws, <span class="green">and manage to snatch the rubber from the air.</span>
 			Deprived of <<person3>><<his>> projectile, Whitney can only glower.
 			<<set $exam_chance += 5>><<passPercent 5>>
@@ -281,9 +332,9 @@ You join the throng of students in the hallway.
 	<<default>>
 		<<if $phase is 4 or $phase is 5>>
 			<<npc Whitney 3>><<person3>>
-			You <<npcUndressText $NPCName[$NPCNameList.indexOf("Whitney")] "lower">>,
+			You <<npcUndressText `C.npc.Whitney` "lower">>,
 			<<if $phase is 4>>
-				and wrap your fingers around <<his>> <<print $NPCName[$NPCNameList.indexOf("Whitney")].penisdesc>>.
+				and wrap your fingers around <<his>> <<print C.npc.Whitney.penisdesc>>.
 			<<else>>
 				and press your fingers against <<his>> clit.
 			<</if>>
@@ -329,7 +380,7 @@ The bell rings. You shuffle with the other students into the throng of the hallw
 
 
 :: English Exam
-<<schooleffects>><<effects>>
+<<schooleffects>><<effects>><<wearProp "pen">>
 
 <<set _time_temp to (59 - Time.minute)>>
 <<pass _time_temp>>
@@ -341,25 +392,39 @@ The bell rings. You shuffle with the other students into the throng of the hallw
 		You focus on the exam, doing your best to tune out the scribbling and groans of other students.
 	<<case 1>>
 		You take a deep breath, and try not to let the pressure get to you.
-	<<case 2>>
-		<<skulduggerycheck>>
-		Doren's back is often turned to you, but <<his>> path is unpredictable.
-
-		<<if $skulduggerysuccess is 1>>
-			<<He>> could turn at any moment, <span class="green">but you manage to read your neighbour's papers with daring glances.</span>
-			<<set $exam_chance += 10>><<passPercent 10>>
+	<<case 2 4 6>>
+		<<if $phase is 6>>
+			<<if $earSlime.corruption gte (currentSkillValue('willpower') / 10)>>
+				<<skulduggerycheck>><<set _cheating to true>>
+				The slime tries to assert control. <span class="red">It overpowers your will,</span> forcing you to look for ways to cheat in the exam.
+			<<else>>
+				You attempt to ignore the command from the slime and focus on the exam. You feel it try, <span class="green">but fail,</span> to force you to cheat, however, it is still a distraction. <<set $exam_chance -= 5>><<passPercent -5>>
+			<</if>>
 		<<else>>
-			You wait until <<he>> passes, then sneak a glance at your neighbour. Doren spins, <span class="red">and smacks <<his>> hand against your desk.</span>
+			<<skulduggerycheck>><<set _cheating to true>>
+			<<if $phase is 4>>You follow the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command and look for ways to cheat in the exam.<</if>>
+		<</if>>
+
+		<<if _cheating>>
+			Doren's back is often turned to you, but <<his>> path is unpredictable.
+			<<if $skulduggerysuccess is 1>>
+				<<He>> could turn at any moment, <span class="green">but you manage to read your neighbour's papers with daring glances.</span>
+				<<set $exam_chance += 10>><<passPercent 10>>
+			<<else>>
+				You wait until <<he>> passes, then sneak a glance at your neighbour. Doren spins, <span class="red">and smacks <<his>> hand against your desk.</span>
+				<br><br>
+
+				"Got the fly," <<he>> says. <<Hes>> sparing you the embarrassment of being caught cheating, but your paper will be under extra scrutiny.<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+			<</if>>
 			<br><br>
 
-			"Got the fly," <<he>> says. <<Hes>> sparing you the embarrassment of being caught cheating, but your paper will be under extra scrutiny.<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+			<<skulduggeryuseinline>>
 		<</if>>
-		<br><br>
-
-		<<skulduggeryuse true>>
 	<<case 3>>
 		<<npc Kylar 2>><<person2>>
 		You glance at Kylar's booklet. <<He>> notices and, eager to please, keeps <<his>> arm from obscuring your view as <<he>> writes. <<He>> has creative answers to the tougher questions.
+	<<case 5>>
+		You ignore the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command, and focus on doing your best to tune out the scribbling and groans of other students.
 <</switch>>
 <br><br>
 
@@ -382,7 +447,7 @@ The bell rings. You shuffle with the other students into the throng of the hallw
 
 
 :: History Exam
-<<schooleffects>><<effects>>
+<<schooleffects>><<effects>><<wearProp "pen">>
 
 <<set _time_temp to (59 - Time.minute)>>
 <<pass _time_temp>>
@@ -394,29 +459,42 @@ The bell rings. You shuffle with the other students into the throng of the hallw
 		You focus on the exam, doing your best to tune out the scribbling and groans of other students.
 	<<case 1>>
 		You take a deep breath, and try not to let the pressure get to you.
-	<<case 2>>
-		<<skulduggerycheck>>
-		Winter occupies <<himself>> with a book, and doesn't seem to be paying attention.
-
-
-		<<if $skulduggerysuccess is 1>>
-			You know that isn't true. There are moments, here and there, where the teacher's attention is taken. You glance at your neighbours during those moments, <span class="green">and manage to glean a few answers to the tougher questions.</span>
-			<<set $exam_chance += 10>><<passPercent 10>>
-		<<else>>
-			You take the chance, and look at your neighbour's paper.
-			<br><br>
-			<<if $robinhistory is "seat">>
-				<span class="red">Robin nudges you.</span> "You shouldn't cheat!"
-				<br><br>
-
-				Winter glances up. "No talking." You won't be able to get away with it now.<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>>
+	<<case 2 3 5>>
+		<<if $phase is 5>>
+			<<if $earSlime.corruption gte (currentSkillValue('willpower') / 10)>>
+				<<skulduggerycheck>><<set _cheating to true>>
+				The slime tries to assert control. <span class="red">It overpowers your will,</span> forcing you to look for ways to cheat in the exam.
 			<<else>>
-				<span class="red">"No cheating,"</span> Winter says without looking up. You know <<he>> was referring to you, though <<he>> gives no indication.<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+				You attempt to ignore the command from the slime and focus on the exam. You feel it try, <span class="green">but fail,</span> to force you to cheat, however, it is still a distraction. <<set $exam_chance -= 5>><<passPercent -5>>
 			<</if>>
+		<<else>>
+			<<skulduggerycheck>><<set _cheating to true>>
+			<<if $phase is 3>>You follow the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command and look for ways to cheat in the exam.<</if>>
 		<</if>>
-		<br><br>
 
-		<<skulduggeryuse true>>
+		<<if _cheating>>
+			Winter occupies <<himself>> with a book, and doesn't seem to be paying attention.
+			<<if $skulduggerysuccess is 1>>
+				You know that isn't true. There are moments, here and there, where the teacher's attention is taken. You glance at your neighbours during those moments, <span class="green">and manage to glean a few answers to the tougher questions.</span>
+				<<set $exam_chance += 10>><<passPercent 10>>
+			<<else>>
+				You take the chance, and look at your neighbour's paper.
+				<br><br>
+				<<if $robinhistory is "seat">>
+					<span class="red">Robin nudges you.</span> "You shouldn't cheat!"
+					<br><br>
+
+					Winter glances up. "No talking." You won't be able to get away with it now.<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>>
+				<<else>>
+					<span class="red">"No cheating,"</span> Winter says without looking up. You know <<he>> was referring to you, though <<he>> gives no indication.<<gstress>><<stress 6>><<set $exam_chance -= 10>><<passPercent -10>><<ggdelinquency>><<detention 5>>
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<skulduggeryuseinline>>
+		<</if>>
+	<<case 4>>
+		You ignore the <<= numberOfEarSlime() gte 2 ? "slimes'" : "slime's">> command, and focus on doing your best to tune out the scribbling and groans of other students.
 <</switch>>
 <br><br>
 
@@ -434,113 +512,137 @@ The bell rings, and you join the throng of students in the hallway.
 <<link [[Next|Hallways]]>><<endevent>><</link>>
 <br>
 
-
-:: Swimming Exam
+:: Housekeeping Exam
 <<schooleffects>><<effects>>
 
-<<set _time_temp to (57 - Time.minute)>>
+<<set _time_temp to (59 - Time.minute)>>
 <<pass _time_temp>>
 
-<<npc Mason>><<person1>>
-
-<<set _swimdiff to 0>>
+<<npc River 1>><<person1>>
+<<generatey2>> <!-- student who doesn't stop cooking when the exam is over -->
 
 <<switch $phase>>
 	<<case 0>>
-		You focus on the exam, exerting yourself and ignoring the other students.<<set _swimdiff += 100>><<tiredness 4>>
+		You focus on following the recipe, putting all you've learned to the test.
 	<<case 1>>
-		You take a deep breath, and try not to let the pressure get to you.
-	<<case 2>>
-		<<skulduggerycheck>>
-		Mason has many students to watch, and there's some leeway for "accidents".
-
-
-		<<if $skulduggerysuccess is 1>>
-			You wait for your chances. There are moments, here and there, where the teacher's attention is taken. You sneak in a few splashes into the others' faces or sneakily get in their way, <span class="green">and manage to sabotage your competitors.</span>
-			<<set _swimdiff += -200>>
-		<<else>>
-			You take the chance, and try to sabotage your competitors.
-			<br><br>
-			<span class="red">"Stop that!"</span> Mason shouts. You flinch, shrinking under their intense glare.<<gstress>><<stress 6>><<set _swimdiff += 200>><<ggdelinquency>><<detention 5>>
-		<</if>>
-		<br><br>
-
-		<<skulduggeryuse true>>
+		You try to relax as you work on the recipe, putting you at odds with the frantic rushing of the other students.
 <</switch>>
-<br><br>
-
-Mason keeps watch and writes down notes in <<his>> clipboard while the students swim. <<He>> whistles. "Stop!" <<he>> announces.
-<br><br>
-
-You all gather around Mason as <<he>> reads out the results.
-<br><br>
-
-<<set _swimmingdifficultymax to 1000 + _swimdiff>>
-<<swimmingdifficultycheck 900 _swimmingdifficultymax>>
-
-<<if $swimmingSuccess is 1>>
-	You puff your chest out in pride, <span class="green">you're easily the best among your class.</span><<stress -18>><<trauma -18>><<tiredness 4>><<lllstress>><<llltrauma>><<gtiredness>>
+<<if $exam_chance gte random(1, 100)>>
+	Your creation comes together into <span class="green">something edible.</span>
+	<<set _exam_pass to true>>
 <<else>>
-	<<set _swimmingdifficultymax to 800 + _swimdiff>>
-	<<swimmingdifficultycheck 500 _swimmingdifficultymax>>
-
-	<<if $swimmingSuccess is 1>>
-		You beam in happiness, <span class="green">you're among the best in class.</span><<stress -12>><<trauma -12>><<tiredness 4>><<llstress>><<lltrauma>><<gtiredness>>
-	<<else>>
-		<<set _swimmingdifficultymax to 250 + _swimdiff>>
-		<<swimmingdifficultycheck 100 _swimmingdifficultymax>>
-
-		<<if $swimmingSuccess is 1>>
-			You're in the middle of the pack, not bad.<<stress -6>><<trauma -6>><<tiredness 4>><<lstress>><<ltrauma>><<gtiredness>>
-		<<else>>
-			<span class="red">You're among the worst</span><<stress 6>><<trauma 6>><<tiredness 4>><<gstress>><<gtrauma>><<gtiredness>>
-		<</if>>
-	<</if>>
+	<span class="red">Something goes wrong however,</span> and your ingredients transform into unrecognisable slop.
+	<<set _exam_pass to false>>
 <</if>>
 <br><br>
 
-<<if $swimall is 1>>
-	<<if playerBellyVisible()>>
-		The bell rings, signifying the end of the lesson. You climb out of the pool once Mason gives the go ahead, and <<nnpc_he "Mason">> sticks close by to assist you. Despite everyone being naked, no one seems concerned. A <<generatey1>><<person1>><<person>> hands out towels to the other students as they pass, trying to avoid eye contact.<<endevent>>
-	<<else>>
-		The bell rings, signifying the end of the lesson. You climb out of the pool. Despite everyone being naked, no one seems concerned. Mason hands out towels to each student as they pass, trying to avoid eye contact.
-	<</if>>
+River roams the room, giving sharp corrections to anyone misusing ingredients, or making a mess. "One minute," <<he>> warns, propelling a final spur of activity from the students. "Stop." A <<person2>><<person>> keeps working, until <<he>> notices the teacher's glare.
+<br><br>
+
+<<person1>>River strides down the length of the room, <<his>> eyes consuming each student's creation in turn. <<He>> stops at the far end, turns around, then walks the way <<he>> came. This time, <<he>> announces whether each student passed, or failed.
+<br><br>
+
+<<if _exam_pass is true>>
+	<<He>> pauses before you, scrutinising your <<recipe_name $chosen_recipe>>, before making <<his>> announcement. <span class="green">"Pass."</span>
 	<br><br>
-<<elseif $exposed gte 1>>
-	<<if playerBellyVisible()>>
-		The bell rings, signifying the end of the lesson. You wait as the other students leave, climbing out of the pool once Mason gives the go ahead, and <<nnpc_he "Mason">> sticks close by to assist you. Some students linger, doubtlessly hoping to get a nice view when you climb out, but Mason herds them away, giving you some privacy.
-	<<else>>
-		The bell rings, signifying the end of the lesson. You wait as the other students leave. Some students linger,
-		doubtlessly hoping to get a nice view when you climb out, but Mason herds them away, giving you some privacy.
-	<</if>>
-	<br><br>
-<<elseif $exposed lte 0>>
-	<<if playerBellyVisible()>>
-		The bell rings, signifying the end of the lesson. You climb out of the pool once Mason gives the go ahead, and <<nnpc_he "Mason">> sticks close by to assist you.
-	<<else>>
-		The bell rings, signifying the end of the lesson. You climb out of the pool.
-	<</if>>
-	<br><br>
-<</if>>
-<<if $exposed lte 0>>
-	<<maleicon>><<link [[Boys' changing room|School Boy Changing Room]]>><</link>>
-	<br>
-	<<femaleicon>><<link [[Girls' changing room|School Girl Changing Room]]>><</link>>
-	<br><br>
-<<elseif $exposed gte 1>>
-	<<maleicon>><<link [[Grab some towels and enter the boys' changing room|School Boy Changing Room]]>><<towelupm>><</link>>
-	<br>
-	<<femaleicon>><<link [[Grab some towels and enter the girls' changing room|School Girl Changing Room]]>><<towelup>><</link>>
-	<br><br>
-<</if>>
-<<if Time.minute gte 5 and Time.minute lte 57>>
+	<<wearProp $chosen_recipe>>
+	<<learn_recipe $chosen_recipe>>
 <<else>>
-	<<if $player.gender_appearance is "m">>
-		<<loitericon>><<link [[Wait for the girls to leave (0:05)|School Pool]]>><<pass 5>><</link>>
-		<br><br>
-	<</if>>
-	<<if $player.gender_appearance is "f">>
-		<<loitericon>><<link [[Wait for the boys to leave (0:05)|School Pool]]>><<pass 5>><</link>>
-		<br><br>
+	You know the result before River announces it. <span class="red">"Fail,"</span> <<he>> says without slowing. There'll be another chance to learn the recipe.<<ghousekeeping>><<housekeeping 1>>
+	<<if random(1, 2) is 2>>
+		<<set _slopProp to $hallucinations gte 2 ? "inedible tentaslop" : "inedible slop">>
+		<<wearProp _slopProp>>
+	<<else>>
+		<<wearProp "inedible burnt">>
 	<</if>>
 <</if>>
+<br><br>
+The bell rings. You shuffle with the other students into the throng of the hallway.
+<br><br>
+
+<<link [[Next|Hallways]]>><<unset $exam_chance>><<unset $chosen_recipe>><<endevent>><</link>>
+<br>
+
+:: Housekeeping Exam Assistant Sweet
+<<effects>>
+
+<<generatey2>> <!-- student who doesn't stop cooking when the exam is over -->
+You choose a sweet recipe for the exam projector. River looks at it, and nods. You trail behind <<him>> as <<he>> roams the room, giving sharp corrections to anyone misusing ingredients, or making a mess.<<gcontrol>><<control 10>>
+<br><br>
+
+"One minute," River warns, propelling a final spur of activity from the students. "Stop." A <<person2>><<person>> keeps working, until <<he>> notices the teacher's glare.
+<br><br>
+
+<<person1>>You follow River as <<he>> strides down the room, <<his>> eyes consuming each student's creation in turn. <<He>> stops at the far end, and turns to you to confer. <<Hes>> undecided on a few of the dishes, and wants your opinion.
+<br><br>
+
+<<link [[Be lenient|Housekeeping Exam Assistant Lenient]]>><</link>>
+<br>
+<<link [[Be strict|Housekeeping Exam Assistant Strict]]>><</link>>
+<br>
+
+:: Housekeeping Exam Assistant Savoury
+<<effects>>
+
+<<generatey2>> <!-- student who doesn't stop cooking when the exam is over -->
+You choose a savoury recipe for the exam projector. River looks at it, and nods. You trail behind <<him>> as <<he>> roams the room, giving sharp corrections to anyone misusing ingredients, or making a mess.<<gcontrol>><<control 10>>
+<br><br>
+
+"One minute," River warns, propelling a final spur of activity from the students. "Stop." A <<person2>><<person>> keeps working, until <<he>> notices the teacher's glare.
+<br><br>
+
+<<person1>>You follow River as <<he>> strides down the room, <<his>> eyes consuming each student's creation in turn. <<He>> stops at the far end, and turns to you to confer. <<Hes>> undecided on a few of the dishes, and wants your opinion.
+<br><br>
+
+<<link [[Be lenient|Housekeeping Exam Assistant Lenient]]>><</link>>
+<br>
+<<link [[Be strict|Housekeeping Exam Assistant Strict]]>><</link>>
+<br>
+
+:: Housekeeping Exam Assistant Spicy
+<<effects>>
+
+<<generatey2>> <!-- student who doesn't stop cooking when the exam is over -->
+You choose a spicy recipe for the exam projector. River looks at it, and nods. You trail behind <<him>> as <<he>> roams the room, giving sharp corrections to anyone misusing ingredients, or making a mess.<<gcontrol>><<control 10>>
+<br><br>
+
+"One minute," River warns, propelling a final spur of activity from the students. "Stop." A <<person2>><<person>> keeps working, until <<he>> notices the teacher's glare.
+<br><br>
+
+<<person1>>You follow River as <<he>> strides down the room, <<his>> eyes consuming each student's creation in turn. <<He>> stops at the far end, and turns to you to confer. <<Hes>> undecided on a few of the dishes, and wants your opinion.
+<br><br>
+
+<<link [[Be lenient|Housekeeping Exam Assistant Lenient]]>><</link>>
+<br>
+<<link [[Be strict|Housekeeping Exam Assistant Strict]]>><</link>>
+<br>
+
+:: Housekeeping Exam Assistant Lenient
+<<effects>>
+
+<<set _time_temp to (59 - Time.minute)>>
+<<pass _time_temp>>
+
+You emphasise the strong aspects of the student's work, and portray the mistakes as a consequence of healthy experimentation. River appears unconvinced, but gives the students in question a <span class="green">pass</span> as <<he>> strides by.
+<br><br>
+
+The bell rings. You shuffle with the other students into the throng of the hallway.
+<br><br>
+
+<<link [[Next|Hallways]]>><<unset $exam_chance>><<unset $chosen_recipe>><<endevent>><</link>>
+<br>
+
+:: Housekeeping Exam Assistant Strict
+<<effects>>
+
+<<set _time_temp to (59 - Time.minute)>>
+<<pass _time_temp>>
+
+You argue that River should keep standards high, and that anything else would be doing the students a disservice. <<He>> nods, and gives the students in question a curt <span class="red">fail</span> as <<he>> passes them by.
+<br><br>
+
+The bell rings. You shuffle with the other students into the throng of the hallway.
+<br><br>
+
+<<link [[Next|Hallways]]>><<unset $exam_chance>><<unset $chosen_recipe>><<endevent>><</link>>
+<br>

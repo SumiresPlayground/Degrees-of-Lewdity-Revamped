@@ -1,18 +1,21 @@
 :: Maths Classroom
 <<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
 
-<<if $schoolstate is "second">>
+<<if $schoolstate is "second" and ![3, 5].includes(Time.weekDay)>>
 	<!-- Note: until we separate the NPC introductions out of the <<npc>> widget, we must pay attention to where we use <<npc River>> in this passage. -->
 	<!-- It would save several lines to simply put it here, but we can't. -->
+	<<lockerclothesautoequiprun>>
+	<<classRoomEarSlime "maths">>
 	<<if $worn.upper.type.includes("naked") and $worn.lower.type.includes("naked")>>
 		<<outfitChecks>>
 		/*Check for when the pc is only wearing an overcoat*/
-		<<if $worn.over_upper.name isnot "naked" and $worn.over_lower.name isnot "naked" and $worn.under_upper.name is "naked" and $worn.under_lower.name is "naked">>
-			As you go to hang your <<if _middleOutfit>>$worn.over_upper.name<<else>>$worn.over_upper.name and $worn.over_lower.name<</if>>, you remember that you're naked underneath.
-		<<elseif $worn.over_upper.name isnot "naked" and $worn.over_lower.name isnot "naked" and ($worn.under_upper.type.includes("swim") or $worn.under_lower.type.includes("swim"))>>
-			As you go to hang your <<if _middleOutfit>>$worn.over_upper.name<<else>>$worn.over_upper.name and $worn.over_lower.name<</if>>, you remember that you're only wearing swimwear underneath.
-		<<elseif $worn.over_upper.name isnot "naked" and $worn.over_lower.name isnot "naked" and $worn.under_upper.name isnot "naked" and $worn.under_lower.name isnot "naked">>
-			As you go to hang your <<if _middleOutfit>>$worn.over_upper.name<<else>>$worn.over_upper.name and $worn.over_lower.name<</if>>, you remember that you're only wearing underwear underneath.
+		<<if $worn.under_upper.name isnot "naked" and $worn.under_lower.name isnot "naked">>
+			<<set _naked to ($worn.under_upper.type.includes("swim") or $worn.under_lower.type.includes("swim")) ? "only wearing swimwear" : "only wearing underwear">>
+		<<else>>
+			<<set _naked to "not wearing anything">>
+		<</if>>
+		<<if $worn.over_upper.name isnot "naked" and $worn.over_lower.name isnot "naked">>
+			As you go to hang your <<print _middleOutfit ? "$worn.over_upper.name" : "$worn.over_upper.name and $worn.over_lower.name">>, you remember that you're _naked underneath.
 		<</if>>
 		<br><br>
 		<<npc River>><<person1>>
@@ -23,7 +26,7 @@
 		<br><br> good starting point for when you can go to class naked-->
 		<<link [[Next|Hallways]]>><<endevent>><</link>>
 		<br><br>
-	<<elseif $worn.upper.type.includes("school") and $worn.lower.type.includes("school") and $rightarm isnot "bound">>
+	<<elseif $worn.upper.type.includes("school") and $worn.lower.type.includes("school") and !pcAreArmsBound("right")>>
 		<<if $daily.school.attended.maths>>
 			You rejoin the maths lesson,
 			<<if $worn.over_upper.name isnot "naked" or $worn.over_lower.name isnot "naked" or $worn.over_head.name isnot "naked">>
@@ -31,7 +34,7 @@
 				<<undressOverClothes "mathsClassroom">>
 			<</if>>
 			and take your seat.
-		<<elseif Time.minute lte 5>>
+		<<elseif Time.minute lt 5>>
 			You enter the maths classroom.
 			<<npc River>><<person1>>
 			River is preparing at the front of the room while the seats fill.
@@ -64,7 +67,7 @@
 		<<pubfameComplete "river">>
 		<<link [[Next|Maths Lesson]]>><<endevent>><</link>>
 		<br>
-	<<elseif $rightarm is "bound" or $leftarm is "bound" or $feetuse is "bound">>
+	<<elseif pcAreArmsBound("any") or $feetuse is "bound">>
 		<<npc River>><<person1>>
 		River's eyes narrow as <<he>> sees your bound <<boundBodyParts>>.
 		"And another one. Look, whatever silly game you're playing needs to stop. You're not coming in here tied up like that. Go see the head."
@@ -82,7 +85,7 @@
 		<<link [[Next|Hallways]]>><<endevent>><</link>>
 		<br><br>
 	<</if>>
-<<elseif $schoollesson is 1>>
+<<elseif $schoollesson is 1 and ![3, 5].includes(Time.weekDay)>>
 	<<npc River>><<person1>>
 	<<if $daily.school.mathsInterrupted is 1>>
 		You enter the maths classroom. River stops speaking abruptly and looks your way. "You again? Get out." <<He>> shuts the door on you.
@@ -152,36 +155,50 @@
 		<<orgasmLocation "classroom">>
 	<</if>>
 	<<exam_cheat maths>>
-	<<link [[Focus|Maths Exam]]>><<stress 6>><<set $phase to 0>><<set $exam_chance += 5>><</link>><<gstress>><<passPercent 5>>
-	<br>
-	<<link [[Try to relax|Maths Exam]]>><<set $phase to 1>><</link>>
-	<br>
-	<<link [[Cheat|Maths Exam]]>><<set $phase to 2>><</link>><<skulduggerydifficulty>>
-	<br>
-	<<if $whitneymaths is "active">>
-		<<link [[Catch Whitney's rubber|Maths Exam]]>><<set $phase to 3>><</link>><<dancedifficulty 1 1000>>
+	<<if !$daily.earSlimeCheatExam and numberOfEarSlime() and earSlimeMakingMundaneRequests() and random(0,200) gte 150 - $earSlime.corruption>>
+		<<set $daily.earSlimeCheatExam to true>>
+		<span @class="$earSlime.startedThreats ? 'lewd' : 'lblue'">You feel the slime in your head command you to cheat in the exam.</span> It promises rewards if you comply<<if $earSlime.startedThreats>> and threatens consequences if you do not<</if>>.
+		<br><br>
+		<<link [[Obey|Maths Exam]]>><<set $phase to 6>><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>><</link>><<gcorruption>><<lpain>><<lltrauma>><<lstress>>
 		<br>
-	<<elseif $whitneymaths is "seat">>
-		<<if $promiscuity gte 35>>
-			<<if $NPCName[$NPCNameList.indexOf("Whitney")].penis isnot "none">>
-				<<link [[Satisfy Whitney with a handjob|Maths Exam]]>><<set $phase to 4>><<npcincr Whitney love 1>><<npcincr Whitney lust 1>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 1000>><<ghandskill>><<glove>><<glust>>
-				<br>
-			<</if>>
-			<<if $NPCName[$NPCNameList.indexOf("Whitney")].vagina isnot "none">>
-				<<link [[Satisfy Whitney with your fingers|Maths Exam]]>><<set $phase to 5>><<npcincr Whitney love 1>><<npcincr Whitney lust 1>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 1000>><<ghandskill>><<glove>><<glust>>
-				<br>
-			<</if>>
+		<<if $earSlime.startedThreats>>
+			<<link [[Defy|Maths Exam]]>><<set $phase to 8>><<corruption -1>><<pain 8>><<stress 6>><<trauma 6>><<def 1>><</link>><<lcorruption>><<ggpain>><<ggtrauma>><<ggstress>>
+		<<else>>
+			<<link [[Ignore|Maths Exam]]>><<set $phase to 7>><</link>>
 		<</if>>
-		<<link [[Retaliate|Whitney Maths Exam]]>><<def 1>><</link>><<physiquedifficulty 1 $physiquemax>>
 		<br>
+	<<else>>
+		<<link [[Focus|Maths Exam]]>><<stress 6>><<set $phase to 0>><<set $exam_chance += 5>><</link>><<gstress>><<passPercent 5>>
+		<br>
+		<<link [[Try to relax|Maths Exam]]>><<set $phase to 1>><</link>>
+		<br>
+		<<link [[Cheat|Maths Exam]]>><<set $phase to 2>><</link>><<skulduggerydifficulty>>
+		<br>
+		<<if $whitneymaths is "active">>
+			<<link [[Catch Whitney's rubber|Maths Exam]]>><<set $phase to 3>><</link>><<dancedifficulty 1 1000>>
+			<br>
+		<<elseif $whitneymaths is "seat">>
+			<<if hasSexStat("promiscuity", 3)>>
+				<<if C.npc.Whitney.penis isnot "none">>
+					<<link [[Satisfy Whitney with a handjob|Maths Exam]]>><<set $phase to 4>><<npcincr Whitney love 1>><<npcincr Whitney lust 1>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 1000>><<ghandskill>><<glove>><<glust>>
+					<br>
+				<</if>>
+				<<if C.npc.Whitney.vagina isnot "none">>
+					<<link [[Satisfy Whitney with your fingers|Maths Exam]]>><<set $phase to 5>><<npcincr Whitney love 1>><<npcincr Whitney lust 1>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 1000>><<ghandskill>><<glove>><<glust>>
+					<br>
+				<</if>>
+			<</if>>
+			<<link [[Retaliate|Whitney Maths Exam]]>><<def 1>><</link>><<physiquedifficulty 1 $physiquemax>>
+			<br>
+		<</if>>
 	<</if>>
 <<else>>
-	<<if Time.minute lte 5>>
-		The maths lesson begins, how do you want to conduct yourself?
+	<<if Time.minute lt 5>>
+		The maths lesson begins. How do you want to conduct yourself?
 		<br><br>
 		<<classgrades>>
 	<<else>>
-		The maths lesson continues, how do you want to conduct yourself?
+		The maths lesson continues. How do you want to conduct yourself?
 		<br><br>
 	<</if>>
 	<<if $arousal gte $arousalmax>>
@@ -198,14 +215,17 @@
 		<<socialiseicon>><<link [[Socialise with classmates|Maths Lesson Socialise]]>><</link>><<gcool>><<ltrauma>><<lstress>><<gharass>>
 		<br>
 	<</if>>
-	<<daydreamicon>><<link [[Daydream|Maths Lesson Daydream]]>><</link>><<lstress>><<ltiredness>><<lharass>>
+	<<daydreamicon>><<link [[Daydream|Maths Lesson Daydream]]>><</link>><<lstress>><<lharass>>
 	<br>
-
-	<<if $whitneymaths is "seat" and $exhibitionism gte 75>>
-		<<ind>><<link [[Masturbate|Maths Lesson Masturbate]]>><<set $masturbationstart to 1>><<npcincr Whitney lust 1>><</link>><<exhibitionist5>><<glust "Whitney">>
+	<<if $tiredness gte (C.tiredness.max / 5) * 3>>
+		<<bedicon "zzz">><<link [[Sleep at your desk|Maths Lesson Sleep]]>><</link>><<ltiredness>>
 		<br>
-	<<elseif $exhibitionism gte 55>>
-		<<ind>><<link [[Masturbate|Maths Lesson Masturbate]]>><<set $masturbationstart to 1>><</link>><<exhibitionist4>>
+	<</if>>
+	<<if $whitneymaths is "seat" and hasSexStat("exhibitionism", 5)>>
+		<<skinicon "masturbate">><<link [[Masturbate|Maths Lesson Masturbate]]>><<set $masturbationstart to 1>><<npcincr Whitney lust 1>><</link>><<exhibitionist5>><<glust "Whitney">>
+		<br>
+	<<elseif hasSexStat("exhibitionism", 4)>>
+		<<skinicon "masturbate">><<link [[Masturbate|Maths Lesson Masturbate]]>><<set $masturbationstart to 1>><</link>><<exhibitionist4>>
 		<br>
 	<</if>>
 <</if>>
@@ -243,9 +263,9 @@ You focus on listening to the teacher and studying the material. It's hard going
 <<stress _lesson_progress>>
 
 <<if $phase is 1>>
-	<<mathsLessonEnd>>
+	<<lessonEnd "mathsClassroom">>
 <<else>>
-	<<mathsLessonEvent>>
+	<<lessonEvents "maths">>
 <</if>>
 
 :: Maths Lesson Socialise
@@ -273,9 +293,9 @@ You focus on listening to the teacher and studying the material. It's hard going
 <<trauma _trauma>>
 
 <<if $phase is 1>>
-	<<mathsLessonEnd>>
+	<<lessonEnd "mathsClassroom">>
 <<else>>
-	<<mathsLessonEvent 2>>
+	<<lessonEvents "maths" 2>>
 <</if>>
 
 :: Maths Lesson Daydream
@@ -298,11 +318,25 @@ You focus on listening to the teacher and studying the material. It's hard going
 <<advancelesson>>
 <<set _stress to _lesson_progress * -1>>
 <<stress _stress>>
-<<set _tiredness to _lesson_progress * -0.5>>
-<<tiredness _tiredness>>
+
 
 <<if $phase is 1>>
-	<<mathsLessonEnd>>
+	<<lessonEnd "mathsClassroom">>
 <<else>>
-	<<mathsLessonEvent 0.5>>
+	<<lessonEvents "maths" 0.5>>
+<</if>>
+
+:: Maths Lesson Sleep
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+
+You rest your head on the desk while River <<print either("writes equations across the board", "calls a student up to the front of the room", "talks about the useful applications of trigonometry", "lectures at the front of the room", "rattles off some important formula")>>. Your eyes soon close, just for a moment, before you open them again. You struggle to stay awake, but the desk is just too comfy.
+<br><br>
+<<towelup>>
+<<tiredness -12>>
+<<advancelesson>>
+
+<<if $phase is 1>>
+	<<lessonEnd "mathsClassroom" "sleep">>
+<<else>>
+	<<eventsmathssleep>>
 <</if>>

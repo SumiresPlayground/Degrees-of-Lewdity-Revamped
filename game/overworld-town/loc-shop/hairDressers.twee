@@ -2,33 +2,34 @@
 
 <<set $outside to 0>><<effects>><<set $lock to 0>>
 <<if currentSkillValue('skulduggery') gte $lock>>
-	<span class="green">The lock looks easy to pick.</span>
-	<br><br>
-	<<lockpickicon>><<link [[Pick it (0:10)|Hairdressers]]>><<pass 10>><<crimeUp 5 "trespassing">><</link>><<crime "trespassing">>
-	<br>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
+	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+		<<lockicon "pick">><<link [[Pick it (0:10)|Hairdressers]]>><<pass 10>><<crimeUp 5 "trespassing">><</link>><<crime "trespassing">>
+		<br>
+	<</if>>
 <<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span>
 	<<skulduggeryrequired>>
 	<br><br>
 <</if>>
-<<if $ghost gte 1>>
-	You can phase through the doors if you concentrate. 
-	<br>
-	<<link [[Phase (0:01)|Hairdressers]]>><<tiredness 20>><<pass 1>><</link>><<ggtiredness>>
-	<br>
-<</if>>
 <<getouticon>><<link [[Leave|Shopping Centre]]>><</link>>
-<br>
 
 :: Hairdressers
 
 <<set $outside to 0>><<set $location to "shopping_centre">><<effects>>
+<<calchairlengthstage>>
+
 You are in the hairdressers. Various hair products are available for sale. You can also have your hair cut or dyed.
-<<if Time.dayState is "night">>
+<<if Time.dayState is "night" and Time.hour isnot $closinghour>>
 	You are alone in the darkness.
 <<elseif $exposed gte 1>>
 	You hide in a cupboard to protect your dignity.
-<<else>>
+<<elseif Time.dayState isnot "night">>
 	There's a seat available.
 <</if>>
 <<if $hairgelBottles is undefined>>
@@ -48,56 +49,65 @@ You are in the hairdressers. Various hair products are available for sale. You c
 			<<highicon>><<link [[Go outside|High Street]]>><</link>>
 			<br>
 		<<else>>
-			<<link [["Hide until it's over (1:00)"|Hairdressers]]>><<pass 1 hour>><</link>>
+			<<ind>><<link [["Hide until it's over (1:00)"|Hairdressers]]>><<pass 1 hour>><</link>>
 		<</if>>
 	<<else>>
 		<<if Time.dayState is "night" and Time.hour isnot $closinghour>>
-			<<hairdressericon "gel">><<link [[Steal a bottle of hair gel|$passage]]>><<crimeUp `8 / 100` "petty">><<set $hairgelBottles += 1>><</link>><<crime "petty">>
+			<<hairdressericon "gel">><<link [[Steal a bottle of hair gel|$passage]]>><<crimeUp 8 "petty">><<set $hairgelBottles += 1>><</link>><<crime "petty">> | Owned: <span class="gold"><<= $hairgelBottles || 0>></span>
+			<br>
+			<<hairdressericon "hairspray">><<link [[Steal a bottle of hair growth formula|$passage]]>><<crimeUp 50 "petty">><<set $sexStats.pills.pills["Hair Growth Formula"].owned++>><<set $sexStats.pills.boughtOnce to true>><</link>><<crime "petty">> | Owned: <span class="gold"><<= $sexStats.pills.pills["Hair Growth Formula"].owned>></span>
 			<br>
 			<<if !$weekly.theft.hairDressers>>
 				<<shopicon "register">><<link [[Examine the cash register|Hairdressers Register]]>><</link>>
 				<br><br>
 			<</if>>
 		<</if>>
-		<<if $exposed lte 1 and Time.dayState isnot "night" and Time.hour isnot 21 and $slime is 0 and $ghost is 0 and $mushroom is 0>>
-			<<if $money gte 800>>
-				<<hairdressericon "gel">> <<link [[Purchase hair gel (£8)|Hairdressers Gel]]>><<set $money -= 800>><<set $hairgelBottles += 1>><</link>>
-				<br>
-			<<else>>
-				<<hairdressericon "gel">> <span class="blue">You can't afford any hair gel.</span>
-				<br>
-			<</if>>
+		<<if $exposed lte 1 and Time.dayState isnot "night" and Time.hour isnot 21>>
 			<<hairdressericon "chair">><<link [[Take a seat|Hairdressers Seat]]>><</link>>
-			<br><br>
-		<<elseif $slime gt 0 and Time.dayState is "day">>
-			<span class='green'>Pass. You'd just absorb the dye or gunk up the place, anyway.</span>
-			<br><br>
-		<<elseif $ghost gte 1 and Time.dayState is "day">>
-			<span class='wraith'>Pass. This would be pointless in your current ethereal state.</span>
-			<br><br>
-		<<elseif $mushroom gte 1 and Time.dayState is "day">>
-			<span class='yellow'>Pass. Your cap would just get in the way.</span>
+			<br>
+			<<if $money gte 800>>
+				<<hairdressericon "gel">> <<link [[Purchase hair gel (£8)|Hairdressers Gel]]>><<money -800 "hairdressers">><<set $hairgelBottles += 1>><</link>> | Owned: <span class="gold"><<= $hairgelBottles || 0>></span>
+			<<else>>
+				<<hairdressericon "gel">> <span class="blue">You can't afford any hair gel or growth formula.</span>
+			<</if>>
+			<br>
+			<<if $money gte 5000>>
+				<<hairdressericon "hairspray">> <<link [[Purchase hair growth formula (£50)|Hairdressers Gel]]>><<money -5000 "hairdressers">><<set $sexStats.pills.pills["Hair Growth Formula"].owned += 3>><<set $sexStats.pills.boughtOnce to true>><<set $phase to 1>><</link>> | Owned: <span class="gold"><<= $sexStats.pills.pills["Hair Growth Formula"].owned>></span>
+			<<elseif $money gte 800>>
+				<<hairdressericon "hairspray">> <span class="blue">You can't afford any hair growth formula.</span>
+			<</if>>
 			<br><br>
 		<</if>>
 		<<getouticon>><<link [[Leave|Shopping Centre]]>><</link>>
-		<br>
 	<</if>>
 <</if>>
 
 :: Hairdressers Gel
-<<generate1>><<person1>>You browse the hair products for sale. You decide on a tiny bottle labelled "No muss, no fuss!"
+
+<<generate1>><<person1>>You browse the hair products for sale. You decide on a tiny <<if $phase is 1>>canister<<else>>bottle<</if>> labelled "No muss, no fuss!"
 <br><br>
-The hairdresser makes small talk as <<he>> rings up your purchase. "That stuff's great," <<he>> says. "The bottle's small, so you'll only get <span class="teal">one use</span> out of it, but it's got a rock-solid hold. You won't have to worry about your hair getting mussed up. Not until you decide to change up your 'do, at least."
+The hairdresser makes small talk as <<he>> rings up your purchase. "That stuff's great," <<he>> says.
+
+<<if $phase is 1>>
+	"The canister's small, so you'll only get <span class="teal">a small number of uses</span> out it, but you won't need to use it every day. You won't have to worry about your hair staying short. Not until you decide to get it cut again."
+<<else>>
+	"The bottle's small, so you'll only get <span class="teal">one use</span> out it, of but it's got a rock-solid hold. You won't have to worry about your hair getting mussed up. Not until you decide to change up your 'do, at least."
+<</if>>
 <br><br>
 <<He>> hands you your bag with a smile. "<<print either("Thanks for shopping with us!","Have a great day.","Take care.","Pleasure doing business with ya.","Come back soon!")>>"
 <br><br>
-You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1) ? "bottle" : "bottles">> of hair gel.
+<<if $phase is 1>>
+	You have <span class="gold"><<print $sexStats.pills.pills["Hair Growth Formula"].owned>></span> applications of hair growth formula left.
+<<else>>
+	You have <span class="gold">$hairgelBottles</span> <<pluralise $hairgelBottles "bottle">> of hair gel.
+<</if>>
 <br><br>
 
-<<link [[Next|Hairdressers]]>><</link>>
+<<link [[Next|Hairdressers]]>><<endevent>><</link>>
 
 :: Hairdressers Seat
 
+<<calchairlengthstage>>
 <<generate1>><<person1>>You take a seat, and a hairdresser soon appears behind you. "What'll it be, hun?" <<hairdressersPricelist>>
 <<set $hairOption to $hairlength>>
 <<set $fringeOption to $fringelength>>
@@ -106,10 +116,8 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 <<set $twoToneDyeOption1 to "noChange">>
 <<set $twoToneDyeOption2 to "noChange">>
 <<set $twoToneHairDye to false>>
+<<set $transformationShow to false>>
 <<set $twoToneStyle to $hairColourGradient.style>>
-<div id="currentCost" class="gold">
-	To pay: £0
-</div>
 <div id="hairDressers">
 	<<hairDressersOptions>>
 </div>
@@ -141,11 +149,14 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 	Two-tone hair colouring: £250
 	<br>
 	Eyebrows colouring: £20"
-	<br><br>
+	<br>
 <</widget>>
 
 <<widget "hairDressersOptions">>
 	<<set _currentCost to 0>>
+	<<if not $transformationShow>>
+		<<set $transformationShow to false>>
+	<</if>>
 	<<if not $dyedHairPart>>
 		<<set $dyedHairPart to "hair">>
 	<</if>>
@@ -164,8 +175,12 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 	<</if>>
 	<<set _hiddenMannequin = $options.images is 1 ? "" : "hidden">>
 	<div id="hairDresserDiv">
-		<div id="mannequin" @class="'mannequin ' + _hiddenMannequin + ($sidebarRenderer is 'both' ? ' both-renderers' : '')" style="height:unset">
+		<div id="mannequin" @class="'mannequin ' + _hiddenMannequin" style="height:unset">
 			<<mannequinHairdresser>>
+			<<if ($settings.transformAnimalEnabled or $settings.transformDivineEnabled) and getTransformParts().length>>
+				<label><<checkbox "$transformationShow" false true autocheck>> Show transformations</label>
+			<</if>>
+			<div id="currentCost" class="gold">To pay: £0</div>
 		</div>
 		<div>
 			<<if ($money gte _currentCost + 3000 or $hairOption isnot $hairlength) and $hairlength gt 100>>
@@ -178,7 +193,7 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 				<<set _hairOptions to {"Don't cut":$hairlength}>>
 				<<for _i to 9; _i gte 0; _i-->>
 					<<set $_length to (_i * 100) + 100>>
-					<<if $_length + 50 lt $hairlength>> /* + 50 to ensure its not cut too early */
+					<<if $_length + 50 lt $hairlength>> /* + 50 to ensure it's not cut too early */
 						<<set _hairOptions[_hairNames[_i]] to $_length>>
 					<</if>>
 				<</for>>
@@ -201,7 +216,7 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 				<<set _fringeOptions to {"Don't cut":$fringelength}>>
 				<<for _i to 3; _i gte 0; _i-->>
 					<<set $_length to (_i * 200) + 100>>
-					<<if $_length + 50 lt $fringelength>> /* + 50 to ensure its not cut too early */
+					<<if $_length + 50 lt $fringelength>> /* + 50 to ensure it's not cut too early */
 						<<set _fringeOptions[_fringeNames[_i]] to $_length>>
 					<</if>>
 				<</for>>
@@ -217,7 +232,7 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 			<<set _dyeNames to ["Red","Jet black", "Black", "Blond", "Soft Blond", "Platinum blond", "Golden", "Ashy blond", "Strawberry blond", "Dark Brown", "Brown", "Soft brown", "Light brown", "Burnt Orange", "Ginger", "Blood Orange", "Blue", "Deep Blue", "Neon Blue", "Green", "Dark Lime", "Toxic Green", "Teal", "Pink", "Bright Pink", "Hot pink", "Soft pink", "Crimson", "Purple", "Medium Purple", "Bright Purple", "White", "Snow white"]>>
 			<<set $hairdressersHairColour to ["red","jetblack", "black", "blond", "softblond", "platinumblond", "golden", "ashyblond", "strawberryblond", "darkbrown", "brown", "softbrown", "lightbrown", "burntorange", "ginger", "bloodorange", "blue", "deepblue", "neonblue", "green", "darklime", "toxicgreen", "teal", "pink", "brightpink", "hotpink", "softpink", "crimson", "purple", "mediumpurple", "brightpurple", "white", "snowwhite"]>>
 
-			<<if $money gte _currentCost + 3000 or $dyeOption isnot "noChange">>
+			<<if $money gte _currentCost + 3000 or $dyeOption isnot "noChange" or $twoToneHairDye>>
 				<<if $dyeOption is "removeDye">>
 					<<set _currentCost += 3000>>
 				<<elseif not $twoToneHairDye and $dyeOption isnot "noChange">>
@@ -229,13 +244,13 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 				<<elseif $twoToneHairDye>>
 					<<set _currentCost += 25000>>
 				<</if>>
-				Have your hair dyed<<if $haircolour isnot $naturalhaircolour or $hairfringecolour is not $naturalhaircolour>> or cleared of hair dye<</if>>:
+				Have your hair dyed<<if $haircolour isnot $naturalhaircolour or $hairfringecolour isnot $naturalhaircolour>> or cleared of hair dye<</if>>:
 				<br>
 				<label><<radiobutton "$dyedHairPart" "hair" autocheck>> Full head</label> |
 				<label><<radiobutton "$dyedHairPart" "fringe" autocheck>> Fringe</label> |
 				<label><<radiobutton "$dyedHairPart" "sides" autocheck>> Sides</label> |
 				<br>
-				<label><<checkbox "$twoToneHairDye" false true autocheck>> Request a two-tone coloring</label>
+				<label><<checkbox "$twoToneHairDye" false true autocheck>> Request a two-tone colouring</label>
 				<br>
 
 				<<set _dyeOptions to {"Don't dye":"noChange"}>>
@@ -245,7 +260,7 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 				<</if>>
 				<<if $money gte _currentCost + 6000 or ($dyeOption isnot "noChange" and $dyeOption isnot "removeDye")>>
 					<<for _i to 0; _i lt _dyeNames.length; _i++>>
-						<<if ($haircolour is $hairdressersHairColour[_i] and $hairColourStyle is "simple")  or $naturalhaircolour is $hairdressersHairColour[_i]>>
+						<<if ($haircolour is $hairdressersHairColour[_i] and $hairColourStyle is "simple") or $naturalhaircolour is $hairdressersHairColour[_i]>>
 							<<continue>>
 						<</if>>
 						<<set _dyeOptions[_dyeNames[_i]] to $hairdressersHairColour[_i]>>
@@ -314,9 +329,7 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 					<<optionsfrom _browsDyeOptions>>
 				<</listbox>>
 				<<if $browsDyeOption isnot "noChange"and $browsDyeOption isnot "removeDye">>
-					<div @class="'hair-'+$browsDyeOption">
-						<div style="height: 25px; width: 100px; margin-top:5px; background-color: #fd6064; border:1px solid #ccc;" class="colour-hair"></div>
-					</div>
+					<<dyeSwatch $browsDyeOption>>
 					<br>
 				<<else>>
 					<br><br>
@@ -328,15 +341,20 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 		</div>
 	</div>
 
+	<<set _pass to 0>>
+	<<set _pass += $hairOption isnot $hairlength ? 15 : 0>>
+	<<set _pass += $fringeOption isnot $fringelength ? 15 : 0>>
+	<<set _pass += $browsDyeOption isnot "noChange" ? 10 : 0>>
+	<<set _pass += $twoToneHairDye ? 30 : $dyeOption is "removeDye" ? 15 : $dyeOption isnot "noChange" ? 30 : 0>>
 	<<if _sydneyPresent>>
 		<<if (!_cancel or _currentCost gt 0) and $money gte _currentCost>>
-			<<link [[Continue|Sydney Hairdressers Session]]>>
-				<<set $money -= _currentCost>>
+			<<hairdressericon "chair">><<link [[Continue|Sydney Hairdressers Session]]>>
+				<<money `-_currentCost` "hairdressers">>
 			<</link>>
 		<<elseif $money lt _currentCost>>
-			You don't have enough money to pay the hairdresser.
+			<span class="blue">You don't have enough money to pay the hairdresser.</span>
 			<br><br>
-			<<link [[Continue|Sydney Hairdressers Session]]>><</link>>
+			<<hairdressericon "chair">><<link [[Continue|Sydney Hairdressers Session]]>><</link>>
 			<br>
 		<</if>>
 		<<if _cancel>>
@@ -346,15 +364,17 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 	<<else>>
 
 		<<if $money lt _currentCost>>
-			You don't have enough money to pay the hairdresser.
-		<<elseif  $twoToneHairDye and ($twoToneDyeOption1 eq $twoToneDyeOption2)>>
-			You need to select two diffent colours for two-tone hair colouring.
-		<<elseif _currentCost gt 0 >>
-			<<link [[Pay hairdresser|Hairdressers Session]]>>
-				<<set $money -= _currentCost>>
+			<<hairdressericon "chair">><span class="blue">You don't have enough money to pay the hairdresser.</span>
+			<br>
+		<<elseif $twoToneHairDye and ($twoToneDyeOption1 eq $twoToneDyeOption2)>>
+			<<hairdressericon "chair">><span class="blue">You need to select two different colours for two-tone hair colouring.</span>
+			<br>
+		<<elseif _currentCost gt 0>>
+			<<hairdressericon "chair">><<link [[Pay hairdresser (<<printmoney _currentCost>> <<= getTimeString(_pass)>>)|Hairdressers Session]]>>
+				<<money `-_currentCost` "hairdressers">>
 			<</link>>
+			<br>
 		<</if>>
-		<br><br>
 		<<getouticon>><<link [[Leave|Hairdressers]]>><<endevent>><</link>>
 	<</if>>
 <</widget>>
@@ -386,10 +406,10 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 	<<if $browsDyeOption is "removeDye">>
 		<<if _pass gt 0>>
 			Then <<he>> asks you to tilt your head back. <<He>> applies a liquid smelling of artificial chemicals to your eyebrows. The hairdresser finishes the procedure by wiping your brows with soapy tissue and washing your face.
-			<<He>> brings up a mirror for you to see your eyebrows back in its natural $naturalhaircolour colour.
+			<<He>> brings up a mirror for you to see your eyebrows back in their natural $naturalhaircolour colour.
 		<<else>>
 			<<He>> applies a liquid smelling of artificial chemicals to your eyebrows. The hairdresser finishes the procedure by wiping your brows with soapy tissue and washing your face.
-			<<He>> brings up a mirror for you to see your eyebrows back in its natural $naturalhaircolour colour.
+			<<He>> brings up a mirror for you to see your eyebrows back in their natural $naturalhaircolour colour.
 		<</if>>
 		<br><br>
 		<<set $makeup.browscolour to clone($naturalhaircolour)>>
@@ -455,12 +475,12 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 		}>>
 		<<if $dyedHairPart is "sides" or $dyedHairPart is "hair">>
 			<<set $hairColourStyle to "gradient">>
-			<<set $haircolour to clone($twoToneDyeOption1)>> /* This is set as a 'fallback' color for combat renderer */
+			<<set $haircolour to clone($twoToneDyeOption1)>> /* This is set as a 'fallback' colour for combat renderer */
 			<<set $hairColourGradient to clone(_gradient)>>
 		<</if>>
 		<<if $dyedHairPart is "fringe" or $dyedHairPart is "hair">>
 			<<set $hairFringeColourStyle to "gradient">>
-			<<set $hairfringecolour to clone($twoToneDyeOption2)>> /* This is set as a 'fallback' color for combat renderer */
+			<<set $hairfringecolour to clone($twoToneDyeOption2)>> /* This is set as a 'fallback' colour for combat renderer */
 			<<set $hairFringeColourGradient to clone(_gradient)>>
 		<</if>>
 
@@ -486,7 +506,7 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 <</widget>>
 
 <<widget "hairDressersOptionsSydney">>
-	<<set $_sydney to $NPCName[$NPCNameList.indexOf("Sydney")]>>
+	<<set $_sydney to C.npc.Sydney>>
 	<<set _currentCost to 0>>
 	<<set _currentCost += ($sydneyHairOption isnot $sydney.hair ? 3000 : 0)>>
 	<<set _currentCost += ($dyeOption is "removeDye" ? 3000 : ($dyeOption isnot "noChange" ? 6000 : 0))>>
@@ -533,13 +553,27 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 <</widget>>
 
 <<widget "mannequinHairdresser">>
-	<<if $options.images is 1 and $sidebarRenderer isnot "img">>
+	<<if $options.images is 1>>
 		<div class="mannequin-inner">
+			<<selectmodel "lighting" "hairdresser">>
+			<<set _modeloptions.lights.gradient.enabled = false>>
+			<<set _modeloptions.lights.flat.enabled = false>>
+			<<rendermodel "lighting">>
 			<<selectmodel "main" "hairdresser">>
-				<<set _modeloptions.mannequin to true>>
-				<<set _modeloptions.show_face to false>>
+				<<selectmodel "main">>
+				<<hidelayer "base">>
+				<<set _modeloptions.arm_left to "none">>
+				<<set _modeloptions.arm_right to "none">>
+				<<set _modeloptions.tanningEnabled to false>>
+				<<set _modeloptions.skin_type = Skin.color.natural>>
+				<<set _modeloptions.skin_tone = Skin.color.tan>>
+				<<set _modeloptions.scars to false>>
+				<<set _modeloptions.freckles = $player.freckles == true and $makeup.concealer != 1>>
+				<<set _modeloptions.mouth to 'neutral'>>
+				<<set _modeloptions.facevariant = $facevariant>>
+				<<set _modeloptions.left_eye = $makeup.eyelenses.left != 0 ? $makeup.eyelenses.left : $leftEyeColour>>
+				<<set _modeloptions.right_eye = $makeup.eyelenses.right != 0 ? $makeup.eyelenses.right : $rightEyeColour>>
 				<<showlayer "brows">>
-				<<set _modeloptions.crotch_visible to true>>
 				<<set _modeloptions.brows to "top">>
 				<<set _modeloptions.brows_colour to ($makeup.browscolour != 0 ? $makeup.browscolour : $naturalhaircolour)>>
 				<<if $browsDyeOption isnot "noChange" and $browsDyeOption isnot "removeDye">>
@@ -588,6 +622,59 @@ You have <span class="gold">$hairgelBottles</span> <<print ($hairgelBottles is 1
 				<<set _modeloptions.hair_fringe_length to $fringeOption != $fringelength ? convertHairLengthToStage("fringe", $fringeOption) : $fringelengthstage>>
 				<<set _modeloptions.hair_fringe_type to $fringetype>>
 				<<set _modeloptions.hair_sides_type to $hairtype>>
+
+				/* Automate this later so it doesn't need to be manually updated with every new TF part that gets added */
+				<<set _modeloptions.angel_wings_type to
+					!["hidden", "disabled"].includes($transformationParts.bird.wings) and !["hidden", "disabled"].includes($transformationParts.angel.wings) and $chimera.angelharpy.wings is true ? "harpy-default" :
+					$transformationParts.angel.wings>>
+				<<set _modeloptions.bird_malar_type to $transformationParts.bird.malar>>
+				<<set _modeloptions.bird_tail_type to $transformationParts.bird.tail>>
+				<<set _modeloptions.bird_wings_type to
+					!["hidden", "disabled"].includes($transformationParts.angel.wings) and !["hidden", "disabled"].includes($transformationParts.bird.wings) and $chimera.angelharpy.wings is true ? "default-angel" :
+					!["hidden", "disabled"].includes($transformationParts.fallenAngel.wings) and !["hidden", "disabled"].includes($transformationParts.bird.wings) and $chimera.fallenharpy.wings is true ? "default-fallen" :
+					!["hidden", "disabled"].includes($transformationParts.demon.wings) and !["hidden", "disabled"].includes($transformationParts.bird.wings) and $chimera.demonharpy.wings is true ? "default-demon" :
+					$transformationParts.bird.wings>>
+				<<set _modeloptions.cat_ears_type to $transformationParts.cat.ears>>
+				<<set _modeloptions.cat_tail_type to $transformationParts.cat.tail>>
+				<<set _modeloptions.cow_ears_type to $transformationParts.cow.ears>>
+				<<set _modeloptions.cow_horns_type to
+					!["hidden", "disabled"].includes($transformationParts.demon.horns) and !["hidden", "disabled"].includes($transformationParts.cow.horns) and $transformationParts.demon.horns is "succubus" and $chimera.demoncow.horns is true ? "succubus-demon" :
+					!["hidden", "disabled"].includes($transformationParts.demon.horns) and !["hidden", "disabled"].includes($transformationParts.cow.horns) and $chimera.demoncow.horns is true ? "default-demon" :
+					$transformationParts.cow.horns>>
+				<<set _modeloptions.cow_tail_type to
+					!["hidden", "disabled"].includes($transformationParts.demon.tail) and !["hidden", "disabled"].includes($transformationParts.cow.tail) and $transformationParts.cow.tail is "black" and $chimera.demoncow.tail is true ? "black-demon" :
+					!["hidden", "disabled"].includes($transformationParts.demon.tail) and !["hidden", "disabled"].includes($transformationParts.cow.tail) and $chimera.demoncow.tail is true ? "default-demon" :
+					$transformationParts.cow.tail>>
+				<<set _modeloptions.demon_wings_type to $transformationParts.demon.wings>>
+				<<set _modeloptions.demon_tail_type to
+					!["hidden", "disabled"].includes($transformationParts.cat.tail) and !["hidden", "disabled"].includes($transformationParts.demon.tail) and $chimera.demoncat.tail is true ? "default-cat" :
+					!["hidden", "disabled"].includes($transformationParts.cow.tail) and !["hidden", "disabled"].includes($transformationParts.demon.tail) and $chimera.demoncow.tail is true ? "default-cow" :
+					!["hidden", "disabled"].includes($transformationParts.fox.tail) and !["hidden", "disabled"].includes($transformationParts.demon.tail) and $chimera.demonfox.tail is true ? "hidden" :
+					!["hidden", "disabled"].includes($transformationParts.wolf.tail) and !["hidden", "disabled"].includes($transformationParts.demon.tail) and $chimera.demonwolf.tail is true and $transformationParts.wolf.tail is "feral" ? "default-feral" :
+					!["hidden", "disabled"].includes($transformationParts.wolf.tail) and !["hidden", "disabled"].includes($transformationParts.demon.tail) and $chimera.demonwolf.tail is true ? "default-wolf" :
+					$transformationParts.demon.tail>>
+				<<set _modeloptions.demon_horns_type to
+					!["hidden", "disabled"].includes($transformationParts.cow.horns) and !["hidden", "disabled"].includes($transformationParts.demon.horns) and $transformationParts.demon.horns is "succubus" and $chimera.demoncow.horns is true ? "succubus" :
+					!["hidden", "disabled"].includes($transformationParts.cow.horns) and !["hidden", "disabled"].includes($transformationParts.demon.horns) and $chimera.demoncow.horns is true ? "default" :
+					$transformationParts.demon.horns>>
+				<<set _modeloptions.fallen_wings_type to
+					!["hidden", "disabled"].includes($transformationParts.bird.wings) and !["hidden", "disabled"].includes($transformationParts.fallenAngel.wings) and $chimera.fallenharpy.wings is true ? "harpy-default" :
+					$transformationParts.fallenAngel.wings>>
+				<<set _modeloptions.fox_cheeks_type to $transformationParts.fox.cheeks>>
+				<<set _modeloptions.fox_ears_type to
+					$demon gte 6 and $fox gte 6 and $chimera.demonfox.ears is true ? "default-demon" :
+					$transformationParts.fox.ears>>
+				<<set _modeloptions.fox_tail_type to
+					!["hidden", "disabled"].includes($transformationParts.demon.tail) and !["hidden", "disabled"].includes($transformationParts.fox.tail) and $chimera.demonfox.tail is true ? "default-demon" :
+					$transformationParts.fox.tail>>
+				<<set _modeloptions.wolf_ears_type to $transformationParts.wolf.ears>>
+				<<set _modeloptions.wolf_tail_type to
+					!["hidden", "disabled"].includes($transformationParts.demon.tail) and !["hidden", "disabled"].includes($transformationParts.wolf.tail) and $transformationParts.wolf.tail is "feral" and $chimera.demonwolf.tail is true ? "demon-feral" :
+					!["hidden", "disabled"].includes($transformationParts.demon.tail) and !["hidden", "disabled"].includes($transformationParts.wolf.tail) and $chimera.demonwolf.tail is true ? "demon-default" :
+					$transformationParts.wolf.tail>>
+				<<set _modeloptions.show_tf = $transformationShow>>
+
+				<<set _modeloptions.worn.over_upper.index to 3>>
 			<<rendermodel "canvas-mannequin">>
 		</div>
 	<</if>>

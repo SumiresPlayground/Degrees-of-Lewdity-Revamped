@@ -87,9 +87,17 @@ Kylar leads you down a corridor, towards what looks like the front door. There's
 "This is my parents' lab," <<he>> says. "They d-don't use it anymore. Here." Lying on a table are a few sets of clothes. Old-fashioned formalwear. Kylar holds up a dress with one hand, and a suit with the other. "Y-you can wear what you like," <<he>> says. "They both fit. I m-measured."
 <br><br>
 
-<<link [[Wear the dress|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear 50>><</link>>
+<<if $earSlime.forcedDressing and $earSlime.forcedDressing.type is "m">>
+	<span class="red">The ear slime refuses to allow you to wear the dress.</span>
+<<else>>
+	<<link [[Wear the dress|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear "gothic gown">><</link>>
+<</if>>
 <br>
-<<link [[Wear the suit|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear 51>><<lowerwear 47>><</link>>
+<<if $earSlime.forcedDressing and $earSlime.forcedDressing.type is "f">>
+	<span class="red">The ear slime refuses to allow you to wear the suit.</span>
+<<else>>
+	<<link [[Wear the suit|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear "gothic jacket">><<lowerwear "gothic trousers">><</link>>
+<</if>>
 <br>
 <<link [[Keep what you're currently wearing|Kylar Abduction Stockholm Dress Refuse]]>><</link>>
 
@@ -98,10 +106,17 @@ Kylar leads you down a corridor, towards what looks like the front door. There's
 
 Kylar shakes <<his>> head. "No, n-no, you need to wear one of them. You <i>need</i> to." <<He>> sounds serious, and a touch nervous.
 <br><br>
-
-<<link [[Wear the dress|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear 50>><</link>>
+<<if $earSlime.forcedDressing and $earSlime.forcedDressing.type is "m">>
+	<span class="red">The ear slime refuses to allow you to wear the dress.</span>
+<<else>>
+	<<link [[Wear the dress|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear "gothic gown">><</link>>
+<</if>>
 <br>
-<<link [[Wear the suit|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear 51>><<lowerwear 47>><</link>>
+<<if $earSlime.forcedDressing and $earSlime.forcedDressing.type is "f">>
+	<span class="red">The ear slime refuses to allow you to wear the suit.</span>
+<<else>>
+	<<link [[Wear the suit|Kylar Abduction Stockholm Dress]]>><<undressmid "wardrobe">><<upperwear "gothic jacket">><<lowerwear "gothic trousers">><</link>>
+<</if>>
 <br>
 
 :: Kylar Abduction Stockholm Dress
@@ -137,7 +152,7 @@ Kylar leads you upstairs. The decor upstairs is different. Older. There's a port
 Between them stands a smiling child. It's Kylar. It must have been painted years ago.
 <br><br>
 
-Kylar follows your gaze. "Those are my parents," <<he>> says. Something thuds against the wall. The portrait trembles. "That's th-them. Y-you should know, that they're-" <<He>> hesitates. "They're sick."
+Kylar follows your gaze. "Those are my parents," <<he>> says. Something thuds against the wall. The portrait trembles. "That's th-them. Y-you should know, that they're—" <<He>> hesitates. "They're sick."
 <br><br>
 
 <<link [[Next|Kylar Abduction Stockholm 5]]>><</link>>
@@ -149,7 +164,7 @@ Kylar follows your gaze. "Those are my parents," <<he>> says. Something thuds ag
 Kylar pushes open a door, revealing a large bedroom. There's a four-poster bed on the far side. Dust hangs in the air.
 <br><br>
 
-"Mum," Kylar says. "Dad. I-I've," <<his>> fists clench with anxiety, or excitement. "I've brought my <<girlfriend>> to meet you."
+"Mum," Kylar says. "Dad. I-I've—" <<His>> fists clench with anxiety, or excitement. "I've brought my <<girlfriend>> to meet you."
 <br><br>
 
 Silence answers, at first. Then you hear a rustle beneath the bed, and see a flash of silver. A shape crawls out with terrifying speed, snaking across the bedroom floor and looming in front of you. White eyes pierce you from a pale, hairless face.
@@ -273,7 +288,7 @@ Kylar nods, disappointed. "O-okay," <<he>> says. "Th-that's fine. That's fine! I
 <span class="gold">You can now access the manor on Danube Street.</span>
 <br><br>
 
-<<kylar_abduction_end>>
+<<kylar_abduction_end>><<badEndTrackingEnd "Kylar Abduction" { reason: "kylarStockholmRefused" }>>
 
 <<link [[Next|Manor Garden]]>><<endevent>><</link>>
 <br>
@@ -302,9 +317,9 @@ Kylar yanks on your arm. "Y-yes! Yes we are!" They respond with laughter.
 <<person1>>
 <<link [[Quietly walk away|Kylar Abduction Stockholm Leave]]>><<npcincr Kylar love -1>><</link>><<llove>>
 <br>
-<<link [[Ignore the teenagers|Kylar Abduction Stockholm Ignore]]>><<npcincr Kylar love 1>><<status -10>><</link>><<kissvirginitywarning>><<lcool>><<glove>>
+<<link [[Ignore the teenagers|Kylar Abduction Stockholm Ignore]]>><<npcincr Kylar love 1>><<status -10>><</link>><<llcool>><<glove>>
 <br>
-<<link [[Kiss Kylar|Kylar Abduction Stockholm Kiss]]>><<npcincr Kylar love 15>><<status -20>><</link>><<ggglove>><<llcool>>
+<<link [[Kiss Kylar|Kylar Abduction Stockholm Kiss]]>><<npcincr Kylar love 15>><<status -20>><</link>><<kissvirginitywarning>><<ggglove>><<lllcool>>
 <br>
 
 
@@ -314,9 +329,9 @@ Kylar yanks on your arm. "Y-yes! Yes we are!" They respond with laughter.
 You pull Kylar away from the teenagers, and their jeering laughter. "Wh-what's wrong my love?" Kylar asks. "Y-you're not ashamed of me, are you?" <<His>> grip tightens.
 <br><br>
 
-<<link [[Suggest ways Kylar can improve their image|Kylar Abduction Stockholm Suggest]]>><<npcincr Kylar love -1>><</link>><<llove>>
+<<link [[Suggest ways Kylar can improve <<his>> image|Kylar Abduction Stockholm Suggest]]>><<npcincr Kylar love -1>><</link>><<llove>>
 <br>
-<<link [[Tell Kylar they're fine just the way they are|Kylar Abduction Stockholm Tell]]>><<npcincr Kylar love 1>><</link>><<glove>>
+<<link [[Tell Kylar <<hes>> fine just the way <<he>> is|Kylar Abduction Stockholm Tell]]>><<npcincr Kylar love 1>><</link>><<glove>>
 <br>
 
 
@@ -400,7 +415,8 @@ The <<person2>><<person>> follows, but you don't expect <<him>> to have much luc
 <span class="gold">You can now access the manor on Danube Street.</span>
 <br><br>
 
-<<kylar_abduction_end>>
+<<kylar_abduction_end>><<badEndTrackingEnd "Kylar Abduction" { reason: "kylarStockholm" }>>
+<<specialClothesUnlock "set" "vampire">>
 
 <<link [[Next|Park]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>

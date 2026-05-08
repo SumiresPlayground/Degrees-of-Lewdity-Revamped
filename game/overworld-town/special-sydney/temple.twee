@@ -1,16 +1,16 @@
 :: Temple Sydney
 <<set $outside to 0>><<set $location to "temple">><<sydneySchedule>><<temple_effects>><<effects>>
 <<npc "Sydney">><<person1>>
-<<if $NPCName[$NPCNameList.indexOf("Sydney")].love gte 100 and $NPCName[$NPCNameList.indexOf("Sydney")].lust gte 10 and $sydneyromance isnot 1 and !$sydneyFriendZoned>>
+<<if C.npc.Sydney.love gte 100 and C.npc.Sydney.lust gte 10 and $sydneyromance isnot 1 and !$sydneyFriendZoned>>
 	Sydney's eyes light up upon seeing you. <<He>> seems nervous, and looks away with a blush. <<set _sydneyRomanceConfront to true>>
 <<elseif $sydneyChastityRemoveIntro>>
 	You sit next to Sydney. <<He>> looks anxious.
 <<elseif $phase is 1>>
-	You sit next to Sydney on the pew. <<He>> opens one eye, and smiles at you before returning to <<his>> prayer.
+	You sit next to Sydney on the pew. <<He>> opens one eye, and smiles at you before returning to <<his>> prayer. <<if $temple_spear_mission is 1 and !$sydneySeen.includes("spearMission") and $sydneyromance is 1>>You notice that <<his>> hands are fidgeting slightly.<</if>>
 <<else>>
 	Sydney's eyes are closed in quiet supplication.
 <</if>>
-<<if !$sydneySeen.includes("initiate") and $temple_rank is "initiate">>
+<<if !$sydneySeen.includes("initiate") and $temple_rank isnot undefined and $temple_rank isnot "prospective">>
 	<<set $sydneySeen.pushUnique("initiate")>>
 	"<<nnpc_Brother "Jordan">> Jordan told me the good news. Congratulations... initiate."
 <<elseif $weekly.trialFailed>>
@@ -50,7 +50,7 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 <</if>>
 <<His>> eyes flutter open. <<He>> looks around as panic sets in. However, <<his>> features soften when <<he>> sees you. <<sydneyGreeting>>
 <br><br>
-<<He>> stretches and yawns. "Thank you. I would have slept right through <<if $sydneySeen.includes("science")>>class again<<else>>school<</if>> had you not found me." <<if $sydneyromance is 1>><<He>> returns your cheek kiss, before pulling you into a tight hug.<</if>>
+<<He>> stretches and yawns. "Thank you. I would have slept right through <<if $sydneySeen.includes("science")>>class again<<else>>school<</if>> had you not found me."<<if $sydneyromance is 1>> <<He>> pulls you into a tight hug.<</if>>
 <br><br>
 <<if Time.hour is 6>>
 	"There's still some time before I need to leave for school. We can walk together when the time comes, if you want." <<He>> returns to praying.
@@ -60,13 +60,13 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 	<<He>> gathers <<his>> things and stands. <<He>> steadies <<himself>>, trying to shake away <<his>> exhaustion.
 	<<His>> eyes slowly widen. "Class! We're already late!" <<He>> scrambles around for a moment, before turning back to you. "Come on!" Without warning, <<he>> grabs you by the hand and drags you from the temple. <<takeHandholdingVirginity "Sydney" `($sydneyromance is 1?"romantic":"consensual")`>>
 	<br><br>
-	<<link [[Next (0:05)|Sydney Walk School]]>><<pass 5>><<set $phase to 2>><</link>>
+	<<link [[Next (0:05)|Sydney Walk School]]>><<set $phase to 2>><</link>>
 	<br>
 <<else>>
 	<<He>> gathers <<his>> things and stands. <<He>> steadies <<himself>>, trying to shake away <<his>> exhaustion.
 	"Want to walk to school with me?" <<He>> gives you a hopeful smile.
 	<br><br>
-	<<link [[Yes (0:10)|Sydney Walk School]]>><<pass 10>><<set $phase to 0>><</link>>
+	<<link [[Yes (0:10)|Sydney Walk School]]>><<set $phase to 0>><</link>>
 	<br>
 	<<link [[No|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
 	<br>
@@ -129,8 +129,10 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 		<<He>> grins at you. "Nice."
 		<<if $sydneyromance is 1>>
 			<<He>> yanks you to your feet, and into a nearby side room. "You could have just come to me for help stifling your lust, darling." <<He>> kisses you on the neck. <<arousal 100>><<garousal>>
-			<br><br>
-			<<sydneyLewd>>
+			<<if !$sydneySeen.includes("lewd")>>
+				<br><br>
+				<<sydneyLewd>>
+			<</if>>
 			<br><br>
 			<<link [[Next|Sydney Temple Sex]]>><<set $sexstart to 1>><</link>>
 			<br>
@@ -146,10 +148,11 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 <<effects>>
 "I'm falling to lust. I need someone to help me," you say.
 <br><br>
-<<set $seductiondifficulty to 8000 - (($NPCName[$NPCNameList.indexOf("Sydney")].love + $NPCName[$NPCNameList.indexOf("Sydney")].lust) * 15) - $NPCName[$NPCNameList.indexOf("Sydney")].purity>>
+<<set $seductiondifficulty to 8000 - ((C.npc.Sydney.love + C.npc.Sydney.lust) * 15) - C.npc.Sydney.purity>>
 <<seductioncheck>>
-<br><br>
-<<if $seductionskill lt 1000>><span class="gold">You feel more confident in your powers of seduction.</span><</if>><<seductionskilluse>>
+<<seductionskilluptext>>
+<<seductionskilluse>>
+
 <<if $seductionrating gte $seductionrequired>>
 	<<He>> looks around, nervous. "You... I may be... able to help." <<He>> clears <<his>> throat and begins to whisper. "As... <<if $sydney.rank is "initiate">>an... initiate<<else>>a... <<temple_title "Sydney">><</if>>, it's... my job to help those taken by sin. There's a... room over there, we won't be interrupted... if you want..." <<npcincr Sydney lust 1>><<npcincr Sydney purity -5>><<gslust>><<llspurity>>
 	<br><br>
@@ -204,6 +207,8 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 	<<ejaculation>>
 
 	<<He>> shakes out of the daze. "I... I think that's enough... just... don't do that again." <<npcincr Sydney lust 1>><<npcincr Sydney purity -5>><<gslust>><<llspurity>>
+	<br><br>
+
 	<<clotheson>>
 	<<endcombat>>
 
@@ -245,13 +250,13 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 	<<neutral 1>>
 	<<maninit>>
 	<<set $enemytrust += 500>>
-	<<set $enemyarousalmax to 600 * $npcarousalmult>>
+	<<set $enemyarousalmax to 600>>
 	<<if _sydneyStatus.includes("corrupt")>>
 		<<set $enemyarousalmax += 100>>
 	<<elseif _sydneyStatus.includes("pure")>>
 		<<set $enemyarousalmax -= 100>>
 	<</if>>
-	<<if _sydneyChastity and $NPCName[$NPCNameList.indexOf("Sydney")].chastity.anus.includes("shield")>>
+	<<if _sydneyChastity and C.npc.Sydney.chastity.anus.includes("shield")>>
 		<<set $enemyarousalmax -= 100>>
 	<</if>>
 <</if>>
@@ -277,7 +282,7 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 	<<ejaculation>>
 	<<if $corruptionRollover is 1>>
 		<<unset $corruptionRollover>>
-		"Th-that was incredible," <<he>> murmurs. "I want... I want to do it again. And... again." <<He>> gazes into your eyes. "<span class="lewd">I feel like a whole world just opened up.</span>"
+		"Th-that was incredible," <<he>> murmurs. "I want... I want to do it again. And... again." <<He>> gazes into your eyes. <span class="lewd">"I feel like a whole world just opened up."</span>
 		<br><br>
 	<<else>>
 		<<switch _sydneyStatus>>
@@ -308,7 +313,7 @@ You sit beside Sydney. You notice a pile of neatly folded clothes sat next to <<
 				<<if $enemyarousal gte ($enemyarousalmax / 5) * 2>>
 					Sydney lets out a pained moan, and quickly covers <<his>> mouth to stifle it. <<He>> looks down in shame. "I... I think I've had enough..."
 				<<else>>
-					"H-hey! Stop! Please!" Sydney quickly separates from you. "Th-that really hurt... I mean, I still kind of liked it, but..." <<his>> face flushes, and <<he>> looks away. "M...maybe we can finish this some other time..."
+					"H-hey! Stop! Please!" Sydney quickly separates from you. "Th-that really hurt... I mean, I still kind of liked it, but..." <<His>> face flushes, and <<he>> looks away. "M...maybe we can finish this some other time..."
 				<</if>>
 			<<case "corrupt" "corruptLust">>
 				Sydney backs away from you, breathing heavily. "I love it when you're rough with me," <<he>> says, "but we should save the rest for later."
@@ -383,7 +388,7 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		<</if>>
 	<<case 3>>
 		<<set _people to random(22, 34)>>
-		You open one eye and examine the room. There are others like you and Sydney, praying in the pews. <<if $NPCName[$NPCNameList.indexOf("Jordan")].pronoun is "m">>Monks<<else>>Nuns<</if>> prowl the aisles, passing furtive messages to one another. There are many more than you'd expect. You count <<number _people>> coming and going.
+		You open one eye and examine the room. There are others like you and Sydney, praying in the pews. <<nnpc_Monk "Jordan">>s prowl the aisles, passing furtive messages to one another. There are many more than you'd expect. You count <<number _people>> coming and going.
 		<br><br>
 		<<if $awareness gte 400>>
 			You glance up at the shadowed ceiling, at the gaping abyss perched above. Terror shivers up your spine. Your gaze is forced away.
@@ -395,25 +400,15 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		<<else>>
 			Sydney is taking deep breaths, seemingly trying to ignore something awful.
 		<</if>>
-	<<case 4>>
-		Your thoughts turn to your <<penis>>, and the mocking way people regard it. The torment returns. You pray for a bigger penis.
-		<br><br>
-		An hour passes, and your penis is no bigger.
-		<br><br>
-		<<if $acceptance_penis_tiny gte 1000>>
-			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Tiny Penis</span> trait.
-			<br><br>
-		<</if>>
-		Sydney keeps <<his>> head bowed, unaware of your <<if _acceptMessage>>revelation<<else>>thoughts<</if>>.
-	<<case 5>>
+	<<case 4 5>>
 		Your thoughts turn to your <<penis>>, and the mocking way people regard it. The torment returns. You pray for a bigger penis.
 		<br><br>
 		An hour passes, and your penis is no bigger.
 		<br><br>
 		<<if $acceptance_penis_small gte 1000>>
+			<<set _penisSize to setup.penisSizes[$player.penissize].toUpperFirst()>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Small Penis</span> trait.
+			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: _penisSize Penis</span> trait.
 			<br><br>
 		<</if>>
 		Sydney keeps <<his>> head bowed, unaware of your <<if _acceptMessage>>revelation<<else>>thoughts<</if>>.
@@ -423,8 +418,9 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		An hour passes, and your penis is no smaller.
 		<br><br>
 		<<if $acceptance_penis_big gte 1000>>
+			<<set _penisSize to setup.penisSizes[$player.penissize].toUpperFirst()>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Big Penis</span> trait.
+			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: _penisSize Penis</span> trait.
 			<br><br>
 		<</if>>
 		Sydney keeps <<his>> head bowed, unaware of your <<if _acceptMessage>>revelation<<else>>thoughts<</if>>.
@@ -433,9 +429,9 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		<br><br>
 		An hour passes, and your breasts are no bigger.
 		<br><br>
-		<<if $acceptance_breasts_tiny gte 1000>>
+		<<if $acceptance_breasts_small gte 1000>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your chest is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Tiny Breasts</span> trait.
+			Realisation dawns as you lean back. Your chest is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Flat Chest</span> trait.
 			<br><br>
 		<</if>>
 		Sydney keeps <<his>> head bowed, unaware of your <<if _acceptMessage>>revelation<<else>>thoughts<</if>>.
@@ -445,8 +441,9 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		An hour passes, and for a few moments the weight of scrutiny lifts.
 		<br><br>
 		<<if $acceptance_breasts_small gte 1000>>
+			<<set _breastSizeName to setup.breastsizes[$player.breastsize].toUpperFirst()>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: Small Breasts</span> trait.
+			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: _breastSizeName Breasts</span> trait.
 			<br><br>
 		<</if>>
 		Sydney keeps <<his>> head bowed, unaware of your <<if _acceptMessage>>revelation<<else>>thoughts<</if>>.
@@ -456,8 +453,9 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		An hour passes, and your breasts are no smaller.
 		<br><br>
 		<<if $acceptance_breasts_big gte 1000>>
+			<<set _breastSizeName to setup.breastsizes[$player.breastsize].toUpperFirst()>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: Big Breasts</span> trait.
+			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: _breastSizeName Breasts</span> trait.
 			<br><br>
 		<</if>>
 		Sydney keeps <<his>> head bowed, unaware of your <<if _acceptMessage>>revelation<<else>>thoughts<</if>>.
@@ -474,7 +472,7 @@ The two of you walk back to the main area of the temple. It takes some time, but
 <</switch>>
 <<npcincr Sydney purity 1>><<gspurity>>
 <br><br>
-<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
+
 <<if $stress gte $stressmax>>
 	<<passouttempleSydney>>
 <<elseif $phase isnot 2 and $phase isnot 3 and random(1, 2) is 1 and $phase isnot 10>>
@@ -483,23 +481,23 @@ The two of you walk back to the main area of the temple. It takes some time, but
 	<br><br>
 	<<switch $phase>>
 		<<case 2>>
-			<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell]]>><<npcincr Sydney love 1>><<npcincr Sydney purity 2>><</link>><<glove>><<gspurity>>
+			<<link [[Tell <<him>>|Temple Sydney Pray Tell]]>><<npcincr Sydney love 1>><<npcincr Sydney purity 2>><</link>><<glove>><<gspurity>>
 			<br>
 		<<case 3>>
-			<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -2>><</link>><<lspurity>><<sydneyWarning>>
+			<<link [[Tell <<him>>|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -2>><</link>><<lspurity>><<sydneyWarning>>
 			<br>
 		<<case 4 5 6 7 8 9 10>>
 			<<if _acceptMessage>>
-				<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell Acceptance]]>><<stress -6>><<trauma -6>><</link>><<lstress>><<ltrauma>>
+				<<link [[Tell <<him>>|Temple Sydney Pray Tell Acceptance]]>><<stress -6>><<trauma -6>><</link>><<lstress>><<ltrauma>>
 				<br>
 			<<else>>
-				<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -5>><</link>><<llspurity>><<gacceptance>><<promiscuous1>><<sydneyWarning>>
+				<<link [[Tell <<him>>|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -5>><</link>><<llspurity>><<gacceptance>><<promiscuous1>><<sydneyWarning>>
 				<br>
 			<</if>>
 	<</switch>>
 	<<link [[Do not|Temple Sydney Pray Quiet]]>><</link>>
 	<br>
-<<elseif $danger gte (9900 - $allure) and $eventskip isnot 1>>
+<<elseif dangerEvent() and $eventskip isnot 1>>
 	<<if $rng gte 81>>
 		<<set $sydneyPresent to true>>
 		<<generateTemple 2>><<person2>> A <<monk>> carrying a donation plate walks by. <<He>> smiles at you.
@@ -508,21 +506,19 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		<<link [[Look away|Temple Plate Look]]>><<npcincr Sydney love -1>><</link>><<llove>>
 		<br>
 		<<if $money gte 100>>
-			<<link [[Make a small donation (£1)|Temple Plate Donation]]>><<set $phase to 0>><<set $money -= 100>><<trauma -6>><<famegood 1>><<npcincr Sydney love 1>><</link>><<ltrauma>><<glove>>
+			<<link [[Make a small donation (£1)|Temple Plate Donation]]>><<set $phase to 0>><<money -100>><<trauma -6>><<famegood 1>><<npcincr Sydney love 1>><</link>><<ltrauma>><<glove>>
 			<br>
 		<</if>>
 		<<if $money gte 500>>
-			<<link [[Make a reasonable donation (£5)|Temple Plate Donation]]>><<set $phase to 1>><<set $money -= 500>><<trauma -12>><<famegood 2>><<npcincr Sydney love 1>><</link>><<lltrauma>><<glove>>
+			<<link [[Make a reasonable donation (£5)|Temple Plate Donation]]>><<set $phase to 1>><<money -500>><<trauma -12>><<famegood 2>><<npcincr Sydney love 1>><</link>><<lltrauma>><<glove>>
 			<br>
 		<</if>>
 		<<if $money gte 2500>>
-			<<link [[Make a large donation (£25)|Temple Plate Donation]]>><<set $phase to 2>><<set $money -= 2500>><<trauma -18>><<famegood 3>><<npcincr Sydney love 1>><</link>><<llltrauma>><<glove>>
+			<<link [[Make a large donation (£25)|Temple Plate Donation]]>><<set $phase to 2>><<money -2500>><<trauma -18>><<famegood 3>><<npcincr Sydney love 1>><</link>><<llltrauma>><<glove>>
 			<br>
 		<</if>>
-		<!-- DoLM -->
-		<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 		<<set $skulduggerydifficulty to 200>>
-		<<link [[Steal|Temple Plate Steal]]>><<crimeUp 5 "petty">><<set $skulduggeryhands to 1>><</link>><<crime "petty">><<skulduggerydifficulty>>
+		<<link [[Steal|Temple Plate Steal]]>><<crimeUp 5 "petty">><</link>><<crime "petty">><<skulduggerydifficulty>>
 		<br>
 
 	<<elseif $rng gte 71>>
@@ -565,17 +561,17 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		<br><br>
 		<<switch $phase>>
 			<<case 2>>
-				<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell]]>><<npcincr Sydney love 1>><<npcincr Sydney purity 2>><</link>><<glove>><<gspurity>><<sydneyWarning>>
+				<<link [[Tell <<him>>|Temple Sydney Pray Tell]]>><<npcincr Sydney love 1>><<npcincr Sydney purity 2>><</link>><<glove>><<gspurity>><<sydneyWarning>>
 				<br>
 			<<case 3>>
-				<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -2>><</link>><<lspurity>><<sydneyWarning>>
+				<<link [[Tell <<him>>|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -2>><</link>><<lspurity>><<sydneyWarning>>
 				<br>
 			<<case 4 5 6 7 8 9 10>>
 				<<if _acceptMessage>>
-					<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell Acceptance]]>><<stress -6>><<trauma -6>><</link>><<lstress>><<ltrauma>>
+					<<link [[Tell <<him>>|Temple Sydney Pray Tell Acceptance]]>><<stress -6>><<trauma -6>><</link>><<lstress>><<ltrauma>>
 					<br>
 				<<else>>
-					<<link [["Tell " + $NPCList[0].pronouns.him|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -5>><</link>><<llspurity>><<gacceptance>><<promiscuous1>><<sydneyWarning>>
+					<<link [[Tell <<him>>|Temple Sydney Pray Tell]]>><<npcincr Sydney purity -5>><</link>><<llspurity>><<gacceptance>><<promiscuous1>><<sydneyWarning>>
 					<br>
 				<</if>>
 		<</switch>>
@@ -634,7 +630,7 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<<He>> doesn't seem to understand, and looks at you with concern.
 		<</if>>
 	<<case 4>>
-		<<if $player.gender is "m">>
+		<<if $player.sex is "m">>
 			<<set $genderknown.pushUnique("Sydney")>>
 		<</if>>
 		You tell Sydney about your insecurity in visceral detail, recalling the faces of everyone who's mentioned your tiny penis.
@@ -645,22 +641,23 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<<else>>
 				<<He>> blushes and looks down. "I... well, I think it's cute, if that matters."
 			<</if>>
-			<<acceptance "penis_tiny" 20>>
+			<<acceptance "penis_small" 20>>
 		<<else>>
 			<<if _sydneyStatus.includes("corrupt")>>
 				<<He>> shrugs. "It's not the size, it's how you use it. Or so I hear."
 			<<else>>
 				<<He>> blinks. "Many animals use things other than... size... to show off to a mate. Even in nature, the size isn't always what matters."
 			<</if>>
-			<<acceptance "penis_tiny" 10>>
+			<<acceptance "penis_small" 10>>
 		<</if>>
-		<<if $acceptance_penis_tiny gte 1000>>
-			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Tiny Penis</span> trait.
+		<<if $acceptance_penis_small gte 1000>>
+			<<set _penisSize to setup.penisSizes[$player.penissize].toUpperFirst()>>
+			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: _penisSize Penis</span> trait.
 			<br><br>
 			Sydney <<if $sydneyromance is 1>>kisses you on the cheek and <</if>> smiles. "I hope I was able to help you."
 		<</if>>
 	<<case 5>>
-		<<if $player.gender is "m">>
+		<<if $player.sex is "m">>
 			<<set $genderknown.pushUnique("Sydney")>>
 		<</if>>
 		You tell Sydney about your insecurity in visceral detail, recalling the faces of everyone who's mentioned your small penis.
@@ -681,12 +678,13 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<<acceptance "penis_small" 10>>
 		<</if>>
 		<<if $acceptance_penis_small gte 1000>>
-			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Small Penis</span> trait.
+			<<set _penisSize to setup.penisSizes[$player.penissize].toUpperFirst()>>
+			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: _penisSize Penis</span> trait.
 			<br><br>
 			Sydney <<if $sydneyromance is 1>>kisses you on the cheek and <</if>> smiles. "I hope I was able to help you."
 		<</if>>
 	<<case 6>>
-		<<if $player.gender is "m">>
+		<<if $player.sex is "m">>
 			<<set $genderknown.pushUnique("Sydney")>>
 		<</if>>
 		You tell Sydney about your insecurity in visceral detail, recalling the faces of everyone who's mentioned your oversized penis.
@@ -707,32 +705,33 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<<acceptance "penis_big" 10>>
 		<</if>>
 		<<if $acceptance_penis_big gte 1000>>
+			<<set _penisSize to setup.penisSizes[$player.penissize].toUpperFirst()>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Big Penis</span> trait.
+			Realisation dawns as you lean back. Your <<penis>> is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: _penisSize Penis</span> trait.
 			<br><br>
 			Sydney <<if $sydneyromance is 1>>kisses you on the cheek and <</if>> smiles. "I hope I was able to help you."
 		<</if>>
 	<<case 7>>
-		You tell Sydney about your insecurity in visceral detail, recalling the faces of everyone who's mentioned your tiny breasts.
+		You tell Sydney about your insecurity in visceral detail, recalling the faces of everyone who's mentioned your flat chest.
 		<br><br>
 		<<if $sydneyromance is 1>>
 			<<if _sydneyStatus.includes("corrupt")>>
-				<<He>> puts an arm around you. "I think I get it. If it makes you feel any better, I think they're cute. You should be proud."
+				<<He>> puts an arm around you. "I think I get it. If it makes you feel any better, I think it is nothing to worry about, you're cute either way."
 			<<else>>
 				<<He>> blushes and looks down. "I... well, I think they're cute, if that matters."
 			<</if>>
-			<<acceptance "breasts_tiny" 20>>
+			<<acceptance "breasts_small" 20>>
 		<<else>>
 			<<if _sydneyStatus.includes("corrupt")>>
 				<<He>> shrugs. "Less back pain."
 			<<else>>
 				<<He>> blinks. "It's not a bad thing. If anything, they make physical activity a lot easier."
 			<</if>>
-			<<acceptance "breasts_tiny" 10>>
+			<<acceptance "breasts_small" 10>>
 		<</if>>
-		<<if $acceptance_breasts_tiny gte 1000>>
+		<<if $acceptance_breasts_small gte 1000>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your chest is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Tiny Breasts</span> trait.
+			Realisation dawns as you lean back. Your chest is beautiful. Why should you care what other people say about it? You've gained the <span class="green">Acceptance: Flat Chest</span> trait.
 			<br><br>
 			Sydney <<if $sydneyromance is 1>>kisses you on the cheek and <</if>> smiles. "I hope I was able to help you."
 		<</if>>
@@ -755,8 +754,9 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<<acceptance "breasts_small" 10>>
 		<</if>>
 		<<if $acceptance_breasts_small gte 1000>>
+			<<set _breastSizeName to setup.breastsizes[$player.breastsize].toUpperFirst()>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: Small Breasts</span> trait.
+			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: _breastSizeName Breasts</span> trait.
 			<br><br>
 			Sydney <<if $sydneyromance is 1>>kisses you on the cheek and <</if>> smiles. "I hope I was able to help you."
 		<</if>>
@@ -779,8 +779,9 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<<acceptance "breasts_big" 10>>
 		<</if>>
 		<<if $acceptance_breasts_big gte 1000>>
+			<<set _breastSizeName to setup.breastsizes[$player.breastsize].toUpperFirst()>>
 			<<set _acceptMessage to true>>
-			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: Big Breasts</span> trait.
+			Realisation dawns as you lean back. Your <<breasts>> are beautiful. Why should you care what other people say about them? You've gained the <span class="green">Acceptance: _breastSizeName Breasts</span> trait.
 			<br><br>
 			Sydney <<if $sydneyromance is 1>>kisses you on the cheek and <</if>> smiles. "I hope I was able to help you."
 		<</if>>
@@ -790,7 +791,7 @@ The two of you walk back to the main area of the temple. It takes some time, but
 		<<if $sydneyromance is 1>>
 			<<if getPregnancyObject().fetus[0].father is "Sydney">>
 				<<if _sydneyStatus.includes("corrupt")>>
-					<<He>> puts an arm around you. "If I was in your position, I wouldn't stop showing it off. 'Hey, everyone, look! My <<nnpc_girlfriend "Sydney">> kocked me up!'" <<He>> rubs your belly and blows a raspberry on your cheek. You can't help but giggle. <<stress -6>><<lstress>>
+					<<He>> puts an arm around you. "If I was in your position, I wouldn't stop showing it off. 'Hey, everyone, look! My <<nnpc_girlfriend "Sydney">> knocked me up!'" <<He>> rubs your belly and blows a raspberry on your cheek. You can't help but giggle. <<stress -6>><<lstress>>
 				<<else>>
 					<<He>> blushes and looks down. "W-what's there to be ashamed of, beloved? I'm... excited for our child! Aren't you?"
 				<</if>>
@@ -801,7 +802,7 @@ The two of you walk back to the main area of the temple. It takes some time, but
 			<</if>>
 		<<else>>
 			<<if _sydneyStatus.includes("corrupt")>>
-				<<He>> gives you a sad smile. "Look, shit happens. The opthers here might shame you endlessly for getting pregnant out of wedlock, but all you can do is... well, your best. For your child."
+				<<He>> gives you a sad smile. "Look, shit happens. The others here might shame you endlessly for getting pregnant out of wedlock, but all you can do is... well, your best. For your child."
 			<<else>>
 				<<He>> blinks. "While pregnancy outside of wedlock is a sin... without sin, there can be no redemption. So long as you love your child, I'm certain you'll be redeemed!"
 			<</if>>
@@ -840,7 +841,7 @@ You decide to keep it to yourself. Sydney frowns, but doesn't press it.
 :: Sydney Temple Corrupt
 <<set $outside to 0>><<set $location to "temple">><<run statusCheck("Sydney")>><<sydneySchedule>><<temple_effects>><<effects>><<set _sydneyPray to true>>
 <<if $speech_attitude is "meek">>
-	"So, are we ready to... do what you said?" you ask quiety.
+	"So, are we ready to... do what you said?" you ask quietly.
 <<elseif $speech_attitude is "bratty">>
 	"Ready to break some vows?" you ask.
 <<else>>
@@ -854,9 +855,9 @@ You decide to keep it to yourself. Sydney frowns, but doesn't press it.
 	<i><span class="pink">Sydney is no longer corrupt enough to consider removing <<his>> belt. You may need to drag <<him>> back down into the throes of lust.</span></i>
 	<br><br>
 	<<sydneyOptions>>
-<<elseif playerChastity() and !$worn.genitals.origin is "temple">>
-	Sydney smiles, but it soon fades. "I thought about something. Your belt... it's not from the temple, is it?" You nod, and Sydney frowns.
-	"Then there's nothing we can do, at least not yet. The keys here are only for belts issued by the temple. You'll need to find a way to remove your belt before we can do anything."
+<<elseif playerChastity() and $worn.genitals.origin isnot "temple">>
+	Sydney smiles, but it soon fades. "I thought about something. Your device... it's not from the temple, is it?" You nod, and Sydney frowns.
+	"Then there's nothing we can do, at least not yet. The keys here are only for belts or cages issued by the temple. You'll need to find a way to remove your device before we can do anything."
 	<br><br>
 	<<sydneyOptions>>
 <<elseif $temple_rank is undefined or $temple_rank is "prospective">>
@@ -914,9 +915,14 @@ The two of you reach a locked door. "I think this is the one." Sydney peers thro
 <br><br>
 <<set $lock to 600>>
 	<<if currentSkillValue('skulduggery') gte $lock>>
-		<span class="green">The lock looks easy to pick.</span>
-		<br><br>
-		<<link [[Pick lock (0:05)|Sydney Temple Corrupt Pick]]>><<set $phase to 1>><<pass 5>><<crimeUp 10 "trespassing">><</link>><<crime "trespassing">>
+		<<if pcAreArmsBound("both")>>
+			You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+			<br>
+		<<else>>
+			<span class="green">The lock looks easy to pick.</span>
+			<br><br>
+			<<link [[Pick lock (0:05)|Sydney Temple Corrupt Pick]]>><<set $phase to 1>><<pass 5>><<crimeUp 10 "trespassing">><</link>><<crime "trespassing">>
+		<</if>>
 		<br>
 	<<else>>
 		<span class="red">The lock looks beyond your ability to pick.</span> <<skulduggeryrequired>>
@@ -947,7 +953,7 @@ As <<he>> does, you see many cabinets and hangers filled with various chastity d
 <<if $phase is 2>>
 	<<endevent>>
 	<<generateConfessor 1>><<person1>>
-	"<span class="red">You're not supposed to be here.</span>" Your blood runs cold. Two figures in black robes enter the room.
+	<span class="red">"You're not supposed to be here."</span> Your blood runs cold. Two figures in black robes enter the room.
 	<<if $temple_confessor_intro>>
 		You recognise them. Confessors.
 	<</if>>
@@ -1008,9 +1014,9 @@ As <<he>> does, you see many cabinets and hangers filled with various chastity d
 <<effects>>
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<ejaculation>>
-	"N...no!" The <<monk>> falls to <<his>> knees. "I... I've sinned, I must-" <<Hes>> cut off as a blast of pink mist washes over <<him>>.
+	"N...no!" The <<monk>> falls to <<his>> knees. "I... I've sinned, I must—" <<Hes>> cut off as a blast of pink mist washes over <<him>>.
 <<elseif $enemyhealth lte 0>>
-	You push the <<monk>> away, and follow up with a punch to the gut. <<He>> keels over. "How... how dare you! I can assure you, once they hear about this-" <<Hes>> cut off as a blast of pink mist washes over <<him>>.
+	You push the <<monk>> away, and follow up with a punch to the gut. <<He>> keels over. "How... how dare you! I can assure you, once they hear about this—" <<Hes>> cut off as a blast of pink mist washes over <<him>>.
 <<else>>
 	A blast of pink mist washes over the <<monk>>, and <<he>> stumbles back.
 <</if>>
@@ -1041,6 +1047,7 @@ Sydney tosses the canister aside. "That stuff's creepy. I'm glad that wasn't an 
 	<<case 0>>
 		You begin the search with Sydney.
 	<<case 1>>
+		<<wearProp "paper sheet">>
 		You search by the cabinets full of chastity devices. One drawer is dedicated to broken ones, but the rest seem to be freshly cleaned or repaired.
 		<<if $fame.business gte 400>>
 			Under one of them, you find what looks like a delivery invoice. Someone spent a lot of money on these.
@@ -1070,6 +1077,7 @@ Sydney tosses the canister aside. "That stuff's creepy. I'm glad that wasn't an 
 <<elseif $templeSearch.length is 2>>
 	Sydney encounters a locked drawer.
 	<<if $templeSearch.includes("figures")>>
+		<<wearProp "key" "silver" "standard">>
 		You toss <<him>> the key you just found. It fits.
 	<<else>>
 		<<if $phase2 is 1>>
@@ -1144,12 +1152,13 @@ You find yourself in a small hexagonal room, the edges ringed with steps leading
 <<effects>>
 With shaking hands, Sydney inserts the key into <<his>> chastity belt. It drops to the floor with a clatter. <<if playerChastity() and $worn.genitals.origin is "temple">><<He>> tosses you the other key, and you do the same to your own. <<set $worn.genitals.type.push("broken")>><<genitalsruined>><<if playerChastity("anus")>><<set $worn.genitals.anal_shield to 0>><</if>><</if>>
 <br><br>
-<<set $NPCName[$NPCNameList.indexOf("Sydney")].chastity.anus to "">>
-<<set $NPCName[$NPCNameList.indexOf("Sydney")].chastity.vagina to "">>
-<<set $NPCName[$NPCNameList.indexOf("Sydney")].chastity.penis to "">>
+<<set C.npc.Sydney.chastity.anus to "">>
+<<set C.npc.Sydney.chastity.vagina to "">>
+<<set C.npc.Sydney.chastity.penis to "">>
 <<unset $sydneyChastityRemoveIntro>><<unset $sydneyChastityRemoveCorrupt>>
-<<endevent>><<npc "Sydney">><<person1>>
+<<endevent>>
 <<defileSacredGround>>
+<<npc "Sydney">><<person1>>
 <<He>> walks toward you, then suddenly pulls you to the ground. <<He>> flips on top of you, laying you on the cushion in the centre.
 "This is the most sacred place in town," <<he>> murmurs, <<his>> mouth just barely grazing yours. <<He>> grinds against you. "Won't you defile it with me?"
 <br><br>
@@ -1158,8 +1167,9 @@ With shaking hands, Sydney inserts the key into <<his>> chastity belt. It drops 
 
 :: Sydney Temple Prayer Room
 <<set $combat to 0>><<effects>>
-<<endevent>><<npc "Sydney">><<person1>>
+<<endevent>>
 <<defileSacredGround>>
+<<npc "Sydney">><<person1>>
 Sydney leads the way, and you follow behind, making sure the secret door shuts quietly behind you. You don't have to crawl long before <<he>> reaches another door. <<He>> pushes it open and drops down, and you drop soon after.
 You find yourself in a small hexagonal room, the edges ringed with steps leading nowhere. A single window decorates each wall, far above. A cushion sits in the middle.
 <br><br>
@@ -1187,7 +1197,7 @@ You find yourself in a small hexagonal room, the edges ringed with steps leading
 
 	<<maninit>>
 	<<set $enemytrust += 100>>
-	<<set $enemyarousalmax to 600 * $npcarousalmult>>
+	<<set $enemyarousalmax to 600>>
 	<<switch $loveDrunk>>
 		<<case 1>>
 			You feel as though some unseen force is pushing you and Sydney together. <<hallucinogen 60>>
@@ -1203,7 +1213,7 @@ You find yourself in a small hexagonal room, the edges ringed with steps leading
 	<<if $loveDrunk>>
 		<<npc_attempt_sex>>
 	<</if>>
-	<<set $NPCList[0].pregnancyAvoidance to 0>>
+	<<set $NPCList[0].pregnancyAvoidance to 0>><<set $NPCList[0].condom to false>>
 <</if>>
 <<switch $loveDrunk>>
 	<<case undefined>>
@@ -1238,7 +1248,7 @@ You find yourself in a small hexagonal room, the edges ringed with steps leading
 	<<set $loveDrunk to 0>>
 <</if>>
 <<if $enemyarousal gte $enemyarousalmax>>
-	<<if $loveDrunk gte 3 and ((!$player.penisExist and $NPCName[$NPCNameList.indexOf("Sydney")].gender is "f") or (!$player.vaginaExist and $NPCName[$NPCNameList.indexOf("Sydney")].gender is "m" and $analdisable is "t") or $NPCName[$NPCNameList.indexOf("Sydney")].virginity.penile isnot true or $NPCName[$NPCNameList.indexOf("Sydney")].virginity.vaginal isnot true)>>
+	<<if $loveDrunk gte 3 and ((!$player.penisExist and C.npc.Sydney.gender is "f") or (!$player.vaginaExist and C.npc.Sydney.gender is "m" and !$settings.analEnabled) or $NPCList[0].strapon?.state is "worn" or C.npc.Sydney.virginity.penile isnot true or C.npc.Sydney.virginity.vaginal isnot true)>>
 		Sydney's moans of pleasure fill the prayer room, echoing off the nothingness. You feel as though you're being drained of something, but you don't care. You're filled with a primal heat that builds and builds, until your own moans fill the room, too. <<orgasm>>
 		<br><br>
 		<<He>> collapses on top of you, finally satisfied and spent. <<npcincr Sydney lust -20>><<llllust>>
@@ -1266,7 +1276,7 @@ You find yourself in a small hexagonal room, the edges ringed with steps leading
 		<</if>>
 	<<else>>
 		<<ejaculation>>
-		<<if (!$player.penisExist and $NPCName[$NPCNameList.indexOf("Sydney")].gender is "f") or (!$player.vaginaExist and $NPCName[$NPCNameList.indexOf("Sydney")].gender is "m" and $analdisable is "t") or ($NPCName[$NPCNameList.indexOf("Sydney")].virginity.penile isnot true or $NPCName[$NPCNameList.indexOf("Sydney")].virginity.vaginal isnot true)>>
+		<<if (!$player.penisExist and C.npc.Sydney.gender is "f") or (!$player.vaginaExist and C.npc.Sydney.gender is "m" and !$settings.analEnabled) or (C.npc.Sydney.virginity.penile isnot true or C.npc.Sydney.virginity.vaginal isnot true)>>
 			<<switch $loveDrunk>>
 				<<case 0>>
 					Sydney doesn't get up, and refuses to let you move. A manic expression crosses <<his>> face. "Where are you going, my love? We've only just started!" <<Hes>> on you again. <span class="red">The hallucinogens have driven <<him>> mad with lust!</span>
@@ -1313,11 +1323,11 @@ You find yourself in a small hexagonal room, the edges ringed with steps leading
 <<set $outside to 0>><<set $location to "temple">><<effects>>
 <<unset $prayerRoom>>
 <<unset $loveDrunk>>
-<<set $fakeFallenAngel to !$real_fallenangel and $fallenangel>>
+<<set $fakeFallenAngel to $fallenangel and !$defileSacredGroundStore.fallenangel>>
 <<if $fakeFallenAngel>>
-	<<set V.transformationParts.fallenAngel.halo to "disabled">>
-	<<set V.transformationParts.fallenAngel.wings to "disabled">>
-	<<set $trauma to $real_trauma>>
+	<<set $transformationParts.fallenAngel.halo to "disabled">>
+	<<set $transformationParts.fallenAngel.wings to "disabled">>
+	<<set $trauma to $defileSacredGroundStore.trauma>>
 <</if>>
 You awaken some time later, warm and comfortable in Sydney's embrace. The incense has cleared from the room, and although you still feel dizzy, you also feel profoundly refreshed.
 <<tiredness -20>><<trauma -12>><<ltiredness>><<lltrauma>>
@@ -1329,7 +1339,7 @@ The two of you reluctantly rise after what feels like far too short of a time. Y
 <<clotheson>>
 <<link [[Next|Sydney Temple Corrupt End 2]]>>
 	<<if $sydneySeen.includes("corruptroom")>>
-		<<restorePlayerVirginity>>
+		<<prayerRoomEnd>>
 	<</if>>
 <</link>>
 <br>
@@ -1346,7 +1356,7 @@ kisses you on the cheek.
 	<<set $sydneySeen.pushUnique("corruptroom")>>
 	<<world_corruption "hard" 1>>
 	"That really was... I... I don't even know if there are words to describe it. Absolutely worth any punishment they have in store for me,
-	<<if $NPCName[$NPCNameList.indexOf("Sydney")].virginity.penile is true and $NPCName[$NPCNameList.indexOf("Sydney")].virginity.vaginal is true>>
+	<<if C.npc.Sydney.virginity.penile is true and C.npc.Sydney.virginity.vaginal is true>>
 		but it's not like I need to worry about my chastity exam.
 	<<else>>
 		but I think I have a few ideas on how to avoid my chastity exam.
@@ -1374,9 +1384,9 @@ kisses you on the cheek.
 <<effects>>
 "I still can't believe how good it was," Sydney whispers to you, chattering as you walk through the garden. "I knew it would be good, but... why are they trying to keep that from us? Because we won't reach heaven? Bullshit! We just found heaven!"
 <br><br>
-<<He>> tackles you to the grass, kissing your neck and all over your face. <<He>> pins you down and giggles. "I wanna go again. You wanna go again? <<if $NPCName[$NPCNameList.indexOf("Sydney")].virginity.vaginal isnot true>>I want to feel you inside me<<elseif $NPCName[$NPCNameList.indexOf("Sydney")].virginity.penile isnot true>>I want to be inside you<<else>>I want to feel you<</if>> again."
+<<He>> tackles you to the grass, kissing your neck and all over your face. <<He>> pins you down and giggles. "I wanna go again. You wanna go again? <<if C.npc.Sydney.virginity.vaginal isnot true>>I want to feel you inside me<<elseif C.npc.Sydney.virginity.penile isnot true>>I want to be inside you<<else>>I want to feel you<</if>> again."
 <br><br>
-<<Hes>> halfway through hiking up <<his>> robes and straddling you, when you hear a voice from a pathway nearby. Sydney yelps and pushes <<himself>> off, then pulls you to your feet. A figure in a white cowl steps out of the darkness, looking around with curiosity. <<if $NPCName[$NPCNameList.indexOf("Jordan")].init is 1>><span class="red">It's Jordan.</span><</if>>
+<<Hes>> halfway through hiking up <<his>> robes and straddling you, when you hear a voice from a pathway nearby. Sydney yelps and pushes <<himself>> off, then pulls you to your feet. A figure in a white cowl steps out of the darkness, looking around with curiosity. <<if C.npc.Jordan.init is 1>><span class="red">It's Jordan.</span><</if>>
 <br><br>
 "I thought I heard voices," <<nnpc_he "Jordan">> says. A gentle smile graces <<nnpc_his "Jordan">> face.
 <<if $temple_rank isnot undefined and $temple_rank isnot "prospective">>
@@ -1393,8 +1403,8 @@ I would say you're up late, but I'm hardly one to talk. These midnight walks thr
 
 :: Sydney Temple Corrupt End 4
 <<effects>>
-<<if $NPCName[$NPCNameList.indexOf("Sydney")].virginity.penile is true and $NPCName[$NPCNameList.indexOf("Sydney")].virginity.vaginal is true>>
-	<<if !$player.vaginaExist and $NPCName[$NPCNameList.indexOf("Sydney")].gender is "m">>
+<<if C.npc.Sydney.virginity.penile is true and C.npc.Sydney.virginity.vaginal is true>>
+	<<if !$player.vaginaExist and C.npc.Sydney.gender is "m">>
 		<<set $examSafe to 1>>
 	<<else>>
 		<<set $examSafe to 2>>
@@ -1402,7 +1412,7 @@ I would say you're up late, but I'm hardly one to talk. These midnight walks thr
 <</if>>
 Jordan frowns, before glancing over Sydney. <<He>> freezes, before pushing down <<his>> robe. <<He>> wasn't fast enough. "Your chastity belt," Jordan murmurs. "Did you remove it, or was it broken?"
 <br><br>
-"I-it wasn't!" Sydney gulps. "I didn't remove it. It wasn't broken. Wait, it was broken! It- I..." <<he>> trails off, looking around rapidly. You, <<him>> and Jordan are the only ones around.
+"I-it wasn't!" Sydney gulps. "I didn't remove it. It wasn't broken. Wait, it was broken! It— I..." <<He>> trails off, looking around rapidly. You, <<him>> and Jordan are the only ones around.
 <br><br>
 Jordan glances at you, <<if $grace gte 1>>before shaking <<nnpc_his "Jordan">> head<<else>>eyeing you with suspicion<</if>>. <<nnpc_His "Jordan">> gaze returns to Sydney. "Would you mind if I inspected your virginity?"
 <<if $examSafe>>
@@ -1411,7 +1421,7 @@ Jordan glances at you, <<if $grace gte 1>>before shaking <<nnpc_his "Jordan">> h
 <<else>>
 	<<stress 6>><<gstress>>
 	<br><br>
-	Sydney whimpers. "Why... why would you need to do that?" <<He>> laughs nervously. "It-it's not time for my monthly inspection yet, and I haven't done anything, and, and-"
+	Sydney whimpers. "Why... why would you need to do that?" <<He>> laughs nervously. "It-it's not time for my monthly inspection yet, and I haven't done anything, and, and—"
 	<br><br>
 	"Sydney." Jordan's voice is kind, but firm. "I was caught off guard, as this is the first time in recent memory I've seen you without your chastity belt. I only wish to confirm your words. However, I'm sure you understand what you're admitting if you refuse an examination."
 	<br><br>
@@ -1431,7 +1441,7 @@ Jordan produces a small container from <<nnpc_his "Jordan">> cowl and rubs a whi
 	<<nnpc_He "Jordan">> places <<nnpc_his "Jordan">> thumbs against Sydney's pussy and gently opens <<his>> lips, investigating inside. <<if !$examSafe>>Sydney clenches <<his>> eyes shut.<</if>>
 <</if>>
 <br><br>
-After a few minutes that feel too long, Jordan finishes <<nnpc_his "Jordan">> work. <<nnpc_he "Jordan">> steps back and looks at Sydney.
+After a few minutes that feel too long, Jordan finishes <<nnpc_his "Jordan">> work. <<nnpc_He "Jordan">> steps back and looks at Sydney.
 <<if !$examSafe>>
 	"I'm sorry," Sydney mutters. <<Hes>> close to tears.
 	<br><br>
@@ -1464,7 +1474,7 @@ After a few minutes that feel too long, Jordan finishes <<nnpc_his "Jordan">> wo
 		"I guess we're fine, as long as we don't go sticking our dicks where they don't belong." <<He>> gives your <<bottom>> a playful slap, then laughs as <<he>> pulls you into a hug. You head back into the temple with a smile on your face.
 	<</if>>
 	<br><br>
-	<<link [[Next|Sydney Temple Corrupt End Final]]>><<restorePlayerVirginity>><</link>>
+	<<link [[Next|Sydney Temple Corrupt End Final]]>><<prayerRoomEnd>><<unset $fakeFallenAngel>><</link>>
 	<br>
 <</if>>
 
@@ -1482,27 +1492,26 @@ After a few minutes that feel too long, Jordan finishes <<nnpc_his "Jordan">> wo
 Sydney comes to a stop, and grabs your shoulders again. "It... kinda sucks that you didn't actually defile me, but do you know what this means?" <<He>> leans <<his>> forehead against yours and lets out a breathless laugh. "We can have all the sex we want in that room, and the temple won't know! <span class="gold">We can cheat the system!</span>"
 <<if $fakeFallenAngel>>
 	You rush to a small reflecting pool to look at your reflection. The feeling of loss quickly fades. <span class="gold">You still look pure.</span>
-	<<unset $fakeFallenAngel>>
 <</if>>
 <br><br>
 <<He>> wraps <<his>> arms around your neck and throws <<himself>> onto you. You and <<him>> tumble down to the grass again, <<him>> clinging to you in adoration. "I love you," <<he>> whispers with shimmering eyes. "And now I have a way to show you how much, whenever we want. This is the best day of my life."
 <br><br>
 You hold each other for some time. A part of you wants to stay like this forever, until the howl of a wolf startles you both. You decide to head back into the temple.
 <br><br>
-<<link [[Next|Sydney Temple Corrupt End Final]]>><<restorePlayerVirginity>><</link>>
+<<link [[Next|Sydney Temple Corrupt End Final]]>><<prayerRoomEnd>><<unset $fakeFallenAngel>><</link>>
 
 :: Sydney Temple Corrupt End Final
 <<effects>>
-Sydney clings to you as you enter the temple. <<He>> yawns and stretches. "I think it's time for me to go home. This really was a magical night, thank you. Maybe we can do it aga-"
+Sydney clings to you as you enter the temple. <<He>> yawns and stretches. "I think it's time for me to go home. This really was a magical night, thank you. Maybe we can do it aga—"
 <br><br>
 "There you are!" Someone comes marching up to the two of you. It's Sirris. <<npc "Sirris" 2>><<person2>>
 <br>
-"I wish you'd let me know when you plan on staying so late, I was worried sick!" <<He>> pauses when <<he>> sees you. <<He>> looks between you and Sydney, <<his>> demeanor changing when <<he>> notices how happy Sydney looks.
+"I wish you'd let me know when you plan on staying so late, I was worried sick!" <<He>> pauses when <<he>> sees you. <<He>> looks between you and Sydney, <<his>> demeanour changing when <<he>> notices how happy Sydney looks.
 <br><br>
 <<He>> places a hand on your shoulder. "Thanks for looking after <<person1>><<him>>. Really. I hope you two had fun." <<npcincr Sirris love 1>>
 <<sydneySirrisResemble>>
 <br>
-"Sorry, <<sydneymum>>. I-" Sydney yawns before <<he>> can finish.
+"Sorry, <<nnpc_Mum "Sirris">>. I—" Sydney yawns before <<he>> can finish.
 <br>
 Sirris raises <<person2>><<his>> hand. "It's okay, dear." <<He>> turns to you again. "Do you need a ride home? You shouldn't walk around at this hour."
 <br><br>
@@ -1575,13 +1584,20 @@ Sirris raises <<person2>><<his>> hand. "It's okay, dear." <<He>> turns to you ag
 	"<span class="lblue">You've been a satisfactory member of our faith.</span> I trust your dedication, but you must strive for improvement still."
 	<<set $jordanScore += 5>>
 <<else>>
-	"<span class="red">I question your true devotion,</span>" <<he>> says. "We know you can do better."
+	<span class="red">"I question your true devotion,"</span> <<he>> says. "We know you can do better."
 <</if>>
 <br><br>
-<<He>> produces a small bell from <<his>> robes, and rings it four times. <<person3>>An older <<monk>> enters the room, and nods to Jordan. "Please stand," the <<monk>> says.
+<<if $worn.head.name.includes("rose wedding") or $worn.upper.name.includes("rose wedding")>>
+	<<set $jordanScore += 5>>
+	<<He>> runs <<his>> thumb against the roses on your clothes. "While not necessarily appropriate for this Rite, I can appreciate that you're wearing your heart on your sleeve with this wedding attire."
+	<br><br>
+	Sydney blushes. "I... I hope to see <<phim>> wearing that again some day."
+	<br><br>
+<</if>>
+Jordan produces a small bell from <<his>> robes, and rings it four times. <<person3>>An older <<monk>> enters the room, and nods to Jordan. "Please stand," the <<monk>> says.
 <<He>> examines Sydney very closely, although <<person1>><<he>> shows no discomfort.<<person3>>
 <br>
-<<if $NPCName[$NPCNameList.indexOf("Sydney")].purity gte 90>>
+<<if C.npc.Sydney.purity gte 90>>
 	"<span class="green">You are as pure as the day you joined us,</span> <<nnpc_brother "Sydney">> Sydney. May you stay this way forevermore," the <<monk>> says through a hearty smile.
 	<<set $jordanScore += 10>>
 <<else>>
@@ -1608,13 +1624,13 @@ The <<monk>> approaches you.
 		<<set $jordanScore -= 10>>
 	<</if>>
 <<elseif $purity gte 999>>
-	<<His>> face brightens up as <<he>> examines you head to toe. "<span class="green">Your dedication to purity is impressive.</span>" <<set $jordanScore += 15>>
+	<<His>> face brightens up as <<he>> examines you head to toe. <span class="green">"Your dedication to purity is impressive."</span> <<set $jordanScore += 15>>
 <<elseif $purity gte 900>>
-	<<He>> smiles as <<he>> examines you head to toe. "<span class="lblue">Your dedication to purity is commendable.</span>" <<set $jordanScore += 10>>
+	<<He>> smiles as <<he>> examines you head to toe. <span class="lblue">"Your dedication to purity is commendable."</span> <<set $jordanScore += 10>>
 <<elseif $purity gte 500>>
 	<<His>> expression remains stern as <<he>> examines you head to toe. "<span class="purple">Your dedication to purity is... sub-par.</span> You should strive to improve yourself."
 <<else>>
-	<<He>> frowns as <<he>> regards you. "<span class="red">A pity. Your purity has faded.</span>" <<He>> turns to Jordan. "This one should be made to atone before any such rite is permitted, but the say is not mine." <<set $jordanScore -= 5>>
+	<<He>> frowns as <<he>> regards you. <span class="red">"A pity. Your purity has faded."</span> <<He>> turns to Jordan. "This one should be made to atone before any such rite is permitted, but the say is not mine." <<set $jordanScore -= 5>>
 <</if>>
 <br><br>
 Jordan nods to the <<monk>>, who bows and leaves the room. "The next section of the examination will require you two to be separated. Please come with me." Jordan leads you into a separate, adjacent room with an identical ornate table. "Please wait here while I administer Sydney's part of the exam."
@@ -1629,9 +1645,12 @@ Jordan nods to the <<monk>>, who bows and leaves the room. "The next section of 
 :: Sydney Temple Pure Eavesdrop
 <<effects>>
 You creep up to the door.
+<br><br>
+
 <<skulduggerycheck>>
 <<if $skulduggerysuccess is 1>>
 	<span class="green">You hardly make a sound.</span>
+	<br><br>
 	<<skulduggeryuse>>
 
 	You press your ear to the door and do your best to listen in. You hear Jordan's voice.
@@ -1657,7 +1676,7 @@ You creep up to the door.
 			<br>
 			"Noted."
 		<<case "shop">>
-			"We met when <<pshe>> showed up to my <<sydneyMum>>'s shop." There's a long pause.
+			"We met when <<pshe>> showed up to my <<nnpc_mum "Sirris">>'s shop." There's a long pause.
 			<br>
 			"Y...yes, it's the shop you're thinking of. The one on Elk Street."
 			<br>
@@ -1678,6 +1697,8 @@ You creep up to the door.
 <<else>>
 	<span class="red">You hear someone heading towards it. You weren't quiet enough.</span>
 	<br><br>
+	<<skulduggeryuse>>
+
 	You rush back to your seat. Jordan opens the door a moment later, looking around the room until <<person2>><<his>> eyes settle on you.
 	<br><br>
 	"Forgive me, but I'll need to take measures to enforce the validity of the examination. Please place your arms on the table." As you do so, Jordan reaches under the table, and you hear a mechanical click. A pair of ivory restraints unfold from the patterns in the table, binding your arms to it and holding you in place.
@@ -1707,12 +1728,12 @@ You creep up to the door.
 	<br>
 	"Very well." Yet another.
 <</if>>
-<<if $NPCName[$NPCNameList.indexOf("Sydney")].hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail" or $sydney.glasses isnot "glasses">>
+<<if C.npc.Sydney.hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail" or $sydney.glasses isnot "glasses">>
 	"You've made some changes to your appearance recently.
 	<<if $sydney.glasses isnot "glasses">>
 		Your glasses..."
 		<br>
-		<<switch "sydneyGlasses">>
+		<<switch $sydney.glasses>>
 			<<case "playerbought">>
 				"<<pShe>> bought me these new ones! They're special to me."
 			<<case "broken" "playerbroken">>
@@ -1722,17 +1743,17 @@ You creep up to the door.
 		<</switch>>
 		<br>
 		"I see." You hear some more paper shifting.
-		<<if $NPCName[$NPCNameList.indexOf("Sydney")].hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail">>
+		<<if C.npc.Sydney.hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail">>
 			"There's more.
 		<</if>>
 	<</if>>
-	<<if $NPCName[$NPCNameList.indexOf("Sydney")].hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail">>
+	<<if C.npc.Sydney.hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail">>
 		Your hair."
 		<br>
 		<<if $sydney.hair isnot "ponytail">>
 			"<<pShe>> told me it would look good loose like this." A chair squeaks.
 		<</if>>
-		<<if $NPCName[$NPCNameList.indexOf("Sydney")].hairColour isnot "strawberryblond">>
+		<<if C.npc.Sydney.hairColour isnot "strawberryblond">>
 			"I think I like this colour."
 			<br>
 			"Let me guess. <<pShe>>...?"
@@ -1832,7 +1853,7 @@ Jordan's face has become serious. "Tell me, my child. Are you certain it is not 
 	<br>
 	<<link [[No|Sydney Temple Pure Abuse]]>><<set $phase to 2>><</link>>
 	<br>
-<<elseif $NPCName[$NPCNameList.indexOf("Sydney")].hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail" or $sydney.glasses isnot "glasses">>
+<<elseif C.npc.Sydney.hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail" or $sydney.glasses isnot "glasses">>
 	"Sydney has made changes to their appearance recently. Did you have any part in this?"
 	<br><br>
 	<<link [[Yes|Sydney Temple Pure Appearance]]>><<set $phase to 1>><</link>>
@@ -1857,7 +1878,7 @@ Jordan's face has become serious. "Tell me, my child. Are you certain it is not 
 <</if>>
 <br><br>
 <<He>> begins to pace.
-<<if $NPCName[$NPCNameList.indexOf("Sydney")].hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail" or $sydney.glasses isnot "glasses">>
+<<if C.npc.Sydney.hairColour isnot "strawberryblond" or $sydney.hair isnot "ponytail" or $sydney.glasses isnot "glasses">>
 	"Sydney has made changes to their appearance recently. Did you have any part in this?"
 	<br><br>
 	<<link [[Yes|Sydney Temple Pure Appearance]]>><<set $phase to 1>><</link>>
@@ -1912,7 +1933,7 @@ Jordan steps away from the table.
 	<<link [[Say you are impure|Sydney Temple Pure Test Admission]]>><</link>>
 	<br>
 <<else>>
-	"I am sorry, but <span class="red">you've failed this evaluation.</span> I can not in good faith allow your union in your current state. <span class="blue">However, you will be allowed to take this test again in one month's time.</span>"
+	"I am sorry, but <span class="red">you've failed this evaluation.</span> I cannot in good faith allow your union in your current state. <span class="blue">However, you will be allowed to take this test again in one month's time.</span>"
 	<br><br>
 	<<link [[Next|Sydney Temple Pure Fail]]>><</link>>
 	<br>
@@ -1939,29 +1960,38 @@ You remove your clothing, wishing it wasn't quite so cold in here. Jordan rubs w
 	<<He>> holds a strange rod against your $worn.genitals.name, and the device clatters to the floor.
 <</if>>
 <<if $player.penisExist>>
-	<<He>> holds your penis between both forefingers and stares at it, gently manipulating the length. You try to distract yourself, but soon feel it hardening under <<his>> scrutiny.
+	<<if playerChastity("penis") and $worn.genitals.origin isnot "temple">>
+		<<He>> holds your $worn.genitals.name between both forefingers, gently manipulating it while <<he>> inspects it. You try to distract yourself, but soon feel your <<penis>> attempt to harden under <<his>> scrutiny.
+	<<else>>
+		<<He>> holds your penis between both forefingers and stares at it, gently manipulating the length. You try to distract yourself, but soon feel it hardening under <<his>> scrutiny.
+	<</if>>
 <</if>>
 <<if $player.vaginaExist>>
-	<<He>> places <<his>> thumbs against your pussy and gently opens your
-	<<if setup.bodyliquid.combined("vagina") gte 2>>
-		<<if setup.bodyliquid.combined("vagina") gte 6>>
-			lips. Cum bursts out, spraying across Jordan's face and running in streams down both <<his>> arms.
-			<<He>> falls back in shock, hurriedly wiping cum from <<his>> eyes and mouth.
-			<br>
-			<<He>> looks at you.
-		<<elseif setup.bodyliquid.combined("vagina") gte 4>>
-			lips. A thick stream of lewd fluids gushes out. Some runs down Jordan's arm and disappears up <<his>> sleeve.
-			<<He>> jumps back with a yelp, shaking <<his>> arms in alarm.
-			<br>
+	<<if playerChastity("vagina") and $worn.genitals.origin isnot "temple">>
+		<<He>> places <<his>> thumbs against the side of your $worn.genitals.name and attempts to inspect your pussy.
+		<br>
+	<<else>>
+		<<He>> places <<his>> thumbs against your pussy and gently opens your
+		<<if setup.bodyliquid.combined("vagina") gte 2>>
+			<<if setup.bodyliquid.combined("vagina") gte 6>>
+				lips. Cum bursts out, spraying across Jordan's face and running in streams down both <<his>> arms.
+				<<He>> falls back in shock, hurriedly wiping cum from <<his>> eyes and mouth.
+				<br>
+				<<He>> looks at you.
+			<<elseif setup.bodyliquid.combined("vagina") gte 4>>
+				lips. A thick stream of lewd fluids gushes out. Some runs down Jordan's arm and disappears up <<his>> sleeve.
+				<<He>> jumps back with a yelp, shaking <<his>> arms in alarm.
+				<br>
+			<<else>>
+				lips. Cum runs out in a thin stream down your legs. Jordan withdraws <<his>> hands in surprise.
+				<br>
+			<</if>>
+			"That's a bad sign," <<he>> mutters.
+			<br><br>
 		<<else>>
-			lips. Cum runs out in a thin stream down your legs. Jordan withdraws <<his>> hands in surprise.
+			lips, giving <<him>> a clear view inside.
 			<br>
 		<</if>>
-		"That's a bad sign," <<he>> mutters.
-		<br><br>
-	<<else>>
-		lips, giving <<him>> a clear view inside.
-		<br>
 	<</if>>
 	You don't want to admit it, but your body responds lewdly to being examined like this.
 <</if>>
@@ -1997,7 +2027,7 @@ The fondling continues for a few minutes. Finally, <<he>> finishes <<his>> work.
 	<<link [[Next|Sydney Temple Pure Pass]]>><</link>>
 <<else>>
 	<<set $templetest to "failed">>
-	"I'm sorry, but you are spoiled." <<His>> voice shakes slightly, you're not sure if you imagined it. "You must be purified. I will summon the specialists. Please cooperate with them." <<He>> produces a small bell from <<his>> robes, and rings. "Sydney will not be punished, or informed of this, for your sake."
+	"I'm sorry, but you are spoilt." <<His>> voice shakes slightly, you're not sure if you imagined it. "You must be purified. I will summon the specialists. Please cooperate with them." <<He>> produces a small bell from <<his>> robes, and rings. "Sydney will not be punished, or informed of this, for your sake."
 	<br><br>
 	<<endevent>>
 	<<link [[Next|Temple Arcade Intro]]>><</link>>
@@ -2033,7 +2063,7 @@ The fondling continues for a few minutes. Finally, <<he>> finishes <<his>> work.
 <<unset $temple_evaluation>>
 Jordan leads you back into the other room, where Sydney waits. <<person1>><<He>> excitedly hops up from <<his>> seat. "So? Did we...?"
 <br><br>
-"Yes. Congratulations, my children, you've passed. Your union will be permitted, with the full support of myself and every other member of the order. The bishop will be informed at once, and your rings are already being prepared."
+"Yes. Congratulations, my children, you've passed. Your union will be permitted, with the full support of myself and every other member of the order. The bishop will be informed at once, and your rings are already being prepared." <<npcincr "Jordan" love 5>><<gglove "Jordan">>
 <br><br>
 Sydney barrels into you, hugging you with enough force to nearly knock you over. You hear a few gentle sobs, and find your own eyes watering. <<trauma -24>><<llltrauma>>
 <br><br>
@@ -2081,9 +2111,9 @@ Jordan smiles. "While we wait for your rings, I'll ready the two of you for the 
 <<effects>>
 Jordan kneels in front of <<person1>><<him>>, and seconds later, Sydney's belt lies on the floor. <<He>> gasps, the sensation of being unrestricted taking <<him>> by surprise. <span class="lewd">You can see some signs of arousal already.</span> <<arousal 50>><<garousal>>
 <br><br>
-<<set $NPCName[$NPCNameList.indexOf("Sydney")].chastity.anus to "">>
-<<set $NPCName[$NPCNameList.indexOf("Sydney")].chastity.vagina to "">>
-<<set $NPCName[$NPCNameList.indexOf("Sydney")].chastity.penis to "">>
+<<set C.npc.Sydney.chastity.anus to "">>
+<<set C.npc.Sydney.chastity.vagina to "">>
+<<set C.npc.Sydney.chastity.penis to "">>
 <<unset $sydneyChastityRemoveIntro>><<unset $sydneyChastityRemovePure>>
 <<endevent>><<npc "Sydney" 1>><<person1>><<npc "Jordan" 2>><<person2>>
 Jordan produces a bell from <<person2>><<his>> robes and rings it four times. Sydney quickly attempts to hide <<person1>><<his>> exposure with <<his>> hands. A moment later, four <<person2>><<monks>> enter the room. Two of them bear clear jars full of grey powder, and the other two bring in various cushions, blankets, and candles. They begin to place them on the table, and the candles are lit. All other lights in the room seem to become dimmer.
@@ -2124,7 +2154,7 @@ As the wax continues to pour down, it quickly slides off of you and onto the alt
 You're left alone with Sydney, hearing the doors lock. "S...so, now we can just...?" Sydney looks to you, still attempting to keep <<person1>><<his>> eyes off your body.
 <br><br>
 <<if $speech_attitude is "meek">>
-	"I... I think so. Are you ready?" you ask quiety.
+	"I... I think so. Are you ready?" you ask quietly.
 <<elseif $speech_attitude is "bratty">>
 	"About time. Ready?" you ask.
 <<else>>
@@ -2149,7 +2179,7 @@ You've gained the <span class="blue">Rite of Promise: Sydney</span> trait.
 	<<neutral 1>>
 	<<maninit>><<npcexpose>>
 	<<set $enemytrust += 500>>
-	<<set $enemyarousalmax to 600 * $npcarousalmult>>
+	<<set $enemyarousalmax to 600>>
 <</if>>
 
 <<set $enemyanger to -10>>
@@ -2179,7 +2209,7 @@ You've gained the <span class="blue">Rite of Promise: Sydney</span> trait.
 	<<if $enemyarousal gte ($enemyarousalmax / 5) * 2>>
 		Sydney lets out a pained moan, and quickly covers <<his>> mouth to stifle it. <<He>> looks down in shame. "I... I think I've had enough..."
 	<<else>>
-		"H-hey! Stop! Please!" Sydney clings to you. "Th-that really hurt... I mean, I still kind of liked it, but..." <<his>> face flushes, and <<he>> looks away. "M...maybe we can finish this some other time..."
+		"H-hey! Stop! Please!" Sydney clings to you. "Th-that really hurt... I mean, I still kind of liked it, but..." <<His>> face flushes, and <<he>> looks away. "M...maybe we can finish this some other time..."
 	<</if>>
 	<<npcincr Sydney lust 5>><<gglust>>
 	<br><br>
@@ -2231,34 +2261,43 @@ You both remove your clothing, wishing it wasn't quite so cold in here. Jordan r
 <<He>> holds a strange rod against your $worn.genitals.name, and the device clatters to the floor.
 <</if>>
 <<if $player.penisExist>>
-	<<He>> holds your penis between both forefingers, and stares at it intently, gently manipulating the length and rubbing the grey powder along it. You try to distract yourself, but you soon feel it hardening under <<his>> scrutiny.
+	<<if playerChastity("penis") and $worn.genitals.origin isnot "temple">>
+		<<He>> holds your $worn.genitals.name between both forefingers, gently manipulating it. <<He>> scatters grey powder over it as <<he>> inspects it. You try to distract yourself, but soon feel your <<penis>> attempt to harden under <<his>> scrutiny.
+	<<else>>
+		<<He>> holds your penis between both forefingers, and stares at it intently, gently manipulating the length and rubbing the grey powder along it. You try to distract yourself, but you soon feel it hardening under <<his>> scrutiny.
+	<</if>>
 <</if>>
 <<if $player.vaginaExist>>
-	<<He>> places <<his>> thumbs against your pussy and gently opens your
-	<<if setup.bodyliquid.combined("vagina") gte 2>>
-		<<if setup.bodyliquid.combined("vagina") gte 6>>
-			lips. Cum bursts out, spraying across Jordan's face and running in streams down both <<his>> arms.
-			<<He>> falls back in shock, hurriedly wiping cum from <<his>> eyes and mouth.
-			<br>
-			<<He>> looks at you.
-		<<elseif setup.bodyliquid.combined("vagina") gte 4>>
-			lips. A thick stream of lewd fluids gushes out. Some runs down Jordan's arm and quickly disappears up <<his>> sleeve.
-			<<He>> jumps back with a yelp, shaking <<his>> arms in alarm.
-			<br>
-		<<else>>
-			lips. Cum runs out in a thin stream down your legs. Jordan withdraws <<his>> hands in surprise.
-			<br>
-		<</if>>
-		"That's a bad sign," <<he>> mutters.
-		<br><br>
-		<<if $daily.sydney.cum>>
-			Sydney looks away and blushes. "That... that was my fault..."
-		<<else>>
-			Sydney's eyes widen in horror. <<npcincr Sydney love -5>><<lllove>>
-		<</if>>
-	<<else>>
-		lips, giving <<him>> a clear view inside. <<He>> rubs the grey powder around the entrance.
+	<<if playerChastity("vagina") and $worn.genitals.origin isnot "temple">>
+		<<He>> places <<his>> thumbs against the side of your $worn.genitals.name and attempts to inspect your pussy. With some difficulty, <<he>> attempts to rub the grey powder over it.
 		<br>
+	<<else>>
+		<<He>> places <<his>> thumbs against your pussy and gently opens your
+		<<if setup.bodyliquid.combined("vagina") gte 2>>
+			<<if setup.bodyliquid.combined("vagina") gte 6>>
+				lips. Cum bursts out, spraying across Jordan's face and running in streams down both <<his>> arms.
+				<<He>> falls back in shock, hurriedly wiping cum from <<his>> eyes and mouth.
+				<br>
+				<<He>> looks at you.
+			<<elseif setup.bodyliquid.combined("vagina") gte 4>>
+				lips. A thick stream of lewd fluids gushes out. Some runs down Jordan's arm and quickly disappears up <<his>> sleeve.
+				<<He>> jumps back with a yelp, shaking <<his>> arms in alarm.
+				<br>
+			<<else>>
+				lips. Cum runs out in a thin stream down your legs. Jordan withdraws <<his>> hands in surprise.
+				<br>
+			<</if>>
+			"That's a bad sign," <<he>> mutters.
+			<br><br>
+			<<if $daily.sydney.cum>>
+				Sydney looks away and blushes. "That... that was my fault..."
+			<<else>>
+				Sydney's eyes widen in horror. <<npcincr Sydney love -5>><<lllove>>
+			<</if>>
+		<<else>>
+			lips, giving <<him>> a clear view inside. <<He>> rubs the grey powder around the entrance.
+			<br>
+		<</if>>
 	<</if>>
 	You don't want to admit it, but your body responds lewdly to being examined like this.
 <</if>>
@@ -2277,7 +2316,7 @@ The fondling continues for a few minutes. At last, <<he>> finishes <<his>> work,
 	You look away as Jordan repeats the examination on Sydney, only daring to look when it's finished.
 <<else>>
 	You watch as Jordan rubs more grey powder on <<his>> hands.
-	<<if $NPCName[$NPCNameList.indexOf("Sydney")].gender is "m">>
+	<<if C.npc.Sydney.gender is "m">>
 		<<if $player.penisExist>>
 			<<He>> gives Sydney the same treatment, <<if _sydneyStatus.includes("Lust")>>and Sydney looks away as <<person2>><<he>> gradually hardens<<else>>but <<person2>><<he>> stays noticeably flaccid<</if>>.
 		<<else>>
@@ -2305,7 +2344,7 @@ The fondling continues for a few minutes. At last, <<he>> finishes <<his>> work,
 <</if>>
 <br><br>
 Jordan scrapes away the grey powder into the same jar. You and Sydney watch with anticipation.
-<<if (_sydneyVirgin and $player.virginity.penile is true and $player.virginity.vaginal is true) or ($player.virginity.temple is true and $NPCName[$NPCNameList.indexOf("Sydney")].virginity.temple is true)>>
+<<if (_sydneyVirgin and $player.virginity.penile is true and $player.virginity.vaginal is true) or ($player.virginity.temple is true and C.npc.Sydney.virginity.temple is true)>>
 	<span class="gold">It begins to intensely sparkle.</span> Jordan smiles.
 	"You have been faithful to one another, and may it stay that way."
 	<<if playerChastity() and $worn.genitals.origin is "temple">>
@@ -2314,20 +2353,23 @@ Jordan scrapes away the grey powder into the same jar. You and Sydney watch with
 	<br><br>
 	<<person1>><<He>> turns away to let you both dress.
 	<<if $grace gte 90>>
-		Without looking, <<he>> places an envelope on the shelf beside you. "Your monthly allowance. Your behaviour has been remarkable. <span class="green">You're a credit to our faith, and every one of us could learn from you.</span> Thank you."
+		<<wearProp "cash four">>
+		Without looking, <<he>> places an envelope on the shelf beside you. "Your monthly allowance. Your behaviour has been remarkable. <span class="green">You're a credit to our faith, and every one of us could learn from you.</span> Thank you." <<npcincr "Jordan" love 2>><<glove>>
 		<br><br>
 		You open the envelope. There's <span class="gold">£<<print ($grace * 40)>></span> inside.
-		<<set $money += ($grace * 4000)>>
+		<<money `($grace * 4000)`>>
 	<<elseif $grace gte 50>>
+		<<wearProp "cash three">>
 		Without looking, <<he>> places an envelope on the shelf beside you. "Your monthly allowance. <span class="teal">You've been an upstanding member of our faith,</span> and deserve every penny."
 		<br><br>
 		You open the envelope. There's <span class="gold">£<<print ($grace * 40)>></span> inside.
-		<<set $money += ($grace * 4000)>>
+		<<money `($grace * 4000)`>>
 	<<elseif $grace gte 1>>
+		<<wearProp "cash two">>
 		Without looking, <<he>> places an envelope on the shelf beside you. "Your monthly allowance. <span class="lblue">You've been an upstanding member of our faith.</span> There is room for improvement, but such is true of us all. We should strive to be better each day."
 		<br><br>
 		You open the envelope. There's <span class="gold">£<<print ($grace * 40)>></span> inside.
-		<<set $money += ($grace * 4000)>>
+		<<money `($grace * 4000)`>>
 	<<else>>
 		<span class="red">"Though pure, your behaviour hasn't been appropriate for a member of our faith,"</span> <<he>> says. "We know you can do better. As such, we've decided to withhold your allowance this month. I hope I can pay you next time."
 		<br><br>
@@ -2335,17 +2377,15 @@ Jordan scrapes away the grey powder into the same jar. You and Sydney watch with
 	Sydney hugs you. "I love you." <<stress -6>><<lstress>>
 	<br><br>
 	<<clotheson>>
-	<<endevent>>
-	<<link [[Next|Temple]]>><</link>>
+	<<link [[Next|Temple]]>><<endevent>><</link>>
 <<else>>
 	<<set $templetest to "failed">>
 	<span class="red">It remains inert.</span> Jordan frowns.
-	"I'm sorry, but one of you is spoiled." <<His>> voice shakes slightly, you're not sure if you imagined it. "You must both be purified, as one. I will summon the specialists. Please cooperate with them." <<He>> produces a small bell from <<his>> robes, and rings.
+	"I'm sorry, but one of you is spoilt." <<person1>><<His>> voice shakes slightly, you're not sure if you imagined it. "You must both be purified, as one. I will summon the specialists. Please cooperate with them." <<He>> produces a small bell from <<his>> robes, and rings.
 	<br><br>
 	Sydney looks panicked. <<nnpc_He "Sydney">> quickly clings to you.
 	<br><br>
-	<<endevent>>
-	<<link [[Next|Sydney Temple Punish Intro]]>><</link>>
+	<<link [[Next|Sydney Temple Punish Intro]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
@@ -2432,7 +2472,7 @@ You're already surrounded by enough <<monks>> to restrain both of you. They make
 	<<if _sydneyStatus.includes("corrupt")>>
 		<<He>> simply stares at you, crossing <<his>> arms. "You came to atone? Did you also forget that we're bound together, for better or worse? We both need to atone."
 	<<else>>
-		<<His>> fists clench. "How could you?! I... I can't..." <<He>> staggers back, bumping into the confessional. "You want to atone? Then we both have to. It's in the scriptures. It's the only way we can be one agan."
+		<<His>> fists clench. "How could you?! I... I can't..." <<He>> staggers back, bumping into the confessional. "You want to atone? Then we both have to. It's in the scriptures. It's the only way we can be one again."
 	<</if>>
 	<<He>> rings the confessional's bell. "It's done. I hope you're ready. I'll forgive you... after our punishment. No sooner."
 	<br><br>
@@ -2464,7 +2504,7 @@ You're already surrounded by enough <<monks>> to restrain both of you. They make
 	A <<monk>> emerges from a door marked with a red cross. <<Hes>> flanked by two others. One of them assures Sydney that you'll be treated gently.
 	<br><br>
 
-	Sydney wipes <<his>> face and leaves the room as a <<monk>> pulls a gag from <<his>> habit. "To make amends you must perform a service. Stay still."
+	Sydney wipes <<nnpc_his "Sydney">> face and leaves the room as a <<monk>> pulls a gag from <<his>> habit. "To make amends you must perform a service. Stay still."
 	<br><br>
 
 	<<link [[Next|Temple Arcade Submit]]>><</link>>
@@ -2540,6 +2580,7 @@ The <<priest>> nods and pulls a gag from <<his>> habit. "To make amends, you mus
 
 		<<generate2>><<person2>><<generate3>><<generate4>> A <<priest>> emerges from a door marked with a red cross. <<Hes>> flanked by many <<monks>>.
 		<br><br>
+
 		The <<priest>> pulls a gag from <<his>> habit. "To make amends, you must prove your bond with each other remains strong. Stay still."
 		<br><br>
 
@@ -2560,7 +2601,7 @@ The <<priest>> nods and pulls a gag from <<his>> habit. "To make amends, you mus
 		<br><br>
 
 		<<link [[Next|Temple]]>><<endevent>><<set $daily.sydney.punish to 1>><</link>>
-		<br>	
+		<br>
 	<<else>>
 		<<His>> fists clench. <<He>> stomps up to you, grabbing you by the shoulders. "You... have the nerve... to ask me to betray the rules of our faith after telling me that you've broken your sacred vow, and my trust?!" Tears of rage flow down <<his>> face.
 		"No! You will face penance now, beloved." <<npcincr Sydney love -5>><<llove>>
@@ -2587,7 +2628,7 @@ The <<priest>> nods and pulls a gag from <<his>> habit. "To make amends, you mus
 <<effects>>
 
 <<if _sydneyStatus.includes("corrupt")>>
-	<<He>> shrugs. "I'm in no rush to get punished. We'l have to deal with the consequences once it's time for monthly inspection, but... fuck our future selves, right?"
+	<<He>> shrugs. "I'm in no rush to get punished. We'll have to deal with the consequences once it's time for monthly inspection, but... fuck our future selves, right?"
 <<else>>
 	<<He>> stops to think. "We... we'll be punished later anyways, but... okay. It's okay."
 <</if>>
@@ -2613,7 +2654,7 @@ Head bowed, Jordan leaves the room as the <<priest>> pulls a gag from <<his>> ha
 	Sydney holds you tighter.
 <</if>>
 <<person1>>
-<<if $NPCName[$NPCNameList.indexOf("Sydney")].virginity.temple isnot true>>
+<<if C.npc.Sydney.virginity.temple isnot true>>
 	"I'm sorry. We should have been more careful. I tried to tell them it wasn't you, but they didn't buy it. I thought about running, but I don't want you getting punished alone."
 <<else>>
 	"I... I forgive you... just... please don't leave me..."
@@ -2628,7 +2669,7 @@ You're already surrounded by enough <<monks>> to restrain both of you. They make
 
 :: Sydney Temple Punish Intro 2
 <<effects>>
-<<pass 20>><<facewear 4>><<leash 21>>
+<<pass 20>><<facewear "gag">>
 <<if $phase is 1>>
 	You hold on to Sydney, not daring to let go. You hold on for dear life. Whatever's coming, you know you'll be able to handle it together. <<nnpc_He "Sydney">> smiles through <<his>> panic.
 	<br><br>
@@ -2638,17 +2679,23 @@ You're already surrounded by enough <<monks>> to restrain both of you. They make
 	<br><br>
 	The <<priest>> shakes <<his>> head. "Miserable. Refusing to take responsibility. Your punishment can't come sooner."
 <</if>>
-<<He>> pushes the gag into your mouth and ties it firm behind your head. <<He>> walks over to Sydney and does the same motion. Any sound you make will be muffled and unintelligible. A <<person2>><<monk>> to <<his>> side wraps a collar around your neck along with Sydney's. <<He>> holds the attached leashes, and tugs.
+<<He>> pushes the gag into your mouth and ties it firm behind your head. <<He>> walks over to Sydney and does the same motion. Any sound you make will be muffled and unintelligible.
+<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1>>
+	A <<person2>><<monk>> to <<his>> side wraps a collar around Sydney's neck, but pauses upon seeing your collar. Wordlessly, <<he>> ties your hands instead.
+<<else>>
+	<<leash 21>>
+	A <<person2>><<monk>> to <<his>> side wraps a collar around your neck along with Sydney's. <<He>> holds the attached leashes, and tugs.
+<</if>>
 <br><br>
 You're both led through the marked door and down a cramped passage. There are no lights bar the occasional torch on the wall.
-After a few minutes, you emerge in a small round room with no windows. Various incense burners hang from the ceiling, and the room is bare save for some padding in the centre, and <span class="red">whips, belts and other disciplinary devices that adorn the walls.</span>
+After a few minutes, you emerge in a small round room with no windows. Various incense burners hang from the ceiling. The room is bare save for some padding in the centre and <span class="red">whips, belts and other disciplinary devices that adorn the walls.</span>
 <br><br>
 <<link [[Next|Sydney Temple Punish Intro 3]]>><<pass 3>><</link>>
 <br>
 
 :: Sydney Temple Punish Intro 3
 <<effects>>
-<<undress "duopunish">><<bind>><<shackle_feet>>
+<<undress "duopunish">><<bindtemp>><<shackle_feet>>
 <<if $punishmentTimer is undefined>>
 	<<set $punishmentTimer to 16>>
 	<<set $punishmentCounter to 0>>
@@ -2706,7 +2753,7 @@ You and Sydney both hold to each other tight as the doors open and light floods 
 <<if $punishmentCounter gte 10>>
 	<<person2>>The <<priest>> bows to you. <<He>> slowly approaches you, and raises <<his>> hand, causing both you and Sydney to flinch in fear.
 	<br><br>
-	The strike never comes. Instead, you hear metal clattering to the ground. "Congratulations, my children," <<he>> says. "You have endured much suffering, and although you failed time and time again, you've shown your bond to be strong enough to last. <span class="green">You are pure once more.</span>" Your bindings are all released. A <<monk>> steps behind you and unties your gags. <<He>> also removes your collars. <<tearful>> you and Sydney remain clinging to each other, supporting each other to a standing position. Your knees tremble.
+	The strike never comes. Instead, you hear metal clattering to the ground. "Congratulations, my children," <<he>> says. "You have endured much suffering, and although you failed time and time again, you've shown your bond to be strong enough to last. <span class="green">You are pure once more.</span>" Your bindings are all released. A <<monk>> steps behind you and unties your gags. <<if $worn.neck.name is "familiar collar">><<He>> also removes Sydney's collar.<<else>><<He>> also removes your collars.<</if>> <<tearful>> you and Sydney remain clinging to each other, supporting each other to a standing position. Your knees tremble.
 	<br><br>
 	"A warning," the <<priest>> continues. "Breathe not a word of this to anyone. Not your friends. Not Jordan. Not your parents, should you be so blessed. I'd hate to consider you impure again."
 	<br><br>
@@ -2714,10 +2761,8 @@ You and Sydney both hold to each other tight as the doors open and light floods 
 	<<if $player.virginity.penile isnot true or $player.virginity.vaginal isnot true>>
 		<<if $templePromised is "Sydney">>
 			You've gained the <span class="blue">Rite of Promise: Sydney</span> trait.
-			<br><br>
 		<<else>>
 			You've gained the <span class="blue">Chastity Vow</span> trait.
-			<br><br>
 		<</if>>
 	<</if>>
 	<br><br>
@@ -2873,12 +2918,13 @@ You close your eyes and try to shut the pain out.
 <<effects>>
 <<set $worn.face.type.push("broken")>>
 <<faceruined>>
-<<set $worn.neck.type.push("broken")>>
-<<neckruined>>
+<<if !($worn.neck.name is "familiar collar" and $worn.neck.cursed is 1)>>
+	<<set $worn.neck.type.push("broken")>>
+	<<neckruined>>
+<</if>>
 <<set $player.virginity.temple to true>>
-<<set $NPCName[$NPCNameList.indexOf("Sydney")].virginity.temple to true>>
-<br><br>
-<<remove_shackle>><<unbind>><<storeon "duopunish">><<unset $punishmentCounter>><<unset $punishmentTimer>><<unset $sydneyPain>><<unset $sydneyArousal>><<unset $sydneyHold>><<unset $sydneyStop>><<unset $sydneyHit>><<unset $sydneyPlead>><<unset $sydneyTouch>>
+<<set C.npc.Sydney.virginity.temple to true>>
+<<remove_shackle>><<unbindtemp>><<storeon "duopunish">><<unset $punishmentCounter>><<unset $punishmentTimer>><<unset $sydneyPain>><<unset $sydneyArousal>><<unset $sydneyHold>><<unset $sydneyStop>><<unset $sydneyHit>><<unset $sydneyPlead>><<unset $sydneyTouch>>
 <<clotheson>>
 <<endevent>>
 <<pass 20>>
@@ -2887,9 +2933,9 @@ You're led through the tunnel and back to the temple. Sydney clings to you the w
 <br><br>
 <<He>> collapses onto you when you reach the main temple, and begins sobbing. You hold each other for what feels like forever. You can't help but begin to sob yourself, after everything you've been through.
 <br><br>
-"We... we made it..." <<he>> looks up to you with tears running down <<his>> face. "I love you."
+"We... we made it..." <<He>> looks up to you with tears running down <<his>> face. "I love you."
 <br><br>
-You continue to hold each other. Eventually, though <<he>> still shakes, Sydney stands. "I... I need to go home. <<sydneyMum>> is probably worried sick. I'll... I'll see you tomorrow..." <<He>> walks away, your hands slowly parting from each other. <<He>> looks back to you before leaving the temple, and blows you a weak kiss. <<stress -3>><<lstress>>
+You continue to hold each other. Eventually, though <<he>> still shakes, Sydney stands. "I... I need to go home. <<nnpc_Mum "Sirris">> is probably worried sick. I'll... I'll see you tomorrow..." <<He>> walks away, your hands slowly parting from each other. <<He>> looks back to you before leaving the temple, and blows you a weak kiss. <<stress -3>><<lstress>>
 <br><br>
 <<link [[Next|Temple]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
@@ -2899,7 +2945,7 @@ You continue to hold each other. Eventually, though <<he>> still shakes, Sydney 
 <<if $templePromised is "Sydney">>
 	<<set _sydneyText to "the one I'm promised to">>
 <<elseif isLoveInterest("Sydney")>>
-	<<set _sydneyText to "my <<nnpc_gendery \"Sydney\">>friend">>
+	<<set _sydneyText to "my <<nnpc_girlfriend \"Sydney\">>">>
 <<else>>
 	<<set _sydneyText to "my friend">>
 <</if>>
@@ -2913,9 +2959,9 @@ You approach a <<person1>><<person>> dressed as a <<monk>>. You tug on <<his>> <
 	<<set _respond to "mutter">>
 	"Where's _sydneyText?" you ask, crossing your arms. "<<nnpc_Hes "Sydney">> always here around this time.
 	<<if $temple_rank is undefined>>
-		I swear, if you creeps did anything to Sydney-"
+		I swear, if you creeps did anything to Sydney—"
 	<<else>>
-		I swear, if anyone did anything to Sydney-"
+		I swear, if anyone did anything to Sydney—"
 	<</if>>
 <<else>>
 	<<set _respond to "say">>
@@ -2923,9 +2969,9 @@ You approach a <<person1>><<person>> dressed as a <<monk>>. You tug on <<his>> <
 <</if>>
 <br><br>
 <<if _sydney_location_message is "shop">>
-	"Ah, Sydney! <<nnpc_He "Sydney">> spoke to Jordan earlier today. I believe <<nnpc_he "Sydney">> mentioned helping <<nnpc_his "Sydney">> <<sydneymother>>, somewhere in town... on <span class="gold">Elk Street</span>, if I'm not mistaken."
+	"Ah, Sydney! <<nnpc_He "Sydney">> spoke to Jordan earlier today. I believe <<nnpc_he "Sydney">> mentioned helping <<nnpc_his "Sydney">> <<nnpc_mother "Sirris">>, somewhere in town... on <span class="gold">Elk Street</span>, if I'm not mistaken."
 <<elseif _sydney_location_message is "rehearsal">>
-	"Ah, Sydney! <<nnpc_He "Sydney">> was telling us all about how <<nnpc_he "Sydney">> was <span class="blue">going to try to participate in a school play of some sort</span>. Christmas themed. Perhaps they're still at school?"
+	"Ah, Sydney! <<nnpc_He "Sydney">> was telling us all about how <<nnpc_he "Sydney">> was <span class="blue">going to try to participate in a school play of some sort</span>. Christmas themed. Perhaps <<nnpc_hes "Sydney">> still at school?"
 <<else>>
 	"Ah, Sydney! <<nnpc_He "Sydney">> left early, today. <span class="red"><<nnpc_He "Sydney">> looked quite upset about something</span>, and went home. I'm sure <<nnpc_he "Sydney">> will return tomorrow."
 <</if>>
@@ -2935,3 +2981,120 @@ You _respond your thanks to <<him>>, and <<he>> returns to <<his>> duties.
 <<endevent>>
 <<link [[Next|Temple]]>><</link>>
 <br>
+
+:: Sydney Temple Spear
+<<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
+
+<<if $speech_attitude is "meek">>
+	"A-are you okay?" you whisper worriedly.
+<<elseif $speech_attitude is "bratty">>
+	"Something wrong? Is someone bothering you?" you ask.
+<<else>>
+	"What's wrong?" you whisper. "You don't really look okay right now."
+<</if>>
+<br><br>
+"You noticed?" Sydney opens <<his>> eyes and sighs. "I heard Jordan telling you to retrieve something. I believe you can do it... but I don't know why I feel so... scared...?" <<He>> sighs again, <<his>> gaze downcast, and looks at <<his>> hands resting on <<his>> knees. "I just... ah... why does it have to be you, among all the other initiates here?"
+<br><br>
+
+<<link [[Reassure Sydney|Sydney Temple Spear 2]]>><<set $phase to 1>><</link>><br>
+<<link [[Stay silent|Sydney Temple Spear 2]]>><<set $phase to 0>><</link>>
+
+:: Sydney Temple Spear 2
+<<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>><<run statusCheck("Sydney")>>
+<<set $sydneySeen.pushUnique("spearMission")>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek">>
+		"Don't be so sad..." You gently hold Sydney's hand and give <<him>> a reassuring smile. "I'll be fine there."
+	<<elseif $speech_attitude is "bratty">>
+		"You got nothing to worry about." You pat Sydney's shoulder and give <<him>> a confident smile. "I'll make sure to beat down anyone who stands in my way."
+	<<else>>
+		"Don't worry." You gently hold Sydney's hand. "I'm sure I'll get it safely."
+	<</if>>
+	<br><br>
+
+	<<if _sydneyStatus.includes("corrupt")>>
+		"How can I not worry when you're in a dangerous situation and I, as your beloved, can't even help or protect you in the slightest!?" Sydney looks at you with frustration, <<his>> eyes tearing up a bit. "I can't imagine what it'll be like when you leave. What if something happens to you there? The worst case scenario, you could... you..."
+	<<else>>
+		"I... I know... but I'm still very worried." Sydney looks at you with a worried gaze, <<his>> eyes tearing up a bit. "I don't know how long you'll be gone, I don't know if you'll be okay there, I don't know if... if you..."
+	<</if>>
+	<<He>> stops <<himself>> and takes a deep breath.
+<<else>>
+	You just sit there silently, staring at your hands resting on your knees. You understand that taking such a task could be very dangerous, but Jordan has entrusted you. You can't back down now.
+<</if>>
+<br><br>
+
+"...S-sorry, I'm overthinking things," Sydney says with a trembling tone, trying to calm <<his>> erratic breathing. <<He>> wipes both <<his>> eyes. "I just... worry so much about you, your safety..." Before you can answer, Sydney looks up at you with a smile. You're not sure if that smile is reassuring or worried. "Just... make sure you're okay when you go, alright...? I'll be waiting for your return when you succeed."
+<br><br>
+
+You nod. Sydney heaves a sigh of relief once again before returning to <<his>> position to pray.
+<br><br>
+
+<<endevent>><<npc "Sydney">><<person1>>
+<<sydneyOptions>>
+
+:: Sydney Temple Transformation
+<<effects>><<run statusCheck("Sydney")>>
+
+<<if $phase is 0>>
+	You sit beside Sydney on the pew and wag your tail for <<him>>. <<He>> opens an eye as you let your tail rest beside <<him>> and you gently pat it.
+	<<if _sydneyStatus.includes("corrupt")>>
+		"I've earned a nap."
+	<<else>>
+		"I... Suppose I've earned a little rest."
+	<</if>>
+	<br><br>
+	<<He>> lies down on the pew, using your tail as a pillow. <<He>> only barely gets a nap before one of the monks scolds the two of you.
+	<<if _sydneyStatus.includes("corrupt")>>
+		<<He>> sighs as <<he>> sits back up, "Maybe next time. It's very fluffy and nice."
+	<<else>>
+		<<He>> sits back up sleepily. "Thank you... It made for a nice pillow, at least."
+	<</if>>
+	<<npcincr Sydney lust 1>><<arousal 300>><<gslust>><<garousal>>
+<<elseif $phase is 1>>
+	You kneel beside Sydney and nudge against <<his>> knees. <<He>> gently pets your head, smiling down at you.
+	<<if _sydneyStatus.includes("corrupt")>>
+		"Hoping to catch a peek?"
+	<<else>>
+		"Saying a quick prayer?"
+	<</if>>
+	You offer your head to <<him>> and <<he>> pets you more. You sit back up beside <<him>> after a short while. "Did that feel nice?"
+<<elseif $phase is 2>>
+	You nuzzle into Sydney's arm affectionately, disturbing <<his>> prayers.
+	<<if _sydneyStatus.includes("corrupt")>>
+		"Aww, hey there," <<he>> says, smiling
+	<<else>>
+		"H-hey! I was praying!" <<he>> says, pouting
+	<</if>>
+	before placing a hand on your head and gently scritching your ears. You purr and lie down on the pew as <<he>> pets you.
+	<<if _sydneyStatus.includes("corrupt")>>
+		"I saw a headband like that at the clothes shop, maybe I should try wearing them?"
+	<<else>>
+		"I'm surprised the clergy lets you wear those ears."
+	<</if>>
+	You go back to sitting normally.
+<<elseif $phase is 3>>
+	You chirp a birdsong for Sydney. A few of the monks take notice and stop to listen. Once you finish, Sydney and the monks clap for you.
+	<<if _sydneyStatus.includes("corrupt")>>
+		"That was nice. But I'm sure you make even better sounds in bed." <<He>> smiles lewdly at you.
+	<<else>>
+		"That was beautiful. Have you thought about joining the choir?" <<He>> smiles cheerfully at you.
+	<</if>>
+<<elseif $phase is 4>>
+	You wordlessly bump your head against Sydney's shoulder. <<He>> opens an eye and smiles at you.
+	<<if _sydneyStatus.includes("corrupt")>>
+		"Those ears are really cute. Reminds me of a onesie <<nnpc_Mum "Sirris">> got a few years ago."
+	<<else>>
+		"Those ears are cute, but the others might get the wrong idea about those horns."
+	<</if>>
+	<<He>> gently pats your head, and you give a happy moo, much to <<his>> confusion.
+<</if>>
+<br><br>
+<<if !$daily.sydney.tf>>
+	<<set $daily.sydney.tf to 0>>
+<</if>>
+<<set $daily.sydney.tf++>>
+
+<<endevent>><<npc "Sydney">><<person1>>
+<<sydneyOptions>>
+

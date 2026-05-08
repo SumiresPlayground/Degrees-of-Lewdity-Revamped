@@ -4,10 +4,16 @@
 The door is locked tight.
 <br><br>
 <<if currentSkillValue('skulduggery') gte $lock>>
-	<span class="green">The lock looks easy to pick.</span>
-	<br><br>
-	<<link [[Break in (0:05)|Danube House Sneak]]>><<pass 5>><<crimeUp 5 "trespassing">><</link>><<crime "trespassing">>
-	<br>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
+	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+		<<lockicon "pick">><<link [[Break in (0:05)|Danube House Sneak]]>><<pass 5>><<crimeUp 5 "trespassing">><</link>><<crime "trespassing">>
+		<br>
+	<</if>>
 <<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span>
 	<<skulduggeryrequired>>
@@ -19,83 +25,77 @@ The door is locked tight.
 	<<link [[Phase (0:01)|Danube House Sneak]]>><<tiredness 20>><<pass 1>><</link>><<ggtiredness>>
 	<br>
 <</if>>
-<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
+<<danubeicon>><<link [[Leave|Danube Street]]>><</link>>
 <br>
 
 :: Danube House Sneak
 
 <<set $outside to 0>><<set $location to "town">><<effects>><<set $bus to "danube">>
-<<if $ghost gte 1>>
-	You enter into the premises.
-<<else>>
-	You successfully pick the lock and enter the abode.
-<</if>>
-<<if $skulduggery lt 400>>
-	<<skulduggeryskilluse>>
-<<else>>
-	<span class="blue">There's nothing more you can learn from locks this simple.</span>
-<</if>>
+You successfully pick the lock and enter the abode.
 <br><br>
+
+<<skulduggeryuse 400 "locks">>
+
 You sneak around the mansion and look for anything of value.
-<<if $rng gte 91>>
+
+<<cleareventpool>>
+
+<<addinlineevent "Danube Wine Cellar" 1>>
 	You find little of value that could be easily carried away. While searching the basement, you come across an ancient-looking door. It is locked.
 	<br><br>
-	<!-- DoLM -->
-	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 	<<set $skulduggerydifficulty to 700>>
 	<<link [[Try to open it|Danube House Wine Cellar]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
+	<<link [[Leave|Danube Street]]>><</link>>
 	<br>
-<<elseif $rng gte 81>>
-	<!-- Modified for Monster People -->
-		<<beastNEWinit 1 cat>>
-		A pair of yellow eyes pierce the darkness, and a large <<beasttype>> emerges. It prepares to pounce.
-		<<if $monster is 1>>
-			"Intruder! Masters won't be pleased." <<bHe>> flicks <<bhis>> tail.
-		<</if>>
-		<br><br>
-		<<if $monster is 1 or $bestialitydisable is "f">>
-			<<if $cat gte 6>>
-				<<link [[Meow|Danube House Meow]]>><</link>><<cat>>
-				<br>
-			<</if>>
-			<<if $deviancy gte 15>>
-				<<link [[Try to calm it|Danube House Cat]]>><<set $sexstart to 1>><<generate2>><</link>><<deviant2>>
-				<br>
-			<</if>>
-			<<link [[Fight|Danube House Cat]]>><<set $molestationstart to 1>><<generate2>><<set $phase to 0>><</link>>
+<</addinlineevent>>
+
+<<addinlineevent "Danube Meow" 1>>
+	<<beastNEWinit 1 cat>>
+	A pair of <<print either("hazel", "yellow", "green", "blue")>> eyes pierce the darkness, and a large <<beasttype>> emerges. <<bHe>> prepares to pounce.
+	<<if $monster is 1>>
+		"Intruder! Masters won't be pleased." <<bHe>> flicks <<bhis>> tail.
+	<</if>>
+	<br><br>
+	<<if $cat gte 6>>
+		<<link [[Meow|Danube House Meow]]>><</link>><<cat>>
+		<br>
+	<</if>>
+	<<if $monster is 1 or $settings.bestialityEnabled>>
+		<<if hasSexStat("deviancy", 2)>>
+			<<link [[Try to calm <<bhim>>|Danube House Cat]]>><<set $sexstart to 1>><<generate2>><</link>><<deviant2>>
 			<br>
-			<<link [[Run|Danube House Run]]>><</link>><<athleticsdifficulty>>
-			<br><br>
-		<<else>>
-			<<link [[Run|Danube House Run]]>><<set $athleticsSuccess to true>><</link>>
-			<br><br>
 		<</if>>
-		<!-- A pair of yellow eyes pierce the darkness, and a large cat emerges. It prepares to pounce.
+		<<link [[Fight|Danube House Cat]]>><<set $molestationstart to 1>><<generate2>><<set $phase to 0>><</link>>
+		<br>
+		<<link [[Run|Danube House Run]]>><</link>><<athleticsdifficulty>>
 		<br><br>
-		You flee out the house, the cat following. It doesn't chase you beyond the front door, content to watch you from the door.<<beastescape>>
+	<<else>>
+		<<link [[Run|Danube House Run]]>><<set $athleticsSuccess to true>><</link>>
 		<br><br>
-		<<link [[Next|Danube Street]]>><</link>>
-		<br> -->
-<<elseif $rng gte 71>>
+	<</if>>
+<</addinlineevent>>
+
+<<addinlineevent "Danube Rob" 1>>
 	<<generate1>><<person1>>You find a <<person>> dozing on a large sofa. <<He>> <<if $rng % 2>>is wearing expensive jewellery.<<else>>has fallen asleep holding some kind of tablet computer.<</if>>
 	<br><br>
-	<!-- DoLM -->
-	<!-- Skulduggery actions involving hands now take into account 20% of hand skill -->
 	<<set $skulduggerydifficulty to 400>>
-	<<link [[Rob them|Danube House Rob]]>><<set $skulduggeryhands to 1>><</link>><<skulduggerydifficulty>><<crime "thievery">>
+	<<link [[Rob <<him>>|Danube House Rob]]>><</link>><<skulduggerydifficulty>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+	<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 	<br>
-<<elseif $rng gte 61>>
+<</addinlineevent>>
+
+<<addinlineevent "Danube Safe" 1>> /* gte 61 */
 	You find a safe with a combination lock.
 	<br><br>
 	<<link [[Try to open it|Danube House Safe]]>><</link>>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
+	<<link [[Leave|Danube Street]]>><</link>>
 	<br>
-<<elseif $rng gte 51>>
+<</addinlineevent>>
+
+<<addinlineevent "Danube Party" 1>>
 	<<if Time.dayState is "night">>
 		<<if Time.hour gte 21>> /* at midnight hour wraps to zero, so after midnight should no longer be true*/
 			<<generate1>><<person1>>
@@ -114,14 +114,14 @@ You sneak around the mansion and look for anything of value.
 				<<if $beauty gte ($beautymax / 7) * 4>>
 					"You're a nice piece of ass." <<He>> blinks and wipes <<his>> mouth with <<his>> hand. <<He>> looks troubled for a moment. "I'm not at my best, okay? Don't judge. I've had a little too much to drink."
 				<<else>>
-					"You're not bad," <<he>> smiles. <<if $player.perceived_breastsize lte 3>>"I would've chose one with proper breasts but<<else>>"Great breasts at least, and<</if>> it was pretty last minute."
+					"You're not bad." <<He>> smiles. <<if $player.perceived_breastsize lte 3>>"I would've chose one with proper breasts but<<else>>"Great breasts at least, and<</if>> it was pretty last minute." <<incgbreastinsecurity>>
 				<</if>>
 				<br>
 				You nod, smiling.
 				<br>
 				"Okay," <<he>> says. "Well the birthday <<if $player.gender_appearance is "m">>gal<<else>>boy<</if>> is out back." <<He>> pauses and steadies <<himself>> on the counter. "You wanna surprise them, so you should go out that way." <<He>> points toward a door behind you. "Wait, have you been paid yet?"
 				<br><br>
-				<<link [[Not yet (Take £80 and leave)|Danube Street]]>><<set $money += 8000>><<crimeUp 80 "thievery">><<endevent>><</link>><<crime "thievery">>
+				<<link [[Not yet (Take £80 and leave)|Danube Street]]>><<money 8000 "danubeParty">><<crimeUp 80 "thievery">><<endevent>><</link>><<crime "thievery">>
 				<br>
 				<<link [[Yeah, fully paid. (Take nothing and leave)|Danube Street]]>><<endevent>><</link>>
 				<br>
@@ -132,9 +132,9 @@ You sneak around the mansion and look for anything of value.
 				<br>
 				<<He>> rummages through <<his>> pockets and holds out a few twenties. "There, that should cover it. And the tip too? It's pretty late."
 				<br><br>
-				<<link [[Take money and leave (£60)|Danube Street]]>><<set $money += 6000>><<crimeUp 60 "thievery">><<endevent>><</link>><<crime "thievery">>
+				<<link [[Take money and leave (£60)|Danube Street]]>><<money 6000 "danubeParty">><<crimeUp 60 "thievery">><<endevent>><</link>><<crime "thievery">>
 				<br>
-				<<link [["They're complimentary" (Leave)|Danube Street]]>><<endevent>><</link>>
+				<<link [[Tell <<him>> they're complimentary (Leave)|Danube Street]]>><<endevent>><</link>>
 				<br>
 			<</if>>
 		<<else>>
@@ -164,7 +164,9 @@ You sneak around the mansion and look for anything of value.
 		<<link [[Leave it|Danube Street]]>><<endevent>><</link>>
 		<br>
 	<</if>>
-<<elseif $rng gte 41>>
+<</addinlineevent>>
+
+<<addinlineevent "Danube Fountain" 1>>
 	<<generate1>><<person1>>You search an ornate fountain in the middle of a hall. You peer into the water looking for any valuables inside, but there's a large drain at the bottom that would've sucked any small items away. You're about to move on when you hear footsteps approaching. There's not much time to hide.
 	<br><br>
 	<<set $skulduggerydifficulty to 600>>
@@ -172,8 +174,10 @@ You sneak around the mansion and look for anything of value.
 	<br>
 	<<link [[Try to bluff your way out|Danube House Bluff]]>><</link>><<skulduggerydifficulty>>
 	<br>
-<<elseif $rng gte 31>>
-	<<generate1>><<person1>>
+<</addinlineevent>>
+
+<<addinlineevent "Danube S&M" 1>>
+	<<generate1>><<generatep2>><<person1>>
 	The mansion is silent, empty. No one appears to be home. Many doors are closed and locked. One door is wide open and brightly lit. Approaching carefully, you peek in to see a bedroom.
 	In the centre of the room is a bed. On that lies a <<person>>, completely naked, fully spread-eagled, dildo-gagged and bound to the bed.
 	<br><br>
@@ -183,9 +187,9 @@ You sneak around the mansion and look for anything of value.
 		<br><br>
 		<<link [[Remove the gag|Danube House S&M]]>><<set $phase to 0>><</link>>
 		<br>
-		<<getouticon>><<link [[Leave the gag|Danube House S&M]]>><<set $phase to 1>><</link>>
+		<<link [[Leave the gag|Danube House S&M]]>><<set $phase to 1>><</link>>
 		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+		<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 		<br>
 	<<else>>
 		You feel like crying. This town is hard - you know this already - but coming face to face with a helpless victim of kidnapping or trafficking and such fresh sexual abuse fills you with horror.
@@ -193,83 +197,110 @@ You sneak around the mansion and look for anything of value.
 		<br><br>
 		<<link [[Help this poor victim|Danube House S&M]]>><<set $phase to 2>><</link>>
 		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+		<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 		<br>
 	<</if>>
-<<else>>
-	<<rng>>
-	<<if $rng gte 91>>
+<</addinlineevent>>
+
+<<addinlineevent "Danube Oranges" .5>>
+	The mansion interior is minimalist and sterile, the picture of artificial perfection. No one appears to be home. You don't find anything worth stealing inside, but floor-to-ceiling windows in the living room reveal a row of pristine citrus trees. You carefully test the sliding door that leads into the garden. It opens easily, and you catch a whiff of fragrant fruit.
+	<br><br>
+	<<foodstufficon "orange">> <<link [[Pick oranges (0:20)|Danube House Oranges]]>><<pass 20>><</link>><<tendingdifficulty 1 300>>
+	<br>
+	<<danubeicon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "Danube Petty" 3>>
+	<<danubePettyTheft>>
+<</addinlineevent>>
+
+<<runeventpool>>
+
+:: Danube House Petty Theft [widget]
+
+<<widget "danubePettyTheft">>
+	<<cleareventpool>>
+	<<set _black_money to false>>
+	<<set _it to "it">>
+
+	<<addinlineevent "Danube Change" 1>>
 		You don't find much, just some loose change worth <<moneyGainDisplay 2 true true>>.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 81>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Better Change" 1>>
 		You don't find much, just some loose change worth <<moneyGainDisplay 4 true true>>.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 71>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Money" 1>>
 		You find <<moneyGainDisplay 10 true true>> hidden in a drawer.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 61>>
-		You find a nice-looking brooch in a drawer.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $blackmoney += 10>><<crimeUp 10 "thievery">><</link>><<crime "thievery">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 51>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Cushion" 1>>
 		You find <<moneyGainDisplay 20 true true>> beneath a cushion.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 41>>
-		You find a necklace on a stool beside the coat stand.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $blackmoney += 20>><<crimeUp 20 "thievery">><</link>><<crime "thievery">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 31>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Kitchen" 1>>
 		You find <<moneyGainDisplay 30 true true>> lying on the kitchen worktop.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 21>>
-		You find a set of silverware.
-		<br>
-		<<link [[Take it|Danube Street]]>><<set $blackmoney += 30>><<crimeUp 30 "thievery">><</link>><<crime "thievery">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<elseif $rng gte 11>>
-		You find a pair of gold cufflinks in a coat pocket.
-		<br><br>
-		<<link [[Take them|Danube Street]]>><<set $blackmoney += 40>><<crimeUp 40 "thievery">><</link>><<crime "thievery">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
-	<<else>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Pot" 1>>
 		You find <<moneyGainDisplay 60 true true>> in a pot beside the front door.
-		<br><br>
-		<<link [[Take it|Danube Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
-		<br>
-		<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-		<br>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Brooch" 1>>
+		You find a nice-looking brooch in a drawer.
+		<<set _black_money to true>>
+		<<set _money_gain to 10>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Necklace" 1>>
+		You find a necklace on a stool beside the coat stand.
+		<<set _black_money to true>>
+		<<set _money_gain to 20>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Silverware" 1>>
+		You find a set of silverware.
+		<<set _black_money to true>>
+		<<set _money_gain to 30>>
+	<</addinlineevent>>
+
+	<<addinlineevent "Danube Cufflinks" 1>>
+		You find a pair of gold cufflinks in a coat pocket.
+		<<set _black_money to true>>
+		<<set _money_gain to 40>>
+		<<set _it to "them">>
+	<</addinlineevent>>
+
+	<<runeventpool>>
+	<br><br>
+	<<if _black_money>>
+		<<link [["Take " + _it|Danube Street]]>><<set $blackmoney += _money_gain>><<crimeUp `_money_gain` "thievery">><</link>><<crime "thievery">>
+	<<else>>
+		<<link [["Take " + _it|Danube Street]]>><<money _money_gain "danubeParty">><<crimeUp `_money_gain / 100` "petty">><</link>><<crime "petty">>
 	<</if>>
+	<br>
+	<<link [[Leave|Danube Street]]>><</link>>
+	<br>
+<</widget>>
+
+:: Danube House Oranges
+<<set $outside to 1>><<set $location to "town">><<effects>><<set $bus to "danube">>
+
+You comb through the row of citrus trees for saleable oranges.
+
+<<if $tendingSuccess>>
+	<<wearProp "orange basket">>
+	<span class="green">You find a bunch, firm and juicy.</span>
+	<<tending_pick orange 4 14>>
+<<else>>
+	<span class="red">They're all bruised and spongy.</span><<gtending>><<tending 2>>
 <</if>>
+<br><br>
+
+<<link [[Next|Danube Street]]>><</link>>
+
 
 :: Danube House Wine Cellar
 
@@ -290,7 +321,7 @@ You attempt to pick the ancient mechanical lock system.
 
 	<<link [[Take bottles|Danube House Wine Steal]]>><<crimeUp 150 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
+	<<link [[Leave|Danube Street]]>><</link>>
 	<br>
 
 <<else>>
@@ -308,7 +339,7 @@ You attempt to pick the ancient mechanical lock system.
 <</if>>
 
 :: Danube House Wine Steal
-<<set $outside to 0>><<set $location to "town">><<effects>><<set $bus to "danube">>
+<<set $outside to 0>><<set $location to "town">><<effects>><<set $bus to "danube">><<wearProp "wine bottle">>
 
 You take the most expensive-looking bottles, while leaving everything else untouched. You close the heavy door behind you, and easily lock it again.
 <br>
@@ -317,7 +348,7 @@ With a little luck, they will take a while to notice you were ever there.
 <<set $blackmoney += 200>>
 <br><br>
 
-<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
+<<link [[Leave|Danube Street]]>><</link>>
 <br>
 
 :: Danube House Cat
@@ -334,7 +365,7 @@ With a little luck, they will take a while to notice you were ever there.
 	<<set $enemytrust -= 40>>
 
 	<<if $phase is 0>>
-		The cat pounces on you.
+		The <<beasttype>> pounces on you.
 		<br><br>
 	<<elseif $phase is 3>>
 		<<set $phase to 0>>
@@ -404,30 +435,28 @@ With a little luck, they will take a while to notice you were ever there.
 
 <<if $athleticsSuccess>>
 
-You turn and run. The <<beasttype 0>> pounces, but you <span class="green">succeed</span> in evading <<bhim 0>>. You flee into the street.
-<<gstress>><<stress 6>>
-<br><br>
+	You turn and run. The <<beasttype 0>> pounces, but you <span class="green">succeed</span> in evading <<bhim 0>>. You flee into the street.<<gstress>><<stress 6>>
+	<br><br>
 
-<<link [[Next|Danube Street]]>><<endevent>><</link>>
+	<<link [[Next|Danube Street]]>><<endevent>><</link>>
 
 <<else>>
 
-You turn and run. The <<beasttype 0>> pounces and you <span class="red">fail</span> to evade <<bhim 0>>. <<bHis 0>> weight forces you to the ground.
-<br><br>
+	You turn and run. The <<beasttype 0>> pounces and you <span class="red">fail</span> to evade <<bhim 0>>. <<bHis 0>> weight forces you to the ground.
+	<br><br>
 
-<<link [[Next|Danube House Cat]]>><<set $molestationstart to 1>><<generate2>><<set $phase to 3>><</link>>
-<br>
+	<<link [[Next|Danube House Cat]]>><<set $molestationstart to 1>><<generate2>><<set $phase to 3>><</link>>
 
 <</if>>
 
 :: Danube House Meow
 <<set $outside to 0>><<set $location to "town">><<effects>><<set $bus to "danube">>
 
-You drop to all fours and meow at the <<beasttype 0>>. <<bHe 0>>'s taken aback, and eases <<bhis 0>> threatening posture.
+You drop to all fours and meow at the <<beasttype 0>>. <<bHes 0>> taken aback, and eases <<bhis 0>> threatening posture.
 <<if $monster is 1>>
-"You're... like me. Hmph. Masters said there were no others like me." <<bHe 0>> lies down. "Stupid Masters. I'll break something later for this."
+	"You're... like me. Hmph. Masters said there were no others like me." <<bHe 0>> lies down. "Stupid Masters. I'll break something later for this."
 <<else>>
-<<bHe>> growls again, but in a softer tone, and lies down.
+	<<bHe>> growls again, but in a softer tone, and lies down.
 <</if>>
 <br><br>
 
@@ -436,7 +465,7 @@ The <<beasttype 0>> pacified, you notice <<bhis 0>> collar glinting. You look cl
 
 <<link [[Take it|Danube House Collar]]>><<crimeUp 100 "thievery">><</link>><<crime "thievery">>
 <br>
-<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 <br>
 
 :: Danube House Cat Finish
@@ -459,11 +488,10 @@ The <<beasttype 0>> pacified, you notice <<bhis 0>> collar glinting. You look cl
 	<<endcombat>>
 	<<loadNPC 0 danube_cat>>
 	<<clearNPC danube_cat>>
-	<br><br>
 
 	<<link [[Take it|Danube House Collar]]>><<crimeUp 100 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+	<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 	<br>
 
 <<elseif $enemyhealth lte 0>>
@@ -481,43 +509,39 @@ The <<beasttype 0>> pacified, you notice <<bhis 0>> collar glinting. You look cl
 	<<endcombat>>
 	<<loadNPC 0 danube_cat>>
 	<<clearNPC danube_cat>>
-	<br><br>
 
 	<<link [[Take it|Danube House Collar]]>><<crimeUp 100 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+	<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 	<br>
 
 <<elseif $alarm is 1>>
 
 	<<if $NPCList[0].stance is "top">>
-
-	<<person2>>"What's the matter now?" says a <<person>>.
-	<<He>> laughs when <<he>> sees you. "An intruder?" <<He>> takes a seat. "How exquisite."
-	<br><br>
-	<<if $monster is 1>>
-		"I caughts the intruder!" the <<beasttype 0>> proudly yells.
-	<</if>>
-	<<set $alarm to 0>><<set $rescue to 0>>
-	<<link [[Next|Danube House Cat]]>><<set $phase to 1>><</link>>
-
+		<<person2>>"What's the matter now?" says a <<person>>.
+		<<He>> laughs when <<he>> sees you. "An intruder?" <<He>> takes a seat. "How exquisite."
+		<br><br>
+		<<if $monster is 1>>
+			"I caught the intruder!" the <<beasttype 0>> proudly yells.
+			<br><br>
+		<</if>>
+		<<set $alarm to 0>><<set $rescue to 0>>
+		<<link [[Next|Danube House Cat]]>><<set $phase to 1>><</link>>
 	<<else>>
+		<<person2>>"What's the matter now?" says a <<person>>.
 
-	<<person2>>"What's the matter now?" says a <<person>>.
+		<<He>> laughs when <<he>> sees you. "That's what you get for trespassing." <<He>> whistles and the <<beasttype 0>> ceases <<bhis>> attack. Before you can stand, <<he>> presses <<his>> foot against your <<genitals>>.
+		<<famebestiality 1>>
+		<<saveNPC 1 danube_cat_owner>>
+		<<endcombat>>
+		<<loadNPC 0 danube_cat_owner>>
+		<<clearNPC danube_cat_owner>>
+		<<person1>>
 
-	<<He>> laughs when <<he>> sees you. "That's what you get for trespassing." <<He>> whistles and the <<beasttype 0>> ceases <<bhis>> attack. Before you can stand, <<he>> presses <<his>> foot against your <<genitals>>.
-	<<famebestiality 1>>
-	<<saveNPC 1 danube_cat_owner>>
-	<<endcombat>>
-	<<loadNPC 0 danube_cat_owner>>
-	<<clearNPC danube_cat_owner>>
-	<<person1>>
+		<br><br>
 
-	<br><br>
-
-	<<link [[Next|Danube House Sneak Molestation]]>><<set $molestationstart to 1>><</link>>
-	<br>
-
+		<<link [[Next|Danube House Sneak Molestation]]>><<set $molestationstart to 1>><</link>>
+		<br>
 	<</if>>
 
 <<else>>
@@ -528,8 +552,8 @@ The <<beasttype 0>> pacified, you notice <<bhis 0>> collar glinting. You look cl
 	<<clotheson>>
 	<<endcombat>>
 
-<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
-<br>
+	<<link [[Leave|Danube Street]]>><</link>>
+	<br>
 
 <</if>>
 
@@ -540,7 +564,7 @@ The <<beasttype 0>> pacified, you notice <<bhis 0>> collar glinting. You look cl
 
 	<<beastejaculation>>
 
-	<<person2>>The <<beasttype 0>> makes a satisfied noise and walks over to the window, where <<bhe 0>> lies down. "It'll sleep like a log after that," says the <<person>>. <<He>> walks over to you before you can recover and grabs your neck. <<He>> drags you to the front door and hefts you outside. "I'll overlook your trespass, this time." The door slams shut.
+	<<person2>>The <<beasttype 0>> makes a satisfied noise and walks over to the window, where <<bhe 0>> lies down. "<<bHe 0>>'ll sleep like a log after that," says the <<person>>. <<He>> walks over to you before you can recover and grabs your neck. <<He>> drags you to the front door and hefts you outside. "I'll overlook your trespass, this time." The door slams shut.
 
 	<<tearful>> you rise to your feet.
 	<br><br>
@@ -570,12 +594,10 @@ The <<beasttype 0>> pacified, you notice <<bhis 0>> collar glinting. You look cl
 <<set $outside to 0>><<set $location to "town">><<effects>><<set $bus to "danube">>
 
 The <<beasttype 0>> makes no move as you remove <<bhis 0>> collar. You leave the premises with your prize in hand.
-<br><br>
-
 <<set $blackmoney += 100>>
 <br><br>
 
-<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 <br>
 
 :: Danube House Sneak Molestation
@@ -587,7 +609,7 @@ The <<beasttype 0>> makes no move as you remove <<bhis 0>> collar. You leave the
 	<<molested>>
 	<<maninit>>
 
-	<<if $footdisable is "f">>
+	<<if $settings.footFetishEnabled>>
 		"It's best I use my foot," <<he>> says." You might be dirty."
 		<br><br>
 		<<if $NPCList[0].vagina isnot "none">>
@@ -619,24 +641,24 @@ The <<beasttype 0>> makes no move as you remove <<bhis 0>> collar. You leave the
 :: Danube House Sneak Molestation Finish
 <<if $enemyhealth lte 0>>
 
-You trip the <<person>> up. <<tearful>> you escape outside.
-<br><br>
+	You trip the <<person>> up. <<tearful>> you escape outside.
+	<br><br>
 
-<<clotheson>>
-<<endcombat>>
+	<<clotheson>>
+	<<endcombat>>
 
-<<link [[Next|Danube Street]]>><</link>>
+	<<link [[Next|Danube Street]]>><</link>>
 
 <<elseif $enemyarousal gte $enemyarousalmax>>
-<<ejaculation>>
+	<<ejaculation>>
 
-"Good <<girl>>," <<he>> says, grabbing you by the neck. "I don't think it's fair to get the police involved, but don't you dare trespass again." <<He>> drags you to the front door and shoves you out, slamming the door behind you. <<tearful>> you rise to your feet.
-<br><br>
+	"Good <<girl>>," <<he>> says, grabbing you by the neck. "I don't think it's fair to get the police involved, but don't you dare trespass again." <<He>> drags you to the front door and shoves you out, slamming the door behind you. <<tearful>> you rise to your feet.
+	<br><br>
 
-<<clotheson>>
-<<endcombat>>
+	<<clotheson>>
+	<<endcombat>>
 
-<<link [[Next|Danube Street]]>><</link>>
+	<<link [[Next|Danube Street]]>><</link>>
 
 <</if>>
 
@@ -652,7 +674,7 @@ You sneak up to the <<person>> as quietly as you can. Once close enough, you rea
 	<br><br>
 	<<set $blackmoney += 80>>
 	<<skulduggeryuse>>
-	<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+	<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 	<br>
 <<else>>
 	try to ease it free. Unfortunately, <<he>> rolls over at just that moment. As you try to adjust your grip, you hear a snort and look down to find <<him>> blearily looking up at you.
@@ -663,7 +685,7 @@ You sneak up to the <<person>> as quietly as you can. Once close enough, you rea
 	<<crimeUp 80 "petty">>
 	<br><br>
 	<<skulduggeryuse>>
-	<<link [[Run|Danube Street]]>><<endevent>><</link>>
+	<<runicon>><<link [[Run|Danube Street]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
@@ -673,10 +695,16 @@ You sneak up to the <<person>> as quietly as you can. Once close enough, you rea
 The safe looks expensive, like it might contain something important.
 <br><br>
 <<if currentSkillValue('skulduggery') gte $lock>>
-	<span class="green">The lock looks easy to pick.</span>
-	<br><br>
-	<<link [[Break in (0:05)|Danube House Safe Open]]>><<pass 5>><<crimeUp 1 "thievery">><</link>><<crime "thievery">>
-	<br>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
+	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The safe looks easy to crack.</span>
+		<br><br>
+		<<lockicon "pick">><<link [[Break in (0:05)|Danube House Safe Open]]>><<pass 5>><<crimeUp 5 "trespassing">><</link>><<crime "thievery">>
+		<br>
+	<</if>>
 <<else>>
 	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
 	<br><br>
@@ -686,25 +714,22 @@ The safe looks expensive, like it might contain something important.
 
 :: Danube House Safe Open
 <<set $outside to 0>><<set $location to "town">><<effects>><<set $bus to "danube">>
-<<if $skulduggery lt 700>>
-	<<skulduggeryskilluse>>
-<<else>>
-	<span class="blue">There's nothing more you can learn from locks this simple.</span>
-<</if>>
-<br><br>
-<<if $rng gte 10>>
+
+<<skulduggeryuse 700 "locks">>
+
+<<if $rng gte 11>>
 	You successfully open the safe, and find <<moneyGainDisplay 60 true true>> inside.
 	<br><br>
-	<<link [[Take it|Danube Street]]>><<set $money += _money_gain>><<crimeUp `_money_gain / 100` "thievery">><</link>><<crime "thievery">>
+	<<link [[Take it|Danube Street]]>><<money _money_gain "danubeParty">><<crimeUp `_money_gain / 100` "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
+	<<link [[Leave|Danube Street]]>><</link>>
 	<br>
 <<else>>
 	You successfully open the safe, and find a piece of expensive-looking jewellery inside.
 	<br><br>
 	<<link [[Take it|Danube Street]]>><<set $blackmoney += 200>><<crimeUp 200 "thievery">><</link>><<crime "thievery">>
 	<br>
-	<<getouticon>><<link [[Leave|Danube Street]]>><</link>>
+	<<link [[Leave|Danube Street]]>><</link>>
 	<br>
 <</if>>
 
@@ -719,7 +744,7 @@ You burst from the water and gasp for air. The <<person>> runs and screams. "Hel
 <br>
 
 :: Danube House Fountain
-<<set $outside to 0>><<set $location to "town">><<water>><<effects>><<set $bus to "danube">>
+<<set $outside to 0>><<set $location to "town">><<water>><<waterbr 2>><<effects>><<set $bus to "danube">>
 
 You slip into the fountain and hide beneath the surface of the water. A <<person>> appears above you and sits on the rim. <<He>> doesn't look down, but you hope <<he>> doesn't plan on staying there long. You don't know how long you could hold your breath.
 <<pass 3>>
@@ -730,9 +755,9 @@ You slip into the fountain and hide beneath the surface of the water. A <<person
 You <span class="green">succeed</span> in holding your breath. After a few minutes <<he>> leaves. You come up to the surface and gasp for air. <<He>> left an unopened bottle of wine on the side of the fountain. It looks fancy.
 <br><br>
 
-<<ind>><<link [[Take it|Danube Street]]>><<set $blackmoney += 30>><<crimeUp 30 "petty">><<endevent>><</link>><<crime "petty">>
+<<link [[Take it|Danube Street]]>><<set $blackmoney += 30>><<crimeUp 30 "petty">><<endevent>><</link>><<crime "petty">>
 <br>
-<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 <br>
 
 <<else>>
@@ -770,12 +795,7 @@ You stand your ground. A <<person>> walks in and freezes on the spot upon seeing
 <<crimeUp 50 "trespassing">><<crime "trespassing">>
 <br><br>
 
-<<if $skulduggery lte 999>>
-	<<skulduggeryskilluse>>
-<<else>>
-	<span class="blue">That was too easy. You didn't learn anything.</span>
-	<br><br>
-<</if>>
+	<<skulduggeryuse 999>>
 
 <<link [[Next|Danube Street]]>><<endevent>><</link>>
 <br>
@@ -792,7 +812,7 @@ The <<person>> runs over and wraps <<his>> dressing gown around you. "Oh you poo
 "Are you sure you'll be okay?" <<he>> says once at the front door.
 <br><br>
 
-"I will now, thanks to you," you reply. <<He>> let you keep the gown. It looks valuable.
+"I will now, thanks to you," you reply. <<He>> lets you keep the gown. It looks valuable.
 <br><br>
 
 <<set $blackmoney += 60>>
@@ -830,7 +850,7 @@ You swim to the bottom of the fountain. As you approach the drain the pull becom
 <<elseif $phase is 2>>
 	You rush over to help the poor victim, quickly easing the cruel dildo-gag out from <<his>> throat.
 	<br>
-	"What are you doing in my house?!" <<his>> voice is shrill. "Get out! Get the fuck out!"
+	"What are you doing in my house?!" <<His>> voice is shrill. "Get out! Get the fuck out!"
 	<br>
 	You stare at <<him>> in shock.
 	<br>
@@ -844,12 +864,12 @@ You swim to the bottom of the fountain. As you approach the drain the pull becom
 	You try to push the dildo-gag back into <<his>> throat but <<he>> resists, screaming obscenities at you.
 	<br>
 <</if>>
-Looking around the room, you can see a number of valuables including BDSM gear and leather, erotic art, jewellery, electronics and some very high-end sex-toys.
+Looking around the room, you can see a number of valuables, including BDSM gear and leather, erotic art, jewellery, electronics, and some very high-end sex-toys.
 <br><br>
 
-<<link [[Rob them|Danube House S&M Steal]]>><<crimeUp 120 "thievery">><</link>><<crime "thievery">>
+<<link [[Rob <<him>>|Danube House S&M Steal]]>><<crimeUp 120 "thievery">><</link>><<crime "thievery">>
 <br>
-<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 <br>
 
 :: Danube House S&M Steal
@@ -857,7 +877,21 @@ Looking around the room, you can see a number of valuables including BDSM gear a
 
 You work through the room, selecting the most valuable things you can easily conceal and carry.
 <<if $phase lte 1>>
-	As you work, the <<person>> twists and strains against <<his>> bonds in impotent rage. <<His>> <<if $pronoun is "m">>penis swings around<<else>>breasts jiggle around<</if>> and some interesting 'toys' bounce around the bed as <<he>> struggles, giving you some very bad thoughts.
+	As you work, the <<person>> twists and strains against <<his>> bonds in impotent rage.
+	<<if $NPCList[0].penis isnot "none">>
+		<<if $NPCList[0].breastsize gte 3>>
+			<<His>> $NPCList[0].penisdesc and $NPCList[0].breastsdesc swing and bob and several
+		<<else>>
+			<<His>> $NPCList[0].penisdesc swings and several
+		<</if>>
+	<<else>>
+		<<if $NPCList[0].breastsize gte 3>>
+			<<His>> $NPCList[0].breastsdesc jiggle and several
+		<<else>>
+			Several
+	<</if>>
+<</if>>
+	interesting 'toys' bounce around the bed as <<he>> struggles, giving you some very bad thoughts.
 	<<garousal>><<arousal 100>><<set $blackmoney += 120>>
 	<br><br>
 	Finally, having made your selection of loot, you leave the <<person>> red-faced, sweating and thoroughly enraged on the bed.
@@ -868,34 +902,21 @@ You work through the room, selecting the most valuable things you can easily con
 	<br><br>
 	Finally, as you prepare to leave with your loot, the <<person>>, sweaty and red-faced, looks at you. <<He>> swallows and starts to speak.
 
-	"Listen. Be a good <<girl>>. Before you go, would you- Would you put that gag back in. The gag. Th- The
-	<<if $rng % 2>>
-		Master will hurt me otherwise."
-		<br><br>
-		You smile at <<him>>. "I tried. You didn't let me."
-		<br><br>
-		"I-I thought I didn't... No. No, please, don't go yet! Please! Put it back, you..."
-		<br><br>
-		You wave sweetly from the door on the way out. "Bye!"
-		<br><br>
-		"You don't understand, he-he.. He'll..."
-	<<else>>
-		Mistress will hurt me otherwise."
-		<br><br>
-		You smile at <<him>>. "I tried. You didn't let me."
-		<br><br>
-		"I-I thought I didn't... No. No, please, don't go yet! Please! Put it back, you..."
-		<br><br>
-		You wave sweetly from the door on the way out. "Bye!"
-		<br><br>
-		"You don't understand, she-she.. She'll..."
-	<</if>>
+	"Listen. Be a good <<girl>>. Before you go, would you- Would you put that gag back in. The gag. Th- The <<person2>><<Master>> will hurt me otherwise."
 	<br><br>
-	You can still hear <<his>> pleas as the front door clicks shut.
+	You smile at <<person1>><<him>>. "I tried. You didn't let me."
+	<br><br>
+	"I-I thought I didn't... No. No, please, don't go yet! Please! Put it back, you..."
+	<br><br>
+	You wave sweetly from the door on the way out. "Bye!"
+	<br><br>
+	"You don't understand, <<person2>><<he>>-<<he>>... <<He>>'ll..."
+	<br><br>
+	You can still hear <<person1>><<his>> pleas as the front door clicks shut.
 	<br><br>
 	You find yourself smiling.
 	<<lstress>><<stress -1>>
 	<br><br>
 <</if>>
-<<getouticon>><<link [[Leave|Danube Street]]>><<endevent>><</link>>
+<<link [[Leave|Danube Street]]>><<endevent>><</link>>
 <br>

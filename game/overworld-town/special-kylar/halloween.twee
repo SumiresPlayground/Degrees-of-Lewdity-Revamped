@@ -12,7 +12,7 @@
 	<<set $halloween_kylar_proposed to 1>>
 
 	<<if $exposed gte 1>>
-		<<covered>> "Happy Halloween-" <<He>> begins, but stops when <<he>> notices your exposure. The dark had concealed you at first. <<His>> eyes flick over you, unsure where to look.
+		<<covered>> "Happy Halloween—" <<He>> begins, but stops when <<he>> notices your exposure. The dark had concealed you at first. <<His>> eyes flick over you, unsure where to look.
 		<br><br>
 
 		You hear a drunken shout from the nearby street. Kylar snaps out of <<his>> stupor, and throws an anxious look in the direction of the noise. "W-we need to get you covered," <<he>> says. "There are perverts out." <<He>> runs into the dark.
@@ -23,7 +23,7 @@
 
 		<<link [[Tell Kylar to look away|Kylar Halloween Look]]>><<npcincr Kylar dom -1>><</link>>
 		<br>
-		<<if $exhibitionism gte 35>>
+		<<if hasSexStat("exhibitionism", 3)>>
 			<<link [[Let Kylar watch you dress|Kylar Halloween Watch]]>><<npcincr Kylar lust 5>><<npcincr Kylar love 1>><</link>><<exhibitionist2>><<gglust>><<glove>>
 			<br>
 		<</if>>
@@ -56,7 +56,7 @@ You pass the hospital, and walk down a small lane leading away from town. The tr
 :: Kylar Halloween Hesitate
 <<effects>>
 
-You stop at the edge of the road. Kylar turns. <<He>> hesitates <<himself>> before speaking. "I-It's not far," <<he>> says, holding out <<his>> hand.
+You stop at the edge of the road. Kylar turns. <<He>> hesitates <<himself>> before speaking. "I-It's not far," <<he>> says. "We'll s-still be close to town, I promise."
 <br><br>
 
 <<link [[Go with Kylar|Kylar Halloween Walk]]>><<npcincr Kylar love 1>><</link>><<glove>>
@@ -93,10 +93,10 @@ You ask Kylar if it looks okay. <<He>> nods, but <<his>> leering suggests it's s
 <br><br>
 
 <<if $worn.upper.exposed gte 1>>
-	<<upperwear 65>>
+	<<upperwear "mummy top">>
 <</if>>
 <<if $worn.lower.exposed gte 1>>
-	<<lowerwear 57>>
+	<<lowerwear "mummy skirt">>
 <</if>>
 
 <<link [[Go with Kylar (1:00)|Kylar Halloween]]>><<npcincr Kylar love 1>><<pass 10>><</link>><<glove>>
@@ -117,10 +117,10 @@ You ask Kylar if it looks okay. <<He>> nods, but <<his>> leering suggests it's s
 <br><br>
 
 <<if $worn.upper.exposed gte 1>>
-	<<upperwear 65>>
+	<<upperwear "mummy top">>
 <</if>>
 <<if $worn.lower.exposed gte 1>>
-	<<lowerwear 57>>
+	<<lowerwear "mummy skirt">>
 <</if>>
 
 Kylar turns away while you wrap the paper around your body. It takes a few attempts to manage without tearing it, but you think you get it looking decent.
@@ -224,7 +224,11 @@ You ignore Kylar, and walk around <<him>> onto Wolf Street. You look behind you,
 :: Kylar Halloween Kiss
 <<effects>>
 
-You turn and wrap your arms around Kylar, pulling <<him>> into a kiss. <<takeKissVirginity "Kylar" `($kylarenglish gte 1?"loveInterest":"romantic")`>> <<He>> leans into you for a moment, as if unable to support <<his>> own weight.
+You turn and wrap your arms around Kylar, pulling <<him>> into a kiss. <<takeKissVirginity "Kylar" `($kylarenglish gte 1?"loveInterest":"romantic")`>>
+<<if _pcKissVirginityTaken>>
+	<br><br>
+<</if>>
+<<He>> leans into you for a moment, as if unable to support <<his>> own weight.
 <br><br>
 
 You pull away, leaving <<him>> with a blissful smile and smudged makeup.
@@ -235,7 +239,7 @@ You pull away, leaving <<him>> with a blissful smile and smudged makeup.
 
 <<link [[Walk back to town|Kylar Halloween Town]]>><</link>>
 <br>
-<<if $promiscuity gte 15>>
+<<if hasSexStat("promiscuity", 2)>>
 	<<link [[Push Kylar to the ground|Kylar Halloween Sex]]>><<set $sexstart to 1>><</link>><<promiscuous2>>
 	<br>
 <</if>>
@@ -243,7 +247,7 @@ You pull away, leaving <<him>> with a blissful smile and smudged makeup.
 :: Kylar Halloween Town
 <<effects>>
 
-You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirginity "Kylar" "romantic">>
+You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirginity "Kylar" "romantic" null true>>
 
 <<if $speech_attitude is "meek">>
 	"I-I thought you just wanted me in the forest for privacy," you say. "Sorry if I was rude."
@@ -293,7 +297,7 @@ You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirgini
 <<run statusCheck("Kylar")>>
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<ejaculation>>
-	<<He>> lies on the ground beside you, <<his>> costume disheveled. <<tearful>> you climb to your feet.
+	<<He>> lies on the ground beside you, <<his>> costume dishevelled. <<tearful>> you climb to your feet.
 	<<if $orgasmcurrent is 0 and !playerChastity()>>
 		<<if _kylarStatus.includes("Rage")>>
 			Kylar rises to <<his>> knees and faces your <<genitals>>. "You didn't cum," <<he>> murmurs. "Was I... not good enough?" <<He>> shakes <<his>> head violently. "I'll make up for it. I'll show you."
@@ -316,7 +320,7 @@ You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirgini
 		<br><br>
 	<</if>>
 
-	You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirginity "Kylar" "romantic">> "I need to go," <<he>> says once on Wolf Street. "Thank you." <<He>> gives you a lingering hug, then scurries away.
+	You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirginity "Kylar" "romantic" null true>> "I need to go," <<he>> says once on Wolf Street. "Thank you." <<He>> gives you a lingering hug, then scurries away.
 	<br><br>
 
 	<<link [[Next|Wolf Street]]>><<endevent>><<set $eventskip to 1>><</link>>
@@ -332,7 +336,7 @@ You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirgini
 	<<link [[Next|Wolf Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 	<br>
 <<else>>
-	Kylar lies on the ground beside you, <<his>> costume disheveled. <<tearful>> you climb to your feet. Kylar does likewise.
+	Kylar lies on the ground beside you, <<his>> costume dishevelled. <<tearful>> you climb to your feet. Kylar does likewise.
 	<br><br>
 	<<clothesonplant>>
 	<<endcombat>>
@@ -342,7 +346,7 @@ You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirgini
 		<br><br>
 	<</if>>
 
-	You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirginity "Kylar" "romantic">> "I need to go," <<he>> says once on Wolf Street. "Thank you." <<He>> gives you a lingering hug, then scurries away.
+	You hold Kylar's hand the rest of the way back to town. <<takeHandholdingVirginity "Kylar" "romantic" null true>> "I need to go," <<he>> says once on Wolf Street. "Thank you." <<He>> gives you a lingering hug, then scurries away.
 	<br><br>
 
 	<<link [[Next|Wolf Street]]>><<endevent>><<set $eventskip to 1>><</link>>
@@ -365,7 +369,7 @@ Despite your misgivings, you march past Kylar and into the cemetery. <<He>> hurr
 You walk through the cemetery, toward the manor on the hill. Kylar seems energised, and keeps walking ahead of you.
 <br><br>
 
-You arrive at the tall front doors. The mansion seems bigger up close, looming into the sky. You stand beside Kylar for a moment, with no sound but the wind<<if $weather is "rain">> and rain<</if>>.
+You arrive at the tall front doors. The mansion seems bigger up close, looming into the sky. You stand beside Kylar for a moment, with no sound but the wind<<if Weather.precipitation is "rain">> and rain<</if>>.
 <br><br>
 
 Kylar pushes in a key, and turns it. The door clicks open.
@@ -416,7 +420,7 @@ There's a strange purple fruit on the label.
 	<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
 		<span class="blue">You can't bring yourself to drink while you know you're with child.</span>
 	<<else>>
-		<<link [[Drink it anyway|Kylar Halloween Known Drink]]>><<alcohol 60>><<drugs 60>><<hallucinogen 60>><</link>>
+		<<link [[Drink it anyway|Kylar Halloween Known Drink]]>><<alcohol 60>><<drugs 60>><<hallucinogen 60>><</link>><<galcohol>><<gdrugged>><<ghallucinogens>>
 	<</if>>
 	<br>
 	<<link [[Refuse|Kylar Halloween Unknown Refuse]]>><<set $phase to 1>><</link>>
@@ -427,14 +431,14 @@ There's a strange purple fruit on the label.
 	It looks familiar, <span class="red">but you can't place it.</span> It smells sweet.
 	<br><br>
 
-	<<link [[Drink|Kylar Halloween Unknown Drink]]>><<alcohol 60>><<drugs 60>><<hallucinogen 60>><</link>>
+	<<link [[Drink|Kylar Halloween Unknown Drink]]>><<alcohol 60>><<drugs 60>><<hallucinogen 60>><</link>><<note "+ Alcohol?" "purple">>
 	<br>
 	<<link [[Refuse|Kylar Halloween Unknown Refuse]]>><<set $phase to 0>><<npcincr Kylar love -1>><</link>><<llove>>
 	<br>
 <</if>>
 
 :: Kylar Halloween Known Drink
-<<effects>>
+<<effects>><<wearProp "wine bottle open">>
 
 You take a swig from the bottle. It's sweet. A warmth spreads through your body, and you feel a little dizzy, but otherwise normal. It's not a love potion.
 <br><br>
@@ -513,7 +517,7 @@ You throw your arms around Kylar, and smother <<him>> with kisses. <<He>> wraps 
 	<<else>>
 		"I don't know what came over me," you say.
 	<</if>>
-<br><br>
+	<br><br>
 
 	"I didn't mind it," Kylar says through a blissful smile.
 	<br><br>
@@ -605,7 +609,7 @@ Kylar gulps. "We-we will be together," <<he>> says. "J-just put the bottle down.
 
 You follow Kylar up the ladder. <<Hes>> already fled the kitchen by the time you reach the top. You listen for the front door, but don't hear it. <<Hes>> still in the mansion.
 <br><br>
-"Where are you my love?" you coo as you prowl into the next room. You hear something in the corner of the room. Near a window behind what looks like a table covered by a sheet.
+"Where are you, my love?" you coo as you prowl into the next room. You hear something in the corner of the room. Near a window behind what looks like a table covered by a sheet.
 <br><br>
 It might not have been a love potion, but you can feel the wine working some devilry. You remind yourself you're only pretending.
 <br><br>
@@ -653,7 +657,7 @@ You straddle <<him>>, and raise the bottle above your head. <<He>> screams and p
 :: Kylar Halloween Known Dumb
 <<effects>>
 
-"Where am I?" you say, looking around. You put the bottle down as Kylar peers between <<his>> fingers. "Wha-" you look around. "Weren't we downstairs? Why do you look so frightened?"
+"Where am I?" you say, looking around. You put the bottle down as Kylar peers between <<his>> fingers. "Wha—" You look around. "Weren't we downstairs? Why do you look so frightened?"
 <br><br>
 
 Kylar's eyes close, and <<he>> breathes a sigh of relief.
@@ -678,8 +682,12 @@ You climb to your feet, releasing Kylar. <<He>> searches for the key in the dust
 
 You rest your hands on Kylar's shoulders, and plant a kiss on <<his>> lips. <<takeKissVirginity "Kylar" `($kylarenglish gte 1?"loveInterest":"romantic")`>>
 <<if _npcKissVirginTemp>>
+	<br><br>
 	<<His>> breath hitches, and <<he>> wraps <<his>> arms around yours in turn, tugging you back down.
 <<else>>
+	<<if _pcKissVirginityTaken>>
+		<br><br>
+	<</if>>
 	<<He>> wraps <<his>> arms around yours in turn, and tugs you back down.
 <</if>>
 <<His>> pulse races.
@@ -797,7 +805,7 @@ You climb from the cellar, and walk back to the front door.
 	"I know what that is," you say. "I can't believe I trusted you."
 <</if>>
 <br>
-Kylar shakes <<his>> heads. "N-no," <<he>> says. "That's not-"
+Kylar shakes <<his>> heads. "N-no," <<he>> says. "That's not—"
 <br>
 <<if $speech_attitude is "meek">>
 	"It would have been worth a lot of money," you add. "But you uncorked it."
@@ -808,14 +816,14 @@ Kylar shakes <<his>> heads. "N-no," <<he>> says. "That's not-"
 <</if>>
 <br><br>
 
-"I-I-I-" Kylar manages between breaths. <<He>> turns and runs.
+"I-I-I—" Kylar manages between breaths. <<He>> turns and runs.
 <br><br>
 
 <<link [[Next|Kylar Halloween Rough Exit]]>><</link>>
 <br>
 
 :: Kylar Halloween Unknown Drink
-<<effects>>
+<<effects>><<wearProp "wine bottle open">>
 
 You take a swig. It's sweet, and not a little sour. A strange warmth spreads through you, and you feel a little dizzy.
 <br><br>
@@ -844,10 +852,14 @@ You and Kylar leave the cellar.
 <br><br>
 
 <<if $phase is 1>>
-	<<link [[Drink|Kylar Halloween Known Drink]]>><</link>>
+	<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+		<span class="blue">You can't bring yourself to drink while you know you're with child.</span>
+	<<else>>
+		<<link [[Drink|Kylar Halloween Known Drink]]>><<alcohol 60>><<drugs 60>><<hallucinogen 60>><</link>><<galcohol>><<gdrugged>><<ghallucinogens>>
+	<</if>>
 	<br>
 <<else>>
-	<<link [[Drink|Kylar Halloween Unknown Drink]]>><</link>>
+	<<link [[Drink|Kylar Halloween Unknown Drink]]>><<alcohol 60>><<drugs 60>><<hallucinogen 60>><</link>><<galcohol>>
 	<br>
 <</if>>
 <<link [[Refuse again|Kylar Halloween Unknown Refuse 2]]>><</link>>
@@ -869,7 +881,7 @@ You and Kylar leave the cellar.
 <<effects>>
 <<pass 5>>
 
-<<if $NPCName[$NPCNameList.indexOf("Whitney")].init is 1 and $NPCName[$NPCNameList.indexOf("Whitney")].state isnot "dungeon">>
+<<if C.npc.Whitney.init is 1 and C.npc.Whitney.state isnot "dungeon">>
 	Kylar tries the door, but it's locked. The key won't even fit inside. "That's odd," Kylar says. "It worked on the way in."
 	<br><br>
 
@@ -897,7 +909,7 @@ You and Kylar leave the cellar.
 <<effects>>
 <<pass 5>>
 
-<<if $NPCName[$NPCNameList.indexOf("Whitney")].init is 1 and $NPCName[$NPCNameList.indexOf("Whitney")].state isnot "dungeon">>
+<<if C.npc.Whitney.init is 1 and C.npc.Whitney.state isnot "dungeon">>
 	You find Kylar trying to open the front door. It's locked.
 
 	<<Hes>> interrupted by a loud creak from the floor above. "W-we should go," <<he>> says, turning back to the door with the key in hand. It won't even fit inside.
@@ -937,7 +949,6 @@ You and Kylar leave the cellar.
 <<link [[Pick the front lock (0:05)|Kylar Halloween Pick]]>><<pass 5>><</link>>
 <br>
 <<link [[Search upstairs|Kylar Halloween Upstairs]]>><</link>>
-<br>
 
 :: Kylar Halloween Pick
 <<effects>>
@@ -952,7 +963,6 @@ You peer into the lock.
 	<br><br>
 
 	<<link [[Next|Kylar Halloween Skulduggery]]>><</link>>
-	<br>
 <<else>>
 	It's like nothing you've seen before, <span class="red">and you can't work out how it's even supposed to work.</span>
 	<br><br>
@@ -964,14 +974,13 @@ You peer into the lock.
 	<br><br>
 
 	<<link [[Next|Kylar Halloween Upstairs]]>><</link>>
-	<br>
 
 <</if>>
 
 :: Kylar Halloween Skulduggery
 <<effects>>
 
-You and Kylar escape the manor, bathed in red moonlight. <<He>> starts giggling. "That was fun," <<he>> says. "We should do this again some-" <<he>> almost trips as something catches <<his>> foot. Then <<he>> screams.
+You and Kylar escape the manor, bathed in red moonlight. <<He>> starts giggling. "That was fun," <<he>> says. "We should do this again some—" <<He>> almost trips as something catches <<his>> foot. Then <<he>> screams.
 <br><br>
 
 <span class="red">A pale hand protrudes from the earth,</span> and clutches Kylar's ankle. <<He>> shakes it free, just as another erupts and gropes after <<him>>.<<ggawareness>><<awareness 12>>
@@ -986,7 +995,7 @@ More hands emerge around you. Kylar grasps your arm, and together you run for th
 :: Kylar Halloween Skulduggery 2
 <<effects>>
 
-You keep running, unbothered by fatigue, until you see the lights of town up ahead. Kylar stops and leans against you, panting. <<His>> costume and hair are disheveled, and <<he>> lost a few accessories during your flight.
+You keep running, unbothered by fatigue, until you see the lights of town up ahead. Kylar stops and leans against you, panting. <<His>> costume and hair are dishevelled, and <<he>> lost a few accessories during your flight.
 <br><br>
 
 <<He>> looks at you, and wraps <<his>> arms around your waist, pulling you closer.
@@ -1002,8 +1011,12 @@ You keep running, unbothered by fatigue, until you see the lights of town up ahe
 
 You lean forward, and plant a kiss on Kylar's lips. <<takeKissVirginity "Kylar" `($kylarenglish gte 1?"loveInterest":"romantic")`>>
 <<if _npcKissVirginTemp>>
+	<br><br>
 	<<His>> breath hitches, and <<he>>
 <<else>>
+	<<if _pcKissVirginityTaken>>
+		<br><br>
+	<</if>>
 	<<He>>
 <</if>>
 pulls you to the forest floor.
@@ -1034,6 +1047,7 @@ Kylar looks away. You continue towards town. You turn when you arrive on Wolf St
 :: Kylar Halloween Upstairs
 <<effects>>
 
+<<set $halloween_kylar_whitney to 1>>
 You peer up the staircase, into the gloom above. Kylar points <<his>> light up, revealing more grey sheets lining the walls. They might be covering paintings.
 <br><br>
 
@@ -1064,7 +1078,7 @@ The rest of the tall sheet-covered furniture comes to life, screeching as you an
 
 <<endevent>><<npc Whitney>><<person1>>
 
-One of the figures steps in front of the others, a familiar swagger in its gait. "Saw you talking to this creep in the park," says Whitney, pulling the sheet off <<his>> head and revealing <<his>> demon costume. <<His>> friends follow suit.
+One of the figures steps in front of the others, a familiar swagger in its gait. "Saw you talking to this creep in the park," Whitney says, pulling the sheet off <<his>> head and revealing <<his>> demon costume. <<His>> friends follow suit.
 <br><br>
 <<endevent>><<npc Kylar>><<person1>>
 Kylar seems no less terrified. <<His>> eyes dart around the room, searching for a way out.
@@ -1099,7 +1113,7 @@ Kylar grips the pepper spray, <<his>> knuckles white.
 <<if isLoveInterest("Whitney")>>
 	<<link [[Enthusiastically do as Whitney asks|Kylar Halloween Kneel]]>><<set $phase to 1>><</link>><<promiscuous1>>
 	<br>
-<<elseif $promiscuity gte 55>>
+<<elseif hasSexStat("promiscuity", 4)>>
 	<<link [[Enthusiastically do as Whitney asks|Kylar Halloween Kneel]]>><<set $phase to 1>><</link>><<promiscuous4>>
 	<br>
 <</if>>
@@ -1130,7 +1144,7 @@ Kylar grips the pepper spray, <<his>> knuckles white.
 <<if isLoveInterest("Whitney")>>
 	<<link [[Enthusiastically do as Whitney asks|Kylar Halloween Kneel]]>><<set $phase to 1>><</link>><<promiscuous1>>
 	<br>
-<<elseif $promiscuity gte 55>>
+<<elseif hasSexStat("promiscuity", 4)>>
 	<<link [[Enthusiastically do as Whitney asks|Kylar Halloween Kneel]]>><<set $phase to 1>><</link>><<promiscuous4>>
 	<br>
 <</if>>
@@ -1165,7 +1179,7 @@ Kylar pulls you behind <<him>>, keeping a grip on your arm as you both walk to t
 "Fucking cowards," Whitney says, stepping closer. Kylar holds down the spray, <span class="red">but nothing comes out.</span> Whitney wraps an arm around Kylar's neck, <<person1>> and holds <<him>> above the ground.
 <br><br>
 
-"R-Run-" Kylar manages.
+"R-Run—" Kylar manages.
 <br><br>
 
 <<link [[Run|Kylar Halloween Kneel Run]]>><<sub 1>><</link>>
@@ -1222,10 +1236,10 @@ You run for a couple more minutes, then take cover behind a tree, and listen. Yo
 :: Kylar Halloween Kneel Spray
 <<effects>>
 
-<<endevent>><<npc Whitney>><<person1>>
+<<endevent>><<npc Whitney>><<person1>><<wearProp "pepper spray">>
 You point your pepper spray above Kylar's head, and unload it into Whitney's eyes. <<He>> staggers backward, clutching <<his>> face.
 
-Kylar grasps your hand, and together you escape down the stairs and through the now-open front doors, into the red moonlight. <<takeHandholdingVirginity "Kylar" "romantic">> You run into the forest.<<ldom>><<npcincr Whitney dom -1>>
+Kylar grasps your hand, and together you escape down the stairs and through the now-open front doors, into the red moonlight. <<takeHandholdingVirginity "Kylar" "romantic" null true>> You run into the forest.<<ldom>><<npcincr Whitney dom -1>>
 <br><br>
 <<endevent>><<npc Kylar>><<person1>>
 Kylar stops and leans against a tree and pants for a moment, before lunging forward and throwing <<his>> arms around you. "You shouldn't have risked it," <<he>> says.<<glove>><<llksuspicion>><<npcincr Kylar love 1>><<npcincr Kylar rage -5>>
@@ -1269,9 +1283,11 @@ Kylar stops and leans against a tree and pants for a moment, before lunging forw
 	as <<he>> grasps the back of your head.<<gdom>><<npcincr Whitney dom 1>>
 
 	<<if isLoveInterest("Whitney")>>
-		<<glove>><<npcincr Whitney love 1>><<promiscuity1>>
+		<<glove>><<npcincr Whitney love 1>><br>
+		<<promiscuity1>>
 	<<else>>
-		<<glust>><<npcincr Whitney lust 5>><<promiscuity4>>
+		<<glust>><<npcincr Whitney lust 5>><br>
+		<<promiscuity4>>
 	<</if>>
 
 	<<endevent>><<npc Kylar>><<person1>>
@@ -1291,11 +1307,11 @@ Kylar stops and leans against a tree and pants for a moment, before lunging forw
 :: Kylar Halloween Caught
 <<effects>>
 
-The rest of the tall sheet-covered furniture comes to life, screeching as they rush toward Kylar. Now that they're moving, you see human outlines beneath. They grasp, <<his>> arms, and force <<him>> to <<his>> knees.
+The rest of the tall sheet-covered furniture comes to life, screeching as they rush toward Kylar. Now that they're moving, you see human outlines beneath. They grasp <<his>> arms, and force <<him>> to <<his>> knees.
 <br><br>
 
 <<endevent>><<npc Whitney>><<person1>>
-The figure holding you laughs. It sounds familiar. "Saw you talking to this creep in the park," says Whitney, pulling the sheet off <<his>> head and revealing <<his>> demon costume. <<His>> friends follow suit. "Time to show everyone who you belong to."
+The figure holding you laughs. It sounds familiar. "Saw you talking to this creep in the park," Whitney says, pulling the sheet off <<his>> head and revealing <<his>> demon costume. <<His>> friends follow suit. "Time to show everyone who you belong to."
 <br><br>
 <<endevent>><<npc Kylar>><<person1>>
 Kylar struggles forward in a desperate attempt to reach you, but another of Whitney's friends steps forward to restrain <<him>>.
@@ -1321,7 +1337,7 @@ Kylar struggles forward in a desperate attempt to reach you, but another of Whit
 <<if isLoveInterest("Whitney")>>
 	<<link [[Enthusiastically do as Whitney asks|Kylar Halloween Lick]]>><<set $phase to 1>><</link>><<promiscuous1>>
 	<br>
-<<elseif $promiscuity gte 55>>
+<<elseif hasSexStat("promiscuity", 4)>>
 	<<link [[Enthusiastically do as Whitney asks|Kylar Halloween Lick]]>><<set $phase to 1>><</link>><<promiscuous4>>
 	<br>
 <</if>>
@@ -1340,7 +1356,7 @@ Kylar struggles forward in a desperate attempt to reach you, but another of Whit
 <</if>>
 <br><br>
 
-Whitney laughs, and nods at a <<generatey2>><<person2>><<person>> stood beside Kylar. <<His>> friend rummages in Kylar's pockets, and pulls out a knife. <span class="red"><<He>> holds it to Kylar's throat.</span><<gggtrauma>><<gggstress>><<trauma 24>><<stress 24>>
+Whitney laughs, and nods at a <<generatey2>><<person2>><<person>> stood beside Kylar. <<person1>><<His>> friend rummages in Kylar's pockets, and pulls out a knife. <span class="red"><<person2>><<He>> holds it to Kylar's throat.</span><<gggtrauma>><<gggstress>><<trauma 24>><<stress 24>>
 <br><br>
 
 "I'll ask one more time," Whitney says. "Get to work."
@@ -1356,7 +1372,7 @@ Kylar's expression is blank. "D-don't do it."
 
 :: Kylar Halloween Lick Refuse 2
 <<effects>>
-
+<<person1>>
 You shake your head. "Are you fucking serious?" Whitney says. "Fucking fine." <<He>> shoves you to the ground, and marches toward Kylar. "Give me that," <<he>> says to the <<person2>><<person>>. <<person1>><<He>> looks at the knife, <span class="green">then discards it.</span><<llstress>><<stress -12>>
 <br><br>
 
@@ -1376,7 +1392,7 @@ You crouch beside Kylar. <<Hes>> conscious, though blood trickles from <<his>> n
 You help <<him>> to <<his>> feet, and together walk down the stairs, through the now-open front doors, and into the red moonlight.
 <br><br>
 
-Despite the ordeal, Kylar seems elated, though <<he>> asks to stop before you arrive back at down. <<He>> leans against a tree to catch <<his>> breath, <<his>> costume and hair a disheveled mess.
+Despite the ordeal, Kylar seems elated, though <<he>> asks to stop before you arrive back at town. <<He>> leans against a tree to catch <<his>> breath, <<his>> costume and hair a dishevelled mess.
 <br><br>
 
 Without warning, <<he>> lunges, wrapping <<his>> arms tight around you.
@@ -1406,7 +1422,8 @@ Without warning, <<he>> lunges, wrapping <<his>> arms tight around you.
 	<<endevent>><<npc Whitney>><<person1>>
 	You grasp the backs of Whitney's thighs as you lean closer to <<his>> crotch. <<He>> rests a hand on your head, clutching your hair.<<gdom>><<npcincr Whitney dom 1>>
 	<<if isLoveInterest("Whitney")>>
-		<<glove>><<npcincr Whitney love 1>><<promiscuity1>>
+		<<glove>><<npcincr Whitney love 1>><br>
+		<<promiscuity1>>
 	<<else>>
 		<<gglust>><<npcincr Whitney lust 5>><<promiscuity4>>
 	<</if>>
@@ -1487,7 +1504,7 @@ Kylar watches with a blank expression.
 
 :: Kylar Halloween Bed
 <<effects>>
-<<set $forestmansionhaunt to 1>>
+
 <<npc Whitney>><<person1>>
 Whitney's friends surround you, groping and probing, but Whitney interrupts. "Where'd the creep go?" <<His>> friends look around.
 <<endevent>><<npc Kylar>><<person1>>
@@ -1506,7 +1523,7 @@ Whitney's friends surround you, groping and probing, but Whitney interrupts. "Wh
 <<effects>>
 
 <<endevent>><<npc Whitney>><<person1>>
-Whitney sits on the bed beside you as <<his>> friends disperse into the manor, searching for Kylar. "Sorry for the wait," Whitney says. "But you'll feel better getting gangbanged with-"
+Whitney sits on the bed beside you as <<his>> friends disperse into the manor, searching for Kylar. "Sorry for the wait," Whitney says. "But you'll feel better getting gangbanged with—"
 <br><br>
 
 <span class="red">A scream interrupts <<him>>.</span> Whitney grasps your arm, and pulls you to your feet. "I'm not leaving you alone," <<he>> says, pulling you from the room.
@@ -1523,7 +1540,7 @@ You follow the hallway in the direction of the scream, and find a <<person>> lyi
 <<effects>>
 
 <<generatey3>><<person3>>
-"I-I'm done," a <<person>> says, <<his>> voice trembling. "They say the place is haunt-"
+"I-I'm done," a <<person>> says, <<his>> voice trembling. "They say the place is haunt—"
 <br>
 Whitney interrupts <<him>> with a smack to the face. "Don't be a fucking coward,"<<person1>>
 <<he>> says, crouching beside the body. "It's just that creep, hiding in the shadows and playing with those stolen tranqs." <<He>> feels the <<person2>><<persons>> neck. "<<Hes>> fine. Someone help <<him>> up."
@@ -1544,7 +1561,7 @@ Whitney interrupts <<him>> with a smack to the face. "Don't be a fucking coward,
 <span class="red">You feel a tremor beneath your feet,</span> which builds until the whole room shakes. Furniture shakes across the floor, and paintings tremble off their hooks.
 <br><br>
 
-Something groans near the window, and the <<person3>><<person>> loses it. <<He>> runs for the door. It's locked, so <<he>> bashes <<his>> fists against it, babbling all the while. The others follow suit, all except Whitney, and even <<person1>><<he>> seems unnerved. <<His>> eyes flick around the window, searching for the source of the noise.
+Something groans near the window, and the <<person3>><<person>> loses it. <<He>> runs for the door. It's locked, so <<he>> bashes <<his>> fists against it, babbling all the while. The others follow suit: all except Whitney, but even <<person1>><<he>> seems unnerved. <<His>> eyes flick around the window, searching for the source of the noise.
 <br><br>
 
 The door opens, and <<his>> friends tumble out. They flee down the stairs, the pair carrying the <<person2>><<person>> lagging behind and throwing panicked glances over their shoulders.
@@ -1592,7 +1609,7 @@ Whitney spins and shoves Kylar, sending <<him>> sprawling to the ground.
 Kylar jumps to <<his>> feet, and grasps your arm. You dodge a weak grasp by Whitney, and together escape down the stairs and into the red moonlight.
 <br><br>
 
-You keep running when you reach the forest, until Kylar stops to rest against a tree. <<His>> clothes and hair are disheveled, but <<hes>> smiling. "I-I won," <<he>> says, throwing <<his>> arms around you. "You're all mine."<<lllksuspicion>><<npcincr Kylar rage -20>>
+You keep running when you reach the forest, until Kylar stops to rest against a tree. <<His>> clothes and hair are dishevelled, but <<hes>> smiling. "I-I won," <<he>> says, throwing <<his>> arms around you. "You're all mine."<<lllksuspicion>><<npcincr Kylar rage -20>>
 <br><br>
 
 <<link [[Ask about Kylar's tricks|Kylar Halloween Tricks]]>><</link>>
@@ -1614,7 +1631,7 @@ You keep running when you reach the forest, until Kylar stops to rest against a 
 <</if>>
 <br><br>
 
-Kylar's expression doesn't change. "That wasn't me," <<he>> says. "I just used my tranquilisers."<<gstress>><<stress 6>>
+Kylar's expression doesn't change. "That wasn't me," <<he>> says. "I just used my tranquillisers."<<gstress>><<stress 6>>
 <br><br>
 
 <<He>> pulls you closer, seeming unbothered.
@@ -1672,7 +1689,7 @@ Whitney walks back into the room with the moving furniture, now silent. Through 
 	"Do you want to walk back together?" you ask.
 <</if>>
 <br><br>
-<<if $NPCName[$NPCNameList.indexOf("Whitney")].love gte 21 or $whitneyromance is 1>>
+<<if C.npc.Whitney.love gte 21 or $whitneyromance is 1>>
 	<span class="green">"Fine,"</span> Whitney says. "But keep your sluttiness to yourself for once. I'm not in the mood."
 	<br><br>
 
@@ -1740,6 +1757,9 @@ Whitney raises a hand to your chest, and pushes you against a tree. "What the fu
 <<effects>>
 
 Whitney leans close, close enough that you can lean forward and plant a kiss on <<his>> lips. <<takeKissVirginity "Whitney" `($whitneyromance is 1?"loveInterest":"romantic")`>>
+<<if _pcKissVirginityTaken>>
+	<br><br>
+<</if>>
 <<promiscuity1>>
 
 <<He>> steps back as if struck. <<He>> opens <<his>> mouth to speak, but instead turns and strides into town.

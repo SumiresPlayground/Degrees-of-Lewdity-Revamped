@@ -7,11 +7,13 @@ Feb 2019
 
 /*indev - scarlet book event. English: 200+*/
 :: ScarletBook1
-<<if $scarletExitPassage is undefined>>
-	<<set $scarletExitPassage to "School Library">>
-<</if>>
+<<wearProp "scarlet">>
+<<set $scarletBook to 0>>
+
 <<if $scarletExitPassage is "School Library">>
 	You take a scarlet book from the basket. The title written in decorative gold letters says "Raul and Janet".
+<<elseif $scarletExitPassage is "Mansion Study">>
+	You lean back in the chair with a scarlet book titled "Raul and Janet".
 <<else>>
 	You settle in bed with the scarlet book titled "Raul and Janet".
 <</if>>
@@ -39,104 +41,168 @@ Feb 2019
 	You open the book on a random page. The text looks like it was written a hundred years ago. Some words sound ridiculous and incomprehensible. Did people really talk like that back then?
 	<br><br>
 <</if>>
-	<<link [[Put the book away|$scarletExitPassage]]>><<unset $scarletExitPassage>><</link>>
+	<<link [[Put the book away|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
 
 /*indev scarlet book event. English: 300-399*/
 :: ScarletBook2
-<<if $scarletExitPassage is undefined>>
-	<<set $scarletExitPassage to "School Library">>
-<</if>>
+<<wearProp "open scarlet">>
+
 You're reading "Raul and Janet".
 <br><br>
-The book tells the story of two lovers from a few centuries ago. Raul is the son of a poor tailor, but instead of honest work, he prefers to search for adventures. Janet is a young, polite girl from a wealthy family and the daughter of a local baron and the ruler of the city. Despite the differences between them, they fall in love with each other.
-<br><br>
-<<if currentSkillValue('english') gte 400>>
-	You slowly delve into the text.
-	<br><br>
-	<<link [[Continue reading (0:20)|ScarletBook3]]>><<pass 20>><<englishskill>><</link>><<genglish>>
-	<br>
-<<else>>
-	It seems to be some kind of romance for old lonely people. Nothing interesting.
-	<br><br>
+<<if $location is "avery_mansion">>
+	<<avery_mansion>>
+	<<if $avery_mansion.schedule isnot "away" and $avery_mansion.schedule isnot "work">>
+		<<set $_avery_present to true>>
+	<</if>>
 <</if>>
-	<<link [[Put the book away|$scarletExitPassage]]>><<unset $scarletExitPassage>><</link>>
+<<if $location is "avery_mansion" and ($avery_mansion?.schedule is "study" and !$avery_mansion?.study_unlocked) or ($avery_mansion?.study_unlocked is 1 and Time.hour is 23 and $_avery_present)>>
+	The book tells the story of two lovers from a few centuries ago. Raul is the son of a poor tailor, but instead of—
+	<br><br>
+
+	Your reading is interrupted by footsteps outside the study, and you hear someone gripping the door handle.<<if !$avery_mansion.study_unlocked>> You quickly close the book and hide.<</if>>
+	<br><br>
+	<<link [[Next|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
+<<elseif $location is "avery_mansion" and ["return", "party", "party_prepare", "date"].includes($avery_mansion?.schedule)>>
+	The book tells the story of two lovers from a few centuries ago. Raul is the son of a poor tailor, but instead of—
+	<br><br>
+
+	Your reading is interrupted by the sound of Avery approaching.<<if !$avery_mansion.study_unlocked>> You quickly close the book and exit the study.<</if>>
+	<br><br>
+	<<link [[Next|$oliveExitPassage]]>><<handheldon>><<unset $oliveExitPassage>><<pinchEnd>><</link>>
+<<else>>
+	The book tells the story of two lovers from a few centuries ago. Raul is the son of a poor tailor, but instead of honest work, he prefers to search for adventures. Janet is a young, polite girl from a wealthy family and the daughter of a local baron and the ruler of the city. Despite the differences between them, they fall in love with each other.
+	<br><br>
+	<<if currentSkillValue('english') gte 400>>
+		You slowly delve into the text.
+		<br><br>
+		<<link [[Continue reading (0:20)|ScarletBook3]]>><<pass 20>><<englishskill>><</link>><<genglish>>
+		<br>
+	<<else>>
+		It seems to be some kind of romance for old lonely people. Nothing interesting.
+		<br><br>
+	<</if>>
+		<<link [[Put the book away|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
+<</if>>
 
 /*indev scarlet book event. English 400-499*/
 :: ScarletBook3
-<<if $scarletExitPassage is undefined>>
-	<<set $scarletExitPassage to "School Library">>
-<</if>>
+
 You're reading "Raul and Janet".
 <br><br>
-The book tells the story of two lovers from the seventeenth century. Raul is the son of a poor tailor, but instead of honest work, he prefers to search for adventures. Janet is a young, polite girl from a wealthy family and the daughter of a local baron and the ruler of the city. Despite the differences between them, they fall in love with each other, but Janet's father is against their acquaintanceship, stating that the street boy is not the right fiancé for his daughter. One day, Raul convinces his beloved to run away together...
-<br><br>
-<<if currentSkillValue('english') gte 500>>
-	This is a tale of forbidden love, and although it does not end well, reading it gives you a strange joy.
-	<br><br>
-	<<link [[Continue reading (0:20)|ScarletBook4]]>><<pass 20>><<stress -6>><<englishskill>><<arousal 1200>><</link>><<genglish>><<lstress>><<ggarousal>>
-	<br>
-<<else>>
-	The story is interesting. You think to return to it later.
-	<br><br>
+<<if $location is "avery_mansion">>
+	<<avery_mansion>>
+	<<if $avery_mansion.schedule isnot "away" and $avery_mansion.schedule isnot "work">>
+		<<set $_avery_present to true>>
+	<</if>>
 <</if>>
-<<link [[Put the book away|$scarletExitPassage]]>><<unset $scarletExitPassage>><</link>>
+<<if $location is "avery_mansion" and ($avery_mansion?.schedule is "study" and !$avery_mansion?.study_unlocked) or ($avery_mansion?.study_unlocked is 1 and Time.hour is 23 and $_avery_present)>>
+	The book tells the story of two lovers from the seventeenth century. Raul is the son of a poor tailor, but instead of honest work, he prefers to search for adventures. Janet is a young, polite girl from a wealthy family and the daughter of a local baron and the ruler of the city. Despite the differences between them, they—
+	<br><br>
+
+	Your reading is interrupted by footsteps outside the study, and you hear someone gripping the door handle.<<if !$avery_mansion.study_unlocked>> You quickly close the book and hide.<</if>>
+	<br><br>
+	<<link [[Next|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
+<<elseif $location is "avery_mansion" and ["return", "party", "party_prepare", "date"].includes($avery_mansion?.schedule)>>
+	The book tells the story of two lovers from the seventeenth century. Raul is the son of a poor tailor, but instead of honest work, he prefers to search for adventures. Janet is a young, polite girl from a wealthy family and the daughter of a local baron and the ruler of the city. Despite the differences between them, they—
+	<br><br>
+
+	Your reading is interrupted by the sound of Avery approaching.<<if !$avery_mansion.study_unlocked>> You quickly close the book and exit the study.<</if>>
+	<br><br>
+	<<link [[Next|$oliveExitPassage]]>><<handheldon>><<unset $oliveExitPassage>><<pinchEnd>><</link>>
+<<else>>
+	The book tells the story of two lovers from the seventeenth century. Raul is the son of a poor tailor, but instead of honest work, he prefers to search for adventures. Janet is a young, polite girl from a wealthy family and the daughter of a local baron and the ruler of the city. Despite the differences between them, they fall in love with each other, but Janet's father is against their acquaintanceship, stating that the street boy is not the right fiancé for his daughter. One day, Raul convinces his beloved to run away together...
+	<br><br>
+	<<if currentSkillValue('english') gte 500>>
+		This is a tale of forbidden love, and although it does not end well, reading it gives you a strange joy.
+		<br><br>
+		<<link [[Continue reading (0:20)|ScarletBook4]]>><<pass 20>><<englishskill>><<arousal 1200>><</link>><<genglish>><<ggarousal>>
+		<br>
+	<<else>>
+		The story is interesting. You think to return to it later.
+		<br><br>
+	<</if>>
+	<<link [[Put the book away|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
+<</if>>
 <br>
 
 /*indev scarlet book event. English: 500-599*/
 :: ScarletBook4
-<<if $scarletExitPassage is undefined>>
-	<<set $scarletExitPassage to "School Library">>
-<</if>>
+<<set $scarletBook++>>
+
 You're reading "Raul and Janet".
 <br><br>
 The book tells the story of two lovers from the seventeenth century. Raul is the son of a poor tailor, but instead of honest work, he prefers to search for adventures. Janet is a young, polite girl from a wealthy family and the daughter of a local baron and the ruler of the city. Despite the differences between them, they fall in love with each other, but Janet's father is against their acquaintanceship, stating that the street boy is not the right fiancé for his daughter. One day, Raul convinces his beloved to run away together.
 <br><br>
-As it turns out, the baron's fears were real. When Janet's father orders him to leave his daughter alone, the boy brutally kills him, burns the court, and returns to a girl who does not know what happened. They make love the same night.
-<br><br>
-With each act, the book becomes darker and scarier. Every time you read it, you envision an innocent, pure girl in a white dress and her dangerous and lustful lad. You feel a mix of jealousy, lust, and anger. And you like it.
-<br><br>
-<<if currentSkillValue('english') gte 600 and $arousal gte ($arousalmax / 5) * 2>>
-	You're not just reading a book anymore. All of the scenes and emotions are described so perfectly that you clearly feel like you are there. Like you are one of them.
-	<br><br>
-<<else>>
-	You think this will be one of your favourite books. You plan to return to it more often.
-	<br><br>
-<</if>>
-<<link [[Continue reading (0:20)|ScarletBook4]]>><<pass 20>><<stress -6>><<englishskill>><<arousal 600>><</link>><<genglish>><<lstress>><<garousal>>
-<br>
-<<if $bus is "schoollibrary">>
-	<<if Time.schoolDay>>
-		<<if $schoolstate is "lunch" and $exhibitionism gte 75>>
-			<<link [[Masturbate|Library Masturbation]]>><<set $masturbationstart to 1>><</link>><<exhibitionist5>>
-			<br>
-		<<elseif $schoolstate is "early" and $exhibitionism gte 35>>
-			<<link [[Masturbate|Library Masturbation]]>><<set $masturbationstart to 1>><</link>><<exhibitionist3>>
-			<br>
-		<<elseif $schoolstate is "late" and $exhibitionism gte 35>>
-			<<link [[Masturbate|Library Masturbation]]>><<set $masturbationstart to 1>><</link>><<exhibitionist3>>
-			<br>
-		<<elseif $exhibitionism gte 55>>
-			<<link [[Masturbate|Library Masturbation]]>><<set $masturbationstart to 1>><</link>><<exhibitionist4>>
-			<br>
-		<</if>>
-	<<elseif $exhibitionism gte 15>>
-		<<link [[Masturbate|Library Masturbation]]>><<set $masturbationstart to 1>><</link>><<exhibitionist2>>
-		<br>
+<<if $location is "avery_mansion">>
+	<<avery_mansion>>
+	<<if $avery_mansion.schedule isnot "away" and $avery_mansion.schedule isnot "work">>
+		<<set $_avery_present to true>>
 	<</if>>
 <</if>>
-<<if currentSkillValue('english') gte 600 and $arousal gte ($arousalmax / 5) * 2>>
-	<<link [[Imagine yourself as Janet|ScarletBook5]]>><<pass 30>><<arousal 600>><</link>><<garousal>>
-	<br>
+<<if $location is "avery_mansion" and ($avery_mansion?.schedule is "study" and !$avery_mansion?.study_unlocked) or ($avery_mansion?.study_unlocked is 1 and Time.hour is 23 and $_avery_present)>>
+	As it turns out, the baron's fears were real. When Janet's father orders him to leave his daughter alone, the boy brutally—
+	<br><br>
+
+	Your reading is interrupted by footsteps outside the study, and you hear someone gripping the door handle.<<if !$avery_mansion.study_unlocked>> You quickly close the book and hide.<</if>>
+	<br><br>
+	<<link [[Next|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
+<<elseif $location is "avery_mansion" and ["return", "party", "party_prepare", "date"].includes($avery_mansion?.schedule)>>
+	As it turns out, the baron's fears were real. When Janet's father orders him to leave his daughter alone, the boy brutally—
+	<br><br>
+
+	Your reading is interrupted by the sound of Avery approaching.<<if !$avery_mansion.study_unlocked>> You quickly close the book and exit the study.<</if>>
+	<br><br>
+	<<link [[Next|$oliveExitPassage]]>><<handheldon>><<unset $oliveExitPassage>><<pinchEnd>><</link>>
+<<else>>
+	As it turns out, the baron's fears were real. When Janet's father orders him to leave his daughter alone, the boy brutally kills him, burns the court, and returns to a girl who does not know what happened. They make love the same night.
+	<br><br>
+	With each act, the book becomes darker and scarier. Every time you read it, you envision an innocent, pure girl in a white dress and her dangerous and lustful lad. You feel a mix of jealousy, lust, and anger. And you like it.
+	<br><br>
+	<<if currentSkillValue('english') gte 600 and $arousal gte ($arousalmax / 5) * 2>>
+		You're not just reading a book anymore. All of the scenes and emotions are described so perfectly that you clearly feel like you are there. Like you are one of them.
+		<br><br>
+	<<else>>
+		You think this will be one of your favourite books. You plan to return to it more often.
+		<br><br>
+	<</if>>
+	<<if $scarletBook gte 5>>
+		<span class="pink">You've read the entire book.</span>
+		<br><br>
+	<<else>>
+		<<scarleticon>><<link [[Continue reading (0:20)|ScarletBook4]]>><<pass 20>><<englishskill>><<arousal 600>><</link>><<genglish>><<garousal>>
+		<br>
+	<</if>>
+	<<if $bus is "schoollibrary">>
+		<<if Time.schoolDay>>
+			<<if $schoolstate is "lunch" and hasSexStat("exhibitionism", 5)>>
+				<<skinicon "masturbate">><<link [[Masturbate|Library Masturbation]]>><<handheldon>><<set $masturbationstart to 1>><</link>><<exhibitionist5>>
+				<br>
+			<<elseif $schoolstate is "early" and hasSexStat("exhibitionism", 3)>>
+				<<skinicon "masturbate">><<link [[Masturbate|Library Masturbation]]>><<handheldon>><<set $masturbationstart to 1>><</link>><<exhibitionist3>>
+				<br>
+			<<elseif $schoolstate is "late" and hasSexStat("exhibitionism", 3)>>
+				<<skinicon "masturbate">><<link [[Masturbate|Library Masturbation]]>><<handheldon>><<set $masturbationstart to 1>><</link>><<exhibitionist3>>
+				<br>
+			<<elseif hasSexStat("exhibitionism", 4)>>
+				<<skinicon "masturbate">><<link [[Masturbate|Library Masturbation]]>><<handheldon>><<set $masturbationstart to 1>><</link>><<exhibitionist4>>
+				<br>
+			<</if>>
+		<<elseif hasSexStat("exhibitionism", 2)>>
+			<<skinicon "masturbate">><<link [[Masturbate|Library Masturbation]]>><<handheldon>><<set $masturbationstart to 1>><</link>><<exhibitionist2>>
+			<br>
+		<</if>>
+	<</if>>
+	<<if currentSkillValue('english') gte 600 and ($arousal gte ($arousalmax / 5) * 2 or $scarletBook gte 5)>>
+		<<daydreamicon>><<link [[Imagine yourself as Janet|ScarletBook5]]>><<handheldon>><<pass 30>><<arousal 600>><</link>><<garousal>>
+		<br>
+	<</if>>
+	<<getouticon>><<link [[Put the book away|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
 <</if>>
-<<link [[Put the book away|$scarletExitPassage]]>><<unset $scarletExitPassage>><</link>>
 <br>
 
 /*indev scarlet book event. English 600+*/
 :: ScarletBook5
-<<if $scarletExitPassage is undefined>>
-	<<set $scarletExitPassage to "School Library">>
-<</if>>
-<<calljanet>>
+<<callJanet>>
 <i>
 Lonely house outside the city.
 <br>
@@ -163,7 +229,7 @@ I has't hath returned to thee.<span class="black"> (I have returned to you.)</sp
 <br>
 Prithee f'rgive me thee hadst to waiteth f'r so longeth<span class="black"> (Please forgive me you had to wait for so long)</span>
 <br>
-Th're w're things yond i hadst to doth but anon i am all yours."<span class="black"> (There were things I had to do but now I'm all yours.)</span>
+Th're w're things yond I hadst to doth but anon I am all yours."<span class="black"> (There were things I had to do but now I'm all yours.)</span>
 <br><br>
 <<link [[Continueth|ScarletBook6]]>><<arousal 1200>><</link>>
 
@@ -177,6 +243,7 @@ Cometh ov'r h're!<span class="black"> (Come over here!)</span>
 Cometh to me!"<span class="black"> (Come to me!)</span>
 <br><br>
 <i>They kiss.</i>
+<<silently>><<takeKissVirginity "Raul" "loveInterest" "human">><</silently>>
 <br><br>
 <b>RAUL:</b>
 <br>
@@ -264,7 +331,8 @@ And nothing shall setteth as apart ev'r again!"<span class="black"> (And nothing
 <<link [[Continueth|Drama]]>><<set $molestationstart to 1>><</link>>
 
 :: ScarletBook8aye
-<<sleepjanet>><<endcombat>><<pass 10>>
+<<sleepJanet>><<pass 10>>
+<<set $janet_book_read to 1>>
 
 The vision slowly fades out.
 You feel relaxed and a little jealous.
@@ -272,10 +340,11 @@ You feel relaxed and a little jealous.
 <br><br>
 You liked it, despite knowing that the <b>original story went differently</b>.
 <br><br>
-<<link [[Put the book away|$scarletExitPassage]]>><<unset $scarletExitPassage>><</link>>
+<<link [[Put the book away|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
 
 :: ScarletBook8nay
-<<sleepjanet>><<endcombat>><<pass 10>>
+<<sleepJanet>><<pass 10>>
+<<set $janet_book_read to 1>>
 
 The vision slowly fades out.
 You feel aroused and excited.
@@ -283,7 +352,7 @@ You feel aroused and excited.
 <br><br>
 You liked it, despite knowing that the <b>original story went differently</b>.
 <br><br>
-<<link [[Put the book away|$scarletExitPassage]]>><<unset $scarletExitPassage>><</link>>
+<<link [[Put the book away|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><</link>>
 
 :: ScarletBook9
 <b>RAUL:</b>
@@ -319,15 +388,17 @@ The story ends with both would-be lovers looking into one another's eyes for the
 <br><br>
 You slowly close the book. You feel moved, but relaxed.
 
-<<sleepjanet>>
+<<sleepJanet>>
 <<stress -12>><<llstress>>
+<<set $janet_book_read to 1>>
 
 <br>
 It's time to get back to reality.
 <br>
 How long have you been here?
 <br><br>
-<<link [[Put the book away|$scarletExitPassage]]>><<unset $scarletExitPassage>><<endcombat>><</link>>
+<<specialClothesUnlock "set" "janet">>
+<<link [[Put the book away|$scarletExitPassage]]>><<handheldon>><<unset $scarletExitPassage>><<endcombat>><</link>>
 
 /*indev*/
 :: Library Masturbation
@@ -338,20 +409,20 @@ The words you have just read echo in your head. You can no longer ignore what yo
 <br>
 <<if Time.schoolDay>>
 	<<set $mouth to "disabled">>
-	<<if $schoolstate is "lunch" and $exhibitionism gte 75>>
+	<<if $schoolstate is "lunch" and hasSexStat("exhibitionism", 5)>>
 		The room is crowded, but you don't care any more. They may look at you, but they can't see what you see.
 		<<exhibitionism5>>
-	<<elseif $schoolstate is "early" and $exhibitionism gte 35>>
+	<<elseif $schoolstate is "early" and hasSexStat("exhibitionism", 3)>>
 		Nobody's here yet, and being alone in a place like this excites you even more.
 		<<exhibitionism3>>
-	<<elseif $schoolstate is "late" and $exhibitionism gte 35>>
+	<<elseif $schoolstate is "late" and hasSexStat("exhibitionism", 3)>>
 		Nobody's here anymore, and being alone in a place like this excites you even more.
 		<<exhibitionism3>>
-	<<elseif $exhibitionism gte 55>>
+	<<elseif hasSexStat("exhibitionism", 4)>>
 		There are some people around. You wonder if they will notice.
 		<<exhibitionism4>>
 	<</if>>
-<<elseif $exhibitionism gte 15>>
+<<elseif hasSexStat("exhibitionism", 2)>>
 	The dark hallways of the library stay empty and quiet. You could swear you can hear your own heartbeat rising.
 	<<exhibitionism2>>
 <</if>>
@@ -401,6 +472,8 @@ The words you have just read echo in your head. You can no longer ignore what yo
 	<<set $consensual to 1>>
 	<<neutral 1>>
 
+	<<set _strapIgnore to 1>>
+	<<set $noBodyWriting to 1>>
 	<<generateNPC 1 a m m 17>><<person1>><<npcClothesName $NPCList[0] "neutralFormal">>
 	<<set $enemyno = 1>><<set $enemynomax = 1>>
 	<<maninit>>
@@ -408,21 +481,23 @@ The words you have just read echo in your head. You can no longer ignore what yo
 	<<set $NPCList[0].insecurity to "weak">>
 	<<set $enemytrust += 500>>
 	<<set $NPCList[0].fullDescription to "Raul">>
+	<<set $NPCList[0].name to "Raul">>
+	<<set $NPCList[0].name_known to 1>>
 	<b>RAUL:</b>
 	<br>
 	"Mine own M'rning Star! Mine own Sunshine!<span class="black"> (My Morning Star! My Sunshine!)</span>
 	<br>
 	Thou art all mine own life!<span class="black"> (You are all my life!)</span>
 	<br>
-	W'rds cannot describeth how beauty thou art. <span class="black"> (Words cannot describe how beautiful you are.)</span>
+	W'rds cannot describeth how beauty thou art.<span class="black"> (Words cannot describe how beautiful you are.)</span>
 	<br>
-	Thy hair liketh rays of the moonlight. <span class="black"> (Your hair like rays of the moonlight.)</span>
+	Thy hair liketh rays of the moonlight.<span class="black"> (Your hair like rays of the moonlight.)</span>
 	<br>
-	Thy eyes liketh stars shining in the sky. <span class="black"> (Your eyes like stars shining in the sky.)</span>
+	Thy eyes liketh stars shining in the sky.<span class="black"> (Your eyes like stars shining in the sky.)</span>
 	<br>
 	Thy scent liketh a lonely f'rn floweth'r.<span class="black"> (Your scent like a lonely fern flower.)</span>
 	<br>
-	And thy toucheth. Warmeth liketh a candle flame. <span class="black"> (And your touch. Warm like a candle flame.)</span>
+	And thy toucheth. Warmeth liketh a candle flame.<span class="black"> (And your touch. Warm like a candle flame.)</span>
 	<br>
 	An angel thou art! Not a m'rtal!<span class="black"> (An angel you are! Not a mortal!)</span>
 	<br>
@@ -474,15 +549,19 @@ The words you have just read echo in your head. You can no longer ignore what yo
 	<<violence 1>>
 	<<neutral 1>>
 	<<molested>>
+	<<set _strapIgnore to 1>>
+	<<set $noBodyWriting to 1>>
 	<<generateNPC 1 a m m 17>><<person1>>
 	<<set $enemyno = 1>><<set $enemynomax = 1>>
 	<<maninit>>
 	<<set $crossdressing to 0>>
 	<<set $NPCList[0].insecurity to "weak">>
 	<<set $NPCList[0].fullDescription to "Raul">>
+	<<set $NPCList[0].name to "Raul">>
+	<<set $NPCList[0].name_known to 1>>
 	/*Reduce enemy's Health to half, so he can be defeated in battle*/
-	<<set $enemyhealthmax to 100 * $enemyno * $npchealthmult>>
-	<<set $enemyhealth to 100 * $enemyno * $npchealthmult>>
+	<<set $enemyhealthmax to 100 * $enemyno>>
+	<<set $enemyhealth to 100 * $enemyno>>
 <</if>>
 
 <<effects>>
@@ -517,7 +596,7 @@ The words you have just read echo in your head. You can no longer ignore what yo
 	"Oh aye! Aye!<span class="black"> (Oh yes! Yes!)</span>
 	<br>
 	Anon thee shall beest mineth f'rev'r!"<span class="black"> (Now you will be mine forever!)</span>
-	<br>
+	<br><br>
 	<<link [[Continueth|ScarletBook8nay]]>><</link>>
 	<br>
 <<elseif $finish is 1>>
@@ -527,81 +606,21 @@ The words you have just read echo in your head. You can no longer ignore what yo
 <<endcombat>>
 
 :: Scarlet Widgets [widget]
-<<widget "calljanet">>
-	/*store players stats*/
-	<<set $statFreeze to true>>
-	<<set $real_playersex to $player.sex>>
-	<<set $real_playergender to $player.gender>>
-	<<set $real_penisexist to $player.penisExist>>
-	<<set $real_vaginaexist to $player.vaginaExist>>
-	<<set $real_lefteyecolour to $leftEyeColour>>
-	<<set $real_righteyecolour to $rightEyeColour>>
-
-	<<set $real_haircolour to $haircolour>>
-	<<set $real_hairfringecolour to $hairfringecolour>>
-	<<set $real_hairColourStyle to $hairColourStyle>>
-	<<set $real_hairColourGradient to $hairColourGradient>>
-	<<set $real_hairFringeColourStyle to $hairFringeColourStyle>>
-	<<set $real_hairFringeColourGradient to $hairFringeColourGradient>>
-
-	<<set $real_hairlength to $hairlength>>
-	<<set $real_breastsize to $player.breastsize>>
-	<<set $real_ballsexist to $player.ballsExist>>
-
-	<<set $real_bodyliquid to clone($player.bodyliquid)>>
-	<<set $real_parasite to clone($parasite)>>
-	<<set $real_virginity to clone($player.virginity)>>
-	<<set $real_pain to $pain>>
-	<<set $real_arousal to $arousal>>
-	<<set $real_tiredness to $tiredness>>
-	<<set $real_stress to $stress>>
-	<<set $real_trauma to $trauma>>
-	<<set $real_control to $control>>
-	<<set $real_angel to $angel>>
-	<<set $real_angelbuild to $angelbuild>>
-	<<set $real_fallenangel to $fallenangel>>
-	<<set $real_demon to $demon>>
-	<<set $real_wolfgirl to $wolfgirl>>
-	<<set $real_cat to $cat>>
-	<<set $real_cow to $cow>>
-	<<set $real_harpy to $harpy>>
-	<<set $real_fox to $fox>>
-	<<set $real_bee to $bee>>
-	<<set $real_sheep to $sheep>>
-	<<set $real_deer to $deer>>
-	<<set $real_bear to $bear>>
-	<<set $real_raccoon to $raccoon>>
-	<<set $real_fish to $fish>>
-	<<set $real_horse to $horse>>
-	<<set $real_spider to $spider>>
-	<<set $real_frog to $frog>>
-	<<set $real_pig to $pig>>
-	<<set $real_dolphin to $dolphin>>
-	<<set $real_ghost to $ghost>>
-	<<set $real_slime to $slime>>
-	<<set $real_mushroom to $mushroom>>
-	<<set $real_eldritch to $eldritch>>
-	<<set $real_gob to $gob>>
-	<<set $real_fame to $fame>>
-	<<set $real_sexStats to clone($sexStats)>>
-	<<set $real_skulduggery to $skulduggery>>
-	<<set $real_purity to $purity>>
-	<<set $real_spray to $spray>>
-	<<set $real_skin to clone($skin)>>
-	/*store player clothing*/
-
-	<<undress "janet">>
-	<<if $worn.genitals.name isnot "naked">>
-		<<set $real_wornGenitals to clone($worn.genitals)>>
-		<<set $worn.genitals to clone(setup.clothes.genitals[0])>>
+<<widget "callJanet">>
+	/*store player's stats*/
+	<<if !$frozenValues>>
+		<<freezePlayerStats>>
 	<</if>>
-	/*store time*/
-	<<set $real_timeStamp to $timeStamp>>
+
 	/*morph player into Janet*/
+	<<visionPrepMorph>>
 	<<set $player.gender to "f">>
+	<<set $player.gender_appearance to "f">>
 	<<set $player.sex to "f">>
 	<<set $vaginastate to 0>>
-	<<set $player.virginity to {anal:true,oral:true,penile:true,vaginal:true,temple:false,handholding:true,kiss:true}>>
+	<<set $vaginause to 0>>
+	<<set $penisuse to "none">>
+	<<set $penisstate to "none">>
 	<<set $leftEyeColour to "light blue">>
 	<<set $rightEyeColour to "light blue">>
 	<<set $haircolour to "platinumblond">>
@@ -609,141 +628,116 @@ The words you have just read echo in your head. You can no longer ignore what yo
 	<<set $hairColourStyle to "simple">>
 	<<set $hairFringeColourStyle to "simple">>
 	<<set $hairlength to 400>>
+	<<set $facestyle to "default">>
+	<<set $facevariant to "sweet">>
 	<<set $player.breastsize to 5>>
-	<<bodyliquid "clear">>
-	<<for _bodypart range $parasite.bodyparts>>
-		<<set $parasite[_bodypart] to {}>>
-	<</for>>
-	<<bodywriting_init>>
-
-	<<set $pain to 0>>
-	<<set $arousal to 0>>
-	<<set $tiredness to 0>>
-	<<set $stress to 0>>
-	<<set $trauma to 0>>
-	<<set $control to 500>>
-	<<set $angel to 0>>
-	<<set $angelbuild to 0>>
-	<<set $demon to 0>>
-	<<set $wolfgirl to 0>>
-	<<set $cat to 0>>
-	<<set $cow to 0>>
-	<<set $harpy to 0>>
-	<<set $fox to 0>>
-	<<set $bee to 0>>
-	<<set $sheep to 0>>
-	<<set $deer to 0>>
-	<<set $bear to 0>>
-	<<set $raccoon to 0>>
-	<<set $fish to 0>>
-	<<set $horse to 0>>
-	<<set $spider to 0>>
-	<<set $frog to 0>>
-	<<set $pig to 0>>
-	<<set $dolphin to 0>>
-	<<set $ghost to 0>>
-	<<set $slime to 0>>
-	<<set $mushroom to 0>>
-	<<hideTransformations>>
-	<<set $skulduggery to 0>>
-	<<set $spray to 0>>
-	/*change location and time*/
-	<<set Time.setTime(21, 0)>>
-	<<location "forest">>
-	/*give player clothes*/
-
-	<<feetwear 1>>
-	<<legswear 5>>
-	<<upperwear 7>>
-	<<underlowerwear 3>>
-	<<freezePlayerStats>>
 	<<set $player.penisExist to false>>
 	<<set $player.ballsExist to false>>
 	<<set $player.vaginaExist to true>>
+	<<set $speech_attitude to "neutral">>
+
+	<<set $arousal to 4000>>
+	<<set $pain to 0>>
+	<<set $tiredness to 200>>
+	<<set $stress to 0>>
+	<<set $trauma to 200>>
+	<<set $control to 1000>>
+	<<set $submissive to 2000>>
+	<<set $awareness to 0>>
+	<<set $awarelevel to 0>>
+	<<set $physique to 4000>>
+	<<set $willpower to 500>>
+	<<set $spraymax to 0>>
+	<<set $money to 0>>
+	<<set $innocencestate to 0>>
+
+	<<set $purity to 1000>>
+	<<set $beauty to 8000>>
+	<<set $promiscuity to 0>>
+	<<set $exhibitionism to 0>>
+	<<set $deviancy to 0>>
+	<<set $skulduggery to 200>>
+	<<set $danceskill to 800>>
+	<<set $swimmingskill to 0>>
+	<<set $athletics to 100>>
+	<<set $tending to 400>>
+	<<set $housekeeping to 1000>>
+	<<set $seductionskill to 400>>
+	<<set $oralskill to 0>>
+	<<set $handskill to 0>>
+	<<set $analskill to 0>>
+	<<set $chestskill to 0>>
+	<<set $thighskill to 0>>
+	<<set $bottomskill to 0>>
+	<<set $feetskill to 0>>
+	<<set $vaginalskill to 0>>
+
+	<<unset $temple_rank>><<set $templePromised to "">>
+	<<unset $avery_fate>><<unset $auriga_artefact>>
+
+	/* Set traits, and prevent things that often cause irregular traits */
+	<<set $sciencetrait to 0>><<set $mathstrait to 0>><<set $historytrait to 0>><<set $englishtrait to 0>><<set $schooltrait to 0>>
+	<<set $scienceprojectwon to 0>><<set $mathsprojectwon to 0>><<set $englishPlayWell to 0>>
+	<<set $islander_language to 0>><<set $temple_burden to 0>><<set $prof.baton to 0>><<set $prof.whip to 0>>
+	<<set $angelBanish to 0>><<set $angelBanishMax to 0>>
+	<<set $sadism to 0>><<set $sadism_level to 0>>
+	<<set $masochism to 0>><<set $masochism_level to 0>>
+	<<set $backgroundTraits to ['beautiful']>>
+	<<set $sexStats.anus.pregnancy.motherStatus to 0>><<set $sexStats.vagina.pregnancy.motherStatus to 0>>
+	<<set $sexStats.anus.pregnancy.totalBirthEvents to 0>><<set $sexStats.vagina.pregnancy.totalBirthEvents to 0>>
+	<<set $heterochromia to 0>>
+	<<set $farm_stage to 0>>
+	<<set $farm_stage to 0>><<set $quicksand to 0>><<set $moorLuck to 0>>
+	<<set $acceptance_penis_small to 0>><<set $acceptance_penis_big to 0>><<set $acceptance_breasts_small to 0>><<set $acceptance_breasts_big to 0>><<set $acceptance_pregnancy to 0>>
+	<<set $bestialitytrait to 0>><<set $choketrait to 0>><<set $ejactrait to 0>><<set $milkdranktrait to 0>><<set $molesttrait to 0>><<set $orgasmtrait to 0>><<set $rapetrait to 0>><<set $tentacletrait to 0>><<set $voretrait to 0>>
+	<<set $robinpaid to 0>><<set $syndromeeden to 0>><<set $syndromekylar to 0>><<set $syndromewolves to 0>><<set $syndromebird to 0>>
+	<<run Object.keys(V.transformationParts).forEach((tf) => {
+		Object.entries(V.transformationParts[tf]).forEach(([part, value]) => {
+			if (value !== 'disabled') {
+				V.transformationParts[tf][part] = 'disabled';
+			}
+		});
+	})>>
+	<<if $sexStats?.pills?.pills>>
+		<<set _pills to $sexStats.pills.pills>>
+		<<run Object.keys(_pills).forEach((key)=> {
+			if (T.pills[key]?.doseTaken) T.pills[key].doseTaken = 0;
+		})>>
+	<</if>>
+
+	/* Prevent things that often cause disrupting messages */
+	<<set $milk_volume to 0>>
+	<<set $milk_amount to 0>>
+	<<set $lactating to 0>>
+	<<set $sexStats.vagina.pregnancy.totalBirthEvents to 0>>
+	<<set $vaginaWetness to 0>>
+	<<set $penisWetness to 0>>
+	<<set $anusWetness to 0>>
+	<<set $uncomfortable.hypnosis to true>>
+	<<set $harper_appointments.hypnosis to 0>><<set $hypnosis_traits to {}>><<set $hypnosisTimers to {}>>
+
+	<<set $loveInterest to {
+		primary: "Raul",
+		secondary: "None",
+		tertiary: "None"
+	}>>
+
+	/*change location and time*/
+	<<run Time.timeTravel(new DateTime(1682, 7, 8, 21, 0))>>
+	<<set V.weatherObj.snow = (0)>>
+	<<location "forest">>
+
+	/*give player clothes*/
+	<<handheldstrip>>
+	<<feetwear "court heels">>
+	<<legswear "fishnet stockings">>
+	<<upperwear "janet dress" "wine" "white">>
+	<<underlowerwear "lace panties">>
 <</widget>>
 
-<<widget "sleepjanet">>
-	<<unfreezePlayerStats>>
-	/*restore clothes integrity and undress*/
-	<<set _rebuy to $clothingrebuy>>
-	<<set $clothingrebuy to 0>>
-	<<clotheson>>
-	<<ruined>>
-	<<set $clothingrebuy to _rebuy>>
-
-	/*restore real clothes*/
-	<<storeon "janet">>
-	<<if $real_wornGenitals isnot undefined>>
-		<<set $worn.genitals to clone($real_wornGenitals)>>
-		<<unset $real_wornGenitals>>
+<<widget "sleepJanet">>
+	<<if $frozenValues and !$replayScene>>
+		<<unfreezePlayerStats>>
 	<</if>>
-	/*restore players stats*/
-	<<set $player.sex to $real_playersex>>
-	<<set $player.gender to $real_playergender>>
-	<<set $player.penisExist to $real_penisexist>>
-	<<set $player.vaginaExist to $real_vaginaexist>>
-	<<unset $statFreeze>>
-	<<if $real_lefteyecolour>>
-		<<set $leftEyeColour to $real_lefteyecolour>>
-		<<set $rightEyeColour to $real_righteyecolour>>
-	<<else>>
-		<<set $leftEyeColour to $real_eyecolour>>
-		<<set $rightEyeColour to $real_eyecolour>>
-	<</if>>
-
-	<<set $haircolour to $real_haircolour>>
-	<<set $hairfringecolour to $real_hairfringecolour>>
-	<<set $hairColourStyle to $real_hairColourStyle>>
-	<<set $hairColourGradient to $real_hairColourGradient>>
-	<<set $hairFringeColourStyle to $real_hairFringeColourStyle>>
-	<<set $hairFringeColourGradient to $real_hairFringeColourGradient>>
-
-	<<set $hairfringecolour to $real_hairfringecolour>>
-	<<set $hairlength to $real_hairlength>>
-	<<set $player.breastsize to $real_breastsize>>
-	<<set $player.ballsExist to $real_ballsexist>>
-	<<set $player.bodyliquid to clone($real_bodyliquid)>><<goocount>>
-	<<set $parasite to clone($real_parasite)>>
-	<<set $player.virginity to clone($real_virginity)>>
-	<<set $pain to $real_pain>>
-	<<set $arousal to $real_arousal>>
-	<<set $tiredness to $real_tiredness>>
-	<<set $stress to $real_stress>>
-	<<set $trauma to $real_trauma>>
-	<<set $control to $real_control>>
-	<<set $angel to $real_angel>>
-	<<set $angelbuild to $real_angelbuild>>
-	<<set $demon to $real_demon>>
-	<<set $wolfgirl to $real_wolfgirl>>
-	<<set $cat to $real_cat>>
-	<<set $cow to $real_cow>>
-	<<set $harpy to $real_harpy>>
-	<<set $bee to $real_bee>>
-	<<set $sheep to $real_sheep>>
-	<<set $deer to $real_deer>>
-	<<set $bear to $real_bear>>
-	<<set $raccoon to $real_raccoon>>
-	<<set $fish to $real_fish>>
-	<<set $horse to $real_horse>>
-	<<set $spider to $real_spider>>
-	<<set $frog to $real_frog>>
-	<<set $pig to $real_pig>>
-	<<set $dolphin to $real_dolphin>>
-	<<set $ghost to $real_ghost>>
-	<<set $slime to $real_slime>>
-	<<set $mushroom to $real_mushroom>>
-	<<set $eldritch to $real_eldritch>>
-	<<set $gob to $real_gob>>
-	<<showTransformations>>
-	<<set $fame to $real_fame>>
-	<<set $sexStats to clone($real_sexStats)>>
-	<<set $skulduggery to $real_skulduggery>>
-	<<set $purity to $real_purity>>
-	<<set $spray to $real_spray>>
-	<<set $skin to clone($real_skin)>>
-	/*restore location and time*/
-	<<set $location to "school">>
-	<<set $timeStamp to $real_timeStamp>>
-	<<run Time.set()>>
-	<<unset $real_timeStamp>>
+	<<endcombat>>
 <</widget>>
