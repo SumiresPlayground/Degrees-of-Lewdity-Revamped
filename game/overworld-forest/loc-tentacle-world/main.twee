@@ -1,10 +1,10 @@
 :: Widgets Tentacle World [widget]
 <<widget "passouttentacleworld">>
-	<<if isPlayerNonparasitePregnancyEnding()>>
-		<<pregnancyWatersBrokenPassout "tentacleworld">>
+	<<if isPregnancyEnding()>>
+		<<pregnancyPassout "tentacleworld">>
 	<<else>>
 		<<passout>>
-		<<link [[Everything fades to black...->Passout Tentacle World]]>><</link>>
+		<<link [[Everything fades to black...|Passout Tentacle World]]>><</link>>
 	<</if>>
 <</widget>>
 
@@ -33,19 +33,20 @@
 	<<unset $tentacle_forest_time>>
 	<<unset $tentacle_forest_stream>>
 	<<unset $tentacle_forest_lurker>>
+	<<set $orgasmcurrent to 0>>
 <</widget>>
 
 <<widget "tentacle_forest_safe_orgasm">>
 	<<if $arousal gte 10000 and $tentacle_forest_lurker.includes("defeated")>>
 		You fall to your hands and knees as the sensations become too much to bear. <<orgasm>>
 		<br><br>
-		You struggle to your feet. Despite being in a vulnerable state, <span class="teal">nothing assaults you.</span> <<if $eldritch is 1>><span class="black">They know better than to try.</span><</if>>
+		You struggle to your feet. Despite being in a vulnerable state, <span class="teal">nothing assaults you.</span>
 		<br><br>
 	<</if>>
 <</widget>>
 
 <<widget "tentacle_forest_end_scene">>
-<span class="blue">Something is coming for you.</span> You feel it. Time parts to allow its passage. It whirls around you, unraveling this reality.
+<span class="blue">Something is coming for you.</span> You feel it. Time parts to allow its passage. It whirls around you, unravelling this reality.
 <br><br>
 <<set $bus to "barb">>
 <<link [[Next|Flats Hookah End]]>><<tentacleworldend>><</link>>
@@ -66,8 +67,8 @@ They seize your limbs before your orgasm subsides, and drag you below.
 <</widget>>
 
 <<widget "tentacle_forest_stress_scene">>
-	<<if isPlayerNonparasitePregnancyEnding()>>
-		<<pregnancyWatersBrokenPassout "tentacleforest">>
+	<<if isPregnancyEnding()>>
+		<<pregnancyPassout "tentacleforest">>
 	<<else>>
 		You've pushed yourself too much, and collapse to your knees.
 		<br><br>
@@ -77,7 +78,7 @@ They seize your limbs before your orgasm subsides, and drag you below.
 		<<if $tentacle_forest_lurker.includes("defeated")>>
 			You land on your <<bottom>> in the cave beneath the forest. <span class="red">The strange creature has returned,</span> and squirms towards you.
 		<<else>>
-			You land on your <<bottom>> in a pool of thick, pink fluid, surrounded by cavernous walls. A strange creature squirms towards you. It has no discernable features, save a single, colossal maw.
+			You land on your <<bottom>> in a pool of thick, pink fluid, surrounded by cavernous walls. A strange creature squirms towards you. It has no discernible features, save a single, colossal maw.
 		<</if>>
 		<br><br>
 
@@ -221,7 +222,7 @@ Time remaining in the forest: <<print (60 - $tentacle_forest_time)>>
 	You feel a squishiness beneath your feet. You move your foot, and see a large eye staring up at you. It blinks. The lid becomes a pair of lips. One whisper, and you find yourself lying on your back, staring up at the tentacles swaying overhead.
 	<br><br>
 	You can't remember what was said.
-	<<if $awarness lt 600>>
+	<<if $awareness lt 600>>
 		<<gawareness>><<awareness 3>>
 	<<else>>
 		<<ggarousal>><<arousal 1800>>
@@ -260,7 +261,7 @@ Time remaining in the forest: <<print (60 - $tentacle_forest_time)>>
 <</widget>>
 
 :: Tentacle World Intro
-<<location "tentworld">><<effects>><<set $phase to 0>>
+<<location "tentworld">><<set $outside to 0>><<effects>><<set $phase to 0>>
 <<tentacleworldintro>>
 
 You open the door, revealing an alien landscape. Giant tentacles writhe against the sky. <span class="red">An orgasm here could be dangerous.</span>
@@ -305,7 +306,7 @@ as the pleasure pulses brighter and brighter within you. Your stiff body collaps
 <br>
 
 :: Passout Tentacle World 2
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 
 But it's not over. Before you can regain your senses, two naughty tentacles find your <<nipples>> and begin to vigorously grind against them.
 You squeal at this spike of pleasure, your eyes flying open as you look down at your chest. Instead of feeling your orgasm dissipate, it
@@ -331,7 +332,7 @@ receding. Your mind, soaked for so long in a fog of unrelenting pleasure, starts
 <br>
 
 :: Passout Tentacle World 3
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 
 Then a tentacle flicks the tip of your <<print ($player.penisExist ? "penis" : "clit")>> hard, sending a jolt right to your brain. With
 tentacles torturing your ass and nipples, this lone strike against your most sensitive place, which up until now had not been subjected
@@ -355,7 +356,7 @@ It goes on and on and on, your body no longer distinguishing one peak from the n
 battle against the pleasure being forced upon you and your mind begins to shatter.
 <br><br>
 
-Overwhelmed with unending orgasms, you nearly slip into unconsciousness.
+Overwhelmed with unending orgasms, you eventually crash into unconsciousness.
 <br><br>
 
 <<if $slime gt 0 and $slime isnot 2>>
@@ -440,33 +441,38 @@ With that thought in mind, You finally let sleep take you.
 		<br><br>
 	<</if>>
 	<<link [[Next|Asylum Room 2]]>><<set $lustwake to 0>><</link>>
+	<<link [[Next|Asylum Room 2]]>><</link>>
 <</if>>
 <br>
 
 :: Tentacle Plains
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentacleorgasmignore is undefined>><<set $tentacleorgasmignore to 0>><</if>>
-You are on the tentacle plains. Tendrils growing from the ground strain to reach your <<genitals>>, caressing your thighs and
-whatever else they can reach. The air is sweet.
-<<drugs 10>><<ggarousal>><<arousal 1200>>
+You are on the tentacle plains.
+<<if $phase is 5>>
+	You feel the slime in your head make a strange noise as you head in the direction it wants you to go. Tendrils growing from the ground seem to avoid you while the air seems clearer than before.
+	<<if $tentacleorgasmignore is 0>><<set $tentacleorgasmignore to 1>><</if>>
+<<else>>
+	Tendrils growing from the ground strain to reach your <<genitals>>, caressing your thighs and
+	whatever else they can reach. The air is sweet.
+	<<drugs 10>><<ggarousal>><<arousal 1200>>
+<</if>>
 <br><br>
-<<if $phase is 1>>
-	You walk north.
-	<br><br>
-<</if>>
-<<if $phase is 2>>
-	You walk south.
-	<br><br>
-<</if>>
-<<if $phase is 3>>
-	You walk east.
-	<br><br>
-<</if>>
-<<if $phase is 4>>
-	You walk west.
-	<br><br>
-<</if>>
+<<switch $phase>>
+	<<case 1>>
+		You walk north.
+		<br><br>
+	<<case 2>>
+		You walk south.
+		<br><br>
+	<<case 3>>
+		You walk east.
+		<br><br>
+	<<case 4>>
+		You walk west.
+		<br><br>
+<</switch>>
 <<tentaclewolf>>
 <<set $phase to 0>>
 <<if $stress gte $stressmax>>
@@ -522,11 +528,33 @@ whatever else they can reach. The air is sweet.
 		<<peppersprayicon>><<link [[Touch|Tentacle Plains Spray]]>><<set $spraymax += 1>><<set $tentspray to 1>><<spray 5>><</link>><<gspraymax>>
 		<br><br>
 	<</if>>
-	<<if $tentnorth is -2 and $tenteast is -2 and $tentcloth isnot 1>>
+	<<if numberOfEarSlime() gte 2 and $earSlime.growth gt 50 and $earSlime.focus isnot "none" and !$weekly.earSlimeTentaclePlains and $tentnorth lte 0 and $tenteast lte 1>>
+		<span class="red">You feel the slime in your head urge you to face a specific way, as if it wants you to head towards something.</span>
+		<br>
+		<<if $tentnorth is -5 and $tenteast is -4>>
+			<<ind>><<link [[Follow the slime's directions (0:10)|Tentacle Plains Ear Slime]]>><<pass 10>><</link>>
+		<<else>>
+			<<ind>><<link [[Follow the slimes' directions (0:10)|Tentacle Plains]]>>
+				<<pass 10>><<set $phase to 5>>
+				<<if $tenteast gte -3 and random(0,100) gte 50>>
+					<<set $tenteast -= 1>>
+				<<elseif $tenteast is -5 and random(0,100) gte 50>>
+					<<set $tenteast += 1>>
+				<<elseif $tentnorth gt -5>>
+					<<set $tentnorth -= 1>>
+				<<elseif $tenteast gte -3>>
+					<<set $tenteast -= 1>>
+				<<elseif $tenteast is -5>>
+					<<set $tenteast += 1>>
+				<</if>>
+			<</link>>
+		<</if>>
+		<br><br>
+		<<if $tentnorth is -2 and $tenteast is -2 and $tentcloth isnot 1>>
 		A set of strange looking clothes hovers in the air at chest-height, held aloft by thin tendrils.
 		<br>
 		<<link [[Touch|Living Clothes Discovery]]>><<set $tentcloth to 1>><</link>>
-		<br><br>
+		<br>
 	<</if>>
 	<<if $tentnorth lt 5>>
 		<<tentacleicon "north">><<link [[North (0:10)|Tentacle Plains]]>><<pass 10>><<set $tentnorth += 1>><<set $phase to 1>><</link>>
@@ -545,45 +573,45 @@ whatever else they can reach. The air is sweet.
 		<br>
 	<</if>>
 	<<if $demon gte 6 and $tentacleadmire gte 1>>
-		<<ind>><<link [[Offer yourself|Tentacle Plains Admire]]>><</link>><<demon>>
+		<<tficon "demon">><<link [[Offer yourself|Tentacle Plains Admire]]>><</link>><<demon>>
 		<br>
 	<<elseif $demon gte 6>>
-		<<ind>><<link [[Admire|Tentacle Plains Admire]]>><</link>><<demon>>
+		<<tficon "demon">><<link [[Admire|Tentacle Plains Admire]]>><</link>><<demon>>
 		<br>
 	<</if>>
 	<<if $tentaclewolf gte 2>>
-		<<ind>><<link [[Howl|Tentacle Plains Howl]]>><<transform wolf 1>><</link>><<wolfgirl>>
+		<<tficon "wolf">><<link [[Howl|Tentacle Plains Howl]]>><<transform wolf 1>><</link>><<wolfgirl>>
 		<br>
 	<</if>>
 	<<if $angel gte 6 and $tentacleangel gte 2>>
-		<<ind>><<link [[Resist|Tentacle Plains Resist]]>><</link>><<angel>>
+		<<tficon "angel">><<link [[Resist|Tentacle Plains Resist]]>><</link>><<angel>>
 		<br>
 	<<elseif $angel gte 6>>
-		<<ind>><<link [[Focus|Tentacle Plains Resist]]>><</link>><<angel>>
+		<<tficon "angel">><<link [[Focus|Tentacle Plains Resist]]>><</link>><<angel>>
 		<br>
 	<</if>>
 	<<if $fallenangel gte 2>>
-		<<ind>><<link [[Despair|Tentacle Plains Despair]]>><</link>><<fallenangel>>
+		<<tficon "fallenangel">><<link [[Despair|Tentacle Plains Despair]]>><</link>><<fallenangel>>
 		<br>
 	<</if>>
 	<<if $cat gte 6>>
-		<<ind>><<link [[Pounce|Tentacle Plains Cat]]>><<transform cat 1>><</link>><<cat>>
+		<<tficon "cat">><<link [[Pounce|Tentacle Plains Cat]]>><<transform cat 1>><</link>><<cat>>
 		<br>
 	<</if>>
-	<<if $cow gte 6 and $breastfeedingdisable is "f">>
-		<<ind>><<link [[Let the tentacles milk your breasts|Tentacle Cow Breasts]]>><<transform cow 1>><</link>><<cow>>
+	<<if $cow gte 6 and $settings.breastFeedingEnabled>>
+		<<tficon "cow">><<link [[Let the tentacles milk your breasts|Tentacle Cow Breasts]]>><<transform cow 1>><</link>><<cow>>
 		<br>
 	<</if>>
 	<<if $cow gte 6 and $player.penisExist and !playerChastity("penis")>>
-		<<ind>><<link [[Let the tentacles milk your penis|Tentacle Cow Penis]]>><<transform cow 1>><</link>><<cow>>
+		<<tficon "cow">><<link [[Let the tentacles milk your penis|Tentacle Cow Penis]]>><<transform cow 1>><</link>><<cow>>
 		<br>
 	<</if>>
-	<<if $harpy gte 6>>
-		<<ind>><<link [[Get a bird's eye view|Tentacle Bird]]>><<transform bird 1>><</link>><<flight_text>>
+	<<if $harpy gte 6 or $dragon gte 6>>
+		<<tficon "bird">><<link [[Get a bird's eye view|Tentacle Bird]]>><</link>><<flight_text>>
 		<br>
 	<</if>>
 	<<if $fox gte 6>>
-		<<ind>><<link [[Look for something to steal|Tentacle Plains Fox]]>><<transform fox 1>><</link>><<fox>>
+		<<tficon "fox">><<link [[Look for something to steal|Tentacle Plains Fox]]>><<transform fox 1>><</link>><<fox>>
 		<br>
 	<</if>>
 	<<if $dragon gte 6>>
@@ -612,7 +640,7 @@ You step through the mirror, and you're back in your room. The eerie light fades
 
 :: Tentacle Plains Despair
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentaclefallenangel is undefined>>
 	<<set $tentaclefallenangel to 0>>
 	You growl at the unfairness of the situation. Flashbacks of the last few days play out through your head, filling you with anger and dread. What did you do to deserve this? The world robbed you of your purity, and has now dumped you here. You deliver a vicious kick to one of the tentacles at your feet. You have fallen so far. Your anger distracts you from the lewd warmth within you.
@@ -657,7 +685,7 @@ You step through the mirror, and you're back in your room. The eerie light fades
 
 :: Tentacle Plains Resist
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentacleangel is undefined>>
 	<<set $tentacleangel to 0>>
 	You kneel and reflect upon the events that led you to this place. Completely disgusted by your surroundings, you find the willpower to continue. These horrors will not hold you.
@@ -667,7 +695,7 @@ You step through the mirror, and you're back in your room. The eerie light fades
 	<br>
 <<elseif $tentacleangel is 0>>
 	<<set $tentacleangel to 1>>
-	As you meditate in the barren Plains, the ground around you almost seems to get brighter. You feel better about your situation.
+	As you meditate in the barren plains, the ground around you almost seems to get brighter. You feel better about your situation.
 	<<lstress>><<stress -6>><<llarousal>><<arousal -1200>>
 	<br><br>
 	<<link [[Next|Tentacle Plains]]>><</link>>
@@ -691,6 +719,7 @@ You step through the mirror, and you're back in your room. The eerie light fades
 	<br><br>
 	<<if $tentacleEntrance is "asylum">>
 		<<asylumescape>>
+		<<badEndTrackingEnd "Asylum" { reason: "asylumTentacleAngel" }>>
 	<</if>>
 	<<endevent>><<tentacleworldend>>
 	<<set $forest to random(50, 100)>>
@@ -700,7 +729,7 @@ You step through the mirror, and you're back in your room. The eerie light fades
 
 :: Tentacle Wolf Escape
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 You make a mad dash for the door, pushing every muscle to its limits. The Black Wolf turns and sees you. It howls into the air in triumph at your approach. The tendrils shift their attention to you. A stray tentacle grabs you by the leg, tripping you.
 <br><br>
 You twist yourself over and bite the tentacle, piercing it with your fangs. It recoils and retreats. You get to your feet and keep going.
@@ -718,6 +747,7 @@ You fall forward and kick the remaining tentacles off. The door slams shut behin
 <br><br>
 <<if $tentacleEntrance is "asylum">>
 	<<asylumescape>>
+	<<badEndTrackingEnd "Asylum" { reason: "asylumBlackWolf" }>>
 <</if>>
 <<endevent>><<tentacleworldend>>
 <<set $forest to random(50, 100)>>
@@ -726,14 +756,14 @@ You fall forward and kick the remaining tentacles off. The door slams shut behin
 
 :: Tentacle Plains Howl
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 You rear your head back and howl to the bleak sky. A much louder, more energetic howl responds from <<tentacledirection>> You can feel the adrenaline as your wild spirit ignites. You don't know how, but you feel like escape is at hand, and the thought drives you to continue.
 <br><br>
 <<link [[Next|Tentacle Plains]]>><</link>>
 <br>
 
 :: Tentacle Plains Cat
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentaclecat is undefined>>
 	<<set $tentaclecat to 1>>
 	Your eyes focus. There are so many writhing, slippery little things here. One small tentacle catches your attention as it brushes against your foot. You swipe at it, and it recoils.
@@ -765,7 +795,7 @@ You rear your head back and howl to the bleak sky. A much louder, more energetic
 <</if>>
 
 :: Tentacle Plains Fox
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentaclefox is undefined>>
 	<<set $tentaclefox to 1>>
 	You look around. There's a lot of moving things, but very few shiny things that catch your eye. A particularly slick tentacle looks shiny enough. You make a grab for it, but it slips away.
@@ -775,7 +805,7 @@ You rear your head back and howl to the bleak sky. A much louder, more energetic
 	<br>
 <<elseif $tentaclefox is 1>>
 	<<set $tentaclefox to 2>>
-	You get low to the ground, stalking another shiny tentacle. You see a lump half way up its length. Your pupils dilate.
+	You get low to the ground, stalking another shiny tentacle. You see a lump halfway up its length. Your pupils dilate.
 	<br><br>
 
 	You pounce, but miss, and the tentacle slithers into the ground. Not satisfied, you jump into the air, diving right into the same spot. You end up buried to your waist, upper body lodged in the ground.
@@ -797,7 +827,7 @@ You rear your head back and howl to the bleak sky. A much louder, more energetic
 	You shove them both into your mouth without a moment's hesitation.
 	<br><br>
 
-	You immediately realise how stupid that was to do. <<drugs 70>><<ghallucinogens>>
+	You immediately realise how stupid that was to do. <<drugs 70>><<gdrugged>>
 	<br><br>
 	<<link [[Next|Tentacle Plains]]>><</link>>
 	<br>
@@ -811,7 +841,7 @@ You rear your head back and howl to the bleak sky. A much louder, more energetic
 <</if>>
 
 :: Tentacle Cow Breasts
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentaclecow is undefined>>
 	<<set $tentaclecow to 1>>
 	You think you know a way to satisfy the tentacles.
@@ -819,26 +849,18 @@ You rear your head back and howl to the bleak sky. A much louder, more energetic
 	You prepare to satisfy the tentacle's thirst.
 <</if>>
 You drop to all fours, and they begin slithering up your arms.
-<<if $worn.upper.name isnot "naked">>
-	<<if $leftarm is "bound" or $rightarm is "bound">>
+<<outfitChecks>>
+<<if _top>>
+	<<if pcAreArmsBound("any")>>
 		A pair of tentacles
 	<<else>>
 		You
 	<</if>>
-	displace your $worn.upper.name<<if $worn.under_upper.name isnot "naked">> and $worn.under_upper.name<<underupperstrip>><</if>>.<<upperstrip>>
-<<else>>
-	<<if !$worn.under_upper.type.includes("naked")>>
-		<<if $leftarm is "bound" or $rightarm is "bound">>
-			A pair of tentacles
-		<<else>>
-			You
-		<</if>>
-		displace your $worn.under_upper.name.<<underupperstrip>>
-	<</if>>
+	displace your <<allTopsUnderwear>>.<<overupperstrip>><<upperstrip>><<underupperstrip>>
 <</if>>
-You wiggle in place, drawing attention to your <<breasts>>. The response is almost immediate. The tentacles latch on to your chest, and begin sucking.
+You wiggle in place, drawing attention to your <<breasts>>. The response is almost immediate. The tentacles latch on to your chest and begin sucking.
 <br><br>
-Milk leaks from your buds, and your body shakes. Your fluid is sucked away by the tentacles. You remain on your hands and knees, two tentacles clinging to your <<breasts>>. <<arousal 1000 "breasts">><<ggarousal>>
+<<= $lactating is 1 ? "Milk leaks from your buds, and your body shakes. Your fluid is sucked away by the tentacles. You" : "Your body shakes as you">> remain on your hands and knees, two tentacles clinging to your <<breasts>>. <<arousal 1000 "breasts">><<ggarousal>>
 <br><br>
 <<if $lactating is 1>>
 	<<set _tentacles_milk to ($milk_amount / 2)>>
@@ -863,7 +885,7 @@ Milk leaks from your buds, and your body shakes. Your fluid is sucked away by th
 <br>
 
 :: Tentacle Cow Penis
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentaclecow is undefined>>
 	<<set $tentaclecow to 1>>
 	You think you know a way to satisfy the tentacles.
@@ -871,22 +893,14 @@ Milk leaks from your buds, and your body shakes. Your fluid is sucked away by th
 	You prepare to satisfy the tentacle's thirst.
 <</if>>
 You drop to all fours, and they begin slithering up your legs.
-<<if $worn.lower.name isnot "naked">>
+<<outfitChecks>>
+<<if _bottom>>
 	<<if $feetuse is "bound">>
 		A pair of tentacles
 	<<else>>
 		You
 	<</if>>
-	displace your $worn.lower.name<<if $worn.under_lower.name isnot "naked">> and $worn.under_lower.name<<underlowerstrip>><</if>>.<<lowerstrip>>
-<<else>>
-	<<if $worn.under_lower.name isnot "naked">>
-		<<if $feetuse is "bound">>
-			A pair of tentacles
-		<<else>>
-			You
-		<</if>>
-		displace your $worn.under_lower.name.<<underlowerstrip>>
-	<</if>>
+	displace your <<allBottomsUnderwear>>.<<overlowerstrip>><<lowerstrip>><<underlowerstrip>>
 <</if>>
 <<set $penisuse to "tentacle">><<set $tentaclePenis to "tentacle">>
 <<set _tentacles_semen to ($semen_amount / 2)>>
@@ -918,7 +932,7 @@ Your semen is sucked away, and the tentacle releases you. Another one takes its 
 
 :: Tentacle Plains Admire
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 <<if $tentacleadmire is undefined>>
 	<<set $tentacleadmire to 0>>
 	As your eyes scan the unending horizon, everything seems to slow down. The smooth sway of the tentacles becomes almost hypnotic to you. Before long you're swaying in place, too. The tentacles at your feet tickle you.
@@ -941,8 +955,11 @@ Your semen is sucked away, and the tentacle releases you. Another one takes its 
 	<<gcontrol>><<control 25>><<ltrauma>><<lstress>><<ggarousal>>
 	<br><br>
 	<<trauma -6>><<stress -6>><<arousal 1200>>
-	<<if $leftarm is "bound" or $rightarm is "bound" or $feetuse is "bound">>
-		A pair of tentacles reach your <<if $leftarm is "bound" or $rightarm is "bound">>arms<</if>><<if ($leftarm is "bound" or $rightarm is "bound") and $feetuse is "bound">> and <</if>><<if $feetuse is "bound">>legs<</if>> and squirt a viscous liquid onto your bindings, slowly dissolving them.<<unbind>>
+	<<if pcAreArmsBound("any") or $feetuse is "bound">>
+		A pair of tentacles reach your
+		<<if pcAreArmsBound("any")>>arms<<if $feetuse is "bound">> and <</if>><</if>>
+		<<if $feetuse is "bound">>legs<</if>>
+		and squirt a viscous liquid onto your bindings, slowly dissolving them.<<unbind>>
 		<br><br>
 	<</if>>
 	<<link [[Next|Tentacle Plains Admire Sex]]>><<set $sexstart to 1>><</link>>
@@ -956,7 +973,7 @@ Your semen is sucked away, and the tentacle releases you. Another one takes its 
 
 :: Tentacle Plains Admire Sex
 
-<<location "tentworld">>
+<<location "tentworld">><<set $outside to 0>>
 
 <<if $sexstart is 1>><<set $sexstart to 0>>
 	<<set $combat to 1>>
@@ -973,9 +990,9 @@ Your semen is sucked away, and the tentacle releases you. Another one takes its 
 <<tentacles>>
 <<actionstentacles>>
 <<if $tentacles.active lte ($tentacles.max / 2)>>
-	<span id="next"><<link [[Next|Tentacle Rape Finish]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Tentacle Plains Admire Sex Finish]]>><</link>></span><<nexttext>>
 <<else>>
-	<span id="next"><<link [[Next|Tentacle Rape]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Tentacle Plains Admire Sex]]>><</link>></span><<nexttext>>
 <</if>>
 
 :: Tentacle Plains Admire Sex Finish
@@ -991,12 +1008,13 @@ As your body is completely covered by the warm, writhing masses, you take anothe
 
 :: Tentacle Escape
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>>
 
 You step through the door. It seals shut behind you. You're in the forest.
 <br><br>
 <<if $tentacleEntrance is "asylum">>
 	<<asylumescape>>
+	<<badEndTrackingEnd "Asylum" { reason: "asylumTentacle" }>>
 <</if>>
 <<endevent>><<tentacleworldend>>
 <<set $forest to random(50, 100)>>
@@ -1004,8 +1022,7 @@ You step through the door. It seals shut behind you. You're in the forest.
 <br>
 
 :: Tentacle Return
-
-<<location "tentworld">><<effects>>
+<<location "asylum">><<set $outside to 0>><<effects>>
 You go through the door back to the asylum. It seals shut behind you.
 <br><br>
 <<endevent>><<npc Harper>><<person1>><<tentacleworldend>>
@@ -1014,7 +1031,7 @@ You go through the door back to the asylum. It seals shut behind you.
 
 :: Tentacle Rape
 
-<<location "tentworld">>
+<<location "tentworld">><<set $outside to 0>>
 
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
@@ -1054,13 +1071,236 @@ The tentacles lose interest in you, for now. <<tearful>> you struggle to your fe
 
 :: Tentacle Plains Spray
 
-<<location "tentworld">><<effects>>
+<<location "tentworld">><<set $outside to 0>><<effects>><<wearProp "pepper spray">>
 The light pulses and fades at your touch. The tendrils fall away. Your pepper spray feels warm.
 <br><br>
 <span class="gold">You've gained an additional pepper spray charge.</span>
 <br><br>
 <<link [[Next|Tentacle Plains]]>><</link>>
 <br>
+
+
+:: Tentacle Bird
+<<effects>>
+
+You take to the air, leaving the writhing tentacles far below. Your wings soon tire, but you're able to get a good view.
+<br><br>
+
+
+<<set _tent_portal_north to $tentnorth - $tentportalnorth>>
+<<set _tent_portal_east to $tenteast - $tentportaleast>>
+
+<<set _tent_spray_north to $tentnorth - 4>>
+<<set _tent_spray_east to $tenteast - 4>>
+
+
+<<if _tent_portal_north lte 2 and _tent_portal_north gte -2 and _tent_portal_east lte 2 and _tent_portal_east gte -2>>
+	<<set _tent_found to true>>
+	You see a green door.
+	<<if _tent_portal_north is 0>>
+	<<elseif _tent_portal_north gte 1>>
+		<<Number _tent_portal_north*10>> minutes to the south.
+	<<elseif _tent_portal_north lt 0>>
+		<<Number _tent_portal_north*-10>> minutes to the north.
+	<</if>>
+	<<if _tent_portal_east is 0>>
+	<<elseif _tent_portal_east gte 1>>
+		<<Number _tent_portal_east*10>> minutes to the west.
+	<<elseif _tent_portal_east lt 0>>
+		<<Number _tent_portal_east*-10>> minutes to the east.
+	<</if>>
+	<br>
+<</if>>
+<<if $tentnorth gte -2 and $tentnorth lte 2 and $tenteast gte -2 and $tenteast lte 2>>
+	<<set _tent_found to true>>
+	<<if $tentacleEntrance is "mirror">>
+		You see the mirror to your bedroom.
+	<<elseif $tentacleEntrance is "lakehouse">>
+		You see the mirror to your bedroom.
+	<<else>>
+		You see the door to the asylum.
+	<</if>>
+	<<if $tentnorth is 0>>
+	<<elseif $tentnorth gte 1>>
+		<<Number $tentnorth*10>> minutes to the south.
+	<<elseif $tentnorth lt 0>>
+		<<Number $tentnorth*-10>> minutes to the north.
+	<</if>>
+	<<if $tenteast is 0>>
+	<<elseif $tenteast gte 1>>
+		<<Number $tenteast*10>> minutes to the west.
+	<<elseif $tenteast lt 0>>
+		<<Number $tenteast*-10>> minutes to the east.
+	<</if>>
+	<br>
+<</if>>
+<<if _tent_spray_north gte -2 and _tent_spray_north lte 2 and _tent_spray_east gte -2 and _tent_spray_east lte 2>>
+	<<set _tent_found to true>>
+	You see a strange object.
+	<<if _tent_spray_north is 0>>
+	<<elseif _tent_spray_north gte 1>>
+		<<Number _tent_spray_north*10>> minutes to the south.
+	<<elseif _tent_spray_north lt 0>>
+		<<Number _tent_spray_north*-10>> minutes to the north.
+	<</if>>
+	<<if _tent_spray_east is 0>>
+	<<elseif _tent_spray_east gte 1>>
+		<<Number _tent_spray_east*10>> minutes to the west.
+	<<elseif _tent_spray_east lt 0>>
+		<<Number _tent_spray_east*-10>> minutes to the east.
+	<</if>>
+	<br>
+<</if>>
+<<if _tent_found isnot true>>
+	You don't see anything interesting.
+	<br>
+<</if>>
+<br>
+
+<<link [[Next|Tentacle Plains]]>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Tentacle Plains Ear Slime
+<<effects>>
+<<set $weekly.earSlimeTentaclePlains to true>>
+You continue following the slime's direction, walking well beyond where you would normally dare to go on this endless plain of tentacles.
+
+<<if !$earSlime.pod>>
+	Just as you pass one of the largest tentacles you've been near so far, you spot what looks like a pod opening up. A feeling of dread fills you.
+<<else>>
+	As you pass the large tentacle again, you spot the pod opening up once more. You shiver knowing what it will do if you lie in it.
+<</if>>
+<br><br>
+<span class="lewd">You feel the slime in your head command you to lie down inside the pod.</span> <span class="red">It expects to be obeyed.</span>
+<br><br>
+<<link [[Obey|Tentacle Plains Ear Slime Obey]]>><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 2>><</link>><<gcorruption>><<lpain>><<lltrauma>><<lstress>>
+<br>
+<<link [[Defy|Tentacle Plains Ear Slime Defy]]>><<corruption -1>><<pain 8>><<stress 6>><<trauma 6>><<def 1>><</link>><<lcorruption>><<ggpain>><<ggtrauma>><<ggstress>>
+<br>
+
+:: Tentacle Plains Ear Slime Obey
+<<effects>>
+
+Following the slime's instructions, you walk to the pod<<if !$earSlime.pod>> while doing your best to ignore the growing feeling of dread<<else>>, unable to stop shaking<</if>>. Hesitating a moment, you gulp and then climb into it.
+<br><br>
+<<link [[Next|Tentacle Plains Ear Slime 2]]>><</link>>
+
+:: Tentacle Plains Ear Slime Defy
+<<effects>>
+
+<<if $earSlime.corruption + $earSlime.growth gte (currentSkillValue('willpower') / 5)>>
+	<<if $earSlime.growth gte 100>>
+		<<set $earSlime.defyCooldown += 12>>
+	<</if>>
+	The slime tries to assert control. <span class="red">It overpowers your will,</span> forcing you to walk towards the pod. <<if !$earSlime.pod>> The feeling of dread quickly escalates<<else>> You can't stop trembling.<</if>>. You're unable to stop yourself from climbing into it.
+	<<ggwillpower>><<willpower 3>>
+	<br><br>
+	<<link [[Next|Tentacle Plains Ear Slime 2]]>><</link>>
+<<else>>
+	<<set $earSlime.defyCooldown += 6>>
+	The slime tries to assert control, <span class="green">but you fight it</span> and manage to walk back towards where you entered the tentacle plains.
+	<<gwillpower>><<willpower 1>>
+
+	<br><br>
+	<<link [[Next|Tentacle Plains]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Tentacle Plains Ear Slime 2
+<<effects>>
+
+<<set $earSlime.pod to ($earSlime.pod or 0) + 1>>
+<<set $earSlimeGrown to $earSlime.growth lt 200>>
+<<set $earSlime.growth += 25>>
+
+The moment you lie down, the pod's entrance closes up, and your vision is quickly clouded by a dense fog that you helplessly start breathing in. Pleasure quickly builds in your <<genitals>><<if $earSlime.focus isnot "impregnation">> and <<breasts>><</if>>.<<drugs 500>><<gggdrugged>><<gggarousal>>
+<br><br>
+<<if playerChastity("hidden")>>
+	With your $worn.genitals.name in the way, you're unable to do anything but
+	<<if $earSlime.focus isnot "impregnation">>
+		play with your <<breasts>>, as much as it only seems to make the situation worse for you.
+	<<else>>
+		squirm in the small space.
+	<</if>>
+<<elseif $worn.genitals.name is "chastity parasite">>
+	You can't help but desperately squeeze your $worn.genitals.name, as much as it only seems to make the situation worse for you.
+<<elseif playerChastity("cage") and !$player.vaginaExist>>
+	You can't help but desperately try to get to your <<penis>> despite it being inside of the $worn.genitals.name.
+<<elseif $player.penisExist and !playerChastity("penis")>>
+	You can't help but desperately stroke your <<penis>><<if $player.vaginaExist>> while fingering your vagina<</if>>, as much as it only seems to make the situation worse for you.
+<<else>>
+	You can't help but desperately finger your vagina, as much as it only seems to make the situation worse for you.
+<</if>>
+
+It's not long before you're pushed over the edge.
+<br><br>
+<<orgasm>>
+<<if _deniedOrgasm>>
+	Despite your ruined orgasm, you soon climax a second... third... then fourth time, each one more intense than the last.
+	<br><br>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	You feel your consciousness fade even as you close in on the next ruined orgasm.
+<<else>>
+	You soon climax a second... third... then fourth time, each one more intense than the last.
+	<br><br>
+	<<orgasm>>
+	<<orgasm>>
+	<<orgasm>>
+	You feel your consciousness fade even as you close in on the next orgasm.
+<</if>>
+<<set $arousal to $arousalmax>>
+
+<br><br>
+/* May run physicalAdjustments or earSlimeDaily twice, its intended */
+<<link [[Next|Tentacle Plains Ear Slime 3]]>><<pass 120>><<physicalAdjustments>><<earSlimeDaily true>><<set $arousal to 0>><</link>>
+
+:: Tentacle Plains Ear Slime 3
+<<effects>>
+<<if $genitalsensitivity lt 3>>
+	<<genital_sensitivity 1>>
+<</if>>
+<<if $bottomsensitivity lt 3>>
+	<<bottom_sensitivity 1>>
+<</if>>
+<<if $earSlime.focus isnot "impregnation" and $breastsensitivity lt 3>>
+	<<breast_sensitivity 1>>
+<</if>>
+/* Check if any part can get more sensitive */
+<<if ($genitalsensitivity lt 3) or ($bottomsensitivity lt 3) or ($earSlime.focus isnot "impregnation" and $breastsensitivity lt 3)>>
+	You wake with your
+	<<if $genitalsensitivity lt 3>>
+		<<if $bottomsensitivity lt 3 and $earSlime.focus isnot "impregnation" and $breastsensitivity lt 3>>
+			<<genitals>>, <<bottomsimple>>, and <<breastssimple>>
+		<<elseif $bottomsensitivity lt 3>>
+			<<genitals>> and <<bottomsimple>>
+		<<elseif $earSlime.focus isnot "impregnation" and $breastsensitivity lt 3>>
+			<<genitals>> and <<breastssimple>>
+		<<else>>
+			<<genitals>>
+		<</if>>
+	<<elseif $bottomsensitivity lt 3>>
+		<<bottomsimple>>
+		<<if $earSlime.focus isnot "impregnation" and $breastsensitivity lt 3>>
+			and <<breastssimple>>
+		<</if>>
+	<<else>>
+		<<breastssimple>>
+	<</if>>
+	<span class="pink">feeling more sensitive</span> than before. <<if $earSlimeGrown>>You suspect that it's not the only thing that's changed.<</if>>
+<<else>>
+	You wake up feeling spent, but not much different. <span class="pink">Your body is too sensitive for the pod to increase your sensitivity further.</span> <<if $earSlimeGrown>>You suspect that something else has changed, though.<</if>>
+<</if>>
+
+Noticing that the pod is open, you carefully exit and leave the pod prison behind.
+
+<br><br>
+<<if $tentacleorgasmignore lt 2>>
+	<<set $tentacleorgasmignore to 2>><span class="green">The tentacles still seem to be avoiding you. Your next orgasm might not be so dangerous.</span>
+	<br><br>
+<</if>>
+<<link [[Next|Tentacle Plains]]>><<unset $earSlimeGrown>><<endevent>><</link>>
 
 :: Living Clothes Discovery
 
@@ -1203,86 +1443,6 @@ Again and again.<<orgasm>><br><br>
 Satisfied by the amount of fluids wrung out of you, the clothing loosens it's hold. The sudden lack of pressure somehow brings you to one last climax.<<orgasm>><br><br>
 <span class="purple">Despite your mental haze and physical exhaustion, you think to yourself that you may start enjoying this.</span><br><br>
 <<link [[Next|Tentacle Plains]]>><</link>>
-<br>
-
-:: Tentacle Bird
-<<effects>>
-
-You take to the air, leaving the writhing tentacles far below. Your wings soon tire, but you're able to get a good view.
-<br><br>
-
-
-<<set _tent_portal_north to $tentnorth - $tentportalnorth>>
-<<set _tent_portal_east to $tenteast - $tentportaleast>>
-
-<<set _tent_spray_north to $tentnorth - 4>>
-<<set _tent_spray_east to $tenteast - 4>>
-
-
-<<if _tent_portal_north lte 2 and _tent_portal_north gte -2 and _tent_portal_east lte 2 and _tent_portal_east gte -2>>
-	<<set _tent_found to true>>
-	You see a green door.
-	<<if _tent_portal_north is 0>>
-	<<elseif _tent_portal_north gte 1>>
-		<<Number _tent_portal_north*10>> minutes to the south.
-	<<elseif _tent_portal_north lt 0>>
-		<<Number _tent_portal_north*-10>> minutes to the north.
-	<</if>>
-	<<if _tent_portal_east is 0>>
-	<<elseif _tent_portal_east gte 1>>
-		<<Number _tent_portal_east*10>> minutes to the west.
-	<<elseif _tent_portal_east lt 0>>
-		<<Number _tent_portal_east*-10>> minutes to the east.
-	<</if>>
-	<br>
-<</if>>
-<<if $tentnorth gte -2 and $tentnorth lte 2 and $tenteast gte -2 and $tenteast lte 2>>
-	<<set _tent_found to true>>
-	<<if $tentacleEntrance is "mirror">>
-		You see the mirror to your bedroom.
-	<<elseif $tentacleEntrance is "lakehouse">>
-		You see the mirror to your bedroom.
-	<<else>>
-		You see the door to the asylum.
-	<</if>>
-	<<if $tentnorth is 0>>
-	<<elseif $tentnorth gte 1>>
-		<<Number $tentnorth*10>> minutes to the south.
-	<<elseif $tentnorth lt 0>>
-		<<Number $tentnorth*-10>> minutes to the north.
-	<</if>>
-	<<if $tenteast is 0>>
-	<<elseif $tenteast gte 1>>
-		<<Number $tenteast*10>> minutes to the west.
-	<<elseif $tenteast lt 0>>
-		<<Number $tenteast*-10>> minutes to the east.
-	<</if>>
-	<br>
-<</if>>
-<<if _tent_spray_north gte -2 and _tent_spray_north lte 2 and _tent_spray_east gte -2 and _tent_spray_east lte 2>>
-	<<set _tent_found to true>>
-	You see a strange object.
-	<<if _tent_spray_north is 0>>
-	<<elseif _tent_spray_north gte 1>>
-		<<Number _tent_spray_north*10>> minutes to the south.
-	<<elseif _tent_spray_north lt 0>>
-		<<Number _tent_spray_north*-10>> minutes to the north.
-	<</if>>
-	<<if _tent_spray_east is 0>>
-	<<elseif _tent_spray_east gte 1>>
-		<<Number _tent_spray_east*10>> minutes to the west.
-	<<elseif _tent_spray_east lt 0>>
-		<<Number _tent_spray_east*-10>> minutes to the east.
-	<</if>>
-	<br>
-<</if>>
-<<if _tent_found isnot true>>
-	You don't see anything interesting.
-	<br>
-<</if>>
-<br><br>
-
-<<link [[Next|Tentacle Plains]]>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Tentacle Plains Dragon
