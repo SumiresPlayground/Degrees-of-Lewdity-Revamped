@@ -228,11 +228,6 @@ setup.colours = {
 			blendMode: "multiply",
 			desaturate: true,
 		},
-		ghostly: {
-			gradient: ["#DBFFFF", "#DBFFFF"],
-			blendMode: "multiply",
-			desaturate: true,
-		},
 		ice: {
 			gradient: ["#E3FFFE", "#E3FFFE"],
 			blendMode: "multiply",
@@ -241,16 +236,19 @@ setup.colours = {
 		slimy: {
 			gradient: ["#CBFFCB", "#98FF98"],
 			blendMode: "multiply",
+			alpha: 0.6,
 			desaturate: false,
 		},
 		chilly: {
 			gradient: ["#87e5f8", "#01c9fe"],
 			blendMode: "multiply",
+			alpha: 0.6,
 			desaturate: false,
 		},
 		amethyst: {
 			gradient: ["#BBA9f5", "#8451FC"],
 			blendMode: "multiply",
+			alpha: 0.6,
 			desaturate: false,
 		},
 		green: {
@@ -269,7 +267,7 @@ setup.colours = {
 			desaturate: false,
 		},
 		flame: {
-			gradient: ["#db665e", "#db665e"]
+			gradient: ["#db665e", "#db665e"],
 			blendMode: "multiply",
 			desaturate: false,
 		},
