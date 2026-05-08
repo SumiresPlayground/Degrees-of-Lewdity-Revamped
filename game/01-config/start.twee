@@ -9,48 +9,70 @@
 Degrees of Lewdity
 
 :: Start [nosave exitCheckBypass]
+
 <<if $intro is undefined>>
 	<<gameStartOnly>>
+	<<if !localStorage.getItem("verifiedAge")>>
+		<<set _linksenabled to Links.enabled>>
+		<<set Links.enabled to false>>
+		<<run $("#story").addClass("gateBlur")>>
+		<<run $("#ui-bar").addClass("gateBlur")>>
+		<<dialog 'Welcome to Degrees of Lewdity' 'class' true>>
+			This work of fiction is only intended for an adult audience. It contains themes of a sexual nature that may be disturbing to some players and is inappropriate for minors. All characters depicted in sexual situations are 18 years or older. By continuing, you agree that you are above the age of 18, and acknowledge that you are willing to be exposed to aspects of the game's writing that include depictions of themes including, but not limited to:
+			<br><br>
+			Rape, Physical and Mental Abuse, Sex with Non-Humans, Forced Pregnancy, Watersports, Asphyxiation, Soft Vore, Sex Slavery, Monsters, Monster People, Mindbreak, Hypnosis, and more. Many of these can be disabled prior to, or after, starting the game. Some story content may require specific fetishes to be enabled.
+			<br><br>
+			<div class="text-align-center">
+				<label><<checkbox "_verify" false true autocheck>> I confirm that I am 18 years of age or older</label>
+				<br>
+				<div class="m-2">
+					<<button "Enter">>
+						<<if _verify>>
+							<<set Links.enabled to _linksenabled>>
+							<<run $("#story").removeClass("gateBlur")>>
+							<<run $("#ui-bar").removeClass("gateBlur")>>
+							<<run localStorage.setItem("verifiedAge", true)>>
+							<<dialogclose>>
+						<</if>>
+					<</button>>
+					<br><br><br>
+				</div>
+			</div>
+		<</dialog>>
+	<</if>>
 <</if>>
-<!-- <<effects>> --> <!-- commented this out - why were we running effects without a working player init'd? -->
 
 <<if $options.images is 1>>
-	<img class="resize" src="img/misc/banner.png">
+	<<banner>>
 <</if>>
 
-This work of fiction contains content of a sexual nature and is inappropriate for minors. All characters <span class="camouflage text"><a onclick="V.debug = 1, V.options.debugdisable = 'f', V.options.maxStates = 5">de</a></span>picted are at least 18 years of age. Everything is consensual role play, and any animals are actually people in costumes.
+This work of fiction is only intended for an adult audience. It contains themes of a sexual nature that may be disturbing to some players and is inappropriate for minors. All characters <span class="camouflage text" onclick="V.debug = 1, V.options.debugdisable = 'f', V.options.historyControls = true">de</span>picted in sexual situations are at least 18 years of age. This game and works relating to it should not be shared on any platform that lacks age verification.
 <br><br>
-<<support>>
-<div class="small-description">
-- A copy of this game's license can be found in the files, all base game content is developed by the creators listed in the changelog.
-<br>
-- Save files are stored in your browser's cache. Save to file or text in the "Export/Import" tab in "Saves" to avoid losing them.
-<br>
-- Be sure to check the "Options" tab on the sidebar for more in-game settings!
-<br>
 
-<br></div>
 <<set $settingsExitPassage to "Start2">>
 <<initsettings>>
-<<settingsStart>>
+<div id="settingsStart">
+	<<settingsStart>>
+</div>
 
 :: Start2 [nosave exitCheckBypass]
 
 <<variablesStart2>>
-<!-- <<effects>> --> <!-- commented this out - why were we running effects without a working player init'd? -->
 
-Welcome to the alpha of Degrees of Lewdity, Chylli's Mod!
+Welcome to Degrees of Lewdity, Chylli's Mod!
 <br><br>
 
-If you want to avoid trouble, dress modestly and stick to safe, well-lit areas. Nights are particularly dangerous. Dressing lewd will attract attention, both good and bad.
+If you want to avoid trouble, <span class="gold">keep your allure low</span> by dressing modestly and sticking to safe, well-lit areas. Nights are particularly dangerous. Dressing lewd will attract attention, both good and bad, and the more vulnerable you look, the more danger you are in. Be careful!
 <br><br>
+
+
 
 <<if Time.season is "winter">>
-	The school year starts on the first Monday of January at <<ampm 9 0>>. The bus service is the easiest way to get around town. Don't forget your uniform!
+	The school year starts on the first Monday of January at <<ampm 9 0>>. The bus service is the easiest way to get around town. Don't forget your uniform and backpack!
 <<elseif Time.season is "spring" or Time.season is "summer">>
-	School starts tomorrow at <<ampm 9 0>>. The bus service is the easiest way to get around town. Don't forget your uniform!
+	School starts tomorrow at <<ampm 9 0>>. The bus service is the easiest way to get around town. Don't forget your uniform and backpack!
 <<else>>
-	The new school year starts tomorrow at <<ampm 9 00>>. The bus service is the easiest way to get around town. Don't forget your uniform!
+	The new school year starts tomorrow at <<ampm 9 00>>. The bus service is the easiest way to get around town. Don't forget your uniform and backpack!
 <</if>>
 <br><br>
 
@@ -77,39 +99,39 @@ If you want to avoid trouble, dress modestly and stick to safe, well-lit areas. 
 	<br>
 	<<link [[Swimming Start|Oxford Street]]>><<cheatStart>><<pass 1 day>><<pass 7 hours>><</link>>
 	<br>
-	<<link [[Testing Room]]>><<cheatStart>><<upperstrip>><<lowerstrip>><<underlowerstrip>><</link>>
+	<<link [[Testing Room|Testing Room]]>><<cheatStart>><<upperstrip>><<lowerstrip>><<underlowerstrip>><</link>>
 	<br>
-	<<link [[Robin Low Trauma Low Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $NPCName[$NPCNameList.indexOf("Robin")].love to 0>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 2>><<trauma 60>><</link>>
+	<<link [[Robin Low Trauma Low Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set C.npc.Robin.love to 0>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 2>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin Low Trauma Medium Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $NPCName[$NPCNameList.indexOf("Robin")].love to 50>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 2>><<trauma 60>><</link>>
+	<<link [[Robin Low Trauma Medium Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set C.npc.Robin.love to 50>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 2>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin Low Trauma High Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $NPCName[$NPCNameList.indexOf("Robin")].love to 90>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 2>><<trauma 60>><</link>>
+	<<link [[Robin Low Trauma High Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set C.npc.Robin.love to 90>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 2>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin High Trauma Low Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $NPCName[$NPCNameList.indexOf("Robin")].love to 0>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
+	<<link [[Robin High Trauma Low Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set C.npc.Robin.love to 0>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin High Trauma Medium Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $NPCName[$NPCNameList.indexOf("Robin")].love to 50>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
+	<<link [[Robin High Trauma Medium Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set C.npc.Robin.love to 50>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin High Trauma High Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $NPCName[$NPCNameList.indexOf("Robin")].love to 90>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
+	<<link [[Robin High Trauma High Love|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set C.npc.Robin.love to 90>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin After Paying Police With Money|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $daily.robin.policePay to 1>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
+	<<link [[Robin After Paying Police With Money|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $daily.robin.policePay to 1>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin After Paying Police With Body|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $daily.robin.policeBody to 1>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
+	<<link [[Robin After Paying Police With Body|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $daily.robin.policeBody to 1>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
 	<br>
-	<<link [[Robin's Debt Paid|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $robinpaid to 1>><<set $NPCName[$NPCNameList.indexOf("Robin")].init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
+	<<link [[Robin's Debt Paid|Robin's Room Entrance]]>><<cheatStart>><<npc Robin>><<endevent>><<set $robinpaid to 1>><<set C.npc.Robin.init to 1>><<set $trauma to ($traumamax / 7) * 4>><<trauma 60>><</link>>
 	<br><br>
 
-	<<link [[Black Wolf|ForestHuntDebug]]>><<cheatStart>><<npc "Black Wolf">><<ruined>><<endevent>><<set $blackwolfhunt to 1>><<set $wolfpacktrust to 10>><</link>>
+	<<link [[Black Wolf|ForestHuntDebug]]>><<cheatStart>><<npc "Black Wolf">><<ruined>><<endevent>><<set $forestHunter to "Black Wolf">><<set $wolfpacktrust to 10>><</link>>
 
 
 	<br><br>
 
-	<<link [[Winter Start|Orphanage Intro]]>><<set Time.startDate to new DateTime(2022, 12, 4, 7)>><<set $weather to "snow">><</link>> (Begins the game at the start of winter. For testing.)
+	<<link [[Winter Start|Orphanage Intro]]>><<set Time.startDate to new DateTime(2022, 12, 4, 7)>><</link>> (Begins the game at the start of winter. For testing.)
 	<br>
 
-	<<link [[Christmas Start|Orphanage Intro]]>><<npc Kylar>><<person1>><<endevent>><<set $NPCName[$NPCNameList.indexOf("Kylar")].state to "active">><<set Time.startDate to new DateTime(2022, 12, 23, 7)>><<set $weather to "snow">><<set $money += 50000>><</link>> (Begins the game two days before Christmas. For testing.)
+	<<link [[Christmas Start|Orphanage Intro]]>><<npc Kylar>><<person1>><<endevent>><<set C.npc.Kylar.state to "active">><<set Time.startDate to new DateTime(2022, 12, 23, 7)>><<money 50000 "debug">><</link>> (Begins the game two days before Christmas. For testing.)
 	<br>
 
-	<<link [[Valentine's Day Start|Orphanage Intro]]>><<set Time.startDate to new DateTime(2022, 2, 12, 7)>><<set $weather to "clear">><</link>> (Begins the game 2 days before Valentine's Day. For testing.)
+	<<link [[Valentine's Day Start|Orphanage Intro]]>><<set Time.startDate to new DateTime(2022, 2, 12, 7)>><</link>> (Begins the game 2 days before Valentine's Day. For testing.)
 	<br>
 
 <</if>>

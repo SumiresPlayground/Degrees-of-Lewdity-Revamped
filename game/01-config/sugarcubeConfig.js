@@ -1,14 +1,40 @@
 /* eslint-disable prefer-const */
 Config.history.controls = false;
 Config.saves.slots = 9;
-Config.history.maxStates = 1;
+Config.history.maxStates = 5;
+
+/* LinkNumberify and images will enable or disable the feature completely */
+/* debug will enable or disable the feature only for new games */
+/* sneaky will enable the Sneaky notice banner on the opening screen and save display */
+/* versionName will be displayed in the top right of the screen, leave as "" to not display anything */
+const StartConfig = {
+	debug: false,
+	enableImages: true,
+	enableLinkNumberify: true,
+	version: "0.5.9.8",
+	versionName: `"Here Comes the Sun" edition`,
+	sneaky: false,
+	socialMediaEnabled: true,
+	sourceLinkEnabled: false,
+};
+window.StartConfig = StartConfig;
 
 State.prng.init();
+// disable widget performance logs for the release
+Perflog.enabled = false;
 
 window.versionUpdateCheck = true;
 window.onLoadUpdateCheck = false;
 
 let pageLoading = false;
+
+Config.saves.isAllowed = () => {
+	if (tags().includes("nosave") || V.replayScene) return false;
+	return true;
+};
+
+if (idb.updateSettings) idb.updateSettings("useDelta", true);
+idb.footerHTML = `Support development: <a target="_blank" class="link-external" href="https://vrelnir.fanbox.cc/" tabindex="0">Fanbox</a>`;
 
 function onLoad(save) {
 	// some flags for version update. ideally, all updating should be done here in onLoad, but we don't live in an ideal world
@@ -21,6 +47,9 @@ function onLoad(save) {
 
 	// decompression should be the FIRST save modification
 	DoLSave.decompressIfNeeded(save);
+
+	// ironman is not currently supported with idb
+	if (save.state.history[save.state.index].variables.ironmanmode) idb.active = false;
 
 	// cache current date before assigning it to every frame in history
 	const date = new Date();
@@ -38,6 +67,7 @@ function onLoad(save) {
 			details.loadCount++;
 		}
 	});
+	$.event.trigger(":onloadsave", { save });
 }
 window.onLoad = onLoad;
 Save.onLoad.add(onLoad);
@@ -72,7 +102,10 @@ function incSavesCount(storyVars = V, type, date) {
 
 function onSave(save, details) {
 	// * update feats * //
-	Wikifier.wikifyEval("<<updateFeats>>");
+	updateFeats();
+
+	// Save the recently loaded version
+	save.state.loadedVersion = StartConfig.version;
 
 	// * update $saveDetails wherever possible * //
 	const type = details.type;
@@ -90,6 +123,10 @@ function onSave(save, details) {
 		State.setSessionState(session);
 	}
 
+	// Save time and weather to localStorage
+	localStorage.setItem("weather", Packer.packWeatherData());
+	localStorage.setItem("time", Time.date.timeStamp.toString(36));
+	localStorage.setItem("worldCorruption", V.world_corruption_soft);
 	// * legacy code for old saves system * //
 	if (!(window.idb && window.idb.active)) {
 		// eslint-disable-next-line no-undef
@@ -102,32 +139,12 @@ function onSave(save, details) {
 window.onSave = onSave;
 Save.onSave.add(onSave);
 
-/* LinkNumberify and images will enable or disable the feature completely */
-/* debug will enable or disable the feature only for new games */
-/* sneaky will enable the Sneaky notice banner on the opening screen and save display */
-/* versionName will be displayed in the top right of the screen, leave as "" to not display anything */
-window.StartConfig = {
-	debug: false,
-	enableImages: true,
-	enableLinkNumberify: true,
-	version: "0.4.3.3",
-	versionName: "",
-	sneaky: false,
-	cm: true,
-};
-
 /* convert version string to numeric value */
 const tmpver = StartConfig.version.replace(/[^0-9.]+/g, "").split(".");
-window.StartConfig.version_numeric = tmpver[0] * 1000000 + tmpver[1] * 10000 + tmpver[2] * 100 + tmpver[3] * 1;
+StartConfig.version_numeric = tmpver[0] * 1000000 + tmpver[1] * 10000 + tmpver[2] * 100 + tmpver[3] * 1;
+State.qcadd(StartConfig => StartConfig?.every(version => !version.variables.facevariant));
 
 Config.saves.autosave = "autosave";
-
-Config.saves.isAllowed = function () {
-	if (tags().includes("nosave")) {
-		return false;
-	}
-	return true;
-};
 
 importStyles("style.css")
 	.then(function () {
@@ -139,25 +156,9 @@ importStyles("style.css")
 
 console.log("Game Version:", StartConfig.version);
 
-l10nStrings.errorTitle = StartConfig.version + " Error";
-
 // delete parser that adds unneeded line breaks -ng
 Wikifier.Parser.delete("lineBreak");
 Wikifier.Parser.delete("emdash");
-
-/* ToDo: implement the dolls system, uncomment during and when its setup
-importScripts([
-	"img/dolls/NameValueMaps.js",
-	"img/dolls/dollUpdater.js",
-	"img/dolls/dollLoader.js",
-	"img/dolls/DollHouse.js",
-	"img/dolls/FDoll.js",
-]).then(function () {
-	console.log("Dolls scripts running");
-})
-.catch(function (err) {
-	console.log(err);
-}); */
 
 // Runs before a passage load, returning a string redirects to the new passage name.
 Config.navigation.override = function (dest) {
@@ -171,6 +172,14 @@ Config.navigation.override = function (dest) {
 		if (dest.includes("Playground")) {
 			return dest.replace("Playground", "Courtyard");
 			/* Try not to include "Playground" in any passage names after this. */
+		}
+		if (V.nightMonsterNNPCUpdate === 1) {
+			/* Teleports the player out after Night Monster NNPC update to avoid error cases, particularly when importing mid-combat */
+			V.nightMonsterNNPCUpdate = 2;
+			if (dest.includes("Street Monster") || dest.includes("Monster Tower")) {
+				Wikifier.wikifyEval("<<endcombat>>");
+				return "Domus Street";
+			}
 		}
 		switch (dest) {
 			case "Downgrade Waiting Room":
@@ -191,6 +200,20 @@ Config.navigation.override = function (dest) {
 			case "Forest Shop Legs":
 			case "Forest Shop Feet":
 				return "Forest Shop";
+
+			case "Residential alleyways":
+				return "Residential Alleyways";
+			case "Commercial alleyways":
+				return "Commercial Alleyways";
+			case "Industrial alleyways":
+				return "Industrial Alleyways";
+
+			case "Cafe Fruit Salad":
+			case "Cafe Autumn Ale":
+			case "Cafe Summer Ale":
+			case "Cafe Spring Ale":
+			case "Cafe Winter Ale":
+				return "Cafe Eat";
 
 			case "Over Outfit Shop":
 			case "Outfit Shop":
@@ -456,6 +479,258 @@ Config.navigation.override = function (dest) {
 				return "Chalets Work One Sex";
 			case "Chalets Work One Rape Finish":
 				return "Chalets Work One Sex Finish";
+
+			case "Whitney Bully Parasite Event Submit":
+			case "Whitney Bully Parasite Event Escape Attempt":
+				return "Bully Parasite";
+
+			case "Whitney Bully Parasite Event Combat":
+				return "Bully Parasite Fight";
+
+			case "Whitney Bully Parasite Event Combat Loss":
+			case "Whitney Bully Parasite Event Combat Victory":
+				return "Bully Parasite Fight Finish";
+
+			case "Robin Kiyoura Start":
+				return "Canteen Robin Whitney";
+
+			case "Robin Kiyoura canteen oral":
+				return "Canteen Robin Whitney Oral";
+
+			case "Robin Kiyoura canteen oral Finish":
+				return "Canteen Robin Whitney Oral Finish";
+
+			case "Robin Kiyoura Back to Robin":
+				return "Canteen Robin Whitney Talk";
+
+			case "Robin Kiyoura canteen fight":
+				return "Canteen Robin Whitney Fight";
+
+			case "Robin Kiyoura after fight":
+				return "Canteen Robin Whitney Fight 2";
+
+			case "Robin Kiyoura weak":
+				return "Canteen Robin Whitney Trauma";
+
+			case "Robin Kiyoura cuddle":
+			case "Robin Kiyoura Secret":
+			case "Robin Kiyoura Didn't want to":
+			case "Robin Kiyoura Enjoyed it":
+				return "Canteen Robin Whitney End";
+
+			case "Livestock Field Centaur Friendly":
+			case "Livestock Field Centaur Firm":
+			case "Livestock Field Friendly":
+			case "Livestock Field Firm":
+				return "Livestock Field Horse Intro";
+
+			case "Livestock Field Centaur Brush":
+				return "Livestock Field Horse Brush";
+
+			case "Livestock Field Centaur Apples":
+				return "Livestock Field Horse Apples";
+
+			case "Livestock Field Horse Help 2":
+			case "Livestock Field Centaur Help":
+			case "Livestock Field Centaur Help 2":
+				return "Livestock Field Horse Help";
+
+			case "Livestock Field Centaur Female Vagina":
+			case "Livestock Field Centaur Female":
+			case "Livestock Field Centaur Male Vagina":
+			case "Livestock Field Centaur Male":
+			case "Livestock Field Centaur Female Vagina 2":
+			case "Livestock Field Centaur Female 2":
+			case "Livestock Field Centaur Male Vagina 2":
+			case "Livestock Field Centaur Male 2":
+			case "Livestock Field Horse Lewd":
+			case "Livestock Field Horse Lewd Female":
+			case "Livestock Field Horse Lewd 2":
+			case "Livestock Field Horse Lewd Female 2":
+			case "Livestock Field Horse Continue":
+				return "Livestock Field Deviancy";
+
+			case "Livestock Field Centaur Female Vagina 3":
+			case "Livestock Field Centaur Female 3":
+			case "Livestock Field Centaur Male Vagina 3":
+			case "Livestock Field Centaur Male 3":
+			case "Livestock Field Centaur Male Hand":
+			case "Livestock Field Centaur Male Hand Vagina":
+			case "Livestock Field Centaur Female Hand":
+			case "Livestock Field Centaur Female Hand Vagina":
+			case "Livestock Field Horse Lewd 3":
+			case "Livestock Field Horse Lewd Female 3":
+			case "Livestock Field Horse Lewd Hand":
+			case "Livestock Field Horse Lewd Female Hand":
+				return "Livestock Field Deviancy Hand";
+
+			case "Livestock Field Centaur Male Mouth":
+			case "Livestock Field Centaur Male Mouth Vagina":
+			case "Livestock Field Centaur Female Mouth":
+			case "Livestock Field Centaur Female Mouth Vagina":
+			case "Livestock Field Horse Lewd Mouth":
+			case "Livestock Field Horse Lewd Female Mouth":
+				return "Livestock Field Deviancy Mouth";
+
+			case "Livestock Field Centaur Male Seduce":
+			case "Livestock Field Centaur Male Sex":
+			case "Livestock Field Centaur Male Sex Finish":
+			case "Livestock Field Centaur Male Vagina Seduce":
+			case "Livestock Field Centaur Male Vagina Sex":
+			case "Livestock Field Centaur Male Vagina Sex Finish":
+			case "Livestock Field Centaur Female Vagina Seduce":
+			case "Livestock Field Centaur Female Vagina Sex":
+			case "Livestock Field Centaur Female Vagina Sex Finish":
+			case "Livestock Field Centaur Female Seduce ":
+			case "Livestock Field Centaur Female Sex":
+			case "Livestock Field Centaur Female Sex Finish":
+			case "Livestock Field Horse Lewd Seduce":
+			case "Livestock Field Horse Lewd Female Seduce":
+			case "Livestock Field Horse Lewd Sex":
+			case "Livestock Field Horse Lewd Female Sex":
+			case "Livestock Field Horse Lewd Sex Finish":
+			case "Livestock Field Horse Lewd Female Sex Finish":
+				return "Livestock Field Deviancy Sex";
+
+			case "Beach Cave Tentacle Under Top":
+				return "Beach Cave Tentacle Top";
+
+			case "Beach Cave Rope Under Top":
+			case "Beach Cave Rope Over Top":
+				return "Beach Cave Rope Top";
+
+			case "Prison Wren Intro Met":
+				return "Prison Wren Intro";
+
+			case "Museum Box":
+				return "Museum Waterlogged Ivory Box";
+			case "Museum Silver Ring":
+				return "Museum Worn Silver Ring";
+			case "Museum Gold Necklace":
+				return "Museum Ornate Gold Necklace";
+			case "Museum Gold Chastity Belt":
+				return "Museum Golden Chastity Belt";
+			case "Museum Ivory Necklace":
+				return "Museum Immaculate Ivory Necklace";
+			case "Museum Crystal":
+				return "Museum Arousing Crystal";
+			case "Museum Horn":
+				return "Museum Hunting Horn";
+			case "Museum Watch":
+				return "Museum Old Watch";
+			case "Museum Dildo":
+				return "Museum Odd Medical Aid";
+			case "Museum Candlestick":
+				return "Museum Noble Candle Stick";
+			case "Museum Arrow":
+				return "Museum Mossy Forest Arrow";
+			case "Museum Dagger":
+				return "Museum Rusted Forest Dagger";
+			case "Museum Gem":
+				return "Museum Pulsing Forest Gem";
+			case "Museum Hourglass":
+				return "Museum Inscribed Hourglass";
+			case "Museum Cup":
+				return "Museum Discarded Cup";
+			case "Museum Burner":
+				return "Museum Incense Burner";
+			case "Museum Brass Statuette":
+				return "Museum Forgotten Brass Statuette";
+			case "Museum Grenade":
+				return "Museum Old Grenade";
+			case "Museum Bell":
+				return "Museum Sonorous Bell";
+			case "Museum Shell":
+				return "Museum Artillery Shell";
+			case "Museum Mine Sign":
+				return "Museum Bailey Sign";
+			case "Museum Island Arrow":
+				return "Museum Islander Arrow";
+
+			case "Home Leave Undies":
+			case "Home Leave Naked":
+			case "Home Leave Undies Day":
+			case "Home Leave Naked Day":
+				return "Home Leave";
+
+			case "Garden Fence Naked Night":
+			case "Garden Fence Undies Night":
+			case "Garden Fence Naked Day":
+			case "Garden Fence Undies Day":
+				return "Garden Fence";
+
+			case "Street Eden Worried Refuse Cabin":
+			case "Street Eden Worried Leave 2":
+			case "Town Eden Park Flirt Sex":
+			case "Town Eden Park Flirt Sex Finish":
+			case "Town Eden Park Finish":
+			case "Town Eden Park Finish 2":
+			case "Town Eden Shopping Clothes Eden Dress Up":
+			case "Town Eden Shopping Clothes Eden Dress Up 2":
+			case "Town Eden Shopping Clothes Eden Dress Up 3":
+			case "Town Eden Shopping Clothes Eden Dress Up 4":
+			case "Town Eden Shopping Clothes Eden Dress Up Sex":
+			case "Town Eden Shopping Clothes Eden Dress Up Sex Finish":
+			case "Town Eden Shopping Clothes PC Dress Up":
+			case "Town Eden Shopping Clothes PC Dress Up Flaunt":
+			case "Town Eden Shopping Clothes PC Dress Up Flaunt Refuse":
+			case "Town Eden Shopping Clothes PC Dress Up Sex":
+			case "Town Eden Shopping Clothes PC Dress Up Sex Finish":
+				return "Street Eden Worried Suggest";
+
+			case "Prison Wren Panties":
+			case "Prison Wren Briefs":
+			case "Prison Wren Bra":
+			case "Prison Wren Vest":
+			case "Prison Wren Shirt":
+			case "Prison Wren Trousers":
+			case "Prison Wren Jumpsuit":
+				return "Prison Wren Clothes";
+			case "Wolf Cave Hand":
+				return "Wolf Cave Accept";
+			case "Wolf Cave Hand Refuse":
+				return "Wolf Cave Refuse";
+			case "Wolf Cave Hand Finish":
+				return "Wolf Cave Accept Finish";
+
+			case "Forest Coop Rescue":
+				switch (V.phase) {
+					case 1:
+						return "Forest Wolf Finish";
+					case 2:
+						return "Forest Slime Rape Finish";
+					case 3:
+						return "Forest Slime Wolf Rape Finish";
+					case 4:
+						return "Forest Swim Molestation Finish";
+					default:
+						return "Forest Molestation Finish";
+				}
+			case "Street Eden Rage":
+				return "Eden Caged Caught";
+
+			case "Farm Shave":
+			case "Farm shave clean":
+			case "Shave clean":
+			case "Farm shave pubis":
+			case "Shave pubis":
+			case "Farm shave balls":
+			case "Shave balls":
+			case "Farm shave strip":
+			case "Shave strip":
+			case "Farm shave trim":
+			case "Shave trim":
+				return "Shave";
+
+			case "Dye pubic hair":
+			case "Farm Dye":
+			case "Dye pubic hair Finish":
+			case "Farm dye pubic hair Finish":
+				return "Dye Hair";
+			case "Sewers Rats":
+				return "Sewers Scones Eat";
+			case "Sewers Rats Pretend":
+				return "Sewers Scones Pretend";
 			default:
 				return false;
 		}
@@ -467,6 +742,20 @@ Config.navigation.override = function (dest) {
 	if (passageArgs.name !== dest) {
 		/* Return new passage dest. Will divert the processed passage to this. */
 		return passageArgs.name;
+	}
+
+	// Scene viewer redirect
+	if (V.replayScene) {
+		if (passageArgs.name === V.replayScene.startPassage) {
+			return false;
+		}
+		if (passageArgs.name === "Scene Viewer End") {
+			delete V.replayScene.startPassage;
+			return false;
+		}
+		if (!V.replayScene.passages.includes(passageArgs.name)) {
+			return "Scene Viewer End";
+		}
 	}
 
 	if (pageLoading) {

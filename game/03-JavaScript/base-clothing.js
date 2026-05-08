@@ -1,168 +1,20 @@
-function colourContainerClasses() {
-	return (
-		"hair-" +
-		(V.haircolour || "").replace(/ /g, "-") +
-		" " +
-		"upper-" +
-		(V.upperwet > 100 ? "wet" : "") +
-		(V.worn.upper.colour_combat || V.worn.upper.colour || "").replace(/ /g, "-") +
-		" " +
-		"lower-" +
-		(V.lowerwet > 100 ? "wet" : "") +
-		(V.worn.lower.colour_combat || V.worn.lower.colour || "").replace(/ /g, "-") +
-		" " +
-		"under_lower-" +
-		(V.underlowerwet > 100 ? "wet" : "") +
-		(V.worn.under_lower.colour || "").replace(/ /g, "-") +
-		" " +
-		"under_upper-" +
-		(V.underupperwet > 100 ? "wet" : "") +
-		(V.worn.under_upper.colour || "").replace(/ /g, "-") +
-		" " +
-		"genitals-" +
-		(V.worn.genitals.colour_combat || V.worn.genitals.colour || "").replace(/ /g, "-") +
-		" " +
-		"head-" +
-		(V.worn.head.colour_combat || V.worn.head.colour || "").replace(/ /g, "-") +
-		" " +
-		"face-" +
-		(V.worn.face.colour_combat || V.worn.face.colour || "").replace(/ /g, "-") +
-		" " +
-		"neck-" +
-		(V.worn.neck.colour_combat || V.worn.neck.colour || "").replace(/ /g, "-") +
-		" " +
-		"hands-" +
-		(V.worn.hands.colour_combat || V.worn.hands.colour || "").replace(/ /g, "-") +
-		" " +
-		"legs-" +
-		(V.worn.legs.colour_combat || V.worn.legs.colour || "").replace(/ /g, "-") +
-		" " +
-		"feet-" +
-		(V.worn.feet.colour_combat || V.worn.feet.colour || "").replace(/ /g, "-") +
-		" " +
-		"upper_acc-" +
-		(V.worn.upper.accessory_colour_combat || V.worn.upper.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"lower_acc-" +
-		(V.worn.lower.accessory_colour_combat || V.worn.lower.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"under_lower_acc-" +
-		(V.worn.under_lower.accessory_colour_combat || V.worn.under_lower.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"under_upper_acc-" +
-		(V.worn.under_upper.accessory_colour_combat || V.worn.under_upper.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"head_acc-" +
-		(V.worn.head.accessory_colour_combat || V.worn.head.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"face_acc-" +
-		(V.worn.face.accessory_colour_combat || V.worn.face.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"neck_acc-" +
-		(V.worn.neck.accessory_colour_combat || V.worn.neck.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"hands_acc-" +
-		(V.worn.hands.accessory_colour_combat || V.worn.hands.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"legs_acc-" +
-		(V.worn.legs.accessory_colour_combat || V.worn.legs.accessory_colour || "").replace(/ /g, "-") +
-		" " +
-		"feet_acc-" +
-		(V.worn.feet.accessory_colour_combat || V.worn.feet.accessory_colour || "").replace(/ /g, "-")
-	);
-}
-window.colourContainerClasses = colourContainerClasses; // export function
-
-function limitedColourContainerClasses() {
-	return "hair-" + (V.haircolour || "").replace(/ /g, "-");
-}
-window.limitedColourContainerClasses = limitedColourContainerClasses; // export function
-
-function debugColourContainerClasses(color) {
-	return (
-		"hair-" +
-		(color.hair || "").replace(/ /g, "-") +
-		" " +
-		"upper-" +
-		(color.upper[0] || "").replace(/ /g, "-") +
-		" " +
-		"lower-" +
-		(color.lower[0] || "").replace(/ /g, "-") +
-		" " +
-		"under_lower-" +
-		(color.under_lower[0] || "").replace(/ /g, "-") +
-		" " +
-		"under_upper-" +
-		(color.under_upper[0] || "").replace(/ /g, "-") +
-		" " +
-		"head-" +
-		(color.head[0] || "").replace(/ /g, "-") +
-		" " +
-		"face-" +
-		(color.face[0] || "").replace(/ /g, "-") +
-		" " +
-		"neck-" +
-		(color.neck[0] || "").replace(/ /g, "-") +
-		" " +
-		"hands-" +
-		(color.hands[0] || "").replace(/ /g, "-") +
-		" " +
-		"legs-" +
-		(color.legs[0] || "").replace(/ /g, "-") +
-		" " +
-		"feet-" +
-		(color.feet[0] || "").replace(/ /g, "-") +
-		" " +
-		"upper_acc-" +
-		(color.upper[1] || "").replace(/ /g, "-") +
-		" " +
-		"lower_acc-" +
-		(color.lower[1] || "").replace(/ /g, "-") +
-		" " +
-		"under_lower_acc-" +
-		(color.under_lower[1] || "").replace(/ /g, "-") +
-		" " +
-		"under_upper_acc-" +
-		(color.under_upper[1] || "").replace(/ /g, "-") +
-		" " +
-		"head_acc-" +
-		(color.head[1] || "").replace(/ /g, "-") +
-		" " +
-		"face_acc-" +
-		(color.face[1] || "").replace(/ /g, "-") +
-		" " +
-		"neck_acc-" +
-		(color.neck[1] || "").replace(/ /g, "-") +
-		" " +
-		"hands_acc-" +
-		(color.hands[1] || "").replace(/ /g, "-") +
-		" " +
-		"legs_acc-" +
-		(color.legs[1] || "").replace(/ /g, "-") +
-		" " +
-		"feet_acc-" +
-		(color.feet[1] || "").replace(/ /g, "-")
-	);
-}
-window.debugColourContainerClasses = debugColourContainerClasses; // export function
-
 function getClothingCost(item, slot) {
-	let cost = setup.clothes[slot][clothesIndex(slot, item)].cost * V.clothesPrice;
+	let cost = setup.clothes[slot][clothesIndex(slot, item)].cost * V.settings.clothingCostModifier;
 
 	if (
 		setup.clothes.under_lower.findIndex(x => x.name === item.name && x.modder === item.modder) >= 0 ||
 		setup.clothes.under_upper.findIndex(x => x.name === item.name && x.modder === item.modder) >= 0
 	)
-		cost *= V.clothesPriceUnderwear;
-	else if (item.type.includes("school")) cost *= V.clothesPriceSchool;
+		cost *= V.settings.underwearCostModifier;
+	else if (item.type.includes("school")) cost *= V.settings.schoolClothingCostModifier;
 
 	// the lewder item is, the more affected by the multiplier it is
 	const lewdness = Math.clamp((item.reveal - 400) / 500, 0, 1);
-	const lewdCoef = 1 + (V.clothesPriceLewd - 1) * lewdness;
+	const lewdCoef = 1 + (V.settings.lewdClothingCostModifier - 1) * lewdness;
 	cost *= lewdCoef;
 
 	if (V.passage === "School Library Shop") {
-		cost *= 1.4 + ((V.delinquency - 500) / 5000 + (V.NPCName[V.NPCNameList.indexOf("Sydney")].love - 50) / -500);
+		cost *= 1.4 + ((V.delinquency - 500) / 5000 + (C.npc.Sydney.love - 50) / -500);
 	}
 
 	return Math.round(cost);
@@ -171,29 +23,29 @@ window.getClothingCost = getClothingCost;
 
 // Returns the price of the clothing item passed.
 // If it's part of an outfit the price is 80% of the full outfit for the primary half
-// and 80% for the other halves.
+// and 20% for the other halves.
 function tailorClothingCost(item, slot) {
 	let cost = 0;
 	if (setup.clothes[slot][clothesIndex(slot, item)].outfitSecondary) {
 		const upperSlot = setup.clothes[slot][clothesIndex(slot, item)].outfitSecondary[0];
 		const upperItem = setup.clothes[upperSlot].findIndex(x => x.name === setup.clothes[slot][clothesIndex(slot, item)].outfitSecondary[1]);
-		if (upperItem >= 0) cost = setup.clothes[upperSlot][upperItem].cost * V.clothesPrice * 0.2;
+		if (upperItem >= 0) cost = setup.clothes[upperSlot][upperItem].cost * V.settings.clothingCostModifier * 0.2;
 	} else if (setup.clothes[slot][clothesIndex(slot, item)].outfitPrimary) {
-		cost = setup.clothes[slot][clothesIndex(slot, item)].cost * V.clothesPrice * 0.8;
+		cost = setup.clothes[slot][clothesIndex(slot, item)].cost * V.settings.clothingCostModifier * 0.8;
 	} else {
-		cost = setup.clothes[slot][clothesIndex(slot, item)].cost * V.clothesPrice;
+		cost = setup.clothes[slot][clothesIndex(slot, item)].cost * V.settings.clothingCostModifier;
 	}
 
 	if (
 		setup.clothes.under_lower.findIndex(x => x.name === item.name && x.modder === item.modder) >= 0 ||
 		setup.clothes.under_upper.findIndex(x => x.name === item.name && x.modder === item.modder) >= 0
 	)
-		cost *= V.clothesPriceUnderwear;
-	else if (item.type.includes("school")) cost *= V.clothesPriceSchool;
+		cost *= V.settings.underwearCostModifier;
+	else if (item.type.includes("school")) cost *= V.settings.schoolClothingCostModifier;
 
 	// the lewder item is, the more affected by the multiplier it is
 	const lewdness = Math.clamp((item.reveal - 400) / 500, 0, 1);
-	const lewdCoef = 1 + (V.clothesPriceLewd - 1) * lewdness;
+	const lewdCoef = 1 + (V.settings.lewdClothingCostModifier - 1) * lewdness;
 	cost *= lewdCoef;
 
 	return Math.round(cost);
@@ -210,8 +62,8 @@ function convertNormalToOver() {
 		"peacoat",
 		"shadbelly coat",
 		"puffer jacket",
-		"brown leather jacket",
-		"black leather jacket",
+		"leather jacket",
+		"punk leather jacket",
 		"vampire jacket",
 	];
 
@@ -333,7 +185,17 @@ function convertNormalToOver() {
 window.convertNormalToOver = convertNormalToOver;
 
 function getVisibleClothesList() {
-	const visibleClothes = [V.worn.over_upper, V.worn.over_lower, V.worn.over_head, V.worn.face, V.worn.neck, V.worn.hands, V.worn.legs, V.worn.feet];
+	const visibleClothes = [
+		V.worn.over_upper,
+		V.worn.over_lower,
+		V.worn.over_head,
+		V.worn.face,
+		V.worn.neck,
+		V.worn.hands,
+		V.worn.handheld,
+		V.worn.legs,
+		V.worn.feet,
+	];
 	// over_head doesn't have 'exposed' parameter, but maybe it will some day (in which case remove check for 'naked')
 	if (V.worn.over_head.name === "naked" || V.worn.over_head.exposed >= 2) visibleClothes.push(V.worn.head);
 	if (V.worn.over_upper.exposed >= 2 || V.overupperwetstage >= 3) visibleClothes.push(V.worn.upper);
@@ -391,7 +253,7 @@ window.playerChastity = playerChastity;
 /**
  * @description Takes in a passed item of clothing and returns its corresponding pair if it's an outfit part.
  * @param {object} garment The item of clothing that we want the second half of.
- * @param {string} layer  The layer the garment in being worn on.
+ * @param {string} layer The layer the garment in being worn on.
  * @returns {object} If found, it will return the item of clothing that is the other half. If not, it returns null.
  */
 function findOutfitPair(garment, layer) {
@@ -402,8 +264,8 @@ function findOutfitPair(garment, layer) {
 	if (garment.name !== "naked" && (garment.outfitPrimary || garment.outfitSecondary)) {
 		const tempSet = setup.clothes[layer][garment.index].set;
 		let costMod;
-		if (layer.includes("under")) costMod = V.clothesPriceUnderwear;
-		else costMod = V.clothesPrice;
+		if (layer.includes("under")) costMod = V.settings.underwearCostModifier;
+		else costMod = V.settings.clothingCostModifier;
 
 		if (layer.includes("upper")) {
 			// We are looking for lower items in this section
@@ -434,7 +296,7 @@ function findOutfitPair(garment, layer) {
 			if (garment.index - 7 < setup.clothes[findLayer].length) {
 				for (let i = 0; i <= 7; i++) {
 					if (garment.index - i < 0) break;
-					if (tempSet === setup.clothes[findLayer][garment.index - i].set) {
+					if (tempSet === setup.clothes[findLayer][garment.index - i]?.set) {
 						pair = { ...setup.clothes[findLayer][garment.index - i] };
 						break;
 					}
@@ -473,19 +335,27 @@ function getOutfitPair() {
 	const foundPairs = [];
 
 	for (let i = 0; i < 6; i++) {
-		if (V.worn[garmentLayers[i]].name === "naked") continue;
+		const item = V.worn[garmentLayers[i]];
+		if (item.name === "naked") continue;
 		const brokenHalf = i < 3 ? garmentLayers[i].replace("upper", "lower") : garmentLayers[i].replace("lower", "upper");
-		if (V.worn[garmentLayers[i]].set === V.worn[brokenHalf].set) continue;
-		const check = findOutfitPair(V.worn[garmentLayers[i]], garmentLayers[i]);
+		if (item.set === V.worn[brokenHalf].set) continue;
+		const check = findOutfitPair(item, garmentLayers[i]);
 		if (check) {
 			check.wornHalf = garmentLayers[i];
 			check.brokenHalf = brokenHalf;
-			check.colour = V.worn[garmentLayers[i]].colour;
-			check.colour_sidebar = V.worn[garmentLayers[i]].colour_sidebar;
-			check.colour_combat = V.worn[garmentLayers[i]].colour_combat;
-			check.accessory = V.worn[garmentLayers[i]].accessory;
-			check.accessory_colour = V.worn[garmentLayers[i]].accessory_colour;
-			check.location = V.worn[garmentLayers[i]].location;
+			check.colour = item.colour;
+			check.colourCustom = item.colourCustom;
+			check.colour_sidebar = item.colour_sidebar;
+			check.colour_combat = item.colour_combat;
+			check.accessory = item.accessory;
+			check.accessory_colour = item.accessory_colour;
+			check.accessory_colourCustom = item.accessory_colourCustom;
+			check.pattern = item.pattern;
+			check.pattern_colour = item.pattern_colour;
+			check.location = item.location;
+			if (item.inherited_attributes) {
+				Object.entries(item.inherited_attributes).forEach(([key, value]) => (check[key] = value));
+			}
 			foundPairs.push(check);
 		}
 	}
@@ -512,6 +382,7 @@ function makeMissingOutfit(brokenOutfit) {
 	// Resets the one_piece value and set values
 	V.worn[brokenOutfit.wornHalf].one_piece = 1;
 	V.worn[brokenOutfit.wornHalf].set = brokenOutfit.set;
+	delete V.worn[brokenOutfit.wornHalf].inherited_attributes;
 
 	// Checks for any item worn in that place then puts it in the wardrobe
 	if (V.worn[brokenHalf].name !== "naked") {
@@ -526,3 +397,64 @@ function makeMissingOutfit(brokenOutfit) {
 	V.worn[brokenHalf] = brokenOutfit;
 }
 window.makeMissingOutfit = makeMissingOutfit;
+
+/* Moved out of canvasmodel-img.twee */
+function getClothingOptionsItem(slot, item, stage) {
+	const itemOptions = {};
+
+	const index = clothesIndex(slot, item);
+	itemOptions[slot] = {
+		index,
+		setup: setup.clothes[slot][index],
+		integrity: integrityKeyword(item, slot),
+		colour: item.colour,
+		alt: item.altposition,
+		pattern: item.pattern,
+		pattern_layer: item.pattern_layer,
+	};
+	itemOptions[slot].alpha = { 1: 0.9, 2: 0.7, 3: 0.5 }[stage] ?? 1.0;
+	itemOptions[slot].accColour = item.accessory_colour;
+	return itemOptions;
+}
+window.getClothingOptionsItem = getClothingOptionsItem;
+
+/* Moved out of canvasmodel-img.twee */
+function getClothingOptions() {
+	const modelOptions = { worn: {}, filters: {} };
+	const slots = [
+		["upper", V.upperwetstage],
+		["over_upper"],
+		["genitals"],
+		["lower", V.lowerwetstage],
+		["over_lower"],
+		["under_lower", V.underlowerwetstage],
+		["under_upper", V.underupperwetstage],
+		["hands"],
+		["handheld"],
+		["head"],
+		["over_head"],
+		["face"],
+		["neck"],
+		["legs"],
+		["feet"],
+	];
+
+	for (const slotobj of slots) {
+		const item = V.worn[slotobj[0]];
+		modelOptions.worn = { ...modelOptions.worn, ...getClothingOptionsItem(slotobj[0], item, slotobj[1]) };
+
+		if (item.accessory_layer_under) {
+			modelOptions.acc_layer_under = item.accessory_layer_under;
+		}
+		if (item.colour === "custom") {
+			/* TODO @aimozg We recalculate custom colour RGB here; in future versions, we should store custom colours in canvasfilter-friendly way */
+			modelOptions.filters["worn_" + slotobj[0] + "_custom"] = item.colourCanvasFilter || getCustomClothesColourCanvasFilter(item.colourCustom);
+		}
+		if (item.accessory_colour === "custom") {
+			modelOptions.filters["worn_" + slotobj[0] + "_acc_custom"] =
+				item.accessory_colourCanvasFilter || getCustomClothesColourCanvasFilter(item.accessory_colourCustom);
+		}
+	}
+	return modelOptions;
+}
+window.getClothingOptions = getClothingOptions;

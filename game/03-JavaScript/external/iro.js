@@ -722,7 +722,7 @@
 		handleRadius = props.handleRadius,
 		padding = props.padding,
 		sliderShape = props.sliderShape;
-	var ishorizontal = props.layoutDirection === 'horizontal'; // automatically calculate sliderSize if its not defined
+	var ishorizontal = props.layoutDirection === 'horizontal'; // automatically calculate sliderSize if it's not defined
 
 	sliderSize = (_sliderSize = sliderSize) != null ? _sliderSize : padding * 2 + handleRadius * 2;
 
@@ -1255,8 +1255,9 @@
 			// Detect if the event is a touch event by checking if it has the `touches` property
 			// If it is a touch event, use the first touch input
 			var point = e.touches ? e.changedTouches[0] : e;
-			var x = point.clientX - bounds.left;
-			var y = point.clientY - bounds.top;
+			const zoomScale = (V.options?.zoom / 100) || 1;
+			var x = (point.clientX - bounds.left) / zoomScale;
+			var y = (point.clientY - bounds.top) / zoomScale;
 			switch (e.type) {
 				case "mousedown" /* MouseDown */:
 				case "touchstart" /* TouchStart */:
@@ -1930,7 +1931,7 @@ window.colorWheelContactLenses = function() {
 					if (setup.colours.eyes[s_colours].variable == eyes[eye]){ // When we found the right colour object that matches the eye colour
 						check_condition = 1
 						tempEditEyeName(eye, "colorWheelTemporary"+eye, s_colours) // we replace its colour by "colorWheelTemporary" and have this temporary colour match player's one
-						tmp_object = tempEditPlayerEyeValues(tmp_object, eye, "colorWheelTemporary"+eye, color[(V.pharmacy_order_colours == 1 ? 0 : eye)], s_colours); // we temporarily change the player eye colour, and save the original values, as to set them back afterward.
+						tmp_object = tempEditPlayerEyeValues(tmp_object, eye, "colorWheelTemporary"+eye, color[(V.pharmacy_order_colours == 1 ? 0 : eye)], s_colours); // we temporarily change the player eye colour and save the original values, setting them back afterward.
 						save_index[eye] = s_colours;
 						break;
 					}

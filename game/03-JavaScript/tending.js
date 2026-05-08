@@ -3,7 +3,7 @@ window.plantSeedsInPlot = function (plot, plantType) {
 	plot.stage = 1;
 	plot.days = 0;
 	V.tendingvars.plot_planted = 1;
-	if (V.weather === "rain") plot.water = 1;
+	if (Weather.precipitation === "rain") plot.water = 1;
 	else if (T.irrigation > 0) {
 		plot.water = 1;
 		T.irrigation--;
@@ -11,9 +11,9 @@ window.plantSeedsInPlot = function (plot, plantType) {
 };
 
 window.unlockAllSeeds = function () {
-	Object.values(setup.plants).forEach(plant => {
-		if (!V.plants_known.includes(plant.name) && (plant.type === "flower" || plant.type === "vegetable")) {
-			V.plants_known.push(plant.name);
+	Object.entries(setup.foodstuff).forEach(([key, plant]) => {
+		if (!V.plants_known.includes(key) && plant.tending?.has_seeds) {
+			V.plants_known.push(key);
 		}
 	});
 };
