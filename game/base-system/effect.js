@@ -1764,6 +1764,92 @@ function effects() {
 
 	if (V.combat === 0 && V.ironmanmode === true) IronMan.scheduledSaves();
 
+	if (V.slime > 0) {
+
+	if (V.oxygen <= V.oxygenmax) {
+		oxygenRefresh();
+	}
+	if (V.nooxygen === 1) {
+		V.nooxygen = 0;
+		return "<br><span class='green'>Normally, aphyxia would be an issue right now. Good thing you're a slime.</span><br>";
+	}
+	if (V.outside === 1 && 
+		Weather.precipitation === "rain" && 
+		!(V.worn.head.type.includes("rainproof")) &&
+		!(V.worn.over_head.type.includes("rainproof"))) {
+		violence(40);
+		return "<br>Get out of the rain! <span class='red'>It stings!<br><br></span>";
+	}
+	}
+
+	if (V.slime > 0 || V.ghost >= 1 || V.mushroom >= 1) {
+
+	V.pblevel = 0;
+	V.pbgrowth = 0;
+	V.pblevelballs = 0;
+	V.pbgrowthballs = 0;
+	V.pbstrip = 0;
+	V.makeup.pbcolour = 0;
+	}
+
+	if (V.mouthsensitivity < 4 && V.transformationParts.traits.longtongue !== "disabled") {
+	V.mouthsensitivity = 4;
+	}
+
+	if (V.mushroom === 1 && V.fungalgrowth === 0) {
+
+	V.fungalgrowth = 1;
+	}
+
+	if (V.mushroom === 0 && V.fungalgrowth >= 1) {
+
+	switch (State.mushroomtf || 0) {
+		case 1: V.fungalgrowth = 30; break;
+		case 2: V.fungalgrowth = 60; break;
+		case 3: V.fungalgrowth = 90; break;
+		default: V.fungalgrowth = 0;
+	}
+	}
+
+	if (V.fungalstagelimiter === 0) {
+
+	let message = "";
+	if (V.fungalgrowth >= 30 && V.mushroom === 1) {
+		V.mushroomtf = 1;
+		V.mushroom = 2;
+		V.fungalstagelimiter = 1;
+		message = "<span class='yellow'>You've progressed your fungal growth!</span>";
+	} else if (V.fungalgrowth >= 60 && V.mushroom === 2) {
+		V.mushroomtf = 2;
+		V.mushroom = 3;
+		V.fungalstagelimiter = 1;
+		message = "<span class='yellow'>You've further progressed your fungal growth!</span>";
+	} else if (V.fungalgrowth >= 90 && V.mushroom === 3) {
+		V.mushroomtf = 3;
+		V.mushroom = 4;
+		V.fungalstagelimiter = 1;
+		earnFeat("Mushroom");
+		message = "<span class='yellow'>Your fungal growth is at it's maximum level!</span>";
+	}
+	if (message) return message;
+	}
+
+	if (V.fungalclotheslimiter !== 0 &&
+
+	V.mushroom >= 2 && 
+	V.worn && 
+	V.worn.upper && 
+	V.worn.lower && 
+	(V.worn.upper.name === "mushroom bodice" || V.worn.lower.name === "mushroom gown")) {
+	if (State.combat === 1 && 
+		(V.worn.lower.state === 0 || V.worn.upper.state === 0)) {
+		V.mushroom -= 1;
+		updatesidebarimg(); /* ASSUMING THIS IS YOUR JS FUNC */
+		V.fungalclotheslimiter -= 1;
+		return "<br><span class='yellow'>Your mushroom attire broke! Your transformation has been reverted to the previous stage!</span>";
+	}
+	}
+	
 	return fragment;
 }
 

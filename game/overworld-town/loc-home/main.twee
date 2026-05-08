@@ -1,9 +1,9 @@
 :: Bedroom
 <<bedclotheson "bed">>
 <<set $outside to 0>><<set $location to "home">><<home_effects>><<effects>><<getTarget true>>
-<span class="camouflage text"><a onclick="V.codeinput = 0">
-
+<span class="camouflage text"><a onclick="V.codeinput = 1">
 You are in your bedroom.
+</a></span>
 
 /* Wallpaper */
 <<set _furniture to $furniture.bedroom>>
@@ -474,6 +474,9 @@ The hallway outside connects to the rest of the orphanage.
 <<else>>
 	<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
 	<br>
+<</if>>
+<<if V.codeinput gte 1>>
+	<<link [[Code]]>><</link>>
 <</if>>
 
 :: Code

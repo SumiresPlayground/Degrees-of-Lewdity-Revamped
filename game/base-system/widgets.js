@@ -593,7 +593,7 @@ function calculateallure() {
 	if (V.cow >= 6) attractiveness += 500 - 100 * partsHidden("cow", ["ears", "horns", "tail"]);
 	if (V.harpy >= 6) attractiveness += 500 - 60 * partsHidden("bird", ["tail", "eyes", "wings", "malar", "plumage"]);
 	if (V.fox >= 6) attractiveness += 750 - 175 * partsHidden("fox", ["ears", "tail", "cheeks"]);
-	if (V.raccoon >= 6>) attractiveness += 500;
+	if (V.raccoon >= 6) attractiveness += 500;
 	if (V.fish >= 6) attractiveness += 500;
 	if (V.sheep >= 6) attractiveness += 500;
 	if (V.bee >= 6) attractiveness += 500;
@@ -608,6 +608,11 @@ function calculateallure() {
 	if (V.spider >= 6) attractiveness += 750;
 	if (V.frog >= 6) attractiveness += 500;
 	if (V.mushroom >= 1) attractiveness -= 400;
+	/* makeup */
+	for (const makeup of ["lipstick", "mascara", "eyeshadow", "blusher"]) {
+		if (V.makeup[makeup]) attractiveness += 100;
+	}
+	V.attractiveness = Math.floor(attractiveness);
 	/* makeup */
 	for (const makeup of ["lipstick", "mascara", "eyeshadow", "blusher"]) {
 		if (V.makeup[makeup]) attractiveness += 100;
@@ -821,100 +826,3 @@ function getTransformParts(parts = []) {
 	else return false;
 }
 window.getTransformParts = getTransformParts;
-
-function clearCheeks() {
-
-V.transformationParts.wolf.cheeks = "disabled";
-V.transformationParts.fox.cheeks = "disabled";
-V.transformationParts.raccoon.mask = "disabled";
-V.transformationParts.frog.cheeks = "disabled";
-
-}
-
-function clearHalo() {
-
-V.transformationParts.angel.halo = "disabled";
-V.transformationParts.fallenAngel.halo = "disabled";
-
-}
-
-function clearEars() {
-
-V.transformationParts.cat.ears = "disabled";
-V.transformationParts.cow.ears = "disabled";
-V.transformationParts.wolf.ears = "disabled";
-V.transformationParts.fox.ears = "disabled";
-V.transformationParts.bee.ears = "disabled";
-V.transformationParts.sheep.ears = "disabled";
-V.transformationParts.deer.ears = "disabled";
-V.transformationParts.bear.ears = "disabled";
-V.transformationParts.dog.ears = "disabled";
-V.transformationParts.raccoon.ears = "disabled";
-V.transformationParts.fish.fins = "disabled";
-V.transformationParts.horse.ears = "disabled";
-V.transformationParts.pig.ears = "disabled";
-V.transformationParts.goblin.ears = "disabled";
-
-}
-
-function clearEyes() {
-
-V.transformationParts.bird.eyes = "disabled";
-V.transformationParts.dragon.eyes = "disabled";
-V.transformationParts.lizard.eyes = "disabled";
-V.transformationParts.spider.eyes = "disabled";
-V.transformationParts.frog.eyes = "disabled";
-V.transformationParts.eldritch.eyes = "disabled";
-
-}
-
-function clearHorns() {
-
-V.transformationParts.demon.horns = "disabled";
-V.transformationParts.cow.horns = "disabled";
-V.transformationParts.sheep.horns = "disabled";
-V.transformationParts.deer.horns = "disabled";
-V.transformationParts.dragon.horns = "disabled";
-
-}
-
-function clearTail() {
-
-V.transformationParts.cat.tail = "disabled";
-V.transformationParts.demon.tail = "disabled";
-V.transformationParts.cow.tail = "disabled";
-V.transformationParts.wolf.tail = "disabled";
-V.transformationParts.bird.tail = "disabled";
-V.transformationParts.fox.tail = "disabled";
-V.transformationParts.bee.tail = "disabled";
-V.transformationParts.sheep.tail = "disabled";
-V.transformationParts.deer.tail = "disabled";
-V.transformationParts.bear.tail = "disabled";
-V.transformationParts.dragon.tail = "disabled";
-V.transformationParts.lizard.tail = "disabled";
-V.transformationParts.dolphin.tail = "disabled";
-V.transformationParts.dog.tail = "disabled";
-V.transformationParts.raccoon.tail = "disabled";
-V.transformationParts.fish.tail = "disabled";
-V.transformationParts.horse.tail = "disabled";
-V.transformationParts.spider.tail = "disabled";
-V.transformationParts.pig.tail = "disabled";
-V.hastail = false;
-V.thintail = false;
-V.swimtail = false;
-V.thicktail = false;
-
-}
-
-function clearWings() {
-
-V.birdFly = 0;
-V.transformationParts.bird.wings = "disabled";
-V.transformationParts.angel.wings = "disabled";
-V.transformationParts.demon.wings = "disabled";
-V.transformationParts.fallenAngel.wings = "disabled";
-V.transformationParts.bee.wings = "disabled";
-V.transformationParts.dragon.wings = "disabled";
-V.transformationParts.eldritch.skin = "disabled";
-V.transformationParts.eldritch.tentacle = "disabled";
-}

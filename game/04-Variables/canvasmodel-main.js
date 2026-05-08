@@ -1960,6 +1960,7 @@ Renderer.CanvasModels.main = {
 		"demon_horns": genlayer_horns("demon", {
 			filters: ["demon_horns"],
 		}),
+		/***
          *     █████   ██   ██  ███████  ███████  ██████
          *    ██       ██   ██  ██       ██       ██   ██
          *     █████   ███████  ██████   ██████   ██████
