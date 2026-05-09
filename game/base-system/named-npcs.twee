@@ -617,6 +617,10 @@ Zohar
 			<<case Leighton>><<set $NPCName[_i].outfits.pushUnique("teacher", "maleFormal1", "femaleFormal1")>>
 			<<case "Black Wolf" "Great Hawk" "Night Monster">><<set $NPCName[_i].outfits to ["naked"]>>
 			<<case "Ivory Wraith">><<set $NPCName[_i].outfits to ["naked", "moonRobe"]>>
+			<<case Taylor>><<set $NPCName[_i].outfits.pushUnique("maleTown1", "femaleTown1")>>
+			<<case Casey>><<set $NPCName[_i].outfits.pushUnique("maleTown1", "femaleTown1")>>
+			<<case Salem>><<set $NPCName[_i].outfits to ["moonRobe"]>>
+			<<case Pruti>><<set $NPCName[_i].outfits to ["moonRobe"]>>
 			<<default>>
 				<!-- Maybe should be left as a default case for futureproofing?
 				Assigns area-appropriate clothes without saving them to the NPC.
@@ -2394,7 +2398,24 @@ Zohar
 			<<else>>
 				thinks you're sheltered.
 			<</if>>
-
+		<<case Taylor>>
+			Taylor
+			<<if $NPCName[_i].love gte 75>>
+				<span class="green">thinks you're a hero</span>.
+			<<elseif $NPCName[_i].love gte 25>>
+				<span class="teal">respects you</span>.
+			<<else>>
+				is cautious of your presence.
+			<</if>>
+		<<case Casey>>
+			Casey
+			<<if $NPCName[_i].love gte 75>>
+				<span class="green">thinks you're worth tolerating</span>.
+			<<elseif $NPCName[_i].love gte 50>>
+				<span class="teal">doesn't mind your presence</span>.
+			<<else>>
+				thinks you're a pest.
+			<</if>>
 		<!-- Default cases -->
 		<<default>>
 			_npc
