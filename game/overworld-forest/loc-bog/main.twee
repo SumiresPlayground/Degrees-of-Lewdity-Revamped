@@ -141,6 +141,8 @@ You're in the bog between the forest and moor.
 		<<rng>>
 		<<if dangerEvent(_bogmod)>>
 			<<eventbog>>
+		<<elseif $rng gte 81>>
+			<<eventbogitem>>
 		<<else>>
 			<<eventbogsafe>>
 		<</if>>
@@ -653,43 +655,6 @@ You collapse onto your back, exhaustion finally overtaking you. It takes some ti
 <br><br>
 
 <<link [[Next|Moor]]>><<set $bogdepth to 0>><<set $bogwater to 0>><<set $moor to 85>><<set $eventskip to 1>><</link>>
-<br>
-
-:: Bog Mosquito
-<<if $struggle_start is 1>>
-	<<struggle_init>>
-	<<set $struggle.creature to "mosquito">>
-	<<struggle_creatures 2 2>>
-	<<set $combat to 1>>
-	<<controlloss>>
-	<<violence 1>>
-	<<molested>>
-	<<if $analdisable is "f">>
-		<<set $struggle.anus.creature to "mosquito">><<set $anususe to "struggle">><<set $anusstate to "struggle">><<set $struggle.enemy[0].location to "anus">>
-	<</if>>
-	<<unset $struggle_start>>
-<</if>>
-
-<<struggle>>
-
-<<if $struggle.done gte $struggle.number>>
-	<span id="next"><<link [[Next|Bog Mosquito End]]>><</link>></span>
-	<br>
-<<else>>
-	<span id="next"><<link [[Next|Bog Mosquito]]>><</link>></span>
-	<br>
-<</if>>
-
-:: Bog Mosquito End
-<<effects>>
-
-The buzzing fades into the trees. <<tearful>> you continue through the bog.
-<br><br>
-
-<<clotheson>>
-<<endcombat>>
-
-<<link [[Next|Bog]]>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Mushroom Grove

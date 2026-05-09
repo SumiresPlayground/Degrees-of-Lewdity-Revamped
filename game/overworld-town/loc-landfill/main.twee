@@ -107,6 +107,9 @@ You are in the landfill on Elk Street.
 	<<elseif $trash gte 100 and $robinmissing is "landfill" and $robinmistknown>>
 		<<getinicon>><<link [[Go towards the sound of heavy machinery (0:10)|Robin Mist Intro]]>><<pass 10>><</link>>
 		<br>
+	<<elseif $trash gte 100 and $bunker is "found">>
+		<<link [[Enter the trapdoor (0:02)|The Bunker Intro]]>><<set $eventskip to 1>><<pass 2>><</link>>
+	<</if>>
 	<</if>>
 	<<if $trash gte 1>>
 		<<getouticon>><<link [[Go towards the sound of traffic (0:10)|Trash]]>><<pass 10>><<set $trash -= 10>><</link>>
