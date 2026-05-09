@@ -119,17 +119,17 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 		<</if>>
 		Places of interest
 		<br>
-		<<if Time.dayState is "dusk" and $weather isnot "rain" and $caseyagain is 0 and $caseymet is 0>>
+		<<if Time.dayState is "dusk" and Weather.precipitation !== "rain" and $caseyagain is 0 and $caseymet is 0>>
 			You see a young <<if C.npc.Casey.gender is "m">>man<<else>>woman<</if>> wearing a biker jacket and smoking a cigar, leaning against the side of the pub. Their black greased hair shimmering as they let out a puff of smoke.
 			<br><br>
 			<<link [[Introduce yourself (0:05)|Casey Introduction]]>><<pass 5>><</link>>
 			<br>
-		<<elseif Time.dayState is "dusk" and $weather isnot "rain" and $caseyagain is 1 and $caseymet is 0>>
+		<<elseif Time.dayState is "dusk" and Weather.precipitation !== "rain" and $caseyagain is 1 and $caseymet is 0>>
 			You see a young <<if C.npc.Casey.gender is "m">>man<<else>>woman<</if>> wearing a biker jacket and smoking a cigar, leaning against the side of the pub. Their black greased hair shimmering as they let out a puff of smoke.
 			<br>
 			<<link [[Try to talk to them again (0:05)|Casey Again]]>><<pass 5>><</link>>
 			<br>
-		<<elseif Time.dayState is "dusk" and $weather isnot "rain" and $caseymet is 1>>
+		<<elseif Time.dayState is "dusk" and Weather.precipitation !== "rain" and $caseymet is 1>>
 			You see Casey in their usual spot smoking a cigar.
 			<br><br>
 			<<link [[Hang out (0:20)|Casey Hang Out]]>><<npcincr Casey love 2>><<pass 20>><</link>><<gglove>>

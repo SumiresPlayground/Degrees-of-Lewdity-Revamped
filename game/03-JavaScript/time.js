@@ -981,6 +981,20 @@ function dayPassed() {
 		delete V.whitney_roof;
 	}
 
+	/* World Expanded Daily Variables*/
+
+	V.dragonbreathuse = 3;
+	V.sirensong = 3;
+
+	if (V.salempunishment >  0) V.salempunishment -= 1;
+
+	V.fungalstagelimiter = 0;
+	V.fungalclotheslimiter = 1;
+
+	V.moorburger = 0;
+
+	return fragment;
+
 	// daysTillLaying only applies to unfertilised eggs
 	if (V.harpyEggs) V.harpyEggs.daysTillLaying--;
 	if (V.harpyEggsPrevent) {

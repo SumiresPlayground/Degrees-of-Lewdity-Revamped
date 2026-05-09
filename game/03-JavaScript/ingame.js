@@ -91,7 +91,7 @@ const combatActionColours = {
 			/* feetaction */
 			"kick", "ambush",
 			/* mouthaction */
-			"confront", "bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy",
+			"confront", "bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy", "dragonBreath",
 		],
 		meek: [
 			/* leftaction or rightaction */
@@ -1719,6 +1719,10 @@ function isPossibleLoveInterest(name) {
 			return V.farm_stage >= 7 && V.alex_countdown === undefined;
 		case "Gwylan":
 			return V.gwylanSeen?.includes("partners") || V.gwylanSeen?.includes("romance");
+		case "Taylor":
+			return V.taylorromance === 1;
+		case "Casey":
+			return V.caseyromance === 1;
 		default:
 			return false;
 	}

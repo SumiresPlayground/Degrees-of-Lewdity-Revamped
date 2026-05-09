@@ -92,6 +92,13 @@ You are in the farmlands.
 		<br>
 	<</if>>
 	<<if $exposed lte 0>>
+		<<if Weather.precipitation === "rain" or Weather.precipitation === "snow" or Time.dayState is "night">>
+			The food stand is closed.
+			<br>
+		<<else>>
+			<<link [[Visit the nearby food stand (0:05)|Moor Food Stand]]>><<pass 5>><</link>>
+			<br>
+		<</if>>
 		<<if Time.hour is $closinghour>>
 			<span class="blue">Horses are being stabled at the riding school as it closes for the day.</span>
 			<br>
@@ -2987,4 +2994,27 @@ Alex punches the wooden post beside <<him>>, startling the <<farm_text_many dog>
 <br><br>
 
 <<link [[Next|Farm Work]]>><<endevent>><</link>>
+<br>
+
+:: Moor Food Stand
+As you approach the stand you see a large, hulking man wearing an apron. He flips a burger on his grill before seeing you. "Only one burger a day, kid." He says in a gravely voice.
+<br><br>
+<<if $money gte 5000 and $moorburger lt 1>>
+	<<link [[Buy Cheeseburger (0:20 £50)|Moor Hamburger]]>><<set $moorburger to 1>><<transform dragon 1>><<set $money -= 5000>><<pass 20>><<stress -18>><</link>><<llstress>>
+<<elseif $money gte 5000 and $moorburger is 1>>
+	You've already had a burger today.
+<<else>>
+	You don't have enough money.
+<</if>>
+<br><br>
+<<link [[Leave|Farmland]]>><</link>>
+
+:: Moor Hamburger
+You order a hamburger with tomato and lettuce. It soon arrives.
+<br><br>
+
+It's big and juicy. It's so tasty, it leaves you feeling satisfied.
+<br><br>
+
+<<link [[Next|Farmland]]>><</link>>
 <br>

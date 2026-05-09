@@ -2317,9 +2317,7 @@
 	/*Hiding parts of your Inner Self will slowly increase your Trauma over time (excludes pubes and pits).
 	If your Trauma gets too high, you will be unable to hide.*/
 
-	__Genome Dump__
-	<br>
-	<<link "Reset Transformation">><<set $mirrorMenu to "genomedump">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
+	___Genome Dump___
 	<br><br>
 
 	<<set _angel to V.transformationParts.angel>>
@@ -2757,16 +2755,18 @@
 		<<link [[Clear Outfit|$passage]]>><<strip>><</link>>
 		<br>
 		<<if $mushroom is 2>>
-		<<link [[Manifest Outfit|$passage]]>>
+			<<link [[Manifest Outfit|$passage]]>>
 
-		<<underupperwear 10002>>
-		<<underlowerwear 10002>>
-		<<legswear 10002>>
-		<<updatesidebarimg>>
-		<</link>>
-
+			<<underupperwear 10002>>
+			<<underlowerwear 10002>>
+			<<legswear 10002>>
+			<<updatesidebarimg>>
+			<</link>>
 		<</if>>
-		<<if $mushroom is 3>>
+
+	<</if>>
+
+	<<if $mushroom is 3>>
 		<<link [[Manifest Outfit|$passage]]>>
 
 		<<underupperwear 10002>>
@@ -2777,9 +2777,9 @@
 		<<feetwear 10002>>
 		<<updatesidebarimg>>
 		<</link>>
-		<</if>>
+	<</if>>
 
-		<<if $mushroom is 4>>
+	<<if $mushroom is 4>>
 		<<link [[Manifest Outfit|$passage]]>>
 		/*Added the invisible mushroom cap trigger here just in case the player got rid of it, somehow. */
 		<<headwear 10006>>
@@ -2791,13 +2791,8 @@
 		<<feetwear 10003>>
 		<<updatesidebarimg>>
 		<</link>>
-		<</if>>
-		<br>
-	
-		
 	<</if>>
-			</div>
-		<</if>>
+		<br>
 		<<if _isMenuEnabled>>
 			<details class="expandMenu">
 				<summary class="expandMenu">Custom Colours</summary>
@@ -2811,7 +2806,6 @@
 				</div>
 			</details>
 		<</if>>
-	</div>
 
 	<!-- Attach an event to every listbox item to update the PC on the sidebar. -->
 	<<script>>

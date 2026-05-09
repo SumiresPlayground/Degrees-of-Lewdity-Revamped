@@ -7,7 +7,7 @@ You swim past many large bunches of coral and jagged chunks of rock before reach
 :: Misland Landing Boat
 The ship pulls into a small inlet river and into a small oasis village. "Well, we're here. Get your stuff and get off."
 <br><br>
-<<link [[Next|Misland Dock]]>><<set $islanddistance to 20>><<set $weather to "clear">><<location "desert">><</link>>
+<<link [[Next|Misland Dock]]>><<set $islanddistance to 20>><<set Weather.precipitation === "clear">><<location "desert">><</link>>
 
 :: Misland
 <<effects>>
@@ -25,70 +25,70 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
     <<elseif $islanddistance is 10>>
         <<location "desert">>
         <<set _weather_display to "normal">>
-        <<set $weather to "clear">>
+        <<set Weather.precipitation === "clear">>
         You find a massive mound of sand. It looks like some kind of insect nest.
     <<elseif $islanddistance is 20>>
         <<location "desert">>
         <<set _weather_display to "normal">>
-        <<set $weather to "clear">>
+        <<set Weather.precipitation === "clear">>
         You come across a small village resting on an oasis of water and palms.
     <<elseif $islanddistance lt 30>>
         <<location "desert">>
         <<set _weather_display to "normal">>
-        <<set $weather to "clear">>
+        <<set Weather.precipitation === "clear">>
         Sandy dunes stretch on ahead as the desert heat eats away at you.
     <<elseif $islanddistance is 30>>
         <<location "forest">>
         <<set _weather_display to "normal">>
-        <<set $weather to "rain">>
+        <<set Weather.precipitation === "rain">>
         The land slopes as the desert meets a mountain range full of lush vegetation.
     <<elseif $islanddistance is 40>>
         <<location "forest">>
         <<set _weather_display to "normal">>
-        <<set $weather to "rain">>
+        <<set Weather.precipitation === "rain">>
         As you climb the mountain path you find an old steel slag. Continuing down the path you find more and more until you come across a large plane. It lies rusting under a layer of overgrowth.
     <<elseif $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love lt 50>>
         <<location "forest">>
         <<set _weather_display to "normal">>
-        <<set $weather to "rain">>
+        <<set Weather.precipitation === "rain">>
         As you climb the mountain path you find an old wooden hut. It looks like someone was here recently. It's probably a good idea to leave quickly.
     <<elseif $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
         <<location "forest">>
         <<set _weather_display to "normal">>
-        <<set $weather to "rain">>
+        <<set Weather.precipitation === "rain">>
         As you climb the mountain path you find Pruti's old wooden hut.
     <<elseif $islanddistance lt 50>>
         <<location "forest">>
         <<set _weather_display to "normal">>
-        <<set $weather to "rain">>
+        <<set Weather.precipitation === "rain">>
         The mountains continue to rise rife with vegetation. The treeline blots the sun although the moisture and humidity leave you miserable.
     <<elseif $islanddistance is 50>>
         <<location "snowforest">>
-        <<set $weather to "snow">>
+        <<set Weather.precipitation === "snow">>
         Halfway up the mountains, the cool air sets in as snow begins to fall lightly over the higher elevation pine trees.
     <<elseif $islanddistance is 55>>
         <<location "snowforest">>
-        <<set $weather to "snow">>
+        <<set Weather.precipitation === "snow">>
         While wandering the snowy landscape you find an old stone hut, a shattered see-through material lines the inside.
     <<elseif $islanddistance lt 60>>
         <<location "snowforest">>
-        <<set $weather to "snow">>
+        <<set Weather.precipitation === "snow">>
         The mountains are slick with soft snow. Animal prints dot the land as the pines tower over you.
     <<elseif $islanddistance is 60>>
         <<location "glacier">>
-        <<set $weather to "snow">>
+        <<set Weather.precipitation === "snow">>
         You reach the peak of the mountains and on the other side is an expansive glacier sheet that seems to stretch into the horizon
     <<elseif $islanddistance is 61>>
         <<location "glacier">>
-        <<set $weather to "snow">>
+        <<set Weather.precipitation === "snow">>
         Your feet hit the hard icy surface of the glacier and you’re met with freezing gusts of wind. Not much could survive up here. The clouds stuck from going over the mountain peaks leave a thick and permanent fog hanging over the land.
     <<elseif $islanddistance is 65>>
         <<location "glacier">>
-        <<set $weather to "snow">>
+        <<set Weather.precipitation === "snow">>
         As you walk further into the ice sheet you find an odd carved hole into the ice.
     <<elseif $islanddistance lte 70>>
         <<location "glacier">>
-        <<set $weather to "snow">>
+        <<set Weather.precipitation === "snow">>
         You're walking along a solid sheet of ice, various crags litter the landscape but not much else.
     <</if>>
     <br><br>
@@ -496,7 +496,7 @@ Deep inside the hole you find an opening. A small shrine fills the room, lightin
 	<br><br>
 	An hour passes, but you're overcome by a tingling sensation.
 	<br><br>
-	<<set $skinColor.natural to "ice">>
+	<<set Skin.color.natural to "ice">>
 	<<set V.transformationParts.ghost.hitodama to "disabled">>
     <<set V.transformationParts.ghost.mist to "default">>
 	<<set $haircolour to "snowblue">>
@@ -595,7 +595,7 @@ You come before a large wax statue. It towers over you, stretching towards the c
 	<br><br>
 	An hour passes, but you're overcome by a tingling sensation.
 	<br><br>
-	<<set $skinColor.natural to "flame">>
+	<<set Skin.color.natural to "flame">>
 	<<set V.transformationParts.ghost.hitodama to "disabled">>
     <<set V.transformationParts.ghost.flame to "default">>
 	<<set $haircolour to "jetblack">>
