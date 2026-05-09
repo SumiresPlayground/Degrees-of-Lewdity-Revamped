@@ -31,7 +31,7 @@
 	<</if>>
 
 	<!-- bonus for sleeping with Love Interests with the Mate For Life trait -->
-	<<if $bedGuest and V.transformationParts.traits.mateForLife isnot "disabled" and isLoveInterest($bedGuest) and !$sleepWraith>>
+	<<if $bedGuest and $transformationParts.traits.mateForLife isnot "disabled" and isLoveInterest($bedGuest) and !$sleepWraith>>
 		<<set $_bonusFatigueLoss += 3>><<set $stress -= 10>><<set $trauma -= 1>><<set $arousal += 10>>
 	<</if>>
 
@@ -364,7 +364,7 @@
 		<<else>>
 			<<pass 1 hour>>
 		<</if>>
-
+		
 		<<if $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
 			<<stress -1000>>
 		<</if>>
@@ -387,7 +387,7 @@
 		<<saveTempHairStyle>>
 		<br><br>
 	<</if>>
-	<<if !$sleepWraith and $bedGuest and V.transformationParts.traits.mateForLife isnot "disabled" and isLoveInterest($bedGuest)>>
+	<<if !$sleepWraith and $bedGuest and $transformationParts.traits.mateForLife isnot "disabled" and isLoveInterest($bedGuest)>>
 		<span class="green">Sleeping with your chosen partner fulfils an instinctual desire.</span> <<lstress>><<ltrauma>><<garousal>>
 		<br><br>
 	<</if>>

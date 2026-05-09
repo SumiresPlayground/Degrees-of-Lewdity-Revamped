@@ -385,7 +385,14 @@
 		<<if $arousal gte ($arousalmax * 0.8)>>
 			<<sadism _args[0]>>
 		<</if>>
-		<<set _thedamage to (2 * _defiance * ($physique / 4000))>>
+		<<if $slime is 1>>
+			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.25>>
+		<</if>>
+		<<if $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
+			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.4>>
+		<<else>>
+			<<set _thedamage += (_defiance * ($physique / 4000))>>
+		<</if>>
 		<<if $enemyno gte 2>>
 			<<npcdamage _args[1]>>
 		<</if>>
