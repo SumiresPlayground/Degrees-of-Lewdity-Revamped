@@ -3590,7 +3590,7 @@
 				<<set $enemyhealth -= 40>>
 				<<set $enemytrust -= 200>>
 				<<set $enemytrust to "fearful">>
-				<<pain -= 70>>
+				<<set $pain -= 70>>
 				<<set $purity -= 3>>
 				<<for _npctodamage to 0; _npctodamage lt $enemynomax; _npctodamage++>>
 					<<if $NPCList[_npctodamage].active is "active" and $NPCList[_npctodamage].stance isnot "defeated">>
@@ -4089,6 +4089,7 @@
 					<<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 					<<set $NPCList[$mouthtarget].penis to 0>><<set $NPCList[$mouthtarget].location.genitals to 0>>
 					<<defiance 20 $mouthtarget>><<attackstat>><<control 15>><<set $mouthuse to 0>><<set $penisbitten to 1>><<set $mouthstate to 0>>
+					<</if>>
 					<<if V.transformationParts.traits.fangs isnot "disabled">>
 						<<defiance 20 $mouthtarget>>
 						You lick your fangs clean.
