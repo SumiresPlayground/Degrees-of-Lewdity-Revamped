@@ -220,7 +220,7 @@ declare module "twine-sugarcube" {
 }
 
 declare global {
-	export type TransformationKeys = "angel" | "bird" | "cat" | "cow" | "demon" | "fallenAngel" | "fox" | "wolf";
+	export type TransformationKeys = "angel" | "bird" | "cat" | "cow" | "demon" | "fallenAngel" | "fox" | "wolf" | "bee" | "sheep" | "dragon";
 
 	export type SkinPositions =
 		| "forehead"

@@ -108,36 +108,14 @@ You're in the main ritual room of the fellowship. The room is large and open, li
 You lie in your bed, the blankets are firm and slightly uncomfortable. 
 <br><br>
 
-<<if $sleeptrouble is 1 and $controlled is 0>>
-	<<link [[Sleep for 10 hours|Bog Cult Sleep]]>><<set $sleephour to 10>><<incrementautosave>><</link>> (<<timeAfterXHours 10>>)<<ltiredness>>
-	<br>
-	<<link [[Sleep for 9 hours|Bog Cult Sleep]]>><<set $sleephour to 9>><<incrementautosave>><</link>> (<<timeAfterXHours 9>>)<<ltiredness>>
-	<br>
-<</if>>
-
-<<link [[Sleep for 8 hours|Bog Cult Sleep]]>><<set $sleephour to 8>><<incrementautosave>><</link>> (<<timeAfterXHours 8>>)<<ltiredness>>
-<br>
-<<link [[Sleep for 7 hours|Bog Cult Sleep]]>><<set $sleephour to 7>><<incrementautosave>><</link>> (<<timeAfterXHours 7>>)<<ltiredness>>
-<br>
-<<link [[Sleep for 6 hours|Bog Cult Sleep]]>><<set $sleephour to 6>><<incrementautosave>><</link>> (<<timeAfterXHours 6>>)<<ltiredness>>
-<br>
-<<link [[Sleep for 5 hours|Bog Cult Sleep]]>><<set $sleephour to 5>><<incrementautosave>><</link>> (<<timeAfterXHours 5>>)<<ltiredness>>
-<br>
-<<link [[Sleep for 4 hours|Bog Cult Sleep]]>><<set $sleephour to 4>><<incrementautosave>><</link>> (<<timeAfterXHours 4>>)<<ltiredness>>
-<br>
-<<link [[Sleep for 3 hours|Bog Cult Sleep]]>><<set $sleephour to 3>><<incrementautosave>><</link>> (<<timeAfterXHours 3>>)<<ltiredness>>
-<br>
-<<link [[Sleep for 2 hours|Bog Cult Sleep]]>><<set $sleephour to 2>><<incrementautosave>><</link>> (<<timeAfterXHours 2>>)<<ltiredness>>
-<br>
-<<link [[Sleep for 1 hours|Bog Cult Sleep]]>><<set $sleephour to 1>><<incrementautosave>><</link>> (<<timeAfterXHours 1>>)<<ltiredness>>
-<br><br>
+<<generateSleepLinks "Bog Cult Sleep">>
 
 <<link [[Get up|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 
 :: Bog Cult Sleep
 <<set _autosavehere to true>>
-<<sleep>><<effects>>
+<<sleep>><<effects>><<sleepeffects>>
 
 You dream you are in the presence of something dark... The darkness whispers incomprehensible words into your ear.
 <br><br>
@@ -146,8 +124,6 @@ You dream you are in the presence of something dark... The darkness whispers inc
     <br><br>
     <<set $culttaskcomplete to 1>>
 <</if>>
-
-<<sleepeffects>>
 <br><br>
 
 <<link [[Get up|Bog Cult Salem Room]]>><<endevent>><</link>>

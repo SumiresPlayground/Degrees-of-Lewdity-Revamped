@@ -1276,6 +1276,11 @@ const combatMainPc = {
 		wolfCheeks: PlayerCanvasHelper.genTransformationLayer("wolf", "cheeks", "front"),
 		wolfPubes: PlayerCanvasHelper.genTransformationLayer("wolf", "pubes", "front"),
 		wolfPits: PlayerCanvasHelper.genTransformationLayer("wolf", "pits", "front"),
+
+		beeEarsFront: PlayerCanvasHelper.genTransformationLayer("bee", "ears", "front"),
+		sheepEarsBack: PlayerCanvasHelper.genTransformationLayer("sheep", "horns", "front"),
+		dragonHornsFront: PlayerCanvasHelper.genTransformationLayer("dragon", "horns", "front"),
+
 		/*
 		 *    ██████   ██████  ██████  ██    ██ ██     ██ ██████  ██ ████████ ██ ███    ██  ██████
 		 *    ██   ██ ██    ██ ██   ██  ██  ██  ██     ██ ██   ██ ██    ██    ██ ████   ██ ██

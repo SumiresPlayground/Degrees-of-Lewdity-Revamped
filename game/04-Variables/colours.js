@@ -259,16 +259,19 @@ setup.colours = {
 		dusky: {
 			gradient: ["#cfcba8", "#cfcba8"],
 			blendMode: "multiply",
+			alpha: 0.6,
 			desaturate: false,
 		},
 		water: {
 			gradient: ["#70a0d7", "#70a0d7"],
 			blendMode: "multiply",
+			alpha: 0.6,
 			desaturate: false,
 		},
 		flame: {
 			gradient: ["#db665e", "#db665e"],
 			blendMode: "multiply",
+			alpha: 0.6,
 			desaturate: false,
 		},
 	},
@@ -721,6 +724,18 @@ setup.colours.hair = [
 		},
 	},
 	{
+		variable: "ghost",
+		name: "ghost",
+		name_cap: "Ghostly Black",
+		csstext: "ghosthair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#454545",
+		},
+		alpha: 0.6,
+	},
+	{
 		variable: "snowblue",
 		name: "snow blue",
 		name_cap: "Snow Blue",
@@ -730,6 +745,7 @@ setup.colours.hair = [
 		canvasfilter: {
 			blend: "#add8e6",
 		},
+		alpha: 0.6,
 	},
 	{
 		variable: "slimegreen",
@@ -742,6 +758,7 @@ setup.colours.hair = [
 			blend: "#85d6a5",
 			opacity: 0.9
 		},
+		alpha: 0.6,
 	},
 	{
 		variable: "lilacpurple",
@@ -754,6 +771,7 @@ setup.colours.hair = [
 			blend: "#D2AFFF",
 			opacity: 0.9
 		},
+		alpha: 0.6,
 	},
 	{
 		variable: "chillyblue",
@@ -766,6 +784,7 @@ setup.colours.hair = [
 			blend: "#7ce2fe",
 			opacity: 0.9
 		},
+		alpha: 0.6,
 	},
 	{
 		variable: "amberyellow",

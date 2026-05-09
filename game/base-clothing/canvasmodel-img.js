@@ -434,6 +434,28 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.fish_tail_type = V.transformationParts.fish.tail;
 	T.modeloptions.horse_ears_type = V.transformationParts.horse.ears;
 	T.modeloptions.horse_tail_type = V.transformationParts.horse.tail;
+	T.modeloptions.ghost_eyes_type = V.transformationParts.ghost.eyes;
+	T.modeloptions.ghost_hitodama_type = V.transformationParts.ghost.hitodama;
+	T.modeloptions.ghost_mist_type = V.transformationParts.ghost.mist;
+	T.modeloptions.ghost_stream_type = V.transformationParts.ghost.stream;
+	T.modeloptions.ghost_flame_type = V.transformationParts.ghost.flame;
+
+	T.modeloptions.slime_bubble_type = V.transformationParts.slime.bubble;
+	T.modeloptions.slime_stream_type = V.transformationParts.slime.stream;
+	T.modeloptions.slime_core_type = V.transformationParts.slime.core;
+
+	T.modeloptions.mushroom_cap_type = V.transformationParts.mushroom.cap;
+	T.modeloptions.mushroom_eyes_type = V.transformationParts.mushroom.eyes;
+	T.modeloptions.mushroom_spores_type = V.transformationParts.mushroom.spores;
+	T.modeloptions.mushroom_mushrooms_type = V.transformationParts.mushroom.mushrooms;
+
+	T.modeloptions.eldrich_crown_type = V.transformationParts.eldritch.crown;
+	T.modeloptions.eldrich_eyes_type = V.transformationParts.eldritch.eyes;
+	T.modeloptions.eldritch_mist_type = V.transformationParts.eldritch.mist;
+	T.modeloptions.eldritch_tentacle_type = V.transformationParts.eldritch.tentacle;
+	T.modeloptions.eldritch_skin_type = V.transformationParts.eldritch.skin;
+	
+	T.modeloptions.goblin_ears_type = V.transformationParts.goblin.ears
 
 	/*
 			██████ ██   ██ ██ ███    ███ ███████ ██████   █████

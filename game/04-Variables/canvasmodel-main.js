@@ -1976,7 +1976,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_horns_type);
 			},
-			z: ZIndices.over_upper,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 		"sheep_ears": {
@@ -1987,7 +1987,7 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.sheep_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 		"sheep_tail": {
@@ -2141,7 +2141,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_horns_type);
 			},
-			z: ZIndices.over_upper,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 		"dragon_eyes": {
