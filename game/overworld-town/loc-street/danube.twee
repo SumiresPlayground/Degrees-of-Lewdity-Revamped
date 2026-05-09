@@ -99,7 +99,10 @@ Some homes host extravagant Halloween displays.
 			<<map "danube">>
 			<br>
 		<</if>>
-
+		<<if $TaylorFreed is 1 and $TaylorReward is undefined and Time.dayState is not "night">>
+			<<set $TaylorReward to 1>>
+			<<goto "Taylor Meeting After Freed">>
+		<</if>>
 		<<if $wrenHeist is true and (Time.hour gte 19 and Time.hour lte 20) and $wrenHeistDance.attended isnot true>>
 			In the distance, you see the mansion where you're supposed to meet Wren. <<nnpc_He "Wren">> will be waiting for you there.
 			<br>

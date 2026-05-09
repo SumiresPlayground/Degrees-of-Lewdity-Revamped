@@ -375,6 +375,21 @@
 			<</addinlineevent>>
 		<</if>>
 
+		<<if Time.days gte 30 and $TaylorMissing is 0>>
+			<<npc Taylor>><<person1>><<set $TaylorMissing to 1>>
+			While walking through the halls you hear some voices and listen in
+			<br>
+			"Hey, did you hear about Taylor?"
+			<br>
+			"Who's that?"
+			<br>
+			"One of them rich homeschool kids down on Danube Street. Apparently <<hes>> gone missing."
+			<br>
+			They walk out of earshot and you continue on.
+			<br><br>
+
+		<<link [[Next|Hallways]]>><<endevent>><</link>>
+
 		<<if $schoolrep.herm gte 5 and !$worn.face.type.includes("mask")>>
 			<<addinlineevent "fame_herm">>
 				<<generatey1>><<generatey2>><<generatey3>> You hear three students whispering behind you.
