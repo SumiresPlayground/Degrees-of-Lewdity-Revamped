@@ -11,7 +11,7 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.9.8 ChylliMod",
+	version: "0.5.9.8 New World",
 	versionName: `"Dark Dredge" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,

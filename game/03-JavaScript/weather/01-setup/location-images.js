@@ -657,6 +657,9 @@ setup.LocationImages = {
 				condition: () => V.weatherObj.snow > 450 && Number(localStorage.getItem("worldCorruption")) >= 25,
 				image: "snow.png",
 			},
+			mod: {
+				image: "mod.png",
+			},
 		},
 		weather: {
 			fogDistributionCurve: 3,
