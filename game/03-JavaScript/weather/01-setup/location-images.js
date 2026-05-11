@@ -4216,4 +4216,118 @@ setup.LocationImages = {
 			},
 		},
 	},
+	desert: {
+		folder: "desert",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+		},
+		weather: {
+			fogDistributionCurve: 2.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 16,
+					bottom: 0,
+				},
+				fog: {
+					top: 24,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	hive: {
+		folder: "hive",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		weather: {
+			fogDistributionCurve: 2.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 16,
+					bottom: 0,
+				},
+				fog: {
+					top: 24,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	glacier: {
+		folder: "glacier",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+		},
+		weather: {
+			fogDistributionCurve: 2.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 16,
+					bottom: 0,
+				},
+				fog: {
+					top: 24,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	lakehouse: {
+		folder: "cabin",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		emissive: {
+			image: "emissive.png",
+			condition: () => Weather.lightsOn,
+			color: "#deae66",
+			strength: 2,
+		},
+		weather: {
+			fogDistributionCurve: 2,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 4,
+					bottom: 0,
+				},
+				fog: {
+					top: 13,
+					bottom: 0,
+				},
+			},
+		},
+	},
 };

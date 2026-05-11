@@ -1156,8 +1156,8 @@
 			<<tailActions>>
 			<<if Object.keys(_tailaction).length gt 0>>
 				<<set $tailaction to $tailactiondefault>>
-				<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "")>>
-				<<generateCombatAction _tailaction "tailaction" _textColor $tailaction>>
+				<<assignCombatDefaults "tail" _args[0]>>
+				<<generateCombatAction _tailaction "tailaction">>
 
 				<<if $options.combatControls.includes("ists")>>
 					<div id="tailactionDifficulty">
@@ -1190,10 +1190,11 @@
 	<<if $NPCList[0].state isnot "stalk">>
 		<<switch _tailOptions>>
 			<<case "free">>
-				<<if V.transformationParts.bee.tail is "default">>
+				<<set _tailaction["Rest"] to "rest">>
+				<<if $transformationParts.bee.tail is "default">>
 					<<tailstab>>
 				<</if>>
-				<<if V.transformationParts.spider.tail is "default">>
+				<<if $transformationParts.spider.tail is "default">>
 					<<tailsilk>>
 				<</if>>
 				<<if $thicktail is "true">>

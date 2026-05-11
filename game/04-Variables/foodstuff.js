@@ -3169,6 +3169,60 @@ function initFoodstuff() {
 				tags: ["vegetarian", "sweet"],
 			},
 		},
+		mouse_ear: {
+			index: 149,
+			name: "mouse_ear",
+			singular: "mouse ear",
+			plural: "mouse ears",
+			category: "flower",
+			tending: {
+				planting_bed: "earth",
+				growth_days: 8,
+				yield_multiplier: 1,
+				has_seeds: true,
+				seasons: ["spring", "summer"],
+				tags: [],
+			},
+			shop: {
+				sell_price: 400,
+			},
+		},
+		glacier_crowfoot: {
+			index: 150,
+			name: "glacier_crowfoot",
+			singular: "glacier_crowfoot",
+			plural: "glacier crowfoot",
+			category: "flower",
+			tending: {
+				planting_bed: "earth",
+				growth_days: 12,
+				yield_multiplier: 1,
+				has_seeds: true,
+				seasons: ["winter"],
+				tags: [],
+			},
+			shop: {
+				sell_price: 700,
+			},
+		},
+		green_manure: {
+			index: 151,
+			name: "green_manure",
+			singular: "green manure",
+			plural: "green manure",
+			category: "vegetable",
+			tending: {
+				planting_bed: "earth",
+				growth_days: 7,
+				yield_multiplier: 4,
+				has_seeds: true,
+				seasons: ["spring", "summer", "autumn", "winter"],
+				tags: [],
+			},
+			shop: {
+				sell_price: 1,
+			},
+		},
 	};
 	finalizefoodstuff();
 }

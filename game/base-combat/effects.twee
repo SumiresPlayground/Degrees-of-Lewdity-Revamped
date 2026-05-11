@@ -3346,6 +3346,9 @@
 
 		<<if $tailaction is "tailsilk">>
 			<<set $tailaction to 0>><<set $tailactiondefault to "tailsilk">>
+			<<if $webbing is undefined>>
+				<<set $webbing to 0>>
+			<</if>>
 			<<if $parasite.left_ear.name is "slime" and random(1, 3) is 3 or $parasite.right_ear.name is "slime" and random(1, 3) is 3>>
 				<<if $corruption_slime gte (currentSkillValue('willpower') / 10)>>
 					You try to spray the <<if $enemytype is "beast">><<beasttype>>,<<else>><<personselect $tailtarget>><<person>>,<</if>>
@@ -3353,10 +3356,10 @@
 					<<gwillpower>><<willpower 1>>
 				<<else>>
 					The slime tries to immobilise your tail, <span class="green">but you wrestle control away from it.</span>
-					<<actionssilk $tailtarget>><<set $enemyanger -= 20>>
+					<<actionssilk $tailtarget>><<set $webbing += 1>><<if $webbing is 6>><<set $enemyhealth to 0>><<set $webbing to 0>><</if>>
 				<</if>>
 			<<else>>
-				<<actionssilk $tailtarget>><<set $enemyanger -= 20>>
+				<<actionssilk $tailtarget>><<set $webbing += 1>><<if $webbing is 6>><<set $enemyhealth to 0>><<set $webbing to 0>><</if>>
 			<</if>>
 		<</if>>
 
@@ -4300,7 +4303,7 @@
 			<<set $enemyarousal -= 40>>
 			<<set $enemyanger -= 30>>
 			<<set $tiredness -= 100>>
-			<<pain -= 40>>
+			<<set $pain -= 40>>
 			<<set $physique += 120>>
 			<<attackstat>>
 			<<set $mouthuse to 0>>
@@ -4333,7 +4336,7 @@
 						<<set $enemyarousal -= 60>>
 						<<set $enemyanger -= 30>>
 						<<set $tiredness -= 100>>
-						<<pain -= 40>>
+						<<set $pain -= 40>>
 						<<set $physique += 120>>
 						<<attackstat>>
 						<<control 15>>

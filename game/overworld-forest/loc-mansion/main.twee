@@ -38,11 +38,11 @@
 	<<foresthunt>>
 <<elseif $exorcism is 1>>
 	<<npc Jordan>><<person1>>
-	As you enter you find Jordan in a large robe holding a tome, waiting.
+	As you enter, you find Jordan in a large robe holding a tome, waiting.
 	<br><br>
 	"Ah finally here. Ready to get your body back?" <<He>> has a serious look on <<his>> face.
 	<br><br>
-	<<He>> leads you to the empty bedroom where your body was only to find it empty. 
+	<<He>> leads you to the empty bedroom where your body was, only to find it empty. 
 	<br><br>
 	"Looks like your body's got a hitchhiker." <<He>> grumbles as <<he>> spreads a white powder in the air that reveals a slimy trail along the ground.
 	<br><br>
@@ -67,13 +67,13 @@
 		<<if $skulduggery gte $lock>>
 			<span class="green">The locks look easy to pick.</span>
 			<br><br>
-			<<link [[Pick lock (0:05)|Forest Mansion Pick Lock]]>><<pass 5>><</link>>
+			<<link [[Pick lock (0:05)|Forest Mansion Pick Lock]]>><<npcincr Taylor love 3>><<pass 5>><</link>>
 			<br>
 		<<else>>
 			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
 			<br><br>
 		<</if>>
-		<<if $ghost gte 1>>
+		<<if $ghost gte 1  and $TaylorWith is 0>>
 			You can phase through the doors if you concentrate. 
 			<br>
 			<<link [[Phase (0:01)|Forest Mansion Entrance]]>><<tiredness 20>><<pass 1>><</link>><<ggtiredness>>
@@ -101,6 +101,11 @@
 You take some time fiddling with the lock before popping it open and opening the door.
 <br><br>
 
+<<if $TaylorWith is 1>>
+	"Wow that was impressive, I've never seen someone as adept at picking locks. Maybe you should come along more often." <<ggglove>>
+	<br><br>
+<</if>>
+
 <<if $forestmansionstage is 0>>
 	<<link [[Enter|Forest Mansion Entrance]]>><</link>>
 	<br>
@@ -117,7 +122,9 @@ You take some time fiddling with the lock before popping it open and opening the
 	<<set $forestmansionkitchen to 1>>
 	<<if $TaylorWith is 1>>
 		<<pass 20>>
-		"Yeah I can't do anything about this lock. Apparently some people have managed to get their hands on a key but I have no clue where to even begin looking." <<He>> starts to pace. "For now we should just go around and check the windows."
+		Taylor takes a moment to examine the lock and tries to slide a twisted pin into the crack. A cracking sound is heard within the device and the pin returns completely twisted. Taylor grimices.
+		<br><br>
+		"Yeah sorry, but I can't do anything about this lock. Apparently some people have managed to get their hands on a key but I have no clue where to even begin looking." <<He>> starts to pace. "For now we should just go around and check the windows."
 		<br><br>
 	<<else>>
 		<<pass 30>>
@@ -152,7 +159,7 @@ You find yourself in a large dusty entrance room. A coat rack sits to the side w
 	<<forestmansionrandomevents>>
 <<else>>
 	<<if $TaylorWith is 1>>
-		"This place is still in quite remarkable condition for being as old as it is." Taylor remarks.
+		"This place is still in quite remarkable condition for being as old as it is." Taylor remarks. 
 	<</if>>
 
 	There’s doors to the left and right as well as a staircase upwards.
@@ -174,7 +181,7 @@ You find yourself in a large dusty entrance room. A coat rack sits to the side w
 			<span class="blue">The locks look beyond your ability to pick.</span> <<skulduggeryrequired>>
 			<br>
 		<</if>>
-		<<if $ghost gte 1>>
+		<<if $ghost gte 1 and $TaylorWith is 0>>
 			You can phase through the doors if you concentrate.
 			<br><br>
 			<<link [[Phase (0:01)|Forest Mansion Explore]]>><<tiredness 20>><<pass 1>><</link>><<ggtiredness>>
@@ -211,7 +218,7 @@ You find yourself in a long hallway with doors on either side.
 <</if>>
 
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 3>><<effects>>
-You enter a small room full of cooking appliances and utensils long past. An old wood oven and ice box sit against the wall and silverware lines the counter tops. In the corner is a dust covered trapdoor leading down.
+You enter a small room full of cooking appliances and utensils from a different age. An old wood oven and ice box sit against the wall and silverware lines the counter tops. In the corner is a dust covered trapdoor leading down.
 <br><br>
 
 <<if $rng lte 50 and $eventskip is 0>>
@@ -361,7 +368,7 @@ You enter a messy room full of beds in various states of disarray. Many are unma
 <<else>>
 
 	<<if $TaylorWith is 1>>
-		“Wow the servants quarters seems to be a lot worse off than most of what we’ve seen. Servants must have been given a lot lower quality furniture.” 
+		“Wow the servants quarters seems to be a lot worse off than most of what we’ve seen. Servants must have been given a lot lower quality furniture. That or there was some kind of event that led to the room looking so... destroyed.” 
 		<br><br>
 	<</if>>
 
@@ -370,7 +377,7 @@ You enter a messy room full of beds in various states of disarray. Many are unma
 
 :: Forest Mansion Study
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 8>><<effects>>
-You walk into a large room lined with bookshelves with a desk in the middle. This is where the master of the mansion would have read and worked. The books are all much older than the mansion and falling apart. You try to open one but it falls apart in your hands, even on the scraps the words are so faded you can’t read them.
+You walk into a large room lined with bookshelves with a desk in the middle. This is where the master of the mansion would have read and worked. The books are all much older than the mansion and falling apart. You try to open one but it falls apart in your hands. Even on the scraps, the words are so faded you can’t read them.
 <br><br>
 
 <<if $rng lte 50 and $eventskip is 0>>
@@ -378,7 +385,7 @@ You walk into a large room lined with bookshelves with a desk in the middle. Thi
 <<else>>
 
 	<<if $TaylorWith is 1>>
-		“It’s a shame these books are so destroyed, they could have been something undocumented or important reads.” Taylor looks upset. “I’ll take some anyway. Maybe I can find a way to restore them.”
+		“It’s a shame these books are so destroyed, they could have been something undocumented or important historical records.” Taylor looks upset. “I’ll take some anyway. Maybe I can find a way to restore them.”
 		<br><br>
 	<</if>>
 
@@ -476,31 +483,14 @@ You snuggle under the covers.
 
 <<if $TaylorWith is 1>>
 	“Wait, you want to sleep here? Well it is past dark and we're in the middle of the woods.” <<He>> sighs “How will I explain this to my mother, especially after the last incident.” The two of you lie in bed and try to sleep. Most of the night you're plagued with chills before the sun comes back up. 
-<<elseif $ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 0 and $rng lte 10>>
-	You rest your head on the old mansion's pillow and drift off to sleep. You don't get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+<<elseif ($ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 0 and $rng lte 10 and $transformdisable is "f") or ($ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 1 and $rng lte 15 and $transformdisable is "f"))>>
+	You rest your head on the old mansion's pillow and drift off to sleep. You don't get a very good rest constantly interrupted by chills before waking up. You sit up and stretch, before getting out of the bed.
 	<br><br>
 	Although, something feels... wrong. You go to rub your temple but feel nothing. You panic, pulling the cover from a mirror to find yourself changed.
 	<br><br>
-	Your skin is ghostly pale. Blue flaming orbs loom around you. You go to touch your face but shockingly your hand phases through into your head. You start to breathe heavily, panic setting in, as your hand becomes stuck in place.
+	Your skin is ghostly pale and strange blue flaming orbs loom around you. You go to touch your face, but shockingly your hand phases through into your head. You start to breathe heavily, panic setting in, as your hand becomes stuck in place.
 	<br><br>
-	You pull and finally rip it loose as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
-	<<set Skin.color.natural to "ghost">>
-	<<set V.transformationParts.ghost.eyes to "default">>
-	<<set V.transformationParts.ghost.hitodama to "default">>
-	<<set $haircolour to "ghost">>
-	<<set $hairfringecolour to "ghost">>
-	<<set $makeup.browscolour to "black">>
-	<<set $options.lightGlow to 1>>
-	<<set $ghost to 1>>
-	<<earnFeat "Ghost">>
-<<elseif $ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 1 and $rng lte 15>>
-	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
-	<br><br>
-	Although, something feels... wrong. You go to rub your temple but feel nothing. You panic, pulling the cover from a mirror to find yourself changed.
-	<br><br>
-	Your skin is ghostly pale. Blue flaming orbs loom around you. You go to touch your face but shockingly your hand phases through into your head. You start to breath heavily, panic setting in, as your hand becomes stuck in place.
-	<br><br>
-	You pull and finally rip it loose as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
+	You pull and finally rip it loose, as semi-solid chunks and blue fluid drip from your cheek. Your body is gone. You calm yourself before considering what to do next.
 	<<set Skin.color.natural to "ghost">>
 	<<set V.transformationParts.ghost.eyes to "default">>
 	<<set V.transformationParts.ghost.hitodama to "default">>
@@ -511,7 +501,7 @@ You snuggle under the covers.
 	<<set $ghost to 1>>
 	<<earnFeat "Ghost">>
 <<else>>
-	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest, constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
 <</if>>
 <br><br>
 <<if $TaylorWith is 1>>
@@ -528,7 +518,7 @@ You snuggle under the covers.
 
 :: Forest Mansion Coffee Ending
 <<set $TaylorWith to 0>>
-“Great! Let's go to the Ocean Breeze Cafe then.” You two make your way to the cafe and take a seat. Taylor sighs “That expedition was less exciting than I thought. So much for being haunted that place barely had anything worthwhile. Oh two coffees please.” <<He>> says to the barista. “The only part that made that trip fun was you so thanks for coming with.” <<He>> smiles. “Anyway I better get home before my mom kills me. See you soon.”
+“Great! Let's go to the Ocean Breeze Cafe then.” You two make your way to the cafe and take a seat. Taylor sighs “That expedition was less exciting than I thought. So much for being haunted that place barely had anything worthwhile. Oh two coffees please.” <<He>> says to the barista. “The only part that made that trip fun was you, so thanks for coming with.” <<He>> smiles. “Anyway I better get home before my mom kills me. See you soon.”
 <br><br>
 <<endevent>>
 
@@ -544,7 +534,7 @@ You snuggle under the covers.
 
 :: Forest Mansion Taylor Leave
 <<set $TaylorWith to 0>>
-“You want to leave already?” Taylor asks sadly “Okay I guess if you’re not having a good time we can.” You walk together back to the town. “If you ever want to go to another location you know where to find me.” <<He>> says as <<he>> gives you a hug and heads home.
+“You want to leave already?” Taylor asks sadly, “Okay I guess if you’re not having a good time we can.” You walk together back to the town. “If you ever want to go to another location you know where to find me.” <<He>> says as <<he>> gives you a hug and heads home.
 <br><br>
 <<endevent>>
 
@@ -570,7 +560,7 @@ Jordan shouts something as <<he>> smashes a glass bottle on your body's forehead
 :: Forest Mansion Exorcism
 You hold down the body as Jordan begins to read from the old tome. You can't understand the language but your body starts to twitch and scream in agony.
 <br><br>
-Black fluid poors from your body's pours and pools on the ground as it writhes under you.
+Black fluid poors from your body's pores and pools on the ground as it writhes under you.
 <br><br>
 "Hurry! Get back inside!" Jordan yells.
 <br><br>

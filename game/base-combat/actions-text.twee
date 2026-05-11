@@ -5660,34 +5660,3 @@
 			<<actionstaunt>>
 	<</switch>>
 <</widget>>
-
-<<widget "actionsburn">>
-	<<if _args[0] is "both">>
-		<<set _hand to "hands">>
-		<<set $_target to $lefttarget>>
-	<<else>>
-		<<set _hand to "hand">>
-		<<if _args[0] isnot undefined>>
-			<<set $_target to _args[0]>>
-		<<else>>
-			<<set $_target to 0>>
-		<</if>>
-	<</if>>
-	<<if $enemytype is "beast">>
-		<<if $pain lte 20>>
-			<span class='orange'>You blast the <<beasttype>> with concentrated heat.</span>
-		<<elseif $pain lte 60>>
-			<span class='orange'>You fight through pain and blast the <<beasttype>> with concentrated heat.</span>
-		<<else>>
-			<span class='orange'>Panicking, you wildly fire a blast of heat at the <<beasttype>>.</span
-		<</if>>
-	<<else>>
-		<<if $pain lte 20>>
-			<span class='orange'>You blast <<someone $_target>> with concentrated heat.</span>
-		<<elseif $pain lte 60>>
-			<span class='orange'>You fight through the pain and blast <<someone $_target>> with concentrated heat.</span>
-		<<else>>
-			<span class='orange'>Pained and terrified, you wildly fire a blast of heat at your assailant.</span>
-		<</if>>
-	<</if>>
-<</widget>>

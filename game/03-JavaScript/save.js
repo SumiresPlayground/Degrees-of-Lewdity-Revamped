@@ -649,7 +649,6 @@ function compatibilityConversion(rawData) {
 		toywhipdisable: { key: "toyWhipEnabled", invert: true },
 		transformdisable: { key: "transformAnimalEnabled", invert: true },
 		transformdisabledivine: { key: "transformDivineEnabled", invert: true },
-		transformdisabletheseus: { key: "transformTheseusEnabled", invert: true },
 		vaginaldoubledisable: { key: "vaginalDoubleEnabled", invert: true },
 		voredisable: { key: "voreEnabled", invert: true },
 		waspdisable: { key: "waspsEnabled", invert: true },

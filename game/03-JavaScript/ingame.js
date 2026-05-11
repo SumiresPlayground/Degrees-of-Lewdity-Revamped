@@ -76,6 +76,8 @@ const combatActionColours = {
 			"steal", "penwhack", "freeface", "leftcovervagina", "leftcoverpenis", "leftcoveranus", "rightcovervagina", "rightcoverpenis", "rightcoveranus", "leftunderpull", "leftskirtpull", "leftlowerpull", "leftupperpull", "rightunderpull", "rightskirtpull", "rightlowerpull", "rightupperpull", "rightUndressOther", "leftUndressOther", "stopchoke", "clench", "shacklewhack", "leftfold", "rightfold", "dildowhack", "hypnosiswhack", "leftstruggleweak", "rightstruggleweak", "handpullpenis", "handpullvagina", "handpullanus", "leftresistW", "rightresistW", "leftstillW", "rightstillW", "penisremovecondom", "npcremovecondom",
 			/* feetaction */
 			"run", "taunt", "hide", "feetresistW", "legLock", "legLocked", "feetHold",
+			/* tailaction */
+			"tailsilk",
 			/* mouthaction */
 			"pullaway", "ejacspit", "pullawayvagina", "finish", "novaginal", "nopenile", "noanal", "scream", "mock", "breastclosed", "breastpull", "pullawaykiss", "noupper", "analpull", "up", "stifleorgasm", "stifle", "mouthresistW", "handcloseW", "growl", "askPullOut", "disparage",
 			/* penisaction */
@@ -90,6 +92,8 @@ const combatActionColours = {
 			"spray", "lefthit", "righthit", "leftstruggle", "rightstruggle", "stopchokenoncon", "pursuit_grab",
 			/* feetaction */
 			"kick", "ambush",
+			/* tailaction */
+			"tailstab", "tailsmack",
 			/* mouthaction */
 			"confront", "bite", "demand", "breastbite", "handbite", "headbutt", "bitepussy", "dragonBreath",
 		],
@@ -112,6 +116,8 @@ const combatActionColours = {
 			"leftplay", "leftgrab", "leftstroke", "leftchest", "rightplay", "rightgrab", "rightstroke", "rightchest", "leftchest", "rightchest", "leftwork", "rightwork", "leftclit", "rightclit", "handedge", "keepchoke", "leftmasturbatepussy", "rightmasturbatepussy", "leftmasturbateanus", "rightmasturbateanus", "leftmasturbatepenis", "rightmasturbatepenis", "lefthandholdkeep", "righthandholdkeep", "lefthandholdnew", "righthandholdnew", "handguide", "lubeanus", "lubepussy", "lubepenis", "removebuttplug", "dildoOtherPussyTease", "dildoOtherPussyFuck", "dildoOtherAnusTease", "dildoOtherAnusFuck", "strokerOtherPenisTease", "strokerOtherPenisFuck", "dildoSelfPussyEntrance", "dildoSelfAnusEntrance", "dildoSelfPussy", "dildoSelfAnus", "strokerSelfPenisEntrance", "strokerSelfPenis", "leftcovervaginalewd", "rightcovervaginalewd", "leftcoverpenislewd", "rightcoverpenislewd", "leftcoveranuslewd", "rightcoveranuslewd",
 			/* feetaction */
 			"grab", "vaginagrab", "grabrub", "vaginagrabrub", "rub",
+			/* tailaction */
+			"tailwag",
 			/* mouthaction */
 			"peniskiss", "kisslips", "kissskin", "suck", "lick", "ejacswallow", "moan", "breastsuck", "breastlick", "swallow", "movetochest", "othervagina", "mouth", "kissback", "vaginalick", "oraledge", "askchoke", "anallick", "analkiss", "askrough", "condoms", "noCondoms",
 			/* penisaction */
@@ -132,6 +138,26 @@ const combatActionColours = {
 			"feetacceptW",
 			/* mouthaction */
 			"mouthacceptW", "handbiteW",
+		],
+		green: [
+			/* corrosive slime attacks */
+			"corrode",
+		],
+		lblue: [
+			/* Yuki-Onna attacks */
+			"deathlychill",
+		],
+		orange: [
+			/* Ifrit attacks */
+			"burn",
+		],
+		black: [
+			/* Dark attacks */
+			"whisper", "rend",
+		],
+		blue: [
+			/* Undine attacks */
+			"sing",
 		],
 	},
 	Tentacle: {

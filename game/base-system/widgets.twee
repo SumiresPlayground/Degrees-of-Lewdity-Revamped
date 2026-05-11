@@ -493,6 +493,10 @@
 					<!-- Petty thievery has extra flat reduction if skulduggery skill above 500 (C+), possibly negating the crime gain entirely -->
 					<<set $_crimemod -= Math.floor($skulduggery / 10)>>
 				<</if>>
+
+				<<if $transformationParts.traits.incognito is "default">>
+					<<set $_crimemod -= Math.floor($skulduggery / 50)>>
+				<</if>>
 			<</if>>
 
 			<<set $_crimemod to Math.clamp($_crimemod, 0, C.crime.max)>>

@@ -13,10 +13,122 @@
 
 <<widget "tailsilk">>
 	<<if $consensual isnot 1 and ($fightTargets is undefined or $fightTargets.includes($tailtarget))>>
-		<<set _tailaction["Spray"] to "tailsilk">>
+		<<set _tailaction["Web"] to "tailsilk">>
 	<</if>>
 <</widget>>
 
 <<widget "tailwag">>
 	<<set _tailaction["Wag"] to "tailwag">>
+<</widget>>
+
+<<widget "actionsstab">>
+	<<if $enemytype is "beast">>
+		<<if $pain lte 20>>
+			You stab the <<beasttype>> with your tail.
+		<<elseif $pain lte 60>>
+			You try to stab the <<beasttype>> away from you with your tail.
+		<<else>>
+			You desperately try to stab the <<beasttype>> away with your tail.
+		<</if>>
+	<<else>>
+		<<if $leftarm is "grappled" or $rightarm is "grappled">>
+			<br>
+			You struggle against the attacker's grasp, attempting to stab them while trying to twist free.
+		<<else>>
+			<<if $pain lte 20>>
+				Defiant, you lash out with your tail.
+			<<elseif $pain lte 60>>
+				Though hurt, you lash out with your tail.
+			<<else>>
+				You lash out in desperation.
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "actionssmack">>
+	<<if $enemytype is "beast">>
+		<<if $pain lte 20>>
+			You smack the <<beasttype>> with your tail.
+		<<elseif $pain lte 60>>
+			You try to smack the <<beasttype>> away from you with your tail.
+		<<else>>
+			You desperately try to smack the <<beasttype>> away with your tail.
+		<</if>>
+	<<else>>
+		<<if $leftarm is "grappled" or $rightarm is "grappled">>
+			You struggle against the attacker's grasp, smacking them with your tail while trying to twist free.
+		<<else>>
+			<<if $pain lte 20>>
+				Defiant, you lash out with your tail.
+			<<elseif $pain lte 60>>
+				Though hurt, you lash out with your tail.
+			<<else>>
+				You lash out in desperation.
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "actionssilk">>
+	<<if $enemytype is "beast">>
+		<<if $pain lte 20>>
+			You spray the <<beasttype>> from your tail.
+		<<elseif $pain lte 60>>
+			You try to spray the <<beasttype>> from your tail.
+		<<else>>
+			You desperately try to spray the <<beasttype>> from your tail.
+		<</if>>
+	<<else>>
+		<<if $leftarm is "grappled" or $rightarm is "grappled">>
+			You struggle against the attacker's grasp, spraying them while trying to twist free.
+		<<else>>
+			<<if $pain lte 20>>
+				Defiant, you spray out from your tail.
+			<<elseif $pain lte 60>>
+				Though hurt, you spray out from your tail.
+			<<else>>
+				You lash out in desperation.
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "actionswag">>
+	<<if $arousal lte ($arousalmax / 5) * 3>>
+		You wag your tail.
+	<<else>>
+		You eagerly wag your tail.
+	<</if>>
+<</widget>>
+
+<<widget "actionsburn">>
+	<<if _args[0] is "both">>
+		<<set _hand to "hands">>
+		<<set $_target to $lefttarget>>
+	<<else>>
+		<<set _hand to "hand">>
+		<<if _args[0] isnot undefined>>
+			<<set $_target to _args[0]>>
+		<<else>>
+			<<set $_target to 0>>
+		<</if>>
+	<</if>>
+	<<if $enemytype is "beast">>
+		<<if $pain lte 20>>
+			<span class='orange'>You blast the <<beasttype>> with concentrated heat.</span>
+		<<elseif $pain lte 60>>
+			<span class='orange'>You fight through pain and blast the <<beasttype>> with concentrated heat.</span>
+		<<else>>
+			<span class='orange'>Panicking, you wildly fire a blast of heat at the <<beasttype>>.</span
+		<</if>>
+	<<else>>
+		<<if $pain lte 20>>
+			<span class='orange'>You blast <<someone $_target>> with concentrated heat.</span>
+		<<elseif $pain lte 60>>
+			<span class='orange'>You fight through the pain and blast <<someone $_target>> with concentrated heat.</span>
+		<<else>>
+			<span class='orange'>Pained and terrified, you wildly fire a blast of heat at your assailant.</span>
+		<</if>>
+	<</if>>
 <</widget>>

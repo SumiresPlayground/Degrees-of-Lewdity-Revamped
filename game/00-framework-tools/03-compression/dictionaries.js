@@ -1777,7 +1777,6 @@ const DoLCompressorDictionaries = (() => {
 		"transformations",
 		"transformdisable",
 		"transformdisabledivine",
-		"transformdisabletheseus",
 		"trauma",
 		"traumafocus",
 		"traumagain",

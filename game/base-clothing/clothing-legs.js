@@ -1327,7 +1327,7 @@ function initLegs() {
 			warmth: 2,
 			cost: 2000,
 			description: "Exotic.",
-			shop: ["clothing", "adult"],
+			shop: ["clothing", "adult", "misland"],
 			accessory: 0,
 			accessory_colour: 0,
 			accessory_colour_options: [],
