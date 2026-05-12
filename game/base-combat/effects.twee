@@ -96,7 +96,7 @@
 		<<effectshandsfreeface>>
 		<<effectshandpull>>
 		<<effectsdildowhack>>
-
+		
 		<<if $consensual is 0 and $ghost is 2>>
 			<span class='lblue'>
 			A wave of spectral energy emanates from your being, causing the temperature in the vicinity to plummet.
@@ -113,8 +113,6 @@
 			<br><br>
 			</span>
 		<</if>>
-
-		
 
 
 		<<if $bodyaction is "doggy">>
@@ -2530,7 +2528,7 @@
 		<</if>>
 
 		<<if $feetaction is "grab">>
-			<<set $feetaction to 0>><<set $feetactiondefault to "grab">><<combatpromiscuity3>>
+			<<set $feetaction to 0>><<set $feetactiondefault to "grab">><<combatpromiscuity3>><<feetskilluse>>
 			<<if combatSkillCheck("feet", $feettarget)>>
 				<<submission 2>>
 				<<if $NPCList[$feettarget].penis is 0>>
@@ -2567,7 +2565,7 @@
 						Your high heels strengthen the blow!
 						<<defiance 1 $feettarget>>
 					<</if>>
-					<<if V.transformationParts.traits.kicks isnot "disabled">>
+					<<if $transformationParts.traits.kicks isnot "disabled">>
 						Your strong legs strengthen the blow!
 						<<defiance 10 $feettarget>>
 					<</if>>
@@ -2578,7 +2576,7 @@
 					Your high heels strengthen the blow!
 					<<defiance 1 $feettarget>>
 				<</if>>
-				<<if V.transformationParts.traits.kicks isnot "disabled">>
+				<<if $transformationParts.traits.kicks isnot "disabled">>
 					Your strong legs strengthen the blow!
 					<<defiance 10 $feettarget>>
 				<</if>>
@@ -3581,7 +3579,7 @@
 				<</if>>
 			<</if>>
 		<</if>>
-
+		
 		<<if $mouthaction is "sing">>
 			<<set $mouthaction to 0>><<set _sound to 1>>
 			<<if $neckuse is "hand" and $oxygen lt $oxygenmax and $asphyxiaLvl gte 2>>
@@ -3782,7 +3780,7 @@
 				<<set $mouthaction to 0>><<set $mouthactiondefault to "breastbite">><<personselect $mouthtarget>>
 				You bite down on the nipple<<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>, <<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 				<<defiance 20 $mouthtarget>><<attackstat>><<set $mouthuse to 0>><<set $breastbitten to 1>><<set $mouthstate to 0>>
-				<<if V.transformationParts.traits.fangs isnot "disabled">>
+				<<if $transformationParts.traits.fangs isnot "disabled">>
 					<<defiance 20 $mouthtarget>>
 					You lick your fangs clean.
 				<</if>>
@@ -3803,7 +3801,7 @@
 		<<if $mouthaction is "breastlick" and $NPCList[$mouthtarget].chest is "mouthentrance">>
 			<<set $mouthactiondefault to "breastlick">><<set $mouthaction to 0>><<submission 3>>
 			You lick <<hisselect $mouthtarget>> $NPCList[$mouthtarget].breastsdesc.
-			<<if V.transformationParts.traits.longtongue isnot "disabled">>
+			<<if $transformationParts.traits.longtongue isnot "disabled">>
 				<span class='lewd'>Your sensitive, prehensile tongue enhances the sensation.</span>
 			<</if>>
 		<</if>>
@@ -4116,16 +4114,10 @@
 				<<if npcHasStrapon($mouthtarget)>>
 					but it has no effect.
 				<<else>>
-					<<set $mouthaction to 0>><<set $mouthactiondefault to "bite">><<personselect $mouthtarget>>
-					You bite down on <<his>> <<npcPenisSimple $mouthtarget>>,
-					<<if npcHasStrapon($mouthtarget)>>
-						but it has no effect.
-					<<else>>
 					<<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 					<<set $NPCList[$mouthtarget].penis to 0>><<set $NPCList[$mouthtarget].location.genitals to 0>>
 					<<defiance 20 $mouthtarget>><<attackstat>><<control 15>><<set $mouthuse to 0>><<set $penisbitten to 1>><<set $mouthstate to 0>>
-					<</if>>
-					<<if V.transformationParts.traits.fangs isnot "disabled">>
+					<<if $transformationParts.traits.fangs isnot "disabled">>
 						<<defiance 20 $mouthtarget>>
 						You lick your fangs clean.
 					<</if>>
@@ -4140,10 +4132,10 @@
 				<<if $earSlime.growth gte 100>><<set $earSlime.defyCooldown++>><</if>>
 			<<else>>
 				<<set $mouthaction to 0>><<set $mouthactiondefault to "bitepussy">><<personselect $mouthtarget>>
-				You bite down on <<hisselect $mouthtarget>> labia<<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>. <<He>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
+				You bite down on <<hisselect $mouthtarget>> labia. <<He>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 				<<set $NPCList[$mouthtarget].vagina to 0>><<set $NPCList[$mouthtarget].location.genitals to 0>>
 				<<defiance 20 $mouthtarget>><<attackstat>><<control 15>><<set $mouthuse to 0>><<set $penisbitten to 1>><<set $mouthstate to 0>><<set $speechhit to 1>>
-				<<if V.transformationParts.traits.fangs isnot "disabled">>
+				<<if $transformationParts.traits.fangs isnot "disabled">>
 					<<defiance 20 $mouthtarget>>
 					You lick your fangs clean.
 				<</if>>
@@ -4228,12 +4220,12 @@
 			<<else>>
 				<<set $mouthaction to 0>><<set $mouthactiondefault to "handbite">><<personselect $mouthtarget>>
 				<<actionshandbite $mouthtarget>>
-				<<if V.transformationParts.traits.fangs isnot "disabled">>
+				<<if $transformationParts.traits.fangs isnot "disabled">>
 					<<defiance 4 $mouthtarget>>
 				<<else>>
 					<<defiance 2 $mouthtarget>>
 				<</if>>
-				<<if (V.transformationParts.traits.fangs is "disabled" and random(1, 5) gte 5) or (V.transformationParts.traits.fangs isnot "disabled" and random(1, 5) gte 4)>>
+				<<if ($transformationParts.traits.fangs is "disabled" and random(1, 5) gte 5) or ($transformationParts.traits.fangs isnot "disabled" and random(1, 5) gte 4)>>
 					<<set $mouthuse to 0>>
 					<<if $NPCList[$mouthtarget].lefthand is "mouth">>
 						<<set $NPCList[$mouthtarget].lefthand to 0>>
@@ -4288,7 +4280,7 @@
 			<<set $NPCList[$mouthtarget].mouth to 0>>
 			<<set $NPCList[$mouthtarget].location.head to 0>>
 		<</if>>
-
+		
 		<<if $mouthaction is "corrode" and $NPCList[$mouthtarget].mouth.toString().includes("kiss")>>
 			<<set $mouthaction to 0>><<set $mouthactiondefault to "corrode">><<personselect $mouthtarget>>
 			<<if $mouthstate is "kiss">>
@@ -5372,7 +5364,7 @@
 				<</if>>
 			<</if>>
 		<</if>>
-
+		
 		<<if $mouthaction is "dragonBreath">>
 			<<set $mouthactiondefault to "dragonBreath">><<set $mouthaction to 0>>
 			<<set $enemyhealth -= 200>>
@@ -5402,8 +5394,6 @@
 				<</if>>
 			<</if>>
 		<</if>>
-
-
 
 		/*Stalked actions */
 		<<if !$stalk_end>>
