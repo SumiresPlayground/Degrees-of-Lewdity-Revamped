@@ -613,11 +613,6 @@ function calculateallure() {
 		if (V.makeup[makeup]) attractiveness += 100;
 	}
 	V.attractiveness = Math.floor(attractiveness);
-	/* makeup */
-	for (const makeup of ["lipstick", "mascara", "eyeshadow", "blusher"]) {
-		if (V.makeup[makeup]) attractiveness += 100;
-	}
-	V.attractiveness = Math.floor(attractiveness);
 
 	/* allure calcs */
 	let allure = attractiveness;

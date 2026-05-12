@@ -386,12 +386,12 @@
 			<<sadism _args[0]>>
 		<</if>>
 		<<if $slime is 1>>
-			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.25>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.25>>
 		<</if>>
 		<<if $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
-			<<set _thedamage += (_defiance * ($physique / 4000)) * 1.4>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.4>>
 		<<else>>
-			<<set _thedamage += (_defiance * ($physique / 4000))>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000))>>
 		<</if>>
 		<<if $enemyno gte 2>>
 			<<npcdamage _args[1]>>
@@ -492,10 +492,6 @@
 				<<if ["petty"].includes(_crimeType) and $skulduggery gte 500>>
 					<!-- Petty thievery has extra flat reduction if skulduggery skill above 500 (C+), possibly negating the crime gain entirely -->
 					<<set $_crimemod -= Math.floor($skulduggery / 10)>>
-				<</if>>
-
-				<<if $transformationParts.traits.incognito is "default">>
-					<<set $_crimemod -= Math.floor($skulduggery / 50)>>
 				<</if>>
 			<</if>>
 
@@ -3723,19 +3719,6 @@
 		<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 20)>>
 		<<set $NPCName[_i].lust = Math.clamp($NPCName[_i].lust, 0, 20)>>
 	<</if>>
-
-	<<set _i to $NPCNameList.indexOf("Taylor")>>
-	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 100)>>
-	<<set $NPCName[_i].lust = Math.clamp($NPCName[_i].lust, 0, 100)>>
-	<<set _i to $NPCNameList.indexOf("Casey")>>
-	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 100)>>
-	<<set $NPCName[_i].lust = Math.clamp($NPCName[_i].lust, 0, 100)>>
-	<<set _i to $NPCNameList.indexOf("Salem")>>
-	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 100)>>
-	<<set $NPCName[_i].lust = Math.clamp($NPCName[_i].lust, 0, 100)>>
-	<<set _i to $NPCNameList.indexOf("Pruti")>>
-	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 100)>>
-	<<set $NPCName[_i].lust = Math.clamp($NPCName[_i].lust, 0, 100)>>
 <</widget>>
 
 <<widget "haircheck">>
