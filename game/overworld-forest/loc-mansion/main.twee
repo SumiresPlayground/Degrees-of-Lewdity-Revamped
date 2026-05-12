@@ -320,11 +320,8 @@ WOW that is one strong drink...
 	<br><br>
 <</if>>
 
-<<if $location is "home">>
-	<<link [[Next|Bedroom]]>><</link>>
-<<else>>
-	<<link [[Next|Forest Mansion Cellar]]>><</link>>
-<</if>>
+<<link [[Next|Forest Mansion Cellar]]>><</link>>
+
 :: Forest Mansion Dining Room
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 5>><<effects>>
 You enter a large dining room. A long table spans most of the room. Various dishes line the table, still set for a dinner.
@@ -372,7 +369,7 @@ You enter a messy room full of beds in various states of disarray. Many are unma
 		<br><br>
 	<</if>>
 
-	<<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<<getouticon>><<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
 <</if>>
 
 :: Forest Mansion Study
@@ -396,7 +393,7 @@ You walk into a large room lined with bookshelves with a desk in the middle. Thi
 		<<link [[Redraw the faded rune on the stone (0:20)|Forest Mansion Redraw]]>><<pass 20>><</link>>
 		<br>
 	<</if>>
-	<<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<<getouticon>><<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
 <</if>>
 
 :: Forest Mansion Landing
@@ -424,13 +421,13 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 	<<forestmansionrandomevents>>
 <<else>>
 
-	<<link [[Sleep|Forest Mansion Bed]]>><</link>>
+	<<furnitureicon _bed.iconFile>><<link [[Sleep|Forest Mansion Bed]]>><</link>>
 	<br>
-	<<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
+	<<furnitureicon _wardrobe.iconFile>><<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
 	<br>
-	<<link [[Mirror|Forest Mansion Mirror]]>><</link>>
+	<<furnitureicon _mirror.iconFile>><<link [[Mirror|Forest Mansion Mirror]]>><</link>>
 	<br>
-	<<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<<getouticon>><<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
 <</if>>
 
 :: Forest Mansion Master Suite
@@ -456,14 +453,14 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 			<br><br>
 		<</if>>
 
-		<<link [[Sleep|Forest Mansion Bed]]>><</link>>
+		<<furnitureicon _bed.iconFile>><<link [[Sleep|Forest Mansion Bed]]>><</link>>
 		<br>
-		<<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
+		<<furnitureicon _wardrobe.iconFile>><<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
 		<br>
-		<<link [[Mirror|Forest Mansion Mirror]]>><</link>>
+		<<furnitureicon _mirror.iconFile>><<link [[Mirror|Forest Mansion Mirror]]>><</link>>
 		<br>
 	<</if>>
-	<<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
+	<<getouticon>><<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
 <</if>>
 
 :: Forest Mansion Bed
@@ -505,9 +502,9 @@ You snuggle under the covers.
 <</if>>
 <br><br>
 <<if $TaylorWith is 1>>
-	<<link [[Agree|Forest Mansion Coffee Ending]]>><</link>>
+	<<clifficon>><<link [[Agree|Forest Mansion Coffee Ending]]>><</link>>
 	<br>
-	<<link [[Disagree|Forest Mansion Goodbye]]>><</link>>
+	<<danubeicon>><<link [[Disagree|Forest Mansion Goodbye]]>><</link>>
 <<else>>
 	<<if $forestmansionstage is 11>>
 		<<link [[Next|Forest Mansion Master Suite]]>><</link>>
@@ -522,7 +519,7 @@ You snuggle under the covers.
 <br><br>
 <<endevent>>
 
-<<link [[Next|Cliff Street]]>><<pass 90>><</link>>
+<<clifficon>><<link [[Next|Cliff Street]]>><<pass 90>><</link>>
 
 :: Forest Mansion Goodbye
 <<set $TaylorWith to 0>>
@@ -530,7 +527,7 @@ You snuggle under the covers.
 <br><br>
 <<endevent>>
 
-<<link [[Next|Danube Street]]>><<pass 90>><</link>>
+<<danubeicon>><<link [[Next|Danube Street]]>><<pass 90>><</link>>
 
 :: Forest Mansion Taylor Leave
 <<set $TaylorWith to 0>>
@@ -538,7 +535,7 @@ You snuggle under the covers.
 <br><br>
 <<endevent>>
 
-<<link [[Next|Danube Street]]>><<pass 90>><</link>>
+<<danubeicon>><<link [[Next|Danube Street]]>><<pass 90>><</link>>
 
 :: Forest Mansion Cellar Exorcism
 You follow after Jordan down into the dark damp cellar. Liquid drips from the ceiling as Jordan reaches into <<his>> robe and removes a torch to light the room.

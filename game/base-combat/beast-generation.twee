@@ -115,17 +115,18 @@
 		["slimy"],
 		["scaly"],
 		["fluffy"],
+		["skittish"],
 		["sleek"],
-		["strange"],
+		["sleek"],
 		["scaly"],
-		["strange"],
-		["sleek"],
+		["giant"],
+		["sly"],
 		["slimy"],
-		["matted"]
+		["filthy"]
 		]>> <!-- Descriptor of each type -->
 	<<set _pd to ["knotted penis","spiked penis","penis","knotted penis","strange penis","penis","penis","penis","penis","equine cock","knotted penis","avian cock","bovine cock","arachnid penis","serpent penis","penis","cock","cock","cock","penis","cock","penis","penis","cock"]>> <!-- Descriptor of Penises -->
 	/% <<set _cla to [1,1,1,1,0,1,1,1]>> %/
-	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,2,2,2,4,3,2,2,5,3,2,2,3]>> <!-- Size of penises -->
+	<<set _ps to [2,2,2,3,2,2,3,3,2,5,2,2,4,2,2,3,4,2,3,5,4,2,3,2]>> <!-- Size of penises -->
 
 	<<set _i to $BeastList.indexOf(_type)>>
 	<<set $NPCList[_n].healthmax to _h[_i]>>
@@ -154,6 +155,10 @@
 		<<set $NPCList[_n].claws to "talons">> <!-- Hawks have talons -->
 	<<elseif $NPCList[_n].type is "pig" or $NPCList[_n].type is "boar">>
 		<<set $NPCList[_n].claws to "hooves">> <!-- Pigs and boars have hooves -->
+	<<elseif $NPCList[_n].type is "sheep">>
+		<<set $NPCList[_n].claws to "hooves">>
+	<<elseif $NPCList[_n].type is "deer">>
+		<<set $NPCList[_n].claws to "hooves">>
 	<</if>>
 
 	<!-- Monster generation code -->

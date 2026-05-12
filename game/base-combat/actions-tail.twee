@@ -132,3 +132,34 @@
 		<</if>>
 	<</if>>
 <</widget>>
+
+<<widget "actionslurkerwhip">>
+	<<if _args[0] is "both">>
+		<<set _hand to "hands">>
+		<<set $_target to $lefttarget>>
+	<<else>>
+		<<set _hand to "hand">>
+		<<if _args[0] isnot undefined>>
+			<<set $_target to _args[0]>>
+		<<else>>
+			<<set $_target to 0>>
+		<</if>>
+	<</if>>
+	<<if $enemytype is "beast">>
+		<<if $pain lte 20>>
+			<span class='purple'>A tentacle burst from your arm, stabbing the <<beasttype>> with a sharp point but ripping up your arm in the process.</span>
+		<<elseif $pain lte 60>>
+			<span class='purple'>You fight through pain as a tentacle burst from your arm, stabbing the <<beasttype>> with a sharp point but ripping up your arm in the process.</span>
+		<<else>>
+			<span class='purple'>Panicking, you wildly release a tentacle at the <<beasttype>>. Ripping up your arm in the process.</span>
+		<</if>>
+	<<else>>
+		<<if $pain lte 20>>
+			<span class='purple'>A tentacle burst from your arm, stabbing <<someone $_target>> with a sharp point but ripping up your arm in the process.</span>
+		<<elseif $pain lte 60>>
+			<span class='purple'>You fight through the pain as a tentacle burst from your arm, stabbing <<someone $_target>> with a sharp point but ripping up your arm in the process.</span>
+		<<else>>
+			<span class='purple'>Pained and terrified, you release a tentacle at your assailant. Ripping up your arm in the process.</span>
+		<</if>>
+	<</if>>
+<</widget>>

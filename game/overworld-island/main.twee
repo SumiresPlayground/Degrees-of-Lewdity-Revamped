@@ -77,19 +77,19 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
     <<elseif $islanddistance is 60>>
         <<location "glacier">>
         <<set Weather.precipitation === "snow">>
-        You reach the peak of the mountains and on the other side is an expansive glacier sheet that seems to stretch into the horizon
+        You near the peak of the mountains and come to an expansive ice sheet that seems to stretch up even further.
     <<elseif $islanddistance is 61>>
         <<location "glacier">>
         <<set Weather.precipitation === "snow">>
-        Your feet hit the hard icy surface of the glacier and you’re met with freezing gusts of wind. Not much could survive up here. The clouds stuck from going over the mountain peaks leave a thick and permanent fog hanging over the land.
+        Your feet hit the hard icy surface of the slope and you’re met with freezing gusts of wind. Not much could survive up here. The clouds stuck from going over the mountain peaks leave a thick and permanent fog hanging over the land.
     <<elseif $islanddistance is 65>>
         <<location "glacier">>
         <<set Weather.precipitation === "snow">>
-        As you walk further into the ice sheet you find an odd carved hole into the ice.
+        As you walk further into the snowy limits of the mountain you find an odd carved hole into the ice.
     <<elseif $islanddistance lte 70>>
         <<location "glacier">>
         <<set Weather.precipitation === "snow">>
-        You're walking along a solid sheet of ice, various crags litter the landscape but not much else.
+        You're walking along an empty snow covered landscape, various crags litter the land but not much else.
     <</if>>
     <br><br>
 	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
@@ -122,10 +122,10 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
         <<if $islanddistance is 20 and $exposed gt 0>>
             You can't enter the village dressed like this.
             <br>
-            <<link [[Search for scraps (0:10)|Desert Search]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
+            <<foresticon>><<link [[Search for scraps (0:10)|Desert Search]]>><<pass 10>><<tiredness 2>><</link>><<gtiredness>>
             <br>
         <<elseif $islanddistance is 20>>
-            <<link [[Enter the village (0:05)|Desert Village]]>><<pass 5>><</link>>
+            <<starfishicon>><<link [[Enter the village (0:05)|Desert Village]]>><<pass 5>><</link>>
             <br>
         <</if>>
         <<if $islanddistance is 40>>
@@ -133,7 +133,7 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
             <br>
         <</if>>
         <<if $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
-            <<link [[Enter Pruti's Hut (0:10)|Witch Hut Return]]>><<pass 30>><</link>>
+            <<shopicon "forest">><<link [[Enter Pruti's Hut (0:10)|Witch Hut Return]]>><<pass 30>><</link>>
             <br>
         <</if>>
         <<if $islanddistance is 55>>
@@ -141,7 +141,11 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
             <br>
         <</if>>
         <<if $islanddistance is 65>>
-            <<link [[Enter the hole (0:05)|Ice Shrine]]>><<pass 5>><</link>>
+            <<wolficon>><<link [[Enter the hole (0:05)|Ice Shrine]]>><<pass 5>><</link>>
+            <br>
+        <</if>>
+        <<if $islanddistance is 70>>
+            <<link [[Descend into the caldera (0:05)|Caldera Explore]]>><<pass 5>><<set $calderanorth to 0>><<set $calderawest to -5>><</link>>
             <br>
         <</if>>
         <<if $islanddistance gte 1>>
@@ -161,9 +165,13 @@ You slowly pry open the plane's door with a nearby steel rod and enter. Dozens o
 <br><br>
 However upon searching within the surrounding area you find a small stone makeshift home. Inside you find nothing more than a few ripped sheets of paper.
 <br><br>
-<<link [[Read the notes (0:10)|Notes 1]]>><<pass 10>><</link>>
+<<if $prutiquest is 1>>
+    <<link [[Search the wreckage for Pruti (0:10)|Wreckage Vial]]>><<pass 10>><</link>>
+    <br>
+<</if>>
+<<schoolicon "library">><<link [[Read the notes (0:10)|Notes 1]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 1
 The crash was brutal. I may be the only survivor, but it's hard to say. My companion is most certainly dead and buried somewhere under this mess. The creature is probably also deceased, though not because of anything I did. But that is neither here nor there; at the moment my only concern is surviving this terrible storm and whatever might come out of it.
@@ -172,30 +180,30 @@ It began when I heard a strange noise. It sounded like nothing I had ever experi
 <br><br>
 As I got up to see where the sound came from, I tripped over something on the floor that was lying right in front of me, which made me look down. And there he was, my companion, dead and cold as death, though the rain seemed to bring life back into him somehow. I can still hear that song faintly. I have no idea what it means, though I suspect there is some meaning, if only I knew what to listen for.
 <br><br>
-<<link [[Continue reading the next page (0:10)|Notes 2]]>><<pass 10>><</link>>
+<<schoolicon "library">><<link [[Continue reading the next page (0:10)|Notes 2]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 2
 I'm beginning to doubt my sanity. What does the music mean? Is it just the sounds I'm hearing or does it represent something else? It's so strange. When the weather gets bad, it starts sounding more beautiful and when the weather clears, the sound becomes sad, as though some great tragedy took place when the sun went away. The rain seems to be making it worse too. Now it's raining even harder than it was yesterday, and though I have shelter, I'm worried about whatever lies outside in the darkness. Maybe the storm will pass in time for tomorrow—the weather doesn't seem to last forever. At least the rain has stopped for now, allowing me a bit more visibility, though everything is still covered in fog.
 <br><br>
-<<link [[Continue reading the next page (0:10)|Notes 3]]>><<pass 10>><</link>>
+<<schoolicon "library">><<link [[Continue reading the next page (0:10)|Notes 3]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 3
 Still alive! Though, to tell you the truth, I don't feel too good. The fever seems to be getting worse and this cough won't stop. Whatever is growing inside of me isn't doing me any favors either—I think-
 <br><br>
 The page is ripped beyond this point and unreadable.
 <br><br>
-<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Hut Explore
 As expected there's not much open first glance. The shattered window covers the floor. You're shocked to find an old dusty skeleton in the back. One of its legs are missing.
 <br><br>
 Beside the skeleton there's an old bloody notebook and pen.
 <br><br>
-<<link [[Read the notes (0:10)|Notes 4]]>><<pass 10>><</link>>
+<<schoolicon "library">><<link [[Read the notes (0:10)|Notes 4]]>><<pass 10>><</link>>
 <br>
 <<link [[Take a rest (1:00)|Hut Rest]]>><<pass 60>><<set $tiredness -= 200>><</link>>
 <br>
@@ -215,9 +223,9 @@ If I survive, if I ever make it back to civilization, I'm going to have to warn 
 <br><br>
 I have to write, though; it's my only link to sanity and reason. It allows me to forget, even if just for a few hours. The words seem to fill an empty hole that's been growing inside of me since I woke up in this terrible place. If anything, they help me find myself again. And maybe if anyone ever finds these pages, they can use them as proof—proof that this really happened and that something must be done about it before someone else becomes the next victim.
 <br><br>
-<<link [[Continue reading the next page (0:10)|Notes 5]]>><<pass 10>><</link>>
+<<schoolicon "library">><<link [[Continue reading the next page (0:10)|Notes 5]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 5
 Oh God. Please make it stop, please make it-
@@ -228,14 +236,14 @@ He's almost through the glass now. I can see the dark shadow of his arm as it re
 <br><br>
 And so, I write one last note—though I'm certain no one will ever read it or understand it, this journal has helped me through some of the worst days I have had in recent memory.
 <br><br>
-<<link [[Continue reading the next page (0:10)|Notes 6]]>><<pass 10>><</link>>
+<<schoolicon "library">><<link [[Continue reading the next page (0:10)|Notes 6]]>><<pass 10>><</link>>
 <br>
-<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 6
 The page is illegible, the words are scribbled beyond comprehension and dried blood obscures the page.
 <br><br>
-<<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
+<<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Desert Village
 <<effects>>
@@ -311,7 +319,7 @@ You pay the man and he hands you a key. "First room on the right. As soon as you
 :: Desert Village Room
 You're in a small room with nothing but a bed.
 <br><br>
-<<link [[Sleep|Misland Inn Bed]]>><</link>>
+<<furnitureicon _bed.iconFile>><<link [[Sleep|Misland Inn Bed]]>><</link>>
 <br>
 <<getouticon>><<link [[Leave|Misland Inn]]>><</link>>
 
@@ -322,7 +330,7 @@ You snuggle under the covers.
 
 <<generateSleepLinks "Misland Inn Sleep">>
 
-<<link [[Climb out of bed|Desert Village Room]]>><</link>>
+<<getouticon>><<link [[Climb out of bed|Desert Village Room]]>><</link>>
 
 :: Misland Inn Sleep
 <<set _autosavehere to true>>
@@ -348,7 +356,7 @@ The village's shrine is a small and humble structure, nestled within the trees a
 <br><br>
 The shrine's exterior is made of simple stone, with a small opening to allow the villagers to enter and exit. Inside, there is a central altar, upon which the villagers place offerings and flowers in honor of their deity. The altar is adorned with small statues and symbols of the deity, and the air is filled with the delicate scent of incense.
 <br><br>
-<<link [[Pray|Shrine Pray]]>><<set $phase to 1>><</link>>
+<<wolficon>><<link [[Pray|Shrine Pray]]>><<set $phase to 1>><</link>>
 <br>
 <<getouticon>><<link [[Leave (0:05)|Desert Village]]>><<pass 5>><</link>>
 
@@ -542,7 +550,7 @@ Deep inside the hole you find an opening. A small shrine fills the room, lightin
     <<link [[Ready yourself|Ant Guard 3]]>><<beastNEWinit 1 ant>><<set $molestationstart to 1>><</link>>
 <<else>>
     <<if $sandmound is 5>>
-        <<link [[Continue through the gate (0:05)|Ant Colony Shrine]]>><<pass 5>><</link>>
+        <<wolficon>><<link [[Continue through the gate (0:05)|Ant Colony Shrine]]>><<pass 5>><</link>>
         <br>
     <</if>>
     <<if $sandmound is 1>>
@@ -559,9 +567,11 @@ Deep inside the hole you find an opening. A small shrine fills the room, lightin
 <</if>>
 
 :: Ant Colony Shrine
-You come before a large wax statue. It towers over you, stretching towards the ceiling. It seems to emit an almost otherworldly buzz.
+You come before a large wax statue. It towers over you, stretching towards the ceiling. It seems to emit an almost otherworldly buzz. A tunnel behind it leads even deeper but that does not sound like a wise choice.
 <br><br>
-<<link [[Pray|Ant Shrine Pray]]>><<set $phase to 1>><</link>>
+<<wolficon>><<link [[Pray|Ant Shrine Pray]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Go deeper|Ant Nest]]>><<set $phase to 1>><</link>>
 <br>
 <<getouticon>><<link [[Leave|Anthill]]>><</link>>
 
@@ -968,6 +978,190 @@ You search the soft powdery snow for any plants. You extract the flowers careful
 :: Desert Dock Shops
 Shops line the sturdy pier. The dock looks a lot more developed than the surrounding village, showing it was most likely built by travellers from the surrounding nations. Within the shops you see various bits and bobs from places far and wide. Besides the obvious British influence, you spy various imports from Arabia and India and although rare, you even spot one or two importers from east asia. This seems like a fairly common stopping point for refueling and trading for rare trinkets.
 <br><br>
-<<link [[Visit the clothing shops|Misland Clothing Shop]]>><<set $specialClothes["classicserafuku"] to "unlocked">><<set $specialClothes["serafuku"] to "unlocked">><<set $specialClothes["gakuran"] to "unlocked">><<set $specialClothes["sailorribbon"] to "unlocked">><<set $specialClothes["spiritmask"] to "unlocked">><</link>>
+<<stallicon "open">><<link [[Visit the clothing shops|Misland Clothing Shop]]>><<set $specialClothes["classicserafuku"] to "unlocked">><<set $specialClothes["serafuku"] to "unlocked">><<set $specialClothes["gakuran"] to "unlocked">><<set $specialClothes["sailorribbon"] to "unlocked">><<set $specialClothes["spiritmask"] to "unlocked">><</link>>
 <br>
-<<link [[Back|Misland Dock]]>><</link>>
+<<getouticon>><<link [[Back|Misland Dock]]>><</link>>
+
+:: Wreckage Vial
+Following Pruti’s directions, you dig through the rusted sheets of metal and crumbled hull in search of anything. After a while of digging, you find a small vial dripping some strange fluid that shifts hue between pale and purple. This is almost definitely what Pruti would have wanted.
+<br><br>
+<<link [[Next|Plane Explore]]>><<set $prutiquest to 2>><</link>>
+
+:: Ant Nest
+You arrive in a room full of pulsating egg sacks. Dark shadows swirl inside the transparent shells. This seems to be the room the queen's young are stored. It would probably be wise to leave while you can.
+<br><br>
+<<if $prutiquest is 3>>
+    <<link [[Take a sample from one of the egg sacks|Pruti Egg Sample]]>><</link>>
+<</if>>
+<br>
+<<link [[Back|Ant Colony Shrine]]>><</link>>
+
+:: Pruti Egg Sample
+You approach a large pulsating egg sack. Something squirms within the egg beside the developing ant. You insert the needle into the flesh and extract a fluid that seems to be a mix of a greenish blood and the same pale purple mix you found on the plane. Before you can do anything, the egg splits and a clutch of lurkers flow onto the floor. They quickly begin to leap at you without warning.
+<br><br>
+<<link [[Next|Egg Struggle]]>><<set $struggle_start to 1>><<set $eventskip to 2>><<set $prutiquest to 4>><</link>>
+
+:: Egg Struggle
+<<effects>>
+
+<<if $struggle_start is 1>>
+    <<struggle_init>>
+	<<set $struggle.creature to "lurker">>
+	<<struggle_creatures 3 2>>
+	<<set $combat to 1>>
+	<<controlloss>>
+	<<violence 1>>
+	<<molested>>
+	<<set $struggle.mouth.creature to "lurker">>
+	<<set $mouthuse to "struggle">><<set $mouthstate to "struggle">><<set $struggle.enemy[0].location to "mouth">>
+	<<unset $struggle_start>>
+<</if>>
+
+<<struggle>>
+
+<<if $struggle.done gte $struggle.number>>
+	<span id="next"><<link [[Next|Egg Struggle Finish]]>><</link>></span>
+	<br>
+<<else>>
+	<span id="next"><<link [[Next|Egg Struggle]]>><</link>></span>
+	<br>
+<</if>>
+
+
+:: Egg Struggle Finish
+<<effects>>
+
+The creature falls to the ground. You stagger on the slippery nest floor before catching your breath and moving on.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Ant Nest]]>><</link>>
+<br>
+
+:: Caldera Explore
+You are deep in the depression of the island's caldera. Heavy fog obscures sight and blistering winds prick your skin. Getting lost in here could spell the end for you if you do not keep your bearings straight.
+<br><br>
+<<if $canderanorth is -2 and $canderawest is 3>>
+    As you stumble in the frozen wasteland, you stumble upon a deep cave that you hadn't seen in the storm, this might be a good place to rest.
+<</if>>
+<br><br>
+<<if $canderanorth is -2 and $canderawest is 3>>
+    <<link [[Pull yourself into the protection of the cave (0:05)|Caldera Cave]]>><<pass 5>><<set $calderanorth += 1>><</link>>
+    <br>
+<</if>>
+<<if $canderanorth lt 5>>
+    <<link [[Make your way north (0:05)|Caldera Explore]]>><<pass 5>><<set $calderanorth += 1>><</link>>
+    <br>
+<</if>>
+<<if $canderanorth gt -5>>
+    <<link [[Make your way south (0:05)|Caldera Explore]]>><<pass 5>><<set $calderanorth -= 1>><</link>>
+    <br>
+<</if>>
+<<if $calderawest lt 5>>
+    <<link [[Make your way east (0:05)|Caldera Explore]]>><<pass 5>><<set $calderawest += 1>><</link>>
+    <br>
+<</if>>
+<<if $calderawest gt -5>>
+    <<link [[Make your way west (0:05)|Caldera Explore]]>><<pass 5>><<set $calderawest -= 1>><</link>>
+    <br>
+<</if>>
+
+:: Caldera Cave
+You crawl down a crack in the ice into a damp icy cave.
+<br><br>
+<<if $prutiquest is 5>>
+A deep guttural growl comes from deeper in.
+<br><br>
+<</if>>
+<<link [[Rest|Caldera Cave Rest]]>><<pass 60>><<set $tiredness -= 200>><</link>>
+<br>
+<<if $prutiquest is 5>>
+<<link [[Descend even deeper into the cave|Caldera Bear]]>><</link>>
+<br>
+<</if>>
+<<link [[Leave|Caldera Explore]]>><</link>>
+
+:: Candera Cave Rest
+You lay your head on the ice and attempt to rest, it is quite a bit warmer inside and the ice melts slightly, leaving you uncomfortably wet. You manage to close your eyes and sleep for only an hour before your body groans in pain and demands you get up.
+<br><br>
+<<link [[Next|Caldera Cave]]>><</link>>
+
+:: Caldera Bear
+<<beastNEWinit 1 bear>>
+As you walk deeper into the ice cave, you slip on a slab of melty ice. You slide down into a large central chamber. Before your eyes, in the darkness, you see the lumbering form of a <<beasttype>> but… something is wrong. Its eyes are glazed over and it seems almost passive. Its skin bulges strangely and seems to almost pulsate. Suddenly without warning, the <<beasttype>> pauses and its eyes come to life with aggression. Tentacles burst from under its skin and it charges, barreling right toward you.
+<br><br>
+<<link [[Next|Caldera Bear Rape]]>><<set $molestationstart to 1>><</link>>
+
+:: Caldera Bear Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<beastCombatInit>><<set $enemyhealthmax to 600 * $beasthealthmult>><<set $enemyhealth to 600 * $beasthealthmult>><<set $enemyarousalmax to 1000 * $beastarousalmult>>
+    <<makeAbomination _wraithtentacles 6 "tentacle" "pale" true>>
+	<br><br>
+<</if>>
+<<set $enemytrust -= 100>><<set $enemyanger += 100>>
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Caldera Bear Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Caldera Bear Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Caldera Bear Finish
+
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The <<beasttype>> returns to its abode.
+
+	<<tearful>> you retreat to gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Caldera Cave]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+	The mighty <<beasttype>> collapses with a thud. It stills yet the tentacles within it continue to writhe and squirm. As you approach, you manage to dodge as a tentacle narrowly misses you before it falls to the ground, disconnecting from the <<beasttype>>.
+	<br><br>
+
+	<<tearful>> you collect the now still lurker and retreat from the dark chamber.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Caldera Cave]]>><<set $eventskip to 1>><<set $prutiquest to 6>><</link>>
+	<br>
+<<else>>
+	The mighty <<beasttype>> collapses with a thud. It stills yet the tentacles within it continue to writhe and squirm. As you approach, you manage to dodge as a tentacle narrowly misses you before it falls to the ground, disconnecting from the <<beasttype>>.
+	<br><br>
+
+	<<tearful>> you collect the now still lurker and retreat from the dark chamber.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Caldera Cave]]>><<set $eventskip to 1>><<set $prutiquest to 6>><</link>>
+	<br>
+<</if>>

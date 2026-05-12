@@ -140,7 +140,7 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 
 	<!-- Put basegame and new beast types here-->
-	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>>
+	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider","snake","sheep","deer","bee","wasp","dragon","ant","raccoon","frog","rat"]>>
 
 	<<if $wolf gte 1 or $cat gte 1 or $harpy gte 1 or $cow gte 1 or $fox gte 1 or $sheep gte 1 or $bee gte 1 or $deer gte 1 or $bear gte 1 or $dragon gte 1 or $lizard gte 1 or $dolphin gte 1 or $dog gte 1 or $raccoon gte 1 or $fish gte 1 or $horse gte 1 or $pig gte 1 or $spider gte 1 or $frog gte 1>>
 		<<set $physicalTransform to 1>>
@@ -545,6 +545,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 	<<if V.transformationParts.traits.armorscales is undefined>>
 		<<set V.transformationParts.traits.armorscales to "disabled">>
+	<</if>>
+
+	<<if V.transformationParts.traits.lurker is undefined>>
+		<<set V.transformationParts.traits.lurker to "disabled">>
 	<</if>>
 
 	<<if $beebuild is undefined>>
