@@ -1396,3 +1396,25 @@ You find a walnut tree, with fresh nuts lying about the base.
 		<</if>>
 	</div>
 <</widget>>
+
+<<widget "applyLocationEffects">>
+	<<if $options.weatherUpdate && $options.images>>
+		<<skybox>>
+	<<else>>
+		<<weatherdisplay>>
+	<</if>>
+
+	<<if $location === "desert">>
+		<<if Time.daystate !== "night">>
+			<<set Weather.Temperature.override.increase.outside(20, "The desert air is scorching under the sun.")>>
+		<<else>>
+			<<set Weather.Temperature.override.increase.outside(-2, "The desert cools as the sun is not beating overhead.")>>
+		<</if>>
+	<</if>>
+	<<if $location === "forest">>
+		<<set Weather.Temperature.override.increase.outside(-2, "The forest slowly cools the longer you spend on the mountain.")>>
+	<</if>>
+	<<if $location === "glacier">>
+		<<set Weather.Temperature.override.increase.outside(-20, "As you near the peak, the air is blisteringly cold.")>>
+	<</if>>
+<</widget>>

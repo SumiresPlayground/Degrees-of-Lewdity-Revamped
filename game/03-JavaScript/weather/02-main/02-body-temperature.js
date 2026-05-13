@@ -180,7 +180,7 @@ Weather.BodyTemperature = (() => {
 		// Sun intensity increases heat
 		const activityHeatGeneration = settings.activityRate * activityLevel();
 		const bodyTemperatureDifference = bodyTemperature - settings.baseBodyTemperature;
-		return baseGeneration + activityHeatGeneration - 0.01 * bodyTemperatureDifference;
+		return baseGeneration + activityHeatGeneration - 0.01 * bodyTemperatureDifference + (V.passiveHeatBonus || 0);
 	}
 
 	function temperatureFactor() {

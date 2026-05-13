@@ -488,21 +488,26 @@ The hallway outside connects to the rest of the orphanage.
 <br><br>
 <i>You can re-hide the code input option by clicking the "You are in your bedroom." message in the previous passage.</i>
 <br><br>
-<<textbox "$code" $code>>
+<<textbox "$inputCode" "" autofocus>>
 <br>
-<<link [[Input|$passage]]>>
-	<<set $code to Util.escape($code)>>
-	<<if $code is "gob">>
-		<<set $physicalTransform to 1>>
-		<<set $bodysize to 0>>
-		<<set _physique_max_old to $physiquesize>>
-		<<set $physiquesize to 6000>>
-		<<set $physique *= $physiquesize / _physique_max_old>>
-		<<set Skin.color.natural to "green">>
-		<<set V.transformationParts.goblin.ears to "default">>
-		<<set $gob to 1>>
-	<</if>>
-<</link>>
+<<button "Input Code">>
+<<set $code to $inputCode.trim()>>
+<<if $code is "gob">>
+	<<set $physicalTransform to 1>>
+	<<set $bodysize to 0>>
+	<<set _physique_max_old to $physiquesize>>
+	<<set $physiquesize to 6000>>
+	<<set $physique *= $physiquesize / _physique_max_old>>
+	<<set Skin.color.natural to "green">>
+	<<set V.transformationParts.goblin.ears to "default">>
+	<<set $gob to 1>>
+	<<goto $passage>>
+<<elseif !Story.has($inputCode.trim())>>
+	<<run UI.alert("[Error] Code doesn't exist!")>>
+<<else>>
+	<<goto $inputCode.trim()>>
+<</if>>
+<</button>>
 
 <br><<link [[Go back|Bedroom]]>><</link>>
 

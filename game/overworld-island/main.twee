@@ -7,88 +7,64 @@ You swim past many large bunches of coral and jagged chunks of rock before reach
 :: Misland Landing Boat
 The ship pulls into a small inlet river and into a small oasis village. "Well, we're here. Get your stuff and get off."
 <br><br>
-<<link [[Next|Misland Dock]]>><<set $islanddistance to 20>><<set Weather.precipitation === "clear">><<location "desert">><</link>>
+<<link [[Next|Misland Dock]]>><<set $islanddistance to 20>><<location "desert">><</link>>
 
 :: Misland
 <<effects>>
+<<applyLocationEffects>>
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutisland>>
 <<else>>
     <<if $islanddistance is 0>>
         <<location "beach">>
-        <<set _weather_display to "normal">>
         You're standing on the shore of the beach. Harsh waves lap at the sand.
     <<elseif $islanddistance lt 5>>
         <<location "beach">>
-        <<set _weather_display to "normal">>
         You're standing in the middle of a warm beach covered in fine soft sand. Even standing on it causes your feet to sink a bit deeper.
     <<elseif $islanddistance is 10>>
         <<location "desert">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "clear">>
         You find a massive mound of sand. It looks like some kind of insect nest.
     <<elseif $islanddistance is 20>>
         <<location "desert">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "clear">>
         You come across a small village resting on an oasis of water and palms.
     <<elseif $islanddistance lt 30>>
         <<location "desert">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "clear">>
         Sandy dunes stretch on ahead as the desert heat eats away at you.
     <<elseif $islanddistance is 30>>
         <<location "forest">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "rain">>
         The land slopes as the desert meets a mountain range full of lush vegetation.
     <<elseif $islanddistance is 40>>
         <<location "forest">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "rain">>
         As you climb the mountain path you find an old steel slag. Continuing down the path you find more and more until you come across a large plane. It lies rusting under a layer of overgrowth.
     <<elseif $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love lt 50>>
         <<location "forest">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "rain">>
         As you climb the mountain path you find an old wooden hut. It looks like someone was here recently. It's probably a good idea to leave quickly.
     <<elseif $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
         <<location "forest">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "rain">>
         As you climb the mountain path you find Pruti's old wooden hut.
     <<elseif $islanddistance lt 50>>
         <<location "forest">>
-        <<set _weather_display to "normal">>
-        <<set Weather.precipitation === "rain">>
         The mountains continue to rise rife with vegetation. The treeline blots the sun although the moisture and humidity leave you miserable.
     <<elseif $islanddistance is 50>>
         <<location "forest">>
-        <<set Weather.precipitation === "snow">>
-        Halfway up the mountains, the cool air sets in as snow begins to fall lightly over the higher elevation pine trees.
+        Halfway up the mountains, the cool air sets in as the elevation brings a cold breeze from above.
     <<elseif $islanddistance is 55>>
         <<location "forest">>
-        <<set Weather.precipitation === "snow">>
-        While wandering the snowy landscape you find an old stone hut, a shattered see-through material lines the inside.
+        While wandering the forest you find an old stone hut, a shattered see-through material lines the inside.
     <<elseif $islanddistance lt 60>>
         <<location "forest">>
-        <<set Weather.precipitation === "snow">>
         The mountains are slick with soft snow. Animal prints dot the land as the pines tower over you.
     <<elseif $islanddistance is 60>>
         <<location "glacier">>
-        <<set Weather.precipitation === "snow">>
         You near the peak of the mountains and come to an expansive ice sheet that seems to stretch up even further.
     <<elseif $islanddistance is 61>>
         <<location "glacier">>
-        <<set Weather.precipitation === "snow">>
         Your feet hit the hard icy surface of the slope and you’re met with freezing gusts of wind. Not much could survive up here. The clouds stuck from going over the mountain peaks leave a thick and permanent fog hanging over the land.
     <<elseif $islanddistance is 65>>
         <<location "glacier">>
-        <<set Weather.precipitation === "snow">>
         As you walk further into the snowy limits of the mountain you find an odd carved hole into the ice.
     <<elseif $islanddistance lte 70>>
         <<location "glacier">>
-        <<set Weather.precipitation === "snow">>
         You're walking along an empty snow covered landscape, various crags litter the land but not much else.
     <</if>>
     <br><br>
@@ -117,6 +93,9 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
         <</if>>
         <<if $islanddistance is 10>>
             <<link [[Approach the large sand hill (0:05)|Anthill]]>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><<set $sandmound to 1>><<pass 5>><</link>>
+            <br>
+        <<elseif $islanddistance is 10 and $sandmound is 1>>
+            <<link [[Approach the large ant hill (0:05)|Anthill]]>><<set $guard1 to 0>><<set $guard2 to 0>><<set $guard3 to 0>><<set $sandmound to 1>><<pass 5>><</link>>
             <br>
         <</if>>
         <<if $islanddistance is 20 and $exposed gt 0>>
@@ -161,6 +140,7 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
 <</if>>
 
 :: Plane Explore
+<<applyLocationEffects>>
 You slowly pry open the plane's door with a nearby steel rod and enter. Dozens of lurkers screech and skitter out as you enter. As expected there's not much to scavenge. The interior is pretty overgrown and nothing worthwhile can be found.
 <br><br>
 However upon searching within the surrounding area you find a small stone makeshift home. Inside you find nothing more than a few ripped sheets of paper.
@@ -174,9 +154,10 @@ However upon searching within the surrounding area you find a small stone makesh
 <<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 1
+<<applyLocationEffects>>
 The crash was brutal. I may be the only survivor, but it's hard to say. My companion is most certainly dead and buried somewhere under this mess. The creature is probably also deceased, though not because of anything I did. But that is neither here nor there; at the moment my only concern is surviving this terrible storm and whatever might come out of it.
 <br><br>
-It began when I heard a strange noise. It sounded like nothing I had ever experienced before and at first I thought something might be wrong with me, that maybe I needed some water or food, since my mouth was so dry, but then I realized what it must be—it was music. A strange, haunting tune. There are no instruments, no people playing; it was like hearing a radio broadcast coming through the air or perhaps someone on an intercom from another room. It was soft, almost inaudible and it didn't go away until the thunder came, drowning it out completely.
+It began when I heard a strange noise. It sounded like nothing I had ever experienced before and at first I thought something might be wrong with me, that maybe I needed some water or food, since my mouth was so dry, but then I realized what it must be— it was music. A strange, haunting tune. There are no instruments, no people playing; it was like hearing a radio broadcast coming through the air or perhaps someone on an intercom from another room. It was soft, almost inaudible and it didn't go away until the thunder came, drowning it out completely.
 <br><br>
 As I got up to see where the sound came from, I tripped over something on the floor that was lying right in front of me, which made me look down. And there he was, my companion, dead and cold as death, though the rain seemed to bring life back into him somehow. I can still hear that song faintly. I have no idea what it means, though I suspect there is some meaning, if only I knew what to listen for.
 <br><br>
@@ -185,14 +166,16 @@ As I got up to see where the sound came from, I tripped over something on the fl
 <<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 2
-I'm beginning to doubt my sanity. What does the music mean? Is it just the sounds I'm hearing or does it represent something else? It's so strange. When the weather gets bad, it starts sounding more beautiful and when the weather clears, the sound becomes sad, as though some great tragedy took place when the sun went away. The rain seems to be making it worse too. Now it's raining even harder than it was yesterday, and though I have shelter, I'm worried about whatever lies outside in the darkness. Maybe the storm will pass in time for tomorrow—the weather doesn't seem to last forever. At least the rain has stopped for now, allowing me a bit more visibility, though everything is still covered in fog.
+<<applyLocationEffects>>
+I'm beginning to doubt my sanity. What does the music mean? Is it just the sounds I'm hearing or does it represent something else? It's so strange. When the weather gets bad, it starts sounding more beautiful and when the weather clears, the sound becomes sad, as though some great tragedy took place when the sun went away. The rain seems to be making it worse too. Now it's raining even harder than it was yesterday, and though I have shelter, I'm worried about whatever lies outside in the darkness. Maybe the storm will pass in time for tomorrow— the weather doesn't seem to last forever. At least the rain has stopped for now, allowing me a bit more visibility, though everything is still covered in fog.
 <br><br>
 <<schoolicon "library">><<link [[Continue reading the next page (0:10)|Notes 3]]>><<pass 10>><</link>>
 <br>
 <<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Notes 3
-Still alive! Though, to tell you the truth, I don't feel too good. The fever seems to be getting worse and this cough won't stop. Whatever is growing inside of me isn't doing me any favors either—I think-
+<<applyLocationEffects>>
+Still alive! Though, to tell you the truth, I don't feel too good. The fever seems to be getting worse and this cough won't stop. Whatever is growing inside of me isn't doing me any favors either— I think-
 <br><br>
 The page is ripped beyond this point and unreadable.
 <br><br>
@@ -219,9 +202,9 @@ I don't know what day it is anymore, but I must have slept through at least thre
 <br><br>
 This might sound insane, but I believe the creature has found me. If not today, then soon; maybe even right now. For there are times when it comes to a door I left open, looking through the glass with eyes that are so cold it chills me to my very soul. Or perhaps they see something else, though I doubt it.
 <br><br>
-If I survive, if I ever make it back to civilization, I'm going to have to warn people of what I've seen. Not everyone is going to believe me—I'm sure most will dismiss it as the delusions of a madman or even accuse me of being drunk. But I will do it, I swear to you. I'll put together some kind of evidence. Something tangible.
+If I survive, if I ever make it back to civilization, I'm going to have to warn people of what I've seen. Not everyone is going to believe me— I'm sure most will dismiss it as the delusions of a madman or even accuse me of being drunk. But I will do it, I swear to you. I'll put together some kind of evidence. Something tangible.
 <br><br>
-I have to write, though; it's my only link to sanity and reason. It allows me to forget, even if just for a few hours. The words seem to fill an empty hole that's been growing inside of me since I woke up in this terrible place. If anything, they help me find myself again. And maybe if anyone ever finds these pages, they can use them as proof—proof that this really happened and that something must be done about it before someone else becomes the next victim.
+I have to write, though; it's my only link to sanity and reason. It allows me to forget, even if just for a few hours. The words seem to fill an empty hole that's been growing inside of me since I woke up in this terrible place. If anything, they help me find myself again. And maybe if anyone ever finds these pages, they can use them as proof— proof that this really happened and that something must be done about it before someone else becomes the next victim.
 <br><br>
 <<schoolicon "library">><<link [[Continue reading the next page (0:10)|Notes 5]]>><<pass 10>><</link>>
 <br>
@@ -232,7 +215,7 @@ Oh God. Please make it stop, please make it-
 <br><br>
 It's almost here! He's coming for me. His fingers claw at the glass like it's alive, like he's trying to get through it so badly I can hear him breathing. He's looking in on me, just like I'm watching him, and there's nothing I can do but wait for the end to come. The song has changed; the tune has faded away, leaving me to wonder what it means, but it was beautiful. So hauntingly beautiful that I wish I could listen to it again. I think I heard it once more before he arrived.
 <br><br>
-He's almost through the glass now. I can see the dark shadow of his arm as it reaches up, as if his fingers are grasping for something. He's coming closer, and though I don't know how, somehow I'm sure it's only because he's drawn by my voice—by the sound of my thoughts and memories. It's too late. There is no escaping this creature now, not after he's reached into this room. He knows where I am and he'll follow me anywhere I go—I've tried to escape from the house, but he follows me every step of the way. I don't want to die.
+He's almost through the glass now. I can see the dark shadow of his arm as it reaches up, as if his fingers are grasping for something. He's coming closer, and though I don't know how, somehow I'm sure it's only because he's drawn by my voice— by the sound of my thoughts and memories. It's too late. There is no escaping this creature now, not after he's reached into this room. He knows where I am and he'll follow me anywhere I go— I've tried to escape from the house, but he follows me every step of the way. I don't want to die.
 <br><br>
 And so, I write one last note—though I'm certain no one will ever read it or understand it, this journal has helped me through some of the worst days I have had in recent memory.
 <br><br>
@@ -246,6 +229,7 @@ The page is illegible, the words are scribbled beyond comprehension and dried bl
 <<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Desert Village
+<<applyLocationEffects>>
 <<effects>>
 The village is small, a handful of makeshift structures surrounding the oasis. You can see people going about their daily lives, tending crops and grazing animals, and children playing in the water. Despite the harsh desert climate, this oasis is an oasis of life, a refuge from the treacherous surroundings.
 <br><br>
@@ -260,6 +244,7 @@ The village is small, a handful of makeshift structures surrounding the oasis. Y
 <<getouticon>><<link [[Leave the village (0:05)|Misland]]>><<set $islanddistance to 20>><<pass 5>><</link>>
 
 :: Misland Market
+<<applyLocationEffects>>
 You're in the market, fruit stalls line along the oasis selling goods.
 <br><br>
 <<if $money gte 1500>>
@@ -319,7 +304,7 @@ You pay the man and he hands you a key. "First room on the right. As soon as you
 :: Desert Village Room
 You're in a small room with nothing but a bed.
 <br><br>
-<<furnitureicon _bed.iconFile>><<link [[Sleep|Misland Inn Bed]]>><</link>>
+<<bedicon>><<link [[Sleep|Misland Inn Bed]]>><</link>>
 <br>
 <<getouticon>><<link [[Leave|Misland Inn]]>><</link>>
 
@@ -392,6 +377,7 @@ The shrine's exterior is made of simple stone, with a small opening to allow the
 <<getouticon>><<link [[Leave (0:05)|Desert Village]]>><</link>>
 
 :: Misland Dock
+<<applyLocationEffects>>
 The dock is made of weathered wooden planks, with a few old and dilapidated fishing boats tied up alongside it. There's a strong scent of fish in the air, along with a hint of salt and decay.
 <br><br>
 You notice a few suspicious-looking characters loitering around the dock, whispering to each other and looking around nervously. They seem to be engaged in some sort of illegal activity, such as transporting illegal goods or substances. The dock seems to be a hub for criminal activity, and you should probably stay away from it.
