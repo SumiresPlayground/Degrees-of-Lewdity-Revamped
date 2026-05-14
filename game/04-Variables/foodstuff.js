@@ -3184,7 +3184,7 @@ function initFoodstuff() {
 				tags: [],
 			},
 			shop: {
-				sell_price: 400,
+				sell_price: 800,
 			},
 		},
 		glacier_crowfoot: {
@@ -3202,7 +3202,7 @@ function initFoodstuff() {
 				tags: [],
 			},
 			shop: {
-				sell_price: 700,
+				sell_price: 1400,
 			},
 		},
 		green_manure: {
