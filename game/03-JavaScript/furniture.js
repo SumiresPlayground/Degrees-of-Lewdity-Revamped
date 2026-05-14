@@ -33,7 +33,6 @@ const Furniture = (() => {
 		bedroom: "bedroom",
 		cabin: "cabin",
 		cottage: "cottage",
-		lakehouse: "lakehouse",
 	});
 
 	let target = Locations.bedroom;
@@ -691,10 +690,6 @@ const Furniture = (() => {
 				}
 				versions.furniture = 3;
 				break;
-			// case 4:
-			// 	/* Lake house */
-			// 	V.furniture.lakehouse = {};
-			// 	furnitureIn(Locations.lakehouse);
 		}
 	}
 

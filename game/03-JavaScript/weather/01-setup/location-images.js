@@ -4295,39 +4295,4 @@ setup.LocationImages = {
 			},
 		},
 	},
-	lakehouse: {
-		folder: "cabin",
-		base: {
-			default: {
-				condition: () => !Weather.isSnow,
-				image: "base.png",
-			},
-			snow: {
-				condition: () => Weather.isSnow,
-				image: "snow.png",
-			},
-		},
-		emissive: {
-			image: "emissive.png",
-			condition: () => Weather.lightsOn,
-			color: "#deae66",
-			strength: 2,
-		},
-		weather: {
-			fogDistributionCurve: 2,
-			rainSplashEnabled: true,
-			fogEnabled: true,
-
-			groundBounds: {
-				splashes: {
-					top: 4,
-					bottom: 0,
-				},
-				fog: {
-					top: 13,
-					bottom: 0,
-				},
-			},
-		},
-	},
 };
