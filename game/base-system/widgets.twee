@@ -71,7 +71,9 @@
 	<<water>><<set $underwater to 1>><<set $underwatercheck to 1>><<unset $oxygenRecovery>>
 	<<waterbr 1>>
 	<<if $combat isnot 1>>
-		<<if $oxygen lt 0 and $nooxygen is 1>>
+		<<if $slime gt 0 or $ghost is 4 or $transformationParts.traits.aquatic is "default">>
+			<<set $nooxygen to 0>>
+		<<elseif $oxygen lt 0 and $nooxygen is 1>>
 			<<set $stress += 1000>>
 		<<elseif $oxygen lt 0 and $nooxygen isnot 1>>
 			<<set $nooxygen to 1>>
@@ -86,7 +88,7 @@
 			<<oxygencaption>>
 		<</dynamicblock>>
 
-		<<if $underwaterintro isnot 1 and $combat isnot 1 and !$possessed>>
+		<<if $underwaterintro isnot 1 and $combat isnot 1 and !$possessed and $slime is 0 and $transformationParts.traits.aquatic is "disabled" and $ghost lt 4>>
 			<<set $underwaterintro to 1>>
 			<i>You can't hold your breath forever. You will pass less time and use less air per action with a higher swimming skill.</i>
 			<br><br>
@@ -284,7 +286,19 @@
 			<</if>>
 			<<set $stress += (_violence * _drunkMod * _stressMod) * (1 - ($masochism / 1200))>>
 			<<combattrauma `_violence * _traumaMod`>>
-			<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod)>>
+			<<if $slime is 1>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.50>>
+			<<elseif $slime is 2>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.50>>
+			<<elseif $slime is 3>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.20>>
+			<<elseif $worn.upper.name is "mushroom bodice" and $worn.lower.name is "mushroom gown">>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.20>>
+			<<elseif  $transformationParts.traits.armorscales is "default">>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.75>>
+			<<else>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod)>>
+			<</if>>
 			<<set _arousal to (_violence * (0 + ($masochism / 18)))>>
 			<<arousal _arousal/_possessMod "maso">>
 			<<if $orgasmdown gte 1>>
