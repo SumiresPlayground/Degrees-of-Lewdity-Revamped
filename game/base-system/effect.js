@@ -1767,7 +1767,7 @@ function effects() {
 	if (V.slime > 0) {
 
 	if (V.oxygen <= V.oxygenmax) {
-		oxygenRefresh();
+		V.oxygen === V.oxygenmax
 	}
 	if (V.nooxygen === 1) {
 		V.nooxygen = 0;
