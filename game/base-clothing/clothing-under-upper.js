@@ -1925,6 +1925,7 @@ function initUnderUpper() {
 			location: 0,
 			iconFile: "",
 			accIcon: 0,
+			outfitPrimary: { under_lower: "tentacle bottom" },
 		},
 		
 			{index: 2,
