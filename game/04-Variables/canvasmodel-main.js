@@ -2069,7 +2069,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_horns_type);
 			},
-			z: ZIndices.over_upper,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 		"deer_ears": {
@@ -2195,7 +2195,7 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.dragon_whisker_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.face,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 		/*** 
