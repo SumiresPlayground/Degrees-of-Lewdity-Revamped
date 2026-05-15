@@ -101,8 +101,11 @@
 		<<addevent "islandlizard">>
     <<elseif $location is "forest">>
         <<addevent "islandwolf">>
-        <<addevent "islandlurker">>
-		<<if $voredisable is "f">>
+        <<if $settings.lurkersEnabled>>
+			<<addevent "islandlurker">>
+		<</if>>
+			<<addevent "islandlurker">>
+		<<if $settings.voreEnabled>>
 			<<addevent "islandsnake">>
 		<</if>>
 		<<addevent "islandboar">>

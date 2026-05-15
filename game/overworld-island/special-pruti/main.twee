@@ -468,7 +468,7 @@ You surrender to Pruti, not wanting to anger <<bhim>> any further. The beast's e
     <<link [[Sit with Pruti (2:00)|Pruti Eat]]>><<npcincr Pruti love 2>><<gglove>><<endevent>><</link>>
     <br>
 <<elseif Time.hour gt 8 and Time.hour lt 12 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
-    <<if $prutiquest is 0 or $prutiquest is undefined>>
+    <<if ($prutiquest is 0 or $prutiquest is undefined) and $settings.lurkersEnabled>>
         <<link [[Ask if Pruti needs help with anything|Pruti Request]]>><<set $prutiquest to 1>><</link>>
         <br>
     <<elseif $prutiquest is 2>>
