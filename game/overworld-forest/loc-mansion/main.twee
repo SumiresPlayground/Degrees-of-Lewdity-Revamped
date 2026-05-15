@@ -389,13 +389,14 @@ You walk into a large room lined with bookshelves with a desk in the middle. Thi
 		<br><br>
 	<</if>>
 
-	<<if $forestmansionrunestone is 1>>
-		<<link [[Double check the books for the stone's symbol (1:00)|Forest Mansion Research Rune]]>><<pass 60>><</link>>
-		<br>
-	<<elseif $forestmansionrunestone is 2>>
-		<<link [[Redraw the faded rune on the stone (0:20)|Forest Mansion Redraw]]>><<pass 20>><</link>>
-		<br>
-	<</if>>
+	<<scienceicon>><<link [[Study science (0:20)|Manor Study]]>><<pass 20>><<set $phase to 1>><</link>><<gscience>>
+	<br>
+	<<mathicon>><<link [[Study maths (0:20)|Manor Study]]>><<pass 20>><<set $phase to 2>><</link>><<gmaths>>
+	<br>
+	<<englishicon>><<link [[Study English (0:20)|Manor Study]]>><<pass 20>><<set $phase to 3>><</link>><<genglish>>
+	<br>
+	<<historyicon>><<link [[Study history (0:20)|Manor Study]]>><<pass 20>><<set $phase to 4>><</link>><<ghistory>>
+	<br>
 	<<getouticon>><<link [[Go back to the hallway (0:05)|Forest Mansion Right Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
 <</if>>
 
@@ -483,6 +484,13 @@ You snuggle under the covers.
 
 <<if $TaylorWith is 1>>
 	“Wait, you want to sleep here? Well it is past dark and we're in the middle of the woods.” <<He>> sighs “How will I explain this to my mother, especially after the last incident.” The two of you lie in bed and try to sleep. Most of the night you're plagued with chills before the sun comes back up. 
+<<elseif $rng gte 80>>
+	<<generate1>><<person1>><<generate2>><<person2>>You awaken to a few shapes looming over you and hands pulling off your covers. It's a <<person>> and <<his>> friend. "Don't struggle," <<he>> says.
+	"We didn't expect to find such a nice treat during our visit, let us have some fun."
+	<br><br>
+
+	<<link [[Next|Forest Mansion Sleep Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
 <<elseif ($ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 0 and $rng lte 10 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled) or ($ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 1 and $rng lte 15 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled)>>
 	You rest your head on the old mansion's pillow and drift off to sleep. You don't get a very good rest constantly interrupted by chills before waking up. You sit up and stretch, before getting out of the bed.
 	<br><br>
@@ -500,19 +508,25 @@ You snuggle under the covers.
 	<<set $options.lightGlow to 1>>
 	<<set $ghost to 1>>
 	<<earnFeat "Ghost">>
-<<else>>
-	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest, constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
-<</if>>
-<br><br>
-<<if $TaylorWith is 1>>
-	<<clifficon>><<link [[Agree|Forest Mansion Coffee Ending]]>><</link>>
-	<br>
-	<<danubeicon>><<link [[Disagree|Forest Mansion Goodbye]]>><</link>>
-<<else>>
+	<br><br>
 	<<if $forestmansionstage is 11>>
 		<<link [[Next|Forest Mansion Master Suite]]>><</link>>
 	<<else>>
 		<<link [[Next|Forest Mansion Guest Suite]]>><</link>>
+	<</if>>
+<<else>>
+	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest, constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+	<br><br>
+	<<if $TaylorWith is 1>>
+		<<clifficon>><<link [[Agree|Forest Mansion Coffee Ending]]>><</link>>
+		<br>
+		<<danubeicon>><<link [[Disagree|Forest Mansion Goodbye]]>><</link>>
+	<<else>>
+		<<if $forestmansionstage is 11>>
+			<<link [[Next|Forest Mansion Master Suite]]>><</link>>
+		<<else>>
+			<<link [[Next|Forest Mansion Guest Suite]]>><</link>>
+		<</if>>
 	<</if>>
 <</if>>
 
@@ -592,3 +606,60 @@ As you start to get up Jordan comes to and stretches, standing up. "Morning." <<
 
 <<mirror>>
 <br><br>
+
+:: Forest Mansion Sleep Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+<<effects>>
+<<effectsman>>
+
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Forest Mansion Sleep Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Forest Mansion Sleep Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Forest Mansion Sleep Rape Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>><<set $forcedprostitutionstat += 1>><<fameprostitution 1>>
+	The <<people>> climb off the bed, high fiving as they leave the room the room.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<if $forestmansionstage is 11>>
+		<<link [[Next|Forest Mansion Master Suite]]>><</link>>
+	<<else>>
+		<<link [[Next|Forest Mansion Guest Suite]]>><</link>>
+	<</if>>
+<<elseif $enemyhealth lte 0>>
+	You knock the <<people>> off the bed, and they slam to the creaky floor. "Fucking bitch," one says, wiping blood from <<his>> mouth.
+	<br><br>
+	The other glares at you with a glint of anger in <<his>> eyes before fleeing.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<if $forestmansionstage is 11>>
+		<<link [[Next|Forest Mansion Master Suite]]>><</link>>
+	<<else>>
+		<<link [[Next|Forest Mansion Guest Suite]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Manor Study
+You peruse the wall of books looking for anything relevant. Among the mostly water damaged books, you manage to find something relevant. It seems old and likely outdated, but you may be able to parse some understanding from these textbooks anyway.
+<br><br>
+You settle down and turn on the study's lantern which flickers to life as you begin to read.
+<br><br>
+<<link [[Next|Forest Mansion Study]]>><</link>>

@@ -426,19 +426,30 @@
 
 <<widget "tailActionInitSwarm">>
 	<<if $hastail is "true">>
-		<<if $dissociation lte 1 and $orgasmdown lte 0 and ($pain lt 100 or $willpowerpain is undefined)>>
-			<<set $tailtarget to "swarm">>
-				<<set _tailOptions to "free">>
-				<span @class="($lastOptions.tail isnot _tailOptions or _tailGold is true ?'gold':'')">Your tail is free.</span>
-				<<if $options.combatControls.includes("adio") and _targetnumber gt 1 and _tailOptions.toLowerCase().includes("free")>>
-					<<targetListBox "tail" _targetlistall>>
+		<<set $tailtarget to "swarm">>
+		<<switch $tail>>
+			<<case 0>>
+				<<if $orgasmdown gte 1>>
+					<<set _tailOptions to "orgasm">>
+					<span class="lewd">Your tail is free, but you can't stop the spasms.</span>
+				<<elseif $pain gte 100 and $willpowerpain is 0>>
+					<<set _tailOptions to "pain">>
+					<span class="red">Your tail is free, but hurts to move.</span>
+				<<elseif $dissociation gte 2>>
+					<<set _tailOptions to "unreal">>
+					<span class="pink">Your tail is free, but doesn't feel real.</span>
+				<<else>>
+					<<if not $options.combatControls.includes("adio") and _targetnumber gt 1>>
+						<<targetListBox "tail" _targetlisttail>>
+					<</if>>
+						<<set _tailOptions to "free">>
+						<span @class="($lastOptions.tail isnot _tailOptions or _tailGold is true ?'gold':'')">Your tail is free.</span>
+					<<if $options.combatControls.includes("adio") and _targetnumber gt 1>>
+						<<targetListBox "tail" _targetlisttail>>
+						<<if $options.combatControls is "radio">><br><</if>>
+					<</if>>
 				<</if>>
-				<<if _targetnumber is 1>>
-					<<set $tailtarget to _firsttarget>>
-				<</if>>
-			<<if $lastOptions.tail isnot _tailOptions>>
-				<<set _tailGold to true>>
-			<</if>>
+		<</switch>>
 			<<if $_changetype isnot true>>
 				<<tailActionsSwarm>>
 				<<if Object.keys(_tailaction).length gt 0>>
@@ -448,16 +459,15 @@
 					<<set $tailaction to $tailactiondefault>>
 					<<set _textColor to combatListColor('tailaction', (Object.values(_tailaction).includes($tailaction) ? $tailaction : Object.values(_tailaction)[0]), "Swarm")>>
 					<div class="extraMargin">
-						<<generateCombatActionOthers _tailaction "tailaction" _textColor $tailaction "Swarm">>
+						<<generateCombatAction _tailaction "tailaction" "Swarm">>
 					</div>
 					<<if $options.combatControls.includes("ists")>>
 						<div id="tailactionDifficulty">
 							<<tailactionDifficulty>>
 						</div>
 					<</if>>
-				<</if>>
-				<<set $lastOptions.tail to clone(_tailOptions)>>
 			<</if>>
+			<<set $lastOptions.tail to clone(_tailOptions)>>
 		<<else>>
 			<<timed 100ms>>
 				<<run jQuery("#tailaction").remove();>>
