@@ -227,6 +227,15 @@
 			<<link [[Next|Bog]]>><<set $eventskip to 1>><</link>>
 			<br>
 		<</addinlineevent>>
+		<<if $mushroom is 0 and $ghost is 0 and $slime is 0>>
+			<<addevent "mushroomgrove" 0.05>>
+		<</if>>
+		<<if $cultjoined isnot 1 and $cultsuspicion lte 5>>
+			<<addevent "bogcult1">>
+		<</if>>
+		<<if $cultjoined isnot 1 and $cultsuspicion lte 9>>
+			<<addevent "bogcult2">>
+		<</if>>
 	<</if>>
 	<<runeventpool>>
 <</widget>>
