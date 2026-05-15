@@ -629,6 +629,7 @@ function initHands() {
 	*/
 	setup.moddedClothes.hands = [
 		{index: 1,
+		slot: "hands",
 		name: "dragonstone ring",
 		name_cap: "Dragonstone Ring",
 		variable: "dragonstone ring",
@@ -688,6 +689,7 @@ function initHands() {
 		rightImage:1
 	},
 		{index: 3,
+		slot: "hands",
 		name: "scuffed ring",
 		name_cap: "Scuffed Ring",
 		variable: "scuffed ring",

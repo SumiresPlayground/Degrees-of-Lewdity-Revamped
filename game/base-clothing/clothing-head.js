@@ -3310,6 +3310,7 @@ function initHead() {
 	setup.moddedClothes.head = [
 		{
 			index: 1,
+			slot: "head",
 			name: "cloud hair clip",
 			name_cap: "Cloud hair clip",
 			variable: "cloudhairclip",
@@ -3342,6 +3343,7 @@ function initHead() {
 
 		{
 			index: 2,
+			slot: "head",
 			name: "honeycomb hair clip",
 			name_cap: "Honeycomb hair clip",
 			variable: "honeycombhairclip",
@@ -3374,6 +3376,7 @@ function initHead() {
 
 		{
 			index: 3,
+			slot: "head",
 			name: "spotted hair clip",
 			name_cap: "Spotted hair clip",
 			variable: "spottedhairclip",
@@ -3406,6 +3409,7 @@ function initHead() {
 
 		{
 			index: 4,
+			slot: "head",
 			name: "truffle hair clip",
 			name_cap: "Truffle hair clip",
 			variable: "trufflehairclip",
@@ -3438,6 +3442,7 @@ function initHead() {
 
 		{
 			index: 5,
+			slot: "head",
 			name: "frog hat",
 			name_cap: "Frog hat",
 			variable: "frog",
