@@ -1614,7 +1614,9 @@ function initNeck() {
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
 	setup.moddedClothes.neck = [
-		{index: 1,
+		{	
+			index: 1,
+			slot: "neck",
 			name: "horseshoe pendant",
 			name_cap: "Horseshoe pendant",
 			variable: "horseshoependant",
