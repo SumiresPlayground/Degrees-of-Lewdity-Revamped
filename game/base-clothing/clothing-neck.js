@@ -593,7 +593,7 @@ function initNeck() {
 			colour: 0,
 			colour_options: ["black", "blue", "brown", "green", "pink", "purple", "red", "tangerine", "teal", "white", "yellow", "custom"],
 			colour_sidebar: 1,
-			type: ["normal"],
+			type: ["normal", "eerie"],
 			gender: "f",
 			femininity: 100,
 			warmth: 0,
