@@ -1101,6 +1101,14 @@ Renderer.CanvasModels.main = {
 		 *
 		 *
 		 */
+		"npcpresent": {
+			show: true,
+			z: ZIndices.foreground,
+			animation: "idle",
+			srcfn() {
+				return `img/npc/${V.npcpresent}.png`;
+			},
+		},
 		"base": {
 			show: true,
 			filters: ["tan"],
