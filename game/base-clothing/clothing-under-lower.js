@@ -2537,6 +2537,9 @@ function initUnderLower() {
 			name: "tentacle bottom",
 			name_cap: "Tentacle suit bottom",
 			variable: "tentacle",
+			combat: {
+				reference: "plainpanties",
+			},
 			integrity: 70000,
 			integrity_max: 70000,
 			fabric_strength: 70000,
@@ -2581,6 +2584,9 @@ function initUnderLower() {
 			name: "mushroom bottoms",
 			name_cap: "Mushroom bottoms",
 			variable: "mushroom2",
+			combat: {
+				reference: "plainpanties",
+			},
 			integrity: 100,
 			integrity_max: 100,
 			fabric_strength: 20,

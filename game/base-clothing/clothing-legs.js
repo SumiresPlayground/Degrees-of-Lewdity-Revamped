@@ -1623,6 +1623,9 @@ function initLegs() {
 			name: "tentacle stockings",
 			name_cap: "Tentacle stockings",
 			variable: "tentacle",
+			combat: {
+				reference: "stockings",
+			},
 			integrity: 70000,
 			integrity_max: 70000,
 			fabric_strength: 70000,
@@ -1653,6 +1656,9 @@ function initLegs() {
 			name: "mushroom leggings partial",
 			name_cap: "Mushroom leggings partial",
 			variable: "mushroom2",
+			combat: {
+				reference: "loosesocks",
+			},
 			integrity: 100,
 			integrity_max: 100,
 			fabric_strength: 20,
@@ -1685,6 +1691,9 @@ function initLegs() {
 			name: "mushroom leggings",
 			name_cap: "Mushroom leggings",
 			variable: "mushroom3",
+			combat: {
+				reference: "tights",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 20,

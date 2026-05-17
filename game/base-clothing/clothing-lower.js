@@ -22,6 +22,9 @@ function initLower() {
 			name: "mushroom skirt",
 			name_cap: "Mushroom skirt",
 			variable: "mushroom3",
+			combat: {
+				reference: "sundress",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 30,
@@ -68,6 +71,9 @@ function initLower() {
 			name: "mushroom gown",
 			name_cap: "Mushroom gown",
 			variable: "mushroom4",
+			combat: {
+				reference: "sundress",
+			},
 			integrity: 300,
 			integrity_max: 300,
 			fabric_strength: 30,

@@ -1889,6 +1889,9 @@ function initUnderUpper() {
 			name: "tentacle top",
 			name_cap: "Tentacle suit",
 			variable: "tentacle",
+			combat: {
+				reference: "plainbra",
+			},
 			integrity: 70000,
 			integrity_max: 70000,
 			fabric_strength: 70000,
@@ -1932,6 +1935,9 @@ function initUnderUpper() {
 			name: "mushroom top",
 			name_cap: "Mushroom top",
 			variable: "mushroom2",
+			combat: {
+				reference: "plainbra",
+			},
 			integrity: 100,
 			integrity_max: 100,
 			fabric_strength: 30,

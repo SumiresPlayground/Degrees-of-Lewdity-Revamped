@@ -633,6 +633,9 @@ function initHands() {
 		name: "dragonstone ring",
 		name_cap: "Dragonstone Ring",
 		variable: "dragonstone ring",
+		combat: {
+				reference: "fingerlessgloves",
+			},
 		integrity: 1000,
 		integrity_max: 1000,
 		fabric_strength: 1000,
@@ -661,6 +664,9 @@ function initHands() {
 		name: "tentacle gloves",
 		name_cap: "Tentacle gloves",
 		variable: "tentacle",
+		combat: {
+				reference: "fingerlessgloves",
+			},
 		integrity: 70000,
 		integrity_max: 70000,
 		fabric_strength: 70000,
@@ -693,6 +699,9 @@ function initHands() {
 		name: "scuffed ring",
 		name_cap: "Scuffed Ring",
 		variable: "scuffed ring",
+		combat: {
+				reference: "fingerlessgloves",
+			},
 		integrity: 1000,
 		integrity_max: 1000,
 		fabric_strength: 1000,

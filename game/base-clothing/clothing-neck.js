@@ -1620,6 +1620,9 @@ function initNeck() {
 			name: "horseshoe pendant",
 			name_cap: "Horseshoe pendant",
 			variable: "horseshoependant",
+			combat: {
+				reference: "feathernecklace",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 20,

@@ -1916,6 +1916,9 @@ function initFeet() {
 		name: "tentacle heels",
 		name_cap: "Tentacle heels",
 		variable: "tentacle",
+		combat: {
+				reference: "kittenheels",
+			},
 		integrity: 70000,
 		integrity_max: 70000,
 		fabric_strength: 70000,
@@ -1945,6 +1948,9 @@ function initFeet() {
 		name: "mushroom shoes partial",
 		name_cap: "Mushroom shoes partial",
 		variable: "mushroom3",
+		combat: {
+				reference: "bootheels",
+			},
 		integrity: 150,
 		integrity_max: 150,
 		fabric_strength: 60,
@@ -1974,6 +1980,9 @@ function initFeet() {
 		name: "mushroom shoes",
 		name_cap: "Mushroom shoes",
 		variable: "mushroom4",
+		combat: {
+				reference: "bootheels",
+			},
 		integrity: 300,
 		integrity_max: 300,
 		fabric_strength: 60,

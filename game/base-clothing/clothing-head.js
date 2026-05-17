@@ -3314,6 +3314,9 @@ function initHead() {
 			name: "cloud hair clip",
 			name_cap: "Cloud hair clip",
 			variable: "cloudhairclip",
+			combat: {
+				reference: "hairclip",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 30,
@@ -3347,6 +3350,9 @@ function initHead() {
 			name: "honeycomb hair clip",
 			name_cap: "Honeycomb hair clip",
 			variable: "honeycombhairclip",
+			combat: {
+				reference: "hairclip",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 30,
@@ -3380,6 +3386,9 @@ function initHead() {
 			name: "spotted hair clip",
 			name_cap: "Spotted hair clip",
 			variable: "spottedhairclip",
+			combat: {
+				reference: "hairclip",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 30,
@@ -3413,6 +3422,9 @@ function initHead() {
 			name: "truffle hair clip",
 			name_cap: "Truffle hair clip",
 			variable: "trufflehairclip",
+			combat: {
+				reference: "hairclip",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 30,
@@ -3446,6 +3458,9 @@ function initHead() {
 			name: "frog hat",
 			name_cap: "Frog hat",
 			variable: "frog",
+			combat: {
+				reference: "cap",
+			},
 			integrity: 100,
 			integrity_max: 100,
 			fabric_strength: 30,
@@ -3480,6 +3495,9 @@ function initHead() {
 			name: "mushroom cap",
 			name_cap: "Mushroom cap",
 			variable: "mushroom",
+			combat: {
+				reference: "cap",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 30,

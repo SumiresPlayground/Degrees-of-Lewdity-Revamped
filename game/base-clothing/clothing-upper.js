@@ -11227,6 +11227,9 @@ function initUpper() {
 			name: "mushroom dress",
 			name_cap: "Mushroom dress",
 			variable: "mushroom3",
+			combat: {
+				reference: "sundress",
+			},
 			integrity: 200,
 			integrity_max: 200,
 			fabric_strength: 30,
@@ -11271,6 +11274,9 @@ function initUpper() {
 			name: "mushroom bodice",
 			name_cap: "Mushroom bodice",
 			variable: "mushroom4",
+			combat: {
+				reference: "sundress",
+			},
 			integrity: 300,
 			integrity_max: 300,
 			fabric_strength: 30,
