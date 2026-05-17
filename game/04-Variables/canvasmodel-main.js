@@ -1106,6 +1106,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.foreground,
 			animation: "idle",
 			srcfn() {
+				if (V.npc.length > 0)
 				return `img/npc/${V.npc}.png`;
 			},
 		},
