@@ -1,0 +1,1 @@
+This folder will insert an image beside the player character to represent any NPC in the game. Just replace the blank image with any image you desire. Do not touch the disabled or undefined images. Image names are case sensitive, make sure to capitalize all names.
