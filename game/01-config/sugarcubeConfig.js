@@ -11,7 +11,7 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.9.8 New World 0.1.2.4",
+	version: "0.5.9.8 New World 0.1.2.5",
 	versionName: `"Dark Dredge" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,
