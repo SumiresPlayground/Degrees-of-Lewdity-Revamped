@@ -82,10 +82,10 @@ The lead <<beasttype>> swims up to you and mounts you.
 	<<if Time.dayState isnot "night" and $location is "beach">>
 		<<enable_rescue>>
 	<</if>>
-	<<if $bus isnot "sea">>
+	<<if $bus isnot "sea" and $bus isnot "seadive">>
 		<span class="pink">The <<beastsplural>> push you out to sea.</span>
+		<<location "sea">>
 	<</if>>
-	<<location "sea">>
 <</if>>
 <<effects>>
 <<effectsman>>

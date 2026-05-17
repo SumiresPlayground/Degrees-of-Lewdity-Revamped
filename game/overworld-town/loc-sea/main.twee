@@ -757,12 +757,11 @@ You are swimming in the sea.
 <</if>>
 
 :: Sea Dive
-<<underwater>><<effects>>
+<<location "seadive">><<underwater>><<effects>>
 <<if $stress gte $stressmax>>
 	<<passoutbeach>>
 <<else>>
-	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
-	<<if $danger gte (9900 - $allure) and $eventskip is 0>>
+	<<if dangerEvent() and $eventskip is 0>>
 		<<eventsdeepseadive>>
 	<<else>>
 		<<if $phase is 0>>
@@ -813,6 +812,7 @@ You are swimming in the sea.
 			<<link [[Swim to the sunken ship|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
+		<<set $eventskip to 0>>
 	<</if>>
 <</if>>
 

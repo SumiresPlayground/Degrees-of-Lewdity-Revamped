@@ -35,7 +35,7 @@
 
 <<widget "cheatParasiteToggle">>
 	<<set _bodypart to _args[0]>>
-	<<set _parasiteTypes to setup.parasiteTypesPerBodypart[_bodypart]>>
+	<<set _parasiteTypes to setup.parasiteTypesPerBodypart[_bodypart].filter(type => type !== "livingclothes")>>
 
 	<<= _bodypart.toUpperFirst().replace("_", " ")>>:
 	<<capture _bodypart, _parasiteTypes, _i, _temp>>
