@@ -1042,7 +1042,7 @@ function settingsObjects(type) {
 					sex: {
 						strings: ["m", "f", "h"],
 						displayName: "Genitals:",
-						textMap: { m: "Penis", f: "Vagina", h: "Hermaphrodite" },
+						textMap: { m: "Penis", f: "Vagina", h: "Bigenital" },
 						randomize: "characterAppearance",
 					},
 					gender_body: {

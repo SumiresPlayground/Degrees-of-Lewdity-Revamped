@@ -36,10 +36,12 @@
 			<</if>>
 			<<if $angel gte 6>>
 				<<set V.transformationParts.angel.wings to "default">>
+				<<set $angeltf to 1>>
 			<</if>>
 			<<if $fallenangel gte 2>>
 				<<set V.transformationParts.fallenAngel.halo to "default">>
 				<<set V.transformationParts.fallenAngel.wings to "default">>
+				<<set $fallenangeltf to 1>>
 			<</if>>
 			<<if $demon gte 2>>
 				<<set V.transformationParts.demon.horns to "default">>
@@ -51,6 +53,7 @@
 			<</if>>
 			<<if $demon gte 6>>
 				<<set V.transformationParts.demon.wings to "default">>
+				<<set $demontf to 1>>
 			<</if>>
 		<</if>>
 		<<if $physicalTransform is 1>>
@@ -663,6 +666,7 @@
 		<<clearwings>>
 		<<set $transformationParts.fallenAngel.halo to "default">>
 		<<set $transformationParts.fallenAngel.wings to "default">>
+		<<set $fallenangeltf to 1>>
 		<<earnFeat "Fallen Angel">>
 	<<elseif $angel gte 4>>
 		<span class="red">Your halo shatters and fades.</span>
@@ -726,6 +730,7 @@
 	<<set $hastail to "true">>
 	<<set $thintail to "true">>
 	<<set $transformationParts.demon.wings to "default">>
+	<<set $demontf to 1>>
 	<<earnFeat "Demon">>
 	<<garousal>><<arousal 600>>
 <</widget>>
@@ -794,6 +799,7 @@
 					<<if $transformationParts.bird.wings is "default">>
 						<<set $transformationParts.angel.wings to "hidden">>
 					<</if>>
+					<<set $angeltf to 1>>
 					<<earnFeat "Angel">>
 					<br><br>
 				<<elseif $angelbuild lt 45>>
@@ -908,6 +914,7 @@
 					<<if $transformationParts.bird.wings is "default">>
 						<<set $transformationParts.demon.wings to "hidden">>
 					<</if>>
+					<<set $demontf to 1>>
 					<<earnFeat "Demon">>
 					<br><br>
 				<<elseif $demonbuild lt 25>>

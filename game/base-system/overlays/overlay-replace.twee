@@ -43,6 +43,12 @@
 		<<case "statistics">>
 			<<replace #customOverlayTitle>><<titleStats>><</replace>>
 			<<replace #customOverlayContent>><<statistics>><</replace>>
+		<<case "backgrounds">>
+			<<replace #customOverlayTitle>><<titleBackgrounds>><</replace>>
+			<<replace #customOverlayContent>><<backgrounds>><</replace>>
+		<<case "foregrounds">>
+			<<replace #customOverlayTitle>><<titleForegrounds>><</replace>>
+			<<replace #customOverlayContent>><<foregrounds>><</replace>>
 		<<case "gameFeats">>
 			<<replace #customOverlayTitle>><<titleFeats>><</replace>>
 			<<replace #customOverlayContent>><<feats>><</replace>>
@@ -386,4 +392,28 @@
 			<<run closeOverlay()>>
 		<</button>>
 	<</if>>
+<</widget>>
+
+<<widget "titleBackgrounds">>
+	<<setupTabs>>
+	<div id="overlayTabs" class="tab">
+		<<closeButtonMobile>>
+		<<button "Backgrounds">>
+			<<toggleTab>>
+			<<replace #customOverlayContent>><<backgrounds>><</replace>>
+		<</button>>
+	</div>
+	<<closeButton>>
+<</widget>>
+
+<<widget "titleForegrounds">>
+	<<setupTabs>>
+	<div id="overlayTabs" class="tab">
+		<<closeButtonMobile>>
+		<<button "Foregrounds">>
+			<<toggleTab>>
+			<<replace #customOverlayContent>><<foregrounds>><</replace>>
+		<</button>>
+	</div>
+	<<closeButton>>
 <</widget>>

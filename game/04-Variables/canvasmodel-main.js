@@ -1103,11 +1103,31 @@ Renderer.CanvasModels.main = {
 		 */
 		"npcpresent": {
 			show: true,
-			z: ZIndices.foreground,
+			z: ZIndices.NPCOverlay,
 			animation: "idle",
 			srcfn() {
 				if (V.npc.length > 0)
 				return `img/npc/${V.npc}.png`;
+			},
+		},
+		"background": {
+			show: true,
+			z: ZIndices.backgroundOverlay,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages = 1) {
+				return `img/background/static/${V.static}.png`;}
+					else {
+				return `img/background/${V.location}.png`;}
+			},
+		},
+		"foreground": {
+			show: true,
+			z: ZIndices.foregroundOverlay,
+			animation: "idle",
+			srcfn() {
+				if (V.foreground = 1)
+				return `img/foreground/${V.foreground}.png`;
 			},
 		},
 		"base": {

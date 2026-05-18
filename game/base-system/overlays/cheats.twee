@@ -1056,6 +1056,40 @@
 			<label>Enabled <<radiobutton "$player.freckles" true autocheck>></label>
 			| <label>Disabled <<radiobutton "$player.freckles" false `!$player.freckles ? "checked" : ""`>></label>
 		</div>
+
+		<div class="settingsToggleItem">
+			<span class="gold">Skin Colour:</span><br>
+			Neutral:
+			<label>Light <<radiovar "Skin.color.natural" "light">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Medium <<radiovar "Skin.color.natural" "medium">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Dark <<radiovar "Skin.color.natural" "dark">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Gyaru <<radiovar "Skin.color.natural" "gyaru">><<updatesidebarimg>><</radiovar>></label>
+			<br><br>
+			Warm:
+			<label>Light <<radiovar "Skin.color.natural" "rlight">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Medium <<radiovar "Skin.color.natural" "rmedium">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Dark <<radiovar "Skin.color.natural" "rdark">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Gyaru <<radiovar "Skin.color.natural" "rgyaru">><<updatesidebarimg>><</radiovar>></label>
+			<br><br>
+			Golden:
+			<label>Light <<radiovar "Skin.color.natural" "glight">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Medium <<radiovar "Skin.color.natural" "gmedium">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Dark <<radiovar "Skin.color.natural" "gdark">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Gyaru <<radiovar "Skin.color.natural" "ggyaru">><<updatesidebarimg>><</radiovar>></label>
+			<br><br>
+			Olive:
+			<label>Light <<radiovar "Skin.color.natural" "ylight">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Medium <<radiovar "Skin.color.natural" "ymedium">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Dark <<radiovar "Skin.color.natural" "ydark">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Gyaru <<radiovar "Skin.color.natural" "ygyaru">><<updatesidebarimg>><</radiovar>></label>
+			<br><br>
+			Cool:
+			<label>Light <<radiovar "Skin.color.natural" "blight">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Medium <<radiovar "Skin.color.natural" "bmedium">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Dark <<radiovar "Skin.color.natural" "bdark">><<updatesidebarimg>><</radiovar>></label> |
+			<label>Gyaru <<radiovar "Skin.color.natural" "bgyaru">><<updatesidebarimg>><</radiovar>></label>
+		</div>
+
 		<div class="settingsToggleItem">
 			<span class="gold">Breast Size</span>
 			<<set _breastsText to ["Flat", "Budding", "Tiny", "Small", "Pert", "Modest", "Full", "Large", "Ample", "Massive", "Huge", "Gigantic", "Enormous"]>>
@@ -1104,6 +1138,22 @@
 			<label>Cover nudity (only if embarrassed): <<checkbox "$dontHide" true false autocheck>>
 			<<run $(() => $('#checkbox-donthide').on('change', e => wikifier('<<updatesidebarimg>>')))>></label>
 		</div>
+
+		<<set _tan to Skin.color.tan>>
+		<div class="settingsToggleItem">
+			<div class="numberslider-inline">
+			<label><span class="gold">Tan:</span>
+			<<numberslider "_tan" _tan 0 100 1 {
+				onInputChange: value => {
+					Skin.color.setTan(value);
+					Wikifier.wikifyEval("<<updatesidebarimg>>");
+				},
+				value: v => `${v}%`
+			}>>
+			</label>
+			</div>
+		</div>
+
 		<div class="settingsToggleItem">
 			<span class="gold">Sensitivity</span>
 			<<numberStepper "Mouth sensitivity" $mouthsensitivity "mouthsensitivity" {
@@ -1391,7 +1441,7 @@
 			<<numberStepper "Delinquency" $delinquency "delinquency" {max: 1000, reverse: true}>>
 			<hr>
 			<<if $player.penisExist and $player.vaginaExist>>
-				<<numberStepper "Hermaphrodite Fame" $schoolrep.herm { callback: value => {V.schoolrep.herm = value; Wikifier.wikifyEval("<<replace '#repherm'>><<cheatsRep herm>><</replace>>")}, max: 5, step: 1, percentage: false, reverse: true, activeButtons: ["single", "minMax"] }>>
+				<<numberStepper "Bigenital Fame" $schoolrep.herm { callback: value => {V.schoolrep.herm = value; Wikifier.wikifyEval("<<replace '#repherm'>><<cheatsRep herm>><</replace>>")}, max: 5, step: 1, percentage: false, reverse: true, activeButtons: ["single", "minMax"] }>>
 				<span id="repherm"><<cheatsRep "herm">></span>
 			<<else>>
 				<<numberStepper "Crossdresser Fame" $schoolrep.crossdress { callback: value => {V.schoolrep.crossdress = value; Wikifier.wikifyEval("<<replace '#repcrossdress'>><<cheatsRep crossdress>><</replace>>")}, max: 5, step: 1, percentage: false, reverse: true, activeButtons: ["single", "minMax"] }>>
@@ -2423,7 +2473,7 @@
 	<<if $earSlime.growth gt 50>><<set _reasons.push("your ear slime's current growth")>><</if>>
 	<<if _inWardrobe>>
 		<<if _reasons.length gte 1>>
-			<span class="gold"><<= $player.sex is "m" ? "Penis" : $player.sex is "f" ? "Vagina" : "Hermaphrodite">></span>
+			<span class="gold"><<= $player.sex is "m" ? "Penis" : $player.sex is "f" ? "Vagina" : "Bigenital">></span>
 			| This setting cannot be changed due to <<= _reasons.join(" and ")>>.
 		<<else>>
 			<<if $player.sex is "m">>
@@ -2488,7 +2538,7 @@
 		<</if>>
 		<<if $player.sex is "h">>
 			<br>
-			Hermaphrodite Balls: <span id="statsBallsExist"><<= $player.ballsExist ? "Present" : "Disabled">></span> |
+			Bigenital Balls: <span id="statsBallsExist"><<= $player.ballsExist ? "Present" : "Disabled">></span> |
 			<<link "Change">>
 				<<set $player.ballsExist to clone(!$player.ballsExist)>>
 				<<updatesidebarimg>>
@@ -2496,7 +2546,7 @@
 			<</link>>
 		<</if>>
 	<<else>>
-		<span class="gold"><<= $player.sex is "m" ? "Penis" : $player.sex is "f" ? "Vagina" : "Hermaphrodite">></span> | <<if _reasons.length gte 1>>You cannot change your genitals due to <<= _reasons.join(" and ")>>. Normally, this<<else>>This<</if>> setting can only be changed when accessing your wardrobe.
+		<span class="gold"><<= $player.sex is "m" ? "Penis" : $player.sex is "f" ? "Vagina" : "Bigenital">></span> | <<if _reasons.length gte 1>>You cannot change your genitals due to <<= _reasons.join(" and ")>>. Normally, this<<else>>This<</if>> setting can only be changed when accessing your wardrobe.
 	<</if>>
 <</widget>>
 
