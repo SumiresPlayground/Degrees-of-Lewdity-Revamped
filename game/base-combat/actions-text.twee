@@ -1601,7 +1601,54 @@
 							"Gwylan will protect me. Leave me alone."
 						<</if>>
 					<</if>>
-
+				<<case "Salem">>
+					<<if $npc.includes("Salem")>>
+						"Salem what's wrong?!"
+					<<elseif $vaginastate is "imminent" or $penisstate is "imminent" or $penisstate is "otheranusimminent">>
+						<<if $player.virginity.vaginal is true and $player.virginity.penile is true>>
+							<<if $awarelevel gte 1>>
+								"Please no! I am saving myself for Salem!"
+							<<else>>
+								"N...No! Help me!"
+							<</if>>
+						<<else>>
+							"Please, I need you Salem!"
+						<</if>>
+					<<elseif $vaginastate is "penetrated" or $anusstate is "penetrated">>
+						<<if $arousal lt $arousalmax / 5>>
+							"I'm sorry Salem..."
+						<<elseif $arousal lt ($arousalmax / 5) * 4>>
+							"Please stop! I only want Salem!"
+						<<else>>
+							"Salem... help me..."
+						<</if>>
+					<<elseif $penisstate is "penetrated" or $penisstate is "otheranus">>
+						<<if $arousal lt $arousalmax / 5>>
+							"I'm sorry Salem..."
+						<<elseif $arousal lt ($arousalmax / 5) * 4>>
+							"Please stop! I only want Salem!"
+						<<else>>
+							"Salem... help me..."
+						<</if>>
+					<<elseif $exposed gte 2>>
+						<<switch random(1,3)>>
+							<<case 1>> "Please don't look! Only Salem can see me like this!"
+							<<case 2>> "Please, Salem wouldn't forgive me..."
+							<<case 3>> "Stop staring... My body belongs to Salem..."
+						<</switch>>
+					<<else>>
+						<<if $pain lte 20>>
+							<<switch random(1,3)>>
+								<<case 1>> <<if $awarelevel gte 1>>"Please no! I need you Salem!"<<else>>"Stop please! I only want Salem!"<</if>>
+								<<case 2>> "Why are you doing this? Please stop!"
+								<<case 3>> "Salem needs me, please just let me go..."
+							<</switch>>
+						<<elseif $pain lte 60>>
+							"This is unforgivable... Salem..."
+						<<else>>
+							"No... I need to..."
+						<</if>>
+					<</if>>
 				<<default>>
 			<</switch>>
 		<<else>>
@@ -1809,6 +1856,8 @@
 				"You're the only one I need, Kylar."
 			<<case "Gwylan">>
 				"I think I'm bewitched."
+			<<case "Salem">>
+				"Oh fuck, you are so good."
 		<</switch>>
 	<<elseif $enemytype is "beast">>
 		<<if $vaginastate is "imminent">>
@@ -3043,6 +3092,54 @@
 							"You can't compare to Gwylan's skilled hands."
 						<<else>>
 							"Only Gwylan can bewitch me! Not you!"
+						<</if>>
+					<</if>>
+				<<case "Salem">>
+					<<if $npc.includes("Salem")>>
+						"Salem what's wrong?!"
+					<<elseif $vaginastate is "imminent" or $penisstate is "imminent" or $penisstate is "otheranusimminent">>
+						<<if $player.virginity.vaginal is true and $player.virginity.penile is true>>
+							<<if $awarelevel gte 1>>
+								"Please no! I am saving myself for Salem!"
+							<<else>>
+								"N...No! Help me!"
+							<</if>>
+						<<else>>
+							"Please, I need you Salem!"
+						<</if>>
+					<<elseif $vaginastate is "penetrated" or $anusstate is "penetrated">>
+						<<if $arousal lt $arousalmax / 5>>
+							"I'm sorry Salem..."
+						<<elseif $arousal lt ($arousalmax / 5) * 4>>
+							"Please stop! I only want Salem!"
+						<<else>>
+							"Salem... help me..."
+						<</if>>
+					<<elseif $penisstate is "penetrated" or $penisstate is "otheranus">>
+						<<if $arousal lt $arousalmax / 5>>
+							"I'm sorry Salem..."
+						<<elseif $arousal lt ($arousalmax / 5) * 4>>
+							"Please stop! I only want Salem!"
+						<<else>>
+							"Salem... help me..."
+						<</if>>
+					<<elseif $exposed gte 2>>
+						<<switch random(1,3)>>
+							<<case 1>> "Please don't look! Only Salem can see me like this!"
+							<<case 2>> "Please, Salem wouldn't forgive me..."
+							<<case 3>> "Stop staring... My body belongs to Salem..."
+						<</switch>>
+					<<else>>
+						<<if $pain lte 20>>
+							<<switch random(1,3)>>
+								<<case 1>> <<if $awarelevel gte 1>>"Please no! I need you Salem!"<<else>>"Stop please! I only want Salem!"<</if>>
+								<<case 2>> "Why are you doing this? Please stop!"
+								<<case 3>> "Salem needs me, please just let me go..."
+							<</switch>>
+						<<elseif $pain lte 60>>
+							"This is unforgivable... Salem..."
+						<<else>>
+							"No... I need to..."
 						<</if>>
 					<</if>>
 				<<default>>

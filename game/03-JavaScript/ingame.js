@@ -1321,10 +1321,10 @@ function currentSkillValue(skill, disableModifiers = 0) {
 		case "skulduggery":
 			if (V.worn.hands.type.includes("sticky_fingers")) result = Math.floor(result * 1.05);
 			if (V.transformationParts.traits.sharpEyes !== "disabled") result = Math.floor(result * 1.05);
-			if (V.fox >= 6) result = Math.floor(result * 1.1);
-			if (V.dragon >= 1) result = Math.floor(result * 1.1);
-			if (V.raccoon >= 1) result = Math.floor(result * 1.2);
-			if (V.spider >= 1) result = Math.floor(result * 1.15);
+			if (V.transformationParts.fox.cheeks === "default") result = Math.floor(result * 1.1);
+			if (V.transformationParts.dragon.eyes === "default") result = Math.floor(result * 1.1);
+			if (V.transformationParts.raccoon.mask === "default") result = Math.floor(result * 1.2);
+			if (V.transformationParts.spider.eyes === "default") result = Math.floor(result * 1.15);
 			break;
 		case "physique":
 			if (["forest", "moor", "farm", "alex_farm"].includes(V.location)) {
@@ -1749,6 +1749,8 @@ function isPossibleLoveInterest(name) {
 			return V.taylorromance === 1;
 		case "Casey":
 			return V.caseyromance === 1;
+		case "Salem":
+			return V.salemromance === 1;
 		default:
 			return false;
 	}

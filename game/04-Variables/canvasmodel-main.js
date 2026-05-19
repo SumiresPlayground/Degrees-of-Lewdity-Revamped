@@ -1115,7 +1115,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages = 1) {
+				if (V.staticimages > 0) {
 				return `img/background/static/${V.static}.png`;}
 					else {
 				return `img/background/${V.location}.png`;}
@@ -1126,7 +1126,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.foregroundOverlay,
 			animation: "idle",
 			srcfn() {
-				if (V.foreground = 1)
+				if (V.foreground > 0)
 				return `img/foreground/${V.foreground}.png`;
 			},
 		},

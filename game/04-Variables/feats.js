@@ -71,8 +71,8 @@ setup.feats = {
 		softLockable: true,
 	},
 	"Being a Hermaphrodite": {
-		title: "Being Bigenital",
-		desc: "Get to day 50 while bigenital.",
+		title: "Being a Hermaphrodite",
+		desc: "Get to day 50 as a hermaphrodite.",
 		difficulty: 1,
 		series: "",
 		filter: ["All", "General"],
@@ -973,8 +973,7 @@ setup.feats = {
 		desc: "The Mother from the Other",
 		difficulty: 1,
 		series: "",
-		filter: ["All", "Transformation", "Questline"],
-		hint: "Hint: Fild the cult and fulfil the ritual.",
+		filter: ["All", "Transformation"],
 	},
 	"A Special Trait": {
 		title: "A Special Trait",
@@ -2086,6 +2085,13 @@ setup.feats = {
 		filter: ["All", "Special"],
 		hint: "Hint: Time and effort.",
 	},
+	"Salem the Cultist": {
+		title: "Salem the Cultist",
+		desc: "You gave your virginity to them.",
+		difficulty: 2,
+		series: "",
+		filter: ["All", "Social"],
+	},
 	"Witch's Assistant": {
 		title: "Witch's Assistant",
 		desc: "Assisted a witch in their noble goal",
@@ -2339,7 +2345,7 @@ function earnHourlyFeats() {
 				earnFeat("Being a Girl");
 				break;
 			case "h":
-				earnFeat("Being Bigenital");
+				earnFeat("Being a Hermaphrodite");
 				break;
 		}
 
@@ -2378,33 +2384,14 @@ function earnHourlyFeats() {
 	if (loveCount >= 3) earnFeat("Love Triangles");
 	if (loveCount >= 4) earnFeat("Love Trapezoids");
 
-	if (V.cattf >= 1) earnFeat("Neko");
-	if (V.wolftf >= 1) earnFeat("Wolf");
-	if (V.angeltf >= 1) earnFeat("Angel");
-	if (V.fallenangeltf >= 1) earnFeat("Fallen Angel");
-	if (V.demontf >= 1) earnFeat("Demon");
-	if (V.cowtf >= 1) earnFeat("Cattle");
-	if (V.harpytf >= 1) earnFeat("Harpy");
-	if (V.foxtf >= 1) earnFeat("Fox");
-	if (V.beetf >= 1) earnFeat("Bee");
-	if (V.sheeptf >= 1) earnFeat("Sheep");
-	if (V.deertf >= 1) earnFeat("Deer");
-	if (V.beartf >= 1) earnFeat("Bear");
-	if (V.dragontf >= 16) earnFeat("Dragon");
-	if (V.lizardtf >= 1) earnFeat("Lizard");
-	if (V.dolphintf >= 1) earnFeat("Dolphin");
-	if (V.dogtf >= 1) earnFeat("Dog");
-	if (V.raccoontf >= 1) earnFeat("Raccoon");
-	if (V.fishtf >= 1) earnFeat("Fish");
-	if (V.horsetf >= 1) earnFeat("Horse");
-	if (V.spidertf >= 1) earnFeat("Spider");
-	if (V.frogtf >= 1) earnFeat("Frog");
-	if (V.pigtf >= 1) earnFeat("Pig");
-	if (V.mushroom >= 1) earnFeat("Mushroom");
-	if (V.eldritch >= 1) earnFeat("Eldritch");
-	if (V.slime >= 1) earnFeat("Slime");
-	if (V.ghost >= 1) earnFeat("Ghost");
-	if (V.prutiquest >= 9) earnFeat("Witch's Assistant");
+	if (V.cat >= 6) earnFeat("Neko");
+	if (V.wolfgirl >= 6) earnFeat("Wolf");
+	if (V.angel >= 6) earnFeat("Angel");
+	if (V.fallenangel >= 2) earnFeat("Fallen Angel");
+	if (V.demon >= 6) earnFeat("Demon");
+	if (V.cow >= 6) earnFeat("Cattle");
+	if (V.harpy >= 6) earnFeat("Harpy");
+	if (V.fox >= 6) earnFeat("Fox");
 
 	const specialTraits =
 		(V.orgasmtrait >= 1 ? 1 : 0) +
@@ -2762,144 +2749,6 @@ function setupFeatBoosts(force) {
 			cost: 30,
 			missing: "Unlock this boost by obtaining a hidden feat (" + setup.feats["Opened Pandoras Box"].hint + ")",
 		},
-		wolf: {
-			name: "Wolf Unlock",
-			required: ["Wolf"],
-			cost: 20,
-			missing: "Unlock this boost by becoming a wolf",
-		},
-		cat: {
-			name: "Cat Unlock",
-			required: ["Neko"],
-			cost: 20,
-			missing: "Unlock this boost by becoming a cat",
-		},
-		cow: {
-			name: "Cow Unlock",
-			required: ["Cattle"],
-			cost: 40,
-			missing: "Unlock this boost by becoming a cow",
-		},
-		harpy: {
-			name: "Bird Unlock",
-			required: ["Harpy"],
-			cost: 40,
-			missing: "Unlock this boost by becoming a bird",
-		},
-		fox: {
-			name: "Fox Unlock",
-			required: ["Fox"],
-			cost: 30,
-			missing: "Unlock this boost by becoming a fox",
-		},
-		bee: {
-			name: "Bee Unlock",
-			required: ["Bee"],
-			cost: 40,
-			missing: "Unlock this boost by becoming a bee",
-		},
-		sheep: {
-			name: "Sheep Unlock",
-			required: ["Sheep"],
-			cost: 30,
-			missing: "Unlock this boost by becoming a sheep",
-		},
-		deer: {
-			name: "Deer Unlock",
-			required: ["Deer"],
-			cost: 30,
-			missing: "Unlock this boost by becoming a deer",
-		},
-		bear: {
-			name: "Bear Unlock",
-			required: ["Bear"],
-			cost: 50,
-			missing: "Unlock this boost by becoming a bear",
-		},
-		dragon: {
-			name: "Dragon Unlock",
-			required: ["Dragon"],
-			cost: 100,
-			missing: "Unlock this boost by becoming a dragon",
-		},
-		lizard: {
-			name: "Lizard Unlock",
-			required: ["Lizard"],
-			cost: 30,
-			missing: "Unlock this boost by becoming a lizard",
-		},
-		dolphin: {
-			name: "Dolphin Unlock",
-			required: ["Dolphin"],
-			cost: 30,
-			missing: "Unlock this boost by becoming a dolphin",
-		},
-		dog: {
-			name: "Dog Unlock",
-			required: ["Dog"],
-			cost: 20,
-			missing: "Unlock this boost by becoming a dog",
-		},
-		raccoon: {
-			name: "Raccoon Unlock",
-			required: ["Raccoon"],
-			cost: 40,
-			missing: "Unlock this boost by becoming a raccoon",
-		},
-		fish: {
-			name: "Fish Unlock",
-			required: ["Fish"],
-			cost: 50,
-			missing: "Unlock this boost by becoming a fish",
-		},
-		horse: {
-			name: "Horse Unlock",
-			required: ["Horse"],
-			cost: 40,
-			missing: "Unlock this boost by becoming a horse",
-		},
-		spider: {
-			name: "Spider Unlock",
-			required: ["Spider"],
-			cost: 40,
-			missing: "Unlock this boost by becoming a spider",
-		},
-		frog: {
-			name: "Frog Unlock",
-			required: ["Frog"],
-			cost: 20,
-			missing: "Unlock this boost by becoming a frog",
-		},
-		pig: {
-			name: "Pig Unlock",
-			required: ["Pig"],
-			cost: 30,
-			missing: "Unlock this boost by becoming a pig",
-		},
-		angel: {
-			name: "Angel Unlock",
-			required: ["Angel"],
-			cost: 100,
-			missing: "Unlock this boost by becoming an angelic being",
-		},
-		fallenangel: {
-			name: "Fallen Unlock",
-			required: ["Fallen Angel"],
-			cost: 100,
-			missing: "Unlock this boost by becoming a fallen being",
-		},
-		demon: {
-			name: "Demon Unlock",
-			required: ["Demon"],
-			cost: 100,
-			missing: "Unlock this boost by becoming a demonic being",
-		},
-		eldritch: {
-			name: "Eldritch Unlock",
-			required: ["Eldritch"],
-			cost: 100,
-			missing: "Unlock this boost by becoming an eldritch being",
-		},
 	};
 
 	const earnedFeats = Object.keys(V.feats.allSaves);
@@ -3139,116 +2988,6 @@ function applyFeatBoosts() {
 
 			sexShopOnBuyClick(index, false, color, false);
 		}
-	}
-
-	if (upgrades.wolf) {
-		V.wolftf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.cat) {
-		V.cattf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.cow) {
-		V.cowtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.harpy) {
-		V.harpytf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fox) {
-		V.foxtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bee) {
-		V.beetf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.deer) {
-		V.deertf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bear) {
-		V.beartf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dragon) {
-		V.dragontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.lizard) {
-		V.lizardtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dolphin) {
-		V.dolphintf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dog) {
-		V.dogtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.raccoon) {
-		V.raccoontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fish) {
-		V.fishtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.horse) {
-		V.horsetf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.pig) {
-		V.pigtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.spider) {
-		V.spidertf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.frog) {
-		V.frogtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.angel) {
-		V.angeltf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fallenangel) {
-		V.fallenangeltf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.demon) {
-		V.demontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.eldritch) {
-		V.Eldritch = 1;
-		V.permanentTransform = 1;
 	}
 
 	// cleanup

@@ -145,6 +145,20 @@ After about 30 minutes the whispers intensify and you're shocked out of your med
 <br><br>
 <<link [[Explain what happened|Bog Cult Salem Explain]]>><<endevent>><</link>>
 <br>
+<<link [[Ask to do something else|Bog Cult Salem Else]]>><<endevent>><</link>>
+<br>
+<<if C.npc.Salem.corruption gte 5 and !$dailysalemdate>>
+    <<link [[Ask on a date|Bog Cult Salem Date Talk]]>><<endevent>><</link>>
+    <br>
+<</if>>
+<<if C.npc.Salem.corruption gte 30>>
+    <<link [[Ask for oral|Bog Cult Salem Oral]]>><<endevent>><</link>>
+    <br>
+<</if>>
+<<if C.npc.Salem.corruption gte 50>>
+    <<link [[Ask to have sex|Bog Cult Salem Sex]]>><<endevent>><</link>>
+    <br>
+<</if>>
 <<link [[Yeah it's nothing|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Explain
@@ -233,3 +247,400 @@ You look over the members of the fellowship as they gaze upon you in reverence. 
 <<set V.transformationParts.eldritch.mist to "default">>
 <<set V.transformationParts.eldritch.tentacle to "default">>
 <<link [[Next|Bog Cult]]>><</link>>
+
+:: Bog Cult Salem Else
+<<npc Salem>><<person1>>
+"Y-you want to do something else?" Salem looks a bit surprised and nervous. "Well, I um... I've never really done much else around here. The elders don't like it when I leave my room. I mostly spend time gardening or reading scripture or meditating in reverence to the Dark Mother... That's not to say I don't want to hang out! B-but you know..."
+<br><br>
+<<He>> looks a bit embarrassed by <<his>> lack of experience, <<his>> pale face almost glows red.
+<br><br>
+<<if (C.npc.Salem.love gte 60 and $salemromance is 0) or (C.npc.Salem.love gte 60 and $salemromance is undefined)>>
+<<link [[Hold <<his>> hand|Bog Cult Salem Handhold]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>><<handholdingvirginitywarning>>
+<br>
+<<elseif $salemromance is 1>>
+<<link [[Hold <<his>> hand|Bog Cult Salem Romance Handhold]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>><<handholdingvirginitywarning>>
+<br>
+<</if>>
+<<link [[Offer to help with <<his>> garden (0:30)|Bog Cult Salem Garden]]>><<pass 30>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
+<br>
+<<link [[Offer to read to <<him>> (0:30)|Bog Cult Salem Read To]]>><<pass 30>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
+<br>
+
+:: Bog Cult Salem Garden
+<<npc Salem>><<person1>>
+You offer to assist Salem with <<his>> gardening shelf. <<He>> hesitates but agrees eventually.
+<br><br>
+"O-okay, so... You have to be extra careful because this here is Nightshade, and it can be very dangerous if handled incorrectly." <<He>> hands you some simple gardening supplies and watches as you prune the plants.
+<br><br>
+<<if $tending gte 600>>
+    "Whoa, you're so talented." Salem peers over your shoulder in awe. "I didn't realize you were such a talented gardener." Salem catches <<himself>> talking and covers <<his>> mouth, blushing. "I-I mean, uh... sorry." <<He>> looks away awkwardly.
+    <br><br>
+    <<link [[Next|Bog Cult Salem Room]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
+<<else>>
+    "Careful, careful." Salem nervously glances over your shoulder. "U-um, maybe you should leave those to me? I-I just mean, I wouldn't want you to hurt yourself." Salem catches <<himself>> talking and covers <<his>> mouth, blushing. "I-I mean, uh... sorry." <<He>> looks away awkwardly.
+    <br><br>
+    <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+<</if>>
+
+:: Bog Cult Salem Read To
+<<npc Salem>><<person1>>
+You offer to read a book to Salem. <<He>> hesitates.
+<br><br>
+"I-I'm not really sure... Nobody's ever really read to me before outside of studies..." <<He>> looks a bit uncomfortable. "Uh, it's, I mean... Sorry, please go ahead." Salem settles and sits on the side of <<his>> bed. You sit alongside <<him>> and search the shelf.
+<br><br>
+As you suspected, there are not really any typical books, mostly manuscripts, religious theory, doctrine, and study material.
+<br><br>
+<<link [[Make up a story|Bog Cult Salem Story]]>><<endevent>><</link>>
+<br>
+<<link [[Read from one of his books|Bog Cult Salem Read Book]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Read Book
+<<npc Salem>><<person1>>
+You sit next to Salem, respecting <<his>> space, and begin to read from one of his religious books.
+<br><br>
+"There are many theories related to the origin and proper worship of the Dark Mother; some say she is the daughter of Auriga, others say she's a godly aspect of Auriga, and even others say they are one and the same. These claims are born from the similar nature of the two deities, though the truth is that it may simply be unknowable."
+<br><br>
+Salem sits alert and listens as you read the religious script. <<His>> eyes follow your finger as you read the page. After a little bit, you close the book and sit up. Salem looks to you and speaks. "Done already? Typically my study sessions tend to go on a bit longer, but I am okay with calling it here. U-um... thank you. This was nice."
+<br><br>
+<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Story
+<<npc Salem>><<person1>>
+You sit next to Salem, respecting <<his>> space, and begin to tell your own story.
+<br><br>
+<<if $english gte 600>>
+    You begin to tell a story similar to the stories you have studied in school or the library. Something engaging but grounded. A typical hero's journey. You can tell it's not something Salem is used to hearing. <<He>> falls silent as you tell your story. <<He>> remains silent and leans in intently, not realizing how close <<he>> has gotten. As you wrap up the story, Salem notices how intently <<he>> was listening and pulls back a little. "Oh, um, sorry, I didn't realize I had gotten so close... It's just, I have never heard such a story before. T-thank you, this was really nice. M-maybe we can do this again sometime soon?"
+    <br><br>
+    <<link [[Next|Bog Cult Salem Room]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
+<<else>>
+    You begin to tell a story but begin to get lost along the way. The story is full of inconsistencies, and the characters behave strangely. As you speak, Salem tilts <<his>> head a bit, confused. "So w-wait. This is something you're just making up on the spot?" <<He>> thinks for a moment. "It's impressive but... w-why would the characters act like that? It doesn't really... make sense?" Salem catches <<himself>> and turns away, looking down. "S-sorry, I didn't mean to sound so ungrateful. Thank you for this."
+    <br><br>
+    <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+<</if>>
+
+:: Bog Cult Salem Handhold
+<<npc Salem>><<person1>>
+As Salem blushes and looks away, you wrap your hand around <<his>>. <<takeHandholdingVirginity "Salem" "romantic">>
+<br><br>
+<<He>> looks surprised, <<his>> red face glowing even brighter, as <<he>> sees the way you look at <<him>>. "U-um, what is this?" <<He>> stumbles over his words as you look into <<his>> eyes.
+<br><br>
+<<link [[Kiss <<him>>|Bog Cult Salem Kiss]]>><<npcincr Salem love 3>><<endevent>><</link>><<kissvirginitywarning>><<gglove>>
+<br>
+<<link [[Back away|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Kiss
+<<npc Salem>><<person1>>
+As Salem looks at you, red with embarrassment, you lean forward. Your lips press against Salem's as <<he>> sits there, stunned. <<takeKissVirginity "Salem" "romantic">>
+<br><br>
+The shock in <<his>> eyes slowly fades as <<he>> begins to lean into the kiss as well. After a moment, the two of you break the kiss and look into each other's eyes. Salem stutters before speaking. "Y-you kissed me? I... I've never been kissed before. It felt so wrong but also so... right at the same time. What's wrong with me?" Salem looks away, squeezing <<his>> eyes shut in embarrassment.
+<br><br>
+"I'm due to be the next priest of the Fellowship; I can't just be kissing a <<pcGender>> in private." <<He>> covers <<his>> face in shame.
+<br>
+<<link [[Ask <<him>> to be your <<print (C.npc.Salem.pronoun is "m" ? "boyfriend" : "girlfriend")>>|Bog Cult Salem Partner]]>><<npcincr Salem love 3>><<npcincr Salem corruption 2>><<endevent>><<set $salemromance to 1>><</link>><<gglove>><<gcorruption>>
+
+:: Bog Cult Salem Partner
+<<npc Salem>><<person1>>
+"W-what?!" Salem stammers in disbelief. "B-be your <<print (C.npc.Salem.pronoun is "m" ? "boyfriend" : "girlfriend")>>?" <<He>> covers <<his>> face and speaks. "B-but it's improper for a priest of the Dark Mother to date someone... B-but I suppose I'm not a priest yet..." Salem pauses and lowers <<his>> hand to gaze into your eyes, <<his>> face still stained crimson. "I-I guess we could give it a try."
+<br><br>
+<<if $loveInterest.primary is "None">>
+    <<set $loveInterest.primary to "Salem">>
+    <span class = "gold">Salem is now your love interest! The thought makes you feel warm. </span>
+    <br><br>
+<<else>>
+    <span class = "gold">Salem can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.
+    <span>
+    <br><br>
+<</if>>
+<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Romance Handhold
+<<npc Salem>><<person1>>
+As Salem blushes and looks away, you wrap your hand around <<his>>.
+<br><br>
+<<He>> looks completely embarrassed, <<his>> red face glowing even brighter, as <<he>> sees the way you look at <<him>>. "S-so is this going to be a usual thing while we're dating? I... I don't think I would mind." <<He>> looks away blushing.
+<br><br>
+<<link [[Kiss <<him>>|Bog Cult Salem Romantic Kiss]]>><<npcincr Salem love 3>><<npcincr Salem corruption 2>><<endevent>><</link>><<gcorruption>><<gglove>>
+<br>
+<<link [[Back away|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Romantic Kiss
+<<npc Salem>><<person1>>
+As Salem looks at you, red with embarrassment, you lean forward. Your lips press against Salem's as <<he>> gently leans forward into it.
+<br><br>
+The kiss lasts a while longer yet feels like no time at all. After a moment, the two of you break the kiss and look into each other's eyes. Salem speaks up as you hold <<his>> hand. "T-thank you; that was nice. You are... you're too good for me." Tears well in Salem's eyes for a moment before <<he>> blinks them back and clears his throat.
+<br><br>
+"I'm sorry. L-let's do this again sometime." <<His>> face is red with embarrassment as <<he>> takes a step back.
+<br><br>
+<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Date Talk
+<<npc Salem>><<person1>>
+<<if C.npc.Salem.corruption lt 15>>
+    "A date?" Salem looks nervous. "Y-you mean like... leaving the church? I... I'm not sure that's a good idea. As an understudy of the elders, it's forbidden to go beyond the church walls..." <<He>> looks around, sweating slightly. "Really I want to but... I..."
+    <br><br>
+    <<link [[Convince to come|Bog Cult Salem Convince]]>><<npcincr Salem corruption 5>><<endevent>><</link>><<ggcorruption>>
+    <br>
+    <<link [[Apologize|Bog Cult Salem Apology]]>><<endevent>><</link>>
+<<else>>
+    "A date?" Salem looks excited. "O-of course I would love to. I'll finish my duties later, b-but where do you want to go." <<He>> gently takes your hand. "I don't think being seen in public is the best idea but... I trust you."
+    <br><br>
+    <<if !$dailysalemdate>>
+        <<cafeicon>><<link [[Cliff Street Cafe (2:35)|Salem Cafe]]>><<npcincr Salem corruption 5>><<pass 155>><<set $dailysalemdate to 1>><</link>><<ggcorruption>>
+        <br>
+        <<arcadeicon>><<link [[Starfish Street Arcade (2:30)|Salem Arcade]]>><<npcincr Salem corruption 5>><<pass 150>><<set $dailysalemdate to 1>><</link>><<ggcorruption>>
+        <br>
+        <<museumicon>><<link [[Oxford Street Museum (2:20)|Salem Museum]]>><<npcincr Salem corruption 5>><<pass 140>><<set $dailysalemdate to 1>><</link>><<ggcorruption>>
+        <br>
+    <</if>>
+<</if>>
+
+:: Bog Cult Salem Apology
+<<npc Salem>><<person1>>
+You begin to apologize for the request but Salem stops you. "N-no please, don't be sorry. It was very nice of you but... I just don't think it's a good idea with how things are in the Fellowship right now." <<He>> holds your hand gently. "Really, I'm sorry."
+<br><br>
+<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Convince
+<<npc Salem>><<person1>>
+<<if $english gte 400>>
+    Salem begins to argue but you hold <<him>> gently in your arms. "Y-you don't understand what it's like here. For my father to be who he is... I..." Salem breathes for a moment, composing <<himself>>, before speaking again. "O-okay but you can't tell anybody else, okay. T-this is between us. So... where did you want to go?"
+    <br><br>
+    <<if !$dailysalemdate>>
+        <<cafeicon>><<link [[Cliff Street Cafe (2:35)|Salem Cafe]]>><<pass 155>><<set $dailysalemdate to 1>><</link>>
+        <br>
+        <<arcadeicon>><<link [[Starfish Street Arcade (2:30)|Salem Arcade]]>><<pass 150>><<set $dailysalemdate to 1>><</link>>
+        <br>
+        <<museumicon>><<link [[Oxford Street Museum (2:20)|Salem Museum]]>><<pass 140>><<set $dailysalemdate to 1>><</link>>
+        <br>
+    <</if>>
+<<else>>
+    "P-please, I really am sorry but... I can't do this. N-not now. Not yet." <<He>> looks away ashamed. "I have responsibilities to the Fellowship and... I can't be breaking rules even if I want to. I'm sorry..." You comfort <<him>> as <<his>> face grows red with frustration.
+    <br><br>
+    <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+<</if>>
+
+:: Salem Cafe
+    <<npc Salem>><<person1>>
+    As you and Salem make your way into town, <<he>> begins to slightly hide behind you. You let <<him>> trail slightly as you arrive on Danube Street. As you pass by Connudatus Street Salem's eyes go wide at the sight of so many different people. You both arrive at Cliff Street and open the door to the Ocean Breeze Cafe.
+    <br><br>
+    <<if $oceanbreezejob is 1 and $salemsammeet is undefined>>
+        <<npc Sam>><<person2>>
+        The two of you enter and Sam immediately catches sight of you. <<His>> eyes catch sight of the small pale <<print (C.npc.Salem.pronoun is "m" ? "boy" : "girl")>> and <<he>> lets out a warm laugh. "Now who's this cute little sweetheart." <<He>> smiles as Salem inches further behind you. "Well isn't <<person1>><<he>> a shy little thing. Let me have a look at <<him>>."
+        <br><br>
+        You step aside and allow Sam a good look at Salem. <<person2>><<He>> examines Salem's appearance with a critical eye. "This is my first time seeing this young <<print (C.npc.Salem.pronoun is "m" ? "man" : "woman")>>. Where is <<person1>><<he>> from?" You tell Sam that Salem is from out of town and <<person2>><<he>> claps <<his>> hands in excitement. "Oh well that is simply great, it's always nice to meet someone new. Here, why don't you order something for your first visit. On the house."
+        <br><br>
+        Salem stumbles over <<person1>><<his>> words as he points at something on the menu. Sam takes a look and smiles, guiding the both of you to a table as you sit side by side. You talk for a while before Sam returns, placing a dish full of fresh strawberries, blueberries, kiwi, and chunks of pineapple. Salem looks at the food and cocks <<his>> head to the side confused. "So... uh, what's this stuff?" <<He>> pokes at the fruits with interest. "At the Fellowship, we typically don't eat these kinds of foods." <<He>> takes a bite and <<his>> eyes go wide. "Wow this is so delicious!" <<He>> says excitedly eating quickly. It wasn't long before <<he>> had finished half of the fruit salad. <<He>> freezes as his face blushes. "Oh geez, I-I'm sorry. You haven't even had a chance to eat yet..." <<He>> looks away, <<his>> face slightly red.
+        <br><br>
+        Salem patiently sits, holding your hand. <<He>> watches as you eat and gently presses the napkin to your lips. "S-sorry you had a bit of... right here." <<He>> folds the napkin before his hand returns to your hand. You cover the bill as Salem seems a bit less shy. As the two of you are leaving, Sam waves to you and wishes you luck. While walking back through town, Salem begins to speak. "S-so I... um, sorry it's hard to find my words... What I mean to say is, thank you. For this."
+        <br><br>
+        The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<set $salemsammeet 1>><<endevent>><</link>>
+    <<elseif $oceanbreezejob is 1 and $salemsammeet is 1>>
+        <<npc Sam>><<person2>>
+        The two of you enter and Sam immediately catches sight of you. <<His>> eyes light up as <<he>> sees you are once again here with Salem. "Hey there sweetheart." <<He>> smiles as Salem is much less shy than their first meeting. "So Salem, what would you like today?"
+        <br><br>
+        Salem stutters as he glances over the menu and speaks. "U-um well, could we get the same thing we had last time?" Sam laughs warmly and gives a kind look, guiding the both of you to a table as you sit side by side. You talk for a while before Sam returns, placing a dish full of fresh strawberries, blueberries, kiwi, and chunks of pineapple. Salem looks at the food and it doesn't take long before <<he>> begins to eat. Unlike the first visit, Salem slows down and allows you to eat with <<him>>.
+        <br><br>
+        Salem patiently sits, holding your hand. <<He>> lets you take a bite, then <<he>> takes his own. As the bowl grows empty, Salem takes the napkin and gently presses the napkin to your lips. "You know, your lips are quite nice." <<He>> folds the napkin before his hand returns to your hand. You cover the bill for Salem and Sam waves to you and wishes you a good day. As you walk through town, Salem begins to speak. "Thank you for the date, this was really fun."
+        <br><br>
+        The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<elseif $salemcafe 1>>
+        The two of you enter and find a seat at a table by the side of the cafe. Salem hides behind the menu as a waiter comes to take your orders. You order a fruit salad for the both of you and as the waiter leaves, Salem sighs and lowers <<his>> menu. "T-this is so nerve wracking, I'm sorry. I have never interacted with so many people before and I'm still getting used to it." <<He>> takes a deep breath and holds your hand from across the table.
+        <br><br>
+        You talk for a while before the waiter returns, placing a dish full of fresh strawberries, blueberries, kiwi, and chunks of pineapple. Salem looks at the food and cocks <<his>> head to the side confused. "So... uh, what's this stuff?" <<He>> pokes at the fruits with interest. "At the Fellowship, we typically don't eat these kinds of foods." <<He>> takes a bite and <<his>> eyes go wide. "Wow this is so delicious!" <<He>> says excitedly eating quickly. It wasn't long before <<he>> had finished half of the fruit salad. <<He>> freezes as his face blushes. "Oh geez, I-I'm sorry. You haven't even had a chance to eat yet..." <<He>> looks away, <<his>> face slightly red.
+        <br><br>
+        Salem patiently sits, holding your hand. <<He>> watches as you eat and gently presses the napkin to your lips. "S-sorry you had a bit of... right here." <<He>> folds the napkin before his hand returns to your hand. You cover the bill as Salem seems a bit less shy and leave the cafe. As you walk through town, Salem begins to speak. "S-so I... um, sorry it's hard to find my words... What I mean to say is, thank you. For this."
+        <br><br>
+        The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<else>>
+        The two of you enter and find a seat at a table by the side of the cafe. Salem steels <<his>> nerves as a waiter comes to take your orders. Salem stutters as he glances over the menu and speaks. "U-um well, could we get the same thing we had last time?" You talk for a while before the waiter returns, placing a dish full of fresh strawberries, blueberries, kiwi, and chunks of pineapple. Salem looks at the food and it doesn't take long before <<he>> begins to eat. Unlike the first visit, Salem slows down and allows you to eat with <<him>>.
+        <br><br>
+        Salem patiently sits, holding your hand. <<He>> lets you take a bite, then <<he>> takes his own. As the bowl grows empty, Salem takes the napkin and gently presses the napkin to your lips. "You know, your lips are quite nice." <<He>> folds the napkin before his hand returns to your hand. You cover the bill for Salem and leave the cafe. As you walk through town, Salem begins to speak. "Thank you for the date, this was really fun."
+        <br><br>
+        The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<set $salemcafe 1>><<endevent>><</link>>
+    <</if>>
+
+:: Salem Arcade
+    <<npc Salem>><<person1>>
+    As you and Salem make your way into town, <<he>> begins to slightly hide behind you. You let <<him>> trail slightly as you pass the hospital. <<He>> peers at the injured people with interest as you continue down Oxford and finally arrive on Starfish Street. You open the arcade door, are hit with cool air conditioning, and walk in with Salem right behind.
+    <br><br>
+    <<if $salemarcade 1>>
+        As you enter, Salem has already began to relax, away from prying eyes. <<He>> slowly lets go of your arm and looks at the arcade cabinets. Without waiting for your input, <<he>> pulls you toward a newer one. "Hey look at this one." <<He>> smiles warmly at you. "Do you want to try playing with me? I have been practicing in my head for this moment."
+        <br><br>
+        You and Salem spend some time playing games together. <<He>> is still pretty bad at games but you are surprised to see <<him>> manage to take a game off you. As <<he>> catches sight of the clock, <<his>> face sinks a little. "I-is it already that time?" <<He>> looks worried. "S-sorry I have to get back to the Fellowship before my duties."
+        <br><br>
+        Salem reaches out <<his>> hand to take yours as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<else>>
+        The arcade is mostly empty which causes Salem to relax. <<He>> slowly lets go of your arm and looks at the arcade cabinets. Curiously Salem touches one and tilts <<his>> head. "What are these things? Are they kind of like a television?" You take a moment to explain what an arcade is and Salem looks dumbfounded. "W-wait so it's like a television that you control what happens on the glass? That's so cool!"
+        <br><br>
+        You and Salem spend some time playing games together after you teach <<him>> the controls. <<He>> pretty quickly learns but not enough to actually win anything. Despite this, <<he>> seems to be having fun. "I-is it already that time?" <<He>> looks worried. "S-sorry I have to get back to the Fellowship before my duties."
+        <br><br>
+        Salem reaches out <<his>> hand to take yours as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<set $salemarcade 1>><<endevent>><</link>>
+    <</if>>
+
+:: Salem Museum
+<<npc Salem>><<person1>>
+    As you and Salem make your way into town, <<he>> begins to slightly hide behind you. You let <<him>> trail slightly as you arrive on Wolf Street. <<He>> casts nervous glances toward the church and hurries to get to the next street. As you arrive at Oxford Street, you open the museum and walk in with Salem right behind.
+    <br><br>
+    <<if $museumintro is 1 and $salemwintermeet is undefined>>
+        <<npc Winter>><<person2>>
+        As you enter the museum, you catch sight of Winter with a group of visitors. You approach and Winter turns to face you. "Oh it's you, and I see you brought someone else here?" Winter lowers <<his>> eyes to look at Salem. "Just tell your little friend not to touch anything." Winter returns <<his>> attention to the visitors, leaving you and Salem alone.
+        <br><br>
+        Salem turns to you with wide eyes. <<person2>>"W-who was that, <<he>> was scary." Salem continues to hide behind you, peeking out at Winter from across the room. The two of you look through the museum's exhibits. Salem stops to look at a couple things with intrigue. <<person1>>"Y-you know, the Fellowship actually has some really old trinkets just like this. M-maybe someday I could show you some. I-if you're interested anyway."
+        <br><br>
+        After spending some time looking over some of the other artifacts, Salem tugs your arm. "H-hey, it's getting a little late, we should probably head back soon." <<He>> lets go of your sleeve but holds your hand. "This was really nice. T-thank you." <<He>> blushes.
+        <br><br>
+        You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<set $salemwintermeet 1>><<endevent>><</link>>
+    <<elseif $museumintro is 1 and $salemwintermeet is 1>>
+        As you enter the museum Winter catches sight and approaches you and Salem once again. "I see the two of you are back. Remember, no touching the antiques and stay where you belong." As Winter turns back to the visitors, Salem turns to whisper to you.
+        <br><br>
+        "T-there's something I saw last time that I want you to see." Salem makes sure Winter is not looking before <<he>> leads you back into a side room of the museum you have never really seen before. "Y-you remember how I told you the Fellowship had some trinkets like this?" <<He>> reveals a small black altar.
+        <br><br>
+        "We have something just like this back at the church. It's an altar to the Dark Mother. I wonder where they got this one." Salem spends some time explaining the Fellowship's method of ritualistic worship before you hear footsteps outside the room.
+        <br><br>
+        Salem takes your hand, peeking around the corner, and silently sneaks out of the room with you, careful to avoid Winter's gaze. After spending a little more time looking over some of the other artifacts, Salem tugs your arm. "Hey, it's getting a little late, we should probably head back soon." <<He>> lets go of your sleeve but holds your hand. "This was really nice. Thank you." <<He>> blushes.
+        <br><br>
+        You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<elseif $salemmuseum 1>>
+        As you enter the museum, Salem pulls you to the side. "T-there's something I saw last time that I want you to see." Salem leads you back into a side room of the museum you have never really seen before. "Y-you remember how I told you the Fellowship had some trinkets like this?" <<He>> reveals a small black altar.
+        <br><br>
+        "We have something just like this back at the church. It's an altar to the Dark Mother. I wonder where they got this one." Salem spends some time explaining the Fellowship's method of ritualistic worship before you hear footsteps outside the room.
+        <br><br>
+        Salem takes your hand, peeking around the corner, and silently sneaks out of the room with you. After spending a little more time looking over some of the artifacts, Salem tugs your arm. "Hey, it's getting a little late, we should probably head back soon." <<He>> lets go of your sleeve but holds your hand. "This was really nice. Thank you." <<He>> blushes.
+        <br><br>
+        You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<else>>
+        As you enter the museum, you catch sight of a guide with a group of visitors. Not really seeing the need for a guide at this time, the two of you look through the museum's exhibits. Salem stops to look at a couple things with intrigue. "Y-you know, the Fellowship actually has some really old trinkets just like this. M-maybe someday I could show you some. I-if you're interested anyway."
+        <br><br>
+        After spending some time looking over some of the artifacts, Salem tugs your arm. "H-hey, it's getting a little late, we should probably head back soon." <<He>> lets go of your sleeve but holds your hand. "This was really nice. T-thank you." <<He>> blushes.
+        <br><br>
+        You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
+        <br><br>
+        <<link [[Next|Bog Cult Salem Room]]>><<set $salemmuseum 1>><<endevent>><</link>>
+    <</if>>
+
+:: Bog Cult Salem Oral
+<<npc Salem>><<person1>>
+<<if C.npc.Salem.virginity.oral is true>>
+    Salem looks at you in shock. "Y-you want me to put my mouth where?!" <<He>> claps a hand over his mouth to silence <<his>> outburst and looks around nervously. "I-I'm not sure. It might be okay with the temple's laws but... O-okay. I trust you."
+<<else>>
+    Salem looks at you and gently holds your hand. "A-again? Already? I-I guess it's okay."
+<</if>>
+<<He>> gets down on <<his>> knees in front of you.
+<br><br>
+<<link [[Next|Salem Oral Sex]]>><<set $sexstart to 1>><</link>>
+
+:: Salem Oral Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+    <<npcoral>>
+    <<if $player.penisExist and (!$player.vaginaExist or random(0, 1))>>
+		<<set $NPCList[0].mouth to "penisentrance">><<set $penisuse to "othermouth">><<set $penisstate to "othermouthentrance">><<set $penistarget to 0>>
+	<<else>>
+		<<set $NPCList[0].mouth to "vaginaentrance">><<set $vaginause to "othermouth">><<set $vaginastate to "othermouthentrance">><<set $vaginatarget to 0>>
+	<</if>>
+    <<set $NPCList[0].location.head to "genitals">>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Salem Oral Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Salem Oral Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Salem Oral Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>><<npcincr Salem corruption 5>><<npcincr Salem love 5>>
+	Salem clings to you breathing heavily, it's best to leave <<him>> to gather <<himself>>.<<glove>><<ggcorruption>>
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Salem love -5>>
+    "O-ow! Why would you do that?" Salem says as tears run from <<his>> eyes.<<llove>>
+<<elseif $finish is 1>>
+	"Y-you're done already," <<he>> says tilting his head. "A-alright did I do something wrong?"
+<</if>>
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Sex
+<<npc Salem>><<person1>>
+<<if C.npc.Salem.virginity.vaginal isnot true or C.npc.Salem.virginity.penile isnot true>>
+    "W-what are you saying?! A priest of the Fellowship cannot be tainted by... by..." Salem's face goes red and you can tell <<he>> is barely holding it together. Your hand passes over <<his>> robe and you can feel the heat of <<his>> core. He breathes heavily <<his>> face red. "O-okay... I'll do it..."
+<<else>>
+    "Y-you want to have sex again? Well... I guess there's no harm if I'm already not a virgin anyway..." 
+<</if>>
+The two of you settle on Salem's bed and Salem slowly lifts <<his>> robe.
+<br><br>
+<<link [[Next|Salem Sex]]>><<set $sexstart to 1>><</link>>
+
+:: Salem Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Salem Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Salem Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Salem Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>><<npcincr Salem corruption 5>><<npcincr Salem love 5>>
+	Salem clings to you breathing heavily, it's best to leave <<him>> to gather <<himself>>.<<glove>><<ggcorruption>>
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Salem love -5>>
+    "O-ow! Why would you do that?" Salem says as tears run from <<his>> eyes.<<llove>>
+<<elseif $finish is 1>>
+	"Y-you're done already," <<he>> says tilting his head. "A-alright did I do something wrong?"
+<</if>>
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Bog Cult Salem Room]]>><</link>>

@@ -993,6 +993,8 @@ function dayPassed() {
 
 	V.moorburger = 0;
 
+	V.dailysalemdate = 0;
+
 	if (V.prutitimer >= 7) {V.prutiquest = 8;}
 	if (V.prutiquest >= 8) {V.prutitimer = 0;}
 
