@@ -1112,10 +1112,8 @@ Renderer.CanvasModels.main = {
 							if (V.npc.length > 0)
 								return `img/npc/${V.npc}.png`;
 						else
-							{if (V.npc.length > 0 && V.monster > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
-							else if (V.npc.length > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/monster.png`;
+							if (V.npc.length > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;
 			},
 		},
 		"npcpresentfront": {
@@ -1129,10 +1127,8 @@ Renderer.CanvasModels.main = {
 							if (V.npc.length > 0)
 								return `img/npc/${V.npc}.png`;
 						else
-							{if (V.npc.length > 0 && V.monster > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
-							else if (V.npc.length > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/monster.png`;
+							if (V.npc.length > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;
 			},
 		},
 		"background": {
@@ -2481,7 +2477,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.spider_eyes_type);
 			},
-			z: ZIndices.irisacc,
+			z: ZIndices.horns,
 			animation: "idle"
 		},
 		"spider_tail": {

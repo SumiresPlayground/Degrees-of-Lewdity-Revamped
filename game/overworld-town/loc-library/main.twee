@@ -1,0 +1,110 @@
+:: Library Lock
+<<set $outside to 1>><<set $location to "museum">><<effects>>
+
+The library is closed. A sign reads:
+"Open hours:	<<ampm 9 00>> - <<ampm 18 00>>"
+<br><br>
+
+<<oxfordicon>><<link [[Leave|Oxford Street]]>><</link>>
+<br>
+
+:: Public Library
+<<set $outside to 0>><<set $location to "museum">><<effects>>
+You are inside the public library. Huge shelves line the walls with books on all manner of subjects. 
+<br><br>
+There are the obvious subjects such as English, history, math, and science, but there are also books on local legends and stories. 
+<br><br>
+<<link [[Approach the common subjects shelf|Public Library Common]]>><</link>>
+<br>
+<<link [[Approach an older and dustier shelf containing the less popular books|Public Library Mod]]>><</link>>
+<br>
+<<link [[Leave the library|Oxford Street]]>><</link>>
+
+:: Public Library Common
+You approach the shelves containing books teaching the common subjects taught in the curriculum. There are plenty of books and subjects to choose from for studying.  
+<br><br>
+<<scienceicon>><<link [[Study science (0:20)|Public Library Study]]>><<pass 20>><<set $phase to 1>><</link>><<gscience>>
+<br>
+<<mathicon>><<link [[Study maths (0:20)|Public Library Study]]>><<pass 20>><<set $phase to 2>><</link>><<gmaths>>
+<br>
+<<englishicon>><<link [[Study English (0:20)|Public Library Study]]>><<pass 20>><<set $phase to 3>><</link>><<genglish>>
+<br>
+<<historyicon>><<link [[Study history (0:20)|Public Library Study]]>><<pass 20>><<set $phase to 4>><</link>><<ghistory>>
+<br>
+<<link [[Back away from the shelf|Public Library]]>><</link>>
+
+:: Public Library Study
+<<set $outside to 0>><<effects>>
+<<if $phase is 1>><<scienceskill>>
+	<<wearProp "open science">>
+	You settle down at a desk with a science textbook and read through the material.
+<<elseif $phase is 2>><<mathsskill>>
+	<<wearProp "open maths">>
+	You settle down at a desk with a maths textbook and read through the material.
+<<elseif $phase is 3>><<englishskill>>
+	<<wearProp "open English">>
+	You settle down at a desk with an English textbook and read through the material.
+<<elseif $phase is 4>><<historyskill>>
+	<<wearProp "open history">>
+	You settle down at a desk with a history textbook and read through the material.
+<</if>>
+<br><br> 
+<<link [[Next|Public Library]]>><</link>>
+
+:: Public Library Mod
+You approach the much older section of the library. Old faded journals and notebooks from decades ago sit unread. If you were looking for something lost or forgotten, this would be the place.
+<br><br>
+<<link [[Forest Explorer's Journal (0:20)|Forest Explorer's Journal]]>><<pass 20>><</link>>
+<br>
+<<link [[History of the Sea (0:20)|History of the Sea]]>><<pass 20>><<historyskill>><</link>><<ghistory>>
+<br>
+<<link [[Runic Dictionary (0:20)|Runic Dictionary]]>><<pass 20>><</link>>
+<br>
+<<link [[Back away from the shelf|Public Library]]>><</link>>
+
+:: Forest Explorer's Journal
+You grab an old faded journal with several snags and tears along the edge. Despite the rough state of the cover the insides seem to be fairly legible. You open the journal and begin to read. "These woods are unique and quite fascinating. Since the foundation of this town, people have seen and heard strange things out here so I am writing this journal to document my findings. The first case I looked into was the old haunted manor on Shade Street, belonging to Old Edwin. Despite my best efforts, I have been unable to turn up any events worth recording. Perhaps the rumors are just rumors after all."
+<br><br>
+<<link [[Continue to the next page|Forest Explorer's Journal 2]]>><</link>>
+<br>
+<<link [[Put down the journal|Public Library]]>><</link>>
+
+:: Forest Explorer's Journal 2
+"Continuing my survey of the land, I made my way into the forest proper. I had heard the animals around here were quite viscious and it really seems so, I can barely write as these wolf attacks are so common. Oh there it is! I had heard rumors of strange insects but I hadn't believed them until now. It seems some kind of... energy in the forest has been causing the bees and wasps to exponentially grow. I wonder the limit of their growth?"
+<br><br>
+<<link [[Put down the journal|Public Library]]>><</link>>
+
+:: History of the Sea
+The cover of the old book is covered with a thick and heavy layer of dust as you lift and blow it off. The title reads "A History of the Seas". You open the cover and begin to read. A lot of the material is just simple historical information on the town's shipping industry but the further you read the more interesting the contents. "Uncovered in 1985, the wreckage of the SS Dido was discovered after years of searching. The ship, found at the bottom of the sea, was a luxury goods transport vehicle but due to the legal tension in regards to the contents, official dredging cannot be carried out at this time."
+<br><br>
+<<link [[Continue to the next page|History of the Sea 2]]>><</link>>
+<br>
+<<link [[Put down the journal|Public Library]]>><</link>>
+
+:: History of the Sea 2
+You turn the page and continue to read. "Earlier in development of this town, the locals discovered a chain of islands offshore. Among these islands are the Sora Archipelago, made up of 6 medium to small sized islands, the largest of which, Isla Carna, being an extinct volcano. Many of these islands host a native population and are avoided."
+<br><br>
+<<link [[Put down the journal|Public Library]]>><</link>>
+
+:: Runic Dictionary
+You pick up the dictionary coated in strange and unknown symbols. Many of their meanings have been scribbled out by pen, completely illegible. It seems someone purposefully vandalized this book for some reason.
+<br>
+<<bunkericon1>>: O-- -- --e ---- ---o--z-- --gn- -- ----r
+<br>
+<<bunkericon2>>: --e o- --- ---- ------------- -- --- --s--
+<br>
+<<bunkericon3>>: ------------- ------ s--- -- H----
+<br>
+<<bunkericon4>>: --e -r-- --g-- -------
+<br>
+<<bunkericon5>>: ----- t-- m--- th---e-- --n-s ---- ------
+<br>
+<<bunkericon6>>: --- ---er --g- -- ---e ---a- --d On--
+<br>
+<<bunkericon7>>: ---e -l--- ---- --- t-- G---- --- ----
+<br>
+<<bunkericon8>>: -n- -- ---- --ny ----i--- -i--- o- ---t--
+<br><br>
+Looking closely you can barely make out erased markings near the symbols... "<<bunkericon2>><<bunkericon8>><<bunkericon6>><<bunkericon3>>"
+<br><br>
+<<link [[Put down the dictionary|Public Library]]>><</link>>

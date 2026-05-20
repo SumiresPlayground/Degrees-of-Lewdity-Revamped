@@ -250,6 +250,17 @@ You are on Oxford Street. There's an eclectic mix of buildings, but most notable
 				<br>
 			<</if>>
 		<</if>>
+		<<if Time.dayState is "day">>
+			<<if $exposed lte 0>>
+				<<schoolicon "library">><<link [[Public Library (0:01)|Public Library]]>><<pass 1>><</link>>
+				<br>
+			<</if>>
+		<<else>>
+			<<if $exposed lte 0>>
+				<<schoolicon "library">><<link [[Public Library (0:01)|Library Lock]]>><<pass 1>><</link>>
+				<br>
+			<</if>>
+		<</if>>
 		<<if $stimdealerknown is 1 and $mathsproject is "ongoing" and $exposed lte 0>>
 			<<pillicon "stimulant">><<link [[Stimulant dealer|Stim Dealer]]>><</link>>
 			<br>
