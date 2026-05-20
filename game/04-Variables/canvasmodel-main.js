@@ -1101,13 +1101,38 @@ Renderer.CanvasModels.main = {
 		 *
 		 *
 		 */
-		"npcpresent": {
+		"npcpresentback": {
+			show: true,
+			z: ZIndices.NPCOverlayBack,
+			animation: "idle",
+			srcfn() {
+				if (V.NPCposition > 0)
+					if (V.NPCenable > 0)
+						if (V.NPCstatic > 0)
+							if (V.npc.length > 0)
+								return `img/npc/${V.npc}.png`;
+						else
+							{if (V.npc.length > 0 && V.monster > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
+							else if (V.npc.length > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/monster.png`;
+			},
+		},
+		"npcpresentfront": {
 			show: true,
 			z: ZIndices.NPCOverlay,
 			animation: "idle",
 			srcfn() {
-				if (V.npc.length > 0)
-				return `img/npc/${V.npc}.png`;
+				if (V.NPCposition > 1)
+					if (V.NPCenable > 0)
+						if (V.NPCstatic > 0)
+							if (V.npc.length > 0)
+								return `img/npc/${V.npc}.png`;
+						else
+							{if (V.npc.length > 0 && V.monster > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
+							else if (V.npc.length > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/monster.png`;
 			},
 		},
 		"background": {
@@ -1115,10 +1140,11 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 0) {
-				return `img/background/static/${V.static}.png`;}
-					else {
-				return `img/background/${V.location}.png`;}
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {
+					return `img/background/static/${V.static}.png`;}
+				else {
+					return `img/background/${V.location}.png`;}
 			},
 		},
 		"foreground": {
@@ -1126,8 +1152,9 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.foregroundOverlay,
 			animation: "idle",
 			srcfn() {
-				if (V.foreground > 0)
-				return `img/foreground/${V.foreground}.png`;
+				if (V.foregroundenable > 0)
+					if (V.foreground > 0)
+						return `img/foreground/${V.foreground}.png`;
 			},
 		},
 		"base": {

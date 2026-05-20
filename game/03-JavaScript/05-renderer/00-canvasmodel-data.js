@@ -5,6 +5,7 @@ const ZIndices = {
 	spotlight: -1,
 	backgroundOverlay: -1,
 	background: 0,
+	NPCOverlayBack: 0,
 	over_head_back: 0,
 	head_back: 1,
 	basehead: 5,

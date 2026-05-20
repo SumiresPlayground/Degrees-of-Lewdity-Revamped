@@ -1,0 +1,1066 @@
+:: Display Settings [widget]
+<<widget "npcsettings">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">NPC Display</div>
+			<div class="settingsToggleItemWide">
+				<span class="green">NPC Display will display an image of a named NPC if they are present in the scene. To add an NPC image, go into the npc folder in the img folder and replace the character you want to use.</span>
+				<br><br>
+				<span class="gold">NPC Display:</span><br>
+				<label>Enabled <<radiovar "$NPCenable" "1">><<updatesidebarimg>><</radiovar>></label> |
+				<label>Disabled <<radiovar "$NPCenable" "0">><<updatesidebarimg>><</radiovar>></label>
+			</div>
+			<div class="settingsToggleItemWide">
+				<span class="green">Static NPC display will display the NPC's named files, found in the npc folder inside the img folder.<br><br>
+				Dynamic NPCs will automatically adjust for NPC sex, skin color, and species in the cases of Great Hawk and Black Wolf.<br><br>
+				These dynamic files can be found inside the npc folder, go into the folders labeled with each NPC name, the sex of the NPC, m for male, f for female, then the skin color black, white, or monster.</span>
+				<br><br>
+				<span class="gold">NPC Display Type:</span><br>
+				<label>Dynamic <<radiovar "$NPCstatic" "0">><<updatesidebarimg>><</radiovar>></label> |
+				<label>Static <<radiovar "$NPCstatic" "1">><<updatesidebarimg>><</radiovar>></label>
+			</div>
+			<div class="settingsToggleItemWide">
+				<span class="green">The layering of the NPC. Behind will display the NPC behind the player, in front will display them in front.</span>
+				<br><br>
+				<span class="gold">NPC Display Position:</span><br>
+				<label>Behind <<radiovar "$NPCposition" "1">><<updatesidebarimg>><</radiovar>></label> |
+				<label>In Front <<radiovar "$NPCposition" "2">><<updatesidebarimg>><</radiovar>></label>
+			</div>
+	</div>
+<</widget>>
+<<widget "backgrounds">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Backgrounds</div>
+			<div class="settingsToggleItemWide">
+				<span class="green">Dynamic images will change to reflect the current location. These can be replaced in the backgrounds folder, found in the img folder, by replacing the location image with a new one. Make sure to keep the name the same.</span>
+				<br><br>
+				<span class="gold">Background Type:</span><br>
+				<label>Dynamic <<radiovar "$staticimages" "0">><<updatesidebarimg>><</radiovar>></label> |
+				<label>Static <<radiovar "$staticimages" "1">><<updatesidebarimg>><</radiovar>></label> |
+				<label>Disabled <<radiovar "$staticimages" "2">><<updatesidebarimg>><</radiovar>></label> 
+				<br><br>
+				<span class="green">Static background images are images that will be displayed at all times when selected. Just enter the static image folder inside backgrounds and replace the number you want to use.</span>
+				<br><br>
+				<span class="red">Backgrounds over 100 are not supported and will result in an error if the files are not self inserted.</span>
+				<br><br>
+				<span class="gold">Static Background Options:</span><br>
+					<label>Background 1 <<radiovar "$static" "1">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 2 <<radiovar "$static" "2">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 3 <<radiovar "$static" "3">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 4 <<radiovar "$static" "4">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 5 <<radiovar "$static" "5">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 6 <<radiovar "$static" "6">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 7 <<radiovar "$static" "7">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 8 <<radiovar "$static" "8">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 9 <<radiovar "$static" "9">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 10 <<radiovar "$static" "10">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 11 <<radiovar "$static" "11">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 12 <<radiovar "$static" "12">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 13 <<radiovar "$static" "13">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 14 <<radiovar "$static" "14">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 15 <<radiovar "$static" "15">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 16 <<radiovar "$static" "16">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 17 <<radiovar "$static" "17">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 18 <<radiovar "$static" "18">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 19 <<radiovar "$static" "19">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 20 <<radiovar "$static" "20">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 21 <<radiovar "$static" "21">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 22 <<radiovar "$static" "22">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 23 <<radiovar "$static" "23">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 24 <<radiovar "$static" "24">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 25 <<radiovar "$static" "25">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 26 <<radiovar "$static" "26">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 27 <<radiovar "$static" "27">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 28 <<radiovar "$static" "28">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 29 <<radiovar "$static" "29">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 30 <<radiovar "$static" "30">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 31 <<radiovar "$static" "31">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 32 <<radiovar "$static" "32">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 33 <<radiovar "$static" "33">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 34 <<radiovar "$static" "34">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 35 <<radiovar "$static" "35">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 36 <<radiovar "$static" "36">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 37 <<radiovar "$static" "37">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 38 <<radiovar "$static" "38">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 39 <<radiovar "$static" "39">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 40 <<radiovar "$static" "40">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 41 <<radiovar "$static" "41">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 42 <<radiovar "$static" "42">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 43 <<radiovar "$static" "43">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 44 <<radiovar "$static" "44">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 45 <<radiovar "$static" "45">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 46 <<radiovar "$static" "46">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 47 <<radiovar "$static" "47">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 48 <<radiovar "$static" "48">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 49 <<radiovar "$static" "49">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 50 <<radiovar "$static" "50">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 51 <<radiovar "$static" "51">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 52 <<radiovar "$static" "52">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 53 <<radiovar "$static" "53">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 54 <<radiovar "$static" "54">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 55 <<radiovar "$static" "55">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 56 <<radiovar "$static" "56">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 57 <<radiovar "$static" "57">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 58 <<radiovar "$static" "58">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 59 <<radiovar "$static" "59">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 60 <<radiovar "$static" "60">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 61 <<radiovar "$static" "61">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 62 <<radiovar "$static" "62">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 63 <<radiovar "$static" "63">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 64 <<radiovar "$static" "64">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 65 <<radiovar "$static" "65">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 66 <<radiovar "$static" "66">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 67 <<radiovar "$static" "67">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 68 <<radiovar "$static" "68">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 69 <<radiovar "$static" "69">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 70 <<radiovar "$static" "70">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 71 <<radiovar "$static" "71">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 72 <<radiovar "$static" "72">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 73 <<radiovar "$static" "73">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 74 <<radiovar "$static" "74">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 75 <<radiovar "$static" "75">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 76 <<radiovar "$static" "76">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 77 <<radiovar "$static" "77">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 78 <<radiovar "$static" "78">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 79 <<radiovar "$static" "79">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 80 <<radiovar "$static" "80">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 81 <<radiovar "$static" "81">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 82 <<radiovar "$static" "82">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 83 <<radiovar "$static" "83">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 84 <<radiovar "$static" "84">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 85 <<radiovar "$static" "85">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 86 <<radiovar "$static" "86">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 87 <<radiovar "$static" "87">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 88 <<radiovar "$static" "88">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 89 <<radiovar "$static" "89">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 90 <<radiovar "$static" "90">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 91 <<radiovar "$static" "91">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 92 <<radiovar "$static" "92">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 93 <<radiovar "$static" "93">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 94 <<radiovar "$static" "94">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 95 <<radiovar "$static" "95">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 96 <<radiovar "$static" "96">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 97 <<radiovar "$static" "97">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 98 <<radiovar "$static" "98">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 99 <<radiovar "$static" "99">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 100 <<radiovar "$static" "100">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 101 <<radiovar "$static" "101">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 102 <<radiovar "$static" "102">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 103 <<radiovar "$static" "103">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 104 <<radiovar "$static" "104">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 105 <<radiovar "$static" "105">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 106 <<radiovar "$static" "106">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 107 <<radiovar "$static" "107">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 108 <<radiovar "$static" "108">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 109 <<radiovar "$static" "109">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 110 <<radiovar "$static" "110">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 111 <<radiovar "$static" "111">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 112 <<radiovar "$static" "112">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 113 <<radiovar "$static" "113">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 114 <<radiovar "$static" "114">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 115 <<radiovar "$static" "115">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 116 <<radiovar "$static" "116">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 117 <<radiovar "$static" "117">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 118 <<radiovar "$static" "118">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 119 <<radiovar "$static" "119">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 120 <<radiovar "$static" "120">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 121 <<radiovar "$static" "121">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 122 <<radiovar "$static" "122">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 123 <<radiovar "$static" "123">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 124 <<radiovar "$static" "124">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 125 <<radiovar "$static" "125">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 126 <<radiovar "$static" "126">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 127 <<radiovar "$static" "127">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 128 <<radiovar "$static" "128">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 129 <<radiovar "$static" "129">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 130 <<radiovar "$static" "130">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 131 <<radiovar "$static" "131">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 132 <<radiovar "$static" "132">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 133 <<radiovar "$static" "133">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 134 <<radiovar "$static" "134">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 135 <<radiovar "$static" "135">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 136 <<radiovar "$static" "136">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 137 <<radiovar "$static" "137">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 138 <<radiovar "$static" "138">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 139 <<radiovar "$static" "139">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 140 <<radiovar "$static" "140">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 141 <<radiovar "$static" "141">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 142 <<radiovar "$static" "142">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 143 <<radiovar "$static" "143">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 144 <<radiovar "$static" "144">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 145 <<radiovar "$static" "145">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 146 <<radiovar "$static" "146">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 147 <<radiovar "$static" "147">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 148 <<radiovar "$static" "148">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 149 <<radiovar "$static" "149">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 150 <<radiovar "$static" "150">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 151 <<radiovar "$static" "151">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 152 <<radiovar "$static" "152">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 153 <<radiovar "$static" "153">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 154 <<radiovar "$static" "154">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 155 <<radiovar "$static" "155">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 156 <<radiovar "$static" "156">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 157 <<radiovar "$static" "157">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 158 <<radiovar "$static" "158">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 159 <<radiovar "$static" "159">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 160 <<radiovar "$static" "160">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 161 <<radiovar "$static" "161">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 162 <<radiovar "$static" "162">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 163 <<radiovar "$static" "163">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 164 <<radiovar "$static" "164">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 165 <<radiovar "$static" "165">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 166 <<radiovar "$static" "166">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 167 <<radiovar "$static" "167">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 168 <<radiovar "$static" "168">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 169 <<radiovar "$static" "169">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 170 <<radiovar "$static" "170">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 171 <<radiovar "$static" "171">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 172 <<radiovar "$static" "172">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 173 <<radiovar "$static" "173">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 174 <<radiovar "$static" "174">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 175 <<radiovar "$static" "175">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 176 <<radiovar "$static" "176">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 177 <<radiovar "$static" "177">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 178 <<radiovar "$static" "178">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 179 <<radiovar "$static" "179">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 180 <<radiovar "$static" "180">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 181 <<radiovar "$static" "181">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 182 <<radiovar "$static" "182">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 183 <<radiovar "$static" "183">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 184 <<radiovar "$static" "184">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 185 <<radiovar "$static" "185">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 186 <<radiovar "$static" "186">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 187 <<radiovar "$static" "187">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 188 <<radiovar "$static" "188">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 189 <<radiovar "$static" "189">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 190 <<radiovar "$static" "190">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 191 <<radiovar "$static" "191">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 192 <<radiovar "$static" "192">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 193 <<radiovar "$static" "193">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 194 <<radiovar "$static" "194">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 195 <<radiovar "$static" "195">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 196 <<radiovar "$static" "196">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 197 <<radiovar "$static" "197">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 198 <<radiovar "$static" "198">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 199 <<radiovar "$static" "199">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 200 <<radiovar "$static" "200">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 201 <<radiovar "$static" "201">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 202 <<radiovar "$static" "202">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 203 <<radiovar "$static" "203">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 204 <<radiovar "$static" "204">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 205 <<radiovar "$static" "205">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 206 <<radiovar "$static" "206">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 207 <<radiovar "$static" "207">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 208 <<radiovar "$static" "208">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 209 <<radiovar "$static" "209">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 210 <<radiovar "$static" "210">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 211 <<radiovar "$static" "211">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 212 <<radiovar "$static" "212">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 213 <<radiovar "$static" "213">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 214 <<radiovar "$static" "214">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 215 <<radiovar "$static" "215">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 216 <<radiovar "$static" "216">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 217 <<radiovar "$static" "217">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 218 <<radiovar "$static" "218">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 219 <<radiovar "$static" "219">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 220 <<radiovar "$static" "220">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 221 <<radiovar "$static" "221">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 222 <<radiovar "$static" "222">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 223 <<radiovar "$static" "223">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 224 <<radiovar "$static" "224">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 225 <<radiovar "$static" "225">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 226 <<radiovar "$static" "226">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 227 <<radiovar "$static" "227">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 228 <<radiovar "$static" "228">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 229 <<radiovar "$static" "229">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 230 <<radiovar "$static" "230">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 231 <<radiovar "$static" "231">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 232 <<radiovar "$static" "232">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 233 <<radiovar "$static" "233">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 234 <<radiovar "$static" "234">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 235 <<radiovar "$static" "235">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 236 <<radiovar "$static" "236">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 237 <<radiovar "$static" "237">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 238 <<radiovar "$static" "238">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 239 <<radiovar "$static" "239">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 240 <<radiovar "$static" "240">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 241 <<radiovar "$static" "241">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 242 <<radiovar "$static" "242">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 243 <<radiovar "$static" "243">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 244 <<radiovar "$static" "244">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 245 <<radiovar "$static" "245">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 246 <<radiovar "$static" "246">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 247 <<radiovar "$static" "247">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 248 <<radiovar "$static" "248">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 249 <<radiovar "$static" "249">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 250 <<radiovar "$static" "250">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 251 <<radiovar "$static" "251">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 252 <<radiovar "$static" "252">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 253 <<radiovar "$static" "253">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 254 <<radiovar "$static" "254">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 255 <<radiovar "$static" "255">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 256 <<radiovar "$static" "256">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 257 <<radiovar "$static" "257">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 258 <<radiovar "$static" "258">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 259 <<radiovar "$static" "259">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 260 <<radiovar "$static" "260">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 261 <<radiovar "$static" "261">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 262 <<radiovar "$static" "262">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 263 <<radiovar "$static" "263">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 264 <<radiovar "$static" "264">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 265 <<radiovar "$static" "265">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 266 <<radiovar "$static" "266">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 267 <<radiovar "$static" "267">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 268 <<radiovar "$static" "268">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 269 <<radiovar "$static" "269">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 270 <<radiovar "$static" "270">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 271 <<radiovar "$static" "271">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 272 <<radiovar "$static" "272">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 273 <<radiovar "$static" "273">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 274 <<radiovar "$static" "274">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 275 <<radiovar "$static" "275">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 276 <<radiovar "$static" "276">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 277 <<radiovar "$static" "277">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 278 <<radiovar "$static" "278">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 279 <<radiovar "$static" "279">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 280 <<radiovar "$static" "280">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 281 <<radiovar "$static" "281">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 282 <<radiovar "$static" "282">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 283 <<radiovar "$static" "283">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 284 <<radiovar "$static" "284">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 285 <<radiovar "$static" "285">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 286 <<radiovar "$static" "286">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 287 <<radiovar "$static" "287">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 288 <<radiovar "$static" "288">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 289 <<radiovar "$static" "289">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 290 <<radiovar "$static" "290">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 291 <<radiovar "$static" "291">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 292 <<radiovar "$static" "292">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 293 <<radiovar "$static" "293">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 294 <<radiovar "$static" "294">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 295 <<radiovar "$static" "295">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 296 <<radiovar "$static" "296">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 297 <<radiovar "$static" "297">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 298 <<radiovar "$static" "298">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 299 <<radiovar "$static" "299">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 300 <<radiovar "$static" "300">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 301 <<radiovar "$static" "301">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 302 <<radiovar "$static" "302">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 303 <<radiovar "$static" "303">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 304 <<radiovar "$static" "304">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 305 <<radiovar "$static" "305">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 306 <<radiovar "$static" "306">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 307 <<radiovar "$static" "307">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 308 <<radiovar "$static" "308">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 309 <<radiovar "$static" "309">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 310 <<radiovar "$static" "310">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 311 <<radiovar "$static" "311">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 312 <<radiovar "$static" "312">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 313 <<radiovar "$static" "313">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 314 <<radiovar "$static" "314">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 315 <<radiovar "$static" "315">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 316 <<radiovar "$static" "316">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 317 <<radiovar "$static" "317">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 318 <<radiovar "$static" "318">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 319 <<radiovar "$static" "319">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 320 <<radiovar "$static" "320">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 321 <<radiovar "$static" "321">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 322 <<radiovar "$static" "322">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 323 <<radiovar "$static" "323">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 324 <<radiovar "$static" "324">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 325 <<radiovar "$static" "325">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 326 <<radiovar "$static" "326">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 327 <<radiovar "$static" "327">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 328 <<radiovar "$static" "328">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 329 <<radiovar "$static" "329">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 330 <<radiovar "$static" "330">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 331 <<radiovar "$static" "331">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 332 <<radiovar "$static" "332">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 333 <<radiovar "$static" "333">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 334 <<radiovar "$static" "334">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 335 <<radiovar "$static" "335">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 336 <<radiovar "$static" "336">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 337 <<radiovar "$static" "337">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 338 <<radiovar "$static" "338">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 339 <<radiovar "$static" "339">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 340 <<radiovar "$static" "340">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 341 <<radiovar "$static" "341">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 342 <<radiovar "$static" "342">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 343 <<radiovar "$static" "343">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 344 <<radiovar "$static" "344">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 345 <<radiovar "$static" "345">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 346 <<radiovar "$static" "346">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 347 <<radiovar "$static" "347">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 348 <<radiovar "$static" "348">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 349 <<radiovar "$static" "349">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 350 <<radiovar "$static" "350">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 351 <<radiovar "$static" "351">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 352 <<radiovar "$static" "352">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 353 <<radiovar "$static" "353">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 354 <<radiovar "$static" "354">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 355 <<radiovar "$static" "355">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 356 <<radiovar "$static" "356">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 357 <<radiovar "$static" "357">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 358 <<radiovar "$static" "358">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 359 <<radiovar "$static" "359">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 360 <<radiovar "$static" "360">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 361 <<radiovar "$static" "361">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 362 <<radiovar "$static" "362">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 363 <<radiovar "$static" "363">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 364 <<radiovar "$static" "364">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 365 <<radiovar "$static" "365">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 366 <<radiovar "$static" "366">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 367 <<radiovar "$static" "367">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 368 <<radiovar "$static" "368">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 369 <<radiovar "$static" "369">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 370 <<radiovar "$static" "370">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 371 <<radiovar "$static" "371">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 372 <<radiovar "$static" "372">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 373 <<radiovar "$static" "373">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 374 <<radiovar "$static" "374">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 375 <<radiovar "$static" "375">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 376 <<radiovar "$static" "376">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 377 <<radiovar "$static" "377">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 378 <<radiovar "$static" "378">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 379 <<radiovar "$static" "379">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 380 <<radiovar "$static" "380">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 381 <<radiovar "$static" "381">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 382 <<radiovar "$static" "382">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 383 <<radiovar "$static" "383">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 384 <<radiovar "$static" "384">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 385 <<radiovar "$static" "385">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 386 <<radiovar "$static" "386">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 387 <<radiovar "$static" "387">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 388 <<radiovar "$static" "388">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 389 <<radiovar "$static" "389">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 390 <<radiovar "$static" "390">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 391 <<radiovar "$static" "391">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 392 <<radiovar "$static" "392">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 393 <<radiovar "$static" "393">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 394 <<radiovar "$static" "394">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 395 <<radiovar "$static" "395">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 396 <<radiovar "$static" "396">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 397 <<radiovar "$static" "397">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 398 <<radiovar "$static" "398">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 399 <<radiovar "$static" "399">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 400 <<radiovar "$static" "400">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 401 <<radiovar "$static" "401">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 402 <<radiovar "$static" "402">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 403 <<radiovar "$static" "403">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 404 <<radiovar "$static" "404">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 405 <<radiovar "$static" "405">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 406 <<radiovar "$static" "406">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 407 <<radiovar "$static" "407">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 408 <<radiovar "$static" "408">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 409 <<radiovar "$static" "409">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 410 <<radiovar "$static" "410">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 411 <<radiovar "$static" "411">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 412 <<radiovar "$static" "412">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 413 <<radiovar "$static" "413">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 414 <<radiovar "$static" "414">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 415 <<radiovar "$static" "415">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 416 <<radiovar "$static" "416">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 417 <<radiovar "$static" "417">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 418 <<radiovar "$static" "418">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 419 <<radiovar "$static" "419">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 420 <<radiovar "$static" "420">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 421 <<radiovar "$static" "421">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 422 <<radiovar "$static" "422">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 423 <<radiovar "$static" "423">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 424 <<radiovar "$static" "424">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 425 <<radiovar "$static" "425">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 426 <<radiovar "$static" "426">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 427 <<radiovar "$static" "427">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 428 <<radiovar "$static" "428">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 429 <<radiovar "$static" "429">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 430 <<radiovar "$static" "430">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 431 <<radiovar "$static" "431">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 432 <<radiovar "$static" "432">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 433 <<radiovar "$static" "433">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 434 <<radiovar "$static" "434">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 435 <<radiovar "$static" "435">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 436 <<radiovar "$static" "436">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 437 <<radiovar "$static" "437">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 438 <<radiovar "$static" "438">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 439 <<radiovar "$static" "439">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 440 <<radiovar "$static" "440">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 441 <<radiovar "$static" "441">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 442 <<radiovar "$static" "442">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 443 <<radiovar "$static" "443">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 444 <<radiovar "$static" "444">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 445 <<radiovar "$static" "445">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 446 <<radiovar "$static" "446">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 447 <<radiovar "$static" "447">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 448 <<radiovar "$static" "448">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 449 <<radiovar "$static" "449">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 450 <<radiovar "$static" "450">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 451 <<radiovar "$static" "451">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 452 <<radiovar "$static" "452">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 453 <<radiovar "$static" "453">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 454 <<radiovar "$static" "454">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 455 <<radiovar "$static" "455">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 456 <<radiovar "$static" "456">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 457 <<radiovar "$static" "457">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 458 <<radiovar "$static" "458">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 459 <<radiovar "$static" "459">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 460 <<radiovar "$static" "460">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 461 <<radiovar "$static" "461">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 462 <<radiovar "$static" "462">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 463 <<radiovar "$static" "463">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 464 <<radiovar "$static" "464">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 465 <<radiovar "$static" "465">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 466 <<radiovar "$static" "466">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 467 <<radiovar "$static" "467">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 468 <<radiovar "$static" "468">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 469 <<radiovar "$static" "469">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 470 <<radiovar "$static" "470">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 471 <<radiovar "$static" "471">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 472 <<radiovar "$static" "472">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 473 <<radiovar "$static" "473">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 474 <<radiovar "$static" "474">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 475 <<radiovar "$static" "475">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 476 <<radiovar "$static" "476">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 477 <<radiovar "$static" "477">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 478 <<radiovar "$static" "478">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 479 <<radiovar "$static" "479">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 480 <<radiovar "$static" "480">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 481 <<radiovar "$static" "481">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 482 <<radiovar "$static" "482">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 483 <<radiovar "$static" "483">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 484 <<radiovar "$static" "484">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 485 <<radiovar "$static" "485">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 486 <<radiovar "$static" "486">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 487 <<radiovar "$static" "487">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 488 <<radiovar "$static" "488">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 489 <<radiovar "$static" "489">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 490 <<radiovar "$static" "490">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 491 <<radiovar "$static" "491">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 492 <<radiovar "$static" "492">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 493 <<radiovar "$static" "493">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 494 <<radiovar "$static" "494">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 495 <<radiovar "$static" "495">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Background 496 <<radiovar "$static" "496">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 497 <<radiovar "$static" "497">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 498 <<radiovar "$static" "498">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 499 <<radiovar "$static" "499">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Background 500 <<radiovar "$static" "500">><<updatesidebarimg>><</radiovar>></label>
+				</div>
+		</div>
+<</widget>>
+<<widget "foregrounds">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Foregrounds</div>
+			<div class="settingsToggleItemWide">
+				<span class="gold">Foreground Display:</span><br>
+				<label>Enabled <<radiovar "$foregroundenable" "1">><<updatesidebarimg>><</radiovar>></label> |
+				<label>Disabled <<radiovar "$foregroundenable" "0">><<updatesidebarimg>><</radiovar>></label>
+				<br><br>
+				<span class="green">Foregrounds will display an image on the top layer of the screen. To add a foreground, go into the foreground folder in the img folder and replace the number you want to use.</span>
+				<br><br>
+				<span class="red">Foregrounds over 100 are not supported and will result in an error if the files are not self inserted.</span>
+				<br><br>
+				<span class="gold">Foreground Overlay Options:</span><br>
+					<label>Foreground 1 <<radiovar "$foreground" "1">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 2 <<radiovar "$foreground" "2">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 3 <<radiovar "$foreground" "3">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 4 <<radiovar "$foreground" "4">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 5 <<radiovar "$foreground" "5">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 6 <<radiovar "$foreground" "6">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 7 <<radiovar "$foreground" "7">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 8 <<radiovar "$foreground" "8">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 9 <<radiovar "$foreground" "9">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 10 <<radiovar "$foreground" "10">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 11 <<radiovar "$foreground" "11">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 12 <<radiovar "$foreground" "12">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 13 <<radiovar "$foreground" "13">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 14 <<radiovar "$foreground" "14">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 15 <<radiovar "$foreground" "15">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 16 <<radiovar "$foreground" "16">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 17 <<radiovar "$foreground" "17">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 18 <<radiovar "$foreground" "18">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 19 <<radiovar "$foreground" "19">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 20 <<radiovar "$foreground" "20">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 21 <<radiovar "$foreground" "21">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 22 <<radiovar "$foreground" "22">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 23 <<radiovar "$foreground" "23">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 24 <<radiovar "$foreground" "24">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 25 <<radiovar "$foreground" "25">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 26 <<radiovar "$foreground" "26">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 27 <<radiovar "$foreground" "27">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 28 <<radiovar "$foreground" "28">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 29 <<radiovar "$foreground" "29">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 30 <<radiovar "$foreground" "30">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 31 <<radiovar "$foreground" "31">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 32 <<radiovar "$foreground" "32">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 33 <<radiovar "$foreground" "33">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 34 <<radiovar "$foreground" "34">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 35 <<radiovar "$foreground" "35">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 36 <<radiovar "$foreground" "36">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 37 <<radiovar "$foreground" "37">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 38 <<radiovar "$foreground" "38">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 39 <<radiovar "$foreground" "39">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 40 <<radiovar "$foreground" "40">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 41 <<radiovar "$foreground" "41">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 42 <<radiovar "$foreground" "42">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 43 <<radiovar "$foreground" "43">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 44 <<radiovar "$foreground" "44">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 45 <<radiovar "$foreground" "45">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 46 <<radiovar "$foreground" "46">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 47 <<radiovar "$foreground" "47">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 48 <<radiovar "$foreground" "48">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 49 <<radiovar "$foreground" "49">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 50 <<radiovar "$foreground" "50">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 51 <<radiovar "$foreground" "51">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 52 <<radiovar "$foreground" "52">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 53 <<radiovar "$foreground" "53">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 54 <<radiovar "$foreground" "54">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 55 <<radiovar "$foreground" "55">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 56 <<radiovar "$foreground" "56">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 57 <<radiovar "$foreground" "57">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 58 <<radiovar "$foreground" "58">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 59 <<radiovar "$foreground" "59">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 60 <<radiovar "$foreground" "60">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 61 <<radiovar "$foreground" "61">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 62 <<radiovar "$foreground" "62">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 63 <<radiovar "$foreground" "63">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 64 <<radiovar "$foreground" "64">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 65 <<radiovar "$foreground" "65">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 66 <<radiovar "$foreground" "66">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 67 <<radiovar "$foreground" "67">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 68 <<radiovar "$foreground" "68">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 69 <<radiovar "$foreground" "69">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 70 <<radiovar "$foreground" "70">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 71 <<radiovar "$foreground" "71">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 72 <<radiovar "$foreground" "72">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 73 <<radiovar "$foreground" "73">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 74 <<radiovar "$foreground" "74">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 75 <<radiovar "$foreground" "75">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 76 <<radiovar "$foreground" "76">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 77 <<radiovar "$foreground" "77">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 78 <<radiovar "$foreground" "78">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 79 <<radiovar "$foreground" "79">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 80 <<radiovar "$foreground" "80">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 81 <<radiovar "$foreground" "81">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 82 <<radiovar "$foreground" "82">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 83 <<radiovar "$foreground" "83">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 84 <<radiovar "$foreground" "84">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 85 <<radiovar "$foreground" "85">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 86 <<radiovar "$foreground" "86">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 87 <<radiovar "$foreground" "87">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 88 <<radiovar "$foreground" "88">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 89 <<radiovar "$foreground" "89">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 90 <<radiovar "$foreground" "90">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 91 <<radiovar "$foreground" "91">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 92 <<radiovar "$foreground" "92">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 93 <<radiovar "$foreground" "93">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 94 <<radiovar "$foreground" "94">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 95 <<radiovar "$foreground" "95">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 96 <<radiovar "$foreground" "96">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 97 <<radiovar "$foreground" "97">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 98 <<radiovar "$foreground" "98">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 99 <<radiovar "$foreground" "99">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 100 <<radiovar "$foreground" "100">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 101 <<radiovar "$foreground" "101">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 102 <<radiovar "$foreground" "102">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 103 <<radiovar "$foreground" "103">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 104 <<radiovar "$foreground" "104">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 105 <<radiovar "$foreground" "105">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 106 <<radiovar "$foreground" "106">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 107 <<radiovar "$foreground" "107">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 108 <<radiovar "$foreground" "108">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 109 <<radiovar "$foreground" "109">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 110 <<radiovar "$foreground" "110">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 111 <<radiovar "$foreground" "111">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 112 <<radiovar "$foreground" "112">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 113 <<radiovar "$foreground" "113">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 114 <<radiovar "$foreground" "114">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 115 <<radiovar "$foreground" "115">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 116 <<radiovar "$foreground" "116">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 117 <<radiovar "$foreground" "117">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 118 <<radiovar "$foreground" "118">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 119 <<radiovar "$foreground" "119">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 120 <<radiovar "$foreground" "120">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 121 <<radiovar "$foreground" "121">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 122 <<radiovar "$foreground" "122">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 123 <<radiovar "$foreground" "123">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 124 <<radiovar "$foreground" "124">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 125 <<radiovar "$foreground" "125">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 126 <<radiovar "$foreground" "126">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 127 <<radiovar "$foreground" "127">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 128 <<radiovar "$foreground" "128">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 129 <<radiovar "$foreground" "129">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 130 <<radiovar "$foreground" "130">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 131 <<radiovar "$foreground" "131">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 132 <<radiovar "$foreground" "132">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 133 <<radiovar "$foreground" "133">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 134 <<radiovar "$foreground" "134">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 135 <<radiovar "$foreground" "135">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 136 <<radiovar "$foreground" "136">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 137 <<radiovar "$foreground" "137">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 138 <<radiovar "$foreground" "138">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 139 <<radiovar "$foreground" "139">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 140 <<radiovar "$foreground" "140">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 141 <<radiovar "$foreground" "141">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 142 <<radiovar "$foreground" "142">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 143 <<radiovar "$foreground" "143">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 144 <<radiovar "$foreground" "144">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 145 <<radiovar "$foreground" "145">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 146 <<radiovar "$foreground" "146">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 147 <<radiovar "$foreground" "147">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 148 <<radiovar "$foreground" "148">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 149 <<radiovar "$foreground" "149">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 150 <<radiovar "$foreground" "150">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 151 <<radiovar "$foreground" "151">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 152 <<radiovar "$foreground" "152">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 153 <<radiovar "$foreground" "153">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 154 <<radiovar "$foreground" "154">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 155 <<radiovar "$foreground" "155">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 156 <<radiovar "$foreground" "156">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 157 <<radiovar "$foreground" "157">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 158 <<radiovar "$foreground" "158">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 159 <<radiovar "$foreground" "159">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 160 <<radiovar "$foreground" "160">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 161 <<radiovar "$foreground" "161">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 162 <<radiovar "$foreground" "162">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 163 <<radiovar "$foreground" "163">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 164 <<radiovar "$foreground" "164">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 165 <<radiovar "$foreground" "165">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 166 <<radiovar "$foreground" "166">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 167 <<radiovar "$foreground" "167">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 168 <<radiovar "$foreground" "168">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 169 <<radiovar "$foreground" "169">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 170 <<radiovar "$foreground" "170">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 171 <<radiovar "$foreground" "171">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 172 <<radiovar "$foreground" "172">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 173 <<radiovar "$foreground" "173">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 174 <<radiovar "$foreground" "174">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 175 <<radiovar "$foreground" "175">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 176 <<radiovar "$foreground" "176">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 177 <<radiovar "$foreground" "177">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 178 <<radiovar "$foreground" "178">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 179 <<radiovar "$foreground" "179">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 180 <<radiovar "$foreground" "180">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 181 <<radiovar "$foreground" "181">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 182 <<radiovar "$foreground" "182">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 183 <<radiovar "$foreground" "183">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 184 <<radiovar "$foreground" "184">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 185 <<radiovar "$foreground" "185">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 186 <<radiovar "$foreground" "186">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 187 <<radiovar "$foreground" "187">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 188 <<radiovar "$foreground" "188">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 189 <<radiovar "$foreground" "189">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 190 <<radiovar "$foreground" "190">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 191 <<radiovar "$foreground" "191">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 192 <<radiovar "$foreground" "192">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 193 <<radiovar "$foreground" "193">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 194 <<radiovar "$foreground" "194">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 195 <<radiovar "$foreground" "195">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 196 <<radiovar "$foreground" "196">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 197 <<radiovar "$foreground" "197">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 198 <<radiovar "$foreground" "198">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 199 <<radiovar "$foreground" "199">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 200 <<radiovar "$foreground" "200">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 201 <<radiovar "$foreground" "201">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 202 <<radiovar "$foreground" "202">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 203 <<radiovar "$foreground" "203">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 204 <<radiovar "$foreground" "204">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 205 <<radiovar "$foreground" "205">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 206 <<radiovar "$foreground" "206">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 207 <<radiovar "$foreground" "207">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 208 <<radiovar "$foreground" "208">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 209 <<radiovar "$foreground" "209">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 210 <<radiovar "$foreground" "210">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 211 <<radiovar "$foreground" "211">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 212 <<radiovar "$foreground" "212">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 213 <<radiovar "$foreground" "213">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 214 <<radiovar "$foreground" "214">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 215 <<radiovar "$foreground" "215">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 216 <<radiovar "$foreground" "216">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 217 <<radiovar "$foreground" "217">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 218 <<radiovar "$foreground" "218">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 219 <<radiovar "$foreground" "219">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 220 <<radiovar "$foreground" "220">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 221 <<radiovar "$foreground" "221">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 222 <<radiovar "$foreground" "222">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 223 <<radiovar "$foreground" "223">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 224 <<radiovar "$foreground" "224">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 225 <<radiovar "$foreground" "225">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 226 <<radiovar "$foreground" "226">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 227 <<radiovar "$foreground" "227">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 228 <<radiovar "$foreground" "228">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 229 <<radiovar "$foreground" "229">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 230 <<radiovar "$foreground" "230">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 231 <<radiovar "$foreground" "231">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 232 <<radiovar "$foreground" "232">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 233 <<radiovar "$foreground" "233">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 234 <<radiovar "$foreground" "234">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 235 <<radiovar "$foreground" "235">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 236 <<radiovar "$foreground" "236">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 237 <<radiovar "$foreground" "237">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 238 <<radiovar "$foreground" "238">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 239 <<radiovar "$foreground" "239">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 240 <<radiovar "$foreground" "240">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 241 <<radiovar "$foreground" "241">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 242 <<radiovar "$foreground" "242">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 243 <<radiovar "$foreground" "243">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 244 <<radiovar "$foreground" "244">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 245 <<radiovar "$foreground" "245">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 246 <<radiovar "$foreground" "246">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 247 <<radiovar "$foreground" "247">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 248 <<radiovar "$foreground" "248">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 249 <<radiovar "$foreground" "249">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 250 <<radiovar "$foreground" "250">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 251 <<radiovar "$foreground" "251">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 252 <<radiovar "$foreground" "252">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 253 <<radiovar "$foreground" "253">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 254 <<radiovar "$foreground" "254">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 255 <<radiovar "$foreground" "255">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 256 <<radiovar "$foreground" "256">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 257 <<radiovar "$foreground" "257">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 258 <<radiovar "$foreground" "258">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 259 <<radiovar "$foreground" "259">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 260 <<radiovar "$foreground" "260">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 261 <<radiovar "$foreground" "261">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 262 <<radiovar "$foreground" "262">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 263 <<radiovar "$foreground" "263">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 264 <<radiovar "$foreground" "264">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 265 <<radiovar "$foreground" "265">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 266 <<radiovar "$foreground" "266">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 267 <<radiovar "$foreground" "267">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 268 <<radiovar "$foreground" "268">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 269 <<radiovar "$foreground" "269">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 270 <<radiovar "$foreground" "270">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 271 <<radiovar "$foreground" "271">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 272 <<radiovar "$foreground" "272">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 273 <<radiovar "$foreground" "273">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 274 <<radiovar "$foreground" "274">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 275 <<radiovar "$foreground" "275">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 276 <<radiovar "$foreground" "276">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 277 <<radiovar "$foreground" "277">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 278 <<radiovar "$foreground" "278">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 279 <<radiovar "$foreground" "279">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 280 <<radiovar "$foreground" "280">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 281 <<radiovar "$foreground" "281">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 282 <<radiovar "$foreground" "282">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 283 <<radiovar "$foreground" "283">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 284 <<radiovar "$foreground" "284">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 285 <<radiovar "$foreground" "285">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 286 <<radiovar "$foreground" "286">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 287 <<radiovar "$foreground" "287">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 288 <<radiovar "$foreground" "288">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 289 <<radiovar "$foreground" "289">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 290 <<radiovar "$foreground" "290">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 291 <<radiovar "$foreground" "291">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 292 <<radiovar "$foreground" "292">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 293 <<radiovar "$foreground" "293">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 294 <<radiovar "$foreground" "294">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 295 <<radiovar "$foreground" "295">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 296 <<radiovar "$foreground" "296">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 297 <<radiovar "$foreground" "297">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 298 <<radiovar "$foreground" "298">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 299 <<radiovar "$foreground" "299">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 300 <<radiovar "$foreground" "300">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 301 <<radiovar "$foreground" "301">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 302 <<radiovar "$foreground" "302">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 303 <<radiovar "$foreground" "303">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 304 <<radiovar "$foreground" "304">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 305 <<radiovar "$foreground" "305">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 306 <<radiovar "$foreground" "306">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 307 <<radiovar "$foreground" "307">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 308 <<radiovar "$foreground" "308">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 309 <<radiovar "$foreground" "309">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 310 <<radiovar "$foreground" "310">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 311 <<radiovar "$foreground" "311">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 312 <<radiovar "$foreground" "312">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 313 <<radiovar "$foreground" "313">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 314 <<radiovar "$foreground" "314">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 315 <<radiovar "$foreground" "315">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 316 <<radiovar "$foreground" "316">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 317 <<radiovar "$foreground" "317">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 318 <<radiovar "$foreground" "318">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 319 <<radiovar "$foreground" "319">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 320 <<radiovar "$foreground" "320">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 321 <<radiovar "$foreground" "321">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 322 <<radiovar "$foreground" "322">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 323 <<radiovar "$foreground" "323">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 324 <<radiovar "$foreground" "324">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 325 <<radiovar "$foreground" "325">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 326 <<radiovar "$foreground" "326">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 327 <<radiovar "$foreground" "327">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 328 <<radiovar "$foreground" "328">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 329 <<radiovar "$foreground" "329">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 330 <<radiovar "$foreground" "330">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 331 <<radiovar "$foreground" "331">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 332 <<radiovar "$foreground" "332">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 333 <<radiovar "$foreground" "333">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 334 <<radiovar "$foreground" "334">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 335 <<radiovar "$foreground" "335">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 336 <<radiovar "$foreground" "336">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 337 <<radiovar "$foreground" "337">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 338 <<radiovar "$foreground" "338">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 339 <<radiovar "$foreground" "339">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 340 <<radiovar "$foreground" "340">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 341 <<radiovar "$foreground" "341">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 342 <<radiovar "$foreground" "342">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 343 <<radiovar "$foreground" "343">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 344 <<radiovar "$foreground" "344">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 345 <<radiovar "$foreground" "345">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 346 <<radiovar "$foreground" "346">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 347 <<radiovar "$foreground" "347">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 348 <<radiovar "$foreground" "348">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 349 <<radiovar "$foreground" "349">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 350 <<radiovar "$foreground" "350">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 351 <<radiovar "$foreground" "351">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 352 <<radiovar "$foreground" "352">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 353 <<radiovar "$foreground" "353">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 354 <<radiovar "$foreground" "354">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 355 <<radiovar "$foreground" "355">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 356 <<radiovar "$foreground" "356">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 357 <<radiovar "$foreground" "357">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 358 <<radiovar "$foreground" "358">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 359 <<radiovar "$foreground" "359">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 360 <<radiovar "$foreground" "360">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 361 <<radiovar "$foreground" "361">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 362 <<radiovar "$foreground" "362">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 363 <<radiovar "$foreground" "363">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 364 <<radiovar "$foreground" "364">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 365 <<radiovar "$foreground" "365">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 366 <<radiovar "$foreground" "366">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 367 <<radiovar "$foreground" "367">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 368 <<radiovar "$foreground" "368">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 369 <<radiovar "$foreground" "369">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 370 <<radiovar "$foreground" "370">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 371 <<radiovar "$foreground" "371">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 372 <<radiovar "$foreground" "372">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 373 <<radiovar "$foreground" "373">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 374 <<radiovar "$foreground" "374">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 375 <<radiovar "$foreground" "375">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 376 <<radiovar "$foreground" "376">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 377 <<radiovar "$foreground" "377">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 378 <<radiovar "$foreground" "378">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 379 <<radiovar "$foreground" "379">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 380 <<radiovar "$foreground" "380">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 381 <<radiovar "$foreground" "381">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 382 <<radiovar "$foreground" "382">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 383 <<radiovar "$foreground" "383">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 384 <<radiovar "$foreground" "384">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 385 <<radiovar "$foreground" "385">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 386 <<radiovar "$foreground" "386">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 387 <<radiovar "$foreground" "387">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 388 <<radiovar "$foreground" "388">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 389 <<radiovar "$foreground" "389">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 390 <<radiovar "$foreground" "390">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 391 <<radiovar "$foreground" "391">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 392 <<radiovar "$foreground" "392">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 393 <<radiovar "$foreground" "393">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 394 <<radiovar "$foreground" "394">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 395 <<radiovar "$foreground" "395">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 396 <<radiovar "$foreground" "396">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 397 <<radiovar "$foreground" "397">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 398 <<radiovar "$foreground" "398">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 399 <<radiovar "$foreground" "399">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 400 <<radiovar "$foreground" "400">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 401 <<radiovar "$foreground" "401">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 402 <<radiovar "$foreground" "402">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 403 <<radiovar "$foreground" "403">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 404 <<radiovar "$foreground" "404">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 405 <<radiovar "$foreground" "405">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 406 <<radiovar "$foreground" "406">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 407 <<radiovar "$foreground" "407">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 408 <<radiovar "$foreground" "408">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 409 <<radiovar "$foreground" "409">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 410 <<radiovar "$foreground" "410">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 411 <<radiovar "$foreground" "411">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 412 <<radiovar "$foreground" "412">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 413 <<radiovar "$foreground" "413">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 414 <<radiovar "$foreground" "414">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 415 <<radiovar "$foreground" "415">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 416 <<radiovar "$foreground" "416">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 417 <<radiovar "$foreground" "417">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 418 <<radiovar "$foreground" "418">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 419 <<radiovar "$foreground" "419">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 420 <<radiovar "$foreground" "420">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 421 <<radiovar "$foreground" "421">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 422 <<radiovar "$foreground" "422">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 423 <<radiovar "$foreground" "423">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 424 <<radiovar "$foreground" "424">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 425 <<radiovar "$foreground" "425">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 426 <<radiovar "$foreground" "426">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 427 <<radiovar "$foreground" "427">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 428 <<radiovar "$foreground" "428">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 429 <<radiovar "$foreground" "429">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 430 <<radiovar "$foreground" "430">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 431 <<radiovar "$foreground" "431">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 432 <<radiovar "$foreground" "432">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 433 <<radiovar "$foreground" "433">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 434 <<radiovar "$foreground" "434">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 435 <<radiovar "$foreground" "435">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 436 <<radiovar "$foreground" "436">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 437 <<radiovar "$foreground" "437">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 438 <<radiovar "$foreground" "438">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 439 <<radiovar "$foreground" "439">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 440 <<radiovar "$foreground" "440">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 441 <<radiovar "$foreground" "441">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 442 <<radiovar "$foreground" "442">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 443 <<radiovar "$foreground" "443">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 444 <<radiovar "$foreground" "444">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 445 <<radiovar "$foreground" "445">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 446 <<radiovar "$foreground" "446">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 447 <<radiovar "$foreground" "447">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 448 <<radiovar "$foreground" "448">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 449 <<radiovar "$foreground" "449">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 450 <<radiovar "$foreground" "450">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 451 <<radiovar "$foreground" "451">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 452 <<radiovar "$foreground" "452">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 453 <<radiovar "$foreground" "453">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 454 <<radiovar "$foreground" "454">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 455 <<radiovar "$foreground" "455">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 456 <<radiovar "$foreground" "456">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 457 <<radiovar "$foreground" "457">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 458 <<radiovar "$foreground" "458">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 459 <<radiovar "$foreground" "459">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 460 <<radiovar "$foreground" "460">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 461 <<radiovar "$foreground" "461">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 462 <<radiovar "$foreground" "462">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 463 <<radiovar "$foreground" "463">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 464 <<radiovar "$foreground" "464">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 465 <<radiovar "$foreground" "465">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 466 <<radiovar "$foreground" "466">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 467 <<radiovar "$foreground" "467">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 468 <<radiovar "$foreground" "468">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 469 <<radiovar "$foreground" "469">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 470 <<radiovar "$foreground" "470">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 471 <<radiovar "$foreground" "471">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 472 <<radiovar "$foreground" "472">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 473 <<radiovar "$foreground" "473">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 474 <<radiovar "$foreground" "474">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 475 <<radiovar "$foreground" "475">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 476 <<radiovar "$foreground" "476">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 477 <<radiovar "$foreground" "477">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 478 <<radiovar "$foreground" "478">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 479 <<radiovar "$foreground" "479">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 480 <<radiovar "$foreground" "480">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 481 <<radiovar "$foreground" "481">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 482 <<radiovar "$foreground" "482">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 483 <<radiovar "$foreground" "483">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 484 <<radiovar "$foreground" "484">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 485 <<radiovar "$foreground" "485">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 486 <<radiovar "$foreground" "486">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 487 <<radiovar "$foreground" "487">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 488 <<radiovar "$foreground" "488">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 489 <<radiovar "$foreground" "489">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 490 <<radiovar "$foreground" "490">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 491 <<radiovar "$foreground" "491">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 492 <<radiovar "$foreground" "492">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 493 <<radiovar "$foreground" "493">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 494 <<radiovar "$foreground" "494">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 495 <<radiovar "$foreground" "495">><<updatesidebarimg>><</radiovar>></label><br>
+					<label>Foreground 496 <<radiovar "$foreground" "496">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 497 <<radiovar "$foreground" "497">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 498 <<radiovar "$foreground" "498">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 499 <<radiovar "$foreground" "499">><<updatesidebarimg>><</radiovar>></label> |
+					<label>Foreground 500 <<radiovar "$foreground" "500">><<updatesidebarimg>><</radiovar>></label><br>
+					
+			</div>
+	</div>
+
+<</widget>>
