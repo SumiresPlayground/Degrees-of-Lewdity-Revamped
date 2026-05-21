@@ -3323,6 +3323,34 @@
 	<<set $transformationParts.eldritch.tentacle to "disabled">>
 <</widget>>
 
+<<widget "clearExtraTransformations">>
+	<<set $ghost to 0>>
+	<<set $slime to 0>>
+	<<set $mushroom to 0>>
+	<<set $mushroomtf to 0>>
+	<<set $fungalgrowth to 0>>
+	<<set $options.lightGlow to .1>>
+	<<set $transformationParts.ghost.eyes to "disabled">>
+	<<set $transformationParts.ghost.hitodama to "disabled">>
+	<<set $transformationParts.ghost.mist to "disabled">>
+	<<set $transformationParts.ghost.flame to "disabled">>
+	<<set $transformationParts.ghost.stream to "disabled">>
+	<<set $transformationParts.slime.bubble to "disabled">>
+	<<set $transformationParts.slime.stream to "disabled">>
+	<<set $transformationParts.slime.core to "disabled">>
+	<<set $transformationParts.mushroom.cap to "disabled">>
+	<<set $transformationParts.mushroom.eyes to "disabled">>
+	<<set $transformationParts.mushroom.spores to "disabled">>
+	<<set $transformationParts.mushroom.mushrooms to "disabled">>
+	<<if $worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown" or $worn.under_upper.name is "mushroom top" or $worn.under_lower.name is "mushroom bottom">>
+		<<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<headruined>>
+	<</if>>
+	<<set Skin.color.natural to Skin.color.naturalreset>>
+	<<set $haircolour to $haircolourreset>>
+	<<set $hairfringecolour to $hairfringecolourreset>>
+	<<set $makeup.browscolour to clone($haircolourreset)>>
+<</widget>>
+
 
 <<widget "revealTransformations">>
 	/* DO NOT USE without calling rehideTransformations before scene end */

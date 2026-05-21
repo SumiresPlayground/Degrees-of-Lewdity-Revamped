@@ -1811,32 +1811,24 @@ function effects() {
 	}
 	}
 
-	if (V.fungalstagelimiter === 0) {
-
 	let message = "";
 	if (V.fungalgrowth >= 30 && V.mushroom === 1) {
 		V.mushroomtf = 1;
 		V.mushroom = 2;
-		V.fungalstagelimiter = 1;
 		message = "<span class='yellow'>You've progressed your fungal growth!</span>";
 	} else if (V.fungalgrowth >= 60 && V.mushroom === 2) {
 		V.mushroomtf = 2;
 		V.mushroom = 3;
-		V.fungalstagelimiter = 1;
 		message = "<span class='yellow'>You've further progressed your fungal growth!</span>";
 	} else if (V.fungalgrowth >= 90 && V.mushroom === 3) {
 		V.mushroomtf = 3;
 		V.mushroom = 4;
-		V.fungalstagelimiter = 1;
 		earnFeat("Mushroom");
 		message = "<span class='yellow'>Your fungal growth is at it's maximum level!</span>";
 	}
 	if (message) return message;
-	}
 
-	if (V.fungalclotheslimiter !== 0 &&
-
-	V.mushroom >= 2 && 
+	if (V.mushroom >= 2 && 
 	V.worn && 
 	V.worn.upper && 
 	V.worn.lower && 
@@ -1844,8 +1836,7 @@ function effects() {
 	if (State.combat === 1 && 
 		(V.worn.lower.state === 0 || V.worn.upper.state === 0)) {
 		V.mushroom -= 1;
-		updatesidebarimg(); /* ASSUMING THIS IS YOUR JS FUNC */
-		V.fungalclotheslimiter -= 1;
+		updatesidebarimg;
 		return "<br><span class='yellow'>Your mushroom attire broke! Your transformation has been reverted to the previous stage!</span>";
 	}
 	}
