@@ -62,7 +62,7 @@ They blow another puff of smoke and take a glance your way. “Didn’t I tell y
     <</addinlineevent>>
     <<runeventpool>>
 
-<<elseif $NPCName[$NPCNameList.indexOf("Casey")].love is 100 and $caseyromance isnot 1>>
+<<elseif $NPCName[$NPCNameList.indexOf("Casey")].love gte 100 and $caseyromance isnot 1>>
     You hang out with Casey but something seems off this time. “So you wouldn’t happen to be seeing anyone else would you?” <<He>> asks. “Because if you aren’t I’d like it if we could maybe be a bit more than friends, if you catch my drift."
     <br><br>
     <<if $loveInterest.primary is "None">>
@@ -75,7 +75,7 @@ They blow another puff of smoke and take a glance your way. “Didn’t I tell y
     <</if>>
     <<getouticon>><<link [[Leave|Connudatus Street]]>><<endevent>><<set $caseyromance to 1>><</link>>
 
-<<elseif $NPCName[$NPCNameList.indexOf("Casey")].love lte 100>>
+<<elseif $NPCName[$NPCNameList.indexOf("Casey")].love lte 200>>
     <<cleareventpool>>
     <<addinlineevent "casey_convo_5">>
         “Why don’t I go to school? Dropped out a while ago I like to live life in the fast lane and school’s just too slow for me.” You spend a while hanging out with Casey.

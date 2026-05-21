@@ -4295,4 +4295,51 @@ setup.LocationImages = {
 			},
 		},
 	},
+	seadive: {
+		folder: "sea",
+		reflective: {
+			mask: {
+				image: "reflective.png",
+				alpha: 1,
+				compositeOperation: "overlay",
+			},
+			overlay: {
+				image: "water.png",
+				alpha: 0.4,
+				animation: {
+					slider: () => V.options.reflections,
+					frames: 300,
+					frameDelay: 300,
+				},
+			},
+			glimmer: {
+				condition: () => V.options.reflections,
+				image: "glimmer.png",
+				compositeOperation: "soft-light",
+				alpha: 0.5,
+				gradientMask: true,
+				animation: {
+					slider: true,
+					frames: 150,
+					frameDelay: 150,
+				},
+			},
+		},
+		weather: {
+			fogDistributionCurve: 1,
+			rainSplashEnabled: false,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 0,
+					bottom: 0,
+				},
+				fog: {
+					top: 21,
+					bottom: 0,
+				},
+			},
+		},
+	},
 };

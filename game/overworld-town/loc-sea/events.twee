@@ -82,7 +82,7 @@ The lead <<beasttype>> swims up to you and mounts you.
 	<<if Time.dayState isnot "night" and $location is "beach">>
 		<<enable_rescue>>
 	<</if>>
-	<<if $bus isnot "sea" and $bus isnot "seadive">>
+	<<if $location isnot "sea" and $location isnot "seadive">>
 		<span class="pink">The <<beastsplural>> push you out to sea.</span>
 		<<location "sea">>
 	<</if>>
@@ -163,7 +163,7 @@ The lead <<beasttype>> swims up to you and mounts you.
 
 :: Sea Eels
 
-<<if $location isnot "sea" and $bus isnot "seadive">><<location "sea">><</if>><<effects>>
+<<if $location isnot "sea" and $location isnot "seadive">><<location "sea">><</if>><<effects>>
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
 	<<molested>>
@@ -337,8 +337,13 @@ The lead <<beasttype>> swims up to you and mounts you.
 <br><br>
 <<clotheson>>
 <<endcombat>>
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
-<br>
+<<if $location is "sea">>
+	<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Sea Dive]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
 
 :: Sea Swarm
 
@@ -401,7 +406,7 @@ The lead <<beasttype>> swims up to you and mounts you.
 
 :: Sea Vore
 
-<<if $location isnot "sea" and $bus isnot "seadive">><<location "sea">><</if>><<effects>>
+<<if $location isnot "sea" and $location isnot "seadive">><<location "sea">><</if>><<effects>>
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
 	<<set $combat to 1>>
@@ -535,7 +540,7 @@ You start to untangle yourself without undressing. It takes a minute to free you
 
 :: Sea Tentacles
 
-<<if $location isnot "sea" and $bus isnot "seadive">><<location "sea">><</if>>
+<<if $location isnot "sea" and $location isnot "seadive">><<location "sea">><</if>>
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
 	<<set $combat to 1>>
@@ -1058,9 +1063,13 @@ The squid return to the deep. <<tearful>> you tread water.
 
 <<clotheson>>
 <<endcombat>>
-
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
-<br>
+<<if $location is "sea">>
+	<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Sea Dive]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
 
 :: Sea Eye
 <<effects>>
@@ -1071,8 +1080,13 @@ You look down, beneath your treading feet. You see nothing, at first. The surfac
 A small wave washes over it, hiding it once more.
 <br><br>
 
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
-<br>
+<<if $location is "sea">>
+	<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Sea Dive]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
 
 :: Sea Eye Refuse
 <<effects>>
@@ -1080,8 +1094,13 @@ A small wave washes over it, hiding it once more.
 You resist the urge to look, until the feeling passes.
 <br><br>
 
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
-<br>
+<<if $location is "sea">>
+	<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Sea Dive]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
 
 :: Sea Chest
 <<effects>>
@@ -1132,8 +1151,13 @@ You climb down, and investigate. It's a chest. You peel back loose seaweed, reve
 You leave the chest where it lies, and return to the water.
 <br><br>
 
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
-<br>
+<<if $location is "sea">>
+	<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Sea Dive]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
 
 
 :: Sea Chest Open
@@ -1168,8 +1192,13 @@ A breeze from the sea whips through your hair. <span class="blue">You shiver.</s
 You return to the water.
 <br><br>
 
-<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
-<br>
+<<if $location is "sea">>
+	<<link [[Next|Sea]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Sea Dive]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
 
 :: Sea Pair Greet
 <<effects>>
