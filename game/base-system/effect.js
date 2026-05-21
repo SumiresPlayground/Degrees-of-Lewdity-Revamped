@@ -1836,7 +1836,7 @@ function effects() {
 	if (State.combat === 1 && 
 		(V.worn.lower.state === 0 || V.worn.upper.state === 0)) {
 		V.mushroom -= 1;
-		updatesidebarimg;
+		updatesidebarimg();
 		return "<br><span class='yellow'>Your mushroom attire broke! Your transformation has been reverted to the previous stage!</span>";
 	}
 	}
