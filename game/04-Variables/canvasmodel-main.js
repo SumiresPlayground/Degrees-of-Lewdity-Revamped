@@ -2579,7 +2579,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.slime_core_type)
 			},
-			z: ZIndices.skin,
+			z: ZIndices.slime_core,
 			animation: "idle"
 		},
 

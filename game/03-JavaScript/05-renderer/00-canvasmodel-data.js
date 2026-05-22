@@ -7,6 +7,7 @@ const ZIndices = {
 	background: 0,
 	NPCOverlayBack: 0,
 	over_head_back: 0,
+	slime_core: 1,
 	head_back: 1,
 	basehead: 5,
 	tail: 9,

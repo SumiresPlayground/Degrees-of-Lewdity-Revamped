@@ -732,8 +732,8 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#454545",
+			alpha: 0.6,
 		},
-		alpha: 0.6,
 	},
 	{
 		variable: "snowblue",
@@ -744,8 +744,8 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#add8e6",
+			alpha: 0.6,
 		},
-		alpha: 0.6,
 	},
 	{
 		variable: "slimegreen",
@@ -756,9 +756,8 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#85d6a5",
-			opacity: 0.9
+			alpha: 0.6,
 		},
-		alpha: 0.6,
 	},
 	{
 		variable: "lilacpurple",
@@ -769,9 +768,8 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#D2AFFF",
-			opacity: 0.9
+			alpha: 0.6,
 		},
-		alpha: 0.6,
 	},
 	{
 		variable: "chillyblue",
@@ -782,9 +780,8 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#7ce2fe",
-			opacity: 0.9
+			alpha: 0.6,
 		},
-		alpha: 0.6,
 	},
 	{
 		variable: "amberyellow",
@@ -795,7 +792,6 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#FFBF00",
-			opacity: 0.9
 		},
 	},
 ];
