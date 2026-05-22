@@ -1886,6 +1886,7 @@ function initUnderUpper() {
 	setup.moddedClothes.under_upper = [
 		{
 			index: 1,
+			slot: "under_upper",
 			name: "tentacle top",
 			name_cap: "Tentacle suit",
 			variable: "tentacle",

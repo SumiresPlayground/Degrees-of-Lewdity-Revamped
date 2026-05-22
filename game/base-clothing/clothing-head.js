@@ -3492,6 +3492,7 @@ function initHead() {
 
 		{
 			index: 6,
+			slot: "head",
 			name: "mushroom cap",
 			name_cap: "Mushroom cap",
 			variable: "mushroom",

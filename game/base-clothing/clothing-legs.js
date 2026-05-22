@@ -1620,6 +1620,7 @@ function initLegs() {
 	*/
 	setup.moddedClothes.legs = [
 		{index: 1,
+			slot: "legs",
 			name: "tentacle stockings",
 			name_cap: "Tentacle stockings",
 			variable: "tentacle",

@@ -3342,8 +3342,11 @@
 	<<set $transformationParts.mushroom.eyes to "disabled">>
 	<<set $transformationParts.mushroom.spores to "disabled">>
 	<<set $transformationParts.mushroom.mushrooms to "disabled">>
+	<<if $worn.head.name is "mushroom cap">>
+		<<set $worn.head.type.push("broken")>><<headruined>><<headwear "naked">>
+	<</if>>
 	<<if $worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown" or $worn.under_upper.name is "mushroom top" or $worn.under_lower.name is "mushroom bottom">>
-		<<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>><<headruined>>
+		<<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>>
 	<</if>>
 	<<set Skin.color.natural to Skin.color.naturalreset>>
 	<<set $haircolour to $haircolourreset>>

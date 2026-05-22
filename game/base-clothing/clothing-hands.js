@@ -661,6 +661,7 @@ function initHands() {
 		mainImage:0
 	},
 		{index: 2,
+		slot: "hands",
 		name: "tentacle gloves",
 		name_cap: "Tentacle gloves",
 		variable: "tentacle",

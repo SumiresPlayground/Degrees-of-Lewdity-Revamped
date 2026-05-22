@@ -2534,6 +2534,7 @@ function initUnderLower() {
 	*/
 	setup.moddedClothes.under_lower = [
 		{index: 1,
+			slot: "under_lower",
 			name: "tentacle bottom",
 			name_cap: "Tentacle suit bottom",
 			variable: "tentacle",

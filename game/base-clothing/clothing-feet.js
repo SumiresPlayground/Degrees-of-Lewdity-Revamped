@@ -1913,6 +1913,7 @@ function initFeet() {
 	*/
 	setup.moddedClothes.feet = [
 		{index: 1,
+		slot: "feet",
 		name: "tentacle heels",
 		name_cap: "Tentacle heels",
 		variable: "tentacle",
