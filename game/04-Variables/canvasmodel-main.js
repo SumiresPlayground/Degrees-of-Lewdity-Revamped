@@ -1109,11 +1109,11 @@ Renderer.CanvasModels.main = {
 				if (V.NPCposition > 0)
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
-							if (V.npc.length > 0)
-								return `img/npc/${V.npc}.png`;
+							{if (V.npc.length > 0)
+								return `img/npc/${V.npc}.png`;}
 						else
-							if (V.npc.length > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;
+							{if (V.npc.length > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
 			},
 		},
 		"npcpresentfront": {
@@ -1124,11 +1124,11 @@ Renderer.CanvasModels.main = {
 				if (V.NPCposition > 1)
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
-							if (V.npc.length > 0)
-								return `img/npc/${V.npc}.png`;
+							{if (V.npc.length > 0)
+								return `img/npc/${V.npc}.png`;}
 						else
-							if (V.npc.length > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;
+							{if (V.npc.length > 0)
+								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
 			},
 		},
 		"background": {

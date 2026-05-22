@@ -938,7 +938,7 @@ Macro.add("canvasModelEditor", {
 						selectOption("bee_wings_type", ["disabled", "hidden", "default"]),
 						selectOption("bee_wing_right", ["idle"]),
 						selectOption("bee_wing_left", ["idle"]),
-						selectOption("sheep_horns_type", ["disabled", "hidden", "default"]),
+						selectOption("sheep_horns_type", ["disabled", "hidden", "default", "dark"]),
 						selectOption("sheep_tail_type", ["disabled", "hidden", "default"]),
 						selectOption("sheep_ears_type", ["disabled", "hidden", "default"]),
 						selectOption("slime_bubble_type", ["disabled", "hidden", "default"]),

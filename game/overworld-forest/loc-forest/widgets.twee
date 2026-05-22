@@ -460,6 +460,13 @@
 		<<if Weather.isSnow>>
 			<<addevent "forestsnow" 0.5>>
 		<</if>>
+		<<addinlineevent "deepforest_clothingdamage">>
+			You come across a large ring of mushrooms hidden inside the thicket.
+			<<set $stripintegrity to 10>><<set $stripobject to "tree branch">><<stripobject>>
+			<br><br>
+
+			<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+		<</addinlineevent>>
 		<<runeventpool>>
 	<</if>>
 <</widget>>
