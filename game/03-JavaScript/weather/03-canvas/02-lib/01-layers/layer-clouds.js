@@ -102,6 +102,7 @@ Weather.Renderer.Layers.add({
 					day: "#00000000",
 					dawnDusk: "#a36d22a5",
 					bloodMoon: "#380101e5",
+					clockMoon: "#9f00e9e5",
 				},
 				darkenTarget: "#000000",
 			},
@@ -114,6 +115,9 @@ Weather.Renderer.Layers.add({
 				},
 				bloodMoon() {
 					return Weather.bloodMoon;
+				},
+				clockMoon() {
+					return setup.LocationImages[setup.Locations.get()].weather.watchmoon;
 				},
 				darkenFactor() {
 					return Weather.getWeatherDarkenFactor(Weather.current.darkenFactor.clouds);
@@ -178,6 +182,7 @@ Weather.Renderer.Layers.add({
 					day: "#97a9e8aa",
 					dawnDusk: "#7a511895",
 					bloodMoon: "#380101e5",
+					clockMoon: "#9f00e9e5",
 				},
 				darkenTarget: "#000000",
 			},
@@ -190,6 +195,9 @@ Weather.Renderer.Layers.add({
 				},
 				bloodMoon() {
 					return Weather.bloodMoon;
+				},
+				clockMoon() {
+					return setup.LocationImages[setup.Locations.get()].weather.watchmoon;
 				},
 				darkenFactor() {
 					return Weather.getWeatherDarkenFactor(Weather.current.darkenFactor.overcastClouds);
@@ -257,6 +265,7 @@ Weather.Renderer.Layers.add({
 					day: "#ffe9d300",
 					dawnDusk: "#a36d22a5",
 					bloodMoon: "#380101e5",
+					clockMoon: "#9f00e9e5",
 				},
 				darkenTarget: "#000000",
 			},
@@ -269,6 +278,9 @@ Weather.Renderer.Layers.add({
 				},
 				bloodMoon() {
 					return Weather.bloodMoon;
+				},
+				clockMoon() {
+					return setup.LocationImages[setup.Locations.get()].weather.watchmoon;
 				},
 				darkenFactor() {
 					return Weather.getWeatherDarkenFactor(Weather.current.darkenFactor.cirrusClouds);

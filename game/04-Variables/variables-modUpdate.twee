@@ -292,6 +292,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 	<</if>>
 
+	<<if V.transformationParts.bunny is undefined>>
+		<<set V.transformationParts.bunny to {ears:"disabled", tail:"disabled"}>>
+	<</if>>
+
 	<<if V.transformationParts.spider is undefined>>
 		<<set $spider to 0>> <<set $spiderbuild to 0>>
 		<<set V.transformationParts.spider to {eyes:"disabled", tail:"disabled"}>>
@@ -375,6 +379,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<if $bee gte 6>>
 			<<set V.transformationParts.bee.wings to "default">>
 		<</if>>
+	<</if>>
+
+	<<if V.transformationParts.fae is undefined>>
+		<<set V.transformationParts.fae to {wings:"disabled", fairies:"disabled"}>>
 	<</if>>
 
 	<<if V.transformationParts.dragon is undefined>>
@@ -500,12 +508,20 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $swimtail to "false">>
 	<</if>>
 
+	<<if V.transformationParts.traits.aquatail is undefined>>
+		<<set V.transformationParts.traits.aquatail to "disabled">>
+	<</if>>
+
 	<<if V.transformationParts.traits.lungs is undefined>>
 		<<set V.transformationParts.traits.lungs to "disabled">>
 	<</if>>
 
 	<<if V.transformationParts.traits.aquatic is undefined>>
 		<<set V.transformationParts.traits.aquatic to "disabled">>
+	<</if>>
+
+	<<if V.transformationParts.traits.breeder is undefined>>
+		<<set V.transformationParts.traits.breeder to "disabled">>
 	<</if>>
 
 	<<if V.transformationParts.traits.incognito is undefined>>
@@ -794,88 +810,6 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 	<<if $prutimonster is undefined>>
 		<<set $prutimonster to 2>>
-	<</if>>
-
-	<<if $studyBooks is undefined>>
-		<<set $studyBooks to {}>>
-		<<set $studyBooks.rented to "none">>
-		<<set $studyBooks.stolen to {}>>
-		<<set $studyBooks.stolen.count to 0>>
-		<<set $studyBooks.stolen.science to 0>>
-		<<set $studyBooks.stolen.maths to 0>>
-		<<set $studyBooks.stolen.english to 0>>
-		<<set $studyBooks.stolen.history to 0>>
-		<<set $studyBooks.stolen.RaulAndJanet to 0>>
-		<<set $studyBooks.stolen.pinch to 0>>
-	<</if>>
-
-	<<if $studyBooks.stolen is "none" or $studyBooks.stolen is "science" or $studyBooks.stolen is "maths" or $studyBooks.stolen is "English" or $studyBooks.stolen is "history" or $studyBooks.stolen is "Raul and Janet" or $studyBooks.stolen is "Pinch">>
-		<<set $studyBooks.stolen to {}>>
-		<<set $studyBooks.stolen.count to 0>>
-		<<if $studyBooks.stolen is "science">>
-			<<set $studyBooks.stolen.science to 1>>
-			<<set $studyBooks.stolen.count to 1>>
-		<<else>>
-			<<set $studyBooks.stolen.science to 0>>
-		<</if>>
-		<<if $studyBooks.stolen is "maths">>
-			<<set $studyBooks.stolen.maths to 1>>
-			<<set $studyBooks.stolen.count to 1>>
-		<<else>>
-			<<set $studyBooks.stolen.maths to 0>>
-		<</if>>
-		<<if $studyBooks.stolen is "English">>
-			<<set $studyBooks.stolen.english to 1>>
-			<<set $studyBooks.stolen.count to 1>>
-		<<else>>
-			<<set $studyBooks.stolen.english to 0>>
-		<</if>>
-		<<if $studyBooks.stolen is "history">>
-			<<set $studyBooks.stolen.history to 1>>
-			<<set $studyBooks.stolen.count to 1>>
-		<<else>>
-			<<set $studyBooks.stolen.history to 0>>
-		<</if>>
-		<<if $studyBooks.stolen is "Raul and Janet">>
-			<<set $studyBooks.stolen.RaulAndJanet to 1>>
-			<<set $studyBooks.stolen.count to 1>>
-		<<else>>
-			<<set $studyBooks.stolen.RaulAndJanet to 0>>
-		<</if>>
-		<<if $studyBooks.stolen is "Pinch">>
-			<<set $studyBooks.stolen.pinch to 1>>
-			<<set $studyBooks.stolen.count to 1>>
-		<<else>>
-			<<set $studyBooks.stolen.pinch to 0>>
-		<</if>>
-	<</if>>
-
-	<<if $npchealthmult is undefined>>
-		<<set $npchealthmult to 1>>
-	<</if>>
-
-	<<if $npcarousalmult is undefined>>
-		<<set $npcarousalmult to 1>>
-	<</if>>
-
-	<<if $beasthealthmult is undefined>>
-		<<set $beasthealthmult to 1>>
-	<</if>>
-
-	<<if $beastarousalmult is undefined>>
-		<<set $beastarousalmult to 1>>
-	<</if>>
-	
-	<<if $tiredness is null>>
-		<<set $tiredness to 0>>
-	<</if>>
-
-	<<if $baileyrentmod is undefined>>
-		<<set $baileyrentmod to 1>>
-	<</if>>
-
-	<<if $lakerentmod is undefined>>
-		<<set $lakerentmod to 1>>
 	<</if>>
 
 	<<if $plants_known.includes("glacial_crowfoot")>>

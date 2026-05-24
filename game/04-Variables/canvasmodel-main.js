@@ -391,6 +391,12 @@ Renderer.CanvasModels.main = {
 			"frog_cheeks_type": "disabled",
 			"pig_tail_type": "disabled",
 			"pig_ears_type": "disabled", 
+			"bunny_tail_type": "disabled",
+			"bunny_ears_type": "disabled", 
+			"fae_wings_type": "disabled",
+			"fae_wing_right": "idle",
+			"fae_wing_left": "idle",
+			"fae_fairies_type": "disabled", 
 			"dog_tail_type": "disabled",
 			"dog_ears_type": "disabled",
 			"horse_tail_type": "disabled",
@@ -1352,7 +1358,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.freckles,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/freckles.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/freckles.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.freckles;
@@ -1363,7 +1369,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.ears,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/ears.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/ears.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.ears_position === "front";
@@ -1492,7 +1498,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.blush + 1,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/blusher.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/blusher.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.blusher_colour;
@@ -1517,7 +1523,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.mouth,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/mouth-${options.mouth}.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/mouth-${options.mouth}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.mouth !== "none";
@@ -1533,7 +1539,7 @@ Renderer.CanvasModels.main = {
 			},
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/lipstick-${options.mouth}.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/lipstick-${options.mouth}.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.lipstick_colour;
@@ -1544,7 +1550,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.blush,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/blush-${options.blush}.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/blush-${options.blush}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.blush > 0;
@@ -1555,7 +1561,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/tears-${options.tears}.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/tears-${options.tears}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.tears > 0;
@@ -2039,7 +2045,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.sheep_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"sheep_tail": {
@@ -2069,7 +2077,9 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.bee_ears_type);
 			},
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"bee_tail": {
@@ -2132,7 +2142,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.deer_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"deer_tail": {
@@ -2163,7 +2175,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.bear_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"bear_tail": {
@@ -2318,7 +2332,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.dog_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 
@@ -2391,7 +2407,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_ears_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"raccoon_mask": {
@@ -2426,7 +2444,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && options.show_face && isPartEnabled(options.fish_fins_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"fish_tail": {
@@ -2452,7 +2472,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.horse_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"horse_tail": {
@@ -2537,7 +2559,71 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.pig_ears_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
+			animation: "idle"
+		},
+
+		/*Bunny*/
+
+		"bunny_tail": {
+			srcfn(options) {
+				return `img/transformations/bunny/tail/${options.bunny_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bunny_tail_type);
+			},
+			filters: ["hair"],
+			z: ZIndices.tail,
+			animation: "idle"
+		},
+		"bunny_ears": {
+			srcfn(options) {
+				return `img/transformations/bunny/ears/${options.bunny_ears_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.bunny_ears_type);
+			},
+			filters: ["hair"],
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
+			animation: "idle"
+		},
+
+		/*Fae*/
+
+		"fae_wings_right": {
+			srcfn(options) {
+				return `img/transformations/fae/rightwing/default.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.fae_wings_type) && options.fae_wing_right === "idle";
+			},
+			filters: ["hair"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"fae_wings_left": {
+			srcfn(options) {
+				return `img/transformations/fae/leftwing/default.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.fae_wings_type) && options.fae_wing_left === "idle";
+			},
+			filters: ["hair"],
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"fae_fairies": {
+			srcfn(options) {
+				return `img/transformations/fae/fairies/${options.fae_fairies_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.fae_fairies_type);
+			},
+			z: ZIndices.foreground,
 			animation: "idle"
 		},
 
@@ -2697,7 +2783,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && options.show_face && isPartEnabled(options.goblin_ears_type)
 			},
 			filters: ["body"],
-			z: ZIndices.hair,
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 

@@ -1459,8 +1459,10 @@
 				<<if $ghost is 4 and ($sirensong gt 0 or $sirensong is undefined)>>
 					<<set _mouthaction["Siren's Song"] to "sing">>
 				<</if>>
-				<<if $eldritch is 1 and $consensual isnot 1>>
+				<<if V.transformationParts.eldritch.mist is "default" and $consensual isnot 1>>
 					<<set _mouthaction["Dark Whispers"] to "whisper">>
+				<<elseif V.transformationParts.fae.fairies is "default" and $consensual isnot 1>>
+					<<set _mouthaction["Wild Magic"] to "wild">>
 				<</if>>
 			<<case "othervagina" "facesit">>
 				<<combatOthervagina>>

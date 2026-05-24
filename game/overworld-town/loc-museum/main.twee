@@ -79,6 +79,7 @@
 	<<museumAntiqueStatus "antiquebullion" "talk">>
 	<<museumAntiqueStatus "antiquereal" "talk">>
 	<<museumAntiqueStatus "antiqueindigo" "talk">>
+	<<museumAntiqueStatus "faeidol" "talk">>
 <</widget>>
 
 <<widget "museumtalk">>
@@ -1701,6 +1702,20 @@ Winter taps the artillery shell. "It's not live," <<he>> says. "Not after all th
 <</if>>
 
 <<npc Winter>><<person1>>"Powder?" Winter asks confused. <<He>> removes a pair of glasses from under the counter and inspects the bottle closely. "It looks to be an old sealed bottle of indigo. Even nowadays natural indigo is rare so this seems like quite the find."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Fae Idol
+<<effects>>
+
+<<set $winterHint to "notGiven">>
+<<if $museumAntiqueJournalHints.includes("faeidol")>>
+	<<run $museumAntiqueJournalHints.delete("faeidol")>>
+<</if>>
+
+<<npc Winter>><<person1>>"What is this!?" Winter asks dumbfounded. <<He>> examines the glowing gold idol with extreme interest. "This is astounding, I have never seen anything like it! Where could you find a treasure of such magnitude?!"
 <br><br>
 
 <<link [[Next|Museum]]>><<endevent>><</link>>

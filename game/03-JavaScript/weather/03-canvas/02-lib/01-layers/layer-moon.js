@@ -82,6 +82,35 @@ Weather.Renderer.Layers.add({
 			},
 		},
 		{
+			/* Clock moon */
+			effect: "skyOrbital",
+			drawCondition() {
+				return !this.renderInstance.sidebarSkyDisabled && setup.LocationImages[setup.Locations.get()].weather.watchmoon;
+			},
+			params: {
+				glow: {
+					colorDay: "#ffffff00",
+					colorNight: "#ffffff75",
+					size: 9,
+				},
+				images: { orbital: "img/misc/sky/clockmoon.png" },
+			},
+			bindings: {
+				position() {
+					return this.renderInstance.orbitals.moon.position;
+				},
+				factor() {
+					return this.renderInstance.orbitals.moon.factor;
+				},
+				dayFactor() {
+					return this.renderInstance.orbitals.sun.factor;
+				},
+				moonPhaseFraction() {
+					return Time.date.moonPhaseFraction;
+				},
+			},
+		},
+		{
 			effect: "colorOverlay",
 			drawCondition() {
 				return !this.renderInstance.sidebarSkyDisabled && Weather.bloodMoon && Weather.current.darkenFactor.moon > 0;

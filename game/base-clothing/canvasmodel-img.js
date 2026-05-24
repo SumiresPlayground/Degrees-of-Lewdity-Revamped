@@ -423,6 +423,8 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.horse_tail_type = V.transformationParts.horse.tail;
 	T.modeloptions.pig_ears_type = V.transformationParts.pig.ears;
 	T.modeloptions.pig_tail_type = V.transformationParts.pig.tail;
+	T.modeloptions.bunny_ears_type = V.transformationParts.bunny.ears;
+	T.modeloptions.bunny_tail_type = V.transformationParts.bunny.tail;
 	T.modeloptions.spider_eyes_type = V.transformationParts.spider.eyes;
 	T.modeloptions.spider_tail_type = V.transformationParts.spider.tail;
 	T.modeloptions.frog_eyes_type = V.transformationParts.frog.eyes;
@@ -454,8 +456,13 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.eldritch_mist_type = V.transformationParts.eldritch.mist;
 	T.modeloptions.eldritch_tentacle_type = V.transformationParts.eldritch.tentacle;
 	T.modeloptions.eldritch_skin_type = V.transformationParts.eldritch.skin;
+
+	T.modeloptions.fae_wings_type = V.transformationParts.fae.wings;
+	T.modeloptions.fae_fairies_type = V.transformationParts.fae.fairies;
 	
 	T.modeloptions.goblin_ears_type = V.transformationParts.goblin.ears
+
+	T.modeloptions.ear_layer = V.earlayer;
 
 	/*
 			██████ ██   ██ ██ ███    ███ ███████ ██████   █████

@@ -172,14 +172,19 @@ You are inside the hospital foyer. <<if $harper_appointments.enabled>>You see a 
 		<</for>>
 		<br>
 
+		<<if $bodysize lt 3>>
+			<<link [[Inquire about body growth hormones (0:10)|Harper Hormone Inquiry]]>><<pass 10>><</link>>
+			<br><br>
+		<</if>>
+
 		<<if $slime gt 0>>
 			<<link [[Inquire about your slime situation (0:10)|Harper Slime Inquiry]]>><<pass 10>><</link>>
-			<br>
+			<br><br>
 		<</if>>
 
 		<<if $worn.under_upper.name is "tentacle top" or $worn.under_lower.name is "tentacle bottom" or $worn.hands.name is "tentacle gloves" or $worn.legs.name is "tentacle stockings" or $worn.feet.name is "tentacle heels">>
 			<<link [[Inquire about the tentacle clothing (0:10)|Livingclothes Inquiry]]>><<pass 10>><</link>>
-			<br>
+			<br><br>
 		<</if>>
 
 		<<getouticon>><<link [[Go outside (0:01)|Hospital front]]>><<pass 1>><</link>>
@@ -1938,3 +1943,45 @@ A minute later <<he>> turns back to you. "We can apply a special form of electro
 <</if>>
 <<getouticon>><<link [[Leave without treatment|Hospital Foyer]]>><<endevent>><</link>>
 <br>
+
+:: Harper Hormone Inquiry
+<<set $outside to 0>><<set $location to "hospital">><<effects>>
+
+<<generate1>><<person1>>
+The receptionist taps something into <<his>> computer and instructs you to take a seat in the waiting room.
+<br><br>
+<<endevent>>
+
+<<harper_intro>>
+
+"So you wish to grow taller and stronger?" <<he>> says. "Please don't be nervous. Can you explain the problem more thoroughly?" Though embarrassed, you manage to stammer a description of your issue. He looks down at you in thought.
+<br><br>
+
+
+<<He>> listens to you intently, nodding along as if there's nothing strange about anything you're saying. When you are finished <<he>> silently turns to <<his>> computer and starts reading something. "Okay," <<he>> says.
+<br><br>
+"I see, give me a moment to look over our available options for such cases." <<He>> turns back to <<his>> computer.
+<br><br>
+
+A minute later <<he>> turns back to you. "We can apply special hormones and surgeries to key joints in the body to facilitate additional growth. You're lucky you're still in your growth stages, otherwise these procedures may not have worked."
+<br><br>
+
+"The procedure will cost you £5000 and requires you already fill out your current physique." <<He>> said.
+<br><br>
+
+<<if ($physique gte 6000 and $bodysize is 0 and $money gte 500000) or ($physique gte 9000 and $bodysize is 1 and $money gte 500000) or ($physique gte 12000 and $bodysize is 2 and $money gte 500000)>>
+	<<link [[Recieve the treatment (£5000 1:30)|Hospital Growth Hormones]]>><<set $bodysize += 1>><<set $physiquesize += 3000>><<set $money -= 500000>><<pass 90>><</link>>
+	<br>
+<<else>>
+	<span class="red">You lack the physique or money for the operation</span>
+	<br><br>
+<</if>>
+<<getouticon>><<link [[Leave without treatment|Hospital Foyer]]>><<endevent>><</link>>
+<br>
+
+:: Hospital Growth Hormones
+You are strapped down in what feels like a torture machine. Straps bind your arms and legs to the table to prevent movement and bottles of medicines and surgery instruments sit on a silver cart beside you. Harper enters the room and places a small mask over your face. You feel the world tilt and you begin to feel dizzy. Everything loses focus and next thing you know... You are out.
+<br><br>
+You feel yourself coming back to consciousness, your body sore and aching. You sit up and notice an immediate difference. You seem... taller? Stronger. Your body may seem weaker than before but that's because your vessel has become capable of holding much more. As you exit the room you see Harper who waves without much enthusiasm as you exit back to the front of the hospital.
+<br><br>
+<<link [[Next|Hospital Foyer]]>><</link>>

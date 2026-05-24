@@ -7500,3 +7500,18 @@ After inspecting you for a minute or so, the <<beasttype>> prepares to mount you
 		<<link [[Say goodbye|Forest]]>><<endevent>><</link>>
 	<</if>>
 <</if>>
+
+:: Forest Mushroom Enter
+<<if Time.dayState is "night" and $hallucinogen gte 300 and $vesselform isnot 2>>
+	As you step into the tree hollow the world slowly begins to tilt. You can sense something is horribly wrong but what? You stumble and lean against the tree hollow as you collapse.
+	<br><br>
+	Suddenly, the tree hollows out from beneath you and you fall deep and far into the darkness. It must have been minutes that you fell before you see light. The tree hollow begins to slope and you hit the ground hard.
+	<br><br>
+	You slowly sit up and rub your head but... are you dreaming? You're in a forest but this one is... different. A huge unnatural moon with the appearance of a stopwatch fills the sky and the forest almost glows purple. Melted clocks float, littering the sky, and yet there is no birds to be seen. Just where are you?
+	<br><br>
+	<<link [[Next|Fae Realm]]>><<location "fae_forest">><<set $faenorth to 0>><<set $faeeast to 0>><<set $eventskip to 1>><</link>>
+<<else>>
+	You step into the tree hollow and try one of the mushrooms, the taste is bitter and you spit it out immediately. Thick spores coat your tongue and you feel a funny sensation.
+	<br>
+	<<link [[Leave|Forest]]>><<set $hallucinogen += 100>><<set $eventskip to 1>><</link>>
+<</if>>

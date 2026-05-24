@@ -287,17 +287,30 @@ function pregnancyProgress(genital = "vagina") {
 
 	if (pregnancy.timer < pregnancy.timerEnd) {
 		let multiplier = 1;
-		switch (pregnancy.type) {
-			case "human":
-				multiplier = 9 / V.settings.humanPregnancyMonths;
-				break;
-			case "wolf":
-				multiplier = 12 / V.settings.wolfPregnancyWeeks;
-				break;
-			case "hawk":
-				multiplier = 1;
-				break;
-		}
+		if (V.transformationParts.bunny.ears === "default" && V.transformationParts.bunny.tail === "default")
+			{switch (pregnancy.type) {
+				case "human":
+					multiplier = 3 / V.settings.humanPregnancyMonths;
+					break;
+				case "wolf":
+					multiplier = 4 / V.settings.wolfPregnancyWeeks;
+					break;
+				case "hawk":
+					multiplier = 0.3;
+					break;
+			}}
+		else
+			{switch (pregnancy.type) {
+				case "human":
+					multiplier = 9 / V.settings.humanPregnancyMonths;
+					break;
+				case "wolf":
+					multiplier = 12 / V.settings.wolfPregnancyWeeks;
+					break;
+				case "hawk":
+					multiplier = 1;
+					break;
+			}}
 		// The `0.5 * ` is because it runs at both midnight and noon
 		pregnancy.timer += parseFloat((0.5 * multiplier).toFixed(3));
 

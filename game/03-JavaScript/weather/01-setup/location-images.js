@@ -4220,7 +4220,6 @@ setup.LocationImages = {
 		folder: "desert",
 		base: {
 			default: {
-				condition: () => !Weather.isSnow,
 				image: "base.png",
 			},
 		},
@@ -4337,6 +4336,62 @@ setup.LocationImages = {
 				},
 				fog: {
 					top: 21,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	fae_forest: {
+		folder: "faeforest",
+		base: {
+			default: {
+				image: "base.png",
+			},
+		},
+		emissive: {
+			image: "emissive.png",
+		},
+		weather: {
+			fogDistributionCurve: 2.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+			watchmoon: true,
+
+			groundBounds: {
+				splashes: {
+					top: 16,
+					bottom: 0,
+				},
+				fog: {
+					top: 24,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	fae_fort: {
+		folder: "faefort",
+		base: {
+			default: {
+				image: "base.png",
+			},
+		},
+		emissive: {
+			image: "emissive.png",
+		},
+		weather: {
+			fogDistributionCurve: 2.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+			watchmoon: true,
+
+			groundBounds: {
+				splashes: {
+					top: 16,
+					bottom: 0,
+				},
+				fog: {
+					top: 24,
 					bottom: 0,
 				},
 			},

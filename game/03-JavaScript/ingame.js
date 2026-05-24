@@ -141,7 +141,7 @@ const combatActionColours = {
 		],
 		green: [
 			/* corrosive slime attacks */
-			"corrode",
+			"corrode", "wild",
 		],
 		lblue: [
 			/* Yuki-Onna attacks */

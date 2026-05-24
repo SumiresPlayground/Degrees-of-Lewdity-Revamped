@@ -5403,6 +5403,38 @@
 			<</if>>
 		<</if>>
 
+		<<if $mouthaction is "wild">>
+			<<set $mouthactiondefault to "wild">><<set $mouthaction to 0>>
+			<<rng>>
+			<<if $rng gte 80>>
+				<<set $enemyhealth -= 200>>
+				<<if $enemytype is "beast">>
+					<span class='red'>You blast fire at the <<beasttype>>. It whimpers.</span>
+				<<else>>
+					<span class='red'>You blast fire at the assailant. <<He>> recoils in pain.</span>
+					<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
+						<<ggcrime>><<crimeUp 500 "assault">>
+					<</if>>
+				<</if>>
+			<<elseif $rng gte 20>>
+				<<set $enemyhealth -= 100>>
+				<<if $enemytype is "beast">>
+					<span class='green'>You bind the <<beasttype>> with thorned vines.</span>
+				<<else>>
+					<span class='green'>You bind the assailant with thorned vines.</span>
+				<</if>>
+			<<else>>
+				<<set $enemyhealth += 20>>
+				<<set $enemytrust += 10>>
+				<<set $pain -= 40>>
+				<<if $enemytype is "beast">>
+					<span class='green'>You release a healing aura, slightly healing yourself and the <<beasttype>>. It looks confused.</span>
+				<<else>>
+					<span class='green'>You release a healing aura, slightly healing yourself and the assailant. They look confused.</span>
+				<</if>>
+			<</if>>
+		<</if>>
+
 
 
 		/*Stalked actions */

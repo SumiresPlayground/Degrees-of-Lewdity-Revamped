@@ -54,6 +54,35 @@ Weather.Renderer.Layers.add({
 			},
 		},
 		{
+			/* Blood sky */
+			effect: "skyGradiant",
+			drawCondition() {
+				return !this.renderInstance.sidebarSkyDisabled && setup.LocationImages[setup.Locations.get()].weather.watchmoon && !this.renderInstance.sidebarSkyDisabled;
+			},
+			params: {
+				color: {
+					colorMin: { close: "#004d0d00", far: "#21070700" },
+					colorMed: { close: "#004d04", far: "#210707" },
+					colorMax: { close: "#004d0d", far: "#210707" },
+				},
+				radius: 82,
+			},
+			bindings: {
+				position() {
+					return this.renderInstance.orbitals.moon.position;
+				},
+				factor() {
+					return this.renderInstance.orbitals.moon.factor;
+				},
+				dayFactor() {
+					return this.renderInstance.orbitals.sun.factor;
+				},
+				moonPhaseFraction() {
+					return Time.date.moonPhaseFraction;
+				},
+			},
+		},
+		{
 			/* Day sky */
 			effect: "skyGradiant",
 			drawCondition() {

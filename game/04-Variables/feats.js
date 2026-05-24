@@ -926,6 +926,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
+	"Bunny":{
+		title: "Professional Breeder",
+		desc: "Breed breed breed.",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	"Mushroom": {
 		title: "Mushroom Samba",
 		desc: "Spread them spores.",
@@ -975,6 +982,14 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation", "Questline"],
 		hint: "Hint: Fild the cult and fulfil the ritual.",
+	},
+	"Fae": {
+		title: "Enchanted",
+		desc: "Blessed by the Wild",
+		difficulty: 1,
+		series: "",
+		filter: ["All", "Transformation"],
+		hint: "Hint: Recieve the blessing of a goddess.",
 	},
 	"A Special Trait": {
 		title: "A Special Trait",
@@ -2397,7 +2412,7 @@ function earnHourlyFeats() {
 	if (V.sheeptf >= 1) earnFeat("Sheep");
 	if (V.deertf >= 1) earnFeat("Deer");
 	if (V.beartf >= 1) earnFeat("Bear");
-	if (V.dragontf >= 16) earnFeat("Dragon");
+	if (V.dragontf >= 1) earnFeat("Dragon");
 	if (V.lizardtf >= 1) earnFeat("Lizard");
 	if (V.dolphintf >= 1) earnFeat("Dolphin");
 	if (V.dogtf >= 1) earnFeat("Dog");
@@ -2407,8 +2422,10 @@ function earnHourlyFeats() {
 	if (V.spidertf >= 1) earnFeat("Spider");
 	if (V.frogtf >= 1) earnFeat("Frog");
 	if (V.pigtf >= 1) earnFeat("Pig");
+	if (V.bunnytf >= 1) earnFeat("Bunny");
 	if (V.mushroom >= 1) earnFeat("Mushroom");
 	if (V.eldritch >= 1) earnFeat("Eldritch");
+	if (V.faetf >= 1) earnFeat("Fae");
 	if (V.slime >= 1) earnFeat("Slime");
 	if (V.ghost >= 1) earnFeat("Ghost");
 	if (V.prutiquest >= 9) earnFeat("Witch's Assistant");
@@ -2883,22 +2900,28 @@ function setupFeatBoosts(force) {
 			cost: 30,
 			missing: "Unlock this boost by becoming a pig",
 		},
+		bunny: {
+			name: "Bunny Unlock",
+			required: ["Bunny"],
+			cost: 30,
+			missing: "Unlock this boost by becoming a bunny",
+		},
 		angel: {
 			name: "Angel Unlock",
 			required: ["Angel"],
-			cost: 100,
+			cost: 50,
 			missing: "Unlock this boost by becoming an angelic being",
 		},
 		fallenangel: {
 			name: "Fallen Unlock",
 			required: ["Fallen Angel"],
-			cost: 100,
+			cost: 50,
 			missing: "Unlock this boost by becoming a fallen being",
 		},
 		demon: {
 			name: "Demon Unlock",
 			required: ["Demon"],
-			cost: 100,
+			cost: 50,
 			missing: "Unlock this boost by becoming a demonic being",
 		},
 		eldritch: {
@@ -2906,6 +2929,12 @@ function setupFeatBoosts(force) {
 			required: ["Eldritch"],
 			cost: 100,
 			missing: "Unlock this boost by becoming an eldritch being",
+		},
+		fae: {
+			name: "Fae Unlock",
+			required: ["Fae"],
+			cost: 100,
+			missing: "Unlock this boost by becoming a fae being",
 		},
 	};
 
@@ -3238,6 +3267,11 @@ function applyFeatBoosts() {
 		V.permanentTransform = 1;
 	}
 
+	if (upgrades.bunny) {
+		V.bunnytf = 1;
+		V.permanentTransform = 1;
+	}
+
 	if (upgrades.angel) {
 		V.angeltf = 1;
 		V.permanentTransform = 1;
@@ -3254,7 +3288,12 @@ function applyFeatBoosts() {
 	}
 
 	if (upgrades.eldritch) {
-		V.Eldritch = 1;
+		V.eldritch = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.eldritch) {
+		V.fae = 1;
 		V.permanentTransform = 1;
 	}
 
