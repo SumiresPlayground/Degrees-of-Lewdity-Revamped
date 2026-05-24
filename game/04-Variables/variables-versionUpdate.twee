@@ -3278,6 +3278,23 @@
 		<<set $objectVersion.transformations to 0>>
 	<</if>>
 
+	<<set $_fae to V.transformationParts.fae>>
+	<<set $_faeWings to $_tfConverter[V.transformationParts.fae.wings]>>
+	<<if typeof $_faeWings === 'object'>>
+		<<set $_fae.wings_colour to $_faeWings.colour>>
+	<</if>>
+
+	<<set $_dragon to V.transformationParts.dragon>>
+	<<set $_dragonWings to $_tfConverter[V.transformationParts.dragon.wings]>>
+	<<if typeof $_dragonWings === 'object'>>
+		<<set $_dragon.wings_colour to $_dragonWings.colour>>
+	<</if>>
+	<<set $_dragonTail to $_tfConverter[V.transformationParts.dragon.tail]>>
+	<<if typeof $_dragonTail === 'object'>>
+		<<set $_dragon.tail to $_dragonTail.type>>
+		<<set $_dragon.tail_colour to $_dragonTail.colour>>
+	<</if>>
+
 	<!-- v0.3.10.0 update -->
 	<<if $leftarmbruise is undefined>>
 		<<set $leftarmbruise to 0>>

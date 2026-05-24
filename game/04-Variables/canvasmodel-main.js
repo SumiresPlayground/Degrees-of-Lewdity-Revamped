@@ -712,6 +712,13 @@ Renderer.CanvasModels.main = {
 		options.filters.demon_wings = { ...filterBase, blend: ColourUtils.toHslString(V.transformationParts.demon.wings_colour, demonHsl) };
 		options.filters.demon_tail = { ...filterBase, blend: ColourUtils.toHslString(V.transformationParts.demon.tail_colour, demonHsl) };
 		options.filters.demon_horns = { ...filterBase, blend: ColourUtils.toHslString(V.transformationParts.demon.horns_colour, demonHsl) };
+		
+		const faeHsl = ColourUtils.toHslString(Transformations.defaults.fae.colour);
+		options.filters.fae_wings = { ...filterBase, blend: ColourUtils.toHslString(V.transformationParts.fae.wings_colour, faeHsl) };
+
+		const dragonHsl = ColourUtils.toHslString(Transformations.defaults.dragon.colour);
+		options.filters.dragon_wings = { ...filterBase, blend: ColourUtils.toHslString(V.transformationParts.dragon.wings_colour, dragonHsl) };
+		options.filters.dragon_tail = { ...filterBase, blend: ColourUtils.toHslString(V.transformationParts.dragon.tail_colour, dragonHsl) };
 
 		// Clothing filters and options
 		const clothingObject = this.defaultOptions().worn;
@@ -2221,35 +2228,35 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 		"dragon_wings_right": {
+			filters: ["dragon_wings"],
 			srcfn(options) {
 				return `img/transformations/dragon/rightwing/${options.dragon_wings_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_right === "idle"*/
 			},
-			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
 		"dragon_wings_left": {
+			filters: ["dragon_wings"],
 			srcfn(options) {
 				return `img/transformations/dragon/leftwing/${options.dragon_wings_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_left === "idle"*/
 			},
-			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
 		"dragon_tail": {
+			filters: ["dragon_tail"],
 			srcfn(options) {
 				return `img/transformations/dragon/tail/${options.dragon_tail_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_tail_type)
 			},
-			filters: ["hair"],
 			z: ZIndices.tail,
 			animation: "idle"
 		},
@@ -2595,24 +2602,24 @@ Renderer.CanvasModels.main = {
 		/*Fae*/
 
 		"fae_wings_right": {
+			filters: ["fae_wings"],
 			srcfn(options) {
 				return `img/transformations/fae/rightwing/default.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fae_wings_type) && options.fae_wing_right === "idle";
 			},
-			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
 		"fae_wings_left": {
+			filters: ["fae_wings"],
 			srcfn(options) {
 				return `img/transformations/fae/leftwing/default.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fae_wings_type) && options.fae_wing_left === "idle";
 			},
-			filters: ["hair"],
 			z: ZIndices.backhair,
 			animation: "idle"
 		},
