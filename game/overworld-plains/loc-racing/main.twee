@@ -1,0 +1,140 @@
+:: Race Track
+<<set $outside to 1>><<set $location to "riding_school">><<effects>>
+
+You are at the local horse racing track. Grandstands surround a central track. A small office sits to one side.
+<br><br>
+
+<<if Time.dayState isnot "night">>
+	Several people wait, itching to bet on their favorite horse.
+	<br><br>
+<</if>>
+
+<<if $stress gte $stressmax>>
+	<<passoutfarmroad>>
+<<elseif Time.dayState is "night">>
+	It's closing time. The horses are being herded into their stables, and the customers from the grounds. <<if $exposed gte 1>>You skulk away before anyone sees your <<lewdness>>.<</if>>
+	<br><br>
+
+	<<link [[Next|Farmland]]>><</link>>
+	<br>
+
+<<else>>
+	People fill into seats as tickets are taken and betting begins, if you want to place a bet, make your way to the booth and pick a horse.
+	<br><br>
+
+	<<animalicon "horse">><<link [[Pick a horse to bet on|Race Track Bet]]>><</link>>
+	<br>
+
+	<<getouticon>><<link [[Leave|Farmland]]>><</link>>
+	<br>
+<</if>>
+
+:: Race Track Bet 
+You make your way to the booth where a young woman sits, taking bets and passing tickets. As you approach she speaks to you. "You here to bet? Place an amount of money and select a horse. The amount of payout will depend on how much you bet and which horse you bet on."
+<br><br>
+<<textbox "$inputCode" "" autofocus>>
+<br>
+<<button "Input bet amount">>
+<<set $moneybet to $inputCode.trim()*100>>
+<<if $money lt $moneybet>>
+	<<run UI.alert("You don't have enough money to make this bet!")>>
+<<else>>
+	<<set $moneybetsuccess to 1>>
+	<<goto "Race Track Bet">>
+<</if>>
+<</button>>
+
+<br><br>
+
+<<if $moneybetsuccess is 1 and $moneybet gt 0>>
+<<animalicon "horse-pick">><<link [[Bet on an underdog horse (Chance to decuple money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 3>><<set $payoutmultiplier to 10>><</link>>
+<br>
+<<animalicon "horse-pick">><<link [[Bet on a middling horse (Chance to triple money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 5>><<set $payoutmultiplier to 3>><</link>>
+<br>
+<<animalicon "horse-pick">><<link [[Bet on a strong horse (Chance to double money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 7>><<set $payoutmultiplier to 2>><</link>>
+<br>
+<</if>>
+
+<<getouticon>><<link [[Leave|Race Track]]>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><<set $payoutmultiplier to 0>><</link>>
+
+:: Race Track Select
+You place a bet on your selected horse. 
+<<if $payout is 3>>
+	Your selected horse is a weaker looking young horse. Its chances are not good but if you win you could get a major payout.
+<<elseif $payout is 5>>
+	Your selected horse is fairly average in appearance, likely having already raced several times. Its chances are not the best but the payout is nothing to scoff at.
+<<else>>
+	Your selected horse looks strong, likely having won multiple races already. Its chances are pretty good and you have a chance to double your profits.
+<</if>>
+<br><br>
+You take the ticket and take a seat in the stands as the horses are all lead into their starting boxes.
+<br><br>
+<span class="gold">Each race consists of three race stages and will track positions.</span>
+<br><br>
+<<link [[The race begins!|Horse Race 1]]>><<set $rng to random(1,10)>><</link>>
+
+:: Horse Race 1
+The gun sounds and the horses take off from the boxes.
+<br><br>
+<<if $rng gt $payout>>
+	As the other horses race from the box, your horse gets a late start, quickly falling behind the other horses. <<set $position to 6>>
+<<elseif $rng lt 2>>
+	Your horse manages to get a good lead out of the starting boxes, quickly making its way ahead of the other horses. <<set $position to 1>>
+<<else>>
+	Your horse is managing to keep up with the other horses and is squarely in the middle of the pack. <<set $position to 4>>
+<</if>>
+<br><br>
+<span class="gold">Your horse is currently in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place.</span>
+<br><br>
+<<link [[Next|Horse Race 2]]>><<set $rng to random(1,10)>><</link>>
+
+:: Horse Race 2
+The horses race down the straight and reach the first corner.
+<br><br>
+<<if $rng gt $payout>>
+	The horses begin to turn the corner, however, your horse loses its footing and stumbles, falling a bit further behind. <<set $position += 2>> <<if $position gt 8>><<set $position to 8>><</if>>
+<<elseif $rng lt 2>>
+	As your horse reaches the bend, it speeds up and turns the corner perfectly, cutting ahead of the other horses. <<set $position -= 4>> <<if $position lt 1>><<set $position to 1>><</if>>
+<<else>>
+	Your horse keeps up with the pack as they turn the corner, a few other horses stumble allowing your horse to edge ahead. <<set $position -= 1>> <<if $position lt 1>><<set $position to 1>><</if>>
+<</if>>
+<br><br>
+<span class="gold">Your horse is currently in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place.</span>
+<br><br>
+<<link [[Next|Horse Race 3]]>><<set $rng to random(1,10)>><</link>>
+
+:: Horse Race 3
+The horses race reach the final straight and expend their remaining strength.
+<br><br>
+<<if $rng gt $payout>>
+	As the horses sprint dow the final straight, your horse quickly becomes winded and is passed up by a few other horses. <<set $position += 2>> <<if $position gt 8>><<set $position to 8>><</if>>
+<<elseif $rng lt 2>>
+	Your horse bursts forward with speed and stamina, quickly passing up several horses before passing the finish line. <<set $position -= 4>> <<if $position lt 1>><<set $position to 1>><</if>>
+<<else>>
+	The horses sprint forward and your horse manages to keep pace as the horses begin to pass the line. <<set $position -= 1>> <<if $position lt 1>><<set $position to 1>><</if>>
+<</if>>
+<br><br>
+<span class="gold">Your horse finished in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place!</span>
+<br><br>
+<<link [[Next|Horse Results]]>><</link>>
+
+:: Horse Results
+People begin to file out of the grandstands as the horses are guided back to their stables. You return to the ticket booth.
+<br><br>
+<<if $position is 1>>
+<span class="gold">Your horse came in first place! You won £<<print $moneybet *= $payoutmultiplier /= 100>>.</span>
+<br><br>
+<<link [[Next|Race Track]]>><<set $money += ($moneybet *= $payoutmultiplier *= 5000)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+<<elseif $position is 2>>
+<span class="green">Your horse finished in second place and you won £<<print $moneybet *= $payoutmultiplier /= 200>> for placing.</span>
+<br><br>
+<<link [[Next|Race Track]]>><<set $money += ($moneybet *= $payoutmultiplier *= 10000)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+<<elseif $position is 3>>
+<span class="blue">Your horse finished third and you recieve back your initial £<<print $moneybet /= 100>> for showing.</span>
+<br><br>
+<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+<<else>>
+<span class="red">Your horse didn't even finish top three, you lost £<<print $moneybet /= 100>>.</span>
+<br><br>
+<<link [[Next|Race Track]]>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><<set $payoutmultiplier to 0>><</link>>
+<</if>>

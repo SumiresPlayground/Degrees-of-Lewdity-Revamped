@@ -1771,14 +1771,14 @@ function effects() {
 	}
 	if (V.nooxygen === 1) {
 		V.nooxygen = 0;
-		return "<br><span class='green'>Normally, aphyxia would be an issue right now. Good thing you're a slime.</span><br>";
+		sWikifier(`<span class="green">Normally, aphyxia would be an issue right now. Good thing you're a slime.</span><br><br>`);
 	}
 	if (V.outside === 1 && 
 		Weather.precipitation === "rain" && 
 		!(V.worn.head.type.includes("rainproof")) &&
 		!(V.worn.over_head.type.includes("rainproof"))) {
-		violence(40);
-		return "<br>Get out of the rain! <span class='red'>It stings!<br><br></span>";
+		V.pain += 10;
+		sWikifier(`<span class="red">Get out of the rain! It stings!</span><br><br>`);
 	}
 	}
 
@@ -1837,7 +1837,7 @@ function effects() {
 		(V.worn.lower.state === 0 || V.worn.upper.state === 0)) {
 		V.mushroom -= 1;
 		updatesidebarimg();
-		return "<br><span class='yellow'>Your mushroom attire broke! Your transformation has been reverted to the previous stage!</span>";
+		sWikifier(`<span class="yellow">Your mushroom attire broke! Your transformation has been reverted to the previous stage!</span><br><br>`);
 	}
 	}
 	
