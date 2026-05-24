@@ -11,7 +11,7 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.9.8<br>New World 0.1.5.2",
+	version: "0.5.9.8 New World 0.1.5.2",
 	versionName: `"Wild Wonderland" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,
