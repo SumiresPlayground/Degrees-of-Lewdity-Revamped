@@ -94,9 +94,9 @@ The horses race down the straight and reach the first corner.
 <<if $rng gt $payout>>
 	The horses begin to turn the corner, however, your horse loses its footing and stumbles, falling a bit further behind. <<set $position += 2>> <<if $position gt 8>><<set $position to 8>><</if>>
 <<elseif $rng lt 2>>
-	As your horse reaches the bend, it speeds up and turns the corner perfectly, cutting ahead of the other horses. <<set $position -= 4>> <<if $position lt 1>><<set $position to 1>><</if>>
+	As your horse reaches the bend, it speeds up and turns the corner perfectly, cutting ahead of the other horses. <<set $position -= 3>> <<if $position lt 1>><<set $position to 1>><</if>>
 <<else>>
-	Your horse keeps up with the pack as they turn the corner, a few other horses stumble allowing your horse to edge ahead. <<set $position -= 1>> <<if $position lt 1>><<set $position to 1>><</if>>
+	Your horse keeps up with the pack as they turn the corner, a few other horses stumble allowing your horse to edge ahead. <<set $position -= 2>> <<if $position lt 1>><<set $position to 1>><</if>>
 <</if>>
 <br><br>
 <span class="gold">Your horse is currently in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place.</span>
@@ -109,9 +109,9 @@ The horses race reach the final straight and expend their remaining strength.
 <<if $rng gt $payout>>
 	As the horses sprint dow the final straight, your horse quickly becomes winded and is passed up by a few other horses. <<set $position += 2>> <<if $position gt 8>><<set $position to 8>><</if>>
 <<elseif $rng lt 2>>
-	Your horse bursts forward with speed and stamina, quickly passing up several horses before passing the finish line. <<set $position -= 4>> <<if $position lt 1>><<set $position to 1>><</if>>
+	Your horse bursts forward with speed and stamina, quickly passing up several horses before passing the finish line. <<set $position -= 3>> <<if $position lt 1>><<set $position to 1>><</if>>
 <<else>>
-	The horses sprint forward and your horse manages to keep pace as the horses begin to pass the line. <<set $position -= 1>> <<if $position lt 1>><<set $position to 1>><</if>>
+	The horses sprint forward and your horse manages to keep pace as the horses begin to pass the line. <<set $position -= 2>> <<if $position lt 1>><<set $position to 1>><</if>>
 <</if>>
 <br><br>
 <span class="gold">Your horse finished in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place!</span>
@@ -124,11 +124,11 @@ People begin to file out of the grandstands as the horses are guided back to the
 <<if $position is 1>>
 <span class="gold">Your horse came in first place! You won £<<print $moneybet *= $payoutmultiplier /= 100>>.</span>
 <br><br>
-<<link [[Next|Race Track]]>><<set $money += ($moneybet *= $payoutmultiplier *= 5000)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
 <<elseif $position is 2>>
 <span class="green">Your horse finished in second place and you won £<<print $moneybet *= $payoutmultiplier /= 200>> for placing.</span>
 <br><br>
-<<link [[Next|Race Track]]>><<set $money += ($moneybet *= $payoutmultiplier *= 10000)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
 <<elseif $position is 3>>
 <span class="blue">Your horse finished third and you recieve back your initial £<<print $moneybet /= 100>> for showing.</span>
 <br><br>

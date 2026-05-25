@@ -1123,10 +1123,13 @@ Renderer.CanvasModels.main = {
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
 							{if (V.npc.length > 0)
-								return `img/npc/${V.npc}.png`;}
+								return `img/npc/${V.npc[0]}.png`;}
 						else
 							{if (V.npc.length > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
+								if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
+									return `img/npc/${V.npc[0]}/${V.pronoun}/monster.png`;
+								else
+									return `img/npc/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
 			},
 		},
 		"npcpresentfront": {
@@ -1138,10 +1141,13 @@ Renderer.CanvasModels.main = {
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
 							{if (V.npc.length > 0)
-								return `img/npc/${V.npc}.png`;}
+								return `img/npc/${V.npc[0]}.png`;}
 						else
 							{if (V.npc.length > 0)
-								return `img/npc/${V.npc}/${V.pronoun}/${V.NPCskincolour}.png`;}
+								if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
+									return `img/npc/${V.npc[0]}/${V.pronoun}/monster.png`;
+								else
+									return `img/npc/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
 			},
 		},
 		"background": {
