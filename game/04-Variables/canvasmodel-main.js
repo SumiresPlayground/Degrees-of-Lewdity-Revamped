@@ -2388,14 +2388,25 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 
-		"ghost_stream": {
+		"ghost_stream1": {
 			srcfn(options) {
-				return `img/transformations/ghost/stream/${options.ghost_stream_type}.png`;
+				return `img/transformations/ghost/stream/front.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_stream_type)
 			},
 			z: ZIndices.over_upper,
+			animation: "idle"
+		},
+
+		"ghost_stream2": {
+			srcfn(options) {
+				return `img/transformations/ghost/stream/back.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.ghost_stream_type)
+			},
+			z: ZIndices.background,
 			animation: "idle"
 		},
 
@@ -2737,7 +2748,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type)
 			},
-			z: ZIndices.over_head,
+			z: ZIndices.tears + 1,
 			animation: "idle"
 		},
 
@@ -2782,7 +2793,7 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type)
 			},
 			filters: ["body"],
-			z: ZIndices.tail,
+			z: ZIndices.tailPenisCoverOverlay + 1,
 			animation: "idle"
 		},
 

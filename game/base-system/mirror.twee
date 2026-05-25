@@ -116,7 +116,7 @@
 		You stare into the void, and the void
 	<<elseif $hallucinogen gte 100>>
 		The surface folds over itself at an angle you can't quite understand, and something unrecognisable
-	<<elseif $hallucinogen gt 0 or V.transformationParts.eldritch.mist is "default">>
+	<<elseif $hallucinogen gt 0>>
 		The surface ripples at your presence, and a vaguely familiar <<girl>>
 	<<elseif $trauma gte $traumamax>>
 		A <<girl>> with glazed eyes
@@ -2778,7 +2778,7 @@
 		<br>
 	<</if>>
 
-	<<if ($demon gte 2 or $demontf is 1 and ($cow gte 2 or $cowtf is 1)) or ($demon gte 2 or $demontf is 1 and ($wolf gte 2 or $wolftf is 1)) or($demon gte 4 or $demontf is 1 and ($cat gte 6 or $cattf is 1)) or ($demon gte 6 or $demontf is 1 and ($harpy gte 6 or $harpytf is 1)) or ($angel gte 2 or $angeltf is 1 and ($harpy gte 2 or $harpytf is 1)) or ($fallenangel gte 2 or $fallenangeltf is 1 and ($harpy gte 2 or $harpytf is 1))>>
+	<<if ($demon gte 2 or $demontf is 1 and ($cow gte 2 or $cowtf is 1)) or ($demon gte 2 or $demontf is 1 and ($wolf gte 2 or $wolftf is 1)) or($demon gte 4 or $demontf is 1 and ($cat gte 6 or $cattf is 1)) or ($demon gte 6 or $demontf is 1 and ($harpy gte 6 or $harpytf is 1)) or ($angel gte 2 or $angeltf is 1 and ($harpy gte 2 or $harpytf is 1)) or ($fallenangel gte 2 or $fallenangeltf is 1 and ($harpy gte 2 or $harpytf is 1)) or ($fallenangel gte 2 or $fallenangeltf is 1 and ($eldritch is 1))>>
 		__Chimera__<br>
 		<<if $demon gte 6 or $demontf is 1 and ($cow gte 2 or $cowtf is 1)>>
 			Demon Cow Horns:<br>
@@ -2915,6 +2915,14 @@
 				<<clearwings>>
 				<<updatesidebarimg>>
 			<</link>><br>
+		<</if>>
+		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
+			Forgotten Angel:<br>
+			<<link "Forgotten Angel Face">><<cleareyes>><<set _eldritch.crown = "forgotten">><<updatesidebarimg>><</link>><br>
+		<</if>>
+		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
+			Forgotten Angel:<br>
+			<<link "Forgotten Angel Wings">><<clearwings>><<set _eldritch.skin = "forgotten">><<updatesidebarimg>><</link>><br>
 		<</if>>
 	<</if>>
 

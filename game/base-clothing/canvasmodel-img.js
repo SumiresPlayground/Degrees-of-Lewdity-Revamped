@@ -519,6 +519,14 @@ DefineMacro("modelprepare-player-body", function () {
 	if (isPartEnabled(T.modeloptions.fox_ears_type) && V.demon >= 6 && isChimeraEnabled("demonfox", "ears")) {
 		T.modeloptions.fox_ears_type = "default-demon";
 	}
+	// Forgotten Angel wings
+	if (isPartEnabled(T.modeloptions.fallen_wings_type) && isPartEnabled(T.modeloptions.eldritch_tentacle_type) && isChimeraEnabled("eldritch", "wings")) {
+		T.modeloptions.eldritch_tentacle_type = "forgotten";
+	}
+	// Forgotten Angel face
+	if (isPartEnabled(T.modeloptions.fallen_halo_type) && isPartEnabled(T.modeloptions.eldritch_eyes_type) && isChimeraEnabled("eldritch", "halo")) {
+		T.modeloptions.eldritch_eyes_type = "forgotten";
+	}
 
 	/*
 			██████ ██████   ██████  ████████  ██████ ██   ██

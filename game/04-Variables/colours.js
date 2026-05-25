@@ -748,6 +748,18 @@ setup.colours.hair = [
 		},
 	},
 	{
+		variable: "ghostblue",
+		name: "ghost blue",
+		name_cap: "Ghost Blue",
+		csstext: "ghostbluehair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#1349b5",
+			alpha: 0.6,
+		},
+	},
+	{
 		variable: "slimegreen",
 		name: "strange green",
 		name_cap: "Slime Green",
