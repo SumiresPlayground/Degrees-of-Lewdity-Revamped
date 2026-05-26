@@ -315,7 +315,7 @@ You surrender to Pruti, not wanting to anger <<bhim>> any further. The beast's e
 	<<if $ghost gte 1>>
 		<<set $enemyhealthmax to 800>>
 		<<set $enemyhealth to 800>>
-		<<set $enemyarousalmax to 1500 * $npcarousalmult>>
+		<<set $enemyarousalmax to 1500>>
 		<<set $enemyanger += ($NPCName[$NPCNameList.indexOf("Pruti")].love * 5)>>
 		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 3)>>
 		<<makeAbomination _wraithtentacles 8 "tentacle" "pale" true>>
@@ -406,7 +406,7 @@ You surrender to Pruti, not wanting to anger <<bhim>> any further. The beast's e
 <</if>>
 
 :: Witch Hut Trust
-<<npc "Pruti">>
+<<npc "Pruti">><<person1>>
 <<if Time.hour lte 6>>
 	You're within Pruti's small hut. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
@@ -467,19 +467,19 @@ You surrender to Pruti, not wanting to anger <<bhim>> any further. The beast's e
     <br>
 <<elseif Time.hour gt 8 and Time.hour lt 12 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
     <<if ($prutiquest is 0 or $prutiquest is undefined) and $settings.lurkersEnabled>>
-        <<link [[Ask if Pruti needs help with anything|Pruti Request]]>><<set $prutiquest to 1>><</link>>
+        <<link [[Ask if Pruti needs help with anything|Pruti Request]]>><<endevent>><<set $prutiquest to 1>><</link>>
         <br>
     <<elseif $prutiquest is 2>>
-        <<link [[Turn in the vial of substance|Pruti Vial]]>><</link>>
+        <<link [[Turn in the vial of substance|Pruti Vial]]>><<npcincr Pruti love 5>><<endevent>><</link>>
         <br>
     <<elseif $prutiquest is 4>>
-        <<link [[Turn in the fluid extracted from the ant egg|Pruti Egg]]>><</link>>
+        <<link [[Turn in the fluid extracted from the ant egg|Pruti Egg]]>><<npcincr Pruti love 5>><<endevent>><</link>>
         <br>
     <<elseif $prutiquest is 6>>
-        <<link [[Turn in the body of the lurker from the bear|Pruti Bear]]>><</link>>
+        <<link [[Turn in the body of the lurker from the bear|Pruti Bear]]>><<npcincr Pruti love 5>><<endevent>><</link>>
         <br>
     <<elseif $prutiquest is 8>>
-        <<link [[Agree to recieve the lurker injection|Pruti Injection]]>><</link>>
+        <<link [[Agree to recieve the lurker injection|Pruti Injection]]>><<npcincr Pruti love 5>><<endevent>><</link>>
         <br>
     <</if>>
 <<elseif Time.hour is 14>>
@@ -565,9 +565,9 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 	You wake up to Pruti's groping. <<bHe>> starts rubbing up against you.
 	<br><br>
 
-	<<ind>><<link [[Let it happen|Pruti Sleep Sex]]>><<set $sexstart to 1>><<npcincr Pruti love 3>><<npcincr Pruti dom 3>><</link>><<promiscuous1>>
+	<<ind>><<link [[Let it happen|Pruti Sleep Sex]]>><<set $sexstart to 1>><<npcincr Pruti love 3>><</link>><<promiscuous1>>
 	<br>
-	<<ind>><<link [[Push away and get up|Witch Hut Trust]]>><<npcincr Pruti love -3>><<npcincr Pruti dom -1>><</link>><<lllove>><<ldom>>
+	<<ind>><<link [[Push away and get up|Witch Hut Trust]]>><<npcincr Pruti love -3>><</link>><<lllove>>
 	<br>
 <<else>>
 	<br><br>
@@ -588,7 +588,7 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 	<<neutral 1>>
 	<<set $enemyhealthmax to 500>>
 	<<set $enemyhealth to 500>>
-	<<set $enemyarousalmax to 1300 * $npcarousalmult>>
+	<<set $enemyarousalmax to 1300>>
 	<<set $enemyanger to 0>>
 	<<set $enemytrust to 500>>
 	<<maninit "beast">><<npcexpose>>
