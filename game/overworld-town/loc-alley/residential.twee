@@ -100,7 +100,7 @@ Your home is nearby.
 			<<foresticon "bush">><<link [[Thicket (0:01)|Residential Thicket]]>><<pass 1>><</link>>
 			<br>
 		<</if>>
-		<<if $cat gte 6 and Time.dayState is "night">>
+		<<if $transformationParts.cat.tail isnot "disabled" and Time.dayState is "night">>
 			<<tficon "cat">><<link [[Meow (0:30)|Residential Meow]]>><<pass 30>><<stress -3>><</link>><<cat>><<lstress>>
 			<br>
 		<</if>>
@@ -414,7 +414,7 @@ You are in the thicket in the residential district.
 		<<elseif Time.hour gte 9>>
 			Leaves flutter to the ground whenever the breeze picks up.
 		<<else>>
-			You see a squirrel run up a trunk. <<if $wolfgirl gte 6 or $cat gte 6 or $fox gte 6>>You resist the urge to give chase and pounce at it.<</if>>
+			You see a squirrel run up a trunk. <<if $transformationParts.wolf.tail isnot "disabled" or $transformationParts.cat.tail isnot "disabled" or $transformationParts.fox.tail isnot "disabled">>You resist the urge to give chase and pounce at it.<</if>>
 		<</if>>
 	<<elseif Weather.isSnow>>
 		<<if Time.schoolDay and Time.hour gte 16>>
@@ -422,7 +422,7 @@ You are in the thicket in the residential district.
 		<<elseif Time.hour is 12>>
 			An old couple are eating lunch together on the bench, well-bundled against the cold.
 		<<else>>
-			You see a squirrel run up a trunk. <<if $wolfgirl gte 6 or $cat gte 6 or $fox gte 6>>You resist the urge to give chase and pounce at it.<</if>>
+			You see a squirrel run up a trunk. <<if $transformationParts.wolf.tail isnot "disabled" or $transformationParts.cat.tail isnot "disabled" or $transformationParts.fox.tail isnot "disabled">>You resist the urge to give chase and pounce at it.<</if>>
 		<</if>>
 	<<else>>
 		<<if Time.schoolDay and Time.hour gte 16>>
@@ -430,7 +430,7 @@ You are in the thicket in the residential district.
 		<<elseif Time.hour is 12>>
 			An old couple are eating lunch together on the bench.
 		<<else>>
-			You see a squirrel run up a trunk. <<if $wolfgirl gte 6 or $cat gte 6 or $fox gte 6>>You resist the urge to give chase and pounce at it.<</if>>
+			You see a squirrel run up a trunk. <<if $transformationParts.wolf.tail isnot "disabled" or $transformationParts.cat.tail isnot "disabled" or $transformationParts.fox.tail isnot "disabled">>You resist the urge to give chase and pounce at it.<</if>>
 		<</if>>
 	<</if>>
 <</if>>

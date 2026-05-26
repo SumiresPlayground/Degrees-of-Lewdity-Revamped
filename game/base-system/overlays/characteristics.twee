@@ -6,11 +6,11 @@
 	<<if $wraithSkin>>
 		a spirit
 	<<else>>
-		<<if $angel gte 6>>
+		<<if $transformationParts.angel.wings isnot "disabled">>
 			an angelic
-		<<elseif $fallenangel gte 2>>
+		<<elseif $transformationParts.fallenAngel.wings isnot "disabled">>
 			a fallen
-		<<elseif $demon gte 6>>
+		<<elseif $transformationParts.demon.wings isnot "disabled">>
 			a demonic
 		<<elseif $dryad gte 6>>
 			a verdant
@@ -21,13 +21,13 @@
 		<<else>>
 			a
 		<</if>>
-		<<if $transformationParts.wolf.tail is "default" and $transformationParts.wolf.ears is "default" and ($demon gte 6 or $fallenangel gte 2)>>
+		<<if $transformationParts.wolf.tail is "default" and $transformationParts.wolf.ears is "default" and ($transformationParts.demon.wings isnot "disabled" or $transformationParts.fallenAngel.wings isnot "disabled")>>
 			hellhound
 		<<elseif $transformationParts.wolf.tail is "default" and $transformationParts.wolf.ears is "default">>
 			wolf
 		<<elseif $transformationParts.cat.tail is "default" and $transformationParts.cat.ears is "default">>
 			cat
-		<<elseif $transformationParts.cow.tail is "default" and $transformationParts.cow.ears is "default" and $transformationParts.cow.horns is "default">>
+		<<elseif $transformationParts.cow.tail is "default" and $transformationParts.cow.ears is "default" and $transformationParts.cow.horns isnot "disabled">>
 			<<if $player.gender_appearance is "m">>
 				bull
 			<<else>>
@@ -41,15 +41,15 @@
 			<</if>>
 		<<elseif $transformationParts.fox.tail is "default" and $transformationParts.fox.ears is "default">>
 			fox
-		<<elseif $transformationParts.sheep.tail is "default" and $transformationParts.sheep.ears is "default" and ($transformationParts.sheep.horns is "default" or $transformationParts.sheep.horns is "dark")>>
+		<<elseif $transformationParts.sheep.tail is "default" and $transformationParts.sheep.ears is "default" and ($transformationParts.sheep.horns isnot "disabled" or $transformationParts.sheep.horns is "dark")>>
 			sheep
 		<<elseif $transformationParts.bee.tail is "default" and $transformationParts.bee.ears is "default" and $transformationParts.bee.wings is "default">>
 			bee
-		<<elseif $transformationParts.deer.tail is "default" and $transformationParts.deer.ears is "default" and $transformationParts.deer.horns is "default">>
+		<<elseif $transformationParts.deer.tail is "default" and $transformationParts.deer.ears is "default" and $transformationParts.deer.horns isnot "disabled">>
 			deer
 		<<elseif $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
 			bear
-		<<elseif $transformationParts.dragon.tail is "default" and $transformationParts.dragon.horns is "default" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.wings is "default">>
+		<<elseif $transformationParts.dragon.tail is "default" and $transformationParts.dragon.horns isnot "disabled" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.wings is "default">>
 	    	dragon
 		<<elseif $transformationParts.dragon.tail is "chinese" and $transformationParts.dragon.horns is "chinese" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.whisker is "default">>
 	    	chinese dragon
@@ -62,7 +62,7 @@
 		<<elseif $transformationParts.pig.tail is "default" and $transformationParts.pig.ears is "default">>
 	    	pig
 		<<elseif $transformationParts.bunny.tail is "default" and $transformationParts.bunny.ears is "default">>
-	    	pig
+	    	bunny
 		<<elseif $transformationParts.frog.eyes is "default" and $transformationParts.frog.cheeks is "default">>
 			frog
 		<<elseif $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
@@ -383,9 +383,9 @@
 			<<silently>>
 
 				<!--PURITY-->
-				<<if $demon gte 6>>
+				<<if $transformationParts.demon.wings isnot "disabled">>
 					<<set _purityIcon='ui/tf-demon'>>
-				<<elseif $fallenangel gte 2>>
+				<<elseif $transformationParts.fallenAngel.wings isnot "disabled">>
 					<<set _purityIcon='ui/tf-fallen-angel'>>
 				<<else>>
 					<<set _purityIcon='ui/tf-angel'>>
@@ -639,7 +639,7 @@
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.10)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("dragon eyes")>>
 				<</if>>
-				<<if $fox gte 6>>
+				<<if $transformationParts.fox.tail isnot "disabled">>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.10)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("fox")>>
 				<</if>>
@@ -1097,7 +1097,7 @@
 		<<set $_arousedText to "keeping you aroused">>
 
 		/* SourceText */
-		<<if $wolfgirl gte 2 or $cat gte 2 or $cow gte 2 or $fox gte 2>>
+		<<if $transformationParts.wolf.ears isnot "disabled" or $cat gte 2 or $cow gte 2 or $transformationParts.fox.ears isnot "disabled">>
 			<<run $_source.push("inner beast")>>
 		<</if>>
 		<<if $earSlime.growth gt 50 and (($earSlime.focus is "pregnancy" and $_heatArousal) or ($earSlime.focus is "impregnation" and $_rutArousal))>>

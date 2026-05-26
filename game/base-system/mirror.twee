@@ -368,7 +368,7 @@
 			Deerlike
 			<br>
 		<</if>>
-		<<if $dragon gte 6>>
+		<<if $transformationParts.dragon.wings isnot "disabled">>
 			Dragon
 			<br>
 		<</if>>
@@ -2422,10 +2422,10 @@
 		__Cheeks__<br>
 		<<link "Clear">><<clearcheeks>><<updatesidebarimg>><</link>><br>
 		<<if $wolfgirl gte 6 or $wolftf is 1>>
-			<<link "Wolf">><<clearcheeks>><<set _wolf.cheeks = "feral">><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">><<link "Wolf">><<clearcheeks>><<set _wolf.cheeks = "feral">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 5 or $foxtf is 1>>
-			<<link "Fox">><<clearcheeks>><<set _fox.cheeks = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">><<link "Fox">><<clearcheeks>><<set _fox.cheeks = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $raccoon gte 2 or $raccoontf is 1>>
 			<<link "Raccoon">><<clearcheeks>><<set _raccoon.mask = "default">><<updatesidebarimg>><</link>><br>
@@ -2438,7 +2438,7 @@
 
 	<<if $eldritch is 1>>
 		__Crown__<br>
-		<<link "Set">><<set _eldritch.crown = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _eldritch.crown = "disabled">><<updatesidebarimg>><</link>><br>
+		<<tficon "eldritch">><<link "Set">><<set _eldritch.crown = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _eldritch.crown = "disabled">><<updatesidebarimg>><</link>><br>
 		<br>
 	<</if>>
 
@@ -2446,10 +2446,10 @@
 		__Divinity__<br>
 		<<link "Clear">><<set _fae.fairies = "disabled">><<set _eldritch.mist = "disabled">><<updatesidebarimg>><</link>><br>
 		<<if $eldritch is 1>>
-			<<link "Eldritch">><<set _eldritch.mist = "default">><<set _fae.fairies = "disabled">><<updatesidebarimg>><</link>><br>
+			<<tficon "eldritch">><<link "Eldritch">><<set _eldritch.mist = "default">><<set _fae.fairies = "disabled">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $faetf is 1>>
-			<<link "Fae">><<set _fae.fairies = "default">><<set _eldritch.mist = "disabled">><<updatesidebarimg>><</link>><br>
+			<<tficon "fae">><<link "Fae">><<set _fae.fairies = "default">><<set _eldritch.mist = "disabled">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<br>
 	<</if>>
@@ -2472,25 +2472,25 @@
 
 	<<if $harpy gte 2 or $harpytf is 1>>
 		__Malar__<br>
-		<<link "Set">><<set _bird.malar = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _bird.malar = "disabled">><<updatesidebarimg>><</link>><br>
+		<<tficon "bird">><<link "Set">><<set _bird.malar = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _bird.malar = "disabled">><<updatesidebarimg>><</link>><br>
 		<br>
 	<</if>>
 
 	<<if ($wolfgirl gte 4 or $wolftf is 1) and $pbdisable is "f">>
 		__Pits__<br>
-		<<link "Set">><<set _wolf.pits = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _wolf.pits = "disabled">><<updatesidebarimg>><</link>><br>
+		<<tficon "wolf">><<link "Set">><<set _wolf.pits = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _wolf.pits = "disabled">><<updatesidebarimg>><</link>><br>
 		<br>
 	<</if>>
 
 	<<if $harpy gte 4 or $harpytf is 1>>
 		__Plumage__<br>
-		<<link "Set">><<set _bird.plumage = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _bird.plumage = "disabled">><<updatesidebarimg>><</link>><br>
+		<<tficon "bird">><<link "Set">><<set _bird.plumage = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _bird.plumage = "disabled">><<updatesidebarimg>><</link>><br>
 		<br>
 	<</if>>
 
 	<<if ($wolfgirl gte 4 or $wolftf is 1) and $pbdisable is "f">>
 		__Pubes__<br>
-		<<link "Set">><<set _wolf.pubes = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _wolf.pubes = "disabled">><<updatesidebarimg>><</link>><br>
+		<<tficon "wolf">><<link "Set">><<set _wolf.pubes = "default">><<updatesidebarimg>><</link>> / <<link "Clear">><<set _wolf.pubes = "disabled">><<updatesidebarimg>><</link>><br>
 		<br>
 	<</if>>
 
@@ -2498,16 +2498,16 @@
 		__Ears__<br>
 		<<link "Clear">><<clearears>><<updatesidebarimg>><</link>><br>
 		<<if $cat gte 4 or $cattf is 1>>
-			<<link "Cat">><<clearears>><<set _cat.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "cat">><<link "Cat">><<clearears>><<set _cat.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $cow gte 4 or $cowtf is 1>>
-			<<link "Cow">><<clearears>><<set _cow.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow">><<clearears>><<set _cow.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 4 or $wolftf is 1>>
-			<<link "Wolf">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">><<link "Wolf">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 4 or $foxtf is 1>>
-			<<link "Fox">><<clearears>><<set _fox.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">><<link "Fox">><<clearears>><<set _fox.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $bee gte 2 or $beetf is 1>>
 			<<link "Bee">><<clearears>><<set _bee.ears = "default">><<updatesidebarimg>><</link>><br>
@@ -2528,16 +2528,16 @@
 			<<link "Raccoon">><<clearears>><<set _raccoon.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fish gte 4 or $fishtf is 1>>
-			<<link "Fish">><<clearears>><<set _fish.fins = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "fish">><<link "Fish">><<clearears>><<set _fish.fins = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $horse gte 4 or $horsetf is 1>>
 			<<link "Horse">><<clearears>><<set _horse.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $pig gte 4 or $pigtf is 1>>
-			<<link "Pig">><<clearears>><<set _pig.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "pig">><<link "Pig">><<clearears>><<set _pig.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $bunnytf is 1>>
-			<<link "Bunny">><<clearears>><<set _bunny.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "bunny">><<link "Bunny">><<clearears>><<set _bunny.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $gob is 1>>
 			<<link "Goblin">><<clearears>><<set _goblin.ears = "default">><<updatesidebarimg>><</link>><br>
@@ -2549,16 +2549,16 @@
 		__Eyes__<br>
 		<<link "Clear">><<cleareyes>><<updatesidebarimg>><</link>><br>
 		<<if $eldritch is 1>>
-			<<link "Eldritch">><<cleareyes>><<set _eldritch.eyes = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "eldritch">><<link "Eldritch">><<cleareyes>><<set _eldritch.eyes = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $harpy gte 2 or $harpytf is 1>>
-			<<link "Harpy">><<cleareyes>><<set _bird.eyes = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "bird">><<link "Harpy">><<cleareyes>><<set _bird.eyes = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $dragon gte 1 or $dragontf is 1>>
 			<<link "Dragon">><<cleareyes>><<set _dragon.eyes = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $lizard gte 1 or $lizardtf is 1>>
-			<<link "Lizard">><<cleareyes>><<set _lizard.eyes = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "lizard">><<link "Lizard">><<cleareyes>><<set _lizard.eyes = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $spider gte 4 or $spidertf is 1>>
 			<<link "Spider">><<cleareyes>><<set _spider.eyes = "default">><<updatesidebarimg>><</link>><br>
@@ -2573,36 +2573,28 @@
 		__Halo__<br>
 		<<link "Clear">><<clearhalo>><<updatesidebarimg>><</link>><br>
 		<<if $angel gte 4 or $angeltf is 1>>
-			Angel:<br>
-			<<link "Angel Default">><<clearhalo>><<set _angel.halo = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "angel">><<link "Angel Default">><<clearhalo>><<set _angel.halo = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $angel gte 4 or $angeltf is 1>>
-			Angel:<br>
-			<<link "Angel Celestial">><<clearhalo>><<set _angel.halo = "celestial">><<updatesidebarimg>><</link>><br>
+			<<tficon "angel">><<link "Angel Celestial">><<clearhalo>><<set _angel.halo = "celestial">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $angel gte 4 or $angeltf is 1>>
-			Angel:<br>
-			<<link "Angel Traditional">><<clearhalo>><<set _angel.halo = "traditional">><<updatesidebarimg>><</link>><br>
+			<<tficon "angel">><<link "Angel Traditional">><<clearhalo>><<set _angel.halo = "traditional">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 1 or $fallenangeltf is 1>>
-			Fallen Angel:<br>
-			<<link "Fallen Angel">><<clearhalo>><<set _fallen.halo = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel">><<clearhalo>><<set _fallen.halo = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
-			Fallen Angel:<br>
-			<<link "Fallen Angel Celestial">><<clearhalo>><<set _fallen.halo = "celestial">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Celestial">><<clearhalo>><<set _fallen.halo = "celestial">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
-			Fallen Angel:<br>
-			<<link "Fallen Angel Celestial Black">><<clearhalo>><<set _fallen.halo = "celestial-black">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Celestial Black">><<clearhalo>><<set _fallen.halo = "celestial-black">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
-			Fallen Angel:<br>
-			<<link "Fallen Angel Celestial Fallen Plus">><<clearhalo>><<set _fallen.halo = "celestial-fallenplus">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Celestial Fallen Plus">><<clearhalo>><<set _fallen.halo = "celestial-fallenplus">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
-			Fallen Angel:<br>
-			<<link "Fallen Angel Traditional">><<clearhalo>><<set _fallen.halo = "traditional">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Traditional">><<clearhalo>><<set _fallen.halo = "traditional">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<br>
 	<</if>>
@@ -2611,16 +2603,16 @@
 		__Horns__<br>
 		<<link "Clear">><<clearhorns>><<updatesidebarimg>><</link>><br>
 		<<if $demon gte 2 or $demontf is 1>>
-			<<link "Demon Default">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<tficon "demon">><<link "Demon Default">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
 		<</if>>
 		<<if $demon gte 2 or $demontf is 1>>
-			<<link "Demon Succubus">><<clearhorns>><<set _demon.horns = "succubus">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<tficon "demon">><<link "Demon Succubus">><<clearhorns>><<set _demon.horns = "succubus">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
 		<</if>>
 		<<if $demon gte 2 or $demontf is 1>>
-			<<link "Demon Classic">><<clearhorns>><<set _demon.horns = "classic">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<tficon "demon">><<link "Demon Classic">><<clearhorns>><<set _demon.horns = "classic">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
 		<</if>>
 		<<if $cow gte 2 or $cowtf is 1>>
-			<<link "Cow">><<clearhorns>><<set _cow.horns = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow">><<clearhorns>><<set _cow.horns = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $sheep gte 2 or $sheeptf is 1>>
 			<<link "Sheep">><<clearhorns>><<set _sheep.horns = "default">><<updatesidebarimg>><</link>><br>
@@ -2644,31 +2636,31 @@
 		__Tail__<br>
 		<<link "Clear">><<cleartail>><<updatesidebarimg>><</link>><br>
 		<<if $demon gte 4 or $demontf is 1>>
-			<<link "Demon Default">><<cleartail>><<set _demon.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
+			<<tficon "demon">><<link "Demon Default">><<cleartail>><<set _demon.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
 		<</if>>
 		<<if $demon gte 4 or $demontf is 1>>
-			<<link "Demon Succubus">><<cleartail>><<set _demon.tail = "succubus">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
+			<<tficon "demon">><<link "Demon Succubus">><<cleartail>><<set _demon.tail = "succubus">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
 		<</if>>
 		<<if $demon gte 4 or $demontf is 1>>
-			<<link "Demon Imp">><<cleartail>><<set _demon.tail = "imp">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
+			<<tficon "demon">><<link "Demon Imp">><<cleartail>><<set _demon.tail = "imp">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
 		<</if>>
 		<<if $demon gte 4 or $demontf is 1>>
-			<<link "Demon Classic">><<cleartail>><<set _demon.tail = "classic">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
+			<<tficon "demon">><<link "Demon Classic">><<cleartail>><<set _demon.tail = "classic">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_demon.tail_colour">><br>
 		<</if>>
 		<<if $cat gte 6 or $cattf is 1>>
-			<<link "Cat">><<cleartail>><<set _cat.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "cat">><<link "Cat">><<cleartail>><<set _cat.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $cow gte 6 or $cowtf is 1>>
-			<<link "Cow">><<cleartail>><<set _cow.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow">><<cleartail>><<set _cow.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 6 or $wolftf is 1>>
-			<<link "Wolf">><<cleartail>><<set _wolf.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">><<link "Wolf">><<cleartail>><<set _wolf.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $harpy gte 2 or $harpytf is 1>>
-			<<link "Harpy">><<cleartail>><<set _bird.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "bird">><<link "Harpy">><<cleartail>><<set _bird.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 6 or $foxtf is 1>>
-			<<link "Fox">><<cleartail>><<set _fox.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">><<link "Fox">><<cleartail>><<set _fox.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $bee gte 4 or $beetf is 1>>
 			<<link "Bee">><<cleartail>><<set _bee.tail = "default">><<set $hastail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
@@ -2689,10 +2681,10 @@
 			<<link "Chinese Dragon">><<cleartail>><<set _dragon.tail = "chinese">><<set $hastail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><<gencolourselector "_dragon.tail_colour">><br>
 		<</if>>
 		<<if $lizard gte 3 or $lizardtf is 1>>
-			<<link "Lizard">><<cleartail>><<set _lizard.tail = "default">><<set $hastail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "lizard">><<link "Lizard">><<cleartail>><<set _lizard.tail = "default">><<set $hastail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $dolphin gte 4 or $dolphintf is 1>>
-			<<link "Dolphin">><<cleartail>><<set _dolphin.tail = "default">><<set $hastail to "true">><<set $swimtail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "dolphin">><<link "Dolphin">><<cleartail>><<set _dolphin.tail = "default">><<set $hastail to "true">><<set $swimtail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $dog gte 6 or $dogtf is 1>>
 			<<link "Dog">><<cleartail>><<set _dog.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
@@ -2701,7 +2693,7 @@
 			<<link "Raccoon">><<cleartail>><<set _raccoon.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fish gte 6 or $fishtf is 1>>
-			<<link "Fish">><<cleartail>><<set _fish.tail = "default">><<set $hastail to "true">><<set $swimtail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "fish">><<link "Fish">><<cleartail>><<set _fish.tail = "default">><<set $hastail to "true">><<set $swimtail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $horse gte 6 or $horsetf is 1>>
 			<<link "Horse">><<cleartail>><<set _horse.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
@@ -2710,69 +2702,69 @@
 			<<link "Spider">><<cleartail>><<set _spider.tail = "default">><<set $hastail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $pig gte 6 or $pigtf is 1>>
-			<<link "Pig">><<cleartail>><<set _pig.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "pig">><<link "Pig">><<cleartail>><<set _pig.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $bunnytf is 1>>
-			<<link "Bunny">><<cleartail>><<set _bunny.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "bunny">><<link "Bunny">><<cleartail>><<set _bunny.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<br>
 	<</if>>
 
-	<<if $angel gte 6 or $angeltf is 1 or $demon gte 6 or $demontf is 1 or $fallenangel gte 2 or $fallenangeltf is 1 or $harpy gte 6 or $harpytf is 1 or $bee gte 6 or $beetf is 1 or $dragon gte 6 or $dragontf is 1 or $eldritch is 1 or $faetf is 1>>
+	<<if $angel gte 6 or $angeltf is 1 or $demon gte 6 or $demontf is 1 or $fallenangel gte 2 or $fallenangeltf is 1 or $harpy gte 6 or $harpytf is 1 or $bee gte 6 or $beetf is 1 or $transformationParts.dragon.wings isnot "disabled" or $dragontf is 1 or $eldritch is 1 or $faetf is 1>>
 		__Wings__<br>
 		<<link "Clear">><<clearwings>><<updatesidebarimg>><</link>><br>
 		<<if $angel gte 6 or $angeltf is 1>>
-			<<link "Angel">><<clearwings>><<set _angel.wings = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "angel">><<link "Angel">><<clearwings>><<set _angel.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $angel gte 6 or $angeltf is 1>>
-			<<link "Angel Cherub">><<clearwings>><<set _angel.wings = "cherub">><<updatesidebarimg>><</link>><br>
+			<<tficon "angel">><<link "Angel Cherub">><<clearwings>><<set _angel.wings = "cherub">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $angel gte 6 or $angeltf is 1>>
-			<<link "Angel Classic">><<clearwings>><<set _angel.wings = "classic">><<updatesidebarimg>><</link>><br>
+			<<tficon "angel">><<link "Angel Classic">><<clearwings>><<set _angel.wings = "classic">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1>>
-			<<link "Demon Default">><<clearwings>><<set _demon.wings = "default">><<updatesidebarimg>><</link>><<gencolourselector "_demon.wings_colour">><br>
+			<<tficon "demon">><<link "Demon Default">><<clearwings>><<set _demon.wings = "default">><<updatesidebarimg>><</link>><<gencolourselector "_demon.wings_colour">><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1>>
-			<<link "Demon Succubus">><<clearwings>><<set _demon.wings = "succubus">><<updatesidebarimg>><</link>><<gencolourselector "_demon.wings_colour">><br>
+			<<tficon "demon">><<link "Demon Succubus">><<clearwings>><<set _demon.wings = "succubus">><<updatesidebarimg>><</link>><<gencolourselector "_demon.wings_colour">><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1>>
-			<<link "Demon Imp">><<clearwings>><<set _demon.wings = "imp">><<updatesidebarimg>><</link>><<gencolourselector "_demon.wings_colour">><br>
+			<<tficon "demon">><<link "Demon Imp">><<clearwings>><<set _demon.wings = "imp">><<updatesidebarimg>><</link>><<gencolourselector "_demon.wings_colour">><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
-			<<link "Fallen Angel">><<clearwings>><<set _fallen.wings = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel">><<clearwings>><<set _fallen.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
-			<<link "Fallen Angel Plus">><<clearwings>><<set _fallen.wings = "fallenplus">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Plus">><<clearwings>><<set _fallen.wings = "fallenplus">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
-			<<link "Fallen Angel Cherub">><<clearwings>><<set _fallen.wings = "cherub">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Cherub">><<clearwings>><<set _fallen.wings = "cherub">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
-			<<link "Fallen Angel Cherub Black">><<clearwings>><<set _fallen.wings = "cherub-black">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Cherub Black">><<clearwings>><<set _fallen.wings = "cherub-black">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
-			<<link "Fallen Angel Cherub Plus">><<clearwings>><<set _fallen.wings = "cherub-fallenplus">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Cherub Plus">><<clearwings>><<set _fallen.wings = "cherub-fallenplus">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
-			<<link "Fallen Angel Classic">><<clearwings>><<set _fallen.wings = "classic">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Classic">><<clearwings>><<set _fallen.wings = "classic">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
-			<<link "Fallen Angel Classic Plus">><<clearwings>><<set _fallen.wings = "classic-fallenplus">><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">><<link "Fallen Angel Classic Plus">><<clearwings>><<set _fallen.wings = "classic-fallenplus">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $eldritch is 1>>
-			<<link "Eldritch">><<clearwings>><<set _eldritch.tentacle = "default">><<set _eldritch.skin = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "eldritch">><<link "Eldritch">><<clearwings>><<set _eldritch.tentacle = "default">><<set _eldritch.skin = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $faetf is 1>>
-			<<link "Fae">><<clearwings>><<set _fae.wings = "default">><<updatesidebarimg>><</link>><<gencolourselector "_fae.wings_colour">><br>
+			<<tficon "fae">><<link "Fae">><<clearwings>><<set _fae.wings = "default">><<updatesidebarimg>><</link>><<gencolourselector "_fae.wings_colour">><br>
 		<</if>>
 		<<if $harpy gte 6 or $harpytf is 1>>
-			<<link "Harpy">><<clearwings>><<set _bird.wings = "default">><<set $birdFly to 1>><<updatesidebarimg>><</link>><br>
+			<<tficon "bird">><<link "Harpy">><<clearwings>><<set _bird.wings = "default">><<set $birdFly to 1>><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $bee gte 6 or $beetf is 1>>
 			<<link "Bee">><<clearwings>><<set _bee.wings = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $dragon gte 6 or $dragontf is 1>>
+		<<if $transformationParts.dragon.wings isnot "disabled" or $dragontf is 1>>
 			<<link "Dragon">><<clearwings>><<set _dragon.wings = "default">><<updatesidebarimg>><</link>><<gencolourselector "_dragon.wings_colour">><br>
 		<</if>>
 		<br>
@@ -2781,7 +2773,7 @@
 	<<if ($demon gte 2 or $demontf is 1 and ($cow gte 2 or $cowtf is 1)) or ($demon gte 2 or $demontf is 1 and ($wolf gte 2 or $wolftf is 1)) or($demon gte 4 or $demontf is 1 and ($cat gte 6 or $cattf is 1)) or ($demon gte 6 or $demontf is 1 and ($harpy gte 6 or $harpytf is 1)) or ($angel gte 2 or $angeltf is 1 and ($harpy gte 2 or $harpytf is 1)) or ($fallenangel gte 2 or $fallenangeltf is 1 and ($harpy gte 2 or $harpytf is 1)) or ($fallenangel gte 2 or $fallenangeltf is 1 and ($eldritch is 1))>>
 		__Chimera__<br>
 		<<if $demon gte 6 or $demontf is 1 and ($cow gte 2 or $cowtf is 1)>>
-			Demon Cow Horns:<br>
+			<<tficon "demon">><<tficon "cow">>Demon Cow Horns:<br>
 			<<link "Set">>
 				<<clearhorns>>
 				<<set _demon.horns = "default">>
@@ -2794,7 +2786,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1 and ($cow gte 2 or $cowtf is 1)>>
-			Succubus Cow Horns:<br>
+			<<tficon "demon">><<tficon "cow">>Succubus Cow Horns:<br>
 			<<link "Set">>
 				<<clearhorns>>
 				<<set _demon.horns = "succubus">>
@@ -2807,7 +2799,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1 and ($cat gte 6 or $cattf is 1)>>
-			Demon Cat Tail:<br>
+			<<tficon "demon">><<tficon "cat">>Demon Cat Tail:<br>
 			<<link "Set">>
 				<<cleartail>>
 				<<set _demon.tail = "default-cat">>
@@ -2822,7 +2814,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1 and ($cow gte 6 or $cowtf is 1)>>
-			Demon Cow Tail:<br>
+			<<tficon "demon">><<tficon "cow">>Demon Cow Tail:<br>
 			<<link "Set">>
 				<<cleartail>>
 				<<set _demon.tail = "default-cow">>
@@ -2837,7 +2829,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1 and ($wolf gte 6 or $wolftf is 1)>>
-			Demon Wolf Tail:<br>
+			<<tficon "demon">><<tficon "wolf">>Demon Wolf Tail:<br>
 			<<link "Set">>
 				<<cleartail>>
 				<<set _wolf.tail = "default">>
@@ -2852,7 +2844,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1 and ($wolf gte 6 or $wolftf is 1)>>
-			Demon Wolf Tail Feral:<br>
+			<<tficon "demon">><<tficon "wolf">>Demon Wolf Tail Feral:<br>
 			<<link "Set">>
 				<<cleartail>>
 				<<set _wolf.tail = "feral">>
@@ -2867,7 +2859,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $demon gte 6 or $demontf is 1 and ($harpy gte 6 or $harpytf is 1)>>
-			Demon Harpy Wings:<br>
+			<<tficon "demon">><<tficon "bird">>Demon Harpy Wings:<br>
 			<<link "Set">>
 				<<clearwings>>
 				<<set _bird.wings = "default-demon">>
@@ -2879,7 +2871,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $angel gte 6 or $angeltf is 1 and ($harpy gte 6 or $harpytf is 1)>>
-			Angel Harpy Wings:<br>
+			<<tficon "angel">><<tficon "bird">>Angel Harpy Wings:<br>
 			<<link "Set">>
 				<<set _angel.wings = "harpy-default">>
 				<<set _bird.wings = "default-angel">>
@@ -2891,7 +2883,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1 and ($harpy gte 6 or $harpytf is 1)>>
-			Fallen Angel Harpy Wings:<br>
+			<<tficon "fallenangel">><<tficon "bird">>Fallen Angel Harpy Wings:<br>
 			<<link "Set">>
 				<<clearwings>>
 				<<set _fallen.wings = "harpy-default">>
@@ -2904,7 +2896,7 @@
 			<</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1 and ($harpy gte 6 or $harpytf is 1)>>
-			Fallen Angel Plus Harpy Wings:<br>
+			<<tficon "fallenangel">><<tficon "bird">>Fallen Angel Plus Harpy Wings:<br>
 			<<link "Set">>
 				<<clearwings>>
 				<<set _fallen.wings = "harpy-fallenplus">>
@@ -2917,12 +2909,27 @@
 			<</link>><br>
 		<</if>>
 		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
-			Forgotten Angel:<br>
-			<<link "Forgotten Angel Face">><<cleareyes>><<set _eldritch.crown = "forgotten">><<updatesidebarimg>><</link>><br>
+			<<tficon "eldritch">><<tficon "fallenangel">>Forgotten Angel Skin:<br>
+			<<link "Set">>
+				<<set _eldritch.crown = "forgotten">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<set _eldritch.crown = "disabled">>
+				<<updatesidebarimg>>
+			<</link>><br>
 		<</if>>
 		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
-			Forgotten Angel:<br>
-			<<link "Forgotten Angel Wings">><<clearwings>><<set _eldritch.skin = "forgotten">><<updatesidebarimg>><</link>><br>
+			<<tficon "eldritch">><<tficon "fallenangel">>Forgotten Angel Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _eldritch.skin = "forgotten">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><br>
 		<</if>>
 	<</if>>
 

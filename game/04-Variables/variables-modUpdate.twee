@@ -392,7 +392,7 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 	<<if V.transformationParts.dragon is undefined>>
 		<<set $dragon to 0>> <<set $dragonbuild to 0>>
-		<<set V.transformationParts.dragon to {eyes:"disabled", fangs:"disabled", horns:"disabled", tail:"disabled", wings:"disabled"}>>
+		<<set V.transformationParts.dragon to {eyes:"disabled", fangs:"disabled", horns:"disabled", tail:"disabled", wings:"disabled", whisker:"disabled"}>>
 		<<if $dragon gte 1>>
 			<<set V.transformationParts.dragon.eyes to "default">>
 		<</if>>
@@ -407,7 +407,7 @@ If the result is "undefined", this widget is not called for some reason. If the 
 			<<set $hastail to "true">>
 			<<set $thicktail to "true">>
 		<</if>>
-		<<if $dragon gte 6>>
+		<<if $transformationParts.dragon.wings isnot "disabled">>
 			<<set V.transformationParts.dragon.wings to "default">>
 		<</if>>
 	<</if>>

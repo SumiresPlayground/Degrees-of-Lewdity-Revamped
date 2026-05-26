@@ -3523,21 +3523,21 @@
 
 		<<if $mouthaction is "demand">>
 			<<set $mouthaction to 0>><<set _sound to 1>>
-			<<if $wolfgirl gte 6>>
+			<<if $transformationParts.wolf.tail isnot "disabled">>
 				<<stress -1>>
 				<<if $submissive gte 850>>
 					<<trauma 6>><<control -1>>
 				<</if>>
 			<</if>>
 			<<if $neckuse is "hand" and $oxygen lt $oxygenmax and $settings.asphyxiaLevel gte 2>>
-				<<if $submissive gte 850 and $wolfgirl gte 6>>
+				<<if $submissive gte 850 and $transformationParts.wolf.tail isnot "disabled">>
 					<span @class=basicJitterCss()><<wheeze "demand something">></span>
 				<<else>>
 					<<wheeze "demand something">>
 				<</if>>
 			<<else>>
 				<<set $mouthactiondefault to "demand">>
-				<<if $submissive gte 850 and $wolfgirl gte 6>>
+				<<if $submissive gte 850 and $transformationParts.wolf.tail isnot "disabled">>
 					<span @class=basicJitterCss()><<actionsdemand>></span>
 				<<else>>
 					<<actionsdemand>>
@@ -4265,13 +4265,13 @@
 				<span class="purple"><<His>> glasses shatter.</span>
 			<</if>>
 			<<defiance 10 $mouthtarget>><<attackstat>><<set $mouthuse to 0>><<set $mouthstate to 0>>
-			<<if $demon gte 2 or $deer gte 2>>
+			<<if $transformationParts.demon.horns isnot "disabled" or $transformationParts.deer.horns isnot "disabled">>
 				<<defiance 10 $mouthtarget>>
 				<<if !pcAreArmsBound("both")>>
 					You rub your horns.
 				<</if>>
 			<</if>>
-			<<if $cow gte 2 and $demon gte 2 or $sheep gte 2 and $demon gte 2 or $deer gte 2 and $demon gte 2>>
+			<<if $transformationParts.cow.horns isnot "disabled" and $transformationParts.demon.horns isnot "disabled" or $transformationParts.sheep.horns isnot "disabled" and $transformationParts.demon.horns isnot "disabled" or $transformationParts.deer.horns isnot "disabled" and $transformationParts.demon.horns isnot "disabled">>
 				<<print either("That didn't hurt you at all!", "You remain unshaken by the blow.", "You're unharmed by the hit.")>>
 			<<else>>
 				<<pain 4>>

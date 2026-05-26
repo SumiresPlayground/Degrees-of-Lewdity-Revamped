@@ -2337,13 +2337,13 @@
 
 <<widget "flight_text">>
 	<<if !$settings.blindStatsEnabled>> |
-		<<if $harpy gte 6 and $birdFly gte 1>>
+		<<if $transformationParts.bird.wings isnot "disabled" and $birdFly gte 1>>
 			<<if $plucked>>
 				<span class="grey">Preened wings</span>
 			<<else>>
 				<span class="gold">Strong wings</span>
 			<</if>>
-		<<elseif $angel gte 6 or $demon gte 6 or $fallenangel gte 2 or $harpy gte 6>>
+		<<elseif $transformationParts.angel.wings isnot "disabled" or $transformationParts.demon.wings isnot "disabled" or $transformationParts.fallenAngel.wings isnot "disabled" or $transformationParts.bird.wings isnot "disabled">>
 			<span class="gold">Wings</span>
 		<</if>>
 	<</if>>
@@ -2652,7 +2652,7 @@
 <<widget "defianttext">>
 	<<if !$settings.blindStatsEnabled>> |
 		<<if _args[0]>>
-			<<if $wolfgirl gte 6 and $submissive gt _args[0]>>
+			<<if $transformationParts.wolf.tail isnot "disabled" and $submissive gt _args[0]>>
 				<span @class="'def ' + basicJitterCss()">Defiant</span>
 			<<else>>
 				<span class="def">Defiant</span>
@@ -5205,15 +5205,15 @@
 					<<set _text_output to "plead">>
 				<<elseif $rng lte 66>>
 					<<set _text_output to "beg">>
-				<<elseif $wolfgirl gte 4>>
+				<<elseif $transformationParts.wolf.ears isnot "disabled">>
 					<<set _text_output to "whimper">>
-				<<elseif $cat gte 4>>
+				<<elseif $transformationParts.cat.ears isnot "disabled">>
 					<<set _text_output to "mewl">>
-				<<elseif $cow gte 4>>
+				<<elseif $transformationParts.cow.ears isnot "disabled">>
 					<<set _text_output to "moo">>
-				<<elseif $harpy gte 4>>
+				<<elseif $transformationParts.bird.tail isnot "disabled">>
 					<<set _text_output to "chirp">>
-				<<elseif $fox gte 4>>
+				<<elseif $transformationParts.fox.ears isnot "disabled">>
 					<<set _text_output to "whimper">>
 				<<else>>
 					<<set _text_output to "plead">>
@@ -5240,15 +5240,15 @@
 				<<else>>
 					<<set _text_output to "gasp and giggle">>
 				<</if>>
-			<<elseif $wolfgirl gte 4>>
+			<<elseif $transformationParts.wolf.ears isnot "disabled">>
 				<<set _text_output to "pant">>
-			<<elseif $cat gte 4>>
+			<<elseif $transformationParts.cat.ears isnot "disabled">>
 				<<set _text_output to "purr">>
-			<<elseif $cow gte 4>>
+			<<elseif $transformationParts.cow.ears isnot "disabled">>
 				<<set _text_output to "moo">>
-			<<elseif $harpy gte 4>>
+			<<elseif $transformationParts.bird.tail isnot "disabled">>
 				<<set _text_output to "chirp">>
-			<<elseif $fox gte 4>>
+			<<elseif $transformationParts.fox.ears isnot "disabled">>
 				<<set _text_output to "yip">>
 			<<else>>
 				<<set _text_output to "moan">>
@@ -5259,15 +5259,15 @@
 					<<set _text_output to "speak">>
 				<<elseif $rng lte 66>>
 					<<set _text_output to "yell">>
-				<<elseif $wolfgirl gte 4>>
+				<<elseif $transformationParts.wolf.ears isnot "disabled">>
 					<<set _text_output to "bark">>
-				<<elseif $cat gte 4>>
+				<<elseif $transformationParts.cat.ears isnot "disabled">>
 					<<set _text_output to "hiss">>
-				<<elseif $cow gte 4>>
+				<<elseif $transformationParts.cow.ears isnot "disabled">>
 					<<set _text_output to "exhale through your nostrils threateningly">>
-				<<elseif $harpy gte 4>>
+				<<elseif $transformationParts.bird.tail isnot "disabled">>
 					<<set _text_output to "screech">>
-				<<elseif $fox gte 4>>
+				<<elseif $transformationParts.fox.ears isnot "disabled">>
 					<<set _text_output to "scream">>
 				<<else>>
 					<<set _text_output to "spit">>

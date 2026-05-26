@@ -203,11 +203,11 @@
 	<</if>>
 	<<if Time.weekDay is 1 and $daily.massAttended isnot 1>>
 		<br>
-		<<if $fallenangel gte 2>>
+		<<if $transformationParts.fallenAngel.wings isnot "disabled">>
 			<<templeicon "pray">><<link [[Pray (1:00)|Asylum Pray Fallen Angel]]>><<purity 63>><<pass 60>><<stress 10>><<set $daily.massAttended to 1>><</link>><<gggpurity>><<gstress>>
-		<<elseif $angel gte 6>>
+		<<elseif $transformationParts.angel.wings isnot "disabled">>
 			<<templeicon "pray">><<link [[Pray (1:00)|Asylum Pray Angel]]>><<purity 10>><<pass 60>><<stress -10>><<set $daily.massAttended to 1>><</link>><<gpurity>><<lstress>>
-		<<elseif $demon gte 6>>
+		<<elseif $transformationParts.demon.wings isnot "disabled">>
 			<<templeicon "pray">><<link [[Reflect (1:00)|Asylum Pray Demon]]>><<purity -10>><<pass 60>><<stress 10>><<set $daily.massAttended to 1>><</link>><<lpurity>><<gstress>>
 		<<else>>
 			<<templeicon "pray">><<link [[Pray (1:00)|Asylum Pray]]>><<purity 10>><<pass 60>><<stress -10>><<set $daily.massAttended to 1>><</link>><<gpurity>><<lstress>>

@@ -216,7 +216,7 @@ You keep running, jumping over fallen branches, until you arrive at the hole. Yo
 <<saveNPC 0 "meadow_fox">>
 <<clearsinglenpc 0>>
 
-<<if $fox gte 4>>
+<<if $transformationParts.fox.ears isnot "disabled">>
 	<<link [[Burrow|Meadow Squeeze]]>><<transform fox 1>><<endevent>><</link>><<fox>>
 	<br>
 <<elseif $physiquesize lte 9000>>
@@ -238,7 +238,7 @@ You decide to leave your clothes. Perhaps you can make a replacement from the pl
 :: Meadow Squeeze
 <<effects>>
 
-<<if $fox gte 4>>
+<<if $transformationParts.fox.ears isnot "disabled">>
 	You drop to all fours and easily slip into the hole with minimal digging. The tunnel widens as you get deeper.
 <<else>>
 	You drop to your knees and squeeze through the hole. The tunnel widens as you get deeper, though you can see little up ahead.
@@ -321,7 +321,7 @@ The tunnel ends at a sheer drop. You hear the rush of water down below, and see 
 
 <<swimicon "leave">><<link [[Climb down|Meadow Tunnel Climb]]>><</link>><<athleticsdifficulty 1 1000>>
 <br>
-<<if $harpy gte 6 or $angel gte 6 or $demon gte 6 or $fallenangel gte 2>>
+<<if $transformationParts.bird.wings isnot "disabled" or $transformationParts.angel.wings isnot "disabled" or $transformationParts.demon.wings isnot "disabled" or $transformationParts.fallenAngel.wings isnot "disabled">>
 	<<glideicon>><<link [[Glide down|Meadow Tunnel Glide]]>><</link>><<flight_text>>
 	<br>
 <</if>>

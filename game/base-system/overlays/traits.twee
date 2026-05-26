@@ -206,13 +206,13 @@
 				{
 					name: () => V.player.gender is "n" ? "Wolf" : "Wolf <<pcGender>>",
 					colour: "grey",
-					has: $wolfgirl gte 6,
+					has: $transformationParts.wolf.tail isnot "disabled",
 					text: 'The spirit of the wild lives within you. Defiant options and the "Demand" action are always available, reducing stress. When too submissive, acting defiant is traumatic and lowers control. Your ears and tail make you more conspicuous.',
 				},
 				{
 					name: () => V.player.gender is "n" ? "Cat" : "Cat <<pcGender>>",
 					colour: "grey",
-					has: $cat gte 6,
+					has: $transformationParts.cat.tail isnot "disabled",
 					text: 'You have an urge to lap up cream. Unlocks the "groom" action while dancing with lewd fluid on your person. Your ears and tail make you more conspicuous.',
 				},
 				{
@@ -230,13 +230,13 @@
 						}
 					},
 					colour: "brat",
-					has: $cow gte 6,
+					has: $transformationParts.cow.tail isnot "disabled",
 					text: "You yearn to be milked. Milk and semen volume is increased. Certain body parts might grow. Your horns, ears and tail make you more conspicuous.",
 				},
 				{
 					name: () => V.hallucinations gte 2 || !V.settings.bestialityEnabled ? "Harpy" : V.player.gender is "n" ? "Bird" : "Bird <<pcGender>>",
 					colour: "grey",
-					has: $harpy gte 6,
+					has: $transformationParts.bird.wings isnot "disabled",
 					text: "The skies call.",
 				},
 				{
@@ -252,7 +252,7 @@
 					},
 					colour: "",
 					style: `background: linear-gradient(to right,#fe9000 0%, #ffffff 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $fox gte 6,
+					has: $transformationParts.fox.tail isnot "disabled",
 					text: "You have the urge to keep what's not yours. Improves skulduggery. Your ears and tail make you more alluring and attractive.",
 				},
 				{
@@ -306,19 +306,19 @@
 				{
 					name: "Fire Breath",
 					style: `background: linear-gradient(to bottom,#FFFFF0 0%, #FF0000 150%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $transformationParts.dragon.tail is "default" and $transformationParts.dragon.horns is "default" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.wings is "default",
+					has: $transformationParts.dragon.tail isnot "disabled" and $transformationParts.dragon.horns isnot "disabled" and $transformationParts.dragon.eyes isnot "disabled" and $transformationParts.dragon.wings isnot "disabled",
 					text: "Your draconic nature is fully awakened, allowing you to breathe fire at your aggressors.",
 				},
 				{
 					name: "Fire Breath",
 					style: `background: linear-gradient(to bottom,#FFFFF0 0%, #FF0000 150%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $transformationParts.dragon.tail is "chinese" and $transformationParts.dragon.horns is "chinese" and $transformationParts.dragon.eyes is "default" and $transformationParts.dragon.whisker is "default",
+					has: $transformationParts.dragon.tail is "chinese" and $transformationParts.dragon.horns is "chinese" and $transformationParts.dragon.eyes isnot "disabled" and $transformationParts.dragon.whisker isnot "disabled",
 					text: "Your draconic nature is fully awakened, allowing you to breathe fire at your aggressors.",
 				},
 				{
 					name: "Bear Build",
 					style: `background: linear-gradient(to bottom,#FFFFFF 0%, #997950 150%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default",
+					has: $transformationParts.bear.tail isnot "disabled" and $transformationParts.bear.ears isnot "disabled",
 					text: "Your ursine nature lends itself to more restful sleep and greater aggression during combat.",
 				},
 				{
@@ -354,13 +354,13 @@
 				{
 					name: "Aquatic",
 					style: `background: linear-gradient(to bottom,#FFFFFF 30%, #000FFF 140%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $transformationParts.fish.tail is "default" and $transformationParts.fish.fins is "default" or $ghost is 4,
+					has: $transformationParts.fish.tail isnot "disabled" and $transformationParts.fish.fins isnot "disabled" or $ghost is 4,
 					text: "Your lungs can take in oxygen from the water.",
 				},
 				{
 					name: "Breeder",
 					colour: "hotpink",
-					has: $transformationParts.bunny.tail is "default" and $transformationParts.bunny.ears is "default",
+					has: $transformationParts.bunny.tail isnot "disabled" and $transformationParts.bunny.ears isnot "disabled",
 					text: "You can develop babies much faster.",
 				},
 				{
@@ -463,7 +463,7 @@
 				{
 					name: "Sturdy Horns",
 					colour: "def",
-					has: $cow gte 2 and $demon lt 2,
+					has: $transformationParts.cow.horns isnot "disabled" and $transformationParts.demon.horns is "disabled",
 					text: "Headbutts no longer hurt you.",
 				},
 				{
@@ -482,25 +482,25 @@
 				{
 					name: "Fallen Angel",
 					colour: "black",
-					has: $fallenangel gte 4,
+					has: $transformationParts.fallenAngel.wings isnot "disabled" and $transformationParts.fallenAngel.halo isnot "disabled",
 					text: 'The world is so cruel. Though you feel less pure by the day, you will not relinquish yourself. Unlocks the "disparage" action.',
 				},
 				{
 					name: "Fallen Angel",
 					colour: "black",
-					has: $fallenangel is 2 or $fallenangel is 3,
+					has: $transformationParts.fallenAngel.wings isnot "disabled" and $transformationParts.fallenAngel.halo is "disabled",
 					text: "The world is so cruel. You feel less pure by the day.",
 				},
 				{
 					name: "Angel",
 					colour: "gold",
-					has: $angel gte 6,
+					has: $transformationParts.angel.wings isnot "disabled",
 					text: 'You radiate purity. Unlocks the "forgive" action once per encounter, removing any trauma gained so far. Beware, losing your virginity will remove this trait and leave you broken.',
 				},
 				{
 					name: "Eldritch",
 					style: `background: linear-gradient(to top,#232323 15%, #9966CB 0%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $transformationParts.eldritch.mist is "default",
+					has: $transformationParts.eldritch.mist isnot "disabled",
 					text: 'You have received the blessing of the Dark Mother. Lesser versions of Her abilities are conferred upon you.',
 				},
 				{
@@ -524,31 +524,31 @@
 						}
 					},
 					colour: "red",
-					has: $demon gte 6,
+					has: $transformationParts.demon.wings isnot "disabled",
 					text: "You're devoid of purity. You lose trauma when something cums inside you, or you cum inside something else. Tentacles reduce stress and pain instead of trauma. Beware, ending a day with anything but minimum purity will be very stressful.",
 				},
 				{
 					name: "Radiant",
 					colour: "gold",
-					has: $angel gte 4,
+					has: $transformationParts.angel.wings isnot "disabled",
 					text: 'You are pure. Unlocks the "banish" action a number of times per day based on your angelicness, dealing heavy damage to a tentacle. Its strength is greatly increased while at maximum purity. Uses remaining today: ($angelBanish / $angelBanishMax)',
 				},
 				{
 					name: "Dark Horns",
 					colour: "def",
-					has: $cow lt 2 and $demon gte 2 and $deer lt 2 and $dragon lt 3 or $deer gte 2 and $demon lt 2 or $dragon gte 3 and $demon lt 2,
+					has: $transformationParts.cow.horns is "disabled" and $transformationParts.demon.horns isnot "disabled" and $transformationParts.deer.horns is "disabled" and $transformationParts.dragon.horns is "disabled" or $transformationParts.deer.horns isnot "disabled" and $transformationParts.demon.horns is "disabled" or $transformationParts.dragon.horns isnot "disabled" and $transformationParts.demon.horns is "disabled",
 					text: "Headbutts deal twice as much damage.",
 				},
 				{
 					name: "Compound Horns",
 					colour: "def",
-					has: $cow gte 2 and $demon gte 2 or $sheep gte 2 and $demon gte 2 or $deer gte 2 and $demon gte 2 or $dragon gte 3 and $demon gte 2,
+					has: $transformationParts.cow.horns isnot "disabled" and $transformationParts.demon.horns isnot "disabled" or $transformationParts.sheep.horns isnot "disabled" and $transformationParts.demon.horns isnot "disabled" or $transformationParts.deer.horns isnot "disabled" and $transformationParts.demon.horns isnot "disabled" or $transformationParts.dragon.horns isnot "disabled" and $transformationParts.demon.horns isnot "disabled",
 					text: "Your headbutts are vicious. Headbutts are twice as powerful and no longer hurt you.",
 				},
 				{
 					name: () => V.plucked ? "Thoroughly Preened Wings" : "Strong Wings",
 					colour: () => V.plucked ? "grey" : "gold",
-					has: $harpy gte 6 and $birdFly gte 1 or $dragon gte 6,
+					has: $transformationParts.bird.wings isnot "disabled" and $birdFly gte 1 or $transformationParts.dragon.wings isnot "disabled",
 					text: () => V.plucked ? "You're missing some feathers, but your wings feel sleek. Can glide, but flight is temporarily disabled." : "Can glide from high locations. Can fly where the wind is willing.",
 					meter: {
 						has: V.plucked,
@@ -561,7 +561,7 @@
 				{
 					name: "Wings",
 					colour: "grey",
-					has: !($harpy gte 6 and $birdFly gte 1 or $dragon gte 6) and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6 or $harpy gte 6),
+					has: !($transformationParts.bird.wings isnot "disabled" and $birdFly gte 1 or $transformationParts.dragon.wings isnot "disabled") and ($transformationParts.angel.wings isnot "disabled" or $transformationParts.fallenAngel.wings isnot "disabled" or $transformationParts.demon.wings isnot "disabled" or $transformationParts.bird.wings isnot "disabled"),
 					text: "Can glide from high locations.",
 				},
 				{
@@ -585,19 +585,19 @@
 				{
 					name: "Maleficent Aura",
 					style: `background: linear-gradient(to top,#232323 15%, #9966CB 0%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $transformationParts.eldritch.mist is "default",
+					has: $transformationParts.eldritch.mist isnot "disabled",
 					text: 'Man and beast alike can sense a wrongness about you and give you a wide berth, reducing negative encounters.',
 				},
 				{
 					name: "Whispers of the Mother",
 					style: `background: linear-gradient(to top,#232323 15%, #9966CB 0%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: $transformationParts.eldritch.mist is "default",
+					has: $transformationParts.eldritch.mist isnot "disabled",
 					text: 'You are privy to secrets from the Beyond. Such knowledge allows you to recite incantantions which damage the very being of your foes. Their agony mends your wounds. Such power slowly robs the user of their purity, however.',
 				},
 				{
 					name: "Abomination Domination",
 					style: `background: linear-gradient(to top,#232323 15%, #9966CB 0%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;`,
-					has: (V.transformationParts.eldritch.tentacle is "default" or V.transformationParts.eldritch.skin is "forgotten"),
+					has: V.transformationParts.eldritch.tentacle isnot "disabled",
 					text: 'Due to your eldritch nature, the attacks and defenses of certain otherworldy entities are less effective.',
 				},
 				{

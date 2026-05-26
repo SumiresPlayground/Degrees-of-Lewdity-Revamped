@@ -653,7 +653,7 @@
 	<<addinlineevent "scienceBird" 1>>
 		<<npc Sirris>><<person1>>
 		Sirris begins a lesson about avian habits and reproduction.
-		<<if $harpy gte 6>>
+		<<if $transformationParts.bird.wings isnot "disabled">>
 			You manage to suppress a squawk when a picture of the moor is shown in the presentation.
 		<<elseif $syndromebird gte 1>>
 			You smile, being reminded of Great Hawk's peculiar mating tendencies. <<arousal 200>><<garousal>>
@@ -667,7 +667,7 @@
 	<<addinlineevent "scienceWolf" 1>>
 		<<npc Sirris>><<person1>>
 		Sirris begins a lesson about canine habits and reproduction.
-		<<if $wolfgirl gte 6>>
+		<<if $transformationParts.wolf.tail isnot "disabled">>
 			You lick your lips hungrily when Sirris gets to the section about common prey.
 		<<elseif $syndromewolves gte 1>>
 			You start to think of your pack, imagining yourself running through the forest alongside them. <<stress -3>><<lstress>>
@@ -681,7 +681,7 @@
 	<<addinlineevent "scienceCat" 1>>
 		<<npc Sirris>><<person1>>
 		Sirris begins a lesson about feline habits and reproduction.
-		<<if $cat gte 6>>
+		<<if $transformationParts.cat.tail isnot "disabled">>
 			You feel your tail swish and eyes sharpen when a picture of a mouse appears in the presentation.
 		<<elseif hasSexStat("deviancy", 3)>>
 			You begin to see a certain appeal in this lecture. <<arousal 200>><<garousal>>
@@ -693,7 +693,7 @@
 	<<addinlineevent "scienceCow" 1>>
 		<<npc Sirris>><<person1>>
 		Sirris begins a lesson about bovine habits and reproduction.
-		<<if $cow gte 6>>
+		<<if $transformationParts.cow.tail isnot "disabled">>
 			You barely manage to suppress a 'moo' when a field of soft, green grass appears in the presentation.
 		<<elseif $lactating gte 1 and $settings.breastFeedingEnabled and $milk_volume gte 1000>>
 			You feel that you have more in common with the cows than your fellow students. <<stress 3>><<gstress>>
@@ -710,7 +710,7 @@
 		<<npc Sirris>><<person1>>
 		Sirris begins a lesson about vulpine habits and reproduction.
 
-		<<if $fox gte 6>>
+		<<if $transformationParts.fox.tail isnot "disabled">>
 			You do your best to pay attention to the lesson, but your eyes continuously flicker to your classmates' stationery, feeling an intense urge to take their belongings.
 		<<elseif hasSexStat("deviancy", 3)>>
 			You begin to see a certain appeal in this lecture. <<arousal 200>><<garousal>>
@@ -927,14 +927,14 @@
 <<widget "eventsmaths">>
 	<<cleareventpool>>
 
-	<<if (($wolfgirl gte 4 and $transformationParts.wolf.ears isnot "hidden") or ($cat gte 4 and $transformationParts.cat.ears isnot "hidden") or ($fox gte 4 and $transformationParts.fox.ears isnot "hidden"))>>
+	<<if (($transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.ears isnot "hidden") or ($transformationParts.cat.ears isnot "disabled" and $transformationParts.cat.ears isnot "hidden") or ($transformationParts.fox.ears isnot "disabled" and $transformationParts.fox.ears isnot "hidden"))>>
 		<<addinlineevent "mathsTFears">>
 			<<npc River>><<person1>>River marches up and down the class. <<He>> stops beside you.
 			<<if $riverbite isnot 1>>
 				<<set $riverbite to 1>>
-				"That headband is against school regulations," <<he>> says, grabbing one of your <<if $wolfgirl gte 4>>wolf<<elseif $fox gte 4>>fox<<else>>cat<</if>> ears.
+				"That headband is against school regulations," <<he>> says, grabbing one of your <<if $transformationParts.wolf.ears isnot "disabled">>wolf<<elseif $transformationParts.fox.ears isnot "disabled">>fox<<else>>cat<</if>> ears.
 			<<else>>
-				"You're still wearing that silly headband?" <<he>> says. "I thought I made myself clear." <<He>> grabs one of your <<if $wolfgirl gte 4>>wolf<<elseif $fox gte 4>>fox<<else>>cat<</if>> ears.
+				"You're still wearing that silly headband?" <<he>> says. "I thought I made myself clear." <<He>> grabs one of your <<if $transformationParts.wolf.ears isnot "disabled">>wolf<<elseif $transformationParts.fox.ears isnot "disabled">>fox<<else>>cat<</if>> ears.
 			<</if>>
 			<<He>> tugs painfully.<<gpain>><<gstress>><<pain 2>><<stress 1>>
 			<br><br>
@@ -2744,12 +2744,12 @@
 		<</addinlineevent>>
 	<</if>>
 
-	<<if ($cat gte 6 and $transformationParts.cat.ears isnot "hidden") or ($wolfgirl gte 4 and $transformationParts.wolf.ears isnot "hidden") or ($fox gte 4 and $transformationParts.fox.ears isnot "hidden") or ($demon gte 6 and $transformationParts.demon.horns isnot "hidden")>>
+	<<if ($transformationParts.cat.tail isnot "disabled" and $transformationParts.cat.ears isnot "hidden") or ($transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.ears isnot "hidden") or ($transformationParts.fox.ears isnot "disabled" and $transformationParts.fox.ears isnot "hidden") or ($transformationParts.demon.wings isnot "disabled" and $transformationParts.demon.horns isnot "hidden")>>
 		<<addinlineevent "historyTF" 1>>
 			<<npc Winter>><<person1>>Winter stops beside your desk. "What are these on your head?" <<he>> asks.
 			<br><br>
 
-			<<if $demon gte 6>>
+			<<if $transformationParts.demon.wings isnot "disabled">>
 				<<link [[Answer honestly|History Lesson Horns]]>><</link>>
 			<<else>>
 				<<link [[Answer honestly|History Lesson Ears]]>><</link>>

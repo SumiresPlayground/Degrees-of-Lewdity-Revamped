@@ -210,7 +210,7 @@ When you return to the cave, the pack is delighted to see you both come back.
 <<if $phase is 1>>
 	<<set $phase to 0>>
 	You make your way toward the Black Wolf.
-	<<if $wolfgirl gte 6 and $wolfpackferocity gte 15 and $wolfpackharmony gte 15 and Time.dayState isnot "night" and ($daily.blackWolfHeatEvent or 0) - Time.hour lte -3 and ((playerHeatMinArousal() and (V.player.vaginaExist or canBeMPregnant()) and C.npc["Black Wolf"].penis isnot "none") or
+	<<if $transformationParts.wolf.tail isnot "disabled" and $wolfpackferocity gte 15 and $wolfpackharmony gte 15 and Time.dayState isnot "night" and ($daily.blackWolfHeatEvent or 0) - Time.hour lte -3 and ((playerHeatMinArousal() and (V.player.vaginaExist or canBeMPregnant()) and C.npc["Black Wolf"].penis isnot "none") or
 	(playerRutMinArousal() and C.npc["Black Wolf"].vagina isnot "none"))>>
 		<<set $daily.blackWolfHeatEvent to Time.hour>>
 		<<set _blackWolfHeatEvent to true>>
@@ -372,7 +372,7 @@ When you return to the cave, the pack is delighted to see you both come back.
 				<<bHe>> probably has your scent memorised by now.
 			<</if>>
 		<<case 8>>
-			<<if $wolfgirl gte 4 and $transformationParts.wolf.ears isnot "hidden">>
+			<<if $transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.ears isnot "hidden">>
 				<<if random(1,2) is 1>>
 					<<bHe>> sniffs your face, before nuzzling your neck affectionately.
 					<<if $monster is 1>>
@@ -386,28 +386,28 @@ When you return to the cave, the pack is delighted to see you both come back.
 						"<<pPackbrother>> has taken to living with pack well," <<bhe>> says.
 					<</if>>
 				<</if>>
-			<<elseif $cat gte 4 and $transformationParts.cat.ears isnot "hidden">>
+			<<elseif $transformationParts.cat.ears isnot "disabled" and $transformationParts.cat.ears isnot "hidden">>
 				<<bHe>> glares at your cat ears.
 				<<if $monster is 1>>
 					"<<pPackbrother>> has lost <<pher>> way," <<bhe>> says, shaking <<bhis>> head. "Should stay with pack for some time."
 				<<else>>
 					<<bHe>> growls, but stops <<bhimself>> from snapping at you.
 				<</if>>
-			<<elseif $fox gte 4 and $transformationParts.fox.ears isnot "hidden">>
+			<<elseif $transformationParts.fox.ears isnot "disabled" and $transformationParts.fox.ears isnot "hidden">>
 				<<bHe>> glares at your fox ears.
 				<<if $monster is 1>>
 					"<<pPackbrother>> looks troublesome," <<bhe>> says, shaking <<bhis>> head. "Should stay with pack for some time."
 				<<else>>
 					<<bHe>> growls, but stops <<bhimself>> from snapping at you.
 				<</if>>
-			<<elseif $harpy gte 6 and $transformationParts.bird.plumage isnot "hidden">>
+			<<elseif $transformationParts.bird.wings isnot "disabled" and $transformationParts.bird.plumage isnot "hidden">>
 				<<bHe>> stares at your plumage in fascination.
 				<<if $monster is 1>>
 					<<bHe>> draws closer and runs a hand along your wings. "Never seen anything similar," <<bhe>> says. "Not in this forest."
 				<<else>>
 					<<bHe>> draws closer and sniffs your wings. <<bHe>> probably hasn't seen wings this close up very often.
 				<</if>>
-			<<elseif $cow gte 4 and $transformationParts.cow.ears isnot "hidden">>
+			<<elseif $transformationParts.cow.ears isnot "disabled" and $transformationParts.cow.ears isnot "hidden">>
 				<<bHe>> stares at your bovine ears and tilts <<bhis>> head.
 				<<if $monster is 1>>
 					"<<pPackbrothers>> ears cannot perk up," <<bhe>> says. "Poor hearing over large distances. Can still hear pack's howl, hopefully."
@@ -785,7 +785,7 @@ You watch the Black Wolf leave, <<bhis>> large body disappearing between the bus
 <<location "forest">><<effects>>
 
 Together, you walk into the forest, searching in a circular route around the cave with the Black Wolf sniffing constantly.
-<<if $wolfgirl gte 6 or $cat gte 6 or $fox gte 6>>
+<<if $transformationParts.wolf.tail isnot "disabled" or $transformationParts.cat.tail isnot "disabled" or $transformationParts.fox.tail isnot "disabled">>
 	You assist the best you can, but only pick up the scent of the pack.
 <</if>>
 <br><br>

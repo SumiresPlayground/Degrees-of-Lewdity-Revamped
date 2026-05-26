@@ -396,27 +396,27 @@
 	<<if $possessed and _args[0] isnot "lines">>
 		<<set $_npcWraith to _args[0] || "none">>
 		<<set _speakPool to ["speak","grunt","giggle","whisper","sneer","laugh","yell","spit","speak in an eerily calm tone"]>>
-		<<if $wolfgirl gte 4>>
+		<<if $transformationParts.wolf.ears isnot "disabled">>
 			<<run _speakPool.pushUnique(
 				"bark","growl","howl"
 			)>>
 		<</if>>
-		<<if $cat gte 4>>
+		<<if $transformationParts.cat.ears isnot "disabled">>
 			<<run _speakPool.pushUnique(
 				"meow","purr","hiss"
 			)>>
 		<</if>>
-		<<if $cow gte 4>>
+		<<if $transformationParts.cow.ears isnot "disabled">>
 			<<run _speakPool.pushUnique(
 				"moo","snort","huff"
 			)>>
 		<</if>>
-		<<if $harpy gte 4>>
+		<<if $transformationParts.bird.tail isnot "disabled">>
 			<<run _speakPool.pushUnique(
 				"chirp","screech","sing"
 			)>>
 		<</if>>
-		<<if $fox gte 4>>
+		<<if $transformationParts.fox.ears isnot "disabled">>
 			<<run _speakPool.pushUnique(
 				"bark","yip","scream"
 			)>>
@@ -896,21 +896,21 @@
 				"Until the Sands run dry.",
 			)>>
 		<</if>>
-		<<if $angel gte 6>>
+		<<if $transformationParts.angel.wings isnot "disabled">>
 			<<run _linePool.pushUnique(
 				"It won't last. It never does.",
 				"Your descent will be beautiful.",
 				"Fly with me, gaoler. Fly and fall.",
 				"You were only a prisoner, after everything."
 			)>>
-		<<elseif $fallenangel gte 2>>
+		<<elseif $transformationParts.fallenAngel.wings isnot "disabled">>
 			<<run _linePool.pushUnique(
 				"Falling. Falling. Falling.",
 				"Almost like looking in a mirror.",
 				"Was it worth it? Don't answer, you would be wrong.",
 				"Open your eyes, blacken your wings, harden your heart."
 			)>>
-		<<elseif $demon gte 6>>
+		<<elseif $transformationParts.demon.wings isnot "disabled">>
 			<<run _linePool.pushUnique(
 				"Sapphire and brimstone.",
 				"All the world's to defile.",
@@ -941,14 +941,14 @@
 				)>>
 			<</if>>
 		<</if>>
-		<<if $fox gte 6>>
+		<<if $transformationParts.fox.tail isnot "disabled">>
 			<<run _linePool.pushUnique(
 				"Wishing stones. Clutching bones.",
 				"The predator has forgotten its place.",
 				"Behind silver masks, a thief on a string. Beside the Elk basks, <span class=\"tentacle\">As One</span> broken wing.",
 			)>>
 		<</if>>
-		<<if $harpy gte 6>>
+		<<if $transformationParts.bird.wings isnot "disabled">>
 			<<run _linePool.pushUnique(
 				"Clipped wings and a song no one hears."
 			)>>
@@ -1956,7 +1956,7 @@
 	<br>
 	<<link [[Try to look away|Wraith Caught Resist]]>><<if numberOfEarSlime()>><<corruption -1>><<pain 8>><<stress 6>><<trauma 6>><</if>><<def 1>><</link>><<if numberOfEarSlime()>><<lcorruption>><<ggpain>><<ggtrauma>><<ggstress>><</if>><<willpowerdifficulty 250 $willpowermax>>
 	<br>
-	<<if $angel gte 6>>
+	<<if $transformationParts.angel.wings isnot "disabled">>
 		<<link [[Pray|Wraith Intro Pray]]>><</link>><<angel>>
 		<br>
 	<</if>>

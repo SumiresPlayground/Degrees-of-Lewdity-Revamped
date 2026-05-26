@@ -57,19 +57,19 @@
 		<<link [[Pet|Street Dog Pet]]>><<stress -6>><</link>><<lstress>>
 		<br>
 	<</if>>
-	<<if $wolfgirl gte 6>>
+	<<if $transformationParts.wolf.tail isnot "disabled">>
 		<<link [[Growl|Street Dog Growl]]>><<stress -6>><<transform wolf 1>><</link>><<wolfgirl>>
 		<br>
 	<</if>>
-	<<if $cat gte 6>>
+	<<if $transformationParts.cat.tail isnot "disabled">>
 		<<link [[Hiss|Street Dog Hiss]]>><<def 1>><<transform cat 1>><</link>><<cat>>
 		<br>
 	<</if>>
-	<<if $fox gte 6>>
+	<<if $transformationParts.fox.tail isnot "disabled">>
 		<<link [[Yip|Street Dog Yipp]]>><<transform fox 1>><</link>><<fox>>
 		<br>
 	<</if>>
-	<<if $harpy gte 6>>
+	<<if $transformationParts.bird.wings isnot "disabled">>
 		<<link [[Screech|Street Dog Screech]]>><<transform bird 1>><</link>><<harpy>>
 		<br>
 	<</if>>
@@ -2955,11 +2955,11 @@
 
 		<<case 2>>
 			As you walk among the stalls, you pass by one selling a variety of fresh fish.
-			<<if $cat gte 6 or $wolfgirl gte 6 or $fox gte 6>>
+			<<if $transformationParts.cat.tail isnot "disabled" or $transformationParts.wolf.tail isnot "disabled" or $transformationParts.fox.tail isnot "disabled">>
 
-				<<if $cat gte 6>>
+				<<if $transformationParts.cat.tail isnot "disabled">>
 					<<set _transformation to "cat">>
-				<<elseif $wolfgirl gte 6>>
+				<<elseif $transformationParts.wolf.tail isnot "disabled">>
 					<<set _transformation to "wolf">>
 				<<else>>
 					<<set _transformation to "fox">>
@@ -4054,7 +4054,7 @@
 	<br><br>
 
 	It takes you a moment to realise <<hes>> referring to your
-	<<if $harpy gte 6 and _tfParts.includes("wings") and _tfParts.includes("tail")>>
+	<<if $transformationParts.bird.wings isnot "disabled" and _tfParts.includes("wings") and _tfParts.includes("tail")>>
 		<<set $phase2 to 0>>
 		wings and tail.
 	<<elseif _tfParts.includes("wings") and (random(1, 2) is 1 or _tfParts.filter(part => part !== "wings").length is 0)>>

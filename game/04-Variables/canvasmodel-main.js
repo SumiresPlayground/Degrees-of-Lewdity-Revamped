@@ -2743,10 +2743,21 @@ Renderer.CanvasModels.main = {
 
 		"eldritch_crown": {
 			srcfn(options) {
-				return `img/transformations/eldritch/crown/${options.eldrich_crown_type}.png`;
+				return `img/transformations/eldritch/crown/default.png`;
 			},
 			showfn(options) {
-				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type)
+				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type) && options.eldrich_crown_type === "default"
+			},
+			z: ZIndices.foreground,
+			animation: "idle"
+		},
+
+		"forgotten_face": {
+			srcfn(options) {
+				return `img/transformations/eldritch/crown/forgotten.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type) && options.eldrich_crown_type === "forgotten"
 			},
 			z: ZIndices.tears + 1,
 			animation: "idle"
@@ -2787,12 +2798,23 @@ Renderer.CanvasModels.main = {
 
 		"eldritch_skin": {
 			srcfn(options) {
-				return `img/transformations/eldritch/skin/${options.eldritch_skin_type}.png`;
+				return `img/transformations/eldritch/skin/default.png`;
 			},
 			showfn(options) {
-				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type)
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type) && options.eldritch_skin_type === "default"
 			},
 			filters: ["body"],
+			z: ZIndices.basehead + 1,
+			animation: "idle"
+		},
+
+		"forgotten_skin": {
+			srcfn(options) {
+				return `img/transformations/eldritch/skin/forgotten.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type) && options.eldritch_skin_type === "forgotten"
+			},
 			z: ZIndices.tailPenisCoverOverlay + 1,
 			animation: "idle"
 		},

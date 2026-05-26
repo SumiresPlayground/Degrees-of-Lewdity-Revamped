@@ -484,25 +484,25 @@
 					<</if>>
 				<</if>>
 				/* tf */
-				<<if ($cat gte 6) and (V.transformationParts.cat.ears isnot "hidden") and (V.transformationParts.cat.tail isnot "hidden")>>
+				<<if ($transformationParts.cat.tail isnot "disabled") and (V.transformationParts.cat.ears isnot "hidden") and (V.transformationParts.cat.tail isnot "hidden")>>
 					<<set _names.push("kitten", "pussy")>>
 				<</if>>
-				<<if ($wolfgirl gte 6) and (V.transformationParts.wolf.ears isnot "hidden") and (V.transformationParts.wolf.tail isnot "hidden")>>
+				<<if ($transformationParts.wolf.tail isnot "disabled") and (V.transformationParts.wolf.ears isnot "hidden") and (V.transformationParts.wolf.tail isnot "hidden")>>
 					<<set _names.push("puppy", "pup")>>
 				<</if>>
-				<<if ($cow gte 6) and (V.transformationParts.cow.ears isnot "hidden") and (V.transformationParts.cow.tail isnot "hidden") and (V.transformationParts.cow.horns isnot "hidden")>>
+				<<if ($transformationParts.cow.tail isnot "disabled") and (V.transformationParts.cow.ears isnot "hidden") and (V.transformationParts.cow.tail isnot "hidden") and (V.transformationParts.cow.horns isnot "hidden")>>
 					<<set _names.push(_gender is "m"? "cowboy" : "cowgirl")>>
 				<</if>>
-				<<if ($harpy gte 6) and (V.transformationParts.bird.wings isnot "hidden") and (V.transformationParts.bird.tail isnot "hidden") and (V.transformationParts.bird.plumage isnot "hidden")>>
+				<<if ($transformationParts.bird.wings isnot "disabled") and (V.transformationParts.bird.wings isnot "hidden") and (V.transformationParts.bird.tail isnot "hidden") and (V.transformationParts.bird.plumage isnot "hidden")>>
 					<<set _names.push("nestling", "cygnet")>>
 				<</if>>
-				<<if ($fox gte 6) and (V.transformationParts.fox.ears isnot "hidden") and (V.transformationParts.fox.tail isnot "hidden")>>
+				<<if ($transformationParts.fox.tail isnot "disabled") and (V.transformationParts.fox.ears isnot "hidden") and (V.transformationParts.fox.tail isnot "hidden")>>
 					<<set _names.push(_gender is "m" ? "kit" : "vixen")>>
 				<</if>>
-				<<if ($angel gte 6) and (V.transformationParts.angel.wings isnot "hidden") and (V.transformationParts.angel.halo isnot "hidden")>>
+				<<if ($transformationParts.angel.wings isnot "disabled") and (V.transformationParts.angel.wings isnot "hidden") and (V.transformationParts.angel.halo isnot "hidden")>>
 					<<set _names.push("angel", "cherub")>>
 				<</if>>
-				<<if ($demon gte 6) and (V.transformationParts.demon.wings isnot "hidden") and (V.transformationParts.demon.tail isnot "hidden") and (V.transformationParts.demon.horns isnot "hidden")>>
+				<<if ($transformationParts.demon.wings isnot "disabled") and (V.transformationParts.demon.wings isnot "hidden") and (V.transformationParts.demon.tail isnot "hidden") and (V.transformationParts.demon.horns isnot "hidden")>>
 					<<set _names.push("demon", "succubus")>>
 					<<if _gender is "m">><<set _names.push("incubus")>><</if>>
 				<</if>>
@@ -626,21 +626,21 @@
 				)>>
 			<</if>>
 			/* tfs, intended to not check for part visibility */
-			<<if $angel gte 6>>
+			<<if $transformationParts.angel.wings isnot "disabled">>
 				<<set _names.push(
 					"messenger",
 					"gaoler"
 				)>>
 				<<set _pre.push("fluttering ")>>
 			<</if>>
-			<<if $fallenangel gte 2>>
+			<<if $transformationParts.fallenAngel.wings isnot "disabled">>
 				<<set _names.push(
 					"wingless",
 					"shard"
 				)>>
 				<<set _pre.push("fallen ")>>
 			<</if>>
-			<<if $demon gte 6>>
+			<<if $transformationParts.demon.wings isnot "disabled">>
 				<<set _names.push(
 					"hellion",
 					"imp"
@@ -657,7 +657,7 @@
 				<<set _names.push(_gender is "m" ? "boy" : "girl")>>
 			<</if>>
 			/* tfs, intended to not check for part visibility */
-			<<if $cat gte 6>>
+			<<if $transformationParts.cat.tail isnot "disabled">>
 				<<set _names.push("kitty")>>
 				<<if ["name"].includes(_args[1])>>
 					<<set _names.push("paws")>>
@@ -665,37 +665,37 @@
 						<<set _names.push("rough-tongue")>>
 					<</if>>
 				<</if>>
-			<<elseif $wolfgirl gte 6>>
+			<<elseif $transformationParts.wolf.tail isnot "disabled">>
 				<<set _names.push("puppy")>>
 				<<if _yearning gte 100>>
 					<<set _names.push("dog")>>
-					<<if $angel gte 6 or $fallenangel gte 2 or $dryad gte 6>>
+					<<if $transformationParts.angel.wings isnot "disabled" or $transformationParts.fallenAngel.wings isnot "disabled" or $dryad gte 6>>
 						<<set _names.push("mutt")>>
 					<</if>>
-					<<if $demon gte 6>>
+					<<if $transformationParts.demon.wings isnot "disabled">>
 						<<set _names.push("hellpup")>>
 					<</if>>
 				<</if>>
-			<<elseif $harpy gte 6>>
+			<<elseif $transformationParts.bird.wings isnot "disabled">>
 				<<set _names.push("birdie", "canary")>>
-				<<if $demon gte 6>>
+				<<if $transformationParts.demon.wings isnot "disabled">>
 					<<set _names.push("siren")>>
 				<</if>>
 				<<if ["name"].includes(_args[1])>>
 					<<set _names.push("chirp")>>
 				<</if>>
-			<<elseif $fox gte 6>>
+			<<elseif $transformationParts.fox.tail isnot "disabled">>
 				<<set _names.push("kit")>>
 				<<if ["name"].includes(_args[1])>>
 					<<set _names.push("vix")>>
 					<<if $gwylanSeen?.includes("gwylan_tf_revealed")>>
 						<<set _names.push("kin")>>
 					<</if>>
-					<<if $demon gte 6>>
+					<<if $transformationParts.demon.wings isnot "disabled">>
 						<<set _names.push("foxfire")>>
 					<</if>>
 				<</if>>
-			<<elseif $cow gte 6>>
+			<<elseif $transformationParts.cow.tail isnot "disabled">>
 				<<set _names.push("calf")>>
 				<<if ["name"].includes(_args[1])>>
 					<<set _names.push("bright eyes")>>
@@ -703,11 +703,11 @@
 			<<elseif _yearning gte 35>>
 				<<set _names.push("puppy")>>
 			<</if>>
-			<<if $angel gte 6 or $fallenangel gte 2>>
+			<<if $transformationParts.angel.wings isnot "disabled" or $transformationParts.fallenAngel.wings isnot "disabled">>
 				<<if ["name"].includes(_args[1])>>
 					<<set _names.push("angel eyes", "twinkle-top")>>
 				<</if>>
-			<<elseif $demon gte 6>>
+			<<elseif $transformationParts.demon.wings isnot "disabled">>
 			<<elseif $dryad gte 6>>
 				<<set _names.push("seedling", "sprout")>>
 			<</if>>
@@ -774,11 +774,11 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "foxnickname">><<silently>>
-	<<if $fox gte 6>>
+	<<if $transformationParts.fox.tail isnot "disabled">>
 		<<set _text_output to "kit">>
-	<<elseif $cat gte 6>>
+	<<elseif $transformationParts.cat.tail isnot "disabled">>
 		<<set _text_output to "stray">>
-	<<elseif $wolfgirl gte 6>>
+	<<elseif $transformationParts.wolf.tail isnot "disabled">>
 		<<set _text_output to "pup">>
 	<<else>>
 		<<set _text_output to "meat">>

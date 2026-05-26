@@ -332,7 +332,7 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 		"Tell me, dear. What is it about your inner self that bothers you?"
 		<br><br>
 
-		<<if $fox gte 4 and $gwylanSeen.includes("romance")>>
+		<<if $transformationParts.fox.ears isnot "disabled" and $gwylanSeen.includes("romance")>>
 			<<His>> gaze lingers on you for a moment too long.
 			<br><br>
 		<</if>>
@@ -341,15 +341,15 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 		<br>
 		<<link [[It's not who I am|Gwylan Hypnosis Peace]]>><<set $phase to "identity">><<trauma 18>><</link>><<ggtrauma>>
 		<br>
-		<<if $cow gte 4>>
+		<<if $transformationParts.cow.ears isnot "disabled">>
 			<<link [[Painful memories of the farm|Gwylan Hypnosis Peace]]>><<set $phase to "cow">><<trauma -3>><</link>><<ltrauma>>
 			<br>
 		<</if>>
-		<<if $fallenangel gte 2 or $demon gte 6>>
+		<<if $transformationParts.fallenAngel.wings isnot "disabled" or $transformationParts.demon.wings isnot "disabled">>
 			<<link [[Regret and shame for lost purity|Gwylan Hypnosis Peace]]>><<set $phase to "purity">><<stress 14>><<trauma -6>><</link>><<ggstress>><<ltrauma>>
 			<br>
 		<</if>>
-		<<if ($wolfgirl gte 2 or $cat gte 2 or $cow gte 2 or $fox gte 2) and (playerHeatMinArousal() + playerRutMinArousal()) gte 1>>
+		<<if ($transformationParts.wolf.ears isnot "disabled" or $cat gte 2 or $cow gte 2 or $transformationParts.fox.ears isnot "disabled") and (playerHeatMinArousal() + playerRutMinArousal()) gte 1>>
 			<<if playerHeatMinArousal() gte 1 and playerRutMinArousal() gte 1>>
 				<<link [[Bothered by heat and rut|Gwylan Hypnosis Peace]]>><<set $phase to "heat">><<npcincr Gwylan lust 2>><</link>><<glust>>
 			<<elseif playerRutMinArousal() gte 1>>
@@ -475,7 +475,7 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 
 	Gwylan thinks for a moment, picking more herbs.
 	<<if _gwylanTF.known>>
-		<<if $fox gte 6>>
+		<<if $transformationParts.fox.tail isnot "disabled">>
 			"It's hard, isn't it? Us foxes are the favoured victims. Always the first choice, the prize for a hunt."
 		<<else>>
 			"I can relate, but not for the same reasons."
@@ -491,7 +491,7 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 	<</switch>>
 	<br><br>
 
-	<<if $worn.neck.name is "familiar collar" and ($wolfgirl gte 4 or $cat gte 4 or $fox gte 4 or $cow gte 4 or $harpy gte 4)>>
+	<<if $worn.neck.name is "familiar collar" and ($transformationParts.wolf.ears isnot "disabled" or $transformationParts.cat.ears isnot "disabled" or $transformationParts.fox.ears isnot "disabled" or $transformationParts.cow.ears isnot "disabled" or $transformationParts.bird.tail isnot "disabled")>>
 		Gwylan caresses your familiar collar. "Your collar is preventing you from changing. It makes you wear your heart on your sleeve. Or neck, in this case."
 		<<if $worn.neck.cursed is 1>>
 			<<set _magicLeash to true>>
@@ -504,7 +504,7 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 		<<else>>
 			<<set _selfFulfilling to true>>
 		<</if>>
-	<<elseif $wolfgirl gte 4 and $worn.neck.name.includes("spiked collar")>>
+	<<elseif $transformationParts.wolf.ears isnot "disabled" and $worn.neck.name.includes("spiked collar")>>
 		<<set _selfFulfilling to true>>
 		Gwylan walks up to you and
 		<<if $worn.neck.type.includes("leash")>>
@@ -512,10 +512,10 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 		<<else>>
 			examines your spiked collar. "Well, this isn't helping if you want to be rid of it entirely. You're accepting it by wearing this."
 		<</if>>
-	<<elseif $cat gte 4 and $worn.neck.name is "cat bell collar">>
+	<<elseif $transformationParts.cat.ears isnot "disabled" and $worn.neck.name is "cat bell collar">>
 		<<set _selfFulfilling to true>>
 		Gwylan walks up to you and examines your collar. "This little kitty bell certainly won't help your self-perception. You're accepting it by wearing this."
-	<<elseif $fox gte 4 and ($worn.head.name is "spirit mask" or $worn.neck.name is "jasper pendant")>>
+	<<elseif $transformationParts.fox.ears isnot "disabled" and ($worn.head.name is "spirit mask" or $worn.neck.name is "jasper pendant")>>
 		<<set _selfFulfilling to true>>
 		<<if $worn.head.name is "spirit mask" and $worn.neck.name is "jasper pendant">>
 			Gwylan walks up and examines the spirit mask and jasper pendant you're wearing.
@@ -541,10 +541,10 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 				<</if>>
 			<</if>>
 		<</if>>
-	<<elseif $cow gte 4 and $worn.neck.name is "cow bell">>
+	<<elseif $transformationParts.cow.ears isnot "disabled" and $worn.neck.name is "cow bell">>
 		<<set _selfFulfilling to true>>
 		Gwylan walks up and pushes your cow bell with a finger, hearing it ring once. "You wear this willingly. If you wish to be rid of it, you'll need to shed this mark of submission and acceptance."
-	<<elseif $harpy gte 4 and ($worn.head.name is "feathered hair clip" or $worn.neck.name is "feather necklace")>>
+	<<elseif $transformationParts.bird.tail isnot "disabled" and ($worn.head.name is "feathered hair clip" or $worn.neck.name is "feather necklace")>>
 		<<set _selfFulfilling to true>>
 		<<if $worn.head.name is "feathered hair clip" and $worn.neck.name is "feather necklace">>
 			Gwylan walks up and examines the feathered accessories you're wearing.
@@ -561,7 +561,7 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 				"You're accepting it by wearing this, little birdie."
 			<</if>>
 		<</if>>
-	<<elseif $demon gte 6 and $worn.lower.name is "succubus lower back wings">>
+	<<elseif $transformationParts.demon.wings isnot "disabled" and $worn.lower.name is "succubus lower back wings">>
 		<<set _selfFulfilling to true>>
 		Gwylan walks behind you and examines the fake wings on your lower back. "You seem to have accepted it, in a way. Is it true acceptance, or are you trying to fit a role you never asked to play?"
 	<</if>>
@@ -573,14 +573,14 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 
 	<<if $angel gte 4 and $transformationParts.angel.halo isnot "hidden">>
 		<<His>> finger traces your halo. "There are ways to be rid of it, but losing this would break you. I can imagine the struggle," <<he>> says sadly.
-	<<elseif $fallenangel gte 2 and $transformationParts.fallenAngel.wings isnot "hidden">>
+	<<elseif $transformationParts.fallenAngel.wings isnot "disabled" and $transformationParts.fallenAngel.wings isnot "hidden">>
 		<<His>> fingers run up and down your broken wings.
 		<<if $gwylanSeen.includes("fallen_fault")>>
 			"Forgiveness doesn't... come easy." <<He>> can't make eye contact with you again. "I hope you can find it in your heart to forgive me some day."
 		<<else>>
 			"Forgiveness doesn't come easy, does it?" <<He>> smiles sadly. "Forgiving yourself is much harder than just asking to be forgiven, so we take the easier option, even if it doesn't help."
 		<</if>>
-	<<elseif $demon gte 6 and $transformationParts.demon.wings isnot "hidden">>
+	<<elseif $transformationParts.demon.wings isnot "disabled" and $transformationParts.demon.wings isnot "hidden">>
 		<<His>> fingers run up and down your wings.
 		<<if $gwylanTalked.includes("succubus")>>
 			"You've presented your most precious vulnerabilities to me. You must really trust me." <<He>> giggles. "I appreciate it. There is a dark beauty to these wings. I understand why it can be so hard to let go, to endure that searing light in your head."
@@ -592,7 +592,7 @@ Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs
 	<</if>>
 	/* ToDo: Gwylan - ghostbrew intro here? */
 
-	<<if _gwylanTF.known and $fox gte 4>>
+	<<if _gwylanTF.known and $transformationParts.fox.ears isnot "disabled">>
 		<<He>> looks away, but you think you see the slightest hint of sadness on <<his>> face as <<he>> does.
 	<</if>>
 <<elseif $phase is "cow">>
@@ -814,7 +814,7 @@ With or without them, real or facsimile, you feel whole.
 <<gwylanHypnosis "peace" _hypnoDays>>
 <br><br>
 
-<<if $fox gte 6 and $gwylanSeen.includes("romance") and $phase is "identity">>
+<<if $transformationParts.fox.tail isnot "disabled" and $gwylanSeen.includes("romance") and $phase is "identity">>
 	<<link [[Next|Gwylan Hypnosis Peace Fox Breakdown]]>><</link>>
 <<else>>
 	"Awaken." <<He>> snaps <<his>> fingers.
@@ -878,7 +878,7 @@ You're both pulled into a black abyss. <<trauma 36>><<npcincr Gwylan dom -30>><<
 	<<He>> looks up. Tears streak down <<his>> face, but <<he>> quickly wipes them away. "I'm fine."
 <<else>>
 	Your focus slowly returns. You're back in the garden.
-	<<if $fox gte 6>>
+	<<if $transformationParts.fox.tail isnot "disabled">>
 		Gwylan is sitting behind you, brushing your tail. <<He>> pulls out clumps of loose fur, and it looks much more sleek than it did before.
 		<br><br>
 
@@ -2734,7 +2734,7 @@ It's Gwylan. "Caught you," <<he>> giggles, straddling you. "I saw you running, d
 <br><br>
 
 "We will correct this impulse.
-<<if $cow gte 6>>
+<<if $transformationParts.cow.tail isnot "disabled">>
 	Reject your submissive instincts, dear calf."
 <<else>>
 	Follow your instincts, <<pcpetname "Gwylan">>."
@@ -3720,20 +3720,20 @@ Not only will you have to hold your breath for a very long time, <span class="re
 			<<case 1>>
 				<<if $islander_language gte 100>>
 					<span class="narration">
-					<<if $rng gte 51 and ($wolfgirl gte 6 or $cat gte 6 or $cow gte 6 or $harpy gte 6 or $fox gte 6)>>
-						<<if $wolfgirl gte 6>>
+					<<if $rng gte 51 and ($transformationParts.wolf.tail isnot "disabled" or $transformationParts.cat.tail isnot "disabled" or $transformationParts.cow.tail isnot "disabled" or $transformationParts.bird.wings isnot "disabled" or $transformationParts.fox.tail isnot "disabled")>>
+						<<if $transformationParts.wolf.tail isnot "disabled">>
 							Wild heart that beats <<if $gwylanSeen?.includes("partners")>>for<<else>>with<</if>> me<br>
 							There lies a way to be<br>
 							One with the waiting sea.
-						<<elseif $cat gte 6>>
+						<<elseif $transformationParts.cat.tail isnot "disabled">>
 							Your curiosity<br>
 							Will buoy us 'til we<br>
 							May join the waiting sea.
-						<<elseif $cow gte 6>>
+						<<elseif $transformationParts.cow.tail isnot "disabled">>
 							Your forced docility
 							Won't halt our destiny;
 							We'll join the waiting sea.
-						<<elseif $harpy gte 6>>
+						<<elseif $transformationParts.bird.wings isnot "disabled">>
 							Bird of song, fly with me.<br>
 							I'll bring you down to be<br>
 							One with the waiting sea.
@@ -3749,13 +3749,13 @@ Not only will you have to hold your breath for a very long time, <span class="re
 					<<else>>
 						<<if $gwylanSeen?.includes("romance") and $rng lte 25>>
 							Love, you could always see
-						<<elseif $demon gte 6>>
+						<<elseif $transformationParts.demon.wings isnot "disabled">>
 							Passion guides you to see
-						<<elseif $angel gte 6>>
+						<<elseif $transformationParts.angel.wings isnot "disabled">>
 							Virtue guides you to see
-						<<elseif $fallenangel gte 4>>
+						<<elseif $transformationParts.fallenAngel.wings isnot "disabled" and $transformationParts.fallenAngel.halo isnot "disabled">>
 							Forgiven hearts will see
-						<<elseif $fallenangel gte 2 or $auriga_scar>>
+						<<elseif $transformationParts.fallenAngel.wings isnot "disabled" or $auriga_scar>>
 							Your black heart yearns to see
 						<<else>>
 							It was in you to see

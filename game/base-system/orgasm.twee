@@ -954,7 +954,7 @@
 
 <<widget "breastfeed">>
 	<<set _milk_released to random(10, 50)>>
-	<<if $cow gte 6>>
+	<<if $transformationParts.cow.tail isnot "disabled">>
 		<<set _milk_released *= 2>>
 	<</if>>
 	<<set _milk_released /= 10>>
@@ -1006,7 +1006,7 @@
 		<<set _orgmod to Math.clamp(_orgmod, 2, 11)>>
 		<<orgasmcount `-_orgmod`>>
 	<</if>>
-	<<if $cow gte 6>>
+	<<if $transformationParts.cow.tail isnot "disabled">>
 		<<semenvolume 1>>
 		<<milkvolume 1>>
 	<</if>>
@@ -1018,7 +1018,7 @@
 		<<else>>
 			<<set $_semen_gain to Math.floor($semen_volume * (1/24))>>
 		<</if>>
-		<<if $cow gte 6 or ($earSlime.growth gte 100 and $earSlime.focus is "impregnation")>>
+		<<if $transformationParts.cow.tail isnot "disabled" or ($earSlime.growth gte 100 and $earSlime.focus is "impregnation")>>
 			<<set $_semen_gain *= 2>>
 		<</if>>
 		<<if $earSlime.growth gte 100 and $earSlime.focus is "pregnancy">>

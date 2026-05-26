@@ -413,7 +413,7 @@ You are in the school canteen.
 		<<canteenlunchoptions>>
 	<</addinlineevent>>
 
-	<<if $wolfgirl gte 6 or $cat gte 6 or $cow gte 6 or $harpy gte 6 or $fox gte 6>>
+	<<if $transformationParts.wolf.tail isnot "disabled" or $transformationParts.cat.tail isnot "disabled" or $transformationParts.cow.tail isnot "disabled" or $transformationParts.bird.wings isnot "disabled" or $transformationParts.fox.tail isnot "disabled">>
 		<<addinlineevent "canteen_whitney_dog_bowl">>
 			<<npc Whitney>><<person1>>
 			You sit alone, idly poking at your lunch, when a shadow looms over your table.
@@ -451,7 +451,7 @@ You are in the school canteen.
 		<</addinlineevent>>
 	<</if>>
 
-	<<if ($cow gte 6 or $player.breastsize gte 8 or $milk_volume gte 2000) and $lactating gte 1 and $settings.breastFeedingEnabled and C.npc.Whitney.love gte 20>>
+	<<if ($transformationParts.cow.tail isnot "disabled" or $player.breastsize gte 8 or $milk_volume gte 2000) and $lactating gte 1 and $settings.breastFeedingEnabled and C.npc.Whitney.love gte 20>>
 		<<addinlineevent "canteen_whitney_milking">>
 			<<npc Whitney>><<person1>>
 			You sit down to eat. You notice other students whispering to each other as a group of people approach the table. <span class="red">It's Whitney and <<his>> friends.</span>
