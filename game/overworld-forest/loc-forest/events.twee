@@ -1051,7 +1051,7 @@ The snakes slither off of you, escaping through nooks and crannies all around th
 <br><br>
 <<actionsman>>
 
-<<if _combatend>>
+<<if _combatend or ($pain gte 200 and $willpowerpain is 0)>>
 	<span id="next"><<link [[Next|Forest Bear Molestation Finish]]>><</link>></span><<nexttext>>
 <<else>>
 	<span id="next"><<link [[Next|Forest Bear Molestation]]>><</link>></span><<nexttext>>
@@ -1095,6 +1095,23 @@ The snakes slither off of you, escaping through nooks and crannies all around th
 	<br>
 <<elseif $rescue is 1>>
 	<<forestRescue>>
+<<else>>
+	<<beastejaculation>>
+
+	Satisfied, the <<beasttype>> returns to its abode.
+	<<if $monster is 1>>
+		"Next time I might take you with me, squishy," <<bhe>> coos.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you continue on your way.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
 <</if>>
 
 :: Forest Wolf Mate
@@ -5469,7 +5486,7 @@ You try to tear your gaze from the tree, but a visage catches your eye, formed b
 
 <<actionsman>>
 
-<<if _combatend>>
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
 	<span id="next"><<link [[Next|Forest Snow Bear Molestation Finish]]>><</link>></span><<nexttext>>
 <<else>>
 	<span id="next"><<link [[Next|Forest Snow Bear Molestation]]>><</link>></span><<nexttext>>
@@ -5503,6 +5520,23 @@ You try to tear your gaze from the tree, but a visage catches your eye, formed b
 	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 <<elseif $rescue is 1 and $alarm is 1>>
 	<<forestRescue "snow">>
+<<else>>
+	<<beastejaculation>>
+
+	Satisfied, the <<beasttype>> returns to its abode.
+	<<if $monster is 1>>
+		"Next time I might take you with me, squishy," <<bhe>> coos.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you continue on your way.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
 <</if>>
 
 :: Forest Snow Call Molestation
@@ -7427,6 +7461,8 @@ After inspecting you for a minute or so, the <<beasttype>> prepares to mount you
 	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
 <<elseif $alarm is 1 and $rescue is 1>>
 	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
+<<elseif $pain gte 100 and $willpowerpain is 0>>
+	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
 <<else>>
 	<span id="next"><<link [[Next|Forest Dragon Molestation]]>><</link>></span><<nexttext>>
 <</if>>
@@ -7499,6 +7535,23 @@ After inspecting you for a minute or so, the <<beasttype>> prepares to mount you
 		<br>
 		<<link [[Say goodbye|Forest]]>><<endevent>><</link>>
 	<</if>>
+<<else>>
+	<<beastejaculation>>
+
+	Satisfied, the <<beasttype>> returns to its abode.
+	<<if $monster is 1>>
+		"Next time I might take you with me, squishy," <<bhe>> coos.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you continue on your way.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
 <</if>>
 
 :: Forest Mushroom Enter

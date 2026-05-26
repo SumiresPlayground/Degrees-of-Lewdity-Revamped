@@ -570,7 +570,7 @@ The creature darts into a bush before you can get a good look at it.
 <br><br>
 <<actionsman>>
 
-<<if _combatend>>
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
 	<span id="next"><<link [[Next|Misland Bear Finish]]>><</link>></span><<nexttext>>
 <<else>>
 	<span id="next"><<link [[Next|Misland Bear]]>><</link>></span><<nexttext>>
@@ -613,15 +613,20 @@ The creature darts into a bush before you can get a good look at it.
 	<<link [[Next|Misland]]>><<set $eventskip to 1>><</link>>
 	<br>
 <<else>>
-	The <<beasttype>> yelps and flees through the snow.
+	<<beastejaculation>>
+
+	Satisfied, the <<beasttype>> returns to its abode.
+	<<if $monster is 1>>
+		"Next time I might take you with me, squishy," <<bhe>> coos.
+	<</if>>
 	<br><br>
 
-	<<tearful>> you gather yourself.
+	<<tearful>> you continue on your way.
 	<br><br>
 
 	<<clotheson>>
 	<<endcombat>>
 
-	<<link [[Next|Misland]]>><</link>>
-	<br>	
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
 <</if>>
