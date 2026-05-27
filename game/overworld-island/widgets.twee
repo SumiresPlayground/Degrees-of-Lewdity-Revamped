@@ -96,11 +96,15 @@
 <<widget "eventisland">>
 	<<cleareventpool>>
     <<if $location is "desert" or $location is "beach">>
-        <<addevent "islandant">>
-		<<addevent "islandhawk">>
-		<<addevent "islandlizard">>
+		<<if $settings.bestialityEnabled or $monster is 1>>
+			<<addevent "islandant">>
+			<<addevent "islandhawk">>
+			<<addevent "islandlizard">>
+		<</if>>
     <<elseif $location is "forest">>
-        <<addevent "islandwolf">>
+		<<if $settings.bestialityEnabled or $monster is 1>>
+       		<<addevent "islandwolf">>
+		<</if>>
         <<if $settings.lurkersEnabled>>
 			<<addevent "islandlurker">>
 		<</if>>
@@ -108,11 +112,15 @@
 		<<if $settings.voreEnabled>>
 			<<addevent "islandsnake">>
 		<</if>>
-		<<addevent "islandboar">>
-		<<addevent "islandcat">>
+		<<if $settings.bestialityEnabled or $monster is 1>>
+			<<addevent "islandboar">>
+			<<addevent "islandcat">>
+		<</if>>
 	<<elseif $location is "glacier">>
-        <<addevent "islandbear">>
-		<<addevent "islandgwolf">>
+		<<if $settings.bestialityEnabled or $monster is 1>>
+			<<addevent "islandbear">>
+			<<addevent "islandgwolf">>
+		<</if>>
 	<</if>>
 	<<runeventpool>>
 <</widget>>
