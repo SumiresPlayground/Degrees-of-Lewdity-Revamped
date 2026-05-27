@@ -748,56 +748,57 @@
 				<<if $angelbuild gte 25>>
 					<<set $angel to 1>>
 					<<set $specialTransform to 1>>
-					<span class="gold">Despite everything, you have managed to remain a pure <<pcGender>>. The thought makes you happy.</span>
+					<<run $timeMessages.pushUnique("angelUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $angelbuild gte 30>>
 					<<set $angel to 2>>
-					<span class="gold">You are pure and feel determined to keep it that way.</span>
+					<<run $timeMessages.pushUnique("angelUp2")>>
 					<br><br>
 				<<elseif $angelbuild lt 25>>
-					<<set $angel to 0>><<set $specialTransform to 0>>
-					<span class="gold">You feel soiled.</span>
+					<<set $angel to 0>>
+					<<set $specialTransform to 0>>
+					<<run $timeMessages.pushUnique("angelDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $angelbuild gte 35>>
 					<<set $angel to 3>>
-					<span class="gold">You feel a weight lift from your shoulders.</span>
+					<<run $timeMessages.pushUnique("angelUp3")>>
 					<br><br>
 				<<elseif $angelbuild lt 30>>
 					<<set $angel to 1>>
-					<span class="gold">You feel dirty.</span>
+					<<run $timeMessages.pushUnique("angelDown1")>>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $angelbuild gte 40>>
 					<<set $angel to 4>>
-					<span class="gold">A golden light shines down on you.</span>
+					<<run $timeMessages.pushUnique("angelUp4")>>
 					<<clearhalo>>
 					<<set $transformationParts.angel.halo to "default">>
 					<br><br>
 				<<elseif $angelbuild lt 35>>
 					<<set $angel to 2>>
-					<span class="gold">You feel a weight bear down on you.</span>
+					<<run $timeMessages.pushUnique("angelDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $angelbuild gte 45 and $settings.transformDivineEnabled>>
 					<<set $angel to 5>>
-					<span class="gold">You feel a soothing warmth in your back.</span>
+					<<run $timeMessages.pushUnique("angelUp5")>>
 					<br><br>
 				<<elseif $angelbuild lt 40>>
 					<<set $angel to 3>>
-					<span class="gold">The light above you fades.</span>
+					<<run $timeMessages.pushUnique("angelDown3")>>
 					<<set $transformationParts.angel.halo to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 5>>
 				<<if $angelbuild gte 50 and $settings.transformDivineEnabled>>
 					<<set $angel to 6>>
-					<span class="gold">You feel lighter. Your new wings caress your face.</span>
+					<<run $timeMessages.pushUnique("angelUp6")>>
 					<<clearwings>>
 					<<set $transformationParts.angel.wings to "default">>
 					<<if $transformationParts.bird.wings is "default">>
@@ -809,12 +810,12 @@
 					<br><br>
 				<<elseif $angelbuild lt 45>>
 					<<set $angel to 4>>
-					<span class="gold">The soothing warmth in your back fades.</span>
+					<<run $timeMessages.pushUnique("angelDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $angelbuild lt 50>>
-					<span class="gold">Your wings fade away.</span>
+					<<run $timeMessages.pushUnique("angelDown5")>>
 					<<set $angel to 5>>
 					<<set $transformationParts.angel.wings to "disabled">>
 					<br><br>
@@ -848,94 +849,76 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $demonbuild gte 5 and $settings.transformDivineEnabled>>
-					<<set $demon to 1>><<set $specialTransform to 1>>
-					<span class="gold">Your scalp itches.</span>
-					<<garousal>><<arousal 600>>
-					<br><br>
+				<<if $demonbuild gte 5 and $settings.transformDivineEnabled and $specialTransform isnot 1>>
+					<<set $demon to 1>>
+					<<set $specialTransform to 1>>
+					<<run $timeMessages.pushUnique("demonUp1")>>
+					<<arousal 600>>
 				<</if>>
 			<<case 1>>
 				<<if $demonbuild gte 10 and $settings.transformDivineEnabled>>
 					<<set $demon to 2>>
-					<span class="gold">Horns sprout from your scalp.</span>
-					<<garousal>><<arousal 600>>
-					<<clearhorns>>
+					<<run $timeMessages.pushUnique("demonUp2")>>
+					<<arousal 600>>
 					<<set $transformationParts.demon.horns to "default">>
-					<br><br>
 				<<elseif $demonbuild lt 5>>
-					<<set $demon to 0>><<set $specialTransform to 0>>
-					<span class="gold">You feel an invisible light burn away your impurity.</span>
-					<<if $demonFeat is true>>
-						<<unset $demonFeat>>
-						<<earnFeat "The Path to Redemption">>
-					<</if>>
-					<br><br>
+					<<set $demon to 0>>
+					<<set $specialTransform to 0>>
+					<<run $timeMessages.pushUnique("demonDown0")>>
 				<</if>>
 			<<case 2>>
 				<<if $demonbuild gte 15 and $settings.transformDivineEnabled>>
 					<<set $demon to 3>>
-					<span class="gold">Your <<bottom>> itches.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("demonUp3")>>
+					<<arousal 600>>
 				<<elseif $demonbuild lt 10>>
 					<<set $demon to 1>>
+					<<run $timeMessages.pushUnique("demonDown1")>>
 					<<set $transformationParts.demon.horns to "disabled">>
-					<span class="gold">Your horns recede.</span>
-					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $demonbuild gte 20 and $settings.transformDivineEnabled>>
 					<<set $demon to 4>>
-					<span class="gold">A tail sprouts from your lower back.</span>
-					<<cleartail>>
+					<<run $timeMessages.pushUnique("demonUp4")>>
 					<<set $transformationParts.demon.tail to "default">>
-					<<set $hastail to "true">>
-					<<set $thintail to "true">>
-					<br><br>
+					<<arousal 600>>
 				<<elseif $demonbuild lt 15>>
 					<<set $demon to 2>>
-					<span class="gold">The itching in your <<bottom>> stops.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("demonDown2")>>
 				<</if>>
 			<<case 4>>
 				<<if $demonbuild gte 25 and $settings.transformDivineEnabled>>
 					<<set $demon to 5>>
-					<span class="gold">You feel a burning sensation in your back.</span>
-					<<garousal>><<arousal 600>>
-					<br><br>
+					<<run $timeMessages.pushUnique("demonUp5")>>
+					<<arousal 600>>
 				<<elseif $demonbuild lt 20>>
 					<<set $demon to 3>>
-					<span class="gold">Your tail recedes.</span>
+					<<run $timeMessages.pushUnique("demonDown3")>>
 					<<set $transformationParts.demon.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thintail to "false">>
 					<<set $transformationParts.traits.flaunting to "disabled">>
-					<br><br>
 				<</if>>
 			<<case 5>>
 				<<if $demonbuild gte 30 and $settings.transformDivineEnabled>>
 					<<set $demon to 6>><<set $demonFeat to true>>
-					<span class="gold">You feel lighter. Your new wings caress your face.</span>
-					<<garousal>><<arousal 600>>
-					<<clearwings>>
+					<<run $timeMessages.pushUnique("demonUp6")>>
+					<<arousal 600>>
 					<<set $transformationParts.demon.wings to "default">>
-					<<if $transformationParts.bird.wings is "default">>
-						<<set $transformationParts.demon.wings to "hidden">>
-					<</if>>
 					<<set $permanentTransform to 1>>
 					<<set $demontf to 1>>
 					<<earnFeat "Demon">>
 					<br><br>
 				<<elseif $demonbuild lt 25>>
 					<<set $demon to 4>>
-					<span class="gold">The burning in your back ceases.</span>
+					<<run $timeMessages.pushUnique("demonDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $demonbuild lt 30>>
-					<span class="gold">Your wings recede.</span>
 					<<set $demon to 5>>
+					<<run $timeMessages.pushUnique("demonDown5")>>
 					<<set $transformationParts.demon.wings to "disabled">>
-					<br><br>
 				<<else>>
 					<<set $demonFeat to true>>
 				<</if>>
@@ -965,9 +948,6 @@
 		<<set $hastail to "true">>
 		<<set $thintail to "true">>
 		<<set $transformationParts.demon.wings to "default">>
-		<<if $transformationParts.bird.wings is "default">>
-			<<set $transformationParts.demon.wings to "hidden">>
-		<</if>>
 	<</if>>
 <</widget>>
 
@@ -979,83 +959,69 @@
 				<<if $wolfbuild gte 5>>
 					<<set $wolfgirl to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">You have a strange toothache.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("wolfUp1")>>
 				<</if>>
 			<<case 1>>
 				<<if $wolfbuild gte 10>>
 					<<set $wolfgirl to 2>>
-					<span class="gold">Your mouth feels different. You explore your mouth and wince as your tongue presses against your new fangs.</span>
+					<<run $timeMessages.pushUnique("wolfUp2")>>
 					<<set $transformationParts.traits.fangs to "default">>
-					<<set $transformationParts.wolf.cheeks to "feral">>
-					<br><br>
 				<<elseif $wolfbuild lt 5>>
 					<<set $wolfgirl to 0>>
+					<<run $timeMessages.pushUnique("wolfDown0")>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">Your toothache has stopped.</span>
-					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $wolfbuild gte 15>>
 					<<set $wolfgirl to 3>>
-					<span class="gold">Your scalp <<print ($pbdisable is "f" ? "and pubic area itch" : "itches")>>.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("wolfUp3")>>
 				<<elseif $wolfbuild lt 10>>
 					<<set $wolfgirl to 1>>
-					<span class="gold">Your fangs have turned into regular teeth.</span>
+					<<run $timeMessages.pushUnique("wolfDown1")>>
 					<<set $transformationParts.traits.fangs to "disabled">>
-					<<set $transformationParts.wolf.cheeks to "disabled">>
-					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $wolfbuild gte 20>>
 					<<set $wolfgirl to 4>>
-					<span class="gold">You feel something on your head. You reach up and tug, but it hurts.
-					You have a new pair of wolf ears.
-					<<print ($pbdisable is "f" ? " You also notice long and fluffy hair has grown in your pubic area.":"")>></span>
-					<<clearears>>
+					<<run $timeMessages.pushUnique("wolfUp4")>>
 					<<set $transformationParts.wolf.ears to "default">>
-					<<set $transformationParts.wolf.pubes to ($pbdisable is "f"? "default" : "hidden")>>
-					<<set $transformationParts.wolf.pits to ($pbdisable is "f"? "default" : "hidden")>>
-					<br><br>
+					<<set $transformationParts.wolf.pubes to ($settings.pubicHairEnabled? "default" : "hidden")>>
+					<<set $transformationParts.wolf.pits to ($settings.pubicHairEnabled? "default" : "hidden")>>
 				<<elseif $wolfbuild lt 15>>
 					<<set $wolfgirl to 2>>
-					<span class="gold">Your scalp <<print ($pbdisable is "f" ? "and pubic area no longer itch" : "no longer itches")>>.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("wolfDown2")>>
 				<</if>>
 			<<case 4>>
 				<<if $wolfbuild gte 25>>
 					<<set $wolfgirl to 5>>
-					<span class="gold">Your lower back itches.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("wolfUp5")>>
+					<<set $transformationParts.wolf.cheeks to "feral">>
 				<<elseif $wolfbuild lt 20>>
 					<<set $wolfgirl to 3>>
-					<span class="gold">Your wolf ears <<print ($pbdisable is "f" ? "and extra body hair ":"")>>have disappeared.</span>
+					<<run $timeMessages.pushUnique("wolfDown3")>>
 					<<set $transformationParts.wolf.ears to "disabled">>
 					<<set $transformationParts.wolf.pubes to "disabled">>
 					<<set $transformationParts.wolf.pits to "disabled">>
-					<br><br>
 				<</if>>
 			<<case 5>>
 				<<if $wolfbuild gte 30>>
 					<<set $permanentTransform = 1>>
 					<<set $wolftf = 1>>
 					<<set $wolfgirl to 6>>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new wolf tail.</span>
-					<<cleartail>>
+					<<run $timeMessages.pushUnique("wolfUp6")>>
 					<<set $transformationParts.wolf.tail to "default">>
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
 					<<earnFeat "Wolf">>
 					<br><br>
 				<<elseif $wolfbuild lt 25>>
-					<<set $wolfgirl to 4>>
+					<<run $timeMessages.pushUnique("wolfDown4")>>
 					<span class="gold">Your lower back has stopped itching.</span>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $wolfbuild lt 30>>
-					<span class="gold">Your balance feels different. Your wolf tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("wolfDown5")>>
 					<<set $wolfgirl to 5>>
 					<<set $transformationParts.wolf.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -1104,61 +1070,51 @@
 			<<case 0>>
 				<<if $catbuild gte 25>>
 					<<set $cat to 1>>
+					<<run $timeMessages.pushUnique("catUp1")>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">You have a strange toothache. A beetle crawls by. You resist the urge to pounce.</span>
-					<br><br>
 				<</if>>
 			<<case 1>>
-				<<if $catbuild gte 30>>
+				<<if $catbuild gte 30 and $settings.transformAnimalEnabled>>
 					<<set $cat to 2>>
-					<span class="gold">Your mouth feels different. You explore your mouth and wince as your tongue presses against your new fangs.</span>
+					<<run $timeMessages.pushUnique("catUp2")>>
 					<<set $transformationParts.traits.fangs to "default">>
 					<<set $transformationParts.traits.sharpEyes to "default">>
-					<br><br>
 				<<elseif $catbuild lt 25>>
 					<<set $cat to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Your toothache has stopped.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("catDown0")>>
 				<</if>>
 			<<case 2>>
-				<<if $catbuild gte 35>>
+				<<if $catbuild gte 35 and $settings.transformAnimalEnabled>>
 					<<set $cat to 3>>
-					<span class="gold">Your scalp itches.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("catUp3")>>
 				<<elseif $catbuild lt 30>>
 					<<set $cat to 1>>
-					<span class="gold">Your fangs have turned into regular teeth.</span>
+					<<run $timeMessages.pushUnique("catDown1")>>
 					<<set $transformationParts.traits.fangs to "disabled">>
 					<<set $transformationParts.traits.sharpEyes to "disabled">>
-					<br><br>
 				<</if>>
 			<<case 3>>
-				<<if $catbuild gte 40>>
+				<<if $catbuild gte 40 and $settings.transformAnimalEnabled>>
 					<<set $cat to 4>>
-					<span class="gold">Your scalp twitches. You reach up and feel your new pair of cat ears.</span>
-					<<clearears>>
+					<<run $timeMessages.pushUnique("catUp4")>>
 					<<set $transformationParts.cat.ears to "default">>
-					<br><br>
 				<<elseif $catbuild lt 35>>
 					<<set $cat to 2>>
-					<span class="gold">Your scalp no longer itches.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("catDown2")>>
 				<</if>>
 			<<case 4>>
-				<<if $catbuild gte 45>>
+				<<if $catbuild gte 45 and $settings.transformAnimalEnabled>>
 					<<set $cat to 5>>
-					<span class="gold">Your lower back itches.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("catUp5")>>
 				<<elseif $catbuild lt 40>>
 					<<set $cat to 3>>
-					<span class="gold">Your cat ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("catDown3")>>
 					<<set $transformationParts.cat.ears to "disabled">>
-					<br><br>
 				<</if>>
 			<<case 5>>
 				<<if $catbuild gte 50>>
 					<<set $cat to 6>>
-					<span class="gold">Your bottom feels weighty, yet perfectly balanced. You reach behind and feel your new cat tail.</span>
+					<<run $timeMessages.pushUnique("catUp6")>>
 					<<cleartail>>
 					<<set $transformationParts.cat.tail to "default">>
 					<<set $hastail to "true">>
@@ -1167,21 +1123,21 @@
 					<br><br>
 				<<elseif $catbuild lt 45>>
 					<<set $cat to 4>>
-					<span class="gold">The itching in your lower back stops.</span>
+					<<run $timeMessages.pushUnique("catDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $catbuild gte 55>>
 					<<set $cat to 7>>
 					<<run window.determineCatEyeStages()>>
-					<<set $original_colour = [$leftEyeColour, $rightEyeColour]>>
+					<<run $timeMessages.pushUnique("catUp7")>>
 					<<set $transformationParts.cat.heterochromia to "default">>
 					<<catHeterochromiaTF 0>>
 					<span class="gold">Your eyes itch.</span>
 					<br><br>
 				<<elseif $catbuild lt 50>>
 					<<set $cat to 5>>
-					<span class="gold">Your cat tail disappears.</span>
+					<<run $timeMessages.pushUnique("catDown5")>>
 					<<set $transformationParts.cat.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thintail to "false">>
@@ -1191,44 +1147,39 @@
 			<<case 7>>
 				<<if $catbuild gte 60>>
 					<<set $cat to 8>>
+					<<run $timeMessages.pushUnique("catUp8")>>
 					<<catHeterochromiaTF 1>>
-					<span class="gold">Your eyes water from a burning sensation around the pupil.</span>
-					<br><br>
 				<<elseif $catbuild lt 55>>
 					<<set $leftEyeColour to $original_colour[0]>>
 					<<set $rightEyeColour to $original_colour[1]>>
-					<span class="gold">Your eyes no longer itch; it must have been an allergy.</span>
-					<br><br>
 					<<set $cat to 6>>
+					<<run $timeMessages.pushUnique("catDown6")>>
 				<</if>>
 			<<case 8>>
 				<<if $catbuild gte 65>>
 					<<set $cat to 9>>
+					<<run $timeMessages.pushUnique("catUp9")>>
 					<<catHeterochromiaTF 2>>
-					<span class="gold">Your eyes burn, likely due to some sort of allergy, you can barely keep them open.</span>
-					<br><br>
 				<<elseif $catbuild lt 60>>
 					<<catHeterochromiaTF 0>>
-					<span class="gold">Your eyes sense less detail of your surroundings.</span>
 					<<set $cat to 7>>
+					<<run $timeMessages.pushUnique("catDown7")>>
 				<</if>>
 			<<case 9>>
 				<<if $catbuild gte 70>>
-					<<set $cattf = 1>>
 					<<set $cat to 10>>
+					<<run $timeMessages.pushUnique("catUp10")>>
 					<<catHeterochromiaTF 3>>
-					<span class="gold">Your eyes no longer burn, and despite the darkness of the early morning, you are able to pick up every detail of the scenery around you.</span>
-					<br><br>
 				<<elseif $catbuild lt 65>>
 					<<catHeterochromiaTF 1>>
 					<<set $cat to 8>>
+					/* No message for catDown8 */
 				<</if>>
 			<<case 10>>
 				<<if $catbuild lt 70>>
 					<<catHeterochromiaTF 2>>
-					<span class="gold">Your surroundings appear darker than before. </span>
 					<<set $cat to 9>>
-					<<set $permanentTransform = 1>>
+					<<run $timeMessages.pushUnique("catDown9")>>
 				<</if>>
 			<<case 99>>
 				<<set $physicalTransform to 0>>
@@ -1285,55 +1236,44 @@
 			<<case 0>>
 				<<if $cowbuild gte 5>>
 					<<set $cow to 1>>
+					<<run $timeMessages.pushUnique("cowUp1")>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">You have a strange urge to munch grass.</span>
-					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $cowbuild gte 10>>
 					<<set $cow to 2>>
-					<<clearhorns>>
+					<<run $timeMessages.pushUnique("cowUp2")>>
 					<<set $transformationParts.cow.horns to "default">>
-					<span class="gold">Your scalp itches. You reach up, and find that a pair of small horns have sprouted.</span>
-					<br><br>
 				<<elseif $cowbuild lt 5>>
 					<<set $cow to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Grass no longer looks so tasty.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("cowDown0")>>
 				<</if>>
 			<<case 2>>
 				<<if $cowbuild gte 15>>
 					<<set $cow to 3>>
-					<span class="gold">Your ears tingle.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("cowUp3")>>
 				<<elseif $cowbuild lt 10>>
 					<<set $cow to 1>>
+					<<run $timeMessages.pushUnique("cowDown1")>>
 					<<set $transformationParts.cow.horns to "disabled">>
-					<span class="gold">Your small horns have disappeared.</span>
-					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $cowbuild gte 20>>
 					<<set $cow to 4>>
-					<<clearears>>
+					<<run $timeMessages.pushUnique("cowUp4")>>
 					<<set $transformationParts.cow.ears to "default">>
-					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of cow ears.</span>
-					<br><br>
 				<<elseif $cowbuild lt 15>>
 					<<set $cow to 2>>
-					<span class="gold">Your ears no longer tingle.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("cowDown2")>>
 				<</if>>
 			<<case 4>>
 				<<if $cowbuild gte 25>>
 					<<set $cow to 5>>
-					<span class="gold">Your lower back tingles.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("cowUp5")>>
 				<<elseif $cowbuild lt 20>>
 					<<set $cow to 3>>
+					<<run $timeMessages.pushUnique("cowDown3")>>
 					<<set $transformationParts.cow.ears to "disabled">>
-					<span class="gold">Your cow ears have disappeared.</span>
-					<br><br>
 				<</if>>
 			<<case 5>>
 				<<if $cowbuild gte 30>>
@@ -1347,18 +1287,18 @@
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
 					<<earnFeat "Cattle">>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new cow tail. You suppress the urge to moo.</span>
+					<<run $timeMessages.pushUnique("cowUp6")>>
 					<br><br>
 				<<elseif $cowbuild lt 25>>
 					<<set $cow to 4>>
-					<span class="gold">Your lower back has stopped tingling.</span>
+					<<run $timeMessages.pushUnique("cowDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $cowbuild lt 30>>
 					<<set $semen_max to 3000>>
 					<<set $milk_max to 3000>>
-					<span class="gold">Your balance feels different. Your cow tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("cowDown5")>>
 					<<set $cow to 5>>
 					<<set $transformationParts.cow.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -1407,53 +1347,36 @@
 			<<case 0>>
 				<<if $birdbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $harpy to 1>>
+					<<run $timeMessages.pushUnique("harpyUp1")>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">Your vision feels sharper.</span><br><br>
 				<</if>>
 			<<case 1>>
 				<<if $birdbuild gte 10>>
 					<<set $harpy to 2>>
-					<span class="gold">Your eyes feel strange. Your vision has improved.</span>
-					<<cleareyes>>
+					<<run $timeMessages.pushUnique("harpyUp2")>>
 					<<set $transformationParts.bird.eyes to "default">>
 					<<set $transformationParts.bird.malar to "default">>
 					<<set $transformationParts.traits.sharpEyes to "default">>
-					<br><br>
 				<<elseif $birdbuild lt 5>>
 					<<set $harpy to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Your vision has returned to normal.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("harpyDown0")>>
 				<</if>>
 			<<case 2>>
 				<<if $birdbuild gte 15>>
 					<<set $harpy to 3>>
-					<span class="gold">Your lower back and neck itch.
-					<<if $loveInterest.primary isnot "None">>
-						Your thoughts turn to
-						<<if $loveInterest.primary is "Black Wolf" or $loveInterest.primary is "Great Hawk">>
-							the $loveInterest.primary,
-						<<else>>
-							$loveInterest.primary,
-						<</if>>
-						and you have a primal, almost animalistic, urge to be with <<print C.npc[$loveInterest.primary].pronouns.him>>.
-					<<else>>
-						You suddenly crave a true partner to be with.
-					<</if>>
-					</span>
+					<<run $timeMessages.pushUnique("harpyUp3")>>
 					<<set $transformationParts.traits.mateForLife to "default">>
-					<br><br>
 				<<elseif $birdbuild lt 10>>
 					<<set $harpy to 1>>
-					<span class="gold">Your vision is no longer so sharp.</span>
+					<<run $timeMessages.pushUnique("harpyDown1")>>
 					<<set $transformationParts.bird.eyes to "disabled">>
 					<<set $transformationParts.bird.malar to "disabled">>
 					<<set $transformationParts.traits.sharpEyes to "disabled">>
-					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $birdbuild gte 20>>
 					<<set $harpy to 4>>
-					<span class="gold">Your bottom feels lighter. You reach behind you, and grasp a feathered tail. Small feathers cover your neck.</span>
+					<<run $timeMessages.pushUnique("harpyUp4")>>
 					<<cleartail>>
 					<<set $transformationParts.bird.tail to "default">>
 					<<set $hastail to "true">>
@@ -1462,18 +1385,18 @@
 					<br><br>
 				<<elseif $birdbuild lt 15>>
 					<<set $harpy to 2>>
-					<span class="gold">The itching in your lower back and neck both stop, and you no longer crave a partner so feverishly.</span>
+					<<run $timeMessages.pushUnique("harpyDown2")>>
 					<<set $transformationParts.traits.mateForLife to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $birdbuild gte 25>>
 					<<set $harpy to 5>>
-					<span class="gold">Your back <<print ($pbdisable is "f" ? "and pubic area itch" : "itches")>>.</span>
+					<<run $timeMessages.pushUnique("harpyUp5")>>
 					<br><br>
 				<<elseif $birdbuild lt 20>>
 					<<set $harpy to 3>>
-					<span class="gold">Your feathered tail has disappeared, along with the feathers on your neck.</span>
+					<<run $timeMessages.pushUnique("harpyDown3")>>
 					<<set $transformationParts.bird.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thintail to "false">>
@@ -1482,35 +1405,21 @@
 				<</if>>
 			<<case 5>>
 				<<if $birdbuild gte 30>>
-					<<set $permanentTransform = 1>>
-					<<set $harpytf = 1>>
 					<<set $harpy to 6>>
-					<span class="gold">You feel light as a feather. Wings caress your face.
-					<<print ($pbdisable is "f" ? " You also notice that short, feathery hair has grown in your pubic area.":"")>></span>
-					<<earnFeat "Harpy">>
-					<<clearwings>>
+					<<run $timeMessages.pushUnique("harpyUp6")>>
 					<<set $transformationParts.bird.wings to "default">>
-					<<if $transformationParts.angel.wings is "default">>
-						<<set $transformationParts.angel.wings to "hidden">>
-					<<elseif $transformationParts.fallenAngel.wings is "default">>
-						<<set $transformationParts.fallenAngel.wings to "hidden">>
-					<<elseif $transformationParts.demon.wings is "default">>
-						<<set $transformationParts.demon.wings to "hidden">>
-					<</if>>
-					<<if $pbdisable is "f">>
+					<<if $settings.pubicHairEnabled>>
 						<<set $transformationParts.bird.pubes to "default">>
 					<<else>>
 						<<set $transformationParts.bird.pubes to "hidden">>
 					<</if>>
-					<br><br>
 				<<elseif $birdbuild lt 25>>
 					<<set $harpy to 4>>
-					<span class="gold">You feel heavier<<print ($pbdisable is "f" ? ", and your pubic area no longer itches" : "")>>.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("harpyDown4")>>
 				<</if>>
 			<<case 6>>
 				<<if $birdbuild lt 30>>
-					<span class="gold">You feel heavier. Your feathered wings<<print ($pbdisable is "f" ? " and feathery pubes":"")>> have disappeared.</span>
+					<<run $timeMessages.pushUnique("harpyDown5")>>
 					<<set $harpy to 5>>
 					<<set $transformationParts.bird.wings to "disabled">>
 					<<set $transformationParts.bird.pubes to "disabled">>
@@ -1584,13 +1493,128 @@
 	<</if>>
 <</widget>>
 
+/* <<foxTransform step>> If neither is provided, force full transformation */
+<<widget "foxTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $foxbuild gte 5>>
+					<<set $fox to 1>>
+					<<run $timeMessages.pushUnique("foxUp1")>>
+					<<set $physicalTransform to 1>>
+				<</if>>
+			<<case 1>>
+				<<if $foxbuild gte 10>>
+					<<set $fox to 2>>
+					<<run $timeMessages.pushUnique("foxUp2")>>
+					<<set $transformationParts.traits.fangs to "default">>
+					<<set $transformationParts.traits.sharpEyes to "default">>
+				<<elseif $foxbuild lt 5>>
+					<<set $fox to 0>>
+					<<run $timeMessages.pushUnique("foxDown0")>>
+					<<set $physicalTransform to 0>>
+				<</if>>
+			<<case 2>>
+				<<if $foxbuild gte 15>>
+					<<set $fox to 3>>
+					<<run $timeMessages.pushUnique("foxUp3")>>
+					<<set $transformationParts.traits.mateForLife to "default">>
+				<<elseif $foxbuild lt 10>>
+					<<set $fox to 1>>
+					<<run $timeMessages.pushUnique("foxDown1")>>
+					<<set $transformationParts.traits.fangs to "disabled">>
+					<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<</if>>
+			<<case 3>>
+				<<if $foxbuild gte 20>>
+					<<set $fox to 4>>
+					<<run $timeMessages.pushUnique("foxUp4")>>
+					<<set $transformationParts.fox.ears to "default">>
+					<<set $transformationParts.traits.chase to "default">>
+				<<elseif $foxbuild lt 15>>
+					<<set $fox to 2>>
+					<<run $timeMessages.pushUnique("foxDown2")>>
+					<<set $transformationParts.traits.mateForLife to "disabled">>
+				<</if>>
+			<<case 4>>
+				<<if $foxbuild gte 25>>
+					<<set $fox to 5>>
+					<<run $timeMessages.pushUnique("foxUp5")>>
+					<<set $transformationParts.fox.cheeks to "default">>
+				<<elseif $foxbuild lt 20>>
+					<<set $fox to 3>>
+					<<run $timeMessages.pushUnique("foxDown3")>>
+					<<set $transformationParts.fox.ears to "disabled">>
+					<<set $transformationParts.traits.chase to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $foxbuild gte 30>>
+					<<set $permanentTransform = 1>>
+					<<set $foxtf = 1>>
+					<<set $fox to 6>>
+					<<run $timeMessages.pushUnique("foxUp6")>>
+					<<cleartail>>
+					<<set $transformationParts.fox.tail to "default">>
+					<<set $hastail to "true">>
+					<<set $thintail to "true">>
+					<<earnFeat "Fox">>
+				<<elseif $foxbuild lt 25>>
+					<<set $fox to 4>>
+					<<run $timeMessages.pushUnique("foxDown4")>>
+					<<set $transformationParts.fox.cheeks to "disabled">>
+				<</if>>
+			<<case 6>>
+				<<if $foxbuild lt 30>>
+					<<run $timeMessages.pushUnique("foxDown5")>>
+					<<set $fox to 5>>
+					<<set $transformationParts.fox.tail to "disabled">>
+					<<set $hastail to "false">>
+					<<set $thintail to "false">>
+					<<set $permanentTransform = 1>>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $fox to 0>>
+				<<set $foxbuild to 0>>
+				<<set $transformationParts.traits.fangs to "disabled">>
+				<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<<set $transformationParts.traits.mateForLife to "disabled">>
+				<<set $transformationParts.traits.chase to "disabled">>
+				<<set $transformationParts.fox.cheeks to "disabled">>
+				<<set $transformationParts.fox.ears to "disabled">>
+				<<set $transformationParts.fox.tail to "disabled">>
+				<<set $hastail to "false">>
+				<<set $thintail to "false">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $permanentTransform = 1>>
+		<<set $foxtf = 1>>
+		<<set $fox to 6>>
+		<<set $foxbuild to 100>>
+		<<clearcheeks>>
+		<<clearears>>
+		<<cleartail>>
+		<<set $transformationParts.traits.fangs to "default">>
+		<<set $transformationParts.traits.sharpEyes to "default">>
+		<<set $transformationParts.traits.mateForLife to "default">>
+		<<set $transformationParts.traits.chase to "default">>
+		<<set $transformationParts.fox.cheeks to "default">>
+		<<set $transformationParts.fox.ears to "default">>
+		<<set $transformationParts.fox.tail to "default">>
+		<<set $hastail to "true">>
+		<<set $thintail to "true">>
+	<</if>>
+<</widget>>
+
 <<widget "raccoonTransform">>
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
 				<<if $raccoonbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $raccoon to 1>><<set $physicalTransform to 1>>
-					<span class="gold">You feel more mischievous than usual.</span>
+					<<run $timeMessages.pushUnique("raccoonUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
@@ -1600,22 +1624,22 @@
 					<<set $transformationParts.traits.sharpEyes to "default">>
 					<<set $transformationParts.traits.incognito to "default">>
 					<<set $transformationParts.raccoon.mask to "default">>
-					<span class="gold">A clarity suddenly overtakes you as darkness seems to encircle your eyes. You notice things you didn't before. Things you yearn to have all to yourself.</span>
+					<<run $timeMessages.pushUnique("raccoonUp2")>>
 					<br><br>
 				<<elseif $raccoonbuild lt 5>>
 					<<set $raccoon to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Your usual inhibitions return.</span>
+					<<run $timeMessages.pushUnique("raccoonDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $raccoonbuild gte 15>>
 					<<set $raccoon to 3>>
-					<span class="gold">Your ears tingle.</span>
+					<<run $timeMessages.pushUnique("raccoonUp3")>>
 					<br><br>
 				<<elseif $raccoonbuild lt 10>>
 					<<set $raccoon to 1>>
 					<<set $transformationParts.raccoon.mask to "disabled">>
-					<span class="gold">Your facial markings disappear and your visual acuity returns to how it once was.</span>
+					<<run $timeMessages.pushUnique("raccoonDown1")>>
 					<<set $transformationParts.traits.sharpEyes to "disabled">>
 					<<set $transformationParts.traits.incognito to "disabled">>
 					<br><br>
@@ -1625,22 +1649,22 @@
 					<<set $raccoon to 4>>
 					<<clearears>>
 					<<set $transformationParts.raccoon.ears to "default">>
-					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of raccoon ears.</span>
+					<<run $timeMessages.pushUnique("raccoonUp4")>>
 					<br><br>
 				<<elseif $raccoonbuild lt 15>>
 					<<set $raccoon to 2>>
-					<span class="gold">Your ears no longer tingle.</span>
+					<<run $timeMessages.pushUnique("raccoonDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $raccoonbuild gte 25>>
 					<<set $raccoon to 5>>
-					<span class="gold">Your lower back tingles.</span>
+					<<run $timeMessages.pushUnique("raccoonUp5")>>
 					<br><br>
 				<<elseif $raccoonbuild lte 20>>
 					<<set $raccoon to 3>>
 					<<set $transformationParts.raccoon.ears to "disabled">>
-					<span class="gold">Your raccoon ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("raccoonDown3")>>
 					<br><br>
 				<</if>>
 			<<case 5>>
@@ -1653,16 +1677,16 @@
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
 					<<earnFeat "Raccoon">>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new raccoon tail. A surge of kleptomania nearly overtakes you.</span>
+					<<run $timeMessages.pushUnique("raccoonUp6")>>
 					<br><br>
 				<<elseif $raccoonbuild lt 25>>
 					<<set $raccoon to 4>>
-					<span class="gold">Your lower back has stopped tingling.</span>
+					<<run $timeMessages.pushUnique("raccoonDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $raccoonbuild lt 30>>
-					<span class="gold">Your balance feels different. Your raccoon tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("raccoonDown5")>>
 					<<set $raccoon to 5>>
 					<<set $transformationParts.raccoon.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -1702,150 +1726,13 @@
 	<</if>>
 <</widget>>
 
-/* <<foxTransform step>> If neither is provided, force full transformation */
-<<widget "foxTransform">>
-	<<if _args[0] gte 0>>
-		<<switch _args[0]>>
-			<<case 0>>
-				<<if $foxbuild gte 5>>
-					<<set $fox to 1>>
-					<<set $physicalTransform to 1>>
-					<span class="gold">You have a strange toothache, and your eyes feel a little sharper. You have the urge to steal something.</span>
-					<br><br>
-				<</if>>
-			<<case 1>>
-				<<if $foxbuild gte 10>>
-					<<set $fox to 2>>
-					<span class="gold">Your mouth and eyes feel different. You explore your mouth and yipp as your tongue presses against your new fangs.</span>
-					<<set $transformationParts.traits.fangs to "default">>
-					<<set $transformationParts.traits.sharpEyes to "default">>
-					<br><br>
-				<<elseif $foxbuild lt 5>>
-					<<set $fox to 0>>
-					<<set $physicalTransform to 0>>
-					<span class="gold">Your toothache has stopped.</span>
-					<br><br>
-				<</if>>
-			<<case 2>>
-				<<if $foxbuild gte 15>>
-					<<set $fox to 3>>
-					<span class="gold">Your scalp itches.
-					<<if $loveInterest.primary isnot "None">>
-						Your thoughts turn to
- 						<<if $loveInterest.primary is "Black Wolf" or $loveInterest.primary is "Great Hawk">>
-							the $loveInterest.primary,
-						<<else>>
-							$loveInterest.primary,
-						<</if>>
-						and you have a primal, almost animalistic, urge to be with <<print C.npc[$loveInterest.primary].pronouns.him>>.
-					<<else>>
-						You suddenly crave a true partner to be with.
-					<</if>>
-					</span>
-					<<set $transformationParts.traits.mateForLife to "default">>
-					<br><br>
-				<<elseif $foxbuild lt 10>>
-					<<set $fox to 1>>
-					<span class="gold">Your fangs have turned into regular teeth, and your eyesight feels dull.</span>
-					<<set $transformationParts.traits.fangs to "disabled">>
-					<<set $transformationParts.traits.sharpEyes to "disabled">>
-					<br><br>
-				<</if>>
-			<<case 3>>
-				<<if $foxbuild gte 20>>
-					<<set $fox to 4>>
-					<span class="gold">You feel something on your head. You reach up and touch your new pair of fox ears, and they wiggle in response.</span>
-					<<clearears>>
-					<<set $transformationParts.fox.ears to "default">>
-					<br><br>
-				<<elseif $foxbuild lt 15>>
-					<<set $fox to 2>>
-					<span class="gold">Your scalp no longer itches, and you no longer crave a partner so feverishly.</span>
-					<<set $transformationParts.traits.mateForLife to "disabled">>
-					<br><br>
-				<</if>>
-			<<case 4>>
-				<<if $foxbuild gte 25>>
-					<<set $fox to 5>>
-					<span class="gold">Your lower back itches. You have the urge to let someone scratch it. You also notice strange discolouration around your eyes.</span>
-					<<clearcheeks>>
-					<<set $transformationParts.fox.cheeks to "default">>
-					<br><br>
-				<<elseif $foxbuild lt 20>>
-					<<set $fox to 3>>
-					<span class="gold">Your fox ears have disappeared.</span>
-					<<set $transformationParts.fox.ears to "disabled">>
-					<br><br>
-				<</if>>
-			<<case 5>>
-				<<if $foxbuild gte 30>>
-					<<set $permanentTransform = 1>>
-					<<set $foxtf = 1>>
-					<<set $fox to 6>>
-					<span class="gold">Your bottom feels heavier than usual. You give it a wiggle and feel your new fox tail. It's extremely comforting to touch.</span>
-					<<cleartail>>
-					<<set $transformationParts.fox.tail to "default">>
-					<<set $hastail to "true">>
-					<<set $thintail to "true">>
-					<<earnFeat "Fox">>
-					<br><br>
-				<<elseif $foxbuild lt 25>>
-					<<set $fox to 4>>
-					<span class="gold">Your lower back has stopped itching, and the discolouration around your eyes has vanished.</span>
-					<<set $transformationParts.fox.cheeks to "disabled">>
-					<br><br>
-				<</if>>
-			<<case 6>>
-				<<if $foxbuild lt 30>>
-					<span class="gold">Your balance feels different. Your fox tail has disappeared.</span>
-					<<set $fox to 5>>
-					<<set $transformationParts.fox.tail to "disabled">>
-					<<set $hastail to "false">>
-					<<set $thintail to "false">>
-					<br><br>
-					<<set $permanentTransform = 1>>
-				<</if>>
-			<<case 99>>
-				<<set $physicalTransform to 0>>
-				<<set $fox to 0>>
-				<<set $foxbuild to 0>>
-				<<set $transformationParts.traits.fangs to "disabled">>
-				<<set $transformationParts.traits.sharpEyes to "disabled">>
-				<<set $transformationParts.traits.mateForLife to "disabled">>
-				<<set $transformationParts.fox.cheeks to "disabled">>
-				<<set $transformationParts.fox.ears to "disabled">>
-				<<set $transformationParts.fox.tail to "disabled">>
-				<<set $hastail to "false">>
-				<<set $thintail to "false">>
-		<</switch>>
-	<<else>>
-		<<clearAnimalTransformations>>
-		<<set $physicalTransform to 1>>
-		<<set $permanentTransform = 1>>
-		<<set $foxtf = 1>>
-		<<set $fox to 6>>
-		<<set $foxbuild to 100>>
-		<<clearcheeks>>
-		<<clearears>>
-		<<cleartail>>
-		<<set $transformationParts.traits.fangs to "default">>
-		<<set $transformationParts.traits.sharpEyes to "default">>
-		<<set $transformationParts.traits.mateForLife to "default">>
-		<<set $transformationParts.fox.cheeks to "default">>
-		<<set $transformationParts.fox.ears to "default">>
-		<<set $transformationParts.fox.tail to "default">>
-		<<set $hastail to "true">>
-		<<set $thintail to "true">>
-	<</if>>
-<</widget>>
-
 <<widget "beeTransform">>
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
 				<<if $beebuild gte 5 and $physicalTransform isnot 1>>
 					<<set $bee to 1>>
-					<span class="gold">Your ears tingle.</span>
+					<<run $timeMessages.pushUnique("beeUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
@@ -1853,28 +1740,28 @@
 					<<set $bee to 2>>
 					<<clearears>>
 					<<set $transformationParts.bee.ears to "default">>
-					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of bee ears.</span>
+					<<run $timeMessages.pushUnique("beeUp2")>>
 					<br><br>
 				<<elseif $beebuild lt 5>>
 					<<set $bee to 0>>
-					<span class="gold">Your ears no longer tingle.</span>
+					<<run $timeMessages.pushUnique("beeDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $beebuild gte 15>>
 					<<set $bee to 3>>
-					<span class="gold">Your lower back itch.</span>
+					<<run $timeMessages.pushUnique("beeUp3")>>
 					<br><br>
 				<<elseif $beebuild lt 10>>
 					<<set $bee to 1>>
-					<span class="gold">Your bee ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("beeDown1")>>
 					<<set $transformationParts.bee.ears to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $beebuild gte 20>>
 					<<set $bee to 4>>
-					<span class="gold">Your bottom feels heavier. You reach behind you, and grasp a stinger.</span>
+					<<run $timeMessages.pushUnique("beeUp4")>>
 					<<cleartail>>
 					<<set $transformationParts.bee.tail to "default">>
 					<<set $hastail to "true">>
@@ -1882,17 +1769,17 @@
 					<br><br>
 				<<elseif $beebuild lt 15>>
 					<<set $bee to 2>>
-					<span class="gold">The itching in your lower back both stop.</span>
+					<<run $timeMessages.pushUnique("beeDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $beebuild gte 25>>
 					<<set $bee to 5>>
-					<span class="gold">Your back itches.</span>
+					<<run $timeMessages.pushUnique("beeUp5")>>
 					<br><br>
 				<<elseif $beebuild lt 20>>
 					<<set $bee to 3>>
-					<span class="gold">Your stinger has disappeared.</span>
+					<<run $timeMessages.pushUnique("beeDown3")>>
 					<<set $transformationParts.bee.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thicktail to "false">>
@@ -1903,7 +1790,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $beetf = 1>>
 					<<set $bee to 6>>
-					<span class="gold">You feel lighter. Wings caress your face.</span>
+					<<run $timeMessages.pushUnique("beeUp6")>>
 					<<earnFeat "Bee">>
 					<<clearwings>>
 					<<set $transformationParts.bee.wings to "default">>
@@ -1917,12 +1804,12 @@
 					<br><br>
 				<<elseif $beebuild lt 25>>
 					<<set $bee to 4>>
-					<span class="gold">You feel lighter.</span>
+					<<run $timeMessages.pushUnique("beeDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $beebuild lt 30>>
-					<span class="gold">You feel heavier. Your wings have disappeared.</span>
+					<<run $timeMessages.pushUnique("beeDown5")>>
 					<<set $bee to 5>>
 					<<set $transformationParts.bee.wings to "disabled">>
 					<br><br>
@@ -1962,7 +1849,7 @@
 			<<case 0>>
 				<<if $sheepbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $sheep to 1>><<set $physicalTransform to 1>>
-					<span class="gold">You have a strange urge to munch grass.</span>
+					<<run $timeMessages.pushUnique("sheepUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
@@ -1970,22 +1857,22 @@
 					<<set $sheep to 2>>
 					<<clearhorns>>
 					<<set $transformationParts.sheep.horns to "default">>
-					<span class="gold">Your scalp itches. You reach up, and find that a pair of horns have sprouted.</span>
+					<<run $timeMessages.pushUnique("sheepUp2")>>
 					<br><br>
 				<<elseif $sheepbuild lt 5>>
 					<<set $sheep to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Grass no longer looks so tasty.</span>
+					<<run $timeMessages.pushUnique("sheepDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $sheepbuild gte 15>>
 					<<set $sheep to 3>>
-					<span class="gold">Your ears tingle.</span>
+					<<run $timeMessages.pushUnique("sheepUp3")>>
 					<br><br>
 				<<elseif $sheepbuild lt 10>>
 					<<set $sheep to 1>>
 					<<set $transformationParts.sheep.horns to "disabled">>
-					<span class="gold">Your horns have disappeared.</span>
+					<<run $timeMessages.pushUnique("sheepDown1")>>
 					<br><br>
 				<</if>>
 			<<case 3>>
@@ -1993,22 +1880,22 @@
 					<<set $sheep to 4>>
 					<<clearears>>
 					<<set $transformationParts.sheep.ears to "default">>
-					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of sheep ears.</span>
+					<<run $timeMessages.pushUnique("sheepUp4")>>
 					<br><br>
 				<<elseif $sheepbuild lt 15>>
 					<<set $sheep to 2>>
-					<span class="gold">Your ears no longer tingle.</span>
+					<<run $timeMessages.pushUnique("sheepDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $sheepbuild gte 25>>
 					<<set $sheep to 5>>
-					<span class="gold">Your lower back tingles.</span>
+					<<run $timeMessages.pushUnique("sheepUp5")>>
 					<br><br>
 				<<elseif $sheepbuild lte 20>>
 					<<set $sheep to 3>>
 					<<set $transformationParts.sheep.ears to "disabled">>
-					<span class="gold">Your sheep ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("sheepDown3")>>
 					<br><br>
 				<</if>>
 			<<case 5>>
@@ -2023,18 +1910,18 @@
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
 					<<earnFeat "Sheep">>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new sheep tail. You suppress the urge to baa.</span>
+					<<run $timeMessages.pushUnique("sheepUp6")>>
 					<br><br>
 				<<elseif $sheepbuild lt 25>>
 					<<set $sheep to 4>>
-					<span class="gold">Your lower back has stopped tingling.</span>
+					<<run $timeMessages.pushUnique("sheepDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $sheepbuild lt 30>>
 					<<set $semen_max to 3000>>
 					<<set $milk_max to 3000>>
-					<span class="gold">Your balance feels different. Your sheep tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("sheepDown5")>>
 					<<set $sheep to 5>>
 					<<set $transformationParts.sheep.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -2076,7 +1963,7 @@
 			<<case 0>>
 				<<if $deerbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $deer to 1>><<set $physicalTransform to 1>>
-					<span class="gold">You have a strange urge to munch grass.</span>
+					<<run $timeMessages.pushUnique("deerUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
@@ -2084,22 +1971,22 @@
 					<<set $deer to 2>>
 					<<clearhorns>>
 					<<set $transformationParts.deer.horns to "default">>
-					<span class="gold">Your scalp itches. You reach up, and find that a pair of antlers have sprouted.</span>
+					<<run $timeMessages.pushUnique("deerUp2")>>
 					<br><br>
 				<<elseif $deerbuild lt 5>>
 					<<set $deer to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Grass no longer looks so tasty.</span>
+					<<run $timeMessages.pushUnique("deerDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $deerbuild gte 15>>
 					<<set $deer to 3>>
-					<span class="gold">Your ears tingle.</span>
+					<<run $timeMessages.pushUnique("deerUp3")>>
 					<br><br>
 				<<elseif $deerbuild lt 10>>
 					<<set $deer to 1>>
 					<<set $transformationParts.deer.horns to "disabled">>
-					<span class="gold">Your antlers have disappeared.</span>
+					<<run $timeMessages.pushUnique("deerDown1")>>
 					<br><br>
 				<</if>>
 			<<case 3>>
@@ -2107,22 +1994,22 @@
 					<<set $deer to 4>>
 					<<clearears>>
 					<<set $transformationParts.deer.ears to "default">>
-					<span class="gold">Your ears itch. You reach up to scratch them, and find them much bigger than you expected. You've grown a pair of deer ears.</span>
+					<<run $timeMessages.pushUnique("deerUp4")>>
 					<br><br>
 				<<elseif $deerbuild lt 15>>
 					<<set $deer to 2>>
-					<span class="gold">Your ears no longer tingle.</span>
+					<<run $timeMessages.pushUnique("deerDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $deerbuild gte 25>>
 					<<set $deer to 5>>
-					<span class="gold">Your lower back tingles.</span>
+					<<run $timeMessages.pushUnique("deerUp5")>>
 					<br><br>
 				<<elseif $deerbuild lte 20>>
 					<<set $deer to 3>>
 					<<set $transformationParts.deer.ears to "disabled">>
-					<span class="gold">Your deer ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("deerDown3")>>
 					<br><br>
 				<</if>>
 			<<case 5>>
@@ -2136,16 +2023,16 @@
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
 					<<earnFeat "Deer">>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new deer tail. Your legs inexplicably feel more powerful.</span>
+					<<run $timeMessages.pushUnique("deerUp6")>>
 					<br><br>
 				<<elseif $deerbuild lt 25>>
 					<<set $deer to 4>>
-					<span class="gold">Your lower back has stopped tingling.</span>
+					<<run $timeMessages.pushUnique("deerDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $deerbuild lt 30>>
-					<span class="gold">Your balance feels different. Your deer tail has disappeared. Your legs also seem to atrophy, somewhat.</span>
+					<<run $timeMessages.pushUnique("deerDown5")>>
 					<<set $deer to 5>>
 					<<set $transformationParts.deer.tail to "disabled">>
 					<<set $transformationParts.traits.kicks to "disabled">>
@@ -2191,30 +2078,30 @@
 				<<if $bearbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $bear to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">You have a strange toothache.</span>
+					<<run $timeMessages.pushUnique("bearUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $bearbuild gte 10>>
 					<<set $bear to 2>>
-					<span class="gold">Your mouth and nose feel different. You explore your mouth and yelp in pain as your tongue presses against your new fangs. Your sense of smell vastly improves.</span>
+					<<run $timeMessages.pushUnique("bearUp2")>>
 					<<set $transformationParts.traits.fangs to "default">>
 					<<set $transformationParts.traits.strongnose to "default">>
 					<br><br>
 				<<elseif $bearbuild lt 5>>
 					<<set $bear to 0>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">Your toothache has stopped.</span>
+					<<run $timeMessages.pushUnique("bearDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $bearbuild gte 15>>
 					<<set $bear to 3>>
-					<span class="gold">Your ears tingle.</span>
+					<<run $timeMessages.pushUnique("bearUp3")>>
 					<br><br>
 				<<elseif $bearbuild lt 10>>
 					<<set $bear to 1>>
-					<span class="gold">Your fangs have turned into regular teeth and your sense of smell dulls.</span>
+					<<run $timeMessages.pushUnique("bearDown1")>>
 					<<set $transformationParts.traits.fangs to "disabled">>
 					<<set $transformationParts.traits.strongnose to "disabled">>
 					<br><br>
@@ -2224,22 +2111,22 @@
 					<<set $bear to 4>>
 					<<clearears>>
 					<<set $transformationParts.bear.ears to "default">>
-					<span class="gold">Your ears itch. You reach up to scratch them, and find them much higher than you expected. You've grown a pair of bear ears.</span>
+					<<run $timeMessages.pushUnique("bearUp4")>>
 					<br><br>
 				<<elseif $bearbuild lt 15>>
 					<<set $bear to 2>>
-					<span class="gold">Your ears no longer tingle.</span>
+					<<run $timeMessages.pushUnique("bearDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $bearbuild gte 25>>
 					<<set $bear to 5>>
-					<span class="gold">Your body tingles.</span>
+					<<run $timeMessages.pushUnique("bearUp5")>>
 					<br><br>
 				<<elseif $bearbuild lte 20>>
 					<<set $bear to 3>>
 					<<set $transformationParts.bear.ears to "disabled">>
-					<span class="gold">Your bear ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("bearDown3")>>
 					<br><br>
 				<</if>>
 			<<case 5>>
@@ -2253,11 +2140,11 @@
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
 					<<earnFeat "Bear">>
-					<span class="gold">A surge of aggression wells forward, but quickly disappears, replaced by a sense of weariness, which also fades. Something seems to sprout just above your <<bottom>>. You reach behind you and feel your new bear tail.</span>
+					<<run $timeMessages.pushUnique("bearUp6")>>
 					<br><br>
 				<<elseif $bearbuild lt 25>>
 					<<set $bear to 4>>
-					<span class="gold">Your lower back has stopped tingling.</span>
+					<<run $timeMessages.pushUnique("bearDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
@@ -2267,7 +2154,7 @@
 					<<set $transformationParts.bear.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thintail to "false">>
-					<span class="gold">Your aggression decreases along with your body mass. Your bear tail vanishes</span>
+					<<run $timeMessages.pushUnique("bearDown5")>>
 					<br><br>
 				<</if>>
 			<<case 99>>
@@ -2307,7 +2194,7 @@
 			<<case 0>>
 				<<if $dragonbuild gte 10 and $physicalTransform isnot 1>>
 					<<set $dragon to 1>><<set $physicalTransform to 1>>
-					<span class="gold">Your eyes have turned a strange red and yellow. Your vision has improved.</span>
+					<<run $timeMessages.pushUnique("dragonUp1")>>
 					<<cleareyes>>
 					<<set $transformationParts.dragon.eyes to "default">>
 					<<set $transformationParts.traits.sharpEyes to "hidden">>
@@ -2316,13 +2203,13 @@
 			<<case 1>>
 				<<if $dragonbuild gte 20>>
 					<<set $dragon to 2>>
-					<span class="gold">Your mouth hurts for a moment. You lick your teeth and find sharp new fangs.</span>
+					<<run $timeMessages.pushUnique("dragonUp2")>>
 					<<set $transformationParts.dragon.fangs to "default">>
 					<<set $transformationParts.traits.fangs to "hidden">>
 					<br><br>
 				<<elseif $dragonbuild lt 10>>
 					<<set $dragon to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Your vision has worsened significantly.</span>
+					<<run $timeMessages.pushUnique("dragonDown0")>>
 					<<set $transformationParts.dragon.eyes to "disabled">>
 					<<set $transformationParts.traits.sharpEyes to "disabled">>
 					<br><br>
@@ -2330,13 +2217,13 @@
 			<<case 2>>
 				<<if $dragonbuild gte 25>>
 					<<set $dragon to 3>>
-					<span class="gold">Your head aches for a moment, and horns appear.</span>
+					<<run $timeMessages.pushUnique("dragonUp3")>>
 					<<clearhorns>>
 					<<set $transformationParts.dragon.horns to "default">>
 					<br><br>
 				<<elseif $dragonbuild lt 10>>
 					<<set $dragon to 1>>
-					<span class="gold">Your fangs have completely disappeared.</span>
+					<<run $timeMessages.pushUnique("dragonDown1")>>
 					<<set $transformationParts.dragon.fangs to "disabled">>
 					<<set $transformationParts.traits.fangs to "disabled">>
 					<br><br>
@@ -2344,7 +2231,7 @@
 			<<case 3>>
 				<<if $dragonbuild gte 30>>
 					<<set $dragon to 4>>
-					<span class="gold">Your bottom feels strange. You reach behind you, and find a tail covered in rough scales.</span>
+					<<run $timeMessages.pushUnique("dragonUp4")>>
 					<<cleartail>>
 					<<set $transformationParts.dragon.tail to "default">>
 					<<set $hastail to "true">>
@@ -2352,18 +2239,18 @@
 					<br><br>
 				<<elseif $dragonbuild lt 20>>
 					<<set $dragon to 2>>
-					<span class="gold">Your horns have disappeared.</span>
+					<<run $timeMessages.pushUnique("dragonDown2")>>
 					<<set $transformationParts.dragon.horns to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $dragonbuild gte 40>>
 					<<set $dragon to 5>>
-					<span class="gold">Your back itches.</span>
+					<<run $timeMessages.pushUnique("dragonUp5")>>
 					<br><br>
 				<<elseif $dragonbuild lt 30>>
 					<<set $dragon to 3>>
-					<span class="gold">Your tail is gone.</span>
+					<<run $timeMessages.pushUnique("dragonDown3")>>
 					<<set $transformationParts.dragon.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thicktail to "false">>
@@ -2374,7 +2261,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $dragontf = 1>>
 					<<set $dragon to 6>>
-					<span class="gold">You feel stronger and lighter than ever before.</span>
+					<<run $timeMessages.pushUnique("dragonUp6")>>
 					<<clearwings>>
 					<<set $transformationParts.dragon.wings to "default">>
 					<<if $transformationParts.angel.wings is "default">>
@@ -2387,12 +2274,12 @@
 					<br><br>
 				<<elseif $dragonbuild lt 40>>
 					<<set $dragon to 4>>
-					<span class="gold">You feel weaker.</span>
+					<<run $timeMessages.pushUnique("dragonDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $dragonbuild lt 50>>
-					<span class="gold">You feel as weak as you once were. Your scaley wings have disappeared.</span>
+					<<run $timeMessages.pushUnique("dragonDown5")>>
 					<<set $dragon to 5>>
 					<<set $transformationParts.dragon.wings to "disabled">>
 					<<if $angel gte 6>>
@@ -2438,13 +2325,6 @@
 		<<set $hastail to "true">>
 		<<set $thicktail to "true">>
 		<<set $transformationParts.dragon.wings to "default">>
-		<<if $transformationParts.angel.wings is "default">>
-			<<set $transformationParts.angel.wings to "hidden">>
-		<<elseif $transformationParts.fallenAngel.wings is "default">>
-			<<set $transformationParts.fallenAngel.wings to "hidden">>
-		<<elseif $transformationParts.demon.wings is "default">>
-			<<set $transformationParts.demon.wings to "hidden">>
-		<</if>>
 	<</if>>
 <</widget>>
 
@@ -2454,7 +2334,7 @@
 			<<case 0>>
 				<<if $lizardbuild gte 10 and $physicalTransform isnot 1>>
 					<<set $lizard to 1>><<set $physicalTransform to 1>>
-					<span class="gold">Your eyes have turned a strange red and yellow. Your vision has improved.</span>
+					<<run $timeMessages.pushUnique("lizardUp1")>>
 					<<cleareyes>>
 					<<set $transformationParts.lizard.eyes to "default">>
 					<br><br>
@@ -2462,12 +2342,12 @@
 			<<case 1>>
 				<<if $lizardbuild gte 20>>
 					<<set $lizard to 2>>
-					<span class="gold">Your teeth ache for a moment, and fangs appear.</span>
+					<<run $timeMessages.pushUnique("lizardUp2")>>
 					<<set $transformationParts.traits.fangs to "default">>
 					<br><br>
 				<<elseif $lizardbuild lt 10>>
 					<<set $lizard to 0>><<set $physicalTransform to 0>>
-					<span class="gold">Your vision has worsened significantly.</span>
+					<<run $timeMessages.pushUnique("lizardDown0")>>
 					<<set $transformationParts.lizard.eyes to "disabled">>
 					<br><br>
 				<</if>>
@@ -2476,8 +2356,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $lizardtf = 1>>
 					<<set $lizard to 3>>
-					<span class="gold">Your bottom feels strange. You reach behind you, and find a tail covered in rough scales.</span>
-					<span class="blue">You feel as though you can hold your breath for longer than before.</span>
+					<<run $timeMessages.pushUnique("lizardUp3")>>
 					<<set $oxygenmax to 1500>>
 					<<cleartail>>
 					<<set $transformationParts.lizard.tail to "default">>
@@ -2487,15 +2366,14 @@
 					<br><br>
 				<<elseif $lizardbuild lt 15>>
 					<<set $lizard to 1>>
-					<span class="gold">Your fangs have completely disappeared.</span>
+					<<run $timeMessages.pushUnique("lizardDown1")>>
 					<<set $transformationParts.traits.fangs to "default">>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $lizardbuild lt 20>>
 					<<set $lizard to 2>>
-					<span class="gold">Your tail has disappeared.</span>
-					<span class="blue">Your lung capacity has returned to normal.</span>
+					<<run $timeMessages.pushUnique("lizardDown2")>>
 					<<set $oxygenmax to 1200>>
 					<<set $transformationParts.lizard.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -2539,7 +2417,7 @@
 			<<case 0>>
 				<<if $dolphinbuild gte 10 and $physicalTransform isnot 1>>
 					<<set $dolphin to 2>><<set $physicalTransform to 1>>
-					<span class="blue">You feel as though you can hold your breath for longer than before.</span>
+					<<run $timeMessages.pushUnique("dolphinUp1")>>
 					<<set $transformationParts.traits.lungs to "default">>
 					<<set $oxygenmax to 1500>>
 					<br><br>
@@ -2547,7 +2425,7 @@
 			<<case 2>>
 				<<if $dolphinbuild gte 25>>
 					<<set $dolphin to 4>>
-					<span class="gold">Your bottom feels strange. You reach behind you, and find a slick lubricated tail.</span>
+					<<run $timeMessages.pushUnique("dolphinUp2")>>
 					<<cleartail>>
 					<<set $transformationParts.dolphin.tail to "default">>
 					<<set $hastail to "true">>
@@ -2556,7 +2434,7 @@
 					<br><br>
 				<<elseif $dolphinbuild lte 20>>
 					<<set $dolphin to 0>><<set $physicalTransform to 0>>
-					<span class="blue">Your lung capacity has returned to normal.</span>
+					<<run $timeMessages.pushUnique("dolphinDown0")>>
 					<<set $transformationParts.traits.lungs to "disabled">>
 					<<set $oxygenmax to 1200>>
 					<br><br>
@@ -2566,12 +2444,12 @@
 					<<set $dolphin to 6>>
 					<<set $dolphintf to 1>>
 					<<set $permanentTransform to 1>>
-					<span class="gold">Your feel more confident at swimming.</span>
+					<<run $timeMessages.pushUnique("dolphinUp3")>>
 					<<set $transformationParts.traits.aquatail to "default">>
 					<br><br>
 				<<elseif $dolphinbuild lt 25>>
 					<<set $dolphin to 2>>
-					<span class="gold">Your tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("dolphinDown1")>>
 					<<set $transformationParts.dolphin.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $swimtail to "false">>
@@ -2581,7 +2459,7 @@
 			<<case 6>>
 				<<if $dolphinbuild lt 30>>
 					<<set $dolphin to 4>>
-					<span class="gold">Your feel less confident at swimming.</span>
+					<<run $timeMessages.pushUnique("dolphinDown2")>>
 					<<set $transformationParts.traits.aquatail to "disabled">>
 					<br><br>
 				<</if>>
@@ -2620,53 +2498,52 @@
 				<<if $dogbuild gte 5>>
 					<<set $dog to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">You have a strange toothache.</span>
+					<<run $timeMessages.pushUnique("dogUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $dogbuild gte 10>>
 					<<set $dog to 2>>
-					<span class="gold">Your mouth feels different. You explore your mouth and wince as your tongue presses against your new fangs.</span>
+					<<run $timeMessages.pushUnique("dogUp2")>>
 					<<set $transformationParts.traits.fangs to "default">>
 					<br><br>
 				<<elseif $dogbuild lt 5>>
 					<<set $dog to 0>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">Your toothache has stopped.</span>
+					<<run $timeMessages.pushUnique("dogDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $dogbuild gte 15>>
 					<<set $dog to 3>>
-					<span class="gold">Your scalp itches.</span>
+					<<run $timeMessages.pushUnique("dogUp3")>>
 					<br><br>
 				<<elseif $dogbuild lt 10>>
 					<<set $dog to 1>>
-					<span class="gold">Your fangs have turned into regular teeth.</span>
+					<<run $timeMessages.pushUnique("dogDown1")>>
 					<<set $transformationParts.traits.fangs to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $dogbuild gte 20>>
 					<<set $dog to 4>>
-					<span class="gold">You feel something on your head. You reach up and tug, but it hurts.
-					You have a new pair of dog ears.</span>
+					<<run $timeMessages.pushUnique("dogUp4")>>
 					<<clearears>>
 					<<set $transformationParts.dog.ears to "default">>
 					<br><br>
 				<<elseif $dogbuild lt 15>>
 					<<set $dog to 2>>
-					<span class="gold">Your scalp no longer itches.</span>
+					<<run $timeMessages.pushUnique("dogDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $dogbuild gte 25>>
 					<<set $dog to 5>>
-					<span class="gold">Your lower back itches.</span>
+					<<run $timeMessages.pushUnique("dogUp5")>>
 					<br><br>
 				<<elseif $dogbuild lt 20>>
 					<<set $dog to 3>>
-					<span class="gold">Your dog ears <<print ($pbdisable is "f" ? "and extra body hair ":"")>>have disappeared.</span>
+					<<run $timeMessages.pushUnique("dogDown3")>>
 					<<set $transformationParts.dog.ears to "disabled">>
 					<br><br>
 				<</if>>
@@ -2675,7 +2552,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $dogtf = 1>>
 					<<set $dog to 6>>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new wolf tail.</span>
+					<<run $timeMessages.pushUnique("dogUp6")>>
 					<<cleartail>>
 					<<set $transformationParts.dog.tail to "default">>
 					<<set $hastail to "true">>
@@ -2684,12 +2561,12 @@
 					<br><br>
 				<<elseif $dogbuild lt 25>>
 					<<set $dog to 4>>
-					<span class="gold">Your lower back has stopped itching.</span>
+					<<run $timeMessages.pushUnique("dogDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $dogbuild lt 30>>
-					<span class="gold">Your balance feels different. Your dog tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("dogDown5")>>
 					<<set $dog to 5>>
 					<<set $transformationParts.dog.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -2731,52 +2608,52 @@
 				<<if $fishbuild gte 5>>
 					<<set $fish to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">Strange ridges appear on your neck.</span>
+					<<run $timeMessages.pushUnique("fishUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $fishbuild gte 10>>
 					<<set $fish to 2>>
-					<span class="gold">The ridges on your neck open up. You find yourself able to breathe as naturally through them as you can through your nose. You now have fish gills!</span>
+					<<run $timeMessages.pushUnique("fishUp2")>>
 					<<set $transformationParts.traits.aquatic to "default">>
 					<br><br>
 				<<elseif $fishbuild lt 5>>
 					<<set $fish to 0>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">The ridges along your neck disappear.</span>
+					<<run $timeMessages.pushUnique("fishDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $fishbuild gte 15>>
 					<<set $fish to 3>>
-					<span class="gold">The skin around your ears stiffens. Scales grow on and around the area.</span>
+					<<run $timeMessages.pushUnique("fishUp3")>>
 					<br><br>
 				<<elseif $fishbuild lt 10>>
 					<<set $fish to 1>>
-					<span class="gold">The gills along your neck close up. Only barely-visible ridges remain.</span>
+					<<run $timeMessages.pushUnique("fishDown1")>>
 					<<set $transformationParts.traits.aquatic to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $fishbuild gte 20>>
 					<<set $fish to 4>>
-					<span class="gold">Your hardened ears begin to warp. The pinnae along each ear elongate into multiple spines. A membrane forms between each spine. Your ears retain their original purpose, but have morphed into fins.</span>
+					<<run $timeMessages.pushUnique("fishUp4")>>
 					<<clearears>>
 					<<set $transformationParts.fish.fins to "default">>
 					<br><br>
 				<<elseif $fishbuild lt 15>>
 					<<set $fish to 2>>
-					<span class="gold">The scales flake off of your ears and the skin softens back to normal.</span>
+					<<run $timeMessages.pushUnique("fishDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $fishbuild gte 25>>
 					<<set $fish to 5>>
-					<span class="gold">Your lower back itches. The skin becomes hard and scaly.</span>
+					<<run $timeMessages.pushUnique("fishUp5")>>
 					<br><br>
 				<<elseif $fishbuild lt 20>>
 					<<set $fish to 3>>
-					<span class="gold">The webbed membrane along your fins atrophies. The pinnae retract back into their original humanoid shape. Your fins are gone.</span>
+					<<run $timeMessages.pushUnique("fishDown3")>>
 					<<set $transformationParts.fish.fins to "disabled">>
 					<br><br>
 				<</if>>
@@ -2785,7 +2662,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $fishtf = 1>>
 					<<set $fish to 6>>
-					<span class="gold">An appendage extends from the scaled area along your back. The protrusion seems to have a caudal fin on the end. You have grown a fish tail. The remainder of your skin takes on the scaly qualities of your tail and ears.</span>
+					<<run $timeMessages.pushUnique("fishUp6")>>
 					<<cleartail>>
 					<<set $transformationParts.fish.tail to "default">>
 					<<set $transformationParts.traits.aquatail to "default">>
@@ -2797,12 +2674,12 @@
 					<br><br>
 				<<elseif $fishbuild lt 25>>
 					<<set $fish to 4>>
-					<span class="gold">Your lower back has stopped itching. The scales have fallen off and the skin regains it's normal texture.</span>
+					<<run $timeMessages.pushUnique("fishDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $fishbuild lt 30>>
-					<span class="gold">Your balance feels different. Your scaly fish tail has been reabsorbed into your body. The scales lining your body fall off and your skin returns to normal.</span>
+					<<run $timeMessages.pushUnique("fishDown5")>>
 					<<set $fish to 5>>
 					<<set $transformationParts.fish.tail to "disabled">>
 					<<set $transformationParts.traits.aquatail to "disabled">>
@@ -2853,53 +2730,53 @@
 				<<if $horsebuild gte 5>>
 					<<set $horse to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">You feel especially alert.</span>
+					<<run $timeMessages.pushUnique("horseUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $horsebuild gte 10>>
 					<<set $horse to 2>>
-					<span class="gold">You're brimming with energy. Physical tasks seem far less daunting and exhausting.</span>
+					<<run $timeMessages.pushUnique("horseUp2")>>
 					<<set $transformationParts.traits.vigorous to "default">>
 					<br><br>
 				<<elseif $horsebuild lt 5>>
 					<<set $horse to 0>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">You feel less aware.</span>
+					<<run $timeMessages.pushUnique("horseDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $horsebuild gte 15>>
 					<<set $horse to 3>>
-					<span class="gold">Your scalp itches.</span>
+					<<run $timeMessages.pushUnique("horseUp3")>>
 					<br><br>
 				<<elseif $horsebuild lt 10>>
 					<<set $horse to 1>>
-					<span class="gold">You feel lethargic. As if your physical capabilities have returned to how they originally were.</span>
+					<<run $timeMessages.pushUnique("horseDown1")>>
 					<<set $transformationParts.traits.vigorous to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $horsebuild gte 20>>
 					<<set $horse to 4>>
-					<span class="gold">You feel something on your head. You reach up and tug, but it hurts.
+					<<run $timeMessages.pushUnique("horseUp4")>>
 					You have a new pair of horse ears.</span>
 					<<clearears>>
 					<<set $transformationParts.horse.ears to "default">>
 					<br><br>
 				<<elseif $horsebuild lt 15>>
 					<<set $horse to 2>>
-					<span class="gold">Your scalp no longer itches.</span>
+					<<run $timeMessages.pushUnique("horseDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $horsebuild gte 25>>
 					<<set $horse to 5>>
-					<span class="gold">Your lower back itches.</span>
+					<<run $timeMessages.pushUnique("horseUp5")>>
 					<br><br>
 				<<elseif $horsebuild lt 20>>
 					<<set $horse to 3>>
-					<span class="gold">Your horse ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("horseDown3")>>
 					<<set $transformationParts.horse.ears to "disabled">>
 					<br><br>
 				<</if>>
@@ -2908,7 +2785,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $horsetf = 1>>
 					<<set $horse to 6>>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new voluminous horse tail.</span>
+					<<run $timeMessages.pushUnique("horseUp6")>>
 					<<cleartail>>
 					<<set $transformationParts.horse.tail to "default">>
 					<<set $transformationParts.traits.kicks to "default">>
@@ -2918,12 +2795,12 @@
 					<br><br>
 				<<elseif $horsebuild lt 25>>
 					<<set $horse to 4>>
-					<span class="gold">Your lower back has stopped itching.</span>
+					<<run $timeMessages.pushUnique("horseDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $horsebuild lt 30>>
-					<span class="gold">Your balance feels different. Your horse tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("horseDown5")>>
 					<<set $horse to 5>>
 					<<set $transformationParts.horse.tail to "disabled">>
 					<<set $transformationParts.traits.kicks to "disabled">>
@@ -2968,53 +2845,53 @@
 				<<if $spiderbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $spider to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">You have a strange toothache.</span>
+					<<run $timeMessages.pushUnique("spiderUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $spiderbuild gte 10>>
 					<<set $spider to 2>>
-					<span class="gold">Your mouth feels different. You explore your mouth and wince as your tongue presses against your new fangs.</span>
+					<<run $timeMessages.pushUnique("spiderUp2")>>
 					<<set $transformationParts.traits.fangs to "default">>
 					<br><br>
 				<<elseif $spiderbuild lt 5>>
 					<<set $spider to 0>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">Your toothache has stopped.</span>
+					<<run $timeMessages.pushUnique("spiderDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $spiderbuild gte 15>>
 					<<set $spider to 3>>
-					<span class="gold">Your eyes itch. So do your temples, for that matter.</span>
+					<<run $timeMessages.pushUnique("spiderUp3")>>
 					<br><br>
 				<<elseif $spiderbuild lt 10>>
 					<<set $spider to 1>>
-					<span class="gold">Your fangs have turned into regular teeth.</span>
+					<<run $timeMessages.pushUnique("spiderDown1")>>
 					<<set $transformationParts.traits.fangs to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $spiderbuild gte 20>>
 					<<set $spider to 4>>
-					<span class="gold">Your vision scatters. You feel disoriented and start seeing double. Triple. Quadruple. The sensation fades. Your eyesight stabilizes and becomes more clear than before. You have developed multiple pairs of spider eyes.</span>
+					<<run $timeMessages.pushUnique("spiderUp4")>>
 					<<cleareyes>>
 					<<set $transformationParts.spider.eyes to "default">>
 					<<set $transformationParts.traits.sharpEyes to "default">>
 					<br><br>
 				<<elseif $spiderbuild lt 15>>
 					<<set $spider to 2>>
-					<span class="gold">Your face no longer itches.</span>
+					<<run $timeMessages.pushUnique("spiderDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $spiderbuild gte 25>>
 					<<set $spider to 5>>
-					<span class="gold">Your lower back itches.</span>
+					<<run $timeMessages.pushUnique("spiderUp5")>>
 					<br><br>
 				<<elseif $spiderbuild lte 20>>
 					<<set $spider to 3>>
-					<span class="gold">Your extra eyes have been reabsorbed. Your vision returns to it's original state.</span>
+					<<run $timeMessages.pushUnique("spiderDown3")>>
 					<<set $transformationParts.spider.eyes to "disabled">>
 					<<set $transformationParts.traits.sharpEyes to "disabled">>
 					<br><br>
@@ -3024,7 +2901,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $spidertf = 1>>
 					<<set $spider to 6>>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new spider "tail".</span>
+					<<run $timeMessages.pushUnique("spiderUp6")>>
 					<<cleartail>>
 					<<set $transformationParts.spider.tail to "default">>
 					<<set $hastail to "true">>
@@ -3033,12 +2910,12 @@
 					<br><br>
 				<<elseif $spiderbuild lt 25>>
 					<<set $spider to 4>>
-					<span class="gold">Your lower back has stopped itching.</span>
+					<<run $timeMessages.pushUnique("spiderDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $spiderbuild lt 30>>
-					<span class="gold">Your balance feels different. Your spidery abdomen has disappeared.</span>
+					<<run $timeMessages.pushUnique("spiderDown5")>>
 					<<set $spider to 5>>
 					<<set $transformationParts.spider.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -3082,53 +2959,51 @@
 				<<if $pigbuild gte 5>>
 					<<set $pig to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">Your nasal passages feel unusually clear.</span>
+					<<run $timeMessages.pushUnique("pigUp1")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $pigbuild gte 10>>
 					<<set $pig to 2>>
-					<span class="gold">Your nose feels hypersensitive to various plants. Perhaps you can use it to better your harvesting capabilities.</span>
+					<<run $timeMessages.pushUnique("pigUp2")>>
 					<<set $transformationParts.traits.strongnose to "default">>
 					<br><br>
 				<<elseif $pigbuild lt 5>>
 					<<set $pig to 0>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">Your olfactory abilities have lessened.</span>
+					<<run $timeMessages.pushUnique("pigDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $pigbuild gte 15>>
 					<<set $pig to 3>>
-					<span class="gold">Your scalp itches.</span>
+					<<run $timeMessages.pushUnique("pigUp3")>>
 					<br><br>
 				<<elseif $pigbuild lt 10>>
 					<<set $pig to 1>>
-					<span class="gold">Your nose loses it's sensitivity to plant matter.</span>
+					<<run $timeMessages.pushUnique("pigDown1")>>
 					<<set $transformationParts.traits.strongnose to "disabled">>
 					<br><br>
 				<</if>>
 			<<case 3>>
 				<<if $pigbuild gte 20>>
 					<<set $pig to 4>>
-					<span class="gold">You feel something on your head. You reach up and tug, but it hurts.
-					You have a new pair of pig ears.</span>
+					<<run $timeMessages.pushUnique("pigUp4")>>
 					<<clearears>>
 					<<set $transformationParts.pig.ears to "default">>
 					<br><br>
 				<<elseif $pigbuild lt 15>>
 					<<set $pig to 2>>
-					<span class="gold">Your scalp no longer itches.</span>
+					<<run $timeMessages.pushUnique("pigDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $pigbuild gte 25>>
 					<<set $pig to 5>>
-					<span class="gold">Your lower back itches.</span>
-					<br><br>
+					<<run $timeMessages.pushUnique("pigUp5")>>
 				<<elseif $pigbuild lt 20>>
 					<<set $pig to 3>>
-					<span class="gold">Your pig ears have disappeared.</span>
+					<<run $timeMessages.pushUnique("pigDown3")>>
 					<<set $transformationParts.pig.ears to "disabled">>
 					<br><br>
 				<</if>>
@@ -3137,7 +3012,7 @@
 					<<set $permanentTransform = 1>>
 					<<set $pigtf = 1>>
 					<<set $pig to 6>>
-					<span class="gold">Your bottom feels heavier than usual. You reach behind you and feel your new pig tail.</span>
+					<<run $timeMessages.pushUnique("pigUp6")>>
 					<<cleartail>>
 					<<set $transformationParts.pig.tail to "default">>
 					<<set $hastail to "true">>
@@ -3146,12 +3021,12 @@
 					<br><br>
 				<<elseif $pigbuild lt 25>>
 					<<set $pig to 4>>
-					<span class="gold">Your lower back has stopped itching.</span>
+					<<run $timeMessages.pushUnique("pigDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $pigbuild lt 30>>
-					<span class="gold">Your balance feels different. Your pig tail has disappeared.</span>
+					<<run $timeMessages.pushUnique("pigDown5")>>
 					<<set $pig to 5>>
 					<<set $transformationParts.pig.tail to "disabled">>
 					<<set $hastail to "false">>
@@ -3193,13 +3068,13 @@
 				<<if $frogbuild gte 5>>
 					<<set $frog to 1>>
 					<<set $physicalTransform to 1>>
-					<span class="gold">Your body feels strange all over.</span>
+					<<run $timeMessages.pushUnique("frogUp5")>>
 					<br><br>
 				<</if>>
 			<<case 1>>
 				<<if $frogbuild gte 10>>
 					<<set $frog to 2>>
-					<span class="gold">A massive change overtakes you. Your feet and tongue elongate. The former becomes webbed, the latter sensitive. Your legs seems oddly powerful and you feel you're able to breathe easier.</span>
+					<<run $timeMessages.pushUnique("frogUp2")>>
 					<<set $transformationParts.traits.kicks to "default">>
 					<<set $transformationParts.traits.webbedfeet to "default">>
 					<<set $transformationParts.traits.longtongue to "default">>
@@ -3208,17 +3083,17 @@
 				<<elseif $frogbuild lt 5>>
 					<<set $frog to 0>>
 					<<set $physicalTransform to 0>>
-					<span class="gold">Your body seems to shift - becoming more like it was originally.</span>
+					<<run $timeMessages.pushUnique("frogDown0")>>
 					<br><br>
 				<</if>>
 			<<case 2>>
 				<<if $frogbuild gte 15>>
 					<<set $frog to 3>>
-					<span class="gold">Your eyes seem to shift a bit.</span>
+					<<run $timeMessages.pushUnique("frogUp3")>>
 					<br><br>
 				<<elseif $frogbuild lt 10>>
 					<<set $frog to 1>>
-					<span class="gold">Your body warps. You lose your froggy traits and regain your original human features.</span>
+					<<run $timeMessages.pushUnique("frogDown1")>>
 					<<set $transformationParts.traits.kicks to "disabled">>
 					<<set $transformationParts.traits.webbedfeet to "disabled">>
 					<<set $transformationParts.traits.longtongue to "disabled">>
@@ -3228,23 +3103,23 @@
 			<<case 3>>
 				<<if $frogbuild gte 20>>
 					<<set $frog to 4>>
-					<span class="gold">The eye changes are far more obvious now. In fact they look more like a frog's than a human's eyes.</span>
+					<<run $timeMessages.pushUnique("frogUp4")>>
 					<<cleareyes>>
 					<<set $transformationParts.frog.eyes to "default">>
 					<br><br>
 				<<elseif $frogbuild lt 15>>
 					<<set $frog to 2>>
-					<span class="gold">The strange feeling in your eyes ceases.</span>
+					<<run $timeMessages.pushUnique("frogDown2")>>
 					<br><br>
 				<</if>>
 			<<case 4>>
 				<<if $frogbuild gte 25>>
 					<<set $frog to 5>>
-					<span class="gold">There's a strange discoloration on your cheeks.</span>
+					<<run $timeMessages.pushUnique("frogUp5")>>
 					<br><br>
 				<<elseif $frogbuild lt 20>>
 					<<set $frog to 3>>
-					<span class="gold">Your frog eyes shift back into something more human.</span>
+					<<run $timeMessages.pushUnique("frogDown3")>>
 					<<set $transformationParts.frog.eyes to "disabled">>
 					<br><br>
 				<</if>>
@@ -3253,19 +3128,19 @@
 					<<set $permanentTransform = 1>>
 					<<set $frogtf = 1>>
 					<<set $frog to 6>>
-					<span class="gold">The discoloration on your cheeks becomes more intense. It oddly looks like a frog's now.</span>
+					<<run $timeMessages.pushUnique("frogUp6")>>
 					<<clearcheeks>>
 					<<set $transformationParts.frog.cheeks to "default">>
 					<<earnFeat "Frog">>
 					<br><br>
 				<<elseif $frogbuild lt 25>>
 					<<set $frog to 4>>
-					<span class="gold">The cheek discoloration fades.</span>
+					<<run $timeMessages.pushUnique("frogDown4")>>
 					<br><br>
 				<</if>>
 			<<case 6>>
 				<<if $frogbuild lt 30>>
-					<span class="gold">Your cheeks return entirely to their original state.</span>
+					<<run $timeMessages.pushUnique("frogDown5")>>
 					<<set $frog to 5>>
 					<<set $transformationParts.frog.cheeks to "disabled">>
 					<br><br>

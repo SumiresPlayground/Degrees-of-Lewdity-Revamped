@@ -1253,6 +1253,7 @@ function noonCheck() {
 	if (V.lake_ice_broken >= 1) V.lake_ice_broken--;
 	if (V.lake_ice_broken <= 0) delete V.lake_ice_broken;
 	if (V.edenNightmareWake) delete V.edenNightmareWake;
+	if (V.mushroom >= 1 && V.fungalgrowth >= 1) {V.fungalgrowth += 1;}
 
 	wikifier("menstruationCycle");
 	pregnancyProgress();

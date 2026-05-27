@@ -323,7 +323,7 @@
 	<<if _args[0] is "housework">>
 		<<avery_housework_check>>
 		<<if _avery_housework_count gte 1>>
-			<<icon "clothes/feather-duster.png">><<link [[Continue cleaning|Mansion Housework]]>><</link>>
+			<<icon "clothes/feather-duster.png">><<link [[Continue cleaning|Mansion Housework]]>><<endevent>><</link>>
 			<br>
 			<<refuseicon>><<link [[Stop|$avery_passage]]>><</link>>
 		<<else>>
@@ -331,9 +331,9 @@
 				<span class="blue">The mansion is spick and span, except for the<<if $avery_mansion.bedroom_state is "locked">> locked<</if>> bedroom<<if $avery_mansion.pool gte 1>> and the pool<</if>>.</span>
 				<<if $avery_mansion.bedroom_state isnot "locked">>
 					<br>
-					<<socialiseicon "angry">><<link [[Ignore Avery's warning and clean the bedroom|Mansion Housework]]>><<set $avery_mansion.bedroom_state to "ignored">><</link>>
+					<<socialiseicon "angry">><<link [[Ignore Avery's warning and clean the bedroom|Mansion Housework]]>><<endevent>><<set $avery_mansion.bedroom_state to "ignored">><</link>>
 					<br>
-					<<getouticon>><<link [[Leave it untouched|$avery_passage]]>><<set $avery_mansion.bedroom_state to "off-limits">><</link>>
+					<<getouticon>><<link [[Leave it untouched|$avery_passage]]>><<endevent>><<set $avery_mansion.bedroom_state to "off-limits">><</link>>
 					<<exit>>
 				<</if>>
 			<<elseif $avery_mansion.pool gte 1>>
@@ -342,14 +342,14 @@
 				<span class="green">The mansion is spick and span.</span>
 			<</if>>
 			<br><br>
-			<<link [[Next|$avery_passage]]>><</link>>
+			<<link [[Next|$avery_passage]]>><<endevent>><</link>>
 		<</if>>
 		<br>
 	<<else>>
 		<<if $bus is "avery_dungeon">>
-			<<link [[Next|Mansion Bedroom]]>><</link>>
+			<<link [[Next|Mansion Bedroom]]>><<endevent>><</link>>
 		<<else>>
-			<<link [[Next|$avery_passage]]>><</link>>
+			<<link [[Next|$avery_passage]]>><<endevent>><</link>>
 			<br>
 		<</if>>
 	<</if>>
@@ -1173,7 +1173,6 @@
 			<span class="gold">Avery wants you to act meek with <<nnpc_him "Avery">> from now on. A new attitude is unlocked.</span>
 			<br><br>
 
-			<<endevent>>
 			<<avery_mansion_end_links>>
 		<<else>>
 			"I'd like you to address me with the proper demeanour from now on. An appropriate meekness. I trust that won't be a problem."
@@ -1202,7 +1201,6 @@
 		<span class="gold">Avery wants you to keep the display room clean from now on.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif C.npc.Avery.dom gte 65 and !$avery_mansion.jobs.includes("knees")>>
 		<<set $avery_mansion.jobs.push("knees")>>
@@ -1220,7 +1218,6 @@
 		<span class="gold">Avery wants you to maintain the garden from now on. The tending skill will help.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif C.npc.Avery.dom gte 55 and !$avery_mansion.jobs.includes("bathroom")>>
 		<<set $avery_mansion.jobs.push("bathroom")>>
@@ -1230,7 +1227,6 @@
 		<span class="gold">Avery wants you to clean the bathroom from now on.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif C.npc.Avery.dom gte 50 and !$avery_mansion.jobs.includes("hairstyle")>>
 		<<set $avery_mansion.jobs.push("hairstyle")>>
@@ -1244,7 +1240,6 @@
 		<span class="gold">Avery wants you to wear the "neat" hairstyle from now on.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif C.npc.Avery.dom gte 45 and !$avery_mansion.jobs.includes("pool")>>
 		<<set $avery_mansion.jobs.push("pool")>>
@@ -1253,7 +1248,6 @@
 
 		<span class="gold">Avery wants you to clean the pool from now on.</span>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif C.npc.Avery.dom gte 40 and !$avery_mansion.jobs.includes("maid") and $avery_mansion.jobs.includes("formal")>>
 		<<set $avery_mansion.jobs.push("maid")>>
@@ -1262,7 +1256,6 @@
 
 		<span class="gold">Avery wants you to greet <<nnpc_him "Avery">> dressed in clothes with the "maid" trait from now on.</span>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 
 	<<elseif C.npc.Avery.dom gte 35 and !$avery_mansion.jobs.includes("kitchen")>>
@@ -1273,7 +1266,6 @@
 		<span class="gold">Avery wants you to clean the kitchen from now on.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif C.npc.Avery.dom gte 30 and !$avery_mansion.jobs.includes("hairlength")>>
 		<<set $avery_mansion.jobs.push("hairlength")>>
@@ -1287,7 +1279,6 @@
 		<span class="gold">Avery wants you to keep your hair trimmed from now on.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 
 	<<elseif C.npc.Avery.dom gte 25 and !$avery_mansion.jobs.includes("dining")>>
@@ -1298,7 +1289,6 @@
 		<span class="gold">Avery wants you to keep the dining room clean from now on.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif C.npc.Avery.dom gte 20 and !$avery_mansion.jobs.includes("formal")>>
 		<<set $avery_mansion.jobs.push("formal")>>
@@ -1308,7 +1298,6 @@
 		<span class="gold">Avery wants you to greet <<him>> in formal attire in the future.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 
 	<<elseif C.npc.Avery.dom gte 15 and !$avery_mansion.jobs.includes("bedroom")>>
@@ -1319,7 +1308,6 @@
 		<span class="gold">Avery wants you to keep the bedroom clean from now on.</span>
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 
 	<<elseif C.npc.Avery.dom gte 10 and !$avery_mansion.jobs.includes("bow")>>
@@ -1354,7 +1342,6 @@
 		<span class="gold">Avery wants you to keep the lounge clean from now on.</span> The housekeeping skill will help.
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<else>>
 		<<if $avery_mansion.jobs.includes("dungeon") and random(1, 7) is 7 and Time.weekDay isnot 1>>
@@ -2511,7 +2498,6 @@
 	<br><br>
 	<<set $avery_mansion.away_timer to 7>>
 	<<set $avery_mansion.schedule to "away">>
-	<<endevent>>
 	<<avery_mansion_chase_end>>
 	<<avery_mansion_end_links>>
 <</widget>>
@@ -2545,8 +2531,7 @@
 		<br><br>
 	<</if>>
 
-	<<endevent>>
-	<<link [[Next|Mansion Study]]>><</link>>
+	<<link [[Next|Mansion Study]]>><<endevent>><</link>>
 	<br>
 
 <</widget>>
@@ -3149,7 +3134,6 @@
 				<br><br>
 				Avery walks away, more animated than you've yet seen <<him>>. "Meet me here when the time comes. We'll arrive there in style."
 				<br><br>
-				<<endevent>>
 				<<avery_mansion_links>>
 			<</if>>
 		<<elseif _avery_interrupt is "skyscraper_ready">>
@@ -3224,9 +3208,8 @@
 							<<default>>Avery swims up and down the pool, limbs falling without a splash.
 						<</switch>>
 					<</if>>
-					<<endevent>>
 					<br>
-					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
+					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><<endevent>><</link>>
 					<br>
 				<</if>>
 
@@ -3273,9 +3256,8 @@
 					<<else>>
 						Avery reclines on the sofa, watching football on television.
 					<</if>>
-					<<endevent>>
 					<br>
-					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
+					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><<endevent>><</link>>
 					<br><br>
 				<<elseif $avery_mansion.schedule is "drink">>
 					<<npc "Avery">><<person1>>
@@ -3290,9 +3272,8 @@
 					<<else>>
 						Avery sips an alcoholic drink while smiling at one of <<his>> expensive landscapes.
 					<</if>>
-					<<endevent>>
 					<br><br>
-					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
+					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><<endevent>><</link>>
 					<br><br>
 				<</if>>
 				<<if !($avery_mansion.schedule is "lounge" and $daily.pianoPlayBlocked)>>
@@ -3349,10 +3330,8 @@
 					<<else>>
 						You hear Avery in the wardrobe, humming as <<he>> dresses.
 					<</if>>
-					<<endevent>>
 					<br><br>
 				<</if>>
-				<<endevent>>
 				<<if $unbind is 1>>
 					<<unset $unbind>>
 					<<if $possessed>>
@@ -3365,11 +3344,11 @@
 					<<unbind>>
 				<</if>>
 				<<if breakableSoftBinding()>>
-					<<undobindingsicon>><<link [[Undo your bindings (0:10)|Mansion Bedroom]]>><<set $unbind to 1>><<pass 10>><<unbind>><</link>>
+					<<undobindingsicon>><<link [[Undo your bindings (0:10)|Mansion Bedroom]]>><<endevent>><<set $unbind to 1>><<pass 10>><<unbind>><</link>>
 					<br><br>
 				<</if>>
 				<<if $worn.face.cursed is 1>>
-					<<icon "clothes/gag.png">><<link [[Remove your $worn.face.name (0:10)|Mansion Bedroom]]>><<pass 10>><<set $worn.face.type.push("broken")>><<faceruined>><</link>>
+					<<icon "clothes/gag.png">><<link [[Remove your $worn.face.name (0:10)|Mansion Bedroom]]>><<endevent>><<pass 10>><<set $worn.face.type.push("broken")>><<faceruined>><</link>>
 					<br><br>
 				<</if>>
 
@@ -3387,21 +3366,20 @@
 					<<else>>
 						Avery slumbers, <<his>> chest rising and falling beneath the covers.
 					<</if>>
-					<<endevent>>
 					<br>
-					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
+					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><<endevent>><</link>>
 					<<if $nextPassageCheck is "Mansion Talk">>
 						<br>
-						<span class="nextLink"><<socialiseicon>><<link [[Avery.|Mansion Talk]]>><</link>></span>
+						<span class="nextLink"><<socialiseicon>><<link [[Avery.|Mansion Talk]]>><<endevent>><</link>></span>
 					<</if>>
 				<</if>>
 				<br>
 				<<if $nextPassageCheck is "Mansion Bed">>
-					<span class="nextLink"><<icon "avery-bedroom.png">><<link [[Avery.|Mansion Bed]]>><</link>></span>
+					<span class="nextLink"><<icon "avery-bedroom.png">><<link [[Avery.|Mansion Bed]]>><<endevent>><</link>></span>
 					<br>
 					<<listsleepoutfits>>
 				<<else>>
-					<<icon "avery-bedroom.png">><<link [[Strip and get in bed|Mansion Bed]]>><<undressSleep "Mansion Bed">><</link>>
+					<<icon "avery-bedroom.png">><<link [[Strip and get in bed|Mansion Bed]]>><<endevent>><<undressSleep "Mansion Bed">><</link>>
 					<br>
 					<<listsleepoutfits "Mansion Bed">>
 				<</if>>
@@ -3425,11 +3403,11 @@
 
 				<<if $avery_mansion.folder gte 12 and !$daily.mansion_folder and $avery_mansion.schedule isnot "away" and $avery_mansion.schedule isnot "sleep" and $avery_mansion.schedule isnot "work">>
 					<<set _extralinebreak to true>>
-					<<icon "manila-envelope.png">><<link [[Read the folder from the orphanage (1:00)|Mansion Folder Avery]]>><<stress 6>><<trauma -6>><</link>><<gstress>><<ltrauma>>
+					<<icon "manila-envelope.png">><<link [[Read the folder from the orphanage (1:00)|Mansion Folder Avery]]>><<endevent>><<stress 6>><<trauma -6>><</link>><<gstress>><<ltrauma>>
 					<br>
 				<<elseif $avery_mansion.folder gte 1 and !$daily.mansion_folder>>
 					<<set _extralinebreak to true>>
-					<<icon "manila-envelope.png">><<link [[Read the folder from the orphanage (1:00)|Mansion Folder]]>><<set $avery_mansion.folder++>><<set $daily.mansion_folder to true>><<pass 60>><<stress 6>><<trauma -6>><</link>><<gstress>><<ltrauma>>
+					<<icon "manila-envelope.png">><<link [[Read the folder from the orphanage (1:00)|Mansion Folder]]>><<endevent>><<set $avery_mansion.folder++>><<set $daily.mansion_folder to true>><<pass 60>><<stress 6>><<trauma -6>><</link>><<gstress>><<ltrauma>>
 					<br>
 				<</if>>
 			<</if>>
@@ -3449,7 +3427,6 @@
 						<<else>>
 							Avery relaxes in the bath.
 						<</if>>
-						<<endevent>>
 
 						<<if !$daily.avery.bathroom_peek and !["Mansion Bathroom", "Mansion Bathe", "Mansion Brush","Mansion Talk Chat 2"].includes($passagePrev) and random(1, 4) is 4>>
 							<<set _hide_links to 1>>
@@ -3458,15 +3435,15 @@
 							You approach the bathroom, but hear movement inside, and stop. You see a flash of skin through the door. It's Avery, preparing to get into the bath.
 							<br><br>
 							<<set $skulduggerydifficulty to 400>>
-							<<link [[Peep|Mansion Bathroom Avery Peeping 2]]>><<set $phase to 0>><</link>><<garousal>><<skulduggerydifficulty>>
+							<<link [[Peep|Mansion Bathroom Avery Peeping 2]]>><<endevent>><<set $phase to 0>><</link>><<garousal>><<skulduggerydifficulty>>
 							<br>
-							<<link [[Wait until Avery is inside the bath to enter|Mansion Bathroom Avery Peeping End]]>><<set $phase to 1>><</link>>
+							<<link [[Wait until Avery is inside the bath to enter|Mansion Bathroom Avery Peeping End]]>><<endevent>><<set $phase to 1>><</link>>
 							<br>
 						<<else>>
 							<br>
-							<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
+							<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><<endevent>><</link>>
 							<br>
-							<<bathroomicon "bath">><<link [[Bathe with Avery (0:20)|Mansion Bathe Avery]]>><<pass 20>><</link>>
+							<<bathroomicon "bath">><<link [[Bathe with Avery (0:20)|Mansion Bathe Avery]]>><<endevent>><<pass 20>><</link>>
 							<br>
 							<<personalUpkeep>>
 							<br>
@@ -3486,9 +3463,8 @@
 						<<else>>
 							Avery dries <<his>> hair with a smile.
 						<</if>>
-						<<endevent>>
 						<br>
-						<<bathroomicon "bath">><<link [[Bathe (0:20)|Mansion Bathe]]>><<pass 20>><</link>>
+						<<bathroomicon "bath">><<link [[Bathe (0:20)|Mansion Bathe]]>><<endevent>><<pass 20>><</link>>
 						<br>
 						<<personalUpkeep>>
 						<br>
@@ -3496,7 +3472,7 @@
 						<br>
 					<</if>>
 				<<else>>
-					<<bathroomicon "bath">><<link [[Bathe (0:20)|Mansion Bathe]]>><<pass 20>><</link>>
+					<<bathroomicon "bath">><<link [[Bathe (0:20)|Mansion Bathe]]>><<endevent>><<pass 20>><</link>>
 					<br>
 					<<personalUpkeep>>
 					<br>
@@ -3534,9 +3510,8 @@
 						<<else>>
 							Avery eats <<his>> breakfast, savouring each bite.
 						<</if>>
-						<<endevent>>
 						<br><br>
-						<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
+						<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><<endevent>><</link>>
 						<br><br>
 					<</if>>
 
@@ -3554,7 +3529,6 @@
 						<<else>>
 							Avery directs the servants as they prepare the table for guests.
 						<</if>>
-						<<endevent>>
 						<br><br>
 					<</if>>
 				<<elseif $avery_mansion.schedule is "dinner">>
@@ -3572,10 +3546,9 @@
 						<<else>>
 							Avery sits at the table, awaiting dinner.
 						<</if>>
-						<<endevent>>
 						<br>
 						<<if canGiftFood("Avery")>>
-							<<skinicon "waiter">><<link [[Serve Avery dinner|Avery Gifts Dinner List]]>><</link>>
+							<<skinicon "waiter">><<link [[Serve Avery dinner|Avery Gifts Dinner List]]>><<endevent>><</link>>
 						<<else>>
 							<<skinicon "waiter">><span class="red">You have not prepared anything for Avery to eat.</span>
 						<</if>>
@@ -3609,7 +3582,6 @@
 					<<else>>
 						Avery trims the topiary with care.
 					<</if>>
-					<<endevent>>
 					<br><br>
 					<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
 					<br><br>
@@ -3629,14 +3601,12 @@
 					<<npc "Avery">><<person1>>
 					The door opens, and Avery enters the study. <<He>> doesn't notice you in the shadows. You slip outside.
 					<br><br>
-					<<endevent>>
 				<<elseif $avery_mansion.study_unlocked is 1 and Time.hour is 23 and $_avery_present>>
 					<<npc "Avery">><<person1>>
 					The door opens, and Avery enters the study. "I'm locking the study for the night," <<he>> says. "You can keep reading in the morning."
 					<br><br>
 					Once you're outside, <<he>> locks the door with a click, and walks away.
 					<br><br>
-					<<endevent>>
 					<<set $avery_mansion.study_unlocked to 0>>
 				<<else>>
 					<<if $avery_mansion.schedule is "study">>
@@ -3653,16 +3623,15 @@
 						<<else>>
 							Avery reclines by <<his>> desk, deep in a book.
 						<</if>>
-						<<endevent>>
 						<br><br>
-						<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><</link>>
+						<<socialiseicon>><<link [[Talk to Avery|Mansion Talk]]>><<endevent>><</link>>
 						<br>
 					<</if>>
 					<<if $avery_mansion.recipe.length gte 1>>
 						<<set _extralinebreak to true>>
 						<<for _i range $avery_mansion.recipe>>
 							<<capture _i>>
-								<<foodstufficon _i>><<link [[Learn recipe for <<recipe_name _i>> (2:00)|Mansion Study Learn]]>><<set $phase to _i>><<pass 120>><</link>>
+								<<foodstufficon _i>><<link [[Learn recipe for <<recipe_name _i>> (2:00)|Mansion Study Learn]]>><<endevent>><<set $phase to _i>><<pass 120>><</link>>
 							<</capture>>
 							<br>
 						<</for>>
@@ -3677,11 +3646,11 @@
 					<<if $avery_mansion.schedule isnot "study" or $avery_mansion.schedule is "away">>
 						<<if $avery_mansion.study_secret is 1>>
 							<<set _extralinebreak to true>>
-							<<icon "avery-dungeon.png">><<link [[Search for the dungeon|Mansion Dungeon Find]]>><<set $avery_mansion.study_secret to 2>><</link>>
+							<<icon "avery-dungeon.png">><<link [[Search for the dungeon|Mansion Dungeon Find]]>><<endevent>><<set $avery_mansion.study_secret to 2>><</link>>
 							<br>
 						<<elseif $avery_mansion.study_secret gte 2>>
 							<<set _extralinebreak to true>>
-							<<icon "avery-dungeon.png">><<link [[Enter the dungeon|Mansion Dungeon Enter]]>><</link>>
+							<<icon "avery-dungeon.png">><<link [[Enter the dungeon|Mansion Dungeon Enter]]>><<endevent>><</link>>
 							<br>
 						<</if>>
 					<</if>>
@@ -3749,7 +3718,6 @@
 		<<set $avery_mansion.outfit_warning to 1>>
 		"Go wear something appropriate. Something <span class="gold">formal.</span>" <<He>> pushes a comb through <<his>> hair. "We must make the right impression."
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<</if>>
 <</widget>>

@@ -150,13 +150,11 @@ pulls your hair, and spits on you. <<He>> pauses to catch <<his>> breath, then p
 <<if $avery_mansion.schedule is "party_prepare" or $avery_mansion.schedule is "party">>
 	"You're lucky I need you for the party," <<he>> spits.
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_chase_end>>
 	<<avery_mansion_end_links>>
 <<else>>
 	<<set $avery_mansion.away_timer to 24>>
 	<<set $avery_mansion.schedule to "away">>
-	<<endevent>>
 	<<avery_mansion_chase_end>>
 	<<npc Avery>><<person1>>
 	"I know how you could make it up to me," <<he>> says, hot anger replaced with cold malice, at least for now.
@@ -195,7 +193,6 @@ You hear the rumble of an engine, the rattle of the front gates, and the screech
 <br><br>
 <<set $avery_mansion.away_timer to 7>>
 <<set $avery_mansion.schedule to "away">>
-<<endevent>>
 <<avery_mansion_chase_end>>
 <<avery_mansion_end_links>>
 
@@ -214,10 +211,9 @@ Avery drives by, breaking the speed limit. <<He>> almost collides with a wall as
 
 <<set $avery_mansion.away_timer to 7>>
 <<set $avery_mansion.schedule to "away">>
-<<endevent>>
 <<avery_mansion_chase_end>>
 
-<<link [[Next|Danube Street]]>><<set $eventskip to 1>><</link>>
+<<link [[Next|Danube Street]]>><<endevent>><<set $eventskip to 1>><</link>>
 <br>
 
 :: Mansion Chase Lounge

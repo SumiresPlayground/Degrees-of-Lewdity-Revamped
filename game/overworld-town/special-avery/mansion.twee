@@ -477,11 +477,10 @@ You take the gold mask. Dark eyes stare up at you. The metal around them is dama
 			<<npc Avery>><<person1>>
 			Someone shakes your shoulder. It's Avery, wearing <<his>> best. "I'm ready when you are," <<he>> says. "For the <span class="gold">Valentine's</span> date. I'll be waiting in the garage."
 			<br><br>
-			<<endevent>>
 
-			<<link [[Go back to sleep|$passage]]>><</link>>
+			<<link [[Go back to sleep|$passage]]>><<endevent>><</link>>
 			<br>
-			<<link [[Rise|Mansion Sleep Rise]]>><</link>>
+			<<link [[Rise|Mansion Sleep Rise]]>><<endevent>><</link>>
 			<br>
 		<<elseif _avery_interrupt is "valentines_approach">>
 
@@ -509,11 +508,10 @@ You take the gold mask. Dark eyes stare up at you. The metal around them is dama
 			<<npc Avery>><<person1>>
 			Someone shakes your shoulder. It's Avery, wearing <<his>> best. "I'm ready when you are," <<he>> says. "For the date. I'll be waiting in the garage."
 			<br><br>
-			<<endevent>>
 
-			<<link [[Go back to sleep|$passage]]>><</link>>
+			<<link [[Go back to sleep|$passage]]>><<endevent>><</link>>
 			<br>
-			<<link [[Rise|Mansion Sleep Rise]]>><</link>>
+			<<link [[Rise|Mansion Sleep Rise]]>><<endevent>><</link>>
 			<br>
 
 		<<elseif _avery_interrupt is "party_prepare">>
@@ -577,11 +575,10 @@ You take the gold mask. Dark eyes stare up at you. The metal around them is dama
 				Avery walks way, more animated than you've yet seen <<him>>. "Meet me here when the time comes. We'll arrive there in style."
 				<br><br>
 
-				<<endevent>>
 
-				<<link [[Go back to sleep|$passage]]>><</link>>
+				<<link [[Go back to sleep|$passage]]>><<endevent>><</link>>
 				<br>
-				<<link [[Rise|Mansion Sleep Rise]]>><</link>>
+				<<link [[Rise|Mansion Sleep Rise]]>><<endevent>><</link>>
 				<br>
 			<</if>>
 
@@ -833,7 +830,6 @@ Avery leaves the bath at the same time you do. <<He>> wraps a towel around <<his
 <<else>>
 	<<He>> goes about <<his>> morning routine, starting with blowdrying <<his>> hair.
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <</if>>
 
@@ -948,7 +944,6 @@ Only when <<hes>> satisfied does <<he>> look back down at you again with a smile
 <<set $avery_passage to "Mansion Bedroom">>
 With that, Avery leaves the walk-in closet, and you follow behind <<him>>.
 <br><br>
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -973,7 +968,6 @@ With that, Avery leaves the walk-in closet, and you follow behind <<him>>.
 <br><br>
 
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -1244,23 +1238,22 @@ You swim lengths up and down the pool, giving your muscles a workout. <<physique
 		<<case "sunbathe">>Without warning, Avery stands up from the pool lounger. <<He>> pushes <<his>> sunglasses onto <<his>> head and walks back towards the house.
 		<<default>>Without warning, Avery hauls <<himself>> onto the pools edge, and walks away to dry <<himself>>.
 	<</switch>>
-	<<endevent>>
 	<br><br>
 	<<if $tiredness gte 1700>>
 		<span class="blue">You're too exhausted to keep swimming.</span>
 	<<else>>
-		<<link [[Swim (0:30)|Mansion Pool Swim]]>><<pass 30>><<tiredness 6>><</link>><<gtiredness>><<gswimming>>
+		<<link [[Swim (0:30)|Mansion Pool Swim]]>><<endevent>><<pass 30>><<tiredness 6>><</link>><<gtiredness>><<gswimming>>
 	<</if>>
 	<br>
 <<else>>
 	<<if $tiredness gte 1700>>
 		<span class="blue">You're too exhausted to keep swimming.</span>
 	<<else>>
-		<<link [[Swim (0:30)|Mansion Pool Swim Avery]]>><<pass 30>><<tiredness 6>><</link>><<gtiredness>><<gswimming>>
+		<<link [[Swim (0:30)|Mansion Pool Swim Avery]]>><<endevent>><<pass 30>><<tiredness 6>><</link>><<gtiredness>><<gswimming>>
 	<</if>>
 	<br>
 <</if>>
-<<link [[Climb out (0:01)|Mansion Pool Climb]]>><<pass 1>><</link>>
+<<link [[Climb out (0:01)|Mansion Pool Climb]]>><<endevent>><<pass 1>><</link>>
 <br>
 
 :: Mansion Pool Climb
@@ -1830,7 +1823,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 <</if>>
 
 <<if !_skip_end_links>>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <</if>>
 
@@ -1870,14 +1862,12 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		looks away, ignoring you.
 	<</if>>
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <<else>>
 	Avery glances at <<his>> watch.
 	<<if Time.hour is 23 and Time.minute gte 45>>
 		"Afraid not. I'm going to bed soon." <<He>> looks back at you. "Another time, perhaps."
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<else>>
 		<<He>> hums, and looks back at you. "Very well.<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>> So long as you don't waste my time.<</if>>"
@@ -1975,7 +1965,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		<</if>>
 	<</if>>
 
-	<<endevent>>
 	<<avery_mansion_end_links>>
 
 <<elseif _chat.topic is 2>> /* PC's possible occupations (including temple) */
@@ -2206,7 +2195,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		<</if>>
 	<</if>>
 
-	<<endevent>>
 	<<avery_mansion_end_links>>
 
 <<elseif _chat.topic is 3>> /* Fame/reputation */
@@ -2287,7 +2275,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		<</if>>
 	<</if>>
 
-	<<endevent>>
 	<<avery_mansion_end_links>>
 
 <<elseif _chat.topic is 4>> /* Passive aggressive mansion-related comments */
@@ -2365,7 +2352,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		<</if>>
 	<</if>>
 
-	<<endevent>>
 	<<avery_mansion_end_links>>
 
 <<elseif _chat.topic is 5>> /* Lewd */
@@ -2408,7 +2394,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 			<<link [[Refuse|Mansion Talk Chat End]]>><<set $avery_chat_end to "annoyed">><<set $phase to 1>><<npcincr Avery rage 1>><</link>><<garage>>
 			<br><br>
 		<<else>>
-			<<endevent>>
 			<<avery_mansion_end_links>>
 		<</if>>
 
@@ -2463,7 +2448,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 			<br><br>
 		<</if>>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 
 	<<else>> /* Leering and commenting on PC's looks */
@@ -2479,7 +2463,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		<br><br>
 		"Ah, forgive me. You look very <<cute>> today, <<pcpetname "Avery">>," Avery says with a perverse grin. <<He>> puts <<his>> hand on the small of your back. "I can't help but stare."
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<</if>>
 
@@ -2819,7 +2802,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		<</if>>
 	<</if>>
 
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <</if>>
 
@@ -2839,7 +2821,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 			<<He>> lets out a small laugh. "Why, how <<= either(`sweet`,`lovely`,`charming`)>>, <<pcpetname "Avery">>." <<He>> puts a hand on the small of your back.<<if $averyragerevealed is 1>> <<He>> seems satisfied.<</if>>
 		<</if>><<npcincr Avery rage -1>><<npcincr Avery love 1>><<larage>><<glove>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 
 	<<else>>
@@ -2955,7 +2936,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 			<<link [[Next|Mansion Talk Chat End]]>><<set $avery_chat_end to "angry">><</link>>
 
 		<<elseif $carried.neck.photo is "Great Hawk" or $carried.neck.photo is "Black Wolf" or ($carried.neck.photo is "Gwylan" and $gwylan?.timer?.nobody gte Time.date.timeStamp)>>
-			<<endevent>>
 			<<avery_mansion_end_links>>
 
 		<<else>>
@@ -2970,7 +2950,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 				<<He>> changes the subject after that, though you notice <<him>> shooting intent looks at your locket every now and then.
 			<</if>>
 			<br><br>
-			<<endevent>>
 			<<avery_mansion_end_links>>
 		<</if>>
 	<</if>>
@@ -2978,7 +2957,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 <<elseif $phase is 1>>
 	"You're welcome." Avery soon changes the subject, and complains about work.
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 
 <<elseif $phase is 3>> /* Show and it's empty */
@@ -2992,13 +2970,11 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 		<<He>> nods. "I see. It's lovely, still."
 	<</if>>
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 
 <<else>>
 	You change the subject away from your locket. If Avery notices, <<he>> doesn't comment.
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <</if>>
 
@@ -3307,7 +3283,6 @@ You climb from the pool, and dry yourself using the towels stacks just inside th
 	<br><br>
 <</if>>
 <<unset $avery_chat_end>>
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -3371,14 +3346,12 @@ Avery glances at <<his>> watch.
 	"Afraid not. I'm going to bed soon, and I'm not going to leave the study unlocked overnight."
 	<br><br>
 
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <<elseif Time.weekDay is 1>>
 	<<if Time.hour gte 6 and Time.hour lte 16>>
 		"Not right now. I'm off to work soon."
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<else>>
 		<<avery_mansion_study_unlock>>
@@ -3390,7 +3363,6 @@ Avery glances at <<his>> watch.
 		"Not right now. I'm off to work soon."
 		<br><br>
 
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<else>>
 		<<avery_mansion_study_unlock>>
@@ -3420,7 +3392,6 @@ Avery glances at <<his>> watch.
 <</if>>
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 :: Mansion Date Yes
@@ -3429,7 +3400,6 @@ Avery glances at <<his>> watch.
 <<He>> flicks a speck of dust from <<his>> shoulder. "Good. We'll leave <span class="green">at eight.</span> Oh, and <span class="green">be sure to wear something formal</span>. There are dress codes to observe."
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 :: Mansion Date No
@@ -3438,7 +3408,6 @@ Avery glances at <<his>> watch.
 "I must insist," <<he>> says. "I look forward to our dates, and it would be a shame to let our relationship become stale. We leave <span class="green">at eight."</span>
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -6121,7 +6090,6 @@ Avery scrutinises you for a long moment, as though <<he>> were trying to measure
 <i>Avery will expect you to meet <<him>> at <<ampm 21 00>> on <<= getFormattedDate(new DateTime(Time.year, 2, 14))>>.</i>
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -6131,7 +6099,6 @@ Avery scrutinises you for a long moment, as though <<he>> were trying to measure
 "Well," Avery says. "I could hardly take you to the most exclusive restaurant in town without an apology. It wouldn't be proper. Let me know if you change your mind."
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 :: Mansion Bathroom Avery Peeping 2
@@ -6181,7 +6148,6 @@ There's something exciting about seeing all this without <<his>> knowing. <<arou
 	<br><br>
 <</if>>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 :: Mansion Breakfast Avery Bite
@@ -6198,6 +6164,5 @@ There's something exciting about seeing all this without <<his>> knowing. <<arou
 <</if>>
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
