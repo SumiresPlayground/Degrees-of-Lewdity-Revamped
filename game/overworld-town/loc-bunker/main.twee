@@ -2,7 +2,7 @@
 <<set $outside to 0>>
 You climb down a long, dirty ladder before entering some sort of bunker.
 <br><br>
-<<link [[Next|Bunker]]>><<set $bunkerdepth to 0>><</link>>
+<<getouticon "hole">><<link [[Next|Bunker]]>><<set $bunkerdepth to 0>><</link>>
 
 :: Bunker
 <<if $stress gte $stressmax and !$possessed>>
@@ -28,22 +28,22 @@ You climb down a long, dirty ladder before entering some sort of bunker.
 		<</if>>
 		<br><br>
 		<<if $bunkerdepth is 10 and $codeEntered isnot "2863">>
-			<<link [[Enter the lab|Bunker Lab]]>><</link>>
+			<<iconUi `"bunker-door.png"`>><<link [[Enter the lab|Bunker Lab]]>><</link>>
 			<br>
 		<<elseif $bunkerdepth is 10>>
-			<<link [[Inspect the keypad|Bunker Keypad]]>><</link>>
+			<<iconUi `"bunker-door.png"`>><<link [[Inspect the keypad|Bunker Keypad]]>><</link>>
 			<br>
 		<</if>>
 		<<if $bunkerdepth lt 10>>
-			<<link [[Head deeper into the Bunker|Bunker]]>><<set $bunkerdepth += 1>><</link>>
+			<<walkicon>><<link [[Head deeper into the Bunker|Bunker]]>><<set $bunkerdepth += 1>><</link>>
 			<br>
 		<</if>>
 		<<if $bunkerdepth gt 0>>
-			<<link [[Head back toward the exit|Bunker]]>><<set $bunkerdepth -= 1>><</link>>
+			<<walkicon>><<link [[Head back toward the exit|Bunker]]>><<set $bunkerdepth -= 1>><</link>>
 			<br>
 		<</if>>
 		<<if $bunkerdepth is 0>>
-			<<link [[Exit the Bunker|Bunker Exit]]>><</link>>
+			<<getouticon>><<link [[Exit the Bunker|Bunker Exit]]>><</link>>
 		<</if>>
 	<</if>>
 <</if>>
@@ -73,9 +73,9 @@ Before you lies a keypad with 8 distinct runes etched onto each surface. It seem
 <<button "Clear">><<set $codeEntered to "">><</button>>
 </div>
 <br>
-<<link [[Input|BunkerCheck]]>><</link>>
+<<getinicon>><<link [[Input|BunkerCheck]]>><</link>>
 <br>
-<<link [[Back|Bunker]]>><</link>>
+<<getouticon>><<link [[Back|Bunker]]>><</link>>
 
 :: BunkerCheck
 The device falls silent for a moment as you wait. It sputters back to life before giving the result.
@@ -83,69 +83,69 @@ The device falls silent for a moment as you wait. It sputters back to life befor
 <<if $codeEntered is "2863">>
 	The device chimes and the vacuum seal of the door hisses and opens into a new pristine looking room.
 	<br><br>
-	<<link [[Enter|Bunker Lab]]>><</link>>
+	<<getinicon>><<link [[Enter|Bunker Lab]]>><</link>>
 <<else>>
 	The device beeps and resets, seeming to have put in the wrong password. Maybe the library would have some information about these symbols?
 	<br><br>
-	<<link [[Retry|Bunker Keypad]]>><</link>>
+	<<getinicon>><<link [[Retry|Bunker Keypad]]>><</link>>
 <</if>>
 <br>
-<<link [[Back|Bunker]]>><</link>>
+<<getouticon>><<link [[Back|Bunker]]>><</link>>
 
 :: Bunker Lab
-You are in a perfectly preserved laboratory. Glass tubes contain specimens preserved formalin. You can see shelves lined with different lurkers, large tubes containing strange creatures covered in tentacles, huge eggs in display cases, and mechanical devices lie scattered around the room.
+You are in a perfectly preserved laboratory. Glass tubes contain specimens preserved in formalin. You can see shelves lined with different lurkers, large tubes containing strange creatures covered in tentacles, huge eggs in display cases, and mechanical devices lie scattered around the room.
 <br><br>
-<<link [[Inspect the lurker vials|Bunker Vials]]>><</link>>
+<<iconUi `"lurker-vial.png"`>><<link [[Inspect the lurker vials|Bunker Vials]]>><</link>>
 <br>
-<<link [[Look into the huge tubes|Bunker Tubes]]>><</link>>
+<<iconUi `"huge-tube.png"`>><<link [[Look into the huge tubes|Bunker Tubes]]>><</link>>
 <br>
-<<link [[Read the display on the egg case|Bunker Eggs]]>><</link>>
+<<iconUi `"egg-case.png"`>><<link [[Read the display on the egg case|Bunker Eggs]]>><</link>>
 <br>
-<<link [[Check out the books lining the shelf|Bunker Read]]>><</link>>
+<<schoolicon "library">><<link [[Check out the books lining the shelf|Bunker Read]]>><</link>>
 <br>
-<<link [[Inspect the mechanical devices|Bunker Machines]]>><</link>>
+<<iconUi `"mechanical-devices.gif"`>><<link [[Inspect the mechanical devices|Bunker Machines]]>><</link>>
 <br>
-<<link [[Leave|Bunker]]>><</link>>
+<<getouticon>><<link [[Leave|Bunker]]>><</link>>
 
 :: Bunker Vials
 You walk up to the shelves and look closer at the femalin filled vials with the bodies of lurkers contained within. There is a surprisingly large variation of different types of lurkers, some white, some black, and even some purple.
 <br><br>
 Some of the vials seem broken and small shards cover the floor but you don't seem to see any danger or escaped lurkers. Where could they have gone?
 <br><br>
-<<link [[Leave|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Leave|Bunker Lab]]>><</link>>
 
 :: Bunker Tubes
 Approaching the tubes you are faced with incomprehensible creatures. The tubes fill the complete height of the room and contain beasts constructed of tentacles. Cloven hooves and spindly legs hang under the bulbous tentacle covered body with a gaping snaggle toothed mouth.
 <br><br>
 You can barely stand looking at these creatures. It's time to go.
 <br><br>
-<<link [[Leave|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Leave|Bunker Lab]]>><</link>>
 
 :: Bunker Eggs
 You approach a display case containing several thick shelled massive eggs. Each one stands over a foot tall and you can feel a heat eminating from behind the glass. Where and what are these eggs from?
 <br><br>
-<<link [[Leave|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Leave|Bunker Lab]]>><</link>>
 
 :: Bunker Read
 You near the bookshelf, pulling various dusty yet preserved books. Many of them are older esoteric manuals written in the old script. Among the occult stories, you find an old faded journal. 
 <br><br>
 You pull down the journal and dust off the old leather cover, opening it to the first page. It reads, "Journal of Dr. Harper". You flip to the next page and begin to read, it seems many of the earlier pages have been torn out sometime a long time ago. "Entry 103: I have made a breakthrough in my recent studies. I began a search into the church and found some troubling discoveries. I've caught some bad wind of these so called Auriga and Virgo. I plan to continue my studies and attempt to uncover more."
 <br><br>
-<<link [[Continue to the next page|Bunker Read 2]]>><</link>>
+<<schoolicon "library">><<link [[Continue to the next page|Bunker Read 2]]>><</link>>
 <br>
-<<link [[Put down the journal|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Put down the journal|Bunker Lab]]>><</link>>
 
 :: Bunker Read 2
 The next page seems to be much later. The writing is more erratic and strange than before. It seems to be continuing from a missing previous page. "Entry 264: -or even something else. Modern archives of the old stories are all but wiped out but I find it hard to believe Abyssina and Auriga are born from the same cloth despite their many similarities. Similarly I believe that Auspacia shares a-" The page bares a tear that cuts off the rest of the page. Strange, was it the author or someone else?
 <br><br>
-<<link [[Continue to the next page|Bunker Read 3]]>><</link>>
+<<schoolicon "library">><<link [[Continue to the next page|Bunker Read 3]]>><</link>>
 <br>
-<<link [[Put down the journal|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Put down the journal|Bunker Lab]]>><</link>>
 
 :: Bunker Read 3
 By now, the writing is barely legible and the author's words are twisted. You're not even sure this journey could be considered a reliable source anymore. The final entry reads. "Entry 3485: This is it... this is the end. I have recieved a vision of the descent and blessing of Sezmis. This will inevitibly spell the end of mankind. I regret not seeing my family for all these years, my wife, my son. I am sorry." The page just ends. What happened? A lot of the names in this journal and the occult books along the wall are things you've never heard before. Unfortunately you've gleamed about as much as you could from this bookcase.
 <br><br>
-<<link [[Put down the journal|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Put down the journal|Bunker Lab]]>><</link>>
 
 :: Bunker Machines
 You approach the various machines in the cluttered laboratory. There are sharp instruments, beds, and various other unrecognizable machines. Especially of note, a large six armed contraption over a medical bed, seeming to have been used for surgery.
@@ -154,14 +154,14 @@ You approach the various machines in the cluttered laboratory. There are sharp i
 	<span class="red">You currently do not have any modifications to apply at this time.</span>
 	<br><br>
 <<else>>
-	<<link [[Inject the modified lurker (1:00)|Bunker Lurker Inject]]>><<pass 60>><<set V.transformationParts.traits.lurker to "default">><<set $lurkerinject to 1>><</link>>
+	<<iconUi `"mechanical-devices.gif"`>><<link [[Inject the modified lurker (1:00)|Bunker Lurker Inject]]>><<pass 60>><<set V.transformationParts.traits.lurker to "default">><<set $lurkerinject to 1>><</link>>
 	<br>
 <</if>>
-<<link [[Back|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Back|Bunker Lab]]>><</link>>
 
 :: Bunker Lurker Inject
 You place the vial of pale purple slime with the small orange egg inside into the arm of the machine and it whirs to life. You lie on the medical bed as the device pins you to place. Chemicals numb your senses as a scalpel gripped by a mechanical arm slices open your forearm. The vial's contents are ejected into a syringe arm which is pushed into the wound, releasing a sharp stream of ooze and egg into your arm. The machine then pinches the flesh together, sewing the skin back closed, and releasing you. 
 <br><br>
 Your arm aches but it surprisingly doesn't hurt too much. You wonder the true use for this machine and how much testing it would take to perfect something like this.
 <br><br>
-<<link [[Back|Bunker Lab]]>><</link>>
+<<getouticon>><<link [[Back|Bunker Lab]]>><</link>>

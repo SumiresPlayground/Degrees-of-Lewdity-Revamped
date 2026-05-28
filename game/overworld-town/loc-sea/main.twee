@@ -790,26 +790,26 @@ You are swimming in the sea.
 		<br><br>
 
 		<<if $phase is 0>>
-			<<link [[Resurface|Sea]]>><<wateraction>><</link>>
+			<<swimicon "up">><<link [[Resurface|Sea]]>><<wateraction>><</link>>
 			<br>
 		<</if>>
 		<<if $phase is 1>>
-			<<link [[Resurface|Sea]]>><<wateraction>><</link>>
+			<<swimicon "up">><<link [[Resurface|Sea]]>><<wateraction>><</link>>
 			<br>
 		<</if>>
 		<<if $phase gt 1>>
-			<<link [[Swim up|Sea Dive]]>><<wateraction>><<set $phase -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+			<<swimicon "up">><<link [[Swim up|Sea Dive]]>><<wateraction>><<set $phase -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 			<br>
 		<</if>>
 		<<if $phase lt 10>>
-			<<link [[Swim deeper|Sea Dive]]>><<wateraction>><<set $phase += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+			<<swimicon "down">><<link [[Swim deeper|Sea Dive]]>><<wateraction>><<set $phase += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 			<br>
 		<</if>>
 		<<if $phase is 10 and $ship is undefined>>
-			<<link [[Explore the sea floor|Deep Sea Ship Find]]>><<wateraction>><</link>><<loxygen>>
+			<<swimicon>><<link [[Explore the sea floor|Deep Sea Ship Find]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<<elseif $phase is 10>>
-			<<link [[Swim to the sunken ship|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
+			<<iconUi `"shipwreck.png"`>><<link [[Swim to the sunken ship|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
 		<<set $eventskip to 0>>
@@ -824,7 +824,7 @@ As you approach the ship, you start to notice the damage in more detail. You see
 <br><br>
 As you swim around the ship, you can get a better idea of its size. It's massive, almost as if it's a small town on the sea floor. You can see where the propeller used to be, and you try to imagine what it was like when the ship was still floating. Along the side in large letters reads "SS Dido".
 <br><br>
-<<link [[Swim to the sunken ship|Deep Sea Ship]]>><<set $ship to 1>><<set $shiproom to 0>><</link>>
+<<iconUi `"shipwreck.png"`>><<link [[Swim to the sunken ship|Deep Sea Ship]]>><<set $ship to 1>><<set $shiproom to 0>><</link>>
 
 :: Deep Sea Ship
 <<underwater>><<effects>>
@@ -844,19 +844,19 @@ As you swim around the ship, you can get a better idea of its size. It's massive
 		<br>
 	<</if>>
 	<<if $shiproom is 1>>
-		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "pots">><<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
 	<<if $shiproom is 2>>
-		<<link [[Pray to the statue|Deep Sea Ship Statue]]>><<wateraction>><</link>><<loxygen>>
+		<<wolficon>><<link [[Pray to the statue|Deep Sea Ship Statue]]>><<wateraction>><</link>><<loxygen>>
 		<br>
 	<</if>>
 	<<if $shiproom gt 0>>
-		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<swimicon "back">><<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 		<br>
 	<</if>>
 	<<if $shiproom lt 2>>
-		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<swimicon>><<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 		<br>
 	<</if>>
 <</if>>
@@ -881,11 +881,11 @@ As you swim around the ship, you can get a better idea of its size. It's massive
 			<<set $antiquemoney += 600>><<museumAntiqueStatus "antiqueindigo" "found">>
 			<br><br>
 		<</if>>
-		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "pots">><<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
 		<br>
-		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<swimicon "back">><<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 		<br>
-		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<swimicon>><<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 	<<elseif $rng gte 60 and $settings.swarmsEnabled>>
 		You reach inside one of the pots. Swarms of small fish surge out, surrounding you.
 		<br><br>
@@ -906,11 +906,11 @@ As you swim around the ship, you can get a better idea of its size. It's massive
 			You reach inside one of the pots. It's empty.
 		<</if>>
 		<br><br>
-		<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+		<<lakeicon "pots">><<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
 		<br>
-		<<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<swimicon "back">><<link [[Swim back toward the entrance|Deep Sea Ship]]>><<wateraction>><<set $shiproom -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 		<br>
-		<<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<swimicon>><<link [[Swim deeper|Deep Sea Ship]]>><<wateraction>><<set $shiproom += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 	<</if>>
 <</if>>
 
@@ -968,9 +968,9 @@ As you swim around the ship, you can get a better idea of its size. It's massive
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-	<<link [[Swim towards exit|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
+	<<swimicon "back">><<link [[Swim towards exit|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
 	<br>
-	<<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
+	<<lakeicon "pots">><<link [[Search pots|Deep Sea Ship Pots]]>><<wateraction>><</link>><<loxygen>>
 	<br>
 <</if>>
 

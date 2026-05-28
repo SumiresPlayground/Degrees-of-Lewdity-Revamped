@@ -4240,6 +4240,30 @@ setup.LocationImages = {
 			},
 		},
 	},
+	anthill: {
+		folder: "anthill",
+		base: {
+			default: {
+				image: "base.png",
+			},
+		},
+		weather: {
+			fogDistributionCurve: 2.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 16,
+					bottom: 0,
+				},
+				fog: {
+					top: 24,
+					bottom: 0,
+				},
+			},
+		},
+	},
 	hive: {
 		folder: "hive",
 		base: {

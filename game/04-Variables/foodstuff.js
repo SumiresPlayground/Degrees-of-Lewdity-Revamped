@@ -3174,7 +3174,10 @@ function initFoodstuff() {
 			name: "mouse_ear",
 			singular: "mouse ear",
 			plural: "mouse ears",
+			icon: "mouse-ear.png",
 			category: "flower",
+			kitchen_item_type_icon: "recipe-flower.png",
+			prop_folder: "tending",
 			tending: {
 				planting_bed: "earth",
 				growth_days: 8,
@@ -3192,7 +3195,10 @@ function initFoodstuff() {
 			name: "glacier_crowfoot",
 			singular: "glacier_crowfoot",
 			plural: "glacier crowfoot",
+			icon: "glacier-crowfoot.png",
 			category: "flower",
+			kitchen_item_type_icon: "recipe-flower.png",
+			prop_folder: "tending",
 			tending: {
 				planting_bed: "earth",
 				growth_days: 12,
@@ -3210,7 +3216,10 @@ function initFoodstuff() {
 			name: "green_manure",
 			singular: "green manure",
 			plural: "green manure",
+			icon: "green-manure.png",
 			category: "vegetable",
+			kitchen_item_type_icon: "recipe-vegetable.png",
+			prop_folder: "tending",
 			tending: {
 				planting_bed: "earth",
 				growth_days: 7,
