@@ -718,16 +718,6 @@ function effects() {
 			delete V.bottomshrinkmessage;
 		}
 
-		if (V.speech_attitude_bratty_message) {
-			delete V.speech_attitude_bratty_message;
-			element("span", "You've become too submissive to adopt a bratty demeanour in conversation.", "purple");
-		}
-
-		if (V.speech_attitude_meek_message) {
-			delete V.speech_attitude_meek_message;
-			element("span", "You've become too defiant to adopt a meek demeanour in conversation.", "purple");
-		}
-
 		if (V.sunscreenAutoApplied) {
 			element("span", `You apply sunscreen to your skin${Skin.Sunscreen.usesLeft <= 0 ? "," : "."}`, "purple");
 			if (Skin.Sunscreen.usesLeft <= 0) element("span", "using the last of it.", "red");

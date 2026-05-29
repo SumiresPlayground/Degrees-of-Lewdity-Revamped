@@ -98,6 +98,9 @@
 			<<if $schoolstate is "afternoon" and $detention gte 1 and $daily.school.detentionAttended isnot 1 and $headnodetention isnot 1 and $pillory.tenant.special.name isnot "Leighton">>
 				<<oxfordicon>><<link [[Leave the school|School Leave Stop]]>><<schoolclothesreset>><</link>>
 				<br>
+			<<elseif $schoolstate is "afternoon" and $bullytimer gte 1 and $bullytimeroutside gte 1 and $daily.whitney.bullyGate isnot 1 and C.npc.Whitney.init is 1 and !["dungeon", "pillory"].includes(C.npc.Whitney.state) and ($caseyromance gte 1 and C.npc.Casey.dom gte 40 and C.npc.Casey.love gte 80) and ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
+				<<oxfordicon>><<link [[Leave the school|School Leave Whitney Casey]]>><<schoolclothesreset>><</link>>
+				<br>
 			<<elseif $schoolstate is "afternoon" and $bullytimer gte 1 and $bullytimeroutside gte 1 and $daily.whitney.bullyGate isnot 1 and C.npc.Whitney.init is 1 and !["dungeon", "pillory"].includes(C.npc.Whitney.state)>>
 				<<oxfordicon>><<link [[Leave the school|School Leave Whitney]]>><<schoolclothesreset>><</link>>
 				<br>

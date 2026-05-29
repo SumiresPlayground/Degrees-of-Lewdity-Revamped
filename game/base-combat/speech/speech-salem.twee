@@ -1,0 +1,29 @@
+:: Widgets speech-Salem [widget]
+<<widget "speech-salem">>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Salem") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Salem")>>
+		<<He>> winces. "Oh no did I hurt you? I'm sorry..."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Salem">>
+		<<He>> asks. "A-am I doing it right?"
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Salem">>
+		<<He>> worries. "Am I... Am I making you feel good?"
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Salem">>
+		<<He>> blushes. "W-wow your lips taste delicious."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<if _loveInterest is "Black Wolf">>
+			<<print `<<He>> pauses. "` + [`A-a dog?`, `I'm sorry I... I'm sorry.`][random(0,1)] + `"`>>
+		<<elseif _loveInterest is "Great Hawk">>
+			<<print `<<He>> pauses. "` + [`D-did you just say you... fucked a bird?`, `T-thats... Sorry.`][random(0,1)] + `"`>>
+		<<else>>
+			<<He>> smiles weakly. "I'm glad you chose me."
+		<</if>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<print `<<He>> looks at your $_sexToy and blushes. "` + [`W-what?`, `A-are you going to use that?`, `P-please I'm not sure about this...`, `What's wrong, a-are you feeling okay?`][random(0,3)] + `"`>>
+	<<elseif $speechchastity is 1>>
+		<<if $worn.genitals.name is "chastity parasite">>
+			<<print [`<<He>> looks curiously. "What is this?"`, `<<He>> pokes it gently. "That good?"`, `<<He>> smile gently. "Are you feeling okay?"`][random(0, 2)]>>
+		<</if>>
+	<</if>>
+<</widget>>

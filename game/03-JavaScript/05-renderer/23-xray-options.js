@@ -306,6 +306,12 @@ class XrayCombatMapper {
 			case "cowgirl":
 			case "bull":
 			case "bullboy":
+			case "sheep":
+			case "sheepboy":
+			case "sheepgirl":
+			case "deer":
+			case "deerboy":
+			case "deergirl":
 				penetrator.penetratorSprite = "horse";
 				penetrator.size = 5;
 				break;
@@ -318,6 +324,9 @@ class XrayCombatMapper {
 			case "wolf":
 			case "wolfgirl":
 			case "wolfboy":
+			case "raccoon":
+			case "raccoongirl":
+			case "raccoonboy":
 				penetrator.penetratorSprite = V.ejaculating === 1 && (T.knotted || T.knotted_short) ? "knotted-full" : "knotted";
 				penetrator.size = penetrator.npcType.includes("wolf") ? 3 : 2;
 				penetrator.base = V.ejaculating === 1 && (T.knotted || T.knotted_short) ? "knotting" : penetrator.base;
@@ -363,6 +372,9 @@ class XrayCombatMapper {
 			case "creature":
 			case "horned woman":
 			case "horned man":
+			case "spider":
+			case "spidergirl":
+			case "spiderboy":
 				penetrator.penetratorSprite = "tentacle";
 				penetrator.size = 3;
 				options.filters[slot + "Penetrator"] = {
@@ -374,8 +386,22 @@ class XrayCombatMapper {
 			case "lizard":
 			case "lizardgirl":
 			case "lizardboy":
+			case "frog":
+			case "froggirl":
+			case "frogboy":
 				penetrator.penetratorSprite = "penis";
 				penetrator.size = 2;
+				options.filters[slot + "Penetrator"] = {
+					blend: "#ec3535",
+					blendMode: "multiply",
+					desaturate: true,
+				};
+				break;
+			case "dragon":
+			case "dragongirl":
+			case "dragonboy":
+				penetrator.penetratorSprite = "penis";
+				penetrator.size = 5;
 				options.filters[slot + "Penetrator"] = {
 					blend: "#ec3535",
 					blendMode: "multiply",

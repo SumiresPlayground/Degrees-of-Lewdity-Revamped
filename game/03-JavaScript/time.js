@@ -995,6 +995,10 @@ function dayPassed() {
 
 	V.dailysalemdate = 0;
 
+	V.dailycaseydate = 0;
+
+	if (V.caseybaileyfight >= 1) {V.caseybaileyfight -= 1;}
+
 	if (V.prutitimer >= 7) {V.prutiquest = 8;}
 	if (V.prutiquest >= 8) {V.prutitimer = 0;}
 

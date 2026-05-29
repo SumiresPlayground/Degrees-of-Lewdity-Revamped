@@ -210,21 +210,24 @@ You are on Oxford Street. There's an eclectic mix of buildings, but most notable
 			<</if>>
 			<br><br>
 		<</if>>
-		<<if Time.schoolDay and Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0 and Weather.precipitation !== "rain" and Weather.precipitation !== "snow">>
+		<<if Time.schoolDay and Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0 and Weather.precipitation !== "rain" and Weather.precipitation !== "snow" and ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
+			<<rng>>
 			You see Casey lounging in the shade next to an old scrap motorcycle.
 			<br><br>
-			<<if $motorupgrade is 1>>
-				<<link [[Ride home with Casey (0:05)|Casey Ride Home]]>><<npcincr Casey love 3>><<willpowerdifficulty 1 300>><<pass 5>><</link>><<ggglove>>
-			<<else>>
-				<<link [[Ride home with Casey (0:10)|Casey Ride Home]]>><<npcincr Casey love 3>><<willpowerdifficulty 1 100>><<pass 10>><</link>><<ggglove>>
+			<<if $caseyromance is 1 and C.npc["Casey"].dom gte 30 and $rng gt 50>>
+				<<link [[Ride home with Casey (0:10)|Casey Ride Home Horny]]>><<npcincr Casey love 3>><<pass 10>><</link>><<ggglove>>
+			<<elseif $motorupgrade is 1 and ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
+				<<link [[Ride home with Casey (0:05)|Casey Ride Home]]>><<npcincr Casey love 3>><<willpowerdifficulty 1 300>><<pass 5>><</link>><<ggglove>><<handholdingvirginitywarning>>
+			<<elseif>>
+				<<link [[Ride home with Casey (0:10)|Casey Ride Home]]>><<npcincr Casey love 3>><<willpowerdifficulty 1 100>><<pass 10>><</link>><<ggglove>><<handholdingvirginitywarning>>
 			<</if>>
 			<br><br>
-		<<elseif Time.schoolDay and Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0>>
+		<<elseif Time.schoolDay and Time.hour is 15 and $NPCName[$NPCNameList.indexOf("Casey")].love gte 41 and $exposed lte 0 and ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
 			You see Casey waiting outside the school with an umbrella.
 			<br><br>
 			<<link [[Walk home with Casey (0:20)|Casey Walk Home]]>><<npcincr Casey love 3>><<pass 30>><</link>><<ggglove>>
 			<br>
-			<<link [[Ask to bring Robin along (0:30)|Casey Walk Home Robin]]>><<npcincr Casey love 1>><<pass 40>><<run setRobinLocationOverride("orphanage", 15)>><</link>><<glove>>
+			<<link [[Ask to bring Robin along (0:30)|Casey Walk Home Robin]]>><<npcincr Casey love 1>><<pass 40>><<run setRobinLocationOverride("orphanage", 15)>><</link>><<glove>><<kissvirginitywarning>>
 			<br><br>
 		<</if>>
 		Places of interest

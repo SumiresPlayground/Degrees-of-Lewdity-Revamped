@@ -2108,6 +2108,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Social"],
 	},
+	"Casey the Biker": {
+		title: "Casey the Biker",
+		desc: "You gave your virginity to them.",
+		difficulty: 2,
+		series: "",
+		filter: ["All", "Social"],
+	},
 	"Witch's Assistant": {
 		title: "Witch's Assistant",
 		desc: "Assisted a witch in their noble goal",

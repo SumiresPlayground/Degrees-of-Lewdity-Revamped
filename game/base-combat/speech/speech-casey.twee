@@ -1,0 +1,40 @@
+:: Widgets speech-Casey [widget]
+<<widget "speech-casey">>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Casey") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Casey")>>
+		<<He>> smiles. "Were you really a virgin? I am glad to be your first."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Casey">>
+		<<He>> smiles. "Is this your first time doing butt stuff? You are so cute."
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Casey">>
+		<<He>> smiles. "I love being your first experience. I hope you remember this forever."
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Casey">>
+		<<He>> continues to kiss you deeply. "I could get addicted to these lips."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<if _loveInterest is "Black Wolf">>
+			<<print `<<He>> laughs. "` + [`Did you just admit to fucking a dog? That's something else.`, `I think you need some lessons in proper sex.`][random(0,1)] + `"`>>
+		<<elseif _loveInterest is "Great Hawk">>
+			<<print `<<He>> laughs. "` + [`Did you just admit to fucking a bird? Come on, you can do better.`, `If you can fly, try flying into my arms.`][random(0,1)] + `"`>>
+		<<elseif random(1, 2) lte 1>>
+			<<switch _loveInterest>>
+				<<case "Robin">>
+					<<He>> laughs. "Really? You mean that little pipsqueak?"
+				<<case "Kylar">>
+					<<He>> scowls. "Wait, you mean that little creep who follows you around everywhere?."
+				<<case "Whitney">>
+					<<He>> scowls. "Whitney? Really? I could not think of a worse choice."
+				<<default>>
+					<<He>> scowls. "Come on, lets not talk about other people during our moment."
+			<</switch>>
+		<<else>>
+			<<He>> laughs. "I don't care about your little crush. You belong to me."
+		<</if>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<print `<<He>> looks at your $_sexToy and smirks. "` + [`Wow not what I expected from you.`, `I didn't think you were such a slut.`, `Don't get any bright ideas.`, `And what do you plan to do with that?`][random(0,3)] + `"`>>
+	<<elseif $speechchastity is 1>>
+		<<if $worn.genitals.name is "chastity parasite">>
+			<<print [`<<He>> laughs. "Chastity, really?"`, `<<He>> raises an eyebrow. "Well that's your choice sweetheart"`, `<<He>> grips you tightly. "I'll still love you the best I can."`][random(0, 2)]>>
+		<</if>>
+	<</if>>
+<</widget>>

@@ -129,11 +129,25 @@ You are on Connudatus Street. The numerous clubs, bars and restaurants make it t
 			<br>
 			<<link [[Try to talk to them again (0:05)|Casey Again]]>><<pass 5>><</link>>
 			<br><br>
-		<<elseif Time.dayState is "dusk" and Weather.precipitation !== "rain" and $caseymet is 1>>
+		<<elseif $caseyromance is 1 and Time.hour gte 7 and Time.hour lt 19 and $exposed lte 0 and Time.isWeekEnd() and ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
+			You see Casey has a stall open in the market.
+			<br>
+			<<link [[Approach the stall|Stall Help]]>><</link>>
+			<br><br>
+		<<elseif Time.dayState is "dusk" and Weather.precipitation !== "rain" and $caseymet is 1 and !Time.isWeekEnd() and ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
 			You see Casey in their usual spot smoking a cigar.
 			<br>
 			<<link [[Hang out (0:20)|Casey Hang Out]]>><<npcincr Casey love 2>><<pass 20>><</link>><<gglove>>
-			<br><br>
+			<br>
+			<<if $milkshake gte 2>>
+				<<foodicon "milkshake">><<link [[Offer milkshake (0:20)|Casey Give Milkshake]]>><<pass 20>><<set $milkshake -= 2>><<npcincr Casey love 2>><<stress -5>><</link>><<gglove>><<lstress>>
+				<br>
+			<</if>>
+			<<if $milkshake gte 1>>
+				<<foodicon "milkshake">><<link [[Share milkshake (0:20)|Casey Share Milkshake]]>><<pass 20>><<set $milkshake -= 1>><<npcincr Casey love 3>><<stress -10>><</link>><<ggglove>><<lstress>>
+				<br>
+			<</if>>
+			<br>
 		<</if>>
 		<<if Time.dayState isnot "dawn" and Time.dayState isnot "day">>
 			<<if $exposed gte 1 and $stripclubintro is 1>>

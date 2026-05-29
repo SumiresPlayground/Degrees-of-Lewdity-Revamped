@@ -454,6 +454,13 @@ statDisplay.create("gcorruption", () => statDisplay.statChange("Corruption", 1, 
 statDisplay.create("ggcorruption", () => statDisplay.statChange("Corruption", 2, "pink", () => V.earSlime.corruption < 100));
 statDisplay.create("gggcorruption", () => statDisplay.statChange("Corruption", 3, "pink", () => V.earSlime.corruption < 100));
 
+statDisplay.create("lpride", () => statDisplay.statChange("Pride", -1, "pink"));
+statDisplay.create("llpride", () => statDisplay.statChange("Pride", -2, "pink"));
+statDisplay.create("lllpride", () => statDisplay.statChange("Pride", -3, "pink"));
+statDisplay.create("gpride", () => statDisplay.statChange("Pride", 1, "purple"));
+statDisplay.create("ggpride", () => statDisplay.statChange("Pride", 2, "purple"));
+statDisplay.create("gggpride", () => statDisplay.statChange("Pride", 3, "purple"));
+
 statDisplay.create("lawareness", () => {
 	if (V.innocencestate === 1) {
 		return statDisplay.statChange("Innocence", 1, "blue");

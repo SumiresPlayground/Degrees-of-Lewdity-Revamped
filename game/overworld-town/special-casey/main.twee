@@ -63,7 +63,10 @@ They blow another puff of smoke and take a glance your way. “Didn’t I tell y
     <<runeventpool>>
 
 <<elseif $NPCName[$NPCNameList.indexOf("Casey")].love gte 100 and $caseyromance isnot 1>>
-    You hang out with Casey but something seems off this time. “So you wouldn’t happen to be seeing anyone else would you?” <<He>> asks. “Because if you aren’t I’d like it if we could maybe be a bit more than friends, if you catch my drift."
+    <<if C.npc.Casey.dom is undefined>>
+        <<set C.npc.Casey.dom to 50>>
+    <</if>>
+    You hangout with Casey but something seems off this time. “So you wouldn’t happen to be seeing anyone else would you?” <<He>> asks. “Because if you aren’t I’d like it if we could maybe be a bit more than friends, if you catch my drift."
     <br><br>
     <<if $loveInterest.primary is "None">>
         <<set $loveInterest.primary to "Casey">>
@@ -119,6 +122,22 @@ They blow another puff of smoke and take a glance your way. “Didn’t I tell y
         <br><br>
         <<getouticon>><<link [[Leave|Connudatus Street]]>><<endevent>><</link>>
     <</addinlineevent>>
+    <<if C.npc.Casey.dom gte 40 and $caseyromance>>
+        <<addinlineevent "alleysex">>
+            As you speak to Casey <<he>> grabs your arm and pulls you into the back of an alley. <<He>> breathes heavily as he holds you tight. "I want you right now."
+            <br><br>
+            <<link [[Submit to Casey|Casey Alley Sex]]>><<npcincr Casey dom 1>><<set $sexstart to 1>><</link>><<gpride>>
+            <br>
+            <<getouticon>><<link [[Leave|Connudatus Street]]>><<npcincr Casey dom -1>><<endevent>><</link>><<lpride>>
+        <</addinlineevent>>
+    <</if>>
+    <<if C.npc.Kylar.love gte 30>>
+        <<addinlineevent "kylar_convo">>
+            As you speak to Casey you see Kylar out of the corner of your eye. Casey looks over and sees <<nnpc_him "Kylar">> "Who the hell is that? What a creep. Keep yourself safe okay?"
+            <br><br>
+            <<getouticon>><<link [[Leave|Connudatus Street]]>><<endevent>><</link>>
+        <</addinlineevent>>
+    <</if>>
     <<runeventpool>>
 <</if>>
 
@@ -142,7 +161,7 @@ Check out this baby," <<He>> says, patting <<his>> motorcycle. "Custom made, I b
 <</if>>
 <br><br>
 <<He>> hops on the motorcycle and offers you a hand. You take <<his>> hand and climb on behind <<him>>. "Make sure to hold on tight. You don't want to fall off," <<He>> says as the engine fires and you start to move. 
-<br><br>
+<br><br><<takeHandholdingVirginity "Casey" "romantic">>
 <<if $willpowerSuccess>>
 You hold on loosely, enjoying the breeze. <<He>> smiles as he can tell you're having a good time.
 <<else>>
@@ -155,7 +174,7 @@ You arrive home and dismount the bike. "I hope you enjoyed the ride." Casey says
 <<link [[Say Goodbye|Bye Motor]]>><</link>>
 <br>
 <<if $promiscuity gte 15>>
-<<link [[Kiss Goodbye|Kiss Motor]]>><</link>>
+<<link [[Kiss Goodbye|Kiss Motor]]>><</link>><<kissvirginitywarning>>
 <</if>>
 
 :: Bye Motor
@@ -166,18 +185,19 @@ You arrive home and dismount the bike. "I hope you enjoyed the ride." Casey says
 
 :: Kiss Motor
 <<npc Casey>><<person1>>
+<<takeKissVirginity "Casey" "romantic">>
 You lean in close and give <<him>> a kiss. <<He>> blushes for a moment before kissing you back. "Wow, not what I was expecting," <<He>> says, smiling. "Not that I'm complaining. See you later," <<He>> says as he remounts his bike and rides away.
 <br><br>
-<<link [[Next|Domus Street]]>><<endevent>><<takeKissVirginity Casey romantic>><</link>>
+<<link [[Next|Domus Street]]>><<endevent>><</link>>
 
 :: Casey Walk Home
 <<npc Casey>><<person1>>
-You take Casey's hand and walk home together. <<He>> makes sure you're covered the entire way and even gets a bit wet <<himself>>. "Well, here we are. It's a shame, but I should probably get going."
+You take Casey's hand and walk home together.<<takeHandholdingVirginity "Casey" "romantic">> <<He>> makes sure you're covered the entire way and even gets a bit wet <<himself>>. "Well, here we are. It's a shame, but I should probably get going."
 <br><br>
 <<link [[Say Goodbye|Bye Casey]]>><</link>>
 <br>
 <<if $promiscuity gte 15>>
-<<link [[Kiss Goodbye|Kiss Casey]]>><</link>>
+<<link [[Kiss Goodbye|Kiss Casey]]>><</link>><<kissvirginitywarning>>
 <</if>>
 
 :: Bye Casey
@@ -187,16 +207,22 @@ You take Casey's hand and walk home together. <<He>> makes sure you're covered t
 <<link [[Next|Domus Street]]>><<endevent>><</link>>
 
 :: Kiss Casey
+<<takeKissVirginity "Casey" "romantic">>
 <<npc Casey>><<person1>>
 You lean in close and give <<him>> a kiss. <<He>> blushes for a moment before kissing you back. "Wow, not what I was expecting." <<He>> says smiling. "Not that I'm complaining. See you later." <<He>> says as he walks away.
 <br><br>
-<<link [[Next|Domus Street]]>><<endevent>><<takeKissVirginity Casey romantic>><</link>>
+<<link [[Next|Domus Street]]>><<endevent>><</link>>
 
 :: Casey Walk Home Robin
+<<takeKissVirginity "Casey" "romantic">>
 <<npc Casey>><<person1>>
-You ask if Robin can come along. Casey stands silent for a moment before saying, "Sure, I suppose your little friend can come along." Putting emphasis on the word "friend." The walk home is quiet and awkward as Casey gives Robin a glare from time to time, hardly hiding it. Upon arriving home Casey pulls you close and kisses you. "See you later." <<He>> smiles, glancing towards Robin, and walks away.
+You ask if Robin can come along. Casey stands silent for a moment before saying, "Sure, I suppose your little friend can come along." Putting emphasis on the word "friend." The walk home is quiet and awkward as Casey gives Robin a glare from time to time, hardly hiding it. Upon arriving home Casey pulls you close and kisses you. "See you later." <<He>> smiles, glancing towards Robin.
 <br><br>
-<<link [[Next|Domus Street]]>><<endevent>><<takeKissVirginity Casey romantic>><</link>>
+<<if $caseyromance is 1 and C.npc.Casey.dom gte 30>>
+    <<link [[Pull him in for more|Casey Robin Kiss More]]>><<npcincr Casey love 3>><<npcincr Casey pride 2>><<endevent>><</link>><<ggglove>><<ggpride>>
+<</if>>
+<br>
+<<link [[Next|Domus Street]]>><<endevent>><</link>>
 
 :: Casey Hello
 <<npc Casey>><<person1>>
@@ -223,3 +249,676 @@ You start scrounging through a scrap pile. You don't find anything of use but Ca
 <</if>>
 <<link [[Leave|Trash]]>><<endevent>><</link>>
 <</if>>
+
+:: Stall Help
+<<if C.npc.Casey.dom is undefined>>
+    <<set C.npc.Casey.dom to 50>>
+<</if>>
+<<npc Casey>><<person1>>
+<<if $caseystallintro is undefined>>
+    You approach Casey's stall, set up with various antiques and bobbles found from scavenging the landfill. As <<he>> sees you, <<he>> flashes a bright smile. "Well well, if it isn't my favorite little snack. What are you doing here?"
+    <br><br>
+    <<He>> leans against his rough homemade stall and smiles roguishly. "If you wanted to help, that would be really nice. I always appreciate the help of a beautiful flower, especially one that is all mine."
+    <br><br>
+    <<link [[Next|Stall Help]]>><<set $caseystallintro to 1>><<endevent>><</link>>
+<<else>>
+    You are at Casey's stall, set up with various antiques and bobbles found from scavenging the landfill. He smirks, leaning against the stand.
+    <br><br>
+    <<link [[Offer help (0:30)|Casey Stall Help]]>><<endevent>><<npcincr Casey dom 1>><<npcincr Casey love 1>><<rng>><<pass 30>><</link>><<gpride>><<glove>>
+    <br>
+    <<getouticon>><<link [[Next|Connudatus Street]]>><<endevent>><</link>>
+<</if>>
+
+:: Casey Stall Help
+<<effects>>
+<<npc Casey>><<person1>>
+<<if Time.hour gte 17>>
+	"Alright, most people are closing up for the night," Casey says. "Mind helping me take this stuff back to my flat?"
+	<br><br>
+
+	You walk with Casey back to <<his>> flat.
+	<br><br>
+
+	<<link [[Next|Casey Flat]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if $rng gte 81>>
+        You begin to advertise for Casey's stand. You take a sign and begin to talk to people walking around the market. You can tell people are impressed by your marketting and Casey's stand gains quite a bit of attention.
+        <<famebusiness 3>><<set $caseymoney += 15>>
+	<<elseif $rng gte 61>>
+        You begin to advertise for Casey's stand. You walk around the market and speak to several people directing them toward Casey's stall. You can see a bit more attention around Casey's stall.
+        <<famebusiness 2>><<set $caseymoney += 10>>
+	<<elseif $rng gte 21>>
+        You begin to advertise for Casey's stand. You speak to various people and direct them toward Casey's stall, but don't know if any are convinced by it.
+		<<famebusiness 1>><<set $caseymoney += 5>>
+	<</if>>
+    <br><br>
+    <<link [[Offer more help (0:30)|Casey Stall Help]]>><<endevent>><<npcincr Casey dom 1>><<npcincr Casey love 1>><<rng>><<pass 30>><</link>><<gpride>><<glove>>
+    <br>
+    <<getouticon>><<link [[Back|Connudatus Street]]>><<endevent>><</link>>
+<</if>>
+
+:: Casey Flat
+<<if C.npc.Casey.dom is undefined>>
+    <<set C.npc.Casey.dom to 50>>
+<</if>>
+<<npc Casey>><<person1>>
+<<if $caseybaileyfight gt 0>>
+    You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from the market. The room is decorated in old posters, likely stuff that was thrown out <<he>> liked enough to keep. The room is falling apart a bit but that is expected with such a cheap lodging you suppose. Casey sits in <<his>> chair a towel filled with ice held to <<his>> bruised eye and body. Seems fighting off Bailey left quite the mark
+<<else>>
+    You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from the market. The room is decorated in old posters, likely stuff that was thrown out <<he>> liked enough to keep. The room is falling apart a bit but that is expected with such a cheap lodging you suppose. Casey sits in <<his>> chair with a cigar in <<his>> hand, staring a bit blankly. 
+<</if>>
+<br><br>
+<<if ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
+    <<if Time.dayState is "night">>
+        <<if !$dailycaseydate and Time.isWeekEnd()>>
+            <<link [[Ask on a date|Casey Date Talk]]>><<endevent>><</link>>
+            <br>
+        <</if>>
+        <<link [[Ask to have sex|Casey Sex]]>><<set $sexstart to 1>><</link>>
+        <br>
+        <<if $caseymoney gt 0>>
+            <<link [[Ask to borrow some money|Casey Money]]>><<npcincr Casey dom 2>><<endevent>><</link>><<ggpride>>
+            <br>
+        <</if>>
+    <</if>>
+<<else>>
+    <<link [[Offer to help <<him>> (0:30)|Casey Help]]>><<pass 30>><<npcincr Casey love 2>><<endevent>><</link>><<gglove>>
+    <br>
+    <<link [[Hug (0:05)|Casey Hug Injured]]>><<pass 5>><<npcincr Casey love 1>><<endevent>><</link>><<glove>>
+    <br>
+<</if>>
+<<if $caseystayover is 1>>
+    <<bedicon>><<link [[Lay in the bed|Casey Bed]]>><<endevent>><</link>>
+    <br>
+    <<wardrobeicon>><<link [[Wardrobe|Casey Wardrobe]]>><<endevent>><</link>>
+	<br>
+	<<mirroricon>><<link [[Mirror|Casey Mirror]]>><<endevent>><</link>>
+	<br>
+<</if>>
+<<if $renttime lte 0>>
+    <<link [[Leave|Flats Bailey]]>><</link>>
+<<else>>
+    <<link [[Leave|Flats]]>><</link>>
+<</if>>
+
+:: Flats Bailey
+As you exit the flat, you are pulled into the alley between two buildings. <span class="red">It's Bailey.</span>
+<br><br>
+<<npc Bailey>><<person1>>
+"Time to pay up," <<he>> says.
+<<if $baileydefeatedchain gte 3 or ($robinpaid is 1 and $robinromance gte 1 and $bus is "home" and $robinfirstrentfight isnot 1 and $renttime lte -14)>>
+	<<generateRole 1 0 "thug">><<generateRole 2 0 "thug">>
+	A rough-looking <<person2>><<person>> and <<person3>><<person>> stand next to <<person1>><<him>>.
+	The <<person2>><<person>> cracks <<his>> knuckles, and the <<person3>><<person>> grins darkly.
+<<elseif $baileydefeatedchain gte 1>>
+	<<generateRole 1 0 "thug">>
+	A rough-looking <<person2>><<person>> stands next to <<person1>><<him>>.
+	<<person2>><<He>> cracks <<his>> knuckles.
+<</if>>
+<br><br>
+Before you can respond Casey barrels out of <<person1>><<his>> flat, slamming into Bailey who is caught completely off guard. "Hurry run!" Casey roars as <<nnpc_he "Casey">> grapples with Bailey who is barking orders at <<his>> men to come and help. You run as Casey holds off the men at least long enough to make sure you are safe and away.
+<br><br>
+<<set $baileydefeated += 1>><<set $baileydefeatedchain += 1>><<set $caseybaileyfight to 1>>
+<<link [[Leave|Flats]]>><</link>>
+
+:: Casey Mirror
+<<effects>>
+<<link [[Leave the mirror|Casey Flat]]>><</link>>
+<br>
+
+<<mirror>>
+<br><br>
+
+:: Casey Bed
+<<effects>>
+You snuggle under the rough covers.
+<br><br>
+<<generateSleepLinks "Casey Sleep">>
+<<link [[Climb out of bed|Casey Flat]]>><</link>>
+
+:: Casey Sleep
+<<set _autosavehere to true>>
+<<sleepeffects>><<sleep>><<effects>>
+
+You rest your head on Casey's cool pillow and drift off to sleep. You rest well, waking up hours later. You sit up and stretch before getting out of the bed.
+<br><br>
+<<link [[Climb out of bed|Casey Flat]]>><</link>>
+
+:: Casey Money
+<<npc Casey>><<person1>>
+<<if $caseystayover is undefined>>
+    "Money?" Casey looks toward you with a confused look in <<his>> eyes. "Are you struggling with money? What's the matter?"
+    <br><br>
+    You spend some time talking to Casey about Bailey's exorbitant rent payments. You can see a glint in Casey's eyes as <<he>> silently listens. <<He>> stands up with <<his>> fist clenched and speaks with a tone you haven't heard from <<him>> often, if at all. "That bastard, how dare <<nnpc_he "Bailey">> treat you like that. You've done nothing to deserve the abuse that monster gives you."
+    <br><br>
+    Casey lets out a heavy sigh trying to calm <<himself>>. "It might not look like much but... you're welcome to stay here as long as you like. At the very least, I will do what I can to keep you safe as long as you are here."
+    <br><br>
+    <<link [[Next|Casey Flat]]>><<set $caseystayover to 1>><<endevent>><</link>>
+<<else>>
+    "You need some money? Alright let me see..." Casey opens <<his>> leather wallet from the nightstand and looks inside. "I have about £<<print $caseymoney * 100>>" <<He>> takes the money from the wallet and hands it all to you. "Here, you need it more than I do."
+    <br><br>
+    <<link [[Next|Casey Flat]]>><<endevent>><</link>>
+<</if>>
+
+:: Casey Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Casey Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Casey Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Casey Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Casey holds you tightly as he breathes heavily. <<He>> gathers <<himself>> and smiles at you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Casey love -5>>
+    "What the fuck?" Casey says wiping blood from <<his>> mouth.<<llove>>
+<<elseif $finish is 1>>
+	"You're done already?" <<He>> says with a sly grin. "What, you couldn't handle all this?"
+<</if>>
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Casey Flat]]>><</link>>
+
+:: Alley Casey Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Alley Casey Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Alley Casey Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Alley Casey Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Casey holds you tightly as he breathes heavily. <<He>> gathers <<himself>> and smiles at you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Casey love -5>>
+    "What the fuck?" Casey says wiping blood from <<his>> mouth.<<llove>>
+<<elseif $finish is 1>>
+	"You're done already?" <<He>> says with a sly grin. "What, you couldn't handle all this?"
+<</if>>
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Connudatus Street]]>><</link>>
+
+:: Casey Date Talk
+<<npc Casey>><<person1>>
+You sit next to Casey and talk about going out on a date. <<He>> thinks for a moment. "Of course, I would love to take you out on a date. Where do you want to go?"
+<br><br>
+<<link [[Ask to go to a nice restaurant (1:00)|Casey Restaurant Money]]>><<pass 60>><<set $dailycaseydate to 1>><<endevent>><</link>>
+<br>
+<<link [[Ask to ride out to the countryside (1:20)|Casey Ride Date]]>><<pass 80>><<set $dailycaseydate to 1>><<willpowerdifficulty 1 100>><<endevent>><</link>>
+
+:: Casey Ride Date
+<<set $location to "meadow">>
+<<npc Casey>><<person1>>
+"You want to go spend some time together out in the countryside? Of course I can do that for you." Casey smiles as <<he>> guides you down to the front of the flats where <<his>> motorcycle is chained to the wall. 
+<br><br>
+<<He>> takes a moment to unchain the bike before helping you up to the back. "Are you comfortable? Let me know if there is anything you need okay?" <<He>> straddles the seat of the bike and lets you grip <<his>> shoulders as <<he>> revs the engine and begins to drive down the road. 
+<br><br>
+<<if $willpowerSuccess>>
+You hold on loosely, enjoying the breeze. <<He>> smiles as he can tell you're having a good time.
+<<else>>
+You wrap your arms around <<him>> tightly. <<He>> starts to blush and says, "Is everything alright back there?" You nod and continue to hold <<him>>. 
+<</if>>
+<br><br>
+The bike speeds down the road out into the countryside, guided by the front light of the bike. Casey stops and parks the motorcycle as <<he>> assists you down. The two of you lie together in the grass of the meadow, feeling the cool wind brush over you.
+<br><br>
+<<link [[Just relax together|Casey Relax]]>><<npcincr Casey dom 1>><<npcincr Casey love 1>><<endevent>><</link>><<glove>><<gpride>>
+<br>
+<<link [[Let Casey take you in the grass|Casey Meadow Sex]]>><<set $sexstart to 1>><<npcincr Casey dom 2>><<npcincr Casey love 2>><</link>><<gglove>><<ggpride>>
+
+:: Casey Meadow Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Casey Meadow Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Casey Meadow Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Casey Meadow Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Casey holds you tightly as he breathes heavily. <<He>> gathers <<himself>> and smiles at you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Casey love -5>>
+    "What the fuck?" Casey says wiping blood from <<his>> mouth.<<llove>>
+<<elseif $finish is 1>>
+	"You're done already?" <<He>> says with a sly grin. "What, you couldn't handle all this?"
+<</if>>
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Casey Ride Home Date]]>><<endevent>><</link>>
+
+:: Casey Relax
+<<npc Casey>><<person1>>
+The two of you lie together in the meadow. A nice breeze keeps you two comfortable. Casey pulls you close and wraps <<his>> arm around you, nuzzling his face into your neck. "You know, I've never felt this way with someone before. I'd do anything for you." You can feel <<his>> arousal behind you. Some time passes and <<he>> presses against you gently.
+<br><br>
+<<link [[It is time to head back|Casey Ride Home Date]]>><<endevent>><</link>>
+<br>
+<<link [[Let Casey take you in the grass|Casey Meadow Sex]]>><<set $sexstart to 1>><<npcincr Casey dom 2>><<npcincr Casey love 2>><</link>><<gglove>><<ggpride>>
+
+:: Casey Ride Home Date
+<<npc Casey>><<person1>>
+The two of you, growing tired, finish up and Casey assists you back upon <<his>> bike. <<He>> climbs back on the front of the bike and the two of you ride back toward town.
+<br><br>
+<<He>> parks the bike, chaining it back to the wall, and holds your waist as you climb down from the bike. <<He>> gently guides you back to the flat and holds the door open for you.
+<br><br>
+<<link [[Next|Casey Flat]]>><<endevent>><<set $location to "flats">><</link>>
+
+:: Casey Restaurant Money
+<<npc Casey>><<person1>>
+"You want to go to a nice restaurant?" Casey frowns slightly as <<he>> thinks. <<He>> grabs <<his>> wallet from the nightstand and looks inside. 
+<<if $caseymoney gte 200>>
+"Alright, I think I have enough to cover something like that." <<He>> offers you <<his>> hand with a small gentle yet strong smile.
+<br><br>
+<<link [[Let Casey treat you|Casey Pay]]>><<endevent>><<set $phase to 1>><<set $caseymoney -= 200>><<npcincr Casey dom 2>><</link>><<ggpride>>
+<br>
+<<else>>
+"Sorry but... I don't really have the kind of money right now to afford that." <<He>> seems a bit ashamed about the situation despite trying <<his>> best.
+<br><br>
+<</if>>
+<<if $money gte 20000>>
+    <<link [[Offer to pay for the date (£200)|Casey Pay]]>><<set $money -= 20000>><<endevent>><<set $phase to 2>><<npcincr Casey dom -2>><</link>><<llpride>>
+    <br>
+<</if>>
+<<link [[Back|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Pay
+<<npc Casey>><<person1>>
+<<if $phase is 1>>
+    The walk to the restaurant is short enough to not need to ride Casey's motorcycle. The two of you walk hand in hand to the door where Casey holds it open for you to enter. A waiter guides the two of you to a nice table lit by candlelight. Casey gently holds your hand, intertwining <<his>> fingers with yours as <<he>> kisses the top of your hand.
+    <br><br>
+    "Is this everything you were hoping for?" Casey lets out a cocky grin. "I'm glad I had the money to afford this for you. You deserve the best." As Casey speaks, the waiter returns and takes your order. The wait isn't long before a dish of delicious looking food arrives at the table. Casey looks at the food with a smirk and cuts a piece of the main course, raising it on a fork. "Open wide, beautiful." <<He>> says, gently feeding you a bite. "It's my belief that someone as perfect as you deserves to be treated like royalty."
+    <br><br>
+    The two of you take turns taking bites until the meal is almost entirely gone. The waiter returns to take the plates and Casey pays the bill before turning back to you. "This was perfect. Thank you, for asking me to take you to this place." As <<he>> speaks, he closes <<his>> eyes and leans forward.
+    <br><br>
+    <<link [[Lean forward for the kiss|Casey Kiss Date]]>><<endevent>><<npcincr Casey dom 2>><<npcincr Casey love 2>><</link>><<kissvirginitywarning>><<ggpride>><<gglove>>
+    <br>
+    <<link [[Reject the kiss|Casey Kiss Reject]]>><<endevent>><<npcincr Casey dom -3>><</link>><<lllpride>>
+<<else>>
+    "No I couldn't possibly allow you to pay for this." Casey shakes <<his>> head annoyed. You continue to insist and eventually <<he>> relents. <<He>> seems to value your time together more than <<his>> own pride.
+    <br><br>
+    The walk to the restaurant is short enough to not need to ride Casey's motorcycle. The two of you walk hand in hand to the door where Casey holds it open for you to enter. A waiter guides the two of you to a nice table lit by candlelight. Casey gently holds your hand, intertwining <<his>> fingers with yours as <<he>> kisses the top of your hand.
+    <br><br>
+    "I really wish I could have offered you something like this myself." Casey sighs annoyed. "But I'm happy to just be here with you. You deserve the best." As Casey speaks, the waiter returns and takes your order. The wait isn't long before a dish of delicious looking food arrives at the table. Casey looks at the food, still annoyed but wanting to do something nice, and cuts a piece of the main course, raising it on a fork. "Open wide, beautiful." <<He>> says, gently feeding you a bite. "It's my belief that someone as perfect as you deserves to be treated like royalty."
+    <br><br>
+    The two of you take turns taking bites until the meal is almost entirely gone. The waiter returns to take the plates and Casey pays the bill before turning back to you. "This was perfect. Thanks for... taking me here, even though I couldn't give you what you deserve." As <<he>> speaks, he closes <<his>> eyes and leans forward.
+    <br><br>
+    <<link [[Lean forward for the kiss|Casey Kiss Date]]>><<endevent>><<npcincr Casey dom 2>><<npcincr Casey love 2>><</link>><<kissvirginitywarning>><<ggpride>><<gglove>>
+    <br>
+    <<link [[Reject the kiss|Casey Kiss Reject]]>><<endevent>><<npcincr Casey dom -3>><</link>><<lllpride>>
+<</if>>
+
+:: Casey Kiss Date
+<<npc Casey>><<person1>>
+You lean forward and gently kiss Casey. You can feel <<his>> tongue gently explore your mouth. As you pull apart, a string of saliva connects the two of you for a fleeting moment. <<He>> grins with renewed vigor. "Wow, you're not a bad kisser. I wonder what else you can do."
+<br><br>
+As <<he>> speaks, <<he>> slowly shrugs off <<his>> jacket, revealing <<his>> toned muscles of a hardworking <<personsimple>>. <<He>> grabs the hem of <<his>> shirt, lifting it to reveal the defined curve of <<his>> abs. "I want you here and now. I bet you want the same, don't you?" <<He>> winks as he flexes <<his>> bicep while holding you close with the other arm.
+<br><br>
+<<link [[Let Casey fuck you in the alley|Casey Alley Sex 2]]>><<set $sexstart to 1>><<npcincr Casey dom 2>><<npcincr Casey love 2>><</link>><<gglove>><<ggpride>>
+<br>
+<<link [[Reject <<his>> proposition|Casey Sex Rejection]]>><<endevent>><<npcincr Casey dom -2>><<npcincr Casey love -2>><</link>><<lllove>><<llpride>>
+
+:: Casey Alley Sex 2
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Casey Alley Sex Finish 2]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Casey Alley Sex 2]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Casey Alley Sex Finish 2
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Casey holds you tightly as he breathes heavily. <<He>> gathers <<himself>> and smiles at you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Casey love -5>>
+    "What the fuck?" Casey says wiping blood from <<his>> mouth.<<llove>>
+<<elseif $finish is 1>>
+	"You're done already?" <<He>> says with a sly grin. "What, you couldn't handle all this?"
+<</if>>
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Casey Date Walk Home]]>><<endevent>><</link>>
+
+:: Casey Sex Rejection
+<<npc Casey>><<person1>>
+"What? Are you serious?" Casey looks disappointed. "After all this you still... No no, it's alright. I understand. I just... want to show you how much you mean to me." <<He>> holds your face gently and kisses you once more. "Come on, lets get you back to my flat before you catch a cold."
+<br><br>
+Casey walks you back to his flat, holding the door open for you before settling back on <<his>> couch with a yawn.
+<br><br>
+<<link [[Next|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Kiss Reject
+<<npc Casey>><<person1>>
+"Come on doll, not even one kiss after everything this evening?" <<He>> frowns clearly upset, but shakes it off and is back to <<his>> normal smile. "No no, it's alright. I understand. I just... want to show you how much you mean to me." <<He>> holds your face gently and gives you a large hug. "Come on, lets get you back to my flat before you catch a cold."
+<br><br>
+Casey walks you back to his flat, holding the door open for you before settling back on <<his>> couch with a yawn.
+<br><br>
+<<link [[Next|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Date Walk Home
+<<npc Casey>><<person1>>
+"Wow that was amazing." Casey groans as <<he>> sits up and helps you stand. <<He>> wraps his fingers in your hair as he pulls you close into another deep loving kiss. "You're the best sweetheart, I'm glad you let me be the one for you." <<He>> gently grips your ass and smirks, taking your hand. "Come on, lets get you back to my flat before you catch a cold."
+<br><br>
+Casey walks you back to his flat, holding the door open for you before settling back on <<his>> couch with a yawn.
+<br><br>
+<<link [[Next|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Ride Home Horny
+<<npc Casey>><<person1>>
+"Hey, I was waiting for you. 
+<br><br>
+<<He>> hops on the motorcycle and offers you a hand. You take <<his>> hand and climb on behind <<him>>. "Hang on, I was thinking. Maybe you want to ride in front today?" <<He>> grabs your waist and gently positions you in the front.
+<br><br>
+You nervously begin to drive the motorcycle, first slow, then a little faster. You can feel his strong hands gently holding your waist. As you drive, you can feel something behind you. Casey's arousal presses against your back. You can hear <<him>> breathing heavily but trying to keep it to <<himself>>.
+<br><br>
+<<link [[Slow down and gently press against him for sex|Casey Motor Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+<<link [[Ignore it|Motor Ignore]]>><</link>>
+
+:: Motor Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Casey Motor Sex]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Casey Motor Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Casey Motor Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Casey holds you tightly as he breathes heavily. <<He>> gathers <<himself>> and smiles at you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Casey love -5>>
+    "What the fuck?" Casey says wiping blood from <<his>> mouth.<<llove>>
+<<elseif $finish is 1>>
+	"You're done already?" <<He>> says with a sly grin. "What, you couldn't handle all this?"
+<</if>>
+<br><br>
+You pull up to the orphanage after gathering yourself. Waving bye to Casey as he goes back to the landfill.
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Domus Street]]>><<endevent>><</link>>
+
+:: School Leave Whitney Casey
+<<npc Whitney>><<person1>>
+Whitney's busy arguing with one of <<his>> friends and doesn't spot you. Another of <<his>> friends, a <<generatey2>><<person2>><<person>>, does though, and walks over to you. "You're Whitney's slut," <<he>> says. "Think I fancy a piece myself." You withdraw into a defensive posture as <<he>> tries to grope your <<genitals 2>>.
+<br><br>
+The <<person2>><<person>> turns just in time to get smacked in the face. Whitney grasps <<his>> collar and pulls <<him>> close. "Keep your <<= $pronoun is "m" ? "pervert hands" : "skanky ass">> away from my slut." Whitney shoves <<him>> aside. <<He>> turns away, red in the face as Whitney grabs your arm and tugs.
+<br><br>
+<<endevent>><<npc Whitney>><<person1>><<He>> pulls you away from <<his>> friends, behind the bike shed. "The nerve of that cunt," <<he>> says. "I need to vent." <<He>> shoves you to the ground and drops on top of you.
+<br><br>
+
+<<link [[Next|School Leave Whitney Rape Casey]]>><<endevent>><</link>>
+<br>
+
+:: School Leave Whitney Rape Casey
+<<effects>>
+<<npc Casey>><<person1>>
+As Whitney pins you down and unzips <<nnpc_his "Whitney">> pants, there is a commotion by the gate. Casey pushes through the crowd and brings <<his>> fist down against Whitney's temple, sending <<nnpc_him "Whitney">> sprawling back before Whitney can gather <<nnpc_himself "Whitney">>. "What the fuck?" Whitney staggers back to <<nnpc_his "Whitney">> feet. "Cheap shot, you won't manage that again."
+<br><br>
+<<link [[Next|School Casey Whitney Fight]]>><<endevent>><</link>>
+
+:: School Casey Whitney Fight
+<<effects>>
+<<npc Casey>><<person1>>
+Whitney charges at Casey, wraping <<nnpc_his "Whitney">> arms around <<him>>, trying to tackle <<him>> to the ground. The crowd surrounds the two as people cheer for Whitney. Distracted by the crowd, Whitney manages to slam his shin into Casey's leg drawing out a pained gasp.
+<br><br>
+<<link [[Cheer for Whitney|School Whitney Cheer]]>><<status 1>><<npcincr Casey pride -10>><<npcincr Casey love -10>><<npcincr Whitney dom 1>><</link>><<lllpride>><<llllove>><<gdom "Whitney">>
+<br>
+<<link [[Cheer for Casey|School Casey Cheer]]>><<npcincr Casey pride 10>><<npcincr Whitney dom -1>><</link>><<gggpride>><<ldom "Whitney">>
+<br>
+
+:: School Casey Cheer
+<<npc Casey>><<person1>>
+<<effects>>
+<<if $speech_attitude is "meek">>
+	"Y-you can do it Casey!"
+<<elseif $speech_attitude is "bratty">>
+	"Kick <<nnpc_his "Whitney">> ass, Casey!"
+<<else>>
+	"You can do it, Casey!"
+<</if>>
+you shout, locking eyes with <<him>>. Whitney tears <<nnpc_his "Whitney">> gaze away from Casey, and gives you a dark look.
+<br><br>
+Casey takes the moment of ditraction to slam a devistating punch into Whitney's gut. It connects with a loud crunch. The crowd quiets again as Whitney groans and falls to the ground.
+<br><br>
+Casey breaths heavily, trying to catch <<his>> breath in the quieted crowd, Whitney groaning on the floor. <<He>> hurries to retrieve it, but it's too late. The circle of onlookers widens, but you hear someone push through the crowd behind you.
+<br><br>
+The onlookers gasp as Leighton approaches. A pair of arms grasp Whitney, quickly pulling <<nnpc_him "Whitney">> away from the scene. Casey similaraly, grabs your arm and hurries with you past the gate before Leighton can catch sight of you.
+<br><br>
+You can hear yelling and scolding from the other side of the gate as you sit next to Casey who has an indecipherable expression. "Are you okay?" <<He>> whispers. "Please let me know anytime that jackass tries to pull something like this okay?"
+<br><br>
+<<link [[Next|Oxford Street]]>><<endevent>><</link>>
+
+:: School Whitney Cheer
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"P-please win, Whitney!" you shout.
+<<elseif $speech_attitude is "bratty">>
+	"Lay <<him>> out, Whitney!" you shout.
+<<else>>
+	"Go Whitney," you shout.
+<</if>>
+Casey looks at you with a hurt expression of betrayal. "Want some more?" Whitney laughs as Casey wrestles with <<nnpc_him "Whitney">>. "Fine by me—"
+<br><br>
+Whitney is cut off as Casey delivers a strong punch to <<nnpc_his "Whitney">> stomach. Whitney lurches but manages to stay on <<nnpc_his "Whitney">> feet.
+<br><br>
+Seeing Whitney struggle, <<nnpc_his "Whitney">> gang surrounds Casey and begin kicking and punching <<him>> from all angles. Even Casey cannot handle it for long as <<he>> falls to his knees with a grunt of pain.
+<br><br>
+"Yeah that's what I thought." Whitney turns smug despite <<nnpc_his "Whitney">> dirty win. The crowd cheers as Whitney wipes a smudge of blood from the corner of <<nnpc_his "Whitney">> mouth.
+<br><br>
+"And you, slut. I don't have time for you. Get the fuck out of here." As <<nnpc_he "Whitney">> speaks, Leighton pushes through the crowd. Seeing this, Whitney's gang hurries off the scene. You leave Casey and run past the gates.
+<br><br>
+<<link [[Next|Oxford Street]]>><<endevent>><</link>>
+
+:: Casey Robin Kiss More
+<<npc Casey>><<person1>>
+You pull in Casey closer, slipping your tongue into his mouth in a deep sexual kiss. You can feel <<his>> arousal from here. Robin looks on stunned as you meet <<nnpc_his "Robin">> eyes. "Maybe I should be leaving." Robin stammers turning to leave.
+<br><br>
+<<link [[Pull Casey in for sex|Casey Domus Sex]]>><<set $sexstart to 1>><</link>>
+<br><br>
+<<link [[Leave|Domus Street]]>><<endevent>><</link>>
+
+:: Casey Domus Sex
+<<if $sexstart is 1>>
+    Before Robin manages to leave, you pull Casey close, unzipping <<his>> pants.
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Casey Domus Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Casey Domus Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Casey Domus Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Casey holds you tightly as he breathes heavily. <<He>> gathers <<himself>> and smiles at you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Casey love -5>>
+    "What the fuck?" Casey says wiping blood from <<his>> mouth.<<llove>>
+<<elseif $finish is 1>>
+	"You're done already?" <<He>> says with a sly grin. "What, you couldn't handle all this?"
+<</if>>
+<br><br>
+You walk past Robin who's entire face is red, having whitnessed everything.
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Domus Street]]>><<endevent>><</link>>
+
+:: Casey Help
+<<npc Casey>><<person1>>
+You approach Casey and gently hold <<his>> hand. You take the ice towel from <<his>> hand and gently press it against the bruises along <<his>> face and chest. You wipe a smudge of blood from <<his>> lip and gently hold <<his>> face. You ask why <<he>> would do such a thing for you.
+<br><br>
+"Because I love you, isn't that obvious? I would do anything to keep you safe, even if it means dying myself." <<He>> lets out a cough as you hold <<his>> body. You can tell <<he>> is hurting more than he lets on. 
+<br><br>
+<<link [[Kiss <<him>>|Casey Injured Kiss]]>><<npcincr Casey love 2>><<endevent>><</link>><<kissvirginitywarning>><<gglove>>
+<br>
+<<link [[Next|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Injured Kiss
+<<npc Casey>><<person1>>
+You lean forward and kiss Casey's lips gently. <<takeKissVirginity "Casey" "romantic">>
+<br><br>
+<<He>> closes <<his>> eyes and leands into the kiss wincing a bit from the movement. As you pull apart, <<he>> lets out a pained smile. "Thanks beautiful, I'm feeling better already. You don't need to take care of me all this time, please, go have fun."
+<br><br>
+<<link [[Next|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Hug Injured
+<<npc Casey>><<person1>>
+You gently lay your head on Casey's shoulder and wrap your arms around <<him>>. <<He>> winces slightly but doesn't move. <<He>> closes his eyes and leans into you.
+<br><br>
+<<link [[Cuddle (0:10)|Casey Cuddle]]>><<pass 10>><<endevent>><</link>>
+<br>
+<<link [[Stop hugging|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Cuddle
+<<npc Casey>><<person1>>
+You snuggle up to <<him>>, careful to not press against <<his>> bruises. <<He>> gently strokes your hair and you spend a quiet moment together.
+<br><br>
+<<link [[Next|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Give Milkshake
+<<effects>>
+<<npc Casey>><<person1>>
+<<wearProp "milkshake">>
+
+You approach Casey with the milkshake. <<He>> sees you and tilts his head. "What's this, you offering this to me?"
+<br><br>
+You hand the light creamy drink to <<him>>, which <<he>> takes gingerly.
+<br><br>
+"Not the kind of fancy drink I am used to." Casey jokes as <<he>> takes a drink. "Damn that is sweet. What do they put in this stuff."
+<br><br>
+Casey takes it off your hands, and after twenty minutes of sipping and chatting, <<he>> finishes the rest. "Well that was awfully nice of you, but I got things to do. Thanks for that though."
+<br><br>
+
+<<link [[Next|Connudatus Street]]>><<endevent>><</link>>
+
+:: Casey Share Milkshake
+<<effects>>
+<<npc Casey>><<person1>>
+<<wearProp "milkshake">>
+
+You lean against the wall next to Casey, then take out the milkshake. "Would you like this milkshake?" You ask as Casey looks over toward you.
+<br><br>
+Casey looks over with something resemling a small grin. "Oh just for me? I'm not used to these kinds of drinks. Why don't you have some too?" 
+<br><br>
+<<He>> offers you a second straw, and you spend the next twenty minutes spending time together. Towards the end, you share the creamy treat together.
+"Thanks for the fancy drink," <<he>> smiles. "Maybe I'll see you later."
+<br><br>
+
+<<link [[Next|Connudatus Street]]>><<endevent>><</link>>

@@ -129,7 +129,7 @@ You are in the landfill on Elk Street.
 				<br>
 			<</if>>
 		<</if>>
-		<<if C.npc.Casey.love gte 41 and Time.dayState is "day">>
+		<<if C.npc.Casey.love gte 41 and Time.dayState is "day" and !Time.isWeekEnd() and ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
 			You see Casey scrounging through the garbage heaps occasionally pocketing something or tossing it away.
 			<br>
 			<<link [[Say hello (0:05)|Casey Hello]]>><<pass 5>><</link>>

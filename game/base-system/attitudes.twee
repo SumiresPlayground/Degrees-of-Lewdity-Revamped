@@ -33,20 +33,10 @@
 			<br>
 			<label><<radiobutton "$speech_attitude" "neutral" autocheck>> Neutral</label>
 			<br>
-			<<if $submissive gt 850>>
-				<label><<radiobutton "$speech_attitude" "meek" autocheck>> <span class="meek">Meek</span></label>
-				<br>
-			<<else>>
-				<input type="radio" disabled /> <span class="black"><i>You're too defiant to adopt a meek demeanour.</i></span>
-				<br>
-			<</if>>
-			<<if $submissive lt 1150>>
-				<label><<radiobutton "$speech_attitude" "bratty" autocheck>> <span class="brat">Bratty</span></label>
-				<br>
-			<<else>>
-				<input type="radio" disabled /> <span class="black"><i>You're too submissive to adopt a bratty demeanour.</i></span>
-				<br>
-			<</if>>
+			<label><<radiobutton "$speech_attitude" "meek" autocheck>> <span class="meek">Meek</span></label>
+			<br>
+			<label><<radiobutton "$speech_attitude" "bratty" autocheck>> <span class="brat">Bratty</span></label>
+			<br>
 			<<if $avery_mansion and $avery_fate isnot "fallen" and $avery_fate isnot "kicked">>
 				<<if $attitudesControl.unlockAveryMeek>>
 					<label><<checkbox "$speech_attitude_avery" false true autocheck>> Make a meek exception for Avery.</label>
