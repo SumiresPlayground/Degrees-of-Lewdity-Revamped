@@ -1898,9 +1898,9 @@
 			<<else>>
 				<<for _i to 1; _i lte $spraymax; _i++>>
 					<<if $spray gte _i>>
-						<img draggable="false" src="img/ui/pepper-spray.png">
+						<img draggable="false" @src='"img/ui/pepper-spray/" + $pepperdisplay + ".png"'>
 					<<else>>
-						<img draggable="false" src="img/ui/pepper-spray-empty.png">
+						<img draggable="false" @src='"img/ui/pepper-spray/" + $pepperdisplay + "-empty.png"'>
 					<</if>>
 				<</for>>
 			<</if>>
@@ -1911,7 +1911,7 @@
 <<widget "condomsSidebar">>
 	<<if $settings.condomLevel gte 1 and $options.condomsDisplay isnot "none" and $condoms isnot null and $condoms isnot undefined>>
 		<div tooltip="<span class='meek'>Total condoms: $condoms</span>" id="condoms-sidebar" class="condoms-sidebar">
-			<img draggable="false" src="img/ui/condom.png">
+			<img draggable="false" @src='"img/ui/condom/" + $condomdisplay + ".png"'>
 		</div>
 		<div id="condoms-sidebar-text" class="condoms-sidebar-text">
 			$condoms x

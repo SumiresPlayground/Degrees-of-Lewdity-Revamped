@@ -2083,7 +2083,7 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.sheep_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.lower,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 		/***
@@ -2180,7 +2180,7 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.deer_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.lower,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 		/***
@@ -2213,7 +2213,7 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.bear_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.lower,
+			z: ZIndices.tail,
 			animation: "idle"
 		},
 		/***

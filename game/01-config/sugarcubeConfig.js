@@ -11,7 +11,7 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.9.8 New World 0.1.7.2",
+	version: "0.5.9.8 New World 0.1.7.3",
 	versionName: `"Bisexual Biker" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,
