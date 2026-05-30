@@ -618,6 +618,46 @@ As <<he>> speaks, <<he>> slowly shrugs off <<his>> jacket, revealing the toned m
 <br>
 <<link [[Reject <<his>> proposition|Casey Sex Rejection]]>><<endevent>><<npcincr Casey dom -2>><<npcincr Casey love -2>><</link>><<lllove>><<llpride>>
 
+:: Casey Alley Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Casey Alley Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Casey Alley Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Casey Alley Sex Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Casey holds you tightly as he breathes heavily. <<He>> gathers <<himself>> and smiles at you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Casey love -5>>
+    "What the fuck?" Casey says wiping blood from <<his>> mouth.<<llove>>
+<<elseif $finish is 1>>
+	"You're done already?" <<He>> says with a sly grin. "What, you couldn't handle all this?"
+<</if>>
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Connudatus Street]]>><<endevent>><</link>>
+
 :: Casey Alley Sex 2
 <<if $sexstart is 1>>
 	<<set $sexstart to 0>>
