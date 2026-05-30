@@ -38,27 +38,6 @@ You are in the landfill on Elk Street.
 <</if>>
 <br><br>
 
-<<if $stress lt $stressmax and $eventskip is 1>>
-		Within the surrounding hills of waste, you notice a particularly robust pile of trash.
-		<br>
-		There seems to be a clearing situated within it, insulated with what could be hair or cloth.
-		<br><br>
-			<<if $dencounter is 0>>
-				You think you see movement within. Is that a striped tail? 
-				<br><br>
-				<span class='lewd'>Investigating may be a bad idea</span>, but you're curious nontheless.
-				<br><br>
-			<<else>>
-				You've been here before. Or at least somewhere like it. It's a bit hard to tell, as there are piles of trash everywhere here, but you're fairly certain this one is a <span class='green'>raccoon den.</span> 
-				<br><br>
-				You're hesitant to go in, considering what happened the first time you entered one of these.<<if $deviancy gte 15>><br> <span class='lewd'>Still, maybe things can be different this time. More enjoyable.</span><</if>>
-				<br><br>
-			<</if>>
-
-		<<link [[Head inside the opening (0:03)|Trash Mammals]]>><<beastNEWinit 3 raccoon>><<pass 3>><</link>>
-		<br>
-<</if>>
-
 <<if $stress gte $stressmax>>
 	<<passouttrash>>
 <<elseif $arousal gte $arousalmax>>
@@ -98,10 +77,31 @@ You are in the landfill on Elk Street.
 	<<eventstrash>>
 <<else>>
 
+	<<if $stress lt $stressmax and $eventskip is 1>>
+		Within the surrounding hills of waste, you notice a particularly robust pile of trash.
+		<br>
+		There seems to be a clearing situated within it, insulated with what could be hair or cloth.
+		<br><br>
+			<<if $dencounter is 0>>
+				You think you see movement within. Is that a striped tail? 
+				<br><br>
+				<span class='lewd'>Investigating may be a bad idea</span>, but you're curious nontheless.
+				<br><br>
+			<<else>>
+				You've been here before. Or at least somewhere like it. It's a bit hard to tell, as there are piles of trash everywhere here, but you're fairly certain this one is a <span class='green'>raccoon den.</span> 
+				<br><br>
+				You're hesitant to go in, considering what happened the first time you entered one of these.<<if $deviancy gte 15>><br> <span class='lewd'>Still, maybe things can be different this time. More enjoyable.</span><</if>>
+				<br><br>
+			<</if>>
+
+		<<link [[Head inside the opening (0:03)|Trash Mammals]]>><<beastNEWinit 3 raccoon>><<pass 3>><</link>>
+		<br>
+	<</if>>
+
 	<<investigateicon>><<link [[Search for valuables (1:00)|Trash Search]]>><<pass 60>><</link>><<crime "thievery">>
 	<br>
 
-	<<if $trash lte 99>>
+	<<if $trash lte 99 and !dangerEvent()>>
 		<<getinicon>><<link [[Go towards the sound of heavy machinery (0:10)|Trash]]>><<pass 10>><<set $trash += 10>><</link>>
 		<br>
 	<<elseif $trash gte 100 and $robinmissing is "landfill" and $robinmistknown>>
@@ -111,7 +111,7 @@ You are in the landfill on Elk Street.
 		<<iconUi `"bunker-entrance.png"`>><<link [[Enter the trapdoor (0:02)|The Bunker Intro]]>><<set $eventskip to 1>><<pass 2>><</link>>
 	<</if>>
 	<</if>>
-	<<if $trash gte 1>>
+	<<if $trash gte 1 and !dangerEvent()>>
 		<<getouticon>><<link [[Go towards the sound of traffic (0:10)|Trash]]>><<pass 10>><<set $trash -= 10>><</link>>
 		<br>
 	<</if>>
