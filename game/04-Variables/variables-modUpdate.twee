@@ -66,6 +66,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 	<</if>>
 
+	<<if C.npc.Casey.love gte 101>>
+		<<set C.npc.Casey.love = Math.clamp(C.npc.Casey.love, 0, 100)>>
+	<</if>>
+
 	<<if $caseygenitals is undefined>>
 		<<if $caseygender is "m">>
 			<<if random(0, 99) gte $cbchance>>

@@ -2673,70 +2673,70 @@ function setupFeatBoosts(force) {
 			name: "Starting Money",
 			required: ["Pocket Change", "Money Maker", "Tycoon", "Millionaire"],
 			cost: 5,
-			maxMultiplier: 2,
+			maxMultiplier: 4,
 			missing: "Unlock this boost by obtaining the 'Pocket Change' feat",
 		},
 		grades: {
 			name: "School Grades",
 			required: ["Perfect Record"],
 			cost: 15,
-			max: 2,
+			max: 4,
 			missing: "Unlock this boost by obtaining the 'Perfect Record' feat",
 		},
 		skulduggery: {
 			name: "Skulduggery Grade",
 			required: ["Thief"],
 			cost: 5,
-			max: 4,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'Thief' feat",
 		},
 		dancing: {
 			name: "Dancing Grade",
 			required: ["May I have this Dance?"],
 			cost: 5,
-			max: 4,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'May I have this Dance?' feat",
 		},
 		swimming: {
 			name: "Swimming Grade",
 			required: ["Aquanaut"],
 			cost: 5,
-			max: 4,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'Aquanaut' feat",
 		},
 		athletics: {
 			name: "Athletics Grade",
 			required: ["Swift"],
 			cost: 5,
-			max: 4,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'Swift' feat",
 		},
 		tending: {
 			name: "Tending Grade",
 			required: ["Green Fingered"],
 			cost: 5,
-			max: 4,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'Green Fingered' feat",
 		},
 		greenThumb: {
 			name: "Green Thumb Trait",
 			required: ["Green Fingered"],
 			cost: 40,
-			max: 1,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'Green Fingered' feat",
 		},
 		housekeeping: {
 			name: "Housekeeping Grade",
 			required: ["Majordomo"],
 			cost: 5,
-			max: 4,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'Majordomo' feat",
 		},
 		seduction: {
 			name: "Seduction Grade",
 			required: ["Seductress"],
 			cost: 5,
-			max: 4,
+			max: 10,
 			missing: "Unlock this boost by obtaining the 'Seductress' feat",
 		},
 		purity: {
@@ -3299,7 +3299,7 @@ function applyFeatBoosts() {
 		V.permanentTransform = 1;
 	}
 
-	if (upgrades.eldritch) {
+	if (upgrades.fae) {
 		V.fae = 1;
 		V.permanentTransform = 1;
 	}
