@@ -254,6 +254,9 @@ You start scrounging through a scrap pile. You don't find anything of use, but C
 <<if C.npc.Casey.dom is undefined>>
     <<set C.npc.Casey.dom to 50>>
 <</if>>
+<<if $caseymoney is undefined>>
+    <<set $caseymoney to 0>>
+<</if>>
 <<npc Casey>><<person1>>
 <<if $caseystallintro is undefined>>
     You approach Casey's stall, set up with various antiques and bobbles found from scavenging the landfill. As <<he>> sees you, <<he>> flashes a bright smile. "Well, well, if it isn't my favorite little snack. What are you doing here?"
@@ -328,6 +331,8 @@ You start scrounging through a scrap pile. You don't find anything of use, but C
     <<link [[Hug (0:05)|Casey Hug Injured]]>><<pass 5>><<npcincr Casey love 1>><<endevent>><</link>><<glove>>
     <br>
 <</if>>
+    <<link [[Spend time together (0:20)|Casey Talk Home]]>><<pass 20>><</link>>
+    <br>
 <<if $caseystayover is 1>>
     <<bedicon>><<link [[Lay in the bed|Casey Bed]]>><<endevent>><</link>>
     <br>
@@ -968,3 +973,87 @@ Casey looks over with something resembling a small grin. "Oh just for me? I'm no
 <br><br>
 
 <<link [[Next|Connudatus Street]]>><<endevent>><</link>>
+
+:: Casey Talk Home
+You and Casey spend some time together in <<his>> flat. 
+<<npc Casey>><<person1>>
+<<cleareventpool>>
+<<if ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
+    <<if $caseystayover is 1>>
+        <<addinlineevent "casey_home3">>
+            “The posters? Yeah I found them in the landfill in really good condition. Of course I still cleaned them first.” You spend a while hanging out with Casey.
+            <br><br>
+            <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+        <</addinlineevent>>
+        <<addinlineevent "casey_home4">>
+            “Hey come check this out.” Casey says, pulling you toward <<his>> drawer. He opens it, exposing several rings. "I've been collecting these for a while. Maybe one day I'll give one to you." You spend a while hanging out with Casey.
+            <br><br>
+            <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+        <</addinlineevent>>
+        <<addinlineevent "casey_home5">>
+            “Let me know when you're getting tired. I don't mind letting you use my bed. It's a little creaky but it should work fine.” You spend a while hanging out with Casey.
+            <br><br>
+            <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+        <</addinlineevent>>
+        <<addinlineevent "casey_home6">>
+            “Hey, I just want you to know. If this Bailey person comes for you, I'll do anything I can to help.” You spend a while hanging out with Casey.
+            <br><br>
+            <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+        <</addinlineevent>>
+        <<if C.npc.Casey.dom lt 20>>
+            <<addinlineevent "casey_home11">>
+                “I'm sorry I... I feel pathetic for not being able to offer you what you need or want.” You spend a while hanging out with Casey.
+                <br><br>
+                <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+            <</addinlineevent>>
+            <<addinlineevent "casey_home12">>
+                “Have you ever looked at someone else and wanted them more than me? I can't help but feel like... like you deserve better than me.” You spend a while hanging out with Casey.
+                <br><br>
+                <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+            <</addinlineevent>>
+            <<addinlineevent "casey_home13">>
+                “I just need a moment... ” Casey spends a few moments in the bathroom. "Sorry it's nothing really." You spend a while hanging out with Casey.
+                <br><br>
+                <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+            <</addinlineevent>>
+            <<addinlineevent "casey_home14">>
+                “Yeah? No, no, it's nothing. I've just found it a bit hard to work up motivation these last few days.” You spend a while hanging out with Casey.
+                <br><br>
+                <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+            <</addinlineevent>>
+        <</if>>
+    <<else>>
+        <<addinlineevent "casey_home1">>
+            “Why are you over so late? I thought you still went to school. You should go get some rest.” You spend a while hanging out with Casey.
+            <br><br>
+            <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+        <</addinlineevent>>
+        <<addinlineevent "casey_home2">>
+            “How late do you usually stay up? You should really rest more and take care of yourself.” You spend a while hanging out with Casey.
+            <br><br>
+            <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+        <</addinlineevent>>
+    <</if>>
+<<else>>
+    <<addinlineevent "casey_home7">>
+        “I'm okay, I'm just glad you weren't hurt.” Casey winces in pain. You spend a while hanging out with Casey.
+        <br><br>
+        <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+    <</addinlineevent>>
+    <<addinlineevent "casey_home87">>
+        “I'm starting to feel a bit better. I wouldn't hesitate to jump in to protect you again if I have to.” Casey winces in pain. You spend a while hanging out with Casey.
+        <br><br>
+        <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+    <</addinlineevent>>
+    <<addinlineevent "casey_home9">>
+        “So that was Bailey? What a piece of work. They really have it out for you.” Casey winces in pain. You spend a while hanging out with Casey.
+        <br><br>
+        <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+    <</addinlineevent>>
+    <<addinlineevent "casey_home10">>
+        “I haven't been this bent out of shape since my old school scraps. Feels like ages ago now.” Casey winces in pain. You spend a while hanging out with Casey.
+        <br><br>
+        <<getouticon>><<link [[Next|Casey Flat]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<</if>>
+<<runeventpool>>
