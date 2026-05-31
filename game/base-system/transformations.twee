@@ -403,6 +403,9 @@
 <</widget>>
 
 <<widget "transform">>/*First arg is transformation, second is the intensity of change.*/
+	<<if $physicalTransform is 1 or $specialTransform is 1>>
+		<<set $permanentTransform to 1>>
+	<</if>>
 	<<if _args[1]>>
 		<<switch _args[0]>>
 			<<case "wolf">>  <<set $wolfbuild  = Math.clamp($wolfbuild  + _args[1], 0, 100)>>
