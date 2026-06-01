@@ -1644,7 +1644,7 @@ function initNeck() {
 			accessory_colour_options: [],
 			cursed: 0,
 			location: 0,
-			iconFile: "horseshoe_pendant.png",
+			iconFile: "horseshoe-pendant.png",
 			accIcon: 0
 	}	
 	];

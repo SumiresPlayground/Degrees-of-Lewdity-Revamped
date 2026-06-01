@@ -86,12 +86,28 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 	<</if>>
 
-	<<if $caseyagain is undefined>>
-		<<set $caseyagain to 0>>
-		<<set $caseymet to 0>>
-		<<set $caseyridefirst to 0>>
-		<<set $caseyromance to 0>>
-		<<set $motorupgrade to 0>>
+	<<if $ashgender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $ashgender to "f">>
+		<<else>>
+			<<set $ashgender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $ashgenitals is undefined>>
+		<<if $ashgender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $ashgenitals to "penis">>
+			<<else>>
+				<<set $ashgenitals to "vagina">>
+			<</if>>
+		<<elseif $ashgender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $ashgenitals to "vagina">>
+			<<else>>
+				<<set $ashgenitals to "penis">>
+			<</if>>
+		<</if>>
 	<</if>>
 
 	<<if $salemgender is undefined>>

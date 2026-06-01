@@ -1751,6 +1751,8 @@ function isPossibleLoveInterest(name) {
 			return V.caseyromance === 1;
 		case "Salem":
 			return V.salemromance === 1;
+		case "Ash":
+			return V.ashromance === 1;
 		default:
 			return false;
 	}

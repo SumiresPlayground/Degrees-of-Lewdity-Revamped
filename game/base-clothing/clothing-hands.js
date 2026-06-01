@@ -656,7 +656,7 @@ function initHands() {
 		back_img: 0,
 		cursed: 0,
 		location: 0,
-		iconFile: 0,
+		iconFile: "dragonstone-ring.png",
 		accIcon: 0,
 		mainImage:0
 	},
@@ -723,7 +723,7 @@ function initHands() {
 		back_img: 0,
 		cursed: 0,
 		location: 0,
-		iconFile: 0,
+		iconFile: "scuffed-ring.png",
 		accIcon: 0,
 		mainImage:0
 	}];

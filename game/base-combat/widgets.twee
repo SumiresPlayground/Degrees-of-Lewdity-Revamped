@@ -42,6 +42,7 @@
 						<<case "Gwylan">><<displayFeatFake "Gwylan the Bewitching">>
 						<<case "Salem">><<displayFeatFake "Salem the Cultist">>
 						<<case "Casey">><<displayFeatFake "Casey the Biker">>
+						<<case "Ash">><<displayFeatFake "Ash the Trainer">>
 					<</switch>>
 					<<if !$activeNightmare>>
 						<<set $_taker to "Ivory Wraith">>
@@ -63,6 +64,7 @@
 						<<case "Gwylan">><<earnFeat "Gwylan the Bewitching">>
 						<<case "Salem">><<earnFeat "Salem the Cultist">>
 						<<case "Casey">><<earnFeat "Casey the Biker">>
+						<<case "Ash">><<earnFeat "Ash the Trainer">>
 					<</switch>>
 				<</if>>
 
@@ -267,6 +269,7 @@
 		<<case "Taylor">>      <<set $_isLoveInterest to ($taylorromance is 1)>>
 		<<case "Casey">>      <<set $_isLoveInterest to ($caseyromance is 1)>>
 		<<case "Salem">>      <<set $_isLoveInterest to ($salemromance is 1)>>
+		<<case "Ash">>      <<set $_isLoveInterest to ($ashromance is 1)>>
 		<<default>>           <<run $NPCNameList.includes(_args[0]) ? $_isLoveInterest = false : Errors.report("wrong argument passed to takeKissVirginityNamed: ", _args)>>
 	<</switch>>
 

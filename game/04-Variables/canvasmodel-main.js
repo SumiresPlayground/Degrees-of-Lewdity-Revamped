@@ -2083,7 +2083,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.sheep_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		/***
@@ -2115,7 +2117,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.bee_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		"bee_wings_right": {
@@ -2180,7 +2184,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.deer_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		/***
@@ -2213,7 +2219,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.bear_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		/***
@@ -2275,7 +2283,9 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_tail_type)
 			},
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		"dragon_whisker": {
@@ -2316,7 +2326,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.lizard_tail_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 
@@ -2331,7 +2343,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.dolphin_tail_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 
@@ -2346,7 +2360,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.dog_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		"dog_ears": {
@@ -2466,7 +2482,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && options.show_face && isPartEnabled(options.raccoon_tail_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 
@@ -2493,7 +2511,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && options.show_face && isPartEnabled(options.fish_tail_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 
@@ -2521,7 +2541,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.horse_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 
@@ -2546,7 +2568,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.spider_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 
@@ -2584,7 +2608,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.pig_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		"pig_ears": {
@@ -2611,7 +2637,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.bunny_tail_type);
 			},
 			filters: ["hair"],
-			z: ZIndices.tail,
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
 			animation: "idle"
 		},
 		"bunny_ears": {

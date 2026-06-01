@@ -986,6 +986,8 @@ function dayPassed() {
 	V.dragonbreathuse = 3;
 	V.sirensong = 3;
 
+	if (Number.isNaN(V.tentacleclothesorgasm)) {V.tentacleclothesorgasm = 0}
+
 	if (V.salempunishment >  0) {V.salempunishment -= 1;}
 
 	V.fungalstagelimiter = 0;

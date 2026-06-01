@@ -981,6 +981,7 @@ Macro.add("canvasModelEditor", {
 						selectOption("fae_fairies_type", ["disabled", "hidden", "default"]),
 						selectOption("goblin_ears_type", ["disabled", "hidden", "default"]),
 						selectOption("ear_layer", ["front", "back"]),
+						selectOption("tail_layer", ["front", "back"]),
 
 						optionCategory("Body writings"),
 						selectOption("writing_forehead", bodyWritings),

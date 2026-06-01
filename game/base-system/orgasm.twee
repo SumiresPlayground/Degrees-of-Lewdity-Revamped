@@ -332,10 +332,11 @@
 			<</if>>
 			<<if $combat is 1>><<set $speechmilk to 1>><</if>>
 		<</if>>
+	<<transform cow 1>>
 	<</if>>
 
-	<<if $tentacleclothesorgasm is undefined>>
-		<<set $tentacleclothesorgasm to 0>>
+	<<if Number.isNaN(V.tentacleclothesorgasm)>>
+		<<set V.tentacleclothesorgasm = 0>>
 	<</if>>
 	<<if $parasite.clit.name is "livingclothes">>
 		<span class="blue">The living clothes feed on your orgasm.</span> You can feel tentacles stimulating your clit.<<ggarousal>><<arousal 1200>><<set $tentacleclothesorgasm += 1>><<set $worn.under_lower.integrity += 30>><<if $worn.hands.name is "tentacle gloves" or $worn.legs.name is "tentacle stockings" or $worn.feet.name is "tentacle heels">><<set $worn.under_lower.integrity += 30>><<set $worn.feet.integrity += 30>><<set $worn.legs.integrity += 30>><</if>><br>
@@ -969,8 +970,6 @@
 	<<set $milk_produced_stat += Math.trunc(_milk_released)>>
 
 	<<milkvolume 1>>
-
-	<<transform cow 1>>
 
 	<<if ($worn.over_upper.exposed is 0 and $worn.upper.exposed is 0 and $worn.under_upper.exposed is 0) or _args[1] is "drunk">>
 	<<else>>
