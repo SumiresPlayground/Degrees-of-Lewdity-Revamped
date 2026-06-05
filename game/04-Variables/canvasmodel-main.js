@@ -2245,7 +2245,7 @@ Renderer.CanvasModels.main = {
 		},
 		"dragon_eyes": {
 			srcfn(options) {
-				return `img/transformations/dragon/eyes/${options.dragon_eyes_type}.png`;
+				return `img/transformations/dragon/eyes/${options.facestyle}/${options.dragon_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.dragon_eyes_type)
@@ -2310,7 +2310,7 @@ Renderer.CanvasModels.main = {
          */
 		"lizard_eyes": {
 			srcfn(options) {
-				return `img/transformations/lizard/eyes/${options.lizard_eyes_type}.png`;
+				return `img/transformations/lizard/eyes/${options.facestyle}/${options.lizard_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.lizard_eyes_type)
@@ -2385,7 +2385,7 @@ Renderer.CanvasModels.main = {
 
 		"ghost_eyes": {
 			srcfn(options) {
-				return `img/transformations/ghost/eyes/${options.ghost_eyes_type}.png`;
+				return `img/transformations/ghost/eyes/${options.facestyle}/${options.ghost_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_eyes_type)
@@ -2552,7 +2552,7 @@ Renderer.CanvasModels.main = {
 
 		"spider_eyes": {
 			srcfn(options) {
-				return `img/transformations/spider/eyes/${options.spider_eyes_type}.png`;
+				return `img/transformations/spider/eyes/${options.facestyle}/${options.spider_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.spider_eyes_type);
@@ -2579,7 +2579,7 @@ Renderer.CanvasModels.main = {
 
 		"frog_eyes": {
 			srcfn(options) {
-				return `img/transformations/frog/eyes/${options.frog_eyes_type}.png`;
+				return `img/transformations/frog/eyes/${options.facestyle}/${options.frog_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.frog_eyes_type);
@@ -2747,7 +2747,7 @@ Renderer.CanvasModels.main = {
 		},
 		"mushroom_eyes": {
 			srcfn(options) {
-				return `img/transformations/mushroom/eyes/${options.mushroom_eyes_type}.png`;
+				return `img/transformations/mushroom/eyes/${options.facestyle}/${options.mushroom_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.mushroom_eyes_type)
@@ -2805,7 +2805,7 @@ Renderer.CanvasModels.main = {
 
 		"eldritch_eyes": {
 			srcfn(options) {
-				return `img/transformations/eldritch/eyes/${options.eldrich_eyes_type}.png`;
+				return `img/transformations/eldritch/eyes/${options.facestyle}/${options.eldrich_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_eyes_type)

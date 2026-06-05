@@ -259,7 +259,6 @@ setup.colours = {
 		dusky: {
 			gradient: ["#cfcba8", "#cfcba8"],
 			blendMode: "multiply",
-			alpha: 0.6,
 			desaturate: false,
 		},
 		water: {

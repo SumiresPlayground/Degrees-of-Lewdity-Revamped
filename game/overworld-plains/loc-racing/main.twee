@@ -21,10 +21,8 @@ You are at the local horse racing track. Grandstands surround a central track. A
 <<else>>
 	People fill into seats as tickets are taken and betting begins, if you want to place a bet, make your way to the booth and pick a horse.
 	<br><br>
-
 	<<animalicon "horse">><<link [[Pick a horse to bet on|Race Track Bet]]>><</link>>
 	<br>
-
 	<<getouticon>><<link [[Leave|Farmland]]>><</link>>
 	<br>
 <</if>>
@@ -32,21 +30,31 @@ You are at the local horse racing track. Grandstands surround a central track. A
 :: Race Track Bet 
 You make your way to the booth where a young woman sits, taking bets and passing tickets. As you approach she speaks to you. "You here to bet? Place an amount of money and select a horse. The amount of payout will depend on how much you bet and which horse you bet on."
 <br><br>
-<<textbox "$inputCode" "" autofocus>>
-<br>
-<<button "Input bet amount">>
-<<set $moneybet to $inputCode.trim()*100>>
-<<if $money lt $moneybet>>
-	<<run UI.alert("You don't have enough money to make this bet!")>>
-<<else>>
-	<<set $moneybetsuccess to 1>>
-	<<goto "Race Track Bet">>
+<<if $weeklybetamount is undefined>>
+	<<set $weeklybetamount to 0>>
 <</if>>
-<</button>>
+<<if $money gte 10000 and $weeklybetamount lt 4000>>
+	<<link [[Bet £100|Race Track Bet]]>><<set $moneybet to 10000>><</link>><br>
+<</if>>
+<<if $money gte 20000 and $weeklybetamount lt 4000>>
+	<<link [[Bet £200|Race Track Bet]]>><<set $moneybet to 20000>><</link>><br>
+<</if>>
+<<if $money gte 50000 and $weeklybetamount lt 4000>>
+	<<link [[Bet £500|Race Track Bet]]>><<set $moneybet to 50000>><</link>><br>
+<</if>>
+<<if $money gte 100000 and $weeklybetamount lt 4000>>
+	<<link [[Bet £1000|Race Track Bet]]>><<set $moneybet to 100000>><</link>><br>
+<</if>>
+<<if $money gte 200000 and $weeklybetamount lt 4000>>
+	<<link [[Bet £2000|Race Track Bet]]>><<set $moneybet to 200000>><</link>><br>
+<</if>>
+<<if $weeklybetamount gt 4000>>
+	<span class='red'>You are barred from horse betting for the next week.</span>
+<</if>>
 
 <br><br>
 
-<<if $moneybetsuccess is 1 and $moneybet gt 0>>
+<<if $moneybet gt 0>>
 <<animalicon "horse-pick">><<link [[Bet on an underdog horse (Chance to decuple money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 3>><<set $payoutmultiplier to 10>><</link>>
 <br>
 <<animalicon "horse-pick">><<link [[Bet on a middling horse (Chance to triple money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 5>><<set $payoutmultiplier to 3>><</link>>
@@ -122,19 +130,462 @@ The horses race reach the final straight and expend their remaining strength.
 People begin to file out of the grandstands as the horses are guided back to their stables. You return to the ticket booth.
 <br><br>
 <<if $position is 1>>
-<span class="gold">Your horse came in first place! You won £<<print $moneybet *= $payoutmultiplier /= 100>>.</span>
-<br><br>
-<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+	<span class="gold">Your horse came in first place! You won £<<print $moneybet *= $payoutmultiplier /= 100>>.</span>
+	<br><br>
+	<<set $weeklybetamount += $moneybet>>
+	<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
 <<elseif $position is 2>>
-<span class="green">Your horse finished in second place and you won £<<print $moneybet *= $payoutmultiplier /= 200>> for placing.</span>
-<br><br>
-<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+	<span class="green">Your horse finished in second place and you won £<<print $moneybet *= $payoutmultiplier /= 200>> for placing.</span>
+	<br><br>
+	<<set $weeklybetamount += $moneybet>>
+	<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
 <<elseif $position is 3>>
-<span class="blue">Your horse finished third and you recieve back your initial £<<print $moneybet /= 100>> for showing.</span>
-<br><br>
-<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
+	<span class="blue">Your horse finished third and you recieve back your initial £<<print $moneybet /= 100>> for showing.</span>
+	<br><br>
+	<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
 <<else>>
-<span class="red">Your horse didn't even finish top three, you lost £<<print $moneybet /= 100>>.</span>
+	<span class="red">Your horse didn't even finish top three, you lost £<<print $moneybet /= 100>>.</span>
+	<br><br>
+	<<link [[Next|Race Track]]>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><<set $payoutmultiplier to 0>><</link>>
+<</if>>
+<<if $weeklybetamount gte 4000>>
+	<<set $betcountdown to 7>>
+<</if>>
+
+:: Horse Academy Entrance
+<<set $outside to 1>>
+You are at the entrance to the legally distinct horse racing academy. 
+<<if Time.daystate isnot "night">>
+	Trainers and their horses can be seen training for upcoming races. They run the track at the front of the academy.
+<<else>>
+	The academy entrance is mostly empty. Seems nobody is out training so late.
+<</if>>
 <br><br>
-<<link [[Next|Race Track]]>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><<set $payoutmultiplier to 0>><</link>>
+<<if Time.daystate isnot "night" and $trainersearch is 1>>
+	In the main yard of the academy, you can see a trainer who appears slightly lost.
+	<br>
+	<<link [[Greet the trainer|Ash Meet]]>><</link>>
+	<br><br>
+<</if>>
+<<if Time.daystate isnot "night" or $horseacademystudent is 1>>
+	<<link [[Approach the school|Horse Academy]]>><</link>>
+	<br>
+<<else>>
+	<<oxfordicon>><<link [[Approach the school|Horse Academy Locked]]>><</link>>
+	<br>
+<</if>>
+<<if $horseacademystudent is 1>>
+	<<link [[Walk toward the training track|Horse Academy Track]]>><</link>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave|Race Track]]>><</link>>
+
+
+:: Horse Academy Locked
+"Open hours:	<<ampm 9 00>> - <<ampm 18 00>>"
+<br><br>
+<<getouticon>><<link [[Leave|Horse Academy Entrance]]>><</link>>
+
+:: Horse Academy
+<<set $outside to 0>>
+You are within the entrance hall of the legally distinct horse racing academy. 
+<<if Time.daystate isnot "night">>
+	Trainers can be seen chatting around the room with their horses. For the most part they look pretty happy.
+<<else>>
+	Even at such a late hour, trainers can be seen getting some late night training with their horses.
+<</if>>
+<br><br>
+<<if $horseacademystudent isnot 1 and $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
+	<<schoolicon "building">><<link [[Register at the academy|Horse Academy Register]]>><</link>>
+<<elseif $horseacademystudent isnot 1>>
+	<span class='red'>You must be a horse<<girl>> to register at the racing academy.</span>
+<<else>>
+	<<bedicon>><<link [[Enter your dorm room|Horse Academy Dorm]]>><</link>>
+	<br>
+	<<bedicon>><<link [[Make your way to the training room|Horse Academy Training Room]]>><</link>>
+	<br>
+	<<bedicon>><<link [[Enter your dorm room|Horse Academy Dorm]]>><</link>>
+	<br>
+	<<wardrobeicon>><<link [[Approach the uniform shop|Horse Academy Shop]]>><</link>>
+<</if>>
+<br>
+<<getouticon>><<link [[Leave|Horse Academy Entrance]]>><</link>>
+
+:: Horse Academy Register
+You step up to the front desk where a kind looking woman gives you a bright smile. She speaks with a kindly voice. "Hello <<psir>>, did you come to register with the academy?"
+<br><br>
+She looks over some papers and turns back to you. "And your trainer?" She pauses as she sees the look on your face. "All academy trainees require a trainer to receive admission to the academy. Try to find a trainer and we can continue this discussion."
+<br><br>
+<<getouticon>><<link [[Next|Horse Academy Entrance]]>><<set $trainersearch 1>><</link>>
+
+:: Ash Meet
+<<npc Ash>><<person1>>
+You approach the <<personsimple>>. <<He>> has <<his>> blonde hair worn in a <<if $pronoun is "m">>masculine<<else>>feminine<</if>> braid. <<He>> wears a brown vest over a short sleeved white shirt, as well as a pair of well fit jeans and boots.
+<br><br>
+As you approach <<he>> turns to face you. "Who are... oh you're a horse<<girl>>. I've been lookin' for one as magnificent as ya. Come 'ere."
+<br><br>
+The <<personsimple>> lunges toward you and pushes you to the floor, pulling out a rope and gag from <<his>> bag.
+<br><br>
+<<link [[Next|Ash Intro Rape]]>><<set $molestationstart 1>><</link>>
+
+:: Ash Intro Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>><<set $enemyhealth to 600>><<set $enemyhealthmax to 600>><<set $enemyanger += 50>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Ash Intro Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Ash Intro Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Ash Intro Rape Finish
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>><<npcincr Ash dom 25>>
+	Ash hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
+	<br><br>
+	<<He>> lets go of your wrists and gets to <<his>> feet, a smug grin spread across <<his>> face. "Hope ya ain't too mad at me, darlin'." <<He>> chuckles. "Can't let a specimen like you get away now, can I?“<<stress 20>><<gstress>>
+	<br><br>
+	<<tearful>> you avoid <<his>> gaze as <<he>> ties you up and puts a bit gag in your mouth.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Ash Register]]>><<endevent>><<set $trainersearch to 2>><<set $phase to 1>><</link>>
+<<else>>
+	<<npcincr Ash dom -50>>
+	Hissing, Ash backs away from you.
+	<br><br>
+	"Damn, why did I think I could beat a horse?" <<he>> spits. "Whatever, ya win, get out of 'ere."
+	<br><br>
+	<<He>> is visibly upset.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Offer to be a trainee on your own terms|Ash Offer]]>><<endevent>><<set C.npc.Ash.love += 10>><<set $trainersearch to 2>><</link>><<ggglove>>
+<</if>>
+
+:: Ash Offer
+<<npc Ash>><<person1>>
+<<He>> looks a bit dumbfounded. "Ya would willin'ly be my trainee even after what I tried to do? You're either brave or stupid, but... thanks." <<He>> staggers slightly, still sore from the beating. "Name's Ash. I own a local ranch a bit to the south. The farm's been strugglin' lately, so... I've been tryin' to get my hands on a racing horse to make some money."
+<br><br>
+You hold <<his>> shoulder and help guide <<him>> into the academy.
+<br><br>
+<<link [[Next|Ash Register]]>><<endevent>><<set $trainersearch to 2>><<set $phase to 2>><</link>>
+
+:: Ash Register
+<<npc Ash>><<person1>>
+<<if $phase is 1>>
+	You are dragged into the academy bound and gagged. The <<personsimple>> lies you down next to the table as <<he>> speaks to the receptionist. The receptionist begins, "Hello <<sir>>, what do you need today?"
+	<br><br>
+	In response, <<he>> gestures toward you. "I got myself one of them fancy racin' horses. Are ya gonna let me register now or what?" <<He>> begins to fill out paperwork before turning back to you. "You are now my property, ya got that? Name's Ash, and ya will be listenin' to me from now on. Now, lets get you into ya new uniform."
+<<else>>
+	You enter the academy with Ash, helping <<him>> to the front desk where the receptionist sits at her computer. <<He>> begins to speak, "Hey missy, I got myself one of them fancy racin' horses you mentioned. Ya gonna let me register now?" The receptionist slides <<him>> a few slips of paper which <<he>> fills out with haste. "There, ya now my own private racin' horse. Lets get ya into uniform."
+<</if>>
+<br><br>
+<<link [[Next|Ash Register 2]]>><<rng>><<endevent>><</link>>
+
+:: Ash Register 2
+<<npc Ash>><<person1>>
+Ash leads you to a small shop to the side of the academy. Various academy uniforms as well as racing outfits line the walls of the interior. The register is run by an older fellow who welcomes you warmly. "Hello you two fine lads. What do you need?"
+<br><br>
+Before you can speak, Ash clears his voice and says, "Hello sir, I was hopin' to get my horse<<girl>> 'ere <<pher>> uniform." The older gentleman nods and goes to the back to check out the uniforms. "Well now, I reckon this will do just fine."
+<br><br>
+<<if $player.gender_appearance is "m">>
+	<<if $rng gte 51 or !$settings.forcedCrossdressingEnabled>>
+		<<set $clothingselector to "m">>
+		<<He>> hands you a pair of academy pants. "You can get changed here, nobody would mind." He turns back to the register and leaves you to change.
+		<br><br>
+		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<br>
+		<<link [[Refuse to wear the boys' uniform |Ash Clothes Refusal]]>><</link>>
+		<br>
+	<<else>>
+		<<set $clothingselector to "f">>
+		He hands you an academy skirt. He speaks before you can articulate any apprehension. "I know it's a girl's uniform, but it's all I have. Buy your own uniform if you don't want this to happen in the future." He turns back to his computer and leaves you to change.
+		<br><br>
+
+		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<br>
+		<<link [[Refuse to wear the girls' uniform|Ash Clothes Refusal]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<if $rng gte 51 or !$settings.forcedCrossdressingEnabled>>
+		<<set $clothingselector to "f">>
+		<<He>> hands you an academy skirt. "You can get changed here, nobody would mind." He turns back to the register and leaves you to change.
+		<br><br>
+		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<br>
+		<<link [[Refuse to wear the girls' uniform|Ash Clothes Refusal]]>><</link>>
+		<br>
+	<<else>>
+		<<set $clothingselector to "m">>
+		He hands you a pair of academy pants. He speaks before you can articulate any apprehension. "I know it's a boy's uniform, but it's all I have. Buy your own uniform if you don't want this to happen in the future." He turns back to his computer and leaves you to change.
+		<br><br>
+
+		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<br>
+		<<link [[Refuse to wear the boys' uniform|Ash Clothes Refusal]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Ash Clothes Refusal
+<<set _offeredclothing to ($clothingselector is "m" ? "the boys' uniform" : "the girls' uniform")>>
+<<if $speech_attitude is "meek">>
+	"B-But this is _offeredclothing," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I won't wear _offeredclothing!" you say.
+<<else>>
+	<<if $player.sex is $clothingselector and !$backgroundTraits.includes("crossdresser")>>
+		"Are you sure you don't have a <<print ($clothingselector is "f" ? "pair of pants" : "skirt")>>?" you ask.
+	<<else>>
+		"But I can't wear _offeredclothing!" you say.
+	<</if>>
+<</if>>
+<br><br>
+He looks at you sternly and scoffs. "If you want to dress as a <<print ($clothingselector is "m" ? "girl" : "boy")>>, that's your choice, but we don't have anything else for handouts. Now, get dressed."
+<br><br>
+<<link [[Wear the clothes (0:01)|Ash Register 3]]>><<academyspareclothes>><<pass 1>><<endevent>><</link>>
+
+:: Ash Register 3
+<<npc Ash>><<person1>>
+You get changed into the academy uniform and are guided down the hall to a dorm room. "This is where you will be stayin', I will pick ya up in the mornin' for training. Spend the rest of the day however ya like. I will see you later."
+<br><br>
+<<link [[Next|Horse Academy Dorm]]>><<set $horseacademystudent to 1>><<set $horseacademycountdown to 7>><<endevent>><</link>>
+
+:: Horse Academy Dorm
+<<if Time.hour gte 8>>
+	<<set _sleepinterrupt to 0>>
+<</if>>
+You are in your racing academy dorm room. It looks fairly basic, the lack of decorations leaving a plain room with only a bed, mirror, and wardrobe. 
+<<if _sleepinterrupt is 1>>
+	Ash is waiting outside the door.
+<</if>>
+<br><br>
+<<bedicon>><<link [[Lay in the bed|Horse Academy Bed]]>><<endevent>><</link>>
+<br>
+<<wardrobeicon>><<link [[Wardrobe|Horse Academy Wardrobe]]>><<endevent>><</link>>
+<br>
+<<mirroricon>><<link [[Mirror|Horse Academy Mirror]]>><<endevent>><</link>>
+<br>
+<<if _sleepinterrupt is 1>>
+	<<getouticon>><<link [[Leave the dorm room|Horse Academy Ash Morning]]>><<rng>><<endevent>><</link>>
+<<else>>
+	<<getouticon>><<link [[Leave the dorm room|Horse Academy]]>><<endevent>><</link>>
+<</if>>
+
+:: Horse Academy Bed
+<<effects>>
+You snuggle under the covers.
+<br><br>
+<<generateSleepLinks "Horse Academy Sleep">>
+<<link [[Climb out of bed|Horse Academy Dorm]]>><</link>>
+
+:: Horse Academy Sleep
+<<set _autosavehere to true>>
+<<sleepeffects>><<sleep>><<effects>>
+<<if _sleepinterrupt is 1>>
+	<<wakingEffects $sleepHoursTotal>>
+	You sleep soundly, but are awakened early by a hammering on your door. It's Ash, waking you for training.
+<<else>>
+	You rest your head on the fresh new pillow and drift off to sleep. You rest well, waking up hours later. You sit up and stretch before getting out of the bed.
+<</if>>
+<br><br>
+<<link [[Climb out of bed|Horse Academy Dorm]]>><</link>>
+
+
+:: Horse Academy Mirror
+<<effects>>
+<<link [[Leave the mirror|Horse Academy Dorm]]>><</link>>
+<br>
+
+<<mirror>>
+<br><br>
+
+:: Horse Academy Track
+You're on the academy's practice track.
+<<if Time.daystate isnot "night">>
+	Trainers and their horses can be seen training for upcoming races. Every couple minutes, a horse rushes past you.
+<<else>>
+	The train is completely empty. Seems nobody is out training so late.
+<</if>>
+<br><br>
+<<runicon>><<link [[Practice jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
+<br>
+<<runicon>><<link [[Practice weighted cardio on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
+<br>
+<<getouticon>><<link [[Leave the track|Horse Academy Entrance]]>><<endevent>><</link>>
+
+:: Horse Academy Track Train
+<<athleticsdifficulty 250 700 true>>
+<<if $athleticsSuccess>>
+	You jog against the wind. <span class="green">The fresh air <<if Weather.is("clear") and Time.dayState is "day">>and sunshine<</if>> is refreshing.</span>
+<<else>>
+	You jog against the wind. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+<</if>>
+<br><br>
+<<runicon>><<link [[Continue jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
+<br>
+<<runicon>><<link [[Practice weighted cardio on the track (1:30)|Horse Academy Track Weight]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
+<br>
+<<getouticon>><<link [[Stop practicing|Horse Academy Track]]>><</link>>
+
+:: Horse Academy Track Weight
+You jog with a weighted vest weighing you down. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+<br><br>
+<<runicon>><<link [[Continue weighted cardio on the track (1:30)|Horse Academy Track Weight]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
+<br>
+<<runicon>><<link [[Practice jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
+<br>
+<<getouticon>><<link [[Stop practicing|Horse Academy Track]]>><</link>>
+
+:: Horse Academy Training Room
+You are in the academy's multi-purpose training room. Half of the room is taken up by weight equipment and the other half is left open for aerobic exercise. 
+<br><br>
+<<if Time.daystate isnot "night">>
+	Trainers are seen coaching their horsegirls as they lift weights or dance.
+<<else>>
+	The room is mostly quiet with only one or two late night trainers.
+<</if>>
+<br><br>
+<<dancestudioicon>><<link [[Practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
+<br>
+<<prisonicon "lift">><<link [[Take some time to lift weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
+<br>
+<<getouticon>><<link [[Leave the dorm room|Horse Academy]]>><<endevent>><</link>>
+
+:: Horse Academy Weights
+<<wearProp "weight">>
+You spend an hour lifting weights in the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+<br><br>
+<<prisonicon "lift">><<link [[Continue lifting weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
+<br>
+<<dancestudioicon>><<link [[Practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
+<br>
+<<getouticon>><<link [[Stop training|Horse Academy Track]]>><</link>>
+
+:: Horse Academy Dance
+You spend an hour practicing dance in the aerobic section of the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+<br><br>
+<<dancestudioicon>><<link [[Continue to practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
+<br>
+<<prisonicon "lift">><<link [[Take some time to lift weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
+<br>
+<<getouticon>><<link [[Stop training|Horse Academy Track]]>><</link>>
+
+:: Horse Academy Ash Morning
+<<npc Ash>><<person1>>
+"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Ash sighs and places <<his>> hand on <<his>> hip. "We gotta get some workin' in and get ya ready for the big race comin' up."
+<br><br>
+<<if $rng gt 75>>
+	How about we work on ya athleticism, lets build up ya speed so you can keep up while racin'
+	<br><br>
+	<<runicon>><<link [[Follow Ash|Horse Academy Train Athletics]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>>
+	<br>
+	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $phase to 1>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+<<elseif $rng gt 50>>
+	Lets build up ya physique a bit, keep ya strong enough to pass up them other racin' horses.
+	<br><br>
+	<<prisonicon "lift">><<link [[Follow Ash|Horse Academy Train Physique]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>>
+	<br>
+	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $phase to 2>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+<<elseif $rng gt 25>>
+	We gotta work on ya footwork, keep ya able to turn them corners and not go slippin' to the ground.
+	<br><br>
+	<<dancestudioicon>><<link [[Follow Ash|Horse Academy Train Dance]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>>
+	<br>
+	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $phase to 3>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+<<else>>
+	Now, how 'bout we start workin' on ya willpower, keep you on ya feet long enough to get to the finish line without collapsin'.
+	<br><br>
+	<<runicon>><<link [[Follow Ash|Horse Academy Train Willpower]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>>
+	<br>
+	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $phase to 4>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+<</if>>
+
+:: Horse Academy Disobey
+<<if C.npc.Ash.love gte $rng>>
+	"You thinkin' ya can just disobey my orders? I am ya trainer and you better start listenin' or ya gonna have a bad time." Ash begins to roughly grab at you and attempts to pull you along.
+	<br><br>
+	<<if $phase is 1>>
+		<<runicon>><<link [[Follow Ash|Horse Academy Train Athletics]]>><</link>>
+	<<elseif $phase is 2>>
+		<<prisonicon "lift">><<link [[Follow Ash|Horse Academy Train Physique]]>><</link>>
+	<<elseif $phase is 3>>
+		<<dancestudioicon>><<link [[Follow Ash|Horse Academy Train Dance]]>><</link>>
+	<<elseif $phase is 4>>
+		<<runicon>><<link [[Follow Ash|Horse Academy Train Willpower]]>><</link>>
+	<</if>>
+	<br>
+	<<link [[Continue to disobey|Horse Academy Ash Rape]]>><<set $molestationstart to 1>><</link>>
+<<else>>
+
+<</if>>
+
+:: Horse Academy Ash Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>><<set $enemyhealth to 600>><<set $enemyhealthmax to 600>><<set $enemyanger += 50>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Horse Academy Ash Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Horse Academy Ash Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Horse Academy Ash Rape Finish
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	Ash hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
+	<br><br>
+	<<He>> lets go of your wrists and gets to <<his>> feet, a smug grin spread across <<his>> face. "Hope ya ain't too mad at me, darlin'." <<He>> chuckles. "Can't let a specimen like you get away now, can I?“<<stress 20>><<gstress>>
+	<br><br>
+	<<tearful>> you avoid <<his>> gaze as <<he>> ties you up and puts a bit gag in your mouth.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Ash Register]]>><<set _sleepinterrupt to 0>><<endevent>><</link>>
+<<else>>
+	Hissing, Ash backs away from you.
+	<br><br>
+	"Whatever, if ya lose the race and ruin everythin', you'll be the one payin' for it." <<he>> spits on the floor and marches off.
+	<br><br>
+	<<He>> is visibly upset.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Horse Academy]]>><<set _sleepinterrupt to 0>><<endevent>><</link>>
 <</if>>

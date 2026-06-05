@@ -1753,6 +1753,8 @@ function isPossibleLoveInterest(name) {
 			return V.salemromance === 1;
 		case "Ash":
 			return V.ashromance === 1;
+		case "Mint Mocha":
+			return V.mintromance === 1;
 		default:
 			return false;
 	}

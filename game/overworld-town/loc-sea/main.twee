@@ -676,7 +676,7 @@ You are swimming in the sea at the base of some cliffs, east of the docks. A lar
 				<<if $sea gte 90>>
 					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 400>>
 					<br>
-					<<swimicon>><<link [[Dive (0:10)|Sea Dive]]>><<pass 10>><<tiredness 2>><<set $phase to 0>><</link>><<gtiredness>>
+					<<swimicon>><<link [[Dive (0:10)|Sea Dive]]>><<pass 10>><<tiredness 2>><<set $seadepth to 0>><</link>><<gtiredness>>
 					<br>
 				<<else>>
 					<<swimicon>><<link [[Swim further out (0:10)|Sea]]>><<pass 10>><<tiredness 2>><<set $sea += 10>><</link>><<gtiredness>><<swimmingdifficulty 1 300>>
@@ -758,61 +758,64 @@ You are swimming in the sea.
 
 :: Sea Dive
 <<location "seadive">><<set $bus to "seadive">><<underwater>><<effects>>
+<<if $seadepth is undefined>>
+	<<set $seadepth to 0>>
+<</if>>
 <<if $stress gte $stressmax>>
 	<<passoutbeach>>
 <<else>>
 	<<if dangerEvent() and $eventskip is 0>>
 		<<eventsdeepseadive>>
 	<<else>>
-		<<if $phase is 0>>
+		<<if $seadepth is 0>>
 			You dive beneath the water. Light streams through, calmly lighting the open water.
-		<<elseif $phase is 1>>
+		<<elseif $seadepth is 1>>
 			The light from above fades at this depth of the ocean.
-		<<elseif $phase is 2>>
+		<<elseif $seadepth is 2>>
 			You can see the faint silhouette of a coral reef in the distance.
-		<<elseif $phase is 3>>
+		<<elseif $seadepth is 3>>
 			Your sun grows dimmer in the deeper waters, but you keep swimming.
-		<<elseif $phase is 4>>
+		<<elseif $seadepth is 4>>
 			You notice small fish darting in and out of view. They're quickly followed by even smaller fish, swimming around them in a circle.
-		<<elseif $phase is 5>>
+		<<elseif $seadepth is 5>>
 			As you move further, you begin to see strange shapes in the distance. You move towards them, curious to see what they are. They turn out to be massive cliffs, rising up from the ocean floor like forgotten sentinels of ancient times.
-		<<elseif $phase is 6>>
+		<<elseif $seadepth is 6>>
 			The sun's rays no longer penetration here, but the water still glows with an eerie blue radiance.
-		<<elseif $phase is 7>>
+		<<elseif $seadepth is 7>>
 			You start to see strange, pulsating shapes in the distance. As you move closer, they become more defined. They're giant sea creatures, moving with grace and power.
-		<<elseif $phase is 8>>
+		<<elseif $seadepth is 8>>
 			You are surrounded by complete blackness. The only sound is the faint echos of the deep.
-		<<elseif $phase is 9>>
+		<<elseif $seadepth is 9>>
 			Despite the limited visibility, you can still make out the shapes of various sea creatures swimming around you. You see a large group of jelly-fish drifting past, their shimmering tentacles glowing in the darkness. You even glimpse the shadow of a large whale as it swims in the distance.
-		<<elseif $phase is 10>>
+		<<elseif $seadepth is 10>>
 			After what feels like an eternity of descending, you finally reach the bottom. You take a moment to collect yourself and soak in the unique sense of isolation that comes from being so deep underwater.
 		<</if>>
 		<br><br>
 
-		<<if $phase is 0>>
+		<<if $seadepth is 0>>
 			<<swimicon "up">><<link [[Resurface|Sea]]>><<wateraction>><</link>>
 			<br>
 		<</if>>
-		<<if $phase is 1>>
+		<<if $seadepth is 1>>
 			<<swimicon "up">><<link [[Resurface|Sea]]>><<wateraction>><</link>>
 			<br>
 		<</if>>
-		<<if $phase gt 1>>
-			<<swimicon "up">><<link [[Swim up|Sea Dive]]>><<wateraction>><<set $phase -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<if $seadepth gt 1>>
+			<<swimicon "up">><<link [[Swim up|Sea Dive]]>><<wateraction>><<set $seadepth -= 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 			<br>
 		<</if>>
-		<<if $phase lt 10>>
-			<<swimicon "down">><<link [[Swim deeper|Sea Dive]]>><<wateraction>><<set $phase += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
+		<<if $seadepth lt 10>>
+			<<swimicon "down">><<link [[Swim deeper|Sea Dive]]>><<wateraction>><<set $seadepth += 1>><<tiredness 2>><</link>><<loxygen>><<gtiredness>>
 			<br>
 		<</if>>
-		<<if $phase is 10 and $ship is undefined>>
+		<<if $seadepth is 10 and $ship is undefined>>
 			<<swimicon>><<link [[Explore the sea floor|Deep Sea Ship Find]]>><<wateraction>><</link>><<loxygen>>
 			<br>
-		<<elseif $phase is 10>>
+		<<elseif $seadepth is 10>>
 			<<iconUi `"shipwreck.png"`>><<link [[Swim to the sunken ship|Deep Sea Ship]]>><<wateraction>><</link>><<loxygen>>
 			<br>
 		<</if>>
-		<<set $eventskip to 0>>
+		<<set $eventskip -= 1>>
 	<</if>>
 <</if>>
 

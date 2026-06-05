@@ -30,10 +30,6 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $modtest to 1>>
 	<</if>>
 
-
-	
-	
-	
 	<<if $taylorgender is undefined>>
 		<<if $malechance lt random(1, 100)>>
 			<<set $taylorgender to "f">>
@@ -106,6 +102,30 @@ If the result is "undefined", this widget is not called for some reason. If the 
 				<<set $ashgenitals to "vagina">>
 			<<else>>
 				<<set $ashgenitals to "penis">>
+			<</if>>
+		<</if>>
+	<</if>>
+
+	<<if $mintmochagender is undefined>>
+		<<if $malechance lt random(1, 100)>>
+			<<set $mintmochagender to "f">>
+		<<else>>
+			<<set $mintmochagender to "m">>
+		<</if>>
+	<</if>>
+
+	<<if $mintmochagenitals is undefined>>
+		<<if $mintmochagender is "m">>
+			<<if random(0, 99) gte $cbchance>>
+				<<set $mintmochagenitals to "penis">>
+			<<else>>
+				<<set $mintmochagenitals to "vagina">>
+			<</if>>
+		<<elseif $mintgender is "f">>
+			<<if random(0, 99) gte $dgchance>>
+				<<set $mintmochagenitals to "vagina">>
+			<<else>>
+				<<set $mintmochagenitals to "penis">>
 			<</if>>
 		<</if>>
 	<</if>>

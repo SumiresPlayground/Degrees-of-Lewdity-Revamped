@@ -3738,6 +3738,12 @@
 	<<set _i to $NPCNameList.indexOf("Salem")>>
 	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 100)>>
 	<<set $NPCName[_i].dom = Math.clamp($NPCName[_i].corruption, 0, 50)>>
+	<<set _i to $NPCNameList.indexOf("Ash")>>
+	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 100)>>
+	<<set $NPCName[_i].dom = Math.clamp($NPCName[_i].dom, 0, 50)>>
+	<<set _i to $NPCNameList.indexOf("Mint Mocha")>>
+	<<set $NPCName[_i].love = Math.clamp($NPCName[_i].love, 0, 100)>>
+	<<set $NPCName[_i].dom = Math.clamp($NPCName[_i].dom, 0, 50)>>
 
 	<<set _i to $NPCNameList.indexOf("Ivory Wraith")>>
 	<<if $wraith.state is "haunt">>
@@ -5363,4 +5369,16 @@
 
 	<<set _multi to $purity gte 1000 ? 2 : 1>>
 	<<defiance `($purity / 100) * _multi`>>
+<</widget>>
+
+<<widget "academyspareclothes">>
+	<<legswear "academy socks">>
+	<<upperwear "academy shirt">>
+	<<if $clothingselector is "m">>
+		<<lowerwear "academy trousers">>
+		<<headwear "stallion ribbon">>
+	<<else>>
+		<<lowerwear "academy skirt">>
+		<<headwear "mare ribbon">>
+	<</if>>
 <</widget>>

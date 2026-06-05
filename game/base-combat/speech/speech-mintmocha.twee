@@ -1,0 +1,26 @@
+:: Widgets speech-Mint Mocha [widget]
+<<widget "speech-mintmocha">>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Mint Mocha") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Mint Mocha")>>
+		<<He>> looks proud. "See, I was your first. See if you can keep up."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Mint Mocha">>
+		<<He>> smirks smugly. "Is that the best you can do?"
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Mint Mocha">>
+		<<He>> hides a giggle. "You've never even done oral before?"
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Mint Mocha">>
+		<<He>> continues to kiss you deeply. "Your lips are mine, okay?"
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<default>>
+				<<He>> shakes <<his>> head. "That person doesn't matter right now, try to keep up." <<He>> smirks.
+		<</switch>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<print `<<He>> looks at your $_sexToy and smirks. "` + [`When were you trained how to do this.`, `I didn't think you were so naughty.`, `Show me what you have in mind.`, `What are your plans for this?`][random(0,3)] + `"`>>
+	<<elseif $speechchastity is 1>>
+		<<if $worn.genitals.name is "chastity parasite">>
+			<<print [`<<He>> laughs. "Chastity, really? Poor little locked up thing."`, `<<He>> has a smug smile. "At least I am not all locked up like a pet."`][random(0, 2)]>>
+		<</if>>
+	<</if>>
+<</widget>>
