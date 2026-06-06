@@ -1567,9 +1567,26 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 <</if>>
 
 :: Forest Deer
-<<location "forest">><<effects>>
+<<location "forest">><<effects>><<transform deer 1>>
 
-<<if $rng gte 51>>
+<<if $transformationParts.eldritch.mist is "default">>
+	You creep forward. The deer immediately darts off in the opposite direction. 
+	<br><br>
+	<span class='black'>You know it didn't see you; your foreboding aura was enough to make it flee.</span>
+	<br><br>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+	<br>
+
+<<elseif $danger gte (9900 - ($allure * $forestmod))>>
+	<<beastNEWinit 1 deer>>
+	You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
+	<br><br>
+
+	<<link [[Next|Deer Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+
+<<elseif $rng gte 51>>
 	You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then goes back to grazing.
 	<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
 	<br><br>
@@ -7565,4 +7582,102 @@ After inspecting you for a minute or so, the <<beasttype>> prepares to mount you
 	You step into the tree hollow and try one of the mushrooms, the taste is bitter and you spit it out immediately. Thick spores coat your tongue and you feel a funny sensation.
 	<br>
 	<<link [[Leave|Forest]]>><<set $hallucinogen += 100>><<set $eventskip to 1>><</link>>
+<</if>>
+
+:: Deer Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<set $enemytrust += 40>>
+<</if>>
+<<effects>>
+<<effectsman>><<man>>
+
+<<if $alarm is 1 and $rescue is 0>>
+	<<set $alarm to 0>>
+	<<forestRescueFail>>
+	<br><br>
+<</if>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $alarm is 1 and $rescue is 2>>
+	<span id="next"><<link [[Next|Deer Rescue]]>><<set $phase to 2>><</link>></span><<nexttext>>
+<<elseif _combatend>>
+	<span id="next"><<link [[Next|Deer Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Deer Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Deer Rape Finish
+
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The deer buckles as it releases its sperm inside you before pulling out and trotting away.
+	<br><br>
+
+	<<tearful>> you steady yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
+
+<<elseif $rescue is 1 and $forest lte 20>>
+	<<gwylanForestRescue "beast">>
+
+<<elseif $rescue is 1 and $forest gte 21>>
+	You hear a gun fire close by, and a bullet lands at the beasts feet. It back off in fear and flees into the forest.
+	<br><br>
+
+	<<if $edenCagedEscape>>
+		<<clotheson>>
+		<<endcombat>>
+
+		<br><br>
+
+		<<edenCagedSave>>
+	<<else>>
+		Eden emerges and helps you collect yourself. "Damn animals," <<nnpc_he "Eden">> mutters. "Are you okay?"
+		<br><br>
+
+		<<clotheson>>
+		<<endcombat>>
+
+		<br><br>
+
+		<<if $gwylan_eden_coop gte 1>>
+			Eden glances around for a moment. "We must be in too deep for that shopkeep," <<nnpc_he "Eden">> says.
+			<br><br>
+		<</if>>
+
+		<<if $eden_rescue isnot 1>>
+			<<set $eden_rescue to 1>>
+			Eden pats you on the shoulder. "I was able to hear you because I happened to be in the area," <<nnpc_he "Eden">> says. "<span class="gold">I might not always be around, but I should be able to save you anywhere in the forest.</span> Give me a shout if you're in trouble."
+			<br><br>
+		<</if>>
+
+		<<forestCabinReturnLinks>>
+	<</if>>
+<<else>>
+	You shove the <<beasttype>> away from you. <<tearful>> you run.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 <</if>>
