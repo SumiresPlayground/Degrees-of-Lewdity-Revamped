@@ -11,8 +11,8 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.9.8 New World 0.1.7.9",
-	versionName: `"Bisexual Biker" edition`,
+	version: "0.5.10.6 New World 0.1.7.9",
+	versionName: `"Lofts of Clothes" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,
 	sourceLinkEnabled: false,
@@ -207,6 +207,10 @@ Config.navigation.override = function (dest) {
 				return "Commercial Alleyways";
 			case "Industrial alleyways":
 				return "Industrial Alleyways";
+
+			case "English Event2":
+			case "English Event2 Molest":
+				return "English Molest";
 
 			case "Cafe Fruit Salad":
 			case "Cafe Autumn Ale":

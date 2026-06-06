@@ -189,7 +189,7 @@ Time remaining in the forest: <<print (60 - $tentacle_forest_time)>>
 
 	The force jolts you forwards.
 
-	<<dancedifficulty 1 1000>>
+	<<silently>><<dancedifficulty 1 1000>><</silently>>
 	<<if $danceSuccess>>
 		You almost trip over yet another tentacle, lying low near the ground, <span class="green">but manage to keep your footing.</span>
 		<br><br>
@@ -564,10 +564,10 @@ You are on the tentacle plains.
 		<<tentacleicon "west">><<link [[West (0:10)|Tentacle Plains]]>><<pass 10>><<set $tenteast -= 1>><<set $phase to 4>><</link>>
 		<br>
 	<</if>>
-	<<if $transformationParts.demon.wings isnot "disabled" and $tentacleadmire gte 1>>
+	<<if $demon gte 6 and $tentacleadmire gte 1>>
 		<<tficon "demon">><<link [[Offer yourself|Tentacle Plains Admire]]>><</link>><<demon>>
 		<br>
-	<<elseif $transformationParts.demon.wings isnot "disabled">>
+	<<elseif $demon gte 6>>
 		<<tficon "demon">><<link [[Admire|Tentacle Plains Admire]]>><</link>><<demon>>
 		<br>
 	<</if>>
@@ -575,34 +575,34 @@ You are on the tentacle plains.
 		<<tficon "wolf">><<link [[Howl|Tentacle Plains Howl]]>><<transform wolf 1>><</link>><<wolfgirl>>
 		<br>
 	<</if>>
-	<<if $transformationParts.angel.wings isnot "disabled" and $tentacleangel gte 2>>
+	<<if $angel gte 6 and $tentacleangel gte 2>>
 		<<tficon "angel">><<link [[Resist|Tentacle Plains Resist]]>><</link>><<angel>>
 		<br>
-	<<elseif $transformationParts.angel.wings isnot "disabled">>
+	<<elseif $angel gte 6>>
 		<<tficon "angel">><<link [[Focus|Tentacle Plains Resist]]>><</link>><<angel>>
 		<br>
 	<</if>>
-	<<if $transformationParts.fallenAngel.wings isnot "disabled">>
+	<<if $fallenangel gte 2>>
 		<<tficon "fallenangel">><<link [[Despair|Tentacle Plains Despair]]>><</link>><<fallenangel>>
 		<br>
 	<</if>>
-	<<if $transformationParts.cat.tail isnot "disabled">>
+	<<if $cat gte 6>>
 		<<tficon "cat">><<link [[Pounce|Tentacle Plains Cat]]>><<transform cat 1>><</link>><<cat>>
 		<br>
 	<</if>>
-	<<if $transformationParts.cow.tail isnot "disabled" and $settings.breastFeedingEnabled>>
+	<<if $cow gte 6 and $settings.breastFeedingEnabled>>
 		<<tficon "cow">><<link [[Let the tentacles milk your breasts|Tentacle Cow Breasts]]>><<transform cow 1>><</link>><<cow>>
 		<br>
 	<</if>>
-	<<if $transformationParts.cow.tail isnot "disabled" and $player.penisExist and !playerChastity("penis")>>
+	<<if $cow gte 6 and $player.penisExist and !playerChastity("penis")>>
 		<<tficon "cow">><<link [[Let the tentacles milk your penis|Tentacle Cow Penis]]>><<transform cow 1>><</link>><<cow>>
 		<br>
 	<</if>>
-	<<if $transformationParts.bird.wings isnot "disabled" or $transformationParts.dragon.wings isnot "disabled">>
-		<<tficon "bird">><<link [[Get a bird's eye view|Tentacle Bird]]>><</link>><<flight_text>>
+	<<if $harpy gte 6>>
+		<<tficon "bird">><<link [[Get a bird's eye view|Tentacle Bird]]>><<transform bird 1>><</link>><<flight_text>>
 		<br>
 	<</if>>
-	<<if $transformationParts.fox.tail isnot "disabled">>
+	<<if $fox gte 6>>
 		<<tficon "fox">><<link [[Look for something to steal|Tentacle Plains Fox]]>><<transform fox 1>><</link>><<fox>>
 		<br>
 	<</if>>

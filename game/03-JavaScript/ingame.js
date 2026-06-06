@@ -766,6 +766,16 @@ function isInPark(name) {
 				&& C.npc.Whitney.init === 1 && Weather.precipitation !== "none"
 				&& Time.dayState === "day" && !Time.schoolTime
 				&& V.daily.whitney.park === undefined && V.pillory.tenant.special.name !== "Whitney";
+		case "doren":
+			// prettier-ignore
+			return C.npc.Doren.init === 1
+				&& Time.hour >= 9 && Time.hour <= 15
+				&& Time.weekDay === 7;
+		case "sam":
+			// prettier-ignore
+			return C.npc.Sam.init === 1
+				&& (Time.hour >= 6 && Time.hour < 7)
+				&& Weather.precipitation === "none";
 		default:
 			return false;
 	}
@@ -1270,6 +1280,11 @@ function clothesIndex(slot, itemToIndex) {
 }
 window.clothesIndex = clothesIndex;
 
+/**
+ * @param {string} skill The name of the requested skill.
+ * @param {number} disableModifiers How much of an effect that modifiers will have on the player's current skill. Higher values means a lower effect. Stops at 2.
+ * @returns Returns the current value of the requested skill, accounting for potential modifiers.
+ */
 function currentSkillValue(skill, disableModifiers = 0) {
 	let result = V[skill];
 	if (!result && result !== 0) {
@@ -1760,6 +1775,17 @@ function isPossibleLoveInterest(name) {
 	}
 }
 window.isPossibleLoveInterest = isPossibleLoveInterest;
+
+window.isPossibleLoveInterestVirginity = function(taker) {
+	if (typeof taker !== "string") return false;
+	if (taker.includes(" and ")) {
+		return taker.split(" and ").some(name => 
+			isPossibleLoveInterest(name.trim())
+		);
+	}
+	return isPossibleLoveInterest(taker);
+};
+window.isPossibleLoveInterestVirginity = isPossibleLoveInterestVirginity;
 
 function fameTotal() {
 	let result = 0;
@@ -3171,7 +3197,7 @@ function breakableSoftBinding() {
 	if (
 		pcAreArmsBound("any") ||
 		((["ropes", "vines"].includes(V.worn.feet.name) || [V.feetuse, V.leftleg, V.rightleg].includes("bound")) &&
-		!["ankle cuffs", "ball and chain"].includes(V.worn.feet.name))
+			!["ankle cuffs", "ball and chain"].includes(V.worn.feet.name))
 	) {
 		return true;
 	}

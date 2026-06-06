@@ -979,7 +979,7 @@ function settingsObjects(type) {
 					randomize: "characterTrait",
 				},
 				eyeselect: {
-					strings: ["purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey", "random"],
+					strings: ["purple", "dark blue", "light blue", "amber", "hazel", "brown", "green", "lime green", "red", "pink", "black", "grey", "light grey", "random"],
 					randomize: "characterAppearance",
 					displayName: "Eye colour:",
 				},
@@ -988,6 +988,7 @@ function settingsObjects(type) {
 						"red",
 						"jetblack",
 						"black",
+						"darkbrown",
 						"brown",
 						"softbrown",
 						"lightbrown",
@@ -1042,7 +1043,7 @@ function settingsObjects(type) {
 					sex: {
 						strings: ["m", "f", "h"],
 						displayName: "Genitals:",
-						textMap: { m: "Penis", f: "Vagina", h: "Bigenital" },
+						textMap: { m: "Penis", f: "Vagina", h: "Hermaphrodite" },
 						randomize: "characterAppearance",
 					},
 					gender_body: {

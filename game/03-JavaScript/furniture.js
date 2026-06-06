@@ -501,56 +501,6 @@ const Furniture = (() => {
 			description: "The wallpaper is currently empty.",
 			iconFile: "wallpaper",
 		});
-		/* ------------- TELEVISION -------------- */
-		mapper.set("tv", {
-			name: "television",
-			nameCap: "Television",
-			category: ["television"],
-			type: [],
-			cost: 3000,
-			description: "A television.",
-			iconFile: "indent",
-		});
-		/* ------------ GAME CONSOLE ------------- */
-		mapper.set("gameconsole", {
-			name: "game console",
-			nameCap: "Game console",
-			category: ["gameconsole"],
-			type: [],
-			cost: 400,
-			description: "A game console.",
-			iconFile: "arcade",
-		});
-		/* ----------------- PC ------------------ */
-		mapper.set("pc", {
-			name: "personal computer",
-			nameCap: "Personal computer",
-			category: ["pc"],
-			type: [],
-			cost:5000,
-			description: "A PC.",
-			iconFile: "headdesk",
-		});
-		/* -------------- BOOKSHELF -------------- */
-		mapper.set("bookshelf", {
-			name: "bookshelf",
-			nameCap: "Bookshelf",
-			category: ["bookshelf"],
-			type: [],
-			cost: 2000,
-			description: "A bookshelf.",
-			iconFile: "library",
-		});
-		/* ---------------- MIRROR --------------- */
-		mapper.set("mirror", {
-			name: "mirror",
-			nameCap: "Mirror",
-			category: ["mirror"],
-			type: [],
-			cost: 2000,
-			description: "A mirror so cool it's expensive.",
-			iconFile: "mirrorhome",
-		});
 	}
 
 	function furnitureGet(category, onlySetup = false) {

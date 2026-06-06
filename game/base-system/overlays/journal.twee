@@ -325,7 +325,7 @@
 		</ul>
 	<</if>>
 
-	<<if !$statFreeze and (($location is "asylum" and ($eden_asylum_window is 1 or ($daily.eden.distract gte 1 and Time.hour lt 21))) || $temple_spear_mission gte 1 || $docks.hired || ($brothelshowdata.intro and $brothelshowdata.type is "none") || $exhibitionismrun || $robindebtevent gte 1 and $robinmissing isnot 0 || $pubtask2 is 1 || $pubtask || $police_hack is 1 || $pub_hack_job gte 1 || $pubfame ||( $earSlime.event and !_tempEventHide) || $earSlime.forcedCommando isnot undefined || $earSlime.forcedDressing isnot undefined || $temple_rank is "prospective" || $chef_state gte 4 || $mason_pond gte 1 || ($brothel_machine_repair gte 1 and $brothel_machine_repair lte 3) || ($transformationParts.bird.wings isnot "disabled" and $birdFly isnot 1) || Object.values(V.children).filter(child => (child.type === "hawk" && child.location === "inventory")).length gt 0 || $adultshopgrandopening || ($adultshopintro is 1 and $adultshopunlocked is undefined) || $gwylan?.request.event)>>
+	<<if !$statFreeze and (($location is "asylum" and ($eden_asylum_window is 1 or ($daily.eden.distract gte 1 and Time.hour lt 21))) || $temple_spear_mission gte 1 || $docks.hired || ($brothelshowdata.intro and $brothelshowdata.type is "none") || $exhibitionismrun || $robindebtevent gte 1 and $robinmissing isnot 0 || $pubtask2 is 1 || $pubtask || $police_hack is 1 || $pub_hack_job gte 1 || $pubfame ||( $earSlime.event and !_tempEventHide) || $earSlime.forcedCommando isnot undefined || $earSlime.forcedDressing isnot undefined || $temple_rank is "prospective" || $chef_state gte 4 || $mason_pond gte 1 || ($brothel_machine_repair gte 1 and $brothel_machine_repair lte 3) || ($harpy gte 6 and $birdFly isnot 1) || Object.values(V.children).filter(child => (child.type === "hawk" && child.location === "inventory")).length gt 0 || $adultshopgrandopening || ($adultshopintro is 1 and $adultshopunlocked is undefined) || $gwylan?.request.event)>>
 		/*TODO: streamline during eventual Journal UI Overhaul bc lol. lmao, even. */
 		<hr>
 		<h1 class="header gold bold">Reminders</h1>
@@ -554,11 +554,11 @@
 				<li><<mooricon "remy">> Remy is encroaching on Alex's farm, operating from the estate on the moor.</li>
 			<<elseif $farm_stage gte 5 or isPubfameTaskAccepted("wren")>>
 				<<if $estate_fence is "quest" and currentSkillValue('skulduggery') lt 800>>
-					<li><<mooricon "remy">> Find someone who can help you break into the Remy estate. Someone with underworld connections, or who knows the moor.</li>
+					<li><<mooricon "remy">> Find someone who can help you break into the Remy Estate. Someone with underworld connections, or who knows the moor.</li>
 				<<elseif $estate_fence is "bird">>
-					<li><<mooricon "remy">> Search the Remy estate fence for an entrance made by the Great Hawk.</li>
+					<li><<mooricon "remy">> Search the Remy Estate fence for an entrance made by the Great Hawk.</li>
 				<<elseif $estate_fence is "landry">>
-					<li><<mooricon "remy">> Search the Remy estate fence for an entrance made by Landry's specialist.</li>
+					<li><<mooricon "remy">> Search the Remy Estate fence for an entrance made by Landry's specialist.</li>
 				<</if>>
 			<</if>>
 
@@ -587,9 +587,9 @@
 				<li>
 					<<switch $farm.build>>
 						<<case "parasites 1">>
-							<<farmicon 'parasite barn'>> The parasite barn is being built.
+							<<farmicon 'parasitebarn'>> The parasite barn is being built.
 						<<case "parasites 2">>
-							<<farmicon 'parasite barn'>> The parasite barn is being expanded.
+							<<farmicon 'parasitebarn'>> The parasite barn is being expanded.
 						<<case "wall 1">>
 							<<choreicon "fix">> The wall is undergoing a thorough repair.
 						<<case "wall 2">>
@@ -1239,7 +1239,9 @@
 				<<for _t to 0; _t lt _foodstuffKeys.length; _t++>>
 					<<set _foodstuff to setup.foodstuff[_foodstuffKeys[_t]]>>
 					<<set _foodstuffType to ((_foodstuff?.category) === "dish" ? "food" : _foodstuff?.category)>>
-					<<set $_types.pushUnique(_foodstuffType.toUpperFirst())>>
+					<<if _foodstuffType isnot undefined>>
+						<<set $_types.pushUnique(_foodstuffType.toUpperFirst())>>
+					<</if>>
 				<</for>>
 				<<set $_types.sort()>>
 				<<if $_types.length>>

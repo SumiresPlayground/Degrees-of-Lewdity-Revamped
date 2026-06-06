@@ -34,6 +34,64 @@
 		<br>
 	<</if>>
 
+	<<if ($enemyarousal gte $enemyarousalmax || $enemyejaculated gte 1) and canCollectSamples() and !($enemytype is "plant" and $abomination is 1) and !$beastRitual>>
+		<<set $_samplesCollected to 0>>
+		<<set $_sampleMod to $location is "forest_shop_garden" and $beastRitual ? 2 : 1>>
+		<<for $_sample to 0; $_sample lt $enemyno; $_sample++>>
+			<<if canCollectSampleSingle(V.NPCList[$_sample]?.type)>>
+				<<if canCollectSamples() is "bound">>
+					/* Ensures the bound message only shows if the player could have collected samples otherwise */
+					<<set $_samplesCollected to "bound">>
+					<<break>>
+				<<else>>
+					<<set $_samplesToCollect to collectSample(V.NPCList[$_sample]?.type, $_sampleMod)>>
+					<<if $_samplesToCollect>>
+						<<set $_samplesCollected += $_samplesToCollect>>
+					<</if>>
+				<</if>>
+			<</if>>
+		<</for>>
+		<<if $_samplesCollected is "bound">>
+			<span class="red">With your arms bound, you're unable to take a sample of lewd fluid.</span>
+			<<set _br to true>>
+			<br>
+		<<elseif $_samplesCollected>>
+			<<if $location is "forest_shop_garden">>
+				<span class="green">Gwylan helps you collect the fluids in vials.</span> <<npcincr Gwylan lust 1>><<glust>><br>
+			<<else>>
+				<span class="lewd">You collect as much lewd fluid as you can in the vials Gwylan gave you.</span>
+			<</if>>
+			You obtain <span class="gold"><<number $_samplesCollected>></span> <<pluralise $_samplesCollected "sample">> of fluid.
+			<<set _br to true>>
+			<br>
+		<</if>>
+	<<elseif ($enemytype is "plant" and $abomination is 1 or $enemytype is "tentacles" and ["vine","root","shoot"].includes($tentacles[0]?.type)) and canCollectSamples() and canCollectSampleSingle("plant") and !$beastRitual>>
+		<<if canCollectSamples() is "bound">>
+			<span class="red">With your arms bound, you're unable to take a sample of nectar.</span>
+		<<else>>
+			<<set $_sampleMod to $location is "forest_shop_garden" and $beastRitual ? 1.3 : 1>>
+			<<set $_fromTentacles to $combat_tentacle_record.fluid || 1>>
+			<<set $_nectarCollected to Math.ceil((1 + $_fromTentacles / 9) * $_sampleMod)>>
+			<<set $_samplesToCollect to collectSample("plant", $_nectarCollected)>>
+			<<if $location is "forest_shop_garden">>
+				<span class="green">Gwylan helps you collect the nectar in vials.</span> <<npcincr Gwylan lust 1>><<glust>><br>
+			<<else>>
+				<span class="lewd">You collect as much nectar as you can in the vials Gwylan gave you.</span>
+			<</if>>
+			You obtain <span class="gold"><<number $_nectarCollected>></span> <<pluralise $_nectarCollected "sample">> of nectar.
+		<</if>>
+		<<set _br to true>>
+		<br>
+	<</if>>
+
+	/* Unbind any leg shackles applied during consensual sex via <<shackle_legs>>. Last check avoids removing a shackle that was destroyed before end of combat */
+	<<if $legsShackledDuringCombat and $consensual is 1 and ($worn.feet.type.includes("shackle") and $worn.feet.name isnot "vines")>>
+		You hear the click of a key as your $worn.feet.name are removed.
+		<<remove_shackle>>
+		<<set _br to true>>
+		<br>
+	<</if>>
+
 	<<if ($enemyarousal gte $enemyarousalmax || $enemyejaculated gte 1) and canCollectSamples() and !($enemytype is "plant" and $abomination is 1)>>
 		<<set $_samplesCollected to 0>>
 		<<set $_sampleMod to $location is "forest_shop_garden" and $beastRitual ? 2 : 1>>
@@ -190,7 +248,7 @@
 	<</if>>
 
 	<<if $stalk_end is "escaped" or $stalk_end is "hide" or $stalk_end is "ambush">>
-		<<if V.transformationParts.traits.chase isnot "disabled">>
+		<<if $transformationParts.traits.chase isnot "disabled">>
 			Your heart races.
 			<span class="green">The thrill of the chase invigorates you.</span>
 			<<if $stalk_taunted is "success">>
@@ -207,6 +265,7 @@
 	<</if>>
 
 	<<unset $enemytype>>
+	<<updatePlayerTraumaState>>
 
 	<<endevent _args[0]>>
 	<<struggle_end>>

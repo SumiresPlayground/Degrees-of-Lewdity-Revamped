@@ -130,7 +130,7 @@ that must have cost <<him>> a small fortune<<if _avery_injured>>, though the cas
 <<if $worn.upper.type.includes("formal") and $worn.lower.type.includes("formal")>>
 	smiles. "There you are. You look <<= $player.gender_appearance is "m" ? "handsome" : "beautiful">> tonight, <<pcpetname "Avery">>. Are you ready to go?"
 	<br><br>
-	<<icon "avery-car.png">><<link [[Go on Valentine's date|Avery Valentines 2]]>><<set $avery_valentines.done to true>><<endevent>><</link>>
+	<<icon "avery-car.png">><<link [[Go on Valentine's date|Avery Valentines 2]]>><<set $avery_valentines.done to true>><<set $avery_valentines.invite to false>><<endevent>><</link>>
 	<br>
 	<<if $foodstuff.valentines_chocolate.amount gte 1 and !$avery_valentines.chocolate>>
 		If you want to give Avery special valentine's chocolate, now's the time.
@@ -178,7 +178,7 @@ You watch as Avery plucks one of the chocolates from the box, and pushes it into
 <br><br>
 "Now, shall we go?"
 <br><br>
-<<link [[Yes|Avery Valentines 2]]>><<endevent>><<set $avery_valentines.done to true>><</link>>
+<<link [[Yes|Avery Valentines 2]]>><<endevent>><<set $avery_valentines.done to true>><<set $avery_valentines.invite to false>><</link>>
 <br>
 <<if $bus is "domus">>
 	<<link [[No|Domus Street]]>><<endevent>><</link>>
@@ -608,7 +608,7 @@ Avery looks back at you again, brow raised<<if $speech_attitude is "bratty">> at
 	"It is. For example, I don't have any expectations of you."
 <</if>>
 <br><br>
-Avery hums. "You'll have to forgive my skepticism on that matter. After all," <<he>> gestures to the restaurant at large. "You receive quite a lot from me in exchange for your time, <<pcpetname "Avery">>. Can you really tout <i>our</i> association as evidence to the contrary?"
+Avery hums. "You'll have to forgive my scepticism on that matter. After all," <<he>> gestures to the restaurant at large. "You receive quite a lot from me in exchange for your time, <<pcpetname "Avery">>. Can you really tout <i>our</i> association as evidence to the contrary?"
 <br><br>
 <<if isLoveInterest("Avery")>>
 	<<link [[Confess that you have romantic feelings for Avery (truth)|Avery Valentines Romantic Soften]]>><<set $phase to 1>><<set $avery_valentines.confess to true>><<set $averyromance to true>><</link>><<kissvirginitywarning>>
@@ -741,7 +741,7 @@ Something has shifted in a way you can't quite put a finger on. It's not a bad t
 
 Part of the way through your meal, you notice a <<person>> walking in your general direction. At first you think <<hes>> headed towards the toilets, but then <<he>> comes to a stop and puts a hand on Avery's shoulder. Avery jumps and whips <<person1>><<his>> head around, caught by surprise.
 <br><br>
-"Avery, <<= $NPCList[0].pronoun is "m" ? "old chum" : "old girl">>!" the <<person2>><<person>> says with a smile. "It's been ages!"
+"Avery, old <<= $NPCList[0].pronoun is "m" ? "chum" : "girl">>!" the <<person2>><<person>> says with a smile. "It's been ages!"
 <br><br>
 "Ah," Avery's smile stays on <<person1>><<his>> face, but you notice the corner tense, as if under strain. "Good evening. It's been some time, hasn't it?"
 <br><br>
@@ -894,7 +894,7 @@ You tell <<him>> you don't have a cell phone, and <<he>> looks a little disappoi
 		<</if>>
 		living with Bailey has given you an appreciation for the finer things in life," <<he>> muses. "Speaking of Bailey, what was it like living with your old caretaker?"
 		<br><br>
-	<<elseif $phase is 2>> /* Noncommital */
+	<<elseif $phase is 2>> /* Noncommittal */
 		You muddle through a response, avoiding taking one stance or another. It wouldn't do to offend Avery.
 		<br><br>
 		Avery listens to your answer with a smile and a raised brow. "An interesting answer. I suppose living with Bailey in the orphanage has left you at a loss in the face of luxury." <<He>> laughs to <<himself>>. "Speaking of Bailey, what was it like living with your old caretaker?"

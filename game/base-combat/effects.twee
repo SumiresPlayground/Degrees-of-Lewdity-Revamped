@@ -2530,7 +2530,7 @@
 		<</if>>
 
 		<<if $feetaction is "grab">>
-			<<set $feetaction to 0>><<set $feetactiondefault to "grab">><<combatpromiscuity3>>
+			<<set $feetaction to 0>><<set $feetactiondefault to "grab">><<combatpromiscuity3>><<feetskilluse>>
 			<<if combatSkillCheck("feet", $feettarget)>>
 				<<submission 2>>
 				<<if $NPCList[$feettarget].penis is 0>>
@@ -3782,7 +3782,7 @@
 				<<set $mouthaction to 0>><<set $mouthactiondefault to "breastbite">><<personselect $mouthtarget>>
 				You bite down on the nipple<<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>, <<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 				<<defiance 20 $mouthtarget>><<attackstat>><<set $mouthuse to 0>><<set $breastbitten to 1>><<set $mouthstate to 0>>
-				<<if V.transformationParts.traits.fangs isnot "disabled">>
+				<<if $transformationParts.traits.fangs isnot "disabled">>
 					<<defiance 20 $mouthtarget>>
 					You lick your fangs clean.
 				<</if>>
@@ -4121,11 +4121,11 @@
 					<<if npcHasStrapon($mouthtarget)>>
 						but it has no effect.
 					<<else>>
-					<<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
-					<<set $NPCList[$mouthtarget].penis to 0>><<set $NPCList[$mouthtarget].location.genitals to 0>>
-					<<defiance 20 $mouthtarget>><<attackstat>><<control 15>><<set $mouthuse to 0>><<set $penisbitten to 1>><<set $mouthstate to 0>>
+						<<he>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
+						<<set $NPCList[$mouthtarget].penis to 0>><<set $NPCList[$mouthtarget].location.genitals to 0>>
+						<<defiance 20 $mouthtarget>><<attackstat>><<control 15>><<set $mouthuse to 0>><<set $penisbitten to 1>><<set $mouthstate to 0>>
 					<</if>>
-					<<if V.transformationParts.traits.fangs isnot "disabled">>
+					<<if $transformationParts.traits.fangs isnot "disabled">>
 						<<defiance 20 $mouthtarget>>
 						You lick your fangs clean.
 					<</if>>
@@ -4143,7 +4143,7 @@
 				You bite down on <<hisselect $mouthtarget>> labia<<if $slime is 1>><span class='green'> and begin to corrode it</span><</if>>. <<He>> <<if $enemytype is "man">>yelps<<elseif $enemytype is "beast">>growls<<else>>shrieks<</if>> and recoils in agony.
 				<<set $NPCList[$mouthtarget].vagina to 0>><<set $NPCList[$mouthtarget].location.genitals to 0>>
 				<<defiance 20 $mouthtarget>><<attackstat>><<control 15>><<set $mouthuse to 0>><<set $penisbitten to 1>><<set $mouthstate to 0>><<set $speechhit to 1>>
-				<<if V.transformationParts.traits.fangs isnot "disabled">>
+				<<if $transformationParts.traits.fangs isnot "disabled">>
 					<<defiance 20 $mouthtarget>>
 					You lick your fangs clean.
 				<</if>>
@@ -4228,12 +4228,12 @@
 			<<else>>
 				<<set $mouthaction to 0>><<set $mouthactiondefault to "handbite">><<personselect $mouthtarget>>
 				<<actionshandbite $mouthtarget>>
-				<<if V.transformationParts.traits.fangs isnot "disabled">>
+				<<if $transformationParts.traits.fangs isnot "disabled">>
 					<<defiance 4 $mouthtarget>>
 				<<else>>
 					<<defiance 2 $mouthtarget>>
 				<</if>>
-				<<if (V.transformationParts.traits.fangs is "disabled" and random(1, 5) gte 5) or (V.transformationParts.traits.fangs isnot "disabled" and random(1, 5) gte 4)>>
+				<<if ($transformationParts.traits.fangs is "disabled" and random(1, 5) gte 5) or ($transformationParts.traits.fangs isnot "disabled" and random(1, 5) gte 4)>>
 					<<set $mouthuse to 0>>
 					<<if $NPCList[$mouthtarget].lefthand is "mouth">>
 						<<set $NPCList[$mouthtarget].lefthand to 0>>
@@ -4901,7 +4901,12 @@
 									<<case "acceptGive">>
 										<<He_Short>> shrugs. "I don't usually need them. If you have one, I won't stop you."
 									<<case "reject">>
-										<<He_Short>> tilts <<his>> head at you. <span class="lewd">"That won't be necessary. I've already taken precautions."</span>
+										<<He_Short>> tilts <<his>> head at you.
+										<<if pregnancyCompatible("Gwylan") and $settings.pregnancySpeechEnabled>>
+											<span class="lewd">"Sorry dear, I need to breed you."</span>
+										<<else>>
+											<span class="lewd">"That won't be necessary. I've already taken precautions."</span>
+										<</if>>
 								<</switch>>
 							<<case "Morgan">>
 								/*Default pregnancyAvoidance is random every encounter. I am so, so sorry.*/

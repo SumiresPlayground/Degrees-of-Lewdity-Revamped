@@ -565,7 +565,7 @@ class PlayerCanvasHelper {
 				}
 				if (
 					part === "ears" &&
-					["fox", "wolf", "cat", "bee"].includes(transformation) &&
+					["fox", "wolf", "cat"].includes(transformation) &&
 					options.transformations[transformation][part].show &&
 					options.clothes.head?.name === "witchsage"
 				) {

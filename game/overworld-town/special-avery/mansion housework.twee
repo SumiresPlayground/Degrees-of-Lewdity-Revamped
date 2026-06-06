@@ -20,7 +20,8 @@
 	<br>
 	<<icon "clothes/feather-duster.png">><<link [[Clean everything but the bedroom|Mansion Housework]]>><<set $avery_mansion.bedroom_state to "off-limits">><</link>>
 <<else>>
-	It will take _avery_mansion_time minutes in total to clean everything. Housekeeping skill will speed up indoor work. Tending skill will speed up garden work.
+	<<set _avery_mansion_time_bedroom to _avery_mansion_time + $avery_mansion.bedroom * _avery_housekeeping>>
+	It will take _avery_mansion_time_bedroom minutes in total to clean everything. Housekeeping skill will speed up indoor work. Tending skill will speed up garden work.
 	<br><br>
 
 	<<icon "clothes/feather-duster.png">><<link [[Clean|Mansion Housework]]>><</link>>
@@ -148,10 +149,6 @@ You kick against the wall in front of you, pushing your weight into Avery and fo
 <<else>>
 	You catch a hint of a glare when you turn, but <<he>> returns to the sofa and continues watching you as if nothing were amiss.
 	<br><br>
-	<<avery_mansion_end_links "housework">>
-<</if>>
-
-:: Mansion Housework Unwind
 <<effects>>
 
 You push your <<bottom>> into Avery's crotch, making your interest clear. <<He>> hooks your waist with <<his>> arm, turns, and throws you onto the sofa.
@@ -679,8 +676,10 @@ You assist Avery in tugging off your wet clothing, and leave it on the side.
 
 <<He>> swims up behind you before you turn back, and presses <<his>> face against yours while <<his>> hands trail down your chest.
 
-<<if $NPCList[0].penis isnot "none">>
+<<if C.npc.Avery.penis isnot "none">>
 	You feel <<his>> erect penis rest on your <<bottom>>.
+<<elseif $NPCList[0].penis isnot "none">>
+	You feel <<his>> strapon rest on your <<bottom>>.
 <</if>>
 <br><br>
 

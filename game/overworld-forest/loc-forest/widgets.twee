@@ -531,6 +531,17 @@
 			<br>
 		<</addinlineevent>>
 	<</if>>
+	<<if $hairlength gte 1000>>
+		<<addinlineevent "foresthairstuck" 1>>
+			You move past the protruding branches. Suddenly, you feel a violent tug on your hair. You turn around and find a strand looped tightly around a twig.<<pain 3>><<gpain>>
+			<br><br>
+			You spend a few moments untangling your hair from the tree before continuing on your way.
+			<br><br>
+
+			<<link [[Next|Forest]]>><<set $eventskip to 1>><<pass 5>><</link>>
+			<br>
+		<</addinlineevent>>
+	<</if>>
 	<<if $halloween is 1 and Time.monthDay is 31 and !$halloween_lake>>
 		<<addevent "halloween_lake_invite" 1000>>
 	<</if>>
@@ -542,7 +553,7 @@
 	<<if $rng lte 25>>
 		/* Not part of the eventpool, as having a fixed percent chance simplifies game balancing.
 		 * This way, adding new encounters and items to the event pool won't change the difficulty of
-		 *  mushroom-hunting between game versions.
+		 * mushroom-hunting between game versions.
 		 * Similarly, players modifying their toggles (eg the bees toggle, here) won't affect the mushroom drop rate.
 		 *
 		 * Note that other items in the pool will still be affected: so within the event pool,
@@ -3046,6 +3057,49 @@
 	<<link [[Climb|Forest Bully Climb]]>><</link>><<athleticsdifficulty 0 1055>>
 	<br>
 	<<link [[Call for help|Forest Bully Help]]>><</link>>
+<</widget>>
+
+<<widget "forestsnow">>
+	The snow here has not been cleared in a long time. It's reaching up to your knees, and becomes deeper the further you continue.
+	<br><br>
+
+	<<link [[Turn back (0:15)|Forest]]>><<pass 15>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><</link>>
+	<br>
+	<<link [[Keep going|Forest Snow]]>><</link>>
+<</widget>>
+
+<<widget "gwylanRescueNotice">>
+	<<if $gwylan_rescue isnot 1 or $gwylanSeen?.includes("ritual_sex") and ($worn.neck.name is "familiar collar" and !$gwylanRescue.seen.includes("collarScream") or $fox gte 6 and !$gwylanRescue.seen.includes("foxScream"))>>
+		<<set _gwylanRescueNotice to true>>
+		<<nnpc_He "Gwylan">> starts to walk off, but stops and turns around. "By the way," <<nnpc_he "Gwylan">> says.
+		<<if $gwylan_rescue isnot 1>>
+			<<set $gwylan_rescue to 1>>
+			"I was able to hear you because you were close enough to my shop.
+			<<if $gwylanSeen?.includes("ritual_sex")>>
+				<<if $worn.neck.name is "familiar collar">>
+					<<set $gwylanRescue.seen.pushUnique("collarScream")>>
+					While you're wearing this..." <<nnpc_He "Gwylan">> brushes <<nnpc_his "Gwylan">> fingers against your collar affectionately. "<span class="forest-green">I'll be able to hear you throughout the entire forest.</span> Otherwise...
+				<</if>>
+				<<if $fox gte 6>>
+					<<set $gwylanRescue.seen.pushUnique("foxScream")>>
+					I'll be able to hear you up to the border of the deepest parts of the forest, but that's only as long as you have that <span class="orange">foxiness</span> to you. If you lose it...
+				<</if>>
+			<</if>>
+			<span class="gold">If you go any further than the start of the lake, I won't be able to hear you.</span> Keep it in mind."
+		<<elseif !$gwylanSeen?.includes("ritual_sex")>>
+			<!-- Do nothing -->
+		<<elseif $worn.neck.name is "familiar collar" and $fox gte 6 and !$gwylanRescue.seen.includesAny("collarScream","foxScream")>>
+			<<set $gwylanRescue.seen.pushUnique("collarScream","foxScream")>>
+			<<nnpc_He "Gwylan">> brushes <<nnpc_his "Gwylan">> fingers against your collar affectionately. "As long as you're wearing this, <span class="forest-green">I'll be able to hear you throughout the entire forest.</span> And even if you're not, as long as you have that <span class="orange">foxiness</span> to you that you do now, I'll be able to hear you up to the border of the deepest parts of the forest. Keep it in mind."
+		<<elseif $worn.neck.name is "familiar collar" and !$gwylanRescue.seen.includes("collarScream")>>
+			<<set $gwylanRescue.seen.pushUnique("collarScream")>>
+			<<nnpc_He "Gwylan">> brushes <<nnpc_his "Gwylan">> fingers against your collar affectionately. "As long as you're wearing this, <span class="forest-green">I'll be able to hear you throughout the entire forest.</span> Keep it in mind."
+		<<elseif $fox gte 6 and !$gwylanRescue.seen.includes("foxScream")>>
+			<<set $gwylanRescue.seen.pushUnique("foxScream")>>
+			"As long as you have that <span class="orange">foxiness</span> to you that you do now, I'll be able to hear you up to the border of the deepest parts of the forest. Keep it in mind."
+		<</if>>
+		<br><br>
+	<</if>>
 <</widget>>
 
 <<widget "forestsnow">>

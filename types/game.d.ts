@@ -25,6 +25,8 @@ declare module "twine-sugarcube" {
 		loveInterest_message: number;
 		loveInterestAwareMessage: 0 | 1;
 		speech_attitude: "bratty" | "neutral" | "meek";
+		speech_attitude_bratty_message?: 1;
+		speech_attitude_meek_message?: 1;
 		prof_spray_message?: 1;
 
 		nightmareTimer?: number;
