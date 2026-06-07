@@ -1,5 +1,8 @@
 :: Race Track
 <<set $outside to 1>><<set $location to "riding_school">><<effects>>
+<<if $weeklybetamount gte 4000>>
+	<<set $betcountdown to 7>>
+<</if>>
 
 You are at the local horse racing track. Grandstands surround a central track. A small office sits to one side.
 <br><br>
@@ -21,135 +24,10 @@ You are at the local horse racing track. Grandstands surround a central track. A
 <<else>>
 	People fill into seats as tickets are taken and betting begins, if you want to place a bet, make your way to the booth and pick a horse.
 	<br><br>
-	<<animalicon "horse">><<link [[Pick a horse to bet on|Race Track Bet]]>><<if $weeklybetamount is undefined>><<set $weeklybetamount to 0>><</if>><</link>>
+	<<animalicon "horse">><<link [[Pick a horse to bet on|Racecourse Betting]]>><<if $weeklybetamount is undefined>><<set $weeklybetamount to 0>><</if>><</link>>
 	<br>
 	<<getouticon>><<link [[Leave|Farmland]]>><</link>>
 	<br>
-<</if>>
-
-:: Race Track Bet 
-You make your way to the booth where a young woman sits, taking bets and passing tickets. As you approach she speaks to you. "You here to bet? Place an amount of money and select a horse. The amount of payout will depend on how much you bet and which horse you bet on."
-<br><br>
-<<if $weeklybetamount is undefined>>
-	<<set $weeklybetamount to 0>>
-<</if>>
-<<if $money gte 10000 and $weeklybetamount lt 4000>>
-	<<link [[Bet £100|Race Track Bet]]>><<set $moneybet to 10000>><</link>><br>
-<</if>>
-<<if $money gte 20000 and $weeklybetamount lt 4000>>
-	<<link [[Bet £200|Race Track Bet]]>><<set $moneybet to 20000>><</link>><br>
-<</if>>
-<<if $money gte 50000 and $weeklybetamount lt 4000>>
-	<<link [[Bet £500|Race Track Bet]]>><<set $moneybet to 50000>><</link>><br>
-<</if>>
-<<if $money gte 100000 and $weeklybetamount lt 4000>>
-	<<link [[Bet £1000|Race Track Bet]]>><<set $moneybet to 100000>><</link>><br>
-<</if>>
-<<if $money gte 200000 and $weeklybetamount lt 4000>>
-	<<link [[Bet £2000|Race Track Bet]]>><<set $moneybet to 200000>><</link>><br>
-<</if>>
-<<if $weeklybetamount gt 4000>>
-	<span class='red'>You are barred from horse betting for the next week.</span>
-<</if>>
-
-<br><br>
-
-<<if $moneybet gt 0>>
-<<animalicon "horse-pick">><<link [[Bet on an underdog horse (Chance to decuple money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 3>><<set $payoutmultiplier to 10>><</link>>
-<br>
-<<animalicon "horse-pick">><<link [[Bet on a middling horse (Chance to triple money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 5>><<set $payoutmultiplier to 3>><</link>>
-<br>
-<<animalicon "horse-pick">><<link [[Bet on a strong horse (Chance to double money)|Race Track Select]]>><<set $money -= $moneybet>><<set $payout to 7>><<set $payoutmultiplier to 2>><</link>>
-<br>
-<</if>>
-
-<<getouticon>><<link [[Leave|Race Track]]>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><<set $payoutmultiplier to 0>><</link>>
-
-:: Race Track Select
-You place a bet on your selected horse. 
-<<if $payout is 3>>
-	Your selected horse is a weaker looking young horse. Its chances are not good but if you win you could get a major payout.
-<<elseif $payout is 5>>
-	Your selected horse is fairly average in appearance, likely having already raced several times. Its chances are not the best but the payout is nothing to scoff at.
-<<else>>
-	Your selected horse looks strong, likely having won multiple races already. Its chances are pretty good and you have a chance to double your profits.
-<</if>>
-<br><br>
-You take the ticket and take a seat in the stands as the horses are all lead into their starting boxes.
-<br><br>
-<span class="gold">Each race consists of three race stages and will track positions.</span>
-<br><br>
-<<link [[The race begins!|Horse Race 1]]>><<set $rng to random(1,10)>><</link>>
-
-:: Horse Race 1
-The gun sounds and the horses take off from the boxes.
-<br><br>
-<<if $rng gt $payout>>
-	As the other horses race from the box, your horse gets a late start, quickly falling behind the other horses. <<set $position to 6>>
-<<elseif $rng lt 2>>
-	Your horse manages to get a good lead out of the starting boxes, quickly making its way ahead of the other horses. <<set $position to 1>>
-<<else>>
-	Your horse is managing to keep up with the other horses and is squarely in the middle of the pack. <<set $position to 4>>
-<</if>>
-<br><br>
-<span class="gold">Your horse is currently in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place.</span>
-<br><br>
-<<link [[Next|Horse Race 2]]>><<set $rng to random(1,10)>><</link>>
-
-:: Horse Race 2
-The horses race down the straight and reach the first corner.
-<br><br>
-<<if $rng gt $payout>>
-	The horses begin to turn the corner, however, your horse loses its footing and stumbles, falling a bit further behind. <<set $position += 2>> <<if $position gt 8>><<set $position to 8>><</if>>
-<<elseif $rng lt 2>>
-	As your horse reaches the bend, it speeds up and turns the corner perfectly, cutting ahead of the other horses. <<set $position -= 3>> <<if $position lt 1>><<set $position to 1>><</if>>
-<<else>>
-	Your horse keeps up with the pack as they turn the corner, a few other horses stumble allowing your horse to edge ahead. <<set $position -= 2>> <<if $position lt 1>><<set $position to 1>><</if>>
-<</if>>
-<br><br>
-<span class="gold">Your horse is currently in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place.</span>
-<br><br>
-<<link [[Next|Horse Race 3]]>><<set $rng to random(1,10)>><</link>>
-
-:: Horse Race 3
-The horses race reach the final straight and expend their remaining strength.
-<br><br>
-<<if $rng gt $payout>>
-	As the horses sprint dow the final straight, your horse quickly becomes winded and is passed up by a few other horses. <<set $position += 2>> <<if $position gt 8>><<set $position to 8>><</if>>
-<<elseif $rng lt 2>>
-	Your horse bursts forward with speed and stamina, quickly passing up several horses before passing the finish line. <<set $position -= 3>> <<if $position lt 1>><<set $position to 1>><</if>>
-<<else>>
-	The horses sprint forward and your horse manages to keep pace as the horses begin to pass the line. <<set $position -= 2>> <<if $position lt 1>><<set $position to 1>><</if>>
-<</if>>
-<br><br>
-<span class="gold">Your horse finished in <<print $position>><<if $position is 1>>st<<elseif $position is 2>>nd<<elseif $position is 3>>rd<<else>>th<</if>> place!</span>
-<br><br>
-<<link [[Next|Horse Results]]>><</link>>
-
-:: Horse Results
-People begin to file out of the grandstands as the horses are guided back to their stables. You return to the ticket booth.
-<br><br>
-<<if $position is 1>>
-	<span class="gold">Your horse came in first place! You won £<<print $moneybet *= $payoutmultiplier /= 100>>.</span>
-	<br><br>
-	<<set $weeklybetamount += $moneybet>>
-	<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
-<<elseif $position is 2>>
-	<span class="green">Your horse finished in second place and you won £<<print $moneybet *= $payoutmultiplier /= 200>> for placing.</span>
-	<br><br>
-	<<set $weeklybetamount += $moneybet>>
-	<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
-<<elseif $position is 3>>
-	<span class="blue">Your horse finished third and you recieve back your initial £<<print $moneybet /= 100>> for showing.</span>
-	<br><br>
-	<<link [[Next|Race Track]]>><<set $money += ($moneybet *= 100)>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><</link>>
-<<else>>
-	<span class="red">Your horse didn't even finish top three, you lost £<<print $moneybet /= 100>>.</span>
-	<br><br>
-	<<link [[Next|Race Track]]>><<set $moneybet to 0>><<set $moneybetsuccess to 0>><<set $payoutmultiplier to 0>><</link>>
-<</if>>
-<<if $weeklybetamount gte 4000>>
-	<<set $betcountdown to 7>>
 <</if>>
 
 :: Horse Academy Entrance
@@ -161,6 +39,12 @@ You are at the entrance to the legally distinct horse racing academy.
 	The academy entrance is mostly empty. Seems nobody is out training so late.
 <</if>>
 <br><br>
+<<if Time.daystate isnot "night" $horseacademystudent is 1>>
+	You can see Ash leaning against the railing of the practice track, more looking into the distance than watching the other trainers.
+	<br>
+	<<link [[Approach Ash|Horse Academy Ash Talk]]>><</link>>
+	<br>
+<</if>>
 <<if Time.daystate isnot "night" and $trainersearch is 1>>
 	In the main yard of the academy, you can see a trainer who appears slightly lost.
 	<br>
@@ -266,7 +150,7 @@ The <<personsimple>> lunges toward you and pushes you to the floor, pulling out 
 	<<link [[Next|Ash Register]]>><<endevent>><<set $trainersearch to 2>><<set $phase to 1>><</link>>
 <<else>>
 	<<npcincr Ash dom -50>>
-	Hissing, Ash backs away from you.
+	Hissing, <<he>> backs away from you.
 	<br><br>
 	"Damn, why did I think I could beat a horse?" <<he>> spits. "Whatever, ya win, get out of 'ere."
 	<br><br>
@@ -282,7 +166,7 @@ The <<personsimple>> lunges toward you and pushes you to the floor, pulling out 
 
 :: Ash Offer
 <<npc Ash>><<person1>>
-<<He>> looks a bit dumbfounded. "Ya would willin'ly be my trainee even after what I tried to do? You're either brave or stupid, but... thanks." <<He>> staggers slightly, still sore from the beating. "Name's Ash. I own a local ranch a bit to the south. The farm's been strugglin' lately, so... I've been tryin' to get my hands on a racing horse to make some money."
+<<He>> looks a bit dumbfounded. "Ya would willin'ly be my trainee even after what I tried to do? You're either brave or stupid, but... thanks." <<He>> staggers slightly, still sore from the beating. "Name's Ash<<if $pronoun is "m">>ton<<else>>ley<</if>>, but you can call me Ash. I own a local ranch a bit to the south. The farm's been strugglin' lately, so... I've been tryin' to get my hands on a racing horse to make some money."
 <br><br>
 You hold <<his>> shoulder and help guide <<him>> into the academy.
 <br><br>
@@ -293,7 +177,7 @@ You hold <<his>> shoulder and help guide <<him>> into the academy.
 <<if $phase is 1>>
 	You are dragged into the academy bound and gagged. The <<personsimple>> lies you down next to the table as <<he>> speaks to the receptionist. The receptionist begins, "Hello <<sir>>, what do you need today?"
 	<br><br>
-	In response, <<he>> gestures toward you. "I got myself one of them fancy racin' horses. Are ya gonna let me register now or what?" <<He>> begins to fill out paperwork before turning back to you. "You are now my property, ya got that? Name's Ash, and ya will be listenin' to me from now on. Now, lets get you into ya new uniform."
+	In response, <<he>> gestures toward you. "I got myself one of them fancy racin' horses. Are ya gonna let me register now or what?" <<He>> begins to fill out paperwork before turning back to you. "You are now my property, ya got that? Name's Ash<<if $pronoun is "m">>ton<<else>>ley<</if>>, but you can call me Ash. From now on, ya will be listenin' to me. Now, lets get you into ya new uniform."
 <<else>>
 	You enter the academy with Ash, helping <<him>> to the front desk where the receptionist sits at her computer. <<He>> begins to speak, "Hey missy, I got myself one of them fancy racin' horses you mentioned. Ya gonna let me register now?" The receptionist slides <<him>> a few slips of paper which <<he>> fills out with haste. "There, ya now my own private racin' horse. Lets get ya into uniform."
 <</if>>
@@ -491,32 +375,36 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 
 :: Horse Academy Ash Morning
 <<npc Ash>><<person1>>
-"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Ash sighs and places <<his>> hand on <<his>> hip. "We gotta get some workin' in and get ya ready for the big race comin' up."
-<br><br>
-<<if $rng gt 75>>
-	How about we work on ya athleticism, lets build up ya speed so you can keep up while racin'
-	<br><br>
-	<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Athletics]]>><<athletics 50>><<pass 600>><<tiredness 20>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggathletics>><<gggtiredness>>
-	<br>
-	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 1>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
-<<elseif $rng gt 50>>
-	Lets build up ya physique a bit, keep ya strong enough to pass up them other racin' horses.
-	<br><br>
-	<<prisonicon "lift">><<link [[Follow Ash (10:00)|Horse Academy Train Physique]]>><<physique 50>><<pass 600>><<tiredness 60>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggphysique>><<gggtiredness>>
-	<br>
-	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 2>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
-<<elseif $rng gt 25>>
-	We gotta work on ya footwork, keep ya able to turn them corners and not go slippin' to the ground.
-	<br><br>
-	<<dancestudioicon>><<link [[Follow Ash (10:00)|Horse Academy Train Dance]]>><<danceskill 50>><<pass 600>><<tiredness 20>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggdanceskill>><<gggtiredness>>
-	<br>
-	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 3>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+<<if $horseacademycountdown is 0>>
+
 <<else>>
-	Now, how 'bout we start workin' on ya willpower, keep you on ya feet long enough to get to the finish line without collapsin'.
+	"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Ash sighs and places <<his>> hand on <<his>> hip. "We gotta get some workin' in and get ya ready for the big race comin' up."
 	<br><br>
-	<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Willpower]]>><<willpower 50>><<pass 600>><<tiredness 60>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggwillpower>><<gggtiredness>>
-	<br>
-	<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 4>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+	<<if $rng gt 75>>
+		How about we work on ya athleticism, lets build up ya speed so you can keep up while racin'
+		<br><br>
+		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Athletics]]>><<athletics 50>><<pass 600>><<tiredness 20>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggathletics>><<gggtiredness>>
+		<br>
+		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 1>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+	<<elseif $rng gt 50>>
+		Lets build up ya physique a bit, keep ya strong enough to pass up them other racin' horses.
+		<br><br>
+		<<prisonicon "lift">><<link [[Follow Ash (10:00)|Horse Academy Train Physique]]>><<physique 50>><<pass 600>><<tiredness 60>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggphysique>><<gggtiredness>>
+		<br>
+		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 2>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+	<<elseif $rng gt 25>>
+		We gotta work on ya footwork, keep ya able to turn them corners and not go slippin' to the ground.
+		<br><br>
+		<<dancestudioicon>><<link [[Follow Ash (10:00)|Horse Academy Train Dance]]>><<danceskill 50>><<pass 600>><<tiredness 20>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggdanceskill>><<gggtiredness>>
+		<br>
+		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 3>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+	<<else>>
+		Now, how 'bout we start workin' on ya willpower, keep you on ya feet long enough to get to the finish line without collapsin'.
+		<br><br>
+		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Willpower]]>><<willpower 50>><<pass 600>><<tiredness 60>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggwillpower>><<gggtiredness>>
+		<br>
+		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 4>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+	<</if>>
 <</if>>
 
 :: Horse Academy Disobey
@@ -536,7 +424,9 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 	<br>
 	<<link [[Continue to disobey|Horse Academy Ash Rape]]>><<set $molestationstart to 1>><</link>>
 <<else>>
-
+	"Fine, I suppose ya earned enough respect for me to respect ya choices. Just don't be lettin' me down durin' the race."
+	<br>
+	<<link [[Next|Horse Academy]]>><<set _sleepinterrupt to 0>><</link>>
 <</if>>
 
 :: Horse Academy Ash Rape
@@ -731,7 +621,7 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 <<clotheson>>
 <<endcombat>>
 
-<<link [[Next|Horse Academy]]>><<willpower 10>><</link>>
+<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.dom += 2>><<willpower 10>><</link>><<ggdom>>
 
 :: Horse Backroom Whip
 <<npc Ash>><<person1>>
@@ -759,25 +649,29 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 <<if $danceskill gte 800>>
 	You manage to evade the third and final lash. Ash looks pissed yet also pleasantly surprised. "Wow that's some nice movin'. It almost makes me proud. I reckon I'll let ya off easy this time."
 	<<danceskill 5>>
+	<br><br>
+	Ash grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin' you're free for the rest of the day, sugar."
+
+	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.love += 3>><</link>><<ggglove>>
 <<else>>
 	The final lash lands, causing you to cry out in pain as your back is raw. Ash pants as <<he>> hangs back up the whip. "Train your footwork skills if ya don't want so much pain next time."
 	<<masopain 20>>
 	<<danceskill 5>>
-<</if>>
-<br><br>
-Ash grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin' you're free for the rest of the day, sugar."
+	<br><br>
+	Ash grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin' you're free for the rest of the day, sugar."
 
-<<link [[Next|Horse Academy]]>><</link>>
+	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.dom += 2>><</link>><<ggdom>>
+<</if>>
 
 :: Horse Backroom Athletics
 <<npc Ash>><<person1>>
 You begin to sprint as the box at the end of the room opens and a large horse barrels out. Ash begins to laugh as <<he>> watches. "Run sugar run! Maybe you can escape if ya fast enough."
 <<if $athletics gte 800>>
 	You slowly start to gain distance from the horse before bursting out of the back rooms. You can hear Ash's laughter continue from the other room.
-	<<link [[Next|Horse Academy]]>><<athletics 5>><</link>>
+	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.love += 3>><<athletics 5>><</link>><<ggglove>>
 <<else>>
 	You slowly begin to lose ground as the horse speeds up. Ash begins to laugh as <<he>> watches you get mowed over by the horse, pinned to the ground.
-	<<link [[Next|Horse Chase Rape]]>><<set $molestationstart to 1>><<athletics 5>><</link>>
+	<<link [[Next|Horse Chase Rape]]>><<set C.npc.Ash.dom += 2>><<set $molestationstart to 1>><<athletics 5>><</link>><<ggdom>>
 <</if>>
 
 :: Horse Chase Rape
@@ -829,7 +723,7 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 <<clotheson>>
 <<endcombat>>
 
-<<link [[Next|Horse Academy]]>><<athletics 10>><</link>>
+<<link [[Next|Horse Academy]]>><<endevent>><<athletics 10>><</link>>
 
 :: Horse Backroom Physique
 <<npc Ash>><<person1>>
@@ -865,14 +759,14 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 	<br><br>
 	Ash grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin' you're free for the rest of the day, sugar."
 
-	<<link [[Next|Horse Academy]]>><</link>>
+	<<link [[Next|Horse Academy]]>><<set C.npc.Ash.love += 3>><<endevent>><</link>><<ggglove>>
 <<else>>
 	You struggle before falling flat. Ash stands and laughs over you. "Wow you can't even handle that much? Such a weak little pony. Now lets begin ya special punishment."
 	<<masopain 10>>
 	<<physique 5>>
 	<<arousal 30>>
 	<br><br>
-	<<link [[Next|Ash Punishment Rape]]>><<set $molestationstart to 1>><</link>>
+	<<link [[Next|Ash Punishment Rape]]>><<set C.npc.Ash.dom += 2>><<set $molestationstart to 1>><</link>><<ggdom>>
 <</if>>
 
 :: Ash Punishment Rape
@@ -923,3 +817,189 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 	<<endcombat>>
 	<<link [[Next|Horse Academy]]>><<endevent>><</link>>
 <</if>>
+
+:: Racecourse Betting
+<<run setup.horserace.ensureState()>>
+<<if $horserace.phase is "idle" or $horserace.phase is "finished">>
+	<<run setup.horserace.createRace(true)>>
+<</if>>
+The board changes one last time before the bookie shuts the window.
+<<print setup.horserace.renderHorseList()>>
+<<if $horserace.lastError>>
+	<p class="red"><<print $horserace.lastError>></p>
+<</if>>
+<<if !$horserace.selectedHorseId>>
+	Choose a horse to back.
+	<p class="horse-race-bet-links">
+	<<set _firstHorseLink to true>><<for _horse range $horserace.horses>><<if _firstHorseLink>><<set _firstHorseLink to false>><<else>> | <</if>><<set _label to _horse.name + " (" + _horse.odds.toFixed(2) + "x)">><<link _label "Racecourse Betting">><<set $horserace.selectedHorseId to _horse.id>><</link>><</for>>
+	</p>
+<<else>>
+	<<set _horse to setup.horserace.getHorse($horserace.selectedHorseId)>>
+	You choose <<print _horse.name>>. Enter the amount you want to bet.
+	<br>
+	<<if $weeklybetamount is undefined>>
+	<<set $weeklybetamount to 0>>
+	<</if>>
+	<<if $money gte 10000 and $weeklybetamount lt 4000>>
+		<<link [[Bet £100|Racecourse Betting Submit]]>><<set $horserace.betInput to 100>><</link>><br>
+	<<else>>
+		<span class='red'>You do not have enough money to place a bet.</span><br>
+	<</if>>
+	<<if $money gte 20000 and $weeklybetamount lt 4000>>
+		<<link [[Bet £200|Racecourse Betting Submit]]>><<set $horserace.betInput to 200>><</link>><br>
+	<</if>>
+	<<if $money gte 50000 and $weeklybetamount lt 4000>>
+		<<link [[Bet £500|Racecourse Betting Submit]]>><<set $horserace.betInput to 500>><</link>><br>
+	<</if>>
+	<<if $money gte 100000 and $weeklybetamount lt 4000>>
+		<<link [[Bet £1000|Racecourse Betting Submit]]>><<set $horserace.betInput to 1000>><</link>><br>
+	<</if>>
+	<<if $money gte 200000 and $weeklybetamount lt 4000>>
+		<<link [[Bet £2000|Racecourse Betting Submit]]>><<set $horserace.betInput to 2000>><</link>><br>
+	<</if>>
+	<<if $weeklybetamount gt 4000>>
+		<span class='red'>You are barred from horse betting for the next week.</span><br>
+	<</if>>
+	<br>
+	<<link "Choose a different horse" "Racecourse Betting">><<set $horserace.selectedHorseId to "">><</link>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave|Race Track]]>><<set $horserace.betInput to 0>><</link>>
+
+:: Racecourse Betting Submit
+<<set _betResult to setup.horserace.placeBet($horserace.selectedHorseId, $horserace.betInput)>>
+<<if _betResult.ok>>
+	The bookie takes your slip and waves you towards the rail.
+	<br><br>
+	<<link [[Watch the race|Racecourse Watch]]>><</link>>
+<<else>>
+	<<if $horserace.lastError>>
+		<p class="red"><<print $horserace.lastError>></p>
+	<</if>>
+	<<link [[Return to the betting window|Racecourse Betting]]>><</link>>
+<</if>>
+<br>
+
+:: Racecourse Watch
+<<if $horserace.phase is "betting">>
+	The race can't start until you place a bet.
+	<br><br>
+	<<link [[Return to the betting window|Racecourse Betting]]>><</link>>
+<<else>>
+	<<print setup.horserace.renderTrack()>>
+	<<script>>setTimeout(function () {
+		setup.horserace.placeMarkers();
+		setup.horserace.refreshLiveView("Racecourse Result", "See the result");
+	}, 0);<</script>>
+	<<print setup.horserace.renderRaceLog()>>
+	<<print setup.horserace.renderLiveControls("Racecourse Result", "See the result", "Start watching", "Pause watching", 1600)>>
+	<span id="horse-race-result-link">
+	<<link "Skip to the finish" "Racecourse Result">><<set $horserace.autoWatch to false>><<run setup.horserace.cancelAutoWatch()>><<run setup.horserace.simulateToEnd(false)>><</link>>
+	</span>
+<</if>>
+
+:: Racecourse Result
+<<set $horserace.autoWatch to false>>
+<<run setup.horserace.cancelAutoWatch()>>
+<<if $horserace.phase isnot "finished">>
+	<<run setup.horserace.simulateToEnd(false)>>
+<</if>>
+<<print setup.horserace.renderResult()>>
+<<link "Run another race" "Racecourse Betting">><<run setup.horserace.createRace(true)>><</link>>
+<br>
+<<link [[Return to the stands|Race Track]]>><<endevent>><</link>>
+
+:: Horse Academy Ash Talk
+<<npc Ash>><<person1>>
+You approach Ash and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
+<br><br>
+<<link [[Spend some time talking (0:30)|Ash Time Spend]]>><<pass 30>><<endevent>><</link>>
+<br>
+<<if C.npc.Ash.love gte 80 or C.npc.Ash.dom gte 40>>
+	<<link [[Ask Ash for some special love|Ash Sex Time]]>><<set $sexstart to 1>><</link>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave <<him>> alone|Horse Academy Entrance]]>><<endevent>><</link>>
+
+:: Ash Sex Time
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Ash Sex Time Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Ash Sex Time]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Ash Sex Time Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<npcincr Ash love 2>>
+	Ash takes a moment, breathing heavily as <<he>> gathers <<himself>> climbs away from you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Ash love -5>><<npcincr Ash dom -5>>
+    "You bitch!" Ash yells wiping the blood from <<his>> nose, "Just get the hell out of here."<<lllove>><<lldom>>
+<<elseif $finish is 1>>
+	<<npcincr Ash love -3>>
+	"Can't even finish?" <<He>> says looking confused. "You young folks got somethin' wrong with ya."<<lllove>>
+<</if>>
+<br><br>
+Ash leads you out of the back rooms and back into the main room of the academy.
+<br><br>
+<<clotheson>><<endcombat>>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Ash Time Spend
+<<npc Ash>><<person1>>
+<<cleareventpool>>
+<<if (C.npc.Ash.love gt 80)>>
+    <<addinlineevent "ash_love1">>
+        “I must apologize for the way I have been treatin' ya lately.” Ash looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "ash_love2">>
+        “Even though ya should be trainin', I admit I like spendin' time with ya.” Ash smirks. "Though, ya better still be trainin hard for the races."
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<<elseif (C.npc.Ash.love gt 40)>>
+	<<addinlineevent "ash_midlove1">>
+        “Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race.” Ash shakes <<his>> head with a smirk but lets you sit next to <<him>>.
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "ash_midlove2">>
+        “Still not too sure about ya, sugar.” Ash shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<<else>>
+	<<addinlineevent "ash_lowlove1">>
+        “Ya wantin' to spend time with me?” Ash looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Ash.
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "ash_lowlove2">>
+        “Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else.” Ash looks annoyed by your lack of effort.
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<</if>>
+<<runeventpool>>

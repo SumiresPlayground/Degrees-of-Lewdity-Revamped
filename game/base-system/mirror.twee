@@ -2402,6 +2402,8 @@
 	<<set _traits to V.transformationParts.traits>>
 
 	__Layering__<br>
+	<<link "Horns layered above headwear">><<run State.setVar("$hornlayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Horns layered below headwear">><<run State.setVar("$hornlayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
 	<<link "Ears layered in front hair">><<run State.setVar("$earlayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
 	<<link "Ears layered behind hair">><<run State.setVar("$earlayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
 	<<link "Tail layered in front of hair">><<run State.setVar("$taillayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
@@ -2427,7 +2429,7 @@
 		<</if>>
 		<<if $fox gte 4 or $foxtf is 1>>
 			Thrill of the Chase:<br>
-			<<link "Set">><<set _traits.mateForLife = "default">><</link>> / <<link "Clear">><<set _traits.mateForLife = "disabled">><</link>><br>
+			<<link "Set">><<set _traits.chase = "default">><</link>> / <<link "Clear">><<set _traits.chase = "disabled">><</link>><br>
 		<</if>>
 		<<if $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $fish gte 2 or $fishtf is 1>>
 			Swimming Proficiency:<br>

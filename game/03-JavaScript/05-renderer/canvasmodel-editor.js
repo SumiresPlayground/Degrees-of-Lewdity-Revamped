@@ -980,6 +980,7 @@ Macro.add("canvasModelEditor", {
 						selectOption("fae_wings_left", ["disabled", "hidden", "idle"]),
 						selectOption("fae_fairies_type", ["disabled", "hidden", "default"]),
 						selectOption("goblin_ears_type", ["disabled", "hidden", "default"]),
+						selectOption("horn_layer", ["front", "back"]),
 						selectOption("ear_layer", ["front", "back"]),
 						selectOption("tail_layer", ["front", "back"]),
 

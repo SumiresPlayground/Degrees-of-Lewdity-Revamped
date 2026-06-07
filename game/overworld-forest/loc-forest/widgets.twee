@@ -476,7 +476,7 @@
 	<<if playerRutMinArousal()>>
 		<<addinlineevent "safeforest_wolfhowl_rut">>
 			You hear a wolf howl in the distance. The sound is deep and rumbling.
-			<<if $wolfgirl gte 3>>
+			<<if $transformationParts.wolf.tail isnot "disabled">>
 				It stirs something primal in your body. You're desperate to answer this call.
 				<<garousal>><<arousal 1000>>
 			<<elseif $sciencetrait gte 3 and $awareness gte 100>>
@@ -494,7 +494,7 @@
 	<<else>>
 		<<addinlineevent "safeforest_wolfhowl">>
 			You hear a wolf howl in the distance.
-			<<if $wolfgirl gte 3>>
+			<<if $transformationParts.wolf.tail isnot "disabled">>
 				<<garousal>><<arousal 600>>
 			<<else>>
 				<<gstress>><<stress 1>>

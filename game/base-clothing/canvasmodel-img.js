@@ -441,6 +441,7 @@ DefineMacro("modelprepare-player-body", function () {
 	
 	T.modeloptions.goblin_ears_type = V.transformationParts.goblin.ears
 
+	T.modeloptions.horn_layer = V.hornlayer;
 	T.modeloptions.ear_layer = V.earlayer;
 	T.modeloptions.tail_layer = V.taillayer;
 

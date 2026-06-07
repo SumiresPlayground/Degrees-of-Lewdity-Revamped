@@ -1901,7 +1901,7 @@ Renderer.CanvasModels.main = {
 		 */
 		"cow_horns": genlayer_horns("cow", {
 			zfn(options) {
-				return options.cow_horns_layer === "front" ? ZIndices.over_head + 1 : ZIndices.horns + 1;
+				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
 			},
 		}),
 		"cow_ear_left": genlayer_ears("cow", false, {
@@ -2059,7 +2059,9 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_horns_type);
 			},
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
+			},
 			animation: "idle"
 		},
 		"sheep_ears": {
@@ -2160,7 +2162,9 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.deer_horns_type);
 			},
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
+			},
 			animation: "idle"
 		},
 		"deer_ears": {
@@ -2240,7 +2244,9 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.dragon_horns_type);
 			},
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
+			},
 			animation: "idle"
 		},
 		"dragon_eyes": {
@@ -2296,7 +2302,9 @@ Renderer.CanvasModels.main = {
 				return options.show_tf && isPartEnabled(options.dragon_whisker_type)
 			},
 			filters: ["hair"],
-			z: ZIndices.horns,
+			zfn(options) {
+				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
+			},
 			animation: "idle"
 		},
 		/*** 

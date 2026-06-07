@@ -2129,7 +2129,11 @@ Your cries attract the attention of the people passing by the alley's entrance. 
 		<<exhibitionism3>>
 		<<underlowerruined undefined "sold">>
 		<<money 3000 "prostitution">><<fameexhibitionism 1>>
+		<<destinationeventend>>
 	<</if>>
+<<elseif $phase is 2>>
+	You give the <<person>> a coy smile. "But I'd need to be wearing some first."
+	<br><br>
 	You walk away, leaving <<him>> speechless.
 	<<exhibitionism2>>
 	<<destinationeventend>>
@@ -7770,7 +7774,8 @@ You're cornered by the <<person>>. "You thought I'd let you get away with that?"
 <<if $alarm is 1 and $rescue is 1>>
 	<span id="next"><<link [[Next|Street Fame Flaunt Alarm]]>><</link>></span><<nexttext>>
 <<else>>
-	<<if _fullyNaked>>
+	/* 0.5.10.8 quick fix for open under tops remaining on, used to just check for _fullyNaked */
+	<<if $worn.under_lower.name is "naked" and $worn.lower.name is "naked" and $worn.upper.name is "naked">>
 		<span id="next"><<link [[Next|Street Fame Flaunt Strip Finish]]>><</link>></span><<nexttext>>
 	<<else>>
 		<<if $enemyarousal gte $enemyarousalmax>>
@@ -12124,7 +12129,7 @@ You turn and walk away. You try to focus on looking for another way to cross, bu
 <<if $phase is 0>>
 	<<if $transformationParts.angel.wings isnot "disabled" and $phase2 is 1>>
 		You strike a graceful pose, extending your arms as if to offer a loving embrace.
-	<<elseif $fallenangel gte 6 and $phase2 is 1>>
+	<<elseif $transformationParts.fallenAngel.wings isnot "disabled" and $phase2 is 1>>
 		You try to strike a graceful pose, though you're afraid it comes across as rather morose instead.
 	<<elseif $transformationParts.demon.wings isnot "disabled" and $phase2 is 1>>
 		You strike a proud pose, spreading your wings and holding your head high like the ruler of hell itself.
@@ -12147,7 +12152,7 @@ You turn and walk away. You try to focus on looking for another way to cross, bu
 <<elseif $phase is 1>>
 	<<if $transformationParts.angel.wings isnot "disabled" and $phase2 is 1>>
 		You adjust your clothes and wrap your wings around your body, leaving just enough exposed to tease your audience.
-	<<elseif $fallenangel gte 6 and $phase2 is 1>>
+	<<elseif $transformationParts.fallenAngel.wings isnot "disabled" and $phase2 is 1>>
 		You adjust your clothes and hide yourself behind your wings, letting hints of your body peek tantalisingly through the plumage.
 	<<elseif $transformationParts.demon.wings isnot "disabled" and $phase2 is 1>>
 		You bring your wings around to frame your chest and wrap your tail around your thigh, blowing a kiss for good measure.

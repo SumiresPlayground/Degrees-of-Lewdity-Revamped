@@ -3235,6 +3235,11 @@ function applyFeatBoosts() {
 		V.permanentTransform = 1;
 	}
 
+	if (upgrades.sheep) {
+		V.sheeptf = 1;
+		V.permanentTransform = 1;
+	}
+
 	if (upgrades.deer) {
 		V.deertf = 1;
 		V.permanentTransform = 1;
@@ -3302,6 +3307,8 @@ function applyFeatBoosts() {
 
 	if (upgrades.angel) {
 		V.angeltf = 1;
+		V.angel = 6;
+		V.angelbuild = 100;
 		V.permanentTransform = 1;
 	}
 
