@@ -6116,10 +6116,7 @@ function genlayer_tail(tf, hair, overrideOptions) {
 			return `img/transformations/${tf}/${tail}/${options[`${tf}_tail_type`]}.png`;
 		},
 		zfn(options) {
-			const cover = ["cover", "flaunt"].includes(options.demon_tail_state) && (tf === "demon" || isChimeraEnabled("demoncow", "tail") || isChimeraEnabled("demoncat", "tail") || isChimeraEnabled("demonwolf", "tail") || isChimeraEnabled("demonfox", "tail"));
-			if (cover) return ZIndices.tailPenisCover;
-			if (options[`${tf}_tail_layer`] === "back") return ZIndices.tail;
-			return ZIndices.back_lower;
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
 		},
 	}, overrideOptions))
 }
@@ -6166,11 +6163,8 @@ function genlayer_ears(tf, hair, overrideOptions) {
 		},
 
 		zfn(options) {
-			if (options.hideHeadAcc) {
-				return ZIndices.over_head;
-			}
-			return ZIndices.basehead;
-		}
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+		},
 	}, overrideOptions))
 }
 
@@ -6179,10 +6173,10 @@ function genlayer_horns(tf, overrideOptions) {
 		filters: [],
 		animation: "idle",
 		zfn(options) {
-			return options[`${tf}_horns_layer`] === "front" ? ZIndices.over_head : ZIndices.horns;
+				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
 		},
 		masksrcfn(options) {
-			return options[`${tf}_horns_layer`] !== "front" ? options.headMask : null;
+			return options.horn_layer !== "front" ? options.headMask : null;
 		},
 	}, overrideOptions))
 }
