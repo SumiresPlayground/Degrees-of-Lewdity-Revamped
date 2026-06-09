@@ -680,24 +680,10 @@ const statChange = (() => {
 		modifier = Number(modifier);
 		if (amount && modifier) {
 			V.submissive = Math.clamp(V.submissive + amount * modifier, 0, 2000);
-			subCheck();
 		}
 	}
 	DefineMacro("sub", (amount, modifier) => submissive(amount, modifier));
 	DefineMacro("def", (amount, modifier) => submissive(-amount, modifier));
-
-	function subCheck() {
-		if (V.speech_attitude === "bratty" && V.submissive >= 1150) {
-			V.speech_attitude = "neutral";
-			V.effectsmessage = 1;
-			V.speech_attitude_bratty_message = 1;
-		} else if (V.speech_attitude === "meek" && V.submissive <= 850) {
-			V.speech_attitude = "neutral";
-			V.effectsmessage = 1;
-			V.speech_attitude_meek_message = 1;
-		}
-	}
-	DefineMacro("sub_check", subCheck);
 
 	function gainPenisInsecurity(amount = 10) {
 		if (V.statFreeze) return "";
@@ -1348,7 +1334,6 @@ const statChange = (() => {
 		ferocity,
 		harmony,
 		submissive,
-		subCheck,
 		gainPenisInsecurity,
 		gainBreastInsecurity,
 		insecurityPossible,

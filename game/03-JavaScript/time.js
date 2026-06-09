@@ -993,6 +993,8 @@ function dayPassed() {
 	V.fungalstagelimiter = 0;
 	V.fungalclotheslimiter = 1;
 
+	V.caseycook = 0;
+
 	V.moorburger = 0;
 
 	V.dailysalemdate = 0;

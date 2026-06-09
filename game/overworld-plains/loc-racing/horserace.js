@@ -6,7 +6,7 @@ setup.horserace = setup.horserace || {};
 
 	const HR = setup.horserace;
 
-	HR.VERSION = "0.1.3";
+	HR.VERSION = "0.1.4";
 
 	HR.DEFAULT_WATCH_DELAY = 1600;
 
@@ -207,12 +207,10 @@ setup.horserace = setup.horserace || {};
 		}
 	];
 
-	HR.horseNames = [
-		"Velvet Comet", "Green Bullet", "Old Crown", "Silver Orchard", "Saltwind",
-		"Midnight Loan", "Card Shark", "Foxglove", "Bright Rumour", "Rain Partner",
-		"Lucky Riot", "Amber Needle", "Glass Herald", "Cinder Waltz", "North Chapel",
-		"Paper Moon", "Blue Rascal", "Hidden Parish", "Cherry Debt", "Quiet Siren"
-	];
+	HR.horseNames = 
+	["Furious Froggy", "Paperbag Prowler", "Genetics", "Purple Rayne", "Frostberg Lettuce",
+	"J-Corner", "Rough and Stumble", "Lucky Bee", "Yawn in June", "Countess Elizabeth",
+	"Chylli Con Carnage", "Sex Professor", "Remy's Pride", "Moca Loca", "Lemon Melon"];
 
 	HR.fallbackConditions = ["turf", "dirt", "wet", "muddy"];
 
@@ -470,6 +468,45 @@ setup.horserace = setup.horserace || {};
 		return false;
 	};
 
+	HR.refreshGameSidebar = function () {
+		try {
+			if (typeof UIBar !== "undefined" && UIBar && typeof UIBar.update === "function") {
+				UIBar.update();
+				return;
+			}
+			if (typeof window !== "undefined" && window.SugarCube && window.SugarCube.UIBar && typeof window.SugarCube.UIBar.update === "function") {
+				window.SugarCube.UIBar.update();
+			}
+		}
+		catch (e) {
+			if (State && State.variables && State.variables.debug === 1) {
+				console.warn("Horse race could not refresh the sidebar.", e);
+			}
+		}
+	};
+
+	HR.passRaceTime = function (minutes) {
+		const amount = Math.max(0, Math.floor(Number(minutes) || 0));
+		if (amount <= 0) return;
+
+		try {
+			const wiki = `<<pass ${amount}>>`;
+			const fragment = typeof document !== "undefined" ? document.createDocumentFragment() : null;
+			if (typeof Wikifier === "function") {
+				new Wikifier(fragment, wiki);
+			}
+			else if (typeof window !== "undefined" && typeof window.Wikifier === "function") {
+				new window.Wikifier(fragment, wiki);
+			}
+			HR.refreshGameSidebar();
+		}
+		catch (e) {
+			if (State && State.variables && State.variables.debug === 1) {
+				console.warn("Horse race could not run <<pass>>.", e);
+			}
+		}
+	};
+
 	HR.ensureState = function () {
 		const V = State.variables;
 		if (V.horserace == null || typeof V.horserace !== "object") V.horserace = {};
@@ -569,13 +606,95 @@ setup.horserace = setup.horserace || {};
 		};
 	};
 
+	HR.creategirlHorse = function (name, index) {
+		let baseSpeed, stamina, focus, kick;
+		if (name === "Mint Mocha") {
+			baseSpeed    = Number((HR.randInt(95, 95) / V.regionalrace).toFixed(0));
+			stamina      = Number((HR.randInt(95, 95) / V.regionalrace).toFixed(0));
+			focus        = Number((HR.randInt(95, 95) / V.regionalrace).toFixed(0));
+			kick         = Number((HR.randInt(2, 2) / V.regionalrace).toFixed(0));
+		} else if (name === V.playerhorsetitle) {
+			baseSpeed    = V.athletics / 10;
+			stamina      = V.willpower / 10;
+			focus        = V.danceskill / 10;
+			kick         = V.physique / 5000;
+		} else {
+			baseSpeed    = Number((HR.randInt(85, 90) / V.regionalrace).toFixed(0));
+			stamina      = Number((HR.randInt(85, 90) / V.regionalrace).toFixed(0));
+			focus        = Number((HR.randInt(80, 90) / V.regionalrace).toFixed(0));
+			kick         = Number((HR.randInt(1.5, 1.7) / V.regionalrace).toFixed(0));
+		}
+
+		return {
+			id: `horse-${index + 1}`,
+			name,
+			lane: index + 1,
+			baseSpeed,
+			stamina,
+			maxStamina: stamina,
+			focus,
+			finishKick: kick,
+			progress: 0,
+			boost: 0,
+			skillCooldown: HR.randInt(0, 2),
+			lastSkillRound: -99,
+			skills: HR.randomSkills(3),
+			skillHistory: [],
+			odds: 2.0,
+			formScore: baseSpeed * 0.52 + stamina * 0.30 + focus * 0.14 + kick * 5
+		};
+	};
+
 	HR.createRace = function (force) {
 		const race = HR.ensureState();
 		if (!force && race.phase !== "idle" && race.phase !== "finished") return race;
 
 		const count = HR.randInt(3, 5);
-		const names = HR.shuffle(HR.horseNames).slice(0, count);
+		const names = [...HR.shuffle(HR.horseNames).slice(0, count)];
 		const horses = names.map((name, index) => HR.createHorse(name, index));
+		const bestScore = Math.max.apply(null, horses.map(horse => horse.formScore));
+
+		for (const horse of horses) {
+			const weakness = Math.max(0, bestScore - horse.formScore);
+			horse.odds = Number(HR.clamp(1.35 + weakness / 18 + HR.randFloat(0, 0.45), 1.35, 5.75).toFixed(2));
+		}
+
+		race.id = `hr-${Date.now()}-${HR.randInt(1000, 9999)}`;
+		race.phase = "betting";
+		race.trackId = HR.randInt(1, 2) === 1 ? "oval" : "cross";
+		const going = HR.getRaceGoing();
+		race.weatherName = going.weatherName;
+		race.condition = going.condition;
+		race.goingLabel = going.label;
+		race.goingDescription = going.description;
+		race.round = 0;
+		race.horses = horses;
+		race.messages = [];
+		race.messageHistory = [];
+		race.ranking = [];
+		race.selectedHorseId = "";
+		race.betHorseId = "";
+		race.betAmount = 0;
+		race.betInput = "";
+		race.payout = 0;
+		race.winnerId = "";
+		race.won = false;
+		race.paidOut = false;
+		race.trial = false;
+		race.autoWatch = false;
+		race.lastError = "";
+		race.lastNotice = "";
+
+		return race;
+	};
+
+	HR.creategirlRace = function (force) {
+		const race = HR.ensureState();
+		if (!force && race.phase !== "idle" && race.phase !== "finished") return race;
+
+		const count = HR.randInt(3, 3);
+		const names = [...HR.shuffle(HR.horseNames).slice(0, count), "Mint Mocha", V.playerhorsetitle];
+		const horses = names.map((name, index) => HR.creategirlHorse(name, index));
 		const bestScore = Math.max.apply(null, horses.map(horse => horse.formScore));
 
 		for (const horse of horses) {
@@ -743,6 +862,7 @@ setup.horserace = setup.horserace || {};
 		if (race.phase === "betting") race.phase = "running";
 		if (race.phase !== "running") return race;
 
+		HR.passRaceTime(2);
 		race.round += 1;
 		const stepMessages = [];
 
@@ -809,7 +929,7 @@ setup.horserace = setup.horserace || {};
 		const caption = root.querySelector(".horse-race-caption");
 		const track = HR.trackDefs[race.trackId] || HR.trackDefs.oval;
 		if (caption) {
-			caption.innerHTML = `<strong>${HR.escapeHtml(track.name)}</strong> — lap ${race.round}`;
+			caption.innerHTML = `<strong>${HR.escapeHtml(track.name)}</strong>`;
 		}
 
 		const markers = Array.from(root.querySelectorAll(".horse-race-marker"));
@@ -1041,7 +1161,7 @@ setup.horserace = setup.horserace || {};
 				<path class="horse-race-hidden-path" d="${HR.escapeHtml(track.path)}"></path>
 				${markers}
 			</svg>
-			<div class="horse-race-caption"><strong>${HR.escapeHtml(track.name)}</strong> — lap ${race.round}</div>
+			<div class="horse-race-caption"><strong>${HR.escapeHtml(track.name)}</strong></div>
 			${progressRows}
 		</div>`;
 	};
@@ -1082,7 +1202,7 @@ setup.horserace = setup.horserace || {};
 			: (race.messages.length > 0 ? race.messages : ["The crowd waits for the next move."])).slice(0, 3);
 		const items = messages.map(function (message) {
 			if (message && typeof message === "object" && message.type === "skill") {
-				const round = Number.isFinite(message.round) ? `<span class="horse-race-log-round">Lap ${message.round}</span> ` : "";
+				const round = Number.isFinite(message.round) ? `<span class="horse-race-log-round">Moment ${message.round}</span> ` : "";
 				return `<li class="horse-race-skill-log">${round}<span class="horse-race-skill-badge">${HR.escapeHtml(message.skillName || "Skill")}</span> <strong>${HR.escapeHtml(message.horseName || "Horse")}</strong>: ${HR.escapeHtml(message.text || "surges forward.")}</li>`;
 			}
 			return `<li>${HR.escapeHtml(message)}</li>`;
@@ -1114,7 +1234,15 @@ setup.horserace = setup.horserace || {};
 			} else {
 				celebration += `<p><strong><span style="color:#ff6b6b;">You lost.</span></strong> Your ${HR.formatMoney(race.betAmount)} bet does not return anything.</p>`;
 			}
-		}
+		} else {
+			if (HR.escapeHtml(winner.name) === V.playerhorsetitle) {
+				V.raceresult = "win";
+				celebration += `<p><strong><span style="color:#5fcf7b;">You won!</span></strong> You are sure something good will be coming.</p>`;
+			} else {
+				V.raceresult = "lose";
+				celebration += `<p><strong><span style="color:#ff6b6b;">You lost...</span></strong> You're sure there will be consequences...</p>`;
+			}
+			}
 
 		return `<div class="horse-race-result">
 			${celebration}

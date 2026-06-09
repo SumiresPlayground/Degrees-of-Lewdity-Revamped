@@ -1171,7 +1171,10 @@ Renderer.CanvasModels.main = {
 				else if (V.staticimages > 0) {
 					return `img/background/static/${V.static}.png`;}
 				else {
-					return `img/background/${V.location}.png`;}
+					if (Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon))
+						{return `img/background/${V.location}/bloodmoon.png`;}
+					else 
+						return `img/background/${V.location}/${Time.dayState}.png`;}
 			},
 		},
 		"foreground": {

@@ -537,6 +537,8 @@ Zohar
 				<<set $gwylan.timer.lastSeen to Time.date.timeStamp>>
 			<<case "Casey">>
 				<<set C.npc["Casey"].dom to 50>>
+			<<case "Mint Mocha">>
+				<<set C.npc["Mint Mocha"].dom to 40>>
 			<<case Sam>>
 				<<if $samSeen is undefined>>
 					<<set $samSeen to []>>
@@ -611,7 +613,7 @@ Zohar
 			<<case Pruti>><<set $NPCName[_i].outfits.pushUnique("moonRobe")>>
 			<<case Haegish>><<set $NPCName[_i].outfits.pushUnique("business")>>
 			<<case Ash>><<set $NPCName[_i].outfits.pushUnique("ridingFormal")>>
-			<<case Mint Mocha>><<set $NPCName[_i].outfits.pushUnique("maleSchool", "femaleSchool")>>
+			<<case "Mint Mocha">><<set $NPCName[_i].outfits.pushUnique("femaleSchool")>>
 			<<default>>
 				<!-- Maybe should be left as a default case for futureproofing?
 				Assigns area-appropriate clothes without saving them to the NPC.
@@ -2441,6 +2443,28 @@ Zohar
 				<span class="teal">enjoys your presence</span>.
 			<<else>>
 				is cautious around you.
+			<</if>>
+		<<case Ash>>
+			Ash
+			<<if $NPCName[_i].dom gte 30>>
+				<span class="pink">wants to claim you</span>.
+			<<elseif $NPCName[_i].love gte 75>>
+				<span class="green">thinks you are the perfect horse</span>.
+			<<elseif $NPCName[_i].love gte 50>>
+				<span class="teal">begrudingly likes your presence</span>.
+			<<else>>
+				needs you to win.
+			<</if>>
+		<<case "Mint Mocha">>
+			Mint Mocha
+			<<if $NPCName[_i].dom gte 25>>
+				<span class="pink">thinks you are lesser</span>.
+			<<elseif $NPCName[_i].love gte 75>>
+				<span class="green">thinks you are adorable</span>.
+			<<elseif $NPCName[_i].love gte 50>>
+				<span class="teal">finds you entertaining</span>.
+			<<else>>
+				is annoyed by your presence.
 			<</if>>
 		<!-- Default cases -->
 		<<default>>

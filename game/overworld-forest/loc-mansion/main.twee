@@ -56,9 +56,9 @@
 	<<set $lock to 1000>>
 	<<if $TaylorWith is 1>>
 		<<npc Taylor>><<person1>>
-		You and Taylor walk through the woods to an old decrepit mansion. The sign, old, faded, and covered with foliage reads Shade Street, Edwin Estate. 
+		You and Taylor walk through the woods to an old, decrepit mansion. Though covered in foliage and faded by age, a small plaque by the rusted gates tells you where you are. It reads, "Shade Street, Edwin Estate." 
 	<<else>>
-		You creep through the woods and arrive at an old decrepit mansion. The sign, old, faded, and covered with foliage reads Shade Street, Edwin Estate. 
+		You creep through the woods and arrive at an old, decrepit mansion. Though covered in foliage and faded by age, a small plaque by the rusted gates tells you where you are. It reads, "Shade Street, Edwin Estate." 
 	<</if>>
 	<<if $forestmansionpicked is 0>>
 		The front door is locked with a strange looking lock you haven't seen before.
@@ -80,7 +80,7 @@
 			<br>
 		<</if>>
 	<<else>>
-		The front door is unlocked and slightly ajar.
+		The front door of the mansion itself is unlocked and slightly ajar. There's no sign of life inside.
 		<br><br>
 
 		<<link [[Enter (0:05)|Forest Mansion Entrance]]>><<pass 5>><</link>>
@@ -155,7 +155,9 @@ You take some time fiddling with the lock before popping it open and opening the
 <</if>>
 
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 1>><<effects>>
-You find yourself in a large dusty entrance room. A coat rack sits to the side with an old looking coat and hat caked in years of dust and grime.
+You find yourself in the mansion's entryway. Dust blankets it in its entirety. A coat rack stands to the side, dressed in an old coat and a hat that is caked with years of grime.
+<br><br>
+On both your left and right loom hallways loaded with doors. Directly before you stands a staircase that leads upwards.
 <br><br>
 
 <<if $rng lte 50 and $eventskip is 0>>
@@ -165,7 +167,7 @@ You find yourself in a large dusty entrance room. A coat rack sits to the side w
 		"This place is still in quite remarkable condition for being as old as it is." Taylor remarks. 
 	<</if>>
 
-	There’s doors to the left and right as well as a staircase upwards.
+	There's doors to the left and right as well as a staircase upwards.
 	<br><br>
 
 	<<link [[Enter the left hallway (0:05)|Forest Mansion Left Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
@@ -198,7 +200,9 @@ You find yourself in a large dusty entrance room. A coat rack sits to the side w
 
 :: Forest Mansion Left Hallway
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 2>><<effects>>
-You find yourself in a long hallway with doors on either side.
+You stand in the mansion's left hallway. The floorboards groan beneath each step you take.
+<br><br>
+Of the many rooms lining the hall, two in particular catch your eye.
 <br><br>
 
 <<if $rng lte 50 and $eventskip is 0>>
@@ -221,7 +225,9 @@ You find yourself in a long hallway with doors on either side.
 <</if>>
 
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 3>><<effects>>
-You enter a small room full of cooking appliances and utensils from a different age. An old wood oven and ice box sit against the wall and silverware lines the counter tops. In the corner is a dust covered trapdoor leading down.
+You enter a small room chock-full of cooking appliances and utensils from a different age. Both an old wood oven and an ice box rest against the wall, and silverware lines the countertops. In the corner of the room lies a dust-covered trapdoor that leads downwards.
+<br><br>
+One of the windows is open.
 <br><br>
 
 <<if $rng lte 50 and $eventskip is 0>>
@@ -248,30 +254,29 @@ You enter a small room full of cooking appliances and utensils from a different 
 
 :: Forest Mansion Cellar
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 4>><<effects>>
-You step down a creaky old ladder to a damp and pitch black room. <<if $TaylorWith is 1>>Taylor switches on <<his>> electric torch and looks around the room.<<else>>You switch on your electric torch and look around the room.<</if>> There's dozens of old empty bottles with a few full of a red substance. 
-
+Dusting off the trapdoor, you crack it open and peer below. What peers back is an old ladder and an abyss of darkness. Despite the limited vision, you make your way down.
+<br><br>
+At the bottom is a damp, pitch-black room. Though your eyes adjust to the darkness, you can still only barely make out the details of your environment. There's dozens of old bottles, most of which are empty. The few that are not are full of a rich, red substance.
+<br><br>
+<<if $transformationParts.traits.sharpEyes isnot "default" and $TaylorWith isnot 1>>
+	<span class="red">With sharper eyes, you might find something of value down here.</span>
+	<br><br>
+<</if>>
 <<if $rng lte 50 and $eventskip is 0>>
 	<<forestmansionrandomevents>>
 <<else>>
-
-	<<if $forestmansionsleep is 1>>
-		You see a small stone that wasn’t there before lies on the floor.
-	<</if>>
-	<br><br>
-
 	<<if $TaylorWith is 1>>
-		"This must be the wine cellar. Our town used to pride itself on its high quality wine as a deluxe export. I can't believe some of this stuff still exists."
+		Taylor switches on <<his>> torch and looks around the room. "This must be the wine cellar. Our town used to pride itself on its high quality wine as a deluxe export. I can't believe some of this stuff still exists."
+		<<if $museumAntiques.antiques.antiqueliquor is "notFound">>
+			<<His>> torch glints off a bottle and <<he>> freezes. "Wait, is that a full bottle?! That is extraordinarily rare!"
+		<</if>>
+		<br><br>
 	<</if>>
 
-	<<if $museumAntiques.antiques.antiqueliquor is "notFound">>
+	<<if $museumAntiques.antiques.antiqueliquor is "notFound" and ($transformationParts.traits.sharpEyes is "default" or $transformationParts.dragon.eyes isnot "disabled" or $TaylorWith is 1)>>
 		<<link [[Take a bottle (0:02)|Forest Mansion Bottle Take]]>><<pass 2>><<museumAntiqueStatus "antiqueliquor" "found">><<set $antiquemoney += 5000>><</link>>
 		<br>
 		<<link [[Drink a bottle (0:02)|Forest Mansion Bottle Drink]]>><<pass 2>><<museumAntiqueStatus "antiqueliquor" "found">><<set $antiquemoney += 500>><<set $drunk += 480>><<set $hallucinogen += 80>><<npcincr Taylor love -1>><</link>> | <span class="red">+ + + + Alcohol</span> | <span class="red">+ + + Hallucinogen</span>
-		<br>
-	<</if>>
-
-	<<if $forestmansionrunestone is 0 and $forestmansionsleep is 1>>
-		<<link [[Pick up the stone|Forest Mansion Stone]]>><</link>>
 		<br>
 	<</if>>
 
@@ -368,7 +373,7 @@ You enter a messy room full of beds in various states of disarray. Many are unma
 <<else>>
 
 	<<if $TaylorWith is 1>>
-		“Wow the servants quarters seems to be a lot worse off than most of what we’ve seen. Servants must have been given a lot lower quality furniture. That or there was some kind of event that led to the room looking so... destroyed.” 
+		“Wow the servants quarters seems to be a lot worse off than most of what we've seen. Servants must have been given a lot lower quality furniture. That or there was some kind of event that led to the room looking so... destroyed.” 
 		<br><br>
 	<</if>>
 
@@ -377,7 +382,7 @@ You enter a messy room full of beds in various states of disarray. Many are unma
 
 :: Forest Mansion Study
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 8>><<effects>>
-You walk into a large room lined with bookshelves with a desk in the middle. This is where the master of the mansion would have read and worked. The books are all much older than the mansion and falling apart. You try to open one but it falls apart in your hands. Even on the scraps, the words are so faded you can’t read them.
+You walk into a large room lined with bookshelves with a desk in the middle. This is where the master of the mansion would have read and worked. The books are all much older than the mansion and falling apart. You try to open one but it falls apart in your hands. Even on the scraps, the words are so faded you can't read them.
 <br><br>
 
 <<if $rng lte 50 and $eventskip is 0>>
@@ -385,7 +390,7 @@ You walk into a large room lined with bookshelves with a desk in the middle. Thi
 <<else>>
 
 	<<if $TaylorWith is 1>>
-		“It’s a shame these books are so destroyed, they could have been something undocumented or important historical records.” Taylor looks upset. “I’ll take some anyway. Maybe I can find a way to restore them.”
+		“It's a shame these books are so destroyed, they could have been something undocumented or important historical records.” Taylor looks upset. “I'll take some anyway. Maybe I can find a way to restore them.”
 		<br><br>
 	<</if>>
 
@@ -418,7 +423,7 @@ You climb your way to the upper landing, careful to avoid the steps rotted by ti
 
 :: Forest Mansion Guest Suite
 <<set $outside to 0>><<set $location to "kylar_manor">><<set $forestmansionstage to 10>><<effects>>
-You find yourself in a nicely built and kept bedroom. The room looks almost unused lying under a thin blanket of dust. The bed is made and there’s clothes still in remarkable condition in the wardrobe.
+You find yourself in a nicely built and kept bedroom. The room looks almost unused lying under a thin blanket of dust. The bed is made and there's clothes still in remarkable condition in the wardrobe.
 <br><br>
 
 <<if $rng lte 50 and $eventskip is 0>>
@@ -444,7 +449,7 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 		<br><br>
 
 	<<if $TaylorWith is 1>>
-		“This is recent. Look, the bed and debris aren’t covered in dust like everything else. It looks like an earthquake came through but all the other rooms are fine so it can’t have been that. Besides that look at this door, the hinges are completely busted. Maybe those ghost stories were onto something, though it’s more likely that somebody trashed the room. Makes me sad how much people disrespect these old places” Taylor sighs as <<he>> starts jotting notes in <<his>> notebook.
+		“This is recent. Look, the bed and debris aren't covered in dust like everything else. It looks like an earthquake came through but all the other rooms are fine so it can't have been that. Besides that look at this door, the hinges are completely busted. Maybe those ghost stories were onto something, though it's more likely that somebody trashed the room. Makes me sad how much people disrespect these old places” Taylor sighs as <<he>> starts jotting notes in <<his>> notebook.
 		<br><br>
 	<</if>>
 
@@ -453,7 +458,7 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 		<br><br>
 
 		<<if $TaylorWith is 1>>
-			“Hmm I expected more of the master of the mansion’s suite. Do you think that painting is of him? He must have been pretty egotistical.”
+			“Hmm I expected more of the master of the mansion's suite. Do you think that painting is of him? He must have been pretty egotistical.”
 			<br><br>
 		<</if>>
 
@@ -519,7 +524,7 @@ You snuggle under the covers.
 		<<link [[Next|Forest Mansion Guest Suite]]>><</link>>
 	<</if>>
 <<else>>
-	You rest your head on the old mansion's pillow and drift off to sleep. You don’t get a very good rest, constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
+	You rest your head on the old mansion's pillow and drift off to sleep. You don't get a very good rest, constantly interrupted by chills before waking up. You sit up and stretch before getting out of the bed.
 	<br><br>
 	<<if $forestmansionstage is 11>>
 		<<link [[Next|Forest Mansion Master Suite]]>><</link>>
@@ -546,7 +551,7 @@ You snuggle under the covers.
 
 :: Forest Mansion Taylor Leave
 <<set $TaylorWith to 0>>
-“You want to leave already?” Taylor asks sadly, “Okay I guess if you’re not having a good time we can.” You walk together back to the town. “If you ever want to go to another location you know where to find me.” <<He>> says as <<he>> gives you a hug and heads home.
+“You want to leave already?” Taylor asks sadly, “Okay I guess if you're not having a good time we can.” You walk together back to the town. “If you ever want to go to another location you know where to find me.” <<He>> says as <<he>> gives you a hug and heads home.
 <br><br>
 <<endevent>>
 

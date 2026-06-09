@@ -145,7 +145,7 @@
 				<</if>>
 				<<set $stall_stats[_foodstuffKeys[_t]].inventory to {amount:$foodstuff[_foodstuffKeys[_t]].amount, price:_foodstuffValue, total:($foodstuff[_foodstuffKeys[_t]].amount * _foodstuffValue)}>>
 			<<else>>
-				<<set $stall_stats[_foodstuffKeys[_t]].inventory to {amount:0, price:Math.round(setup.foodstuff[_foodstuffKeys[_t]].shop.sell_price), total:0}>>
+				<<set $stall_stats[_foodstuffKeys[_t]].inventory to {amount:0, price:_foodstuffValue, total:($foodstuff[_foodstuffKeys[_t]].amount * _foodstuffValue), total:0}>>
 			<</if>>
 			<<set _total_sold_amount += $stall_stats[_foodstuffKeys[_t]].sold.amount>>
 		<</for>>

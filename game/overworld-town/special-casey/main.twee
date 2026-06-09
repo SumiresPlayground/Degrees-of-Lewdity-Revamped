@@ -8,7 +8,7 @@ You walk up to the <<personsimple>> and introduce yourself. <<He>> blows another
 
 :: Casey Again
 <<npc Casey>><<person1>>
-The <<personsimple>> blows another puff of smoke and takes a glance your way. “Didn’t I tell you to leave me alone? Look, I’m not looking for company, just scram.” You slide closer to <<him>> despite <<him>> trying to push you away. “Fine. If I tell you my name, will you leave me alone?” <<He>> doesn’t wait for an answer. “It’s Casey. Now can you leave?” <<He>> says as <<he>> turns you around and pushes you away.
+The <<personsimple>> blows another puff of smoke and takes a glance your way. “Didn't I tell you to leave me alone? Look, I'm not looking for company, just scram.” You slide closer to <<him>> despite <<him>> trying to push you away. “Fine. If I tell you my name, will you leave me alone?” <<He>> doesn't wait for an answer. “It's Casey. Now can you leave?” <<He>> says as <<he>> turns you around and pushes you away.
 <br><br>
 <<getouticon>><<link [[Leave|Connudatus Street]]>><<set $caseymet to 1>><<endevent>><</link>>
 
@@ -22,12 +22,12 @@ The <<personsimple>> blows another puff of smoke and takes a glance your way. �
         <<getouticon>><<link [[Leave|Connudatus Street]]>><<endevent>><</link>>
     <</addinlineevent>>
     <<addinlineevent "casey_convo_2">>>
-        “You’re really insistent you know that?” <<He>> shakes <<his>> head. “Can't I chill in peace?” You spend a while silently hanging around Casey.
+        “You're really insistent you know that?” <<He>> shakes <<his>> head. “Can't I chill in peace?” You spend a while silently hanging around Casey.
         <br><br>
         <<getouticon>><<link [[Leave|Connudatus Street]]>><<endevent>><</link>>
     <</addinlineevent>>
     <<addinlineevent "casey_convo_3">>
-        “Look I get you’re probably lonely and all, but it doesn't mean you have to hang out with me.” You spend a while silently hanging around Casey.
+        “Look I get you're probably lonely and all, but it doesn't mean you have to hang out with me.” You spend a while silently hanging around Casey.
         <br><br>
         <<getouticon>><<link [[Leave|Connudatus Street]]>><<endevent>><</link>>
     <</addinlineevent>>
@@ -306,14 +306,27 @@ You start scrounging through a scrap pile. You don't find anything of use, but C
     <<set C.npc.Casey.dom to 50>>
 <</if>>
 <<npc Casey>><<person1>>
-<<if $caseybaileyfight gt 0>>
-    You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from the market. The room is decorated in old posters, likely stuff that was thrown out <<he>> liked enough to keep. The room is falling apart a bit but that is expected with such a cheap lodging you suppose. Casey sits in <<his>> chair a towel filled with ice held to <<his>> bruised eye and body. It seems fighting off Bailey left quite the mark.
+You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from the market. The room is decorated in old posters, likely stuff that was thrown out <<he>> liked enough to keep. The room is falling apart a bit but that is expected with such a cheap lodging you suppose. 
+<br><br>
+<<if $caseybaileyfight gt 0 and (Time.hour gt 23 or Time.hour lte 6)>>
+    Casey is lying under a patchwork blanket in bed, <<he>> manages to wince in pain even in <<his>> sleep.
+<<elseif $caseybaileyfight gt 0>>
+    Casey sits in <<his>> chair a towel filled with ice held to <<his>> bruised eye and body. It seems fighting off Bailey left quite the mark.
+<<elseif Time.hour gte 23 or Time.hour lte 6>>
+    Casey is lying under a patchwork blanket in bed, you can hear light snores as <<he>> seems at peace. 
+<<elseif (Time.hour is 7 or Time.hour is 8) and $caseycook is 0>>
+    Casey moves around the small kitchen, preparing to make breakfast.
+<<elseif Time.dayState is "dawn">>
+    Casey sits in <<his>> chair with a cigar in <<his>> hand, staring a bit blankly.
 <<else>>
-    You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from the market. The room is decorated in old posters, likely stuff that was thrown out <<he>> liked enough to keep. The room is falling apart a bit but that is expected with such a cheap lodging you suppose. Casey sits in <<his>> chair with a cigar in <<his>> hand, staring a bit blankly. 
+    Casey is out of the house at the moment.
 <</if>>
 <br><br>
 <<if ($caseybaileyfight lt 1 or $caseybaileyfight is undefined)>>
-    <<if Time.dayState is "night">>
+    <<if (Time.hour is 7 or Time.hour is 8) and $caseycook is 0>>
+        <<link [[Offer to help (0:20)|Casey Kitchen]]>><<pass 20>><<set $caseycook to 1>><<npcincr Casey love 2>><<stress -5>><<endevent>><</link>><<glove>><<lstress>>
+    <</if>>
+    <<if Time.dayState is "night" and Time.hour lt 23>>
         <<if !$dailycaseydate and Time.isWeekEnd()>>
             <<link [[Ask on a date|Casey Date Talk]]>><<endevent>><</link>>
             <br>
@@ -324,6 +337,8 @@ You start scrounging through a scrap pile. You don't find anything of use, but C
             <<link [[Ask to borrow some money|Casey Money]]>><<npcincr Casey dom 2>><<endevent>><</link>><<ggpride>>
             <br>
         <</if>>
+        <<link [[Spend time together (0:20)|Casey Talk Home]]>><<npcincr Casey love 1>><<pass 20>><</link>><<glove>>
+        <br>
     <</if>>
 <<else>>
     <<link [[Offer to help <<him>> (0:30)|Casey Help]]>><<pass 30>><<npcincr Casey love 2>><<endevent>><</link>><<gglove>>
@@ -331,8 +346,6 @@ You start scrounging through a scrap pile. You don't find anything of use, but C
     <<link [[Hug (0:05)|Casey Hug Injured]]>><<pass 5>><<npcincr Casey love 1>><<endevent>><</link>><<glove>>
     <br>
 <</if>>
-    <<link [[Spend time together (0:20)|Casey Talk Home]]>><<pass 20>><</link>>
-    <br>
 <<if $caseystayover is 1>>
     <<bedicon>><<link [[Lay in the bed|Casey Bed]]>><<endevent>><</link>>
     <br>
@@ -377,7 +390,7 @@ You snuggle under the rough covers.
 <<set _autosavehere to true>>
 <<sleepeffects>><<sleep>><<effects>>
 
-You rest your head on Casey's cool pillow and drift off to sleep. You rest well, waking up hours later. You sit up and stretch before getting out of the bed.
+You rest your head on Casey’s cool pillows and drift off to sleep. You rest well, waking up hours later to Casey already gazing at you. “Morning, gorgeous.” <<He>> mumbles, <<his>> voice still thick with sleep. <<He>> sits up and rubs <<his>> eyes before kicking the covers off and sliding out of bed.
 <br><br>
 <<link [[Climb out of bed|Casey Flat]]>><</link>>
 
@@ -1049,3 +1062,21 @@ You and Casey spend some time together in <<his>> flat.
     <</addinlineevent>>
 <</if>>
 <<runeventpool>>
+
+:: Casey Kitchen
+<<npc Casey>><<person1>>
+You join Casey in the kitchen and offer to help cook. <<He>> tries to protest, but you insist, already moving to grab a few eggs. You make sure to ask Casey how <<he>> likes <<hers>> before cracking them into the pan. While you work on the eggs, Casey begins to fry a few links of sausage in a separate pan. 
+<br><br>
+The two of you make small talk as you cook, and it's not long until the food is ready. Casey fixes two plates and sets them both on a small, beaten-up table. “Come on, let's eat.” <<He>> pulls out one of the chairs for you and gestures for you to sit. “We can clean our mess after.”
+<br><br>
+Once you're both seated, you dig in. It's not a huge breakfast, but it fills your stomach nonetheless. 
+<br><br>
+<<link [[Clean up (0:10)|Casey Clean]]>><<pass 10>><<endevent>><</link>>
+
+:: Casey Clean
+<<npc Casey>><<person1>>
+After you're finished eating, you bring the plates to the sink and help Casey wash the dishes. 
+<br><br>
+“Thanks for all the help, sweetheart.” <<He>> says, caging you against the counter and leaning in for a kiss. When <<he>> pulls away, Casey rests <<his>> forehead against yours, taking a moment to stare into your eyes. <<He>> gives you one last peck on the lips and squeezes your hip before leaving to sit in <<his>> usual spot.
+<br><br>
+<<link [[Next|Casey Flat]]>><<endevent>><</link>>
