@@ -11,7 +11,7 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.10.9 New World 0.1.7.15",
+	version: "0.5.10.10 New World 0.1.7.15",
 	versionName: `"Lofts of Clothes" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,
