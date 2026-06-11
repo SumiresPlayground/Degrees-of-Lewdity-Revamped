@@ -33,43 +33,45 @@ You are at the local horse racing track. Grandstands surround a central track. A
 :: Horse Academy Entrance
 <<set $outside to 1>>
 You are at the entrance to the legally distinct horse racing academy. 
-<<if Time.daystate isnot "night">>
+<<if Time.daystate isnot "night" and $academygone isnot 1>>
 	Trainers and their horses can be seen training for upcoming races. They run the track at the front of the academy.
-<<else>>
+<<elseif $academygone isnot 1>>
 	The academy entrance is mostly empty. Seems nobody is out training so late.
+<<else>>
+	The racing season is over the academy is closed for good.
 <</if>>
 <br><br>
-<<if Time.daystate isnot "night" and $horseacademystudent is 1>>
+<<if Time.daystate isnot "night" and $horseacademystudent is 1 and $academygone isnot 1>>
 	You can see Ash leaning against the railing of the practice track, more looking into the distance than watching the other trainers.
 	<br>
 	<<link [[Approach Ash|Horse Academy Ash Talk]]>><</link>>
 	<br>
 <</if>>
-<<if $regionalrace lt 6 and $mintmochaintro isnot 1>>
-	You can see the horsegirl from the regional race talking to her friends near the stairs to the academy.
+<<if $regionalrace lt 6 and $mintmochaintro isnot 1 and $academygone isnot 1>>
+	You can see the horsegirl from the regional race, Mint Mocha, talking to her friends near the stairs to the academy.
 	<br>
 	<<link [[Properly introduce yourself|Horse Academy Mintro]]>><</link>>
 	<br>
-<<elseif $regionalrace lt 6>>
+<<elseif $regionalrace lt 6 and $academygone isnot 1>>
 	You can see Mint Mocha sitting alone on the steps near the entrance to the academy.
 	<br>
-	<<link [[Spend some time talking with her|Horse Academy Mint Talk]]>><</link>>
+	<<link [[Spend some time talking with her (0:30)|Horse Academy Mint Talk]]>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
 	<br>
 <</if>>
-<<if Time.daystate isnot "night" and $trainersearch is 1>>
+<<if Time.daystate isnot "night" and $trainersearch is 1 and $academygone isnot 1>>
 	In the main yard of the academy, you can see a trainer who appears slightly lost.
 	<br>
 	<<link [[Greet the trainer|Ash Meet]]>><</link>>
 	<br><br>
 <</if>>
-<<if Time.daystate isnot "night" or $horseacademystudent is 1>>
+<<if Time.daystate isnot "night" or $horseacademystudent is 1 and $academygone isnot 1>>
 	<<link [[Approach the school|Horse Academy]]>><</link>>
 	<br>
-<<else>>
+<<elseif $academygone isnot 1>>
 	<<oxfordicon>><<link [[Approach the school|Horse Academy Locked]]>><</link>>
 	<br>
 <</if>>
-<<if $horseacademystudent is 1>>
+<<if $horseacademystudent is 1 and $academygone isnot 1>>
 	<<link [[Walk toward the training track|Horse Academy Track]]>><</link>>
 	<br>
 <</if>>
@@ -152,7 +154,7 @@ The <<personsimple>> lunges toward you and pushes you to the floor, pulling out 
 	<<ejaculation>><<npcincr Ash dom 25>>
 	Ash hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
 	<br><br>
-	<<He>> lets go of your wrists and gets to <<his>> feet, a smug grin spread across <<his>> face. "Hope ya ain't too mad at me, darlin'." <<He>> chuckles. "Can't let a specimen like you get away now, can I?“<<stress 20>><<gstress>>
+	<<He>> lets go of your wrists and gets to <<his>> feet, a smug grin spread across <<his>> face. "Hope ya ain't too mad at me, darlin'." <<He>> chuckles. "Can't let a specimen like you get away now, can I?"<<stress 20>><<gstress>>
 	<br><br>
 	<<tearful>> you avoid <<his>> gaze as <<he>> ties you up and puts a bit gag in your mouth.
 	<br><br>
@@ -957,10 +959,10 @@ The board changes one last time while the bookie calls for final bets.
 <<npc Ash>><<person1>>
 You approach Ash and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
 <br><br>
-<<link [[Spend some time talking (0:30)|Ash Time Spend]]>><<pass 30>><<endevent>><</link>>
+<<link [[Spend some time talking (0:30)|Ash Time Spend]]>><<set C.npc.Ash.love += 1>><<pass 30>><<endevent>><</link>><<glove>>
 <br>
 <<if C.npc.Ash.love gte 80 or C.npc.Ash.dom gte 40>>
-	<<link [[Ask Ash for some special love|Ash Sex Time]]>><<set $sexstart to 1>><</link>>
+	<<link [[Ask Ash for some special love|Ash Sex Time]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><<set $sexstart to 1>><</link>><<gglove>><<gdom>>
 	<br>
 <</if>>
 <<getouticon>><<link [[Leave <<him>> alone|Horse Academy Entrance]]>><<endevent>><</link>>
@@ -1014,34 +1016,34 @@ Ash leads you out of the back rooms and back into the main room of the academy.
 <<cleareventpool>>
 <<if (C.npc.Ash.love gt 80)>>
     <<addinlineevent "ash_love1">>
-        “I must apologize for the way I have been treatin' ya lately.” Ash looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
+        "I must apologize for the way I have been treatin' ya lately." Ash looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "ash_love2">>
-        “Even though ya should be trainin', I admit I like spendin' time with ya.” Ash smirks. "Though, ya better still be trainin hard for the races."
+        "Even though ya should be trainin', I admit I like spendin' time with ya." Ash smirks. "Though, ya better still be trainin hard for the races."
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <<elseif (C.npc.Ash.love gt 40)>>
 	<<addinlineevent "ash_midlove1">>
-        “Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race.” Ash shakes <<his>> head with a smirk but lets you sit next to <<him>>.
+        "Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race." Ash shakes <<his>> head with a smirk but lets you sit next to <<him>>.
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "ash_midlove2">>
-        “Still not too sure about ya, sugar.” Ash shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
+        "Still not too sure about ya, sugar." Ash shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <<else>>
 	<<addinlineevent "ash_lowlove1">>
-        “Ya wantin' to spend time with me?” Ash looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Ash.
+        "Ya wantin' to spend time with me?" Ash looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Ash.
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "ash_lowlove2">>
-        “Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else.” Ash looks annoyed by your lack of effort.
+        "Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else." Ash looks annoyed by your lack of effort.
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
@@ -1117,37 +1119,295 @@ The board changes one last time while the bookie calls for final bets.
 
 :: Post Race Mocha
 <<npc "Mint Mocha">><<person1>>
-<<if $raceresult is "win">>
-	As you take a deep breath, soaking in your victory, you once again hear the sound of loud footsteps pounding toward you. It's the same horsegirl from before. She frowns, putting her hands to her hips in anger. "How dare you, you... you... rookie loser! How dare you come in here and make me look bad!"
-	<br><br>
-	She is visibly fuming with anger. "I can hardly stand looking at you! I'm going to train hard and beat you next time, you got that!" She pouts tossing her twintails over her shoulder with frustration before walking away.
-	<br><br>
-	The crowd parts as you watch the green-haired horsegirl storm off. Without warning, Ash taps your shoulder from behind, catching you by surprise.
-	<br><br>
-	<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
-<<else>>
-	You breath heavily. How could you have lost... The crowd parts as someone barges through. It's the same horsegirl from before. She scoffs, putting her hands to her hips with a cocky and confident smile. "Well, how about that. Looks like you really are the loser I thought you were."
-	<br><br>
-	She lets out a cocky laugh, covering her mouth with her hand. "To think I was actually worried! You're so pathetic." She continues to laugh and lets out a snort as she walks away.
-	<br><br>
-	As you watch the greenhaired horsegirl leave, you catch sight of Ash watching you with an upset look.
-	<br><br>
-	<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+<<if $regionalrace is 5>>
+	<<if $raceresult is "win">>
+		As you take a deep breath, letting your first victory settle in, you hear a familiar set of loud footsteps pounding toward you once more.
+		<br><br>
+		It's the same horsegirl from before, the one the announcers called "Mint Mocha". She stops in front of you with a deep frown, stomping her foot in anger.
+		<br><br>
+		"H-How dare you!" she blurts out, pointing a finger your way. "How dare you come in here and make me look bad?!"
+		<br><br>
+		Her expression twists with frustration. "You… you… rookie loser!"
+		<br><br>
+		Mint Mocha glares at you, visibly fuming. "God! I can hardly stand looking at you!"
+		<br><br>
+		She huffs and lifts her chin. "Listen up! I'm gonna train harder and beat you next time!"
+		<br><br>
+		A beat of silence passes before she adds, quieter now, like she needs the last word. "You got that?"
+		<br><br>
+		With one last pout, she tosses her twintails over her shoulder and turns away, frustration written all over her face.
+		<br><br>
+		The crowd parts as Mint Mocha storms off.
+		<br><br>
+		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
+		<br>
+		As you turn around, you're greeted by Ash's smirking face.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+	<<else>>
+		You breath heavily. How could you have lost... The crowd parts as someone barges through. It's the same horsegirl from before, the one the announcers called Mint Mocha.
+		<br><br>
+		She scoffs, putting her hands to her hips with a cocky and confident smile. "Well, how about that. Looks like you really are the loser I thought you were."
+		<br><br>
+		She lets out a cocky laugh, covering her mouth with her hand. "To think I was actually worried! You're so pathetic." She continues to laugh and lets out a snort as she walks away.
+		<br><br>
+		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+	<</if>>
+<<elseif $regionalrace is 4>>
+	<<if $raceresult is "win">>
+		As you catch your breath after crossing the finish line a second time, the familiar rhythm of hurried footsteps echoes behind you. You turn just in time to see Mint Mocha skid to a halt before you, her usual bounce replaced by rigid tension. Her twintails shake slightly as she stares at the dirt, lips pressed into a pale line.
+		<br><br>
+		"Heh..." A humorless sound escapes her. "How could this..." Her voice starts low but cracks on the last word. She finally lifts her eyes—red-rimmed and blazing—and jabs a finger at your chest. "How is this possible?! You're nothing! Just some clueless outsider who stumbled in here!"
+		<br><br>
+		Her breath hitches, frustration warping into something sharper. "Do you even care what this does to me? I'm the promise of this region! The one they talk about! And you... you just waltz in and canter over my dreams like they're nothing!"
+		<br><br>
+		A tear tracks through the dust on her cheek, but she scrubs it away furiously with her sleeve. "You think this is funny? Some kind of game? Well, listen up." She straightens, voice dropping to a fierce whisper that cuts through the crowd's murmurs. "Next time… I won't just beat you. I'll make sure you never forget this feeling."
+		<br><br>
+		For a second, her gaze drops—not in defeat, but in brutal focus—as she mugs the words like a vow. "You got that?"
+		<br><br>
+		Without waiting for an answer, she spins. Her twintails whip sharply as she stalks away, each step precise and tight with fury. The crowd parts silently, sensing the storm in her wake. She doesn't look back, but the set of her shoulders says everything: this isn't over. It's only just begun.
+		<br><br>
+		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
+		<br>
+		As you turn around, you're greeted by Ash's smirking face.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+	<<else>>
+		You breathe heavily, adrenaline still humming in your veins. The crowd parts as someone shoves through the throng. It's Mint Mocha.
+		<br><br>
+		She plants her hands on her hips, a grin splitting her face. "Well, look at that. I knew I could do it."
+		<br><br>
+		She lets out a sharp laugh, covering her mouth with the back of her hand. "To think I ever doubted myself. You tried, but you're still trailing behind."
+		<br><br>
+		She watches you for a moment, the confidence in her stance unwavering, then tosses her twintails over her shoulder and strides away, the echo of her boots fading into the noise of the cheering spectators.
+		<br><br>
+		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+	<</if>>
+<<elseif $regionalrace is 3>>
+	<<if $raceresult is "win">>
+		When you cross the finish line a third time, the roar of the crowd swells, but a sharp, furious intake of breath cuts through the noise from the rail.
+		<br><br>
+		She's there, green hair slightly frizzed, eyes narrowed with a glint of anger. For a moment she simply stares, jaw clenched, as if trying to will the result away with sheer force of will. Then her shoulders slump, the tightness in her frame giving way to a tremor that runs from her fists to the tips of her twintails.
+		<br><br>
+		"This is just... unbelievable," she spits, voice low but edged with something that borders on desperation. "How… how can you keep doing this? Every time I think I've got it, you're there... smug, steady, untouchable." A bitter laugh escapes her, hollow and short. "I trained until my legs gave out. I studied every stride, every turn, every breath. And you… you just… win."
+		<br><br>
+		Her gaze drops to the dirt, then snaps back up, blazing with a mix of shame and fury. "You think this is a joke? Some lucky streak? Well, listenup. Next time I won't just catch up. I'll leave you so far behind you'll wonder if you even raced at all." She lifts her chin, the defiance visible in her jaw unmistakable, though the tremor in her voice betrays the crack forming in her usual bravado.
+		<br><br>
+		For a moment she seems to size you up, searching for any sign of weakness, any opening to exploit. Finding none, she turns on her heel, her boots kicking up a spray of sand as she stalks away. The crowd parts silently, sensing the storm trailing in her wake. She doesn't look back.
+		<br><br>
+		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
+		<br>
+		As you turn around, you're greeted by Ash's smirking face.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+	<<else>>
+		You breathe heavily, adrenaline still humming in your veins. The crowd parts as someone shoves through the throng. It's Mint Mocha.
+		<br><br>
+		"Did you really think you could keep up?" she calls, voice cutting through the remaining noise. She rocks back on her heels, arms crossed, and lets out a short, triumphant laugh that sounds almost like a bell. "Looks like you finally got a taste of what it feels like to be left behind."
+		<br><br>
+		She steps closer, the dirt kicking up around her boots, and points a finger at your chest. "You had your chance, and you blew it. Next time I won't just edge past you. I'll leave you choking on my dust." Her tone is half mockery, half challenge, the fire in her gaze steady despite the sweat dripping from her forehead.
+		<br><br>
+		She pauses, chest heaving, and for a flicker of a second the bravado wavers, replaced by something raw, maybe relief, maybe the weight of all those early mornings finally paying off. Then she straightens, tosses her hair over one shoulder, and turns away, each step purposeful. The spectators part as she strides toward the stables.
+		<br><br>
+		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+	<</if>>
+<<elseif $regionalrace is 2>>
+	<<if $raceresult is "win">>
+		As you pant, winning the fourth regional race. She's there, green hair whipping in the wind, eyes blazing with a mixture of disbelief and raw irritation. For a breathless moment she stands frozen, fists clenched at her sides, as if trying to will the outcome away with sheer force of will. Then her shoulders jerk forward, a tremor rippling through her frame.
+		<br><br>
+		"How many more laps do I have to run before you finally slip?" A harsh, humorless laugh bubbles up, quickly swallowed by the tightening of her jaw. "I've pushed myself until my lungs burned, studied each turn until I could run them blind, and yet you're still there!"
+		<br><br>
+		"You think this is skill? Some ability? Well, hear this! Next time I won't just close the gap. I'll blast past you so hard you'll wonder if you ever even left the gate." She freezes for a moment, obviously quelling the emotions building up inside her. Blinking back tears, she turns on her heeland runs through the crowd. The onlookers parts silently, sensing the storm trailing in her wake. She doesn't look back.
+		<br><br>
+		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
+		<br><br>
+		As you turn around, you're greeted by Ash's smirking face.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+	<<else>>
+		She bursts across the finish line, mane flying, heart pounding.
+		<br><br>
+		She slows to a trot, chest heaving, eyes gleaming with fierce triumph. "I told you I'd get it this time." She lets out a short, breathless laugh, wiping sweat from her brow.
+		<br><br>
+		She glances toward the rail where you stand, a daring grin forming. "You had your chance. Next time I'll make sure you're eating my dust." She tosses her twintails over her shoulder, the movement sharp and confident.
+		<br><br>
+		Without another word, she strides toward the stables, the crowd parting as she passes, each step echoing her determination.
+		<br><br>
+		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+	<</if>>
+<<elseif $regionalrace is 1>>
+	<<if $raceresult is "win">>
+		As you breath, coming down from your victory you can see Mint Mocha in the distance breathing heavily.
+		<br><br>
+		She leans against the rail, chest heaving as the last echo of footsteps fades. Her green hair sticks to her forehead with sweat, and her eyes dart to the dirt. A shudder runs through her shoulders, and she clutches the fabric of her uniform tightly.
+		<br><br>
+		"I lost… I thought I finally had it this time," she murmurs, voice cracking. Each word feels like a weight she can barely lift. She swallows hard, trying to push back the sting behind her eyes, but a thin stream of moisture slips down her cheek.
+		<br><br>
+		She stares at her own hands, trembling slightly, and whispers, "What if I'm just… not enough?" The question hangs in the air, louder than the distant chatter of the crowd. She watches the other riders celebrate, their laughter a sharp contrast to the hollow thump in her own chest.
+		<br><br>
+		A deep breath shudders out of her, and for a moment she seems to collapse inward, shoulders drooping as if the weight of every missed turn, every frustrated training session, has settled on her spine. She blinks rapidly, trying to steady herself, but doubt flickers obviously in her eyes.
+		<br><br>
+		She forces a shaky smile, more a grimace than anything, and tells herself, "I'll try again." Yet the words sound hollow even to her own ears, and she can feel the familiar tug of fear whispering that maybe this time she won't find the strength to get back up.
+		<br><br>
+		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
+		<br><br>
+		As you turn around, you're greeted by Ash's smirking face.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+	<<else>>
+		She glances your way, eyes bright, and lets out a short laugh that breaks the tense air. "Did you really think I'd let you slip by again? Not today."
+		<br><br>
+		She taps her boot against the dirt, the motion sharp and sure. "All those early mornings, the endless laps, they finally paid off." She wipes sweat from her brow, the gesture fierce.
+		<br><br>
+		"Next time you'll have to bring something better if you hope to stay ahead." She tosses her twintails over her shoulder, the move quick and confident. With a determined stride she heads toward the stables, the crowd parting as she passes, each step echoing her resolve.
+		<br><br>
+		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+	<</if>>
+<<elseif $regionalrace is 0>>
+	<<if $raceresult is "win">>
+		The final stretch of the track blurs beneath the pounding hooves as the crowd's roar swells to a fever pitch. You cross the line just ahead of the pack, the victor's banner fluttering above you. A moment later, Mint Mocha skids to a halt a few lengths behind, her chest heaving and her eyes locked on the fading dust where your horse's hooves have disappeared.
+		<br><br>
+		Her breath comes in short, ragged gasps, and the usual sparkle in her gaze has dimmed to a dull, frustrated sheen. She grips her uniform so tightly her knuckles whiten, then lets them slacken as if the tension has drained all strength from her arms.
+		<br><br>
+		"How…?" she whispers, the word barely audible over the lingering cheers. Her voice cracks, and a single tear tracks through the sweat on her cheek before she roughly swipes it away with the back of her hand. She stares at the finish line, at the ribbon that now bears your name, and a bitter laugh escapes her, short, hollow, and edged with despair. 
+		<br><br>
+		"I thought… I thought after all those early mornings, after pushing my legs until they shook, after studying every turn until I could ride them blind… I thought I'd finally have it." Her shoulders slump, and she leans forward, forehead resting against the cool metal of the gate, as if trying to steady herself against an unseen wave.
+		<br><br>
+		A choked sob rises in her throat, and she presses her palms to her eyes, trying to stem the flood. "What am I doing wrong?" she asks the empty air, her voice trembling. "Every time I get close, you just… you're there, steady as a rock, and I keep falling short." The frustration in her tone is palpable, a mix of shame and a fierce, stubborn determination that refuses to break completely.
+		<br><br>
+		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
+		<br><br>
+		As you turn around, you're greeted by Ash's smirking face.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+	<<else>>
+		Mint Mocha bolts across the finish line, her hooves kicking up a spray of dust as the crowd erupts. She slows to a proud trot, chest heaming, eyes shining with triumph.
+		<br><br>
+		She fixes you with a fierce grin, sweat glistening on her forehead. "You really thought you had this one in the bag, didn't you?" She lets out a short, breathless laugh, the sound edged with both pride and challenge.
+		<br><br>
+		"Every early dawn, every lap I forced myself through… I finally got it." She wipes a strand of green hair from her face, the gesture sharp. "Next time you'll have to bring something more than hopes and dreams if you hope to stay ahead."
+		<br><br>
+		Without another word, she tosses her twintails over her shoulder and strides toward the stables, the spectators parting as she passes. The echo of her boots fades, leaving you staring at the empty track, the sting of loss overwhelms you.
+		<br><br>
+		As you sit, your heart sore from the pain of failure, you catch sight of Ash watching you with an upset look.
+		<br><br>
+		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+	<</if>>
+<</if>>
+
+:: Post Race Ash
+<<npc Ash>><<person1>>
+<<if $regionalrace is 5>>
+	<<if $raceresult is "win">>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+	<<else>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+	<</if>>
+<<elseif $regionalrace is 4>>
+	<<if $raceresult is "win">>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+	<<else>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+	<</if>>
+<<elseif $regionalrace is 3>>
+	<<if $raceresult is "win">>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+	<<else>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+	<</if>>
+<<elseif $regionalrace is 2>>
+	<<if $raceresult is "win">>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+	<<else>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+	<</if>>
+<<elseif $regionalrace is 1>>
+	<<if $raceresult is "win">>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+	<<else>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+	<</if>>
+<<elseif $regionalrace is 0>>
+	<<if $raceresult is "win">>
+		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+	<<else>>
+		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+	<</if>>
 <</if>>
 
 :: Horse Academy Mintro
 <<npc "Mint Mocha">><<person1>>
-As you approach, the horsegirl looks to you with the look one would give an ugly insect. "Oh it's you again. Ignore <<pher>> girls, she's just a little annoyance."
+As you approach, the horsegirl, Mint Mocha, looks to you with the look one would give an ugly insect. "Oh it's you again. Ignore <<pher>> girls, she's just a little annoyance."
 <br><br>
 The girls laugh but you don't leave. "What's wrong with you? Can't you see we have better things to do than spend time with a loser?" 
 <br><br>
-After a moment of silence, you still do not leave, ruining the girl's mood. One of them, a tall horsegirl with blonde hair looks over and says, "Sorry Mint, this <<girl>> is making us a little uncomfortable." The other girls head inside the academy, leaving just you and the girl they called Mint.
+After a moment of silence, you still do not leave, ruining the girl's mood. One of them, a tall horsegirl with blonde hair looks over and says, "Sorry Mint, this <<girl>> is making us a little uncomfortable." The other girls head inside the academy, leaving just you and the girl they called Mint. "Ugh you ruined everything. Can't you just leave me alone?" 
 <br><br>
-"Ugh you ruined everything. Can't you just leave me alone?" 
-<br><br>
-You ignore her and introduce yourself and she turns to face you annoyed. "Did you not hear me? I didn't realize you were deaf as well as stupid. Whatever." She huffs. "My name's Mint Mocha. Remember that when I beat you next race."
+You ignore her provocation and introduce yourself and she turns to face you annoyed. "Did you not hear me? I didn't realize you were deaf as well as stupid. Whatever." She huffs. "My name's Mint Mocha. Remember that when I beat you next race."
 <br><br>
 <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
 
 :: Horse Academy Mint Talk
 <<npc "Mint Mocha">><<person1>>
+You approach and attempt a conversation with Mint Mocha.
+<br><br>
+<<cleareventpool>>
+<<if C.npc["Mint Mocha"].dom gt (C.npc["Mint Mocha"].love / 2)>>
+    <<addinlineevent "mintdom1">>
+        "Seriously, thanks to you all of my friends find it awkward to be around." Mint looks annoyed. "You're like social napalm, freak." Despite the harsh tone, you spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "mintdom2">>
+        "What part of leave me alone do you not understand? You're getting in the way of my training time." Mint huffs in frustration trying to ignore you. Despite the harsh tone, you spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<<else>>
+	<<addinlineevent "mintlove1">>
+        "I'll admit, there are some... upsides to knowing you." Mint blushes slightly but turns away. "That is to say, you help push me to grow stronger. Don't misunderstand." Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "mintlove2">>
+        "Just because I respect you doesn't mean I'll go easy on you!" Mint huffs with a slight pink tone in her cheeks. "I'll still train super hard and beat you in the next race!" Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<</if>>
+<<runeventpool>>
+
+:: Horse Academy Closing
+<<npc Ash>><<person1>>
+<<if $raceresult is "win">>
+	As you and Ash arrive back at the academy, you can see trainers packing bags and people saying their farewells. Ash turns to you with a soft expression, "Well, it's seemin' like that's the end of our time together at the academy 'ere. I let ya go, if that's what ya want. But... since ya done so much for me, I would welcome ya visit to my farmstead sometime." <<He>> gives a rare shy smile as <<he>> pulls you in for a kiss. <<takeKissVirginity "Ash" "romantic">>
+	<br><br>
+	<<set $ashromance to 1>>
+	<<if $loveInterest.primary is "None">>
+        <<set $loveInterest.primary to "Ash">>
+        <span class = "gold">Ash is now your love interest! The thought makes you feel warm.</span>
+        <br><br>
+    <<else>>
+        <span class = "gold">Ash can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
+        <br><br>
+    <</if>>
+	<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
+	<br><br>
+	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
+<<else>>
+	As you and Ash arrive back at the academy, you can see trainers packing bags and people saying their farewells. Ash turns to you with a defeated expression you're not sure you've seen from <<him>> before, "Well, I guess this is the end. Even if ya lost, I appreciate what ya tried to do. I guess that my dreamin' was just too big. My train'll be comin' soon so... I suppose this is goodbye." <<He>> hangs his head in defeat and disappears over the horizon.
+	<br><br>
+	<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
+	<br><br>
+	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<set $ashgone to 1>><<endevent>><</link>>
+<</if>>

@@ -999,6 +999,11 @@ function dayPassed() {
 
 	if (V.salempunishment >  0) {V.salempunishment -= 1;}
 
+	if (V.academycloser >  0) {V.academygone = 1;}
+
+	V.dailyashbreakfast = 0;
+	V.dailyashdinner = 0;
+
 	V.fungalstagelimiter = 0;
 	V.fungalclotheslimiter = 1;
 

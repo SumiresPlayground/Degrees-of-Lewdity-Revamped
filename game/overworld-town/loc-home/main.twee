@@ -219,7 +219,28 @@ You are in your bedroom.
 
 There is a thermometer outside your window. It reads <span class="teal"><<print Weather.toSelectedString(Weather.temperature, 0)>></span>.
 <<print setup.WeatherDescriptions.extremeTemperature()>>
-<br><br>
+<br>
+
+<<if V.furniture.bedroom.windowsill isnot undefined>>
+	<<if V.furniture.bedroom.windowsill.id is "sewingmachine">>
+		<br>
+		You can spend some time on your sewing machine to fully repair your clothing.
+		<br>
+		<<link [[Use sewing machine (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<rng>><<if $rng lte 20>><<transform spider 1>><</if>><</link>>
+		<br>
+	<<elseif $transformationParts.spider.tail isnot "disabled">>
+		<br>
+		You can spend some time using silk from your tail to fully repair your clothing.
+		<br>
+		<<link [[Begin sewing (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<transform spider 1>><</link>>
+		<br>
+	<</if>>
+<</if>>
+<<if $worn.lower.integrity gt 1 or $worn.upper.integrity gt 1 or $worn.under_lower.integrity gt 1 or $worn.under_upper.integrity gt 1>>
+	<<link [[Tear clothes slightly (0:10)|Clothes Tear]]>><<pass 10>><<set $worn.lower.integrity -= 20>><<set $worn.upper.integrity -= 20>><<set $worn.under_upper.integrity -= 20>><<set $worn.under_lower.integrity -= 20>><</link>>
+	<br>
+<</if>>
+<br>
 
 /* Bed */
 Your bed takes up most of the room.
@@ -4809,3 +4830,12 @@ The girl nods, and produces a wooden rod. "You're off to the park! Stay safe." S
 <<link [[Next|Whitney Home Intro 3]]>><<npc Whitney>><<person1>><</link>>
 <br>
 
+:: Clothes Repair
+You get to work, carefully sewing your clothes torn seams back together. It takes a lot of time and effort but by the time you are done, they are almost as good as new!
+<br><br>
+<<link [[Next|Bedroom]]>><</link>>
+
+:: Clothes Tear
+You grab a knife from the counter and begin to slice away at the threads of your clothing. After a few minutes of cutting, fabric falls and your clothes look a little more worn.
+<br><br>
+<<link [[Next|Bedroom]]>><</link>>

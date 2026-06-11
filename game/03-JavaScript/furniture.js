@@ -343,6 +343,15 @@ const Furniture = (() => {
 			handheld: "no pillow",
 			iconFile: "no-pillow",
 		});
+		mapper.set("sewingmachine", {
+			name: "sewing machine",
+			nameCap: "Sewing machine",
+			category: ["windowsill"],
+			type: [],
+			cost: 2000,
+			description: "For repairing damaged clothing. Can be put on your windowsill.",
+			iconFile: "sewing",
+		});
 
 		/* ------------- DECORATIONS ------------- */
 		mapper.set("calendar", {

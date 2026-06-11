@@ -258,8 +258,11 @@ Tulips grow in great patches near the riverbank.
 			<<elseif $exposed is 0>>
 				<<runicon>><<link [[Go for a run (0:30)|Park Run]]>><<if $rng gt 90>><<transform horse 1>><</if>><<athletics 4>><<pass 30>><<tiredness 3>><<stress -3>><<slimeEventEnd "running">><</link>><<gtiredness>><<gathletics>><<lstress>>
 				<br>
-				<<link [[Observe the dogs being walked (0:30)|MDog Walk]]>><<transform dog 1>><<stress -3>><<pass 30>><<endevent>><</link>><<lstress>>
-				<br>
+				<<rng>>
+				<<if $rng lte 30>>
+					<<link [[Observe the dogs being walked (0:30)|MDog Walk]]>><<transform dog 1>><<stress -3>><<pass 30>><<endevent>><</link>><<lstress>>
+					<br>
+				<</if>>
 			<</if>>
 		<</if>>
 		<<if (Weather.precipitation is "none" or $worn.handheld.type.includes("rainproof"))>>

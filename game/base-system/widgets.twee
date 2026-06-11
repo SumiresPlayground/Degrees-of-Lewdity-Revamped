@@ -454,6 +454,7 @@
 <</widget>>
 
 <<widget "crimeUp">><<silently>>
+	<<rng>><<if $rng lte 20>><<transform raccoon 1>><</if>>
 	<<if $statFreeze isnot true>>
 		<<if _args[0] eq null>>
 			<<set _crimeError to `No input found for crimeUp widget!`>>
@@ -806,6 +807,13 @@
 		<span class="gold"> You've become more confident at swimming.</span>
 		<<set $swimmingskill += 9>>
 		<<set $swimmingskill to Math.clamp($swimmingskill, 0, 1000)>>
+	<</if>>
+	<<if Weather.precipitation is "rain" and $location is "lake">>
+		<<rng>><<if $rng lte 10>><<transform frog 1>><</if>>
+	<<elseif $location is "lake">>
+		<<rng>><<if $rng lte 10>><<transform fish 1>><</if>>
+	<<else>>
+		<<rng>><<if $rng lte 10>><<transform dolphin 1>><</if>>
 	<</if>>
 <</widget>>
 

@@ -331,6 +331,7 @@
 		<</if>>
 		<<addevent "forestwolf" 0.33>>
 		<<addevent "forestbear" 0.15>>
+		<<addevent "forestbearobserve" 0.15>>
 		<<addevent "forestdragon" 0.05>>
 		<<addevent "forestrock" 0.25>>
 		<<addinlineevent "forest_clothingdamage">>
@@ -404,6 +405,7 @@
 		<</if>>
 		<<addevent "forestraccoon">>
 		<<addevent "forestbear">>
+		<<addevent "forestbearobserve">>
 		<<addevent "forestdragon">>
 		<<if $settings.tentaclesEnabled and $settings.voreEnabled and ($hallucinations gte 2 or $backgroundTraits.includes("plantlover"))>>
 			<<addinlineevent "deepforest_slimecontrol">>
@@ -3177,5 +3179,27 @@
 	<<else>>
 	<<link [[Ignore them|Forest]]>><<endevent>><<set $eventskip to 1>><</link>>
 	<br>
+	<</if>>
+<</widget>>
+
+<<widget "forestbearobserve">>
+	You catch sight of a bear by a stream downhill.
+	<br><br>
+
+	<<beastNEWinit 1 bear>>
+	<<if $foresthunt gte 1>>
+		You feel whatever's hunting you draw closer.
+		<br><br>
+	<</if>>
+
+	<<link [[Observe from cover (0:30)|Forest]]>><<endevent>><<transform bear 1>><<pass 30>><<if $foresthunt gte 1>><<set $foresthunt += 2>><</if>><<set $eventskip to 1>><</link>>
+	<br>
+	<!-- Modified for Monster People -->
+	<<if random(1, 5) is 5 and ($settings.bestialityEnabled or $monster is 1)>>
+		<<link [[Ignore them|Forest Bear Molestation]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		<<link [[Ignore them|Forest]]>><<endevent>><<set $eventskip to 1>><</link>>
+		<br>
 	<</if>>
 <</widget>>

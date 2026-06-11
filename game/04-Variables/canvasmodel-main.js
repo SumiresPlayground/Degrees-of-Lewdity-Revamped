@@ -1128,14 +1128,18 @@ Renderer.CanvasModels.main = {
 							if (V.npc.length > 0)
 								if (V.npc.length > 1)
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
+									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
 									else
-										return `img/npc/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}.png`;}
 								else
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.npc[0]}/${V.pronoun}/monster.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/monster.png`;
+									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
 									else
-										return `img/npc/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
 			},
 		},
 		"npcpresentfront": {
@@ -1152,14 +1156,18 @@ Renderer.CanvasModels.main = {
 							if (V.npc.length > 0)
 								if (V.npc.length > 1)
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
+									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
 									else
-										return `img/npc/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}.png`;}
 								else
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.npc[0]}/${V.pronoun}/monster.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/monster.png`;
+									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
 									else
-										return `img/npc/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
 			},
 		},
 		"background": {

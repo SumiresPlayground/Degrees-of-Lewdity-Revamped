@@ -91,6 +91,11 @@ You are in the farmlands.
 		<</link>>
 		<br>
 	<</if>>
+	<<if $academygone is 1 and $ashgone isnot 1 and $ashfarmintro isnot 1>>
+		<<farmicon "barn">><<link [[Ash's Farmstead (0:05)|Ash Farmstead Intro]]>><<set $ashfarmintro to 1>><<pass 5>><</link>>
+	<<elseif $academygone is 1 and $ashgone isnot 1>>
+		<<farmicon "barn">><<link [[Ash's Farmstead (0:05)|Ash Farmstead]]>><<pass 5>><</link>>
+	<</if>>
 	<<if $exposed lte 0>>
 		<<if Weather.precipitation === "rain" or Weather.precipitation === "snow" or Time.dayState is "night">>
 			The food stand is closed.

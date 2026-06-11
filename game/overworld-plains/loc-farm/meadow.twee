@@ -59,6 +59,10 @@ You are in a meadow ringed by tall trees. Long grass caresses your legs. A solit
 		<<link [[Ignore|Meadow]]>><</link>>
 	<</if>>
 <<else>>
+	<<rng>>
+	<<if $rng lte 30>>
+		<<relaxicon>><<link [[Watch the sheep (0:30)|Meadow Sheep Watch]]>><<stress -6>><</link>><<lstress>>
+	<</if>>
 	<<relaxicon>><<link [[Relax (1:00)|Meadow Relax]]>><<stress -6>><</link>><<lstress>>
 	<br>
 	<<if $worn.upper.exposed gte 1 and $worn.upper.name isnot "plant top" and !$worn.under_upper.type.includes("torso_covering")>>
@@ -180,12 +184,13 @@ You search for plants long and sturdy enough to build an improvised garment. You
 		<br>
 	<</if>>
 <<elseif $rng gte 60>>
+	<<transform sheep 1>>
 	<<beastNEWinit 1 sheep>>
 	You feel a slight nudge awaken you from your moment of rest. <<ltiredness>><<tiredness -6>>
 	<br><br>
 	A soft and woolly <<beasttype>> has laid down atop you while you slept. It's warmth feels nice, radiating a soothing feeling through you. <<lstress>><<stress -50>>
 	<<if $monster is 1>>
-		“Oh, sorry. Did I wake you? You looked cold, so I came closer.” <<bHe>> nuzzles against you, <<bhis>> warmth so soothing you feel your body relax further. <<bHe>> holds you close and whispers “I want to mate with you.”
+		"Oh, sorry. Did I wake you? You looked cold, so I came closer." <<bHe>> nuzzles against you, <<bhis>> warmth so soothing you feel your body relax further. <<bHe>> holds you close and whispers "I want to mate with you."
 	<</if>>
 	<br><br>
 	<<link [[Resist|Meadow Sheep Resist]]>><</link>><<willpowerdifficulty 1 400>>
@@ -1168,7 +1173,7 @@ You walk back to the meadow.
 		<</if>>
 	<<else>>
 		<<if $monster is 1>>
-			“See, wasn't as bad as you thought.” <<bHe>> nuzzles you once more before standing. “Maybe I see you again.” <<bHe>>says as he wanders away through the meadow.
+			"See, wasn't as bad as you thought." <<bHe>> nuzzles you once more before standing. "Maybe I see you again." <<bHe>>says as he wanders away through the meadow.
 		<<else>>
 			The <<beasttype>> bleats happily. <<bHe>> licks your face before getting off you and wandering away.
 		<</if>>
@@ -1180,7 +1185,7 @@ You walk back to the meadow.
 	<br>
 <<elseif $enemyhealth lte 0>>
 	<<if $monster is 1>>
-		The <<beasttype>> falls back stunned “Was just trying to keep you warm.” <<bHe>> yells as <<bhe>> runs away.
+		The <<beasttype>> falls back stunned "Was just trying to keep you warm." <<bHe>> yells as <<bhe>> runs away.
 	<<else>>
 		The <<beasttype>> falls back stunned before bleating at you and galloping away.
 	<</if>>
@@ -1216,7 +1221,7 @@ You walk back to the meadow.
 	<<beastejaculation>>
 
 	<<if $monster is 1>>
-		“See, wasn't as bad as you thought.” <<bHe>> nuzzles you once more before standing. “Maybe I see you again.” <<bHe>>says as <<bhe>> wanders away through the meadow.
+		"See, wasn't as bad as you thought." <<bHe>> nuzzles you once more before standing. "Maybe I see you again." <<bHe>>says as <<bhe>> wanders away through the meadow.
 	<<else>>
 		The <<beasttype>> bleats happily. <<bHe>> licks your face before getting off you and wandering away.
 	<</if>>
@@ -1232,7 +1237,7 @@ You walk back to the meadow.
 	<br>
 <<elseif $enemyhealth lte 0>>
 	<<if $monster is 1>>
-		The <<beasttype>> falls back stunned “Was just trying to keep you warm.” <<bHe>> yells as <<bhe>> runs away.
+		The <<beasttype>> falls back stunned "Was just trying to keep you warm." <<bHe>> yells as <<bhe>> runs away.
 	<<else>>
 		The <<beasttype>> falls back stunned before bleating at you and galloping away.
 	<</if>>
@@ -1247,3 +1252,9 @@ You walk back to the meadow.
 	<<link [[Next|Meadow]]>><<set $eventskip to 1>><</link>>
 	<br>
 <</if>>
+
+:: Meadow Sheep Watch
+<<transform sheep 1>>
+You spend some time watching the sheep graze in the meadow. It leaves a lingering peacefulness in your soul.
+<br><br>
+<<link [[Next|Meadow]]>><</link>>
