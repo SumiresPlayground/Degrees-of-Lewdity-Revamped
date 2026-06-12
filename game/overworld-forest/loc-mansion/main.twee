@@ -436,6 +436,15 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 	<br>
 	<<mirroricon>><<link [[Mirror|Forest Mansion Mirror]]>><</link>>
 	<br>
+	<<link [[Settings|Forest Mansion Settings]]>><<endevent>><</link>>
+	<br>
+	<<attitudesControlCheck>>
+	<<if $attitudesControl.showGoldLink is true>>
+		<span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+	<<else>>
+		<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+	<</if>>
+	<br>
 	<<getouticon>><<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
 <</if>>
 
@@ -467,6 +476,15 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 		<<wardrobeicon>><<link [[Wardrobe|Forest Mansion Wardrobe]]>><</link>>
 		<br>
 		<<mirroricon>><<link [[Mirror|Forest Mansion Mirror]]>><</link>>
+		<br>
+		<<link [[Settings|Forest Mansion Settings]]>><<endevent>><</link>>
+		<br>
+		<<attitudesControlCheck>>
+		<<if $attitudesControl.showGoldLink is true>>
+			<span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+		<<else>>
+			<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+		<</if>>
 		<br>
 	<</if>>
 	<<getouticon>><<link [[Back to landing (0:05)|Forest Mansion Landing]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
@@ -666,3 +684,12 @@ You peruse the wall of books looking for anything relevant. Among the mostly wat
 You settle down and turn on the study's lantern which flickers to life as you begin to read.
 <br><br>
 <<link [[Next|Forest Mansion Study]]>><</link>>
+
+:: Forest Mansion Settings [exitCheckBypass]
+<<if $forestmansionstage is 11>>
+	<<set $settingsExitPassage to "Forest Mansion Master Suite">>
+<<else>>
+	<<set $settingsExitPassage to "Forest Mansion Guest Suite">>
+<</if>>
+
+<<settings>>

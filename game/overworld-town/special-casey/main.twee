@@ -353,6 +353,14 @@ You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from
 	<br>
 	<<mirroricon>><<link [[Mirror|Casey Mirror]]>><<endevent>><</link>>
 	<br>
+    <<link [[Settings|Casey Settings]]>><<endevent>><</link>>
+    <br>
+    <<attitudesControlCheck>>
+    <<if $attitudesControl.showGoldLink is true>>
+        <span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+    <<else>>
+        <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+    <</if>>
 <</if>>
 <<if $renttime lte 0>>
     <<link [[Leave|Flats Bailey]]>><</link>>
@@ -1081,3 +1089,7 @@ After you're finished eating, you bring the plates to the sink and help Casey wa
 "Thanks for all the help, sweetheart." <<He>> says, caging you against the counter and leaning in for a kiss. When <<he>> pulls away, Casey rests <<his>> forehead against yours, taking a moment to stare into your eyes. <<He>> gives you one last peck on the lips and squeezes your hip before leaving to sit in <<his>> usual spot.
 <br><br>
 <<link [[Next|Casey Flat]]>><<endevent>><</link>>
+
+:: Casey Settings [exitCheckBypass]
+<<set $settingsExitPassage to "Casey Flat">>
+<<settings>>

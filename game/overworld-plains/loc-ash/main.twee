@@ -12,10 +12,11 @@ As you enter the cottage, you are met by... Mint Mocha?! She looks away from you
 <br><br>
 Mint Mocha clears her throat before speaking. "I-I'm sorry. After my... failure, my trainer wanted to get rid of me and Ash took me in..." You can tell from her eyes that she has been crying a lot lately.
 <br><br>
-You take a moment to explain your relationship with her. 
+You take a moment to explain your relationship with her and Ash listens quietly nodding along. 
 <<if $pronoun is "m">>
-Ash looks confused. "She? Mint here is a stallion, were you not aware?" Mint Mocha's face burns red as Ash lifts <<his>> skirt revealing <<his>> <<genitals>>.
+Ash looks confused. "She? Mint here is a stallion, were you not aware?" Mint Mocha's face burns red as Ash lifts <<his>> skirt revealing <<his>> <<genitals>>. Mint speaks up embarrassed. "<<pShe>> doesn't need to know that! Ugh whatever, yeah I'm a boy so what, you gonna laugh at me or something?" Mint pouts.
 <</if>>
+<br><br>
 Ash stands back a few steps before slipping on a pair of work gloves. "Anyway, I got some workin' to do so you two stay outta trouble."
 <br><br>
 <<link [[Next|Ash Farmhouse]]>><<endevent>><</link>>
@@ -83,6 +84,8 @@ You are on Ash's farmstead, a small garden grows various plants and you can hear
     <<link [[Stretch with Mint (1:00)|Mint Exercise]]>><<endevent>><<pass 60>><<stress -10>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<lstress>>
     <br>
 <</if>>
+<<link [[Plant plot|Ash Plot]]>><<endevent>><</link>>
+<br>
 <<link [[Enter Ash's farmhouse (0:05)|Ash Farmhouse]]>><<pass 5>><<endevent>><</link>>
 <br>
 <<link [[Enter Ash's barn (0:02)|Ash Barn]]>><<pass 2>><<endevent>><</link>>
@@ -110,6 +113,21 @@ The three of you sit together at the table and Ash offers a silent prayer. It do
     <<npc Ash>><<person1>>
     Ash is sitting on <<his>> bed shirtless. <<He>> is covered in sweat that glistens on <<his>> chest.
     <br><br>
+    <<link [[Climb into bed|Ash Bed]]>><<endevent>><</link>>
+    <br>
+    <<link [[Open the wardrobe|Ash Wardrobe]]>><<endevent>><</link>>
+    <br>
+    <<link [[Check the mirror|Ash Mirror]]>><<endevent>><</link>>
+    <br>
+    <<link [[Settings|Ash Settings]]>><<endevent>><</link>>
+    <br>
+    <<attitudesControlCheck>>
+    <<if $attitudesControl.showGoldLink is true>>
+        <span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+    <<else>>
+        <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+    <</if>>
+    <br>
     <<link [[Spend some time talking with <<him>> (0:30)|Ash Talk]]>><<pass 30>><<endevent>><</link>>
     <br>
     <<link [[Leave (0:02)|Ash Farmhouse]]>><<pass 2>><<endevent>><</link>>
@@ -117,10 +135,40 @@ The three of you sit together at the table and Ash offers a silent prayer. It do
     <<npc Ash>><<person1>>
     Ash is asleep, you can hear <<him>> gently snoring from the bed.
     <br><br>
+    <<link [[Climb into bed|Ash Bed]]>><<endevent>><</link>>
+    <br>
+    <<link [[Open the wardrobe|Ash Wardrobe]]>><<endevent>><</link>>
+    <br>
+    <<link [[Check the mirror|Ash Mirror]]>><<endevent>><</link>>
+    <br>
+    <<link [[Settings|Ash Settings]]>><<endevent>><</link>>
+    <br>
+    <<attitudesControlCheck>>
+    <<if $attitudesControl.showGoldLink is true>>
+        <span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+    <<else>>
+        <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+    <</if>>
+    <br>
     <<link [[Leave (0:02)|Ash Farmhouse]]>><<pass 2>><<endevent>><</link>>
 <<else>>
     Ash is not in the room right now.
     <br><br>
+    <<link [[Climb into bed|Ash Bed]]>><<endevent>><</link>>
+    <br>
+    <<link [[Open the wardrobe|Ash Wardrobe]]>><<endevent>><</link>>
+    <br>
+    <<link [[Check the mirror|Ash Mirror]]>><<endevent>><</link>>
+    <br>
+    <<link [[Settings|Ash Settings]]>><<endevent>><</link>>
+    <br>
+    <<attitudesControlCheck>>
+    <<if $attitudesControl.showGoldLink is true>>
+        <span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+    <<else>>
+        <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+    <</if>>
+    <br>
     <<link [[Leave (0:02)|Ash Farmhouse]]>><<pass 2>><<endevent>><</link>>
 <</if>>
 
@@ -307,3 +355,44 @@ You spend some time observing the sheep. They seem so soft and fluffy... What yo
 You spend some time observing the cows. They can't do much in such a cramped pin and you begin to feel bad for the poor things.
 <br><br>
 <<link [[Next|Ash Barn]]>><<transform cow 1>><<endevent>><</link>>
+
+:: Ash Plot
+<<effects>>
+<<plot_effects>>
+<<if $ashgarden is undefined>>
+	<<set $ashgarden to 1>>
+	<<plots_init garden 4 earth 1 medium>>
+<</if>>
+<<display_plot garden>>
+<br>
+<<getouticon>><<link [[Leave|Ash Farmstead]]>><<endevent>><</link>>
+
+:: Ash Mirror
+<<effects>>
+
+<<link [[Next|Ash Room]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+
+<<mirror>>
+<br><br>
+
+:: Ash Bed
+<<effects>>
+You snuggle under the covers.
+<br><br>
+<<generateSleepLinks "Ash Sleep">>
+<<link [[Climb out of bed|Ash Room]]>><</link>>
+
+:: Ash Sleep
+<<set _autosavehere to true>>
+<<sleepeffects>><<sleep>><<effects>>
+You rest your head on the soft worn bed and manage to fall asleep.
+<<if Time.hour gt 22 or Time.hour lt 4>>
+    <<npc Ash>><<person1>>
+    You wake up and find Ash's snuggled against you, <<his>> arm gently holding you as <<he>> snores lightly.
+<</if>>
+<br><br>
+<<link [[Next|Ash Room]]>><<endevent>><</link>>
+
+:: Ash Settings [exitCheckBypass]
+<<set $settingsExitPassage to "Ash Room">>
+<<settings>>

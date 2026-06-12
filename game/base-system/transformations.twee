@@ -1013,20 +1013,18 @@
 					<<earnFeat "Wolf">>
 					<br><br>
 				<<elseif $wolfbuild lt 25>>
+					<<set $wolfgirl to 4>>
 					<<run $timeMessages.pushUnique("wolfDown4")>>
-					<span class="gold">Your lower back has stopped itching.</span>
-					<br><br>
+					<<set $transformationParts.wolf.cheeks to "disabled">>
 				<</if>>
 			<<case 6>>
 				<<if $wolfbuild lt 30>>
 					<<run $timeMessages.pushUnique("wolfDown5")>>
 					<<set $wolfgirl to 5>>
-					<<run $timeMessages.pushUnique("wolfDown5")>>
 					<<set $transformationParts.wolf.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thintail to "false">>
 					<br><br>
-					<<set $permanentTransform = 1>>
 				<</if>>
 			<<case 99>>
 				<<set $physicalTransform to 0>>

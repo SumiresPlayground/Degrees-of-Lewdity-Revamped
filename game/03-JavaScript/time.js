@@ -997,9 +997,15 @@ function dayPassed() {
 
 	if (Number.isNaN(V.tentacleclothesorgasm)) {V.tentacleclothesorgasm = 0}
 
-	if (V.salempunishment >  0) {V.salempunishment -= 1;}
+	if (V.salempunishment > 0) {V.salempunishment -= 1;}
 
-	if (V.academycloser >  0) {V.academygone = 1;}
+	if (V.academycloser > 0) {V.academygone = 1;}
+
+	if (V.horseacademycountdown > -1) {V.horseacademycountdown -= 1;}
+
+	if (V.horseacademycountdown === -1) {V.academycloser = 1;}
+
+	if (V.horseacademycountdown === -1) {V.ashgone = 1;}
 
 	V.dailyashbreakfast = 0;
 	V.dailyashdinner = 0;
