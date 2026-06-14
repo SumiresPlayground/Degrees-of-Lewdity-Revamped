@@ -2682,7 +2682,7 @@ function initUnderLower() {
 			set: "tentacle",
 			gender: "f",
 			femininity: 300,
-			warmth: 40,
+			warmth: 4,
 			cost: 0,
 			description: "A suit made from tentacles.",
 			shop: [],

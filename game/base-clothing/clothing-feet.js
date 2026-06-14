@@ -3435,7 +3435,7 @@ function initFeet() {
 		type: ["fetish", "swim", "school", "heels"],
 		gender: "f",
 		femininity: 200,
-		warmth: 20,
+		warmth: 2,
 		cost: 4000,
 		description: "Made of tentacles.",
 		shop: [],
@@ -3467,7 +3467,7 @@ function initFeet() {
 		type: ["normal"],
 		gender: "n",
 		femininity: 0,
-		warmth: 40,
+		warmth: 2,
 		cost: 4500,
 		description: "Wholly organic.",
 		shop: [],
@@ -3499,7 +3499,7 @@ function initFeet() {
 		type: ["normal"],
 		gender: "n",
 		femininity: 0,
-		warmth: 40,
+		warmth: 4,
 		cost: 4500,
 		description: "Wholly organic.",
 		shop: [],
@@ -3510,7 +3510,42 @@ function initFeet() {
 		location: 0,
 		iconFile: "",
 		accIcon: 0
-	}];
+	},
+		
+		{index: 4,
+		slot: "feet",
+		name: "horse racing boots",
+		name_cap: "Horse racing boots",
+		variable: "race1",
+		combat: {
+				reference: "lightuptrainers",
+			},
+		integrity: 300,
+		integrity_max: 300,
+		fabric_strength: 60,
+		reveal: 1,
+		word: "n",
+		plural: 1,
+		colour: 0,
+		colour_options: [],
+		colour_sidebar: 0,
+		type: ["costume"],
+		gender: "n",
+		femininity: 0,
+		warmth: 2,
+		cost: 6000,
+		description: "An outfit designed for a racing horse.",
+		shop: ["academy"],
+		accessory: 0,
+		accessory_colour: 0,
+		accessory_colour_options: [],
+		cursed: 0,
+		notuck: 0,
+		location: 0,
+		iconFile: "race1boots.png",
+		accIcon: 0
+	}
+	];
 
 	setup.moddedClothes.feet.forEach((x, i) => (x.index = setup.clothes.feet.length + i));
 	setup.clothes.feet.push(...setup.moddedClothes.feet);

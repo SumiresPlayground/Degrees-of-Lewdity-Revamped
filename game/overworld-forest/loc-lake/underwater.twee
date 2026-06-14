@@ -295,30 +295,6 @@ You hear the ancient mechanism creak and the door groans open. Beyond is a plint
 
 	<<link [[Next|Slime Reversion]]>><<pass 10>><</link>><br><br>
 
-
-
-	<<if $parasite.left_ear.name is "slime">>
-		<<removeparasite left_ear>>
-	<</if>>
-	<<if $parasite.right_ear.name is "slime">>
-		<<removeparasite right_ear>>
-	<</if>>
-	<<set $noEarSlime to true>>
-
-	<<if $settings.tentaclesEnabled>>
-		The light fades, and all falls quiet. Yet you feel a presence. Something stayed behind.
-		<br><br>
-
-		Over a dozen tentacles curl up the side of the plinth, forming a prison around you.
-		<br><br>
-
-		<<link [[Next|Lake Ruin Sit Tentacles]]>><<set $molestationstart to 1>><</link>>
-		<br>
-	<<else>>
-
-		<<link [[Next|Lake Ruin Plinth]]>><</link>>
-		<br>
-	<</if>>
 <<else>>
 	
 	You grip the plinth, and pull your <<bottom>> against it. The instant you do, a red light blazes into life, illuminating the room. Previously unseen statues stare down at you from above.
@@ -426,7 +402,7 @@ You are deep in the lake ruin, in a small room with a plinth.
 		<<set $phase to 1>>
 	<</if>>
 <</if>>
-<<if _bmoon and _parasite>>
+<<if _bmoon and (_parasite or $slime gt 0)>>
 	/* Clear the possibility of the other moon event, but this event can be revisited if it is skipped */
 	<<unset $moonEvent>>
 	You feel it pull to you.
@@ -1152,15 +1128,6 @@ You feel your slime core begin to liquify, contained only by the hardened, lustr
 
 :: Slime Reversion 2
 
-
-<<set $worn.lower.integrity to 0>>
-<<set $worn.upper.integrity to 0>>
-<<set $worn.under_lower.integrity to 0>>
-<<set $worn.under_upper.integrity to 0>>
-<<headruined>>
-<<legsruined>>
-<<feetruined>>
-<<integritycheck>>
 <<clearExtraTransformations>>
 <<set $onemoreslime to 1>>
 

@@ -2122,8 +2122,8 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Social"],
 	},
-	"Ash the Trainer": {
-		title: "Ash the Trainer",
+	"Rowan the Trainer": {
+		title: "Rowan the Trainer",
 		desc: "You gave your virginity to them.",
 		difficulty: 2,
 		series: "",

@@ -1145,8 +1145,10 @@
 					<<run $timeMessages.pushUnique("catUp8")>>
 					<<catHeterochromiaTF 1>>
 				<<elseif $catbuild lt 55>>
-					<<set $leftEyeColour to $original_colour[0]>>
-					<<set $rightEyeColour to $original_colour[1]>>
+					<<if V.original_colour isnot undefined>>
+						<<set $leftEyeColour to $original_colour[0]>>
+						<<set $rightEyeColour to $original_colour[1]>>
+					<</if>>
 					<<set $cat to 6>>
 					<<run $timeMessages.pushUnique("catDown6")>>
 				<</if>>

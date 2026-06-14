@@ -1123,7 +1123,7 @@ Renderer.CanvasModels.main = {
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
 							{if (V.npc.length > 0)
-								return `img/npc/${V.npc[0]}.png`;}
+								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else
 							if (V.npc.length > 0)
 								if (V.npc.length > 1)
@@ -1151,7 +1151,7 @@ Renderer.CanvasModels.main = {
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
 							{if (V.npc.length > 0)
-								return `img/npc/${V.npc[0]}.png`;}
+								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else
 							if (V.npc.length > 0)
 								if (V.npc.length > 1)
@@ -1179,10 +1179,131 @@ Renderer.CanvasModels.main = {
 				else if (V.staticimages > 0) {
 					return `img/background/static/${V.static}.png`;}
 				else {
-					if (Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon))
-						{return `img/background/${V.location}/bloodmoon.png`;}
-					else 
-						return `img/background/${V.location}/${Time.dayState}.png`;}
+					const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      				const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+					return `img/background/${V.location}/${timeSuffix}.png`;}
+			},
+		},
+		"backgroundBed": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.location === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.bed.id !== undefined) {
+        					return `img/background/furniture/bed/${V.furniture.bedroom.bed.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundchair": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.location === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.chair.id !== undefined) {
+        					return `img/background/furniture/chair/${V.furniture.bedroom.chair.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgrounddecoration": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.location === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.decoration.id !== undefined) {
+        					return `img/background/furniture/decoration/${V.furniture.bedroom.decoration.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgrounddesk": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.location === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.desk.id !== undefined) {
+        					return `img/background/furniture/desk/${V.furniture.bedroom.desk.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundposter": {
+			show: true,
+			z: ZIndices.backgroundOverlay + 1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {} 
+				else if (V.staticimages > 0) {} 
+				else {
+					if (V.location === 'bedroom') {
+						const isBloodmoon = Time.dayState === 'night' && (Time.isBloodMoon() || V.forcedBloodmoon);
+						const timeSuffix = isBloodmoon ? 'bloodmoon' : Time.dayState;
+						const allowedNames = ["cowgirl", "cat", "puppy"];
+						if ( V.furniture.bedroom.poster !== undefined && allowedNames.includes(V.furniture.bedroom.poster.name)) {
+							return `img/background/furniture/poster/${ V.furniture.bedroom.poster.name}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundwallpaper": {
+			show: true,
+			z: ZIndices.backgroundOverlay +0.5,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.location === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						const allowedNames = ["vines", "tentacles", "plain-white", "wavy-white", "cowgirls", "cow-girls", "hearts", "trees", "crosses", "starry", "deep sea", "beach", "crabs", "flames", "stained glass", "audience", "bears"];
+						if ( V.furniture.bedroom.wallpaper !== undefined && allowedNames.includes(V.furniture.bedroom.wallpaper.name)) {
+        					return `img/background/furniture/wallpaper/${V.furniture.bedroom.wallpaper.name}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundwardrobe": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.location === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.wardrobe.id !== undefined) {
+        					return `img/background/furniture/wardrobe/${V.furniture.bedroom.wardrobe.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundwindowsill": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.location === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.windowsill !== undefined) {
+        					return `img/background/furniture/windowsill/${V.furniture.bedroom.windowsill.id}/${timeSuffix}.png`;}}}
 			},
 		},
 		"foreground": {

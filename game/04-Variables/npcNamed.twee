@@ -99,9 +99,8 @@
 		<</for>>
 
 		<<set $npcNamedVersion to 2>>
-
-		<<updateNewNamedNpcs>>
 		<<variablesModUpdate>>
+		<<updateNewNamedNpcs>>
 	<</if>>
 <</widget>>
 
@@ -142,7 +141,7 @@
 			"salem": {nam : "Salem", title: "initiate", insecurity: "skill", teen: 1},
 			"pruti": {nam : "Pruti", title: "witch", insecurity: "skill", teen: 1, type: "cat", claws: "claws"},
 			"haegish": {nam : "Haegish", title: "mad", insecurity: "looks", adult: 1, type: "rabbit", claws: "claws"},
-			"ash": {nam : "Ash", title: "trainer", insecurity: "skill", adult: 1},
+			"rowan": {nam : "Rowan", title: "trainer", insecurity: "skill", adult: 1},
 			"mintmocha": {nam : "Mint Mocha", title: "rival", insecurity: "skill", adult: 1, type: "horse"},
 		}>>
 		<<for _npc range Object.keys(_newNNPCs)>>
@@ -317,7 +316,7 @@
 					<<set $NPCName[_i].eyeColour to "red">>
 					<<set $NPCName[_i].hairColour to "white">>
 				<</if>>
-			<<case "Ash">>
+			<<case "Rowan">>
 				<<if $NPCName[_i].eyeColour is 0 or $NPCName[_i].eyeColour is undefined>>
 					<<set $NPCName[_i].eyeColour to "blue">>
 					<<set $NPCName[_i].hairColour to "blond">>
@@ -369,7 +368,7 @@
 			<<set $NPCName[_args[0]].virginity.penile to false>>
 			<<set $NPCName[_args[0]].virginity.vaginal to false>>
 			<<set $NPCName[_args[0]].virginity.kiss to false>>
-		<<case "Sam" "Mason" "Casey" "Ash">>
+		<<case "Sam" "Mason" "Casey" "Rowan">>
 			/* Has anal and oral virginity. Missing penile/vaginal, kiss, and handholding. */
 			<<set $NPCName[_args[0]].virginity.penile to false>>
 			<<set $NPCName[_args[0]].virginity.vaginal to false>>

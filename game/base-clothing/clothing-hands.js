@@ -679,7 +679,7 @@ function initHands() {
 		type: ["fetish", "swim", "school"],
 		gender: "n",
 		femininity: 0,
-		warmth: 0,
+		warmth: 2,
 		cost: 25000,
 		description: "Made from tentacles.",
 		shop: [],
@@ -726,7 +726,40 @@ function initHands() {
 		iconFile: "scuffed-ring.png",
 		accIcon: 0,
 		mainImage:0
-	}];
+	},
+		{index: 4,
+		slot: "hands",
+		name: "horse racing gloves",
+		name_cap: "Horse racing gloves",
+		variable: "race1",
+		combat: {
+				reference: "fingerlessgloves",
+			},
+		integrity: 1000,
+		integrity_max: 1000,
+		fabric_strength: 1000,
+		reveal: 1,
+		word: "n",
+		plural: 1,
+		colour: 0,
+		colour_options: [],
+		type: ["costume"],
+		gender: "n",
+		warmth: 1,
+		cost: 3000,
+		description: "An outfit designed for a racing horse.",
+		shop: ["academy"],
+		accessory: 0,
+		accessory_colour: 0,
+		accessory_colour_options: [],
+		back_img: 0,
+		cursed: 0,
+		location: 0,
+		iconFile: "race1gloves.png",
+		accIcon: 0,
+		mainImage:0
+	}
+	];
 
 	setup.moddedClothes.hands.forEach((x, i) => (x.index = setup.clothes.hands.length + i));
 	setup.clothes.hands.push(...setup.moddedClothes.hands);

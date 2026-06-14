@@ -61,9 +61,9 @@ You are in a meadow ringed by tall trees. Long grass caresses your legs. A solit
 <<else>>
 	<<rng>>
 	<<if $rng lte 30>>
-		<<relaxicon>><<link [[Watch the sheep (0:30)|Meadow Sheep Watch]]>><<stress -6>><</link>><<lstress>>
+		<<relaxicon>><<link [[Watch the sheep (0:30)|Meadow Sheep Watch]]>><<pass 30>><<stress -6>><</link>><<lstress>>
 	<</if>>
-	<<relaxicon>><<link [[Relax (1:00)|Meadow Relax]]>><<stress -6>><</link>><<lstress>>
+	<<relaxicon>><<link [[Relax (1:00)|Meadow Relax]]>><<pass 60>><<stress -6>><</link>><<lstress>>
 	<br>
 	<<if $worn.upper.exposed gte 1 and $worn.upper.name isnot "plant top" and !$worn.under_upper.type.includes("torso_covering")>>
 		<<foresticon "bush">><<link [[Make a top out of plants and twigs (0:10)|Meadow Plant]]>><<pass 10>><<set $phase to 1>><</link>>
@@ -1140,8 +1140,9 @@ You walk back to the meadow.
 	<<set $enemytrust += 100>>
 <</if>>
 <<effects>>
-<<effectsman>><<man>>
+<<effectsman>>
 <<stateman>>
+<<beast $enemyno>>
 <br><br>
 <<actionsman>>
 <<if $finish is 1>>

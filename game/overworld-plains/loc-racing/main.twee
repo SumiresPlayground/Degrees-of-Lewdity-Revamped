@@ -32,51 +32,55 @@ You are at the local horse racing track. Grandstands surround a central track. A
 
 :: Horse Academy Entrance
 <<set $outside to 1>>
-You are at the entrance to the legally distinct horse racing academy. 
-<<if Time.daystate isnot "night" and $academygone isnot 1>>
-	Trainers and their horses can be seen training for upcoming races. They run the track at the front of the academy.
-<<elseif $academygone isnot 1>>
-	The academy entrance is mostly empty. Seems nobody is out training so late.
+<<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutacademy>>
 <<else>>
-	The racing season is over the academy is closed for good.
-<</if>>
-<br><br>
-<<if Time.daystate isnot "night" and $horseacademystudent is 1 and $academygone isnot 1>>
-	You can see Ash leaning against the railing of the practice track, more looking into the distance than watching the other trainers.
-	<br>
-	<<link [[Approach Ash|Horse Academy Ash Talk]]>><</link>>
-	<br>
-<</if>>
-<<if $regionalrace lt 6 and $mintmochaintro isnot 1 and $academygone isnot 1>>
-	You can see the horsegirl from the regional race, Mint Mocha, talking to her friends near the stairs to the academy.
-	<br>
-	<<link [[Properly introduce yourself|Horse Academy Mintro]]>><</link>>
-	<br>
-<<elseif $regionalrace lt 6 and $academygone isnot 1>>
-	You can see Mint Mocha sitting alone on the steps near the entrance to the academy.
-	<br>
-	<<link [[Spend some time talking with her (0:30)|Horse Academy Mint Talk]]>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
-	<br>
-<</if>>
-<<if Time.daystate isnot "night" and $trainersearch is 1 and $academygone isnot 1>>
-	In the main yard of the academy, you can see a trainer who appears slightly lost.
-	<br>
-	<<link [[Greet the trainer|Ash Meet]]>><</link>>
+	You are at the entrance to the legally distinct horse racing academy. 
+	<<if Time.daystate isnot "night" and $academygone isnot 1>>
+		Trainers and their horses can be seen training for upcoming races. They run the track at the front of the academy.
+	<<elseif $academygone isnot 1>>
+		The academy entrance is mostly empty. Seems nobody is out training so late.
+	<<else>>
+		The racing season is over the academy is closed for good.
+	<</if>>
 	<br><br>
+	<<if Time.daystate is "day" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+		You can see Rowan leaning against the railing of the practice track, more looking into the distance than watching the other trainers.
+		<br>
+		<<link [[Approach Rowan|Horse Academy Rowan Talk]]>><</link>>
+		<br><br>
+	<</if>>
+	<<if $regionalrace lt 6 and $mintmochaintro isnot 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+		You can see the horsegirl from the regional race, Mint Mocha, talking to her friends near the stairs to the academy.
+		<br>
+		<<link [[Properly introduce yourself|Horse Academy Mintro]]>><</link>>
+		<br><br>
+	<<elseif Time.daystate is "day" and $regionalrace lt 6 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+		You can see Mint Mocha sitting alone on the steps near the entrance to the academy.
+		<br>
+		<<link [[Spend some time talking with her (0:30)|Horse Academy Mint Talk]]>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
+		<br><br>
+	<</if>>
+	<<if Time.daystate isnot "night" and $trainersearch is 1 and $academygone isnot 1>>
+		In the main yard of the academy, you can see a trainer who appears slightly lost.
+		<br>
+		<<link [[Greet the trainer|Rowan Meet]]>><</link>>
+		<br><br>
+	<</if>>
+	<<if Time.daystate isnot "night" or $horseacademystudent is 1 and $academygone isnot 1>>
+		<<link [[Approach the school|Horse Academy]]>><</link>>
+		<br>
+	<<elseif $academygone isnot 1>>
+		<<oxfordicon>><<link [[Approach the school|Horse Academy Locked]]>><</link>>
+		<br>
+	<</if>>
+	<<if $horseacademystudent is 1 and $academygone isnot 1>>
+		<<link [[Walk toward the training track|Horse Academy Track]]>><</link>>
+		<br>
+	<</if>>
+	<<getouticon>><<link [[Leave|Race Track]]>><</link>>
 <</if>>
-<<if Time.daystate isnot "night" or $horseacademystudent is 1 and $academygone isnot 1>>
-	<<link [[Approach the school|Horse Academy]]>><</link>>
-	<br>
-<<elseif $academygone isnot 1>>
-	<<oxfordicon>><<link [[Approach the school|Horse Academy Locked]]>><</link>>
-	<br>
-<</if>>
-<<if $horseacademystudent is 1 and $academygone isnot 1>>
-	<<link [[Walk toward the training track|Horse Academy Track]]>><</link>>
-	<br>
-<</if>>
-<<getouticon>><<link [[Leave|Race Track]]>><</link>>
-
 
 :: Horse Academy Locked
 "Open hours:	<<ampm 9 00>> - <<ampm 18 00>>"
@@ -97,11 +101,21 @@ You are within the entrance hall of the legally distinct horse racing academy.
 <<elseif $horseacademystudent isnot 1>>
 	<span class='red'>You must be a horse<<girl>> to register at the racing academy.</span>
 <<else>>
+	<<if Time.daystate is "day" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+		You can see Rowan reading training manuals in the library.
+		<br>
+		<<link [[Approach Rowan|Horse Academy Indoor Rowan Talk]]>><</link>>
+		<br><br>
+	<</if>>
+	<<if Time.daystate is "day" and $regionalrace lt 6 and $academygone isnot 1 and Weather.precipitation isnot "rain" and $mintmochaintro is 1>>
+		You can see Mint Mocha sitting with her friends at a cafe. Upon seeing you, they leave Mint to speak with you alone.
+		<br>
+		<<link [[Spend some time talking with her (0:30)|Horse Academy Indoor Mint Talk]]>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
+		<br><br>
+	<</if>>
 	<<bedicon>><<link [[Enter your dorm room|Horse Academy Dorm]]>><</link>>
 	<br>
-	<<bedicon>><<link [[Make your way to the training room|Horse Academy Training Room]]>><</link>>
-	<br>
-	<<bedicon>><<link [[Enter your dorm room|Horse Academy Dorm]]>><</link>>
+	<<prisonicon "lift">><<link [[Make your way to the training room|Horse Academy Training Room]]>><</link>>
 	<br>
 	<<wardrobeicon>><<link [[Approach the uniform shop|Horse Academy Shop]]>><</link>>
 <</if>>
@@ -113,19 +127,19 @@ You step up to the front desk where a kind looking woman gives you a bright smil
 <br><br>
 She looks over some papers and turns back to you. "And your trainer?" She pauses as she sees the look on your face. "All academy trainees require a trainer to receive admission to the academy. Try to find a trainer and we can continue this discussion."
 <br><br>
-<<getouticon>><<link [[Next|Horse Academy Entrance]]>><<set $trainersearch 1>><</link>>
+<<getouticon>><<link [[Next|Horse Academy Entrance]]>><<set $trainersearch to 1>><</link>>
 
-:: Ash Meet
-<<npc Ash>><<person1>>
+:: Rowan Meet
+<<npc Rowan>><<person1>>
 You approach the <<personsimple>>. <<He>> has <<his>> blonde hair worn in a <<if $pronoun is "m">>masculine<<else>>feminine<</if>> braid. <<He>> wears a brown vest over a short sleeved white shirt, as well as a pair of well fit jeans and boots.
 <br><br>
 As you approach <<he>> turns to face you. "Who are... oh you're a horse<<girl>>. I've been lookin' for one as magnificent as ya. Come 'ere."
 <br><br>
 The <<personsimple>> lunges toward you and pushes you to the floor, pulling out a rope and gag from <<his>> bag.
 <br><br>
-<<link [[Next|Ash Intro Rape]]>><<set $molestationstart 1>><</link>>
+<<link [[Next|Rowan Intro Rape]]>><<set $molestationstart to 1>><</link>>
 
-:: Ash Intro Rape
+:: Rowan Intro Rape
 
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
@@ -144,15 +158,15 @@ The <<personsimple>> lunges toward you and pushes you to the floor, pulling out 
 <<actionsman>>
 
 <<if _combatend>>
-	<span id="next"><<link [[Next|Ash Intro Rape Finish]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Rowan Intro Rape Finish]]>><</link>></span><<nexttext>>
 <<else>>
-	<span id="next"><<link [[Next|Ash Intro Rape]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Rowan Intro Rape]]>><</link>></span><<nexttext>>
 <</if>>
 
-:: Ash Intro Rape Finish
+:: Rowan Intro Rape Finish
 <<if $enemyarousal gte $enemyarousalmax>>
-	<<ejaculation>><<npcincr Ash dom 25>>
-	Ash hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
+	<<ejaculation>><<npcincr Rowan dom 25>>
+	Rowan hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
 	<br><br>
 	<<He>> lets go of your wrists and gets to <<his>> feet, a smug grin spread across <<his>> face. "Hope ya ain't too mad at me, darlin'." <<He>> chuckles. "Can't let a specimen like you get away now, can I?"<<stress 20>><<gstress>>
 	<br><br>
@@ -160,9 +174,9 @@ The <<personsimple>> lunges toward you and pushes you to the floor, pulling out 
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-	<<link [[Next|Ash Register]]>><<endevent>><<set $trainersearch to 2>><<set $phase to 1>><</link>>
+	<<link [[Next|Rowan Register]]>><<endevent>><<set $trainersearch to 2>><<set $phase to 1>><</link>>
 <<else>>
-	<<npcincr Ash dom -50>>
+	<<npcincr Rowan dom -50>>
 	Hissing, <<he>> backs away from you.
 	<br><br>
 	"Damn, why did I think I could beat a horse?" <<he>> spits. "Whatever, ya win, get out of 'ere."
@@ -174,52 +188,52 @@ The <<personsimple>> lunges toward you and pushes you to the floor, pulling out 
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-	<<link [[Offer to be a trainee on your own terms|Ash Offer]]>><<endevent>><<set C.npc.Ash.love += 10>><<set $trainersearch to 2>><</link>><<ggglove>>
+	<<link [[Offer to be a trainee on your own terms|Rowan Offer]]>><<endevent>><<set C.npc.Rowan.love += 10>><<set $trainersearch to 2>><</link>><<ggglove>>
 <</if>>
 
-:: Ash Offer
-<<npc Ash>><<person1>>
-<<He>> looks a bit dumbfounded. "Ya would willin'ly be my trainee even after what I tried to do? You're either brave or stupid, but... thanks." <<He>> staggers slightly, still sore from the beating. "Name's Ash<<if $pronoun is "m">>ton<<else>>ley<</if>>, but you can call me Ash. I own a local ranch a bit to the south. The farm's been strugglin' lately, so... I've been tryin' to get my hands on a racing horse to make some money."
+:: Rowan Offer
+<<npc Rowan>><<person1>>
+<<He>> looks a bit dumbfounded. "Ya would willin'ly be my trainee even after what I tried to do? You're either brave or stupid, but... thanks." <<He>> staggers slightly, still sore from the beating. "Name's Rowan, but you can call me Rowan. I own a local ranch a bit to the south. The farm's been strugglin' lately, so... I've been tryin' to get my hands on a racing horse to make some money."
 <br><br>
 You hold <<his>> shoulder and help guide <<him>> into the academy.
 <br><br>
-<<link [[Next|Ash Register]]>><<endevent>><<set $trainersearch to 2>><<set $phase to 2>><</link>>
+<<link [[Next|Rowan Register]]>><<endevent>><<set $trainersearch to 2>><<set $phase to 2>><</link>>
 
-:: Ash Register
-<<npc Ash>><<person1>>
+:: Rowan Register
+<<npc Rowan>><<person1>>
 <<if $phase is 1>>
 	You are dragged into the academy bound and gagged. The <<personsimple>> lies you down next to the table as <<he>> speaks to the receptionist. The receptionist begins, "Hello <<sir>>, what do you need today?"
 	<br><br>
-	In response, <<he>> gestures toward you. "I got myself one of them fancy racin' horses. Are ya gonna let me register now or what?" <<He>> begins to fill out paperwork before turning back to you. "You are now my property, ya got that? Name's Ash<<if $pronoun is "m">>ton<<else>>ley<</if>>, but you can call me Ash. From now on, ya will be listenin' to me. Now, lets get you into ya new uniform."
+	In response, <<he>> gestures toward you. "I got myself one of them fancy racin' horses. Are ya gonna let me register now or what?" <<He>> begins to fill out paperwork before turning back to you. "You are now my property, ya got that? Name's Rowan, but you can call me Rowan. From now on, ya will be listenin' to me. Now, lets get you into ya new uniform."
 <<else>>
-	You enter the academy with Ash, helping <<him>> to the front desk where the receptionist sits at her computer. <<He>> begins to speak, "Hey missy, I got myself one of them fancy racin' horses you mentioned. Ya gonna let me register now?" The receptionist slides <<him>> a few slips of paper which <<he>> fills out with haste. "There, ya now my own private racin' horse. Lets get ya into uniform."
+	You enter the academy with Rowan, helping <<him>> to the front desk where the receptionist sits at her computer. <<He>> begins to speak, "Hey missy, I got myself one of them fancy racin' horses you mentioned. Ya gonna let me register now?" The receptionist slides <<him>> a few slips of paper which <<he>> fills out with haste. "There, ya now my own private racin' horse. Lets get ya into uniform."
 <</if>>
 <br><br>
-<<link [[Next|Ash Register 2]]>><<rng>><<endevent>><</link>>
+<<link [[Next|Rowan Register 2]]>><<rng>><<endevent>><</link>>
 
-:: Ash Register 2
-<<npc Ash>><<person1>>
-Ash leads you to a small shop to the side of the academy. Various academy uniforms as well as racing outfits line the walls of the interior. The register is run by an older fellow who welcomes you warmly. "Hello you two fine lads. What do you need?"
+:: Rowan Register 2
+<<npc Rowan>><<person1>>
+Rowan leads you to a small shop to the side of the academy. Various academy uniforms as well as racing outfits line the walls of the interior. The register is run by an older fellow who welcomes you warmly. "Hello you two fine lads. What do you need?"
 <br><br>
-Before you can speak, Ash clears his voice and says, "Hello sir, I was hopin' to get my horse<<girl>> 'ere <<pher>> uniform." The older gentleman nods and goes to the back to check out the uniforms. "Well now, I reckon this will do just fine."
+Before you can speak, Rowan clears his voice and says, "Hello sir, I was hopin' to get my horse<<girl>> 'ere <<pher>> uniform." The older gentleman nods and goes to the back to check out the uniforms. "Well now, I reckon this will do just fine."
 <br><br>
 <<if $player.gender_appearance is "m">>
 	<<if $rng gte 51 or !$settings.forcedCrossdressingEnabled>>
 		<<set $clothingselector to "m">>
 		<<He>> hands you a pair of academy pants. "You can get changed here, nobody would mind." He turns back to the register and leaves you to change.
 		<br><br>
-		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<<link [[Get changed and leave (0:01)|Rowan Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
 		<br>
-		<<link [[Refuse to wear the boys' uniform |Ash Clothes Refusal]]>><</link>>
+		<<link [[Refuse to wear the boys' uniform |Rowan Clothes Refusal]]>><</link>>
 		<br>
 	<<else>>
 		<<set $clothingselector to "f">>
 		He hands you an academy skirt. He speaks before you can articulate any apprehension. "I know it's a girl's uniform, but it's all I have. Buy your own uniform if you don't want this to happen in the future." He turns back to his computer and leaves you to change.
 		<br><br>
 
-		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<<link [[Get changed and leave (0:01)|Rowan Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
 		<br>
-		<<link [[Refuse to wear the girls' uniform|Ash Clothes Refusal]]>><</link>>
+		<<link [[Refuse to wear the girls' uniform|Rowan Clothes Refusal]]>><</link>>
 		<br>
 	<</if>>
 <<else>>
@@ -227,23 +241,23 @@ Before you can speak, Ash clears his voice and says, "Hello sir, I was hopin' to
 		<<set $clothingselector to "f">>
 		<<He>> hands you an academy skirt. "You can get changed here, nobody would mind." He turns back to the register and leaves you to change.
 		<br><br>
-		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<<link [[Get changed and leave (0:01)|Rowan Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
 		<br>
-		<<link [[Refuse to wear the girls' uniform|Ash Clothes Refusal]]>><</link>>
+		<<link [[Refuse to wear the girls' uniform|Rowan Clothes Refusal]]>><</link>>
 		<br>
 	<<else>>
 		<<set $clothingselector to "m">>
 		He hands you a pair of academy pants. He speaks before you can articulate any apprehension. "I know it's a boy's uniform, but it's all I have. Buy your own uniform if you don't want this to happen in the future." He turns back to his computer and leaves you to change.
 		<br><br>
 
-		<<link [[Get changed and leave (0:01)|Ash Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
+		<<link [[Get changed and leave (0:01)|Rowan Register 3]]>><<academyspareclothes>><<endevent>><<pass 1>><</link>>
 		<br>
-		<<link [[Refuse to wear the boys' uniform|Ash Clothes Refusal]]>><</link>>
+		<<link [[Refuse to wear the boys' uniform|Rowan Clothes Refusal]]>><</link>>
 		<br>
 	<</if>>
 <</if>>
 
-:: Ash Clothes Refusal
+:: Rowan Clothes Refusal
 <<set _offeredclothing to ($clothingselector is "m" ? "the boys' uniform" : "the girls' uniform")>>
 <<if $speech_attitude is "meek">>
 	"B-But this is _offeredclothing," you say.
@@ -259,10 +273,10 @@ Before you can speak, Ash clears his voice and says, "Hello sir, I was hopin' to
 <br><br>
 He looks at you sternly and scoffs. "If you want to dress as a <<print ($clothingselector is "m" ? "girl" : "boy")>>, that's your choice, but we don't have anything else for handouts. Now, get dressed."
 <br><br>
-<<link [[Wear the clothes (0:01)|Ash Register 3]]>><<academyspareclothes>><<pass 1>><<endevent>><</link>>
+<<link [[Wear the clothes (0:01)|Rowan Register 3]]>><<academyspareclothes>><<pass 1>><<endevent>><</link>>
 
-:: Ash Register 3
-<<npc Ash>><<person1>>
+:: Rowan Register 3
+<<npc Rowan>><<person1>>
 You get changed into the academy uniform and are guided down the hall to a dorm room. "This is where you will be stayin', I will pick ya up in the mornin' for training. Spend the rest of the day however ya like. I will see you later."
 <br><br>
 <<link [[Next|Horse Academy Dorm]]>><<set $horseacademystudent to 1>><<set $horseacademycountdown to 7>><<endevent>><</link>>
@@ -270,7 +284,7 @@ You get changed into the academy uniform and are guided down the hall to a dorm 
 :: Horse Academy Dorm
 You are in your racing academy dorm room. It looks fairly basic, the lack of decorations leaving a plain room with only a bed, mirror, and wardrobe. 
 <<if _sleepinterrupt is 1>>
-	Ash is waiting outside the door.
+	Rowan is waiting outside the door.
 <</if>>
 <br><br>
 <<if _sleepinterupt is 0>>
@@ -282,7 +296,7 @@ You are in your racing academy dorm room. It looks fairly basic, the lack of dec
 <<mirroricon>><<link [[Mirror|Horse Academy Mirror]]>><<endevent>><</link>>
 <br>
 <<if _sleepinterrupt is 1>>
-	<<getouticon>><<link [[Leave the dorm room|Horse Academy Ash Morning]]>><<rng>><<endevent>><</link>>
+	<<getouticon>><<link [[Leave the dorm room|Horse Academy Rowan Morning]]>><<rng>><<endevent>><</link>>
 <<else>>
 	<<getouticon>><<link [[Leave the dorm room|Horse Academy]]>><<endevent>><</link>>
 <</if>>
@@ -299,7 +313,7 @@ You snuggle under the covers.
 <<sleepeffects>><<sleep>><<effects>>
 <<if _sleepinterrupt is 1>>
 	<<wakingEffects $sleepHoursTotal>>
-	You sleep soundly, but are awakened early by a hammering on your door. It's Ash, waking you for training.
+	You sleep soundly, but are awakened early by a hammering on your door. It's Rowan, waking you for training.
 <<else>>
 	You rest your head on the fresh new pillow and drift off to sleep. You rest well, waking up hours later. You sit up and stretch before getting out of the bed.
 <</if>>
@@ -330,27 +344,37 @@ You're on the academy's practice track.
 <<getouticon>><<link [[Leave the track|Horse Academy Entrance]]>><<endevent>><</link>>
 
 :: Horse Academy Track Train
-<<athleticsdifficulty 250 700 true>>
-<<if $athleticsSuccess>>
-	You jog against the wind. <span class="green">The fresh air <<if Weather.is("clear") and Time.dayState is "day">>and sunshine<</if>> is refreshing.</span>
+<<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutacademy>>
 <<else>>
-	You jog against the wind. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	<<athleticsdifficulty 250 700 true>>
+	<<if $athleticsSuccess>>
+		You jog against the wind. <span class="green">The fresh air <<if Weather.is("clear") and Time.dayState is "day">>and sunshine<</if>> is refreshing.</span>
+	<<else>>
+		You jog against the wind. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	<</if>>
+	<br><br>
+	<<runicon>><<link [[Continue jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
+	<br>
+	<<runicon>><<link [[Practice weighted cardio on the track (1:30)|Horse Academy Track Weight]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
+	<br>
+	<<getouticon>><<link [[Stop practicing|Horse Academy Track]]>><</link>>
 <</if>>
-<br><br>
-<<runicon>><<link [[Continue jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
-<br>
-<<runicon>><<link [[Practice weighted cardio on the track (1:30)|Horse Academy Track Weight]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
-<br>
-<<getouticon>><<link [[Stop practicing|Horse Academy Track]]>><</link>>
 
 :: Horse Academy Track Weight
-You jog with a weighted vest weighing you down. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
-<br><br>
-<<runicon>><<link [[Continue weighted cardio on the track (1:30)|Horse Academy Track Weight]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
-<br>
-<<runicon>><<link [[Practice jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
-<br>
-<<getouticon>><<link [[Stop practicing|Horse Academy Track]]>><</link>>
+<<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutacademy>>
+<<else>>
+	You jog with a weighted vest weighing you down. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	<br><br>
+	<<runicon>><<link [[Continue weighted cardio on the track (1:30)|Horse Academy Track Weight]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
+	<br>
+	<<runicon>><<link [[Practice jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
+	<br>
+	<<getouticon>><<link [[Stop practicing|Horse Academy Track]]>><</link>>
+<</if>>
 
 :: Horse Academy Training Room
 You are in the academy's multi-purpose training room. Half of the room is taken up by weight equipment and the other half is left open for aerobic exercise. 
@@ -368,34 +392,42 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 <<getouticon>><<link [[Leave the dorm room|Horse Academy]]>><<endevent>><</link>>
 
 :: Horse Academy Weights
-<<wearProp "weight">>
-You spend an hour lifting weights in the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
-<br><br>
-<<prisonicon "lift">><<link [[Continue lifting weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
-<br>
-<<dancestudioicon>><<link [[Practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
-<br>
-<<getouticon>><<link [[Stop training|Horse Academy Track]]>><</link>>
+<<if $stress gte $stressmax>>
+	<<passoutacademy>>
+<<else>>
+	<<wearProp "weight">>
+	You spend an hour lifting weights in the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	<br><br>
+	<<prisonicon "lift">><<link [[Continue lifting weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
+	<br>
+	<<dancestudioicon>><<link [[Practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
+	<br>
+	<<getouticon>><<link [[Stop training|Horse Academy Track]]>><</link>>
+<</if>>
 
 :: Horse Academy Dance
-You spend an hour practicing dance in the aerobic section of the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
-<br><br>
-<<dancestudioicon>><<link [[Continue to practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
-<br>
-<<prisonicon "lift">><<link [[Take some time to lift weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
-<br>
-<<getouticon>><<link [[Stop training|Horse Academy Track]]>><</link>>
-
-:: Horse Academy Ash Morning
-<<npc Ash>><<person1>>
-<<if $horseacademycountdown is 0>>
-	"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Ash sighs and places <<his>> hand on <<his>> hip. "It's racin' day, you ready?" <<He>> doesn't wait for an answer as <<he>> grabs your arm and pulls you along.
+<<if $stress gte $stressmax>>
+	<<passoutacademy>>
+<<else>>
+	You spend an hour practicing dance in the aerobic section of the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	<br><br>
+	<<dancestudioicon>><<link [[Continue to practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
 	<br>
-	<<runicon>><<link [[Follow Ash to the track (2:00)|Regional Race Go]]>><<pass 120>><<if $regionalrace is undefined>><<set $regionalrace to 6>><</if>><</link>>
+	<<prisonicon "lift">><<link [[Take some time to lift weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
+	<br>
+	<<getouticon>><<link [[Stop training|Horse Academy Track]]>><</link>>
+<</if>>
+
+:: Horse Academy Rowan Morning
+<<npc Rowan>><<person1>>
+<<if $horseacademycountdown is 0>>
+	"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Rowan sighs and places <<his>> hand on <<his>> hip. "It's racin' day, you ready?" <<He>> doesn't wait for an answer as <<he>> grabs your arm and pulls you along.
+	<br>
+	<<runicon>><<link [[Follow Rowan to the track (2:00)|Regional Race Go]]>><<pass 120>><<if $regionalrace is undefined>><<set $regionalrace to 6>><</if>><</link>>
 <<else>>
 	"Oh, you're finally awake. Thought ya were gonna sleep the whole day away."
 	<br> <br>
-	Ash lets out a sigh and rests a hand on <<his>> hip.
+	Rowan lets out a sigh and rests a hand on <<his>> hip.
 	<br><br>
 	"We got a race comin' up, darlin'. Can't afford to be slackin' off now."
 	<br>
@@ -408,9 +440,9 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 		<br> <br>
 		"Lets build up ya speed so you can keep up while racin'"
 		<br><br>
-		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Athletics]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggathletics>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggathletics>><<gggtiredness>>
 		<br>
-		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 1>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 1>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
 	<<elseif $rng gt 50>>
 		<<He>> jerks <<his>> head toward the multipurpose room.
 		<br><br>
@@ -420,9 +452,9 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 		<br><br>
 		"Keep ya strong enough to pass up them other racin' horses."
 		<br><br>
-		<<prisonicon "lift">><<link [[Follow Ash (10:00)|Horse Academy Train Physique]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggphysique>><<gggtiredness>>
+		<<prisonicon "lift">><<link [[Follow Rowan (10:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggphysique>><<gggtiredness>>
 		<br>
-		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 2>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 2>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
 	<<elseif $rng gt 25>>
 		<<He>> jerks <<his>> head toward the multipurpose room.
 		<br><br>
@@ -432,9 +464,9 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 		<br><br>
 		"Keep ya able to turn them corners and not go slippin' to the ground."
 		<br><br>
-		<<dancestudioicon>><<link [[Follow Ash (10:00)|Horse Academy Train Dance]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggdanceskill>><<gggtiredness>>
+		<<dancestudioicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggdanceskill>><<gggtiredness>>
 		<br>
-		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 3>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 3>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
 	<<else>>
 		<<He>> jerks <<his>> head toward the training grounds.
 		<br><br>
@@ -444,35 +476,35 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 		<br> <br>
 		"Gotta make sure you can stay on ya feet long enough to cross the finish line without collapsin'."
 		<br><br>
-		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Willpower]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><</link>><<glove>><<gdom>><<gggwillpower>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggwillpower>><<gggtiredness>>
 		<br>
-		<<runicon>><<link [[Disobey Ash|Horse Academy Disobey]]>><<set $dailytrain to 4>><<rng>><<set C.npc.Ash.love -= 2>><<set C.npc.Ash.dom -= 1>><</link>><<llove>><<ldom>>
+		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 4>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
 	<</if>>
 <</if>>
 
 :: Horse Academy Disobey
-<<npc Ash>><<person1>>
-<<if C.npc.Ash.love gte $rng>>
-	"You thinkin' ya can just disobey my orders? I am ya trainer and you better start listenin' or ya gonna have a bad time." Ash begins to roughly grab at you and attempts to pull you along.
+<<npc Rowan>><<person1>>
+<<if C.npc.Rowan.love gte $rng>>
+	"You thinkin' ya can just disobey my orders? I am ya trainer and you better start listenin' or ya gonna have a bad time." Rowan begins to roughly grab at you and attempts to pull you along.
 	<br><br>
 	<<if $dailytrain is 1>>
-		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Athletics]]>><</link>><<gggathletics>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Athletics]]>><</link>><<gggathletics>><<gggtiredness>>
 	<<elseif $dailytrain is 2>>
-		<<prisonicon "lift">><<link [[Follow Ash (10:00)|Horse Academy Train Physique]]>><</link>><<gggphysique>><<gggtiredness>>
+		<<prisonicon "lift">><<link [[Follow Rowan (10:00)|Horse Academy Train Physique]]>><</link>><<gggphysique>><<gggtiredness>>
 	<<elseif $dailytrain is 3>>
-		<<dancestudioicon>><<link [[Follow Ash (10:00)|Horse Academy Train Dance]]>><<danceskill 50>><<tiredness 20>><</link>><<gggdanceskill>><<gggtiredness>>
+		<<dancestudioicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Dance]]>><<danceskill 50>><<tiredness 20>><</link>><<gggdanceskill>><<gggtiredness>>
 	<<elseif $dailytrain is 4>>
-		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Willpower]]>><</link>><<gggwillpower>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Willpower]]>><</link>><<gggwillpower>><<gggtiredness>>
 	<</if>>
 	<br>
-	<<link [[Continue to disobey|Horse Academy Ash Rape]]>><<set $molestationstart to 1>><</link>>
+	<<link [[Continue to disobey|Horse Academy Rowan Rape]]>><<set $molestationstart to 1>><</link>>
 <<else>>
 	"Fine, I suppose ya earned enough respect for me to respect ya choices. Just don't be lettin' me down durin' the race."
 	<br>
 	<<link [[Next|Horse Academy]]>><<set _sleepinterrupt to 0>><</link>>
 <</if>>
 
-:: Horse Academy Ash Rape
+:: Horse Academy Rowan Rape
 
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
@@ -491,31 +523,31 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 <<actionsman>>
 
 <<if _combatend>>
-	<span id="next"><<link [[Next|Horse Academy Ash Rape Finish]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Horse Academy Rowan Rape Finish]]>><</link>></span><<nexttext>>
 <<else>>
-	<span id="next"><<link [[Next|Horse Academy Ash Rape]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Horse Academy Rowan Rape]]>><</link>></span><<nexttext>>
 <</if>>
 
-:: Horse Academy Ash Rape Finish
+:: Horse Academy Rowan Rape Finish
 
 <<if $enemyarousal gte $enemyarousalmax>>
-	Ash hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
+	Rowan hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
 	<br><br>
 	<<He>> grips your wrist and pulls you to your feet. "Now that ya got taught a lesson, lets get to trainin' you got that?" <<He>> chuckles pulling you away toward a training facility.
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
 	<<if $dailytrain is 1>>
-		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Athletics]]>><<set C.npc.Ash.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggathletics>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggathletics>><<gggtiredness>>
 	<<elseif $dailytrain is 2>>
-		<<prisonicon "lift">><<link [[Follow Ash (10:00)|Horse Academy Train Physique]]>><<set C.npc.Ash.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggphysique>><<gggtiredness>>
+		<<prisonicon "lift">><<link [[Follow Rowan (10:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggphysique>><<gggtiredness>>
 	<<elseif $dailytrain is 3>>
-		<<dancestudioicon>><<link [[Follow Ash (10:00)|Horse Academy Train Dance]]>><<set C.npc.Ash.dom += 10>><<danceskill 50>><<tiredness 20>><<set _sleepinterrupt to 0>><</link>><<gggdanceskill>><<gggtiredness>>
+		<<dancestudioicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.dom += 10>><<danceskill 50>><<tiredness 20>><<set _sleepinterrupt to 0>><</link>><<gggdanceskill>><<gggtiredness>>
 	<<elseif $dailytrain is 4>>
-		<<runicon>><<link [[Follow Ash (10:00)|Horse Academy Train Willpower]]>><<set C.npc.Ash.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggwillpower>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggwillpower>><<gggtiredness>>
 	<</if>>
 <<else>>
-	Hissing, Ash backs away from you.
+	Hissing, Rowan backs away from you.
 	<br><br>
 	"Whatever, if ya lose the race and ruin everythin', you'll be the one payin' for it." <<he>> spits on the floor and marches off.
 	<br><br>
@@ -530,84 +562,84 @@ You spend an hour practicing dance in the aerobic section of the multipurpose ro
 <</if>>
 
 :: Horse Academy Train Athletics
-<<npc Ash>><<person1>>
+<<npc Rowan>><<person1>>
 <<rng>>
-<<if C.npc.Ash.love - C.npc.Ash.dom gte $rng>>
-	Ash leads you to the practice track at the front of the academy. "We're gonna be trainin' ya speed today. You aughta do about a dozen laps on the track and we'll see ya progress."
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
+	Rowan leads you to the practice track at the front of the academy. "We're gonna be trainin' ya speed today. You aughta do about a dozen laps on the track and we'll see ya progress."
 	<br><br>
 	You spend the day jogging. <span class="red">You feel exhausted.</span>
 	<br><br>
 	<<link [[Next|Horse Academy]]>><<athletics 50>><<tiredness 20>><<pass 600>><<endevent>><</link>>
 <<else>>
-	Ash begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
+	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
-	Ash grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
+	Rowan grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
 	<br><br>
 	"Now that we got ya in the back where noone'll hear, we can begin ya <span class="red">"special"</span> trainin'..."
 	<br><br>
-	Ash leads you to an open room the size of an indoor pool with a small track. "Now... we're gonna let the horses out and we'll see how fast you can run."
+	Rowan leads you to an open room the size of an indoor pool with a small track. "Now... we're gonna let the horses out and we'll see how fast you can run."
 	<<link [[Next|Horse Backroom Athletics]]>><<endevent>><</link>>
 <</if>>
 
 :: Horse Academy Train Physique
-<<npc Ash>><<person1>>
+<<npc Rowan>><<person1>>
 <<rng>>
-<<if C.npc.Ash.love - C.npc.Ash.dom gte $rng>>
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
 	<<wearProp "weight">>
-	Ash guides you to the multipurpose room where there are several weights and machines set up for strength training. "Alrighty, today we're gonna be trainin' your strength so you can pass up other horses mid-race."
+	Rowan guides you to the multipurpose room where there are several weights and machines set up for strength training. "Alrighty, today we're gonna be trainin' your strength so you can pass up other horses mid-race."
 	<br><br>
 	You spend the day lifting weights. <span class="red">You feel exhausted.</span>
 	<br><br>
 	<<link [[Next|Horse Academy]]>><<physique 50>><<tiredness 60>><<pass 600>><<endevent>><</link>>
 <<else>>
-	Ash begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
+	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
-	Ash grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
+	Rowan grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
 	<br><br>
 	"Now that we got ya in the back where noone'll hear, we can begin ya <span class="red">"special"</span> trainin'..."
 	<br><br>
-	Ash pulls you into a side room lit by red lights with a mat at the center. "Get down and begin your pushups. If ya begin strugglin' I'll have to give ya a punishment just for you."
+	Rowan pulls you into a side room lit by red lights with a mat at the center. "Get down and begin your pushups. If ya begin strugglin' I'll have to give ya a punishment just for you."
 	<<link [[Next|Horse Backroom Physique]]>><<endevent>><</link>>
 <</if>>
 
 :: Horse Academy Train Dance
-<<npc Ash>><<person1>>
+<<npc Rowan>><<person1>>
 <<rng>>
-<<if C.npc.Ash.love - C.npc.Ash.dom gte $rng>>
-	Walking a little ahead, Ash guides you to the multipurpose room and sets down a boombox. "Today we're gonna take some time to train up ya footwork. We can't have ya slippin' on corners or fallin' mid-race."
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
+	Walking a little ahead, Rowan guides you to the multipurpose room and sets down a boombox. "Today we're gonna take some time to train up ya footwork. We can't have ya slippin' on corners or fallin' mid-race."
 	<br><br>
 	You spend the day practicing your dance skills. <span class="red">You feel exhausted.</span>
 	<br><br>
 	<<link [[Next|Horse Academy]]>><<danceskill 50>><<tiredness 20>><<pass 600>><<endevent>><</link>>
 <<else>>
-	Ash begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
+	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
-	Ash grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
+	Rowan grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
 	<br><br>
 	"Now that we got ya in the back where noone'll hear, we can begin ya <span class="red">"special"</span> trainin'..."
 	<br><br>
-	Ash pulls you into a dark room full of whips and other equipment. "Now ya gonna dodge these whips, or... ya gonna be hurtin' real bad." <<he>> grins as <<he>> pulls down one of the whips and readies it.
+	Rowan pulls you into a dark room full of whips and other equipment. "Now ya gonna dodge these whips, or... ya gonna be hurtin' real bad." <<he>> grins as <<he>> pulls down one of the whips and readies it.
 	<br><br>
 	<<link [[Next|Horse Backroom Whip]]>><<endevent>><</link>>
 <</if>>
 
 :: Horse Academy Train Willpower
-<<npc Ash>><<person1>>
+<<npc Rowan>><<person1>>
 <<rng>>
-<<if C.npc.Ash.love - C.npc.Ash.dom gte $rng>>
-	Ash guides you toward the practice track out front. "We're gonna be trainin' ya on the track today. I brought ya a weighted vest, should help ya build up some endurance for the comin' races."
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
+	Rowan guides you toward the practice track out front. "We're gonna be trainin' ya on the track today. I brought ya a weighted vest, should help ya build up some endurance for the comin' races."
 	<br><br>
 	You spend the day jogging with a weighted vest weighing you down. <span class="red">You feel exhausted.</span>
 	<br><br>
 	<<link [[Next|Horse Academy]]>><<willpower 50>><<tiredness 60>><<pass 600>><<endevent>><</link>>
 <<else>>
-	Ash begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
+	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
-	Ash grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
+	Rowan grips your arm tight and pulls you into a deeper portion of the academy. <span class="red">The lights here are dim and it is hard to see, but you hear strange noises around you.</span>
 	<br><br>
 	"Now that we got ya in the back where noone'll hear, we can begin ya <span class="red">"special"</span> trainin'..."
 	<br><br>
-	Ash pulls you into a locked stall and you are plunged into darkness. You can see nothing but black but you feel something huge behind you...
+	Rowan pulls you into a locked stall and you are plunged into darkness. You can see nothing but black but you feel something huge behind you...
 	<br><br>
 	<<link [[Next|Horse Backroom Horse Rape]]>><<endevent>><<set $molestationstart to 1>><</link>>
 <</if>>
@@ -664,57 +696,57 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 <<clotheson>>
 <<endcombat>>
 
-<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.dom += 2>><<willpower 10>><</link>><<ggdom>>
+<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Rowan.dom += 2>><<willpower 10>><</link>><<ggdom>>
 
 :: Horse Backroom Whip
-<<npc Ash>><<person1>>
+<<npc Rowan>><<person1>>
 <<He>> cracks the whip <<his>> hands. "Now dodge if ya can, if not... I hope ya like pain."
 <br><br>
 
 <<if $danceskill gte 400>>
-	You manage to evade the first lash. Ash pulls the whip back and aims at you once more.
+	You manage to evade the first lash. Rowan pulls the whip back and aims at you once more.
 	<<danceskill 5>>
 <<else>>
-	You cry out as pain erupts in your back. Ash pulls the whip back and aims at you once more.
+	You cry out as pain erupts in your back. Rowan pulls the whip back and aims at you once more.
 	<<masopain 20>>
 	<<danceskill 5>>
 <</if>>
 <br><br>
 <<if $danceskill gte 600>>
-	You manage to evade the second lash. Ash looks annoyed, pulling the whip back and aims at you yet again.
+	You manage to evade the second lash. Rowan looks annoyed, pulling the whip back and aims at you yet again.
 	<<danceskill 5>>
 <<else>>
-	The second lash lands, causing you to cry out as pain erupts from your back. Ash pulls the whip back and aims at you yet again.
+	The second lash lands, causing you to cry out as pain erupts from your back. Rowan pulls the whip back and aims at you yet again.
 	<<masopain 20>>
 	<<danceskill 5>>
 <</if>>
 <br><br>
 <<if $danceskill gte 800>>
-	You manage to evade the third and final lash. Ash looks pissed yet also pleasantly surprised. "Wow that's some nice movin'. It almost makes me proud. I reckon I'll let ya off easy this time."
+	You manage to evade the third and final lash. Rowan looks pissed yet also pleasantly surprised. "Wow that's some nice movin'. It almost makes me proud. I reckon I'll let ya off easy this time."
 	<<danceskill 5>>
 	<br><br>
-	Ash grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar."
+	Rowan grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar."
 
-	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.love += 3>><</link>><<ggglove>>
+	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Rowan.love += 3>><</link>><<ggglove>>
 <<else>>
-	The final lash lands, causing you to cry out in pain as your back is raw. Ash pants as <<he>> hangs back up the whip. "Train your footwork skills if ya don't want so much pain next time."
+	The final lash lands, causing you to cry out in pain as your back is raw. Rowan pants as <<he>> hangs back up the whip. "Train your footwork skills if ya don't want so much pain next time."
 	<<masopain 20>>
 	<<danceskill 5>>
 	<br><br>
-	Ash grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar."
+	Rowan grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar."
 
-	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.dom += 2>><</link>><<ggdom>>
+	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Rowan.dom += 2>><</link>><<ggdom>>
 <</if>>
 
 :: Horse Backroom Athletics
-<<npc Ash>><<person1>>
-You begin to sprint as the box at the end of the room opens and a large horse barrels out. Ash begins to laugh as <<he>> watches. "Run sugar run! Maybe you can escape if ya fast enough."
+<<npc Rowan>><<person1>>
+You begin to sprint as the box at the end of the room opens and a large horse barrels out. Rowan begins to laugh as <<he>> watches. "Run sugar run! Maybe you can escape if ya fast enough."
 <<if $athletics gte 800>>
-	You slowly start to gain distance from the horse before bursting out of the back rooms. You can hear Ash's laughter continue from the other room.
-	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Ash.love += 3>><<athletics 5>><</link>><<ggglove>>
+	You slowly start to gain distance from the horse before bursting out of the back rooms. You can hear Rowan's laughter continue from the other room.
+	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Rowan.love += 3>><<athletics 5>><</link>><<ggglove>>
 <<else>>
-	You slowly begin to lose ground as the horse speeds up. Ash begins to laugh as <<he>> watches you get mowed over by the horse, pinned to the ground.
-	<<link [[Next|Horse Chase Rape]]>><<set C.npc.Ash.dom += 2>><<set $molestationstart to 1>><<athletics 5>><</link>><<ggdom>>
+	You slowly begin to lose ground as the horse speeds up. Rowan begins to laugh as <<he>> watches you get mowed over by the horse, pinned to the ground.
+	<<link [[Next|Horse Chase Rape]]>><<set C.npc.Rowan.dom += 2>><<set $molestationstart to 1>><<athletics 5>><</link>><<ggdom>>
 <</if>>
 
 :: Horse Chase Rape
@@ -769,52 +801,52 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 <<link [[Next|Horse Academy]]>><<endevent>><<athletics 10>><</link>>
 
 :: Horse Backroom Physique
-<<npc Ash>><<person1>>
+<<npc Rowan>><<person1>>
 <<He>> sits on your back as you fall to your knees. <<His>> hands drift down to your body, gently stroking your chest. "If ya fall, remember, I got a special punishment for ya."
 <br><br>
 
 <<if $physique gte (($physiquemax / 4) + $arousal)>>
-	You manage to complete a set of pushup as Ash's hands gently grope over your body.
+	You manage to complete a set of pushup as Rowan's hands gently grope over your body.
 	<<physique 5>>
 	<<arousal 10>>
 <<else>>
-	You struggle before falling flat. Ash stands and laughs over you. "Get up and keep going little thing, we'll see if ya can handle the next set."
+	You struggle before falling flat. Rowan stands and laughs over you. "Get up and keep going little thing, we'll see if ya can handle the next set."
 	<<masopain 10>>
 	<<physique 5>>
 	<<arousal 10>>
 <</if>>
 <br><br>
 <<if $physique gte (($physiquemax / 3) + $arousal)>>
-	With some straining, you complete the second set of pushups despite Ash's continues and intensified groping as <<his>> hands find their way to your <<genitals>>.
+	With some straining, you complete the second set of pushups despite Rowan's continues and intensified groping as <<his>> hands find their way to your <<genitals>>.
 	<<physique 5>>
 	<<arousal 20>>
 <<else>>
-	You struggle before falling flat. Ash stands and laughs over you. "And there ya go fallin' get back up, ya got one set to go."
+	You struggle before falling flat. Rowan stands and laughs over you. "And there ya go fallin' get back up, ya got one set to go."
 	<<masopain 10>>
 	<<physique 5>>
 	<<arousal 20>>
 <</if>>
 <br><br>
 <<if $physique gte (($physiquemax / 2) + $arousal)>>
-	You complete the final set as Ash's fingers stroke your <<genitals>> with increasing speed. <<He>> climbs off your back with a grin. "Wow, ya held on well. No punishment for ya today."
+	You complete the final set as Rowan's fingers stroke your <<genitals>> with increasing speed. <<He>> climbs off your back with a grin. "Wow, ya held on well. No punishment for ya today."
 	<<physique 5>>
 	<<arousal 30>>
 	<br><br>
-	Ash grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar. Unless you wanna take me up on that special punishment anyway?"
+	Rowan grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar. Unless you wanna take me up on that special punishment anyway?"
 	<br><br>
-	<<link [[Take up the offer|Ash Sex Time]]>><<set $sexstart to 1>><<set C.npc.Ash.love += 5>><</link>><<ggglove>>
+	<<link [[Take up the offer|Rowan Sex Time]]>><<set $sexstart to 1>><<set C.npc.Rowan.love += 5>><</link>><<ggglove>>
 	<br>
-	<<link [[Leave|Horse Academy]]>><<set C.npc.Ash.love += 3>><<endevent>><</link>><<ggglove>>
+	<<link [[Leave|Horse Academy]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>><<ggglove>>
 <<else>>
-	You struggle before falling flat. Ash stands and laughs over you. "Wow you can't even handle that much? Such a weak little pony. Now lets begin ya special punishment."
+	You struggle before falling flat. Rowan stands and laughs over you. "Wow you can't even handle that much? Such a weak little pony. Now lets begin ya special punishment."
 	<<masopain 10>>
 	<<physique 5>>
 	<<arousal 30>>
 	<br><br>
-	<<link [[Next|Ash Punishment Rape]]>><<set C.npc.Ash.dom += 2>><<set $molestationstart to 1>><</link>><<ggdom>>
+	<<link [[Next|Rowan Punishment Rape]]>><<set C.npc.Rowan.dom += 2>><<set $molestationstart to 1>><</link>><<ggdom>>
 <</if>>
 
-:: Ash Punishment Rape
+:: Rowan Punishment Rape
 
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
@@ -833,15 +865,15 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 <<actionsman>>
 
 <<if _combatend>>
-	<span id="next"><<link [[Next|Ash Punishment Rape Finish]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Rowan Punishment Rape Finish]]>><</link>></span><<nexttext>>
 <<else>>
-	<span id="next"><<link [[Next|Ash Punishment Rape]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Rowan Punishment Rape]]>><</link>></span><<nexttext>>
 <</if>>
 
-:: Ash Punishment Rape Finish
+:: Rowan Punishment Rape Finish
 
 <<if $enemyarousal gte $enemyarousalmax>>
-	Ash hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
+	Rowan hovers over you for a few seconds to catch <<his>> breath before <<he>> moves away.
 	<br><br>
 	<<He>> grips your wrist and pulls you to your feet. "Did ya enjoy your special punishment?" <<He>> chuckles pulling you out of the back room.
 	<br><br>
@@ -849,7 +881,7 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 	<<endcombat>>
 	<<link [[Next|Horse Academy]]>><<endevent>><</link>>
 <<else>>
-	Hissing, Ash backs away from you.
+	Hissing, Rowan backs away from you.
 	<br><br>
 	"Whatever, if ya lose the race and ruin everythin', you'll be the one payin' for it." <<he>> spits on the floor and marches off.
 	<br><br>
@@ -955,19 +987,19 @@ The board changes one last time while the bookie calls for final bets.
 <br>
 <<link [[Return to the stands|Race Track]]>><<endevent>><</link>>
 
-:: Horse Academy Ash Talk
-<<npc Ash>><<person1>>
-You approach Ash and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
+:: Horse Academy Rowan Talk
+<<npc Rowan>><<person1>>
+You approach Rowan and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
 <br><br>
-<<link [[Spend some time talking (0:30)|Ash Time Spend]]>><<set C.npc.Ash.love += 1>><<pass 30>><<endevent>><</link>><<glove>>
+<<link [[Spend some time talking (0:30)|Rowan Time Spend]]>><<set C.npc.Rowan.love += 1>><<pass 30>><<endevent>><</link>><<glove>>
 <br>
-<<if C.npc.Ash.love gte 80 or C.npc.Ash.dom gte 40>>
-	<<link [[Ask Ash for some special love|Ash Sex Time]]>><<set C.npc.Ash.love += 2>><<set C.npc.Ash.dom += 1>><<set $sexstart to 1>><</link>><<gglove>><<gdom>>
+<<if C.npc.Rowan.love gte 80 or C.npc.Rowan.dom gte 40>>
+	<<link [[Ask Rowan for some special love|Rowan Sex Time]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><<set $sexstart to 1>><</link>><<gglove>><<gdom>>
 	<br>
 <</if>>
 <<getouticon>><<link [[Leave <<him>> alone|Horse Academy Entrance]]>><<endevent>><</link>>
 
-:: Ash Sex Time
+:: Rowan Sex Time
 <<if $sexstart is 1>>
 	<<set $sexstart to 0>>
 	<<consensual>>
@@ -986,64 +1018,64 @@ You approach Ash and <<he>> raises <<his>> eyebrow confused. "So, what do you ne
 <<actionsman>>
 
 <<if _combatend>>
-	<span id="next"><<link [[Next|Ash Sex Time Finish]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Rowan Sex Time Finish]]>><</link>></span><<nexttext>>
 <<else>>
-	<span id="next"><<link [[Next|Ash Sex Time]]>><</link>></span><<nexttext>>
+	<span id="next"><<link [[Next|Rowan Sex Time]]>><</link>></span><<nexttext>>
 <</if>>
 
-:: Ash Sex Time Finish
+:: Rowan Sex Time Finish
 <<effects>>
 
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<ejaculation>>
-	<<npcincr Ash love 2>>
-	Ash takes a moment, breathing heavily as <<he>> gathers <<himself>> climbs away from you.
+	<<npcincr Rowan love 2>>
+	Rowan takes a moment, breathing heavily as <<he>> gathers <<himself>> climbs away from you.
 <<elseif $enemyhealth lte 0>>
-    <<npcincr Ash love -5>><<npcincr Ash dom -5>>
-    "You bitch!" Ash yells wiping the blood from <<his>> nose, "Just get the hell out of here."<<lllove>><<lldom>>
+    <<npcincr Rowan love -5>><<npcincr Rowan dom -5>>
+    "You bitch!" Rowan yells wiping the blood from <<his>> nose, "Just get the hell out of here."<<lllove>><<lldom>>
 <<elseif $finish is 1>>
-	<<npcincr Ash love -3>>
+	<<npcincr Rowan love -3>>
 	"Can't even finish?" <<He>> says looking confused. "You young folks got somethin' wrong with ya."<<lllove>>
 <</if>>
 <br><br>
-Ash leads you out of the back rooms and back into the main room of the academy.
+Rowan leads you out of the back rooms and back into the main room of the academy.
 <br><br>
 <<clotheson>><<endcombat>>
 <<link [[Next|Horse Academy]]>><<endevent>><</link>>
 
-:: Ash Time Spend
-<<npc Ash>><<person1>>
+:: Rowan Time Spend
+<<npc Rowan>><<person1>>
 <<cleareventpool>>
-<<if (C.npc.Ash.love gt 80)>>
+<<if (C.npc.Rowan.love gt 80)>>
     <<addinlineevent "ash_love1">>
-        "I must apologize for the way I have been treatin' ya lately." Ash looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
+        "I must apologize for the way I have been treatin' ya lately." Rowan looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "ash_love2">>
-        "Even though ya should be trainin', I admit I like spendin' time with ya." Ash smirks. "Though, ya better still be trainin hard for the races."
+        "Even though ya should be trainin', I admit I like spendin' time with ya." Rowan smirks. "Though, ya better still be trainin hard for the races."
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
-<<elseif (C.npc.Ash.love gt 40)>>
+<<elseif (C.npc.Rowan.love gt 40)>>
 	<<addinlineevent "ash_midlove1">>
-        "Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race." Ash shakes <<his>> head with a smirk but lets you sit next to <<him>>.
+        "Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race." Rowan shakes <<his>> head with a smirk but lets you sit next to <<him>>.
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "ash_midlove2">>
-        "Still not too sure about ya, sugar." Ash shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
+        "Still not too sure about ya, sugar." Rowan shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <<else>>
 	<<addinlineevent "ash_lowlove1">>
-        "Ya wantin' to spend time with me?" Ash looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Ash.
+        "Ya wantin' to spend time with me?" Rowan looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Rowan.
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "ash_lowlove2">>
-        "Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else." Ash looks annoyed by your lack of effort.
+        "Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else." Rowan looks annoyed by your lack of effort.
         <br><br>
         <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
@@ -1051,15 +1083,15 @@ Ash leads you out of the back rooms and back into the main room of the academy.
 <<runeventpool>>
 
 :: Regional Race Go
-<<npc Ash>><<person1>>
-You and Ash spend a few hours walking down the road until you arrive at the stadium. A large track surrounded by rows of bleachers sits at the center and fans already fill the seats.
+<<npc Rowan>><<person1>>
+You and Rowan spend a few hours walking down the road until you arrive at the stadium. A large track surrounded by rows of bleachers sits at the center and fans already fill the seats.
 <br><br>
 <<if $regionalrace is 6>>
 	You hear a small commotion as someone comes barging through.
 	<br><br>
     <<link [[Next|Mint Mocha Introduction]]>><<endevent>><</link>>
 <<else>>
-Ash looks worried about your chances but takes a deep breath and continues. "Well what are ya waitin' for, get in there."
+Rowan looks worried about your chances but takes a deep breath and continues. "Well what are ya waitin' for, get in there."
 <br><br>
 <<link [[Next|Regional Race]]>><<endevent>><</link>>
 <</if>>
@@ -1070,13 +1102,13 @@ Ash looks worried about your chances but takes a deep breath and continues. "Wel
 <<set C.npc["Mint Mocha"].dom to 40>>
 The person barging through the croud seems to be a horsegirl with mint green hair lined with brown streaks. She looks at you with crossed arms and scoffs. "Is this the new <<girl>> who thinks <<pshe>> can beat me?" She tosses one of her twintails in confidence. "Try not to get trampled by your betters. See you on the track loser."
 <br><br>
-Ash smirks at the horsegirl as she walks away and turns back toward you. "Well what are ya waitin' for, lets get ya registered."
+Rowan smirks at the horsegirl as she walks away and turns back toward you. "Well what are ya waitin' for, lets get ya registered."
 <br><br>
 <<link [[Next|Regional Race Register]]>><<endevent>><</link>>
 
 :: Regional Race Register [exitCheckBypass]
-<<npc Ash>><<person1>>
-Ash leads you toward the front of the stadium where a young man sits behind a booth taking tickets. Ash takes a moment to speak to the man, before you are led back into the back of the stadium. The man speaks, "Fill out this form and once you're done we can get you placed into the race."
+<<npc Rowan>><<person1>>
+Rowan leads you toward the front of the stadium where a young man sits behind a booth taking tickets. Rowan takes a moment to speak to the man, before you are led back into the back of the stadium. The man speaks, "Fill out this form and once you're done we can get you placed into the race."
 <br><br>
 <<textbox "$inputCode" "" autofocus>>
 <br>
@@ -1141,9 +1173,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
 		<br>
-		As you turn around, you're greeted by Ash's smirking face.
+		As you turn around, you're greeted by Rowan's smirking face.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
 	<<else>>
 		You breath heavily. How could you have lost... The crowd parts as someone barges through. It's the same horsegirl from before, the one the announcers called Mint Mocha.
 		<br><br>
@@ -1151,9 +1183,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		She lets out a cocky laugh, covering her mouth with her hand. "To think I was actually worried! You're so pathetic." She continues to laugh and lets out a snort as she walks away.
 		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
 	<</if>>
 <<elseif $regionalrace is 4>>
 	<<if $raceresult is "win">>
@@ -1171,9 +1203,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
 		<br>
-		As you turn around, you're greeted by Ash's smirking face.
+		As you turn around, you're greeted by Rowan's smirking face.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
 	<<else>>
 		You breathe heavily, adrenaline still humming in your veins. The crowd parts as someone shoves through the throng. It's Mint Mocha.
 		<br><br>
@@ -1183,9 +1215,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		She watches you for a moment, the confidence in her stance unwavering, then tosses her twintails over her shoulder and strides away, the echo of her boots fading into the noise of the cheering spectators.
 		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
 	<</if>>
 <<elseif $regionalrace is 3>>
 	<<if $raceresult is "win">>
@@ -1201,9 +1233,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
 		<br>
-		As you turn around, you're greeted by Ash's smirking face.
+		As you turn around, you're greeted by Rowan's smirking face.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
 	<<else>>
 		You breathe heavily, adrenaline still humming in your veins. The crowd parts as someone shoves through the throng. It's Mint Mocha.
 		<br><br>
@@ -1213,9 +1245,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		She pauses, chest heaving, and for a flicker of a second the bravado wavers, replaced by something raw, maybe relief, maybe the weight of all those early mornings finally paying off. Then she straightens, tosses her hair over one shoulder, and turns away, each step purposeful. The spectators part as she strides toward the stables.
 		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
 	<</if>>
 <<elseif $regionalrace is 2>>
 	<<if $raceresult is "win">>
@@ -1227,9 +1259,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
 		<br><br>
-		As you turn around, you're greeted by Ash's smirking face.
+		As you turn around, you're greeted by Rowan's smirking face.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
 	<<else>>
 		She bursts across the finish line, mane flying, heart pounding.
 		<br><br>
@@ -1239,9 +1271,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Without another word, she strides toward the stables, the crowd parting as she passes, each step echoing her determination.
 		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
 	<</if>>
 <<elseif $regionalrace is 1>>
 	<<if $raceresult is "win">>
@@ -1259,9 +1291,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
 		<br><br>
-		As you turn around, you're greeted by Ash's smirking face.
+		As you turn around, you're greeted by Rowan's smirking face.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
 	<<else>>
 		She glances your way, eyes bright, and lets out a short laugh that breaks the tense air. "Did you really think I'd let you slip by again? Not today."
 		<br><br>
@@ -1269,9 +1301,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		"Next time you'll have to bring something better if you hope to stay ahead." She tosses her twintails over her shoulder, the move quick and confident. With a determined stride she heads toward the stables, the crowd parting as she passes, each step echoing her resolve.
 		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Ash watching you with an upset look.
+		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
 	<</if>>
 <<elseif $regionalrace is 0>>
 	<<if $raceresult is "win">>
@@ -1287,9 +1319,9 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
 		<br><br>
-		As you turn around, you're greeted by Ash's smirking face.
+		As you turn around, you're greeted by Rowan's smirking face.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
 	<<else>>
 		Mint Mocha bolts across the finish line, her hooves kicking up a spray of dust as the crowd erupts. She slows to a proud trot, chest heaming, eyes shining with triumph.
 		<br><br>
@@ -1299,49 +1331,49 @@ The board changes one last time while the bookie calls for final bets.
 		<br><br>
 		Without another word, she tosses her twintails over her shoulder and strides toward the stables, the spectators parting as she passes. The echo of her boots fades, leaving you staring at the empty track, the sting of loss overwhelms you.
 		<br><br>
-		As you sit, your heart sore from the pain of failure, you catch sight of Ash watching you with an upset look.
+		As you sit, your heart sore from the pain of failure, you catch sight of Rowan watching you with an upset look.
 		<br><br>
-		<<link [[Next|Post Race Ash]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
 	<</if>>
 <</if>>
 
-:: Post Race Ash
-<<npc Ash>><<person1>>
+:: Post Race Rowan
+<<npc Rowan>><<person1>>
 <<if $regionalrace is 5>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
 	<</if>>
 <<elseif $regionalrace is 4>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
 	<</if>>
 <<elseif $regionalrace is 3>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
 	<</if>>
 <<elseif $regionalrace is 2>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
 	<</if>>
 <<elseif $regionalrace is 1>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
 	<</if>>
 <<elseif $regionalrace is 0>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Ash.dom -= 5>><<set C.npcAsh.love += 5>><</link>>
+		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
 	<<else>>
-		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Ash.dom += 5>><<set C.npcAsh.love -= 5>><</link>>
+		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
 	<</if>>
 <</if>>
 
@@ -1355,7 +1387,7 @@ After a moment of silence, you still do not leave, ruining the girl's mood. One 
 <br><br>
 You ignore her provocation and introduce yourself and she turns to face you annoyed. "Did you not hear me? I didn't realize you were deaf as well as stupid. Whatever." She huffs. "My name's Mint Mocha. Remember that when I beat you next race."
 <br><br>
-<<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+<<link [[Next|Horse Academy Entrance]]>><<set $mintmochaintro to 1>><<endevent>><</link>>
 
 :: Horse Academy Mint Talk
 <<npc "Mint Mocha">><<person1>>
@@ -1388,26 +1420,114 @@ You approach and attempt a conversation with Mint Mocha.
 <<runeventpool>>
 
 :: Horse Academy Closing
-<<npc Ash>><<person1>>
+<<npc Rowan>><<person1>>
 <<if $raceresult is "win">>
-	As you and Ash arrive back at the academy, you can see trainers packing bags and people saying their farewells. Ash turns to you with a soft expression, "Well, it's seemin' like that's the end of our time together at the academy 'ere. I let ya go, if that's what ya want. But... since ya done so much for me, I would welcome ya visit to my farmstead sometime." <<He>> gives a rare shy smile as <<he>> pulls you in for a kiss. <<takeKissVirginity "Ash" "romantic">>
+	As you and Rowan arrive back at the academy, you can see trainers packing bags and people saying their farewells. Rowan turns to you with a soft expression, "Well, it's seemin' like that's the end of our time together at the academy 'ere. I let ya go, if that's what ya want. But... since ya done so much for me, I would welcome ya visit to my farmstead sometime." <<He>> gives a rare shy smile as <<he>> pulls you in for a kiss. <<takeKissVirginity "Rowan" "romantic">>
 	<br><br>
 	<<set $ashromance to 1>>
 	<<if $loveInterest.primary is "None">>
-        <<set $loveInterest.primary to "Ash">>
-        <span class = "gold">Ash is now your love interest! The thought makes you feel warm.</span>
+        <<set $loveInterest.primary to "Rowan">>
+        <span class = "gold">Rowan is now your love interest! The thought makes you feel warm.</span>
         <br><br>
     <<else>>
-        <span class = "gold">Ash can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
+        <span class = "gold">Rowan can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
         <br><br>
     <</if>>
 	<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
 	<br><br>
 	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
 <<else>>
-	As you and Ash arrive back at the academy, you can see trainers packing bags and people saying their farewells. Ash turns to you with a defeated expression you're not sure you've seen from <<him>> before, "Well, I guess this is the end. Even if ya lost, I appreciate what ya tried to do. I guess that my dreamin' was just too big. My train'll be comin' soon so... I suppose this is goodbye." <<He>> hangs his head in defeat and disappears over the horizon.
+	As you and Rowan arrive back at the academy, you can see trainers packing bags and people saying their farewells. Rowan turns to you with a defeated expression you're not sure you've seen from <<him>> before, "Well, I guess this is the end. Even if ya lost, I appreciate what ya tried to do. I guess that my dreamin' was just too big. My train'll be comin' soon so... I suppose this is goodbye." <<He>> hangs his head in defeat and disappears over the horizon.
 	<br><br>
 	<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
 	<br><br>
 	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<set $ashgone to 1>><<endevent>><</link>>
 <</if>>
+
+:: Passout Academy
+You wake up hours later in the infirmary. It seems one of the students carried you here after you passed out. The nurse turns to you with a grim look. "You are terribly overexerted. I understand your desire to grow but... If you continue like this, you will find yourself falling apart."
+<br><br>
+<span class="red">You feel weaker than before.</span>
+<br><br>
+<<link [[Next|Horse Academy]]>><<athletics -10>><<danceskill -10>><<physique -10>><<willpower -10>><<endevent>><</link>>
+
+:: Horse Academy Indoor Mint Talk
+<<npc "Mint Mocha">><<person1>>
+You approach and attempt a conversation with Mint Mocha.
+<br><br>
+<<cleareventpool>>
+<<if C.npc["Mint Mocha"].dom gt (C.npc["Mint Mocha"].love / 2)>>
+    <<addinlineevent "mintdom1">>
+        "Seriously, thanks to you all of my friends find it awkward to be around." Mint looks annoyed. "You're like social napalm, freak." Despite the harsh tone, you spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "mintdom2">>
+        "What part of leave me alone do you not understand? You're getting in the way of my training time." Mint huffs in frustration trying to ignore you. Despite the harsh tone, you spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<<else>>
+	<<addinlineevent "mintlove1">>
+        "I'll admit, there are some... upsides to knowing you." Mint blushes slightly but turns away. "That is to say, you help push me to grow stronger. Don't misunderstand." Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "mintlove2">>
+        "Just because I respect you doesn't mean I'll go easy on you!" Mint huffs with a slight pink tone in her cheeks. "I'll still train super hard and beat you in the next race!" Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<</if>>
+<<runeventpool>>
+
+:: Horse Academy Indoor Rowan Talk
+<<npc Rowan>><<person1>>
+You approach Rowan and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
+<br><br>
+<<link [[Spend some time talking (0:30)|Rowan Indoor Time Spend]]>><<set C.npc.Rowan.love += 1>><<pass 30>><<endevent>><</link>><<glove>>
+<br>
+<<if C.npc.Rowan.love gte 80 or C.npc.Rowan.dom gte 40>>
+	<<link [[Ask Rowan for some special love|Rowan Sex Time]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><<set $sexstart to 1>><</link>><<gglove>><<gdom>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave <<him>> alone|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Indoor Time Spend
+<<npc Rowan>><<person1>>
+<<cleareventpool>>
+<<if (C.npc.Rowan.love gt 80)>>
+    <<addinlineevent "ash_love1">>
+        "I must apologize for the way I have been treatin' ya lately." Rowan looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "ash_love2">>
+        "Even though ya should be trainin', I admit I like spendin' time with ya." Rowan smirks. "Though, ya better still be trainin hard for the races."
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<<elseif (C.npc.Rowan.love gt 40)>>
+	<<addinlineevent "ash_midlove1">>
+        "Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race." Rowan shakes <<his>> head with a smirk but lets you sit next to <<him>>.
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "ash_midlove2">>
+        "Still not too sure about ya, sugar." Rowan shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<<else>>
+	<<addinlineevent "ash_lowlove1">>
+        "Ya wantin' to spend time with me?" Rowan looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Rowan.
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "ash_lowlove2">>
+        "Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else." Rowan looks annoyed by your lack of effort.
+        <br><br>
+        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+    <</addinlineevent>>
+<</if>>
+<<runeventpool>>

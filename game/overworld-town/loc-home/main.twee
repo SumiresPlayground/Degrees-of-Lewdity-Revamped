@@ -1,6 +1,6 @@
 :: Bedroom
 <<bedclotheson "bed">>
-<<set $outside to 0>><<set $location to "home">><<home_effects>><<effects>><<getTarget true>>
+<<set $outside to 0>><<set $location to "bedroom">><<home_effects>><<effects>><<getTarget true>>
 <span class="camouflage text"><a onclick="V.codeinput = 1">
 You are in your bedroom.
 </a></span>
@@ -929,7 +929,7 @@ You are in the bathroom.
 <<set _badScience to $sciencetrait lte 0 ? true : false>>
 <<set _mouthFluids to setup.bodyliquid.combined("mouth") gte 1 ? true : false>>
 
-<<if $location is "home">> /* simple toothbrushing events at the orphanage */
+<<if $location is "bedroom">> /* simple toothbrushing events at the orphanage */
 	<<cleareventpool>>
 
 	<<addinlineevent "orphanage_toothbrushing_normal">>
@@ -1115,7 +1115,7 @@ You are in the bathroom.
 		<<link [[Kiss|Bed Robin Sex]]>><<set $sexstart to 1>><</link>>
 	<</if>>
 	<br>
-<<elseif $location is "home" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon()>>
+<<elseif $location is "bedroom" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon()>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
 	It's surrounded by trees, all bending inwards, and floating above a lake. Everything moves around you, and you find yourself hanging above a large ruin. You can't breathe.
@@ -1160,7 +1160,7 @@ You are in the bathroom.
 	<<link [[Toss and go back to sleep|Sleep]]>><<endevent>><</link>>
 	<br>
 
-<<elseif $location is "home" and _kylarWake is 1>>
+<<elseif $location is "bedroom" and _kylarWake is 1>>
 	<<npc Kylar>><<person1>>
 	<<run statusCheck("Kylar")>>
 
@@ -1186,7 +1186,7 @@ You are in the bathroom.
 	<br>
 	<<link [[Push Kylar away|Bedroom Kylar Sneak Push]]>><<npcincr Kylar love -1>><<npcincr Kylar rage 6>><<npcincr Kylar lust -2>><</link>><<llove>><<ggksuspicion>><<llust>>
 
-<<elseif $location is "home" and _kylarWake is 2>>
+<<elseif $location is "bedroom" and _kylarWake is 2>>
 	<<npc "Kylar">><<person1>>
 	<<run statusCheck("Kylar")>>
 
@@ -1202,7 +1202,7 @@ You are in the bathroom.
 	<br>
 	<<link [[Get angry|Bedroom Kylar Creep]]>><<set $phase to 3>><<npcincr Kylar rage 2>><<npcincr Kylar love -1>><<stress -6>><</link>><<lstress>><<llove>><<gksuspicion>>
 
-<<elseif $location is "home" and C.npc.Kylar.rage gte 50 and C.npc.Kylar.love gte 50 and $weekly.kylarCreep isnot 1 and $rng gte 91 and C.npc.Kylar.state is "active">>
+<<elseif $location is "bedroom" and C.npc.Kylar.rage gte 50 and C.npc.Kylar.love gte 50 and $weekly.kylarCreep isnot 1 and $rng gte 91 and C.npc.Kylar.state is "active">>
 	<<set $weekly.kylarCreep to 1>>
 	<<npc "Kylar">><<person1>>
 
@@ -1422,7 +1422,7 @@ You are in the bathroom.
 
 	<<link [[Next|Sleep Rape]]>><<set $molestationstart to 1>><</link>>
 	<br>
-<<elseif $location is "home" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon()>>
+<<elseif $location is "bedroom" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon()>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
 	It's surrounded by trees, all bending inwards, and floating above a lake. Everything moves around you, and you find yourself hanging above a large ruin. You can't breathe.
