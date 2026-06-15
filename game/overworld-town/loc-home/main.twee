@@ -1,6 +1,6 @@
 :: Bedroom
 <<bedclotheson "bed">>
-<<set $outside to 0>><<set $location to "bedroom">><<home_effects>><<effects>><<getTarget true>>
+<<set $outside to 0>><<set $location to "home">><<set $locationoverwrite to "bedroom">><<home_effects>><<effects>><<getTarget true>>
 <span class="camouflage text"><a onclick="V.codeinput = 1">
 You are in your bedroom.
 </a></span>
@@ -297,11 +297,11 @@ Your bed takes up most of the room.
 	<span class="nextLink"><<mirroricon>><<link [[Mirror|Mirror]]>><<preMirror>><</link>></span>
 	<br>
 <<elseif $christmas is 1 and !$christmas_wraith and _wraithEvent>>
-	<<mirroricon "blood">><<link [[Mirror|Christmas Mirror]]>><<preMirror>><</link>>
+	<<mirroricon "blood">><<link [[Mirror|Christmas Mirror]]>><<set $locationoverwrite to "0">><<preMirror>><</link>>
 	<<note "You catch a strange glint in your mirror" "purple">>
 	<br>
 <<elseif Time.hour is 3 and $hallucinations gte 2 and $daily.mirrorTentacles isnot 1 and $settings.tentaclesEnabled>>
-	<<mirroricon "blood">><<link [[Mirror|Eerie Mirror]]>><<preMirror>><<set $daily.mirrorTentacles to 1>><<set $phase to 0>><</link>>
+	<<mirroricon "blood">><<link [[Mirror|Eerie Mirror]]>><<set $locationoverwrite to "0">><<preMirror>><<set $daily.mirrorTentacles to 1>><<set $phase to 0>><</link>>
 	<<note "An eerie light spills from your mirror" "purple">>
 	<br>
 <<else>>
@@ -347,7 +347,7 @@ The hallway outside connects to the rest of the orphanage.
 			<<bathroomLink>>
 			<br>
 			<<robinroom_link>>
-			<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<pass 1>><</link>>
+			<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 			<br>
 			<<home_outside>>
 			<br><br>
@@ -390,7 +390,7 @@ The hallway outside connects to the rest of the orphanage.
 			<<bathroomLink>>
 			<br>
 			<<robinroom_link>>
-			<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<pass 1>><</link>>
+			<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 			<br>
 			<<home_outside>>
 			<br><br>
@@ -407,15 +407,15 @@ The hallway outside connects to the rest of the orphanage.
 		<br>
 		<<bathroomLink>>
 		<br>
-		<<kitchenicon "stove">><<link [[Kitchen (0:01)|Kitchen]]>><<pass 1>><</link>>
+		<<kitchenicon "stove">><<link [[Kitchen (0:01)|Kitchen]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 		<br>
 		<<robinroom_link>>
 		<br>
 		<<if Time.hour gte 18 and Time.hour lte 20 and C.npc.Robin.trauma gte 40 and $robinmissing is 0 and !$robinTraumaVisit>>
-			<<main_hall_icon>><<link [[Main hall (0:01)|Robin Trauma Visit]]>><<set $phase to 1>><<pass 1>><</link>>
+			<<main_hall_icon>><<link [[Main hall (0:01)|Robin Trauma Visit]]>><<set $locationoverwrite to "0">><<set $phase to 1>><<pass 1>><</link>>
 			<br>
 		<<else>>
-			<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<pass 1>><</link>>
+			<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 			<br>
 		<</if>>
 		<<home_outside>>
@@ -424,20 +424,20 @@ The hallway outside connects to the rest of the orphanage.
 		<<if $kylar_camera is 4>>
 			The owl plushie watches you from the wardrobe. You know there's a camera inside.
 			<br>
-			<<furnitureicon "owl plushie">><<link [[Decide what to do with Kylar's camera (0:05)|Bedroom Kylar Camera]]>><<pass 5>><</link>>
+			<<furnitureicon "owl plushie">><<link [[Decide what to do with Kylar's camera (0:05)|Bedroom Kylar Camera]]>><<set $locationoverwrite to "0">><<pass 5>><</link>>
 			<br><br>
 		<</if>>
 		<<if $kylar_camera is 0>>
 			The box Kylar tried to gift you sits at the foot of your bed.
 			<br>
-			<<gifticon "valentine">><<link [[Open it|Bedroom Kylar Gift Open]]>><</link>>
+			<<gifticon "valentine">><<link [[Open it|Bedroom Kylar Gift Open]]>><<set $locationoverwrite to "0">><</link>>
 			<br><br>
 		<<elseif $kylar_camera is 1>>
 			The box Kylar tried to gift you sits at the foot of your bed. The owl plushie is inside.
 			<br>
-			<<furnitureicon "owl plushie">><<link [[Keep it as decoration|Bedroom Kylar Gift Keep]]>><</link>>
+			<<furnitureicon "owl plushie">><<link [[Keep it as decoration|Bedroom Kylar Gift Keep]]>><<set $locationoverwrite to "0">><</link>>
 			<br>
-			<<gifticon "valentine">><<link [[Give it to an orphan|Bedroom Kylar Gift Orphan]]>><<hope 1>><</link>><<ghope>>
+			<<gifticon "valentine">><<link [[Give it to an orphan|Bedroom Kylar Gift Orphan]]>><<set $locationoverwrite to "0">><<hope 1>><</link>><<ghope>>
 			<br><br>
 		<</if>>
 	<<else>>
@@ -452,15 +452,15 @@ The hallway outside connects to the rest of the orphanage.
 	<br>
 	<<bathroomLink>>
 	<br>
-	<<kitchenicon "stove">><<link [[Kitchen (0:01)|Kitchen]]>><<pass 1>><</link>>
+	<<kitchenicon "stove">><<link [[Kitchen (0:01)|Kitchen]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 	<br>
 	<<robinroom_link>>
 	<br>
 	<<if Time.hour gte 18 and Time.hour lte 20 and C.npc.Robin.trauma gte 40 and $robinmissing is 0 and !$robinTraumaVisit>>
-		<<main_hall_icon>><<link [[Main hall (0:01)|Robin Trauma Visit]]>><<set $phase to 1>><<pass 1>><</link>>
+		<<main_hall_icon>><<link [[Main hall (0:01)|Robin Trauma Visit]]>><<set $locationoverwrite to "0">><<set $phase to 1>><<pass 1>><</link>>
 		<br>
 	<<else>>
-		<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<pass 1>><</link>>
+		<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 		<br>
 	<</if>>
 	<<home_outside>>
@@ -471,20 +471,20 @@ The hallway outside connects to the rest of the orphanage.
 	<<if $kylar_camera is 4>>
 		The owl plushie watches you from the wardrobe. You know there's a camera inside.
 		<br>
-		<<furnitureicon "owl plushie">><<link [[Decide what to do with Kylar's camera (0:05)|Bedroom Kylar Camera]]>><<pass 5>><</link>>
+		<<furnitureicon "owl plushie">><<link [[Decide what to do with Kylar's camera (0:05)|Bedroom Kylar Camera]]>><<set $locationoverwrite to "0">><<pass 5>><</link>>
 		<br><br>
 	<</if>>
 	<<if $kylar_camera is 0>>
 		The box Kylar tried to gift you sits at the foot of your bed.
 		<br>
-		<<gifticon "love">><<link [[Open it|Bedroom Kylar Gift Open]]>><</link>>
+		<<gifticon "love">><<link [[Open it|Bedroom Kylar Gift Open]]>><<set $locationoverwrite to "0">><</link>>
 		<br><br>
 	<<elseif $kylar_camera is 1>>
 		The box Kylar tried to gift you sits at the foot of your bed. The owl plushie is inside.
 		<br>
-		<<furnitureicon "owl plushie">><<link [[Keep it as decoration|Bedroom Kylar Gift Keep]]>><</link>>
+		<<furnitureicon "owl plushie">><<link [[Keep it as decoration|Bedroom Kylar Gift Keep]]>><<set $locationoverwrite to "0">><</link>>
 		<br>
-		<<furnitureicon "owl plushie">><<link [[Give it to an orphan|Bedroom Kylar Gift Orphan]]>><<hope 1>><</link>><<ghope>>
+		<<furnitureicon "owl plushie">><<link [[Give it to an orphan|Bedroom Kylar Gift Orphan]]>><<set $locationoverwrite to "0">><<hope 1>><</link>><<ghope>>
 		<br><br>
 	<</if>>
 <</if>>

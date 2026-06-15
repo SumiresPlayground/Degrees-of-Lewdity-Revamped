@@ -1181,7 +1181,10 @@ Renderer.CanvasModels.main = {
 				else {
 					const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       				const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-					return `img/background/${V.location}/${timeSuffix}.png`;}
+					if (V.locationoverwrite !== "0") {
+						return `img/background/${V.locationoverwrite}/${timeSuffix}.png`;}
+					else {
+						return `img/background/${V.location}/${timeSuffix}.png`;}}
 			},
 		},
 		"backgroundBed": {
@@ -1192,7 +1195,7 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {}
 				else if (V.staticimages > 0) {}
 				else {
-					if (V.location === "bedroom") {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.bed.id !== undefined) {
@@ -1207,7 +1210,7 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {}
 				else if (V.staticimages > 0) {}
 				else {
-					if (V.location === "bedroom") {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.chair.id !== undefined) {
@@ -1222,7 +1225,7 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {}
 				else if (V.staticimages > 0) {}
 				else {
-					if (V.location === "bedroom") {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.decoration.id !== undefined) {
@@ -1237,7 +1240,7 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {}
 				else if (V.staticimages > 0) {}
 				else {
-					if (V.location === "bedroom") {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.desk.id !== undefined) {
@@ -1252,7 +1255,7 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {} 
 				else if (V.staticimages > 0) {} 
 				else {
-					if (V.location === 'bedroom') {
+					if (V.locationoverwrite === 'bedroom') {
 						const isBloodmoon = Time.dayState === 'night' && (Time.isBloodMoon() || V.forcedBloodmoon);
 						const timeSuffix = isBloodmoon ? 'bloodmoon' : Time.dayState;
 						const allowedNames = ["cowgirl", "cat", "puppy"];
@@ -1268,7 +1271,7 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {}
 				else if (V.staticimages > 0) {}
 				else {
-					if (V.location === "bedroom") {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						const allowedNames = ["vines", "tentacles", "plain-white", "wavy-white", "cowgirls", "cow-girls", "hearts", "trees", "crosses", "starry", "deep sea", "beach", "crabs", "flames", "stained glass", "audience", "bears"];
@@ -1284,7 +1287,7 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {}
 				else if (V.staticimages > 0) {}
 				else {
-					if (V.location === "bedroom") {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.wardrobe.id !== undefined) {
@@ -1299,11 +1302,26 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {}
 				else if (V.staticimages > 0) {}
 				else {
-					if (V.location === "bedroom") {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.windowsill !== undefined) {
         					return `img/background/furniture/windowsill/${V.furniture.bedroom.windowsill.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundowlplushie": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.owlplushie !== undefined) {
+        					return `img/background/furniture/owlplushie/${V.furniture.bedroom.owlplushie.id}/${timeSuffix}.png`;}}}
 			},
 		},
 		"foreground": {

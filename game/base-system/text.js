@@ -461,6 +461,13 @@ statDisplay.create("gpride", () => statDisplay.statChange("Pride", 1, "purple"))
 statDisplay.create("ggpride", () => statDisplay.statChange("Pride", 2, "purple"));
 statDisplay.create("gggpride", () => statDisplay.statChange("Pride", 3, "purple"));
 
+statDisplay.create("lsuperiority", () => statDisplay.statChange("Superiority", -1, "blue"));
+statDisplay.create("llsuperiority", () => statDisplay.statChange("Superiority", -2, "blue"));
+statDisplay.create("lllsuperiority", () => statDisplay.statChange("Superiority", -3, "blue"));
+statDisplay.create("gsuperiority", () => statDisplay.statChange("Superiority", 1, "purple"));
+statDisplay.create("ggsuperiority", () => statDisplay.statChange("Superiority", 2, "purple"));
+statDisplay.create("gggsuperiority", () => statDisplay.statChange("Superiority", 3, "purple"));
+
 statDisplay.create("lawareness", () => {
 	if (V.innocencestate === 1) {
 		return statDisplay.statChange("Innocence", 1, "blue");

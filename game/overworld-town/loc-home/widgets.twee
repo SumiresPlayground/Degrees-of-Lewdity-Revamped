@@ -25,11 +25,11 @@
 		<br>
 	<<else>>
 		<<if Time.hour gte 18 and Time.hour lte 20 and C.npc.Robin.trauma gte 40 and $robinmissing is 0 and !$robinTraumaVisit>>
-			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Robin Trauma Visit]]>><<set $phase to 2>><<pass 1>><</link>>
+			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Robin Trauma Visit]]>><<set $locationoverwrite to "0">><<set $phase to 2>><<pass 1>><</link>>
 		<<elseif $robinpaid gte 1 and Time.isWeekEnd() and $weekly.robinGift isnot 1 and Time.hour gte 7 and Time.hour lt 9 and C.npc.Robin.trauma lt 80 and random(1, 10) lte 3 and $robin.timer.hurt lt 1 and $robinmissing is 0>>
-			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Robin Weekend Gift]]>><<pass 1>><<set $weekly.robinGift to 1>><</link>>
+			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Robin Weekend Gift]]>><<set $locationoverwrite to "0">><<pass 1>><<set $weekly.robinGift to 1>><</link>>
 		<<else>>
-			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Domus Street]]>><<pass 1>><</link>>
+			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Domus Street]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -194,12 +194,12 @@
 			Robin is in the bath.
 			<br>
 		<</if>>
-		<<bathroomicon>><<link [[Bathroom (0:01)|Robin Bath]]>><<pass 1>><</link>>
+		<<bathroomicon>><<link [[Bathroom (0:01)|Robin Bath]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 	<<else>>
 		<<if $robinBathKnown>>
 			<<unset $robinBathKnown>>
 		<</if>>
-		<<bathroomicon>><<link [[Bathroom (0:01)|Bathroom]]>><<pass 1>><</link>>
+		<<bathroomicon>><<link [[Bathroom (0:01)|Bathroom]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 	<</if>>
 <</widget>>
 
