@@ -50,6 +50,10 @@
 				<br>
 			<</if>>
 		<</if>>
+		<<if $stockholm_bailey gte 1 or $baileydefeated gte 5>>
+			<span class="bailey-red bailey-stockholm"><<link "Offer yourself" "Bailey Offer Yourself">><</link>></span>
+			<br>
+		<</if>>
 	<<else>>
 		<<person1>>
 		<<if $speech_attitude is "bratty">>
@@ -120,6 +124,10 @@
 		<br>
 		<<link [[Refuse|Rent Refuse Robin]]>><<def 1>><</link>>
 		<br>
+		<<if $stockholm_bailey gte 1 or $baileydefeated gte 5>>
+			<span class="bailey-red bailey-stockholm"><<link "Offer yourself" "Bailey Offer Yourself">><</link>></span>
+			<br>
+		<</if>>
 	<<else>>
 		<<set $baileypaychain to 0>>
 		<<if $speech_attitude is "bratty">>
@@ -242,6 +250,57 @@
 		Next week I want <<printmoney $rentmoney "pink">><<babyRentDisplay " plus " " if you don't look after your children" "pink">>. You didn't think it would get any easier, did you?"
 	<<else>>
 		Next week I want <<printmoney $rentmoney "pink">><<babyRentDisplay " plus " " if you don't look after your children" "pink">>."
+	<</if>>
+	<<set $bailey_rent_seen to ($bailey_rent_seen || {})>>
+	<<if $fame.good gte 1000 and !$bailey_rent_seen.good3>>
+	<br><br>
+	"The whole town's talking about you." <<nnpc_He "Bailey">> pockets the rent. "Don't let it go to your head."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<npcincr Bailey lust 2>><<gglust "Bailey">><<set $bailey_rent_seen.good3 to true>>
+	<<elseif $fame.good gte 600 and !$bailey_rent_seen.good2>>
+	<br><br>
+	"You've been making... friends." <<nnpc_He "Bailey">> pockets the rent. "Good. Keep it up."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<npcincr Bailey lust 1>><<glust "Bailey">><<set $bailey_rent_seen.good2 to true>>
+	<<elseif $fame.good gte 400 and !$bailey_rent_seen.good1>>
+	<br><br>
+	"People speak well of you." <<nnpc_He "Bailey">> pockets the rent. "That reflects on me, you know."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<set $bailey_rent_seen.good1 to true>>
+	<<elseif $fame.prostitution gte 1000 and !$bailey_rent_seen.prost3>>
+	<br><br>
+	"The town knows your rates now." <<nnpc_He "Bailey">> pockets the rent. <<nnpc_He "Bailey">> almost smiles. "Good."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<npcincr Bailey lust 2>><<gglust "Bailey">><<set $bailey_rent_seen.prost3 to true>>
+	<<elseif $fame.prostitution gte 600 and !$bailey_rent_seen.prost2>>
+	<br><br>
+	"You've been fucking your way around town and earning your keep." <<nnpc_He "Bailey">> pockets the rent. "Keep it up."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<npcincr Bailey lust 1>><<glust "Bailey">><<set $bailey_rent_seen.prost2 to true>>
+	<<elseif $fame.prostitution gte 400 and !$bailey_rent_seen.prost1>>
+	<br><br>
+	"Word gets around. I hear you spread your legs for anyone." <<nnpc_He "Bailey">> pockets the rent. "At least you know what you're worth."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<set $bailey_rent_seen.prost1 to true>>
+	<<elseif $fame.exhibitionism gte 1000 and !$bailey_rent_seen.exhib3>>
+	<br><br>
+	"Your photos." <<nnpc_He "Bailey">> pockets the rent. "I've seen them. Valuable, aren't you?"<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<npcincr Bailey lust 2>><<gglust "Bailey">><<set $bailey_rent_seen.exhib3 to true>>
+	<<elseif $fame.exhibitionism gte 600 and !$bailey_rent_seen.exhib2>>
+	<br><br>
+	"Half the town's seen you naked." <<nnpc_He "Bailey">> pockets the rent. "Advertising, are we?"<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<npcincr Bailey lust 1>><<glust "Bailey">><<set $bailey_rent_seen.exhib2 to true>>
+	<<elseif $fame.exhibitionism gte 400 and !$bailey_rent_seen.exhib1>>
+	<br><br>
+	"You've been getting around." <<nnpc_He "Bailey">> pockets your rent. "Good industry. But keep it off the orphanage doorstep."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<set $bailey_rent_seen.exhib1 to true>>
+	<</if>>
+	<<if $exposed lt 1 and $allure gte (6000 * $settings.allureModifier) and !$bailey_rent_seen.allure2>>
+	<br><br>
+	<<nnpc_His "Bailey">> eyes move over you slowly. <<nnpc_He "Bailey">> doesn't look away.<<npcincr Bailey lust 2>><<gglust "Bailey">><<set $bailey_rent_seen.allure2 to true>>
+	<<elseif $exposed lt 1 and $allure gte (3000 * $settings.allureModifier) and !$bailey_rent_seen.allure1>>
+	<br><br>
+	<<nnpc_His "Bailey">> eyes linger on you a moment longer than usual before <<nnpc_he "Bailey">> looks away.<<npcincr Bailey lust 1>><<glust "Bailey">><<set $bailey_rent_seen.allure1 to true>>
+	<</if>>
+	<<if $exposed gte 2>>
+	<br><br>
+	<<if $bailey_dom gte 70>>
+	<<nnpc_His "Bailey">> eyes move over your exposed body. <<nnpc_He "Bailey">> takes <<nnpc_his "Bailey">> time. "Get dressed."
+	<<elseif $bailey_dom gte 30>>
+	<<nnpc_His "Bailey">> gaze drops over your body. <<nnpc_He "Bailey">> looks away with a sneer. "Get dressed."
+	<<else>>
+	<<nnpc_He "Bailey">> glances at you. "Put some clothes on."
+	<</if>>
+	<<npcincr Bailey lust 2>><<gglust "Bailey">>
+	<<elseif $exposed gte 1>>
+	<br><br>
+	<<nnpc_His "Bailey">> eyes flick down over your body, then back up. "Get dressed."
+	<<npcincr Bailey lust 1>><<glust "Bailey">>
 	<</if>>
 	<br><br>
 
@@ -465,10 +524,10 @@
 	<<elseif _knownPregnancyCount lte 4>>
 		You already know that you're responsible for your offspring's care," <<he>> says. "If I have to intervene, it'll cost you an extra <span class="red">£100</span> a week, each."
 	<<else>>
-		You're an irresponsible slut," <<he>> says. "Remember that if I have to intervene in the care of your offspring, it'll cost you an extra <span class="red">£100</span> a week, each."
+		You're an irresponsible slut," <<he>> says. "Remember that if I have to intervene in the care of your offspring, it'll cost you an extra <span class="red">£100</span> a week, each."<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
 	<</if>>
 	<<if $baileydefeatedchain gte 3>>
-		You see <<him>> sneer, but only for a brief instant. "I'd rather not make someone else take care of your twerps, but if you keep being a difficult little shit, don't think you'll be allowed to see them again."
+		You see <<him>> sneer, but only for a brief instant. "I'd rather not make someone else take care of your twerps, but if you keep being a difficult little shit, don't think you'll be allowed to see them again."<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
 	<<elseif _homeBabyRent>>
 		You see <<his>> face soften for a moment, but it was so slight that you might have imagined it. "And if you want the luxury of being able to take care of them, you'll pay up."
 	<</if>>
@@ -505,7 +564,7 @@
 :: Rent Pay
 <<effects>>
 
-<<rentpay>>
+<<rentpay>><<set $bailey_office_seduced_this_cycle to false>>
 
 <<if $bus is "hospital">>
 	<<if crimeSumCurrent() gte 1000>>
@@ -572,6 +631,7 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 
 :: Rent Refuse
 <<effects>>
+<<person1>>
 
 <<if $speech_attitude is "bratty">>
 	You stare at <<him>> in defiance. "I'm not paying you. I don't care what you do to me."
@@ -628,7 +688,7 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 <<if $phase is 1>>
 	Bailey smirks. <<His>> cold hand snakes over your shoulder, around the back of your head, and <<he>> begins to stroke your hair.
 	<br>
-	Then, without warning, <<he>> grabs a fistful of your hair and yanks you close, your face inches from <<his>> own.
+	<<person1>>Then, without warning, <<he>> grabs a fistful of your hair and yanks you close, your face inches from <<his>> own.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Bailey lust 1>><<glust "Bailey">>
 	<br>
 	"Nice try," <<he>> hisses. "But that's not going to save your ass. Not this time."
 	<br><br>
@@ -657,7 +717,7 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 		<</if>>
 	<</if>>
 <<else>>
-	"You can pay me," <<person1>><<he>> sneers. "With money. <span class="pink">£<<print ($rentmoney + ($babyRent or 0)) / 100>>.</span> <span class="red">That's what your body's worth.</span>"
+	"You can pay me," <<person1>><<he>> sneers. "With money. <span class="pink">£<<print ($rentmoney + ($babyRent or 0)) / 100>>.</span> <span class="red">That's what your body's worth.</span>"<<npcincr Bailey lust 1>><<glust "Bailey">>
 	<br><br>
 
 	<<if $baileydefeatedchain gte 1>>
@@ -697,16 +757,19 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 <</if>>
 
 :: Rent Intro
+<<set _robin to statusCheck("Robin")>>
+<<set _robinIsPresent to ($phase is 1)>>
+<<set _andRobin to (_robinIsPresent ? "and Robin" : "")>>
+<<npc Bailey 1>>
+
+<<if $bailey_kick_returning>>
+<<unset $bailey_kick_returning>>
+<<else>>
 <<effects>>
 <<set $baileydefeatedchain to 0>><<set $soldCount += 1>>
 <<set $baileyRefusedToPay to 0>>
 <<set $baileyRefusedToPayTotal to $baileyRefusedToPayTotal lt $rentmoney + ($babyRent || 0) ? 0 : $baileyRefusedToPayTotal - ($rentmoney + ($babyRent || 0))>>
-<<set _robin to statusCheck("Robin")>>
 <<unset $bailey_encroach>>
-<<npc Bailey 1>>
-
-<<set _robinIsPresent to ($phase is 1)>>
-<<set _andRobin to (_robinIsPresent ? "and Robin" : "")>>
 
 With your head covered by a hood and your arms bound behind your back, you _andRobin are led down a flight of stairs and along a tunnel.
 You trip a couple of times, prompting Bailey to drag you back to your feet and slap your face in anger.
@@ -717,6 +780,13 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<br><br>
 <</if>>
 <<pass 20>>
+
+<<if $bailey_dom lt 30>>
+	<<set $bailey_kick_returning to true>>
+	<<set $bailey_kick_return to "Rent Intro">>
+	<<goto "Bailey Sell Kick">>
+<</if>>
+<</if>>
 
 <<if $tutorial is 0>>
 	<<endevent>>
@@ -886,6 +956,10 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<<neutral 1>>
 	<<maninit>>
 	<<set $enemyanger += 200>>
+	<<if $bailey_ambush_advantage>>
+		<<set $enemyhealth -= 150>>
+		<<set $bailey_ambush_advantage to false>>
+	<</if>>
 	<<npcidlegenitals>>
 	"You think I won't beat it out of you?" Bailey says.
 	<br><br>
@@ -1019,8 +1093,8 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	You walk over to Robin and undo <<nnpc_his "Robin">> bindings. <<nnpc_He "Robin">> pulls you into a hug. "Thank you, my hero!" With a peck on your <<if _robin.lust gte 60>>lips<<else>>cheek<</if>>, <<nnpc_he "Robin">> walks away.
 	<br><br>
 
-	The orphans cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>>
+The orphans cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
+<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -1>><<set $bailey_dom += -1>><<ldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1028,10 +1102,10 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 
 	<<link [[Next|Bedroom]]>><</link>>
 <<elseif $enemyhealth lte 0>>
-	<<set $baileydefeated += 1>><<set $baileydefeatedchain += 1>>
+<<set $baileydefeated += 1>><<set $baileydefeatedchain += 1>>
 
-	<<person1>><<He>> backs off for a moment, surprised by your aggression and nursing a bruise.
-	<<He>> notices the crowd formed around the hall. "You'll pay for this. Mark my words." <<He>> storms out.
+<<person1>><<He>> backs off for a moment, surprised by your aggression and nursing a bruise.
+<<He>> notices the crowd formed around the hall. "You'll pay for this. Mark my words." <<He>> storms out.
 	<br><br>
 
 	<<if $baileydefeatedchain gte 2>>
@@ -1048,8 +1122,8 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<</if>>
 	<br><br>
 
-	Bailey's departure lifts a weight from the watching orphans, who cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>>
+Bailey's departure lifts a weight from the watching orphans, who cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
+<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -1>><<set $bailey_dom += -1>><<ldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1063,9 +1137,9 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<<unset $bailey_encroach>>
 
 
-	You fall to the ground, too hurt to move.
+You fall to the ground, too hurt to move.
 	Robin struggles, until Bailey hits <<nnpc_him "Robin">> hard on the head. <<nnpc_He "Robin">> collapses beside you.
-	<<lreb>><<reb -1>>
+	<<lreb>><<reb -1>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">>
 	<br><br>
 
 	<<set $upperoff to 0>>
@@ -1087,13 +1161,13 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	Soon the whole room is filled with laughter. <<He>> looks back at you. "You'll pay for this," <<he>> says, before storming from the room.
 	<br><br>
 
-	<<if $baileydefeatedchain gte 2>>
+	<<if $baileydefeatedchain gte 2 and $enemyno gte 2>>
 		The <<person2>><<person>> slinks out after <<person1>><<him>>.
 		<br><br>
 	<</if>>
 
-	The orphans cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>>
+The orphans cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
+<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -3>><<set $bailey_dom += -3>><<llldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1101,19 +1175,19 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 
 	<<link [[Next|Bedroom]]>><</link>>
 <<elseif $enemyhealth lte 0>>
-	<<set $baileydefeated += 1>><<set $baileydefeatedchain += 1>>
+<<set $baileydefeated += 1>><<set $baileydefeatedchain += 1>>
 
-	<<person1>><<He>> backs off for a moment, surprised by your aggression and nursing a bruise.
-	<<He>> notices the crowd formed around the hall. "You'll pay for this. Mark my words." <<He>> storms out.
+<<person1>><<He>> backs off for a moment, surprised by your aggression and nursing a bruise.
+<<He>> notices the crowd formed around the hall. "You'll pay for this. Mark my words." <<He>> storms out.
 	<br><br>
 
-	<<if $baileydefeatedchain gte 2>>
+	<<if $baileydefeatedchain gte 2 and $enemyno gte 2>>
 		The <<person2>><<person>> slinks out after <<person1>><<him>>.
 		<br><br>
 	<</if>>
 
-	<<His>> departure lifts a weight from the watching orphans, who cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>>
+<<His>> departure lifts a weight from the watching orphans, who cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
+<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -1>><<set $bailey_dom += -1>><<ldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1127,8 +1201,8 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<<unset $bailey_encroach>>
 
 
-	You fall to the ground, too hurt to move.
-	<<lreb>><<reb -1>>
+You fall to the ground, too hurt to move.
+	<<lreb>><<reb -1>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">>
 	<br><br>
 
 	<<set $upperoff to 0>>
