@@ -523,9 +523,17 @@ The hallway outside connects to the rest of the orphanage.
 	<<set V.transformationParts.goblin.ears to "default">>
 	<<set $gob to 1>>
 	<<goto $passage>>
+<<elseif $code is "zom">>
+	<<set Skin.color.natural to "rot">>
+	<<set V.transformationParts.zombie.body to "default">>
+	<<set V.transformationParts.zombie.head to "default">>
+	<<set V.transformationParts.zombie.arms to "default">>
+	<<set V.transformationParts.zombie.eyes to "default">>
+	<<goto $passage>>
 <<elseif !Story.has($inputCode.trim())>>
 	<<run UI.alert("[Error] Code doesn't exist!")>>
 <<else>>
+	<<set $locationoverwrite to "0">>
 	<<goto $inputCode.trim()>>
 <</if>>
 <</button>>
@@ -3348,7 +3356,7 @@ You return to your tiny bedroom and wonder what to do.
 :: Mirror
 <<effects>>
 
-<<bedicon>><<link [[Step away|Bedroom]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><<postMirror>><</link>>
+<<bedicon>><<link [[Step away|Bedroom]]>><<set $mirrordisplay to 0>><<unset $mirrorMenu>><<unset $bodywritingSet>><<postMirror>><</link>>
 <br>
 
 <<mirror>>
@@ -3361,7 +3369,7 @@ You return to your tiny bedroom and wonder what to do.
 <<if $previousPassage is undefined>>
 	<<set $previousPassage = "Bedroom">>
 <</if>>
-<<ind>><<link [[Step away|$previousPassage]]>><<unset $mirrorMenu>><<unset $simpleMirror>><<unset $bodywritingSet>><<postMirror>><</link>>
+<<ind>><<link [[Step away|$previousPassage]]>><<set $mirrordisplay to 0>><<unset $mirrorMenu>><<unset $simpleMirror>><<unset $bodywritingSet>><<postMirror>><</link>>
 <br>
 
 <<mirror>>

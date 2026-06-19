@@ -4470,4 +4470,374 @@ setup.LocationImages = {
 			},
 		},
 	},
+	mforest: {
+		folder: "forest",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+			birds_light: {
+				condition: () => !Weather.bloodMoon,
+				image: "birds-light.png",
+				animation: {
+					frameDelay: 200,
+					cycleDelay: () => random(5, 15, true) * 1000,
+				},
+			},
+			bloodmoon: {
+				condition: () => Weather.bloodMoon,
+				image: "blood-moon.png",
+				animation: {
+					frameDelay: 300,
+					cycleDelay: () => random(2, 7, true) * 1000,
+				},
+			},
+		},
+		emissive: {
+			blood0: {
+				condition: () => Weather.bloodMoon,
+				image: "emissive-blood-0.png",
+				animation: {
+					frameDelay: 200,
+					cycleDelay: () => random(2, 7, true) * 1000,
+				},
+				color: "#e63e3e",
+			},
+			blood1: {
+				condition: () => Weather.bloodMoon,
+				image: "emissive-blood-1.png",
+				animation: {
+					frameDelay: 2000,
+					cycleDelay: () => random(4, 10, true) * 1000,
+				},
+				color: "#e63e3e",
+			},
+			blood2: {
+				condition: () => Weather.bloodMoon,
+				image: "emissive-blood-2.png",
+				animation: {
+					frameDelay: 200,
+					cycleDelay: () => random(4, 11, true) * 1000,
+				},
+				color: "#e63e3e",
+			},
+			blood3: {
+				condition: () => Weather.bloodMoon,
+				image: "emissive-blood-3.png",
+				animation: {
+					frameDelay: 200,
+					cycleDelay: () => random(3, 12, true) * 1000,
+				},
+				color: "#e63e3e",
+			},
+		},
+	},
+	abandoned_mansion: {
+		folder: "kylar-manor",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		emissive: {
+			image: "emissive.png",
+			condition: () => Weather.lightsOn,
+			color: "#fbff86dd",
+			size: 4,
+			intensity: 0.8,
+		},
+		weather: {
+			fogDistributionCurve: 1,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 4,
+					bottom: 0,
+				},
+				fog: {
+					top: 19,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	publibrary: {
+		folder: "museum",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+			grass: {
+				condition: () => Time.season === "autumn",
+				image: "grass-autumn.png",
+			},
+		},
+		weather: {
+			fogDistributionCurve: 1.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 10,
+					bottom: 0,
+				},
+				fog: {
+					top: 17,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	horseacademy: {
+		folder: "school",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+			autumn: {
+				condition: () => !Weather.isSnow && Time.season === "autumn",
+				image: "grass-autumn.png",
+			},
+		},
+		weather: {
+			fogDistributionCurve: 2,
+			rainSplashEnabled: false,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 0,
+					bottom: 0,
+				},
+				fog: {
+					top: 19,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	horsetrack: {
+		folder: "riding-school",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+				animation: {
+					frameDelay: 200,
+					cycleDelay: () => 0,
+				},
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+				animation: {
+					frameDelay: 200,
+					cycleDelay: () => 0,
+				},
+			},
+		},
+		weather: {
+			fogDistributionCurve: 1.2,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 19,
+					bottom: 0,
+				},
+				fog: {
+					top: 22,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	prutihut: {
+		folder: "cabin",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+			snowroof: {
+				condition: () => Weather.isSnow,
+				image: "snowroof.png",
+				animation: {
+					frameDelay: 250,
+					cycleDelay: () => random(3, 7, true) * 1000,
+				}
+			},
+		},
+		emissive: {
+			image: "emissive.png",
+			condition: () => Weather.lightsOn,
+			color: "#deae66",
+			strength: 2,
+		},
+		weather: {
+			fogDistributionCurve: 1.5,
+			rainSplashEnabled: false,
+			fogEnabled: true,
+			fogOpacity: 0.5,
+
+			groundBounds: {
+				splashes: {
+					top: 0,
+					bottom: 0,
+				},
+				fog: {
+					top: 20,
+					bottom: 0,
+				},
+			},
+		},
+		particles: [
+			{
+				condition: () => Weather.isSnow || (!Weather.isSnow && Weather.lightsOn),
+				type: "smoke",
+				shape: "image",
+				image: "img/misc/sky/clouds/fog/2.png",
+				origin: [30, 60],
+				rate: 3,
+				size: 4,
+				riseSpeed: 3,
+				spread: 2,
+				alpha: 0.2,
+				color: "rgba(195, 195, 195, 0.43)",
+				windSpeed: 1,
+				windDirection: 1,
+				minFadeDistance: 5,
+				maxFadeDistance: 10,
+				fadeTime: 4,
+				driftAmplitude: 1,
+				driftWavelength: 10,
+			},
+		],
+	},
+	taylorhome: {
+		folder: "kylar-manor",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		emissive: {
+			image: "emissive.png",
+			condition: () => Weather.lightsOn,
+			color: "#fbff86dd",
+			size: 4,
+			intensity: 0.8,
+		},
+		weather: {
+			fogDistributionCurve: 1,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 4,
+					bottom: 0,
+				},
+				fog: {
+					top: 19,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	caseyflat: {
+		folder: "flats",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+			water: {
+				image: "sea.png",
+			},
+			power: {
+				image: "power-lines.png",
+			},
+		},
+		emissive: {
+			lights: {
+				image: "emissive.png",
+				condition: () => Weather.lightsOn,
+				alwaysDisplay: false,
+				color: "#deae66",
+				intensity: 0.8,
+				size: 2,
+			},
+			streetLight: {
+				condition: () => Weather.lightsOn,
+				image: "street-light.png",
+				color: "#e8d39d",
+				size: 4,
+			},
+			streetGlow: {
+				condition: () => Weather.lightsOn,
+				image: "street-glow.png",
+				intensity: 0.5,
+				color: "#deae6655",
+				size: 2,
+			},
+		},
+		// reflective: {
+		// 	image: "reflective.png",
+		// },
+
+		weather: {
+			fogDistributionCurve: 1,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 5,
+					bottom: 0,
+				},
+				fog: {
+					top: 7,
+					bottom: 0,
+				},
+			},
+		},
+	},
 };

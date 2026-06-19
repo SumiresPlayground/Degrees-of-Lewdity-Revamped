@@ -39,11 +39,15 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<</if>>
 
 	<<if $creatorname is undefined>>
-		<<set $creatorname to "mozumelody">>
+		<<set $creatorname to "custom">>
 	<</if>>
 
 	<<if $specialTransform is 1 and ($eldritch is 1 or $fae is 1)>>
 		<<set $specialTransform to 0>>
+	<</if>>
+
+	<<if $locationoverwrite is undefined>>
+		<<set $locationoverwrite to 0>>
 	<</if>>
 
 	<<if $caseyagain is undefined>>
@@ -73,10 +77,6 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<else>>
 			<<set $caseygender to "m">>
 		<</if>>
-	<</if>>
-
-	<<if C.npc.Casey.love gte 101>>
-		<<set C.npc.Casey.love = Math.clamp(C.npc.Casey.love, 0, 100)>>
 	<</if>>
 
 	<<if $caseygenitals is undefined>>
@@ -560,6 +560,11 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<if V.transformationParts.goblin is undefined>>
 		<<set $gob to 0>>
 		<<set V.transformationParts.goblin to {ears:"disabled"}>>
+	<</if>>
+
+	<<if V.transformationParts.zombie is undefined>>
+		<<set $zombie to 0>>
+		<<set V.transformationParts.zombie to {body:"disabled", head:"disabled", arms:"disabled", eyes:"disabled"}>>
 	<</if>>
 
 	<<if $hastail is undefined>>
