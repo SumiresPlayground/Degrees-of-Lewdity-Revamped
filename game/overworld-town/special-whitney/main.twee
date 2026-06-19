@@ -2527,7 +2527,7 @@ Whitney snickers and leers with <<his>> friends as they eye you up. Whitney has 
 	<</if>>
 	<br><br>
 
-	<<if $worn.neck.collared isnot 1 or $worn.neck.name is "familiar collar" and $worn.neck.cursed is 0>>
+	<<if ($worn.neck.collared isnot 1 or ($worn.neck.name is "familiar collar" and $worn.neck.cursed is 0)) and $worn.neck.name isnot "Bailey's collar">>
 		<<neckwear 21>>
 		"Alright, slut, hold still if you know what's good for you," <<he>> says, producing a dog's collar. <<He>> places it around your neck, tightening it painfully. "Gotta keep it tight, so it reminds you of your place as a good doggie."
 		<br><br>
@@ -2584,6 +2584,20 @@ Whitney snickers and leers with <<his>> friends as they eye you up. Whitney has 
 		<<link [[Next|Park]]>><<endevent>><<set $eventskip to 1>><<unset $whitWalk>><</link>>
 		<br>
 	<</if>>
+<<elseif $worn.neck.name is "Bailey's collar">>
+	You go to step forward before Whitney places <<his>> hands on your shoulders and aggressively pushes you down. "Does a good dog walk on two legs?" <<His>> friends laugh at you in your degraded and vulnerable state. Whitney leans down to affix a leash to your collar. <<His>> fingers find the lotus clasp.
+	<br><br>
+
+	<<His>> eyes widen. The laughter dies. Whitney straightens up slowly. <<His>> jaw works.
+	<br><br>
+
+	"Walk home," <<he>> says. <<His>> voice is flat. <<He>> turns and leaves the park without another word. <<His>> friends exchange glances before following.<<npcincr Whitney dom -2>><<npcincr Whitney love -1>><<ldom "Whitney">><<llove "Whitney">>
+	<br><br>
+
+	<<clotheson>>
+
+	<<link [[Next|Park]]>><<endevent>><<set $eventskip to 1>><<unset $whitWalk>><</link>>
+	<br>
 <<else>>
 	<<attach_leash>>
 	You step forward, but Whitney places <<his>> hands on your shoulders and shoves you down. "Does a good dog walk on two legs?" <<His>> friends laugh at you in your degraded and vulnerable state. Whitney leans down and affixes a leash to the ring of the collar before violently tugging on it. "Does the doggie wanna go for a walk?"
@@ -5669,7 +5683,15 @@ You approach Whitney and <<= Weather.precipitation isnot "none" ? "take shelter 
 	<<He>> pulls you back, <<his>> arm wrapped around your waist as <<he>> holds the back of your head still. <<He>> leans forward, forcing you to bend backward.
 	<br><br>
 
-	Whitney glares at you, <<his>> grip the only thing keeping you from falling. You swear you see the faintest trace of a tear in <<his>> eye. Before it goes any further, <<he>> drops you on the floor.
+	<<if $worn.neck.name is "Bailey's collar">>
+		<<His>> hand finds the lotus clasp at your throat. <<He>> stops.
+		<br><br>
+
+		<<He>> stares at the collar. <<His>> jaw tightens. "<<if C.npc.Bailey.pronoun is "m">>Daddy<<else>>Mummy<</if>>'s got you on a leash, huh?" <<He>> doesn't try to take it off. <<He>> doesn't try to replace it. <<He>> drops you on the floor without another word.<<npcincr Whitney dom -2>><<npcincr Whitney love -1>><<ldom "Whitney">><<llove "Whitney">>
+		<br><br>
+	<<else>>
+		Whitney glares at you, <<his>> grip the only thing keeping you from falling. You swear you see the faintest trace of a tear in <<his>> eye. Before it goes any further, <<he>> drops you on the floor.
+	<</if>>
 	<br><br>
 
 	Whitney's breathing is heavier. <<He>> speaks, "Only... I get to kidnap you. Got it?" <<He>> marches out of the park, sparing you one more glance over <<his>> shoulder.<<npcincr Whitney dom 3>><<stress 6>><<gstress>><<ggdom>>
