@@ -11,6 +11,15 @@ You are in your bedroom.
 <</if>>
 /* Wallpaper */
 <<set _furniture to $furniture.bedroom>>
+<<if $furniture.bedroom.windowsill isnot undefined>>
+	<<if $furniture.bedroom.windowsill.id is "sewingmachine">>
+		<<set $furniture.bedroom.windowsill.id to "plantpot">>
+		<<run Furniture.set('utility', 'sewingmachine', {
+			name	: 'sewing machine',
+			nameCap	: 'Sewing machine'
+		})>>
+	<</if>>
+<</if>>
 <<if _furniture.wallpaper>>
 	<br>
 	<<set _premadeWall to ["vines", "tentacles", "plain-white", "wavy-white", "cowgirls", "cow-girls", "hearts", "trees", "crosses", "starry", "deep sea", "beach", "crabs", "flames", "stained glass", "audience", "bears"].includes(_furniture.wallpaper.name)>>
