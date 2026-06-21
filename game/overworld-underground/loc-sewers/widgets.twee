@@ -113,7 +113,7 @@
 			<<addinlineevent "events_drains_tentacles" 1>>
 				Several tentacles rise from the water, blocking your path and trapping you on the walkway.
 				<br><br>
-				<<if !pcAreArmsBound("both") and $angel gte 4 and $angelBanish gte 1>>
+				<<if !pcAreArmsBound("both") and $$transformationParts.angel.wings isnot "disabled" and $angelBanish gte 1>>
 					<<link [[Banish them|Drain Tentacles Banish]]>><<angelBanishUse>><</link>><<angelBanishNote>>
 					<br>
 					<<link [[Surrender|Drain Tentacles]]>><<set $molestationstart to 1>><</link>>
@@ -647,7 +647,7 @@
 		<br><br>
 
 		<<if !pcAreArmsBound("both")>>
-			<<if $angel gte 4 and $angelBanish gte 1>>
+			<<if $$transformationParts.angel.wings isnot "disabled" and $angelBanish gte 1>>
 				<<link [[Banish the tendril|Sewers Floor Slime Banish]]>><<angelBanishUse>><</link>><<angelBanishNote>>
 				<br>
 			<</if>>

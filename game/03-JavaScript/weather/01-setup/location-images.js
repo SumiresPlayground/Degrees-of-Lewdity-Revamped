@@ -4676,6 +4676,89 @@ setup.LocationImages = {
 			},
 		},
 	},
+	bogcult: {
+		folder: "bog",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+				animation: {
+					frameDelay: 2000,
+					cycleDelay: () => 1000,
+				},
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+				animation: {
+					frameDelay: 2000,
+					cycleDelay: () => 1000,
+				},
+			},
+		},
+		emissive: {
+			bloodmoon: {
+				condition: () => Weather.bloodMoon,
+				image: "emissive-blood.png",
+				color: "#e63e3e66",
+				size: 15,
+			},
+			lights: {
+				image: "emissive.png",
+				condition: () => !Weather.bloodMoon && Time.dayState === "night" && Time.season !== "autumn" && Time.season !== "winter",
+				color: "#deae66",
+				size: 4,
+				animation: {
+					frameDelay: 250,
+				},
+			},
+		},
+		weather: {
+			fogDistributionCurve: 1.2,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 12,
+					bottom: 0,
+				},
+				fog: {
+					top: 16,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	bunker: {
+		folder: "landfill",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		weather: {
+			fogDistributionCurve: 2,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 6,
+					bottom: 0,
+				},
+				fog: {
+					top: 16,
+					bottom: 0,
+				},
+			},
+		},
+	},
 	prutihut: {
 		folder: "cabin",
 		base: {

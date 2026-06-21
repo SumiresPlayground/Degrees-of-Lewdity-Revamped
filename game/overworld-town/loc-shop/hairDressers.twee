@@ -63,8 +63,10 @@ You are in the hairdressers. Various hair products are available for sale. You c
 			<</if>>
 		<</if>>
 		<<if $exposed lte 1 and Time.dayState isnot "night" and Time.hour isnot 21>>
-			<<hairdressericon "chair">><<link [[Take a seat|Hairdressers Seat]]>><</link>>
-			<br>
+			<<if $ghost gt 0 or $mushroom gt 0 or $slime gt 0>>
+				<<hairdressericon "chair">><<link [[Take a seat|Hairdressers Seat]]>><</link>>
+				<br>
+			<</if>>
 			<<if $money gte 800>>
 				<<hairdressericon "gel">> <<link [[Purchase hair gel (£8)|Hairdressers Gel]]>><<money -800 "hairdressers">><<set $hairgelBottles += 1>><</link>> | Owned: <span class="gold"><<= $hairgelBottles || 0>></span>
 			<<else>>

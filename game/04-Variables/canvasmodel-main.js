@@ -1246,8 +1246,7 @@ Renderer.CanvasModels.main = {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === 'night' && (Time.isBloodMoon() || V.forcedBloodmoon);
 						const timeSuffix = isBloodmoon ? 'bloodmoon' : Time.dayState;
-						const allowedNames = ["cowgirl", "cat", "puppy"];
-						if ( V.furniture.bedroom.poster !== undefined && allowedNames.includes(V.furniture.bedroom.poster.name)) {
+						if ( V.furniture.bedroom.poster !== undefined) {
 							return `img/background/furniture/poster/${ V.furniture.bedroom.poster.name}/${timeSuffix}.png`;}}}
 			},
 		},
@@ -1262,8 +1261,7 @@ Renderer.CanvasModels.main = {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-						const allowedNames = ["vines", "tentacles", "plain-white", "wavy-white", "cowgirls", "cow-girls", "hearts", "trees", "crosses", "starry", "deep sea", "beach", "crabs", "flames", "stained glass", "audience", "bears"];
-						if ( V.furniture.bedroom.wallpaper !== undefined && allowedNames.includes(V.furniture.bedroom.wallpaper.name)) {
+						if ( V.furniture.bedroom.wallpaper !== undefined) {
         					return `img/background/furniture/wallpaper/${V.furniture.bedroom.wallpaper.name}/${timeSuffix}.png`;}}}
 			},
 		},
@@ -3158,6 +3156,7 @@ Renderer.CanvasModels.main = {
 				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
 				return ZIndices.armsidle + 0.1;
 			},
+			filters: ["body"],
 			animation: "idle",
 		},
 
@@ -3172,6 +3171,7 @@ Renderer.CanvasModels.main = {
 				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
 				return ZIndices.armsidle + 0.1;
 			},
+			filters: ["body"],
 			animation: "idle",
 		},
 
