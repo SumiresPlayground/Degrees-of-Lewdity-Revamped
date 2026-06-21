@@ -287,7 +287,7 @@ function pregnancyProgress(genital = "vagina") {
 
 	if (pregnancy.timer < pregnancy.timerEnd) {
 		let multiplier = 1;
-		if (V.transformationParts.bunny.ears === "default" && V.transformationParts.bunny.tail === "default")
+		if (V.transformationParts.bunny.ears !== "disabled" && V.transformationParts.bunny.tail !== "disabled")
 			{switch (pregnancy.type) {
 				case "human":
 					multiplier = 3 / V.settings.humanPregnancyMonths;
