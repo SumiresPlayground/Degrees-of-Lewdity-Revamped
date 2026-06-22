@@ -515,6 +515,16 @@ const Furniture = (() => {
 			description: "For repairing damaged clothing. Can be put on your table.",
 			iconFile: "sewing",
 		});
+		/* ------------- PC -------------- */
+		mapper.set("pc", {
+			name: "laptop",
+			nameCap: "Laptop",
+			category: ["pc"],
+			type: [],
+			cost: 5000,
+			description: "A personal computer for browsing the internet.",
+			iconFile: "laptop",
+		});
 	}
 
 	function furnitureGet(category, onlySetup = false) {

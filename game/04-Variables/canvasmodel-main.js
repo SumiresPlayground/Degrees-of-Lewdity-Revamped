@@ -1310,6 +1310,21 @@ Renderer.CanvasModels.main = {
         					return `img/background/furniture/owlplushie/${V.furniture.bedroom.owlplushie.id}/${timeSuffix}.png`;}}}
 			},
 		},
+		"backgroundpc": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.pc !== undefined) {
+        					return `img/background/furniture/pc/${V.furniture.bedroom.pc.id}/${timeSuffix}.png`;}}}
+			},
+		},
 		"backgroundtank": {
 			show: true,
 			z: ZIndices.backgroundOverlay +1,
