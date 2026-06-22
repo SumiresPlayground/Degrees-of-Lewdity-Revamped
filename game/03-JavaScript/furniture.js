@@ -510,6 +510,26 @@ const Furniture = (() => {
 			description: "The wallpaper is currently empty.",
 			iconFile: "wallpaper",
 		});
+		/* ------------- Utility -------------- */
+		mapper.set("sewingmachine", {
+			name: "sewing machine",
+			nameCap: "Sewing machine",
+			category: ["utility"],
+			type: [],
+			cost: 2000,
+			description: "For repairing damaged clothing. Can be put on your table.",
+			iconFile: "sewing",
+		});
+		/* ------------- PC -------------- */
+		mapper.set("pc", {
+			name: "laptop",
+			nameCap: "Laptop",
+			category: ["pc"],
+			type: [],
+			cost: 5000,
+			description: "A personal computer for browsing the internet.",
+			iconFile: "laptop",
+		});
 	}
 
 	function furnitureGet(category, onlySetup = false) {

@@ -1,0 +1,63 @@
+:: Nextdoor Init [widget]
+
+<<widget "nextdoor-init">>
+    <<if ndef $nextdoor>>
+        <<set $nextdoor to {
+            messageHistory: [],
+            npcBanCount: {},
+            npcBanned: {},
+            blockList: [],
+            lastBanCheck: 0,
+        }>>
+
+        <!-- Test content -->
+        <<run
+            V.nextdoor.messageHistory.push({
+                "textContent" : "LMAO THEY TEMP BANNED ME FOR THIS<br> anw check this shit out:",
+                "account" : "Whitney",
+                "banned": false,
+                "timestamp": -10,
+                "bannable": true,
+                "attachment": "test_sausage",
+            });
+
+            V.nextdoor.messageHistory.push({
+                "textContent" : "Bitches and alcohol",
+                "account" : "Whitney",
+                "banned": false,
+                "timestamp": -3600*24*4,
+                "bannable": true,
+                "banned": true,
+                "attachment": "",
+            });
+
+            V.nextdoor.messageHistory.push({
+                "textContent" : "Uweh....",
+                "account" : "Kylar",
+                "banned": false,
+                "timestamp": -10,
+                "bannable": false,
+                "banned": false,
+                "attachment": "",
+            });
+        >>
+    <</if>>
+
+    <<if ndef setup.nextdoorMessages>>
+        <<setup-nextdoor-message-db>>
+    <</if>>
+
+    <<for _n to 0; _n lt $NPCNameList.length; _n++>>
+        <<if ndef $nextdoor.npcBanned[$NPCNameList[_n]]>>
+            <<set $nextdoor.npcBanned[$NPCNameList[_n]] to {}>>
+            <<set $nextdoor.npcBanned[$NPCNameList[_n]].status to false>>
+            <<set $nextdoor.npcBanned[$NPCNameList[_n]].timestamp to 0>>
+            <<set $nextdoor.npcBanned[$NPCNameList[_n]].count to 0>>
+        <</if>>
+    <</for>>
+
+    <<nextdoor-track-event>>
+    <<run
+        V.nextdoor.messageHistory.sort((msgA, msgB) => msgB.timestamp - msgA.timestamp);
+    >>
+<</widget>>

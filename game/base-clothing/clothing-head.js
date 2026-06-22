@@ -4748,7 +4748,6 @@ function initHead() {
 			colour_sidebar: 1,
 			type: ["rainproof"],
 			gender: "n",
-			femininity: 0,
 			warmth: 0,
 			cost: 0,
 			description: "It has it's uses.",

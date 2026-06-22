@@ -1,0 +1,237 @@
+:: Laptop Home [exitCheckBypass]
+<div class="desktop">
+    <<computerhomepage>>
+</div>
+
+:: Mineblox
+
+
+:: Nextdoor
+
+<<if $blockList is undefined>>
+<<nextdoor-init>>
+<</if>>
+
+<div class="nextdoor-content">
+    <<nextdoor-content>>
+</div>
+<br>
+
+<<link [[Back|Laptop Home]]>><</link>>
+
+:: Blogspot
+
+
+:: Camhub
+<<if $stress gte $stressmax and !$possessed>>
+	<<passouthome>>
+<<else>>
+	You are on the homepage of Camhub, here you can spend some time dancing on camera for donations.
+	<br><br>
+	<<link [[Host a cam show dance (0:30)|Cam Show Dance]]>><<set $dancelocation to "home">><</link>><<llstress>><<ggtiredness>>
+	<br>
+	<<link [[Back|Laptop Home]]>><</link>>
+<</if>>
+:: Cam Show Dance
+<<effects>>
+<<outfitChecks>>
+<<danceStripActionObject>>
+<<if $campayout is undefined>>
+	<<set $campayout to 0>>
+<</if>>
+<<set _campayoutmultiplier to 0>>
+<<if _danceExhibition isnot undefined>>
+	<<if _danceExhibition.overOutfit isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.overOutfit[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.overOutfit[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.overOutfit[0]>>
+			<</if>>
+			<<set $danceaction to "stripOverOutfit">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.over_upper isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.over_upper[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.over_upper[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.over_upper[0]>>
+			<</if>>
+			<<set $danceaction to "stripOverUpper">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.over_lower isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.over_lower[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.over_lower[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.over_lower[0]>>
+			<</if>>
+			<<set $danceaction to "stripOverLower">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.middleOutfit isnot null and $worn.upper.cursed isnot 1 and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.middleOutfit[1] - 20)>>
+			<<if _campayoutmultiplier lt _danceExhibition.middleOutfit[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.middleOutfit[0]>>
+			<</if>>
+			<<set $danceaction to "stripOutfit">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.upper isnot null and $worn.upper.cursed isnot 1 and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.upper[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.upper[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.upper[0]>>
+			<</if>>
+			<<set $danceaction to "stripUpper">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.lower isnot null and $worn.lower.cursed isnot 1 and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.lower[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.lower[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.lower[0]>>
+			<</if>>
+			<<set $danceaction to "stripLower">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.underOutfit isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.underOutfit[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.underOutfit[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.underOutfit[0]>>
+			<</if>>
+			<<set $danceaction to "stripUnderOutfit">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.under_upper isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.under_upper[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.under_upper[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.under_upper[0]>>
+			<</if>>
+			<<set $danceaction to "stripUnderUpper">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+	<<if _danceExhibition.under_lower isnot null and _camOver is undefined>>
+		<<if $exhibitionism gte Math.floor(_danceExhibition.under_lower[1] - 20, 0)>>
+			<<if _campayoutmultiplier lt _danceExhibition.under_lower[0]>>
+				<<set _campayoutmultiplier to _danceExhibition.under_lower[0]>>
+			<</if>>
+			<<set $danceaction to "stripUnderLower">>
+			<<camdancestripeffects>>
+		<<else>>
+			<<set _camOver to 1>>
+			You're too shy to go further!
+		<</if>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<stress -60>><<tiredness 30>><<dancestat>>
+<<if currentSkillValue('danceskill') lte 200>>
+	You try to dance provocatively. Due to your lack of skill, this amounts to little more than waving your buttocks around.
+<<elseif currentSkillValue('danceskill') lte 400>>
+	You shake your assets, giving a show to anyone who looks.
+<<elseif currentSkillValue('danceskill') lte 600>>
+	You dance flirtatiously, your movements emphasising your lewder parts.
+<<elseif currentSkillValue('danceskill') lte 800>>
+	You dance skilfully and provocatively, your movements emphasising your lewder parts.
+<<elseif currentSkillValue('danceskill') lte 999>>
+	You dance skilfully and provocatively, your entire body advertising a raw sexual energy.
+<<else>>
+	Your moves radiate a primal and intoxicating sexuality.
+<</if>>
+<<danceskilluse>>
+<<pass 30>>
+<<set $dancephysique += 1>>
+<<if $dancephysique gte 10>>
+	<<set $dancephysique -= 10>>
+	<<physique>>
+<</if>>
+
+<<cam1payout>>
+<<if $campayout is 15000>>
+	The audience absolutely loved you! They tipped <<printmoney $campayout>>!
+<<else>>
+	The audience tipped you <<printmoney $campayout>>.
+<</if>>
+<<set $money += $campayout>>
+<br><br>
+
+<<if $exposed gte 2 and $exhibitionism lte 54>>
+	<<link [[Turn off the stream|Camhub]]>><<clotheson>><<endevent>><</link>>
+<<elseif $exposed gte 1 and $exhibitionism lte 34>>
+	<<link [[Turn off the stream|Camhub]]>><<clotheson>><<endevent>><</link>>
+<<else>>
+	<<if $exhibitionism gte 75>>
+		<<link [[Masturbation Show|Cam Show Masturbate]]>><<set $masturbationstart to 1>><<endevent>><</link>>
+		<br>
+	<</if>>
+	<<link [[Stop|Camhub]]>><<clotheson>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Cam Show Masturbate
+<<effects>>
+<<if $masturbationstart is 1>>
+	<<set $masturbationstart to 0>>
+	<<set $masturbationstat += 1>>
+
+	You can feel their eyes on you. A heat rises in your groin. Breathing heavily, you move your hands to your <<genitals>>.
+
+	<<masturbationstart>>
+	<<set $timer to 20>>
+<</if>>
+
+<<masturbationeffects>>
+<<masturbationactions>>
+
+<<if $orgasmdown gte 3>>
+	They erupt into cheers at your orgasmic spasms, donating money to you with one hand and rubbing themselves with the other.
+<<elseif random(1, 5) is 1>>
+	You fondle yourself as the group screenshots photos of your lewd display.<<garousal>><<arousal 100 "genitals">><<fameexhibitionism 2 "pic">>
+<<else>>
+	You fondle yourself. The group watches with great interest.<<garousal>><<arousal 100 "genitals">>
+<</if>>
+<br>
+<<masturbationControls "timer|privateShow">>
+
+:: Cam Show Masturbate Finish
+<<set $outside to 1>><<effects>>
+<<endmasturbation>>
+<<cam2payout>>
+<<if $campayout is 30000>>
+	The audience absolutely loved you! They tipped <<printmoney $campayout>>!
+<<else>>
+	The audience tipped you <<printmoney $campayout>>.
+<</if>>
+<<set $money += $campayout>>
+<br><br>
+
+<<link [[Stop|Camhub]]>><<unset $campayout>><</link>>
+<br>

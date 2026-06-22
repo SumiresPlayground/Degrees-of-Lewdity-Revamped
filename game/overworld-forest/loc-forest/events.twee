@@ -7570,7 +7570,7 @@ After inspecting you for a minute or so, the <<beasttype>> prepares to mount you
 <</if>>
 
 :: Forest Mushroom Enter
-<<if Time.dayState is "night" and $hallucinogen gte 300 and $vesselform isnot 2>>
+<<if Time.dayState is "night" and ($hallucinogen gte 300 or Object.values(V.worn).find(c => c.type.includes("esoteric"))) and $vesselform isnot 2>>
 	As you step into the tree hollow the world slowly begins to tilt. You can sense something is horribly wrong but what? You stumble and lean against the tree hollow as you collapse.
 	<br><br>
 	Suddenly, the tree hollows out from beneath you and you fall deep and far into the darkness. It must have been minutes that you fell before you see light. The tree hollow begins to slope and you hit the ground hard.

@@ -1324,6 +1324,101 @@ Renderer.CanvasModels.main = {
         					return `img/background/furniture/owlplushie/${V.furniture.bedroom.owlplushie.id}/${timeSuffix}.png`;}}}
 			},
 		},
+		"backgroundpc": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.pc !== undefined) {
+        					return `img/background/furniture/pc/${V.furniture.bedroom.pc.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundtank": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.container.home.name !== undefined) {
+        					return `img/background/furniture/tank/${V.container.home.name}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundtankdecorations": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.container.home.decorations !== undefined) {
+        					return `img/background/furniture/tank/${V.container.home.decorations}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundtankfeeder": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.container.home.feederName !== undefined) {
+        					return `img/background/furniture/tank/${V.container.home.feederName}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundparasite": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.container.home.creatures !== undefined) {
+							if (V.container.home.creatures[0].creature !== null) {
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[0].creature}/${timeSuffix}.png`;}
+							else if (V.container.home.creatures[1].creature !== null) {
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[1].creature}/${timeSuffix}.png`;}
+							else if (V.container.home.creatures[2].creature !== null) {
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[2].creature}/${timeSuffix}.png`;}
+							else if (V.container.home.creatures[3].creature !== null) {
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[3].creature}/${timeSuffix}.png`;}
+							else if (V.container.home.creatures[4].creature !== null) {
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[4].creature}/${timeSuffix}.png`;}
+							else if (V.container.home.creatures[5].creature !== null) {
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[5].creature}/${timeSuffix}.png`;}}}}
+			},
+		},
+		"foregroundmirror": {
+			show: true,
+			z: ZIndices.foregroundOverlay,
+			animation: "idle",
+			srcfn() {
+				if (V.mirrordisplay > 0)
+					return `img/foreground/mirror.png`;
+			},
+		},
 		"foreground": {
 			show: true,
 			z: ZIndices.foregroundOverlay,

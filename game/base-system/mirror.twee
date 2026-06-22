@@ -480,6 +480,7 @@
 			{ type: "business", name: "entrepreneur" },
 			{ type: "social", name: $fame.social gte 1000 ? "schmoozer" : "socialite" },
 			{ type: "model", name: $fame.model gte 1000 ? "show off" : "model" },
+			{ type: "investigator", name: $fame.investigator gte 1000 ? "private investigator" : "snoop" },
 		]>>
 		<<set _decreaseAllure to _pos.some(fame => (_posLabels.some(status => $fame[fame.type] >= status.threshold)))>>
 
@@ -2361,10 +2362,10 @@
 	/*Hiding parts of your Inner Self will slowly increase your Trauma over time (excludes pubes and pits).
 	If your Trauma gets too high, you will be unable to hide.*/
 
-	<<link "__Complete Dump__">><<clearDivineTransformations>><<clearAnimalTransformations>><<updatesidebarimg>><</link>>
+	<<link "__Remove All Transformation Points__">><<clearDivineTransformations>><<clearAnimalTransformations>><<updatesidebarimg>><</link>>
 	<br>
 
-	<label for="tfs">Dump a specific tf:</label>
+	<label for="tfs">Remove a Specific Transformatiom:</label>
 
 	<select name="tfs" id="tfs">
 	<option value="angel">Angel</option>
@@ -2392,8 +2393,15 @@
 	<br>
 	<<link "Dump Selected TF">>
 	<<set _chosenTF = $("#tfs").val()>>
-	<<if _chosenTF !== "">>
+	<<if _chosenTF === "wolf">>
 		<<set _varName = _chosenTF + "build">>
+		<<set State.variables[_varName] = 0>>
+		<<set _varName = _chosenTF + "girl">>
+		<<set State.variables[_varName] = 0>>
+	<<elseif _chosenTF !== "">>
+		<<set _varName = _chosenTF + "build">>
+		<<set State.variables[_varName] = 0>>
+		<<set _varName = _chosenTF>>
 		<<set State.variables[_varName] = 0>>
 	<</if>>
 	<</link>>

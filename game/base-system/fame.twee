@@ -125,6 +125,13 @@
 	<</if>>
 <</widget>>
 
+<<widget "fameinvestigator">>
+	<<if _args[0] and $statFreeze isnot true>>
+		<<set $fame.investigator += _args[0]>>
+		<<set $fame.investigator to Math.clamp($fame.investigator, 0, 2000)>>
+	<</if>>
+<</widget>>
+
 <<widget "famedance">>
 	<<exposure>>
 	<<if $face isnot "covered" and !$worn.face.type.includes("mask") and !$gloryhole and $statFreeze isnot true>>
