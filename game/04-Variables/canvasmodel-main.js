@@ -421,6 +421,10 @@ Renderer.CanvasModels.main = {
 			"eldritch_tentacle_type": "disabled",
 			"eldritch_skin_type": "disabled",
 			"goblin_ears_type": "disabled",
+			"zombie_body_type": "disabled",
+			"zombie_arms_type": "disabled",
+			"zombie_head_type": "disabled",
+			"zombie_eyes_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -1126,20 +1130,12 @@ Renderer.CanvasModels.main = {
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else
 							if (V.npc.length > 0)
-								if (V.npc.length > 1)
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
 									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}corrupt.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}.png`;}
-								else
-									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
-									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;}
 			},
 		},
 		"npcpresentfront": {
@@ -1154,20 +1150,12 @@ Renderer.CanvasModels.main = {
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else
 							if (V.npc.length > 0)
-								if (V.npc.length > 1)
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/monster.png`;
 									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}corrupt.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}.png`;}
-								else
-									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/${V.NPCskincolour}corrupt.png`;
-									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.pronoun}/${V.NPCskincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;}
 			},
 		},
 		"background": {
@@ -1181,7 +1169,7 @@ Renderer.CanvasModels.main = {
 				else {
 					const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       				const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-					if (V.locationoverwrite !== "0") {
+					if (V.locationoverwrite === "bedroom") {
 						return `img/background/${V.locationoverwrite}/${timeSuffix}.png`;}
 					else {
 						return `img/background/${V.location}/${timeSuffix}.png`;}}
@@ -1255,11 +1243,10 @@ Renderer.CanvasModels.main = {
 				if (V.staticimages > 1) {} 
 				else if (V.staticimages > 0) {} 
 				else {
-					if (V.locationoverwrite === 'bedroom') {
+					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === 'night' && (Time.isBloodMoon() || V.forcedBloodmoon);
 						const timeSuffix = isBloodmoon ? 'bloodmoon' : Time.dayState;
-						const allowedNames = ["cowgirl", "cat", "puppy"];
-						if ( V.furniture.bedroom.poster !== undefined && allowedNames.includes(V.furniture.bedroom.poster.name)) {
+						if ( V.furniture.bedroom.poster !== undefined) {
 							return `img/background/furniture/poster/${ V.furniture.bedroom.poster.name}/${timeSuffix}.png`;}}}
 			},
 		},
@@ -1274,8 +1261,7 @@ Renderer.CanvasModels.main = {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-						const allowedNames = ["vines", "tentacles", "plain-white", "wavy-white", "cowgirls", "cow-girls", "hearts", "trees", "crosses", "starry", "deep sea", "beach", "crabs", "flames", "stained glass", "audience", "bears"];
-						if ( V.furniture.bedroom.wallpaper !== undefined && allowedNames.includes(V.furniture.bedroom.wallpaper.name)) {
+						if ( V.furniture.bedroom.wallpaper !== undefined) {
         					return `img/background/furniture/wallpaper/${V.furniture.bedroom.wallpaper.name}/${timeSuffix}.png`;}}}
 			},
 		},
@@ -1322,21 +1308,6 @@ Renderer.CanvasModels.main = {
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.owlplushie !== undefined) {
         					return `img/background/furniture/owlplushie/${V.furniture.bedroom.owlplushie.id}/${timeSuffix}.png`;}}}
-			},
-		},
-		"backgroundpc": {
-			show: true,
-			z: ZIndices.backgroundOverlay +1,
-			animation: "idle",
-			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
-				else {
-					if (V.locationoverwrite === "bedroom") {
-						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
-      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-						if (V.furniture.bedroom.pc !== undefined) {
-        					return `img/background/furniture/pc/${V.furniture.bedroom.pc.id}/${timeSuffix}.png`;}}}
 			},
 		},
 		"backgroundtank": {
@@ -2495,14 +2466,16 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 		"dragon_eyes": {
+			filters: ["left_eye"],
 			srcfn(options) {
-				return `img/transformations/dragon/eyes/${options.facestyle}/${options.dragon_eyes_type}.png`;
+				return `img/transformations/dragon/eyes/${options.facevariant}/${options.dragon_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.dragon_eyes_type)
 			},
 			z: ZIndices.irisacc,
 			animation: "idle"
+			
 		},
 		"dragon_wings_right": {
 			filters: ["dragon_wings"],
@@ -2563,7 +2536,7 @@ Renderer.CanvasModels.main = {
          */
 		"lizard_eyes": {
 			srcfn(options) {
-				return `img/transformations/lizard/eyes/${options.facestyle}/${options.lizard_eyes_type}.png`;
+				return `img/transformations/lizard/eyes/${options.facevariant}/${options.lizard_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.lizard_eyes_type)
@@ -2638,7 +2611,7 @@ Renderer.CanvasModels.main = {
 
 		"ghost_eyes": {
 			srcfn(options) {
-				return `img/transformations/ghost/eyes/${options.facestyle}/${options.ghost_eyes_type}.png`;
+				return `img/transformations/ghost/eyes/${options.facevariant}/${options.ghost_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_eyes_type)
@@ -2805,7 +2778,7 @@ Renderer.CanvasModels.main = {
 
 		"spider_eyes": {
 			srcfn(options) {
-				return `img/transformations/spider/eyes/${options.facestyle}/${options.spider_eyes_type}.png`;
+				return `img/transformations/spider/eyes/${options.facevariant}/${options.spider_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.spider_eyes_type);
@@ -2832,7 +2805,7 @@ Renderer.CanvasModels.main = {
 
 		"frog_eyes": {
 			srcfn(options) {
-				return `img/transformations/frog/eyes/${options.facestyle}/${options.frog_eyes_type}.png`;
+				return `img/transformations/frog/eyes/${options.facevariant}/${options.frog_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.frog_eyes_type);
@@ -2944,6 +2917,66 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 
+		/***
+		Zombie
+		*/
+		"zombie_body": {
+			srcfn(options) {
+				return `img/transformations/zombie/body/${options.zombie_body_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.zombie_body_type);
+			},
+			z: ZIndices.skin + 0.1,
+			animation: "idle"
+		},
+		"zombie_head": {
+			srcfn(options) {
+				return `img/transformations/zombie/head/${options.zombie_head_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.zombie_head_type);
+			},
+			z: ZIndices.backhair - 1,
+			animation: "idle"
+		},
+		"zombie_arms_right": {
+			srcfn(options) {
+				return `img/transformations/zombie/arms/${options.zombie_arms_type}/right-${options.arm_right}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.zombie_arms_type);
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.1;
+			},
+			animation: "idle"
+		},
+		"zombie_arms_left": {
+			srcfn(options) {
+				return `img/transformations/zombie/arms/${options.zombie_arms_type}/left-${options.arm_left}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.zombie_arms_type);
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.1;
+			},
+			animation: "idle"
+		},
+		"zombie_eyes": {
+			srcfn(options) {
+				return `img/transformations/zombie/eyes/${options.facevariant}/${options.zombie_eyes_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.zombie_eyes_type)
+			},
+			z: ZIndices.irisacc,
+			animation: "idle"
+		},
+
 		
 
 		/***
@@ -3000,7 +3033,7 @@ Renderer.CanvasModels.main = {
 		},
 		"mushroom_eyes": {
 			srcfn(options) {
-				return `img/transformations/mushroom/eyes/${options.facestyle}/${options.mushroom_eyes_type}.png`;
+				return `img/transformations/mushroom/eyes/${options.facevariant}/${options.mushroom_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.mushroom_eyes_type)
@@ -3045,20 +3078,9 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 
-		"forgotten_face": {
-			srcfn(options) {
-				return `img/transformations/eldritch/crown/forgotten.png`;
-			},
-			showfn(options) {
-				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type) && options.eldrich_crown_type === "forgotten"
-			},
-			z: ZIndices.tears + 1,
-			animation: "idle"
-		},
-
 		"eldritch_eyes": {
 			srcfn(options) {
-				return `img/transformations/eldritch/eyes/${options.facestyle}/${options.eldrich_eyes_type}.png`;
+				return `img/transformations/eldritch/eyes/${options.facevariant}/${options.eldrich_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_eyes_type)
@@ -3101,15 +3123,56 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 
-		"forgotten_skin": {
+		"forgotten_face": {
 			srcfn(options) {
-				return `img/transformations/eldritch/skin/forgotten.png`;
+				return `img/transformations/eldritch/forgotten/skin/forgotten.png`;
 			},
 			showfn(options) {
-				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type) && options.eldritch_skin_type === "forgotten"
+				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_crown_type) && options.eldrich_crown_type === "forgotten"
+			},
+			z: ZIndices.tears + 1,
+			animation: "idle"
+		},
+
+		"forgotten_skin": {
+			srcfn(options) {
+				return `img/transformations/eldritch/forgotten/wings/forgotten.png`;
+			},
+			showfn(options) {
+				return options.show_tf && options.show_face && isPartEnabled(options.eldritch_skin_type) && options.eldritch_skin_type === "forgotten";
 			},
 			z: ZIndices.tailPenisCoverOverlay + 1,
-			animation: "idle"
+			animation: "idle",
+		},
+
+		"forgotten_arm_right": {
+			srcfn(options) {
+				return `img/transformations/eldritch/forgotten/arms/right-${options.arm_right}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.eldrich_crown_type) && options.eldrich_crown_type === "forgotten";
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.1;
+			},
+			filters: ["body"],
+			animation: "idle",
+		},
+
+		"forgotten_arm_left": {
+			srcfn(options) {
+				return `img/transformations/eldritch/forgotten/arms/left-${options.arm_left}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.eldrich_crown_type) && options.eldrich_crown_type === "forgotten";
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.1;
+			},
+			filters: ["body"],
+			animation: "idle",
 		},
 
 		/*Goblin*/

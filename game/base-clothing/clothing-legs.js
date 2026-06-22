@@ -2322,6 +2322,7 @@ function initLegs() {
 		},
 	
 			{index: 2,
+			slot: "legs",
 			name: "mushroom leggings partial",
 			name_cap: "Mushroom leggings partial",
 			variable: "mushroom2",
@@ -2356,6 +2357,7 @@ function initLegs() {
 		},
 		
 			{index: 3,
+			slot: "legs",
 			name: "mushroom leggings",
 			name_cap: "Mushroom leggings",
 			variable: "mushroom3",

@@ -114,16 +114,18 @@ You walk up to one of the mansions and knock on the door.
 		<<getouticon>><<link [[Say you've got the wrong address and leave|Danube Street]]>><<endevent>><</link>>
 		<br>
 	<</addinlineevent>>
-	<<if Time.days gte 30 and $hivemember is 0>>
-		<<addinlineevent "Danube Taylor Mom">>
-			<<set $TaylorMissing to 1>>
-			You walk up to a very nice looking house and knock on the door. A sad looking woman with red puffy eyes opens the door. "Oh a child, what do you want dear?"
-			<br><br>
+	<<if $TaylorMissing isnot 1>>
+		<<if Time.days gte 30 and $hivemember is 0>>
+			<<addinlineevent "Danube Taylor Mom">>
+				<<npc Taylor>><<person1>><<set $TaylorMissing to 1>>
+				You walk up to a very nice looking house and knock on the door. A sad looking woman with red puffy eyes opens the door. "Oh a child, what do you want dear?"
+				<br><br>
 
-			<<link [[Ask what's wrong|Missing Poster]]>><</link>>
-			<br>
-			<<link [[Say you've got the wrong address and leave|Danube Street]]>><<endevent>><</link>>
-		<</addinlineevent>>
+				<<link [[Ask what's wrong|Missing Poster]]>><</link>>
+				<br>
+				<<link [[Say you've got the wrong address and leave|Danube Street]]>><<endevent>><</link>>
+			<</addinlineevent>>
+		<</if>>
 	<</if>>
 
 	<<runeventpool>>

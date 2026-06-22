@@ -2698,6 +2698,7 @@ function initUnderLower() {
 		},
 		
 			{index: 2,
+			slot: "under_lower",
 			name: "mushroom bottoms",
 			name_cap: "Mushroom bottoms",
 			variable: "mushroom2",

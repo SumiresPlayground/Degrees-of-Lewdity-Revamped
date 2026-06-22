@@ -375,6 +375,12 @@ class XrayCombatMapper {
 			case "spider":
 			case "spidergirl":
 			case "spiderboy":
+			case "bee":
+			case "beegirl":
+			case "beeboy":
+			case "wasp":
+			case "waspgirl":
+			case "waspboy":
 				penetrator.penetratorSprite = "tentacle";
 				penetrator.size = 3;
 				options.filters[slot + "Penetrator"] = {

@@ -1994,6 +1994,7 @@ function initUnderUpper() {
 		},
 		
 			{index: 2,
+			slot: "under_upper",
 			name: "mushroom top",
 			name_cap: "Mushroom top",
 			variable: "mushroom2",

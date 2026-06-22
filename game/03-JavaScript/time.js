@@ -1905,7 +1905,7 @@ function dailyTransformationEffects() {
 	if (V.purity >= 1000) wikifier("transform", "angel", 1);
 	else wikifier("transform", "angel", -1);
 
-	if (V.angel >= 4) {
+	if (V.transformationParts.angel.wings !== "disabled") {
 		V.angelBanishMax = Math.floor(V.angelbuild / 10);
 		V.angelBanish = V.angelBanishMax;
 	} else {

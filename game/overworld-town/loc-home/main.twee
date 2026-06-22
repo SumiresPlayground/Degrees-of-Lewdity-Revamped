@@ -11,6 +11,15 @@ You are in your bedroom.
 <</if>>
 /* Wallpaper */
 <<set _furniture to $furniture.bedroom>>
+<<if $furniture.bedroom.windowsill isnot undefined>>
+	<<if $furniture.bedroom.windowsill.id is "sewingmachine">>
+		<<set $furniture.bedroom.windowsill.id to "plantpot">>
+		<<run Furniture.set('utility', 'sewingmachine', {
+			name	: 'sewing machine',
+			nameCap	: 'Sewing machine'
+		})>>
+	<</if>>
+<</if>>
 <<if _furniture.wallpaper>>
 	<br>
 	<<set _premadeWall to ["vines", "tentacles", "plain-white", "wavy-white", "cowgirls", "cow-girls", "hearts", "trees", "crosses", "starry", "deep sea", "beach", "crabs", "flames", "stained glass", "audience", "bears"].includes(_furniture.wallpaper.name)>>
@@ -233,6 +242,27 @@ You are in your bedroom.
 
 There is a thermometer outside your window. It reads <span class="teal"><<print Weather.toSelectedString(Weather.temperature, 0)>></span>.
 <<print setup.WeatherDescriptions.extremeTemperature()>>
+<br>
+
+<<if V.furniture.bedroom.utility isnot undefined>>
+	<<if V.furniture.bedroom.utility.id is "sewingmachine">>
+		<br>
+		You can spend some time on your sewing machine to fully repair your clothing.
+		<br>
+		<<link [[Use sewing machine (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<rng>><<if $rng lte 20>><<transform spider 1>><</if>><</link>>
+		<br>
+	<<elseif $transformationParts.spider.tail isnot "disabled">>
+		<br>
+		You can spend some time using silk from your tail to fully repair your clothing.
+		<br>
+		<<link [[Begin sewing (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<transform spider 1>><</link>>
+		<br>
+	<</if>>
+<</if>>
+<<if $worn.lower.integrity gt 1 or $worn.upper.integrity gt 1 or $worn.under_lower.integrity gt 1 or $worn.under_upper.integrity gt 1>>
+	<<link [[Tear clothes slightly (0:10)|Clothes Tear]]>><<pass 10>><<set $worn.lower.integrity -= 20>><<set $worn.upper.integrity -= 20>><<set $worn.under_upper.integrity -= 20>><<set $worn.under_lower.integrity -= 20>><</link>>
+	<br>
+<</if>>
 <br>
 
 /* Bed */
@@ -543,9 +573,17 @@ The hallway outside connects to the rest of the orphanage.
 	<<set V.transformationParts.goblin.ears to "default">>
 	<<set $gob to 1>>
 	<<goto $passage>>
+<<elseif $code is "zom">>
+	<<set Skin.color.natural to "rot">>
+	<<set V.transformationParts.zombie.body to "default">>
+	<<set V.transformationParts.zombie.head to "default">>
+	<<set V.transformationParts.zombie.arms to "default">>
+	<<set V.transformationParts.zombie.eyes to "default">>
+	<<goto $passage>>
 <<elseif !Story.has($inputCode.trim())>>
 	<<run UI.alert("[Error] Code doesn't exist!")>>
 <<else>>
+	<<set $locationoverwrite to "0">>
 	<<goto $inputCode.trim()>>
 <</if>>
 <</button>>
@@ -3421,7 +3459,7 @@ You return to your tiny bedroom and wonder what to do.
 :: Mirror
 <<effects>>
 
-<<bedicon>><<link [[Step away|Bedroom]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><<postMirror>><</link>>
+<<bedicon>><<link [[Step away|Bedroom]]>><<set $mirrordisplay to 0>><<unset $mirrorMenu>><<unset $bodywritingSet>><<postMirror>><</link>>
 <br>
 
 <<mirror>>
@@ -3434,7 +3472,7 @@ You return to your tiny bedroom and wonder what to do.
 <<if $previousPassage is undefined>>
 	<<set $previousPassage = "Bedroom">>
 <</if>>
-<<ind>><<link [[Step away|$previousPassage]]>><<unset $mirrorMenu>><<unset $simpleMirror>><<unset $bodywritingSet>><<postMirror>><</link>>
+<<ind>><<link [[Step away|$previousPassage]]>><<set $mirrordisplay to 0>><<unset $mirrorMenu>><<unset $simpleMirror>><<unset $bodywritingSet>><<postMirror>><</link>>
 <br>
 
 <<mirror>>

@@ -13306,6 +13306,7 @@ function initUpper() {
 	setup.moddedClothes.upper = [
 		{
 			index: 1,
+			slot: "upper",
 			name: "mushroom dress",
 			name_cap: "Mushroom dress",
 			variable: "mushroom3",

@@ -954,7 +954,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $wolfbuild gte 5>>
+				<<if $wolfbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $wolfgirl to 1>>
 					<<set $physicalTransform to 1>>
 					<<run $timeMessages.pushUnique("wolfUp1")>>
@@ -1065,7 +1065,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $catbuild gte 25>>
+				<<if $catbuild gte 25 and $physicalTransform isnot 1>>
 					<<set $cat to 1>>
 					<<run $timeMessages.pushUnique("catUp1")>>
 					<<set $physicalTransform to 1>>
@@ -1116,6 +1116,7 @@
 					<<set $transformationParts.cat.tail to "default">>
 					<<set $hastail to "true">>
 					<<set $thintail to "true">>
+					<<set $cattf = 1>>
 					<<earnFeat "Neko">>
 					<br><br>
 				<<elseif $catbuild lt 45>>
@@ -1231,7 +1232,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $cowbuild gte 5>>
+				<<if $cowbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $cow to 1>>
 					<<run $timeMessages.pushUnique("cowUp1")>>
 					<<set $physicalTransform to 1>>
@@ -1489,7 +1490,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $foxbuild gte 5>>
+				<<if $foxbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $fox to 1>>
 					<<run $timeMessages.pushUnique("foxUp1")>>
 					<<set $physicalTransform to 1>>
@@ -1723,6 +1724,7 @@
 		<<switch _args[0]>>
 			<<case 0>>
 				<<if $beebuild gte 5 and $physicalTransform isnot 1>>
+					<<set $physicalTransform to 1>>
 					<<set $bee to 1>>
 					<<run $timeMessages.pushUnique("beeUp1")>>
 					<br><br>
@@ -2487,7 +2489,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $dogbuild gte 5>>
+				<<if $dogbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $dog to 1>>
 					<<set $physicalTransform to 1>>
 					<<run $timeMessages.pushUnique("dogUp1")>>
@@ -2597,7 +2599,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $fishbuild gte 5>>
+				<<if $fishbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $fish to 1>>
 					<<set $physicalTransform to 1>>
 					<<run $timeMessages.pushUnique("fishUp1")>>
@@ -2719,7 +2721,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $horsebuild gte 5>>
+				<<if $horsebuild gte 5 and $physicalTransform isnot 1>>
 					<<set $horse to 1>>
 					<<set $physicalTransform to 1>>
 					<<run $timeMessages.pushUnique("horseUp1")>>
@@ -2948,7 +2950,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $pigbuild gte 5>>
+				<<if $pigbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $pig to 1>>
 					<<set $physicalTransform to 1>>
 					<<run $timeMessages.pushUnique("pigUp1")>>
@@ -3057,7 +3059,7 @@
 	<<if _args[0] gte 0>>
 		<<switch _args[0]>>
 			<<case 0>>
-				<<if $frogbuild gte 5>>
+				<<if $frogbuild gte 5 and $physicalTransform isnot 1>>
 					<<set $frog to 1>>
 					<<set $physicalTransform to 1>>
 					<<run $timeMessages.pushUnique("frogUp5")>>
@@ -3200,6 +3202,7 @@
 	<<set $transformationParts.eldritch.tentacle to "disabled">>
 	<<set $transformationParts.fae.wings to "disabled">>
 	<<set $transformationParts.fae.fairies to "disabled">>
+	<<set $transformationParts.goblin.ears to "disabled">>
 <</widget>>
 
 <<widget "clearExtraTransformations">>
