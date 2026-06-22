@@ -2254,6 +2254,7 @@ function effects() {
 	}
 	if (V.outside === 1 && 
 		Weather.precipitation === "rain" && 
+		!(V.worn.handheld.type.includes("rainproof")) &&
 		!(V.worn.head.type.includes("rainproof")) &&
 		!(V.worn.over_head.type.includes("rainproof"))) {
 		V.pain += 10;
@@ -2324,5 +2325,12 @@ Macro.add("effects", {
 	handler() {
 		const fragment = effects();
 		this.output.append(fragment);
+		$(document)
+		.off(':passageend.effects') 
+		.on(':passageend.effects', function () {
+			document.querySelector("canvas.mainCanvas").style.height = "256px";
+			document.querySelector("canvas.mainCanvas").style.width = "256px";
+			}
+		);
 	},
 });

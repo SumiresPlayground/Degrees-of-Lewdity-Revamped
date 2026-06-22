@@ -273,6 +273,11 @@ setup.colours = {
 			alpha: 0.6,
 			desaturate: false,
 		},
+		rot: {
+			gradient: ["#a6bba4", "#5f6b59"],
+			blendMode: "multiply",
+			desaturate: false,
+		},
 	},
 	/*
 	 * Get canvas filter for skin of given type and tan progression (0..1).

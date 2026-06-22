@@ -39,6 +39,8 @@
 			<<mirrorMakeup>>
 		<<case "transformation">>
 			<<mirrorTransformation>>
+		<<case "display">>
+			<<mirrorDisplayfull>>
 		<<default>>
 			<<mirrorMenu _args[0]>>
 	<</switch>>
@@ -177,6 +179,12 @@
 		<</if>>
 	<</if>>
 	<br><br>
+	__Model__
+	<br>
+	<<link "View fullsized model with mirror overlay">><<set $mirrordisplay to 1>><<set $mirrorMenu to "display">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
+	<br>
+	<<link "View fullsized model without mirror overlay">><<set $mirrordisplay to 0>><<set $mirrorMenu to "display">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
+	<br><br>
 <</widget>>
 
 <<widget "mirrorGender">>
@@ -256,7 +264,7 @@
 <</widget>>
 
 <<widget "mirrorAppearance">>
-	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
+	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
 	<br><br>
 	<span id="mirrorGender">
 		<<mirrorGender>>
@@ -333,7 +341,7 @@
 			<br>
 		<</if>>
 		<<if V.transformationParts.fae.fairies is "default">>
-			Eldritch
+			Fae
 			<br>
 		<</if>>
 		<<if $sheep gte 6>>
@@ -644,7 +652,7 @@
 <</widget>>
 
 <<widget "visual-settings">>
-	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
+	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
 <</widget>>
 
 <<widget "faceStyleOptions">>
@@ -687,7 +695,7 @@
 <</widget>>
 
 <<widget "mirrorSkin">>
-	<<mirroricon>><<link "Back">><<updatesidebarimg>><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
+	<<mirroricon>><<link "Back">><<updatesidebarimg>><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
 	<br><br>
 
 	<div class="settingsGrid">
@@ -1487,7 +1495,7 @@
 
 <<widget "mirrorHair">>
 	<<set _wraithMirror to false>>
-	<<mirroricon>><<link "Back">><<updatesidebarimg>><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
+	<<mirroricon>><<link "Back">><<updatesidebarimg>><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
 	<<shopClothingFilterSettingsDefault>> /* Due to reusing the traits filtering */
 	<br><br>
 	<div id="hairDescription">
@@ -2005,7 +2013,7 @@
 <</widget>>
 
 <<widget "mirrorMakeup">>
-	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
+	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
 	<br><br>
 	<div class="settingsGrid">
 		<div class="settingsHeader">Makeup</div>
@@ -2356,7 +2364,7 @@
 <</widget>>
 
 <<widget "mirrorTransformation">>
-	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<unset $mirrorMenu>><</link>>
+	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
 	<br><br>
 	/*Hiding parts of your Inner Self will slowly increase your Trauma over time (excludes pubes and pits).
 	If your Trauma gets too high, you will be unable to hide.*/
@@ -2588,7 +2596,12 @@
 			<<tficon "cat">><<link "Cat">><<clearears>><<set _cat.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $cow gte 4 or $cowtf is 1>>
-			<<tficon "cow">><<link "Cow">><<clearears>><<set _cow.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Default">><<clearears>><<set _cow.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Spotted Black">><<clearears>><<set _cow.ears = "spotted-black">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Spotted Brown">><<clearears>><<set _cow.ears = "spotted-brown">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Classic">><<clearears>><<set _cow.ears = "classic">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Classic Spotted Black">><<clearears>><<set _cow.ears = "classic-spotted-black">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Classic Spotted Brown">><<clearears>><<set _cow.ears = "classic-spotted-brown">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 4 or $wolftf is 1>>
 			<<tficon "wolf">><<link "Wolf">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
@@ -2671,16 +2684,16 @@
 		<<if $fallenangel gte 1 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel">><<clearhalo>><<set _fallen.halo = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
+		<<if $fallenangel gte 1 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel Celestial">><<clearhalo>><<set _fallen.halo = "celestial">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
+		<<if $fallenangel gte 1 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel Celestial Black">><<clearhalo>><<set _fallen.halo = "celestial-black">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel Celestial Fallen Plus">><<clearhalo>><<set _fallen.halo = "celestial-fallenplus">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
+		<<if $fallenangel gte 1 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel Traditional">><<clearhalo>><<set _fallen.halo = "traditional">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<br>
@@ -2738,7 +2751,8 @@
 			<<tficon "cat">><<link "Cat">><<cleartail>><<set _cat.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $cow gte 6 or $cowtf is 1>>
-			<<tficon "cow">><<link "Cow">><<cleartail>><<set _cow.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Default">><<cleartail>><<set _cow.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">><<link "Cow Black">><<cleartail>><<set _cow.tail = "black">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 6 or $wolftf is 1>>
 			<<tficon "wolf">><<link "Wolf">><<cleartail>><<set _wolf.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
@@ -2830,7 +2844,7 @@
 		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel Cherub Black">><<clearwings>><<set _fallen.wings = "cherub-black">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
+		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel Cherub Plus">><<clearwings>><<set _fallen.wings = "cherub-fallenplus">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fallenangel gte 2 or $fallenangeltf is 1>>
@@ -2905,7 +2919,20 @@
 			<<link "Set">>
 				<<cleartail>>
 				<<set _demon.tail = "default-cow">>
-				<<set _cow.tail = "default">>
+				<<set _cow.tail = "default-demon">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+			<<tficon "demon">><<tficon "cow">>Demon Cow Tail Black:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _demon.tail = "default-cow">>
+				<<set _cow.tail = "black-demon">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
 				<<updatesidebarimg>>
@@ -2983,7 +3010,7 @@
 				<<updatesidebarimg>>
 			<</link>><br>
 		<</if>>
-		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
+		<<if ($fallenangel gte 4 or $fallenangeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
 			<<tficon "fallenangel">><<tficon "bird">>Fallen Angel Plus Harpy Wings:<br>
 			<<link "Set">>
 				<<clearwings>>
@@ -3096,4 +3123,26 @@
 			Wikifier.wikifyEval('<<updatesidebarimg true>>');
 		});
 	<</script>>
+<</widget>>
+
+<<widget "mirrorDisplayfull">>
+	<<script>>
+		document.querySelector("canvas.mainCanvas").style.height = "700px";
+		document.querySelector("canvas.mainCanvas").style.width = "700px";
+	<</script>>
+	<<selectmodel "main" "sidebar">>
+	<<modelprepare-player-body>>
+	<<modelprepare-player-clothes>>
+	<<if $options.sidebarAnimations isnot false>>
+		<<animatemodel _args[0]>>
+	<<else>>
+		<<rendermodel _args[0]>>
+	<</if>>
+	<<if playerHasStrapon()>>
+		<<set _modeloptions.crotch_visible to false>>
+		<<set _modeloptions.crotch_exposed to false>>
+		<<if $worn.lower.exposed lte 1 and $lowerwetstage lte 0>>
+			<<set _modeloptions.worn.under_lower.index to 0>>
+		<</if>>
+	<</if>>
 <</widget>>

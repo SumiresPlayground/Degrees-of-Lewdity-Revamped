@@ -5,6 +5,7 @@ You climb down a long, dirty ladder before entering some sort of bunker.
 <<getouticon "hole">><<link [[Next|Bunker]]>><<set $bunkerdepth to 0>><</link>>
 
 :: Bunker
+<<location "bunker">>
 <<if $stress gte $stressmax and !$possessed>>
 	<<passouttrash>>
 <<else>>
@@ -101,7 +102,7 @@ You are in a perfectly preserved laboratory. Glass tubes contain specimens prese
 <br>
 <<iconUi `"egg-case.png"`>><<link [[Read the display on the egg case|Bunker Eggs]]>><</link>>
 <br>
-<<schoolicon "library">><<link [[Check out the books lining the shelf|Bunker Read]]>><</link>>
+<<schoolicon "library">><<link [[Check out the books lining the shelf|Bunker Shelf]]>><</link>>
 <br>
 <<iconUi `"mechanical-devices.gif"`>><<link [[Inspect the mechanical devices|Bunker Machines]]>><</link>>
 <br>
@@ -127,7 +128,7 @@ You approach a display case containing several thick shelled massive eggs. Each 
 <<getouticon>><<link [[Leave|Bunker Lab]]>><</link>>
 
 :: Bunker Read
-You near the bookshelf, pulling various dusty yet preserved books. Many of them are older esoteric manuals written in the old script. Among the occult stories, you find an old faded journal. 
+Among the occult stories, you find an old faded journal. 
 <br><br>
 You pull down the journal and dust off the old leather cover, opening it to the first page. It reads, "Journal of Dr. Harper". You flip to the next page and begin to read, it seems many of the earlier pages have been torn out sometime a long time ago. "Entry 103: I have made a breakthrough in my recent studies. I began a search into the church and found some troubling discoveries. I've caught some bad wind of these so called Auriga and Virgo. I plan to continue my studies and attempt to uncover more."
 <br><br>
@@ -143,7 +144,7 @@ The next page seems to be much later. The writing is more erratic and strange th
 <<getouticon>><<link [[Put down the journal|Bunker Lab]]>><</link>>
 
 :: Bunker Read 3
-By now, the writing is barely legible and the author's words are twisted. You're not even sure this journey could be considered a reliable source anymore. The final entry reads. "Entry 3485: This is it... this is the end. I have recieved a vision of the descent and blessing of Sezmis. This will inevitibly spell the end of mankind. I regret not seeing my family for all these years, my wife, my son. I am sorry." The page just ends. What happened? A lot of the names in this journal and the occult books along the wall are things you've never heard before. Unfortunately you've gleamed about as much as you could from this bookcase.
+By now, the writing is barely legible and the author's words are twisted. You're not even sure this journey could be considered a reliable source anymore. The final entry reads. "Entry 3485: This is it... this is the end. I have recieved a vision of the descent and blessing of Sezmis. This will inevitibly spell the end of mankind. I regret not seeing my family for all these years, my wife, my <<if V.NPCName[8].pronoun is "m">>son<<else>>daughter<</if>>. I am sorry." The page just ends. What happened? A lot of the names in this journal and the occult books along the wall are things you've never heard before. Unfortunately you've gleamed about as much as you could from this bookcase.
 <br><br>
 <<getouticon>><<link [[Put down the journal|Bunker Lab]]>><</link>>
 
@@ -165,3 +166,37 @@ You place the vial of pale purple slime with the small orange egg inside into th
 Your arm aches but it surprisingly doesn't hurt too much. You wonder the true use for this machine and how much testing it would take to perfect something like this.
 <br><br>
 <<getouticon>><<link [[Back|Bunker Lab]]>><</link>>
+
+:: Bunker Shelf
+You near the bookshelf, pulling various dusty yet preserved books. Many of them are older esoteric manuals written in the old script. There are a couple old books of note.
+<br><br>
+<<schoolicon "library">><<link [[Pick up an old journal|Bunker Read]]>><</link>>
+<br>
+<<schoolicon "library">><<link [[Read an aged white faded book|Bunker Bog]]>><</link>>
+<br>
+<<schoolicon "library">><<link [[Look over a torn ancient green book|Bunker Fae]]>><</link>>
+
+:: Bunker Bog
+The white book bears a yellow symbol on the cover and is coated in dust. You blow the cover and skim the book for important information.
+<br><br>
+"As the priest of the church, it has come to my attention there is a scourge of our religion hidden deep beyond the woods. They stem from our ilk yet claim worship of a false god. Be wary of these... dare I say cultists. Remain true to the faith of our church. Are you recording this? Scratch that from the record thi-"
+<br><br>
+The page ends there. It seems someone had rubbed out the imprint of these words from a blank page. After it had been discarded.
+<br><br>
+<<getouticon>><<link [[Put down the book|Bunker Lab]]>><</link>>
+
+:: Bunker Fae
+You pick up the green faded book, the writing is in an ancient language you cannot decipher. The text is torn and faded beyond your ability to read. Appended at the end, you find legible notes.
+<br><br>
+"Work toward deciphering the ancient text goes steady. The old Celtic would be simple enough to read without the irreprible fading and damage. From what I have found so far, this seems to be a book written in dedication to a goddess called "Auspacia" queen of the fae. The ancient rituals they cite involve partaking of some kind of primitive hallucinogen within a circle of mushrooms at the dead of night. I must say, these rituals seem quite primitive and unlikely, though since this very forest is the same forest of legend, I may test these findings."
+<br><br>
+<<schoolicon "library">><<link [[Continue to the next page|Bunker Fae 2]]>><</link>>
+<br>
+<<getouticon>><<link [[Put down the book|Bunker Lab]]>><</link>>
+
+:: Bunker Fae 2
+The note is more hastily written this time, due either to excitement or something else. 
+<br><br>
+The note begins, "This is truly unbelievable. At first I thought it was the hallucinogenics but I truly found myself within another realm. There existed beings that defied rational thought and have completely changed my understanding of our reality. I have procured eggs from the nest within the cave situated northeast of the entrypoint. These eggs shall reveal the truth in time, I am sure of it."
+<br><br>
+<<getouticon>><<link [[Put down the book|Bunker Lab]]>><</link>>

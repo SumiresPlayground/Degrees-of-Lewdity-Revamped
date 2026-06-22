@@ -27,6 +27,10 @@ const Furniture = (() => {
 		pc: "pc",
 		bookshelf: "bookshelf",
 		mirror: "mirror",
+		utility: "utility",
+		collectible1: "collectible1",
+		collectible2: "collectible2",
+		collectible3: "collectible3",
 	});
 
 	const Locations = Object.freeze({
@@ -343,15 +347,6 @@ const Furniture = (() => {
 			handheld: "no pillow",
 			iconFile: "no-pillow",
 		});
-		mapper.set("sewingmachine", {
-			name: "sewing machine",
-			nameCap: "Sewing machine",
-			category: ["windowsill"],
-			type: [],
-			cost: 2000,
-			description: "For repairing damaged clothing. Can be put on your windowsill.",
-			iconFile: "sewing",
-		});
 
 		/* ------------- DECORATIONS ------------- */
 		mapper.set("calendar", {
@@ -510,6 +505,16 @@ const Furniture = (() => {
 			description: "The wallpaper is currently empty.",
 			iconFile: "wallpaper",
 		});
+		/* ------------- Utility -------------- */
+		mapper.set("sewingmachine", {
+			name: "sewing machine",
+			nameCap: "Sewing machine",
+			category: ["utility"],
+			type: [],
+			cost: 2000,
+			description: "For repairing damaged clothing. Can be put on your table.",
+			iconFile: "sewing",
+		});
 	}
 
 	function furnitureGet(category, onlySetup = false) {
@@ -599,6 +604,12 @@ const Furniture = (() => {
 						},
 						desk: {
 							id: "desk",
+						},
+						table: {
+							id: "woodentable",
+						},
+						chair: {
+							id: "stool",
 						},
 					},
 				};

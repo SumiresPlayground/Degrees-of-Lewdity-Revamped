@@ -441,6 +441,11 @@ DefineMacro("modelprepare-player-body", function () {
 	
 	T.modeloptions.goblin_ears_type = V.transformationParts.goblin.ears
 
+	T.modeloptions.zombie_body_type = V.transformationParts.zombie.body
+	T.modeloptions.zombie_head_type = V.transformationParts.zombie.head
+	T.modeloptions.zombie_arms_type = V.transformationParts.zombie.arms
+	T.modeloptions.zombie_eyes_type = V.transformationParts.zombie.eyes
+
 	T.modeloptions.horn_layer = V.hornlayer;
 	T.modeloptions.ear_layer = V.earlayer;
 	T.modeloptions.tail_layer = V.taillayer;

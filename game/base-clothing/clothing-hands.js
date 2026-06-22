@@ -633,6 +633,8 @@ function initHands() {
 		name: "dragonstone ring",
 		name_cap: "Dragonstone Ring",
 		variable: "dragonstone ring",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "fingerlessgloves",
 			},
@@ -665,6 +667,8 @@ function initHands() {
 		name: "tentacle gloves",
 		name_cap: "Tentacle gloves",
 		variable: "tentacle",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "fingerlessgloves",
 			},
@@ -700,6 +704,8 @@ function initHands() {
 		name: "scuffed ring",
 		name_cap: "Scuffed Ring",
 		variable: "scuffed ring",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "fingerlessgloves",
 			},
@@ -732,6 +738,8 @@ function initHands() {
 		name: "horse racing gloves",
 		name_cap: "Horse racing gloves",
 		variable: "race1",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "fingerlessgloves",
 			},

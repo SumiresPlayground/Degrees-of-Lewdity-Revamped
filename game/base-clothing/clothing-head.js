@@ -4552,6 +4552,8 @@ function initHead() {
 			name: "cloud hair clip",
 			name_cap: "Cloud hair clip",
 			variable: "cloudhairclip",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "hairclip",
 			},
@@ -4588,6 +4590,8 @@ function initHead() {
 			name: "honeycomb hair clip",
 			name_cap: "Honeycomb hair clip",
 			variable: "honeycombhairclip",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "hairclip",
 			},
@@ -4624,6 +4628,8 @@ function initHead() {
 			name: "spotted hair clip",
 			name_cap: "Spotted hair clip",
 			variable: "spottedhairclip",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "hairclip",
 			},
@@ -4660,6 +4666,8 @@ function initHead() {
 			name: "truffle hair clip",
 			name_cap: "Truffle hair clip",
 			variable: "trufflehairclip",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "hairclip",
 			},
@@ -4696,6 +4704,8 @@ function initHead() {
 			name: "frog hat",
 			name_cap: "Frog hat",
 			variable: "frog",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "cap",
 			},
@@ -4734,6 +4744,8 @@ function initHead() {
 			name: "mushroom cap",
 			name_cap: "Mushroom cap",
 			variable: "mushroom",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "cap",
 			},
@@ -4770,6 +4782,8 @@ function initHead() {
 			name: "double ribbon",
 			name_cap: "Double ribbon",
 			variable: "doubleribbon",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "bow",
 			},
@@ -4806,6 +4820,8 @@ function initHead() {
 			name: "mare ribbon",
 			name_cap: "Mare ribbon",
 			variable: "mareribbon",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "bow",
 			},
@@ -4843,6 +4859,8 @@ function initHead() {
 			name: "stallion ribbon",
 			name_cap: "Stallion ribbon",
 			variable: "stallionribbon",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "bow",
 			},
@@ -4880,6 +4898,8 @@ function initHead() {
 			name: "horse racing tiara",
 			name_cap: "Horse racing tiara",
 			variable: "race1",
+			state: 0,
+			state_base: 0,
 			combat: {
 				reference: "maid",
 			},
