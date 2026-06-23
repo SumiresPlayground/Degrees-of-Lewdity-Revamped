@@ -1,0 +1,138 @@
+:: Robin Cam Show Start
+
+<<set $outside to 0>><<set $location to "home">><<set $locationoverwrite to "bedroom">><<home_effects>><<effects>><<getTarget true>>
+
+<<if $robin_cam_ammount is undefined>>
+    <<set $robin_cam_ammount to 0>>
+<</if>>
+
+"Hello everyone! We've got a special guest today!" You say into the mic.
+<br><br>
+
+<<if $robin_cam_ammount lte 0>>
+    The audience sounds curious as to who this person could be.
+    <br><br>
+    <<if C.npc.Robin.dom lte 49>>
+        Robin says nothing and just nervously twiddles with <<his>> thumbs.
+    <<else>>
+        "Hello everyone!" Robin mimics you, "I'll show you how cute my <<print $player.pronoun is 'm' ? 'boyfriend' : 'girlfriend'>> can be!"
+    <</if>>
+<<elseif $robin_cam_ammount lte 3>>
+    The audience looks happy to see that Robin is back.
+    <br><br>
+    <<if C.npc.Robin.dom lte 49>>
+        Robin says nothing and just smiles while looking in your direction.
+    <<else>>
+        "Hello everyone!" Robin mimics you, "I'm back for more!"
+    <</if>>
+<<else>>
+    The audience looks excited to see Robin besides you.
+    <br><br>
+    <<if C.npc.Robin.dom lte 49>>
+        Robin looks happy at how many positive comments are directed <<his>> way.
+    <<else>>
+        "Hello everyone! Missed me?"
+    <</if>>
+<</if>>
+<br><br>
+
+The audience seems excited.
+<<if C.npc.Robin.dom lte 49>>
+    Robin says nothing and just smiles while looking in your direction.
+<<else>>
+    "Hello everyone!" Robin mimics you, "I'm back for more!"
+<</if>>
+
+<br>
+
+<<link [[Continue|Robin Cam Show Sex]]>>
+    <<set $sexstart to 1>>
+<</link>>
+
+:: Robin Cam Show Sex
+<<set _robin to statusCheck("Robin")>>
+<<if $sexstart is 1>>
+    <<set $finish to 0>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+	<<npckiss>>
+	<<set $enemyarousalmax to 600>>
+	The audience becomes ecstatic as you approach Robin and press your lips against <<his>>.
+<</if>>
+
+<<if $campayout is undefined>>
+	<<set $campayout to 0>>
+<</if>>
+
+<<if $enemyarousal > $enemyarousalmax*0.70>>
+    Robin isn't paying attention to the audience anymore. You have <<his>> full attention.
+<<else>>
+    Robin is shooting occasional glances at the chat.
+    <br>
+    <<switch random(1, 6)>>
+        <<case 1>>
+            The group screenshots photos of you two's lewd display.<<garousal>><<arousal 100 "genitals">><<fameexhibitionism 10 "pic">><<famesex 10 "pic">>
+        <<case 2>>
+            Someone mentions they are recording this.<<garousal>><<arousal 100 "genitals">><<fameexhibitionism 20 "vid">><<famesex 20 "vid">>
+        <<case 3>>
+            The group cheers on.
+        <<case 4>>
+            Someone posts about how they wished they could be the one fucking you right now. <<garousal>><<arousal 100 "genitals">
+        <<case 5>>
+            Someone posts a comment complimenting Robin's body.<<npcincr Robin dom 1>><<gdom>>
+        <<case 6>>
+            Someone posts a mean comment calling Robin ugly.<<npcincr Robin dom -1>><<ldom>>
+    <</switch>>
+    <br>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Robin Cam Show End]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Robin Cam Show Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Robin Cam Show End
+
+<<cam3payout>>
+
+<<if $campayout gte 10000>>
+	The audience absolutely loved you two! They tipped <<printmoney $campayout>>!
+	<br><br>
+	Robin looks at you "Is... is it really worth that much?" You nod.
+<<else>>
+	The audience tipped you <<printmoney $campayout>>.
+	<br><br>
+	Robin looks at you "I hope you use this responsibly..."
+<</if>>
+
+<<if $penisfucked is 1 or $vaginafucked is 1>>
+    "I can't believe so many people watched us like this." Robin lets out a nervous chuckle.
+    <br><br>
+<</if>>
+
+<<set $robin_cam_ammount += 1>>
+
+<br><br>
+
+<<link [[Go back to Robin's room|Robin's Room Entrance]]>>
+    <<clotheson>>
+    <<endcombat>>
+<</link>>
+<br>
+<<link [[Stay in your room|Bedroom]]>>
+    <<clotheson>>
+    <<endcombat>>
+<</link>>

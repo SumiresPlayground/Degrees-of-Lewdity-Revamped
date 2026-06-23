@@ -277,3 +277,26 @@
 	
 	<<set $campayout to (_payout)>>
 <</widget>>
+
+<<widget "cam3payout">>
+	/* Total Fame */
+	<<set _fame to ($fame.sex + $fame.prostitution + $fame.rape + $fame.bestiality + $fame.exhibitionism + $fame.pregnancy + $fame.impreg + $fame.scrap + $fame.good + $fame.business + $fame.social + $fame.model + $fame.investigator)>>
+
+	/* Base */
+	<<set _payout to 1500>>
+	/* Awareness */
+	<<set _payout += (1500 * ($awareness / 1000))>>
+	/* Seduction Skill */
+	<<set _payout += (1500 * Math.clamp($seductionskill / 1000, 0, 1))>>
+	/* Allure */
+	<<set _payout += (1500 * Math.clamp($allure / (6000 * $settings.allureModifier), 0, 1))>>
+	/* Fame */
+	<<set _payout += (1500 * Math.clamp(_fame / 4000, 0, 1))>>
+
+    /* Penetration Bonus */
+    <<if $penisfucked is 1 or $vaginafucked is 1>>
+	    <<set _payout += (10000 * Math.clamp(_fame / 4000, 0, 1))>>
+    <</if>>
+
+	<<set $campayout to (_payout)>>
+<</widget>>
