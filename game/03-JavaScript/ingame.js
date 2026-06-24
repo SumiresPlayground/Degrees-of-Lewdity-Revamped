@@ -3205,3 +3205,8 @@ function breakableSoftBinding() {
 }
 
 window.breakableSoftBinding = breakableSoftBinding;
+
+function desktopMove(moveTo) {
+		Engine.play(moveTo);
+}
+window.desktopMove = desktopMove;

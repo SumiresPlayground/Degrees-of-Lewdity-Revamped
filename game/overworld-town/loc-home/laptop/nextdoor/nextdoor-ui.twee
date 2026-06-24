@@ -1,0 +1,42 @@
+:: Nextdoor UI [widget]
+
+<<widget "nextdoor-message">>
+    <div class="nextdoor-message">
+        <<nextdoor-ui-icon _ndMsg.account>>
+        <div class="nextdoor-message-header">
+            <span class="nextdoor-username">
+                <<nextdoor-get-display-name _ndMsg.account>>
+            </span>
+            <span class="nextdoor-message-timestamp">
+                <<nextdoor-get-display-time _ndMsg.timestamp>>
+            </span>
+        </div>
+        <div class="nextdoor-message-content">
+            <span class="nextdoor-message-content-text">
+                <<= _ndMsg.textContent >>
+            </span>
+            <br>
+            <<nextdoor-get-attachment _ndMsg.attachment>>
+        </div>
+        <<if _ndMsg.banned>>
+            <div class="nextdoor-message-banned">
+                <p>This message was in violation of our <span class="blue">Terms of Service</span> and has been removed.</p>
+            </div>
+        <</if>>
+    </div>
+<</widget>>
+
+<<widget "nextdoor-content">>
+    <<for _n to 0; _n lt $nextdoor.messageHistory.length; _n++>>
+        <<set _ndMsg to $nextdoor.messageHistory[_n]>>
+        <<if _ndMsg.timestamp > $timeStamp >>
+            <<continue>>
+        <</if>>
+        <<if $nextdoor.blockList.includes(_ndMsg.account)>>
+            <<continue>>
+        <</if>>
+        <<nextdoor-message>>
+
+        <<= _n lt $nextdoor.messageHistory.length - 1 ? "<hr>" : "">>
+    <</for>>
+<</widget>>

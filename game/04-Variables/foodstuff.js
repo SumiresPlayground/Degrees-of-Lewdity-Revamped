@@ -3255,6 +3255,27 @@ function initFoodstuff() {
 				sell_price: 1,
 			},
 		},
+		honeysuckle: {
+			index: 152,
+			name: "honeysuckle",
+			singular: "honeysuckle",
+			plural: "honeysuckles",
+			icon: "honeysuckle.png",
+			category: "flower",
+			kitchen_item_type_icon: "recipe-flower.png",
+			prop_folder: "tending",
+			tending: {
+				planting_bed: "earth",
+				growth_days: 4,
+				yield_multiplier: 4,
+				has_seeds: true,
+				seasons: ["spring", "autumn"],
+				tags: [],
+			},
+			shop: {
+				sell_price: 300,
+			},
+		},
 	};
 	finalizefoodstuff();
 }

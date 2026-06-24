@@ -2288,22 +2288,20 @@ function effects() {
 		default: V.fungalgrowth = 0;}
 	}
 
-	let message = "";
 	if (V.fungalgrowth >= 30 && V.mushroom === 1) {
 		V.mushroomtf = 1;
 		V.mushroom = 2;
-		message = "<span class='yellow'>You've progressed your fungal growth!</span>";
+		sWikifier(`<span class="yellow">You've progressed your fungal growth!</span><br><br>`);
 	} else if (V.fungalgrowth >= 60 && V.mushroom === 2) {
 		V.mushroomtf = 2;
 		V.mushroom = 3;
-		message = "<span class='yellow'>You've further progressed your fungal growth!</span>";
+		sWikifier(`<span class="yellow">You've further progressed your fungal growth!</span><br><br>`);
 	} else if (V.fungalgrowth >= 90 && V.mushroom === 3) {
 		V.mushroomtf = 3;
 		V.mushroom = 4;
 		earnFeat("Mushroom");
-		message = "<span class='yellow'>Your fungal growth is at it's maximum level!</span>";
+		sWikifier(`<span class="yellow">Your fungal growth is at it's maximum level!</span><br><br>`);
 	}
-	if (message) return message;
 
 	if (V.mushroom >= 2 && 
 	V.worn && 

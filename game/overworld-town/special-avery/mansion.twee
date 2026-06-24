@@ -6165,7 +6165,6 @@ There's something exciting about seeing all this without <<his>> knowing. <<arou
 <</if>>
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -6182,15 +6181,14 @@ There's something exciting about seeing all this without <<his>> knowing. <<arou
 <br><br>
 You head into the kitchen. How will you make Avery's coffee?
 <br><br>
-<<endevent>>
-<<link [[Make it how Avery likes it|Mansion Breakfast Avery Coffee End]]>><<pass 5>><<set $phase to 1>><<npcincr Avery love 1>><</link>><<glove>>
+<<link [[Make it how Avery likes it|Mansion Breakfast Avery Coffee End]]>><<endevent>><<pass 5>><<set $phase to 1>><<npcincr Avery love 1>><</link>><<glove>>
 <br>
 <<if $chef_state gte 1>>
-	<<link [[Make it with lewd fluid|Mansion Breakfast Avery Coffee Masturbation]]>><<pass 5>><<set $phase to 0>><<set $masturbationstart to 1>><</link>>
+	<<link [[Make it with lewd fluid|Mansion Breakfast Avery Coffee Masturbation]]>><<endevent>><<pass 5>><<set $phase to 0>><<set $masturbationstart to 1>><</link>>
 	<<if $averySeen.includes("lewd_coffee")>><<glove>><<larage>><<else>><<note "+ Love?" "green">><</if>>
 	<br>
 <</if>>
-<<link [[Make it black|Mansion Breakfast Avery Coffee End]]>><<pass 5>><<set $phase to 2>><<npcincr Avery dom -1>><</link>><<ldom>>
+<<link [[Make it black|Mansion Breakfast Avery Coffee End]]>><<endevent>><<pass 5>><<set $phase to 2>><<npcincr Avery dom -1>><</link>><<ldom>>
 <br>
 
 
@@ -6206,7 +6204,6 @@ You head into the kitchen. How will you make Avery's coffee?
 <br><br>
 
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -6230,7 +6227,6 @@ You head into the kitchen. How will you make Avery's coffee?
 <<npcincr Avery love -1>><<llove>>
 <br><br>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -6284,7 +6280,6 @@ You head into the kitchen. How will you make Avery's coffee?
 	<<He>> takes a sip, and <<his>> eyes widen for a fraction of a second. <<He>> smiles at you. "<<= $averySeen.includes("lewd_coffee") ? "I don't know how you do it, but you make a wonderful cup of coffee" : "This is delicious">>, <<pcpetname "Avery">>." <<npcincr Avery rage -1>><<larage>>
 	<<set $averySeen.pushUnique("lewd_coffee")>>
 	<br><br>
-	<<endevent>>
 	<<clotheson>>
 	<<avery_mansion_end_links>>
 
@@ -6295,7 +6290,6 @@ You head into the kitchen. How will you make Avery's coffee?
 	<<npc Avery>><<person1>>
 	You reconsider your approach to making the coffee.
 	<br><br>
-	<<endevent>>
 	<<clotheson>>
 	<<link [[Make it how Avery likes it|Mansion Breakfast Avery Coffee End]]>><<pass 5>><<set $phase to 1>><<npcincr Avery love 1>><</link>><<glove>>
 	<br>
@@ -6312,7 +6306,6 @@ You head into the kitchen. How will you make Avery's coffee?
 	<<He>> makes coffee with milk and sugar, then returns to the dining room.
 	<br><br>
 
-	<<endevent>>
 	<<clotheson>>
 	<<avery_mansion_end_links>>
 	<br>
@@ -6387,7 +6380,6 @@ You start helping Avery set the table.
 	<br><br>
 <</if>>
 
-<<endevent>>
 <<avery_mansion_end_links>>
 
 :: Mansion Talk Flirt
@@ -6442,7 +6434,6 @@ You start helping Avery set the table.
 			<</if>>
 			<<link [[Pull away|Mansion Talk Flirt 2]]>><<set $phase to 1>><<npcincr Avery dom -1>><<npcincr Avery lust 5>><</link>><<ldom>><<glust>>
 		<<else>>
-			<<endevent>>
 			<<avery_mansion_end_links>>
 		<</if>>
 	<<elseif $rng is 2>> /* Kiss */
@@ -6468,13 +6459,11 @@ You start helping Avery set the table.
 		<</if>>
 		flattered." <<npcincr Avery love 1>><<glove>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<</if>>
 <<else>>
 	As you try to start a conversation with Avery, <<he>> <<if $averypartymiss is 1>>pointedly<</if>> reminds you to prepare for the party. Right now, <<hes>> too busy to hold a conversation.
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <</if>>
 :: Mansion Talk Flirt 2
@@ -6544,7 +6533,6 @@ You start helping Avery set the table.
 	You allow the moment to pass by. If Avery notices or is disappointed, it's difficult to tell based on the way <<he>> moves on.
 <</if>>
 <br><br>
-<<endevent>>
 <<avery_mansion_end_links>>
 
 
@@ -6571,7 +6559,6 @@ You start helping Avery set the table.
 	<br><br>
 	You feel your cheeks heat as you scurry faster towards the exit. <<stress 3>><<gstress>>
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <<elseif $seductionrating gte $seductionrequired>>
 	<<if $avery_mansion.schedule is "drink">>
@@ -6680,7 +6667,6 @@ You start helping Avery set the table.
 		<br><br>
 		"<span class="red">Not right now, <<pcpetname "Avery">>,</span>" <<he>> says. You feel your cheeks heat as you mutter an excuse and leave <<him>> to <<his>> drink. <<stress 3>><<gstress>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif $avery_mansion.schedule is "pool">>
 		<<if $avery_pool is "coffee">>
@@ -6690,7 +6676,6 @@ You start helping Avery set the table.
 			<br><br>
 			You feel your face heat with embarrassment as you stand up straight again. You leave after muttering an apology. <<stress 3>><<gstress>>
 			<br><br>
-			<<endevent>>
 			<<avery_mansion_end_links>>
 		<<elseif $avery_pool is "sunbathe">>
 			You <<= worn.upper.name isnot "naked" ? `tug at the collar of your <<top>>, using it to fan yourself as if warding off the heat. It reveals the upper part of` : `fan at`>> your <<chest>> in a way that you hope draws attention to it.
@@ -6699,7 +6684,6 @@ You start helping Avery set the table.
 			<br><br>
 			You feel your face heat with embarrassment as you mutter an excuse and leave. <<stress 3>><<gstress>>
 			<br><br>
-			<<endevent>>
 			<<avery_mansion_end_links>>
 		<<else>>
 			You take a seat on the edge of the pool, and
@@ -6713,7 +6697,6 @@ You start helping Avery set the table.
 			<br><br>
 			Embarrassed by putting on a show for no one, you silently get up and leave <<him>> be. <<stress 3>><<gstress>>
 			<br><br>
-			<<endevent>>
 			<<avery_mansion_end_links>>
 		<</if>>
 	<<elseif $avery_mansion.schedule is "garden">>
@@ -6727,21 +6710,18 @@ You start helping Avery set the table.
 		<br><br>
 		Embarrassed, you mutter an apology, and leave Avery to <<his>> pruning. <<stress 3>><<gstress>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif $avery_mansion.schedule is "lounge">>
 		Instead of sitting beside <<him>> on the sofa, you sit sideways in Avery's lap. <<He>> seems caught off guard for a moment, before <<he>> sighs and <<= C.npc.Avery.rage gte 20 ? `pushes` : `shepherds`>> you off of <<his>> lap.
 		<br><br>
 		"<span class="red">Not right now, <<pcpetname "Avery">>,</span>" <<he>> says. You feel your cheeks heat as you mutter an excuse and leave <<him>> to <<his>> programme. <<stress 3>><<gstress>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif $avery_mansion.schedule is "study">>
 		You begin to walk around Avery's study, putting on a show of looking for a book, bending over and stretching up to peruse the shelves. You're uncertain if your flaunting is successful. After a minute or so of this, you look over your shoulder and see that <<his>> eyes are <<= C.npc.Avery.rage gte 60 ? `locked onto a book <<he>> picked up when you weren't looking` : `still locked on <<his>> book`>>. <span class="red"><<He>> didn't see any of it.</span>
 		<br><br>
 		Embarrassed by putting on a show for no one, you silently leave <<him>> be. <<stress 3>><<gstress>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif $avery_mansion.schedule is "bath">>
 		You make a show of preparing to join Avery in the bath.
@@ -6755,7 +6735,6 @@ You start helping Avery set the table.
 		<br><br>
 		Embarrassed by putting on a show for no one, you <<if !_fullyNaked>>pick up your clothes, and <</if>>leave the bathroom. <<stress 3>><<gstress>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<<elseif $avery_mansion.schedule is "breakfast">>
 		You watch Avery
@@ -6776,7 +6755,6 @@ You start helping Avery set the table.
 		<br><br>
 		Your face immediately heats up with embarrassment, and you mutter an excuse before leaving <<him>> to <<his>> breakfast. <<stress 3>><<gstress>>
 		<br><br>
-		<<endevent>>
 		<<avery_mansion_end_links>>
 	<</if>>
 <</if>>
@@ -6918,7 +6896,6 @@ You start helping Avery set the table.
 <<endcombat>>
 <br><br>
 <<clotheson>>
-<<endevent>>
 <<avery_mansion_end_links>>
 
 :: Mansion Talk Seduce End
@@ -6962,7 +6939,6 @@ put your hands on Avery's, pushing them away from your person. <<= $averyragerev
 <br><br>
 <<He>> seems <<= $averyragerevealed is 1 and C.npc.Avery.rage gte 40 ? `angry` : `irritated`>>. You should leave <<him>> be for now.
 <br><br>
-<<endevent>>
 <<avery_mansion_end_links>>
 
 :: Mansion Talk Limit
@@ -6982,7 +6958,6 @@ put your hands on Avery's, pushing them away from your person. <<= $averyragerev
 	<br><br>
 	You leave <<him>> be as requested. You shouldn't bother <<him>> anymore for today.
 	<br><br>
-	<<endevent>>
 	<<avery_mansion_end_links>>
 <<else>> /* Refuse */
 	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
@@ -7077,7 +7052,7 @@ put your hands on Avery's, pushing them away from your person. <<= $averyragerev
 <br><br>
 You shouldn't bother <<him>> anymore for today.
 <br><br>
-<<endevent>><<endcombat>>
+<<endcombat>>
 <<avery_mansion_end_links>>
 
 :: Avery Garden Steal
@@ -7150,5 +7125,4 @@ You shouldn't bother <<him>> anymore for today.
 	You climb up the tree and pick _tending_amount oranges.
 	<br><br>
 <</if>>
-<<endevent>>
-<<link [[Next|Mansion Garden]]>><</link>>
+<<link [[Next|Mansion Garden]]>><<endevent>><</link>>

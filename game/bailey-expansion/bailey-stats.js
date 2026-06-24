@@ -358,7 +358,7 @@ $(document).one(":storyready", function () {
     });
 
     /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       Bailey Title System â€” "It's Bailey." â†’ "It's Daddy."
+       Bailey Title System â€” "It's Bailey." â†' "It's Daddy."
        Swaps when:
        1. $bailey_title_unlocked is true
        2. $bailey_title is set and not "Bailey"

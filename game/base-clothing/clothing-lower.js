@@ -19,6 +19,7 @@ function initLower() {
 	*/
 	setup.moddedClothes.lower = [
 		{index: 1,
+			slot: "lower",
 			name: "mushroom skirt",
 			name_cap: "Mushroom skirt",
 			variable: "mushroom3",
@@ -31,7 +32,7 @@ function initLower() {
 			reveal: 100,
 			rearresize: 0,
 			word: "a",
-			one_piece: 1,
+			one_piece: 0,
 			skirt: 0,
 			skirt_down: 0,
 			short: 0,
@@ -68,6 +69,7 @@ function initLower() {
 		},
 	
 			{index: 2,
+			slot: "lower",
 			name: "mushroom gown",
 			name_cap: "Mushroom gown",
 			variable: "mushroom4",
@@ -99,7 +101,6 @@ function initLower() {
 			type: ["normal"],
 			set: "mushroom",
 			gender: "n",
-			femininity: 200,
 			warmth: 8,
 			cost: 0,
 			description: "Wholly organic.",

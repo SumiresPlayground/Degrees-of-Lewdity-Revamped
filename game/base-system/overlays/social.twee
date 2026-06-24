@@ -544,6 +544,7 @@
 				<<set _businessFameConfig =			{ currentValue: $fame.business,			preText: 'Business:',		flavorText: 'entrepreneur',		states: _inverseFameStates }>>
 				<<set _socialFameConfig =			{ currentValue: $fame.social,			preText: 'Socialite:',		flavorText: 'schmoozer',		states: _inverseFameStates }>>
 				<<set _modelFameConfig =			{ currentValue: $fame.model,			preText: 'Modelling:',		flavorText: 'show off',			states: _inverseFameStates }>>
+				<<set _investigatorFameConfig =		{ currentValue: $fame.investigator,		preText: 'Investigator:',	flavorText: 'private investigator',		states: _inverseFameStates }>>
 				<<set _overallFameConfig =			{ currentValue: fameTotal(),			preText: 'Overall:',		flavorText: '',					states: [
 					{ requiredValue: 0,		color: 'green',		description: ' Unknown'},
 					{ requiredValue: 100,	color: 'teal',		description: ' Obscure'},
@@ -565,6 +566,7 @@
 				<<set _businessFameBoxConfig =		{ description : '<<relation-text _businessFameConfig>>' }>>
 				<<set _socialFameBoxConfig =		{ description : '<<relation-text _socialFameConfig>>' }>>
 				<<set _modelFameBoxConfig =			{ description : '<<relation-text _modelFameConfig>>' }>>
+				<<set _investigatorFameBoxConfig =			{ description : '<<relation-text _investigatorFameConfig>>' }>>
 				<<set _overallFameBoxConfig =		{ description : '<<relation-text _overallFameConfig>>' }>>
 			<</silently>>
 
@@ -575,6 +577,9 @@
 			<<relation-box-simple _exhibitionismFameBoxConfig>>
 			<<if $fame.model gte 1>>
 				<<relation-box-simple _modelFameBoxConfig>>
+			<</if>>
+			<<if $fame.investigator gte 1>>
+				<<relation-box-simple _investigatorFameBoxConfig>>
 			<</if>>
 			<<relation-box-simple _pregnancyFameBoxConfig>>
 			<<relation-box-simple _combatFameBoxConfig>>

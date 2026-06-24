@@ -9498,3 +9498,81 @@ With breakfast finished, the orphans disperse after a few more minutes of chatti
 <br><br>
 
 <<robinoptions>>
+
+:: Robin Cam Show Request
+<<effects>>
+
+<<if $robin_camming isnot 1>>
+	"Hey, I got a fun idea in mind." you tell Robin seductively.
+    <br><br>
+	<<if $robin_camming_fail isnot 1>>
+		<<set $robin_camming_fail to 1>>
+
+        <<if C.npc.Robin.dom lte 49>>
+            "What... what did you have in mind?" <<He>> asks.
+        <<else>>
+            "How fun?" <<He>> asks.
+        <</if>>
+		<br><br>
+
+		"See, I was thinking we could record ourselves." You say.
+		<br><br>
+
+		Robin blinks and falls silent while processing what you just said.
+		<br><br>
+
+	<<else>>
+		"I already told you no." <<He>> tries to shoot you down.
+		<br><br>
+	<</if>>
+
+	<<if C.npc.Robin.dom lte 49>>
+        <<link [[Try to convince Robin|Robin Cam Show Request Convince]]>><<englishdifficulty 600 1000>>
+    <<else>>
+        <<link [[Try to convince Robin|Robin Cam Show Request Convince]]>><<englishdifficulty 400 1000>>
+    <</if>>
+    <br>
+    <<link [[Stop|Robin Cam Show Request Stop]]>>
+<<else>>
+    "Just give me a second to get prepared." <<He>> asks.
+    <br><br>
+    <<link [[Go to your room|Robin Cam Show Start]]>>
+<</if>>
+
+:: Robin Cam Show Request Stop
+
+"Sorry for asking." You tell Robin.
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Cam Show Request Convince
+
+<<if $englishSuccess>>
+    <<unset $robin_camming_fail>>
+    <<set $robin_camming to 1>>
+
+    <<if C.npc.Robin.dom lte 49>>
+        "If.. if that's what you want..." <<He>> pauses.
+         <br><br>
+         Can I wear something to hide my face?" <<He>> asks.
+    <<else>>
+        "Sure. Let's show the world how cute you are when I make you cum." <<He>> smiles.
+    <</if>>
+    <br><br>
+
+    <span class="pink">You can now do cam shows with Robin.</span>
+    <br><br>
+
+     <<link [[Next|Robin Cam Show Start]]>>
+<<else>>
+    <<set $robin_camming_fail to 1>>
+    <<if C.npc.Robin.dom lte 49>>
+        "What... What are you saying?" <<He>> asks, confused.
+    <<else>>
+        "Hey, are you sure you're okay?" <<He>> seems visibly worried.
+    <</if>>
+    <br><br>
+
+    <<robinoptions>>
+<</if>>

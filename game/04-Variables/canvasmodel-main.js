@@ -1132,7 +1132,7 @@ Renderer.CanvasModels.main = {
 							if (V.npc.length > 0)
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
+									else if (V.npc[0] === "Sydney" && C.npc.Sydney.purity <= 1)
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}corrupt.png`;
 									else
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;}
@@ -1152,7 +1152,7 @@ Renderer.CanvasModels.main = {
 							if (V.npc.length > 0)
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney" && _sydneyStatus.includes("corrupt"))
+									else if (V.npc[0] === "Sydney" && C.npc.Sydney.purity <= 1)
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}corrupt.png`;
 									else
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;}
@@ -1308,6 +1308,21 @@ Renderer.CanvasModels.main = {
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
 						if (V.furniture.bedroom.owlplushie !== undefined) {
         					return `img/background/furniture/owlplushie/${V.furniture.bedroom.owlplushie.id}/${timeSuffix}.png`;}}}
+			},
+		},
+		"backgroundpc": {
+			show: true,
+			z: ZIndices.backgroundOverlay +1,
+			animation: "idle",
+			srcfn() {
+				if (V.staticimages > 1) {}
+				else if (V.staticimages > 0) {}
+				else {
+					if (V.locationoverwrite === "bedroom") {
+						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+						if (V.furniture.bedroom.pc !== undefined) {
+        					return `img/background/furniture/pc/${V.furniture.bedroom.pc.id}/${timeSuffix}.png`;}}}
 			},
 		},
 		"backgroundtank": {

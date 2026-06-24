@@ -3420,6 +3420,8 @@ function initFeet() {
 		name: "tentacle heels",
 		name_cap: "Tentacle heels",
 		variable: "tentacle",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "kittenheels",
 			},
@@ -3449,9 +3451,12 @@ function initFeet() {
 	},
 	
 		{index: 2,
+		slot: "feet",
 		name: "mushroom shoes partial",
 		name_cap: "Mushroom shoes partial",
 		variable: "mushroom3",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "bootheels",
 			},
@@ -3466,7 +3471,6 @@ function initFeet() {
 		colour_sidebar: 1,
 		type: ["normal"],
 		gender: "n",
-		femininity: 0,
 		warmth: 2,
 		cost: 4500,
 		description: "Wholly organic.",
@@ -3481,9 +3485,12 @@ function initFeet() {
 	},
 		
 		{index: 3,
+		slot: "feet",
 		name: "mushroom shoes",
 		name_cap: "Mushroom shoes",
 		variable: "mushroom4",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "bootheels",
 			},
@@ -3517,6 +3524,8 @@ function initFeet() {
 		name: "horse racing boots",
 		name_cap: "Horse racing boots",
 		variable: "race1",
+		state: 0,
+		state_base: 0,
 		combat: {
 				reference: "lightuptrainers",
 			},
