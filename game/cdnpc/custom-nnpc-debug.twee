@@ -1,0 +1,82 @@
+:: Custom NNPC Debug Widgets [widget]
+
+<<widget "custom-nnpc-DEBUG-error-reporting">>
+    <<if def $customNNPC && $customNNPC.DEBUG === true>>
+        <div>
+            <<if $customNNPC.errorStack.length > 0>>
+                <span class="red">CUSTOM NNPC DEBUG:</span>
+                <br>
+                <<custom-nnpc-DEBUG-report-stack>>
+            <</if>>
+        </div>
+    <</if>>
+<</widget>>
+
+<<widget "custom-nnpc-DEBUG">>
+    <div class="settingsToggleIndent">
+        <span class="red">CUSTOM NNPC DEBUG</span>
+        <div class="settingsToggleItemWide">
+            <<set _CustomNNPCSetContributor to "">>
+            <<set _CustomNNPCTestNPC to "Avery">>
+            <<set _CustomNNPCTestSet to "naked">>
+            <<textbox "_CustomNNPCTestNPC" _CustomNNPCTestNPC>><br>
+            <<run
+                T.CustomNNPCTestFits = {};
+                for(let i = 0; i < setup.npcClothesSets.length; i++){
+                    T.CustomNNPCTestFits[setup.npcClothesSets[i].name] = setup.npcClothesSets[i].name;
+                }
+            >>
+
+            <<listbox "_CustomNNPCTestSet" autoselect>>
+                <<optionsfrom _CustomNNPCTestFits>>
+            <</listbox>>
+            <br>
+
+            <div id="custom-nnpc-DEBUG-render">
+                <<selectmodel "customNNPC" "sidebar">>
+                <<set _modeloptions.show_nnpc to false>>
+                <<set _modeloptions.follower to false>>
+                <<modelprepare-nnpc-body _CustomNNPCTestNPC _CustomNNPCTestSet>>
+                <<modelprepare-nnpc-clothes _CustomNNPCTestNPC _CustomNNPCTestSet>>
+                <<animatemodel "custom-nnpc-canvas">>
+            </div>
+
+            <br>
+
+            <span class="gold">Clothing set contributor:<span id="custom-nnpc-DEBUG-contributor"></span></span>
+            <br>
+            <span class="gold">Hairstyle contributor(s):<span id="custom-nnpc-DEBUG-contributor-hair"></span></span>
+            <br>
+            <span class="red">Using the update buttons will disable the sidebar preview.</span>
+            <br>
+            <<button "Update Clothes">>
+                <<replace "#custom-nnpc-DEBUG-render">>
+                    <<selectmodel "customNNPC" "sidebar">>
+                    <<set _modeloptions.show_nnpc to false>>
+                    <<set _modeloptions.follower to false>>
+                    <<modelprepare-nnpc-body _CustomNNPCTestNPC _CustomNNPCTestSet>>
+                    <<modelprepare-nnpc-clothes _CustomNNPCTestNPC _CustomNNPCTestSet true>>
+                    <<animatemodel "custom-nnpc-canvas">>
+                <</replace>>
+                <<replace "#custom-nnpc-DEBUG-contributor">>
+                    <<= _CustomNNPCSetContributor >>
+                <</replace>>
+            <</button>>
+            <<button "Update Hair">>
+                <<custom-nnpc-reset-hairstyle _CustomNNPCTestNPC true>>
+                <<replace "#custom-nnpc-DEBUG-render">>
+                    <<selectmodel "customNNPC" "sidebar">>
+                    <<set _modeloptions.show_nnpc to false>>
+                    <<set _modeloptions.follower to false>>
+                    <<modelprepare-nnpc-body _CustomNNPCTestNPC _CustomNNPCTestSet>>
+                    <<modelprepare-nnpc-clothes _CustomNNPCTestNPC _CustomNNPCTestSet>>
+                    <<animatemodel "custom-nnpc-canvas">>
+                <</replace>>
+                <<replace "#custom-nnpc-DEBUG-contributor-hair">>
+                    <<= _CustomNNPCHairContributor >>
+                <</replace>>
+            <</button>>
+        </div>
+    </div>
+    <hr>
+<</widget>>
