@@ -280,6 +280,13 @@ Your bed takes up most of the room.
 	<br>
 <</if>>
 
+<<if V.furniture.bedroom.decoration isnot undefined>>
+	<<if V.furniture.bedroom.decoration.id is "bearplushie">>
+		<<furnitureicon "bear-plushie">><<link [[Cuddle with the large bear plushie (0:10)|Large Bear Plushie Cuddle]]>><<stress -2>><<trauma -2>><<pass 10>><</link>><<ltrauma>><<lstress>>
+		<br>
+	<</if>>
+<</if>>
+
 <<roomoptions>>
 <<safehouseEvents>>
 <br>
@@ -327,7 +334,7 @@ Your bed takes up most of the room.
 	<<mirroricon "home">><<link [[Mirror|Mirror]]>><<preMirror>><</link>>
 	<br>
 <</if>>
-
+/*
 <<if V.furniture.bedroom.pc isnot undefined>>
 	<<if V.furniture.bedroom.pc.id is "pc">>
 		<br>
@@ -337,6 +344,7 @@ Your bed takes up most of the room.
 		<br>
 	<</if>>
 <</if>>
+*/
 
 /*Table*/
 <<tableText "noicon">> /* If fish tank option available, table/chair location appears here, in line with bed/wardrobe locations */
@@ -4941,4 +4949,21 @@ You get to work, carefully sewing your clothes torn seams back together. It take
 :: Clothes Tear
 You grab a knife from the counter and begin to slice away at the threads of your clothing. After a few minutes of cutting, fabric falls and your clothes look a little more worn.
 <br><br>
+<<link [[Next|Bedroom]]>><</link>>
+
+:: Large Bear Plushie Cuddle
+<<effects>>
+<<wearProp "large teddy bear">>
+<<if $trauma gte ($traumamax / 7) * 3 or $stress gte ($stressmax / 7) * 5>>
+	You desperately cling onto the large bear plushie with your entire body and almost wind up pulling it down onto the ground, whimpering and crying loudly into it.
+<<elseif $trauma gte ($traumamax / 7) * 2 or $stress gte ($stressmax / 7) * 3>>
+	You cling to the large bear plushie and bury your head in it's back, silently crying into it.
+<<elseif $trauma gte ($traumamax / 7) * 1 or $stress gte ($stressmax / 7) * 1>>
+	You wrap your arms around the large bear plushie from behind and rest your head against it's shoulder, hugging it quietly.
+<<else>>
+	You happily take the large bear plushie in your arms.
+<</if>>
+<br><br>
+<<link [[Cuddle with the large bear plushie (0:10)|Large Bear Plushie Cuddle]]>><<stress -2>><<trauma -2>><<pass 10>><</link>><<ltrauma>><<lstress>>
+<br>
 <<link [[Next|Bedroom]]>><</link>>

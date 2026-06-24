@@ -3326,7 +3326,7 @@ function applyFeatBoosts() {
 	}
 
 	if (upgrades.fae) {
-		V.fae = 1;
+		V.faetf = 1;
 		V.permanentTransform = 1;
 	}
 

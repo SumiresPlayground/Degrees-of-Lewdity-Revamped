@@ -1007,6 +1007,10 @@ You look away from the <<monk>>, and <<he>> continues down the aisle.
 		<<link [[Enquire about your situation|Temple Ghost]]>><</link>>
 		<br>
 	<</if>>
+	<<if $ghost gte 1 and $exorcism is 1>>
+		<<link [[Ready for Exorcism|Temple Exorcism]]>><</link>>
+		<br>
+	<</if>>
 	<<if $onemoreslime is undefined>>
 		<<set $onemoreslime to 0>>
 	<</if>>
@@ -1145,8 +1149,7 @@ You tell Jordan you were attacked. <<He>> listens without a word, only speaking 
 			<br><br>
 			"Return when you're better known, and we'll discuss the next step. Thank you for your interest." <<He>> turns back to the altar.
 			<br><br>
-			<<endevent>>
-			<<link [[Next|Temple]]>><</link>>
+			<<link [[Next|Temple]]>><<endevent>><</link>>
 			<br>
 		<</if>>
 	<<else>>
@@ -1162,8 +1165,7 @@ You tell Jordan you were attacked. <<He>> listens without a word, only speaking 
 				<br><br>
 				"Return when you're better known, and we'll discuss the next step. Thank you for your interest." <<He>> turns back to the altar.
 				<br><br>
-				<<endevent>>
-				<<link [[Next|Temple]]>><</link>>
+				<<link [[Next|Temple]]>><<endevent>><</link>>
 				<br>
 			<</if>>
 		<br><br>
@@ -1436,8 +1438,7 @@ The fondling continues for a few minutes. Finally, <<he>> finishes <<his>> work.
 		<</if>>
 		"You must be purified. I will summon the specialists. Please cooperate with them." <<He>> produces a small bell from <<his>> robes and rings it.
 		<br><br>
-		<<endevent>>
-		<<link [[Next|Temple Arcade Intro]]>><<clotheson>><</link>>
+		<<link [[Next|Temple Arcade Intro]]>><<endevent>><<clotheson>><</link>>
 		<br>
 
 	<</if>>
@@ -1489,9 +1490,8 @@ The fondling continues for a few minutes. Finally, <<he>> finishes <<his>> work.
 			<br><br>
 			"I'll let the others know you've joined us," <<he>> continues, smiling. "It's an honour to have you."
 			<br><br>
-			<<endevent>>
 			<<specialClothesUnlock "set" "temple_initiate">>
-			<<link [[Next|Temple]]>><<clotheson>><</link>>
+			<<link [[Next|Temple]]>><<endevent>><<clotheson>><</link>>
 		<<else>>
 			"You are unblemished, and may it stay that way. You are now an initiate of the temple. Welcome, <<sister>>."
 			<<if playerChastity() and $worn.genitals.origin is "temple">>
@@ -1510,9 +1510,8 @@ The fondling continues for a few minutes. Finally, <<he>> finishes <<his>> work.
 			<br><br>
 			"I'll let the others know you've joined us," <<he>> continues, smiling. "I'm pleased to have you."
 			<br><br>
-			<<endevent>>
 			<<specialClothesUnlock "set" "temple_initiate">>
-			<<link [[Next|Temple]]>><<clotheson>><</link>>
+			<<link [[Next|Temple]]>><<endevent>><<clotheson>><</link>>
 		<</if>>
 	<<else>>
 		<<set $templetest to "failed">>
@@ -2166,9 +2165,7 @@ You describe the problems you've had and how they started when a slime entered y
 <</if>>
 <br><br>
 
-<<endevent>>
-
-<<link [[Next|Temple]]>><</link>>
+<<link [[Next|Temple]]>><<endevent>><</link>>
 <br>
 
 :: Temple Pale Story
@@ -2209,9 +2206,8 @@ You tell Jordan about the ghostly figure <<if $wraith.state is "haunt">>that's b
 "If you choose to investigate, please be careful. Hallucinations are real enough to those that see them." Jordan turns away, then leaves.
 <br><br>
 
-<<endevent>>
 
-<<link [[Next|Temple]]>><</link>>
+<<link [[Next|Temple]]>><<endevent>><</link>>
 <br>
 
 :: Temple Trial Intro
@@ -2453,8 +2449,7 @@ Your feet sink into the cool earth. The <<person2>><<monk>> looks impressed. Stu
 	<</if>>
 	<<link [[Next|Temple Firewalk Success]]>><</link>>
 <<else>>
-	<<endevent>>
-	<<link [[Next|Temple Garden]]>><</link>>
+	<<link [[Next|Temple Garden]]>><<endevent>><</link>>
 	<br>
 <</if>>
 
@@ -2482,9 +2477,8 @@ You follow Jordan back inside as the <<person2>><<monk>> smothers the coal with 
 	<br><br>
 <</if>>
 <<clotheson>>
-<<endevent>>
 <<specialClothesUnlock "set" "temple_initiate">>
-<<link [[Next|Temple]]>><</link>>
+<<link [[Next|Temple]]>><<endevent>><</link>>
 
 :: Temple Book Ask
 <<effects>>
@@ -2846,13 +2840,12 @@ Stern-faced <<monks>> cluster you and the other victims together.
 <<set $temple_arcade_known to true>>
 <<set $player.virginity.temple to true>>
 <<clotheson>>
-<<endevent>>
 
 <<pass 20>>
 You're led through the tunnel and back to the temple. The others are silent the whole way.
 <br><br>
 
-<<link [[Next|Temple]]>><</link>>
+<<link [[Next|Temple]]>><<endevent>><</link>>
 <br>
 
 :: Temple Masturbation
@@ -3740,7 +3733,6 @@ Sydney hugs you again before leaving.
 
 
 :: Jordan Slime Inquiry
-
 <<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
 
 "Forgive me, I may not have heard you correctly. You said you are a... slime?" Jordan looks incredulously at you as describe you your situation and how it came to be. <<He>> looks notably shaken when you mention the ear slimes.
@@ -3757,14 +3749,9 @@ Jordan's voice suddenly becomes an octave lower and <<he>> adopts a solemn facia
 <br><br>
 "Whatever you decide to do with this information is up to you. I wish you luck."
 <br><br>
-
-
-<<endevent>>
-
 <<link [[Next|Temple]]>><</link>>
 
 :: Jordan Slime Inquiry 2
-
 <<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
 
 "Un... unbelievable. To think that the tales of old held some truth to them." Jordan looks at you in wonder after you regale <<him>> with the events that proceeded after coming in contact with the plinth in the ruins. "I must wonder, however, how you've managed to enter such a state again. Have you perhaps been pursued by the slimes you mentioned earlier?" You don't respond, only giving Jordan a nervous glance before lowering your gaze.
@@ -3773,23 +3760,39 @@ Jordan's voice suddenly becomes an octave lower and <<he>> adopts a solemn facia
 <br><br>
 "I assume the ritual, and thus your restoration, was performed during the blood moon, as stated in the scriptures. That lake is said to become particularly dangerous around that time. I believe the same goes for our town, actually. Widespread, mysterious happenings tend to occur during those nights. That said, I urge you to maintain your distance from those ruins unless you absolutely must traverse them. Especially during the blood moon."
 <br><br>
-"I shall pray for your continued safety."<br><br>
-
-<<endevent>>
-
-<<link [[Next|Temple]]>><</link>>
+"I shall pray for your continued safety."
+<br><br>
+<<link [[Next|Temple]]>><<endevent>><</link>>
 
 :: Temple Ghost
-The moment Jordan's eyes settle upon you, they immediately fill with worry. <<He>> reaches out, touching your skin. <<His>> eyes widen as <<his>> fingers make contact.
+The moment Jordan's eyes settle upon you, <<his> demeanour shifts.<<He>> reaches out, touching your skin. <<His>> smile drops as <<his>> fingers make contact.
 <br><br>
-"Oh, child, what happened to you?" <<His>> voice shakes. "Are you okay? Do you need a doctor?"
+"Oh,<<if templerank is monk>><<sister>><<else>>child<</if>>, what happened to you?" <<He>> says with concern.. "Did something befall you?"
 <br><br>
-You explain the situation to <<him>>, although <<his>> eyes betray a glance of doubt.
+You explain the situation to <<him>>. Although <<his>> eyes show a tint of worry, <<he>> nods.
 <br><br>
-"...If what you say is true, then your body may have been stolen by a spirit. I've never seen anything of the sort myself, but I'm sure I could find a reference if we looked. Walk with me." <<He>> leads you to the temple's private library and peruses the shelves.
+"If what you say is true, then your body may have been stolen by a spirit," <<he>> says."There may be scriptures that could help you. Come along with me."
 <br><br>
-"Here." <<He>> says, pulling an old, dusty tome from the shelf. Flipping it open, <<he>> scours the pages for anything that might aid you. You wait in silence as <<he>> reads. Eventually, <<he>> speaks.
+<<link [[Next|Temple Ghost 2]]>><<set $exorcism to 1>><</link>>
+
+:: Temple Ghost 2
+<<He>> leads you to the temple's private library and peruses the shelves.
 <br><br>
-"I can help you get your body back. I'll need you to meet me at the location of the haunting. Please, come as soon as you can."
+"Here," <<he>> says, pulling an old, dusty tome from the shelf. <<He>> glances at you, offering an apologetic smile. "Sorry," <<he>> mutters. "This might take a moment." Flipping it open, <<he>> scours the book for anything that might aid you. You wait in silence as <<he>> reads. Eventually, <<he>> speaks.
 <br><br>
-<<link [[Next|Temple]]>><<endevent>><<set $exorcism to 1>><</link>>
+"I can help you get your body back. We'll need to go to the place of the haunting. You mentioned the old manor, correct?" You nod, and <<he>> gives you one in turn.
+<br><br>
+"Alright. Come to me when you're ready. I'll make some preparations in the meantime." You pause. The way <<he>> speaks makes it sound like <<he>>'ll be coming along. As if hearing your thoughts, Jordan smiles and answers, "yes, I'll be joining you. Someone needs to keep you safe." 
+<br><br>
+<<He>> guides you back out of the library. As you part, <<he>> says,
+<br><br>
+"Again, just let me know when you are ready, and we will be off."
+<br><br>
+<<link [[Next|Temple]]>><<endevent>><</link>>
+
+:: Temple Exorcism
+"Are you ready? It's best not to dawdle, then. Who knows what could happen if you're left without your body?" <<He>> steers toward the temple exit, stopping only to turn back to you. "Come, <<if templerank is monk>><<sister>><<else>>child<</if>>."
+<br><br>
+You quickly follow along.
+<br><br>
+<<link [[Follow Jordan to the Abandoned Mansion|Mansion Jordan 1]]>><</link>>

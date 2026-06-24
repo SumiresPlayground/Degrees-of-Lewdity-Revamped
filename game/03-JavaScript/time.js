@@ -994,6 +994,14 @@ function dayPassed() {
 
 	V.dragonbreathuse = 3;
 	V.sirensong = 3;
+	
+	V.dailyghostmission = 0;
+	V.acceptedRequest = 0;
+	V.completedRequest1 = 0;
+	V.completedRequest2 = 0;
+	V.completedRequest3 = 0;
+	V.completedRequest4 = 0;
+	V.completedRequest5 = 0;
 
 	if (Number.isNaN(V.tentacleclothesorgasm)) {V.tentacleclothesorgasm = 0}
 

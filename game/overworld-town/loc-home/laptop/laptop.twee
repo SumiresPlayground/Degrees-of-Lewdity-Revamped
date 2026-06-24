@@ -4,23 +4,39 @@
 </div>
 
 :: Mineblox
-
+<<effects>>
+You spend some time playing Mineblox. 
+<br><br>
+<<cleareventpool>>
+<<addinlineevent "mineblox1">>
+    You mine some trees and build a house out of the wooden blocks.
+<</addinlineevent>>
+<<addinlineevent "mineblox2">>
+    You spend some time mining and find some strange ores deep in the ground.
+<</addinlineevent>>
+<<addinlineevent "mineblox3">>
+    You hunt some slimes and collect a bunch of materials for later.
+<</addinlineevent>>
+<<runeventpool>>
+<br><br>
+You have a good time and blow off some stress before returning to real life.
+<br><br>
+<<link [[Next |Lake House Bedroom]]>><<pass 30>><<stress -3>><<trauma -3>><</link>><<lstress>><<ltrauma>>
 
 :: Nextdoor
-
 <<if $blockList is undefined>>
 <<nextdoor-init>>
 <</if>>
-
 <div class="nextdoor-content">
     <<nextdoor-content>>
 </div>
 <br>
-
 <<link [[Back|Laptop Home]]>><</link>>
 
-:: Blogspot
-
+:: Blogspace
+<<requestPage>>
+<br>
+<<link [[Back|Laptop Home]]>><</link>>
 
 :: Camhub
 <<if $stress gte $stressmax and !$possessed>>

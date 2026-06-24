@@ -1,0 +1,187 @@
+:: Domus Job Knock
+<<generate1>><<person1>>
+You make your way up the cracked steps to the shoddy Domus home. A <<person>> answers the door. "How can I help you?" <<he>> asks.
+<br><br>
+<<if $acceptedRequest is "Strange Creaking">>
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Strange Creaking Intro]]>><</link>>
+<<elseif $acceptedRequest is "Weird Creature">> 
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Weird Creature Intro]]>><</link>>
+<<elseif $acceptedRequest is "Something in Cupboard">> 
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Something in Cupboard Intro]]>><</link>>
+<<elseif $acceptedRequest is "Something Following">>
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Something Following Intro]]>><</link>>
+<</if>>
+
+:: Danube Job Knock
+<<generate1>><<person1>>
+You make your way up the pristine driveway to the large and well maintained Danube mansions. A <<person>> answers the door. "How can I help you?" <<he>> asks.
+<br><br>
+<<if $acceptedRequest is "Rattling Trashcans">> 
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Rattling Trashcans Intro]]>><</link>>
+<<elseif $acceptedRequest is "Hissing from Garage">> 
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Hissing from Garage Intro]]>><</link>>
+<<elseif $acceptedRequest is "Strange Holes">> 
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Strange Holes Intro]]>><</link>>
+<<elseif $acceptedRequest is "Cracked Wall">>
+    <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Cracked Wall Intro]]>><</link>>
+<</if>>
+
+:: Factory Job Knock
+<<generate1>><<person1>>
+You walk up to the towering factory and knock on the sealed metal door. A <<person>> answers the door. "How can I help you?" <<he>> asks.
+<br><br>
+<<if $acceptedRequest is "Stuff Disappearing">>
+    <<socialiseicon "ask">><<link [[Say you're here about their post|Stuff Disappearing Intro]]>><</link>>
+<</if>>
+
+:: Hospital Job Knock
+<<generate1>><<person1>>
+You enter the sliding door of the hospital and are greeded by a nurse at the front desk. One of the nurses approaches as you enter. "How can I help you?" <<he>> asks.
+<br><br>
+<<if $acceptedRequest is "Unknown Blood">>
+    <<socialiseicon "ask">><<link [[Say you're here about their post|Unknown Blood Intro]]>><</link>>
+<</if>>
+
+:: Strange Creaking Intro
+
+
+:: Weird Creature Intro
+
+
+:: Something in Cupboard Intro
+
+
+:: Something Following Intro
+
+
+:: Rattling Trashcans Intro
+"Oh you're the exterminator? You don't look very well prepared but... I suppose you'll have to do." The <<person>> leads you to the side of the house where an old dented trashcan sits half full.
+<br><br>
+"You saw my post so you already know, but something keeps digging through my garbage every night and leaving trash all over my yard. I want whatever it is gone. Understood?" Without waiting for an answer, the <<person>> walks back inside, leaving you alone.
+<br><br>
+<<link [[Wait around the can for anything (2:00)|Rattling Trashcans]]>><<pass 120>><</link>>
+
+:: Rattling Trashcans
+<<rng 50 100>>
+You spend a few hours waiting and begin to tire. Just when you think this has been a waste of time, you hear a rustling from nearby.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    As you approach the rustling, you catch sight of something... unusual. A tiny humanoid figure, rotund and hairy, jumps from the grass, biting at you.
+    <br><br>
+    <<link [[Next|Rattling Trashcans Gnome]]>><<set $struggle_start to 1>><</link>>
+<<else>>
+    <<beastNEWinit 1 raccoon>>
+    As you approach the rustling, a large <<beasttype>>, hairs on end, leaps out of the grass toward you.
+    <br><br>
+    <<if $settings.bestialityEnabled or $monster is 1>>
+		<<link [[Next|Rattling Trashcans Rape]]>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		You run. You manage to escape, though not unscathed.
+		<<beastescape>>
+		<br><br>
+		<<link [[Next|Rattling Trashcans Fail]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Rattling Trashcans Gnome
+<<effects>>
+<<if $struggle_start is 1>>
+	<<struggle_init>>
+	<<set $struggle.creature to "gnome">>
+	<<struggle_creatures 3 2>>
+	<<set $combat to 1>>
+	<<controlloss>>
+	<<violence 1>>
+	<<molested>>
+
+	<<unset $struggle_start>>
+<</if>>
+
+<<struggle>>
+
+<<if $struggle.done gte $struggle.number>>
+	<span id="next"><<link [[Next|Rattling Trashcans Gnome End]]>><</link>></span>
+<<else>>
+	<span id="next"><<link [[Next|Rattling Trashcans Gnome]]>><</link>></span>
+<</if>>
+
+:: Rattling Trashcans Gnome End
+<<effects>>
+The creatures flee into dark recesses.
+<br><br>
+<<link [[Next|Rattling Trashcans Success]]>><<set $eventskip to 1>><</link>>
+
+:: Rattling Trashcans Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Rattling Trashcans Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Rattling Trashcans Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Rattling Trashcans Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The <<beasttype>> gives a happy bark, and walks away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Rattling Trashcans Fail]]>><</link>>
+<<else>>
+	The <<beasttype>> whimpers, and runs away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Rattling Trashcans Success]]>><</link>>
+<</if>>
+
+:: Rattling Trashcans Fail
+
+
+:: Rattling Trashcans Success
+
+
+:: Hissing from Garage Intro
+
+
+:: Strange Holes Intro
+
+
+:: Cracked Wall Intro
+
+
+:: Stuff Disappearing Intro
+
+
+:: Unknown Blood Intro
