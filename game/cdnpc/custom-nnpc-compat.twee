@@ -1,0 +1,297 @@
+:: Custom NNPC Compat Widgets [widget]
+
+<<widget "custom-nnpc-packaged-compat-checker">>
+    <<if $NPCNameList.includes("Riley") && ! setup.customNNPC.compatPatches.includes("Riley")>>
+        <<run
+            try{
+                setup.customNNPC.moodCallback["Riley"] = function (data) {
+                    return {
+                        "blush": data.love >= 40 ? 1 : 0 + (data.lust >= 20 ? 1 : 0),
+                        "anger": data.love <= -10 ? 1 : 0,
+                        "smile": data.love >= 20 ? 1 : 0,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.defaultClothes["riley"] = {
+                    "upper": [
+                        {variable:"hoodie", colour1:"black", colour2:"black"},
+                        {variable:"hoodie", colour1:"white", colour2:"white"}
+                    ],
+                    "lower": [
+                        {variable:"shorts", colour1:"teal"},
+                        {variable:"cargo shorts", colour1:"olive", colour2:"black"}
+                    ],
+                    "feet": [
+                        {variable: "combat", colour1: "black"},
+                        {variable: "combat", colour2: "brown"}
+                    ]
+                };
+
+                setup.customNNPC.defaultHairstyles.push({
+                  name: "Riley n",
+                  gender: "n",
+                  hair_fringe_name: "messy",
+                  hair_side_name: ["sidecut", "short", "shaved"],
+                  hair_fringe_length: ["short", "neck", "chest"],
+                  hair_side_length: "short",
+                  type: "Riley"
+                });
+                setup.customNNPC.compatPatches.push("Riley");
+            }catch(e){
+                console.error("Custom NNPC: Riley patch failed: " + e);
+            }
+        >>
+    <</if>>
+
+    <<run
+
+        if(! V.customNNPC.compatPatches.includes("Poppy") && V.NPCNameList.includes("Poppy")){
+            V.customNNPC.customData["Poppy"].body_type = "classic";
+            V.customNNPC.customData["Poppy"].facestyle = "default";
+            V.customNNPC.customData["Poppy"].facevariant = "default";
+            V.NPCName[V.NPCNameList.indexOf("Poppy")].eyeColour = "dark blue";
+            V.NPCName[V.NPCNameList.indexOf("Poppy")].hairColour = "crimson";
+
+            V.customNNPC.compatPatches.push("Poppy");
+        }
+    >>
+
+    <<if $NPCNameList.includes("Poppy") && ! setup.customNNPC.compatPatches.includes("Poppy")>>
+        <<run
+            try{
+                setup.customNNPC.moodCallback["Poppy"] = function (data) {
+                    return {
+                        "blush": customNNPCGetBlush(data.love, 100, data.lust, 40),
+                        "anger": customNNPCGetAnger(data.rage, 100),
+                        "smile": data.patience > 10,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.canvasOptionsOverrides["Poppy"] = {};
+                setup.customNNPC.canvasOptionsOverrides["Poppy"]["fallen_halo_type"] = "default";
+                setup.customNNPC.canvasOptionsOverrides["Poppy"]["fox_tail_type"] = "default";
+                setup.customNNPC.canvasOptionsOverrides["Poppy"]["fox_tail_layer"] = "back";
+                setup.customNNPC.canvasOptionsOverrides["Poppy"]["fox_ears_type"] = "default";
+                setup.customNNPC.canvasOptionsOverrides["Poppy"]["fallen_wings_type"] = "cherub-black";
+                setup.customNNPC.canvasOptionsOverrides["Poppy"]["fallen_wings_layer"] = "black";
+
+                setup.customNNPC.defaultClothes["poppyNeutral"] = $.extend(true,{},setup.customNNPC.defaultClothes["maleDefault"]);
+
+                setup.customNNPC.defaultClothes["poppyLatexF"] = {
+                    "upper": [{variable:"dress", colour1:"white"}],
+                    "lower": [{variable:"schoolskirtshort", colour1:"black"}],
+                    "under_upper": [{variable:"latexleotard", colour1:"black"}],
+                    "under_lower": [{variable:"latexleotard", colour1:"black"}],
+                    "legs": [{variable:"garterstockings", colour1:"black"}],
+                    "hands": [{variable:"fingerlessgloves", colour1:"black"}],
+                    "handheld": [{variable:"star purse", colour1:"yellow"}],
+                    "feet": [{variable:"kittenheels", colour1:"black", colour2:"black"}],
+                };
+                setup.customNNPC.defaultClothes["poppyTownM"] = {
+                    "neck": [{variable:"ringedcollar"}],
+                    "upper": [{variable:"sweater"}],
+                    "lower": [{variable:"breeches", colour1:"black"}],
+                    "under_lower": [{variable:"briefs", colour1:"black"}],
+                    "hands": [{variable:"fingerlessgloves", colour1:"black"}],
+                    "feet": [{variable:"trainers", colour1:"black"}],
+                };
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Poppy m",
+                    gender : "m",
+                    hair_fringe_name : "straight curl",
+                    hair_side_name : "straight",
+                    hair_fringe_length : "short",
+                    hair_side_length : "short",
+                    type: "Poppy"
+                });
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Poppy f",
+                    gender : "f",
+                    hair_fringe_name : "split",
+                    hair_side_name : "defined curl",
+                    hair_fringe_length : "navel",
+                    hair_side_length : "chest",
+                    type: "Poppy"
+                });
+                setup.customNNPC.compatPatches.push("Poppy")
+            }catch(e){
+                console.error("Custom NNPC: Poppy patch failed: " + e);
+            }
+        >>
+    <</if>>
+
+    <<if $NPCNameList.includes("Pruti") && ! setup.customNNPC.compatPatches.includes("New World")>>
+        <<run
+                setup.customNNPC.moodCallback["Pruti"] = function (data) {
+                    return {
+                        "blush": customNNPCGetBlush(data.love, 100),
+                        "anger": customNNPCGetAnger(data.love <= 50 ? 1 : 0),
+                        "smile": data.love > 50,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.canvasOptionsOverrides["Pruti"] = {};
+                setup.customNNPC.canvasOptionsOverrides["Pruti"]["cat_tail_type"] = "default";
+                setup.customNNPC.canvasOptionsOverrides["Pruti"]["tail_layer"] = "back";
+                setup.customNNPC.canvasOptionsOverrides["Pruti"]["cat_ears_type"] = "default";
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Pruti n",
+                    gender : "n",
+                    hair_fringe_name : "framed",
+                    hair_side_name : "natural",
+                    hair_fringe_length : "neck",
+                    hair_side_length : "neck",
+                    type: "Pruti"
+                });
+
+                setup.customNNPC.moodCallback["Haegish"] = function (data) {
+                    return {
+                        "blush": false,
+                        "anger": false,
+                        "smile": true,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.canvasOptionsOverrides["Haegish"] = {};
+                setup.customNNPC.canvasOptionsOverrides["Haegish"]["bunny_tail_type"] = "default";
+                setup.customNNPC.canvasOptionsOverrides["Haegish"]["bunny_ears_type"] = "default";
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Haegish n",
+                    gender : "n",
+                    hair_fringe_name : "natural",
+                    hair_side_name : "bedhead",
+                    hair_fringe_length : "ear",
+                    hair_side_length : "ear",
+                    type: "Haegish"
+                });
+
+                setup.customNNPC.moodCallback["Mint Mocha"] = function (data) {
+                    return {
+                        "blush": customNNPCGetBlush(data.love, 100),
+                        "anger": customNNPCGetAnger(data.dom <= 25 ? 1 : 0),
+                        "smile": data.dom > 25,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.canvasOptionsOverrides["Mint Mocha"] = {};
+                setup.customNNPC.canvasOptionsOverrides["Mint Mocha"]["horse_tail_type"] = "default";
+                setup.customNNPC.canvasOptionsOverrides["Mint Mocha"]["horse_ears_type"] = "default";
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Mint Mocha n",
+                    gender : "n",
+                    hair_fringe_name : "princess wave",
+                    hair_side_name : "princess twintails",
+                    hair_fringe_length : "chest",
+                    hair_side_length : "chest",
+                    type: "Mint Mocha"
+                });
+
+                setup.customNNPC.moodCallback["Casey"] = function (data) {
+                    return {
+                        "blush": customNNPCGetBlush(data.love, 100),
+                        "anger": customNNPCGetAnger(data.love <= 30 ? 1 : 0),
+                        "smile": data.dom > 30,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Casey n",
+                    gender : "n",
+                    hair_fringe_name : "sleek",
+                    hair_side_name : "short",
+                    hair_fringe_length : "ear",
+                    hair_side_length : "ear",
+                    type: "Casey"
+                });
+
+                setup.customNNPC.moodCallback["Taylor"] = function (data) {
+                    return {
+                        "blush": customNNPCGetBlush(data.love, 100),
+                        "anger": customNNPCGetAnger(data.love <= 40 ? 1 : 0),
+                        "smile": data.love > 40,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Taylor m",
+                    gender : "m",
+                    hair_fringe_name : "swept left",
+                    hair_side_name : "neat",
+                    hair_fringe_length : "ear",
+                    hair_side_length : "ear",
+                    type: "Taylor"
+                });
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Taylor f",
+                    gender : "f",
+                    hair_fringe_name : "side braid",
+                    hair_side_name : "all down",
+                    hair_fringe_length : "neck",
+                    hair_side_length : "neck",
+                    type: "Taylor"
+                });
+
+                setup.customNNPC.moodCallback["Salem"] = function (data) {
+                    return {
+                        "blush": customNNPCGetBlush(data.corruption <= 30 ? 1 : 0),
+                        "anger": false,
+                        "smile": data.love > 30,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Salem n",
+                    gender : "n",
+                    hair_fringe_name : "short air vents",
+                    hair_side_name : "straight",
+                    hair_fringe_length : "knee",
+                    hair_side_length : "knee",
+                    type: "Salem"
+                });
+
+                setup.customNNPC.moodCallback["Rowan"] = function (data) {
+                    return {
+                        "blush": customNNPCGetBlush(data.dom, 50),
+                        "anger": customNNPCGetAnger(data.love <= 50 ? 1 : 0),
+                        "smile": true,
+                        "trauma": false,
+                    }
+                };
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Rowan m",
+                    gender : "m",
+                    hair_fringe_name : "sectioned",
+                    hair_side_name : "braid right",
+                    hair_fringe_length : "ear",
+                    hair_side_length : "ear",
+                    type: "Rowan"
+                });
+
+                setup.customNNPC.defaultHairstyles.push({
+                    name: "Rowan f",
+                    gender : "f",
+                    hair_fringe_name : "sectioned",
+                    hair_side_name : "right fishtail",
+                    hair_fringe_length : "chest",
+                    hair_side_length : "chest",
+                    type: "Rowan"
+                });
+
+                setup.customNNPC.compatPatches.push("New World");
+        >>
+    <</if>>
+<</widget>>

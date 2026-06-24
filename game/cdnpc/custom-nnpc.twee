@@ -1,0 +1,1185 @@
+:: Custom NNPC Widgets [widget]
+
+<<widget "render-custom-nnpc-content">>
+    <<set _customNNPCDetectedName to "">>
+    <<set _customNNPCDetectedId to -1>>
+    <<set _customNNPCDetectedClothesSet to "">>
+    <<custom-nnpc-autodetect>>
+    <<if _customNNPCDetectedId !== -1 && _customNNPCDetectedName !== "" && _customNNPCDetectedClothesSet !== ""
+        && $customNNPC.useCustom[_customNNPCDetectedName] === true
+    >>
+        <<custom-nnpc-canvas-resizer _customNNPCDetectedName>>
+        <<selectmodel "customNNPC" "sidebar">>
+        <<modelprepare-nnpc-body _customNNPCDetectedName _customNNPCDetectedClothesSet>>
+        <<modelprepare-nnpc-clothes _customNNPCDetectedName _customNNPCDetectedClothesSet>>
+        <<set _modeloptions.show_nnpc to false>>
+        <<set _modeloptions.follower to false>>
+        <div class="custom-nnpc-canvas-container">
+            <<if $options.sidebarAnimations isnot false>>
+                <<animatemodel "custom-nnpc-canvas">>
+            <<else>>
+                <<rendermodel "custom-nnpc-canvas">>
+            <</if>>
+        </div>
+    <</if>>
+<</widget>>
+
+<<widget "options-custom-nnpc-import-export">>
+    <<if $customNNPC.DEBUG === true>>
+        <<custom-nnpc-DEBUG>>
+    <</if>>
+    <<nnpc-image-preview-auto-update>>
+    <div class="settingsToggleIndent">
+        <span class="gold">Custom NPC Portraits Settings import/export:</span>
+        <<if SugarCube.Browser.isMobile.any() is true>>
+            <textarea id="custom-nnpc-settings-textarea-all" rows="4" cols="40" onclick="if(V.disableAutoSelect == false)this.select();"></textarea>
+            <br>
+            <input type="button" id="custom-nnpc-settings-import-all" value="Load">
+            <input type="button" id="custom-nnpc-settings-export-all" value="Save">
+        <<else>>
+            <br>Load from file <mouse class="tooltip linkBlue">(?)<span>May need to save changes before they are reflected ingame.</span></mouse> :
+            <input id="custom-nnpc-settings-import-all" type="file" value="Load from file">
+            <br><input type="button" id="custom-nnpc-settings-export-all" value="Save to file">
+        <</if>>
+        <<custom-nnpc-file-setup-all>>
+        <<custom-nnpc-file-setup>>
+    </div>
+    <hr>
+    <div class="settingsToggleIndent" style="padding-bottom:10%">
+        <span class="gold">Custom NNPC Display Controls:</span>
+        <br>
+        <span>Display location
+        <mouse class = "tooltip linkBlue">(?)
+            <span>
+                To display in the sidebar, choose CDNPC as the creator pack in display options after game start.
+            </span>
+        </mouse>
+        :</span>
+        <<listbox "$customNNPC.canvasLocation" autoselect>>
+            <<option "None" "sidebar">>
+            <<option "Top of the page" "header">>
+            <<option "Bottom of the page" "bottom">>
+        <</listbox>>
+        <br>
+        <div id="custom-nnpc-sidebar-preview-controls">
+            <span>Top/Bottom of page Canvas Size:
+                <mouse class = "tooltip linkBlue">(?)<span>
+                    Only visible after saving changes.
+                </span></mouse>
+            </span>
+            <<numberbox "$customNNPC.canvasSize" $customNNPC.canvasSize >>
+            <br>
+            <span>Sidebar image Offset:</span>
+            <<numberbox "$customNNPC.canvasContents.offset" $customNNPC.canvasContents.offset >>
+            <br>
+            <span>Sidebar image Cutoff:</span>
+            <<numberbox "$customNNPC.canvasContents.cutoff" $customNNPC.canvasContents.cutoff >>
+            <br>
+            <label>
+                <<checkbox "$customNNPC.canvasContents.mirror" false true autocheck>> Mirror the sidebar display.
+            </label>
+            <br>
+            <label>
+                <<checkbox "$customNNPC.sidebarLayer" "back" "front" autocheck>> Show NNPC above PC in the sidebar
+                <mouse class = "tooltip linkBlue">(?)<span>May be necessary if using decomod backgrounds.</span></mouse>
+            </label>
+            <br>
+            <label>
+                <<checkbox "$customNNPC.canvasContents.overflow" false true autocheck>> Unbound sidebar display
+                <mouse class = "tooltip linkBlue">(?)<span>Will make the sidebar display generate above everything and remove constraints on it.<br>Will make the NNPC display above the location.<br>May cause display issues.</span></mouse>
+            </label>
+        </div>
+        <br>
+        <<if def $options.bigCanvas && $options.bigCanvas === true>>
+            <style>
+                #img-preview{
+                    height: 267px!important;
+                    width: 328px!important;
+                    position: relative;
+                }
+                #img-preview * {
+                    position: absolute;
+                }
+                #img-preview .canvas-mannequin,
+                #img-preview .custom-nnpc-canvas
+                {
+                    height: 358px!important;
+                    width: 358px!important;
+                }
+            </style>
+        <<else>>
+            <style>
+                #img-preview{
+                    height: 192px!important;
+                    width: 216px!important;
+                    position: relative;
+                }
+                #img-preview * {
+                    position: absolute;
+                }
+                #img-preview .canvas-mannequin,
+                #img-preview .custom-nnpc-canvas
+                {
+                    height: 256px!important;
+                    width: 256px!important;
+                }
+            </style>
+        <</if>>
+        <span class="gold">Sidebar Preview:</span>
+        <div class="settingsToggleItemWide">
+            <div id="img-preview">
+                <<selectmodel "main" "shop">>
+                <<set _modeloptions.tanningEnabled to false>>
+                <<set _modeloptions.mannequin to true>>
+                <<set _modeloptions.show_face to false>>
+                <<set _modeloptions.show_hair to false>>
+                <<rendermodel "canvas-mannequin">>
+                <div class="custom-nnpc-canvas-container">
+                    <<selectmodel "customNNPC" "sidebar">>
+                    <<modelprepare-nnpc-body "" "naked">>
+                    <<modelprepare-nnpc-naked>>
+                    <<set _modeloptions.show_nnpc to false>>
+                    <<set _modeloptions.follower to false>>
+                    <<rendermodel "custom-nnpc-canvas">>
+                </div>
+            </div>
+        </div>
+        <<custom-nnpc-sidebar-previewer>>
+    </div>
+    <hr>
+    <div class="settingsToggleIndent">
+        <span class="gold">Toggle custom dynamic portraits for all NPCs:</span>
+        <<link "On">>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCNameList.length; _n ++>>
+                    <<set $customNNPC.useCustom[$NPCNameList[_n]] to true>>
+                <</for>>
+            <</capture>>
+        <</link>>
+        |
+        <<link "Off">>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCNameList.length; _n ++>>
+                    <<set $customNNPC.useCustom[$NPCNameList[_n]] to false >>
+                <</for>>
+            <</capture>>
+        <</link>>
+        <br>
+        <br>
+        <span class="gold">Randomly assign for all custom dynamic portraits:</span>
+        <br>
+        <<link "Hair Colour">>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCName.length; _n ++>>
+                <<if $NPCNameList[_n] !== "Ivory Wraith">>
+                    <<set
+                        $NPCName[_n].hairColour
+                    to
+                        setup.colours.hair[Math.floor(Math.random() * (setup.colours.hair.length - 1) + 1)].variable
+                    >>
+                <</if>>
+                <</for>>
+            <</capture>>
+            <<options-render-custom-nnpc-update>>
+        <</link>>
+        |
+        <<link "Eye Colour">>
+            <<set _customNNPCEyeCol = ["black", "purple", "dark blue", "light blue", "amber", "hazel", "green", "lime green", "red", "pink", "grey", "light grey" ] >>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCName.length; _n ++>>
+                <<if $NPCNameList[_n] !== "Ivory Wraith">>
+                    <<set
+                        $NPCName[_n].eyeColour
+                    to
+                        _customNNPCEyeCol[Math.floor(Math.random() * _customNNPCEyeCol.length)]
+                    >>
+                <</if>>
+                <</for>>
+            <</capture>>
+            <<options-render-custom-nnpc-update>>
+        <</link>>
+        |
+        <<link "Body Shape">>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCNameList.length; _n ++>>
+                <<if $NPCNameList[_n] !== "Ivory Wraith">>
+                    <<set
+                        $customNNPC.customData[$NPCNameList[_n]].body_type
+                    to
+                        setup.bodyShapes[Math.floor(Math.random() * setup.bodyShapes.length)]
+                    >>
+                <</if>>
+                <</for>>
+            <</capture>>
+            <<options-render-custom-nnpc-update>>
+        <</link>>
+        |
+        <<link "Skin colour">>
+            <<set _customNNPCRandomTone = ["", "r", "g", "b", "y" ] >>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCNameList.length; _n ++>>
+                    <<if $NPCNameList[_n] !== "Ivory Wraith">>
+                        <<set
+                            $customNNPC.customData[$NPCNameList[_n]].skintone
+                        to
+                            _customNNPCRandomTone[Math.floor(Math.random() * _customNNPCRandomTone.length)]
+                        >>
+                        <<set
+                            $customNNPC.customData[$NPCNameList[_n]].skintan
+                        to
+                            Math.floor((Math.random() * 50))
+                        >>
+                    <</if>>
+                <</for>>
+            <</capture>>
+            <<options-render-custom-nnpc-update>>
+        <</link>>
+    </div>
+    <hr>
+    <div class="settingsToggleIndent">
+        <span class="gold">Custom NPC portraits image pack
+            <mouse class = "tooltip linkBlue">(?)<span>Gendered option may not work properly until the game has been started and NPC genders have been assigned.<br>If an NPC's gender gets changed, the imagepack will not be automatically switched.</span></mouse>
+            :
+            </span>
+        <<if window.location.protocol !== "file:" && !/joiplay|cyou\.joiplay\.joiplay|wv/i.test(navigator.userAgent)>>
+            <br>
+            <span class="red">
+            This feature was made to function with locally hosted games. There is a dolmods.net feature in the works that would cover this but in the meantime you can ignore this feature.
+            </span>
+            <br>
+        <</if>>
+        <<set _customNNPCDefaultImagePackInput to "img">>
+        <<textbox "_customNNPCDefaultImagePackInput" _customNNPCDefaultImagePackInput>>
+        <br>
+        <<link "Set for all NPCs" >>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCNameList.length; _n ++>>
+                    <<set
+                        $customNNPC.imageset[$NPCNameList[_n]]
+                        to
+                        _customNNPCDefaultImagePackInput
+                    >>
+                <</for>>
+            <</capture>>
+            <<options-render-custom-nnpc-update>>
+        <</link>>
+        |
+        <<link "Set for all female NPCs" >>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCName.length; _n ++>>
+                    <<if $NPCName[_n].pronoun == "f" >>
+                    <<set
+                        $customNNPC.imageset[$NPCName[_n].nam]
+                        to
+                        _customNNPCDefaultImagePackInput
+                    >>
+                    <</if>>
+                <</for>>
+            <</capture>>
+            <<options-render-custom-nnpc-update>>
+        <</link>>
+        |
+        <<link "Set for all male NPCs" >>
+            <<capture _n>>
+                <<for _n to 0; _n < $NPCName.length; _n ++>>
+                <<if $NPCName[_n].pronoun == "m" >>
+                    <<set
+                        $customNNPC.imageset[$NPCName[_n].nam]
+                        to
+                        _customNNPCDefaultImagePackInput
+                    >>
+                <</if>>
+                <</for>>
+            <</capture>>
+            <<options-render-custom-nnpc-update>>
+        <</link>>
+    </div>
+    <hr>
+<</widget>>
+
+<<widget "options-render-custom-nnpc">>
+
+    <<selectmodel "customNNPC" "">>
+    <<modelprepare-nnpc-body $customNNPC.settingsActivePreview _args[0]>>
+    <<modelprepare-nnpc-clothes $customNNPC.settingsActivePreview _args[0] _CustomNNPCForceSetReset>>
+    <<rendermodel>>
+    <<custom-nnpc-canvas-resizer $customNNPC.settingsActivePreview>>
+<</widget>>
+
+<<widget "options-render-custom-nnpc-update">>
+	<<if ($passage is "Start" || $passage.includes("Settings")) and StartConfig.enableImages is true>>
+		<<replace #options-render-custom-nnpc>>
+		    <<options-render-custom-nnpc _customNNPCClothingSet>>
+		<</replace>>
+	<</if>>
+<</widget>>
+
+<<widget "options-custom-nnpc-clothes-list">>
+    <<if _customNNPCClothingSet !== "naked">>
+    <<set _customNNPCIntegrityLevels to []>>
+    <div class="settingsToggleItemWide">
+        <span class="gold">Tuckables: </span>
+        <label>
+            <<if ndef $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].upper_tucked>>
+                <<set $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].upper_tucked to false>>
+             <</if>>
+            <<checkbox "$customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].upper_tucked" false true autocheck>> Upper Tucked
+        </label>
+        |
+        <label>
+            <<if ndef $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].lower_tucked>>
+                <<set $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].lower_tucked to false>>
+            <</if>>
+            <<checkbox "$customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].lower_tucked" false true autocheck>> Lower Tucked
+        </label>
+        |
+        <label>
+            <<if ndef $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].neck_tucked>>
+                <<set $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].neck_tucked to false>>
+             <</if>>
+            <<checkbox "$customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].neck_tucked" false true autocheck>> Neck Tucked
+        </label>
+        |
+        <label>
+            <<if ndef $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].altsleeve>>
+                <<set $customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].altsleeve to false>>
+             <</if>>
+            <<checkbox "$customNNPC.customClothesSets[$customNNPC.settingsActivePreview][_customNNPCClothingSet].altsleeve" false true autocheck>> Rolled Up sleeves
+        </label>
+    </div>
+    <</if>>
+    <<capture _i>>
+        <<for _i to 0; _i < _clothesTargets.length; _i++>>
+        <div class="settingsToggleItemWide">
+            <span class="gold"><<= _clothesTargets[_i]>>:</span>
+            <br>
+            <<set _customNPCClothingMain to {}>>
+
+            <<set _customNPCClothingColour to {}>>
+            <<set _customNPCClothingAcc to {}>>
+            <<set _customNPCClothingPattern to {}>>
+
+            <<set _customNPCClothingColourSkip to true>>
+            <<set _customNPCClothingAccSkip to true>>
+            <<set _customNPCClothingPatternSkip to true>>
+            <<set _customNNPCClothingAltPosSkip to true>>
+            <<set _customNNPCClothingIntegritySkip to true>>
+
+            <<nnpc-outfit-setup-selector>>
+            <<listbox "_wornClothes[_clothesTargets[_i]]" autoselect>>
+                <<optionsfrom _customNPCClothingMain>>
+            <</listbox>>
+
+            <<if !_customNPCClothingColourSkip>>
+                |
+                <<listbox "_wornColours[_clothesTargets[_i]].colour" autoselect>>
+                    <<optionsfrom _customNPCClothingColour>>
+                <</listbox>>
+                <<if _wornColours[_clothesTargets[_i]].colour === "custom">>
+                    <br>
+                    <span>Hex code:</span>
+                    <<textbox "_wornColours[_clothesTargets[_i]].customColour" _wornColours[_clothesTargets[_i]].customColour>>
+                    <br>
+                <</if>>
+            <</if>>
+            <<if !_customNPCClothingAccSkip>>
+                |
+                <<listbox "_wornColours[_clothesTargets[_i]].accessory_colour" autoselect>>
+                    <<optionsfrom _customNPCClothingAcc>>
+                <</listbox>>
+                <<if _wornColours[_clothesTargets[_i]].accessory_colour === "custom">>
+                    <br>
+                    <span>Hex code:</span>
+                    <<textbox "_wornColours[_clothesTargets[_i]].customColourAcc" _wornColours[_clothesTargets[_i]].customColourAcc>>
+                    <br>
+                <</if>>
+            <</if>>
+            <<if !_customNPCClothingPatternSkip>>
+                |
+                <<listbox "_wornColours[_clothesTargets[_i]].pattern" autoselect>>
+                    <<optionsfrom _customNPCClothingPattern>>
+                <</listbox>>
+            <</if>>
+
+            <<if !_customNNPCClothingAltPosSkip>>
+                |
+                <label>
+                    <<checkbox "_wornColours[_clothesTargets[_i]].altposition" "none" "alt" autocheck>> Alt position
+                </label>
+            <</if>>
+            <<if !_customNNPCClothingIntegritySkip>>
+                <br>
+                <span class="gold">Integrity: </span>
+                <div class="numberslider-inline">
+                    <<custom-nnpc-clothing-tear-slider _clothesTargets[_i]>>
+                </div>
+            <</if>>
+        </div>
+        <</for>>
+    <</capture>>
+<</widget>>
+
+<<widget "options-custom-nnpc-clothes-list-update">>
+	<<if $passage.includes("Settings") >>
+        <<replace #options-custom-nnpc-clothes-list-container>>
+            <<options-custom-nnpc-clothes-list>>
+        <</replace>>
+    <</if>>
+<</widget>>
+
+<<widget "options-custom-nnpc-tattoos-list">>
+    <div class="settingsToggleItemWide">
+        <span class="gold">Body writing & Tattoos: </span>
+        <br>
+        <<set _customNNPCTattoosSpots to []>>
+        <<set _customNNPCTattoosOptions to {}>>
+        <<set _customNNPCTattoosSelected to {}>>
+        <<custom-nnpc-settings-tattoos>>
+        <<capture _i>>
+            <<for _i = 0; _i < _customNNPCTattoosSpots.length; _i++ >>
+                <label>
+                    <span class="gold"> <<= _customNNPCTattoosSpots[_i] >> </span>
+                    <<listbox "$customNNPC.customData[$customNNPC.settingsActivePreview].skin[_customNNPCTattoosSpots[_i]]" autoselect>>
+                        <<optionsfrom _customNNPCTattoosOptions >>
+                    <</listbox>>
+                </label>
+                <<= _i lt _customNNPCTattoosSpots.length - 1 ? "|<br>" : "">>
+            <</for>>
+        <</capture>>
+    </div>
+<</widget>>
+
+<<widget "options-custom-nnpc-tattoos-list-update">>
+	<<if $passage.includes("Settings") || $passage === "Start">>
+        <<replace #options-custom-nnpc-tattoos-list-container>>
+            <<options-custom-nnpc-tattoos-list>>
+        <</replace>>
+    <</if>>
+<</widget>>
+
+<<widget "options-custom-nnpc-custom-layers-list-update">>
+	<<if $passage.includes("Settings") || $passage === "Start">>
+	    <<replace #options-custom-nnpc-custom-layers-list>>
+            <<for _n to 0; _n lt $customNNPC.customImageLayers[$customNNPC.settingsActivePreview].length; _n++>>
+                <<options-custom-nnpc-custom-layers-list-item $customNNPC.settingsActivePreview _n>>
+            <</for>>
+        <</replace>>
+    <</if>>
+<</widget>>
+
+<<widget "options-custom-nnpc-custom-layers-list-item">>
+    <div class="settingsToggleItemWide">
+
+        <span class="gold">Source:</span>
+        <<textbox "$customNNPC.customImageLayers[_args[0]][_args[1]].source" $customNNPC.customImageLayers[_args[0]][_args[1]].source>>
+        <br>
+
+        <span class="gold">Z Index:</span>
+        <<numberbox "$customNNPC.customImageLayers[_args[0]][_args[1]].zIndex" $customNNPC.customImageLayers[_args[0]][_args[1]].zIndex>>
+        <br>
+
+        <span class="gold">Target Clothing Sets:</span>
+        <br>
+        <<set _customNnpcAllOutfitsBis to []>>
+        <<run
+        for (const set in T.customNnpcAllOutfits) {
+            if(set === "Naked") continue;
+            T.customNnpcAllOutfitsBis.push(set);
+        }
+        >>
+
+        <<custom-nnpc-settings-custom-layer-clothing-checkbox _args[0] _args[1] "all" >>
+
+        <<for _i = 0; _i < _customNnpcAllOutfitsBis.length; _i++ >>
+            |
+            <<custom-nnpc-settings-custom-layer-clothing-checkbox _args[0] _args[1] _customNnpcAllOutfitsBis[_i] >>
+        <</for>>
+        <br>
+
+        <span class="gold">Copy Colour:</span>
+        <<listbox "$customNNPC.customImageLayers[_args[0]][_args[1]].filterOption" autoselect>>
+            <<option "None" "none">>
+            <<option "Hair" "hair">>
+            <<option "Hair Fringe" "hair_fringe">>
+            <<option "Skin" "tan">>
+            <<option "Custom" "custom">>
+        <</listbox>>
+        <br>
+
+        <<if $customNNPC.customImageLayers[_args[0]][_args[1]].filterOption === "custom">>
+            <span class="gold">Colour hex code:</span>
+            <<textbox "$customNNPC.customImageLayers[_args[0]][_args[1]].filterColour" $customNNPC.customImageLayers[_args[0]][_args[1]].filterColour>>
+            <br>
+            <span class="gold">Blend mode:</span>
+            <<listbox "$customNNPC.customImageLayers[_args[0]][_args[1]].blendMode" autoselect>>
+                <<option "Multiply" "multiply">>
+                <<option "Hard Light" "hard-light">>
+                <<option "Source Over" "source-over">>
+            <</listbox>>
+            <br>
+            <label>
+                <span class="gold">Desaturate: </span> <<checkbox "$customNNPC.customImageLayers[_args[0]][_args[1]].desaturate" false true autocheck>>
+            </label>
+            <br>
+        <</if>>
+
+        <span class="gold">Scene
+        <mouse class = "tooltip linkBlue">(?)<span>
+            Enter the scene name in which the layer will be active.
+            <br>
+            Leave empty if present in all scenes.
+            <br>
+        </span></mouse>
+        :</span>
+        <br>
+        <<textbox "$customNNPC.customImageLayers[_args[0]][_args[1]].displayScene" $customNNPC.customImageLayers[_args[0]][_args[1]].displayScene>>
+        <br>
+        <label>
+            <<checkbox "$customNNPC.customImageLayers[_args[0]][_args[1]].displaySceneExact" false true autocheck>> Require name to be exact
+            <mouse class = "tooltip linkBlue">(?)<span>
+                If unchecked, scene name just has to include the input string.
+            </span></mouse>
+        </label>
+        <br>
+
+        <span class="gold">Additional toggles:</span>
+        <br>
+        <<custom-nnpc-settings-custom-layer-toggle-checkboxes _args[0] _args[1]>>
+        <br>
+        <br>
+
+        <button class="macro-button" type="button" @onclick="`
+            V.customNNPC.customImageLayers['${_args[0]}'].splice(${_args[1]},1);
+            Wikifier.wikifyEval('<<options-custom-nnpc-custom-layers-list-update>>');
+            Wikifier.wikifyEval('<<options-render-custom-nnpc-update _customNNPCClothingSet>>');
+            `">
+            Remove
+        </button>
+    </div>
+<</widget>>
+
+<<widget "custom-nnpc-settings-tab-hairstyles">>
+    <<if $passage !== "Start">>
+        <<set _hairTypeByName to {}>>
+        <<run setup.hairstyles.sides.forEach(style => {
+                T.hairTypeByName[style.name_cap] = style.variable;
+        })>>
+        <<set _fringeTypeByName to {}>>
+            <<run setup.hairstyles.fringe.forEach(style => {
+                T.fringeTypeByName[style.name_cap] = style.variable;
+        })>>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Hairstyle (fringe):</span><br>
+            <<listbox "$customNNPC.customData[_args[0]].hairstyle_fringe" autoselect>>
+                <<optionsfrom _fringeTypeByName>>
+            <</listbox>>
+        </div>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Hairstyle (sides):</span><br>
+            <<listbox "$customNNPC.customData[_args[0]].hairstyle_side" autoselect>>
+                <<optionsfrom _hairTypeByName>>
+            <</listbox>>
+        </div>
+        <<if typeof(playerIsXChanged) === "function">>
+            <div class="settingsToggleItemWide">
+                <span class="gold">X-changed (fringe):</span><br>
+                <<listbox "$customNNPC.cd[$customNNPC.settingsActivePreview].fringe_style" autoselect>>
+                    <<option "Copy" false>>
+                    <<optionsfrom _fringeTypeByName>>
+                <</listbox>>
+            </div>
+            <div class="settingsToggleItemWide">
+                <span class="gold">X-changed (sides):</span><br>
+                <<listbox "$customNNPC.cd[$customNNPC.settingsActivePreview].side_style" autoselect>>
+                    <<option "Copy" false>>
+                    <<optionsfrom _hairTypeByName>>
+                <</listbox>>
+            </div>
+        <<else>>
+            <<if $customNNPC.cd[$customNNPC.settingsActivePreview].discovered >>
+                <div class="settingsToggleItemWide">
+                    <span class="gold">Crossdressing (fringe):</span><br>
+                    <<listbox "$customNNPC.cd[$customNNPC.settingsActivePreview].fringe_style" autoselect>>
+                        <<option "Copy" false>>
+                        <<optionsfrom _fringeTypeByName>>
+                    <</listbox>>
+                </div>
+                <div class="settingsToggleItemWide">
+                    <span class="gold">Crossdressing (sides):</span><br>
+                    <<listbox "$customNNPC.cd[$customNNPC.settingsActivePreview].side_style" autoselect>>
+                        <<option "Copy" false>>
+                        <<optionsfrom _hairTypeByName>>
+                    <</listbox>>
+                </div>
+            <</if>>
+        <</if>>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Hair length (fringe):</span><br>
+            <label>Ear <<radiobutton "$customNNPC.customData[_args[0]].hair_length_fringe" "short" autocheck>></label> |
+            <label>Neck <<radiobutton "$customNNPC.customData[_args[0]].hair_length_fringe" "shoulder" autocheck>></label> |
+            <label>Chest <<radiobutton "$customNNPC.customData[_args[0]].hair_length_fringe" "chest" autocheck>></label> |
+            <label>Navel <<radiobutton "$customNNPC.customData[_args[0]].hair_length_fringe" "navel" autocheck>></label> |
+            <label>Thighs <<radiobutton "$customNNPC.customData[_args[0]].hair_length_fringe" "thighs" autocheck>></label> |
+            <label>Feet <<radiobutton "$customNNPC.customData[_args[0]].hair_length_fringe" "feet" autocheck>></label>
+        </div>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Hair length (sides):</span><br>
+            <label>Ear <<radiobutton "$customNNPC.customData[_args[0]].hair_length_side" "short" autocheck>></label> |
+            <label>Neck <<radiobutton "$customNNPC.customData[_args[0]].hair_length_side" "shoulder" autocheck>></label> |
+            <label>Chest <<radiobutton "$customNNPC.customData[_args[0]].hair_length_side" "chest" autocheck>></label> |
+            <label>Navel <<radiobutton "$customNNPC.customData[_args[0]].hair_length_side" "navel" autocheck>></label> |
+            <label>Thighs <<radiobutton "$customNNPC.customData[_args[0]].hair_length_side" "thighs" autocheck>></label> |
+            <label>Feet <<radiobutton "$customNNPC.customData[_args[0]].hair_length_side" "feet" autocheck>></label>
+        </div>
+        <<button "Reset">>
+            <<custom-nnpc-options-reset-hair>>
+        <</button>>
+    <<else>>
+        <span class="red">
+            Will be generated automatically on game start.
+            Come back from the gameplay settings.
+        </span>
+    <</if>>
+<</widget>>
+
+<<widget "custom-nnpc-settings">>
+    <<set $customNNPC.settingsActivePreview to _args[0] >>
+    <<set _customNNPCClothingSet to "naked" >>
+    <<set _CustomNNPCForceSetReset to false>>
+    <<if $passage === "Start">>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Custom Dynamic NPC Portraits:</span>
+            <br>
+            <p>
+                Customization may be unstable as long as the game isn't initialized.
+                <br>
+                You may still customize but expect things to not get updated properly and some changes to be overwritten.
+                <br>
+                To avoid issues, come back to this window from gameplay settings in a safe area.
+            </p>
+        </div>
+	<</if>>
+	<div class="settingsToggleItemWide">
+        <span class="gold">Use Custom:</span>
+        <label>
+            <<checkbox "$customNNPC.useCustom[_args[0]]" false true autocheck>> Enable custom NNPC for this character
+        </label>
+        <mouse class = "tooltip linkBlue">(?)<span>
+        Some body details (genitals, breasts, etc...) will only be visible after saving changes and may display eroneous genitals, skin colour,etc...
+        </span></mouse>
+	</div>
+	<<if $customNNPC.settingsActivePreview === "Sydney">>
+        <div class="settingsToggleItemWide">
+            <span class="gold">
+                Sync Sydney
+                <mouse class="tooltip linkBlue">(?)
+                    <span>
+                        The game already tracks Sydney's haircut and whether or not they are wearing glasses.
+                        <br>
+                        If this settings is toggled, then Sydney's glasses and hairstyle will be automatically updated.
+                        <br>
+                        What you input will be overwritten dynamically.
+                    </span>
+                </mouse>
+            </span>
+            <<checkbox "$customNNPC.sydney.sync" false true autocheck>>
+        </div>
+    <</if>>
+    <div class="settingsToggleItemWide" id="settings-custom-nnpc-preview">
+        <div id="options-render-custom-nnpc">
+            <<options-render-custom-nnpc _customNNPCClothingSet>>
+        </div>
+        <<selectmodel "main" "shop">>
+        <<set _modeloptions.tanningEnabled to false>>
+        <<set _modeloptions.mannequin to true>>
+        <<set _modeloptions.show_face to false>>
+        <<set _modeloptions.show_hair to false>>
+        <<rendermodel "canvas-mannequin-two">>
+    </div>
+
+    <div class="settingsToggleItemWide" id="custom-nnpc-page-selector">
+        <span class="gold">Dynamic Custom NPC Portraits tab selection :</span>
+        <br>
+        <<set _CustomNNPCSettingsTabActive to 0>>
+        <<set _CustomNNPCSettingsTabs to []>>
+        <<custom-nnpc-settings-tab-setup>>
+        <<button "<<< Previous Tab">>
+            <<custom-nnpc-settings-tab-move -1>>
+        <</button>>
+
+        <<listbox "_CustomNNPCSettingsTabActive" autoselect>>
+            <<optionsfrom _CustomNNPCSettingsTabsBis>>
+        <</listbox>>
+
+        <<button "Next Tab >>>">>
+            <<custom-nnpc-settings-tab-move 1>>
+        <</button>>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-face">
+        <span class="gold">Demeanour:</span><br>
+        <<set _NNPCvariants = Object.entries(setup.faceVariantOptions[$facestyle])>>
+        <<for _i, _variant range _NNPCvariants>>
+            <label><<= _variant[0]>> <<radiobutton "$customNNPC.customData[_args[0]].facevariant" _variant[1] autocheck>></label>
+            <<= _i < _NNPCvariants.length - 1 ? "|" : "">>
+        <</for>>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-export" style="display:none">
+        <span class="gold">Per-NNPC Settings File Import/Export</span>
+        <br>
+        <<if SugarCube.Browser.isMobile.any() is true>>
+            <textarea id="custom-nnpc-settings-textarea" rows="4" cols="40" onclick="if(V.disableAutoSelect == false)this.select();"></textarea>
+            <br>
+            <input type="button" id="custom-nnpc-settings-import" value="Load">
+            <input type="button" id="custom-nnpc-settings-export" value="Save">
+        <<else>>
+            <!-- onchange && onclick -->
+        	Load from file <mouse class="tooltip linkBlue">(?)<span>May need to save changes before they are reflected ingame.</span></mouse> : <input id="custom-nnpc-settings-import" type="file" value="Load from file">
+            <input type="button" id="custom-nnpc-settings-export" value="Save to file">
+        <</if>>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-imageset" style="display:none">
+        <span class="gold">Imageset:</span><br>
+        <p>
+            <span class="red">WARNING</span>: Imageset must be present at the root of your DoL installation's folder.
+            <br>
+            Do <span class="red">NOT</span> put any special characters or spaces inside of this textbox
+            <br>
+            The only characters allowed are numbers, letters and underscore ( _ )
+            <br>
+            All imagepack folder names <span class="red">must</span> respect this rule as well.
+            <br>
+            Example: if your secondary image folder is "hikari female" rename it to "hikari_female"
+            <br>
+            Default is "img', put it back if you get errors.
+            <br>
+            <<if window.location.protocol !== "file:" && !/joiplay|cyou\.joiplay\.joiplay|wv/i.test(navigator.userAgent)>>
+                <span class="red">
+                This feature was made to function with locally hosted games. There is a dolmods.net feature in the works that would cover this but in the meantime you can ignore this feature.
+                </span>
+            <</if>>
+        </p><br>
+        <<textbox "$customNNPC.imageset[_args[0]]" $customNNPC.imageset[_args[0]]>> | Gets interpreted as: <span id="imageset-target">
+            <<= $customNNPC.imageset[_args[0]].replace(/[^a-zA-Z0-9_]/g, '') >>
+        </span>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-eyes" style="display:none">
+        <div class="settingsToggleItemWide">
+            <label>
+                <<checkbox "$customNNPC.customData[_args[0]].heterochromic" false true autocheck>> Heterochromic
+            </label>
+        </div>
+
+        <div class="settingsToggleItemWide" >
+            <span class="gold">Right eye colour:</span><br>
+            <<for _i = 0; _i < setup.colours.eyes.length; _i++ >>
+                <<if setup.colours.eyes[_i].variable !== "random" && ! setup.colours.eyes[_i].variable.includes("Temporary") && ! setup.colours.eyes[_i].variable.includes("possessed")>>
+                    <label>
+                        <span @class="`${setup.colours.eyes[_i].csstext}`">
+                            <<= setup.colours.eyes[_i].name_cap >>
+                        </span>
+                        <<radiobutton "$NPCName[_npcId].eyeColour" setup.colours.eyes[_i].name autocheck>>
+                    </label>
+                    <<= _i lt setup.colours.eyes.length - 1 ? "|" : "">>
+                <</if>>
+            <</for>>
+        </div>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Left eye colour <mouse class="tooltip linkBlue">(?)<span>Only visible if heterochromia is enabled</span></mouse> :</span><br>
+            <<for _i = 0; _i < setup.colours.eyes.length; _i++ >>
+                <<if setup.colours.eyes[_i].variable !== "random" && ! setup.colours.eyes[_i].variable.includes("Temporary") && ! setup.colours.eyes[_i].variable.includes("possessed")>>
+                    <label>
+                        <span @class="`${setup.colours.eyes[_i].csstext}`">
+                            <<= setup.colours.eyes[_i].name_cap >>
+                        </span>
+                        <<radiobutton "$customNNPC.customData[_args[0]].lefteye" setup.colours.eyes[_i].variable autocheck>>
+                    </label>
+                    <<= _i lt setup.colours.eyes.length - 1 ? "|" : "">>
+                <</if>>
+            <</for>>
+        </div>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-hair1" style="display:none">
+        <span class="gold">Natural hair colour:</span><br>
+        <<capture _i>>
+            <<for _i = 0; _i < setup.colours.hair.length; _i++ >>
+                <<if setup.colours.hair[_i].variable !== "random">>
+                <label>
+                    <span @class="`${setup.colours.hair[_i].csstext}`">
+                        <<= setup.colours.hair[_i].name_cap >>
+                    </span>
+                    <<radiobutton "$NPCName[_npcId].hairColour" setup.colours.hair[_i].name autocheck>>
+                </label>
+                <<= _i lt setup.colours.hair.length - 1 ? "|" : "">>
+                <</if>>
+            <</for>>
+        <</capture>>
+        <br>
+        <span class="gold">Two-tone style:</span><br>
+        <<listbox "$customNNPC.customData[_args[0]].hair_dye.side_dual_type" autoselect>>
+            <<option "None" false>>
+            <<option "Low Ombré" "low-ombre">>
+        	<<option "High Ombré" "high-ombre">>
+        	<<option "Split" "split">>
+        	<<option "Face-framing highlights" "face-frame">>
+        <</listbox>>
+        <br>
+        <span class="gold">Two-tone colour:</span><br>
+        <<capture _i>>
+            <<for _i = 0; _i < setup.colours.hair.length; _i++ >>
+                <<if setup.colours.hair[_i].variable !== "random">>
+                    <label>
+                        <span @class="`${setup.colours.hair[_i].csstext}`">
+                            <<= setup.colours.hair[_i].name_cap >>
+                        </span>
+                            <<radiobutton "$customNNPC.customData[_args[0]].hair_dye.side_colour2" setup.colours.hair[_i].variable autocheck>>
+                    </label>
+                    <<= _i lt setup.colours.hair.length - 1 ? "|" : "">>
+                <</if>>
+            <</for>>
+        <</capture>>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-hair2" style="display:none">
+        <span class="gold">Hair colour(fringes)
+        <mouse class = "tooltip linkBlue">(?)<span>If copy is selected, the default hair settings will be used</span></mouse>
+        :
+        </span><br>
+        <span>Copy</span>
+        <<radiobutton "$customNNPC.customData[_args[0]].hair_dye.fringe_colour" false autocheck>>
+        |
+        <<capture _i>>
+            <<for _i = 0; _i < setup.colours.hair.length; _i++ >>
+                <<if setup.colours.hair[_i].variable !== "random">>
+                    <label>
+                        <span @class="`${setup.colours.hair[_i].csstext}`">
+                            <<= setup.colours.hair[_i].name_cap >>
+                        </span>
+                        <<radiobutton "$customNNPC.customData[_args[0]].hair_dye.fringe_colour" setup.colours.hair[_i].variable autocheck>>
+                    </label>
+                <<= _i lt setup.colours.hair.length - 1 ? "|" : "">>
+                <</if>>
+            <</for>>
+        <</capture>>
+        <br>
+        <span class="gold">Two-tone style:</span><br>
+        <<listbox "$customNNPC.customData[_args[0]].hair_dye.fringe_dual_type" autoselect>>
+            <<option "None" false>>
+            <<option "Copy" "copy">>
+            <<option "Low Ombré" "low-ombre">>
+        	<<option "High Ombré" "high-ombre">>
+        	<<option "Split" "split">>
+        	<<option "Face-framing highlights" "face-frame">>
+        <</listbox>>
+        <br>
+        <span class="gold">Two-tone colour:</span><br>
+        <br>
+        <span>Copy</span>
+        <<radiobutton "$customNNPC.customData[_args[0]].hair_dye.fringe_colour2" false autocheck>>
+        |
+        <<capture _i>>
+            <<for _i = 0; _i < setup.colours.hair.length; _i++ >>
+                <<if setup.colours.hair[_i].variable !== "random">>
+                    <label>
+                        <span @class="`${setup.colours.hair[_i].csstext}`">
+                            <<= setup.colours.hair[_i].name_cap >>
+                        </span>
+                        <<radiobutton "$customNNPC.customData[_args[0]].hair_dye.fringe_colour2" setup.colours.hair[_i].variable autocheck>>
+                    </label>
+                    <<= _i lt setup.colours.hair.length - 1 ? "|" : "">>
+                <</if>>
+            <</for>>
+        <</capture>>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-makeup" style="display:none">
+        <div class="settingsToggleItemWide">
+        <span class="gold">Eyeshadow :</span><br>
+        <label><span>None</span> <<radiobutton "$customNNPC.customData[_args[0]].makeup.eyeshadow" "0" autocheck>></label> |
+        <<capture _i>>
+        <<for _i = 0; _i < setup.colours.eyeshadow.length; _i++ >>
+                <label>
+                    <span @class="`${setup.colours.eyeshadow[_i].csstext}`">
+                        <<= setup.colours.eyeshadow[_i].name_cap >>
+                    </span>
+                    <<radiobutton "$customNNPC.customData[_args[0]].makeup.eyeshadow" setup.colours.eyeshadow[_i].variable autocheck>>
+                </label>
+                <<= _i lt setup.colours.eyeshadow.length - 1 ? "|" : "">>
+            <</for>>
+        <</capture>>
+        </div>
+        <div class="settingsToggleItemWide">
+        <span class="gold">Mascara :</span><br>
+        <span>Smear Level:</span><<numberslider "_NNPCMascaraRunning" $customNNPC.customData[_args[0]].makeup.mascara_running 0 4 1 {
+            onInputChange: value => {
+                V.customNNPC.customData[V.customNNPC.settingsActivePreview].makeup.mascara_running = value;
+                Wikifier.wikifyEval("<<options-render-custom-nnpc-update _customNNPCClothingSet>>");
+            },
+            value: v => `${v}`
+        }>><br>
+        <span>Colour:</span><br>
+        <label><span>None</span> <<radiobutton "$customNNPC.customData[_args[0]].makeup.mascara" "0" autocheck>></label> |
+        <<capture _i>>
+            <<for _i = 0; _i < setup.colours.mascara.length; _i++ >>
+                <label>
+                    <span @class="`${setup.colours.mascara[_i].csstext}`">
+                        <<= setup.colours.mascara[_i].name_cap >>
+                    </span>
+                    <<radiobutton "$customNNPC.customData[_args[0]].makeup.mascara" setup.colours.mascara[_i].variable autocheck>>
+                </label>
+                <<= _i lt setup.colours.mascara.length - 1 ? "|" : "">>
+            <</for>>
+        <</capture>>
+        </div>
+        <div class="settingsToggleItemWide">
+        <span class="gold">Lipstick :</span><br>
+        <label><span>None</span> <<radiobutton "$customNNPC.customData[_args[0]].makeup.lipstick" "0" autocheck>></label> |
+        <<capture _i>>
+        <<for _i = 0; _i < setup.colours.lipstick.length; _i++ >>
+                <label>
+                    <span @class="`${setup.colours.lipstick[_i].csstext}`">
+                        <<= setup.colours.lipstick[_i].name_cap >>
+                    </span>
+                    <<radiobutton "$customNNPC.customData[_args[0]].makeup.lipstick" setup.colours.lipstick[_i].variable autocheck>>
+                </label>
+                <<= _i lt setup.colours.eyeshadow.length - 1 ? "|" : "">>
+            <</for>>
+        <</capture>>
+        </div>
+        <div class="settingsToggleItemWide">
+        <span class="gold">Blusher :</span><br>
+        <label><span>None</span> <<radiobutton "$customNNPC.customData[_args[0]].makeup.blusher" "0" autocheck>></label> |
+        <<capture _i>>
+        <<for _i = 0; _i < setup.colours.blusher.length; _i++ >>
+                <label>
+                    <span @class="`blusher-${setup.colours.blusher[_i].variable}`">
+                        <<= setup.colours.blusher[_i].name_cap >>
+                        <span class="colour-sample"></span>
+                    </span>
+                    <<radiobutton "$customNNPC.customData[_args[0]].makeup.blusher" setup.colours.blusher[_i].variable autocheck>>
+                </label>
+                <<= _i lt setup.colours.eyeshadow.length - 1 ? "|" : "">>
+            <</for>>
+        <</capture>>
+        </div>
+    </div>
+    <<if _args[0] !== "Ivory Wraith">>
+        <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-skin" style="display:none">
+            <div class="settingsToggleItemWide">
+                <span class="gold">Skin Tone:</span><br>
+                <label>Neutral <<radiobutton "$customNNPC.customData[_args[0]].skintone" "" autocheck>></label> |
+                <label>Warm <<radiobutton "$customNNPC.customData[_args[0]].skintone" "r" autocheck>></label> |
+                <label>Golden <<radiobutton "$customNNPC.customData[_args[0]].skintone" "g" autocheck>></label> |
+                <label>Olive <<radiobutton "$customNNPC.customData[_args[0]].skintone" "y" autocheck>></label> |
+                <label>Cool <<radiobutton "$customNNPC.customData[_args[0]].skintone" "b" autocheck>></label>
+            </div>
+            <div class="settingsToggleItemWide">
+                <div class="numberslider-inline">
+                    <label><span class="gold">Tan:</span>
+                        <<numberslider "_NNPCskinTan" $customNNPC.customData[_args[0]].skintan 0 50 1 {
+                            onInputChange: value => {
+                                V.customNNPC.customData[V.customNNPC.settingsActivePreview].skintan = value;
+                                Wikifier.wikifyEval("<<options-render-custom-nnpc-update _customNNPCClothingSet>>");
+                            },
+                                value: v => `${v}%`
+                        }>>
+                    </label>
+                </div>
+            </div>
+        </div>
+    <</if>>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-bodyshape" style="display:none">
+        <div class="settingsToggleItemWide">
+            <span class="gold">Body shape:</span><br>
+            <<capture _i>>
+                <<for _i = 0; _i < setup.bodyShapes.length; _i++>>
+                    <label><<= setup.bodyShapes[_i].toUpperFirst()>> <<radiobutton "$customNNPC.customData[_args[0]].body_type" setup.bodyShapes[_i] autocheck>></label>
+                    <<= _i lt setup.bodyShapes.length - 1 ? "|" : "">>
+                <</for>>
+            <</capture>>
+        </div>
+        <div class="settingsToggleItemWide">
+            <label>
+                <<checkbox "$customNNPC.customData[_args[0]].testicles" false true autocheck>> Has testicles
+            </label>
+            <br>
+            <label>
+                <<checkbox "$customNNPC.customData[_args[0]].freckles" false true autocheck>> Has freckles
+            </label>
+        </div>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-hairstyles" style="display:none">
+        <<custom-nnpc-settings-tab-hairstyles $customNNPC.settingsActivePreview>>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-pubes" style="display:none">
+        <div class="settingsToggleItemWide">
+            <div class="numberslider-inline">
+                <label><span class="gold">Pubic Hair:</span>
+                <<numberslider "_NNPCskinTan" $customNNPC.customData[_args[0]].pb_level 0 9 1 {
+                    onInputChange: value => {
+                        V.customNNPC.customData[V.customNNPC.settingsActivePreview].pb_level = value;
+                        Wikifier.wikifyEval("<<options-render-custom-nnpc-update _customNNPCClothingSet>>");
+                        },
+                        value: v => `${v}`
+                    }>>
+                </label>
+            </div>
+        </div>
+        <div class="settingsToggleItemWide">
+            <div class="numberslider-inline">
+                <label><span class="gold">Pubic Hair (testicles):</span>
+                <<numberslider "_NNPCskinTan" $customNNPC.customData[_args[0]].pb_level_testicles 0 9 1 {
+                    onInputChange: value => {
+                            V.customNNPC.customData[V.customNNPC.settingsActivePreview].pb_level_testicles = value;
+                            Wikifier.wikifyEval("<<options-render-custom-nnpc-update _customNNPCClothingSet>>");
+                        },
+                            value: v => `${v}`
+                }>>
+                </label>
+            </div>
+        </div>
+        <div class="settingsToggleItemWide">
+            <div class="numberslider-inline">
+            <label><span class="gold">Pubic Hair (Strip):</span>
+            <<numberslider "_NNPCskinTan" $customNNPC.customData[_args[0]].pb_styling 0 3 1 {
+                onInputChange: value => {
+                    V.customNNPC.customData[V.customNNPC.settingsActivePreview].pb_styling = value;
+                    Wikifier.wikifyEval("<<options-render-custom-nnpc-update _customNNPCClothingSet>>");
+                },
+                    value: v => `${v}`
+            }>>
+            </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-clothes" style="display:none">
+        <<set _customNNPCClothingSetPrevious to "">>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Clothing customization
+            <mouse class = "tooltip linkBlue">(?)<span class="red">
+                Some options may be incompatible with one another (some clothes may not be available at certain integrity level or in certain colours, etc...)
+                <br>In that case, a red error will be displayed next to your player model. check these to learn more about potential errors.
+            </span></mouse>
+            :</span><br>
+            <<if $passage !== "Start">>
+                <<set _customNnpcAllOutfits to {"Naked":"naked"}>>
+                <<custom-nnpc-get-all-sets>>
+                <<listbox "_customNNPCClothingSet" autoselect>>
+                    <<optionsfrom _customNnpcAllOutfits>>
+                <</listbox>>
+                <mouse class = "tooltip linkBlue">(?)<span>
+                If this list is empty save for naked then that means you haven't encountered the NPC yet.
+                <br>
+                (Or they're a nudist, like Black Wolf and Great Hawk)
+                <br>
+                NPCs have their wardrobes updated as they use these clothes.
+                </span></mouse>
+            <<else>>
+                <span>
+                Clothing sets will be automatically generated for every NPC based on Vanilla data,
+                as each set is only generated in memory once the NPC has worn it once. You will only be able to customize a clothing set
+                after the NPC has worn the default clothing at least once.
+                </span>
+            <</if>>
+        </div>
+        <<if $passage !== "Start">>
+            <div class="settingsToggleItemWide" id="custom-nnpc-outfit-description">
+                <span class="gold">Vanilla clothing description <mouse class = "tooltip linkBlue">(?)<span>This is what the game considers the NPC to be wearing internally. Text will use this to describe them. Only deviate from the description if you're willing to tolerate the discrepancies.</span></mouse>: </span>
+                <span id="nnpc-outfit-desc-id">naked</span>
+                <br>
+                <span class="gold">Gender: </span><span id="nnpc-outfit-desc-gender">n</span> | <span class="gold">Type: </span><span id="nnpc-outfit-desc-type">naked</span>
+                <br>
+                <span class="gold">Top: </span><span id="nnpc-outfit-desc-top">naked</span>
+                <br>
+                <span class="gold">Bottom: </span><span id="nnpc-outfit-desc-bottom">naked</span>
+            </div>
+            <div class="settingsToggleItemWide">
+                <<button "Regenerate default outfit">>
+                    <<custom-nnpc-options-reset-outfit>>
+                <</button>>
+            </div>
+            <<set _clothesTargets to []>>
+            <<run
+                for(const type in setup.clothes)
+                {
+                    if(type !== "all") T.clothesTargets.push(type);
+                }
+            >>
+            <<set _wornClothes to []>>
+            <<set _wornColours to []>>
+            <<for _n to 0; _n lt _clothesTargets.length; _n++>>
+                <<set _wornColours[_clothesTargets[_n]] to {}>>
+                <<set _wornColours[_clothesTargets[_n]].colour to "">>
+                <<set _wornColours[_clothesTargets[_n]].accessory_colour to "">>
+                <<set _wornColours[_clothesTargets[_n]].pattern to "">>
+                <<set _wornColours[_clothesTargets[_n]].integrity to 0>>
+                <<set _wornColours[_clothesTargets[_n]].integrity_max to 0>>
+                <<set _wornColours[_clothesTargets[_n]].altposition to "">>
+                <<set _wornColours[_clothesTargets[_n]].tucked to 0>>
+                <<set _wornColours[_clothesTargets[_n]].customColour to "#000000">>
+                <<set _wornColours[_clothesTargets[_n]].customColourAcc to "#000000">>
+            <</for>>
+            <div class="settingsToggleItemWide">
+                <span class="gold">Search Clothes:</span>
+                <<set _customNNPCClothesSearchbar to "">>
+            	<<textbox "_customNNPCClothesSearchbar" _customNNPCClothesSearchbar>>
+            </div>
+            <div class="settingsToggleItemWide">
+                <<set _customNNPCCopyTarget to "naked">>
+                <span class="gold">Copy from:</span>
+                <<listbox "_customNNPCCopyTarget" autoselect>>
+                    <<optionsfrom _customNnpcAllOutfits>>
+                <</listbox>>
+                |
+                <<button "Copy">>
+                    <<custom-nnpc-copy-clothing-set>>
+                <</button>>
+            </div>
+            <div class="settingsToggleItemWide" id="options-custom-nnpc-clothes-list-container">
+                <<options-custom-nnpc-clothes-list>>
+            </div>
+        <</if>>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-bodywriting" style="display:none">
+        <div class="settingsToggleItemWide">
+            <span class="gold">Search body writing:</span>
+            <<set _customNNPCTattoosSearchbar to "">>
+            <<textbox "_customNNPCTattoosSearchbar" _customNNPCTattoosSearchbar>>
+        </div>
+        <div class="settingsToggleItemWide" id="options-custom-nnpc-tattoos-list-container">
+            <<options-custom-nnpc-tattoos-list>>
+        </div>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-custom-layers" style="display:none">
+        <div class="settingsToggleItemWide">
+            <span class="gold">Custom Layers:</span>
+            <br>
+            <p>
+                Custom art layers source will start looking from the same folder as the one that is being used for the NPC's.
+                <br>For example, if the layer is "custom/wrinkles.png" and the imageset is "hikari_female", the loaded layer will be "hikari_female/custom/wrinkles.png".
+            </p>
+        </div>
+        <div id="options-custom-nnpc-custom-layers-list">
+            <<for _n to 0; _n lt $customNNPC.customImageLayers[_args[0]].length; _n++>>
+                <<options-custom-nnpc-custom-layers-list-item $customNNPC.settingsActivePreview _n>>
+            <</for>>
+        </div>
+        <br>
+        <div id="options-custom-nnpc-custom-layers-add">
+            <<button "Add Layer">>
+                <<custom-nnpc-settings-custom-layer-add>>
+            <</button>>
+        </div>
+    </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-custom-scaling" style="display:none">
+        <span class="gold">Custom size scaling:</span>
+        <br>
+        <span>This is the size at which the NPC will be displayed (compared to the PC, 1000 being the PC's size).</span>
+        <br><span class="red">Large/small values not recommended</span>.
+        <br><span class="red">Scaling is bi-directional. Meaning 500 is not 50% but 25%.</span>
+        <br>
+        <span>Width:</span>
+        <<numberbox "$customNNPC.customData[_args[0]].scalingX" $customNNPC.customData[_args[0]].scalingX>>
+        <br>
+        <span>Height:</span>
+        <<numberbox "$customNNPC.customData[_args[0]].scalingY" $customNNPC.customData[_args[0]].scalingY>>
+    </div>
+<</widget>>
