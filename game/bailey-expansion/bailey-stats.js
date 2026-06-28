@@ -1,39 +1,37 @@
 $(document).one(":storyready", function () {
 
-    /* Bailey's car icon â€” embedded as base64 to avoid ModLoader image path issues */
+    /* Bailey's car icon - embedded as base64 to avoid ModLoader image path issues */
     window.baileyCarIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAilJREFUSIntlb9rE2EYxz9Xrp5YmgbTxB8IVqKXwR8U3CwmOBnELIbiUJw6Bjq5dMs/0N09uLiJSybFQrcKVeOQK6FR0Eh+aJJaJdPrEN7zzfW9s6lNlvqFkLvn3vf5PM/3ebmDYyvbnhe2PS/GDtVdj1ITEjTubg2Ab+2f4nT4lCELuJ5Y4H15AwDH2TJGQq58bN2WP4BsJifGYb1Zrn7/6g3KLtUxHHXnJtDxe+g4W4Y6hpEqm8m51nrHcJQygx7qxjAWsDqG1cX0wCH78asHwNvtT4EJ1ssV7ZgCwfdSl+trK8sCYHPyAgDdVoNQJAqT/TW9uRAAVrVE7O5DOs06vTevsG7eodtqkAShK2AiCLy2siyKTYNn5eYAdGY25t4DnGntuFAZm5mNEYpE6c1dAyCZiA845guWUIBQJDoAVQFWtcSJW/fpNOsD+9U1KlwWsM//bCYn7JMVXnatIDNcWdWSm1iNSau9cSlDdicDzdpnNt5tHwj6LzJWF9Piw86XQ21u7+4NvSc8PUV7d69/qq9eOj90AulKeHpKW5AaV+9lsYb3tI1LhtjMi9RSAYCFG1f2LVDn/frpo/5FLU/qcfzAkKidpuEUPeAXCM7lSS0VtLZJPX/yAGp5ABeqJvSzXK6R/3Kd2U9S0Hardt135U+X3oQXz0a0YF1svVwxTFlt0Mn2dqNL+Ld3Np7XpumXaFj5fQySFIV2xocFJRNxN6Ef9L+Ot34DE0wbOE6jz3IAAAAASUVORK5CYII=";
 
     function baileyRevealed() {
         return V.stockholm_active === true;
     }
 
-    /* Bailey dom sync â€” $bailey_dom is our source of truth, mirrors to C.npc.Bailey.dom.
+    /* Bailey dom sync - $bailey_dom is our source of truth, mirrors to C.npc.Bailey.dom.
        The Stockholm clamp (floor at 100) only applies when stockholm_active is true, but
        the sync itself runs unconditionally so social panel always shows the real value.
        Self-heals saves from earlier mod versions where the two values drifted. */
     function syncBaileyDom() {
         if (!C.npc.Bailey) return;
 
-        /* NaN self-heal â€” pre-mod or legacy saves can have $bailey_dom / $bailey_love
+        /* NaN self-heal - pre-mod or legacy saves can have $bailey_dom / $bailey_love
            stuck at NaN because `<<set $bailey_dom += 1>>` on an undefined variable
            yields NaN. NaN silently fails every comparison (`NaN gte 30` is false,
            `NaN lt 30` is also false), so dom-gated prose and options break without
            any error surface. Worse, the mirror line below will clobber a previously
            valid C.npc.Bailey.dom with NaN if we don't fix the story variable first.
 
-           Fallback strategy â€” preferred in order:
+           Fallback strategy - preferred in order:
              1. The NPC system stat (C.npc.Bailey.dom/love) if it's still a valid
                 number. Usually the cleanest source since most corruption lives in
                 $bailey_dom/$bailey_love, not the NPC side.
              2. Failsafe defaults for the rare case both are corrupted:
                 - dom: 100 if Stockholm is active (matches the clamp on the next
                   line), otherwise 50 (Orphanage Intro init default).
-                - love: 25 â€” a deliberately conservative "earned respect" floor.
-                  Love accumulates slowly so we don't want to zero it out, but we
-                  also keep the floor below 30 so the `Bailey Title Organic` gate
-                  (`love gte 30`) can't fire just from a heal.
+                - love: 25 - a deliberately conservative "earned respect" floor.
+                  Love accumulates slowly, so we don't want to zero it out.
 
-           Only triggers on actual NaN â€” undefined and valid numbers pass through. */
+           Only triggers on actual NaN - undefined and valid numbers pass through. */
         if (Number.isNaN(V.bailey_dom)) {
             var _npcDom = C.npc.Bailey.dom;
             var _hasNpcDom = typeof _npcDom === "number" && !Number.isNaN(_npcDom);
@@ -56,19 +54,19 @@ $(document).one(":storyready", function () {
            for the same reason. */
         if (V.bailey_dom === undefined) {
             V.bailey_dom = baileyRevealed() ? 100 : 50;
-            console.log("[BaileyExpansion] Initialized missing $bailey_dom → " + V.bailey_dom);
+            console.log("[BaileyExpansion] Initialized missing $bailey_dom -> " + V.bailey_dom);
         }
         if (V.bailey_love === undefined) V.bailey_love = 0;
         if (baileyRevealed() && V.bailey_dom < 100) V.bailey_dom = 100;
         if (C.npc.Bailey.dom !== V.bailey_dom) C.npc.Bailey.dom = V.bailey_dom;
-        /* Love mirror sync â€” 42 boot.json patches (Rent Fight Finish, Temple Bailey *, Chef Opening,
+        /* Love mirror sync - 42 boot.json patches (Rent Fight Finish, Temple Bailey *, Chef Opening,
            Home Orphan *, Rent Seduce, etc.) only bump $bailey_love and forget <<npcincr Bailey love>>.
            Without this line the UI card's Respect bar freezes while the mod variable climbs silently. */
         if (V.bailey_love !== undefined && C.npc.Bailey.love !== V.bailey_love) C.npc.Bailey.love = V.bailey_love;
     }
     $(document).on(":passagestart :passageend", syncBaileyDom);
 
-    /* Bailey Date Stand-Up Check â€” if scheduled date wasn't attended by midnight, mark as missed.
+    /* Bailey Date Stand-Up Check - if scheduled date wasn't attended by midnight, mark as missed.
        Covers both Medium ($bailey_date_scheduled) and All Night ($bailey_date_allnight_scheduled). */
     $(document).on(":passagestart", function () {
         if (typeof Time === "undefined" || typeof Time.hour === "undefined") return;
@@ -94,13 +92,13 @@ $(document).one(":storyready", function () {
     });
 
 
-    /* ══════════════════════════════════════════════════════
-       Bailey Daily Lust — once Stockholm is fully active, Bailey
+    /*
+       Bailey Daily Lust - once Stockholm is fully active, Bailey
        accrues +1 lust per in-game day, mirroring vanilla love
        interests (Eden/Kylar/Robin/Alex). Tracked via
        $bailey_lust_lastday because vanilla's dailyNPCEffects() tick
        is not exposed on window to wrap. Clamped 0-100.
-       ══════════════════════════════════════════════════════ */
+       */
     $(document).on(":passagestart", function () {
         if (typeof Time === "undefined" || typeof Time.days === "undefined") return;
         if (V.bailey_lust_lastday === undefined) { V.bailey_lust_lastday = Time.days; return; }
@@ -112,19 +110,19 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /* ══════════════════════════════════════════════════════
+    /*
        Christmas Yearly Reset (Bailey gifts)
        Vanilla's time.js clears its own christmas_gift_* vars when the season
        ends, but it doesn't know about Bailey's. Without this, once a player
        gifts Bailey anything in year one, $christmas_gift_bailey stays defined
        forever and the shop's "Find a gift for Bailey" link (gated on it being
-       undefined) never reappears — locking out ALL future Bailey gifting.
+       undefined) never reappears - locking out ALL future Bailey gifting.
        Once the season is over ($christmas falsy), clear the per-year vars so
        the player can gift again next year. $christmas_bailey_lotus_day (the
        permanent "lotus given, ever" memory that gates the once-only lotus and
        ages the office display) and $bailey_office_gift (permanent display) are
        deliberately NOT cleared.
-       ══════════════════════════════════════════════════════ */
+       */
     $(document).on(":passagestart", function () {
         if (V.christmas) return;
         if (V.christmas_gift_bailey === undefined &&
@@ -135,28 +133,28 @@ $(document).one(":storyready", function () {
         delete V.christmas_gift_bailey_given;
     });
 
-    /* ══════════════════════════════════════════════════════
+    /*
        Permanent Lure Memory
        When Bailey receives the snake-shaped fishing lure for Christmas it
        becomes his displayed gift ($bailey_office_gift = "lure" on Dec 25).
        Record that permanently so scenes like the Eden lake can recognize the
        lure forever, even if a later year's gift overwrites $bailey_office_gift.
        (Also back-fills existing saves where the lure was already received.)
-       ══════════════════════════════════════════════════════ */
+       */
     $(document).on(":passagestart", function () {
         if (V.bailey_office_gift === "lure" && !V.bailey_lure_received) {
             V.bailey_lure_received = true;
         }
     });
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    /*
        Bailey Collar Art Registry
        Single source of truth for all built-in collar art.
        Adding a new collar:
          1. Append one entry to this array (key + pack + label + base64).
-         2. Done â€” every picker auto-populates, renderer auto-serves.
+         2. Done - every picker auto-populates, renderer auto-serves.
        The pack field controls which <optgroup> the listbox shows it in.
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       */
     window.baileyCollarRegistry = [
         { key: "goose", pack: "Goose", label: "Goose by Reiyu", image: "data:image/webp;base64,UklGRg4CAABXRUJQVlA4TAECAAAv/8E/EF+hJpKt5v9PDh2DAIzgBOtooExd1KCobSQn2b0G4I4/hYPXPmoCAGnYEICbEmSlhHms4GcEjvn/gUNcVQ+neqBAKEERiigIigCEgkd78BGAKAhLls/lCgkzrT0Gq7Pq/0ptHpM4Go8Bsm1bbRvbKeoF49i4dxAJ//+BWimaZb3Ruzei/4zctg3DfKBQ222nPSCJf9R/6j/1n/pP/af+07a8zL6ZUe7deQHAueC7O4MBBnLvDrrnAPeS5N4d5vq8Mv3/3cU/6j/1n/pP/adH6ab/2E/K3btmMjoZd89ezPQVva5k3L18myzPShF3r16ZTX3svlsZd2/eq8XUDbHIRNx9SRbvk/DVohZx93fbmtdlMeFj/N0CmYi75xZwZVv2v+KpzqtRL+Lu2Qhmk+U0ZUJI2JoVYb9NJuLuuYWzcB92V5tziFh1vT0f3DeliLu3I8DujTsdQxwi3P7gAGBUibh7/Q2A4PEcSHiE79WBQsTdkTXbEdd+4PPr8+tJ+h+yJOPu2Fcbh/D90n0+yegRnF3aMkm5Oxo7ivQD+S37EIMDPpKcu+O8t7sQ+Yj05GOIYb3p10nS3YHDDsEH+DsCfDi5TYKwuwM4bG93gsSeCZB4dwC3e+ItAf99d/GP+k/9p/5T/6n/1H/qP/Wf+k/9p/5T/6n/1H/qP/WfMg0A" },
         { key: "goosecolored", pack: "Goose", label: "Goose - Colored Lotus by En", image: "data:image/png;base64,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EEgvoACkj9iCBAgQIEAgCigA0cSEAAECBAikF1AA0kdsQQIECBAgEAUUgGhiQoAAAQIE0gsoAOkjtiABAgQIEIgCCkA0MSFAgAABAukFFID0EVuQAAECBAhEAQUgmpgQIECAAIH0AgpA+ogtSIAAAQIEooACEE1MCBAgQIBAegEFIH3EFiRAgAABAlFAAYgmJgQIECBAIL2AApA+YgsSIECAAIEooABEExMCBAgQIJBeQAFIH7EFCRAgQIBAFFAAookJAQIECBBIL6AApI/YggQIECBAIAooANHEhAABAgQIpBdQANJHbEECBAgQIBAFFIBoYkKAAAECBNILKADpI7YgAQIECBCIAgpANDEhQIAAAQLpBRSA9BFbkAABAgQIRAEFIJqYECBAgACB9AIKQPqILUiAAAECBKKAAhBNTAgQIECAQHoBBSB9xBYkQIAAAQJRQAGIJiYECBAgQCC9gAKQPmILEiBAgACBKKAARBMTAgQIECCQXkABSB+xBQkQIECAQBRQAKKJCQECBAgQSC+gAKSP2IIECBAgQCAKKADRxIQAAQIECKQXUADSR2xBAgQIECAQBRSAaGJCgAABAgTSCygA6SO2IAECBAgQiAIKQDQxIUCAAAEC6QUUgPQRW5AAAQIECEQBBSCamBAgQIAAgfQCCkD6iC1IgAABAgSigAIQTUwIECBAgEB6AQUgfcQWJECAAAECUUABiCYmBAgQIEAgvYACkD5iCxIgQIAAgSigAEQTEwIECBAgkF5AAUgfsQUJECBAgEAUUACiiQkBAgQIEEgvoACkj9iCBAgQIEAgCigA0cSEAAECBAikF/gPm/3uo5vglE0AAAAASUVORK5CYII=" },
@@ -171,12 +169,12 @@ $(document).one(":storyready", function () {
         { key: "dmmm", pack: "DMMM", label: "DMMM by Reiyu", image: "data:image/png;base64,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" }
     ];
 
-    /* Backward-compat alias â€” all existing code reads window.baileyCollarImages. */
+    /* Backward-compat alias - all existing code reads window.baileyCollarImages. */
     window.baileyCollarImages = {};
     window.baileyCollarRegistry.forEach(function (e) {
         window.baileyCollarImages[e.key] = e.image;
     });
-    /* Custom slot â€” separate from registry, loaded from localStorage on boot. */
+    /* Custom slot - separate from registry, loaded from localStorage on boot. */
     window.baileyCollarImages.custom = (function () {
         try { return localStorage.getItem("baileyCollarCustom") || null; }
         catch (e) { return null; }
@@ -187,7 +185,7 @@ $(document).one(":storyready", function () {
         var _collarPath = "img/clothes/neck/baileys_collar/";
         Renderer.ImageLoader = {
             loadImage: function (src, layer, successCallback, errorCallback) {
-                /* Only intercept our collar path â€” everything else passes through */
+                /* Only intercept our collar path - everything else passes through */
                 var _art = (V && V.bailey_collar_art) ? V.bailey_collar_art : "goose";
                 /* Fallback if custom was selected but never uploaded (or was cleared) */
                 if (_art === "custom" && !window.baileyCollarImages.custom) _art = "goose";
@@ -221,7 +219,7 @@ $(document).one(":storyready", function () {
     }
 
     /* Clear collar image cache and force the sidebar model to redraw with the new art style.
-       Works on the same page â€” no passage transition needed. */
+       Works on the same page - no passage transition needed. */
     window.baileyCollarCacheClear = function () {
         if (typeof Renderer === "undefined") return;
         /* Clear image-level cache for collar paths */
@@ -251,8 +249,8 @@ $(document).one(":storyready", function () {
         }
     };
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       Custom Collar Art â€” Player-Uploaded Image
+    /*
+       Custom Collar Art - Player-Uploaded Image
        Opens a file picker, reads the selected image as a
        base64 data URI, stores it in localStorage (survives
        page reload, does NOT bloat save files), registers it
@@ -261,7 +259,7 @@ $(document).one(":storyready", function () {
 
        Maximum: ~2MB raw file (base64 is ~33% larger, and
        localStorage per-origin limit is usually 5-10MB).
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       */
     window.baileyCollarUpload = function () {
         var input = document.createElement("input");
         input.type = "file";
@@ -280,7 +278,7 @@ $(document).one(":storyready", function () {
                 try {
                     localStorage.setItem("baileyCollarCustom", dataUri);
                 } catch (err) {
-                    alert("Couldn't save custom collar â€” localStorage is full or disabled.");
+                    alert("Couldn't save custom collar - localStorage is full or disabled.");
                     return;
                 }
                 window.baileyCollarImages.custom = dataUri;
@@ -331,14 +329,14 @@ $(document).one(":storyready", function () {
             console.log("[BaileyExpansion] listbox refresh failed:", e);
         }
     };
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    /*
        Listbox Picker Change Handler
        Attached at document level so it survives passage
        transitions and fires whenever the collar-art listbox
-       changes â€” no setTimeout/render-timing fragility.
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       changes - no setTimeout/render-timing fragility.
+       */
     $(document).on("change", "#collar-listbox select", function () {
-        /* Manual variable sync â€” we emit <select> directly so no SugarCube binding */
+        /* Manual variable sync - we emit <select> directly so no SugarCube binding */
         if (typeof State !== "undefined" && State.variables) {
             State.variables.bailey_collar_art = this.value;
         }
@@ -348,7 +346,7 @@ $(document).one(":storyready", function () {
     });
 
 
-    /* Bailey-specific Stockholm indicator â€” does NOT override the global <<gstockholm>> */
+    /* Bailey-specific Stockholm indicator - does NOT override the global <<gstockholm>> */
     Macro.add("gbaileystock", {
         handler: function () {
             if (typeof statDisplay === "undefined" || typeof statDisplay.statChange !== "function") return;
@@ -357,16 +355,17 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       Bailey Title System â€” "It's Bailey." â†' "It's Daddy."
+    /*
+       Bailey Title System - "It's Bailey." -> "It's Daddy."
        Swaps when:
-       1. $bailey_title_unlocked is true
-       2. $bailey_title is set and not "Bailey"
-       Stockholm gate removed â€” $bailey_title_unlocked is sufficient.
-       Stockholm deactivation resets $bailey_title to "Bailey",
-       so the swap naturally stops without a separate gate.
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       1. $stockholm_active is true
+       2. $bailey_title_unlocked is true
+       3. $bailey_title is set and not "Bailey"
+       Stockholm gate required - the title only shows while Stockholm is active.
+       Stockholm deactivation also resets $bailey_title to "Bailey".
+       */
     $(document).on(":passageend", function () {
+        if (!V.stockholm_active) return;
         if (!V.bailey_title_unlocked || !V.bailey_title || V.bailey_title === "Bailey") return;
 
         var title = V.bailey_title;
@@ -383,15 +382,15 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       Mod Active Indicator â€” Start Screen
+    /*
+       Mod Active Indicator - Start Screen
        Injects a glowing red line on the Start passage so
        players can confirm the mod loaded. Runs inside
        :storyready because :passageend for Start fires
-       BEFORE :storyready â€” a handler registered here
+       BEFORE :storyready - a handler registered here
        would miss it. Since :storyready guarantees we're
        on Start, we inject directly.
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       */
     var _indicatorContainer = document.getElementById("passage-content") || document.querySelector(".passage");
     if (_indicatorContainer && !_indicatorContainer.querySelector("#bailey-mod-indicator")) {
         var el = document.createElement("div");
@@ -400,7 +399,7 @@ $(document).one(":storyready", function () {
         el.style.textAlign = "center";
         el.style.marginTop = "1em";
         el.style.marginBottom = "1em";
-        el.textContent = "Reiyu's Bailey Expansion v0.4.10 for New World \u2014 Active";
+        el.textContent = "Reiyu's Bailey Expansion v0.4.11 for New World \u2014 Active";
         var firstChild = _indicatorContainer.firstChild;
         if (firstChild) {
             _indicatorContainer.insertBefore(el, firstChild);
@@ -409,19 +408,19 @@ $(document).one(":storyready", function () {
         }
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       Bailey's Collar â€” registered via baileyCollar.json
+    /*
+       Bailey's Collar - registered via baileyCollar.json
        The clothing item is now defined in baileyCollar.json and
        loaded by ModdedClothesAddon during modloader bootstrap.
        Moved out of JS (was causing "collar disappears on load"
        bug because JS-side registration ran AFTER save deserialization).
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       */
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    /*
        Bailey as Love Interest
        Adds Bailey to the love interest dropdown.
        Only appears as selectable when Stockholm is active.
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       */
     if (typeof setup !== "undefined" && setup.loveInterestNpc) {
         if (!setup.loveInterestNpc.includes("Bailey")) {
             /* unshift (not push): place Bailey at the START of the love interest
@@ -441,19 +440,40 @@ $(document).one(":storyready", function () {
         return _origIsPossibleLoveInterest(name);
     };
 
-    /* ══════════════════════════════════════════════════════
+    /* Bailey's virginities show pink (love interest), not green (just consensual).
+       statistics.twee colors the PC's own virginities via isPossibleLoveInterestVirginity(),
+       whose vanilla body calls a CLOSURE-LOCAL isPossibleLoveInterest -- so it never sees the
+       window patch above, and Bailey fell through to the green branch. Wrap it too: Bailey
+       counts once Stockholm is active, combined "X and Y" takers route through the patched
+       window fn, everything else keeps vanilla behaviour. Guarded by typeof for safety. */
+    if (typeof window.isPossibleLoveInterestVirginity === "function") {
+        var _origLoveInterestVirginity = window.isPossibleLoveInterestVirginity;
+        window.isPossibleLoveInterestVirginity = function (taker) {
+            if (typeof taker === "string") {
+                if (taker === "Bailey") return V.stockholm_active === true;
+                if (taker.includes(" and ")) {
+                    return taker.split(" and ").some(function (n) {
+                        return window.isPossibleLoveInterest(n.trim());
+                    });
+                }
+            }
+            return _origLoveInterestVirginity(taker);
+        };
+    }
+
+    /*
        Bailey as sex-shop gift recipient
        Vanilla's determineRecipient() (sexShopMenu.js) builds the
        "Make a gift for:" dropdown from a HARDCODED name array, not
-       setup.loveInterestNpc — so registering Bailey as a love interest
+       setup.loveInterestNpc - so registering Bailey as a love interest
        does NOT reach it. We wrap the function: delegate to vanilla,
        then inject a Bailey <option> (first) when he's an unlocked love
        interest (Stockholm active). The edge case where Bailey is the
-       ONLY eligible recipient — vanilla returns "" — is handled by
+       ONLY eligible recipient - vanilla returns "" - is handled by
        rebuilding vanilla's wrapper around just him.
        NOTE: that rebuild mirrors vanilla's builder markup; re-sync it
        if upstream ever changes determineRecipient's HTML.
-       ══════════════════════════════════════════════════════ */
+       */
     if (typeof window.determineRecipient === "function") {
         var _origDetermineRecipient = window.determineRecipient;
         window.determineRecipient = function (index) {
@@ -465,22 +485,22 @@ $(document).one(":storyready", function () {
             var item = setup.sextoys[index];
             var baileyOption = '<option value="Bailey">Bailey</option>';
             if (html && html.indexOf('id="recipientList"') !== -1) {
-                /* Vanilla built the dropdown — slot Bailey in as the first option. */
+                /* Vanilla built the dropdown - slot Bailey in as the first option. */
                 return html.replace('id="recipientList">', 'id="recipientList">' + baileyOption);
             }
             /* html === "": either the money gate failed, or Bailey is the sole
                recipient. Re-check affordability (item cost + £15 wrap fee; money is
-               stored ×100). If affordable, Bailey is the only recipient — rebuild
+               stored x100). If affordable, Bailey is the only recipient - rebuild
                vanilla's wrapper around him alone. */
             if (V.money < item.cost + 15 * 100) return html;
             return '<br id="giftBr"><a id="ssmGiftButton" onclick="window.sexShopOnGiftClick(' + item.index + ')" class="ssm_gift_button">\nMake a gift for :  </a><select name="recipient" id="recipientList">' + baileyOption + '</select>\n<div id="spanGift">(<span class="gold">£' + (item.cost / 100 + 15) + '</span>)</div>';
         };
     }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       Mod Feats â€” register with setup.feats so earnFeat
+    /*
+       Mod Feats - register with setup.feats so earnFeat
        can display the popup and record them correctly.
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       */
     if (typeof setup !== "undefined" && setup.feats) {
         if (!setup.feats["Caring for the Caretaker"]) {
             setup.feats["Caring for the Caretaker"] = {
