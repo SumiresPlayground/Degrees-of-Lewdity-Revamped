@@ -291,32 +291,10 @@ You cross the room and lower yourself over <<his>> knee. <<His>> hand comes to r
 "Count," <<he>> says.
 <br><br>
 
-<<link [[Try to count.|Bailey Spanking Proper Try]]>><</link>><<willpowerdifficulty 1 400>>
+<<link [[Try to count.|`${$bailey_spank_count >= 9 ? "Bailey Spanking Ten" : "Bailey Spanking Count"}`]]>><<if $pain gte 160 or not $willpowerSuccess>><<set $bailey_spank_choice to "cry">><<set $bailey_spank_clean to false>><<stress 2>><<else>><<set $bailey_spank_choice to "count">><</if>><<set $bailey_spank_count += 1>><</link>><<willpowerdifficulty 1 400>>
 <br>
-<<link [[Mock <<him>>.|Bailey Spanking Proper Route]]>><<set $bailey_spank_choice to "mock">><<set $bailey_spank_clean to false>><<masopain 5>><</link>>
+<<link [[Mock <<him>>.|`${$bailey_spank_count >= 9 ? "Bailey Spanking Ten" : "Bailey Spanking Count"}`]]>><<set $bailey_spank_choice to "mock">><<set $bailey_spank_clean to false>><<masopain 5>><<set $bailey_spank_count += 1>><</link>>
 <br>
-
-
-:: Bailey Spanking Proper Try
-/* Decides whether PC counts through the pain, then jumps to Route. $willpowerSuccess was set by <<willpowerdifficulty>> on the previous passage. */
-<<if $pain gte 160 or not $willpowerSuccess>>
-	<<set $bailey_spank_choice to "cry">>
-	<<set $bailey_spank_clean to false>>
-	<<stress 2>>
-<<else>>
-	<<set $bailey_spank_choice to "count">>
-<</if>>
-<<goto "Bailey Spanking Proper Route">>
-
-
-:: Bailey Spanking Proper Route
-/* Invisible router: bumps the strike count, then goes to the next strike or to Ten. */
-<<set $bailey_spank_count += 1>>
-<<if $bailey_spank_count gte 10>>
-	<<goto "Bailey Spanking Ten">>
-<<else>>
-	<<goto "Bailey Spanking Count">>
-<</if>>
 
 
 :: Bailey Spanking Count
@@ -453,9 +431,9 @@ You cross the room and lower yourself over <<his>> knee. <<His>> hand comes to r
 	<br><br>
 <</if>>
 
-<<link [[Try to count.|Bailey Spanking Proper Try]]>><</link>><<willpowerdifficulty 1 400>>
+<<link [[Try to count.|`${$bailey_spank_count >= 9 ? "Bailey Spanking Ten" : "Bailey Spanking Count"}`]]>><<if $pain gte 160 or not $willpowerSuccess>><<set $bailey_spank_choice to "cry">><<set $bailey_spank_clean to false>><<stress 2>><<else>><<set $bailey_spank_choice to "count">><</if>><<set $bailey_spank_count += 1>><</link>><<willpowerdifficulty 1 400>>
 <br>
-<<link [[Mock <<him>>.|Bailey Spanking Proper Route]]>><<set $bailey_spank_choice to "mock">><<set $bailey_spank_clean to false>><<masopain 5>><</link>>
+<<link [[Mock <<him>>.|`${$bailey_spank_count >= 9 ? "Bailey Spanking Ten" : "Bailey Spanking Count"}`]]>><<set $bailey_spank_choice to "mock">><<set $bailey_spank_clean to false>><<masopain 5>><<set $bailey_spank_count += 1>><</link>>
 <br>
 
 
