@@ -21,6 +21,10 @@
         <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers3>>
             <<custom-nnpc-fix-custom-layers3>>
         <</if>>
+        <!-- 1.2 rework -->
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers4>>
+            <<custom-nnpc-fix-custom-layers4>>
+        <</if>>
         <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.hairEyeColour>>
             <<custom-nnpc-fix-hair-eye-colour>>
         <</if>>
@@ -133,18 +137,18 @@
     <</if>>
 
     <!-- Short term memory -->
-    <<if ndef setup.customNNPC>>
+    <<if ndef setup.customNNPC >>
         <<set setup.customNNPC to {} >>
     <</if>>
 
-    <<if ndef $customNNPC.versionFixes>>
+    <<if ndef $customNNPC.versionFixes >>
         <<set $customNNPC.versionFixes to {}>>
     <</if>>
-    <<if ndef $customNNPC.DEBUG>>
+    <<if ndef $customNNPC.DEBUG >>
         <<set $customNNPC.DEBUG to false>>
     <</if>>
 
-    <<if ndef $customNNPC.errorStack>>
+    <<if ndef $customNNPC.errorStack >>
         <<set $customNNPC.errorStack to []>>
     <</if>>
     <<if ndef $customNNPC.canvasLocation >>
@@ -153,7 +157,7 @@
     <<if ndef $customNNPC.sidebarLayer>>
         <<set $customNNPC.sidebarLayer to "front">>
     <</if>>
-    <<if ndef $customNNPC.canvasContents>>
+    <<if ndef $customNNPC.canvasContents >>
         <<set $customNNPC.canvasContents to {}>>
         <<set $customNNPC.canvasContents.offset to "-25">>
         <<set $customNNPC.canvasContents.cutoff to "70">>
@@ -271,6 +275,8 @@
         <<set setup.customNNPC.customLayerToggles to {
             "Use eating mouth" : "chew",
             "Right Arm hold": "right-hold",
+            "Right Arm cover": "right-cover",
+            "Left Arm cover": "left-cover",
         }>>
     <</if>>
     <<if ndef $customNNPC.canvasSize >>
@@ -284,11 +290,7 @@
     <</if>>
     <<for _n to 0; _n lt $NPCName.length; _n++>>
         <<if ndef $customNNPC.hairInitialized[$NPCNameList[_n]]>>
-            <<if $passage === "Start">>
-                <<set $customNNPC.hairInitialized[$NPCNameList[_n]] to false>>
-            <<else>>
-                <<set $customNNPC.hairInitialized[$NPCNameList[_n]] to true>>
-            <</if>>
+            <<set $customNNPC.hairInitialized[$NPCNameList[_n]] to false>>
         <</if>>
         <<if ndef $customNNPC.useCustom[$NPCNameList[_n]]>>
             <<custom-nnpc-init-npc-data $NPCNameList[_n]>>

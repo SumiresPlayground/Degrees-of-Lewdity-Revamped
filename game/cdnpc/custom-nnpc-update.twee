@@ -1,5 +1,11 @@
 :: Update Custom NNPC Widgets [widget]
 
+<<widget "update-custom-nnpc-early">>
+    <<if $passage === "Robin Unwrap" || ($passage==="Robin's Room Entrance" && $christmas_robin_lewd===1)>>
+        <<set _customNNPCRobinLewd to true>>
+    <</if>>
+<</widget>>
+
 <<widget "update-custom-nnpc">>
     <<if $passage !== "Start">>
         <<if $NPCNameList.includes($NPCList[0].fullDescription)>>
@@ -41,6 +47,11 @@
                 <<set $customNNPC.bottomExposed to true>>
             <<else>>
                 <<set $customNNPC.bottomExposed to false>>
+            <</if>>
+            <<if def _customNNPCRobinLewd && _customNNPCRobinLewd === true>>
+                <<npcClothesName $NPCName[$NPCNameList.indexOf("Robin")] "robinLewdRibbons">>
+                <<npcClothesName $NPCList[0] "robinLewdRibbons">>
+                <<custom-nnpc-autodetect>>
             <</if>>
             <<if ! $customNNPC.cd[$NPCList[0].fullDescription].discovered >>
                 <<set _nameIdx to $NPCNameList.indexOf($NPCList[0].fullDescription) >>

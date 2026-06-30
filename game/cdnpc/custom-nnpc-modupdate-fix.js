@@ -89,6 +89,20 @@ DefineMacro("custom-nnpc-fix-custom-layers3", function(){
     V.customNNPC.versionFixes["customLayers3"] = true;
 });
 
+
+DefineMacro("custom-nnpc-fix-custom-layers4", function(){
+    for (let i = 0; i < V.NPCNameList.length; i++) {
+        let npcName = V.NPCNameList[i];
+        for (let j = 0; j < V.customNNPC.customImageLayers[npcName].length; j++) {
+            if(!("children" in V.customNNPC.customImageLayers[npcName][j])){
+                V.customNNPC.customImageLayers[npcName][j].children = [];
+            }
+        }
+    }
+
+    V.customNNPC.versionFixes["customLayers4"] = true;
+});
+
 DefineMacro("custom-nnpc-fix-hair-eye-colour", function(){
     for (let i = 0; i < V.NPCName.length; i++) {
         let hairColour = V.NPCName[i].hairColour;
