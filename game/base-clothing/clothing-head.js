@@ -4723,7 +4723,7 @@ function initHead() {
 			colour_sidebar: 1,
 			type: ["costume", "shade", "eerie"],
 			gender: "n",
-			warmth: 25,
+			warmth: 2,
 			cost: 3000,
 			description: "The eyes are a bit creepy.",
 			shop: ["clothing", "forest"],

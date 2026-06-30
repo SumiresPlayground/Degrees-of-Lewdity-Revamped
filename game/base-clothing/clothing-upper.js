@@ -13354,6 +13354,7 @@ function initUpper() {
 		},
 	
 			{index: 2,
+			slot: "upper",
 			name: "mushroom bodice",
 			name_cap: "Mushroom bodice",
 			variable: "mushroom4",

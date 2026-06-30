@@ -440,12 +440,12 @@
 					<span class="pink">Your tail is free, but doesn't feel real.</span>
 				<<else>>
 					<<if not $options.combatControls.includes("adio") and _targetnumber gt 1>>
-						<<targetListBox "tail" _targetlisttail>>
+						<<targetListBox "tail" _targetlist>>
 					<</if>>
 						<<set _tailOptions to "free">>
 						<span @class="($lastOptions.tail isnot _tailOptions or _tailGold is true ?'gold':'')">Your tail is free.</span>
 					<<if $options.combatControls.includes("adio") and _targetnumber gt 1>>
-						<<targetListBox "tail" _targetlisttail>>
+						<<targetListBox "tail" _targetlist>>
 						<<if $options.combatControls is "radio">><br><</if>>
 					<</if>>
 				<</if>>

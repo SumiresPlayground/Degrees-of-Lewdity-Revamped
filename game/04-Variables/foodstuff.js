@@ -3256,7 +3256,7 @@ function initFoodstuff() {
 			},
 		},
 		honeysuckle: {
-			index: 152,
+			index: 153,
 			name: "honeysuckle",
 			singular: "honeysuckle",
 			plural: "honeysuckles",

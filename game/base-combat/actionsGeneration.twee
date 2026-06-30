@@ -1101,76 +1101,54 @@
 
 <<widget "tailActionInit">>
 <<if $hastail is "true">>
-	<<if $orgasmdown gte 1>>
-		<<if $tailuse is 0>>
-			<<set _tailOptions to "orgasm">>
-			<span class="lewd">Your tail is free, but you can't use it due to your orgasmic spasms.</span><br><br>
-		<<else>>
-			<<timed 100ms>>
-				<<run jQuery("#tailaction").remove();>>
-			<</timed>>
-		<</if>>
-	<<elseif $pain gte 100 and $willpowerpain is 0 and !$possessed>>
-		<<if $tailuse is 0>>
-			<<set _tailOptions to "pain">>
-			<span class="red">Your tail is free, but the overwhelming pain prevents you from using it.</span><br><br>
-		<<else>>
-			<<timed 100ms>>
-				<<run jQuery("#tailaction").remove();>>
-			<</timed>>
-		<</if>>
-	<<elseif $dissociation gte 2 and !$possessed>>
-		<<if $tailuse is 0>>
-			<<set _tailOptions to "unreal">>
-			<span class="pink">Your tail is free, but it doesn't feel like it belongs to you.</span><br><br>
-		<<else>>
-			<<timed 100ms>>
-				<<run jQuery("#tailaction").remove();>>
-			<</timed>>
-		<</if>>
-	<<elseif $possessed>>
-		<<if $tailuse is 0>>
-			<<set _tailOptions to "possessed">>
-			Your tail is free, <span class="pink">but you're not in control of it.</span><br><br>
-		<<else>>
-			<<timed 100ms>>
-				<<run jQuery("#tailaction").remove();>>
-			<</timed>>
-		<</if>>
-	<<elseif $possessedBound>>
-		<<if $tailuse is 0>>
-			<<set _tailOptions to "possessed">>
-			Your tail is free, <span class="pink">but you're not in control of it.</span><br><br>
-		<<else>>
-			<<timed 100ms>>
-				<<run jQuery("#tailaction").remove();>>
-			<</timed>>
-		<</if>>
-	<<else>>
-		<<set _tailOptions to "free">>
-		<span @class="($lastOptions.tail isnot _tailOptions ?'gold':'')">Your tail is free.</span>
-		<<if $lastOptions.tail isnot _tailOptions>>
-			<<set _tailGold to true>>
-		<</if>>
-		<<if $_changetype isnot true>>
-			<<tailActions>>
-			<<if Object.keys(_tailaction).length gt 0>>
-				<<set $tailaction to $tailactiondefault>>
-				<<assignCombatDefaults "tail" _args[0]>>
-				<<generateCombatAction _tailaction "tailaction">>
-
-				<<if $options.combatControls.includes("ists")>>
-					<div id="tailactionDifficulty">
-						<<tailactionDifficulty>>
-					</div>
+	<<switch $tail>>
+		<<case 0>>
+			<<if $orgasmdown gte 1>>
+				<<set _tailOptions to "orgasm">>
+				<span class="lewd">Your tail is free, but you can't stop the spasms.</span>
+			<<elseif $pain gte 100 and $willpowerpain is 0 and !$possessed>>
+				<<set _tailOptions to "pain">>
+				<span class="red">Your tail is free, but hurts to move.</span>
+			<<elseif $dissociation gte 2 and !$possessed>>
+				<<set _tailOptions to "unreal">>
+				<span class="pink">Your tail is free, but doesn't feel real.</span>
+			<<elseif $possessed>>
+				<<set _tailOptions to "possessed">>
+				Your tail is free, <span class="pink">but not under your control.</span>
+			<<else>>
+				<<if not $options.combatControls.includes("adio") and _targetnumber gt 1>>
+					<<targetListBox "tail" _targetlist>>
+				<</if>>
+				<<set _tailOptions to "free">>
+				<span @class="($lastOptions.tail isnot _tailOptions or _tailGold is true ?'gold':'')">Your tail is free.</span>
+				<<if $options.combatControls.includes("adio") and _targetnumber gt 1>>
+					<<targetListBox "tail" _targetlist>>
+				<</if>>
+				<<if _targetnumber is 1>>
+					<<set $tailtarget to _firsttarget>>
 				<</if>>
 			<</if>>
-			<<set $lastOptions.tail to clone(_tailOptions)>>
-		<<else>>
-			<<timed 100ms>>
-				<<run jQuery("#tailaction").remove();>>
-			<</timed>>
+	<</switch>>
+	<<if $lastOptions.tail isnot _tailOptions>>
+		<<set _tailGold to true>>
+	<</if>>
+	<<if $_changetype isnot true>>
+		<<tailActions>>
+		<<if Object.keys(_tailaction).length gt 0>>
+			<<assignCombatDefaults "tail" _args[0]>>
+			<<generateCombatAction _tailaction "tailaction">>
+
+			<<if $options.combatControls.includes("ists")>>
+				<div id="tailactionDifficulty">
+					<<tailactionDifficulty>>
+				</div>
+			<</if>>
 		<</if>>
+		<<set $lastOptions.tail to clone(_tailOptions)>>
+	<<else>>
+		<<timed 100ms>>
+			<<run jQuery("#tailaction").remove();>>
+		<</timed>>
 	<</if>>
 <</if>>
 <</widget>>
@@ -1203,7 +1181,6 @@
 				<<if $thintail is "true">>
 					<<tailwag>>
 				<</if>>
-				/*These won't be currently visible due to the <<run jQuery("#tailaction").remove();>> but actions can be added to these later for extra flavor text */
 			<<case "orgasm">>
 				<<set _tailaction["Endure"] to "rest">>
 			<<case "pain">>

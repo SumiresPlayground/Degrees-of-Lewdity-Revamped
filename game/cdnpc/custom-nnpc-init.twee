@@ -63,7 +63,7 @@
         <<set _IWFixIndex to $NPCNameList.indexOf("Ivory Wraith")>>
         <<set $NPCName[_IWFixIndex].eyeColour to "dark blue">>
         <<set $NPCName[_IWFixIndex].hairColour to "white">>
-        <<set $customNNPC.useCustom[_args[0]] to false>>
+        <<set $customNNPC.useCustom[_args[0]] to true>>
         <<set $customNNPC.customClothesSets[_args[0]] to {}>>
         <<set $customNNPC.customData[_args[0]] to {}>>
         <<set $customNNPC.customData[_args[0]].body_type to "classic">>
@@ -133,27 +133,27 @@
     <</if>>
 
     <!-- Short term memory -->
-    <<if ndef setup.customNNPC >>
+    <<if ndef setup.customNNPC>>
         <<set setup.customNNPC to {} >>
     <</if>>
 
-    <<if ndef $customNNPC.versionFixes >>
+    <<if ndef $customNNPC.versionFixes>>
         <<set $customNNPC.versionFixes to {}>>
     <</if>>
-    <<if ndef $customNNPC.DEBUG >>
+    <<if ndef $customNNPC.DEBUG>>
         <<set $customNNPC.DEBUG to false>>
     <</if>>
 
-    <<if ndef $customNNPC.errorStack >>
+    <<if ndef $customNNPC.errorStack>>
         <<set $customNNPC.errorStack to []>>
     <</if>>
     <<if ndef $customNNPC.canvasLocation >>
         <<set $customNNPC.canvasLocation to "sidebar">>
     <</if>>
-    <<if ndef $customNNPC.sidebarLayer >>
-        <<set $customNNPC.sidebarLayer to "back">>
+    <<if ndef $customNNPC.sidebarLayer>>
+        <<set $customNNPC.sidebarLayer to "front">>
     <</if>>
-    <<if ndef $customNNPC.canvasContents >>
+    <<if ndef $customNNPC.canvasContents>>
         <<set $customNNPC.canvasContents to {}>>
         <<set $customNNPC.canvasContents.offset to "-25">>
         <<set $customNNPC.canvasContents.cutoff to "70">>

@@ -166,6 +166,8 @@ function initSpecialClothes() {
 
 		{ name: "sage witch hat", 				sets: ["sage_witch_hat"] },
 		{ name: "familiar collar",				sets: ["familiar_collar"] },
+
+		{ name: "perchten mask",				sets: ["perchten_mask"] },
 	];
 
 	/* must match set names above.
@@ -757,6 +759,15 @@ function initSpecialClothes() {
 			iconIndex: 183,
 			iconColor: "purple",
 		},
+		perchten_mask: {
+			text: "perchten mask",
+			requirements: () => V.perchtenmask !== undefined,
+			hint: "witness Frau Perchta",
+			shop: ["cursed"],
+			feat: true,
+			featCost: 10,
+			icon: "clothes/perchten_mask.png",
+		},
 		// The flowers set is made up of items that all have different unlock requirements, which individually wouldn't really be worth an entire conversation option or feat entry.
 		flowers: {
 			text: "flowers",
@@ -816,6 +827,7 @@ function specialClothesUpdate() {
 	if (!V.specialClothes.some(item => item.name === "familiar collar")) V.specialClothes.push({ name: "familiar collar", unlocked: 0 });
 	if (!V.specialClothes.some(item => item.name === "butterfly eyepatch")) V.specialClothes.push({ name: "butterfly eyepatch", unlocked: 0 });
 	if (!V.specialClothes.some(item => item.name === "rose eyepatch")) V.specialClothes.push({ name: "rose eyepatch", unlocked: 0 });
+	if (!V.specialClothes.some(item => item.name === "perchten mask")) V.specialClothes.push({ name: "perchten mask", unlocked: 0 });
 
 	// Delete any entries that do not have a matching setup object.
 	V.specialClothes.forEach((clothing, index) => {
@@ -1106,6 +1118,7 @@ function updateSpecialClothesNames(object) {
 			"sexynun'sveil": "sexy nun's veil",
 			"sexynun'sornateveil": "sexy nun's ornate veil",
 			"sexypriest'svestments": "sexy priest's vestments",
+			perchtenmask: "perchten mask",
 		},
 		convert(obj) {
 			return Object.keys(obj).map(key => this.name[key]);

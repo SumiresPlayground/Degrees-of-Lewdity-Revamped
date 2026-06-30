@@ -70,9 +70,9 @@ setup.feats = {
 		filter: ["All", "General"],
 		softLockable: true,
 	},
-	"Being Bigenital": {
-		title: "Being Bigenital",
-		desc: "Get to day 50 while bigenital.",
+	"Being a Hermaphrodite": {
+		title: "Being a Hermaphrodite",
+		desc: "Get to day 50 as a hermaphrodite.",
 		difficulty: 1,
 		series: "",
 		filter: ["All", "General"],
@@ -988,7 +988,7 @@ setup.feats = {
 		difficulty: 1,
 		series: "",
 		filter: ["All", "Transformation", "Questline"],
-		hint: "Hint: Fild the cult and fulfil the ritual.",
+		hint: "Hint: Find the cult and fulfil the ritual.",
 	},
 	"Fae": {
 		title: "Enchanted",

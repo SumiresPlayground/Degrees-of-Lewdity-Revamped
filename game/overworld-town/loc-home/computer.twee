@@ -304,38 +304,49 @@
 <<widget "requestPage">>
 <<silently>>
 <<if $dailyghostmission is undefined or $dailyghostmission is 0>>
-	<<set _all to [
-		{label:"Strange Creaking",   text:"A strange creaking has been coming from my attic, can someone help?"},
-		{label:"Weird Creature",   text:"There is something living in my walls, does anybody know what this is?"},
-		{label:"Rattling Trashcans", text:"Something keeps rummaging through my garbage. Exterminator needed."},
-		{label:"Hissing from Garage",text:"Some kind of animal or something keeps hissing from the garage."},
-		{label:"Something in Cupboard",   text:"Every night, there is a strange scratching from the cupboard."},
-		{label:"Strange Holes",   text:"Strange holes are appearing in my lawn, anybody recognize these?"},
-		{label:"Something Following",   text:"I feel like something is following me, can someone investigate?"},
-		{label:"Cracked Wall",   text:"Strange cracks keep appearing on my wall out of nowhere."}
+	<<if $fame.investigator gte 400 and $cursedshopintro isnot 1>>
+		<<set _all to [
+			{label: "Special Request",   text:  "Head to the commercial alleyways, make sure you're not followed."}
 		]>>
-	<<if $fame.investigator gte 400>>
-		<<set _all.pushUnique(
-			{label:"Stuff Disappearing",   text:"Goods and valuables keep disappearing from the factory at night."}
-		)>>
+	<<else>>
+		<<set _all to [
+			{label:"Strange Creaking",   text:"A strange creaking has been coming from my attic, can someone help?"},
+			{label:"Weird Creature",   text:"There is something living in my walls, does anybody know what this is?"},
+			{label:"Rattling Trashcans",   text:"Something keeps rummaging through my garbage. Exterminator needed."},
+			{label:"Hissing from Garage",   text:"Some kind of animal or something keeps hissing from the garage."},
+			{label:"Something in Cupboard",   text:"Every night, there is a strange scratching from the cupboard."},
+			{label:"Strange Holes",   text:"Strange holes are appearing in my lawn, anybody recognize these?"},
+			{label:"Something Following",   text:"I feel like something is following me, can someone investigate?"},
+			{label:"Cracked Wall",   text:"Strange cracks keep appearing on my wall out of nowhere."}
+			]>>
+		<<if $fame.investigator gte 400>>
+			<<set _all.pushUnique(
+				{label:"Stuff Disappearing",   text:"Goods and valuables keep disappearing from the factory at night."}
+			)>>
+		<</if>>
+		<<if $fame.investigator gte 1600>>
+			<<if $settings.goreEnabled>>
+				<<set _all.pushUnique(
+					{label:"Unknown Blood",   text:"A strange blood-like substance keeps flowing up the hospital drains."}
+				)>>
+			<</if>>
+		<</if>>
+		<<set _requests to []>>
+		<<for _i to 0; _i lt 5; _i++>>
+			<<set _choice to _all.random()>>
+			<<set _all.delete(_choice)>>
+			<<set _requests.push(_choice)>>
+		<</for>>
+		<<set $dailyghostmission to _requests>>
 	<</if>>
-	<<if $fame.investigator gte 800>>
-		<<set _all.pushUnique(
-			{label:"Unknown Blood",   text:"A strange blood-like substance keeps flowing up the hospital drains."}
-		)>>
-	<</if>>
-	<<set _requests to []>>
-	<<for _i to 0; _i lt 5; _i++>>
-		<<set _choice to _all.random()>>
-		<<set _all.delete(_choice)>>
-		<<set _requests.push(_choice)>>
-	<</for>>
-	<<set $dailyghostmission to _requests>>
 <</if>>
 <<set _requests to $dailyghostmission>>
 <</silently>>
 
 <div class="ghost-blog">
+	<h2 class="red">Trigger warning</h2>
+	<span class="red">If the gore setting is enabled, some of these jobs may contain disturbing events.</span>
+	<br><br>
 	<h1 class="ghost-title">Paranormal Requests</h1>
 	<ul class="request-list">
 		<<for _i to 0; _i lt _requests.length; _i++>>
@@ -386,6 +397,8 @@
 				The request location is on «Harvest Street»
 			<<elseif $acceptedRequest is "Unknown Blood">>
 				The request location is on «Nightingale Street»
+			<<elseif $acceptedRequest is "Special Request">>
+				<li><span class="ghost-footer">The request location is in the «Commercial Alleyways»</span></li>
 			<</if>>
 			<br>
 		<</if>>

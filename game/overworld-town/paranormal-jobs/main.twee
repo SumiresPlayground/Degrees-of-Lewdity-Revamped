@@ -1,5 +1,6 @@
 :: Domus Job Knock
 <<generate1>><<person1>>
+<<saveNPC 0 "Domus">>
 You make your way up the cracked steps to the shoddy Domus home. A <<person>> answers the door. "How can I help you?" <<he>> asks.
 <br><br>
 <<if $acceptedRequest is "Strange Creaking">>
@@ -14,6 +15,7 @@ You make your way up the cracked steps to the shoddy Domus home. A <<person>> an
 
 :: Danube Job Knock
 <<generate1>><<person1>>
+<<saveNPC 0 "Danube">>
 You make your way up the pristine driveway to the large and well maintained Danube mansions. A <<person>> answers the door. "How can I help you?" <<he>> asks.
 <br><br>
 <<if $acceptedRequest is "Rattling Trashcans">> 
@@ -28,6 +30,7 @@ You make your way up the pristine driveway to the large and well maintained Danu
 
 :: Factory Job Knock
 <<generate1>><<person1>>
+<<saveNPC 0 "Harvest">>
 You walk up to the towering factory and knock on the sealed metal door. A <<person>> answers the door. "How can I help you?" <<he>> asks.
 <br><br>
 <<if $acceptedRequest is "Stuff Disappearing">>
@@ -36,6 +39,7 @@ You walk up to the towering factory and knock on the sealed metal door. A <<pers
 
 :: Hospital Job Knock
 <<generate1>><<person1>>
+<<saveNPC 0 "Nightingale">>
 You enter the sliding door of the hospital and are greeded by a nurse at the front desk. One of the nurses approaches as you enter. "How can I help you?" <<he>> asks.
 <br><br>
 <<if $acceptedRequest is "Unknown Blood">>
@@ -43,16 +47,577 @@ You enter the sliding door of the hospital and are greeded by a nurse at the fro
 <</if>>
 
 :: Strange Creaking Intro
+The <<personsimple>> doesn't wait, beckoning you to enter as <<he>> talks. "There is this strange heavy creaking from the attic, but I have no clue what has been causing it. I worry some kind of animal might be stuck up there."
+<br><br>
+<<He>> turns to face you as you arrive at a ladder that looks like it hasn't been used in decades. "Here we are. Good luck." <<He>> turns to walk away, leaving you alone.
+<br><br>
+<<link [[Climb the Ladder (0:10)|Strange Creaking]]>><<pass 10>><</link>>
 
+:: Strange Creaking
+<<endevent>>
+<<rng 50 100>>
+You climb the crumbling ladder, making sure to take careful steps to avoid the parts rotten and unstable. You arrive in a damp and dark space barely tall enough to crawl. Your eyes take a moment to adjust to the dark but... you don't see much of anything yet.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 1>>
+    <<if $settings.bestialityEnabled or $monster is 1 and $settings.spidersEnabled>>
+        <<beastNEWinit 1 spider>>
+        As you scan over the darkness for a few moments before you hear a sort of chittering from deeper inside. Before you can think to do much, you feel the strange hairs of something brushing against you. You turn and your eyes meet an impossibly large <<beasttype>>.
+        <br><br>
+		<<link [[Next|Strange Creaking Rape]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		As you scan over the darkness for a few moments before you hear a sort of chittering from deeper inside. Before you can think to do much, you feel the strange hairs of something brushing against you. You turn and your eyes meet an impossibly large spider. You run. You manage to escape, though not unscathed.
+		<<beastescape>>
+		<br><br>
+		<<link [[Next|Strange Creaking Fail]]>><</link>>
+	<</if>>
+<<else>>
+    <<set $payoutmultiplier to 0>>
+	Despite spending some time in the attic there doesn't seem to be anything here at all. It's likely the employer's house is just creaking with age and there is no animal up here after all. You give one final scan of the attic before crawling back down the ladder.
+	<br><br>
+	<<link [[Next|Strange Creaking Success 2]]>><</link>>
+<</if>>
+
+:: Strange Creaking Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Strange Creaking Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Strange Creaking Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Strange Creaking Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The <<beasttype>> gives a horrid hiss as it crawls into the darkness out of sight.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Strange Creaking Success]]>><</link>>
+<<else>>
+	The <<beasttype>> hisses in pain, and skitters away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Strange Creaking Success]]>><</link>>
+<</if>>
+
+:: Strange Creaking Fail
+<<loadNPC 0 "Domus">><<person1>>
+As you clatter down the ladder in a panic, the <<person>> turns to you with wide eyes. "What happened? Are you alright? You look horrible." <<He>> nods along as you explain the situation, of the unnaturally large spider.
+<br><br>
+<<His>> face turns to a frown as you finish. "Not only is this story a complete joke, but you didn't even do the job I hired you to do? Unbelievable. Get out of my house. I guess I'll have to hire someone else." 
+<br><br>
+You walk away in shame.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><</link>>
+
+:: Strange Creaking Success
+<<loadNPC 0 "Domus">><<person1>>
+As you make your way down the ladder, exhausted from the ordeal, the <<person>> turns to you with wide eyes. "What happened? Are you alright? You look like you got into a fight with a rabid dog." <<He>> nods along as you explain the situation, of the unnaturally large spider.
+<br><br>
+<<His>> face turns to a frown as you finish. "That doesn't sound too realistic but... you do look like you fought something. I appreciate your work getting whatever it was out of my attic. Here this is for you."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 50>><</link>>
+
+:: Strange Creaking Success 2
+<<loadNPC 0 "Domus">><<person1>>
+As you climb back down the ladder, the <<person>> looks at you expectantly. "Well? Did you find the issue?"
+<br><br>
+You take a moment to explain the empty attic and probable cause of the creaking as <<he>> nods along. "I see. I'm not too sure but you did do what I asked."
+<br><br>
+The <<personsimple>> looks at you confused while you sit expectantly. "What? Did you expect pay? You didn't even do anything. Here, I'll give your work a good review. Just, maybe get some actual work done next time."
+<br><br>
+You sign in exasperation as you return to the street. At least you got a good review.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 30>><</link>>
 
 :: Weird Creature Intro
+The <<personsimple>> looks around nervously before leading you in <<his>> home looks pretty worse for wear, even for a house on Domus Street. As you walk, <<he>> begins to speak, "Every night, I can hear knocking inside the walls... l-like this." <<He>> jitters and knocks <<his>> knuckles against the walls a couple times.
+<br><br>
+"E-every night. Knock, knock, knock, knock." The <<personsimple>> continues to repeat <<himself>> as if in a loop before snapping back to attention. "A-anyway, I would be grateful if you could find out the cause. Please. I'll be waiting in the kitchen."
+<br><br>
+The <<personsimple>> leaves you to your devices in the home.
+<br><br>
+<<link [[Next (0:10)|Weird Creature Home]]>><<pass 10>><</link>>
 
+:: Weird Creature Home
+You are inside the <<person>>'s home. What the small Domus home lacks in size, it makes up for in smell and filth.
+<br><br>
+<<link [[Investigate the Bedroom (0:05)|Weird Creature Bedroom]]>><<pass 5>><</link>>
+<br>
+<<link [[Give up (0:05)|Weird Creature Fail]]>><<endevent>><<pass 5>><</link>>
+
+:: Weird Creature Bedroom
+You are in the <<person>>'s bedroom, old dirty clothes litter the floor and the only furniture is an old wardrobe and bed.
+<br><br>
+<<link [[Check the Wardrobe (0:10)|Weird Creature Wardrobe]]>><<set $skulduggerydifficulty to 400>><<pass 10>><</link>>
+<br>
+<<link [[Go back to the main room (0:05)|Weird Creature Home]]>><<pass 5>><</link>>
+
+:: Weird Creature Wardrobe
+<<if $skulduggerysuccess is 1 or $transformationParts.traits.sharpEyes is "default" or $transformationParts.dragon.eyes isnot "disabled">>
+	You feel the back of the wardrobe and find something strange. <span class="red">There's a loose panel on the back of the wardrobe that leads into a space hidden inside the walls.</span>
+	<br><br>
+	It looks like somebody could crawl into the wall through here...
+	<<skulduggeryuse>>
+	<br><br>
+	<<link [[Move the panel and climb into the walls (0:05)|Weird Creature Walls]]>><<pass 5>><</link>>
+<<else>>
+	You open the wardrobe and only find some stained and dirty clothes. You push them aside, accidentally touching a pair of disgusting old undergarments. You slam the gross wardrobe closed before you find anything else you regret. <<gstress>><<stress 6>>
+	<br>
+<</if>>
+<br>
+<<link [[Go back to the bedroom (0:05)|Weird Creature Bedroom]]>><<pass 5>><</link>>
+
+:: Weird Creature Walls
+As you climb your way into the tight space between the walls, you see a few carved holes that allow you to see into the bedroom and further down into the living room. It seems something has been in here for a while watching the employer.
+<br><br>
+As you think, you hear skittering further down the passage. You slide yourself further and the wall opens up slightly.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 2>>
+	As your eyes adjust to the dim light, you see something... strange. Before you lies a small creature, humanoid yet with an abnormally large head and arms. White whiskers adorn its wrinkled face. It hisses and leaps toward you.	
+	<<beastescape>>
+	<br><br>
+	<<link [[Next|Weird Creature Knocker]]>><</link>>
+<<else>>
+    <<set $payoutmultiplier to 1>>
+	<<if $settings.bestialityEnabled or $monster is 1>>
+        <<beastNEWinit 1 rat>>
+        Your eyes are met with a huge <<beasttype>>, more than two meters large. The <<beasttype>> turns to you and before you can do anything it is on top of you.
+        <br><br>
+		<<link [[Next|Weird Creature Rape]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		Your eyes are met with a huge rat, more than two meters large. You run. You manage to escape, though not unscathed.
+		<<beastescape>>
+		<br><br>
+		<<link [[Next|Weird Creature Fail]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Weird Creature Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Weird Creature Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Weird Creature Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Weird Creature Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The <<beasttype>> gives a happy chitter, and walks away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Weird Creature Success]]>><</link>>
+<<else>>
+	The <<beasttype>> whimpers, and runs away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Weird Creature Success]]>><</link>>
+<</if>>
+
+:: Weird Creature Knocker
+<<effects>>
+<<if $struggle_start is 1>>
+	<<struggle_init>>
+	<<set $struggle.creature to "knocker">>
+	<<struggle_creatures 2 1>>
+	<<set $combat to 1>>
+	<<controlloss>>
+	<<violence 1>>
+	<<molested>>
+
+	<<unset $struggle_start>>
+<</if>>
+
+<<struggle>>
+
+<<if $struggle.done gte $struggle.number>>
+	<span id="next"><<link [[Next|Weird Creature Knocker End]]>><</link>></span>
+<<else>>
+	<span id="next"><<link [[Next|Weird Creature Knocker]]>><</link>></span>
+<</if>>
+
+:: Weird Creature Knocker End
+<<effects>>
+The creatures flee into the dark, you search but cannot find them anywhere.
+<br><br>
+<<link [[Next|Weird Creature Success 2]]>><</link>>
+
+:: Weird Creature Fail
+<<loadNPC 0 "Domus">><<person1>>
+The <<personsimple>> looks at you dumbfounded. "You... give up? You came all the way here just to give up? Are you serious?" The <<personsimple>> combs through <<his>> hair with worry.
+<br><br>
+"You got my hopes up just to leave me in a worse state than before! Get the hell out of my house now!" The <<personsimple>>'s face is twisted in anxiety and anger. You think it is a good idea to leave now.
+<br><br>
+You walk away in shame.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><</link>>
+
+:: Weird Creature Success
+<<loadNPC 0 "Domus">><<person1>>
+After dealing with the rat, you climb you way back out of the walls. As you emerge from the wardrobe, the <<person>> is standing before you in shock. "W-where you inside my walls? How did you... no nevermind, tell me what you found." <<He>> listens quietly as you explain before the anxiety returns to <<his>> face.
+<br><br>
+"A rat?! You think a rat did this?!" <<He>> points at the small holes carved that let you peek into the bedroom. "No, there is something else that has been living inside my walls! I know there is!"
+<br><br>
+The <<personsimple>> breaths heavily in exhaustion before taking a deep breath to calm <<himself>>. "Sorry, I appreciate you trying and taking care of the rat. I'll leave you a good review."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 30>><</link>>
+
+:: Weird Creature Success 2
+<<loadNPC 0 "Domus">><<person1>>
+After dealing with the creatures, you climb you way back out of the walls. As you emerge from the wardrobe, the <<person>> is standing before you in shock. "W-where you inside my walls? How did you... no nevermind, tell me what you found." <<He>> listens quietly as you explain.
+<br><br>
+"Tiny... humanoid creatures?" <<He>> looks at the holes carved into the walls to view the rooms from inside. "M-maybe you need more help than me if you really believe that. Anyway, it looks like you managed to scare whoever was inside my walls away so here."
+<br><br>
+The <<personsimple>> pays you <<moneyGain $investigatorpayout>>. "I'll also make sure to give you a great review, thanks so much." <<He>> waves as you exit the home back to Domus Street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 50>><</link>>
 
 :: Something in Cupboard Intro
+The <<personsimple>> holds open the door allowing you to enter before closing the door behind you. <<He>> locks the door as <<he>> speaks, "Be careful, don't step on my cute babies." <<He>> guides you past what looks like a dozen kittens before leading you to the kitchen.
+<br><br>
+"As you saw in my post. Something keeps scratching the inside of my cupboard." The <<personsimple>> opens the door, making sure you can see the claw marks left against the wood. "If you do well, I might be willing to throw in a little extra. Just make sure not to let any harm come to my kittens."
+<br><br>
+The <<personsimple>> leaves you alone to survey the scene.
+<br><br>
+<<link [[Inspect the cupboard (0:10)|Something in Cupboard]]>><<pass 10>><</link>>
 
+:: Something in Cupboard
+You inspect the inside of the cupboard but you see nothing of real interest. The scratches hold no real clues beyond the perpetrator being very small. This job may just be a matter of waiting for something to happen.
+<br><br>
+<<link [[Wait a few hours (2:00)|Something in Cupboard Wait]]>><<pass 120>><</link>>
+
+:: Something in Cupboard Wait
+You sit and begin to wait for whatever has been clawing the inside of the cupboard. As you sit, the cats, curious of your presence, approach and lie next to you. <<lstress>><<stress -6>>
+<br><br>
+Eventually, you hear a small chittering near the cupboard. You put down the cat that has curled onto your lap and approach the cupboard.
+<br><br>
+Inside, you find a small mouse. It seems like a mouse has somehow been managing to climb up into the cupboard every so often. You scoop up the small critter and report to the home owner.
+<br><br>
+<<link [[Next (0:05)|Something in Cupboard Success]]>><<pass 5>><</link>>
+
+:: Something in Cupboard Success
+"A mouse?" The employer looks curiously at the small white mouse held in your hands. "I never would have expected a mouse to show up here with so many cats around. What a brave little soldier. Here, hand him to me."
+<br><br>
+The <<person>> takes the mouse into <<his>> hands and gently wraps it in a handkerchief. "What a cute little bugger. I'll find him a nice home. Thanks a lot for your help, I'll make sure to leave you a good review. Thanks a lot!"
+<br><br>
+<<He>> smiles kindly as <<he>> hands you <<moneyGain $investigatorpayout>>. You give a wave as you return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 30>><</link>>
 
 :: Something Following Intro
+The <<personsimple>> lets you in with a nervous glance. "Did you see anybody out there? I mean anything watching my home? I know something is out there." <<He>> takes a nervous look outside before closing the door.
+<br><br>
+"Here's the deal. You follow me from afar and, if you see anybody, I want you to apprehend them okay?" The <<personsimple>> scratches <<his>> neck. <<if $transformationParts.traits.sharpEyes is "default" or $transformationParts.dragon.eyes isnot "disabled">>You notice some black veins around the <<personsimple>>'s neck.<</if>>
+<br><br>
+The <<personsimple>> opens the door and gestures for you to follow.
+<br><br>
+<<link [[Next (0:30)|Something Following]]>><<pass 30>><</link>>
 
+:: Something Following
+<<rng 50 100>>
+You trail behind your employer as <<he>> walks. At first you begin to think it was just paranoia but... something is wrong. Half an hour into the walk, you can see a shape following the <<personsimple>> down the sidewalk.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 2>>
+    At first the figure appears human but as you approach the shape becomes no clearer. What stands before you is nothing more than a shadowy mass.
+    <br><br>
+    <<link [[Attempt to apprehend the figure|Something Following Fail]]>><</link>>
+<<else>>
+    <<set $payoutmultiplier to 1>>
+    As you approach the figure, it ducks into an alleyway. The moment you enter, a hand covers your mouth and pulls you to the ground.
+    <br><br>
+	<<link [[Struggle against the figure|Something Following Rape]]>><<endevent>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Something Following Rape
+<<if $molestationstart is 1>>
+	<<generate1>><<person1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Something Following Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Something Following Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Something Following Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	The <<personsimple>> throws you to the ground and runs away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Something Following Fail]]>><</link>>
+<<else>>
+	You grab the <<personsimple>>'s arms tight.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Something Following Success]]>><</link>>
+<</if>>
+
+:: Something Following Fail
+<<loadNPC 0 "Domus">><<person1>>
+As you report your failure to apprehend the stalker, the <<personsimple>> looks at you dumbfounded. "So you... found the stalker but didn't apprehend them? Is this supposed to make me feel better? Now they know I know!"
+<br><br>
+The <<personsimple>> shoves you to the ground in anger. "Get the fuck out of here before I do something worse." <<gpain>><<pain 6>>
+<br><br>
+It's probably a good idea to get out of here. You can feel the <<personsimple>>'s eyes burning into your back as you leave.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Domus Street]]>><<endevent>><<clearNPC "Domus">><</link>>
+
+:: Something Following Success
+<<loadNPC 0 "Domus">><<person1>>
+"Is this them?" The employer looks at the stalker now held tightly in your grip. "What a pathetic loser. Would you mind coming to the police station while I report this?"
+<br><br>
+The <<person>> guides you to the police station as you hold down the suspect. As you enter, the police take the stalker from your hands, careful to hold their bindings tight as they are thrown into a cell.
+<br><br>
+As you exit the station, the <<personsimple>> turns to you with a smile. <<He>> hands you <<moneyGain $investigatorpayout>> as <<he>> speaks, "Really, I have to say well done. I can sleep well now knowing that pervert is behind bars. I will make sure to tell my friends to message if they need help with anything."
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Barb Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 30>><<famescrap 30>><</link>>
 
 :: Rattling Trashcans Intro
 "Oh you're the exterminator? You don't look very well prepared but... I suppose you'll have to do." The <<person>> leads you to the side of the house where an old dented trashcan sits half full.
@@ -62,21 +627,24 @@ You enter the sliding door of the hospital and are greeded by a nurse at the fro
 <<link [[Wait around the can for anything (2:00)|Rattling Trashcans]]>><<pass 120>><</link>>
 
 :: Rattling Trashcans
+<<endevent>>
 <<rng 50 100>>
 You spend a few hours waiting and begin to tire. Just when you think this has been a waste of time, you hear a rustling from nearby.
 <br><br>
 <<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 2>>
     As you approach the rustling, you catch sight of something... unusual. A tiny humanoid figure, rotund and hairy, jumps from the grass, biting at you.
     <br><br>
-    <<link [[Next|Rattling Trashcans Gnome]]>><<set $struggle_start to 1>><</link>>
+    <<link [[Next|Rattling Trashcans Gnome]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $struggle_start to 1>><</link>>
 <<else>>
-    <<beastNEWinit 1 raccoon>>
-    As you approach the rustling, a large <<beasttype>>, hairs on end, leaps out of the grass toward you.
-    <br><br>
+    <<set $payoutmultiplier to 1>>
     <<if $settings.bestialityEnabled or $monster is 1>>
-		<<link [[Next|Rattling Trashcans Rape]]>><<set $molestationstart to 1>><</link>>
+        <<beastNEWinit 1 raccoon>>
+        As you approach the rustling, a large <<beasttype>>, hairs on end, leaps out of the grass toward you.
+        <br><br>
+		<<link [[Next|Rattling Trashcans Rape]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
 	<<else>>
-		You run. You manage to escape, though not unscathed.
+		As you approach the rustling, a large raccoon, hairs on end, leaps out of the grass toward you. You run. You manage to escape, though not unscathed.
 		<<beastescape>>
 		<br><br>
 		<<link [[Next|Rattling Trashcans Fail]]>><</link>>
@@ -109,7 +677,7 @@ You spend a few hours waiting and begin to tire. Just when you think this has be
 <<effects>>
 The creatures flee into dark recesses.
 <br><br>
-<<link [[Next|Rattling Trashcans Success]]>><<set $eventskip to 1>><</link>>
+<<link [[Next|Rattling Trashcans Success 2]]>><</link>>
 
 :: Rattling Trashcans Rape
 <<if $molestationstart is 1>>
@@ -152,7 +720,7 @@ The creatures flee into dark recesses.
 	<<clotheson>>
 	<<endcombat>>
 
-	<<link [[Next|Rattling Trashcans Fail]]>><</link>>
+	<<link [[Next|Rattling Trashcans Success]]>><</link>>
 <<else>>
 	The <<beasttype>> whimpers, and runs away.
 	<br><br>
@@ -167,21 +735,996 @@ The creatures flee into dark recesses.
 <</if>>
 
 :: Rattling Trashcans Fail
-
+<<loadNPC 0 "Danube">><<person1>>
+Hearing the racket, the <<person>> comes back outside, just to see you cowering and the trashcan spilled over the sidewalk. <<He>> looks very upset as <<he>> speaks, "Is this what you call a good job? I have half a mind to leave you a bad review. Get the hell out of here before I change my mind."
+<br><br>
+You walk away in shame.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><</link>>
 
 :: Rattling Trashcans Success
+<<loadNPC 0 "Danube">><<person1>>
+Hearing the racket, the <<person>> comes back outside. <<He>> catches a glimpse of something skitter away. "Damn animals, but looks like you managed to keep my can from being trashed again. What was the animal? I need to make sure to fix up my security."
+<br><br>
+You tell the <<personsimple>> about the raccoon issue and to make sure to get a raccoon-proof bin. "I see, so it was a raccoon huh? Well then, good work. I'll keep you in mind for future jobs."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 30>><</link>>
 
+:: Rattling Trashcans Success 2
+<<loadNPC 0 "Danube">><<person1>>
+Hearing the racket, the <<person>> comes back outside. <<He>> catches a glimpse of something skitter away. "Damn animals, but looks like you managed to keep my can from being trashed again. What was the animal? I need to make sure to fix up my security."
+<br><br>
+You try to explain the small furred men but the <<personsimple>>'s face shows clear scepticism. "I'm not too sure about that but whatever it was, seemed it put up quite the fight. Here, this is your payment for a job well done. I'll keep you in mind for future jobs."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 50>><</link>>
 
 :: Hissing from Garage Intro
+The <<person>> slams the door on your face. You wonder for a moment if <<he>> is actually gone before the garage door slides open. 
+<br><br>
+As you walk over toward the large garage, the <<personsimple>> sits with <<his>> arms crossed. "Well come on, we don't have all day. Time is money and every second I waste on you could be time better spent doing work."
+<br><br>
+You are led into the garage as <<he>> continues. "As you saw in my request, some dreadful little creature can be heard in my garage at night. I have never seen it but it sounds rabid. You DO have your shots right? Eh, whatever, who cares. Take care of this creature and I will reward you sufficiently."
+<br><br>
+"Anyway, it has not been a pleasure. I must return to my work now. Let me know when the matter is handled."
+<br><br>
+<<link [[Next (1:00)|Hissing from Garage]]>><<pass 60>><</link>>
 
+:: Hissing from Garage
+<<endevent>>
+<<rng 50 100>>
+As you spend some time alone in the garage, nothing seems to be happening at first. After an hour of waiting, you hear some kind of scampering of claws on the concrete. You approach the sound but it seems to just be a wild dog.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 2>>
+    <<if $settings.bestialityEnabled or $monster is 1>>
+        <<beastNEWinit 1 dog>>
+		<<set $monster to 1>>
+		<<set $NPCList[0].monster to "monster">>
+        The dog approaches but... something is wrong. The creature, you're no longer sure it's a dog at all. Its limbs twist as it stands up on two legs, letting out a wet breathy hiss as it crawls toward you.
+        <br><br>
+		<<link [[Next|Hissing from Garage Pooka]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		As the large dog approaches, you flee into the house. You can hear a strange hissing sound from the garage that lasts a while, before the sound suddenly disappears and you feel secure to return.
+		<<beastescape>>
+		<br><br>
+		<<link [[Next|Hissing from Garage Fail]]>><</link>>
+	<</if>>
+<<else>>
+	<<set $payoutmultiplier to 1>>
+    <<if $settings.bestialityEnabled>>
+        <<beastNEWinit 1 dog>>
+		<<set $monster to 0>>
+		<<set $NPCList[0].monster to "">>
+		<<set $NPCList[0].type to "dog">>
+        As you approach, the dog leaps upon you, pressing you to the ground under its weight.
+        <br><br>
+		<<link [[Next|Hissing from Garage Rape]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		As the large dog approaches, you flee into the house. You can hear a strange hissing sound from the garage that lasts a while, before the sound suddenly disappears and you feel secure to return.
+		<<beastescape>>
+		<br><br>
+		<<link [[Next|Hissing from Garage Fail]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Hissing from Garage Pooka
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Hissing from Garage Pooka Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Hissing from Garage Pooka]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Hissing from Garage Pooka Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The <<beasttype>> gives a happy bark, and walks away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Hissing from Garage Success 2]]>><</link>>
+<<else>>
+	The <<beasttype>> whimpers, and runs away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Hissing from Garage Success 2]]>><</link>>
+<</if>>
+
+:: Hissing from Garage Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Hissing from Garage Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Hissing from Garage Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Hissing from Garage Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	The <<beasttype>> gives a happy bark, and walks away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Hissing from Garage Success]]>><</link>>
+<<else>>
+	The <<beasttype>> whimpers, and runs away.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Hissing from Garage Success]]>><</link>>
+<</if>>
+
+:: Hissing from Garage Success
+<<loadNPC 0 "Danube">><<person1>>
+Hearing the whimpering in the garage, the <<person>> returns. <<He>> catches a glimpse of the dog fleeing and turns to you. "Damn mutt, the pound needs to lock up more of these mongrels."
+<br><br>
+The <<personsimple>> turns to you with a satisfied look. "Well done handling the mutt. I'll make sure to call you back if I need more work done."
+<br><br>
+You are handed <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 30>><</link>>
+
+:: Hissing from Garage Success 2
+<<loadNPC 0 "Danube">><<person1>>
+Hearing the whimpering in the garage, the <<person>> returns. <<He>> catches a glimpse of the creature and <<his>> face distorts in disgust. "What in the goddamn is that!"
+<br><br>
+The <<personsimple>> grabs a broom, slamming it against the creature's forehead. It hisses a wet gross noise as it crawls out of the garage and runs out of view. "What the hell has been going on in this town lately." The <<personsimple>> breathes a heavy sigh.
+<br><br>
+<<He>> turns and gives you a small tired smile. "Here, this is for you. Thanks a lot for your help." You are handed <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 80>><</link>>
+
+:: Hissing from Garage Fail
+<<loadNPC 0 "Danube">><<person1>>
+The <<person>> returns to find you standing in the entryway to the manor. <<He>> looks at you, confused, before speaking, "What are you doing? Did you finish the job?"
+<br><br>
+You explain the presence of the dog and your escape, but halfway through the explaination, <<he>> stops you. "Look, I don't have time for this. You ran away from your job and you expect a reward? Get out of here mutt."
+<br><br>
+You turn to leave, walking back onto Danube Street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><</link>>
 
 :: Strange Holes Intro
+The <<person>> sighs and turns away, calling <<his>> butler. "Listen, I have much better things to do than deal with orphans. You will be dealing with my butler understood?" 
+<br><br>
+Without waiting for a response, the <<personsimple>> leaves and the butler arrives to walk you around the large manor. "So you are the contractor <<master>> hired? Some animals have been digging holes in the yard and making a mess of <<master>>'s petunias."
+<br><br>
+You are led to the backyard where the grass and flower beds are covered in holes, dug out from the soil and ruined. "As you can see, this is far beyond the acceptable damage. Succeed in your job and <<master>> will pay you handsomely. Until then, I will bid you farewell."
+<br><br>
+The butler bows before he returns into the manor.
+<br><br>
+<<link [[Wait for something to happen (2:00)|Strange Holes]]>><<pass 120>><</link>>
 
+:: Strange Holes
+<<endevent>>
+<<rng 50 100>>
+You sit and wait on the back patio. It is very nice, and even a slice of this luxury leaves you feeling satisfied. <<lstress>><<stress -6>>
+<br><br>
+As you calm down on the nice chair, you can hear the sound of something chewing in the yard. It seems the culprit has returned.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 2>>
+    <<if $settings.bestialityEnabled or $monster is 1>>
+        <<beastNEWinit 1 rabbit>>
+        You only manage a step before a loud thud fills your ears. From the ground comes a <<beasttype>> several meters large. It defies logic, the size of the creature. Before you can get your bearings straight, it is already upon you.
+        <br><br>
+		<<link [[Next|Strange Holes Rape]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		You only manage a step before a loud thud fills your ears. From the ground comes a <<beasttype>> several meters large. It defies logic, the size of the creature. You flee in horror as the beast approaches.
+		<<beastescape>>
+		<br><br>
+		<<link [[Next|Strange Holes Fail]]>><</link>>
+	<</if>>
+<<else>>
+	<<set $payoutmultiplier to 1>>
+	You ready yourself and check the yard, only to find a small cute bunny. You pick up the small creature in your arms and it sniffs you curiously. Taking the small fluffy ball in your arms, you return to the front of the manor.
+	<br><br>
+	<<link [[Next|Strange Holes Success]]>><</link>>
+<</if>>
+
+:: Strange Holes Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<beastCombatInit>>
+	<br><br>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Strange Holes Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Strange Holes Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Strange Holes Rape Finish
+
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation>>
+
+	Satisfied, the <<beasttype>> hops back into the forest.
+	<<if $monster is 1>>
+		"Breed, yes breed, good breed," <<bhe>> purrs.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you continue on your way.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Strange Holes Success 2]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+
+	You scare the mighty <<beasttype>>. <<bHe>> flees deeper into the forest.
+	<<if $monster is 1>>
+		"Mmm breed later, not breed now, breed," <<bhe>> squeals as <<bhe>> hops away.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you continue on your way.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Strange Holes Success 2]]>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
+
+:: Strange Holes Success
+<<loadNPC 0 "Danube">><<person1>>
+You knock on the door, the small bunny still held in your arms. The butler answers the door, turning to you with a dignified look.
+<br><br>
+"Is the job done? I shall fetch the <<master>>." The butler disappears into the manor before the <<master>> of the home returns to the door.
+<br><br>
+"This small bunny was the disturbance?" <<He>> inspects the small fuzzy ball in your arms before taking it into <<his>>.
+<br><br>
+<<He>> gently smiles, "Why isn't this just a cute little guy, I think I'll keep him. Here's your pay."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 30>><</link>>
+
+:: Strange Holes Success 2
+<<loadNPC 0 "Danube">><<person1>>
+You knock on the door. The butler answers, turning to you with a dignified look.
+<br><br>
+"Is the job done? I shall fetch the <<master>>." The butler disappears into the manor before the <<master>> of the home returns to the door.
+<br><br>
+"Well? What was the issue?" <<He>> says, trying to read your expression. You try to explain the large abnormal creature but <<he>> stops you with a raised hand.
+<br><br>
+<<He>> frowns, "Now this sounds simply unbelievable. Regardless, it seems you have taken care of the issue. Here, take this and try to get some rest when you have the chance. You look filthy."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 50>><</link>>
+
+:: Strange Holes Fail
+<<loadNPC 0 "Danube">><<person1>>
+Hearing your presence, the <<person>> turns to you with an upset hiss. "What do you think you are doing?! You are tracking mud into my perfect home! My Persian rug!"
+<br><br>
+You are shoved back and fall to the ground. <<gpain>><<pain 6>>
+<br><br>
+"Not only have you not solved my problem, but you have destroyed my home! Get out this instant!"
+<br><br>
+You quickly leave, walking back onto Danube Street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><</link>>
 
 :: Cracked Wall Intro
+The <<personsimple>> steps aside as you enter. As you follow, <<he>> begins to speak, "Sorry for the informality, my father has been quite busy with his business and can't spare time for small matters such as these. I hope you understand."
+<br><br>
+The two of you arrive in a dark room, large cracks stretch and branch up the wall. You peer through the cracks but can't see anything inside but brick. Seems the wall is pretty solid.
+<br><br>
+As you examine the room, the <<person>> clears <<his>> throat to grab your attention. "So as you can see, the wall has been rapidly deteriorating. We've had several contractors over to take a look, but they simply say it is due to poor foundations. We wish you luck."
+<br><br>
+As <<he>> speaks, he turns and leaves the room, leaving you to your job.
+<br><br>
+<<link [[Examine the cracks closer (0:20)|Cracked Wall]]>><<pass 20>><</link>>
 
+:: Cracked Wall
+<<endevent>>
+<<rng 50 100>>
+You look closely at the cracks. They are splintered and only affect the wooden layer of the wall, not affecting the inner brick.
+<br><br>
+As you examine the structure, you feel a strange sensation and swear you can hear something inside the wall, like small chimes.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 2>>
+    From the wall float several small glowing motes. They grow larger until they resemble small fairies. Before you can do anything, you are surrounded.
+    <br><br>
+    <<link [[Next|Cracked Wall Fairy]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+<<else>>
+    <<set $payoutmultiplier to 1>>
+    The chiming continues for a while but nothing seems to happen. The chimes fade and you are left waiting for nothing. Perhaps the issues are due to an electrical issue in the walls?
+    <br><br>
+	<<link [[Next|Cracked Wall Success]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><</link>>
+<</if>>
+
+:: Cracked Wall Fairy
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<molested>>
+	<<controlloss>>
+	<<set $combat to 1>>
+	<<set $enemytype to "swarm">>
+
+	<<swarminit "fairies" "swarm" "moving towards you" "encircle you" "fend off" 1 9>>
+	<<set $timer to 8>>
+<</if>>
+<<effects>><<swarmeffects>>
+<<swarm>>
+<<swarmactions>>
+<<if $stress gte $stressmax>>
+	<span id="next"><<link [[Next|Cracked Wall Fairy Finish]]>><</link>></span><<nexttext>>
+<<elseif $timer lte 0>>
+	<span id="next"><<link [[Next|Cracked Wall Fairy Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Cracked Wall Fairy]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Cracked Wall Fairy Finish
+<<effects>>
+<<if $stress gte $stressmax>>
+	It's all just too much for you. You fall to the ground in exhaustion.
+	<br><br>
+	<<if $upperoff isnot 0>>
+		<<upperruined>>
+	<</if>>
+	<<if $loweroff isnot 0>>
+		<<lowerruined>>
+	<</if>>
+	<<if $underloweroff isnot 0>>
+		<<underlowerruined>>
+	<</if>>
+	<<if $underupperoff isnot 0>>
+		<<underupperruined>>
+	<</if>>
+	<<endcombat>>
+	<<link [[Next|Cracked Wall Success 2]]>><</link>>
+<<else>>
+	<<tearful>> you swat away the last fairy who flies away with a hiss. They disappear into the wall.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Cracked Wall Success 2]]>><<set $eventskip to 1>><</link>>
+<</if>>
+
+:: Cracked Wall Success
+<<loadNPC 0 "Danube">><<person1>>
+You return to the main room where the <<person>> is waiting for you. <<He>> turns to you expectantly.
+<br><br>
+"Did you find the issue? I hope you won't just give us the same useless slop as before." The <<personsimple>> listens as you explain your theory about faulty wiring in the walls.
+<br><br>
+"Electrical issues? That doesn't sound too likely given the state of the cracks. Those chiming sounds though... I am unsure what that could really mean." <<He>> raises <<his>> hand to <<his>> chin in thought.
+<br><br>
+"Regardless, I appreciate you trying to help. It's not much but here, I hope your website goes well for you in the future."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 30>><</link>>
+
+:: Cracked Wall Success 2
+<<loadNPC 0 "Danube">><<person1>>
+You return to the main room where the <<person>> is waiting for you. <<He>> turns to you expectantly.
+<br><br>
+"Did you find the issue? I hope you won't just give us the same useless slop as before." The <<personsimple>> listens as you try to explain the small fairies in the walls.
+<br><br>
+"Fairies? Are you alright? Maybe this is worse than we thought. There must be some kind of gas leak." <<He>> looks toward you in pity.
+<br><br>
+"Listen, I'm sorry. We didn't realize the situation was so dangerous. Here, have some extra hazard pay. Go get yourself checked out at the hospital when you can, okay?"
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Danube Street]]>><<endevent>><<clearNPC "Danube">><<fameinvestigator 50>><</link>>
 
 :: Stuff Disappearing Intro
+The worker steps aside to allow you to enter. As you walk down the factory floor, past the various machines processing feed and harvested plants, the worker begins to speak. "I'm sure you read, but recently valuable produce from the factory has been going missing."
+<br><br>
+"Workers have been hearing strange sounds and when they have went to investigate, they found the machinery broken and the metalic pieces missing." <<He>> stops at a machine which is sputtering smoke.
+<br><br>
+<<He>> turns to you with a grimace, "As you can see, the factory is struggling to keep up with the maintenance cost with so many incidents. Find the perpetrator and take them into custody, understood?"
+<br><br>
+The <<personsimple>> finishes speaking and turns to leave, glancing back one last time over <<his>> shoulder.
+<br><br>
+<<link [[Search the factory (1:20)|Stuff Disappearing]]>><<pass 80>><</link>>
 
+:: Stuff Disappearing
+<<if $transformationParts.traits.sharpEyes is "default" or $transformationParts.dragon.eyes isnot "disabled">>
+	As you search, you catch a trace of something. A trail of strange fluid, meters further, you find a trail of dribbles leading down the factory floor. Following the trail may be a good idea.
+	<br><br>
+	<<link [[Follow the trail (0:10)|Stuff Disappearing 2]]>><<pass 10>><</link>>
+<<else>>
+	You search around the processing machines and presses and can't find much at first. It seems you may have to wait longer if you want to find something.
+	<br><br>
+	<<link [[Continue to search (1:00)|Stuff Disappearing 2]]>><<pass 60>><</link>>
+<</if>>
+<br>
+<<link [[Give up (0:10)|Stuff Disappearing Fail]]>><<pass 10>><</link>>
+
+:: Stuff Disappearing 2
+<<endevent>>
+<<rng 50 100>>
+As you follow the trail, you find the cause of the disturbance.
+<br><br>
+<<if $world_corruption_soft gte $rng>>
+    <<set $payoutmultiplier to 3>>
+	<<generate1>><<person1>>
+    It looks like a man at first but something is off with its appearance. The <<person>>'s flesh bulges unnaturally and a rancid odor wafts from <<his>> skin. The <<personsimple>> lets out a gurgling cough as red and green liquid is hacked up <<his>> throat. You recoil in disgust, but sensing your presence, the <<personsimple>> lunges toward you.
+    <br><br>
+    <<link [[Next|Stuff Disappearing Wight]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+<<else>>
+    <<set $payoutmultiplier to 2>>
+    A group of small hairy humanoids can be seen biting into the machinery, their sharp teeth ripping at the metal. Upon seeing you the let out a wet hiss as they throw themselves at you.
+    <br><br>
+	<<link [[Next|Stuff Disappearing Leprechauns]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><</link>>
+<</if>>
+
+:: Stuff Disappearing Leprechauns
+<<effects>>
+<<if $struggle_start is 1>>
+	<<struggle_init>>
+	<<set $struggle.creature to "leprechaun">>
+	<<struggle_creatures 4 3>>
+	<<set $combat to 1>>
+	<<controlloss>>
+	<<violence 1>>
+	<<molested>>
+
+	<<unset $struggle_start>>
+<</if>>
+
+<<struggle>>
+
+<<if $struggle.done gte $struggle.number>>
+	<span id="next"><<link [[Next|Stuff Disappearing Leprechauns End]]>><</link>></span>
+<<else>>
+	<span id="next"><<link [[Next|Stuff Disappearing Leprechauns]]>><</link>></span>
+<</if>>
+
+:: Stuff Disappearing Leprechauns End
+<<effects>>
+The creatures flee from the factory and out toward the landfill.
+<br><br>
+<<link [[Next|Stuff Disappearing Success]]>><</link>>
+
+:: Stuff Disappearing Wight
+<<if $molestationstart is 1>>
+	<<generate1>><<person1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Stuff Disappearing Wight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Stuff Disappearing Wight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Stuff Disappearing Wight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	The <<personsimple>> lets out a loud wretching cough as it crumples over you. Its flesh slowly melts into a puddle of black fluid, which promptly begins to evaporate into nothing.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Stuff Disappearing Success 2]]>><</link>>
+<<else>>
+	The <<personsimple>> lets out a loud wretching cough as it crumples over you. Its flesh slowly melts into a puddle of black fluid, which promptly begins to evaporate into nothing.
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Stuff Disappearing Success 2]]>><</link>>
+<</if>>
+
+:: Stuff Disappearing Success
+<<loadNPC 0 "Harvest">><<person1>>
+Hearing the loud metal racket, the workers flood the room toward you. Seeing the state you are in, the <<person>> reaches down and helps you to your feet.
+<br><br>
+"You look worse for wear, what's wrong? What happened to this machine?" You take some time to explain the small long haired creatures and the worker looks at you with a strange look.
+<br><br>
+"Listen, it's alright, clearly you've gone through something traumatic. Here, for getting the perpetrator to leave."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Harvest Street]]>><<endevent>><<clearNPC "Harvest">><<fameinvestigator 50>><</link>>
+
+:: Stuff Disappearing Success 2
+<<loadNPC 0 "Harvest">><<person1>>
+Hearing the loud metal racket, the workers flood the room toward you. Seeing the state you are in, the <<person>> reaches down and helps you to your feet.
+<br><br>
+"What happened to you? What is this... sludge all over you?" The worker steps back in disgust as the steaming black fluid completely dissipates.
+<br><br>
+"What the hell was that?" Suddenly, the workers eyes all glaze over. They freeze before regaining their animation
+<br><br>
+"Huh what was I talking about? Oh right your pay! Here, for a job well done."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Harvest Street]]>><<endevent>><<clearNPC "Harvest">><<fameinvestigator 80>><</link>>
+
+:: Stuff Disappearing Fail
+<<loadNPC 0 "Harvest">><<person1>>
+You return to the front where the factory workers are operating the machines. As you approach, the <<personsimple>> looks to you, "Well that as quick, did you find the issue?"
+<br><br>
+You explain you couldn't find the issue and the worker shakes <<his>> head.
+<br><br>
+"It's fine, thanks for checking anyway. Here, I'll leave a decent review, but I hope you can accept no pay this time."
+<br><br>
+You exit the factory floor, walking back onto Harvest Street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Harvest Street]]>><<endevent>><<clearNPC "Harvest">><</link>>
 
 :: Unknown Blood Intro
+The nurse checks the hallways before gesuring for you to follow. You follow <<him>> down the hall, past various rooms you can hear groans and struggling from, and into a large room. Curtains line several open stalls, each seeming to contain a shower.
+<br><br>
+As you are guided, the nurse begins to speak with an edge to <<his>> voice. "Lately staff and patients have reported strange violent occurences they could not explain. Objects being thrown at random, victims with unexplainable injuries, blood flowing from unknown sources. All of them seem to happen in this shower room."
+<br><br>
+Condensation forms from your breath, the room dropping several degrees. The nurse glances nervously before continuing. "As you can tell, something strange is going on. I'm going to... return to my station. I'll check up on you later okay?"
+<br><br>
+And with that, the nurse rushes out of the room. You are left alone, the cold air making you shiver.
+<br><br>
+<<link [[Next (0:05)|Unknown Blood]]>><<pass 5>><</link>>
+
+:: Unknown Blood
+It does not take long for the situation to escalate. The temperature drops even further and you can hear a small whistle of wind brush your ear. The drain makes a sputtering noise as coagulated blood splatters out, staining the white tiles. Inspecting the blood spatter, you find it resembles elk blood.
+<br><br>
+You pause as you can make out a faint groaning sound, though you can't yet tell from where it originates. The drain gurgles as even more blood spills out, this time even more thick. Small pieces of raw red flesh flow up in the red gushes.
+<br><br>
+The flow steadies and slowly the floor begins to pool with blood and small pieces of meat.
+<br><br>
+<<link [[Next (0:05)|Unknown Blood 2]]>><<pass 5>><</link>>
+
+:: Unknown Blood 2
+Sounds come to a stop as the flow slows as the remainder of the floor is covered, none of the drains seem to function as the stagnant blood sits and begins to fill the room with a sickening odor.
+<br><br>
+You sit in silence for a moment, the room now completely still. The drain begins to make a thick churning sound. A log of flesh slowly forcing its way from the pipes. It comes out a meter, then two. Finally, the tube ends.
+<br><br>
+Inspecting the tube, you can make out bones and nails inside, like a body was compressed until it was unrecognizable. The shape of the log ripples and slowly begins to unravel into the form of a human, or... something resembling human. The entity has no visible skin, just raw red bare flesh. Its face is agape, lacking in eyes, its teeth embedded into its jaw.
+<br><br>
+This being... whatever it is... speaks to you.
+<br><br>
+<<link [[Next (0:05)|Unknown Blood 3]]>><<pass 5>><</link>>
+
+:: Unknown Blood 3
+<<endevent>>
+<<generate1>><<person1>>
+Despite the lack of teeth or tongue, the words flowing from the being's mouth are clear to you. "Help... me..." <<He>> rasps in a slow sad voice.
+<br><br>
+You face this entity and ask in a manner to not cause duress, "How can I help you?"
+<br><br>
+Hearing your voice, the <<person>>, a being formed from misshapen meat pulled together from several unrelated parts, turns toward you. The eyeless oriface of <<his>> face sending horrified shivers down your spine. <<ggtrauma>><<trauma 12>>
+<br><br>
+"You... Help..." The being lifts a red finger and points to a drain, the same drain the blood and meat flowed from. Taking the hint, you grimace as you dip your fingers into the blood and pull at the grate covering the drain.
+<br><br>
+<<link [[Remove the drain cover (0:10)|Unknown Blood 4]]>><<pass 10>><</link>>
+
+:: Unknown Blood 4
+<<endevent>>
+<<set $payoutmultiplier to 5>>
+You pry hard against the metal drain cover and is slowly creaks before popping out. The blood slowly drains down the hole and as the lights flicker, the sprit disappears.
+<br><br>
+You could investigate further but for now you seem to have resolved the issue.
+<br><br>
+<<link [[Crawl down the drain (0:20)|Unknown Blood 5]]>><<pass 20>><</link>>
+<br>
+<<link [[Report your job finished (0:05)|Unknown Blood Success]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<pass 5>><</link>>
+
+:: Unknown Blood 5
+<<set $payoutmultiplier to 6>>
+Your grip the edge of the drain and slowly lower yourself inside. There is a small vertical drop before the drain pile splits into a T shaped intersection. You wince as you lower yourself, your clothing getting stained with residual blood as you begin to crawl further down the pipe.
+<br><br>
+The pipe feels tighter as you crawl futher, feeling more and more claustrophobic. The metal presses against your frame and feels like it is compressing you the further you crawl.
+<br><br>
+Eventually, you catch a glimpse of light as you emerge from the pipe into a small poorly lit room. You must be somewhere under the hospital. You glance around the room and can see various drugs on shelves. It must be some kind of storage closet.
+<br><br>
+<<link [[Leave the Room (0:05)|Unknown Blood 6]]>><<pass 5>><</link>>
+
+:: Unknown Blood 6
+Peeking out of the room, you see nobody around. You sneak out of the room and silently close the door. This part of the hospital is very different from the ground floor. It looks similar at a glance, but it is noticably degraded in comparison.
+<br><br>
+Looking inside the rooms, you can see patients in various degraded states, some missing limbs, some with open wounds, and others completely covered and out of view.
+<br><br>
+It seems this is what the spirit had wanted to show you. <span class="red">It would be good to get out of here while you have the chance and come back later.</span>
+<br><br>
+<<link [[Sneak back to the front (0:10)|Unknown Blood Success]]>><<set $harperbasement to 1>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<pass 5>><</link>>
+
+:: Unknown Blood Success
+<<loadNPC 0 "Nightingale">><<person1>>
+As you return to the front room of the hospital, your shoes stained with blood, the nurses turn to you with surprise.
+<br><br>
+"Well? Did you do it?" The first nurse steps toward you, <<his>> voice hopeful.
+<br><br>
+You let the nurses know you have resolved the issue for now, but if anything like this happens again, they could request help once more.
+<br><br>
+"Oh that is simply wonderful! Here, take this from all of us for your help."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Nightingale Street]]>><<endevent>><<clearNPC "Nightingale">><<fameinvestigator 140>><</link>>
+
+:: Cursed Shop Intro
+<<generate1>><<person1>>
+You climb up the ladder the request pointed you to and arrive at a window lit with ominous purple light. As you open the door, a thick mist pools down the railings into the alleyway.
+<br><br>
+The window is shut behind you once you climb inside. The room you find yourself in is lit with a purple glow, eminating from the mist that has no discernable source. The walls are adorned with various masks, chains, talismans, and other strange paraphernalia.
+<br><br>
+Perhaps most eyecatching, at the end of the room, there stands a <<person>> you cant quite make out. <<His>> form blurs at the edges and <<his>> face is covered with what looks like a mask. The mask resembles a mirror, broken, yet reflecting your own shattered face in the shards.
+<br><br>
+A voice eminates from the <<personsimple>>, though it does not seem to be muffled by the mask obscuring <<his>> face, "I'm glad you came, though I knew the inevitability of it all. You would have ended up here sooner or later. Let me have a look at you."
+<br><br>
+<<link [[Next|Cursed Shop Intro 2]]>><</link>>
+
+:: Cursed Shop Intro 2
+<<endevent>>
+<<generate1>><<person1>>
+The <<person>> stumbles as <<he>> draws close. The movements are more like a marionette dancing on strings than a living thing. As <<he>> draws close, you are hit with the smell of incense and a thick underlying smell you can't identify.
+<br><br>
+Looking into the reflection, you can see yourself, but the warped surface of the mirror shows a you that you aren't used to. The figure speaks once more, "Let me explain why I have called you here. It is my site you have been using you see."
+<br><br>
+<<if $transformationParts.traits.strongnose is "default">>
+As the shopkeeper draws near, you can finally place the smell. It's rot. A thick oppressive smell of rot, covered by incense and clothing. You try to hide your discomfort as <<he>> continue.
+<br><br>
+<</if>>
+"You have peaked my interest in your work so far. I set up this little shop for you to buy goods to make your work easier. Keep doing well and perhaps we can work out some more special deals. Until then, work hard."
+<br><br>
+<<link [[Next|Cursed Shop]]>><<set $cursedshopintro to 1>><<endevent>><</link>>
+
+:: Cursed Shop
+<<generate1>><<person1>>
+You are in the cursed shop. The shopkeeper, a <<person>> in a reflective broken mask, sits at a small table in the back of the room. Masks, talismans, crystal orbs, and more fill the dim oppressive space.
+<br><br>
+<<icon "clothing-shop.png">><<link [[Check the shelves|Cursed Clothing Shop]]>><<endevent>><</link>>
+<br>
+<<getouticon>><<link [[Leave the shop|Commercial Alleyways]]>><<endevent>><</link>>
+

@@ -512,6 +512,7 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "scienceSexTape" 1>>
+		<<npc Sirris>><<person1>>
 		Sirris puts on a video about human reproduction.
 		<<if Time.days gte 25 and $rng % 3 is 0>>/*1 in 3 chance, and won't happen too early*/
 			<br><br>
@@ -545,8 +546,9 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "scienceAnatomy" 1>>
-		<<if $player.gender_appearance is "m">><<generatesf1>><<else>><<generatesm1>><</if>>
-		Sirris looks around the room, glancing at you for a moment before asking a <<person1>><<personsimple>> to come to the front of the class.
+		<<npc Sirris>><<person1>>
+		<<if $player.gender_appearance is "m">><<generatesf2>><<else>><<generatesm2>><</if>>
+		Sirris looks around the room, glancing at you for a moment before asking a <<person2>><<personsimple>> to come to the front of the class.
 		<br><br>
 		Sirris smiles at the <<person>>.
 		<<rng>>
@@ -1398,12 +1400,14 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "mathsSafe3">>
-		River demonstrates equations on a whiteboard and occasionally asks questions, picking on students <<nnpc_he "River">> thinks aren't paying attention.
+		<<npc River>><<person1>>
+		River demonstrates equations on a whiteboard and occasionally asks questions, picking on students <<he>> thinks aren't paying attention.
 	<</addinlineevent>>
 
 	<<addinlineevent "mathsSafe4">>
 		<<if $whitneymaths is "seat" or $whitneymaths is "active">>
-			Whitney goads a <<generatey1>><<person1>><<person>> into flinging a pen at River's back. The <<person>> is sent out of the room after some argument.
+			<<npc Whitney>><<person1>>
+			Whitney goads a <<generatey2>><<person2>><<person>> into flinging a pen at River's back. The <<person>> is sent out of the room after some argument.
 		<<else>>
 			Someone across the class flings a pen at River's back. After some argument, the perpetrator is sent out of the room and class resumes.
 		<</if>>
@@ -2304,6 +2308,7 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "englishExplain" 1>>
+		<<npc Doren>><<person1>>
 		Doren explains and demonstrates
 		<<if $rng % 5 == 0>>
 			grammatical rules using the whiteboard.
@@ -2944,6 +2949,7 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "historyReference" 1>>
+		<<npc Winter>><<person1>>
 		Winter has the class practise sourcing information from the various bookshelves around the edge of the room. As you move between the shelves, you feel a tug on your $worn.lower.name and hear them tear. In the bustle of the classroom, someone must have closed a cupboard on <<if $worn.lower.plural is 1>>them<<else>>it<</if>> without you noticing.
 		<<set $worn.lower.integrity -= 10>>
 		<<integritycheck>>
@@ -2964,7 +2970,8 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "historyModel" 1>>
-		<<npc Winter>><<person1>>Winter asks you to come to the front of the class. "I have some historical garments I need modelled, they're in your size."
+		<<npc Winter>><<person1>>
+		Winter asks you to come to the front of the class. "I have some historical garments I need modelled, they're in your size."
 		<<He>> gestures to the screen at the corner of the room.
 		<br><br>
 
@@ -3048,7 +3055,8 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "historyTextbook" 1>>
-		<<generates1>><<person1>>Winter leaves a <<person>> to hand out textbooks while leaving the class on an errand. When the <<person>> gets to you, <<he>> pauses, <<his>> face curling in a smirk.
+		<<npc Winter>><<person1>>
+		<<generates2>><<person2>>Winter leaves a <<person>> to hand out textbooks while leaving the class on an errand. When the <<person>> gets to you, <<he>> pauses, <<his>> face curling in a smirk.
 		<br><br>
 
 		Rather than placing your book on your desk, <<he>> drops it on the floor beside you. "Oops, how clumsy of me. You'd better pick it up before the teacher gets back." The rest of the class turns to watch.
@@ -3108,11 +3116,13 @@
 	<<set $_linkSkip to false>>
 
 	<<addinlineevent "historyQuiet" 2>>
-		<<npc Winter>><<person1>>Winter has the class read in silence, and glares whenever <<he>> hears furtive whispering.
+		<<npc Winter>><<person1>>
+		Winter has the class read in silence, and glares whenever <<he>> hears furtive whispering.
 	<</addinlineevent>>
 
 	<<addinlineevent "historyClothes" 1>>
-		<<generates1>><<person1>><<set _coinflip to random(0,1)>>
+		<<npc Winter>><<person1>>
+		<<generates2>><<person2>><<set _coinflip to random(0,1)>>
 		Winter calls a <<person>> to the front of the class and asks <<him>> to model some historical clothes.
 		<<if currentSkillValue('history') gte 700>>
 			The clothes look like <<print either("early-medieval servant's garb,", "Tudor-era court clothes for a noble family, possibly the St. Clairs,", "those worn by a medieval 'runner', or courier,", "a pre-industrial Naval uniform,", "stable-boy garb,")>> unless you are mistaken.
@@ -3151,12 +3161,13 @@
 	<</if>>
 
 	<<addinlineevent "historyAnswer" 1>>
+		<<npc Winter>><<person1>>
 		Winter asks the class a question.
 		<<if currentSkillValue('history') gte 400>>
 			<<set $_linkSkip to true>>
 			You think you know the answer.
 			<br><br>
-			<<link [[Raise your hand|History Lesson Answer]]>><<stress 2>><<historyskill>><</link>><<ghistory>><<gstress>>
+			<<link [[Raise your hand|History Lesson Answer]]>><<endevent>><<stress 2>><<historyskill>><</link>><<ghistory>><<gstress>>
 			<br>
 			<<link [[Remain silent|History Lesson]]>><<endevent>><</link>>
 			<br>
@@ -3166,7 +3177,8 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "historySleeby" 1>>
-		<<generates1>><<person1>><<set _coinflip to random(0,1)>>
+		<<npc Winter>><<person1>>
+		<<generates2>><<person2>><<set _coinflip to random(0,1)>>
 		A <<person>> near you falls asleep in class.
 		<<if $rng % 2>>
 			<<He>> quietly dozes for a few minutes, waking up sharply when
@@ -3208,6 +3220,7 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "historyMovie" 1>>
+		<<npc Winter>><<person1>>
 		Winter shows the class some excerpts from a historical movie.
 		<<if $rng % 2>>
 			It's a boring old film that everyone has seen. It's educational, but even Winter seems uninspired by this.
@@ -3220,14 +3233,17 @@
 	<</addinlineevent>>
 
 	<<addinlineevent "historyBookshelf" 1>>
+		<<npc Winter>><<person1>>
 		Winter has the class practise sourcing information from the various bookshelves around the edge of the room.
 	<</addinlineevent>>
 
 	<<addinlineevent "historyAncient" 1>>
-		Winter goes off on a tangent about the school, park and hospital being on the site of an ancient fortress. <<nnpc_He "Winter">> mentions rumours of underground lairs, murky dungeons and hidden escape tunnels.
+		<<npc Winter>><<person1>>
+		Winter goes off on a tangent about the school, park and hospital being on the site of an ancient fortress. <<he>> mentions rumours of underground lairs, murky dungeons and hidden escape tunnels.
 	<</addinlineevent>>
 
 	<<addinlineevent "historyTangent" 1>>
+		<<npc Winter>><<person1>>
 		Winter goes off on a tangent about the history of the local transportation system. You don't know if you've ever listened to anything so boring.
 	<</addinlineevent>>
 
