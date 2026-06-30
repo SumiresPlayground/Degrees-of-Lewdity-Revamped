@@ -308,16 +308,15 @@ You open your booklet and prepare to practise. You read through the lines, tryin
 			<br><br>
 		<</if>>
 	<</if>>
-	<<endevent>>
 <</if>>
 
 <<if $location is "home">>
-	<<link [[Next|Bedroom]]>><</link>>
+	<<link [[Next|Bedroom]]>><<endevent>><</link>>
 <<elseif $location is "avery_mansion">>
-	<<link [[Next|Mansion Study]]>><</link>>
+	<<link [[Next|Mansion Study]]>><<endevent>><</link>>
 <<else>>
 	<span class="red">Error: Invalid location: $location. Please report.</span>
-	<<link [[Next|Bedroom]]>><</link>>
+	<<link [[Next|Bedroom]]>><<endevent>><</link>>
 <</if>>
 <br>
 
@@ -1222,7 +1221,6 @@ You arrive at the town hall. Several rows of seats span across the main room, al
 	<br><br>
 
 	Several people are entering the auditorium, and the seats begin to fill. It won't be long until the show begins.
-	<<endevent>>
 	<br><br>
 
 	<<if C.npc.Avery.state isnot "dismissed" and $avery_mansion?.attend.english_play>>
@@ -1230,13 +1228,13 @@ You arrive at the town hall. Several rows of seats span across the main room, al
 		<br><br>
 
 		<<if C.npc.Avery.love gte 50>>
-			<<link [[Wave at Avery and go backstage|English Play Backstage]]>><<set $phase to 1>><</link>>
+			<<link [[Wave at Avery and go backstage|English Play Backstage]]>><<endevent>><<set $phase to 1>><</link>>
 			<br>
 		<</if>>
-		<<link [[Ignore Avery and go backstage|English Play Backstage]]>><<set $phase to 0>><</link>>
+		<<link [[Ignore Avery and go backstage|English Play Backstage]]>><<endevent>><<set $phase to 0>><</link>>
 		<br>
 	<<else>>
-		<<link [[Go backstage|English Play Backstage]]>><<set $phase to 0>><</link>>
+		<<link [[Go backstage|English Play Backstage]]>><<endevent>><<set $phase to 0>><</link>>
 		<br>
 	<</if>>
 
@@ -1475,7 +1473,7 @@ You prepare to perform. You put on your designated costume, which consists of
 
 Booklet in hand, you go through your lines one last time. You clear your throat and read them to yourself.
 <br><br>
-
+<<npc Doren>><<person1>>
 "Alright, you're up next," Doren says. "Show them what you've been working on, and good luck out there." Your partners go first. You follow closely as they disappear through the curtains.
 <br><br>
 
@@ -1485,7 +1483,7 @@ You take a deep breath and step through the curtain. You're immediately greeted 
 The stage is yours.
 <br><br>
 
-<<link [[Act one|English Play Act One]]>><<pass 5>><</link>>
+<<link [[Act one|English Play Act One]]>><<endevent>><<pass 5>><</link>>
 <br>
 
 :: English Play Act One
@@ -2440,7 +2438,6 @@ The two continue to converse until Sirris starts to lead Sydney out. Sydney hesi
 <<storeon "play_head">>
 <<storeon "play_handheld">>
 <<storeon "play_legs">>
-<<endevent>>
 <<clearNPC actor_replacement>>
 
 <<if C.npc.Avery.state isnot "dismissed" and $avery_mansion?.attend.english_play>>
@@ -2451,7 +2448,7 @@ The two continue to converse until Sirris starts to lead Sydney out. Sydney hesi
 		<br><br>
 		You could leave now, but staying to support your fellow students will endear you to them.
 		<br><br>
-		<<link [[Stay and watch a performance (0:20)|English Play Watch]]>><<trauma -2>><<tiredness 2>><<status 1>><<pass 20>><</link>><<ltrauma>><<gtiredness>><<gcool>>
+		<<link [[Stay and watch a performance (0:20)|English Play Watch]]>><<endevent>><<trauma -2>><<tiredness 2>><<status 1>><<pass 20>><</link>><<ltrauma>><<gtiredness>><<gcool>>
 		<br>
 		<<link [[Leave the town hall (0:01)|Cliff Street]]>><<englishplayfinish>><<pass 1>><<endevent>><<set $eventskip to 1>><</link>>
 		<br>
@@ -2459,19 +2456,19 @@ The two continue to converse until Sirris starts to lead Sydney out. Sydney hesi
 		<<set $averySeen.pushUnique("play_success")>>
 		and see <<nnpc_him "Avery">> approaching you with a <span class="teal">smile</span>. <<npcincr Avery rage -3>><<larage>>
 		<br><br>
-		<<link [[Next|English Play Avery]]>><</link>>
+		<<link [[Next|English Play Avery]]>><<endevent>><</link>>
 		<br>
 	<<else>>
 		<<set $averySeen.pushUnique("play_perfect")>>
 		and see <<nnpc_him "Avery">> approaching you with a <span class="green">smile</span>. <<npcincr Avery rage -5>><<llarage>>
 		<br><br>
-		<<link [[Next|English Play Avery]]>><</link>>
+		<<link [[Next|English Play Avery]]>><<endevent>><</link>>
 		<br>
 	<</if>>
 <<else>>
 	You could leave now, but staying to support your fellow students will endear you to them.
 	<br><br>
-	<<link [[Stay and watch a performance (0:20)|English Play Watch]]>><<trauma -2>><<tiredness 2>><<status 1>><<pass 20>><</link>><<ltrauma>><<gtiredness>><<gcool>>
+	<<link [[Stay and watch a performance (0:20)|English Play Watch]]>><<endevent>><<trauma -2>><<tiredness 2>><<status 1>><<pass 20>><</link>><<ltrauma>><<gtiredness>><<gcool>>
 	<br>
 	<<link [[Leave the town hall (0:01)|Cliff Street]]>><<englishplayfinish>><<pass 1>><<endevent>><<set $eventskip to 1>><</link>>
 	<br>
@@ -2821,7 +2818,6 @@ Doren releases you, and Kylar bolts without a word. A few moments later, you hea
 	<<default>>
 		<<randomPlay>>
 <</switch>>
-<<endevent>>
 <br><br>
 
 <<if Time.hour gte 21>>

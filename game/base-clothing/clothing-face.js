@@ -1710,7 +1710,39 @@ function initFace() {
 		Clothes that modders add go into this array. This should be empty in the base game at all times.
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
-	setup.moddedClothes.face = [];
+	setup.moddedClothes.face = [
+		{
+			index: 1,
+			slot: "face",
+			name: "perchten mask",
+			name_cap: "Perchten mask",
+			variable: "perchtenmask",
+			state: 0,
+			state_base: 0,
+			integrity: 50,
+			integrity_max: 50,
+			fabric_strength: 20,
+			reveal: 1,
+			word: "a",
+			plural: 0,
+			colour: 0,
+			colour_options: [],
+			type: ["mask", "face_covering", "costume"],
+			colour_combat: 0,
+			gender: "n",
+			warmth: 3,
+			cost: 100000,
+			description: "To drive out winter spirits.",
+			shop: ["cursed"],
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			cursed: 0,
+			location: 0,
+			iconFile: "perchten-mask.png",
+			accIcon: 0,
+		}
+	];
 
 	setup.moddedClothes.face.forEach((x, i) => (x.index = setup.clothes.face.length + i));
 	setup.clothes.face.push(...setup.moddedClothes.face);

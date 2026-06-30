@@ -760,6 +760,19 @@
 			<br>
 		<</if>>
 	<</if>>
+	<<if $location is "alex_farm">>
+		<<if $farm.tractor gte 3>>
+			<<set _tractor = 0.25>>
+		<<elseif $farm.tractor gte 2>>
+			<<set _tractor = 0.5>>
+		<<elseif $farm.tractor gte 1>>
+			<<set _tractor = 1>>
+		<</if>>
+		<<if $farm.tractorloader is true>>
+			<<set _baseTime = Math.round(_baseTime * (0.5 * _tractor))>>
+		<</if>>
+	<</if>>
+	<<set _timeString to getTimeString(_baseTime)>>
 	<<if $farm_stage isnot 12 and $farm_work.alex is "clearing" and ($exposed lt 2 or hasSexStat("exhibitionism", 5)) and Time.dayState isnot "night">>
 		<<if pcAreArmsBound("both")>>
 			<span class="red">Both of your arms are bound</span>, so you are unable to help Alex clear a field.
@@ -3141,14 +3154,14 @@
 <<widget "farm_clear">>
 	<<if $farm_work.alex is "clearing">>
 		<<set _baseTime = 20>>
-		<<set _baseTiredsness = 2>>
+		<<set _baseTiredness = 2>>
 	<<else>>
 		<<set _baseTime = 40>>
-		<<set _baseTiredsness = 4>>
+		<<set _baseTiredness = 4>>
 	<</if>>
 	<<if $location is "alex_farm">>
 		<<if $farm.tractor gte 1>>
-			<<set _baseTiredsness = Math.round(_baseTiredsness * 0.8)>>
+			<<set _baseTiredness = Math.round(_baseTiredness * 0.8)>>
 		<</if>>
 		<<if $farm.tractor gte 3>>
 			<<set _tractor = 0.25>>
@@ -3157,14 +3170,17 @@
 		<<elseif $farm.tractor gte 1>>
 			<<set _tractor = 1>>
 		<</if>>
+		<<set _farmCleared to 1>>
 		<<if $farm.tractorloader is true>>
 			<<set _baseTime = Math.round(_baseTime * (0.5 * _tractor))>>
-			<<set _baseTiredsness = Math.round(_baseTiredsness * (0.5 * _tractor))>>
+			<<set _baseTiredness = Math.round(_baseTiredness * (0.5 * _tractor))>>
+		<<else>>
+			<<set _farmCleared to _farmCleared + Math.floor(currentSkillValue('physique') / 10000) + Math.floor(currentSkillValue('tending') / 500)>>
 		<</if>>
 	<</if>>
 	<<farm_count _baseTime>>
 	<<pass _baseTime>>
-	<<tiredness _baseTiredsness>>
+	<<tiredness _baseTiredness>>
 	<<if $farm.tractor gte 1>>
 		<<set $farm.clearing = Math.round($farm.clearing - (1 + (1 / _tractor)))>>
 	<<else>>
@@ -3618,6 +3634,13 @@
 			<<exitAll>>
 		<</if>>
 	<</if>>
+<</widget>>
+
+<<widget "composting">>
+	<<composting1>>
+	<<composting2>>
+	<<composting3>>
+	<<composting4>>
 <</widget>>
 
 <<widget "composting1">>

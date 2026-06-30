@@ -128,7 +128,7 @@
 
 	/* ── Change what you call Bailey ── */
 	<br>
-	<<ind>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "date_menu">><</link>>
+	<<if $stockholm_active>><<ind>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "date_menu">><</link>><</if>>
 	<br>
 
 	<br>
@@ -1488,7 +1488,7 @@ Bailey walks to the kitchen. You watch from the doorway as <<he>> opens a cupboa
 "Help me set the table."
 <br><br>
 
-<<He>> opens the fridge. It looks better stocked than you thought it would be.<<if $plants and Object.keys($plants).length gt 0>> You recognise some of the vegetables. Bailey must have taken them from the orphanage garden.<</if>>
+<<He>> opens the fridge. It looks better stocked than you thought it would be.<<if ($foodstuff and Object.keys($foodstuff).length gt 0) or ($plants and Object.keys($plants).length gt 0)>> You recognise some of the vegetables. Bailey must have taken them from the orphanage garden.<</if>>
 <br><br>
 
 <<He>> pulls out some meat and produce and sets them on the counter. You've eaten <<his>> cooking at the orphanage many times before. It's terrible.
@@ -2351,7 +2351,7 @@ You don't know how long it takes you to fall asleep, but you eventually drift aw
 <<set _target to 6 * 60 + 30>>
 <<set _toPass to (_target - _now + 1440) % 1440>>
 <<pass _toPass>>
-<<set $tiredness to 0>>
+<<set $tiredness to 0>><<set $stress to Math.clamp($stress - 10000, 0, $stressmax)>>
 <<effects>>
 <<npc Bailey>><<person1>>
 
@@ -2422,11 +2422,11 @@ You sip the black coffee slowly.
 <<npc Bailey>><<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
-	"Good morning, Bailey," you say. "I-I hope you slept well."
+	"Good morning, <<baileyTitleNarration>>," you say. "I-I hope you slept well."
 <<elseif $speech_attitude is "bratty">>\
-	"Morning," you say. "Do you even sleep?"
+	"Morning <<baileyTitleNarration>>," you say. "Do you even sleep?"
 <<else>>\
-	"Good morning," you say. "You're up early."
+	"Good morning <<baileyTitleNarration>>," you say. "You're up early."
 <</if>>
 <br><br>
 

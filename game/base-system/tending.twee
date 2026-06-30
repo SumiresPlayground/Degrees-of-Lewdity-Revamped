@@ -85,15 +85,6 @@
 	<<set _location to _args[0]>>
 	<<set $_plotsHere to $plots[_location]>>
 	<<set _water_needed to 0>>
-	<<if $farm isnot undefined>>
-		<<if $farm.tractor is undefined>>
-			<<set $farm.tractor to 0>>
-			<<set $farm.tractorplough to false>>
-			<<set $farm.tractorseeddrill to false>>
-			<<set $farm.tractorharvester to false>>
-			<<set $farm.tractorloader to false>>
-		<</if>>
-	<</if>>
 	There <<pluralise $_plotsHere.length "is">> <<number $_plotsHere.length>> tillable
 	<<switch $_plotsHere[0].size>>
 		<<case "small">> <span class="lblue"><<pluralise $_plotsHere.length "bed">></span>
@@ -314,7 +305,7 @@
 				<<switch _plantbed.size>>
 					<<case "small">><<set _passTime to 30>>
 					<<case "medium">><<set _passTime to 90>>
-					<<default>><<set _passTime to 180>>
+					<<default>><<set _passTime to _baseTime>>
 				<</switch>>
 				<<set $_timeString to getTimeString(_passTime)>>
 				<<capture _passTime _plantbed _plantType>>
@@ -362,7 +353,7 @@
 	
 	<<if $location is "alex_farm">>
 		<<if $farm.tractor gte 1>>
-			<<set _baseTiredsness = Math.round(_baseTiredsness * 0.8)>>
+			<<set _baseTiredness = Math.round(_baseTiredness * 0.8)>>
 		<</if>>
 		<<if $farm.tractor gte 3>>
 			<<set _baseTime = Math.round(_baseTime * 0.7)>>
@@ -374,9 +365,9 @@
 			<<set _baseTime = Math.round(_baseTime * 0.9)>>
 			<<set _tractor = 1>>
 		<</if>>
-		<<if $farm.tractorplough is true>>
+		<<if $farm.tractorplough is true and _tractor>>
 			<<set _baseTime = Math.round(_baseTime * (0.5 * _tractor))>>
-			<<set _baseTiredsness = Math.round(_baseTiredsness * (0.5 * _tractor))>>
+			<<set _baseTiredness = Math.round(_baseTiredness * (0.5 * _tractor))>>
 		<</if>>
 	<</if>>
 

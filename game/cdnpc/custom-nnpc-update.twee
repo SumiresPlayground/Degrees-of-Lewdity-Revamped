@@ -1,0 +1,82 @@
+:: Update Custom NNPC Widgets [widget]
+
+<<widget "update-custom-nnpc-early">>
+    <<if $passage === "Robin Unwrap" || ($passage==="Robin's Room Entrance" && $christmas_robin_lewd===1)>>
+        <<set _customNNPCRobinLewd to true>>
+    <</if>>
+<</widget>>
+
+<<widget "update-custom-nnpc">>
+    <<if $passage !== "Start">>
+        <<if $NPCNameList.includes($NPCList[0].fullDescription)>>
+            <<if $passage.toLowerCase().includes("bath") || $passage.toLowerCase().includes("shower")>>
+                <<set $NPCList[0].clothes.set to "naked">>
+                <<set $NPCList[0].clothes.upper.name to "naked">>
+                <<set $NPCList[0].clothes.lower.name to "naked">>
+            <</if>>
+            <<if $passage === "Sydney Beach Changing Room">>
+                <<set $customNNPC.sydney.beachFitPrev to $NPCList[0].clothes.set>>
+                <<set $NPCList[0].clothes.set to "naked">>
+                <<set $NPCList[0].clothes.upper.name to "naked">>
+                <<set $NPCList[0].clothes.lower.name to "naked">>
+            <</if>>
+            <<if $passage === "Sydney Beach Changing Room Leave">>
+                <<set _CustomNNPCSydBeachLeaveOutfit to "">>
+                <<run
+                    T.CustomNNPCSydBeachLeaveOutfit = `${V.customNNPC.sydney.beachFitPrev}`;
+                >>
+                <<set $customNNPC.sydney.beachFit to "">>
+                <<set $customNNPC.sydney.beachFitPrev to "">>
+                <<set $NPCList[0].clothes.set to T.CustomNNPCSydBeachLeaveOutfit>>
+                <<set $NPCName[$NPCNameList.indexOf("Sydney")].clothes.set to T.CustomNNPCSydBeachLeaveOutfit>>
+            <</if>>
+            <<if $customNNPC.sydney.beachFit !== "">>
+                <<custom-nnpc-sync-sydney-swimsuit>>
+                <<custom-nnpc-autodetect>>
+            <</if>>
+            <<if $passage === "Sydney Beach Swimsuit">>
+                <<custom-nnpc-sync-sydney-swimsuit>>
+                <<custom-nnpc-autodetect>>
+            <</if>>
+            <<if $NPCList[0].clothes.upper.name is "naked" or $NPCList[0].chest isnot "clothed">>
+                <<set $customNNPC.topExposed to true>>
+            <<else>>
+                <<set $customNNPC.topExposed to false>>
+            <</if>>
+            <<if $NPCList[0].clothes.lower.name is "naked" or ($NPCList[0].penis isnot "clothed" and $NPCList[0].vagina isnot "clothed")>>
+                <<set $customNNPC.bottomExposed to true>>
+            <<else>>
+                <<set $customNNPC.bottomExposed to false>>
+            <</if>>
+            <<if def _customNNPCRobinLewd && _customNNPCRobinLewd === true>>
+                <<npcClothesName $NPCName[$NPCNameList.indexOf("Robin")] "robinLewdRibbons">>
+                <<npcClothesName $NPCList[0] "robinLewdRibbons">>
+                <<custom-nnpc-autodetect>>
+            <</if>>
+            <<if ! $customNNPC.cd[$NPCList[0].fullDescription].discovered >>
+                <<set _nameIdx to $NPCNameList.indexOf($NPCList[0].fullDescription) >>
+                <<if def $NPCName[_nameIdx].crossdressing && $NPCName[_nameIdx].crossdressing gt 0>>
+                    <<set $customNNPC.cd[$NPCList[0].fullDescription].discovered to true >>
+                <</if>>
+            <</if>>
+        <<else>>
+            <<set $customNNPC.topExposed to false>>
+            <<set $customNNPC.bottomExposed to false>>
+            <<set $customNNPC.orgasmCount to {} >>
+            <<set $customNNPC.orgasmCount.chest to 0 >>
+            <<set $customNNPC.orgasmCount.face to 0 >>
+            <<set $customNNPC.orgasmCount.feet to 0 >>
+            <<set $customNNPC.orgasmCount.leftarm to 0 >>
+            <<set $customNNPC.orgasmCount.rightarm to 0 >>
+            <<set $customNNPC.orgasmCount.neck to 0 >>
+            <<set $customNNPC.orgasmCount.thigh to 0 >>
+            <<set $customNNPC.orgasmCount.tummy to 0 >>
+        <</if>>
+        <<if def $sydney>>
+            <<if $customNNPC.sydney.hair !== $sydney.hair>>
+                <<set $customNNPC.sydney.hair to $sydney.hair>>
+                <<custom-nnpc-reset-hairstyle "Sydney" false>>
+            <</if>>
+        <</if>>
+    <</if>>
+<</widget>>

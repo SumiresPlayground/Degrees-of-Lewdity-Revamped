@@ -30,6 +30,22 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $modtest to 1>>
 	<</if>>
 
+	<<updatePlants>>
+	<<specialClothesUpdate>>
+
+	<<if $farm isnot undefined>>
+		<<if $farm.tractor is undefined>>
+			<<set $farm.tractor to 0>>
+			<<set $farm.tractorplough to false>>
+			<<set $farm.tractorseeddrill to false>>
+			<<set $farm.tractorharvester to false>>
+			<<set $farm.tractorloader to false>>
+		<</if>>
+		<<if $farm.compostbin is undefined>>
+			<<set $farm.compostbin to 0>>
+		<</if>>
+	<</if>>
+
 	<<if $taylorgender is undefined>>
 		<<if $malechance lt random(1, 100)>>
 			<<set $taylorgender to "f">>
@@ -333,7 +349,6 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<if $fish gte 6>>
 			<<set V.transformationParts.fish.tail to "default">>
 			<<set V.transformationParts.traits.aquatail to "default">>
-			<<set V.transformationParts.traits.armorscales to "default">>
 			<<set $hastail to "true">>
 			<<set $thicktail to "true">>
 			<<set $swimtail to "true">>
@@ -645,10 +660,6 @@ If the result is "undefined", this widget is not called for some reason. If the 
 
 	<<if V.transformationParts.traits.bearbuild is undefined>>
 		<<set V.transformationParts.traits.bearbuild to "disabled">>
-	<</if>>
-
-	<<if V.transformationParts.traits.armorscales is undefined>>
-		<<set V.transformationParts.traits.armorscales to "disabled">>
 	<</if>>
 
 	<<if V.transformationParts.traits.lurker is undefined>>

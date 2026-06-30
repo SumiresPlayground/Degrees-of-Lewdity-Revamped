@@ -16,7 +16,7 @@
 	<br>
 	<<link [[Leave Flowers for the Dead (0:15)|Forest Mansion Flowers]]>><<world_corruption "soft" -1>><<pass 15>><</link>>
 	<br>
-	<<link [[Rob a Grave (2:00)|Forest Mansion Graverob]]>><<crimeUp 30 "thievery">><<pass 120>><<tiredness 5>><</link>><<ggtiredness>><<gcrime "thievery">>
+	<<link [[Rob a Grave (2:00)|Forest Mansion Graverob]]>><<set $blackmoney += 30>><<crimeUp 30 "thievery">><<pass 120>><<tiredness 5>><</link>><<ggtiredness>><<gcrime "thievery">>
 	<br>
 	<<link [[Approach the Old Manor (0:10)|Forest Mansion Explore]]>><<pass 10>><</link>>
 	<br>
@@ -165,7 +165,11 @@ Picking the corpse for what value it holds, you end up with a fistful of expensi
 <<else>>
 	You start to pick at the lock, but you can't even begin to figure out how it's supposed to work. You refrain from further picking, not wanting to waste time on a futile effort.
 	<br><br>
-	<<link [[Go back|Forest Mansion Entrance]]>><</link>>
+	<<if $forestmansionstage is 0>>
+		<<link [[Go back|Forest Mansion Explore]]>><</link>>
+	<<else>>
+		<<link [[Go back|Forest Mansion Entrance]]>><</link>>
+	<</if>>
 <</if>>
 
 :: Forest Mansion Look Around
@@ -516,7 +520,7 @@ You find yourself in a nicely built and kept bedroom. The room looks almost unus
 			<br><br>
 		<</if>>
 	<<else>>
-		You find yourself in a room with a huge bed and a large, antique wardrobe. It is entirely empty. On the wall hangs a beautiful painting of a young <<personsimple>>. You feel as though its menacing gaze is directed at you.
+		You find yourself in a room with a huge bed and a large, antique wardrobe. It is entirely empty. On the wall hangs a beautiful painting of a young /*<<personsimple>>*/man. You feel as though its menacing gaze is directed at you.
 		<br><br>
 
 		<<if $TaylorWith is 1>>
@@ -610,25 +614,22 @@ You snuggle under the covers.
 <<set $TaylorWith to 0>>
 "Great! Let's go to the Ocean Breeze Cafe then." You two make your way to the cafe and take a seat. Taylor sighs "That expedition was less exciting than I thought. So much for being haunted that place barely had anything worthwhile. Oh two coffees please." <<He>> says to the barista. "The only part that made that trip fun was you, so thanks for coming with." <<He>> smiles. "Anyway I better get home before my mom kills me. See you soon."
 <br><br>
-<<endevent>>
 
-<<clifficon>><<link [[Next|Cliff Street]]>><<pass 90>><</link>>
+<<clifficon>><<link [[Next|Cliff Street]]>><<endevent>><<pass 90>><</link>>
 
 :: Forest Mansion Goodbye
 <<set $TaylorWith to 0>>
 "Okay I understand. Have a great day then I better get home." <<He>> says waving as he heads inside.
 <br><br>
-<<endevent>>
 
-<<danubeicon>><<link [[Next|Danube Street]]>><<pass 90>><</link>>
+<<danubeicon>><<link [[Next|Danube Street]]>><<endevent>><<pass 90>><</link>>
 
 :: Forest Mansion Taylor Leave
 <<set $TaylorWith to 0>>
 "You want to leave already?" Taylor asks sadly, "Okay I guess if you're not having a good time we can." You walk together back to the town. "If you ever want to go to another location you know where to find me." <<He>> says as <<he>> gives you a hug and heads home.
 <br><br>
-<<endevent>>
 
-<<danubeicon>><<link [[Next|Danube Street]]>><<pass 90>><</link>>
+<<danubeicon>><<link [[Next|Danube Street]]>><<endevent>><<pass 90>><</link>>
 
 :: Forest Mansion Mirror
 <<effects>>
@@ -801,7 +802,7 @@ You waste no time following <<his>> orders. You shove yourself back into your ow
 :: Mansion Jordan 6
 You fling yourself up with a start, eyes flickering around the room wildly. You're in a plush, clean bed. Only a few meters away sits Jordan sleeping peacefully in a chair. Finally, you look down, and see your skin is once again normal. You feel relieved.
 <br><br>
-As you start to rise, Jordan wakes up. With a smile, <<he>> approaches. "Good morning, <<if templerank is monk>><<sister>><<else>>child<</if>>," <<he>> mumbles sleepily. "It seems like the exorcism took a lot out of us both. I barely made it back to the temple before passing out."
+As you start to rise, Jordan wakes up. With a smile, <<he>> approaches. "Good morning, <<if $temple_rank is "monk" or $temple_rank is "priest">><<sister>><<else>>child<</if>>," <<he>> mumbles sleepily. "It seems like the exorcism took a lot out of us both. I barely made it back to the temple before passing out."
 <br><br>
 <<He>> helps you up. "I'm glad I could help with your spiritual problem. Next time, please try not to stay in such a cursed place."
 <br><br>

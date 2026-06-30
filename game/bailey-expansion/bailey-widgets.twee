@@ -80,7 +80,7 @@
 
 /* Narration version: only prints the title once $bailey_title_unlocked is set (this one doesn't check Stockholm). */
 <<widget "baileyTitleNarration">><<silently>>
-	<<if $bailey_title_unlocked and $bailey_title and $bailey_title isnot "Bailey">>
+	<<if $stockholm_active and $bailey_title_unlocked and $bailey_title and $bailey_title isnot "Bailey">>
 		<<set _bt_out to $bailey_title>>
 	<<else>>
 		<<set _bt_out to "Bailey">>
@@ -182,57 +182,6 @@ Type a name (15 characters max):
 <br>
 <br>
 <<link [[Back|Bailey's Office]]>><</link>>
-<br>
-
-
-:: Bailey Title Organic
-/* ══════════════════════════════════════════════════════
-   Bailey Title Organic — the scene where PC first calls Bailey by a
-   title on their own. Meant to fire once at the flat when Stockholm is
-   active, dom >= 70, love >= 30, and the title isn't unlocked yet.
-   NOTE: nothing links here yet — it isn't wired into any passage.
-   ══════════════════════════════════════════════════════ */
-<<npc Bailey>><<person1>>
-<<He>> is standing in the kitchen. <<His>> back is to you. <<He>> is making something — you can hear the scrape of a pan.
-<br><br>
-
-You open your mouth to say <<his>> name. What comes out instead is —
-<br><br>
-
-<<if C.npc.Bailey.pronoun is "m">>
-	<span class="lewd">"Daddy."</span>
-<<else>>
-	<span class="lewd">"Mommy."</span>
-<</if>>
-<br><br>
-
-The scraping stops. <<He>> doesn't turn around.
-<br><br>
-
-The silence stretches. You feel your face burn.
-<br><br>
-
-<<He>> plates the food. <<He>> sets it on the table. <<He>> still hasn't looked at you.
-<br><br>
-
-"Eat," <<he>> says.
-<br><br>
-
-<<He>> walks past you toward <<his>> office. At the doorway <<he>> pauses. <<He>> doesn't turn around.
-<br><br>
-
-<<if $bailey_dom gte 70>>
-	"...Say that again later."
-<<else>>
-	<<He>> says nothing. But <<he>> doesn't correct you.
-<</if>>
-<br><br>
-
-<<set $bailey_title_unlocked to true>>
-<<set $bailey_title to (C.npc.Bailey.pronoun is "m" ? "Daddy" : "Mommy")>>
-<span class="green">You can now change what you call Bailey from the flat actions page.</span>
-<br><br>
-<<link [[Next|Bailey Flat Actions]]>><</link>>
 <br>
 
 

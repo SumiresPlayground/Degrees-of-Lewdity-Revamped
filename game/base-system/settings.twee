@@ -27,6 +27,7 @@
 	<<set $settings.darkSkinChance to 10>>
 	<<set $settings.swarmsEnabled to true>>
 	<<set $settings.spidersEnabled to true>>
+	<<set $settings.goreEnabled to false>>
 	<<set $settings.slugsEnabled to true>>
 	<<set $settings.waspsEnabled to true>>
 	<<set $settings.beesEnabled to true>>
@@ -140,6 +141,7 @@
 		<<case "priceSettings">><<set _subsection to "price">><<replace #subsectionDiv>><<priceSettings>><</replace>>
 		<<case "pregnancySettings">><<set _subsection to "pregnancy">><<replace #subsectionDiv>><<pregnancySettings>><</replace>>
 		<<case "sizeLimitsSettings">><<set _subsection to "sizeLimits">><<replace #subsectionDiv>><div class="solidBorderContainer settings-container"><<sizeLimitsSettings>></div><</replace>>
+		<<case "moddedSettings">><<set _subsection to "modded">><<replace #subsectionDiv>><<moddedSettings>><</replace>>
 		<<default>><<set _subsection to "human">><<replace #subsectionDiv>><<humanSettings>><</replace>>
 	<</switch>>
 	<<run settingsDisableElement()>>
@@ -1438,6 +1440,10 @@
 				<<subsectionSettingsTabButton "Body Part Size Limits" "sizeLimits">>
 			</div>
 		<</if>>
+
+		<div id="settingsModded">
+			<<subsectionSettingsTabButton "Modded Settings" "modded">>
+		</div>
 	</div>
 <</widget>>
 
@@ -2254,6 +2260,18 @@
 	</div>
 <</widget>>
 
+<<widget "moddedSettings">>
+	<div class="solidBorderContainer settings-container">
+		<div class="settingsGrid">
+			<div class="settingsToggleItemWide">
+				<label>
+					<<checkbox "$settings.goreEnabled" false true autocheck>> <span class="red">Enable gore</span>
+				</label>
+			</div>
+		</div>
+	</div>
+<</widget>>
+
 <<widget "skinColourVariableCombine">>
 	<<set $player.skin.color to _skinTone + _skinShade>>
 <</widget>>
@@ -2382,6 +2400,7 @@
 
 <<widget "npcSettings">>
 	<div class="solidBorderContainer settings-container">
+	    <<options-custom-nnpc-import-export>>
 		<div class="settingsToggleIndent">
 			<span class="gold">Randomly assign to Named NPCs:</span> <mouse class="tooltip linkBlue">(?)<span>Settings are generated based on General NPC Settings.</span></mouse>
 			<br>
@@ -2745,6 +2764,7 @@
 			</div>
 		<</if>>
 	</div>
+	<<custom-nnpc-settings $NPCName[_npcId].nam >>
 	<div style="clear:both;"></div>
 
 	<<if $debug is 1>>

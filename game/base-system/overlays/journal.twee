@@ -329,11 +329,26 @@
 		</ul>
 	<</if>>
 
-	<<if !$statFreeze and (($location is "asylum" and ($eden_asylum_window is 1 or ($daily.eden.distract gte 1 and Time.hour lt 21))) || $temple_spear_mission gte 1 || $docks.hired || ($brothelshowdata.intro and $brothelshowdata.type is "none") || $exhibitionismrun || $robindebtevent gte 1 and $robinmissing isnot 0 || $pubtask2 is 1 || $pubtask || $police_hack is 1 || $pub_hack_job gte 1 || $pubfame ||( $earSlime.event and !_tempEventHide) || $earSlime.forcedCommando isnot undefined || $earSlime.forcedDressing isnot undefined || $temple_rank is "prospective" || $chef_state gte 4 || $mason_pond gte 1 || ($brothel_machine_repair gte 1 and $brothel_machine_repair lte 3) || ($harpy gte 6 and $birdFly isnot 1) || Object.values(V.children).filter(child => (child.type === "hawk" && child.location === "inventory")).length gt 0 || $adultshopgrandopening || ($adultshopintro is 1 and $adultshopunlocked is undefined) || $gwylan?.request.event)>>
+	<<if !$statFreeze and (($location is "asylum" and ($eden_asylum_window is 1 or ($daily.eden.distract gte 1 and Time.hour lt 21))) || $temple_spear_mission gte 1 || $docks.hired || ($brothelshowdata.intro and $brothelshowdata.type is "none") || $exhibitionismrun || $robindebtevent gte 1 and $robinmissing isnot 0 || $pubtask2 is 1 || $pubtask || $police_hack is 1 || $pub_hack_job gte 1 || $pubfame ||( $earSlime.event and !_tempEventHide) || $earSlime.forcedCommando isnot undefined || $earSlime.forcedDressing isnot undefined || $temple_rank is "prospective" || $chef_state gte 4 || $mason_pond gte 1 || ($brothel_machine_repair gte 1 and $brothel_machine_repair lte 3) || ($harpy gte 6 and $birdFly isnot 1) || Object.values(V.children).filter(child => (child.type === "hawk" && child.location === "inventory")).length gt 0 || $adultshopgrandopening || ($adultshopintro is 1 and $adultshopunlocked is undefined) || $gwylan?.request.event) || $acceptedRequest || $culttaskphase gte 0>>
 		/*TODO: streamline during eventual Journal UI Overhaul bc lol. lmao, even. */
 		<hr>
 		<h1 class="header gold bold">Reminders</h1>
 		<ul class="journal carry">
+			<<if $acceptedRequest>>
+				<li><span class="ghost-footer">Accepted request: «$acceptedRequest»</span></li>
+				<<if $acceptedRequest is "Strange Creaking" or $acceptedRequest is "Weird Creature" or $acceptedRequest is "Something in Cupboard" or $acceptedRequest is "Something Following">>
+					<li><span class="ghost-footer">The request location is on «Domus Street»</span></li>
+				<<elseif $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall">>
+					<li><span class="ghost-footer">The request location is on «Danube Street»</span></li>
+				<<elseif $acceptedRequest is "Stuff Disappearing">>
+					<li><span class="ghost-footer">The request location is on «Harvest Street»</span></li>
+				<<elseif $acceptedRequest is "Unknown Blood">>
+					<li><span class="ghost-footer">The request location is on «Nightingale Street»</span></li>
+				<<elseif $acceptedRequest is "Special Request">>
+					<li><span class="ghost-footer">The request location is in the «Commercial Alleyways»</span></li>
+				<</if>>
+				<br>
+			<</if>>
 			<<if $temple_spear_mission is 1>>
 				<li><<islandicon>> Jordan has tasked you with retrieving an artefact spear. It is said to reside on a mysterious island.
 					<<if $temple_spear_mission_winter is undefined>>
@@ -479,17 +494,17 @@
 			<</if>>
 
 			<<if $culttaskcomplete is 1>>
-				<li class = "purple">Return to the elders.</li>
+				<li class = "purple"><<pilloryicon>>Return to the elders.</li>
 			<<elseif $culttaskphase is 0>>
-				<li class = "purple">Retrieve an idol of the Dark Mother from the old temple.</li>
+				<li class = "purple"><<lakeicon "plinth">>Retrieve an idol of the Dark Mother from the old temple.</li>
 			<<elseif $culttaskphase is 1>>
-				<li class = "purple">Retrieve an idol of the Dark Mother from within the tomb of peasants.</li>
+				<li class = "purple"><<foresticon "churchyard">>Retrieve an idol of the Dark Mother from within the tomb of peasants.</li>
 			<<elseif $culttaskphase is 2>>
-				<li class = "purple">Retrieve an idol of the Dark Mother from within a maze of filth and grime.</li>
+				<li class = "purple"><<sewericon "drain">>Retrieve an idol of the Dark Mother from within a maze of filth and grime.</li>
 			<<elseif $culttaskphase is 3>>
-				<li class = "purple">Retrieve an idol of the Dark Mother from within the home of the old god.</li>
+				<li class = "purple"><<wolficon>>Retrieve an idol of the Dark Mother from within the home of the old god.</li>
 			<<elseif $culttaskphase is 4>>
-				<li class = "purple">Retrieve an idol of the Dark Mother from inside yourself.</li>
+				<li class = "purple"><<bedicon "single">>Retrieve an idol of the Dark Mother from inside yourself.</li>
 			<</if>>
 
 

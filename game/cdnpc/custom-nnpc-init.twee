@@ -1,0 +1,362 @@
+:: Custom NNPC Init Widgets [widget]
+
+
+<<widget "custom-nnpc-modupdate">>
+    <<if def $customNNPC>>
+        <<custom-nnpc-fix-b081-b082>>
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.IW>>
+            <<custom-nnpc-init-npc-data "Ivory Wraith">>
+            <<set $customNNPC.versionFixes.IW to true>>
+            <<run console.log("Custom NNPC: Fixed Ivory Wraith Data"); >>
+        <</if>>
+        <!-- pr0.12.8 custom colours -->
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers>>
+            <<custom-nnpc-fix-custom-layers>>
+        <</if>>
+        <!-- pr0.12.9 additional toggles fix -->
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers2>>
+            <<custom-nnpc-fix-custom-layers2>>
+        <</if>>
+        <!-- pr0.12.9 scene specific toggle -->
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers3>>
+            <<custom-nnpc-fix-custom-layers3>>
+        <</if>>
+        <!-- 1.2 rework -->
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers4>>
+            <<custom-nnpc-fix-custom-layers4>>
+        <</if>>
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.hairEyeColour>>
+            <<custom-nnpc-fix-hair-eye-colour>>
+        <</if>>
+    <</if>>
+
+    <<custom-nnpc-init>>
+<</widget>>
+
+<<widget "custom-nnpc-init-npc-data">>
+    <<if _args[0] !== "Ivory Wraith">>
+        <<set $customNNPC.useCustom[_args[0]] to true>>
+        <<set $customNNPC.customClothesSets[_args[0]] to {}>>
+        <<set $customNNPC.customData[_args[0]] to {}>>
+        <<set $customNNPC.customData[_args[0]].body_type to "classic">>
+        <<set $customNNPC.customData[_args[0]].facestyle to "default">>
+        <<set $customNNPC.customData[_args[0]].facevariant to "default">>
+        <<set $customNNPC.customData[_args[0]].mouth to "neutral">>
+        <<set $customNNPC.customData[_args[0]].lefteye to "purple">>
+        <<set $customNNPC.customData[_args[0]].heterochromic to false>>
+        <<set $customNNPC.customData[_args[0]].testicles to false>>
+        <<set $customNNPC.customData[_args[0]].freckles to false>>
+        <<set $customNNPC.customData[_args[0]].skintone to "">>
+        <<set $customNNPC.customData[_args[0]].skintan to 0>>
+        <<set $customNNPC.customData[_args[0]].hairstyle_fringe to "default">>
+        <<set $customNNPC.customData[_args[0]].hair_length_fringe to "short">>
+        <<set $customNNPC.customData[_args[0]].hairstyle_side to "default">>
+        <<set $customNNPC.customData[_args[0]].hair_length_side to "short">>
+        <<set $customNNPC.customData[_args[0]].pb_level to 0>>
+        <<set $customNNPC.customData[_args[0]].pb_level_testicles to 0>>
+        <<set $customNNPC.customData[_args[0]].pb_styling to 0>>
+        <<if _args[0] === "Charlie">>
+            <<set _CharlieFixIndex to $NPCNameList.indexOf("Charlie")>>
+            <<set $customNNPC.customData[_args[0]].freckles to true>>
+            <<set $NPCName[_CharlieFixIndex].eyeColour to "lime green">>
+        <</if>>
+        <<if _args[0] === "Sam">>
+            <<set $customNNPC.customData[_args[0]].body_type to "soft">>
+        <</if>>
+    <<else>>
+        <<set _IWFixIndex to $NPCNameList.indexOf("Ivory Wraith")>>
+        <<set $NPCName[_IWFixIndex].eyeColour to "dark blue">>
+        <<set $NPCName[_IWFixIndex].hairColour to "white">>
+        <<set $customNNPC.useCustom[_args[0]] to true>>
+        <<set $customNNPC.customClothesSets[_args[0]] to {}>>
+        <<set $customNNPC.customData[_args[0]] to {}>>
+        <<set $customNNPC.customData[_args[0]].body_type to "classic">>
+        <<set $customNNPC.customData[_args[0]].facestyle to "default">>
+        <<set $customNNPC.customData[_args[0]].facevariant to "default">>
+        <<set $customNNPC.customData[_args[0]].mouth to "neutral">>
+        <<set $customNNPC.customData[_args[0]].lefteye to "purple">>
+        <<set $customNNPC.customData[_args[0]].heterochromic to false>>
+        <<set $customNNPC.customData[_args[0]].testicles to false>>
+        <<set $customNNPC.customData[_args[0]].freckles to false>>
+        <<set $customNNPC.customData[_args[0]].skintone to "">>
+        <<set $customNNPC.customData[_args[0]].skintan to 0>>
+        <<set $customNNPC.customData[_args[0]].hairstyle_fringe to "sideswept braid">>
+        <<set $customNNPC.customData[_args[0]].hair_length_fringe to "short">>
+        <<set $customNNPC.customData[_args[0]].hairstyle_side to "ruffled">>
+        <<set $customNNPC.customData[_args[0]].hair_length_side to "thighs">>
+        <<set $customNNPC.customData[_args[0]].pb_level to 0>>
+        <<set $customNNPC.customData[_args[0]].pb_level_testicles to 0>>
+        <<set $customNNPC.customData[_args[0]].pb_styling to 0>>
+    <</if>>
+<</widget>>
+
+<<widget "custom-nnpc-init-npc-data-makeup">>
+    <<set $customNNPC.customData[_args[0]].makeup to {}>>
+    <<set $customNNPC.customData[_args[0]].makeup.eyeshadow to 0>>
+    <<set $customNNPC.customData[_args[0]].makeup.mascara to 0>>
+    <<set $customNNPC.customData[_args[0]].makeup.mascara_running to 0>>
+    <<set $customNNPC.customData[_args[0]].makeup.lipstick to 0>>
+    <<set $customNNPC.customData[_args[0]].makeup.blusher to 0>>
+<</widget>>
+
+<<widget "custom-nnpc-init-npc-data-tattoo">>
+    <<set $customNNPC.customData[_args[0]].skin to {}>>
+    <<run
+    for (let key in V.skin){
+        V.customNNPC.customData[T.args[0]].skin[key] = "none";
+    }
+    >>
+    <<if _args[0] === "Gwylan">>
+        <<set $customNNPC.customData[_args[0]].skin["pubic"] to "triquetra">>
+    <</if>>
+<</widget>>
+
+<<widget "custom-nnpc-init-npc-data-hair-dye">>
+    <<set $customNNPC.customData[_args[0]].hair_dye to {}>>
+
+    <<set $customNNPC.customData[_args[0]].hair_dye.side_colour2 to "red">>
+    <<set $customNNPC.customData[_args[0]].hair_dye.side_dual_type to false>>
+
+    <<set $customNNPC.customData[_args[0]].hair_dye.fringe_colour to false>>
+    <<set $customNNPC.customData[_args[0]].hair_dye.fringe_colour2 to false>>
+    <<set $customNNPC.customData[_args[0]].hair_dye.fringe_dual_type to "copy">>
+<</widget>>
+
+<<widget "custom-nnpc-init">>
+    <!-- Long term memory -->
+	<<if ndef $customNNPC >>
+        <<set $customNNPC to {
+                useCustom: [],
+                bottomExposed: false,
+                topExposed: false,
+                settingsActivePreview: "Avery",
+                customClothesSets: [],
+                customData: {},
+            }
+        >>
+    <</if>>
+
+    <!-- Short term memory -->
+    <<if ndef setup.customNNPC >>
+        <<set setup.customNNPC to {} >>
+    <</if>>
+
+    <<if ndef $customNNPC.versionFixes >>
+        <<set $customNNPC.versionFixes to {}>>
+    <</if>>
+    <<if ndef $customNNPC.DEBUG >>
+        <<set $customNNPC.DEBUG to false>>
+    <</if>>
+
+    <<if ndef $customNNPC.errorStack >>
+        <<set $customNNPC.errorStack to []>>
+    <</if>>
+    <<if ndef $customNNPC.canvasLocation >>
+        <<set $customNNPC.canvasLocation to "sidebar">>
+    <</if>>
+    <<if ndef $customNNPC.sidebarLayer>>
+        <<set $customNNPC.sidebarLayer to "front">>
+    <</if>>
+    <<if ndef $customNNPC.canvasContents >>
+        <<set $customNNPC.canvasContents to {}>>
+        <<set $customNNPC.canvasContents.offset to "-25">>
+        <<set $customNNPC.canvasContents.cutoff to "70">>
+    <</if>>
+    <<if ndef $customNNPC.canvasContents.mirror>>
+        <<set $customNNPC.canvasContents.mirror to false>>
+    <</if>>
+    <<if ndef $customNNPC.canvasContents.overflow>>
+        <<set $customNNPC.canvasContents.overflow to false>>
+    <</if>>
+    <<if ndef $customNNPC.sydney>>
+        <<set $customNNPC.sydney to {}>>
+        <<set $customNNPC.sydney.sync to true>>
+        <<set $customNNPC.sydney.hair to "ponytail">>
+    <</if>>
+    <<if ndef $customNNPC.sydney.beachFit>>
+        <<set $customNNPC.sydney.beachFit to "">>
+    <</if>>
+    <<if ndef $customNNPC.sydney.beachFitPrev>>
+        <<set $customNNPC.sydney.beachFitPrev to "">>
+    <</if>>
+    <<if ndef setup.customNNPC.defaultClothes>>
+        <<set setup.customNNPC.defaultClothes to {}>>
+        <<custom-nnpc-init-clothing-db>>
+    <</if>>
+    <<if ndef setup.customNNPC.sceneTweaks>>
+        <<set setup.customNNPC.sceneTweaks to {}>>
+        <<custom-nnpc-setup-scene-tweaks>>
+    <</if>>
+    <<if ndef setup.customNNPC.defaultOutfitOverrides >>
+        <<set setup.customNNPC.defaultOutfitOverrides to {} >>
+        <<custom-nnpc-setup-default-outfit-overrides>>
+    <</if>>
+    <<if ndef setup.customNNPC.defaultHairstyles>>
+        <<set setup.customNNPC.defaultHairstyles to {}>>
+        <<custom-nnpc-init-hair-db>>
+    <</if>>
+    <<if ndef setup.customNNPC.moodCallback >>
+        <<set setup.customNNPC.moodCallback to {} >>
+        <<set setup.customNNPC.expressionOverrides to {} >>
+        <<custom-nnpc-init-npc-mood-callbacks>>
+    <</if>>
+    <<if ndef setup.customNNPC.canvasOptionsOverrides >>
+        <<set setup.customNNPC.canvasOptionsOverrides to {} >>
+        <!-- Gwylan -->
+        <<set setup.customNNPC.canvasOptionsOverrides["Gwylan"] to {}>>
+        <<set setup.customNNPC.canvasOptionsOverrides["Gwylan"]["fox_tail_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Gwylan"]["fox_tail_layer"] to "back">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Gwylan"]["fox_ears_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Gwylan"]["fox_cheeks_type"] to "default">>
+
+        <!-- Black Wolf -->
+        <<set setup.customNNPC.canvasOptionsOverrides["Black Wolf"] to {}>>
+        <<set setup.customNNPC.canvasOptionsOverrides["Black Wolf"]["wolf_tail_type"] to "feral">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Black Wolf"]["wolf_tail_layer"] to "back">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Black Wolf"]["wolf_ears_type"] to "feral">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Black Wolf"]["wolf_pits_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Black Wolf"]["wolf_pubes_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Black Wolf"]["wolf_cheeks_type"] to "feral">>
+
+        <!-- Great Hawk -->
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"] to {}>>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_wings_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_wings_layer"] to "back">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_tail_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_tail_layer"] to "back">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_eyes_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_malar_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_plumage_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Great Hawk"]["bird_pubes_type"] to "default">>
+
+        <!-- Night Monster -->
+        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"] to {}>>
+        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["wolf_tail_type"] to "feral">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["wolf_tail_layer"] to "back">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["demon_horns_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["demon_horns_layer"] to "front">>
+
+        <!-- Ivory Wraith -->
+        <<set setup.customNNPC.canvasOptionsOverrides["Ivory Wraith"] to {}>>
+        <<set setup.customNNPC.canvasOptionsOverrides["Ivory Wraith"]["hair_colour"] to "white">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Ivory Wraith"]["hair_colour_style"] to "simple">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Ivory Wraith"]["hair_fringe_colour_style"] to "simple">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Ivory Wraith"]["hair_fringe_colour"] to "white">>
+    <</if>>
+    <<if ndef setup.customNNPC.defaultClothingOverrides>>
+        <<set setup.customNNPC.defaultClothingOverrides to {}>>
+        <<set setup.customNNPC.defaultClothingOverrides["Sydney"] to {
+            "neck" : {variable:"holypendant"},
+            "face": {variable:"glasses", colour1:"black"}
+        }>>
+        <<set setup.customNNPC.defaultClothingOverrides["Darryl"] to {
+            "face": {variable:"glasses", colour1:"black"}
+        }>>
+        <<set setup.customNNPC.defaultClothingOverrides["Jordan"] to {
+            "neck" : {variable:"holypendant"}
+        }>>
+        <<set setup.customNNPC.defaultClothingOverrides["Harper"] to {
+            "face": {variable:"glasses", colour1:"black"}
+        }>>
+        <<set setup.customNNPC.defaultClothingOverrides["Winter"] to {
+            "face": {variable:"glasses", colour1:"black"}
+        }>>
+        <<set setup.customNNPC.defaultClothingOverrides["Gwylan"] to {
+            "head": {variable:"witchsage"}
+        }>>
+    <</if>>
+    <<if ndef $customNNPC.imageset >>
+        <<set $customNNPC.imageset to {}>>
+    <</if>>
+    <<if ndef $customNNPC.customImageLayers >>
+        <<set $customNNPC.customImageLayers to {} >>
+    <</if>>
+    <<if ndef setup.customNNPC.customLayerToggles>>
+        <<set setup.customNNPC.customLayerToggles to {
+            "Use eating mouth" : "chew",
+            "Right Arm hold": "right-hold",
+            "Right Arm cover": "right-cover",
+            "Left Arm cover": "left-cover",
+        }>>
+    <</if>>
+    <<if ndef $customNNPC.canvasSize >>
+        <<set $customNNPC.canvasSize to 256>>
+    <</if>>
+    <<if ndef $customNNPC.hairInitialized>>
+        <<set $customNNPC.hairInitialized to {}>>
+    <</if>>
+    <<if ndef $customNNPC.cd >>
+        <<set $customNNPC.cd to {}>>
+    <</if>>
+    <<for _n to 0; _n lt $NPCName.length; _n++>>
+        <<if ndef $customNNPC.hairInitialized[$NPCNameList[_n]]>>
+            <<set $customNNPC.hairInitialized[$NPCNameList[_n]] to false>>
+        <</if>>
+        <<if ndef $customNNPC.useCustom[$NPCNameList[_n]]>>
+            <<custom-nnpc-init-npc-data $NPCNameList[_n]>>
+        <</if>>
+        <<if ndef $customNNPC.customData[$NPCNameList[_n]].makeup>>
+            <<custom-nnpc-init-npc-data-makeup $NPCNameList[_n]>>
+        <</if>>
+        <<if ndef $customNNPC.customData[$NPCNameList[_n]].skin>>
+            <<custom-nnpc-init-npc-data-tattoo $NPCNameList[_n]>>
+        <</if>>
+        <<if ndef $customNNPC.customData[$NPCNameList[_n]].scalingX>>
+            <<set $customNNPC.customData[$NPCNameList[_n]].scalingX to 1000>>
+        <</if>>
+        <<if ndef $customNNPC.customData[$NPCNameList[_n]].scalingY>>
+            <<set $customNNPC.customData[$NPCNameList[_n]].scalingY to 1000>>
+        <</if>>
+        <<if ndef $customNNPC.customData[$NPCNameList[_n]].hair_dye>>
+            <<custom-nnpc-init-npc-data-hair-dye $NPCNameList[_n]>>
+        <</if>>
+        <<if ndef $customNNPC.imageset[$NPCNameList[_n]]>>
+            <<set $customNNPC.imageset[$NPCNameList[_n]] to "img">>
+        <</if>>
+        <<if ndef $customNNPC.customImageLayers[$NPCNameList[_n]]>>
+            <<set $customNNPC.customImageLayers[$NPCNameList[_n]] to [] >>
+        <</if>>
+        <<if ndef $customNNPC.cd[$NPCNameList[_n]] >>
+            <<set $customNNPC.cd[$NPCNameList[_n]] to {}>>
+            <<set $customNNPC.cd[$NPCNameList[_n]].discovered to false>>
+            <<set $customNNPC.cd[$NPCNameList[_n]].fringe_style to false>>
+            <<set $customNNPC.cd[$NPCNameList[_n]].side_style to false>>
+        <</if>>
+    <</for>>
+	<<if ndef $customNNPC.orgasmCount >>
+        <<set $customNNPC.orgasmCount to {} >>
+        <<set $customNNPC.orgasmCount.chest to 0 >>
+        <<set $customNNPC.orgasmCount.face to 0 >>
+        <<set $customNNPC.orgasmCount.feet to 0 >>
+        <<set $customNNPC.orgasmCount.leftarm to 0 >>
+        <<set $customNNPC.orgasmCount.rightarm to 0 >>
+        <<set $customNNPC.orgasmCount.neck to 0 >>
+        <<set $customNNPC.orgasmCount.thigh to 0 >>
+        <<set $customNNPC.orgasmCount.tummy to 0 >>
+	<</if>>
+
+    <!-- Long term patches -->
+    <<if ndef $customNNPC.compatPatches >>
+        <<set $customNNPC.compatPatches to []>>
+    <</if>>
+
+    <!-- Short term patch -->
+    <<if ndef setup.customNNPC.compatPatches >>
+        <<set setup.customNNPC.compatPatches to []>>
+    <</if>>
+    
+    <<custom-nnpc-packaged-compat-checker>>
+
+    <<if $passage !== "Start">>
+        <<for _n to 0; _n lt $NPCName.length; _n++>>
+            <<if $customNNPC.hairInitialized[$NPCNameList[_n]] === false>>
+                <<set $customNNPC.hairInitialized[$NPCNameList[_n]] to true>>
+                <<custom-nnpc-reset-hairstyle $NPCNameList[_n] true>>
+                <<custom-nnpc-reset-hairstyle-cd $NPCNameList[_n]>>
+                <<if $NPCName[_n].gender === "m">>
+                    <<set $customNNPC.customData[$NPCNameList[_n]].testicles to true>>
+                <</if>>
+            <</if>>
+        <</for>>
+    <</if>>
+<</widget>>

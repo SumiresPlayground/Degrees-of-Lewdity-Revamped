@@ -32,9 +32,9 @@ You walk through the shops, thinking of what Bailey might actually want for Chri
 <<elseif $christmas_gift_bailey is "lotus_unwrapped" or $christmas_gift_bailey is "lotus">>
 	<span class="blue"><i>You could buy Bailey a different gift, or finish your floral arrangement in your room.</i></span>
 	<br>
-<<elseif $plants_known and $plants_known.includes("lotus") and $plants and $plants["lotus"] and $plants["lotus"].amount gte 1>>
+<<elseif $plants_known and $plants_known.includes("lotus") and (($foodstuff and $foodstuff["lotus"] and $foodstuff["lotus"].amount gte 1) or ($plants and $plants["lotus"] and $plants["lotus"].amount gte 1))>>
 	<<if $money gte 5000>>
-		<<gifticon "christmas">><<link [[Find supplies to arrange with your lotus flower (£50)|Shop Bailey Lotus]]>><<pass 10>><<money -5000>><<set $christmas_gift_bailey to "lotus_unwrapped">><<run $plants["lotus"].amount -= 1>><</link>>
+		<<gifticon "christmas">><<link [[Find supplies to arrange with your lotus flower (£50)|Shop Bailey Lotus]]>><<pass 10>><<money -5000>><<set $christmas_gift_bailey to "lotus_unwrapped">><<if $foodstuff and $foodstuff["lotus"]>><<set $foodstuff["lotus"].amount -= 1>><<elseif $plants and $plants["lotus"]>><<set $plants["lotus"].amount -= 1>><</if>><</link>>
 		<br>
 	<<else>>
 		You could buy floral arrangement supplies here, <span class="blue">if you had more money (£50).</span>

@@ -39,7 +39,7 @@ You awaken to the sound of barking.
 
 	<<link [[Try to walk|Pound Abduction Walk]]>><<def 1>><<stress 6>><<pain 4>><</link>><<gpain>><<gstress>>
 	<br>
-	<<link [[Crawl obediently|Pound Abduction Crawl]]>><<sub 1>><<trauma 6>><<stress 6>><</link>><<gtrauma>><<gstress>>
+	<<link [[Crawl obediently|Pound Abduction Crawl]]>><<transform dog 1>><<sub 1>><<trauma 6>><<stress 6>><</link>><<gtrauma>><<gstress>>
 	<br>
 	<<link [[Refuse to budge|Pound Abduction Refuse]]>><<def 2>><<pain 8>><</link>><<ggpain>>
 	<br>
@@ -62,7 +62,7 @@ You try to stand, but the <<person>> grasps your shoulders and shoves you back t
 
 <<link [[Fight|Pound Abduction Fight]]>><<def 1>><<set $fightstart to 1>><</link>>
 <br>
-<<link [[Crawl|Pound Abduction Crawl]]>><<sub 1>><</link>>
+<<link [[Crawl|Pound Abduction Crawl]]>><<transform dog 1>><<sub 1>><</link>>
 <br>
 
 
@@ -88,7 +88,7 @@ You refuse to budge. The <<person>> kicks you, jerking you forward. "I said move
 
 <<link [[Fight|Pound Abduction Fight]]>><<def 1>><<set $fightstart to 1>><</link>>
 <br>
-<<link [[Crawl|Pound Abduction Crawl]]>><<sub 1>><</link>>
+<<link [[Crawl|Pound Abduction Crawl]]>><<transform dog 1>><<sub 1>><</link>>
 <br>
 
 
@@ -104,7 +104,7 @@ They continue to pull you towards the door.
 
 <<link [[Fight|Pound Abduction Fight]]>><<def 1>><<set $fightstart to 1>><</link>>
 <br>
-<<link [[Crawl|Pound Abduction Crawl]]>><<sub 1>><</link>>
+<<link [[Crawl|Pound Abduction Crawl]]>><<transform dog 1>><<sub 1>><</link>>
 <br>
 
 
@@ -228,7 +228,7 @@ You are imprisoned in the pound on Starfish Street. <<pound_text cap>> fill the 
 	<br><br>
 	<<He>> arrives at your cage.
 	<br><br>
-	<<link [[Crawl outside|Pound Food Crawl]]>><<sub 1>><</link>>
+	<<link [[Crawl outside|Pound Food Crawl]]>><<transform dog 1>><<sub 1>><</link>>
 	<br>
 	<<link [[Fight|Pound Fight]]>><<set $fightstart to 1>><<def 1>><</link>>
 	<br>
@@ -238,7 +238,7 @@ You are imprisoned in the pound on Starfish Street. <<pound_text cap>> fill the 
 	A <<person>> stops outside your cage. "Time for practice," <<he>> says, opening the door. "Be on your best behaviour."
 	<br><br>
 
-	<<link [[Crawl outside|Pound Show Crawl]]>><<sub 1>><</link>>
+	<<link [[Crawl outside|Pound Show Crawl]]>><<transform dog 1>><<sub 1>><</link>>
 	<br>
 	<<link [[Fight|Pound Fight]]>><<set $fightstart to 1>><<def 1>><</link>>
 	<br>
@@ -248,7 +248,7 @@ You are imprisoned in the pound on Starfish Street. <<pound_text cap>> fill the 
 	<br><br>
 	<<He>> arrives at your cage.
 	<br><br>
-	<<link [[Crawl outside|Pound Food Crawl]]>><<sub 1>><</link>>
+	<<link [[Crawl outside|Pound Food Crawl]]>><<transform dog 1>><<sub 1>><</link>>
 	<br>
 	<<link [[Fight|Pound Fight]]>><<set $fightstart to 1>><<def 1>><</link>>
 	<br>
@@ -357,9 +357,9 @@ You join the <<pound_text>>, and crawl along the corridor, emerging in a courtya
 
 <<generate1>><<person1>>A <<person>> fills a line of dog bowls from a sack while the <<pound_text>> surround those already filled, tails wagging. There aren't enough bowls to go around.
 <br><br>
-<<link [[Fight for a place (1:00)|Pound Food Def]]>><<endevent>><<def 1>><<pass 60>><<pound_status 3>><</link>><<gpound_status>>
+<<link [[Fight for a place (1:00)|Pound Food Def]]>><<transform dog 1>><<endevent>><<def 1>><<pass 60>><<pound_status 3>><</link>><<gpound_status>>
 <br>
-<<link [[Wait your turn (1:00)|Pound Food Sub]]>><<endevent>><<sub 1>><<pass 60>><<pound_status -3>><</link>><<lpound_status>>
+<<link [[Wait your turn (1:00)|Pound Food Sub]]>><<transform dog 1>><<endevent>><<sub 1>><<pass 60>><<pound_status -3>><</link>><<lpound_status>>
 <br>
 <<link [[Refuse to feed (1:00)|Pound Food Refuse]]>><<endevent>><<def 1>><<pass 60>><</link>>
 <br>
@@ -380,7 +380,7 @@ You join the scrap, shoving <<pound_text>> aside to get to the food.
 	<br><br>
 
 
-	<<link [[Back away|Pound Food Back]]>><<sub 1>><<stress -6>><<pound_status -3>><</link>><<lpound_status>><<lstress>>
+	<<link [[Back away|Pound Food Back]]>><<transform dog 1>><<sub 1>><<stress -6>><<pound_status -3>><</link>><<lpound_status>><<lstress>>
 	<br>
 	<<link [[Ignore|Pound Food Ignore]]>><<stress 6>><</link>><<gstress>>
 	<br>
@@ -463,10 +463,10 @@ Sated, the more dominant <<pound_text>> laze around the yard, while others hunt 
 		<br><br>
 
 		<<if hasSexStat("deviancy", 4) and $submissive gte 1900>>
-			<<link [[Submit willingly|Pound Food Event Slime Submit willingly]]>><<corruption 3>><<pain -8>><<stress -12>><<trauma -24>><<sub 2>><</link>><<deviant4>><<ggcorruption>><<llpain>><<llltrauma>><<llstress>>
+			<<link [[Submit willingly|Pound Food Event Slime Submit willingly]]>><<transform dog 1>><<corruption 3>><<pain -8>><<stress -12>><<trauma -24>><<sub 2>><</link>><<deviant4>><<ggcorruption>><<llpain>><<llltrauma>><<llstress>>
 			<br>
 		<</if>>
-		<<link [[Obey|Pound Food Event Slime Obey]]>><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 1>><</link>><<gcorruption>><<lpain>><<lltrauma>><<lstress>>
+		<<link [[Obey|Pound Food Event Slime Obey]]>><<transform dog 1>><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 1>><</link>><<gcorruption>><<lpain>><<lltrauma>><<lstress>>
 		<br>
 		<<link [[Defy|Pound Food Event Slime Defy]]>><<corruption -1>><<pain 8>><<stress 6>><<trauma 6>><<def 1>><</link>><<lcorruption>><<ggpain>><<ggtrauma>><<ggstress>>
 		<br>
@@ -481,7 +481,7 @@ Sated, the more dominant <<pound_text>> laze around the yard, while others hunt 
 		<br><br>
 		"Love is in the air," says a member of staff. Several are watching.
 		<br><br>
-		<<link [[Submit|Pound Food Rape]]>><<set $molestationstart to 1>><<set $phase to 1>><<sub 3>><<pound_status -9>><</link>><<llpound_status>>
+		<<link [[Submit|Pound Food Rape]]>><<transform dog 1>><<set $molestationstart to 1>><<set $phase to 1>><<sub 3>><<pound_status -9>><</link>><<llpound_status>>
 		<br>
 		<<link [[Fight|Pound Food Rape]]>><<set $molestationstart to 1>><<set $phase to 0>><<def 1>><<pound_status 9>><</link>><<ggpound_status>>
 		<br>
@@ -492,7 +492,7 @@ Sated, the more dominant <<pound_text>> laze around the yard, while others hunt 
 	A <<person>> approaches you, leash in hand. "Hold still <<bitch>>," <<he>> says. "We're gonna go on a little walk together."
 	<br><br>
 
-	<<link [[Hold still|Pound Food Still]]>><<sub 1>><</link>>
+	<<link [[Hold still|Pound Food Still]]>><<transform dog 1>><<sub 1>><</link>>
 	<br>
 	<<link [[Run|Pound Food Run]]>><<def 1>><</link>><<athleticsdifficulty 1 600>>
 	<br>
@@ -729,7 +729,7 @@ You're forced to crawl to the <<beasttype>>, then drop to a submissive position.
 		<br><br>
 
 
-		<<link [[Endure|Pound Food Endure]]>><<sub 1>><</link>>
+		<<link [[Endure|Pound Food Endure]]>><<transform dog 1>><<sub 1>><</link>>
 		<br>
 		<<link [[Whack the hand away|Pound Food Whack]]>><<trauma -6>><<def 1>><<pound_status 3>><</link>><<ltrauma>><<gpain>><<gpound_status>>
 		<br>
@@ -1393,7 +1393,7 @@ An obstacle course has been set up on the grass. Four <<pound_text>> sit in fron
 "Aha," says one, a <<person>>. "This <<girl>> will do nicely." <<He>> takes your leash, and pulls you to the end of the line. "Sit."
 <br><br>
 
-<<link [[Sit|Pound Show Sit]]>><<sub 1>><</link>>
+<<link [[Sit|Pound Show Sit]]>><<transform dog 1>><<sub 1>><</link>>
 <br>
 <<link [[Refuse|Pound Show Refuse]]>><<def 1>><<pain 4>><</link>><<gpain>>
 <br>
@@ -1820,7 +1820,7 @@ You enter the pavilion. It's full of <<people>> in their finest, chatting while 
 You become the centre of attention. The practised applause contrasts their leers as the <<person1>><<person>> leads you to a stage in the middle.
 <br><br>
 
-<<link [[Obey|Pound Show End Obey]]>><<sub 1>><</link>>
+<<link [[Obey|Pound Show End Obey]]>><<transform dog 1>><<sub 1>><</link>>
 <br>
 <<link [[Defy|Pound Show End Refuse]]>><<def 1>><<pain 8>><</link>><<ggpain>>
 <br>
