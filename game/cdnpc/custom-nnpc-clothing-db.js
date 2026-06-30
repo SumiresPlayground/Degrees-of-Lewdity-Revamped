@@ -3073,14 +3073,17 @@ function customNNPCClothingInitDb() {
             "feet": [{variable: "trainers", colour1: "black", colour2: "white"}],
         },
         "doctor": {
-            contributor: "Roxas",
-            "face": [{variable: "glasses", colour1: "black"}],
+            contributor: "NumberJack",
             "upper": [{variable: "hunt", colour1: "white"}],
-            "lower": [
-                {variable: "trousers", colour1: "black"},
-                {variable: "trousers", colour1: "brown"},
+            "lower": [{variable: "trousers", colour1: "white"}],
+            "under_upper": [{variable: "plainbra", colour1: "pale white"}],
+            "under_lower": [
+                {variable: "plainpanties", colour1: "pale white"},
+                {variable: "briefs", colour1: "pale white"},
             ],
-            "feet": [{variable: "wingtips", colour1: "light brown", colour2: "black"}]
+            "face": [{variable: "halfmoon", colour1: "black"}],
+            "legs": [{variable: "anklesocks", colour1: "white"}],
+            "feet": [{variable: "wingtips", colour1: "navy", colour2: "navy"}]
         },
         "nurse": [
             {
@@ -4407,9 +4410,20 @@ function customNNPCClothingInitDb() {
                 ]
             }
         ],
+        "robinTree": {
+            "upper": [{variable: "gothicold", colour1: "green", colour2: "green"}],
+            "lower": [{variable: "gothicold", colour1: "green", colour2: "green"}],
+            "under_upper": [{variable: "unitard", colour1: "green"}],
+            "under_lower": [{variable: "unitard", colour1: "green"}],
+            "head": [{variable: "starhairpin"}],
+            "neck": [
+                {variable: "lacechoker", colour1: "green"},
+                {variable: "lacechokerold", colour1: "green"}
+            ]
+        },
         "ritualRobes": {
             "rant": "Oh Gwylan, Gwylan, Gwylan... Why does the story text cals you naked here yet you insist on calling it 'ritual robes' in the gamefiles?" +
-                "though I do respect the hat staying on during sex part. That is pretty funny I gotta admit."
+              "though I do respect the hat staying on during sex part. That is pretty funny I gotta admit."
         },
     };
 }
@@ -4524,7 +4538,7 @@ function customNNPCDefaultClothes(setName, NPCname) {
     }
 
     // When I get you Vrel
-    if(NPCname in setup.customNNPC.defaultOutfitOverrides && setName in setup.customNNPC.defaultOutfitOverrides[NPCname]) {
+    if (NPCname in setup.customNNPC.defaultOutfitOverrides && setName in setup.customNNPC.defaultOutfitOverrides[NPCname]) {
         setData = setup.customNNPC.defaultOutfitOverrides[NPCname][setName];
     }
 
@@ -4565,6 +4579,8 @@ function customNNPCDefaultClothes(setName, NPCname) {
 
     V.customNNPC.customClothesSets[NPCname][setName] = worn;
 }
+
+window.customNNPCDefaultClothes = customNNPCDefaultClothes;
 
 function clothingDBGetSydneySwimsuit() {
     switch (V.sydney.swim) {
@@ -4695,30 +4711,114 @@ DefineMacro("custom-nnpc-setup-default-outfit-overrides", function () {
     }
 });
 
-DefineMacro("custom-nnpc-setup-scene-tweaks", function(){
+DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
     setup.customNNPC.sceneTweaks["Robin"] = [
         {
             passage: "Garden Robin Crown",
             exact: true,
-            callback(worn){
+            callback(worn) {
                 worn["head"] = $.extend(true, {}, setup.clothes["head"].find(hs => hs.variable === "flower"));
             }
         },
         {
-            passage: "Garden Robin Help" ,
+            passage: "Garden Robin Help",
             exact: true,
-            callback(worn){
+            callback(worn) {
                 T.modeloptions.prop = customNNPC_compileProp("watering can");
+                T.modeloptions.prop_arm_position = "hold";
             }
-        }
+        },
+        {
+            passage: "Robin Study",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("pencil");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "Robin Study Peek",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("open history");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "English Play Watch",
+            exact: true,
+            callback(worn) {
+                if (V.englishPlayRobinWatch === false) {
+                    if (!("robinTree" in V.customNNPC.customClothesSets["Robin"])) {
+                        customNNPCDefaultClothes("robinTree", "Robin");
+                    }
+
+                    Object.assign(worn, V.customNNPC.customClothesSets["Robin"]["robinTree"]);
+                }
+            }
+        },
+        {
+            passage: "Robin Watch Pass",
+            exact: true,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("game controller");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "Robin Pillow",
+            exact: true,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("game controller");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "Robin Money",
+            exact: true,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("cash");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "Robin Amusements Lollipop",
+            exact: true,
+            callback(worn) {
+                if(Math.random() >= 0.9){
+                    T.modeloptions.prop = customNNPC_compileProp("lollipop big");
+                }else{
+                    T.modeloptions.prop = customNNPC_compileProp("lollipop small");
+                }
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "Robin Amusements Sweets",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("packet of sweets");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
     ];
 
     setup.customNNPC.sceneTweaks["Gwylan"] = [
         {
             passage: "Brown Fox",
             exact: false,
-            callback(worn){
+            callback(worn) {
                 worn["face"] = $.extend(true, {}, setup.clothes["face"].find(hs => hs.variable === "foxmask"));
+            }
+        }
+    ];
+
+    setup.customNNPC.sceneTweaks["Winter"] = [
+        {
+            passage: "Museum Sell",
+            exact: true,
+            callback(worn) {
+                worn["hands"] = $.extend(true, {}, setup.clothes["hands"].find(hs => hs.variable === "workgloves"));
             }
         }
     ];
@@ -4727,11 +4827,114 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function(){
         {
             passage: "Avery Cards",
             exact: false,
-            callback(worn){
-                if(V.location === "estate"){
+            callback(worn) {
+                if (V.location === "estate") {
                     worn["face"] = $.extend(true, {}, setup.clothes["face"].find(hs => hs.variable === "islandermask"));
                 }
             }
         }
+    ];
+
+    setup.customNNPC.sceneTweaks["Harper"] = [
+        {
+            passage: "",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("clipboard pen");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        }
+    ];
+
+    setup.customNNPC.sceneTweaks["Remy"] = [
+        {
+            passage: "",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("whip");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        }
+    ];
+
+
+    setup.customNNPC.sceneTweaks["Kylar"] = [
+        {
+            passage: "English Kylar Move",
+            exact: true,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("knife");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        }
+    ];
+
+    setup.customNNPC.sceneTweaks["Great Hawk"] = [
+        {
+            passage: "Bird Tower Give Captured Lurker",
+            exact: true,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("lurker");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        }
+    ];
+
+    setup.customNNPC.sceneTweaks["Siris"] = [
+        {
+            passage: "Dilapidated Shop",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("dildo");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "School Sirris",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("box");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+    ];
+
+    setup.customNNPC.sceneTweaks["Whitney"] = [
+        {
+            passage: "Whitney",
+            exact: false,
+            callback(worn) {
+                if (Weather.precipitation !== "none" && V.location === "park") {
+                    worn["handheld"] = $.extend(true, {}, setup.clothes["handheld"].find(hs => hs.variable === "umbrella"));
+                    worn["handheld"].integrity = worn["handheld"].integrity_max / 2;
+                    worn["handheld"].colour = "black";
+                    worn["handheld"].accessory_colour = "black";
+                }
+            }
+        },
+        {
+            passage: "Whitney Park",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("cigarette");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "Whitney Chat",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("cigarette");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
+            passage: "Whitney Ask",
+            exact: false,
+            callback(worn) {
+                T.modeloptions.prop = customNNPC_compileProp("cigarette");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
     ];
 });

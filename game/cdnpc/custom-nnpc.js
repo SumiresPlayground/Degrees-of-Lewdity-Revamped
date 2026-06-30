@@ -21,7 +21,7 @@ function detectedNNPC(){
 DefineMacro("custom-nnpc-autodetect", detectedNNPC);
 
 function getNNPCNameId(NPCname){
-		return V.NPCNameList.indexOf(NPCname);
+	return V.NPCNameList.indexOf(NPCname);
 }
 
 function getNNPCData(NPCname){
@@ -69,12 +69,24 @@ function filterLayerForScene(layer) {
 		return true;
 	}
 
-	if(layer.displaySceneExact){
-		return V.passage === layer.displayScene;
+	const scenes = layer.displayScene.split(/[\n;]+/);
+
+	for (let i = 0; i < scenes.length; i++) {
+		const scene = scenes[i];
+
+		if(scene === ""){
+			continue;
+		}
+
+		if(layer.displaySceneExact && V.passage === scene){
+			return true;
+		}
+		else if(!layer.displaySceneExact && V.passage.includes(scene)) {
+			return true;
+		}
 	}
-	else{
-		return V.passage.includes(layer.displayScene);
-	}
+
+	return false;
 }
 
 function modelPrepareNNPCBody(NPCname, setName) {
@@ -410,6 +422,21 @@ function modelPrepareNNPCBody(NPCname, setName) {
 				continue;
 			}
 
+			// Special toggles
+			if(layer.toggles.includes("chew")){
+				T.modeloptions.mouth = "chew";
+			}
+			if(layer.toggles.includes("right-hold")){
+				T.modeloptions.additional_layers_options_overrides["arm_right"] = "hold";
+			}
+			if(layer.toggles.includes("right-cover")){
+				T.modeloptions.additional_layers_options_overrides["arm_right"] = "cover";
+			}
+			if(layer.toggles.includes("left-cover")){
+				T.modeloptions.additional_layers_options_overrides["arm_left"] = "cover";
+			}
+
+
 			let filter = [];
 			if(layer.filterOption === "custom"){
 				let filterTitle = "customNPCArtAsset" + i;
@@ -422,14 +449,6 @@ function modelPrepareNNPCBody(NPCname, setName) {
 			}
 			else if(layer.filterOption !== "none"){
 				filter = [layer.filterOption];
-			}
-
-			// Special toggles
-			if(layer.toggles.includes("chew")){
-				T.modeloptions.mouth = "chew";
-			}
-			if(layer.toggles.includes("right-hold")){
-				T.modeloptions.additional_layers_options_overrides["arm_right"] = "hold";
 			}
 
 			T.modeloptions.additional_layers.push({
@@ -454,6 +473,49 @@ function modelPrepareNNPCBody(NPCname, setName) {
 					desaturate: false,
 				}
 			});
+
+			for (let j = 0; j < layer.children.length; j++) {
+				const sublayer = layer.children[j];
+				let subfilter = [];
+				if(sublayer.filterOption === "custom"){
+					let filterTitle = "customNPCArtAsset" + i + "-" + j;
+					T.modeloptions.additional_filters[filterTitle] = {
+						blend: sublayer.filterColour.toLowerCase(),
+						blendMode: sublayer.blendMode,
+						desaturate: sublayer.desaturate,
+					};
+					subfilter = [filterTitle];
+				}
+				else if(sublayer.filterOption === "copy"){
+					subfilter = filter;
+				}
+				else if(sublayer.filterOption !== "none"){
+					subfilter = [sublayer.filterOption];
+				}
+
+				T.modeloptions.additional_layers.push({
+					name: "custom-npc-asset-"+i+"-"+j,
+					show: true,
+					filters: subfilter,
+					animation: "idle",
+					srcfn(options){
+						return "img/" + sublayer.source.replace(/(?:\.\.[\/\\])+/g, '');
+					},
+					zfn(options) {
+						return Number(sublayer.zIndex);
+					},
+					defaultOptions:{
+						show: false,
+						brightness: 0.0,
+						contrast: 1.0,
+						blend: "",
+						blendMode: "",
+						maskBlendMode: "destination-in",
+						alpha: 1.0,
+						desaturate: false,
+					}
+				});
+			}
 		}
 	}
 }
@@ -531,7 +593,6 @@ function compileProp(propName){
 
 	prop.show =
 		(T.modeloptions.arm_left !== "none" && T.modeloptions.arm_right !== "none") || T.modeloptions.prop.armPosition === "handsfree";
-	if (prop.hasCoverImg && !wings) modeloptions.prop.name += "-cover";
 
 	return prop;
 }
@@ -597,10 +658,10 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 	}
 
 	if(NPCname in setup.customNNPC.sceneTweaks){
-		for (let i = 0; i < setup.customNNPC.sceneTweaks[NPCname]; i++) {
-			const tweak = setup.customNNPC.sceneTweaks[i];
+		for (let i = 0; i < setup.customNNPC.sceneTweaks[NPCname].length; i++) {
+			const tweak = setup.customNNPC.sceneTweaks[NPCname][i];
 
-			if(tweak.exact){
+			if(!tweak.exact){
 				if(!V.passage.includes(tweak.passage)){
 					continue;
 				}
@@ -612,22 +673,6 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 
 			tweak.callback(worn);
 		}
-	}
-
-	if(NPCname === "Gwylan" && V.passage.includes("Brown Fox")){
-		worn["face"] = $.extend(true, {}, setup.clothes["face"].find(hs => hs.variable === "foxmask"));
-	}
-
-	if(NPCname === "Robin" && V.passage === "Garden Robin Crown"){
-		worn["head"] = $.extend(true, {}, setup.clothes["head"].find(hs => hs.variable === "flower"));
-	}
-
-	if(NPCname === "Robin" && (V.passage === "Garden Robin Help")){
-		T.modeloptions.prop = compileProp("watering can");
-	}
-
-	if(NPCname === "Avery" && V.location === "estate" && V.passage.includes("Avery Cards")){
-		worn["face"] = $.extend(true, {}, setup.clothes["face"].find(hs => hs.variable === "islandermask"));
 	}
 
 	// Chastity devices override
@@ -698,8 +743,18 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 	T.modeloptions.arm_right  =
 		setup.clothes_all_slots.some(slot => ["right_hold", "clutch"].includes(worn[slot]?.holdPosition)) ||
 		(worn.handheld.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.handheld?.holdPosition))
-	? "cover" : "idle";
+			? "cover" : "idle";
 	T.modeloptions.arm_left = setup.clothes_all_slots.some(slot => worn[slot]?.holdPosition === "left_hold") ? "cover" : "idle";
+
+	if("prop_arm_position" in T.modeloptions){
+		switch (T.modeloptions.prop_arm_position){
+			case "hold":
+				T.modeloptions.arm_right = "hold";
+				break;
+			default:
+				break;
+		}
+	}
 
 	// Tucking
 	if(!worn.neck_tucked){

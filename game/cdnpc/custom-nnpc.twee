@@ -518,21 +518,24 @@
             <br>
         <</if>>
 
-        <span class="gold">Scene
+        <span class="gold">Scene(s)
         <mouse class = "tooltip linkBlue">(?)<span>
             Enter the scene name in which the layer will be active.
             <br>
             Leave empty if present in all scenes.
             <br>
+            If adding to multiple scenes, use a new line or semicolon to separate scene names.
+            <br>
+            Only one type of separator is needed for the layer to appear.
         </span></mouse>
         :</span>
         <br>
-        <<textbox "$customNNPC.customImageLayers[_args[0]][_args[1]].displayScene" $customNNPC.customImageLayers[_args[0]][_args[1]].displayScene>>
+        <<custom-nnpc-settings-custom-layer-scene-input _args[0] _args[1]>>
         <br>
         <label>
             <<checkbox "$customNNPC.customImageLayers[_args[0]][_args[1]].displaySceneExact" false true autocheck>> Require name to be exact
             <mouse class = "tooltip linkBlue">(?)<span>
-                If unchecked, scene name just has to include the input string.
+                If unchecked, scene name just has to include one of the scene names.
             </span></mouse>
         </label>
         <br>
@@ -541,10 +544,77 @@
         <br>
         <<custom-nnpc-settings-custom-layer-toggle-checkboxes _args[0] _args[1]>>
         <br>
+
+        <span class="gold">Child layers <mouse class="tooltip linkBlue">(?)
+        <span>Child layers are layers that copy their parent's display scene and outfit but may have different colours, sources and Z-indices.
+        <br>
+        They can also copy their parent's colour or us their own.
+        </span>
+        </mouse>:</span>
+        <<for _kn to 0; _kn lt $customNNPC.customImageLayers[_args[0]][_args[1]].children.length; _kn++>>
+            <<options-custom-nnpc-custom-layers-list-item-child _args[0] _args[1] _kn>>
+        <</for>>
+
+        <br>
+
+        <<custom-nnpc-settings-custom-layer-add-child _args[0] _args[1]>>
+
+        <br>
         <br>
 
         <button class="macro-button" type="button" @onclick="`
             V.customNNPC.customImageLayers['${_args[0]}'].splice(${_args[1]},1);
+            Wikifier.wikifyEval('<<options-custom-nnpc-custom-layers-list-update>>');
+            Wikifier.wikifyEval('<<options-render-custom-nnpc-update _customNNPCClothingSet>>');
+            `">
+            Remove
+        </button>
+    </div>
+<</widget>>
+
+<<widget "options-custom-nnpc-custom-layers-list-item-child">>
+    <div class="settingsToggleItemWide">
+
+        <span class="gold">Source:</span>
+        <<textbox "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].source" $customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].source>>
+        <br>
+
+        <span class="gold">Z Index:</span>
+        <<numberbox "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].zIndex" $customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].zIndex>>
+        <br>
+
+        <span class="gold">Copy Colour:</span>
+        <<listbox "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].filterOption" autoselect>>
+            <<option "Copy Parent" "copy">>
+            <<option "None" "none">>
+            <<option "Hair" "hair">>
+            <<option "Hair Fringe" "hair_fringe">>
+            <<option "Skin" "tan">>
+            <<option "Custom" "custom">>
+        <</listbox>>
+        <br>
+
+        <<if $customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].filterOption === "custom">>
+            <span class="gold">Colour hex code:</span>
+            <<textbox "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].filterColour" $customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].filterColour>>
+            <br>
+            <span class="gold">Blend mode:</span>
+            <<listbox "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].blendMode" autoselect>>
+                <<option "Multiply" "multiply">>
+                <<option "Hard Light" "hard-light">>
+                <<option "Source Over" "source-over">>
+            <</listbox>>
+            <br>
+            <label>
+                <span class="gold">Desaturate: </span> <<checkbox "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].desaturate" false true autocheck>>
+            </label>
+            <br>
+        <</if>>
+
+        <br>
+
+        <button class="macro-button" type="button" @onclick="`
+            V.customNNPC.customImageLayers['${_args[0]}'][${_args[1]}].children.splice(${_args[2]},1);
             Wikifier.wikifyEval('<<options-custom-nnpc-custom-layers-list-update>>');
             Wikifier.wikifyEval('<<options-render-custom-nnpc-update _customNNPCClothingSet>>');
             `">
