@@ -1238,9 +1238,11 @@ setup.horserace = setup.horserace || {};
 		} else {
 			if (HR.escapeHtml(winner.name) === V.playerhorsetitle) {
 				V.raceresult = "win";
+				V.pcWins += 1;
 				celebration += `<p><strong><span style="color:#5fcf7b;">You won!</span></strong> You are sure something good will be coming.</p>`;
 			} else {
 				V.raceresult = "lose";
+				V.pcLosses += 1;
 				celebration += `<p><strong><span style="color:#ff6b6b;">You lost...</span></strong> You're sure there will be consequences...</p>`;
 			}
 			}

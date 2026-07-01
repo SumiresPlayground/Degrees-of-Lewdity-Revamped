@@ -1,0 +1,806 @@
+:: Rowan Farmstead Intro
+<<location "rowanfarm">>
+<<npc Rowan>><<person1>>
+You make your way down the worn dirt road and arrive at a small ranch. There is not much land, only encompassing a small patch of farmland, a cottage, and a barn. As you approach you see someone on the porch stand. It's Rowan.
+<br><br>
+"Oh wow, ya really came! I mean... I knew ya would. I never doubted it for a second." Rowan tries to hide <<his>> obvious excitement. "Come in, come in, make yourself at home."
+<br><br>
+<<link [[Come inside|Rowan Mintro]]>><<endevent>><</link>>
+
+:: Rowan Mintro
+<<npc "Mint Mocha">><<person1>>
+As you enter the cottage, you are met by... Mint Mocha?! She looks away from you ashamed. Rowan looks between the two of you confused. "Am I missin' somethin'? What's wrong with ya both?"
+<br><br>
+Mint Mocha clears her throat before speaking. "I-I'm sorry. After my... failure, my trainer wanted to get rid of me and Rowan took me in..." You can tell from her eyes that she has been crying a lot lately.
+<br><br>
+You take a moment to explain your relationship with her and Rowan listens quietly nodding along. 
+<<if $pronoun is "m">>
+Rowan looks confused. "She? Mint here is a stallion, were you not aware?" Mint Mocha's face burns red as Rowan lifts <<his>> skirt revealing <<his>> <<genitals>>. Mint speaks up embarrassed. "<<pShe>> doesn't need to know that! Ugh whatever, yeah I'm a boy so what, you gonna laugh at me or something?" Mint pouts. "You were the one who made the wrong assumption!"
+<</if>>
+<br><br>
+Rowan stands back a few steps before slipping on a pair of work gloves. "Anyway, I got some workin' to do so you two stay outta trouble."
+<br><br>
+<<link [[Next|Rowan Farmhouse]]>><<endevent>><</link>>
+
+:: Rowan Farmhouse
+You are inside Rowan's ranch house. The small cabin is only about four rooms, consisting of a combined kitchen, dining, and living room, two bedrooms, and a bathroom.
+<br><br>
+<<if Time.hour lt 4>>
+    The ranch house is quiet. You can hear gentle snoring from Rowan's room.
+<<elseif Time.hour lt 6>>
+    You can hear quiet rustling by the barn outside.
+<<elseif Time.hour lt 8>>
+    Rowan and Mint Mocha are sitting at the table for breakfast.
+<<elseif Time.hour lt 18 and !Weather.precipitation is "rain" and !Weather.precipitation is "snow">>
+    You are alone inside, Rowan and Mint are outside working on the farm.
+<<elseif Time.hour lt 18>>
+    You are inside, Rowan and Mint are waiting for the storm to die down.
+<<elseif Time.hour lt 21>>
+    Rowan and Mint Mocha are sitting at the table for dinner.
+<<elseif Time.hour lt 23>>
+    The ranch house is quiet. Rowan and Mint must be in their rooms.
+<<else>>
+    The ranch house is quiet. You can hear gentle snoring from Rowan's room.
+<</if>>
+<br><br>
+<<if Time.hour is 6 or Time.hour is 7>>
+<<link [[Eat Breakfast with Rowan and Mint (1:00)|Rowan Breakfast]]>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><<set C.npc.Rowan.dom -= 1>><<set C.npc.Rowan.love += 2>><<pass 60>><<endevent>><</link>><<glove>><<ldom>>
+<br>
+<</if>>
+<<if Time.hour is 21 or Time.hour is 22>>
+<<link [[Eat dinner with Rowan and Mint (1:00)|Rowan Dinner]]>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><<set C.npc.Rowan.dom -= 1>><<set C.npc.Rowan.love += 2>><<pass 60>><<endevent>><</link>><<glove>><<ldom>>
+<br>
+<</if>>
+<<if Time.hour gte 8 and Time.hour lt 18 and !Weather.precipitation is "rain" and !Weather.precipitation is "snow">>
+    <<link [[Spend some time with Rowan (1:00)|Spending Time Rowan]]>><<pass 60>><<endevent>><</link>><<glove>>
+    <br>
+<</if>>
+<<link [[Enter Rowan's Room (0:02)|Rowan Room]]>><<pass 2>><<endevent>><</link>>
+<br>
+<<link [[Enter Mint Mocha's Room (0:02)|Mint Room]]>><<pass 2>><<endevent>><</link>>
+<br>
+<<link [[Leave (0:05)|Rowan Farmstead]]>><<pass 5>><<endevent>><</link>>
+
+:: Rowan Farmstead
+<<location "rowanfarm">>
+<<if $stress gte $stressmax>>
+	<<passoutrowan>>
+<<elseif $rowanrecognize isnot 1 and ($transformationParts.horse.tail is "disabled" or $transformationParts.horse.ears is "disabled")>>
+    You hear familiar boots approaching, faster than usual.
+    <br><br>
+    <<link [[Next|TF Recognition - Notices]]>><</link>>
+<<else>>
+    You are on Rowan's ranch, a small garden grows various plants and you can hear the sound of pigs, sheep, cows, and other animals from the barn.
+    <br><br>
+    <<if Time.hour lt 4>>
+        The farm is quiet in the dead of night, everyone must be sleeping.
+    <<elseif Time.hour lt 6>>
+        Rowan is out early, feeding the barn animals and milking the cows.
+    <<elseif Time.hour lt 8>>
+        It must be breakfast time, Rowan and Mint are probably inside.
+    <<elseif Time.hour lt 18 and !Weather.precipitation is "rain" and !Weather.precipitation is "snow">>
+        Rowan and Mint are both outside doing farmwork.
+    <<elseif Time.hour lt 21>>
+        Rowan and Mint have headed inside for dinner.
+    <<else>>
+        The farm is quiet in the dead of night, everyone must be sleeping.
+    <</if>>
+    <br><br>
+    <<rng>>
+    <<if $rng gte 90>>
+        <<cleareventpool>>
+            <<if Time.dayState is "dusk">>
+                <<addinlineevent "brush">>
+                    <<npc Rowan>><<person1>>
+                    The farmhouse porch creaks under Rowan's boots as <<he>> drops down next to you, two mugs of something hot held loosely in one hand.
+                    <br><br>
+                    <<He>> passes you one without asking if you wanted it.
+                    <br><br>
+                    "Figured you'd be out here." <<He>> stretches his legs out, settling in like the day's finally done with <<him>>. "You often end up out here once the sun starts goin' down."
+                    <br><br>
+                    The fields stretch out gold and quiet in front of you, the kind of view that makes the whole day's aches feel worth it.
+                    <br><br>
+                    <<link [[Lean into <<him>>|Rowan Porch Lean]]>><</link>>
+                    <br>
+                    <<link [[Keep some distance|Rowan Porch Distance]]>><</link>>
+                <</addinlineevent>>
+            <</if>>
+            <<addinlineevent "brush">>
+                <<npc Rowan>><<person1>>
+                There's music drifting faintly from the radio in the barn, something slow and a little out of place for the middle of a work afternoon. Rowan catches you swaying to it without realizing and pretends not to notice for about three seconds before <<he>> gives up the act entirely.
+                <br><br>
+                "C'mere." <<He>> holds out a hand, dust still on <<his>> trousers, looking entirely too pleased with <<himself>>. "Ain't gonna let good music go to waste."
+                <br><br>
+                <<link [[Take <<his>> hand|Rowan Take Hand]]>><</link>>
+                <br>
+                <<link [[Play hard to get|Rowan Hard Get]]>><</link>>
+            <</addinlineevent>>
+        <<runeventpool>>
+    <<else>>
+        <<if Time.hour gte 8 and Time.hour lt 18>>
+            <<link [[Help Rowan with farmwork (1:00)|Rowan Farmwork]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
+            <br>
+        <</if>>
+        <<if Time.hour gte 8 and Time.hour lt 16>>
+            <<link [[Help Mint with farmwork (1:00)|Mint Farmwork]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
+            <br>
+        <</if>>
+        <<if Time.hour gte 16 and Time.hour lt 18>>
+            <<link [[Stretch with Mint (1:00)|Mint Exercise]]>><<endevent>><<pass 60>><<stress -10>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<lstress>>
+            <br>
+        <</if>>
+        <<link [[Plant plot|Rowan Plot]]>><<endevent>><</link>>
+        <br>
+        <<link [[Enter Rowan's ranch house (0:05)|Rowan Farmhouse]]>><<pass 5>><<endevent>><</link>>
+        <br>
+        <<link [[Enter Rowan's barn (0:02)|Rowan Barn]]>><<pass 2>><<endevent>><</link>>
+        <br>
+        <<link [[Leave (0:10)|Farmland]]>><<pass 10>><<endevent>><</link>>
+    <</if>>
+<</if>>
+
+:: Rowan Breakfast
+<<npc Rowan>><<person1>>
+"Don't just stand there, make yourself useful." Rowan shoves a cutting board and a knife in your direction without looking up from the pot on the stove.
+<br><br>
+The kitchen is small and warm, full of the smell of something simmering that already smells better than it has any right to.
+<br><br>
+You start chopping. <<He>> glances over, watching your technique with the same critical eye <<he>> uses on the track.
+<br><br>
+"That's a sorry excuse for a dice. C'mere." <<He>> steps up behind you, reaching around to adjust your grip on the knife, <<his>> chest brushing your back, close enough that you can feel <<him>> breathe.
+<br><br>
+<<link [[Steal a taste|Rowan Cooking Steal]]>><</link>>
+<br>
+<<link [[Behave|Rowan Cooking Behave]]>><</link>>
+
+:: Rowan Dinner
+<<npc Rowan>><<person1>>
+You enter the dining room and Rowan guides you to a chair at the small table. Mint Mocha sits poking beside you blushing slightly. You sit together silently as Rowan turns off the stove and makes <<his>> way over with a plate of fresh vegetables and meat.
+<br><br>
+The three of you sit together at the table and Rowan offers a silent prayer. It does not take long before the plates are cleaned and the table is clear. Rowan and Mint Mocha take a moment of silent peace before returning to their rools.
+<br><br>
+<<link [[Next|Rowan Farmhouse]]>><<set $dailyrowandinner to 1>><<endevent>><</link>>
+
+:: Rowan Room
+<<if Time.hour is 21 or Time.hour is 22>>
+    <<npc Rowan>><<person1>>
+    Rowan is sitting on <<his>> bed shirtless. <<He>> is covered in sweat that glistens on <<his>> chest.
+    <br><br>
+    <<link [[Spend some time talking with <<him>> (0:30)|Rowan Talk]]>><<pass 30>><<endevent>><</link>>
+    <br>
+    <<link [[Climb into bed|Rowan Bed]]>><<endevent>><</link>>
+    <br>
+    <<link [[Open the wardrobe|Rowan Wardrobe]]>><<endevent>><</link>>
+    <br>
+    <<link [[Check the mirror|Rowan Mirror]]>><<endevent>><</link>>
+    <br>
+    <<link [[Settings|Rowan Settings]]>><<endevent>><</link>>
+    <br>
+    <<attitudesControlCheck>>
+    <<if $attitudesControl.showGoldLink is true>>
+        <span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+    <<else>>
+        <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+    <</if>>
+    <br>
+    <<link [[Leave (0:02)|Rowan Farmhouse]]>><<pass 2>><<endevent>><</link>>
+<<elseif Time.hour gt 22 or Time.hour lt 4>>
+    <<npc Rowan>><<person1>>
+    Rowan is asleep, you can hear <<him>> gently snoring from the bed.
+    <br><br>
+    <<link [[Climb into bed|Rowan Bed]]>><<endevent>><</link>>
+    <br>
+    <<link [[Open the wardrobe|Rowan Wardrobe]]>><<endevent>><</link>>
+    <br>
+    <<link [[Check the mirror|Rowan Mirror]]>><<endevent>><</link>>
+    <br>
+    <<link [[Settings|Rowan Settings]]>><<endevent>><</link>>
+    <br>
+    <<attitudesControlCheck>>
+    <<if $attitudesControl.showGoldLink is true>>
+        <span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+    <<else>>
+        <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+    <</if>>
+    <br>
+    <<link [[Leave (0:02)|Rowan Farmhouse]]>><<pass 2>><<endevent>><</link>>
+<<else>>
+    Rowan is not in the room right now.
+    <br><br>
+    <<link [[Climb into bed|Rowan Bed]]>><<endevent>><</link>>
+    <br>
+    <<link [[Open the wardrobe|Rowan Wardrobe]]>><<endevent>><</link>>
+    <br>
+    <<link [[Check the mirror|Rowan Mirror]]>><<endevent>><</link>>
+    <br>
+    <<link [[Settings|Rowan Settings]]>><<endevent>><</link>>
+    <br>
+    <<attitudesControlCheck>>
+    <<if $attitudesControl.showGoldLink is true>>
+        <span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+    <<else>>
+        <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+    <</if>>
+    <br>
+    <<link [[Leave (0:02)|Rowan Farmhouse]]>><<pass 2>><<endevent>><</link>>
+<</if>>
+
+:: Mint Room
+You are in Mint Mocha's room.
+<<if Time.hour is 21 or Time.hour is 22 and $mintromance isnot 1 and C.npc["Mint Mocha"].love gte 100>>
+    As you enter, Mint turns to you, a red glow across <<his>> face. "Hey, I wanted to talk with you privately. Do you have a moment?"
+    <br><br>
+    <<link [[Ask what Mint needs|Mint Romance]]>><<endevent>><</link>>
+    <br>
+    <<link [[Leave (0:02)|Rowan Farmhouse]]>><<pass 2>><<endevent>><</link>>
+<<elseif Time.hour is 21 or Time.hour is 22>>
+    <<npc "Mint Mocha">><<person1>>
+    Mint is fiddling at <<his>> desk whittling a wood carving of a horse.
+    <br><br>
+    <<link [[Spend some time talking with <<him>> (0:30)|Mint Talk]]>><<pass 30>><<endevent>><</link>>
+    <br>
+    <<link [[Leave (0:02)|Rowan Farmhouse]]>><<pass 2>><<endevent>><</link>>
+<<elseif Time.hour gt 22 or Time.hour lt 4>>
+    <<npc "Mint Mocha">><<person1>>
+    Mint is asleep, you can see <<his>> silhouette curled under the covers.
+    <br><br>
+    <<link [[Leave (0:02)|Rowan Farmhouse]]>><<pass 2>><<endevent>><</link>>
+<<else>>
+    Mint is not in the room right now.
+    <br><br>
+    <<link [[Leave (0:02)|Rowan Farmhouse]]>><<pass 2>><<endevent>><</link>>
+<</if>>
+
+:: Mint Farmwork
+<<npc "Mint Mocha">><<person1>>
+You step onto the farm's cracked earth, the smell of turned soil greeting you after the rain. Mint Mocha stands near a low fence, <<his>> usual sparkle dimmed, hands gripping a rough burlap sack of seed. "I never imagined I'd be here, pulling weeds instead of chasing a finish line."
+<br><br>
+You offer a tired smile. <<He>> looks up, a flicker of something returning to <<his>> gaze. "I thought winning would fix everything. Turns out I had to lose to see how much I still have to learn."
+<br><br>
+<<He>> bends, placing seeds in neat rows, <<his>> movements deliberate but gentle. You crouch beside <<his>>, handing over a small hoe. Your hands brush occasionally as you work side by side.
+<br><br>
+The two of you spend some time working Rowan's farm plots. <<He>> wipes sweat from <<his>> forehead, a small smile forming.
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<endevent>><</link>>
+
+:: Mint Exercise
+<<npc "Mint Mocha">><<person1>>
+You both settle onto the soft grass, legs stretched out. Mint rolls <<his>> shoulders, feeling the tension loosen. You follow, reaching your arms overhead, fingers interlaced, pulling gently to lengthen the spine.
+<br><br>
+A soft chuckle escapes as you both attempt a forward bend, fingertips grazing the damp earth. Mint shakes <<his>> head, a mirthful glint returning to <<his>> eyes. "Feels good to let the muscles breathe after all that pulling."
+<br><br>
+You nod, breathing in the scent of turned soil and wild mint that clings to the air. Together you shift into a side stretch, left arm arching over the head, right hand resting on the hip. The movement eases the knot in your lower back.
+<br><br>
+After several times, you both settle back, lying flat, eyes closed, listening to the distant chirp of crickets. The day's exertion fades, replaced by a calm steadiness.
+<br><br>
+Mint turns <<his>> head toward you, a faint smile playing on <<his>> lips. "Thanks for staying. It helps to have someone alongside when the work feels endless."
+<br><br>
+You reply with a quiet affirmation, feeling the warmth of the sun on your skin and the quiet respect that has grown between you.
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<endevent>><</link>>
+
+:: Mint Talk
+<<npc "Mint Mocha">><<person1>>
+You approach and attempt a conversation with Mint Mocha.
+<br><br>
+<<cleareventpool>>
+<<addinlineevent "minttime1">>
+    You find Mint perched on the windowsill, legs dangling, staring out at the moonlit fields. He turns his head as you enter, a soft smile forming. "The moon looks like it's watching over us tonight."
+    <br><br>
+    You join him, resting your elbows on the sill, feeling the cool night breeze.
+<</addinlineevent>>
+<<addinlineevent "minttime2">>
+    He glances up, a faint grin tugging at the corner of his mouth. "Another day in the fields… feels like I've hauled half the harvest on my back."
+    <br><br>
+    He stretches his arms overhead, fingers interlaced, and lets out a soft groan as the tension eases. "Feels nice to finally let the muscles breathe. Night air has a different kind of weight."
+<</addinlineevent>>
+<<runeventpool>>
+<br><br>
+<<link [[Next|Mint Room]]>><<endevent>><</link>>
+
+:: Rowan Barn
+<<npc Rowan>><<person1>>
+You are inside Rowan's barn. You can see several cows, sheep, pigs, and even a small chicken coop in the back.
+<br><br>
+<<if Time.hour gte 4 and Time.hour lt 6>>
+    Rowan is currently working to spread feed in the various food troughs and checking on the animal's health.
+    <br><br>
+<</if>>
+<<if Time.hour gte 4 and Time.hour lt 6>>
+    <<link [[Help Rowan with the animals (1:00)|Rowan Animals]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
+    <br>
+<</if>>
+<<rng>>
+<<if $rng gte 70>>
+    <<link [[Observe the pigs|Rowan Pig Observe]]>><<endevent>><</link>>
+    <br>
+<<elseif $rng gte 40>>
+    <<link [[Observe the sheep|Rowan Sheep Observe]]>><<endevent>><</link>>
+    <br>
+<<else>>
+    <<link [[Observe the cows|Rowan Cow Observe]]>><<endevent>><</link>>
+    <br>
+<</if>>
+<<link [[Leave|Rowan Farmstead]]>><<endevent>><</link>>
+
+:: Rowan Animals
+<<npc Rowan>><<person1>>
+You spend some time with Rowan helping with the early morning chores.
+<br><br>
+<<cleareventpool>>
+<<addinlineevent "rowananimals1">>
+    You help spread feed in the sheep, pig, and cow food troughs. They begin to sloppily eat as Rowan helps guide you through assisting the animals.
+    <br><br>
+<</addinlineevent>>
+<<addinlineevent "rowananimals2">>
+    You spend some time helping Rowan milk the cows. It's hard work and builds up a sweat but by the time you are done, you have a full bucket of milk.
+    <br><br>
+<</addinlineevent>>
+<<addinlineevent "rowananimals3">>
+    Stepping into the small chicken coop, you can see a handful of chickens sitting quietly in the hay. You take a moment to carefully check all of the nests and collect the eggs without disturbing the chickens.
+    <br><br>
+<</addinlineevent>>
+<<runeventpool>>
+Rowan smiles gently toward you. "Thanks for the help sugar, it's hard work but it's nice to know ya there to help."
+<br><br>
+<<link [[Next|Rowan Barn]]>><<endevent>><</link>>
+
+:: Rowan Farmwork
+<<npc Rowan>><<person1>>
+You meet Rowan near the barn to help with work.
+<<cleareventpool>>
+<<addinlineevent "rowanfarm1">>
+    "Hey there sugar, ready to get the plot prepared for plantin'?"
+    <br><br>
+    You nod, grabbing a sturdy hoe from the rack. Together you stride to the furrows. Rowan takes the lead, pulling the old plow. <<His>> muscles strain as the blade cuts clean lines in the earth.
+    <br><br>
+    You follow and help fix up the rough patches, getting the land well prepared for the future.
+    <br><br>
+    <<link [[Next|Rowan Farmstead]]>><<endevent>><</link>>
+<</addinlineevent>>
+<<addinlineevent "rowanfarm2">>
+    "You ready for a hard day of workin'?" Rowan flashes a cocky smile as <<he>> hands you a bag.
+    <br><br>
+    You follow Rowan's lead as <<he>> gently spreads seed across the tilled ground. By the time you are done, you can see small seeds settled throughout the tilled soil.
+    <br><br>
+    <<link [[Next|Rowan Farmstead]]>><<endevent>><</link>>
+<</addinlineevent>>
+<<addinlineevent "rowanfarm3">>
+    You find Rowan out repairing a stretch of fence that's been sagging for weeks, sleeves rolled up, sweat sticking <<his>> shirt to <<his>> back in the afternoon heat.
+    <br><br>
+    "Figured you'd show up eventually. Grab that hammer, would you?"
+    <br><br>
+    <<link [[Help Him|Fence Mending - Help]]>><</link>>
+    <br>
+    <<link [[Watch Instead|Fence Mending - Watch]]>><</link>>
+<</addinlineevent>>
+<<runeventpool>>
+
+:: Rowan Talk
+<<npc Rowan>><<person1>>
+"Sure what did ya wanna talk about?" <<He>> looks toward you curiously
+<br><br>
+<<link [[Reversed Roles|Talk - Reversed Roles]]>><</link>>
+<br>
+<<link [[About Alex|Talk - About Alex]]>><</link>>
+<br>
+<<link [[Opinion on Mint Mocha|Talk - Opinion on Mint Mocha]]>><</link>>
+<br>
+<<link [[Favorite Season|Talk - Favorite Season]]>><</link>>
+<br>
+<<link [[Compliment Fishing|Talk - Compliment Fishing]]>><</link>>
+<br>
+<<link [[Future Plans|Talk - Future Plans]]>><</link>>
+<br>
+<<link [[Random Topic|Rowan Random Topic]]>><</link>>
+<br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Rowan Random Farm
+<<cleareventpool>>
+<<addinlineevent "rowanhome1">>
+    Rowan turns to face you and gently grips your hands. "Hey sugar. I just wanted to let ya know. I'm sorry about the harsh trainin' I gave ya back at the academy. You've done so much for me and... you make me wanna do better so, thank you." <<He>> gently kisses you and holds your hand for a moment.
+<</addinlineevent>>
+<<addinlineevent "rowanhome2">>
+    "Hey sugar," Rowan says, turning to face you with a small smile. "Was there somethin' ya wanted to talk about, or did ya just wanna spend some time together?" You and Rowan spend some time keeping each other company.
+<</addinlineevent>>
+<<runeventpool>>
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Mint Romance
+Mint gingerly takes your hand into <<his>>, the red glow across <<his>> face growing even brighter. "Well... we've known each other for a while but... I've never been true to you, or myself. The truth is, you are someone I truly love and respect and I want to..." Mint turns and takes a deep breath trying to calm down. "D-do you accept me as your <<girl_npc>>friend?!" <<He>> blurts out as fast as <<he>> can. "Y-you don't have to agree right away, o-or even ever. J-just please keep it in mind okay?"
+<br><br>
+<<set $mintromance to 1>>
+<<if $loveInterest.primary is "None">>
+    <<set $loveInterest.primary to "Mint Mocha">>
+    <span class = "gold">Mint Mocha is now your love interest! The thought makes you feel warm.</span>
+    <br><br>
+<<else>>
+    <span class = "gold">Mint Mocha can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
+    <br><br>
+<</if>>
+<<link [[Next|Mint Room]]>><<endevent>><</link>>
+
+:: Rowan Pig Observe
+You spend some time observing the pigs. They roll in mud without a care in the world and funnily enough, you wish you could have that.
+<br><br>
+<<link [[Next|Rowan Barn]]>><<transform pig 1>><<endevent>><</link>>
+
+:: Rowan Sheep Observe
+You spend some time observing the sheep. They seem so soft and fluffy... What you wouldn't give to hug and sleep against one like a pillow.
+<br><br>
+<<link [[Next|Rowan Barn]]>><<transform sheep 1>><<endevent>><</link>>
+
+:: Rowan Cow Observe
+You spend some time observing the cows. They can't do much in such a cramped pin and you begin to feel bad for the poor things.
+<br><br>
+<<link [[Next|Rowan Barn]]>><<transform cow 1>><<endevent>><</link>>
+
+:: Rowan Plot
+<<effects>>
+<<plot_effects>>
+<<if $rowangarden is undefined>>
+	<<set $rowangarden to 1>>
+	<<plots_init garden 4 earth 1 medium>>
+<</if>>
+<<display_plot garden>>
+<br>
+<<getouticon>><<link [[Leave|Rowan Farmstead]]>><<endevent>><</link>>
+
+:: Rowan Mirror
+<<effects>>
+
+<<link [[Next|Rowan Room]]>><<set $mirrordisplay to 0>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+
+<<mirror>>
+<br><br>
+
+:: Rowan Bed
+<<effects>>
+You snuggle under the covers.
+<br><br>
+<<if Time.hour gt 22 or Time.hour lt 4>>
+    Rowan snuggles against you, half asleep.
+<</if>>
+<br><br>
+<<generateSleepLinks "Rowan Sleep">>
+<<link [[Climb out of bed|Rowan Room]]>><</link>>
+
+:: Rowan Sleep
+<<set _autosavehere to true>>
+<<sleepeffects>><<sleep>><<effects>>
+You rest your head on the soft worn bed and manage to fall asleep.
+<br><br>
+<<if Time.hour gt 22 or Time.hour lt 4>>
+    <<npc Rowan>><<person1>>
+    You're barely awake when you feel the mattress dip behind you, then an arm sliding around your waist, pulling you back against a warm chest.
+    <br><br>
+    "Mornin'." <<His>> voice is rough with sleep, mouth pressed against your shoulder. "You got about five more minutes before I gotta drag you out to the field."
+    <br><br>
+    <<link [[Steal a kiss|Rowan Steal Kiss]]>><</link>>
+    <br>
+    <<link [[Pretend to sleep|Rowan Pretend Sleep]]>><</link>>
+    <br>
+<</if>>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Rowan Settings [exitCheckBypass]
+<<set $settingsExitPassage to "Rowan Room">>
+<<settings>>
+
+:: Rowan Passout
+<<npc Rowan>><<person1>>
+You wake up a few hours later, lying on a warm and soft bed. As your eyes blink open, you see Rowan gently smiling at you. "Mornin' sugar, you alright? Ya must've passed out from all the heat and exhaustion. I'm glad you're startin' to look a bit better."
+<br><br>
+<<if Time.hour lt 22 and Time.hour gte 4>>
+    Rowan sits up and stretches, "I wish I could spare more time but I really gotta get some more workin' in before resting. Try to relax here, okay?"
+<<else>>
+    Rowan lies next to you, "Take it easy and rest. I'll lay with you."
+<</if>>
+<br><br>
+<<link [[Next|Rowan Bed]]>><<endevent>><</link>>
+
+:: Rowan Steal Kiss
+You turn over in <<his>> arms and kiss <<him>> before <<he>> can finish waking up properly, and <<he>> makes a low, pleased sound against your mouth, pulling you in closer.
+<br><br>
+"Mm. Could get used to wakin' up like this." <<He>> tucks a strand of hair behind your ear, looking at you with none of his usual guard up, just soft and unhurried.
+<br><br>
+Five minutes turns into considerably more than five minutes, and neither of you seems particularly bothered about it.<<arousal 6>><<garousal>><<glove>>
+<br><br>
+<<link [[Next|Rowan Bed]]>><<set C.npc.Rowan.love += 5>><<endevent>><</link>>
+
+:: Rowan Pretend Sleep
+You keep your eyes shut, biting back a smile, and let <<him>> think <<he>> hasn't woken you up yet.
+<br><br>
+"I know you're awake." <<He>> says it right against your ear, far too smug for someone who just got caught. "Your breathin' changed."
+<br><br>
+"Don't know what you're talking about." You mutter. "Uh huh." <<He>> presses a slow kiss to the back of your shoulder anyway, in no hurry to prove <<his>> point further than that, perfectly content just holding onto you a while longer.<<glove>>
+<br><br>
+<<link [[Next|Rowan Bed]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+
+:: Rowan Take Hand
+You let <<him>> pull you in, one hand at your waist, the other tangled loosely with yours, and <<he>> moves you both in a slow, unhurried circle that has absolutely nothing to do with skill and everything to do with wanting an excuse to hold you.
+<br><br>
+"You're a terrible dancer," you murmur against <<his>> shoulder.
+<br><br>
+"Never said I was good at it." <<His>> chin rests against the top of your head, voice rumbling low in <<his>> chest. "Just said I wasn't gonna let it go to waste."
+<br><br>
+The song ends. Neither of you stops moving for a while after that.<<glove>>
+<br><br>
+<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 5>><<endevent>><</link>>
+
+:: Rowan Hard Get
+"I'm working," you say.
+<br><br>
+"Uh huh." <<He>> doesn't drop the hand. "You were swayin' along to it two seconds ago. Don't think I didn't see."
+<br><br>
+"That was involuntary."
+<br><br>
+"Sure it was." <<He>> tugs you in anyway, grinning when you don't actually resist all that hard, settling <<his>> hands at your waist like <<he>>'s won something. "C'mon. One song."
+<br><br>
+You let <<him>> have it. The work can wait.<<arousal 6>><<glove>><<garousal>>
+<br><br>
+<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+
+:: Rowan Porch Lean
+You let your shoulder rest against his, the mug warm between your hands.
+<br><br>
+Rowan goes still for half a second, like <<he>> wasn't quite expecting it, then relaxes into it, an arm settling along the back of the porch swing behind you. Not quite around you. Close enough that it might as well be.
+<br><br>
+"This alright?" <<He>> asks it lightly, like the answer doesn't matter much either way, but <<he>> doesn't move.
+<br><br>
+"Yeah." You respond.
+<br><br>
+<<He>> huffs something that's almost a laugh, almost relieved, and the two of you sit there as the light goes from gold to blue to dark, not saying much else, not needing to.<<glove>>
+<br><br>
+<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 5>><<endevent>><</link>>
+
+:: Rowan Porch Distance
+You keep a careful few inches between you, sipping your drink and watching the fields go dark instead of looking at <<him>>.
+<br><br>
+Rowan doesn't comment on it, doesn't push closer. <<He>> just settles in beside you, easy as anything, content with however much space you're willing to give.
+<br><br>
+"You don't gotta talk," <<he>> says after a while, not looking over either. "Just figured the company beats sittin' out here by myself."
+<br><br>
+There's something almost vulnerable in the admission, buried under <<his>> usual drawl. You don't think <<he>> meant to let that much show.
+<br><br>
+Neither of you says much else, but <<he>> doesn't leave either, not until the mugs go cold and the stars come out properly.<<glove>>
+<br><br>
+<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+
+:: Rowan Cooking Steal
+While <<his>> attention's on your knife work, you swipe a finger through the sauce simmering behind you and bring it to your mouth before <<he>> can stop you.
+<br><br>
+"Hey—" <<He>> twists you around by the shoulder, half-scandalized, half-laughing. "That's for the dish, not a snack bar."
+<br><br>
+"Quality control," you say, entirely unrepentant.
+<br><br>
+"Quality control." <<He>> repeats it like he's never heard anything so ridiculous, but <<he>>'s grinning now, and <<he>> doesn't let go of your shoulder right away. "And? Verdict?"
+<br><br>
+"Needs salt."
+<br><br>
+"It does not need salt." <<He>> says it on reflex, already turning to check anyway, muttering something about smart-mouthed racers under his breath that doesn't sound the least bit annoyed.<<glove>>
+<br><br>
+<<link [[Next|Rowan Farmhouse]]>><<set C.npc.Rowan.love += 4>><<set $dailyrowanbreakfast to 1>><<endevent>><</link>>
+
+:: Rowan Cooking Behave
+You let <<him>> correct your grip, holding still as <<his>> hand wraps around yours, guiding the knife through a proper dice.
+<br><br>
+"There. See? Not so hard." <<His>> voice is low near your ear, far closer than the lesson strictly requires.
+<br><br>
+Neither of you moves to put the distance back. The pot simmers, forgotten for a second, and <<his>> hand stays over yours a beat longer than the knife technique calls for.
+<br><br>
+"...Rowan."
+<br><br>
+"Mm?" <<He>> doesn't step back. "Somethin' wrong with the lesson?"
+<br><br>
+"No." You're not sure what else to say to that, and from the way <<his>> mouth curves, <<he>> knows it.<<arousal 4>><<garousal>><<glove>>
+<br><br>
+<<link [[Next|Rowan Farmhouse]]>><<set C.npc.Rowan.love += 3>><<set $dailyrowanbreakfast to 1>><<endevent>><</link>>
+
+:: Spending Time Rowan
+<<npc Rowan>><<person1>>
+The rain's been coming down since dawn, hard enough that training's cancelled and the whole farm has slowed to a crawl.
+<br><br>
+You find Rowan sprawled on the old couch in the den, one arm slung over the back of it, looking entirely too comfortable for someone usually allergic to sitting still.
+<br><br>
+"C'mere. Ain't gonna bite." <<He>> pats the empty space beside <<him>>, the corner of <<his>> mouth tugging upward. "Unless you want me to."
+<br><br>
+<<link [[Sit close|Rowan Sit Close]]>><</link>>
+<br>
+<<link [[Keep busy|Rowan Keep Busy]]>><</link>>
+
+:: Rowan Sit Close
+You drop down next to <<him>>, closer than you probably need to, and <<his>> arm slides from the back of the couch to settle around your shoulders like it was always going to end up there.
+<br><br>
+"There." <<His>> voice is low, pleased, <<his>> thumb tracing slow idle circles against your arm without seeming to notice <<he>>'s doing it. "Knew you'd come around."
+<br><br>
+The rain keeps falling outside, and neither of you makes any move to do anything but stay exactly like this, <<his>> breath warm against your hair, <<his>> hand finding yours under the blanket like it belongs there.<<arousal 6>><<garousal>><<glove>>
+<br><br>
+<<link [[Next|Rowan Farmhouse]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+
+:: Rowan Keep Busy
+You busy yourself tidying up the den instead, very pointedly not looking at the open space on the couch.
+<br><br>
+Rowan watches you avoid <<him>> with open amusement. "Ya gonna dust a hole straight through that shelf if you keep that up."
+<br><br>
+"Just being productive."
+<br><br>
+"Uh huh." <<He>> doesn't call you on it any further than that, just stretches out, perfectly content to watch you fuss around the room, that lazy, knowing smile never quite leaving <<his>> face.
+<br><br>
+<<link [[Next|Rowan Farmhouse]]>><<endevent>><</link>>
+
+:: Fence Mending - Help
+You work alongside <<him>>, passing nails, holding boards steady while <<he>> hammers them into place.
+<br><br>
+Somewhere in the middle of it <<he>> catches your hand instead of the nail you're holding out, pulling you in for a quick, sweat-salted kiss before going right back to work like nothing happened.
+<br><br>
+"Needed that," <<he>> says simply, already reaching for the next board.<<gglove>>
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<npcincr "Rowan" love 4>><<endevent>><</link>>
+
+:: Fence Mending - Watch
+You settle onto a nearby hay bale and watch <<him>> work instead, perfectly content just to observe.
+<br><br>
+Rowan glances over more than once, clearly aware of the audience, putting just a little more effort into looking capable than the task strictly requires.
+<br><br>
+"You just gonna sit there and ogle me all afternoon?"
+<br><br>
+"Pretty much, yeah."
+<br><br>
+<<He>> laughs, shaking <<his>> head, but <<he>> doesn't seem to mind one bit.<<glove>>
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<npcincr "Rowan" love 4>><<endevent>><</link>>
+
+:: TF Recognition - Notices
+Rowan stops dead a few feet away, staring at you with an expression caught somewhere between confusion and dawning alarm.
+<br><br>
+"...Darlin'?" <<His>> eyes flick upward, searching for something that isn't there anymore. "Where'd your horse ears go?"
+<br><br>
+<<He>> closes the distance fast, hands coming up to your face, tilting your head this way and that like <<he>>'s checking for a fever, or possibly for a prank.
+<br><br>
+"This some kinda joke? 'Cause it's not funny. Where's the tail, where're the—" <<He>> cuts <<himself>> off, jaw tightening as it visibly sinks in that this isn't a costume malfunction.
+<br><br>
+<<link [[Reassure Him It's Really You|TF Recognition - Reassure]]>><</link>>
+<br>
+<<link [[Panic Along With Him|TF Recognition - Panic]]>><</link>>
+
+:: TF Recognition - Reassure
+"It's really me. I don't know what happened either." You say, reassuring <<him>>.
+<br><br>
+<<He>> exhales hard, some of the surprise draining out of <<his>> shoulders now that <<he>>'s sure, at least, that you're you. <<His>> hands don't leave your face.
+<br><br>
+"Okay. Okay." <<He>> says it like <<he>>'s convincing <<himself>>. "You're still you, after all—" <<His>> thumb brushes your cheek, smiling. "My precious star. I got you. Whatever this new era of yours this is."<<glove>>
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<endevent>><<npcincr "Rowan" love 5>><<set $rowanrecognize to 1>><</link>>
+
+:: TF Recognition - Panic
+"I don't know! I just looked down and… and my horse features were gone!" You squeak.
+<br><br>
+"Okay, okay, nobody panic. Well—" <<He>> gestures vaguely at the obvious panicking happening on both ends. "Too late for that, but—"
+<br><br>
+<<He>> paces a tight circle, hands laced behind <<his>> head, before stopping abruptly and pulling you into a fierce hug instead, like physically confirming you're still there helps more than thinking does.
+<br><br>
+"There's stranger things in this world, no? No matter which form you take, you're still my beloved, you got that?"<<glove>>
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<endevent>><<npcincr "Rowan" love 4>><<set $rowanrecognize to 1>><</link>>
+
+:: Talk - Reversed Roles
+"You ever think about what if our roles were reversed?" Rowan mutters.
+<br><br>
+<<He>> chuckles. "I'd make a lousy horse."
+<br><br>
+<<link [[Ask Why|Reversed Roles - Why]]>><</link>>
+<br>
+<<link [[Agree|Reversed Roles - Agree]]>><</link>>
+
+:: Reversed Roles - Why
+"Why's that?"
+<br><br>
+"Stubborn as a mule, terrible at takin' orders." <<He>> counts it off on <<his>> fingers, grinning. "I'd get myself disqualified the first lap just for sassin' the judges."
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Reversed Roles - Agree
+"Yeah, probably."
+<br><br>
+"Hey now." <<He>> looks almost offended, though the grin gives <<him>> away. "Didn't need you agreein' that fast."
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Talk - About Alex
+"I've heard about another young farmer close to my age around here. Good people, let me tell ya."
+<br><br>
+<<if $hasMetAlex>>
+	You nod, realizing <<he>> must mean Alex.
+   <br><br>
+	"Small world," you say.
+   <br><br>
+	"Ain't it just." Rowan looks pleased you already know who <<he>>'s talking about. "<<He>> ever give you grief about your trainer? I got a reputation to live down apparently."<br>
+<<else>>
+	"Don't think I've met the other farmer," you say.
+   <br><br>
+	"You will eventually. Can't avoid runnin' into everybody forever, not in a place this small." <<He>> shrugs, already moving on to something else.
+   <br>
+<</if>>
+<br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Talk - Opinion on Mint Mocha
+"That stubborn horse, Mint Mocha. Got more attitude than sense, I swear." Rowan shakes <<his>> head, though there's no real venom in it. "Reminds me of myself at that age, if I'm honest. Didn't make me like losin' to them any easier, though."
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Talk - Favorite Season
+"Ask me, autumn's the best time on a farm. Air gets crisp, work slows down some." <<He>> tilts <<his>> head back, looking at the sky like <<he>>'s picturing it already. "What about you? Got a favorite?"
+<br><br>
+<<link [[Tell Him Your Favorite|Favorite Season - Answer]]>><</link>>
+<br>
+<<link [[Ask Him to Guess|Favorite Season - Guess]]>><</link>>
+
+:: Favorite Season - Answer
+You tell <<him>>.
+<br><br>
+"Huh." <<He>> considers it, nodding slowly. "Yeah, I can see that. Suits you, actually."<<glove>>
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><<npcincr "Rowan" love 1>><</link>>
+
+:: Favorite Season - Guess
+"Go on, guess." You say.
+<br><br>
+Rowan squints at you, studying your face like the answer's written somewhere on it. "...Spring. Somethin' about you seems like a spring person."
+<br><br>
+<<He>> looks far too pleased with <<himself>>, whether <<he>>'s right or not.
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Talk - Compliment Fishing
+"So." Rowan leans against the fence post, arms crossed, a little too casual. "How am I doin'? As a trainer, I mean."
+<br><br>
+<<link [[Genuine Compliment|Compliment Fishing - Genuine]]>><</link>>
+<br>
+<<link [[Tease Him|Compliment Fishing - Tease]]>><</link>>
+
+:: Compliment Fishing - Genuine
+"Honestly? Pretty good." You respond.
+<br><br>
+Rowan goes a little still, like <<he>> wasn't fully expecting a straight answer. Then <<he>> clears <<his>> throat, ears faintly pink.
+<br><br>
+"...Yeah, well. Good to hear." <<He>> looks away first, suddenly very interested in the fence post.
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><<npcincr "Rowan" love 3>><</link>>
+
+:: Compliment Fishing - Tease
+"Eh. Six out of ten." You say.
+<br><br>
+"Six?!" <<He>> looks genuinely scandalized. "After everything I've—six?"
+<br><br>
+"Maybe a seven if you stop fishing for compliments." You respond dryly.
+<br><br>
+<<He>> huffs, but <<he>>'s fighting a smile the whole time <<he>> pretends to sulk about it.
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><<npcincr "Rowan" love 2>><</link>>
+
+:: Talk - Future Plans
+"Sometimes I think about what comes after all this. The farm, the races." Rowan's gaze drifts toward the horizon, uncharacteristically distant. "Never get too far in that thought before somethin' drags me back to the present, though."
+<br><br>
+<<link [[Ask What He'd Want|Future Plans - Ask]]>><</link>>
+<br>
+<<link [[Let It Go|Future Plans - Let Go]]>><</link>>
+
+:: Future Plans - Ask
+"What would you want? If you got there." You ask.
+<br><br>
+Rowan's quiet for a moment, actually thinking about it instead of deflecting with a joke.
+<br><br>
+"...Somethin' steady, I guess. Somebody to share it with." <<He>> glances at you sideways, then quickly away, clearing <<his>> throat. "Forget I said that."
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Future Plans - Let Go
+You don't push. Some thoughts seem like they're not finished cooking yet.
+<br><br>
+Rowan seems grateful for that, giving you a small, appreciative nod before shaking <<himself>> out of it. "Anyway. Back to work."
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
