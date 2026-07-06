@@ -904,3 +904,175 @@ You get up from <<his>> lap and stretch.
 <<baileyofficeoptions>>
 <<link [[Leave|Orphanage]]>><<endevent>><</link>>
 <br>
+
+
+
+:: Bailey Office Masturbation
+<<effects>>
+<<if $masturbationstart is 1>>
+	<<set $masturbationstart to 0>><<set $masturbationstat += 1>><<masturbationstart>>
+	<<set $bailey_office_mast_catch to false>><<set $bailey_office_mast_catcher to "">><<set $daily.baileyOfficeMast to true>>
+	<<if $weekly.baileyOfficeMastCaught isnot true>>
+		<<if random(1, 10) is 1>>
+			<<set $weekly.baileyOfficeMastCaught to true>>
+			<<set $bailey_office_mast_catch to true>>
+			<<set $bailey_office_mast_catcher to ($robinmissing is 0 ? either("bailey", "robin") : "bailey")>>
+		<</if>>
+	<</if>>
+
+	The office is empty. Bailey's chair creaks beneath you as you sit down in it.
+	<br><br>
+
+	<<His>> desk is sparse. The door ahead is closed.
+	<br><br>
+
+	Your hand slides down.
+	<br><br>
+<</if>>
+
+<<if Time.hour gte 7 and Time.hour lte 9>>
+	<<set $bailey_office_mast_catcher to "bailey">>
+	<<endmasturbation>>
+	<<endcombat>>
+	<<goto "Bailey Office Masturbation Caught">>
+<</if>>
+
+<<masturbationeffects>>
+<<masturbationactions>>
+<<masturbationControls>>
+
+
+:: Bailey Office Masturbation Finish
+<<effects>>
+<<if $bailey_office_mast_catch>>
+	<<set $bailey_office_mast_catch to false>>
+	<<endmasturbation>>
+	<<endcombat>>
+	<<goto "Bailey Office Masturbation Caught">>
+<<else>>
+	<<set $finish to 0>>
+
+	You lie back in Bailey's chair, catching your breath.
+	<br><br>
+
+	The quiet of the office settles back over you. You hear orphans fussing about outside the office door.
+	<br><br>
+
+	You straighten the papers you knocked crooked and get up.
+	<br><br>
+
+	<<clotheson>>
+	<br><br>
+
+	<<if isLoveInterest("Kylar") and $kylar_camera is 3>>
+		You look at the owl plushie Bailey confiscated and wink.<<gglust>><<npcincr Kylar lust 10>>
+		<br><br>
+	<</if>>
+
+	<<endmasturbation>>
+	<<endcombat>>
+	<<link [[Next|Bailey's Office]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Bailey Office Masturbation Caught
+<<pass 5>><<effects>>
+<<if $bailey_office_mast_catcher is "robin">>
+	<<npc Robin>><<person1>>
+
+	The door opens just a crack. You freeze. <span class="red">You've been caught.</span>
+	<br><br>
+
+	It's Robin. When <<nnpc_he "Robin">> sees you, <<nnpc_he "Robin">> opens the door wider. "I thought I heard noises. What are you doing? Why are you sitting in Bailey's chair?"
+	<br><br>
+
+	<<nnpc_His "Robin">> eyes drop to you in the chair, then jerk back up, not understanding. "Are you… okay? You look really red."<<stress 6>><<gstress>>
+	<br><br>
+
+	You fix your clothes beneath the desk and get up. You push past <<nnpc_him "Robin">> out the door. <<nnpc_He "Robin">> watches you go, confused.
+	<br><br>
+
+	<<endevent>>
+	<<link [[Next|Orphanage]]>><<clotheson>><</link>>
+	<br>
+<<else>>
+	<<npc Bailey>><<person1>>
+
+	The door swings open. <span class="red">You've been caught.</span> <span class="bailey-red">It's Bailey.</span>
+	<br><br>
+
+	<<He>> stills when <<he>> sees you, <<his>> hand resting on the doorknob as <<he>> looks you over. <<Hes>> quiet for a long time.
+	<br><br>
+
+	<<if $stockholm_active>>
+		"Can't help yourself, can you?" <<he>> snickers.
+		<br><br>
+
+		<<He>> steps inside and shuts the door behind <<him>>. You stay in <<his>> chair as <<he>> rounds the desk to you. <<He>> grabs you by the neck, pulling you up and into <<his>> lap as <<he>> sits down.
+		<br><br>
+
+		<<link [[Next|Bailey Office Visit Sex Willing]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<elseif $bailey_dom gte 70>>
+		<<He>> leans against the doorframe for a moment, watching you with <<his>> arms crossed.
+		<br><br>
+
+		The corner of <<his>> mouth twitches. "Done?"
+		<br><br>
+
+		<<if C.npc.Bailey.lust gte 40>>
+			<<He>> pushes off the doorframe. "Since you've made yourself so comfortable."
+			<br><br>
+
+			<<He>> steps inside and shuts the door behind <<him>>. You stay in <<his>> chair as <<he>> rounds the desk to you. <<He>> grabs you by the neck, pulling you up and into <<his>> lap as <<he>> sits down.
+			<br><br>
+
+			<<link [[Next|Bailey Office Visit Sex Willing]]>><<set $molestationstart to 1>><</link>>
+			<br>
+		<<else>>
+			<<He>> steps inside and gestures at the door behind <<him>>. "Out."
+			<br><br>
+
+			You quickly get to your feet and head out of <<his>> office. <<He>> watches you go, eyes lingering on your disheveled form as you bump past.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<br><br>
+
+			<<He>> closes the door behind you.
+			<br><br>
+
+			<<endevent>>
+			<<link [[Next|Orphanage]]>><<clotheson>><</link>>
+			<br>
+		<</if>>
+	<<elseif $bailey_dom gte 30>>
+		<<He>> exhales hard through <<his>> nose. <<He>> comes around the desk, takes you by the arm, and hauls you up out of the chair.<<pain 2>><<gpain>><<stress 6>><<gstress>><<trauma 3>><<gtrauma>>
+		<br><br>
+
+		"Stupid brat," <<he>> snarls. <<He>> jerks <<his>> head at the door and tosses you towards it. "Get out."
+		<br><br>
+
+		You stumble out the door, closing it behind you as you go.
+		<br><br>
+
+		<<endevent>>
+		<<link [[Next|Orphanage]]>><<clotheson>><</link>>
+		<br>
+	<<else>>
+		<<He>> sneers at you. <<He>> crosses the office with heavy footsteps before fisting a hand in your hair and dragging you up out of <<his>> chair. The back of <<his>> hand cracks across your face.<<pain 8>><<gpain>><<stress 12>><<ggstress>><<trauma 6>><<gtrauma>>
+		<br><br>
+
+		"You little shit," <<he>> snarls at you. <<He>> hauls you to the door and shoves you through it hard enough that you stumble into the hall. "Get out!"
+		<br><br>
+
+		The door slams shut behind you.
+		<br><br>
+
+		<span class="blue">You shouldn't go near Bailey again today.</span>
+		<br><br>
+
+		<<set $daily.baileyVisit to 100>>
+		<<endevent>>
+		<<link [[Next|Orphanage]]>><<clotheson>><</link>>
+		<br>
+	<</if>>
+<</if>>
