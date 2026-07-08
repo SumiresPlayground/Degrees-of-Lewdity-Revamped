@@ -68,8 +68,11 @@ You are at the local horse racing track. Grandstands surround a central track. A
 		<<link [[Greet the trainer|Rowan Meet]]>><</link>>
 		<br><br>
 	<</if>>
-	<<if Time.daystate isnot "night" or $horseacademystudent is 1 and $academygone isnot 1>>
+	<<if $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
 		<<link [[Approach the school|Horse Academy]]>><</link>>
+		<br>
+	<<elseif Time.daystate isnot "night" and $horseacademystudent is 1 and $academygone isnot 1>>
+		<<link [[Approach the school|Horse TF - Denied Academy Entry]]>><</link>>
 		<br>
 	<<elseif $academygone isnot 1>>
 		<<oxfordicon>><<link [[Approach the school|Horse Academy Locked]]>><</link>>
@@ -90,6 +93,11 @@ You are at the local horse racing track. Grandstands surround a central track. A
 :: Horse Academy
 <<set $outside to 0>>
 You are within the entrance hall of the legally distinct horse racing academy. 
+<br><br>
+<<if $academygone isnot 1>>
+	<<eventshorseacademy>>
+	<br><br>
+<</if>>
 <<if Time.daystate isnot "night">>
 	Trainers can be seen chatting around the room with their horses. For the most part they look pretty happy.
 <<else>>
@@ -104,23 +112,29 @@ You are within the entrance hall of the legally distinct horse racing academy.
 	<<if Time.daystate is "day" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
 		You can see Rowan reading training manuals in the library.
 		<br>
-		<<link [[Approach Rowan|Horse Academy Indoor Rowan Talk]]>><</link>>
+		<<link [[Approach Rowan|Horse Academy Rowan Talk]]>><<endevent>><</link>>
+		<br><br>
+	<</if>>
+	<<if Time.daystate is "dusk" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+		You can see Rowan in the offices.
+		<br>
+		<<link [[Approach Rowan|Rowan Office Hours]]>><<endevent>><</link>>
 		<br><br>
 	<</if>>
 	<<if Time.daystate is "day" and $regionalrace lt 6 and $academygone isnot 1 and Weather.precipitation isnot "rain" and $mintmochaintro is 1>>
 		You can see Mint Mocha sitting with her friends at a cafe. Upon seeing you, they leave Mint to speak with you alone.
 		<br>
-		<<link [[Spend some time talking with her (0:30)|Horse Academy Indoor Mint Talk]]>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
+		<<link [[Spend some time talking with her (0:30)|Horse Academy Mint Talk]]>><<endevent>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
 		<br><br>
 	<</if>>
-	<<bedicon>><<link [[Enter your dorm room|Horse Academy Dorm]]>><</link>>
+	<<bedicon>><<link [[Enter your dorm room|Horse Academy Dorm]]>><<endevent>><</link>>
 	<br>
-	<<prisonicon "lift">><<link [[Make your way to the training room|Horse Academy Training Room]]>><</link>>
+	<<prisonicon "lift">><<link [[Make your way to the training room|Horse Academy Training Room]]>><<endevent>><</link>>
 	<br>
-	<<wardrobeicon>><<link [[Approach the uniform shop|Horse Academy Shop]]>><</link>>
+	<<wardrobeicon>><<link [[Approach the uniform shop|Horse Academy Shop]]>><<endevent>><</link>>
 <</if>>
 <br>
-<<getouticon>><<link [[Leave|Horse Academy Entrance]]>><</link>>
+<<getouticon>><<link [[Leave|Horse Academy Entrance]]>><<endevent>><</link>>
 
 :: Horse Academy Register
 You step up to the front desk where a kind looking woman gives you a bright smile. She speaks with a kindly voice. "Hello <<psir>>, did you come to register with the academy?"
@@ -420,66 +434,77 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 
 :: Horse Academy Rowan Morning
 <<npc Rowan>><<person1>>
-<<if $horseacademycountdown is 0>>
-	"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Rowan sighs and places <<his>> hand on <<his>> hip. "It's racin' day, you ready?" <<He>> doesn't wait for an answer as <<he>> grabs your arm and pulls you along.
-	<br>
-	<<runicon>><<link [[Follow Rowan to the track (2:00)|Regional Race Go]]>><<pass 120>><<if $regionalrace is undefined>><<set $regionalrace to 6>><</if>><</link>>
-<<else>>
-	"Oh, you're finally awake. Thought ya were gonna sleep the whole day away."
-	<br> <br>
-	Rowan lets out a sigh and rests a hand on <<his>> hip.
-	<br><br>
-	"We got a race comin' up, darlin'. Can't afford to be slackin' off now."
-	<br>
-	<<if $rng gt 75>>
-		<<He>> jerks <<his>> head toward the training grounds.
-		<br><br>
-		"Now c'mon. Let's start workin' on that athleticism of yours."
-		<br><br>
-		A teasing grin tugs at the corner of <<his>> mouth.
-		<br> <br>
-		"Lets build up ya speed so you can keep up while racin'"
-		<br><br>
-		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggathletics>><<gggtiredness>>
+<<set $trainingstage to 0>>
+<<if $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
+	<<if $horseacademycountdown is 0>>
+		"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Rowan sighs and places <<his>> hand on <<his>> hip. "It's racin' day, you ready?" <<He>> doesn't wait for an answer as <<he>> grabs your arm and pulls you along.
 		<br>
-		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 1>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
-	<<elseif $rng gt 50>>
-		<<He>> jerks <<his>> head toward the multipurpose room.
-		<br><br>
-		"Now c'mon. Let's start workin' on that physique of yours."
-		<br><br>
-		A teasing grin tugs at the corner of <<his>> mouth.
-		<br><br>
-		"Keep ya strong enough to pass up them other racin' horses."
-		<br><br>
-		<<prisonicon "lift">><<link [[Follow Rowan (10:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggphysique>><<gggtiredness>>
-		<br>
-		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 2>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
-	<<elseif $rng gt 25>>
-		<<He>> jerks <<his>> head toward the multipurpose room.
-		<br><br>
-		"Now c'mon. Let's start workin' on that footwork of yours."
-		<br><br>
-		A teasing grin tugs at the corner of <<his>> mouth.
-		<br><br>
-		"Keep ya able to turn them corners and not go slippin' to the ground."
-		<br><br>
-		<<dancestudioicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggdanceskill>><<gggtiredness>>
-		<br>
-		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 3>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
+		<<runicon>><<link [[Follow Rowan to the track (2:00)|Regional Race Go]]>><<pass 120>><<if $regionalrace is undefined>><<set $regionalrace to 6>><</if>><</link>>
 	<<else>>
-		<<He>> jerks <<his>> head toward the training grounds.
-		<br><br>
-		"Now c'mon. Let's start workin' on that willpower of yours."
-		<br><br>
-		A teasing grin tugs at the corner of <<his>> mouth.
+		"Oh, you're finally awake. Thought ya were gonna sleep the whole day away."
 		<br> <br>
-		"Gotta make sure you can stay on ya feet long enough to cross the finish line without collapsin'."
+		Rowan lets out a sigh and rests a hand on <<his>> hip.
 		<br><br>
-		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggwillpower>><<gggtiredness>>
+		"We got a race comin' up, darlin'. Can't afford to be slackin' off now."
 		<br>
-		<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 4>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
+		<<if $rng gt 75>>
+			<<He>> jerks <<his>> head toward the training grounds.
+			<br><br>
+			"Now c'mon. Let's start workin' on that athleticism of yours."
+			<br><br>
+			A teasing grin tugs at the corner of <<his>> mouth.
+			<br> <br>
+			"Lets build up ya speed so you can keep up while racin'"
+			<br><br>
+			<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggathletics>><<gggtiredness>>
+			<br>
+			<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 1>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
+		<<elseif $rng gt 50>>
+			<<He>> jerks <<his>> head toward the multipurpose room.
+			<br><br>
+			"Now c'mon. Let's start workin' on that physique of yours."
+			<br><br>
+			A teasing grin tugs at the corner of <<his>> mouth.
+			<br><br>
+			"Keep ya strong enough to pass up them other racin' horses."
+			<br><br>
+			<<prisonicon "lift">><<link [[Follow Rowan (4:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggphysique>><<gggtiredness>>
+			<br>
+			<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 2>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
+		<<elseif $rng gt 25>>
+			<<He>> jerks <<his>> head toward the multipurpose room.
+			<br><br>
+			"Now c'mon. Let's start workin' on that footwork of yours."
+			<br><br>
+			A teasing grin tugs at the corner of <<his>> mouth.
+			<br><br>
+			"Keep ya able to turn them corners and not go slippin' to the ground."
+			<br><br>
+			<<dancestudioicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggdanceskill>><<gggtiredness>>
+			<br>
+			<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 3>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
+		<<else>>
+			<<He>> jerks <<his>> head toward the training grounds.
+			<br><br>
+			"Now c'mon. Let's start workin' on that willpower of yours."
+			<br><br>
+			A teasing grin tugs at the corner of <<his>> mouth.
+			<br> <br>
+			"Gotta make sure you can stay on ya feet long enough to cross the finish line without collapsin'."
+			<br><br>
+			<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><</link>><<glove>><<gdom>><<gggwillpower>><<gggtiredness>>
+			<br>
+			<<runicon>><<link [[Disobey Rowan|Horse Academy Disobey]]>><<set $dailytrain to 4>><<rng>><<set C.npc.Rowan.love -= 2>><<set C.npc.Rowan.dom -= 1>><</link>><<llove>><<ldom>>
+		<</if>>
 	<</if>>
+<<else>>
+	"Hey, you seen a horse<<girl>> run through here? About your height, same eyecolor, world's worst attitude about mornin' drills-"
+	<br><br>
+	Rowan stops a few feet away, squinting at you like a word problem <<he>> hasn't fully worked out yet.
+	<br><br>
+	<span class="red">Rowan won't be able to recognize you without a Horse Transformation.</span>
+	<br><br>
+	<<link [[Go back into your dorm|Horse Academy Dorm]]>><</link>>
 <</if>>
 
 :: Horse Academy Disobey
@@ -488,13 +513,13 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	"You thinkin' ya can just disobey my orders? I am ya trainer and you better start listenin' or ya gonna have a bad time." Rowan begins to roughly grab at you and attempts to pull you along.
 	<br><br>
 	<<if $dailytrain is 1>>
-		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Athletics]]>><</link>><<gggathletics>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Athletics]]>><</link>><<gggathletics>><<gggtiredness>>
 	<<elseif $dailytrain is 2>>
-		<<prisonicon "lift">><<link [[Follow Rowan (10:00)|Horse Academy Train Physique]]>><</link>><<gggphysique>><<gggtiredness>>
+		<<prisonicon "lift">><<link [[Follow Rowan (4:00)|Horse Academy Train Physique]]>><</link>><<gggphysique>><<gggtiredness>>
 	<<elseif $dailytrain is 3>>
-		<<dancestudioicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Dance]]>><<danceskill 50>><<tiredness 20>><</link>><<gggdanceskill>><<gggtiredness>>
+		<<dancestudioicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Dance]]>><<danceskill 50>><<tiredness 20>><</link>><<gggdanceskill>><<gggtiredness>>
 	<<elseif $dailytrain is 4>>
-		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Willpower]]>><</link>><<gggwillpower>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Willpower]]>><</link>><<gggwillpower>><<gggtiredness>>
 	<</if>>
 	<br>
 	<<link [[Continue to disobey|Horse Academy Rowan Rape]]>><<set $molestationstart to 1>><</link>>
@@ -538,13 +563,13 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	<<clotheson>>
 	<<endcombat>>
 	<<if $dailytrain is 1>>
-		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggathletics>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggathletics>><<gggtiredness>>
 	<<elseif $dailytrain is 2>>
-		<<prisonicon "lift">><<link [[Follow Rowan (10:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggphysique>><<gggtiredness>>
+		<<prisonicon "lift">><<link [[Follow Rowan (4:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggphysique>><<gggtiredness>>
 	<<elseif $dailytrain is 3>>
-		<<dancestudioicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.dom += 10>><<danceskill 50>><<tiredness 20>><<set _sleepinterrupt to 0>><</link>><<gggdanceskill>><<gggtiredness>>
+		<<dancestudioicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.dom += 10>><<danceskill 50>><<tiredness 20>><<set _sleepinterrupt to 0>><</link>><<gggdanceskill>><<gggtiredness>>
 	<<elseif $dailytrain is 4>>
-		<<runicon>><<link [[Follow Rowan (10:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggwillpower>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggwillpower>><<gggtiredness>>
 	<</if>>
 <<else>>
 	Hissing, Rowan backs away from you.
@@ -563,13 +588,25 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 
 :: Horse Academy Train Athletics
 <<npc Rowan>><<person1>>
-<<rng>>
-<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
+<<rng 1 60>>
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng or $trainstage is 1>>
 	Rowan leads you to the practice track at the front of the academy. "We're gonna be trainin' ya speed today. You aughta do about a dozen laps on the track and we'll see ya progress."
 	<br><br>
-	You spend the day jogging. <span class="red">You feel exhausted.</span>
+	You spend a couple hours jogging. <span class="red">You feel exhausted.</span>
 	<br><br>
-	<<link [[Next|Horse Academy]]>><<athletics 50>><<tiredness 20>><<pass 600>><<endevent>><</link>>
+	<<if $trainstage is lt 1>>
+		<<if $rng gte 40>>
+			<<link [[Continue training|Midtrain Event]]>><<set $trainstage to 1>><<athletics 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Continue training|Horse Academy Train Athletics]]>><<set $trainstage to 1>><<athletics 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<<else>>
+		<<if $rng gte 40>>
+			<<link [[Next|Training Event]]>><<set $trainstage to 0>><<athletics 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Next|Horse Academy Entrance]]>><<set $trainstage to 0>><<athletics 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<</if>>
 <<else>>
 	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
@@ -583,14 +620,26 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 
 :: Horse Academy Train Physique
 <<npc Rowan>><<person1>>
-<<rng>>
-<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
+<<rng 1 60>>
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng or $trainstage is 1>>
 	<<wearProp "weight">>
 	Rowan guides you to the multipurpose room where there are several weights and machines set up for strength training. "Alrighty, today we're gonna be trainin' your strength so you can pass up other horses mid-race."
 	<br><br>
-	You spend the day lifting weights. <span class="red">You feel exhausted.</span>
+	You spend a couple hours lifting weights. <span class="red">You feel exhausted.</span>
 	<br><br>
-	<<link [[Next|Horse Academy]]>><<physique 50>><<tiredness 60>><<pass 600>><<endevent>><</link>>
+	<<if $trainstage is lt 1>>
+		<<if $rng gte 40>>
+			<<link [[Continue training|Midtrain Event]]>><<set $trainstage to 1>><<physique 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Continue training|Horse Academy Train Physique]]>><<set $trainstage to 1>><<physique 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<<else>>
+		<<if $rng gte 40>>
+			<<link [[Next|Training Event]]>><<set $trainstage to 0>><<physique 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Next|Horse Academy]]>><<set $trainstage to 0>><<physique 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<</if>>
 <<else>>
 	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
@@ -604,13 +653,25 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 
 :: Horse Academy Train Dance
 <<npc Rowan>><<person1>>
-<<rng>>
-<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
+<<rng 1 60>>
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng or $trainstage is 1>>
 	Walking a little ahead, Rowan guides you to the multipurpose room and sets down a boombox. "Today we're gonna take some time to train up ya footwork. We can't have ya slippin' on corners or fallin' mid-race."
 	<br><br>
-	You spend the day practicing your dance skills. <span class="red">You feel exhausted.</span>
+	You spend a couple hours practicing your dance skills. <span class="red">You feel exhausted.</span>
 	<br><br>
-	<<link [[Next|Horse Academy]]>><<danceskill 50>><<tiredness 20>><<pass 600>><<endevent>><</link>>
+	<<if $trainstage is lt 1>>
+		<<if $rng gte 40>>
+			<<link [[Continue training|Midtrain Event]]>><<set $trainstage to 1>><<danceskill 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Continue training|Horse Academy Train Dance]]>><<set $trainstage to 1>><<danceskill 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<<else>>	
+		<<if $rng gte 40>>
+			<<link [[Next|Training Event]]>><<set $trainstage to 0>><<danceskill 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Next|Horse Academy]]>><<set $trainstage to 0>><<danceskill 50>><<tiredness 20>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<</if>>
 <<else>>
 	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
@@ -625,13 +686,25 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 
 :: Horse Academy Train Willpower
 <<npc Rowan>><<person1>>
-<<rng>>
-<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng>>
+<<rng 1 60>>
+<<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng or $trainstage is 1>>
 	Rowan guides you toward the practice track out front. "We're gonna be trainin' ya on the track today. I brought ya a weighted vest, should help ya build up some endurance for the comin' races."
 	<br><br>
-	You spend the day jogging with a weighted vest weighing you down. <span class="red">You feel exhausted.</span>
+	You spend a couple hours jogging with a weighted vest weighing you down. <span class="red">You feel exhausted.</span>
 	<br><br>
-	<<link [[Next|Horse Academy]]>><<willpower 50>><<tiredness 60>><<pass 600>><<endevent>><</link>>
+	<<if $trainstage is lt 1>>
+		<<if $rng gte 40>>
+			<<link [[Continue training|Midtrain Event]]>><<set $trainstage to 1>><<willpower 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Continue training|Horse Academy Train Willpower]]>><<set $trainstage to 1>><<willpower 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<<else>>
+		<<if $rng gte 40>>
+			<<link [[Next|Training Event]]>><<set $trainstage to 0>><<willpower 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<<else>>
+			<<link [[Next|Horse Academy Entrance]]>><<set $trainstage to 0>><<willpower 50>><<tiredness 60>><<pass 240>><<endevent>><</link>>
+		<</if>>
+	<</if>>
 <<else>>
 	Rowan begins to guide you before <<he>> stops on the spot and turns to you. "Ya know, I reckon most trainers'll be stickin' to standard trainin' but... I've got somethin' special for ya."
 	<br><br>
@@ -989,15 +1062,27 @@ The board changes one last time while the bookie calls for final bets.
 
 :: Horse Academy Rowan Talk
 <<npc Rowan>><<person1>>
-You approach Rowan and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
-<br><br>
-<<link [[Spend some time talking (0:30)|Rowan Time Spend]]>><<set C.npc.Rowan.love += 1>><<pass 30>><<endevent>><</link>><<glove>>
-<br>
-<<if C.npc.Rowan.love gte 80 or C.npc.Rowan.dom gte 40>>
-	<<link [[Ask Rowan for some special love|Rowan Sex Time]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><<set $sexstart to 1>><</link>><<gglove>><<gdom>>
+<<if $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
+	You approach Rowan and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
+	<br><br>
+	<<link [[Spend some time talking (0:30)|Rowan Time Spend]]>><<set C.npc.Rowan.love += 1>><<pass 30>><<endevent>><</link>><<glove>>
 	<br>
+	<<if C.npc.Rowan.love gte 80 or C.npc.Rowan.dom gte 40>>
+		<<link [[Ask Rowan for some special love|Rowan Sex Time]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><<set $sexstart to 1>><</link>><<gglove>><<gdom>>
+		<br>
+	<</if>>
+	<<if $outside is 1>>
+		<<getouticon>><<link [[Leave <<him>> alone|Horse Academy Entrance]]>><<endevent>><</link>>
+	<<else>>
+		<<getouticon>><<link [[Leave <<him>> alone|Horse Academy]]>><<endevent>><</link>>
+	<</if>>
+<<else>>
+	"Hey, you seen a horse<<girl>> run through here? About your height, same eyecolor, world's worst attitude about mornin' drills-"
+	<br><br>
+	Rowan stops a few feet away, squinting at you like a word problem <<he>> hasn't fully worked out yet.
+	<br><br>
+	<<link [[Next|TF No Recognition - Confusion]]>><</link>>
 <</if>>
-<<getouticon>><<link [[Leave <<him>> alone|Horse Academy Entrance]]>><<endevent>><</link>>
 
 :: Rowan Sex Time
 <<if $sexstart is 1>>
@@ -1045,42 +1130,72 @@ Rowan leads you out of the back rooms and back into the main room of the academy
 
 :: Rowan Time Spend
 <<npc Rowan>><<person1>>
+"Sure what did ya wanna talk about?" <<He>> looks toward you curiously
+<br><br>
+<<link [[The Bank|Talk - The Bank]]>><</link>>
+<br>
+<<link [[Out of Place|Talk - Out of Place]]>><</link>>
+<br>
+<<link [[Other Trainers|Talk - Other Trainers]]>><</link>>
+<br>
+<<link [[Eavesdropping Faculty|Talk - Eavesdropping Faculty]]>><</link>>
+<br>
+<<link [[Academy Food|Talk - Academy Food]]>><</link>>
+<br>
+<<link [[Other Trainers' Methods|Talk - Other Trainers' Methods]]>><</link>>
+<br>
+<<link [[Watching Other Races|Talk - Watching Other Races]]>><</link>>
+<br>
+<<link [[Academy Rumor Mill|Talk - Academy Rumor Mill]]>><</link>>
+<br>
+<<link [[Academy Architecture|Talk - Academy Architecture]]>><</link>>
+<br>
+<<link [[Random Topic|Rowan Random Topic]]>><<endevent>><</link>>
+<br>
+<<if $outside is 1>>
+	<<getouticon>><<link [[Back|Horse Academy Entrance]]>><</link>>
+<<else>>
+	<<getouticon>><<link [[Back|Horse Academy]]>><</link>>
+<</if>>
+
+:: Rowan Random Topic
 <<cleareventpool>>
 <<if (C.npc.Rowan.love gt 80)>>
-    <<addinlineevent "ash_love1">>
+    <<addinlineevent "rowan_love1">>
         "I must apologize for the way I have been treatin' ya lately." Rowan looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
-	<<addinlineevent "ash_love2">>
+	<<addinlineevent "rowan_love2">>
         "Even though ya should be trainin', I admit I like spendin' time with ya." Rowan smirks. "Though, ya better still be trainin hard for the races."
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <<elseif (C.npc.Rowan.love gt 40)>>
-	<<addinlineevent "ash_midlove1">>
+	<<addinlineevent "rowan_midlove1">>
         "Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race." Rowan shakes <<his>> head with a smirk but lets you sit next to <<him>>.
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
-	<<addinlineevent "ash_midlove2">>
+	<<addinlineevent "rowan_midlove2">>
         "Still not too sure about ya, sugar." Rowan shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <<else>>
-	<<addinlineevent "ash_lowlove1">>
+	<<addinlineevent "rowan_lowlove1">>
         "Ya wantin' to spend time with me?" Rowan looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Rowan.
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
-	<<addinlineevent "ash_lowlove2">>
+	<<addinlineevent "rowan_lowlove2">>
         "Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else." Rowan looks annoyed by your lack of effort.
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <</if>>
+<<addinlineevent "rowan_complain">>
+    "You know what I can't stand? Folks who don't clean their tack properly." Rowan launches into the rant with surprising passion. "Five minutes! That's all it takes! And yet—"
+	<br><br>
+	<<He>> goes on like this for a solid minute before catching <<himself>>, looking faintly embarrassed.
+	<br><br>
+	"...Anyway. Point is, clean your gear."
+<</addinlineevent>>
 <<runeventpool>>
+<br><br>
+<<if $outside is 1>>
+	<<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+<<else>>
+	<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+<</if>>
 
 :: Regional Race Go
 <<set $location to "horsetrack">>
@@ -1115,6 +1230,7 @@ Rowan leads you toward the front of the stadium where a young man sits behind a 
 <br>
 <<button "Input Racing Name">>
 <<set $playerhorsetitle to $inputCode.trim()>>
+<<if $pcWins is undefined>><<set $pcWins to 0>><<set $pcLosses to 0>><</if>>
 <<goto "Regional Race">>
 <</button>>
 
@@ -1152,229 +1268,366 @@ The board changes one last time while the bookie calls for final bets.
 
 :: Post Race Mocha
 <<npc "Mint Mocha">><<person1>>
+<<if $pcWins is undefined>><<set $pcWins to 0>><<set $pcLosses to 0>><</if>>
 <<if $regionalrace is 5>>
 	<<if $raceresult is "win">>
 		As you take a deep breath, letting your first victory settle in, you hear a familiar set of loud footsteps pounding toward you once more.
 		<br><br>
-		It's the same horsegirl from before, the one the announcers called "Mint Mocha". She stops in front of you with a deep frown, stomping her foot in anger.
+		It's the same horsegirl from before.
 		<br><br>
-		"H-How dare you!" she blurts out, pointing a finger your way. "How dare you come in here and make me look bad?!"
+		She stops in front of you with a deep frown, planting her hands on her hips.
 		<br><br>
-		Her expression twists with frustration. "You… you… rookie loser!"
+		"H-How dare you!" she blurts out, pointing a finger your way.
 		<br><br>
-		Mint Mocha glares at you, visibly fuming. "God! I can hardly stand looking at you!"
+		"How dare you come in here and make me look bad?!"
 		<br><br>
-		She huffs and lifts her chin. "Listen up! I'm gonna train harder and beat you next time!"
+		Her expression twists with frustration.
 		<br><br>
-		A beat of silence passes before she adds, quieter now, like she needs the last word. "You got that?"
+		"You… you… rookie loser!"
 		<br><br>
-		With one last pout, she tosses her twintails over her shoulder and turns away, frustration written all over her face.
-		<br><br>
-		The crowd parts as Mint Mocha storms off.
-		<br><br>
-		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
-		<br>
-		As you turn around, you're greeted by Rowan's smirking face.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<link [[Next|Post Race Mocha 2]]>><</link>>
 	<<else>>
-		You breath heavily. How could you have lost... The crowd parts as someone barges through. It's the same horsegirl from before, the one the announcers called Mint Mocha.
+		With your hands braced against your knees as you catch your breath, you hear a confident set of footsteps pass by.<br>
+		<br>
+		The winner, a horsegirl named Mint Mocha, strides past without sparing you so much as a glance, basking in the applause and cheers pouring in from the crowd.
 		<br><br>
-		She scoffs, putting her hands to her hips with a cocky and confident smile. "Well, how about that. Looks like you really are the loser I thought you were."
+		"Hmph. Obvious outcome. Stay in your lane, newbie."
 		<br><br>
-		She lets out a cocky laugh, covering her mouth with her hand. "To think I was actually worried! You're so pathetic." She continues to laugh and lets out a snort as she walks away.
-		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
+		She gives a dismissive huff and heads straight toward the gathering audience, already accepting the attention waiting for her in the post-race interviews. <<ggsuperiority>>
 		<br><br>
 		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
 	<</if>>
 <<elseif $regionalrace is 4>>
 	<<if $raceresult is "win">>
-		As you catch your breath after crossing the finish line a second time, the familiar rhythm of hurried footsteps echoes behind you. You turn just in time to see Mint Mocha skid to a halt before you, her usual bounce replaced by rigid tension. Her twintails shake slightly as she stares at the dirt, lips pressed into a pale line.
-		<br><br>
-		"Heh..." A humorless sound escapes her. "How could this..." Her voice starts low but cracks on the last word. She finally lifts her eyes—red-rimmed and blazing—and jabs a finger at your chest. "How is this possible?! You're nothing! Just some clueless outsider who stumbled in here!"
-		<br><br>
-		Her breath hitches, frustration warping into something sharper. "Do you even care what this does to me? I'm the promise of this region! The one they talk about! And you... you just waltz in and canter over my dreams like they're nothing!"
-		<br><br>
-		A tear tracks through the dust on her cheek, but she scrubs it away furiously with her sleeve. "You think this is funny? Some kind of game? Well, listen up." She straightens, voice dropping to a fierce whisper that cuts through the crowd's murmurs. "Next time… I won't just beat you. I'll make sure you never forget this feeling."
-		<br><br>
-		For a second, her gaze drops—not in defeat, but in brutal focus—as she mugs the words like a vow. "You got that?"
-		<br><br>
-		Without waiting for an answer, she spins. Her twintails whip sharply as she stalks away, each step precise and tight with fury. The crowd parts silently, sensing the storm in her wake. She doesn't look back, but the set of her shoulders says everything: this isn't over. It's only just begun.
-		<br><br>
-		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
-		<br>
-		As you turn around, you're greeted by Rowan's smirking face.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<if $pcWins is 2>>
+			The finish line disappears behind you before Mint Mocha's ever gets close.
+			<br><br>
+			You slow to a stop, chest heaving, and let it sink in.
+			<br><br>
+			You've made it! Two races and two wins.
+			<br><br>
+			<<link [[Next|Post Race Mocha 2]]>><</link>>
+		<<else>>
+			The finish line disappears behind you before Mint Mocha's ever gets close.
+			<br><br>
+			You slow to a stop, chest heaving, and let it sink in.
+			<br><br>
+			After that first loss, you weren't sure you'd feel the taste of victory so soon.
+			<br><br>
+			<<link [[Next|Post Race Mocha 2]]>><</link>>
+		<</if>>
 	<<else>>
-		You breathe heavily, adrenaline still humming in your veins. The crowd parts as someone shoves through the throng. It's Mint Mocha.
-		<br><br>
-		She plants her hands on her hips, a grin splitting her face. "Well, look at that. I knew I could do it."
-		<br><br>
-		She lets out a sharp laugh, covering her mouth with the back of her hand. "To think I ever doubted myself. You tried, but you're still trailing behind."
-		<br><br>
-		She watches you for a moment, the confidence in her stance unwavering, then tosses her twintails over her shoulder and strides away, the echo of her boots fading into the noise of the cheering spectators.
-		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
-	<</if>>
-<<elseif $regionalrace is 3>>
-	<<if $raceresult is "win">>
-		When you cross the finish line a third time, the roar of the crowd swells, but a sharp, furious intake of breath cuts through the noise from the rail.
-		<br><br>
-		She's there, green hair slightly frizzed, eyes narrowed with a glint of anger. For a moment she simply stares, jaw clenched, as if trying to will the result away with sheer force of will. Then her shoulders slump, the tightness in her frame giving way to a tremor that runs from her fists to the tips of her twintails.
-		<br><br>
-		"This is just... unbelievable," she spits, voice low but edged with something that borders on desperation. "How… how can you keep doing this? Every time I think I've got it, you're there... smug, steady, untouchable." A bitter laugh escapes her, hollow and short. "I trained until my legs gave out. I studied every stride, every turn, every breath. And you… you just… win."
-		<br><br>
-		Her gaze drops to the dirt, then snaps back up, blazing with a mix of shame and fury. "You think this is a joke? Some lucky streak? Well, listenup. Next time I won't just catch up. I'll leave you so far behind you'll wonder if you even raced at all." She lifts her chin, the defiance visible in her jaw unmistakable, though the tremor in her voice betrays the crack forming in her usual bravado.
-		<br><br>
-		For a moment she seems to size you up, searching for any sign of weakness, any opening to exploit. Finding none, she turns on her heel, her boots kicking up a spray of sand as she stalks away. The crowd parts silently, sensing the storm trailing in her wake. She doesn't look back.
-		<br><br>
-		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
-		<br>
-		As you turn around, you're greeted by Rowan's smirking face.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
-	<<else>>
-		You breathe heavily, adrenaline still humming in your veins. The crowd parts as someone shoves through the throng. It's Mint Mocha.
-		<br><br>
-		"Did you really think you could keep up?" she calls, voice cutting through the remaining noise. She rocks back on her heels, arms crossed, and lets out a short, triumphant laugh that sounds almost like a bell. "Looks like you finally got a taste of what it feels like to be left behind."
-		<br><br>
-		She steps closer, the dirt kicking up around her boots, and points a finger at your chest. "You had your chance, and you blew it. Next time I won't just edge past you. I'll leave you choking on my dust." Her tone is half mockery, half challenge, the fire in her gaze steady despite the sweat dripping from her forehead.
-		<br><br>
-		She pauses, chest heaving, and for a flicker of a second the bravado wavers, replaced by something raw, maybe relief, maybe the weight of all those early mornings finally paying off. Then she straightens, tosses her hair over one shoulder, and turns away, each step purposeful. The spectators part as she strides toward the stables.
-		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
-	<</if>>
-<<elseif $regionalrace is 2>>
-	<<if $raceresult is "win">>
-		As you pant, winning the fourth regional race. She's there, green hair whipping in the wind, eyes blazing with a mixture of disbelief and raw irritation. For a breathless moment she stands frozen, fists clenched at her sides, as if trying to will the outcome away with sheer force of will. Then her shoulders jerk forward, a tremor rippling through her frame.
-		<br><br>
-		"How many more laps do I have to run before you finally slip?" A harsh, humorless laugh bubbles up, quickly swallowed by the tightening of her jaw. "I've pushed myself until my lungs burned, studied each turn until I could run them blind, and yet you're still there!"
-		<br><br>
-		"You think this is skill? Some ability? Well, hear this! Next time I won't just close the gap. I'll blast past you so hard you'll wonder if you ever even left the gate." She freezes for a moment, obviously quelling the emotions building up inside her. Blinking back tears, she turns on her heeland runs through the crowd. The onlookers parts silently, sensing the storm trailing in her wake. She doesn't look back.
-		<br><br>
-		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
-		<br><br>
-		As you turn around, you're greeted by Rowan's smirking face.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
-	<<else>>
-		She bursts across the finish line, mane flying, heart pounding.
-		<br><br>
-		She slows to a trot, chest heaving, eyes gleaming with fierce triumph. "I told you I'd get it this time." She lets out a short, breathless laugh, wiping sweat from her brow.
-		<br><br>
-		She glances toward the rail where you stand, a daring grin forming. "You had your chance. Next time I'll make sure you're eating my dust." She tosses her twintails over her shoulder, the movement sharp and confident.
-		<br><br>
-		Without another word, she strides toward the stables, the crowd parting as she passes, each step echoing her determination.
-		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
-	<</if>>
-<<elseif $regionalrace is 1>>
-	<<if $raceresult is "win">>
-		As you breath, coming down from your victory you can see Mint Mocha in the distance breathing heavily.
-		<br><br>
-		She leans against the rail, chest heaving as the last echo of footsteps fades. Her green hair sticks to her forehead with sweat, and her eyes dart to the dirt. A shudder runs through her shoulders, and she clutches the fabric of her uniform tightly.
-		<br><br>
-		"I lost… I thought I finally had it this time," she murmurs, voice cracking. Each word feels like a weight she can barely lift. She swallows hard, trying to push back the sting behind her eyes, but a thin stream of moisture slips down her cheek.
-		<br><br>
-		She stares at her own hands, trembling slightly, and whispers, "What if I'm just… not enough?" The question hangs in the air, louder than the distant chatter of the crowd. She watches the other riders celebrate, their laughter a sharp contrast to the hollow thump in her own chest.
-		<br><br>
-		A deep breath shudders out of her, and for a moment she seems to collapse inward, shoulders drooping as if the weight of every missed turn, every frustrated training session, has settled on her spine. She blinks rapidly, trying to steady herself, but doubt flickers obviously in her eyes.
-		<br><br>
-		She forces a shaky smile, more a grimace than anything, and tells herself, "I'll try again." Yet the words sound hollow even to her own ears, and she can feel the familiar tug of fear whispering that maybe this time she won't find the strength to get back up.
-		<br><br>
-		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
-		<br><br>
-		As you turn around, you're greeted by Rowan's smirking face.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
-	<<else>>
-		She glances your way, eyes bright, and lets out a short laugh that breaks the tense air. "Did you really think I'd let you slip by again? Not today."
-		<br><br>
-		She taps her boot against the dirt, the motion sharp and sure. "All those early mornings, the endless laps, they finally paid off." She wipes sweat from her brow, the gesture fierce.
-		<br><br>
-		"Next time you'll have to bring something better if you hope to stay ahead." She tosses her twintails over her shoulder, the move quick and confident. With a determined stride she heads toward the stables, the crowd parting as she passes, each step echoing her resolve.
-		<br><br>
-		As you watch Mint Mocha leave, you catch sight of Rowan watching you with an upset look.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<if $pcLosses is 2>>
+			The finishing line blurs past Mint Mocha.
+			<br><br>
+			You slow to a stop and stand there, chest heaving, staring at the track ahead of you.
+			<br><br>
+			Two races. Two losses.
+			<br><br>
+			<<link [[Next|Post Race Mocha 2]]>><</link>>
+		<<else>>
+			The finishing line blurs past Mint Mocha.
+			<br><br>
+			You slow to a stop and stand there, chest heaving, staring at the track ahead of you.
+			<br><br>
+			Your first loss, right after that first win.
+			<br><br>
+			<<link [[Next|Post Race Mocha 2]]>><</link>>
+		<</if>>
 	<</if>>
 <<elseif $regionalrace is 0>>
 	<<if $raceresult is "win">>
-		The final stretch of the track blurs beneath the pounding hooves as the crowd's roar swells to a fever pitch. You cross the line just ahead of the pack, the victor's banner fluttering above you. A moment later, Mint Mocha skids to a halt a few lengths behind, her chest heaving and her eyes locked on the fading dust where your horse's hooves have disappeared.
+		You cross the line.
 		<br><br>
-		Her breath comes in short, ragged gasps, and the usual sparkle in her gaze has dimmed to a dull, frustrated sheen. She grips her uniform so tightly her knuckles whiten, then lets them slacken as if the tension has drained all strength from her arms.
+		For a second, the world is just sound: the crowd, your own pulse, the thundering in your chest that hasn't stopped since the starting gun.
 		<br><br>
-		"How…?" she whispers, the word barely audible over the lingering cheers. Her voice cracks, and a single tear tracks through the sweat on her cheek before she roughly swipes it away with the back of her hand. She stares at the finish line, at the ribbon that now bears your name, and a bitter laugh escapes her, short, hollow, and edged with despair. 
+		Then it hits you.
 		<br><br>
-		"I thought… I thought after all those early mornings, after pushing my legs until they shook, after studying every turn until I could ride them blind… I thought I'd finally have it." Her shoulders slump, and she leans forward, forehead resting against the cool metal of the gate, as if trying to steady herself against an unseen wave.
-		<br><br>
-		A choked sob rises in her throat, and she presses her palms to her eyes, trying to stem the flood. "What am I doing wrong?" she asks the empty air, her voice trembling. "Every time I get close, you just… you're there, steady as a rock, and I keep falling short." The frustration in her tone is palpable, a mix of shame and a fierce, stubborn determination that refuses to break completely.
-		<br><br>
-		Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
-		<br><br>
-		As you turn around, you're greeted by Rowan's smirking face.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		First place. Prize money. The farm.
 	<<else>>
-		Mint Mocha bolts across the finish line, her hooves kicking up a spray of dust as the crowd erupts. She slows to a proud trot, chest heaming, eyes shining with triumph.
+		The line crosses behind you.
 		<br><br>
-		She fixes you with a fierce grin, sweat glistening on her forehead. "You really thought you had this one in the bag, didn't you?" She lets out a short, breathless laugh, the sound edged with both pride and challenge.
+		You stand on the far side of the track and hear the crowd shift, the applause redistributing, moving toward someone else.
 		<br><br>
-		"Every early dawn, every lap I forced myself through… I finally got it." She wipes a strand of green hair from her face, the gesture sharp. "Next time you'll have to bring something more than hopes and dreams if you hope to stay ahead."
+		The farm. The prize money. The math that's been sitting under every training session, every pre-dawn run, every mile you've run.
 		<br><br>
-		Without another word, she tosses her twintails over her shoulder and strides toward the stables, the spectators parting as she passes. The echo of her boots fades, leaving you staring at the empty track, the sting of loss overwhelms you.
-		<br><br>
-		As you sit, your heart sore from the pain of failure, you catch sight of Rowan watching you with an upset look.
-		<br><br>
-		<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		You know what this means.
+	<</if>>
+	<br><br>
+	<<link [[Next|Post Race Final]]>><<endevent>><</link>>
+<<else>>
+	<<if $raceresult is "win">>
+		<<mintWinReaction>>
+	<<else>>
+		<<mintLossReaction>>
 	<</if>>
 <</if>>
+
+:: Post Race Mint Mocha 2
+
+<<if $regionalrace is 5>>
+	<<if $raceresult is "win">>
+		The horsegirl glares at you, visibly fuming.
+		<br><br>
+		"God! I can hardly stand looking at you!"
+		<br><br>
+		She huffs and lifts her chin.
+		<br><br>
+		"Listen up! I'm gonna train harder and beat you next time!"<<llsuperiority>>
+		<br><br>
+		A beat of silence passes before she adds, quieter now, like she needs the last word.
+		<br><br>
+		"You got that?"
+		<br><br>
+		<<link [[Next|Post Race Mint Mocha 3]]>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+	<</if>>
+<<elseif $regionalrace is 4>>
+	<<if $raceresult is "win">>
+		<<if $pcWins is 2>>
+			Mint Mocha comes to a stop several paces off, chest heaving, staring at you like she can't quite process the scoreboard.
+			<br><br>
+			"Again?!" Her voice cracks with disbelief. "That's twice now!"
+			<br><br>
+			She presses her lips into a thin line, composure slipping. "I don't understand it. I trained harder than you. I know I did." <<llsuperiority>>
+			<br><br>
+			She straightens up, forcing her chin high despite the way her hands are shaking at her sides. "Whatever. It won't happen a third time."
+			<br><br>
+			She turns on her heel and stalks off before you can respond, already muttering to herself about training schedules.
+			<br><br>
+			<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<<else>>
+			Mint Mocha stops a short distance away, staring at the board with her jaw slack.
+			<br><br>
+			"Wait. You— didn't you lose last time?" Her composure cracks, confusion bleeding into her frustration.
+			<br><br>
+			She shakes her head sharply, like she's trying to reset herself. "No. No, this is a fluke. A one-time thing." <<llsuperiority>>
+			<br><br>
+			She points a finger your way, though it wavers a little. "Don't get comfortable, rookie. I'm still better than you."
+			<br><br>
+			She turns and marches off, hair tossed over her shoulder, muttering under her breath.
+			<br><br>
+			<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+		<</if>>
+	<<else>>
+		<<if $pcLosses is 2>>
+			Mint Mocha doesn't even bother slowing down this time, just glances at you sidelong as <<he>> passes.
+			<br><br>
+			"Two for two, huh?" <<He>> hums, pleased with <<himself>>. "At this rate I won't even remember your name." <<glove>>
+			<br><br>
+			<<He>> keeps walking, already looking past you toward <<his>> next interview, like you've stopped being worth <<his>> attention at all.
+			<br><br>
+			<<link [[Next|Post Race Rowan]]>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<<else>>
+			Mint Mocha strides past you toward the crowd, but slows just enough to look back over her shoulder.
+			<br><br>
+			"Oh?" Her mouth curls into something smug. "Guess that first win really was a fluke." <<ggsuperiority>>
+			<br><br>
+			She tosses her hair, clearly savoring it. "Don't worry. I'm sure you'll get used to this feeling. Losing, I mean."
+			<br><br>
+			She gives a light, satisfied laugh before continuing on toward the crowd waiting for her.
+			<br><br>
+			<<link [[Next|Post Race Rowan]]>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+		<</if>>
+	<</if>>
+<</if>>
+
+:: Post Race Mint Mocha 3
+With one last pout, she tosses her hair over her shoulder and turns away, frustration written all over her face.
+<br><br>
+The crowd parts as the green-haired horsegirl storms off.
+<br><br>
+Before your brain can fully register her words, you feel a light tap on your shoulder from behind.
+<br><br>
+As you turn around, you're greeted by Rowan's smirking face.
+<br><br>
+<<link [[Next|Post Race Mint Mocha 3]]>><<endevent>><</link>>
 
 :: Post Race Rowan
 <<npc Rowan>><<person1>>
 <<if $regionalrace is 5>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
+		<<if C.npc.Rowan.love gt 60>>
+			"I knew you had it in you!" <<He>> exclaims, cupping your face as <<he>> beams at you.
+			<br><br>
+			<<He>> pulls back just enough to look you over, like <<he>>'s checking the win actually happened and not just imagining it.
+			<br><br>
+			"First race, and you already got that loudmouth chasing her own tail." <<He>> laughs, shaking <<his>> head. "Didn't even have to tell you to do it. You just went out there and did it."
+			<br><br>
+			<<He>> bumps <<his>> knuckles lightly against your jaw, fond and a little smug.
+			<br><br>
+			"Knew there was somethin' in you the day I picked you out." <<His>> voice softens, just slightly. "Glad I was right."<<stress -4>><<glove>>
+			<br>
+			<br>
+			<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
+		<<else>>
+			<<He>> looks you over once, slow, like <<he>>'s doing an inspection rather than offering congratulations.
+			<br><br>
+			"Huh." A short breath through <<his>> nose, almost a laugh but not quite. "Didn't think you had that in you." <<glove>>
+			<br><br>
+			There's no smile waiting for you. <<He>> merely watches you, arms still crossed.
+			<br><br>
+			"Don't go gettin' comfortable." Rowan's voice stays flat. "One win don't mean much. Coulda been luck. Coulda been that other horsegirl havin' an off day."
+			<br><br>
+			<<He>> steps in close, tilting <<his>> head down at you, and for a second you think <<he>>'s about to say something warmer. <<He>> doesn't.
+			<br><br>
+			"Now get back here." <<He>> jerks <<his>> chin toward the training grounds, already turning <<his>> back on you. "We got work to do. A win like that's just gonna make me push you harder." <<stress 4>> <<gdom>>
+			<br><br>
+			<<He>> doesn't wait to see if you follow.
+			<br><br>
+			<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 3>><<set C.npc.Rowan.love += 5>><</link>>
+		<</if>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+		<<if C.npc.Rowan.love gt 60>>
+			You lift your head and immediately spot Rowan jogging your way. There's a grin on <<his>> face despite the loss.
+			<br><br>
+			Before you can even open your mouth, <<he>>'s already in front of you, both hands settling on your shoulders.
+			<br><br>
+			"What's with the long face, darlin'?" <<His>> grin widens. "This was only your first race. No need to beat yourself up over it. You'll get plenty more chances to make up for it."
+			<br><br>
+			The young trainer lifts a finger and flicks the base of your horse ear, earning a quick twitch in response. "Plenty of chances to make it up to me." <<He>> throws in a wink.
+			<br><br>
+			"For a first race, this wasn't half bad." Rowan gives your shoulder a firm smack. "So quit moping and let's get back to training!"
+			<br><br>
+			Before you can get a word in, <<he>>'s already tugging you along after <<him>>. <<stress -4>>
+			<br><br>
+			<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+		<<else>>
+			You lift your head. Rowan's making <<his>> way over at an easy pace, hands buried deep in <<his>> pockets.
+			<br><br>
+			<<He>> stops beside you and looks down for a moment, the disappointment in <<his>> eyes plain enough despite the way <<he>> tries to hide it. <<llove>>
+			<br><br>
+			Then <<he>> clicks <<his>> tongue and gives your shoulder a couple of firm smacks. "Reckon I've been lettin' you off too easy." A quiet sigh leaves <<his>> nose. 
+			<br><br>
+			"Been treatin' ya too soft." Rowan glances toward the crowd before finally turning <<his>> attention back to you. "Guess I oughta start workin' ya harder." <<gdom>>
+			<br><br>
+			There's something in <<his>> eyes that makes your shoulders tense. You get the feeling training isn't going to stay comfortable from here on out. <<stress 6>>
+			<br><br>
+			<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+		<</if>>
 	<</if>>
 <<elseif $regionalrace is 4>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
+		<<if $pcWins is 2>>
+			<<if C.npc.Rowan.love gt 60>>
+				You barely have time to catch your breath before Rowan's arms are around you, lifting you clean off the ground for a second.
+				<br><br>
+				"There <<he>> is! Two for two, darlin'!" <<He>> laughs, setting you back down but not letting go just yet.
+				<br><br>
+				<<He>> holds you out at arm's length, grinning. "I said you had it in you after that first one, and here you go provin' me right again." <<glove>>
+				<br><br>
+				<<link [[Tease <<Him>>|Rowan Tease]]>><<set C.npc.Rowan.love += 5>><</link>>
+				<br>
+				<<link [[Let <<Him>> Gloat|Rowan Gloat]]>><<set C.npc.Rowan.love += 5>><</link>>
+			<<else>>
+				You hear Rowan before you see <<him>>. Boots on packed dirt, unhurried.
+				<br><br>
+				The young trainer comes to a stop a few paces away, arms crossed, studying you like <<he>>'s doing the math on something.
+				<br><br>
+				"Two for two. Guess the first one wasn't a fluke." <<His>> voice is even, no real warmth in it. "Don't let it go to your head." <<gdom>>
+				<br><br>
+				<<He>> uncrosses <<his>> arms and jerks <<his>> chin toward the training grounds. "Means I was right to push you this hard from the start. So we're pushin' harder still."
+				<br><br>
+				<<He>> turns before you can respond, already walking. Not a single word of praise trailing behind <<him>>.
+				<br><br>
+				<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 3>><<set C.npc.Rowan.love += 5>><</link>>
+			<</if>>
+		<<else>>
+			<<if C.npc.Rowan.love gt 60>>
+				<<He>> turns and marches off, hair tossed over <<his>> shoulder, muttering under <<his>> breath.
+				<br><br>
+				Rowan's running toward you before you've even fully stopped, and <<he>> doesn't slow down until <<his>> arms are around you.
+				<br><br>
+				"See?! Didn't I tell you?!" <<He>> pulls back just enough to look at you, eyes bright. "Told you that first one didn't mean a thing!"
+				<br><br>
+				<<He>> laughs, a little breathless <<himself>>, and presses <<his>> forehead to yours. "You went out there and proved it. Proved it to everybody, but mostly to yourself, I'd bet." <<glove>>
+				<br><br>
+				<<link [[Tease <<Him>>|Rowan Tease]]>><<set C.npc.Rowan.love += 5>><</link>>
+				<br>
+				<<link [[Let <<Him>> Gloat|Rowan Gloat]]>><<set C.npc.Rowan.love += 5>><</link>>
+			<<else>>
+				<<He>> turns and marches off, hair tossed over <<his>> shoulder, muttering under <<his>> breath.
+				<br><br>
+				You hear Rowan before you see <<him>>. Boots on packed dirt, unhurried.
+				<br><br>
+				Rowan comes to a stop a few paces away, arms crossed, studying you with something unreadable in <<his>> expression.
+				<br><br>
+				"Well. Look at that." <<His>> voice stays flat. "One loss and you turn it around this fast."
+				<br><br>
+				<<He>> doesn't smile. If anything <<his>> jaw sets tighter. "Told you the extra hours would pay off. Don't think it means we're easin' up." <<gdom>>
+				<br><br>
+				<<He>> turns and starts walking, not waiting to see if you follow. "Now let's see if you can make it three."
+				<br><br>
+				<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 3>><<set C.npc.Rowan.love += 5>><</link>>
+			<</if>>
+		<</if>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+		<<if $pcLosses is 2>>
+			<<if C.npc.Rowan.love gt 60>>
+				Rowan falls into step beside you without a word, sparing Mint Mocha nothing more than a flat glance as <<he>> passes.
+				<br><br>
+				For a moment, <<he>> just walks with you, hands in <<his>> pockets, close enough that <<his>> shoulder brushes yours.
+				<br><br>
+				"Two in a row's rough, I know." <<His>> voice is quieter than usual, careful. "But I'm not seein' a quitter standin' next to me. I'm seein' someone who's gonna go home and figure out what to fix."<<stress -4>>
+				<br><br>
+				<<He>> bumps your arm with <<his>> elbow. "That's the part that matters to me. Not the number on the board."
+				<br><br>
+				<<link [[Comfort <<Him>>|Rowan Comfort]]>><</link>>
+				<br>
+				<<link [[Stay Quiet|Rowan Quiet]]>><</link>>
+			<<else>>
+				You hear <<him>> before you see <<him>>. Boots on packed dirt, followed by a sigh.
+				<br><br>
+				Rowan comes to a stop a few paces away. <<He>> doesn't say anything at first. Just looks at you with <<his>> arms crossed, jaw set tighter than last time.
+				<br><br>
+				"Two." <<He>> says it flat, like <<he>>'s counting out loud for <<himself>> more than you. <<llove>>
+				<br><br>
+				<<He>> rolls <<his>> shoulders and tilts <<his>> head toward the exit. "This ain't lookin' like a pattern I like. C'mon. We got a lot of ground to make up." <<gdom>>
+				<br><br>
+				<<He>>'s already walking before you've caught your breath. Not bothering to offer you comfort.
+				<br><br>
+				<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+			<</if>>
+		<<else>>
+			<<if C.npc.Rowan.love gt 60>>
+				Rowan falls into step beside you without a word, ignoring Mint Mocha entirely like <<he>>'s not even worth the attention.
+				<br><br>
+				For a moment, <<he>> just walks with you, hands in <<his>> pockets, close enough that <<his>> shoulder brushes yours.
+				<br><br>
+				"Hey. First win, first loss." <<His>> voice is easy, no judgment in it. "That's just how the numbers even out sometimes." <<He>> bumps your arm with <<his>> elbow. "Don't let one bad race undo how good that first one felt."<<stress -4>>
+				<br><br>
+				<<link [[Comfort <<Him>>|Rowan Comfort]]>><</link>>
+				<br>
+				<<link [[Stay Quiet|Rowan Quiet]]>><</link>>
+			<<else>>
+				You hear <<him>> before you see <<him>>. Boots on packed dirt, followed by a sigh.
+				<br><br>
+				Rowan comes to a stop a few paces away. <<He>> doesn't say anything at first. Just looks at you with <<his>> arms crossed, jaw set.
+				<br><br>
+				Then <<he>> exhales through <<his>> nose.
+				<br><br>
+				"Figured the first win might've made you soft." <<His>> tone doesn't leave room for argument. <<llove>>
+				<br><br>
+				<<He>> rolls <<his>> shoulders and tilts <<his>> head toward the exit. "C'mon. One win don't buy you a pass on days like this." <<gdom>>
+				<br><br>
+				<<He>>'s already walking before you've caught your breath. Not bothering to offer you comfort.
+				<br><br>
+				<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+			<</if>>
+		<</if>>
 	<</if>>
-<<elseif $regionalrace is 3>>
+<<else>>
 	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
+		<<if C.npc.Rowan.love gt 60>>
+			<<rowanWinReactionHigh>>
+		<<else>>
+			<<rowanWinReactionLow>>
+		<</if>>
 	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
-	<</if>>
-<<elseif $regionalrace is 2>>
-	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
-	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
-	<</if>>
-<<elseif $regionalrace is 1>>
-	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
-	<<else>>
-		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
-	<</if>>
-<<elseif $regionalrace is 0>>
-	<<if $raceresult is "win">>
-		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
-	<<else>>
-		<<link [[Next|Horse Academy Closing]]>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+		<<if C.npc.Rowan.love gt 60>>
+			<<rowanLossReactionHigh>>
+		<<else>>
+			<<rowanLossReactionLow>>
+		<</if>>
 	<</if>>
 <</if>>
 
@@ -1394,55 +1647,55 @@ You ignore her provocation and introduce yourself and she turns to face you anno
 <<npc "Mint Mocha">><<person1>>
 You approach and attempt a conversation with Mint Mocha.
 <br><br>
+<<link [[Ask About Her Routine|Mint Training Routine - Ask]]>><</link>>
+<br>
+<<link [[Tease Her|Mint Training Routine - Tease]]>><</link>>
+<br>
+<<link [[Why Mint Races|Talk - Why Mint Races]]>><</link>>
+<br>
+<<link [[Compliment Mint|Talk - Compliment Mint]]>><</link>>
+<br>
+<<link [[Mint's Rival List|Talk - Mint's Rival List]]>><</link>>
+<br>
+<<link [[Opinion on Rowan|Talk - Opinion on Rowan]]>><</link>>
+<br>
+<<link [[Push His Buttons|Talk - Push His Buttons]]>><</link>>
+<br>
+<<link [[Mint's Pre-Race Ritual|Talk - Mint's Pre-Race Ritual]]>><</link>>
+<br>
+<<link [[Mint's Mint's Future Plans|Talk - Mint's Future Plans]]>><</link>>
+<br>
+<<link [[Random Topic|Rowan Random Topic]]>><</link>>
+<br>
+<<if $outside is 1>>
+	<<getouticon>><<link [[Back|Horse Academy Entrance]]>><</link>>
+<<else>>
+	<<getouticon>><<link [[Back|Horse Academy]]>><</link>>
+<</if>>
+
+:: Mint Random Topic
 <<cleareventpool>>
 <<if C.npc["Mint Mocha"].dom gt (C.npc["Mint Mocha"].love / 2)>>
     <<addinlineevent "mintdom1">>
         "Seriously, thanks to you all of my friends find it awkward to be around." Mint looks annoyed. "You're like social napalm, freak." Despite the harsh tone, you spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "mintdom2">>
         "What part of leave me alone do you not understand? You're getting in the way of my training time." Mint huffs in frustration trying to ignore you. Despite the harsh tone, you spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <<else>>
 	<<addinlineevent "mintlove1">>
         "I'll admit, there are some... upsides to knowing you." Mint blushes slightly but turns away. "That is to say, you help push me to grow stronger. Don't misunderstand." Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 	<<addinlineevent "mintlove2">>
         "Just because I respect you doesn't mean I'll go easy on you!" Mint huffs with a slight pink tone in her cheeks. "I'll still train super hard and beat you in the next race!" Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
 <</if>>
 <<runeventpool>>
-
-:: Horse Academy Closing
-<<npc Rowan>><<person1>>
-<<if $raceresult is "win">>
-	As you and Rowan arrive back at the academy, you can see trainers packing bags and people saying their farewells. Rowan turns to you with a soft expression, "Well, it's seemin' like that's the end of our time together at the academy 'ere. I let ya go, if that's what ya want. But... since ya done so much for me, I would welcome ya visit to my farmstead sometime." <<He>> gives a rare shy smile as <<he>> pulls you in for a kiss. <<takeKissVirginity "Rowan" "romantic">>
-	<br><br>
-	<<set $ashromance to 1>>
-	<<if $loveInterest.primary is "None">>
-        <<set $loveInterest.primary to "Rowan">>
-        <span class = "gold">Rowan is now your love interest! The thought makes you feel warm.</span>
-        <br><br>
-    <<else>>
-        <span class = "gold">Rowan can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
-        <br><br>
-    <</if>>
-	<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
-	<br><br>
-	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
+<br><br>
+<<if $outside is 1>>
+	<<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
 <<else>>
-	As you and Rowan arrive back at the academy, you can see trainers packing bags and people saying their farewells. Rowan turns to you with a defeated expression you're not sure you've seen from <<him>> before, "Well, I guess this is the end. Even if ya lost, I appreciate what ya tried to do. I guess that my dreamin' was just too big. My train'll be comin' soon so... I suppose this is goodbye." <<He>> hangs his head in defeat and disappears over the horizon.
-	<br><br>
-	<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
-	<br><br>
-	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<set $ashgone to 1>><<endevent>><</link>>
+	<<link [[Next|Horse Academy]]>><<endevent>><</link>>
 <</if>>
 
 :: Passout Academy
@@ -1452,83 +1705,2185 @@ You wake up hours later in the infirmary. It seems one of the students carried y
 <br><br>
 <<link [[Next|Horse Academy]]>><<athletics -10>><<danceskill -10>><<physique -10>><<willpower -10>><<endevent>><</link>>
 
-:: Horse Academy Indoor Mint Talk
-<<npc "Mint Mocha">><<person1>>
-You approach and attempt a conversation with Mint Mocha.
-<br><br>
-<<cleareventpool>>
-<<if C.npc["Mint Mocha"].dom gt (C.npc["Mint Mocha"].love / 2)>>
-    <<addinlineevent "mintdom1">>
-        "Seriously, thanks to you all of my friends find it awkward to be around." Mint looks annoyed. "You're like social napalm, freak." Despite the harsh tone, you spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
-    <</addinlineevent>>
-	<<addinlineevent "mintdom2">>
-        "What part of leave me alone do you not understand? You're getting in the way of my training time." Mint huffs in frustration trying to ignore you. Despite the harsh tone, you spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
-    <</addinlineevent>>
+:: Rowan Tease
+<<if $pcWins is 2>>
+	"So I guess the first one wasn't beginner's luck after all." You say.
+	<br><br>
+	Rowan snorts, tugging you in by the shoulder. "Never said it was luck. Said it was you." <<He>> knocks <<his>> forehead lightly against yours. "Startin' to think I oughta trust my own eye more often." <<glove>>
+	<br><br>
 <<else>>
-	<<addinlineevent "mintlove1">>
-        "I'll admit, there are some... upsides to knowing you." Mint blushes slightly but turns away. "That is to say, you help push me to grow stronger. Don't misunderstand." Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
-    <</addinlineevent>>
-	<<addinlineevent "mintlove2">>
-        "Just because I respect you doesn't mean I'll go easy on you!" Mint huffs with a slight pink tone in her cheeks. "I'll still train super hard and beat you in the next race!" Despite the nice words, she still speaks in a harsh tone. You spend some time with Mint.
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
-    <</addinlineevent>>
+	"You sound more relieved than I feel." You laugh.
+	<br><br>
+	Rowan lets out a short laugh in response, rubbing the back of <<his>> neck. "Yeah, well. Didn't wanna say it before, but that first loss had me a little rattled too." <<His>> hand finds yours. "Glad we got that out of our system." <<glove>>
+	<br><br>
 <</if>>
-<<runeventpool>>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
 
-:: Horse Academy Indoor Rowan Talk
-<<npc Rowan>><<person1>>
-You approach Rowan and <<he>> raises <<his>> eyebrow confused. "So, what do you need?"
+:: Rowan Gloat
+<<if $pcWins is 2>>
+	You let <<him>> have <<his>> moment, and Rowan takes full advantage of it, throwing an arm around your shoulders and steering you toward the crowd.
+	<br><br>
+	"Y'all seein' this? Two in a row." <<He>> says it loud enough for anyone nearby to hear, chest puffed out.
+	<br><br>
+	<<He>> glances down at you, grin softening. "Knew that first win wasn't a one-time thing. Proud of you." <<glove>>
+	<br><br>
+<<else>>
+	You let <<him>> have <<his>> moment, and Rowan doesn't waste it, turning toward the crowd with your hand still caught in <<his>>.
+	<br><br>
+	"Y'all remember that loss last time? Yeah. Don't matter no more." <<He>> grins, unable to help <<himself>>.
+	<br><br>
+	<<He>> looks back down at you, voice quieter now, just for you. "Real proud of how you bounced back from that. Wanted you to know it." <<glove>>
+	<br><br>
+<</if>>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
+
+:: Rowan Comfort
+<<if $pcWins is 1>>
+	"I know. I just wanted to keep the streak going." You say.
+	<br><br>
+	Rowan glances at you sideways, something soft in <<his>> expression.
+	<br><br>
+	"Yeah, I figured." <<He>> nudges your shoulder with <<his>>. "But there ain't no streak worth chasin' if it means you beatin' yourself up like this." <<glove>>
+	<br><br>
+	<<He>> keeps walking alongside you, closer than <<he>> needs to.
+	<br><br>
+<<else>>
+	"You really believe that?" You ask.
+	<br><br>
+	Rowan stops walking for a second, turning to face you fully.
+	<br><br>
+	"Every word of it." <<He>> reaches out, tilting your chin up so you're looking at <<him>>. "Two losses don't erase what I saw in you the day I picked you out. That ain't goin' nowhere." <<glove>>
+	<br><br>
+	<<He>> doesn't let go right away.
+	<br><br>
+<</if>>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.love += 5>><</link>>
+
+:: Rowan Quiet
+You don't say anything.
 <br><br>
-<<link [[Spend some time talking (0:30)|Rowan Indoor Time Spend]]>><<set C.npc.Rowan.love += 1>><<pass 30>><<endevent>><</link>><<glove>>
+Rowan doesn't push it. <<He>> walks the rest of the way in silence, and if <<he>>'s worried, <<he>> keeps it tucked somewhere you can't see it.
+<br><br>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><</link>>
+
+:: Rowan Comply
+You don't argue. There doesn't seem to be much point.
+<br><br>
+<<He>> watches you for a second, like <<he>> half expected pushback and is mildly thrown by not getting it. Then <<he>> nods once, satisfied, and starts walking. <<gdom>><<glove>>
+<br><br>
+You follow. Of course, you follow.
+<br><br>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love += 3>><</link>>
+
+:: Rowan Push Back
+"And if I say no?"
+<br><br>
+The words are out before you can think better of them.
+<br><br>
+Rowan stops mid-stride. Turns. For a moment <<he>> just looks at you, something unreadable flickering behind <<his>> eyes.
+<br><br>
+"You can say no." <<His>> voice is level, almost gentle, which is somehow worse than if <<he>>'d snapped. "Door's right there."
+<br><br>
+<<He>> tilts <<his>> head toward the exit. Doesn't move otherwise. Just waits, letting the silence stretch, letting you sit with the fact that <<he>> means it.<<gdom>><<llove>>
+<br><br>
+"But you and I both know you're not gonna walk." <<His>> mouth twitches, not quite a smile. "So let's quit pretendin' and get movin'."
+<br><br>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 3>><</link>>
+
+:: Rowan Reassure
+"We'll figure it out," you say.
+<br><br>
+Rowan glances at you, surprised for a second, then his shoulders ease, just slightly.
+<br><br>
+"Yeah." He huffs something close to a laugh. "Yeah, I believe you."
+<br><br>
+He doesn't say anything else, but he stays a little closer to you on the walk back than he usually does.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.love += 5>><</link>>
+
+:: Rowan Ask Farm
+"What happens if we don't make it?"
+<br><br>
+Rowan's smile falters, just for a second, before he catches it.
+<br><br>
+"Then I figure somethin' else out." He says it lightly, as it costs him nothing to say, though you can tell it does. "Won't be the first time life's thrown me a curveball."
+<br><br>
+He bumps your shoulder with his.
+<br><br>
+"But we're not there yet. So let's not borrow trouble before it's due."<<stress 4>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><</link>>
+
+:: Post Race Final
+<<npc Rowan>><<person1>>
+<<if $raceresult is "win">>
+	<<if C.npc.Rowan.love gt 60>>
+		Rowan is already moving when you come off the track.<<ldom>><<gglove>>
+		<br><br>
+		<<He>> catches you at a near-run, arms around you, laughing, properly laughing for the first time in what feels like months, and <<he>> spins you once before <<he>> seems to remember the two of you are in public.
+		<br><br>
+		When <<he>> sets you down, <<he>>'s grinning so wide it looks like it might hurt.
+		<br><br>
+		"I knew it." <<He>> cups your face and leans <<his>> forehead against yours. "I knew it. From the very first session, I knew you had it in you."
+		<br><br>
+		A beat of quiet inside all that noise. <<His>> thumbs brush your cheeks.
+		<br><br>
+		"The farm's safe," <<he>> breathes. "We're okay."
+		<br><br>
+		<<His>> eyes are a little bright. You're probably not going to mention that either.
+		<br><br>
+	<<else>>
+		You find Rowan at the edge of the track.<<ldom>><<gglove>>
+		<br><br>
+		<<He>>'s not whooping. <<He>>'s not jumping. <<He>>'s just standing there with <<his>> hat in <<his>> hands, staring at you, like <<he>>'s making sure you're real.<br><br>
+		"You did it," <<he>> says.
+		<br><br>
+		Simple. Quiet. Not even aimed at you particularly. Like <<he>> just needed to hear someone say it out loud.
+		<br><br>
+		Then <<he>> crosses to you in a few quick strides and grabs you by the back of the head, pressing <<his>> forehead firmly against yours.
+		<br><br>
+		"You stubborn, hardworking thing—" <<he>> exhales sharply through <<his>> nose. "You did it."
+		<br><br>
+		<<He>> steps back. Clears <<his>> throat. Puts <<his>> hat back on.
+		<br><br>
+		"...Good race," <<he>> says, with great dignity.
+		<br><br>
+		But <<his>> hands are shaking slightly. You both notice. Neither of you mentions it.
+	<</if>>
+	<br><br>
+	<<link [[Next|Post Race Final 2]]>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 10>><</link>>
+<<else>>
+	<<if C.npc.Rowan.love gt 60>>
+		Rowan comes to you.
+		<br><br>
+		<<He>> always comes to you. That hasn't changed. But when <<he>> reaches you this time <<he>> just stops, a few feet away, and <<his>> face is open in a way you've never quite seen before. All the warmth <<he>>'s always carried right at the surface, and underneath it, something raw and trying very hard not to break.
+		<br><br>
+		"Hey," <<he>> says.
+		<br><br>
+		<<His>> voice doesn't sound like <<him>>self.
+		<br><br>
+		"Rowan, I—"
+		<br><br>
+		"Don't." <<He>> shakes <<his>> head slowly. "Don't you dare apologise to me. Not for this. Not ever for this."
+		<br><br>
+		<<link [[Comfort <<Him>>|Rowan End Comfort]]>><</link>>
+		<br>
+		<<link [[Stay Quiet|Rowan End Quiet]]>><</link>>
+	<<else>>
+		Rowan is at the track's edge when you come off.<br>
+		<br>
+		<<He>> looks at you. Just looks, with something in <<his>> face <<he>>'s clearly fighting very hard to keep still.
+		<br><br>
+		A long moment passes. Long enough that the crowd noise around you starts to feel very far away.
+		<br><br>
+		Then <<he>> nods once, tightly, like <<he>>'s accepting something <<he>> had hoped, against every shred of sense, wouldn't come.
+		<br><br>
+		"...Alright." The word comes out flat. Quiet. Like it cost <<him>> something just to get it out.<<npcincr "Rowan" dom 5>>
+		<br><br>
+		<<He>> doesn't say anything else. <<He>> doesn't reach for you, doesn't smack your shoulder the way <<he>> used to, doesn't do any of the things you've come to expect from <<him>>.
+		<br><br>
+		<<He>> just turns, and you watch <<him>> walk away across the empty stretch of grass with <<his>> hands buried in <<his>> pockets, shoulders straight, carrying something heavy in a way that won't let anyone see how heavy it is.<<stress 10>> <<ggstress>>
+		<br><br>
+		You stand there a long time after <<he>>'s gone, watching the spot where <<he>> disappeared, like staring hard enough might bring <<him>> back.
+		<br><br>
+		It doesn't.
+		<br><br>
+		<<link [[Next|Post Race Final 2]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Post Race Final 2
+<<if $raceresult is "win">>
+	<<if C.npc.Rowan.love gt 60>>
+		Later, once the noise of the day has finally settled, Rowan finds you again, quieter this time, no crowd left to perform for.
+		<br><br>
+		"Means somethin', you know." <<He>> rubs the back of <<his>> neck, looking almost bashful for once. "Mint Mocha's mine now. Gonna buy her out properly, give her a real shot at somethin' better than just bein' some prize trophy."
+		<br><br>
+		<<He>> looks at you for a long moment after that, like <<he>>'s deciding something.
+		<br><br>
+		Then <<he>> steps in close, cups the side of your face with one hand, and presses a slow, bittersweet kiss to your forehead, equal parts relief and something deeper, something that's been building since long before today.
+		<br><br>
+		"Thank you," <<he>> murmurs against your skin. "For every single morning you showed up. For believin' in this, in me, when you didn't have to."
+		<br><br>
+		<<He>> finally pulls back, and the smile <<he>> gives you is soft enough to ache.
+		<br><br>
+		"Reckon we earned a slower mornin' or two, after this."
+		<br><br>
+	<<else>>
+		The news about Mint Mocha catches up with you both later that day.
+		<br><br>
+		Rowan doesn't gloat. <<He>> doesn't say much of anything, actually. <<He>> just goes quiet for a moment, processing the fact that <<his>> rival, the one who's been needling at you both since race one, is now <<his>> to buy outright.
+		<br><br>
+		"...Gonna treat that horse right," <<he>> finally mutters, mostly to <<himself>>. "Even if she's been a pain in my backside since day one."
+		<br><br>
+		It's about as close to sentimental as <<he>>'s likely to get about it.
+	<</if>>
+	<br><br>
+	<<link [[Next|Post Race End]]>><</link>>
+<<else>>
+	<<if C.npc.Rowan.love gt 60>>
+		In the days that follow, you learn what's happening to Mint Mocha: sold off, already being advertised under a new owner's banner as a proven winner.
+		<br><br>
+		Rowan goes quiet when you tell him. <<He>> looks out toward the fields for a long moment, the ones that won't be <<his>> much longer either.
+		<br><br>
+		"Guess we're both losin' somethin' today," <<he>> says, voice rough.
+		<br><br>
+		<<He>> turns to you then, and there's nothing guarded left in <<his>> expression, just tired, open honesty.
+		<br><br>
+		"I don't regret a second of this. Not one." <<He>> reaches up and brushes a strand of hair back from your face, slow and careful, like <<he>>'s trying to memorise the moment. "Wherever I end up, that part doesn't change."
+		<br><br>
+		<<He>> leans in and presses a slow, lingering kiss to your forehead, the kind that lasts a beat longer than it needs to, like <<he>>'s trying to put everything <<he>> can't say into it instead.
+		<br><br>
+		When <<he>> finally pulls back, <<his>> eyes are a little too bright.
+		<br><br>
+		"Thank you," <<he>> murmurs. "For every single morning you showed up."
+	<<else>>
+		Word travels fast.
+		<br><br>
+		By the time you find Rowan again, <<he>>'s already heard about Mint Mocha: sold, the new owner already advertising her as a proven winner to recoup the cost twice over.
+		<br><br>
+		Rowan doesn't say much about it. Doesn't say much about anything, really, in the days that follow. <<He>>'s civil. <<He>>'s practical. <<He>> packs up the farm with the efficiency of a man who's already made his peace with something <<he>> never wanted to make peace with, folding a lifetime into boxes like it's just another chore on the list.
+		<br><br>
+		<<He>> doesn't blame you. <<He>> never says that <<he>> blames you.
+		<br><br>
+		<<He>> just doesn't quite look at you the same way anymore, either. There's a distance in <<his>> eyes now that wasn't there before, like <<he>>'s already halfway gone before <<his>> boots have even left the porch.
+		<br><br>
+		On the last morning, you find <<him>> standing at the fence line, looking out over fields that won't be <<his>> by sundown.
+		<br><br>
+		"Used to wake up before the sun just to watch the mist come off this grass," <<he>> says, not turning around. "Don't reckon I'll get a view like that again."
+		<br><br>
+		<<He>> doesn't wait for you to answer. <<He>> just picks up <<his>> bag, and walks toward whatever comes next without you in it.
+	<</if>>
+	<br><br>
+	<<link [[Next|Post Race End]]>><</link>>
+<</if>>
+
+:: Post Race End
+<<if $raceresult is "win">>
+	<<if C.npc.Rowan.love gt 60>>
+		"<<print $playerhorsetitle>>, my lucky star."
+		<br><br>
+		Rowan laughs under <<his>> breath as <<he>> wraps an arm around your shoulders, still riding the high of the win.
+		<br><br>
+		"Or should I say..."
+		<br><br>
+		<<He>> leans in closer, a smug grin tugging at the corner of <<his>> lips.
+		<br><br>
+		<<He>> murmurs your real name beside one of your horse ears.
+		<br><br>
+		"There you are."
+		<br><br>
+		The way <<he>> says it makes your heart skip.
+		<br><br>
+		<<link [[Next|Rowan Epilogue]]>><</link>>
+	<<else>>
+		<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
+		<br><br>
+		<span class="gold">You can now visit Rowan's farm starting tomorrow.</span>
+		<br><br>
+		<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
+	<</if>>
+<<else>>
+	<span class="red">Rowan is moving out of the farmlands. You likely won't see <<him>> again.
+	<br><br>
+	Mint Mocha is being sold off to another town. You likely won't see her again either.
+	<br><br>
+	The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
+	<br><br>
+	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<set $rowangone to 1>><<endevent>><</link>>
+<</if>>
+
+:: Rowan End Comfort
+You close the distance between you and wrap your arms around <<him>>.
+<br><br>
+<<He>>'s still for a half second, surprised, maybe, or just needing a moment to accept it, and then <<his>> arms come around you and <<he>> holds on, steady and tight, face bowed toward your shoulder like <<he>>'s trying to hide there.
+<br><br>
+<<He>> doesn't cry. But <<his>> breathing is slow and deliberate, the kind of breathing that takes real effort, like someone concentrating on staying upright when every part of them wants to give out.
+<br><br>
+"We gave it everything," you say quietly, your voice cracking despite yourself.
+<br><br>
+"Yeah." <<His>> voice is low. Rough. Barely holding together. "Yeah, we did."
+<br><br>
+<<He>> presses <<his>> face into your hair for a long moment, and you feel <<him>> shudder once, just once, like something finally cracked loose that <<he>>'d been holding shut for a long, long time.
+<br><br>
+<<link [[Next|Post Race Final 2]]>><</link>>
+
+:: Rowan End Quiet
+You stand there next to each other and watch the other racer accept the trophy, the cheers feeling like they're coming from somewhere very far away.
+<br><br>
+Rowan's hand finds yours at some point. You're not sure when. <<His>> grip is tighter than it needs to be, like <<he>>'s holding on for both of you. <<His>> thumb moves once, slowly, across your knuckles. Then <<he>> drops it and clears <<his>> throat, blinking hard at nothing in particular.
+<br><br>
+"Guess that's that, then," <<he>> says quietly. <<His>> voice doesn't quite make it to the end of the sentence steady.
+<br><br>
+<<link [[Next|Post Race Final 2]]>><</link>>
+
+:: Rowan Epilogue
+"Ain't gonna lie, darlin'," <<he>> chuckles. "Thought I was fixin' to have a heart attack watchin' that final stretch."
+<br><br>
+<<He>> shakes <<his>> head, still grinning.
+<br><br>
+"But you went and proved me right."
+<br><br>
+Rowan gives your shoulder a squeeze.
+<br><br>
+"Knew you had it in ya from the start. World's finally catchin' up to what I've been sayin' all along."
+<br><br>
+<<He>> looks at you for a moment, pride softening <<his>> usual smug expression.
+<br><br>
+"Damn. Look at you."
+<br><br>
+"My champion."
+<br><br>
+<<He>> goes quiet for a second, something more vulnerable working its way past the easy grin.
+<br><br>
+"I don't know what comes next for either of us. But I know I don't want to find out without you in it."
+<br><br>
+<<link [[Tell <<him>> you feel the same|Claim Rowan]]>><</link>>
 <br>
-<<if C.npc.Rowan.love gte 80 or C.npc.Rowan.dom gte 40>>
-	<<link [[Ask Rowan for some special love|Rowan Sex Time]]>><<set C.npc.Rowan.love += 2>><<set C.npc.Rowan.dom += 1>><<set $sexstart to 1>><</link>><<gglove>><<gdom>>
-	<br>
-<</if>>
-<<getouticon>><<link [[Leave <<him>> alone|Horse Academy]]>><<endevent>><</link>>
+<<link [[Tell <<him>> you'd rather stay friends|Platonic Rowan]]>><</link>>
 
-:: Rowan Indoor Time Spend
+:: Claim Rowan
+"I feel the same way."
+<br><br>
+The words come out steadier than you expected, like they'd been waiting a long time for permission.
+<br><br>
+Rowan goes still.
+<br><br>
+Not the easy, lazy stillness you've come to know from <<him>>; something deeper than that. Something that looks, for just a second, like a <<man>> who's been bracing for disappointment for so long <<he>> doesn't quite know what to do when it doesn't come.
+<br><br>
+"...Yeah?" <<His>> voice cracks, just barely, around the word.
+<br><br>
+You nod.
+<br><br>
+That's all it takes.
+<br><br>
+<<He>> exhales like something in his chest has finally let go, and then <<he>>'s reaching for you, both hands framing your face like <<he>>'s afraid you'll disappear if <<he>> isn't careful. <<His>> forehead drops to yours, and this time there's no humour in it, no teasing, none of the easy deflection <<he>> usually hides behind.
+<br><br>
+Just <<him>>. Just the truth of it, finally said out loud.
+<br><br>
+<<link [[Next|Claim Rowan 2]]>><</link>>
+
+:: Claim Rowan 2
+"You have any idea," <<he>> murmurs, voice rough, "how long I been tellin' myself this was just gratitude? That I was just proud of my racer, nothin' more?"
+<br><br>
+<<His>> thumb brushes along your cheekbone, slow, like <<he>>'s memorizing the shape of this moment.
+<br><br>
+"Lyin' to myself the whole damn time."
+<br><br>
+<<He>> tips your chin up gently and presses a kiss to your forehead, lingering there in a way that says everything <<his>> drawl usually dances around. When <<he>> finally pulls back, <<his>> eyes are bright, and the smile <<he>>'s wearing is helpless, unguarded, nothing like the smug grin you first met.<<npcincr "Rowan" love 10>>
+<br><br>
+"Guess that makes it official, then." <<His>> hand finds yours, fingers lacing through without hesitation, like they were always going to end up there. "You're stuck with me now, <<girl>>. Hope you're ready for that."
+<br><br>
+<<He>> laughs, soft and a little disbelieving, like the win and the confession together are almost too much to hold at once.
+<br><br>
+"Been a hell of a season."
+<br><br>
+<<set $rowanromance to 1>>
+<<if $loveInterest.primary is "None">>
+	<<set $loveInterest.primary to "Rowan">>
+	<span class = "gold">Rowan is now your love interest! You feel like you're in for a wild ride.</span>
+	<br><br>
+<<else>>
+	<span class = "gold">Rowan can now be claimed as your love interest! You feel like you're in for a wild ride. <br>You can change your love interest in the "Attitudes" menu.</span>
+	<br><br>
+<</if>>
+<br><br>
+<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
+<br><br>
+<span class="gold">You can now visit Rowan's farm starting tomorrow.</span>
+<br><br>
+<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
+
+:: Platonic Rowan
+"You'll always have me," you say. "Just not like that."
+<br><br>
+For a second, something flickers across Rowan's face, too quick to name, gone before you can be sure it was there at all. Then he huffs out a short laugh, and it's easy, genuine, no strain behind it.
+<br><br>
+"Yeah. Figured that might be the answer." <<He>> rubs the back of <<his>> neck, but <<he>>'s still smiling. "Honestly? Wasn't sure how to ask without makin' things weird."
+<br><br>
+<<He>> bumps your shoulder with <<his>>, the same easy gesture <<he>>'s given you all season.
+<br><br>
+"Don't change much, anyway. You're still my <<girl>>." A beat. "Figure of speech. You know what I mean."<<npcincr "Rowan" love 5>>
+<br><br>
+<<He>> looks almost relieved that you didn't make it complicated, like the friendship was never something <<he>> wanted to risk losing over a maybe.
+<br><br>
+"C'mon. Let's go tell that ridiculous horse she's got a new home."
+<br><br>
+<<link [[Next|Horse Academy Entrance]]>><<set $rowanconfessed to 1>><<set $academycloser to 1>><<endevent>><</link>>
+
+:: Training Event
 <<npc Rowan>><<person1>>
 <<cleareventpool>>
-<<if (C.npc.Rowan.love gt 80)>>
-    <<addinlineevent "ash_love1">>
-        "I must apologize for the way I have been treatin' ya lately." Rowan looks geninely apologetic. "I've just been very stressed. Maybe once this whole thing is over, we can start over."
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+	<<addinlineevent "tailtug">>
+        Rowan glances over at you.
+		<br><br>
+		<<His>> eyebrows lift slightly as <<he>> catches the exhaustion on your face, a faint smile tugging at the corner of <<his>> mouth.
+		<br><br>
+		"What, disheartened already?" Before you can answer, <<he>> gives your tail a light tug.
+		<br><br>
+		"Darlin', we ain't even gotten started yet."
+		<br><br>
+		Seeing your frown, Rowan grins and raises a hand as if to smack your rear.
+		<br><br>
+		<<link [[Dodge|Rowan Tail Dodge]]>><</link>>
+		<br>
+		<<link [[Goad|Rowan Tail Goad]]>><</link>>
     <</addinlineevent>>
-	<<addinlineevent "ash_love2">>
-        "Even though ya should be trainin', I admit I like spendin' time with ya." Rowan smirks. "Though, ya better still be trainin hard for the races."
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+	<<addinlineevent "earbite">>
+        With training over, you start putting the equipment away.
+		<br><br>
+		You stack the weights by size and slide each one back where it belongs. As you reach for the last piece, someone steps up behind you.
+		<br><br>
+		Before you can glance over your shoulder, a low laugh brushes your horse ears.
+		<br><br>
+		"What's got my little horse thinkin' so hard?"
+		<br><br>
+		It's Rowan.
+		<br><br>
+        <<link [[Next|Rowan Ear Bite]]>><</link>>
     <</addinlineevent>>
-<<elseif (C.npc.Rowan.love gt 40)>>
-	<<addinlineevent "ash_midlove1">>
-        "Look, I'll spend a little time with ya, but you should be gettin' some more trainin' done for the next race." Rowan shakes <<his>> head with a smirk but lets you sit next to <<him>>.
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+	<<addinlineevent "earflick">>
+        While Rowan explains today's schedule, one of your ears keeps twitching.
+		<br><br>
+		The trainer pauses mid-sentence.
+		<br><br>
+		"..."
+		<br><br>
+		You blink.
+		<br><br>
+		Rowan reaches over and flicks the offending ear.
+		<br><br>
+		It immediately stops moving.
+		<br><br>
+		"...How'd you do that?" You ask.
+		<br><br>
+		"Years of professional experience," <<he>> replies confidently.
+		<br><br>
+		A second later, your ear starts twitching again.
+		<br><br>
+		"...Never mind."
+		<br><br>
+        <<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
     <</addinlineevent>>
-	<<addinlineevent "ash_midlove2">>
-        "Still not too sure about ya, sugar." Rowan shakes <<his>> head. "Ya seem nice but... I need ya to put in the work to winnin' this thing."
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+	<<addinlineevent "waterbreak">>
+    	Rowan tosses you a water bottle without looking up from the clipboard in his hands.
+		<br><br>
+		You catch it on reflex, more surprised that you managed it than anything.
+		<br><br>
+		"Good catch." <<He>> finally glances over, the corner of <<his>> mouth twitching. "Didn't think you had it in you."
+		<br><br>
+		<<He>> leans back against the fence post, watching you drink like <<he>>'s got nowhere else to be.
+		<br><br>
+        <<link [[Tease <<him>>|Rowan Water Tease]]>><</link>>
+		<br>
+        <<link [[Drink quietly|Rowan Water Quiet]]>><</link>>
     <</addinlineevent>>
-<<else>>
-	<<addinlineevent "ash_lowlove1">>
-        "Ya wantin' to spend time with me?" Rowan looks confused. "I reckon that's okay. Just try not to be so chatty." You spend a while hanging out with Rowan.
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+	<<addinlineevent "stretch">>
+        You drop into a hamstring stretch, wincing at the pull of yesterday's training still sitting in your muscles.
+		<br><br>
+		Rowan crouches down next to you before you can wave <<him>> off, hands hovering at your shoulders.
+		<br><br>
+		"Lean forward. I got you."
+		<br><br>
+        <<link [[Let <<him>> help|Rowan Stretch Help]]>><</link>>
+		<br>
+        <<link [[Wave <<him>> off|Rowan Stretch Off]]>><</link>>
     <</addinlineevent>>
-	<<addinlineevent "ash_lowlove2">>
-        "Don't you think ya should be gettin' in some more trainin'? Ya got races to win or else." Rowan looks annoyed by your lack of effort.
-        <br><br>
-        <<link [[Next|Horse Academy]]>><<endevent>><</link>>
+	<<addinlineevent "laps">>
+        "Two more laps," Rowan calls out, not even glancing up from <<his>> stopwatch.
+		<br><br>
+		Your legs are already screaming from the first set. You weren't expecting that.
+		<br><br>
+        <<link [[Complain|Rowan Complain]]>><</link>>
+		<br>
+        <<link [[Push through|Rowan Push Through]]>><</link>>
     <</addinlineevent>>
-<</if>>
+	<<addinlineevent "treat">>
+        Rowan pulls a slightly crushed pastry out of his jacket pocket halfway through your break, holding it out like it's nothing.
+		<br><br>
+		"Picked it up in town. Figured you'd earned somethin' sweet after this mornin'."
+		<br><br>
+        <<link [[Share it|Rowan Share Treat]]>><</link>>
+		<br>
+        <<link [[Eat it yourself|Rowan Keep Treat]]>><</link>>
+    <</addinlineevent>>
+	<<if $pcLosses gte 2>>
+		<<addinlineevent "mood">>
+			Rowan seems to be in a mood today. Short answers, sharp movements, none of the usual easy drawl. You're not sure what set <<him>> off, only that it's been simmering since this morning.
+			<br><br>
+			<<link [[Push <<him>> to talk|Rowan Mood Push]]>><</link>>
+			<br>
+			<<link [[Give <<him>> space|Rowan Mood Space]]>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<addinlineevent "mistake">>
+        You botch the drill, badly, the kind of mistake that gets you a sharp look instead of the usual teasing.
+		<br><br>
+		"That's the third time you've done that exact same thing." Rowan's voice has an edge to it that wasn't there an hour ago. "You listenin' to me at all?"
+		<br><br>
+        <<link [[Apologize|Rowan Mistake Apologize]]>><</link>>
+		<br>
+        <<link [[Argue|Rowan Mistake Argue]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "drill">>
+        Rowan blows the whistle short and sharp, again and again, calling out corrections as you run the drill.
+		<br><br>
+		By the fifth rep your legs are shaking.
+		<br><br>
+        <<link [[Ask for a break|Rowan Drill Break]]>><</link>>
+		<br>
+        <<link [[Grit through it|Rowan Drill Grit]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "tape">>
+        Rowan kneels to measure your stride length against chalk marks on the dirt, completely focused, completely oblivious to how close <<his>> hands are to your legs.
+		<br><br>
+		"Hold this leg out. Need an accurate number."
+		<br><br>
+        <<link [[Comply|Rowan Tape Comply]]>><</link>>
+		<br>
+        <<link [[Point it out|Rowan Tape Point]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "brush">>
+        After the run, Rowan takes the brush from your hands without asking and starts working it through your hair <<himself>>, slow, methodical strokes.
+		<br><br>
+		"You're tense. Hold still, I got it."
+		<br><br>
+        <<link [[Relax into it|Rowan Brush Relax]]>><</link>>
+		<br>
+        <<link [[Insist you can do it yourself|Rowan Brush Insist]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "equipment">>
+        You're the last one in the locker room, dropping off gear well after everyone else has cleared out, when Rowan leans in the doorway, arms crossed, watching you with a look that has nothing to do with equipment inventory.
+		<br><br>
+		"Everyone's gone," <<he>> says, like <<he>>'s pointing out the weather. "Whole place is empty."
+		<br><br>
+		<<link [[Ask What That Means|Late Equipment - Ask]]>><</link>>
+		<br>
+		<<link [[Close the Distance Yourself|Late Equipment - Close Distance]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "brag">>
+        You catch Rowan deep in conversation with a thin man, another trainer, near the track entrance. Their body language reads less "friendly chat" and more "barely civil rivalry."
+		<br><br>
+		"—my horse's gonna leave yours in the dust come the next meet," a thin man says, smug.
+		<br><br>
+		Rowan notices you approaching and slings an arm loosely around your shoulders, like presenting evidence.
+		<br><br>
+		"Funny you should say that."
+		<br><br>
+		<<link [[Play Along|Trainer Rivalry - Play Along]]>><</link>>
+		<br>
+		<<link [[Stay Out of It|Trainer Rivalry - Stay Out]]>><</link>>
+    <</addinlineevent>>
+	<<if $regionalrace lt 6>>
+		<<addinlineevent "mintwalk">>
+			Practice runs long, and by the time you're packing up, the academy grounds have gone quiet and dim around you.
+			<br><br>
+			Mint Mocha falls into step beside you without asking, hands shoved in her pockets, looking very deliberately like she just happens to be walking the same direction.
+			<br><br>
+			"Not like I'm doin' this for you," she mutters, eyes forward. "Just don't want it on my conscience if somethin' happens to my rival on academy grounds. Bad optics."
+			<br><br>
+			<<link [[Let Him Walk You|Mint Walks You Back - Let Him]]>><</link>>
+			<br>
+			<<link [[Call Out the Excuse|Mint Walks You Back - Call Out]]>><</link>>
+		<</addinlineevent>>
+	<</if>>
 <<runeventpool>>
+
+:: Rowan Tail Dodge
+<<if $danceskill gte 400>>
+	You read the motion in <<his>> shoulders a half-second before his hand comes down, and you twist out of reach, putting a few feet of distance between you and that smug grin.
+	<br><br>
+	<<His>> hand swats empty air.
+	<br><br>
+	"Oh, real cute." <<He>> huffs out a laugh, more impressed than annoyed, and tucks <<his>> hands back into <<his>> pockets, looking entirely too pleased with you for someone who just missed.
+	<br><br>
+	"Quick on your feet when it counts, huh?" <<He>> tilts <<his>> head, eyeing you like <<he>>'s reassessing something. "Don't get used to it. I'll catch you eventually."<<glove>>
+	<br><br>
+	<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+<<else>>
+	You try to twist out of the way, but you're half a second too slow.
+	<br><br>
+	<<His>> palm connects with a solid smack, the sound louder than it has any right to be.
+	<br><br>
+	You yelp, ears flattening, a hand flying back to rub at the sting.<<pain 4>><<gpain>>
+	<br><br>
+	Rowan grins down at you, entirely unrepentant.
+	<br><br>
+	"Reflexes need work too, darlin'." <<He>> says it like a fond observation rather than an apology. "Add it to the list."<<stress 3>><<gstress>><<gdom>>
+	<br><br>
+	<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.dom += 3>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Tail Goad
+Instead of dodging, you arch into it, tail flicking, chin lifted in challenge.
+<br><br>
+"That all you got?"
+<br><br>
+<<His>> hand stills mid-air for half a second. Long enough that you know you caught <<him>> off guard.
+<br><br>
+Then a slow grin spreads across <<his>> face.
+<br><br>
+"Careful what you ask for." <<His>> palm lands anyway, but slower this time, lingering rather than swatting, fingers curling against your hip before pulling back. "Keep talkin' like that, and we're never gonna finish trainin' today."<<arousal 6>><<garousal>><<gdom>><<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+
+:: Rowan Ear Bite
+You open your mouth to answer...
+<br><br>
+...but instead feel a quick bite at the tip of your ear.
+<br><br>
+Your other ear flicks immediately.
+<br><br>
+<<He>> lets out an amused hum and gives your shoulder a hearty smack.
+<br><br>
+"Aw, don't look at me like that. Couldn't resist."
+<br><br>
+And just like that, <<he>> saunters away.
+<<if C.npc.Rowan.love gt 60>>
+<<arousal 6>><<garousal>>
+<<else>>
+<<stress 6>><<gstress>>
+<</if>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Water Tease
+"Careful," you say, wiping your mouth. "Almost sounded like a compliment."
+<br><br>
+Rowan barks out a laugh, surprised out of <<him>>.
+<br><br>
+"Don't go gettin' used to it." <<He>> pushes off the fence and closes the distance, plucking the water bottle out of your hand to take a swig <<himself>>, like it's the most natural thing in the world. "There. Now we're even."
+<br><br>
+"Even on what?" you ask.
+<br><br>
+"Nothin'." <<He>> hands it back, smug as ever, but <<he>>'s standing closer than <<he>> needs to be, and <<he>> doesn't step away.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+
+:: Rowan Water Quiet
+You don't say anything, just drink, watching the morning haze burn off the fields over Rowan's shoulder.
+<br><br>
+Rowan doesn't fill the silence either. <<He>> just stands there with you, arms crossed, content to let the quiet be quiet.
+<br><br>
+After a while, <<he>> nudges your foot with <<his>>. "What's on that pretty mind of yours?"
+<br><br>
+"Just thinking."
+<br><br>
+"'Bout?"
+<br><br>
+You shrug. Rowan studies you a second longer than the question warrants, like <<he>>'s decided not to push, then just bumps your shoulder with <<his>>, easy and warm.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Stretch Help
+You let yourself lean into it, and <<his>> hands settle warm and steady against your shoulder blades, easing you forward with a gentleness that doesn't match the calluses on his palms.
+<br><br>
+"There. Just like that." <<His>> voice has dropped, quieter than the open field really calls for. "Breathe into it. Don't fight it."
+<br><br>
+You're suddenly very aware of how close <<he>> is, of the warmth radiating off <<him>>, of how easily one of <<his>> hands could just keep sliding.
+<br><br>
+It doesn't. <<He>> holds the stretch a beat longer than strictly necessary, then pulls back, clearing <<his>> throat like <<he>> caught <<himself>> somewhere <<he>> didn't mean to go.
+<br><br>
+"...Better?"
+<br><br>
+"Yeah." Your voice comes out a little rougher than intended.<<arousal 4>><<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+
+:: Rowan Stretch Off
+"I got it," you say, scooting back half a step before <<his>> hands can land.
+<br><br>
+Rowan raises both hands, easy and unbothered, but there's a glint of amusement in <<his>> eyes <<he>> doesn't bother hiding.
+<br><br>
+"Suit yourself." <<He>> settles back on <<his>> heels to watch instead, chin propped on one hand. "Just figured I'd save you the trouble of fallin' on your face."
+<br><br>
+"I'm not going to fall on my face." you say.
+<br><br>
+"Uh huh." <<He>> doesn't believe you for a second, and <<he>> doesn't stop watching, that small private smile tugging at the corner of <<his>> mouth the whole time.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+
+:: Rowan Complain
+"You're kidding," you pant. "Two more?"
+<br><br>
+Rowan doesn't even look up. "Do I look like I'm kiddin'?"
+<br><br>
+"Rowan—"
+<br><br>
+"Two more laps," <<he>> repeats, slower this time, like <<he>>'s enjoying this slightly more than he should. "Or we make it three."<<gdom>><<stress 4>><<gstress>>
+<br><br>
+You decide against testing that.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Push Through
+You don't argue. You just go, legs burning, breath ragged, refusing to give <<him>> the satisfaction of hearing you complain.
+<br><br>
+Rowan watches you finish the set without a word, but there's something in his expression when you stagger to a stop in front of <<him>>.
+<br><br>
+"Didn't think you had that in you." <<He>> tosses you a towel. "Good. Keep that up."<<stress 3>><<gstress>><<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+
+
+:: Rowan Share Treat
+You break off a piece and hold it out to <<him>> before he can object.
+<br><br>
+Rowan blinks, clearly not expecting that, then takes it, looking almost bashful about it. "Didn't get it for me."
+<br><br>
+"I know. Take it anyway."
+<br><br>
+<<He>> eats it in one bite, watching you the whole time with an expression you can't quite name. "...Thanks." <<He>> says it quieter than the moment really calls for.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+
+:: Rowan Keep Treat
+You take it without hesitation, already halfway through the first bite before he's finished talking.
+<br><br>
+Rowan snorts. "Don't even pretend to think about sharin', huh?"
+<br><br>
+"Nope."
+<br><br>
+"Cold-blooded." But <<he>>'s grinning when <<he>> says it, watching you enjoy it like that alone was worth the trip into town.<<stress -4>><<lstress>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Mood Push
+"Okay, what's going on with you today?"
+<br><br>
+Rowan's jaw tightens. "Nothin'. Drop it."
+<br><br>
+"You've been gloomy all morning-"
+<br><br>
+"I said drop it." <<His>> voice is harder than you've heard it in a while, and it lands like a slap, even though <<he>> doesn't raise it.<<stress 4>><<gstress>><<llove>>
+<br><br>
+<<He>> seems to catch himself a beat too late, mouth opening like <<he>> might walk it back, but <<he>> doesn't. <<He>> just turns and gets back to work.
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love -= 3>><<endevent>><</link>>
+
+:: Rowan Mood Space
+You don't push. You just keep your distance, let <<him>> have whatever's eating at <<him>> without poking at it.
+<br><br>
+It takes most of the morning, but eventually <<he>> exhales hard, shoulders dropping a fraction. "...Sorry. Bank called. Wasn't about you."
+<br><br>
+"Okay."
+<br><br>
+"Just okay?" <<He>> almost laughs, some of the tension finally bleeding out of <<his>> frame. "Most people'd want details." 
+<br><br>
+"You'll tell me when you want to." That seems to land somewhere <<he>> wasn't expecting. <<He>> doesn't say anything else, but <<he>> stands a little closer for the rest of the day.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+
+:: Rowan Mistake Apologize
+"Sorry. I'll get it right."
+<br><br>
+Rowan studies you for a second, the sharp edge in <<his>> expression softening, just slightly. "...Yeah. Again. From the top."
+<br><br>
+<<He>> doesn't apologise for snapping, but <<he>> does correct your stance more patiently the second time around, and that's about as close to sorry as Rowan tends to get.<<stress 3>><<gstress>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Mistake Argue
+"Maybe if you explained it instead of just barking orders—"
+<br><br>
+"I have explained it. Three times." <<His>> jaw is tight, patience visibly thinning. "Maybe try actually listenin' instead of makin' excuses."
+<br><br>
+The words land sharper than either of you probably meant them to, and for a second, neither of you says anything else, the air between you gone tense and brittle.<<stress 5>><<gstress>><<gdom>><<llove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love -= 3>><<set C.npc.Rowan.dom += 4>><<endevent>><</link>>
+
+:: Rowan Drill Break
+"Can we.. can we stop a second?" you ask.
+<br><br>
+Rowan's expression doesn't soften much, but <<he>> clicks the stopwatch off anyway.
+<br><br>
+"...Thirty seconds." <<He>> taps <<his>> wrist. "Then we go again."<<stress -6>><<lstress>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Drill Grit
+You don't ask. You just keep moving until your legs threaten to give out entirely.
+<br><br>
+Rowan finally calls it <<himself>>, watching you sway in place with something unreadable in <<his>> eyes.
+<br><br>
+"...That's enough for today." <<His>> voice has gone quieter. "Didn't need you provin' a point that hard."<<stress 5>><<gstress>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Tape Comply
+You hold still and let <<him>> work, watching the top of <<his>> bowed head, the careful concentration on <<his>> face.
+<br><br>
+"There. Good." <<He>> jots the number down without looking up. "Longer stride than last month. Whatever you're doin', keep doin' it."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Tape Point
+"You know this is kind of a weird angle for you to be at," you say.
+<br><br>
+Rowan freezes, then looks up at you from <<his>> knees with an expression of pure betrayal.
+<br><br>
+"I'm measurin' your stride." <<His>> ears go faintly red despite the protest. "Get your head outta the gutter."
+<br><br>
+"I didn't say anything." you say. "You were thinkin' it." <<He>> stands up too fast, clearing <<his>> throat, refusing to meet your eyes for a solid minute afterward.<<arousal 4>><<garousal>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Brush Relax
+You let your shoulders drop and your eyes fall half-shut, the brush dragging long and even through your hair.
+<br><br>
+"There you go." <<His>> voice goes low, almost a murmur. "Knew you were holdin' all that stress somewhere."
+<br><br>
+<<He>> doesn't stop, even once the knots are worked loose, fingers occasionally brushing your scalp in a way that feels far more deliberate than careless.<<stress -4>><<arousal 4>><<lstress>><<garousal>><<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+
+:: Rowan Brush Insist
+"I can do that myself, you know." You say.
+<br><br>
+"Didn't say you couldn't." <<He>> doesn't hand the brush back. "Just figured I'd do it anyway."
+<br><br>
+<<He>> keeps brushing, ignoring your protest entirely, an amused little smile tugging at <<his>> mouth the whole time <<he>> pretends not to notice you giving up the argument.<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Midtrain Event
+<<npc Rowan>><<person1>>
+<<cleareventpool>>
+	<<addinlineevent "between">>
+		You're cutting across the courtyard between your last lesson and training when a hand catches your wrist, pulling you sideways into the shade of the breezeway.
+		<br><br>
+		"There you are." Rowan doesn't let go right away. "Been lookin' for you for ten minutes."
+		<br><br>
+		<<link [[Ask Why|Rowan Between Ask]]>><</link>>
+		<br>
+		<<link [[Lean Into the Moment|Rowan Between Lean]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "notebook">>
+		Rowan's reviewing your training log between sessions, flipping through pages, when <<he>> stops on one and squints.
+		<br><br>
+		"...Did you draw a little horse doodle in the margin of your own training notes."
+		<br><br>
+		<<link [[Own It|Rowan Notebook Own]]>><</link>>
+		<br>
+		<<link [[Deny Everything|Rowan Notebook Deny]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "posture">>
+		Mid-lesson, Rowan steps up behind you to correct your stance, hands settling at your hips to square them properly.
+		<br><br>
+		"There. Hold that." <<His>> voice is close to your ear, lower than the correction strictly requires.
+		<br><br>
+		<<link [[Hold still|Rowan Posture Still]]>><</link>>
+		<br>
+		<<link [[Comment on the closeness|Rowan Posture Comment]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "posture">>
+		Mid-lesson, Rowan steps up behind you to correct your stance, hands settling at your hips to square them properly.
+		<br><br>
+		"There. Hold that." <<His>> voice is close to your ear, lower than the correction strictly requires.
+		<br><br>
+		<<link [[Hold still|Rowan Posture Still]]>><</link>>
+		<br>
+		<<link [[Comment on the closeness|Rowan Posture Comment]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "classroom">>
+		You duck into an empty classroom to grab a forgotten textbook and find Rowan already there, leaning against a desk, clearly hiding from someone or something.
+		<br><br>
+		"Oh, hey. Don't mind me." <<He>> doesn't move to leave.
+		<br><br>
+		<<link [[Ask what <<he>>'s Hiding From|Rowan Classroom Ask]]>><</link>>
+		<br>
+		<<link [[Sit with <<him>>|Rowan Classroom Sit]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "towel">>
+		You finish a brutal set and barely have a second to catch your breath before a towel hits you square in the face.
+		<br><br>
+		"Good work out there." Rowan's already turning away, like the moment doesn't deserve more comment than that.
+		<br><br>
+		<<link [[Call <<him>> back|Rowan Towel Call]]>><</link>>
+		<br>
+		<<link [[Let <<him>> walk off|Rowan Towel Walk]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "pinned">>
+		You stumble mid-drill and Rowan catches you on reflex, one arm braced against the fence behind you, effectively pinning you there for a beat longer than the rescue requires.
+		<br><br>
+		Neither of you moves right away.
+		<br><br>
+		<<link [[Hold the Eye Contact|Pinned Fence - Hold Contact]]>><</link>>
+		<br>
+		<<link [[Duck Out of the Moment|Pinned Fence - Duck Out]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "punishimply">>
+		You miss the same mark for the fourth time in a row. Rowan doesn't say anything right away, just sets the stopwatch down with deliberate care, the kind of calm that's somehow worse than yelling.
+		<br><br>
+		"Four times." <<He>> steps closer, voice dropping low. "Reckon we need a different kinda motivation if drills ain't cuttin' it."
+		<br><br>
+		<<link [[Ask What <<He>> Means|Punishment Implied - Ask]]>><</link>>
+		<br>
+		<<link [[Brace Yourself|Punishment Implied - Brace]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "massage">>
+		You're limping slightly after a hard set, favoring one leg, and Rowan notices immediately.
+		<br><br>
+		"Sit. Lemme look at that." <<He>> doesn't wait for permission, already crouching, hands working into the knotted muscle of your calf with practiced firmness.
+		<br><br>
+		<<link [[Let It Happen|Massage Offer - Let Happen]]>><</link>>
+		<br>
+		<<link [[Comment On How Close <<He>>'s Sitting|Massage Offer - Comment]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "stablewall">>
+		Rowan pulls you behind the stable's blind side, to discuss your race strategy away from prying ears. <<He>>'s standing closer than strategy discussions usually require.
+		<br><br>
+		<<link [[Ask About Strategy|Behind Stable Wall - Strategy]]>><</link>>
+		<br>
+		<<link [[Call Out the Real Reason|Behind Stable Wall - Call Out]]>><</link>>
+    <</addinlineevent>>
+	<<addinlineevent "faileddrill">>
+		You botch the same combination three times in a row. Rowan doesn't say anything at first, just watches you fumble through it a fourth time with <<his>> arms crossed and jaw tight.
+		<br><br>
+		"Alright. Stop." <<He>> sets the clipboard down, deliberate, like <<he>>'s setting aside something <<he>> won't need for a while.
+		<br><br>
+		<<link [[Brace Yourself|Failed Drill - Brace]]>><</link>>
+		<br>
+		<<link [[Try to Talk Your Way Out|Failed Drill - Talk Out]]>><</link>>
+    <</addinlineevent>>
+	<<if $regionalrace lt 6>>
+		<<addinlineevent "corner">>
+			<<endevent>>
+			<<npc "Mint Mocha">><<person1>>
+			You round a corner near the equipment shed and nearly walk straight into Mint Mocha, who doesn't step back the way you expect.
+			<br><br>
+			"Oh. It's you." Her tone is dismissive, but she doesn't move out of your space either, close enough now that you have to tilt your head up slightly to meet her eyes.<br><br>
+			<<link [[Hold Your Ground|Mint Cornered - Hold Ground]]>><</link>>
+			<br>
+			<<link [[Step Back|Mint Cornered - Step Back]]>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<if $pcWins gte 2>>
+		<<addinlineevent "sore">>
+			<<endevent>>
+			<<npc "Mint Mocha">><<person1>>
+			After losing to you again, Mint Mocha doesn't storm off the way she usually does. Instead she just stands there, fists clenched, staring at you with an expression that's harder to parse than pure anger.
+			<br><br>
+			"I don't get it," she finally says, voice tight. "What is it about you."
+			<br><br>
+			<<link [[Ask What He Means|Sore Loser - Ask]]>><</link>>
+			<br>
+			<<link [[Walk Away|Sore Loser - Walk Away]]>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<if $regionalrace lt 6>>
+		<<addinlineevent "mintstudy">>
+			<<endevent>>
+			<<npc "Mint Mocha">><<person1>>
+			You end up seated across from Mint Mocha in the study hall, the only two open chairs left in the room, naturally.
+			<br><br>
+			She glances at you over her textbook, unimpressed. "Don't talk to me. I'm tryin' to concentrate." She's clearly stuck on the same problem she's been glaring at for the last five minutes.
+			<br><br>
+			<<link [[Help Her|Study Hall - Help]]>><</link>>
+			<br>
+			<<link [[Let Her Struggle|Study Hall - Struggle]]>><</link>>
+		<</addinlineevent>>
+		<<addinlineevent "starling">>
+			<<endevent>>
+			<<npc "Mint Mocha">><<person1>>
+			You glance over during a lull in practice and catch Mint Mocha already looking at you, gaze snapping away half a second too late to pretend it didn't happen.
+			<br><br>
+			<<link [[Call It Out|Caught Staring - Call Out]]>><</link>>
+			<br>
+			<<link [[Pretend Not to Notice|Caught Staring - Pretend]]>><</link>>
+		<</addinlineevent>>
+	<</if>>
+<<runeventpool>>
+
+:: Sore Loser - Ask
+"What do you mean?" You ask.
+<br><br>
+She steps closer, frustration and something far more confusing tangled together in her expression. "I keep losin' to you, and I should hate it. I hate it!" Her voice drops. "So why do I keep findin' excuses to be wherever you are?"
+<br><br>
+She looks almost as surprised by the admission as you are, jaw working like she's trying to take it back.<<arousal 4>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Mint Mocha" dom -3>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Mint Mocha" dom -3>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Mint Mocha" dom -3>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Mint Mocha" dom -3>><<endevent>><</link>>
+<</if>>
+
+:: Sore Loser - Walk Away
+You don't engage, just turn to leave, and behind you <<he>> makes a frustrated sound, like <<he>> wanted you to push for more and is annoyed you didn't.
+<br><br>
+"H-hey, I wasn't finished—" <<He>> cuts <<himself>> off, visibly embarrassed at how that came out, and doesn't follow.
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<endevent>><</link>>
+<</if>>
+
+:: Mint Cornered - Hold Ground
+You don't move, don't back down, just stare right back at <<him>>.
+<br><br>
+<<His>> composure cracks slightly, something unreadable passing behind <<his>> eyes before <<he>> recovers it. "...You're not as easy to rattle as I thought." <<He>> says it almost like an insult, except <<his>> voice has gone quieter, closer to admiration than <<he>>'d ever admit out loud.<<lsuperiority>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+<</if>>
+
+:: Mint Cornered - Step Back
+You take a step back, putting safer distance between you.
+<br><br>
+Mint Mocha's mouth curves into something smug, satisfied to have gotten that reaction out of you. "Yeah. That's what I thought." She brushes past you deliberately close on her way out, like she needs the last word physically as well as verbally.<<gsuperiority>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Mint Mocha" dom 3>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Mint Mocha" dom 3>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Mint Mocha" dom 3>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Mint Mocha" dom 3>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Between Ask
+"What's up?" You ask.
+<br><br>
+"Nothin' urgent." <<He>> doesn't release your wrist, thumb tracing absently over your pulse point like <<he>>'s not even aware <<he>>'s doing it. "Just wanted five minutes before you disappear into another class."
+<br><br>
+<<He>> finally seems to notice <<his>> own hand and lets go, clearing <<his>> throat like <<he>> got caught at something.<<glove>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Between Lean
+You don't ask. You just stay where <<he>> pulled you, close enough that <<his>> next breath stirs your hair.
+<br><br>
+<<His>> grip on your wrist loosens, slides instead to rest at your waist, like <<he>>'s testing whether you'll pull away.
+<br><br>
+You don't.
+<br><br>
+"...Right." <<His>> voice has gone lower. <<He>> doesn't seem to know what to do with the silence <<he>> just created, and for a second, neither do you.<<arousal 4>><<garousal>><<glove>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Notebook Own
+"Maybe." You say.
+<br><br>
+<<He>> turns the notebook around to show you, fighting visibly to keep a straight face. "It's got my fit on it."
+<br><br>
+"It's a good fit." You respond.
+<br><br>
+<<He>> laughs properly at that, the kind of laugh <<he>> doesn't usually let out in front of you, and for a second <<he>> just looks at you like <<he>>'s seeing something <<he>> wasn't expecting to feel this fond of.<<glove>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 4>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Notebook Deny
+"No idea what you're talking about." You say, denying it.
+<br><br>
+"Uh huh." <<He>> doesn't believe you for a second, tucking the notebook under <<his>> arm with the doodle page flagged. "Keepin' this one. Might frame it."
+<br><br>
+<<He>> walks off before you can argue, looking entirely too pleased with <<himself>>.<<glove>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<</if>>
+
+:: Adjusting Posture - Hold Still
+You hold the position, acutely aware of how long <<his>> hands linger past the point of necessity.
+<br><br>
+"...Good," <<he>> finally says, stepping back like <<he>> just remembered where <<he>> was. <<His>> ears have gone slightly red. "That's, uh. That's the form we want."<<arousal 6>><<garousal>><<glove>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+<</if>>
+
+:: Adjusting Posture - Comment
+"You gonna let go of my hips at some point, or—" You begin to ask.
+<br><br>
+<<He>> releases you so fast you nearly stumble, stepping back with the kind of overcorrection that gives away exactly how flustered you caught <<him>>.
+<br><br>
+"Form correction. That's all that was." <<He>> won't quite meet your eyes, busying <<himself>> with the clipboard instead.<<glove>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Classroom Ask
+"Hiding from someone?" You ask.
+<br><br>
+"The head trainer. Wants my quarterly reports and I am, generously speakin', behind on those." <<He>> rubs the back of <<his>> neck. "You won't tell on me, will you?"
+<br><br>
+"Depends what's in it for me." You respond.
+<br><br>
+<<He>> grins, slow and a little dangerous. "I'm sure we can work somethin' out."<<arousal 6>><<garousal>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Classroom Sit
+You drop into the desk next to <<him>> without asking questions, content to just share the hiding spot.
+<br><br>
+<<He>> glances at you sideways, something soft crossing <<his>> face. "Didn't even ask why. Just sat down."
+<br><br>
+"Figured you had a reason." You say.
+<br><br>
+"...Yeah." <<He>> looks at you a beat too long before turning back toward the door, listening for footsteps. "Good as any reason to stay hidden a little longer, I guess."
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Towel Call
+"That's it? No 'great job, you're amazing, best horse I've ever trained'?" You protest.
+<br><br>
+<<He>> stops, turns halfway, an eyebrow raised. "That what you're fishin' for?"
+<br><br>
+"Maybe." You say.
+<br><br>
+<<He>> walks back over, closer than necessary, and tilts your chin up with one knuckle. "You're somethin', alright. Don't need me sayin' it for you to know that."
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Towel Walk
+You wipe your face down and let <<him>> go without comment, watching <<his>> retreating back a beat longer than strictly necessary.
+<br><br>
+<<He>> glances back once, like <<he>> half expected you to call out, then shakes <<his>> head and keeps walking, a small smile tugging at <<his>> mouth.
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<endevent>><</link>>
+<</if>>
+
+:: Pinned Fence - Hold Contact
+You don't look away, and neither does <<he>>.
+<br><br>
+<<His>> gaze drops, briefly, unmistakably, to your mouth, before <<he>> catches <<himself>> and pushes back, putting space between you with visible effort.
+<br><br>
+"...Careful with your footin'," <<he>> mutters, voice low, clearing <<his>> throat hard like <<he>>'s trying to physically dislodge whatever <<he>> was just thinking.<<arousal 6>><<garousal>><<gdom>><<glove>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Rowan" dom 2>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Rowan" dom 2>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Rowan" dom 2>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Rowan" dom 2>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<</if>>
+
+:: Pinned Fence - Duck Out
+You slip out from under <<his>> arm fast, putting distance between you before the moment can stretch any longer.
+<br><br>
+<<He>> lets you go without protest, though <<he>> exhales slow once your back is turned, like <<he>>'s working something out of <<his>> system <<he>>'d rather not examine too closely.
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<endevent>><</link>>
+<</if>>
+
+:: Punishment Implied - Ask
+"...What kind of motivation?"
+<br><br>
+<<His>> mouth curves, slow and unhurried, the kind of look that makes your stomach flip.
+<br><br>
+"Oh, I think you got a pretty good idea." <<He>> tips your chin up with one finger. "C'mon. Trainin' room. Now."<<arousal 4>><<garousal>><<gdom>>
+<br><br>
+<<link [[Follow|Rowan Sex Time 2]]>><<set $sexstart to 1>><<set C.npc.Rowan.love += 5>><</link>><<glove>>
+<br>
+<<if $dailytrain is 1>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<</if>>
+
+:: Punishment Implied - Brace
+You don't ask. You already know better than to ask.
+<br><br>
+<<He>> just watches the understanding settle over your face, satisfaction creeping into <<his>> expression. "Good. You're learnin'." <<He>> tilts <<his>> head toward the equipment room. "Let's go."<<arousal 4>><<garousal>><<gdom>>
+<br><br>
+<<link [[Take up the offer|Rowan Sex Time 2]]>><<set $sexstart to 1>><<set C.npc.Rowan.love += 5>><</link>><<glove>>
+<br>
+<<if $dailytrain is 1>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<</if>>
+
+:: Rowan Sex Time 2
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Rowan Sex Time 2 Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Rowan Sex Time 2]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Rowan Sex Time 2 Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<npcincr Rowan love 2>>
+	Rowan takes a moment, breathing heavily as <<he>> gathers <<himself>> climbs away from you.
+<<elseif $enemyhealth lte 0>>
+    <<npcincr Rowan love -5>><<npcincr Rowan dom -5>>
+    "You bitch!" Rowan yells wiping the blood from <<his>> nose, "Just get the hell out of here."<<llove>><<lldom>>
+<<elseif $finish is 1>>
+	<<npcincr Rowan love -3>>
+	"Can't even finish?" <<He>> says looking confused. "You young folks got somethin' wrong with ya."<<love>>
+<</if>>
+<br><br>
+Rowan leads you out of the back rooms and back to training.
+<br><br>
+<<clotheson>><<endcombat>>
+<<if $dailytrain is 1>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Insist to get back to training|Horse Academy]]>><<endevent>><</link>>
+<</if>>
+
+:: Massage Offer - Let Happen
+You let your head fall back, breath catching slightly as <<his>> thumbs work deeper into the muscle, more skilled than you expected, and entirely too good at finding the spots that make you squirm.
+<br><br>
+"Relax," <<he>> murmurs, not looking up, though <<his>> own breathing's gone a little uneven too. "Ain't gonna hurt you. Promise."<<arousal 6>><<stress -4>><<garousal>><<lstress>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<endevent>><</link>>
+<</if>>
+
+:: Massage Offer - Comment
+"You're sitting awfully close for a leg cramp." You comment.
+<br><br>
+<<His>> hands still for a half second. "Workin' a muscle properly takes proximity." <<He>> doesn't move back, despite the protest, fingers pressing just a little firmer into the knot, watching your reaction with far too much interest.<<arousal 4>><<garousal>><<gdom>>
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Rowan" dom 2>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Rowan" dom 2>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Rowan" dom 2>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Rowan" dom 2>><<endevent>><</link>>
+<</if>>
+
+:: Behind Stable Wall - Strategy
+"So what's the plan?"
+<br><br>
+"Plan's simple." <<His>> hand settles at your waist, thumb tracing idle circles that have nothing to do with race tactics. "Win. And maybe let me steal a minute of your time first."
+<br><br>
+<<He>> leans in, gazing at you for a moment.<<arousal 4>><<glove>>
+<br><br>
+Someone's footsteps echo from around the corner, and <<he>> pulls back fast, putting respectable distance between you a half-second before a thin man rounds into view, oblivious.
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+<</if>>
+
+:: Behind Stable Wall - Call Out
+"There's no strategy, is there." You say.
+<br><br>
+"...Caught me." <<He>> doesn't even pretend otherwise, grinning, crowding you back gently against the stable wall. "Figured I'd take advantage of five minutes alone while I had it."
+<br><br>
+<<His>> mouth finds your jaw, unhurried, like <<he>>'s testing how far <<he>> can push before someone interrupts.<<arousal 4>><<gdom>>
+<br><br>
+A throat clears nearby, a thin man, very pointedly looking at anything except the two of you. Rowan straightens up with zero shame whatsoever.
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Rowan" dom 3>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Rowan" dom 3>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Rowan" dom 3>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Rowan" dom 3>><<endevent>><</link>>
+<</if>>
+
+:: Late Equipment - Ask
+"...And?"
+<br><br>
+"And nothin'." <<He>> pushes off the doorframe, crossing the room slow, unhurried, like <<he>>'s got nowhere else to be and no intention of rushing. "Just makin' an observation."
+<br><br>
+<<He>> doesn't elaborate further, but <<he>> doesn't need to; <<his>> hand finding your hip says plenty.<<arousal 4>><<gdom>>
+<br><br>
+<<link [[Next|Rowan Sex Time]]>><<npcincr "Rowan" dom 4>><<set $sexstart to 1>><</link>>
+
+:: Late Equipment - Close Distance
+You close the gap yourself before <<he>> can finish whatever <<he>> was building toward.
+<br><br>
+<<He>> makes a low, pleased sound, arms coming around you immediately. "Bold. Didn't think you had it in you out here, of all places."
+<br><br>
+"You started it." You respond.
+<br><br>
+"Gonna finish it too, then." <<His>> voice drops, mouth ghosting along your ear. "Door locks, by the way. Just so you know."<<arousal 8>><<garousal>><<gdom>>
+<br><br>
+<<link [[Next|Rowan Sex Time]]>><<npcincr "Rowan" dom 4>><<set $sexstart to 1>><</link>>
+
+:: Failed Drill - Brace
+You don't argue. You already know that tone.
+<br><br>
+"Good." <<He>> closes the distance, tipping your chin up with two fingers, voice gone low and even. "Figure we need to make this lesson stick a little better than the last one did."<<gdom>>
+<br><br>
+<<He>> doesn't elaborate further out here, but the look <<he>> gives you makes it very clear training isn't the only thing on the agenda once you're somewhere more private.
+<br><br>
+<<link [[Follow|Rowan Sex Time 2]]>><<set $sexstart to 1>><<npcincr "Rowan" dom 6>><</link>><<glove>>
+
+:: Failed Drill - Talk Out
+You begin to protest. "In my defense—"
+<br><br>
+"Don't." <<He>> doesn't raise <<his>> voice, but the single word cuts cleanly through whatever excuse you were building. <<His>> hand finds the back of your neck, not rough, but absolutely certain. "You can defend yourself plenty once we're somewhere quieter."<<stress 3>><<gstress>><<gdom>>
+<br><br>
+<<He>> doesn't release you right away, just lets the implication sit there, heavy, before finally stepping back.
+<br><br>
+<<if $dailytrain is 1>>
+	<<link [[Next|Horse Academy Train Athletics]]>><<npcincr "Rowan" dom 7>><<endevent>><</link>>
+<<elseif $dailytrain is 2>>
+	<<link [[Next|Horse Academy Train Physique]]>><<npcincr "Rowan" dom 7>><<endevent>><</link>>
+<<elseif $dailytrain is 3>>
+	<<link [[Next|Horse Academy Train Dance]]>><<npcincr "Rowan" dom 7>><<endevent>><</link>>
+<<elseif $dailytrain is 4>>
+	<<link [[Next|Horse Academy Train Willpower]]>><<npcincr "Rowan" dom 7>><<endevent>><</link>>
+<</if>>
+
+:: TF No Recognition - Confusion
+"...Huh." <<He>> tilts <<his>> head, studying you with open suspicion. "You look familiar. You remind me of my horse partner. Just, y'know. Without the ears."
+<br><br>
+<<He>> crosses <<his>> arms, clearly unsatisfied with that explanation but unable to come up with a better one.
+<br><br>
+"Been wonderin' where that brat's gone off to. We got a race to practice for and <<pshe>>'s nowhere to be found." <<He>> looks you over one more time, frowning. "You sure you haven't seen <<pher>>?"
+<br><br>
+<<link [[Try to Explain|TF No Recognition - Explain]]>><</link>>
+<br>
+<<link [[Play Along|TF No Recognition - Play Along]]>><</link>>
+
+:: TF No Recognition - Explain
+"Rowan, it's me." You say.
+<br><br>
+"...Sure it is." <<He>> doesn't look convinced in the slightest, already glancing past you to scan the yard for the actual missing horse. "Listen, no offense, but I really don't have time to figure out whatever this is. You seen <<pher>> or not?"
+<br><br>
+<<He>> taps <<his>> foot, waiting, completely unaware <<he>>'s talking directly at the "horse" in question.
+<br><br>
+<span class="red">Rowan won't be able to recognize you without a Horse Transformation.</span>
+<br><br>
+<<if $outside is 1>>
+	<<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+<<else>>
+	<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+<</if>>
+
+:: TF No Recognition - Play Along
+"...No, haven't seen <<pher>>." You say, feigning innocence.
+<br><br>
+"Figures." <<He>> sighs, dragging a hand down <<his>> face. "Brat probably wandered off to sulk somewhere. If you do spot <<pher>>, tell <<pher>> <<pher>> trainer's lookin' for <<pher>> and is two seconds from puttin' up flyers."
+<br><br>
+<<He>> stalks off toward the stables, muttering, leaving you standing there in stunned, horseless silence.
+<br><br>
+<span class="red">Rowan won't be able to recognize you without a Horse Transformation.</span>
+<br><br>
+<<if $outside is 1>>
+	<<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+<<else>>
+	<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+<</if>>
+
+:: Horse TF - Denied Academy Entry
+<<generate1>><<person1>>
+You jog up to the academy's front gate as you're used to, except this time the guard posted there doesn't wave you through.
+<br><br>
+<<He>> steps directly into your path instead, scanning you up and down with the practiced suspicion of someone who's caught more than a few uniform violations in <<his>> time.<br><br>
+"Hold up. Don't recognize you, and I don't see a registration tag." <<His>> eyes narrow further as <<he>> takes in the obvious lack of ears, the obvious lack of a tail. "You got ID?"
+<br><br>
+<<link [[Try to Explain|Security Gate - Explain]]>><</link>>
+<br>
+<<link [[Show Your Student ID Anyway|Security Gate - Show ID]]>><</link>>
+
+:: Security Gate - Explain
+"I'm a student here, I swear, something happened and I just don't look like a horse right now—"
+<br><br>
+The guard's expression doesn't budge an inch. <<He>> has clearly heard every excuse in the book.
+<br><br>
+"Sure you are." <<He>> crosses <<his>> arms, plainly unmoved, gesturing back toward the gate with the patience of someone who deals with this exact problem weekly. "Look, I don't make the rules. We don't want to risk impersonators infiltrating the place. You won't be able to attend the academy without if you're not one of the horsegirl students here."
+<br><br>
+<<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+
+:: Security Gate - Show ID
+You fumble your student ID out and shove it toward <<him>>, photo clearly showing a horse<<girl>> with ears, a tail, and considerably less panic in <<his>> expression.
+<br><br>
+The guard studies the photo, then you, then the photo again, clearly doing the math and not liking the answer.
+<br><br>
+"...This you?"
+<br><br>
+"Yes!" You respond.
+<br><br>
+"Huh." <<He>> hands it back, unconvinced but also unwilling to argue policy over a photo discrepancy this severe. "Well, picture or not, rules are rules. We don't want to risk impersonators infiltrating the place. You won't be able to attend the academy if you're not a horse<<girl>>."
+<br><br>
+<<link [[Next|Horse Academy Entrance]]>><<endevent>><</link>>
+
+:: RNG Event - Rowan Office Hours
+You find Rowan in the cramped trainer's office, boots up on the desk, scowling at a stack of paperwork that's clearly losing the fight.
+<br><br>
+"Don't suppose you know anything about filing forms," <<he>> mutters without looking up.
+<br><br>
+<<link [[Offer to Help (0:30)|Office Hours - Help]]>><</link>>
+<br>
+<<link [[Leave Him to Suffer (0:10)|Office Hours - Suffer]]>><</link>>
+
+:: Office Hours - Help
+You pull a chair around the desk and start sorting the mess into actual piles.
+<br><br>
+Rowan watches you work for a second, baffled, then visibly relieved. "Huh. You're better at this than me." <<He>> leans back, content to let you take over entirely. "Knew keepin' you around would pay off eventually."<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><<npcincr "Rowan" love 3>><</link>>
+
+:: Office Hours - Suffer
+"Good luck with that," you say, already backing out of the doorway.
+<br><br>
+"Traitor," <<he>> calls after you, entirely without heat, already shoving the papers into a drawer to deal with later instead of actually finishing them.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Trainer Rivalry - Play Along
+You straighten up under <<his>> arm and give the thin man your most confident look.
+<br><br>
+The thin man's smug expression falters slightly. Rowan looks far too pleased with himself, squeezing your shoulder once in silent thanks.
+<br><br>
+"We'll see who's eatin' dust at the next meet," <<he>> says, grinning, as the thin man stalks off muttering.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><<npcincr "Rowan" love 3>><</link>>
+
+:: Trainer Rivalry - Stay Out
+You give a noncommittal shrug and let the two of them keep talking past you.
+<br><br>
+Rowan glances at you, a little disappointed, but doesn't push it. "Tough crowd," <<he>> mutters to the thin man, who just laughs and wanders off.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - The Bank
+<<if $pcLosses gte 2>>
+	"Bank's been callin' more than I'd like." Rowan rubs the back of <<his>> neck, the easy drawl thinning out for a second. "Not your problem to carry. Just... figured you oughta know what's at stake, is all."
+   <br>
+<<else>>
+	"Bank's fine for now. Don't go worryin' about numbers you don't need to worry about." <<He>> waves a hand, dismissive, though something in <<his>> eyes says <<he>>'s thought about it more than <<he>> lets on.
+   <br>
+<</if>>
+<br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Out of Place
+"Feel kinda out of place here, not gonna lie." Rowan glances around at the polished academy halls, looking distinctly more comfortable in mud than marble. "Bunch of fancy trainers in pressed shirts. Make me feel like I wandered in from the wrong building."
+<br><br>
+<<link [[Reassure <<Him>>|Out of Place - Reassure]]>><</link>>
+<br>
+<<link [[Tease <<Him>>|Out of Place - Tease]]>><</link>>
+
+:: Out of Place - Reassure
+"You belong here as much as anyone."
+<br><br>
+Rowan glances at you, surprised by the sincerity, then huffs out a small laugh. "...Appreciate that. Still gonna feel like a farmhand playin' dress-up, but appreciate it."<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><<npcincr "Rowan" love 3>><</link>>
+
+:: Out of Place - Tease
+"You do kind of stick out. Like a scarecrow at a gala." You tease.
+<br><br>
+"Wow. Thanks for that." <<He>> shoots you a flat look, though <<he>>'s clearly biting back a grin. "Remind me why I keep you around again?"
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Other Trainers
+"Some of these academy trainers look at me like I tracked manure into their meeting." Rowan crosses his arms, watching a cluster of sharply dressed instructors pass by. "Maybe I did. Wouldn't put it past me."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Eavesdropping Faculty
+Rowan lowers his voice, leaning in conspiratorially.
+<br><br>
+"Pretty sure that headmaster's office has been arguin' about budget cuts for an hour straight. Walked by twice, same shoutin'."
+<br><br>
+<<He>> shrugs. "Not my circus, not my monkeys. Long as they don't touch your trainin' schedule."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Academy Food
+"Cafeteria food here's a step up from what I usually scrounge together at the farm, not gonna lie." Rowan eyes a tray someone's carrying past with open envy. "Don't tell the other students I said that. Trainer pride and all."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Other Trainers' Methods
+"Watched another trainer runnin' drills earlier. All charts and stopwatches, not a hand laid on the horse the whole session." Rowan tilts <<his>> head, considering. "Wonder sometimes if I'm doin' this whole thing wrong."
+<br><br>
+<<link [[Tell Him His Way Works|Other Trainers - Reassure]]>><</link>>
+<br>
+<<link [[Ask If He'd Change|Other Trainers - Ask]]>><</link>>
+
+:: Other Trainers - Reassure
+"Your way works fine. Better than fine."
+<br><br>
+"...Yeah?" <<He>> looks honestly pleased to hear it, some of the doubt easing off <<his>> shoulders. "Good. 'Cause I wasn't plannin' on changin' much anyway, but nice to hear it ain't broke."<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><<npcincr "Rowan" love 3>><</link>>
+
+:: Other Trainers - Ask
+"Would you want to? Change how you do things?"
+<br><br>
+Rowan considers it seriously for a moment. "Nah. Charts don't know you. I do." <<He>> shrugs, easy and certain. "I'll stick with what's gotten us this far."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Watching Other Races
+You and Rowan watch another heat from the stands, with you not racing today.
+<br><br>
+"Funny, watchin' from up here instead of down on the track worryin' myself sick over you." <<He>> leans back, arms crossed behind <<his>> head. "Almost relaxin'. Almost."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Academy Rumor Mill
+"Heard a rumor about you, by the way." Rowan's got a glint in <<his>> eye, clearly enjoying this.
+<br><br>
+<<link [[Ask What It Is|Rumor Mill - Ask]]>><</link>>
+<br>
+<<link [[Refuse to Ask|Rumor Mill - Refuse]]>><</link>>
+
+:: Rumor Mill - Ask
+"...What rumor?"
+<br><br>
+"Apparently you're 'mysterious and intimidating.'" <<He>> grins, clearly delighted. "Didn't have the heart to tell 'em you trip over your own feet durin' warmups."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rumor Mill - Refuse
+"Don't care."
+<br><br>
+"Suit yourself. It's a good one, though." <<He>> looks entirely too pleased with himself, clearly planning to bring it up again later whether you want him to or not.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Academy Architecture
+"Place like this probably cost more to build than my whole farm's worth." Rowan whistles low, looking up at the high vaulted ceilings of the main hall. "Wonder if anybody here's ever actually mucked out a stable themselves."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Stairwell Crying - Check
+"Hey. You okay?"
+<br><br>
+The horsegirl startles, swiping at her face fast. "Fine. Just.. failed a time trial. It's stupid, I shouldn't even be this upset about it."
+<br><br>
+<<He>> doesn't really want advice, just someone to sit there for a minute. So you do.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Stairwell Crying - Leave
+You decide it's not your business and keep walking, footsteps echoing a little too loud in the empty stairwell.
+<br><br>
+Behind you, the sniffling quiets down on its own, like the horsegirl was relieved nobody made a thing of it.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Fan Encounter - Sign
+You take the offered log and scrawl something quick across the margin.
+<br><br>
+She stares at it like you just handed her a winning lottery ticket. "Thank you! Seriously, good luck in your next race."
+<br><br>
+She hurries off before she can embarrass herself further, log clutched to her chest.
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Fan Encounter - Decline
+"Ah sorry, I'm kind of in a rush." You say.
+<br><br>
+Her face falls for half a second before she recovers, waving it off. "Oh no, totally fine! Sorry to bother you." She backs away, still smiling despite the obvious disappointment.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Mint Friend - Thank
+"Thanks. I had a feeling." You respond.
+<br><br>
+She gives a small, relieved smile, like she wasn't sure how that would land. "Yeah, well. Don't let it go to your head." She glances over her shoulder again before slipping back toward the group.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Mint Friend - Wary
+"...Why are you telling me this?" You question.
+<br><br>
+"Guess I just got tired of the act." She shrugs, a little awkward about it now that you're not simply accepting the compliment. "Forget I said anything."
+<br><br>
+She disappears back into the group before you can press further.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Unsolicited Advice - Thank
+"Huh. Thanks, I'll try that." You say.
+<br><br>
+She seems almost startled that you took it well, breaking into a small, pleased smile. "Oh yeah, no problem! Good luck out there."
+<br><br>
+She peels off toward her own group, looking oddly proud of herself.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Unsolicited Advice - Brush Off
+"I'll keep that in mind," you say, in a tone that makes it clear you won't.
+<br><br>
+She shrugs, unbothered. "Just trying to help. Your funeral." She wanders off toward a different group, already offering the same advice to someone else.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Hallway Admirers - Charming
+"Not weird at all. I'm flattered." You flash her a smile, and she makes a small strangled noise like her brain has briefly stopped functioning.
+<br><br>
+"O-oh. Okay. Cool. Cool cool cool." She's nodding way too fast. Behind her, her friends are losing it silently.
+<br><br>
+"Maybe I'll sign it sometime," you offer, and she looks like she might actually combust on the spot.<<stress -2>><<lstress>>
+<br><br>
+Word travels fast. By lunch, at least four more people know exactly what you said, with several embellishments.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Hallway Admirers - Brush Off
+"Uh, thanks," you say, already trying to angle past the group toward the track.
+<br><br>
+"Oh! Right, sorry, you're probably busy—" She steps aside fast, mortified, dragging her friends with her by the sleeve.
+<br><br>
+You make it three more steps before you hear one of them stage-whisper, "see, told you <<pshe>>'s kind of intimidating up close," and you decide not to think too hard about that.<<stress 1>><<gstress>>
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: The Bold One - Let Her
+You don't move away. If anything, you tip your chin up slightly, meeting her gaze head-on, and that seems to be all the invitation she needs.
+<br><br>
+She leans in slow, giving you every chance to stop her, a satisfied smirk on her lips when you don't.
+<br><br>
+"Hm. Worth the gamble," she murmurs, stepping back at last, looking entirely too pleased with herself. "Catch you around, champion."
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: The Bold One - Sidestep
+You duck under <<his>> arm with a laugh, putting a polite amount of distance back between you before she can close it further.
+<br><br>
+"Flattering. Wildly forward. Also, I have to go." You respond.
+<br><br>
+She doesn't look remotely embarrassed about the attempt, just shrugs, unbothered. "Can't blame one for tryin'. You're cute when you panic, by the way."
+<br><br>
+She saunters off before you can come up with a response, seemingly pleased with herself the whole way.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Autograph Line - Lean In
+You sign every program handed to you, throw in a few winks for good measure, and by the time the line finally clears you're fairly sure you've made at least six people's entire week.
+<br><br>
+The napkin with the phone number stays tucked safely in your pocket. You're not committing to anything. You're also not throwing it away.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Autograph Line - Escape
+You sign a polite handful, then make your excuses and slip out the side door the second there's an opening, leaving a few disappointed faces behind.
+<br><br>
+The napkin ends up forgotten in your jacket pocket, found three washes later, the ink long since bled into an unreadable smudge. Probably for the best.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Rowan Notices - Tease
+"Jealous?" you ask, unable to resist.
+<br><br>
+"Course not." <<He>> pushes off the fence, closing the distance between you in a few unhurried steps, hand settling at your waist with a little more weight than strictly necessary. "Just makin' sure everyone remembers whose <<girl>> you are."
+<br><br>
+<<He>> punctuates it with a kiss on your jaw that leaves absolutely no room for doubt on the matter, slow and thorough and entirely unbothered by the handful of students still lingering within view.<<arousal 4>><<garousal>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Rowan Notices - Reassure
+"They're harmless," you say, bumping <<his>> shoulder. "You know that."
+<br><br>
+"I know." <<He>> laughs, jaw still a little tight, but <<he>> lets you take <<his>> hand anyway, lacing your fingers through <<his>> like <<he>>'s resetting <<himself>> on purpose. "Still don't gotta like it."
+<br><br>
+"Noted."
+<br><br>
+<<He>> huffs, some of the tension easing out of <<his>> shoulders at the simple contact, and doesn't let go of your hand the rest of the walk back.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Rowan" love 3>><<endevent>><</link>>
+
+:: Mint Mocha's Hangup - Close
+You step in before she can backpedal out of her own confession, close enough that her bravado visibly short-circuits.
+<br><br>
+"W-wait, I didn't say you could just get closer, peasant. You.." She doesn't finish the sentence. She doesn't move away either.
+<br><br>
+"You hate that you can't stop thinking about me," you repeat, watching her flush all the way to the tips of her ears. "What else do you hate?"
+<br><br>
+She makes a strangled noise before she finally pulls back, her composure is in absolute shambles. "I still hate you," she mutters, not at all convincingly.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Mint Mocha's Hangup - Sweat
+"Hm," you say, crossing your arms and making absolutely zero move to help her out of the hole she's digging.
+<br><br>
+"Don't 'hm' me! Say something!" Her composure cracks further by the second, panic creeping into the bravado. "This is exactly why I didn't want to… ugh, forget I said anything."
+<br><br>
+"No take-backs." You respond.
+<br><br>
+"There's absolutely take-backs! I'm takin' it back right now!" She is very clearly not taking it back, judging by how she hasn't actually moved to leave, hovering there red-faced and furious at herself for saying anything at all.<<llove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love -2>><</link>>
+
+:: Locker Room Company - Consider
+"Both of you, huh?" You let the question hang, watching them trade a look that's equal parts hopeful and nervous.
+<br><br>
+"You probably got a line of people wanting to sleep with you," the bolder one backpedals, suddenly less smooth than a second ago. "Unless.. uh.. I mean, only if you wanted to."
+<br><br>
+"Smooth," the other mutters under her breath, somehow turning even redder than her friend.
+<br><br>
+Your amused expression is enough to encourage both of them again, one practically tackling you while the other places urgent kisses against your jaw.
+<br><br>
+<<link [[Next|Horse Threesome]]>><<set $sexstart to 1>><</link>>
+
+:: Horse Threesome
+<<if $sexstart is 1>>
+	<<generate1>><<generate2>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 500>><<npcexpose>>
+<</if>>
+
+<<set $enemyanger to 0>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Horse Threesome Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Horse Threesome]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Horse Threesome Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+<</if>>
+
+<<clotheson>><<endcombat>>
+The two still tremble from arousal as you get up. "Fuck.. that was heavenly." One rasps.
+<br><br>
+"See you again soon?" The other asks hopefully.
+<br><br>
+"Maybe." You respond, gathering yourself and getting up.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Locker Room Company - Laugh
+You laugh, not unkindly, and shake your head. "That's a bold opener for locker room talk."
+<br><br>
+"Worth a shot," the bolder one says, entirely unbothered, while her friend looks like she wants the locker room floor to swallow her whole.
+<br><br>
+"C'mon," the embarrassed one hisses, already tugging her friend away by the sleeve. "Told you that wouldn't work."
+<br><br>
+"It might've!" the other calls back over her shoulder, grinning the whole way out.
+<br><br>
+<<link [[Next|Horse Academy]]>><</link>>
+
+:: Talk - Mint's Training Routine
+"What do you even want," she says, not looking up from the stopwatch she's fiddling with, though she doesn't walk away either.
+<br><br>
+<<link [[Ask About Her Routine|Mint Training Routine - Ask]]>><</link>>
+<br>
+<<link [[Tease Her|Mint Training Routine - Tease]]>><</link>>
+
+:: Mint Training Routine - Ask
+"Just wondering what your training looks like." You respond.
+<br><br>
+She blinks, visibly thrown by the lack of an angle. "...Why do you care?" She recovers fast, chin lifting. "Not that it's a secret. Five a.m. sprints, drill work till my legs give out, and I don't stop until I've beaten my own time. Every. Single. Day." She says it like a dare, like she's expecting you to be unimpressed.
+<br><br>
+She isn't, when you're not. Her shoulders ease down half an inch.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Mint Training Routine - Tease
+"You're such a nerd." You tease.
+<br><br>
+"It's called discipline." She pockets it like you've personally offended the device. "Something you might wanna try sometime, peasant."
+<br><br>
+She says it without much heat, already glancing at you like she's waiting to see if you'll fire back.<<lsuperiority>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+
+:: Talk - Why Mint Races
+"Why do you even race?" you ask.
+<br><br>
+She goes quiet for a second too long, like she's deciding whether to actually answer or deflect.
+<br><br>
+<<link [[Wait Her Out|Why Mint Races - Wait]]>><</link>>
+<br>
+<<link [[Guess for Her|Why Mint Races - Guess]]>><</link>>
+
+:: Why Mint Races - Wait
+You don't fill the silence. Eventually she cracks.
+<br><br>
+"Because winning is the only time anyone shuts up about everyone else I'm supposedly not as good as." Her jaw tightens, like she said more than she meant to. "Forget I said that."
+<br><br>
+She doesn't take it back, though, and she doesn't walk away immediately either.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Why Mint Races - Guess
+"Let me guess. Glory, attention, somebody told you you'd never amount to anything?" You guess.
+<br><br>
+"Wh—" She sputters, caught off guard by how close that lands. "That is— okay, partially, but it's not that simple!" She crosses her arms, flustered. "You don't get to just psychoanalyze me like that."
+<br><br>
+She huffs, but she doesn't deny it either.<<lsuperiority>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+
+:: Talk - Compliment Mint
+"You looked good out there today," you say, mostly just to watch what happens.
+<br><br>
+Complimenting her might boost her morale and mood.
+<br><br>
+<<link [[Mean It|Compliment Mint - Mean It]]>><</link>>
+<br>
+<<link [[Say It Flatly|Compliment Mint - Flat]]>><</link>>
+
+:: Compliment Mint - Mean It
+You say it plainly, no joke hiding behind it, and watch the effect land in real time.
+<br><br>
+"O-Obviously." Her ears go pink, flicking, before the rest of her face catches up. "I mean— yeah. I know. I'm aware." She turns slightly away, like she needs a second to reassemble herself. "Was that supposed to be news?"
+<br><br>
+It clearly was, to her.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 4>><<endevent>><</link>>
+
+:: Compliment Mint - Flat
+You say it like you're reading off a weather report, completely deadpan.
+<br><br>
+She narrows her eyes, trying to figure out if she's being made fun of. "...Was that sincere or are you bein' weird at me?"
+<br><br>
+"Little of both." You admit.
+<br><br>
+"Ugh. Whatever. Just— say it normal next time." She mutters it like a concession, refusing to make eye contact.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Mint's Rival List
+"So who else are you trying to beat besides me?" you ask.
+<br><br>
+She scoffs like the question's beneath her. "Everyone. That's the whole point of bein' the best. But you—" She stops herself, visibly recalculating what she was about to say.<br><br>
+<<link [[Push For It|Mint Rival List - Push]]>><</link>>
+<br>
+<<link [[Let It Go|Mint Rival List - Let Go]]>><</link>>
+
+:: Mint Rival List - Push
+"But me, what?"
+<br><br>
+"Nothing!" She says it too fast, then exhales sharply through he nose, deflating slightly. "You're just. Different. On the list. Closer to the top, I guess, if you must know." She won't look at you while admitting it.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 3>><<endevent>><</link>>
+
+:: Mint Rival List - Let Go
+"Sure, sure." You say.
+<br><br>
+"Don't 'sure, sure' me." She bristles, though she's clearly relieved you didn't push further. "Just know I've got my eye on you. That's all I'm sayin'."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Opinion on Rowan
+"What do you think of my trainer?" you ask.
+<br><br>
+<<npc Rowan 2>><<person2>>
+Mint Mocha's nose wrinkles immediately. "That guy? <<He>>'s insufferable. Always actin' like <<he>>'s got everything figured out." She crosses her arms. "Also <<he>> coaches you, so naturally his opinion of <<himself>> is way too high right now."
+<br><br>
+She pauses, then adds, grudgingly, "...<<He>>'s good at her job, though. Hate that for you."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Push His Buttons
+You decide to needle her a little, just to see what happens.
+<br><br>
+<<link [[Call Him Soft|Push Buttons - Soft]]>><</link>>
+<br>
+<<link [[Back Off|Push Buttons - Back Off]]>><</link>>
+
+:: Push Buttons - Soft
+"You're not nearly as mean as you pretend to be." You tease.
+<br><br>
+"Excuse me?!" Her voice jumps an octave. "I am extremely mean! Ask literally anyone!" She looks genuinely panicked at the accusation, like being caught being decent is a personal crisis.
+<br><br>
+You shrug. "If you say so."
+<br><br>
+"I do say so!" She huffs, flustered, refusing to let the subject drop even though you already have.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Push Buttons - Back Off
+You decide against it, opting to let her have her bravado intact for once.
+<br><br>
+She eyes you suspiciously, like she's waiting for the catch that never comes. "...What, no smart comment?"
+<br><br>
+"Not today." You say.
+<br><br>
+"Weird." She mutters it, but she looks almost disappointed about it, like she was bracing for a fight she didn't get.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Talk - Mint's Pre-Race Ritual
+"You've got a weird little routine before every race," you note. "The three taps on the gate, the same exact stretch order."
+<br><br>
+She goes red instantly. "You— you're not supposed to notice that!" She sputters, hands flying up defensively. "It's not weird, it's superstition! There's a difference!"
+<br><br>
+<<link [[Ask What It Means|Pre-Race Ritual - Ask]]>><</link>>
+<br>
+<<link [[Laugh|Pre-Race Ritual - Laugh]]>><</link>>
+
+:: Pre-Race Ritual - Ask
+"Okay, so what's it mean?" You ask.
+<br><br>
+She goes very quiet, picking at the hem of her sleeve. "...My mom used to do somethin' like it. Before her races, back when she still ran." She says it fast, almost annoyed at himself for the admission. "It's stupid. Forget it."
+<br><br>
+It very clearly isn't stupid to her.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 5>><<endevent>><</link>>
+
+:: Pre-Race Ritual - Laugh
+You let yourself laugh, just a little.
+<br><br>
+"Hey! Don't laugh, it's not funny!" Her face is fully scarlet now, mortified. "Everyone's got somethin', okay?! Yours is probably worse, I just haven't caught you doin' it yet!"
+<br><br>
+<<He>> storms off muttering about privacy, ears still bright red the whole way.<<lsuperiority>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" dom -1>><<endevent>><</link>>
+
+:: Talk - Mint's Future Plans
+"What happens after the academy? You got plans?" you ask.
+<br><br>
+<<link [[Actually Ask|Mint Future - Ask]]>><</link>>
+<br>
+<<link [[Brush It Off|Mint Future - Brush]]>><</link>>
+
+:: Mint Future - Ask
+She looks caught off guard that you'd ask seriously. "...Go pro. Obviously. Beat every record worth beatin'." She hesitates, voice dropping the performance for a second. "Make it so nobody can look at me and only see somebody's little horsegirl sibling anymore."
+<br><br>
+She catches himself oversharing and clears her throat loudly. "Anyway. That's the plan. Obviously."<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 4>><<endevent>><</link>>
+
+:: Mint Future - Brush
+"Eh, just making conversation." You say.
+<br><br>
+"Oh." She seems almost let down by that, recovering quickly into her usual posture. "Well, for the record, it's gonna be impressive. You'll see."
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Study Hall - Help
+You lean over and point out where her math went sideways, no commentary attached.
+<br><br>
+She stares at the correction for a long moment, then at you, suspicious. "...Why'd you help me?"
+<br><br>
+"Why not?" You ask.
+<br><br>
+She doesn't have a good answer for that, judging by how long it takes her to go back to her work, ears faintly pink, muttering a "thanks" so quiet you nearly miss it.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 3>><<endevent>><</link>>
+
+:: Study Hall - Struggle
+You go back to your own work, content to let her sort it out alone.
+<br><br>
+She huffs after another full minute of getting nowhere, finally caving. "...Okay, fine, what's wrong with this one." She shoves the page toward you without looking up, pride visibly costing her something.<<lsuperiority>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+
+:: Track Side by Side - Challenge
+"One lap. Loser buys from the vending machine."
+<br><br>
+Her whole posture shifts, exhaustion forgotten in favor of pure competitive instinct. "You're on. Don't cry when you lose."
+<br><br>
+The two of you commence an impromptu race, free from the usual racing pressure.
+<br><br>
+She doesn't beat you by much, but she beats you, and the grin she wears afterward is the most unguarded you've seen her look in weeks, chest heaving, sweat-damp hair stuck to her forehead.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 4>><<endevent>><</link>>
+
+:: Track Side by Side - Rest
+"You've been out here long enough. Go rest."
+<br><br>
+"Don't tell me what to—" She stops, catches the actual concern under the comment, and the fight drains out of her voice. "...Fine. Five more minutes." She doesn't move for at least ten, but she doesn't argue further either, glancing your way more than once like she's checking you're still there.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 3>><<endevent>><</link>>
+
+:: Mint Bad Day - Push
+"You look like someone stole your podium spot. What's wrong?" You ask.
+<br><br>
+"Nothing's— ugh." She exhales sharply, the irritation draining into something more tired. "Career stuff. Doesn't matter. Peasants wouldn't get it." She says it without much bite, more resigned than defensive, finally setting the phone face-down beside her.
+<br><br>
+She doesn't elaborate further, but she doesn't tell you to leave either.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 3>><<endevent>><</link>>
+
+:: Mint Bad Day - Space
+You decide not to press, sitting down a respectful distance away instead, saying nothing.
+<br><br>
+She glances over, visibly surprised you didn't ask. After a while, the tension in her shoulders eases, just slightly. "...You're not gonna interrogate me?"
+<br><br>
+"Nope."
+<br><br>
+"Huh." She seems to actually relax at that, the silence between you turning almost comfortable by the time she finally gets up to leave.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 2>><<endevent>><</link>>
+
+:: Caught Staring - Call Out
+"See something you like?" You tease.
+<br><br>
+"Wh— absolutely not!" Her voice cracks slightly on the denial, face flooding with color. "I was checkin' your form! For race purposes! Strictly professional!"
+<br><br>
+"Sure."
+<br><br>
+"It was!" She insists, considerably less convincing with every repetition, refusing to look at you again for the rest of practice out of sheer principle.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 3>><<endevent>><</link>>
+
+:: Caught Staring - Pretend
+You let it go without comment, pretending you didn't notice at all.
+<br><br>
+She seems almost thrown by the lack of reaction, recovering her composure a beat slower than usual. She doesn't bring it up again, but she spends the rest of practice a little too aware of where you are on the track.
+<br><br>
+<<link [[Next|Horse Academy]]>><<endevent>><</link>>
+
+:: Mint Walks You Back - Let Him
+"Sure. Bad optics."
+<br><br>
+You don't push it further, and she doesn't offer anything more either, the two of you walking the rest of the way in a silence that's far more comfortable than either of you would admit out loud. At your door, she lingers a beat too long before finally turning to go.
+<br><br>
+"...G'night," she mutters, already walking away before you can answer, like staying to hear a response would be admitting too much.<<glove>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" love 4>><<endevent>><</link>>
+
+:: Mint Walks You Back - Call Out
+"You could just say you wanted to walk with me."
+<br><br>
+"I could, but I won't, because that's not what's happening." Her ears go red despite the denial, pace picking up slightly. "Don't overanalyze it."
+<br><br>
+She doesn't slow back down until you're nearly at your door, at which point she seems to remember she was supposed to be unbothered the whole time.<<lsuperiority>>
+<br><br>
+<<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>

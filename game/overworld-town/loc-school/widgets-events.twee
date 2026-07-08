@@ -396,19 +396,46 @@
 			<</addinlineevent>>
 		<</if>>
 
-		<<if Time.days gte 30 and $TaylorMissing is 0>>
-			<<npc Taylor>><<person1>><<set $TaylorMissing to 1>>
-			While walking through the halls you hear some voices and listen in
-			<br>
-			"Hey, did you hear about Taylor?"
-			<br>
-			"Who's that?"
-			<br>
-			"One of them rich homeschool kids down on Danube Street. Apparently <<hes>> gone missing."
-			<br>
-			They walk out of earshot and you continue on.
+		<<addinlineevent "horsepromo">>
+			<<generate1>><<generate2>>
 			<br><br>
-		<</if>>
+			A <<person1>><<person>> is jammed halfway into an open locker, digging through it one-handed while balancing a half-eaten sandwich in the other. A <<person2>><<person>> leans against the row of lockers beside <<person1>><<him>>, arms crossed, waiting <<him>> out.
+			<br><br>
+			"Hey, you joining us at the lake later?"
+			<br><br>
+			The <<person1>><<person>> finally yanks a crumpled towel free, triumphant, and stuffs it into <<his>> bag. "Can't. My dad's dragging us out to watch his prized horsegirl race. Apparently it's a big deal."
+			<br><br>
+			The <<person2>><<person>> raises an eyebrow, unimpressed, and steals a bite off the sandwich before the <<person1>><<person>> can stop <<person2>><<him>>.
+			<br><br>
+			"Ohh, right, your family's got that whole thing for famous racers." <<He>> chews, unbothered by the glare <<he>> gets for it. "Good luck to you and, uh, your family's horse."
+			<br><br>
+			"Yeah, yeah. Nothing new." The <<person1>><<person>> slams the locker shut hard enough to rattle the ones next to it, slinging <<his>> bag over one shoulder. "You could just pick me up on the way to the lake, you know."
+			<br><br>
+			"At the Farmlands?" The <<person2>><<person>> tilts <<his>> head, considering it for exactly a second before shaking it off. "That's a bit of a haul and curve, innit?"
+			<br><br>
+			The <<person1>><<person>> just shoves past <<person2>><<him>> toward the exit, sandwich reclaimed and already three bites shorter.
+			<br><br>
+			"Man, whatever."
+			<br><br>
+			<<link [[Next|Hallways]]>><<endevent>><<set $eventskip to 1>><</link>>
+		<</addinlineevent>>
+
+		<<addinlineevent "taylor">>
+			<<if Time.days gte 30 and $TaylorMissing is 0>>
+				<<npc Taylor>><<person1>><<set $TaylorMissing to 1>>
+				While walking through the halls you hear some voices and listen in
+				<br>
+				"Hey, did you hear about Taylor?"
+				<br>
+				"Who's that?"
+				<br>
+				"One of them rich homeschool kids down on Danube Street. Apparently <<hes>> gone missing."
+				<br>
+				They walk out of earshot and you continue on.
+				<br><br>
+				<<link [[Next|Hallways]]>><<endevent>><<set $eventskip to 1>><</link>>
+			<</if>>
+		<</addinlineevent>>
 
 		<<if $schoolrep.herm gte 5 and !$worn.face.type.includes("mask")>>
 			<<addinlineevent "fame_herm">>

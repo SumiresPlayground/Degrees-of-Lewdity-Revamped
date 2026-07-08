@@ -11,6 +11,7 @@
 	<area class="no-numberify" alt="Camhub" title="Camhub" coords="241,0,313,76" shape="rect" onclick="desktopMove('Camhub')">
     <area class="no-numberify" alt="Shutdown" title="Shutdown" coords="81,462,3,537" shape="rect" onclick="desktopMove('Bedroom')">
 </map>
+<<getouticon>><<link [[Back|Bedroom]]>><</link>>
 <</widget>>
 
 <<widget "camdancestripeffects">>
@@ -303,44 +304,50 @@
 
 <<widget "requestPage">>
 <<silently>>
-<<if $dailyghostmission is undefined or $dailyghostmission is 0>>
-	<<if $fame.investigator gte 400 and $cursedshopintro isnot 1>>
-		<<set _all to [
-			{label: "Special Request",   text:  "Head to the commercial alleyways, make sure you're not followed."}
+	<<set _all to [
+		{label:"Strange Creaking",   text:"A strange creaking has been coming from my attic, can someone help?"},
+		{label:"Weird Creature",   text:"There is something living in my walls, does anybody know what this is?"},
+		{label:"Rattling Trashcans",   text:"Something keeps rummaging through my garbage. Exterminator needed."},
+		{label:"Hissing from Garage",   text:"Some kind of animal or something keeps hissing from the garage."},
+		{label:"Something in Cupboard",   text:"Every night, there is a strange scratching from the cupboard."},
+		{label:"Strange Holes",   text:"Strange holes are appearing in my lawn, anybody recognize these?"},
+		{label:"Something Following",   text:"I feel like something is following me, can someone investigate?"},
+		{label:"Cracked Wall",   text:"Strange cracks keep appearing on my wall out of nowhere."}
 		]>>
-	<<else>>
-		<<set _all to [
-			{label:"Strange Creaking",   text:"A strange creaking has been coming from my attic, can someone help?"},
-			{label:"Weird Creature",   text:"There is something living in my walls, does anybody know what this is?"},
-			{label:"Rattling Trashcans",   text:"Something keeps rummaging through my garbage. Exterminator needed."},
-			{label:"Hissing from Garage",   text:"Some kind of animal or something keeps hissing from the garage."},
-			{label:"Something in Cupboard",   text:"Every night, there is a strange scratching from the cupboard."},
-			{label:"Strange Holes",   text:"Strange holes are appearing in my lawn, anybody recognize these?"},
-			{label:"Something Following",   text:"I feel like something is following me, can someone investigate?"},
-			{label:"Cracked Wall",   text:"Strange cracks keep appearing on my wall out of nowhere."}
-			]>>
-		<<if $fame.investigator gte 400>>
+	<<if $fame.investigator gte 400>>
+		<<set _all.pushUnique(
+			{label:"Stuff Disappearing",   text:"Goods and valuables keep disappearing from the factory at night."}
+		)>>
+	<</if>>061329
+	<<if $fame.investigator gte 1600>>
+		<<if $settings.goreEnabled>>
 			<<set _all.pushUnique(
-				{label:"Stuff Disappearing",   text:"Goods and valuables keep disappearing from the factory at night."}
+				{label:"Unknown Blood",   text:"A strange blood-like substance keeps flowing up the hospital drains."}
 			)>>
 		<</if>>
-		<<if $fame.investigator gte 1600>>
-			<<if $settings.goreEnabled>>
-				<<set _all.pushUnique(
-					{label:"Unknown Blood",   text:"A strange blood-like substance keeps flowing up the hospital drains."}
-				)>>
-			<</if>>
-		<</if>>
-		<<set _requests to []>>
-		<<for _i to 0; _i lt 5; _i++>>
-			<<set _choice to _all.random()>>
-			<<set _all.delete(_choice)>>
-			<<set _requests.push(_choice)>>
-		<</for>>
-		<<set $dailyghostmission to _requests>>
 	<</if>>
-<</if>>
-<<set _requests to $dailyghostmission>>
+	<<set _requests to []>>
+	<<if Time.monthName is "December" and Time.monthDay is 5 and $krampusevent isnot 1>>
+		<<set _special to {
+			label:"Missing Children",   text:"Several children have gone missing from the town in just a few hours.<br>HIGH PRIORITY EVENT"
+		}>>
+	<<elseif (Time.monthName is "December" and Time.monthDay <= 25) or (Time.monthName is "January" and Time.monthDay >= 6) and $perchtaevent isnot 1 and $settings.goreEnabled and $fame.investigator gte 1200>>
+		<<set _special to {
+			label:"Mysterious Death",   text:"Investigate the unnatural death of a Danube Street resident.<br>HIGH PRIORITY EVENT"
+		}>>
+	<<elseif $fame.investigator gte 400 and $cursedshopintro isnot 1>>
+		<<set _special to {
+			label:"Special Request",   text:"Head to the commercial alleyways, make sure you're not followed.<br>HIGH PRIORITY EVENT"
+		}>>
+		<<set _requests.push(_special)>>
+		<<set _all.delete(_special)>>
+	<</if>>
+	<<set _needed to 5 - _requests.length>>
+	<<for _i to 0; _i lt _needed; _i++>>
+		<<set _choice to _all.random()>>
+		<<set _requests.push(_choice)>>
+		<<set _all.delete(_choice)>>
+	<</for>>
 <</silently>>
 
 <div class="ghost-blog">
@@ -389,16 +396,16 @@
 		<<if $acceptedRequest>>
 			Accepted request: «$acceptedRequest»
 			<br>
-			<<if $acceptedRequest is "Strange Creaking" or $acceptedRequest is "Weird Creature" or $acceptedRequest is "Something in Cupboard" or $acceptedRequest is "Something Following">>
+			<<if $acceptedRequest is "Strange Creaking" or $acceptedRequest is "Weird Creature" or $acceptedRequest is "Something in Cupboard" or $acceptedRequest is "Something Following" or $acceptedRequest is "Missing Children">>
 				The request location is on «Domus Street»
-			<<elseif $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall">>
+			<<elseif $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall" or $acceptedRequest is "Mysterious Death">>
 				The request location is on «Danube Street»
 			<<elseif $acceptedRequest is "Stuff Disappearing">>
 				The request location is on «Harvest Street»
 			<<elseif $acceptedRequest is "Unknown Blood">>
 				The request location is on «Nightingale Street»
 			<<elseif $acceptedRequest is "Special Request">>
-				<li><span class="ghost-footer">The request location is in the «Commercial Alleyways»</span></li>
+				The request location is in the «Commercial Alleyways»
 			<</if>>
 			<br>
 		<</if>>

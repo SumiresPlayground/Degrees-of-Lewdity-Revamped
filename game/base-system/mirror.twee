@@ -1164,6 +1164,28 @@
 		<<set _bodyWritingOptions["Love Interests"]["Gwylan's Apprentice"] to "gwylans_apprentice">>
 		<<set _bodyWritingOptions["Love Interests"]["Forever Yearning"] to "forever_yearning">>
 	<</if>>
+	<<if $wli.criteria>>
+		<<set _bodyWritingOptions["Love Interests"]["As two, as one"] to "asone">>
+		<<set _bodyWritingOptions["Love Interests"]["Reflection"] to "reflection">>
+		<<set _bodyWritingOptions["Love Interests"]["Manifestation"] to "manifestation">>
+
+		<<if ["dead","sold"].includes($wraith.offspring)>>
+			<<set _bodyWritingOptions["Love Interests"]["Oathbreaker"] to "oathbreaker">>
+		<<elseif $wraith.state isnot "haunt">>
+			<<set _bodyWritingOptions["Love Interests"]["Memory"] to "memory">>
+			<<set _bodyWritingOptions["Love Interests"]["Promise"] to "promise">>
+			<<set _bodyWritingOptions["Love Interests"]["Pearl"] to "pearl">>
+			<<set _bodyWritingOptions["Love Interests"]["Droplet"] to "droplet">>
+		<</if>>
+
+		<<if $wraith.state is "haunt">>
+			<<set _bodyWritingOptions["Love Interests"]["Graverobber"] to "graverobber">>
+			<<set _bodyWritingOptions["Love Interests"]["Vulture"] to "vulture">>
+			<<set _bodyWritingOptions["Love Interests"]["Forsaker"] to "forsaker">>
+		<<elseif $wraith.state is "despair">>
+			<<set _bodyWritingOptions["Love Interests"]["Accomplice"] to "accomplice">>
+		<</if>>
+	<</if>>
 	<<if $stockholm_active>>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Asset"] to "baileys_asset">>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Ward"] to "baileys_ward">>
@@ -1733,7 +1755,8 @@
 						<<set _modeloptions.hair_fringe_colour_gradient = $hairFringeColourGradient>>
 						<<set _modeloptions.hair_fringe_colour_style = $hairFringeColourStyle>>
 						<<set _modeloptions.hair_colour_gradient = $hairColourGradient>>
-						<<set _modeloptions.hair_colour_style = $hairColourStyle>>
+						<<set _modeloptions.hair_colour_style = $hairColourStyle>><<run dhmUtils.canvasSetup()>>
+						<<run dhmUtils.canvasSetup()>>
 						<<set _modeloptions.hair_sides_length to $hairlengthstage>>
 						<<set _modeloptions.hair_sides_position to $hairposition>>
 						<<set _modeloptions.hair_fringe_length to $fringelengthstage>>
@@ -3136,23 +3159,28 @@
 <</widget>>
 
 <<widget "mirrorDisplayfull">>
-	<<script>>
-		document.querySelector("canvas.mainCanvas").style.height = "700px";
-		document.querySelector("canvas.mainCanvas").style.width = "700px";
-	<</script>>
-	<<selectmodel "main" "sidebar">>
-	<<modelprepare-player-body>>
-	<<modelprepare-player-clothes>>
-	<<if $options.sidebarAnimations isnot false>>
-		<<animatemodel _args[0]>>
-	<<else>>
-		<<rendermodel _args[0]>>
-	<</if>>
-	<<if playerHasStrapon()>>
-		<<set _modeloptions.crotch_visible to false>>
-		<<set _modeloptions.crotch_exposed to false>>
-		<<if $worn.lower.exposed lte 1 and $lowerwetstage lte 0>>
-			<<set _modeloptions.worn.under_lower.index to 0>>
+	<div class="mirror">
+		<<script>>
+			document.querySelector("canvas.mainCanvas").style.height = "768px";
+			document.querySelector("canvas.mainCanvas").style.width = "768px";
+		<</script>>
+		<<selectmodel "main" "sidebar">>
+		<<modelprepare-player-body>>
+		<<modelprepare-player-clothes>>
+		<<if $options.sidebarAnimations isnot false>>
+			<<animatemodel _args[0]>>
+		<<else>>
+			<<rendermodel _args[0]>>
 		<</if>>
-	<</if>>
+		<<if playerHasStrapon()>>
+			<<set _modeloptions.crotch_visible to false>>
+			<<set _modeloptions.crotch_exposed to false>>
+			<<if $worn.lower.exposed lte 1 and $lowerwetstage lte 0>>
+				<<set _modeloptions.worn.under_lower.index to 0>>
+			<</if>>
+		<</if>>
+		<<if $loveInterest.primary !== "None">>
+			<<lititles2>>
+		<</if>>
+	</div>
 <</widget>>

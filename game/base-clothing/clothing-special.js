@@ -761,11 +761,11 @@ function initSpecialClothes() {
 		},
 		perchten_mask: {
 			text: "perchten mask",
-			requirements: () => V.perchtenmask !== undefined,
+			requirements: () => V.perchtaevent === 1,
 			hint: "witness Frau Perchta",
 			shop: ["cursed"],
 			feat: true,
-			featCost: 10,
+			featCost: 30,
 			icon: "clothes/perchten_mask.png",
 		},
 		// The flowers set is made up of items that all have different unlock requirements, which individually wouldn't really be worth an entire conversation option or feat entry.

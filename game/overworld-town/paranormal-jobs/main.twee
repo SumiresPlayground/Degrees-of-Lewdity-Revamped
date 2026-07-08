@@ -11,6 +11,8 @@ You make your way up the cracked steps to the shoddy Domus home. A <<person>> an
     <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Something in Cupboard Intro]]>><</link>>
 <<elseif $acceptedRequest is "Something Following">>
     <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Something Following Intro]]>><</link>>
+<<elseif $acceptedRequest is "Missing Children">>
+    <<socialiseicon "ask">><<link [[Ask about the recent disappearances|Missing Children Intro]]>><</link>>
 <</if>>
 
 :: Danube Job Knock
@@ -26,6 +28,8 @@ You make your way up the pristine driveway to the large and well maintained Danu
     <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Strange Holes Intro]]>><</link>>
 <<elseif $acceptedRequest is "Cracked Wall">>
     <<socialiseicon "ask">><<link [[Say you're here about <<his>> post|Cracked Wall Intro]]>><</link>>
+<<elseif $acceptedRequest is "Mysterious Death">>
+    <<socialiseicon "ask">><<link [[Ask about the mysterious death|Mysterious Death Intro]]>><</link>>
 <</if>>
 
 :: Factory Job Knock
@@ -1744,3 +1748,282 @@ You are in the cursed shop. The shopkeeper, a <<person>> in a reflective broken 
 <br>
 <<getouticon>><<link [[Leave the shop|Commercial Alleyways]]>><<endevent>><</link>>
 
+:: Missing Children Intro
+The <<personsimple>> who answers the door looks to you with a concerned and tired look. "The missing children? Listen, I really don't have time for this. I have my own children and I can't deal with you distracting me."
+<br><br>
+You look past the <<person>>'s frame into <<his>> small house. You hear something... strange inside, like the sound of dragging chains. The <<personsimple>>, seeming to hear the sound as well, turns around in a hurry and rushes back into <<his>> home. 
+<br><br>
+The house is quiet, nothing but the sound of a panicking <<father>> and the breeze through an open window.
+<br><br>
+<<link [[Examine outside the window (0:10)|Missing Children]]>><<endevent>><<pass 10>><</link>>
+
+:: Missing Children
+You walk around the small Domus home and look around the window. Some claw markings remain on the frame and large heavy hoof prints are embedded into the hard winter soil.
+<br><br>
+<<if $skulduggery gte 800 or $transformationParts.traits.sharpEyes is "default" or $transformationParts.dragon.eyes isnot "disabled">>
+As you look closer, a barely visible light trail is evident where chains have been dragged through the dirt. Black fur clings to a nearby branch. Whatever this is, it's definitely not human.
+<br><br>
+<</if>>
+You follow the tracks from house to house. You can usually hear the muffled wails through the walls. It's heartbreaking to hear, you try to tone it out.
+<br><br>
+Eventually the tracks end at the forest. It seems whatever has been kidnapping the children has retreated to possibly its home. Trailing it may be a bad idea without sufficient preparation.
+<br><br>
+<<link [[Follow the trail into the forest (2:00)|Missing Children 2]]>><<pass 120>><<endevent>><</link>>
+<br>
+<<getouticon>><<link [[Give up the request|Missing Children Fail]]>><<endevent>><</link>>
+
+:: Missing Children 2
+<<beastNEWinit 1 creature>>
+<<if $NPCList[0].monster is "monster">>
+	<<set $NPCList[0].fullDescription to "Krampus">>
+	<<set $NPCList[0].type to "Krampus">>
+<</if>>
+<<saveNPC 0 krampus>>
+<<set $payoutmultiplier to 10>>
+Disregarding your own safety, you follow the trail into the forest. The trail leads deep, deeper than you've ever gone before. Finally, the trail ends at the entrance of a large den leading under the earth.
+<br><br>
+You grip the edge of the den and crouch as you slowly make your way into the den carved into damp and cool dirt. A light emits from the deepest depths of the den, reaching your eyes from affar and illuminating the end of the tunnel.
+<br><br>
+As you reach the end of the tunnel, the room widens into a cave. At the center stands a tall hunched figure. Its body is covered in black fur, large twisting horns adorn its head, cloven hooved feet at the bottom, its pointed sharp claws, the face twisted in a grimace with jagged snaggled teeth exposed. On its back is a basket that twitches and shakes like something is inside.
+<br><br>
+As it lays its glowing yellow eyes upon you, it lays the huge basket to the floor and turns to you, the chains dragging from the creature's wrists. It lets out a cold thick chortle as it descends upon you.
+<br><br>
+<<link [[Next|Missing Children Krampus]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<loadNPC 0 "krampus">><<set $molestationstart to 1>><</link>>
+
+:: Missing Children Krampus
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastNOGENinit>>
+	<<set $NPCList[0].monster to "monster">>
+	<<set $monster to 1>>
+	<<set $enemyarousalmax to 1000>><<set $enemyhealth to 1000>><<set $enemyhealthmax to 1000>><<set $enemyanger += 50>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<beast $enemyno>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Missing Children Krampus Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Missing Children Krampus]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Missing Children Krampus Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<br><br>
+	<<tearful>> you avoid <<his>> gaze.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Missing Children 3]]>><</link>>
+<<else>>
+	<br><br>
+	<<tearful>> you gather yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Missing Children 4]]>><</link>>
+<</if>>
+
+:: Missing Children 3
+As you watch from the ground, still staggering from the assault, the beast stands tall, towering over you. It lets out another thick chortle as it grabs the twitching basket and leaps through a hole in the ground emitting light.
+<br><br>
+Strange runes decorate the edge of the hole, but as the creature leaps in, the hole flares brighter and the earth begins to crumble, sealing the hole.
+<br><br>
+You sit alone in silence for a moment before being able to relax.
+<br><br>
+<<getouticon>><<link [[Give up the request (2:00)|Missing Children Fail 2]]>><<pass 120>><<endevent>><</link>>
+
+:: Missing Children 4
+The creature staggers back, breathing heavily. It looks between you and the basket before leaping into the hole in the ground where the light burns from.
+<br><br>
+Strange runes decorate the edge of the hole, but as the creature leaps in, the hole flares brighter and the earth begins to crumble, sealing the hole.
+<br><br>
+You stumble to your feet before walking over and lifting the lid off of the wicker basket. Inside, you find several small children trembling in fear.
+<br><br>
+You reach in and help the children climb out before leading them up and out of the den.
+<br><br>
+<<getouticon>><<link [[Guide the children back to town (2:30)|Missing Children Success]]>><<pass 150>><<endevent>><</link>>
+
+:: Missing Children Fail
+<<loadNPC 0 "Domus">><<person1>>
+It's not worth risking your own safety to save children you have no real connection to. Perhaps this will happen again, maybe not. Either way, it's not your problem.
+<br><br>
+You abandon the request and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Wolf Street]]>><<endevent>><<clearNPC "Domus">><</link>>
+
+:: Missing Children Fail 2
+<<loadNPC 0 "Domus">><<person1>>
+You make your way back through the forest. In the end, there wasn't much you could do to help. You can't help but regret not being more prepared beforehand.
+<br><br>
+You abandon the request and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Wolf Street]]>><<endevent>><<clearNPC "Domus">><</link>>
+
+:: Missing Children Success
+<<earnFeat "Krampus">>
+<<loadNPC 0 "Domus">><<person1>>
+You guide the children through the forest and back to town. By the time you return, several townfolk are out searching and exclaim in shock at the sight of your return.
+<br><br>
+Most parents welcome their children back with tears and open arms, though several can be heard reprimanding their children for running off, unaware of the reality.
+<br><br>
+As things calm, you are approached by the <<person>> from earlier. "Hey so... I'm sorry about how I brushed you off earlier. It's all thanks to you that our kids are returned safe. I talked to the other parents and we all wanted you to have this."
+<br><br>
+You were paid <<moneyGain $investigatorpayout>> and return to the street.
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Wolf Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 200>><<famegood 200>><<set $krampusevent to 1>><</link>>
+
+:: Mysterious Death Intro
+"Mysterious deaths?" The <<personsimple>> asks before glancing around. "Are you with the police? You look a little young but... Come in I suppose."
+<br><br>
+The <<person>> steps aside and lets you enter. As you enter, you are met with a gruesome scene. The inside of the mansion is a mess. Blood stains the ground and a body lies in the center of the room. Police officers gather around the body taking pictures and sampling the blood around the scene.
+<br><br>
+As you approach, they look at you with a glance of confusion before shrugging. They must have heard of your work around town and don't mind as long as you don't disturb the scene. You step closer and examine the body intently.
+<br><br>
+The state of the body is gruesome. Stitches line the stomach of the body and you can catch a glimpse of rock and straw inside the poorly stitched wound. You wonder what kind of person would do this to someone.
+<br><br>
+<<link [[Next|Mysterious Death]]>><<endevent>><<clearNPC "Danube">><</link>>
+
+:: Mysterious Death
+<<generate1>><<person1>>
+<<saveNPC 0 "PIOfficer">>
+As you examine the body, a younger officer approaches. <<He>> waits a moment before coughing and speaking up. "So uh... I've seen you around town often. You're that <<girl>> from the orphanage right? I've heard about your work investigating incidents in town."
+<br><br>
+The officer looks down, a glint of red on <<his>> face. "I'm actually a big fan of your work. You're actually going out there and making a difference. I wish I could do that. Police work is nothing like I dreamed of."
+<br><br>
+The <<person>> sighs, dusting <<his>> police cap and placing it back on <<his>> head. "I guess what I mean to say is let me help out this time! It will help having an officer who can assist with clearance right? Let me help."
+<br><br>
+<<link [[Accept <<his>> help|Mysterious Death Accept]]>><</link>>
+<br>
+<<link [[Deny <<his>> help|Mysterious Death Deny]]>><</link>>
+
+:: Mysterious Death Deny
+The officer steps back in shock. "Are you serious? Why would you turn down my help? Is it because you're worried or because you think I can't handle it? Listen, I'm not taking no as an answer. As an officer, it is my duty to keep people safe and that includes you."
+<br><br>
+<<He>> steps forward and crosses <<his>> arms. "So I'm coming along anyway, understood?"
+<br><br>
+It seems there is no saying no to this <<personsimple>>.
+<br><br>
+<<link [[Reluctantly accept it|Mysterious Death Accept]]>><</link>>
+
+:: Mysterious Death Accept
+You sigh and agree to the officer's offer to help. <<He>> looks happy and slaps your back. "That's more like it. Now let me help you out here. From our work so far, it seems several people broke into the house in the dead of night and killed the resident. They were disemboweled and stuffed with straw and pebbles. It's quite gruesome, I wouldn't recommend inspecting the corpse up close."
+<br><br>
+The officer looks a bit queasy even describing the scene but composes <<himself>> and continues, "It looks like the suspects left and headed further east. What say we go check it out?" <<He>> flashes a sly grin and begins to walk. You do have to admit, having <<him>> around is proving useful.
+<br><br>
+<<link [[Follow the trail east (0:30)|Mysterious Death East]]>><<pass 30>><</link>>
+
+:: Mysterious Death East
+You follow behind the officer as <<he>> leads you across town to the east. The light glints off the badge on <<his>> black uniform. "You know, I've dreamed of this moment since I heard of you. Making a real difference and fighting crime together! This is gonna be great."
+<br><br>
+Finally, you arrive at the entrance to the moor. The officer glances around and searches for the trail. "Aha!" <<he>> exclaims as <<he>> gestures for you to come. Hidden in the grass you find footprints that end here.
+<br><br>
+"Listen," <<he>> puts <<his>> finger to <<his>> lips. "If the trail ends here, the person must be close. We gotta do a stakeout! If we wait around here, the perpetrator should show themself in time."
+<br><br>
+<<He>> sits down and pats the dirt next to <<him>>. You glance around before sitting in the tall grass. 
+<br><br>
+<<if Time.hour lt 20>><<set _passTime to "<<passTimeUntil 20>>">><<set _passTimeDisplay to "0:" + ("0" + ((45 - Time.minute + 60) % 60)).slice(-2)>><</if>>
+<<link [[Wait for something to happen|Mysterious Death Wait]]>>_passTime<</link>>
+
+:: Mysterious Death Wait
+You spend some time talking with the officer. <<He>> tells you <<his>> name is Eirian and tells you a bit of <<his>> story. <<He>> mentions <<he>> came from a long line of officers but always hated the corruption that plagued the department, about wanting to make the world a truly better place, about making this town safe.
+<br><br>
+As <<he>> finishes, <<he>> turns to you before blushing and looking away embarrassed. "Sorry I guess I overshared. It's just not often I actually get to talk about this kind of business. Usually I'm just ordered around by the other officers and never get a break." <<He>> chuckles.
+<br><br>
+Suddenly, there is a rustle from nearby. <<He>> instantly falls silent and places a hand over your mouth before throwing the two of you to the ground. You look through the tall grass and see the shapes of several figures.
+<br><br>
+<<link [[Next|Mysterious Death 2]]>><</link>>
+
+:: Mysterious Death 2
+At the head of a pack is a thin frail woman surrounded by large men in what look like beast costumes. Before you can even think, Eirian stands, flashing <<his>> badge.
+<br><br>
+"Halt in the name of the law, I am an officer under authority to arrest you for suspected murder. I recommend coming quietly." The surrounding area is quiet for a moment, before several other officers come from nearby.
+<br><br>
+You look down and see Eirian's hand clasping the radio. It seems <<he>> had been sending silent messages through the radio since the figures appeared. As the officers draw close, you can sense something is wrong.
+<br><br>
+The officers and yourself fall to the ground as the world begins to spin.
+<br><br>
+<<link [[Next (0:30)|Mysterious Death 3]]>><<pass 30>><</link>>
+
+:: Mysterious Death 3
+<<earnFeat "Perchta">>
+The world glows purple, then red. You see visions of the town swallowed in dark mist, men and women in beast costumes celebrate around a burning building. Your vision flashes the figures appearing and disappearing rapidly like a strobe light before you wake up. <<gggstress>><<stress 150>>
+<br><br>
+Your eyes jerk open as you fall back and breathe rapidly. You look around but nobody seems to be here... not the strange figures, nor the officers. Just what happened?
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Harvest Street]]>><<endevent>><<set $perchtaevent to 1>><</link>>

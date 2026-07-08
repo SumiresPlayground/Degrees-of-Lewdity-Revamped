@@ -129,7 +129,7 @@
 			<span class="gold">Miscellaneous</span>
 			<br>
 			<<numberStepper "Money" $money {
-				activeButtons: ["single", "double", "triple"],
+				activeButtons: ["single", "double", "triple", "quadruple", "quintuple"],
 				step: 1000,
 				max: 10000000000,
 				colorArr:["--yellow"],
@@ -1031,6 +1031,17 @@
 							<</listbox>>
 					<br><br>
 				<</foldout>>
+
+				<<foldout false "_cheatsFoldoutDye">>
+					<span class="gold">Eyebrow Dye</span>
+					<label>None <<radiovar "$makeup.browscolour" $naturalhaircolour>> <<updatesidebarimg>><</radiovar>></label>
+					<<for _i = 0; _i < setup.colours.hair.length; _i++>>
+						<<if setup.colours.hair[_i].dye>>
+							| <label><span @class="setup.colours.hair[_i].csstext"><<= setup.colours.hair[_i].name_cap>></span> <<radiovar "$makeup.browscolour" setup.colours.hair[_i].variable>> <<updatesidebarimg>><</radiovar>></label>
+						<</if>>
+					<</for>>
+					<br><br>
+				<</foldout>>
 			<</if>>
 		</div>
 
@@ -1822,13 +1833,27 @@
 			<br>
 			<<link [[30 minutes|$passage]]>><<pass 30>><</link>>
 			<br>
-			<<for _i, _hr range [1, 2, 3, 6, 8, 12, 16, 24]>>
+			<<for _i, _hr range [1, 2, 3, 6, 8, 12, 16]>>
 				<<capture _hr>>
 					<<= _i gt 0 ? "<br>" : "">>
 					<<set _hours to _i is 0 ? "hour" : "hours">>
 					<<link [[_hr _hours|$passage]]>><<pass _hr hour>><</link>>
 				<</capture>>
 			<</for>>
+			<br>
+			<<for _i, _day range [1, 2, 7, 14, 21]>>
+				<<capture _day>>
+					<<= _i gt 0 ? "<br>" : "">>
+					<<set _days to _i is 0 ? "day" : "days">>
+					<<link [[_day _days|$passage]]>><<pass _day days>><</link>>
+				<</capture>>
+			<</for>>
+			<br>
+			<<link [[Halloween|$passage]]>><<run Time.timeTravel(new DateTime(Time.year, 10, 21, 7))>><</link>>
+			<br>
+			<<link [[Christmas|$passage]]>><<run Time.timeTravel(new DateTime(Time.year, 12, 18, 7))>><</link>>
+			<br>
+			<<link [[Blood Moon|$passage]]>><<run Time.timeTravel(new DateTime(Time.year, Time.month, Time.lastDayOfMonth, 21, 0))>>`, `<<set $moonstate to "evening">><</link>>
 			<hr>
 
 			<<foldout false "_cheatsExpiredHistoryFoldout">>

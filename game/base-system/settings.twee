@@ -140,6 +140,7 @@
 		<<case "fetishSettings">><<set _subsection to "fetish">><<replace #subsectionDiv>><<fetishSettings>><</replace>>
 		<<case "priceSettings">><<set _subsection to "price">><<replace #subsectionDiv>><<priceSettings>><</replace>>
 		<<case "pregnancySettings">><<set _subsection to "pregnancy">><<replace #subsectionDiv>><<pregnancySettings>><</replace>>
+		<<case "wliSettings">><<set _subsection to "wli">><<replace #subsectionDiv>><<wliSettings>><</replace>>
 		<<case "sizeLimitsSettings">><<set _subsection to "sizeLimits">><<replace #subsectionDiv>><div class="solidBorderContainer settings-container"><<sizeLimitsSettings>></div><</replace>>
 		<<case "moddedSettings">><<set _subsection to "modded">><<replace #subsectionDiv>><<moddedSettings>><</replace>>
 		<<default>><<set _subsection to "human">><<replace #subsectionDiv>><<humanSettings>><</replace>>
@@ -1435,6 +1436,9 @@
 		<div id="settingsPregnancy">
 			<<subsectionSettingsTabButton "Pregnancy Settings" "pregnancy">>
 		</div>
+		<div id="settingsWLI">
+			<<subsectionSettingsTabButton "Wraith Additions" "wli">>
+		</div>
 		<<if $passage isnot "Start">>
 			<div id="settingsSizeLimits">
 				<<subsectionSettingsTabButton "Body Part Size Limits" "sizeLimits">>
@@ -2512,7 +2516,7 @@
 
 					T.npcKeys = {};
 					T.npcKeyNames = [];
-					const allowed_npcs = ["steed", "guard", "inmate", "panty_thief", "school_nurse", "pinch", "black_dog", "hacker", "bishop", "bishop_right_hand", "bishop_left_hand", "manager", "alexs_parent1", "alexs_parent2", "whitneys_auncle", "whitney_parent_flat"];
+					const allowed_npcs = ["steed", "guard", "inmate", "panty_thief", "school_nurse", "pinch", "black_dog", "hacker", "bishop", "bishop_right_hand", "bishop_left_hand", "manager", "alexs_parent1", "alexs_parent2", "whitneys_auncle", "whitney_parent_flat", "krampus"];
 					Object.keys(V.per_npc).forEach(k => {
 						for (const j of allowed_npcs){
 							if (k.includes(j)){
@@ -2858,6 +2862,8 @@
 					<<else>>
 						Whitney's Mum
 					<</if>>
+				<<elseif _pNPCId is "krampus">>
+					Krampus
 				<<else>>
 					<<= toTitleCase(_pNPCId.toUpperFirst().replace(/_/g, ' '))>>
 				<</if>>

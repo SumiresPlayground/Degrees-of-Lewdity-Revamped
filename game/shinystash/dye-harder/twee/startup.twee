@@ -1,0 +1,54 @@
+:: Dye Harder Startup [widget]
+<<widget "dhmInit">>
+	<<run dhmUtils.colorMapGen()>>
+
+	<<if $dhmod isnot undefined and $dhmod.version is undefined>>
+		<!-- migrate from version 0.1-->
+		<<run dhmUtils.versionUpdate()>>
+	<<elseif $dhmod is undefined>>
+		<<set $dhmod = {}>>
+	<</if>>
+
+	<<if $dhmod.version is undefined or $dhmod.version isnot setup.dhmod.version>>
+		<<set $dhmod.version to setup.dhmod.version>>
+	<</if>>
+
+	<<if $dhmod.cfg is undefined>>
+		<<set $dhmod.cfg to {}>>
+	<</if>>
+
+	<<if $dhmod.cfg.ui is undefined>>
+		<<set $dhmod.cfg.ui to true>>
+	<</if>>
+
+	<<if $dhmod.cfg.prices is undefined>>
+		<<set $dhmod.cfg.prices to true>>
+	<</if>>
+
+	<<if $dhmod.cfg.overwrite is undefined>>
+		<<set $dhmod.cfg.overwrite to false>>
+	<</if>>
+	
+	<<if $dhmod.hair is undefined>>
+		<<set $dhmod.hair = { colors: [], is_custom: false }>>
+	<</if>>
+
+	<<if $dhmod.fringe is undefined>>
+		<<set $dhmod.fringe = { colors: [], is_custom: false }>>
+	<</if>>
+	
+	<<if $dhmod.userPresets is undefined>>
+		<<set $dhmod.userPresets to {}>>
+	<</if>>
+
+	<<if $dhmod.movedoll is undefined>>
+		<!-- sync initial value with custom cosmetics' doll if possible -->
+		<<if $ccmod isnot undefined and $ccmod.movedoll isnot undefined>>
+			<<set $dhmod.movedoll to $ccmod.movedoll>>
+		<<else>>
+			<<set $dhmod.movedoll to -75>>
+		<</if>>
+	<</if>>
+
+	<<run dhmUtils.colorCache()>>
+<</widget>>

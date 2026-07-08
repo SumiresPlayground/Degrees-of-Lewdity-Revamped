@@ -220,6 +220,8 @@ Macro.add("numberStepper", {
 
 			// Left buttons
 			T.stepperStaticElements.goToMin = createButton("numberStepper doubleIcon", ["fa-icon fa-bar", "fa-icon fa-left"]);
+			T.stepperStaticElements.quintupleLeft = createButton("numberStepper quintupleIcon", ["fa-icon fa-left", "fa-icon fa-left", "fa-icon fa-left", "fa-icon fa-left", "fa-icon fa-left"]);
+			T.stepperStaticElements.quadrupleLeft = createButton("numberStepper quadrupleIcon", ["fa-icon fa-left", "fa-icon fa-left", "fa-icon fa-left", "fa-icon fa-left"]);
 			T.stepperStaticElements.tripleLeft = createButton("numberStepper doubleIcon", ["fa-icon fa-left", "fa-icon fa-left", "fa-icon fa-left"]);
 			T.stepperStaticElements.doubleLeft = createButton("numberStepper doubleIcon hideable", ["fa-icon fa-left", "fa-icon fa-left"]);
 			T.stepperStaticElements.singleLeft = createButton("numberStepper", ["fa-icon fa-left"]);
@@ -228,15 +230,21 @@ Macro.add("numberStepper", {
 			T.stepperStaticElements.singleRight = createButton("numberStepper", ["fa-icon fa-right"]);
 			T.stepperStaticElements.doubleRight = createButton("numberStepper doubleIcon hideable", ["fa-icon fa-right", "fa-icon fa-right"]);
 			T.stepperStaticElements.tripleRight = createButton("numberStepper doubleIcon", ["fa-icon fa-right", "fa-icon fa-right", "fa-icon fa-right"]);
+			T.stepperStaticElements.quadrupleRight = createButton("numberStepper quadrupleIcon", ["fa-icon fa-right", "fa-icon fa-right", "fa-icon fa-right", "fa-icon fa-right"]);
+			T.stepperStaticElements.quintupleRight = createButton("numberStepper quintupleIcon", ["fa-icon fa-right", "fa-icon fa-right", "fa-icon fa-right", "fa-icon fa-right", "fa-icon fa-right"]);
 			T.stepperStaticElements.goToMax = createButton("numberStepper doubleIcon", ["fa-icon fa-right", "fa-icon fa-bar"]);
 		}
 
 		// Clone static elements
 		const extremeLeft = activeButtons.includes("triple") ? T.stepperStaticElements.tripleLeft.clone() : T.stepperStaticElements.goToMin.clone();
+		const quintupleLeft = T.stepperStaticElements.quintupleLeft.clone();
+		const quadrupleLeft = T.stepperStaticElements.quadrupleLeft.clone();
 		const doubleLeft = T.stepperStaticElements.doubleLeft.clone();
 		const singleLeft = T.stepperStaticElements.singleLeft.clone();
 		const singleRight = T.stepperStaticElements.singleRight.clone();
 		const doubleRight = T.stepperStaticElements.doubleRight.clone();
+		const quadrupleRight = T.stepperStaticElements.quadrupleRight.clone();
+		const quintupleRight = T.stepperStaticElements.quintupleRight.clone();
 		const extremeRight = activeButtons.includes("triple") ? T.stepperStaticElements.tripleRight.clone() : T.stepperStaticElements.goToMax.clone();
 
 		// Draw the elements
@@ -253,6 +261,8 @@ Macro.add("numberStepper", {
 		const increment = reverseButtons ? step : -step;
 		const increment10 = reverseButtons ? step * 10 : -step * 10;
 		const increment100 = reverseButtons ? step * 100 : -step * 100;
+		const increment1000 = reverseButtons ? step * 1000 : -step * 1000;
+		const increment10000 = reverseButtons ? step * 10000 : -step * 10000;
 
 		const activeCount = activeButtons.length;
 		const groupClass = activeCount === 3 ? "three-buttons" : activeCount === 2 ? "two-buttons" : "one-button";
@@ -261,6 +271,12 @@ Macro.add("numberStepper", {
 		// Left buttons
 		if (activeButtons.includes("minMax")) {
 			extremeLeft.on("click", () => setValue(reverseButtons ? max : min)).appendTo(group);
+		}
+		if (activeButtons.includes("quintuple")) {
+			quintupleLeft.on("click", () => setValue(currentValue + increment10000)).appendTo(group);
+		}
+		if (activeButtons.includes("quadruple")) {
+			quadrupleLeft.on("click", () => setValue(currentValue + increment1000)).appendTo(group);
 		}
 		if (activeButtons.includes("triple")) {
 			extremeLeft.on("click", () => setValue(currentValue + increment100)).appendTo(group);
@@ -291,6 +307,12 @@ Macro.add("numberStepper", {
 		}
 		if (activeButtons.includes("triple")) {
 			extremeRight.on("click", () => setValue(currentValue - increment100)).appendTo(group);
+		}
+		if (activeButtons.includes("quadruple")) {
+			quadrupleRight.on("click", () => setValue(currentValue - increment1000)).appendTo(group);
+		}
+		if (activeButtons.includes("quintuple")) {
+			quintupleRight.on("click", () => setValue(currentValue - increment10000)).appendTo(group);
 		}
 		if (activeButtons.includes("minMax")) {
 			extremeRight.on("click", () => setValue(reverseButtons ? min : max)).appendTo(group);

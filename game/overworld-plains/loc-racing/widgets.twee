@@ -1,0 +1,588 @@
+:: Horse Academy Widgets
+
+<<widget "mintWinReaction">>
+	<<if $pcWins gte 4>>
+		Mint Mocha doesn't even look at you anymore.
+		<br><br>
+		She stands off to the side, arms crossed tight, eyes fixed on some point in the middle distance that very pointedly is not you. The easy sneer she used to wear is gone, replaced by something tighter. Something that looks almost like fear.
+		<br><br>
+		"...Tch." It's all she manages before turning on her heel and walking off without another word. <<llsuperiority>>
+
+	<<elseif $pcWins gte 2>>
+		Mint Mocha's jaw tightens as you're announced the winner.
+		<br><br>
+		She stalks over before you've even caught your breath, the force of her stride evident in every step.
+		<br><br>
+		"Don't get comfortable." Her voice is sharper than before, missing some of its earlier confidence. "This doesn't mean anything. One race is luck. Two is still luck."
+		<br><br>
+		She says it like she's trying to convince herself as much as you. <<llsuperiority>>
+
+	<<else>>
+		Mint Mocha rounds on you sharply.
+		<br><br>
+		"Wh-how—" She cuts herself off, visibly forcing her expression back into something composed. "Fine. Fine! Beginner's luck."
+		<br><br>
+		She tosses her hair and stalks off, but she glances back once before disappearing into the crowd. <<llsuperiority>>
+	<</if>>
+	<br><br>
+	<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom -= 5>><<set C.npc["Mint Mocha"].love += 10>><</link>>
+<</widget>>
+
+<<widget "mintLossReaction">>
+	<<if $pcLosses gte 3>>
+		Mint Mocha breezes past you without breaking stride, riding high on the applause that's currently raining down for her first-place finish.
+		<br><br>
+		"Honestly, at this point, I almost feel bad for you." She doesn't even bother looking back. "Almost." <<ggsuperiority>>
+		<<elseif $pcLosses is 2>>
+		Mint Mocha slows just enough to look at you over her shoulder, smug satisfaction written all over her face as she soaks in another win.
+		<br><br>
+		"Aw, again? That's gotta sting." She doesn't even sound like she means the sympathy. "Maybe racing just isn't your thing." <<ggsuperiority>>
+		<<else>>
+		Mint Mocha strides past without sparing you so much as a glance, basking in the applause and cheers pouring in for her win.
+		<br><br>
+		"Hmph. Obvious outcome. Stay in your lane, newbie."
+		<br><br>
+		She gives a dismissive huff and heads straight toward the gathering audience, already accepting the attention waiting for her in the post-race interviews. <<ggsuperiority>>
+	<</if>>
+	<br><br>
+	<<link [[Next|Post Race Rowan]]>><<endevent>><<set C.npc["Mint Mocha"].dom += 5>><<set C.npc["Mint Mocha"].love += 3>><</link>>
+<</widget>>
+
+<<widget "rowanLossReactionLow">>
+
+	<<if $pcLosses gte 3>>
+		Across the track, Mint Mocha is already mid-victory lap, soaking up the applause like <<he>> was born for it.
+		<br><br>
+		Rowan doesn't jog over. <<He>> doesn't even walk over right away.
+		<br><br>
+		<<He>> stays where <<he>> is, arms crossed, watching you cross the line behind everyone else with an expression that's gone past disappointment into something flatter. Harder.<<llove>>
+		<br><br>
+		By the time <<he>> finally closes the distance, <<his>> voice has lost any pretense of patience.
+		<br><br>
+		"That's three." <<He>> doesn't raise <<his>> voice. <<He>> doesn't need to. "Three, and you're tellin' me you still don't get it."
+		<br><br>
+		<<He>> steps in close, closer than usual, and tips your chin up with two fingers so you're looking right at <<him>>.
+		<br><br>
+		"I think it's time we stopped bein' gentle about this." <<His>> eyes are sharp, unreadable. "You're gonna start takin' your trainin' a lot more seriously. Startin' now." <<ggdom>><<gstress>><<stress 6>>
+		<br><br>
+		There's a weight behind the words that makes it clear <<he>> means it literally: whatever "trainin'" looks like from here on isn't going to be the kind you're used to.
+		<br><br>
+		<<He>> doesn't explain further. <<He>> just turns and expects you to follow.
+		<br><br>
+		<<link [[Comply|Rowan Comply]]>><<set C.npc.Rowan.dom += 10>><<set C.npc.Rowan.love -= 5>><</link>>
+		<br>
+		<<link [[Push Back|Rowan Push Back]]>><<set C.npc.Rowan.dom += 10>><<set C.npc.Rowan.love -= 5>><</link>>
+
+	<<elseif $pcLosses is 2>>
+		Across the track, Mint Mocha is taking <<his>> bows for another first-place finish, waving broadly to the crowd.
+		<br><br>
+		Rowan's already walking toward you when you finally lift your head, and <<his>> pace is faster than last time. Tighter.
+		<br><br>
+		<<He>> stops in front of you, and the easy patience from before has thinned considerably.<<llove>>
+		<br><br>
+		"Twice now." <<His>> jaw works. "I need you to start understandin' what's ridin' on this. I can't keep takin' it easy on you."
+		<br><br>
+		<<He>> exhales sharply through <<his>> nose and rubs the back of <<his>> neck, like <<he>>'s trying to keep <<himself>> in check.
+		<br><br>
+		"Trainin's gettin' harder startin' tomorrow. No more easy mornings." <<His>> tone leaves no room to argue.<<gdom>><<gstress>><<stress 4>>
+		<br><br>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+
+	<<else>>
+		With your hands braced against your knees as you catch your breath, you hear a confident set of footsteps pass by, Mint Mocha's victory lap already in full swing.
+		<br><br>
+		Rowan's making <<his>> way over at an easy pace, hands buried deep in <<his>> pockets.
+		<br><br>
+		<<He>> stops beside you and looks down for a moment, the disappointment in <<his>> eyes plain enough despite the way <<he>> tries to hide it.<<npcincr "Rowan" love -5>>
+		<br><br>
+		Then <<he>> clicks <<his>> tongue and gives your shoulder a couple of firm smacks. "Reckon I've been lettin' you off too easy." A quiet sigh leaves <<his>> nose.
+		<br><br>
+		"Been treatin' ya too soft." Rowan glances toward the crowd before finally turning <<his>> attention back to you. "Guess I oughta start workin' ya harder." <<gdom>>
+		<br><br>
+		There's something in <<his>> eyes that makes your shoulders tense.
+		<br><br>
+		You get the feeling training isn't going to stay comfortable from here on out. <<gstress>><<stress 4>>
+		<br><br>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom += 5>><<set C.npc.Rowan.love -= 5>><</link>>
+	<</if>>
+<</widget>>
+
+<<widget "rowanLossReactionHigh">>
+
+	<<if $pcLosses gte 3>>
+		Rowan's grin doesn't come as easily this time.
+		<br><br>
+		<<He>> still meets you at the edge of the track, still puts a hand on your shoulder, but there's tension threaded through it now that wasn't there before. <<He>>'s trying to hide it. <<He>>'s not quite managing.
+		<br><br>
+		"Three's rough," <<he>> admits, quieter than usual. "Won't lie to you about that."
+		<br><br>
+		<<He>> scrubs a hand over <<his>> face, and for just a second, the easy confidence slips, showing something more tired underneath.
+		<br><br>
+		"But we're not done. Not even close." <<He>> squares <<his>> shoulders like <<he>>'s resetting <<himself>> on purpose. "We just gotta want it more than we're scared of it. That's all this is."<<stress -4>><<lstress>>
+		<br><br>
+		<<He>> manages a smile for you. It's a little more effort than the ones before, but it's real.
+		<br><br>
+		<<link [[Reassure <<Him>>|Rowan Reassure]]>><</link>>
+		<br>
+		<<link [[Ask About the Farm|Rowan Ask Farm]]>><</link>>
+
+	<<elseif $pcLosses is 2>>
+		Mint Mocha's already being swarmed by well-wishers a few yards off, basking in another win.
+		<br><br>
+		Rowan falls into step beside you without a word.
+		<br><br>
+		For a moment, <<he>> just walks with you, hands in <<his>> pockets, close enough that <<his>> shoulder brushes yours.
+		<br><br>
+		"You know what I saw out there?"
+		<br><br>
+		You glance over.
+		<br><br>
+		"Someone who's faster than they were last week." <<His>> mouth curves slightly. "Losses are part of it, darlin'. Trust me."<<stress -4>><<lstress>>
+		<br><br>
+		<<He>> bumps your arm with <<his>> elbow. "Now stop drooping. You're making me look like a bad trainer."
+		<br><br>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><</link>>
+
+	<<else>>
+		You lift your head, Mint Mocha's celebratory cheers still ringing from across the track, and immediately spot Rowan jogging your way. There's a grin on <<his>> face despite the loss.
+		<br><br>
+		Before you can even open your mouth, <<he>>'s already in front of you, both hands settling on your shoulders.
+		<br><br>
+		"What's with the long face, darlin'?" <<His>> grin widens."This was only your first race. No need to beat yourself up over it. You'll get plenty more chances to make up for it."
+		<br><br>
+		The young trainer lifts a finger and flicks the base of your horse ear, earning a quick twitch in response. "Plenty of chances to make it up to me."<<He>> throws in a wink.
+		<br><br>
+		"For a first race, this wasn't half bad." Rowan gives your shoulder a firm smack. "So quit moping and let's get back to training!"
+		<br><br>
+		Before you can get a word in, <<he>>'s already tugging you along after <<him>>. <<stress -4>><<lstress>>
+		<br><br>
+		<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><</link>>
+	<</if>>
+<</widget>>
+
+<<widget "rowanWinReactionHigh">>
+
+	<<if $pcWins gte 4>>
+		Rowan doesn't say anything when you find <<him>>.
+		<br><br>
+		<<He>> just looks at you for a long moment, something unguarded sitting plainly on <<his>> face, and then <<he>> closes the distance and pulls you into <<him>>, forehead against yours, hand cradling the back of your head.
+		<br><br>
+		"I'm runnin' out of ways to tell you how proud I am," <<he>> murmurs, eyes shut. "So I'm just gonna keep showin' you instead."<<glove>><<ldom>>
+
+	<<elseif $pcWins gte 2>>
+		Rowan's grin hits you before you've even fully stopped moving.
+		<br><br>
+		<<He>> catches you by the shoulders, firm warm hands, and gives you a satisfied shake.
+		<br><br>
+		"There <<pshe>> is! Told you, didn't I?"<<glove>><<ldom>>
+		<br><br>
+		You barely get a word in before <<he>>'s already steering you toward the exit with a hand between your shoulder blades, talking the whole way about what you did right.
+
+	<<else>>
+		As you take a deep breath, letting your first victory settle in, Rowan reaches you at a near-jog, grin splitting <<his>> face.
+		<br><br>
+		"I knew you had it in you!" <<He>> exclaims, cupping your face as <<he>> beams at you.<<glove>><<ldom>>
+	<</if>>
+	<br><br>
+	<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 5>><</link>>
+<</widget>>
+
+<<widget "rowanWinReactionLow">>
+
+	<<if $pcWins gte 4>>
+		Rowan is waiting at the track's edge when you come off the field.
+		<br><br>
+		<<He>> looks you over once, then gives a single nod, but there's something different in it now. Something closer to respect than approval.
+		<br><br>
+		"You keep this up," <<he>> says, "and they're gonna run out of people willin' to race you."<<gdom>><<glove>>
+
+	<<elseif $pcWins gte 2>>
+		Rowan is waiting at the track's edge when you come off the field.
+		<br><br>
+		<<He>> looks you over once. Then gives a single nod.
+		<br><br>
+		"Better."<br>
+		<br>
+		That's it. One word. But coming from Rowan, the way <<he>> says it, you get the feeling <<he>> doesn't hand that out often.
+		<br><br>
+		"Don't let it go to your head. We've still got ground to cover."<<gdom>><<glove>>
+
+	<<else>>
+		Rowan crosses to you with <<his>> arms crossed, a faint, satisfied curl at the corner of <<his>> mouth.
+		<br><br>
+		"Hm. Not bad." <<He>> looks you over like <<he>>'s reassessing something. "Don't get cocky about it."
+		<br><br>
+		<<He>> turns to head back toward training, but <<he>> glances over <<his>> shoulder once, like <<he>>'s checking you're still worth keeping an eye on.<<gdom>><<glove>>
+	<</if>>
+	<br><br>
+	<<link [[Next|Horse Academy]]>><<set $horseacademycountdown to 7>><<endevent>><<set C.npc.Rowan.dom -= 5>><<set C.npc.Rowan.love += 3>><</link>>
+<</widget>>
+
+<<widget "eventshorseacademy">>
+	<<cleareventpool>>
+	<<addinlineevent "event1">>
+		You pass a pair of horsegirls huddled near the lockers, voices dropped to an excited whisper.
+		<br><br>
+		"—heard she almost lost the scholarship spot last semester—"
+		<br><br>
+		They both go silent the second they notice you walking by.
+	<</addinlineevent>>
+	<<addinlineevent "event2">>
+		Two horsegirls are comparing lap times scrawled on a shared notebook, arguing over whose trainer pushes harder.
+      	<br><br>
+      	"Mine had me doing hill sprints in the rain."
+      	<br><br>
+      	"That's nothing, mine—"
+      	<br><br>
+      	The conversation trails off as you pass, neither of them paying you any mind.
+	<</addinlineevent>>
+	<<addinlineevent "event3">>
+		A horsegirl is wrestling her gear bag out of a locker two sizes too small for it, muttering curses under her breath the entire time.
+		<br><br>
+		She doesn't notice you watching until the bag finally gives and dumps half its contents on the floor.
+	<</addinlineevent>>
+	<<addinlineevent "event4">>
+		A small crowd has gathered around the academy bulletin board, craning to see the newly posted race standings.
+		<br><br>
+		Someone near the back groans loudly. Someone near the front cheers. You can't tell which name caused which reaction.
+	<</addinlineevent>>
+	<<addinlineevent "event5">>
+		The track sprinklers kick on a few minutes early, catching a pair of horsegirls mid-stretch.
+		<br><br>
+		Shrieks and laughter follow as they scramble out of range, soaked and indignant, blaming each other for jinxing it.
+	<</addinlineevent>>
+	<<addinlineevent "event6">>
+		A horsegirl is hitting the side of the vending machine with the heel of her hand, increasingly aggressive with each strike.
+		<br><br>
+		"C'mon, c'mon…" The snack finally drops. She pumps a fist like she just won a race.
+	<</addinlineevent>>
+	<<addinlineevent "event7">>
+		Someone's passed out face-down on a stack of training manuals in the library corner, a thin trail of drool pooling on the page about stride efficiency.
+		<br><br>
+		Nobody seems inclined to wake them up.
+	<</addinlineevent>>
+	<<addinlineevent "event8">>
+		An announcement crackles over the academy's old PA system, half-garbled, something about facility closures for track maintenance.
+		<br><br>
+		A collective groan rises from somewhere near the locker rooms.
+	<</addinlineevent>>
+	<<addinlineevent "event9">>
+		A horsegirl you don't recognize is being shown around by a senior, looking overwhelmed by the size of the stable complex.
+		<br><br>
+		"And that's where the trainers post the weekly times," the senior says, pointing. "Don't worry, you get used to people staring at your name on the board."
+	<</addinlineevent>>
+	<<addinlineevent "event10">>
+		Two horsegirls are arguing over a set of muddy hoofprints leading straight through a freshly mopped hallway.
+		<br><br>
+		"It wasn't me!"
+		<br><br>
+		"It's literally your exact shoe pattern—"
+		<br><br>
+		Neither one backs down before you're out of earshot.
+	<</addinlineevent>>
+	<<addinlineevent "event11">>
+		A horsegirl is pacing outside the locker room, muttering her own pep talk under her breath, oblivious to the small audience she's attracted.
+		<br><br>
+		"You got this. You got this. You… oh no, I don't got this."
+	<</addinlineevent>>
+	<<addinlineevent "event12">>
+		You see a horsegirl tug sharply on the tail of another horsegirl passing by, earning a startled yelp and a flurry of indignant cursing.
+		<br><br>
+		"That's what you get for stepping on my hoofprints in the mud earlier!" the first one calls out, already sprinting off laughing.
+	<</addinlineevent>>
+	<<addinlineevent "event13">>
+		Two horsegirls are arguing over the last protein bar on the cafeteria counter, neither willing to back down.
+		<br><br>
+		A third simply reaches between them and takes it while they're busy arguing.
+	<</addinlineevent>>
+	<<addinlineevent "event14">>
+		A group of underclassmen horsegirls are gathered around the stable yard fence, watching a senior's solo training run with poorly concealed envy.
+		<br><br>
+		"Three more years and that's gonna be us," one of them sighs.
+	<</addinlineevent>>
+	<<addinlineevent "event16">>
+		A cluster of horsegirls are sprawled across the library tables, textbooks open but mostly ignored in favor of gossip about who's racing who next season.
+		<br><br>
+		One of them notices you passing and waves greets you with a small handwave.
+	<</addinlineevent>>
+	<<addinlineevent "event17">>
+		Groundskeepers are out raking the track smooth before tomorrow's heats, methodically erasing every hoofprint and divot from the day's training.
+		<br><br>
+		It's strangely satisfying to watch, like the day is being wiped clean for whatever comes next.
+	<</addinlineevent>>
+	<<addinlineevent "event18">>
+		A horsegirl is holding a grooming brush just out of reach while another horsegirl makes increasingly desperate grabs for it.
+		<br><br>
+		"You've had it for three days! I have an inspection in ten minutes!"
+		<br><br>
+		"Should've asked nicer, then."
+		<br><br>
+		Neither of them notices you walking past, too invested in the standoff.
+	<</addinlineevent>>
+	<<addinlineevent "event19">>
+		You hear sniffling before you see anyone. A horsegirl is sitting on the stairwell landing, face buried in her knees, clearly trying very hard to not be noticed.
+		<br><br>
+		You could say something. You could also just keep walking and let her have the moment.
+		<br><br>
+		<<link [[Check On Them|Stairwell Crying - Check]]>><</link>>
+		<br>
+		<<link [[Leave Them Be|Stairwell Crying - Leave]]>><</link>>
+	<</addinlineevent>>
+	<<addinlineevent "event20">>
+		A horsegirl and another horsegirl are quizzing each other on race regulations under a tree, one of them clearly losing patience with the other's wrong answers.
+		<br><br>
+		"It's a two-length penalty for a false start, not three, how do you keep getting that wrong—"
+	<</addinlineevent>>
+	<<addinlineevent "event21">>
+		You catch the tail end of what sounds like a breakup between a horsegirl and another horsegirl near the equipment shed, both of them too wrapped up in it to notice an audience.
+		<br><br>
+		"—training schedules just don't line up anymore, it's not about you—"
+		<br><br>
+		You decide this is very much not your business and keep walking.
+	<</addinlineevent>>
+	<<addinlineevent "event22">>
+		A horsegirl walks past covered head to hoof in glitter, expression murderous, muttering something about "getting someone back tenfold" under her breath.
+		<br><br>
+		A trail of sparkle follows her the entire length of the hallway.
+	<</addinlineevent>>
+	<<addinlineevent "event23">>
+		You catch a horsegirl gushing to a friend about how her trainer finally complimented their form after weeks of nothing but corrections.
+		<br><br>
+		"He said 'not bad.' Two words! I'm framing it!"
+	<</addinlineevent>>
+	<<addinlineevent "event24">>
+		<<if $pcWins gte 4>>
+			A pair of horsegirls pause their conversation as you pass, one of them elbowing the other.
+			<br><br>
+			"That's <<print $playerhorsetitle>>. The newcomer who's been sweeping races." She doesn't bother lowering her voice much. "Heard <<pshe>>'s undefeated this season practically."
+			<br><br>
+			The other one just stares, openly impressed, until you're well out of earshot.
+		<<elseif $pcWins gte 2>>
+			A horsegirl glances your way as you pass, recognition flickering across her face.
+			<br><br>
+			"Hey, aren't you the one who's been racking up wins lately?" She doesn't wait for confirmation, already turning back to her friend. "Told you that name sounded familiar."
+		<<else>>
+			A couple of horsegirls glance over as you walk by, but there's no real recognition in it, just idle curiosity for an unfamiliar face before they go back to their own conversation.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event26">>
+		<<if $pcLosses gte 3>>
+			A cluster of horsegirls near the track entrance goes quiet as you approach, then dissolves into poorly muffled snickering once you've passed.
+		<br><br>
+			"...still hasn't won a single one this season?" you catch, before the rest gets lost to distance and your own determination not to turn around.
+		<<elseif $pcLosses is 2>>
+			A horsegirl you don't recognize gives you a once-over as you pass, not quite sneering, but not exactly warm either.
+		<br><br>
+			"Rough season, huh." She says it more like an observation than sympathy, already walking off before you can respond.
+		<<else>>
+			The horsegirls nearby don't pay you any particular mind, too caught up in their own pre-race nerves to notice you at all.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event27">>
+		<<if $pcWins gte 4>>
+			The cafeteria goes quieter than usual when you walk in, more than a few heads turning to track you to your table.
+			<br><br>
+			A horsegirl at the next table over leans toward her friend. "That's the one who hasn't lost since, what, race two? Insane."
+			<br><br>
+			You pretend not to hear it. It doesn't really work.
+		<<elseif $pcWins gte 2>>
+			A couple of students glance your way as you grab your tray, a few murmurs passing between them that die down the second you're within earshot.
+			<br><br>
+			One of them gives you an awkward little nod, like she's not sure if you two are supposed to know each other now.
+		<<else>>
+			Nobody pays you any particular mind as you find a seat, just the usual low hum of cafeteria noise and someone arguing two tables over about feed schedules.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event28">>
+		<<if $pcWins gte 4>>
+			A pair of clearly underclassmen horsegirls stop dead in the hallway when they spot you, whispering frantically to each other before one finally works up the nerve to wave. You wave back. They both nearly combust from excitement.
+		<<elseif $pcLosses gte 3>>
+			A pair of underclassmen horsegirls glance your way, then quickly look elsewhere, clearly trying not to be caught staring at the upperclassman who's been on a losing streak. It's somehow worse than if they'd said something.
+		<<else>>
+			A pair of underclassmen horsegirls pass by without much reaction, too absorbed in their own conversation about an upcoming exam to notice you at all.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event29">>
+		<<if $pcWins gte 2>>
+			Passing the trainer lounge, you catch a snippet of conversation through the half-open door. Another trainer mentioning your name to a colleague, tone something close to envious. She doesn't appear to be talking to Rowan.
+		<<elseif $pcLosses gte 3>>
+			Passing the trainer lounge, you catch a snippet of conversation through the half-open door, something about "tough season" and "small farms" that cuts off abruptly when someone notices the door's ajar.
+		<<else>>
+			Passing the trainer lounge, you catch only the low murmur of unrelated shop talk, nothing concerning you in particular.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event30">>
+		<<if $pcWins gte 4>>
+			A younger horsegirl intercepts you near the stable entrance, looking nervous but determined.
+			<br><br>
+			"Um! Sorry, I know this is weird, but could you sign my training log? You're like, the reason I started taking the sprint drills seriously."
+			<br><br>
+			<<link [[Sign It|Fan Encounter - Sign]]>><</link>>
+			<br>
+			<<link [[Politely Decline|Fan Encounter - Decline]]>><</link>>
+		<<else>>
+			Nobody seems to be looking for your autograph today. The hallway carries on as it always does.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event31">>
+		<<if $pcWins gte 4>>
+			You spot Mint Mocha across the courtyard, and for once she doesn't storm over. She just watches you pass, jaw tight, before turning sharply on her heel and walking the other way.
+		<<elseif $pcLosses gte 3>>
+			Mint Mocha struts past with her usual entourage trailing behind, throwing you a smug look she doesn't even bother disguising.
+			<br><br>
+			"Still here? Surprised they haven't cut your stall budget yet." She doesn't wait for a reply, already laughing with her friends before she's out of earshot.
+		<<else>>
+			Mint Mocha passes by without much more than a cursory glance your way, too busy basking in attention from a group of underclassmen to bother with you today.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event32">>
+		A cluster of horsegirls trail after Mint Mocha across the courtyard, hanging onto every word she's saying about her last training split.
+		<br><br>
+		She doesn't acknowledge you. Her entourage does, briefly, with the kind of look reserved for an inconvenient variable in an otherwise predictable equation.
+	<</addinlineevent>>
+	<<addinlineevent "event33">>
+		You catch Mint Mocha mid-rant near the stables, gesturing wildly to a visibly tired friend.
+		<br><br>
+		"—I'm just saying, the judging this season has been completely-" She notices you walking past and cuts herself off entirely, jaw tightening before she turns pointedly the other way.
+	<</addinlineevent>>
+	<<addinlineevent "event34">>
+		<<if $pcWins gte 2>>
+			One of Mint Mocha's usual entourage peels off and approaches you alone, glancing over her shoulder like she's not supposed to be doing this.
+			<br><br>
+			"Hey, don't tell her I said this, but, that was a really solid race." She mutters it fast, like she's trying to get it out before losing the nerve. "She's just bad at losing."
+			<br><br>
+			<<link [[Thank Them Quietly|Mint Friend - Thank]]>><</link>>
+			<br>
+			<<link [[Stay Wary|Mint Friend - Wary]]>><</link>>
+		<<else>>
+			Mint Mocha's usual entourage passes by in a tight cluster, none of them sparing you so much as a glance.
+		<</if>>
+	<</addinlineevent>>
+	<<addinlineevent "event35">>
+		A horsegirl you've never spoken to falls into step beside you on the way to the track, launching into unsolicited commentary on your running form from last week's session.
+		<br><br>
+		"—and if you angled your shoulders less you'd probably shave off a half second, easy."
+		<br><br>
+		<<link [[Thank Them|Unsolicited Advice - Thank]]>><</link>>
+		<br>
+		<<link [[Brush It Off|Unsolicited Advice - Brush Off]]>><</link>>
+	<</addinlineevent>>
+	<<if $pcWins gte 4>>
+		<<addinlineevent "event36">>
+			You can't make it from the locker room to the track anymore without a small cluster of horsegirls stopping mid-conversation to stare.
+			<br><br>
+			Today it's a trio of second-years, all elbowing each other and not so subtly failing to whisper.
+			<br><br>
+			"Oh my god, that's <<print $playerhorsetitle>>—"
+			<br><br>
+			"I KNOW, don't make it weird—"
+			<br><br>
+			One of them, braver or more reckless than the other two, steps directly into your path, hands clasped behind her back, cheeks already pink.
+			<br><br>
+			"Um! I just wanted to say your last race was incredible. Truly. Inspiring. I have a poster of you now. Is that weird? That's probably weird."
+			<br><br>
+			<<link [[Be Charming|Hallway Admirers - Charming]]>><</link>>
+			<br>
+			<<link [[Brush It Off|Hallway Admirers - Brush Off]]>><</link>>
+		<</addinlineevent>>
+		<<addinlineevent "event37">>
+			A senior horsegirl you've only ever exchanged nods with corners you by the equipment shed after practice, all easy confidence and zero hesitation, one hand braced against the wall beside your head.
+			<br><br>
+			"You know," she says, voice low, clearly enjoying how close that puts her, "watching you run is doing things to my heart rate that have nothing to do with cardio."
+			<br><br>
+			Her eyes flick down to your mouth and back up, slow, deliberate, very much not subtle about her intentions. "Just saying. In case you were wondering if anyone noticed."
+			<br><br>
+			<<link [[Let Her Get Closer|The Bold One - Let Her]]>><</link>>
+			<br>
+			<<link [[Politely Sidestep|The Bold One - Sidestep]]>><</link>>
+		<</addinlineevent>>
+		<<addinlineevent "event38">>
+			What starts as one underclassman shyly asking you to sign her race program somehow snowballs into an actual line by the time you notice what's happening.
+			<br><br>
+			"Just one signature—"
+			<br><br>
+			"You're literally the reason I started racing, please—"
+			<br><br>
+			"Can I get a photo too? No? Okay! Just the signature is fine!"
+			<br><br>
+			Somewhere in the chaos, someone slips you a phone number written directly onto a napkin, no name attached, just a winking face drawn next to the digits.
+			<br><br>
+			<<link [[Lean Into the Attention|Autograph Line - Lean In]]>><</link>>
+			<br>
+			<<link [[Make a Quick Escape|Autograph Line - Escape]]>><</link>>
+		<</addinlineevent>>
+		<<addinlineevent "event39">>
+			Two upperclassmen linger by your locker a little longer than the changing-out-of-gear-clothes routine really requires, exchanging a look you catch in the mirror but aren't meant to.
+			<br><br>
+			"So," one of them says, leaning a hip against the lockers, all easy confidence, "we've got a theory my friend won't shut up about. Wanna hear it?"
+			<br><br>
+			"It's not a theory, it's a fact," the other cuts in, far less subtle about her interest, gaze doing a slow once-over that's anything but discreet. "We think you'd be a lot of fun for a threesome. With that speed on the track? You must be a good fuck. So, how about it?"
+			<br><br>
+			<<link [[Consider the Offer|Locker Room Company - Consider]]>><</link>>
+			<br>
+			<<link [[Laugh It Off|Locker Room Company - Laugh]]>><</link>>
+		<</addinlineevent>>
+		<<if $academygone isnot 1>>
+			<<addinlineevent "event15">>
+				You catch two trainers speaking lowly near the stables, voices pitched to not carry.
+				<br><br>
+				"...heard Rowan's farm is in deeper than they're letting on."
+				<br><br>
+				"They'll figure it out. Always do."
+				<br><br>
+				They notice you and the conversation stops dead, both of them suddenly very interested in their clipboards.
+			<</addinlineevent>>
+			<<addinlineevent "event40">>
+				<<npc Rowan>><<person1>>
+				Rowan's leaning against the fence when you finally make it back from whatever flock of admirers cornered you this time, arms crossed, watching the last of them scatter with an expression that isn't quite a glare but isn't far off either.
+				<br><br>
+				"Popular today," <<he>> says, deceptively casual.
+				<br><br>
+				<<link [[Tease <<Him>> About It|Rowan Notices - Tease]]>><</link>>
+				<br>
+				<<link [[Reassure <<Him>>|Rowan Notices - Reassure]]>><</link>>
+			<</addinlineevent>>
+			<<if $regionalrace lt 6>>
+				<<addinlineevent "event41">>
+					<<npc "Mint Mocha">><<person1>>
+					You find Mint Mocha waiting outside the locker room, arms crossed, clearly working up to something, judging by how long she's been standing there pretending to check her phone.
+					<br><br>
+					"Don't read into this," she says, before you've even said hello. "I just need to get somethin' off my chest."
+					<br><br>
+					She exhales sharply, like the words are physically difficult to get out.
+					<br><br>
+					"I hate that I can't stop thinkin' about you. There. Said it. Don't make it weird."
+					<br><br>
+					<<link [[Close the Distance|Mint Mocha's Hangup - Close]]>><</link>>
+					<br>
+					<<link [[Make Her Sweat|Mint Mocha's Hangup - Sweat]]>><</link>>
+				<</addinlineevent>>
+				<<if Time.dayState is "night">>
+					<<addinlineevent "event42">>
+						<<npc "Mint Mocha">><<person1>>
+						You find Mint Mocha alone on the track after hours, running drills nobody assigned her.
+						<br><br>
+						She spots you and straightens immediately, trying to look like she wasn't just pushing herself well past the point anyone would call sensible.
+						<br><br>
+						"What. You gonna report me for using the track after closing?"
+						<br><br>
+						<<link [[Challenge Her to a Lap|Track Side by Side - Challenge]]>><</link>>
+						<br>
+						<<link [[Tell Her to Rest|Track Side by Side - Rest]]>><</link>>
+					<</addinlineevent>>
+				<</if>>
+				<<addinlineevent "event43">>
+					<<npc "Mint Mocha">><<person1>>
+					You find Mint Mocha sitting alone by the lockers, uncharacteristically still, scrolling through something on her phone with a deep scowl.
+					<br><br>
+					She notices you and immediately tries to school her expression back into something neutral. "What. Don't have anywhere better to be?"
+					<br><br>
+					<<link [[Push|Mint Bad Day - Push]]>><</link>>
+					<br>
+					<<link [[Give Her Space|Mint Bad Day - Space]]>><</link>>
+				<</addinlineevent>>
+			<</if>>
+		<</if>>
+	<</if>>
+	<<runeventpool>>
+<</widget>>

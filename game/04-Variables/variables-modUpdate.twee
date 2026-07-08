@@ -84,7 +84,36 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<</if>>
 
 	<<if $creatorname is undefined>>
-		<<set $creatorname to "custom">>
+		<<set $NPCenable to "1">>
+		<<set $creatorname to "cdnpc">>
+		<<set $NPCstatic to "0">>
+		<<set $NPCposition to "2">>
+	<</if>>
+
+	<<if $staticimages is undefined>>
+		<<set $staticimages to "0">>
+	<</if>>
+
+	<<if $foregroundenable is undefined>>
+		<<set $foregroundenable to "0">>
+	<</if>>
+
+	<<if $staticimages2 is undefined>>
+		<<set $staticimages2 to "2">>
+	<</if>>
+
+	<<if $foregroundenable2 is undefined>>
+		<<set $foregroundenable2 to "0">>
+	<</if>>
+
+	<<if $tempdisplay is undefined>>
+		<<set $tempdisplay to "0">>
+		<<set $pepperdisplay to "0">>
+		<<set $condomdisplay to "0">>
+	<</if>>
+
+	<<if $titledisplay is undefined>>
+		<<set $titledisplay to "1">>
 	<</if>>
 
 	<<if $locationoverwrite is undefined>>
@@ -140,26 +169,26 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<</if>>
 	<</if>>
 
-	<<if $ashgender is undefined>>
+	<<if $rowangender is undefined>>
 		<<if $malechance lt random(1, 100)>>
-			<<set $ashgender to "f">>
+			<<set $rowangender to "f">>
 		<<else>>
-			<<set $ashgender to "m">>
+			<<set $rowangender to "m">>
 		<</if>>
 	<</if>>
 
-	<<if $ashgenitals is undefined>>
-		<<if $ashgender is "m">>
+	<<if $rowangenitals is undefined>>
+		<<if $rowangender is "m">>
 			<<if random(0, 99) gte $cbchance>>
-				<<set $ashgenitals to "penis">>
+				<<set $rowangenitals to "penis">>
 			<<else>>
-				<<set $ashgenitals to "vagina">>
+				<<set $rowangenitals to "vagina">>
 			<</if>>
-		<<elseif $ashgender is "f">>
+		<<elseif $rowangender is "f">>
 			<<if random(0, 99) gte $dgchance>>
-				<<set $ashgenitals to "vagina">>
+				<<set $rowangenitals to "vagina">>
 			<<else>>
-				<<set $ashgenitals to "penis">>
+				<<set $rowangenitals to "penis">>
 			<</if>>
 		<</if>>
 	<</if>>
@@ -611,6 +640,11 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set V.transformationParts.zombie to {body:"disabled", head:"disabled", arms:"disabled", eyes:"disabled"}>>
 	<</if>>
 
+	<<if V.transformationParts.cosmic is undefined>>
+		<<set $cosmic to 0>>
+		<<set V.transformationParts.cosmic to {body:"disabled", head:"disabled", arms:"disabled", eyes:"disabled"}>>
+	<</if>>
+
 	<<if $hastail is undefined>>
 		<<set $hastail to "false">>
 		<<set $thintail to "false">>
@@ -938,6 +972,9 @@ If the result is "undefined", this widget is not called for some reason. If the 
 			<<set $farm.watchtowerDailyAttempt to 0>>
 		<</if>>
 	<</if>>
+
+	<<wliInit>>
+	<<dhmInit>>
 
 	/* I'll leave it here just in case anyone wants it. 
 	   But yeah... "witch" is actually gender-neutral. Huh.

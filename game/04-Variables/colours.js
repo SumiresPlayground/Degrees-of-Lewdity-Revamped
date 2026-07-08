@@ -218,8 +218,8 @@ setup.colours = {
 		},
 		ghost: {
 			gradient: ["#ffffff", "#ffffff"],
-			blendMode: "multiply",
-			alpha: 0.6,
+			blendMode: "luminosity",
+			alpha: 0.8,
 			desaturate: true,
 		},
 		// Same as above but without transparency. Used for sidebar.
@@ -230,25 +230,26 @@ setup.colours = {
 		},
 		ice: {
 			gradient: ["#E3FFFE", "#E3FFFE"],
-			blendMode: "multiply",
+			blendMode: "luminosity",
+			alpha: 0.8,
 			desaturate: false,
 		},
 		slimy: {
 			gradient: ["#CBFFCB", "#98FF98"],
-			blendMode: "multiply",
-			alpha: 0.6,
+			blendMode: "luminosity",
+			alpha: 0.8,
 			desaturate: false,
 		},
 		chilly: {
 			gradient: ["#87e5f8", "#01c9fe"],
-			blendMode: "multiply",
-			alpha: 0.6,
+			blendMode: "luminosity",
+			alpha: 0.8,
 			desaturate: false,
 		},
 		amethyst: {
 			gradient: ["#BBA9f5", "#8451FC"],
-			blendMode: "multiply",
-			alpha: 0.6,
+			blendMode: "luminosity",
+			alpha: 0.8,
 			desaturate: false,
 		},
 		green: {
@@ -263,19 +264,24 @@ setup.colours = {
 		},
 		water: {
 			gradient: ["#70a0d7", "#70a0d7"],
-			blendMode: "multiply",
-			alpha: 0.6,
+			blendMode: "luminosity",
+			alpha: 0.8,
 			desaturate: false,
 		},
 		flame: {
 			gradient: ["#db665e", "#db665e"],
-			blendMode: "multiply",
-			alpha: 0.6,
+			blendMode: "luminosity",
+			alpha: 0.8,
 			desaturate: false,
 		},
 		rot: {
 			gradient: ["#a6bba4", "#5f6b59"],
 			blendMode: "multiply",
+			desaturate: false,
+		},
+		space: {
+			gradient: ["#f9edd9", "#f9edd9"],
+			blendMode: "exclusion",
 			desaturate: false,
 		},
 	},
@@ -736,7 +742,7 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#454545",
-			alpha: 0.6,
+			alpha: 0.9,
 		},
 	},
 	{
@@ -748,7 +754,7 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#add8e6",
-			alpha: 0.6,
+			alpha: 0.9,
 		},
 	},
 	{
@@ -760,7 +766,7 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#1349b5",
-			alpha: 0.6,
+			alpha: 0.9,
 		},
 	},
 	{
@@ -772,7 +778,7 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#85d6a5",
-			alpha: 0.6,
+			alpha: 0.9,
 		},
 	},
 	{
@@ -784,7 +790,7 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#D2AFFF",
-			alpha: 0.6,
+			alpha: 0.9,
 		},
 	},
 	{
@@ -796,18 +802,31 @@ setup.colours.hair = [
 		dye: false,
 		canvasfilter: {
 			blend: "#7ce2fe",
-			alpha: 0.6,
+			alpha: 0.9,
 		},
 	},
 	{
 		variable: "amberyellow",
 		name: "amber yellow",
 		name_cap: "Amber Yellow",
-		csstext: "slimegreenhair",
+		csstext: "amberyellowhair",
 		natural: true,
 		dye: false,
 		canvasfilter: {
 			blend: "#FFBF00",
+		},
+	},
+	{
+		variable: "space",
+		name: "space",
+		name_cap: "Space",
+		csstext: "spacehair",
+		natural: true,
+		dye: false,
+		canvasfilter: {
+			blend: "#f9edd9",
+			blendMode: "exclusion",
+			brightness: 0.4,
 		},
 	},
 ];
