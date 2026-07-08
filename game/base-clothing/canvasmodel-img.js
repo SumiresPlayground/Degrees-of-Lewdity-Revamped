@@ -29,10 +29,7 @@ DefineMacro("modelprepare-player-body", function () {
 		T.modeloptions.right_eye = V.makeup.eyelenses.right != 0 ? V.makeup.eyelenses.right : V.rightEyeColour;
 	}
 
-	T.modeloptions.hair_colour = V.haircolour.replace(" ", "");
-	T.modeloptions.hair_fringe_colour = V.hairfringecolour.replace(" ", "");
-	T.modeloptions.hair_colour_gradient = V.hairColourGradient;
-	T.modeloptions.hair_fringe_colour_gradient = V.hairFringeColourGradient;
+	dhmUtils.canvasSetup();
 	T.modeloptions.hair_colour_style = V.hairColourStyle;
 	T.modeloptions.hair_fringe_colour_style = V.hairFringeColourStyle;
 
@@ -445,6 +442,11 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.zombie_head_type = V.transformationParts.zombie.head
 	T.modeloptions.zombie_arms_type = V.transformationParts.zombie.arms
 	T.modeloptions.zombie_eyes_type = V.transformationParts.zombie.eyes
+
+	T.modeloptions.cosmic_body_type = V.transformationParts.cosmic.body
+	T.modeloptions.cosmic_head_type = V.transformationParts.cosmic.head
+	T.modeloptions.cosmic_arms_type = V.transformationParts.cosmic.arms
+	T.modeloptions.cosmic_eyes_type = V.transformationParts.cosmic.eyes
 
 	T.modeloptions.horn_layer = V.hornlayer;
 	T.modeloptions.ear_layer = V.earlayer;

@@ -94,8 +94,10 @@ You are at the local horse racing track. Grandstands surround a central track. A
 <<set $outside to 0>>
 You are within the entrance hall of the legally distinct horse racing academy. 
 <br><br>
-<<eventshorseacademy>>
-<br><br>
+<<if $academygone isnot 1>>
+	<<eventshorseacademy>>
+	<br><br>
+<</if>>
 <<if Time.daystate isnot "night">>
 	Trainers can be seen chatting around the room with their horses. For the most part they look pretty happy.
 <<else>>
@@ -1977,6 +1979,8 @@ He bumps your shoulder with his.
 	<<else>>
 		<span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
 		<br><br>
+		<span class="gold">You can now visit Rowan's farm starting tomorrow.</span>
+		<br><br>
 		<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
 	<</if>>
 <<else>>
@@ -1986,7 +1990,7 @@ He bumps your shoulder with his.
 	<br><br>
 	The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
 	<br><br>
-	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<set $ashgone to 1>><<endevent>><</link>>
+	<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<set $rowangone to 1>><<endevent>><</link>>
 <</if>>
 
 :: Rowan End Comfort
@@ -2074,7 +2078,7 @@ Just <<him>>. Just the truth of it, finally said out loud.
 <br><br>
 "Been a hell of a season."
 <br><br>
-<<set $ashromance to 1>>
+<<set $rowanromance to 1>>
 <<if $loveInterest.primary is "None">>
 	<<set $loveInterest.primary to "Rowan">>
 	<span class = "gold">Rowan is now your love interest! You feel like you're in for a wild ride.</span>
@@ -2085,6 +2089,8 @@ Just <<him>>. Just the truth of it, finally said out loud.
 <</if>>
 <br><br>
 <span class="red">The academy is now closing. Collect your belongings before the entrance is closed for good tomorrow.</span>
+<br><br>
+<span class="gold">You can now visit Rowan's farm starting tomorrow.</span>
 <br><br>
 <<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
 
@@ -2103,7 +2109,7 @@ For a second, something flickers across Rowan's face, too quick to name, gone be
 <br><br>
 "C'mon. Let's go tell that ridiculous horse she's got a new home."
 <br><br>
-<<link [[Next|Horse Academy Entrance]]>><<set $academycloser to 1>><<endevent>><</link>>
+<<link [[Next|Horse Academy Entrance]]>><<set $rowanconfessed to 1>><<set $academycloser to 1>><<endevent>><</link>>
 
 :: Training Event
 <<npc Rowan>><<person1>>
@@ -3876,7 +3882,7 @@ You don't push it further, and she doesn't offer anything more either, the two o
 :: Mint Walks You Back - Call Out
 "You could just say you wanted to walk with me."
 <br><br>
-"I could, but I won't, because that's not what's happening." <<His>> ears go red despite the denial, pace picking up slightly. "Don't overanalyze it."
+"I could, but I won't, because that's not what's happening." Her ears go red despite the denial, pace picking up slightly. "Don't overanalyze it."
 <br><br>
 She doesn't slow back down until you're nearly at your door, at which point she seems to remember she was supposed to be unbothered the whole time.<<lsuperiority>>
 <br><br>

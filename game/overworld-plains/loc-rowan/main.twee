@@ -9,16 +9,18 @@ You make your way down the worn dirt road and arrive at a small ranch. There is 
 
 :: Rowan Mintro
 <<npc "Mint Mocha">><<person1>>
-As you enter the cottage, you are met by... Mint Mocha?! She looks away from you ashamed. Rowan looks between the two of you confused. "Am I missin' somethin'? What's wrong with ya both?"
+As you enter the cottage, you are met by... Mint Mocha? She looks away from you, ashamed. Rowan looks between the two of you, confused. "Am I missin' somethin'? What's wrong with ya both?"
 <br><br>
-Mint Mocha clears her throat before speaking. "I-I'm sorry. After my... failure, my trainer wanted to get rid of me and Rowan took me in..." You can tell from her eyes that she has been crying a lot lately.
+Mint Mocha clears her throat before speaking. "I-I'm sorry. After my... failure, my trainer wanted to get rid of me, and Rowan took me in..." You can tell from her eyes that she has been crying a lot lately.
 <br><br>
-You take a moment to explain your relationship with her and Rowan listens quietly nodding along. 
+You take a moment to explain your relationship with her, and Rowan listens quietly, nodding along.
 <<if $pronoun is "m">>
-Rowan looks confused. "She? Mint here is a stallion, were you not aware?" Mint Mocha's face burns red as Rowan lifts <<his>> skirt revealing <<his>> <<genitals>>. Mint speaks up embarrassed. "<<pShe>> doesn't need to know that! Ugh whatever, yeah I'm a boy so what, you gonna laugh at me or something?" Mint pouts. "You were the one who made the wrong assumption!"
+Rowan looks confused. "She? Mint here is a stallion. Were you not aware?" Mint Mocha's face burns red as Rowan lifts <<his>> skirt revealing <<his>> <<genitals>>. Mint speaks up, embarrassed. 
+<br><br>
+"<<pShe>> doesn't need to know that! Ugh, whatever. Yeah I'm a boy so what? You gonna laugh at me or something?" Mint pouts. "You were the one who made the wrong assumption!"
 <</if>>
 <br><br>
-Rowan stands back a few steps before slipping on a pair of work gloves. "Anyway, I got some workin' to do so you two stay outta trouble."
+Rowan stands back a few steps before slipping on a pair of work gloves. "Anyway, I got some workin' to do, so you two stay outta trouble."
 <br><br>
 <<link [[Next|Rowan Farmhouse]]>><<endevent>><</link>>
 
@@ -65,6 +67,14 @@ You are inside Rowan's ranch house. The small cabin is only about four rooms, co
 <<location "rowanfarm">>
 <<if $stress gte $stressmax>>
 	<<passoutrowan>>
+<<elseif C.npc.Rowan.love gte 80 and $rowanromance isnot 1 and $rowanconfessed isnot 1>>
+    You see Rowan out by the fence line.
+    <br><br>
+    <<link [[Approach|Low Love Farm Confession - Rowan]]>><</link>>
+<<elseif C.npc["Mint Mocha"].love gte 100 and $mintromance isnot 1 and $mintconfessed isnot 1>>
+    Mint seems to want something from you.
+    <br><br>
+    <<link [[Approach|Mint Mocha - Low Love Farm Confession]]>><</link>>
 <<elseif $rowanrecognize isnot 1 and ($transformationParts.horse.tail is "disabled" or $transformationParts.horse.ears is "disabled")>>
     You hear familiar boots approaching, faster than usual.
     <br><br>
@@ -157,7 +167,7 @@ You start chopping. <<He>> glances over, watching your technique with the same c
 <<npc Rowan>><<person1>>
 You enter the dining room and Rowan guides you to a chair at the small table. Mint Mocha sits poking beside you blushing slightly. You sit together silently as Rowan turns off the stove and makes <<his>> way over with a plate of fresh vegetables and meat.
 <br><br>
-The three of you sit together at the table and Rowan offers a silent prayer. It does not take long before the plates are cleaned and the table is clear. Rowan and Mint Mocha take a moment of silent peace before returning to their rools.
+The three of you sit together at the table and Rowan offers a silent prayer. It does not take long before the plates are cleaned and the table is clear. Rowan and Mint Mocha take a moment of silent peace before returning to their roles.
 <br><br>
 <<link [[Next|Rowan Farmhouse]]>><<set $dailyrowandinner to 1>><<endevent>><</link>>
 
@@ -380,6 +390,10 @@ You meet Rowan near the barn to help with work.
 <<npc Rowan>><<person1>>
 "Sure what did ya wanna talk about?" <<He>> looks toward you curiously
 <br><br>
+<<if $rowanconfessed is 1 and $rowanromance isnot 1>>
+<<loveicon "kiss">><<link [[Accept confession|Accept Rowan's Confession]]>><<set $rowanromance to 1>><</link>>
+<br>
+<</if>>
 <<link [[Reversed Roles|Talk - Reversed Roles]]>><</link>>
 <br>
 <<link [[About Alex|Talk - About Alex]]>><</link>>
@@ -528,7 +542,7 @@ You let <<him>> pull you in, one hand at your waist, the other tangled loosely w
 <br><br>
 The song ends. Neither of you stops moving for a while after that.<<glove>>
 <br><br>
-<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 5>><<endevent>><</link>>
+<<link [[Next|Rowan Farmstead]]>><<set C.npc.Rowan.love += 5>><<endevent>><</link>>
 
 :: Rowan Hard Get
 "I'm working," you say.
@@ -541,7 +555,7 @@ The song ends. Neither of you stops moving for a while after that.<<glove>>
 <br><br>
 You let <<him>> have it. The work can wait.<<arousal 6>><<glove>><<garousal>>
 <br><br>
-<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
+<<link [[Next|Rowan Farmstead]]>><<set C.npc.Rowan.love += 3>><<endevent>><</link>>
 
 :: Rowan Porch Lean
 You let your shoulder rest against his, the mug warm between your hands.
@@ -554,7 +568,7 @@ Rowan goes still for half a second, like <<he>> wasn't quite expecting it, then 
 <br><br>
 <<He>> huffs something that's almost a laugh, almost relieved, and the two of you sit there as the light goes from gold to blue to dark, not saying much else, not needing to.<<glove>>
 <br><br>
-<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 5>><<endevent>><</link>>
+<<link [[Next|Rowan Farmstead]]>><<set C.npc.Rowan.love += 5>><<endevent>><</link>>
 
 :: Rowan Porch Distance
 You keep a careful few inches between you, sipping your drink and watching the fields go dark instead of looking at <<him>>.
@@ -567,7 +581,7 @@ There's something almost vulnerable in the admission, buried under <<his>> usual
 <br><br>
 Neither of you says much else, but <<he>> doesn't leave either, not until the mugs go cold and the stars come out properly.<<glove>>
 <br><br>
-<<link [[Next|Rowan Farmland]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
+<<link [[Next|Rowan Farmstead]]>><<set C.npc.Rowan.love += 2>><<endevent>><</link>>
 
 :: Rowan Cooking Steal
 While <<his>> attention's on your knife work, you swipe a finger through the sauce simmering behind you and bring it to your mouth before <<he>> can stop you.
@@ -804,3 +818,205 @@ You don't push. Some thoughts seem like they're not finished cooking yet.
 Rowan seems grateful for that, giving you a small, appreciative nod before shaking <<himself>> out of it. "Anyway. Back to work."
 <br><br>
 <<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Low Love Farm Confession - Rowan
+<<npc Rowan>><<person1>>
+You find Rowan out by the fence line, mending a post that doesn't look like it needed mending.
+<br><br>
+<<He>> doesn't look up right away when you approach. Just keeps working the tool in <<his>> hands, jaw tight like <<he>>'s rehearsing something and not liking how it sounds.
+<br><br>
+"Been meanin' to talk to you," <<he>> finally says, not breaking stride on the post. "Since the race."
+<br><br>
+<<He>> sets the tool down but doesn't turn around yet.
+<br><br>
+"Didn't say much, that day. Figured you had enough on your plate without me addin' to it." A short breath. "Wasn't the whole truth, if I'm bein' honest. Truth is I didn't trust myself to say it right."
+<br><br>
+<<He>> finally turns to face you, hat pushed back, and there's none of the usual smugness in <<his>> expression. Just something careful. Something bracing.
+<br><br>
+"I been hard on you. Harder than I had any right to be, some days." <<His>> jaw works. "Told myself it was for your own good. For the farm's sake. Wasn't lyin', exactly. Just wasn't the whole reason."
+<br><br>
+<<He>> looks at you steady, like <<he>>'s decided <<he>>'s not backing out of this now that <<he>>'s started.
+<br><br>
+"The whole reason is I care about you. More than a trainer's supposed to care about <<his>> racer. Been that way for a while now, I think, longer than I let myself admit."
+<br><br>
+<<He>> huffs, almost a laugh, though there's no humor behind it.
+<br><br>
+"Didn't figure you'd want to hear that from a <<man>> who worked you half to death and called it discipline. But I'd rather you know than keep sittin' on it. I think I'm falling for you, little one. Harder than I would have liked to."
+<br><br>
+<<link [[Tell <<him>> you feel the same|Claim Rowan - Low Love Farm]]>><</link>>
+<br>
+<<link [[Tell <<him>> you don't feel that way|Decline Rowan - Low Love Farm]]>><</link>>
+
+:: Claim Rowan - Low Love Farm
+"I feel the same way." You say.
+<br><br>
+Rowan goes still, the way <<he>> does when <<he>>'s caught off guard and doesn't want it to show.
+<br><br>
+"...Yeah?" <<His>> voice is rougher than usual. "Even after everything?"
+<br><br>
+You nod.
+<br><br>
+<<He>> exhales, slow, like <<he>>'s setting something down <<he>>'s been carrying a long while. <<He>> crosses the distance between you and rests <<his>> forehead against yours, hands framing your face careful, like <<he>>'s still not sure <<he>>'s earned the right to.
+<br><br>
+"Don't deserve that, probably. Not after how hard I pushed you." <<His>> thumb brushes your cheekbone. "But I ain't fixin' to argue with it either."
+<br><br>
+<<He>> pulls back just enough to look at you properly, and the smile <<he>> gives you is smaller than the one from the track, but steadier. Like it's built to last.
+<br><br>
+"Gonna try and be softer with you. Startin' now." <<His>> hand finds yours as <<he>> presses a kiss against your cheek. "You're stuck with me, <<girl>>. Slower this time, if that's alright."<<ggglove>><<lldom>>
+<br><br>
+<<set $rowanromance to 1>>
+<<if $loveInterest.primary is "None">>
+	<<set $loveInterest.primary to "Rowan">>
+	<span class = "gold">Rowan is now your love interest! You feel like you're in for a wild ride.</span>
+	<br><br>
+<<else>>
+	<span class = "gold">Rowan can now be claimed as your love interest! You feel like you're in for a wild ride. <br>You can change your love interest in the "Attitudes" menu.</span>
+	<br><br>
+<</if>>
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<npcincr "Rowan" love 10>><<npcincr "Rowan" dom -5>><<endevent>><</link>>
+
+:: Decline Rowan - Low Love Farm
+"I don't feel that way. I'm sorry." You say.
+<br><br>
+Rowan nods slowly, like <<he>> was already braced for it and it still lands anyway. <<He>> looks off toward the fence line for a second before <<he>> looks back at you, expression carefully even.
+<br><br>
+"...Alright." <<His>> voice is quiet. "Appreciate you bein' straight with me about it."
+<br><br>
+<<He>> picks the tool back up, turning it over in <<his>> hands like <<he>> needs something to do with them.
+<br><br>
+"Don't want things gettin' strange between us over this. You're still important to me, feelin's or no." <<He>> huffs, a small, rueful thing. "Guess I'll just have to get used to sittin' on it a while longer."
+<br><br>
+<<He>> glances back at you one more time before turning back to the fence post.
+<br><br>
+"If you ever change your mind... I ain't goin' anywhere."<<llove>>
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<set $rowanconfessed to 1>><<npcincr "Rowan" love -5>><<endevent>><</link>>
+
+:: Accept Rowan's Confession
+Rowan looks up from whatever <<he>>'s working on when you find <<him>>, and something in your face must give it away before you even say a word, because <<he>> goes still, tool forgotten in <<his>> hands.
+<br><br>
+"...You come out here to tell me somethin'?"
+<br><br>
+"I changed my mind," you say. "About us."
+<br><br>
+<<He>> sets the tool down slow, deliberate, like <<he>>'s giving <<himself>> a second to make sure <<he>> heard you right.
+<br><br>
+"Yeah?" <<His>> voice cracks just slightly around the word, the careful composure <<he>>'s worn since the day you turned <<him>> down finally slipping.
+<br><br>
+<<He>> crosses the distance between you without another word, and when <<his>> forehead drops to yours, <<his>> hands are less steady than <<he>>'d probably like to admit.
+<br><br>
+"Wasn't sure you'd ever come find me for this," <<he>> murmurs. "Told myself I'd wait as long as it took. Didn't stop me hopin' it'd be sooner rather than later."
+<br><br>
+<<He>> pulls back enough to look at you, and the smile <<he>> gives you is unguarded in a way you haven't seen from <<him>> before.
+<br><br>
+"Well. Better late than not at all, I reckon." <<His>> hand finds yours. "C'mon then, <<girl>>. Let's not waste any more time than we already have."<<npcincr "Rowan" love 10>><<npcincr "Rowan" dom -5>>
+<br><br>
+<<if $loveInterest.primary is "None">>
+	<<set $loveInterest.primary to "Rowan">>
+	<span class = "gold">Rowan is now your love interest! You feel like you're in for a wild ride.</span>
+	<br><br>
+<<else>>
+	<span class = "gold">Rowan can now be claimed as your love interest! You feel like you're in for a wild ride. <br>You can change your love interest in the "Attitudes" menu.</span>
+	<br><br>
+<</if>>
+<br><br>
+<<link [[Next|Rowan Room]]>><<endevent>><</link>>
+
+:: Mint Mocha - Low Love Farm Confession
+<<npc "Mint Mocha">><<person1>>
+You're mucking out a stall when you hear the fence gate click, and there <<he>> is — Mint Mocha, arms crossed, glaring at the ground like it did something to <<him>>.
+<br><br>
+"I've been helping out for a while now," <<he>> says, before you can even say hello. "Don't act surprised."
+<br><br>
+You weren't going to. But you let <<him>> have the moment anyway.
+<br><br>
+<<He>> paces a short line in front of the stall door, working up to whatever <<he>> wishes to say, muttering something under <<his>> breath that sounds a lot like <<he>>'s scolding <<himself>>.
+<br><br>
+"I told myself I was only coming around to make sure Rowan wasn't running you into the ground. Or to keep an eye on the competition. Or—" <<He>> stops pacing. Exhales sharply through <<his>> nose. "Those were lies. I've been telling myself lies for weeks, and I'm sick of it, so I'm just going to say the actual thing."
+<br><br>
+<<He>> finally looks at you straight on, chin lifted despite the color rising in <<his>> face.
+<br><br>
+"I like you. I have for a while now. Probably since before I'd have admitted it under torture." <<His>> arms tighten across <<his>> chest, like <<he>>'s holding <<himself>> together through sheer stubbornness. "I'm not going to pretend that's not humiliating to say out loud to someone I used to call a rookie loser. But there it is."
+<br><br>
+<<He>> juts <<his>> chin out, bracing.
+<br><br>
+"So. Now you know. Do with it what you want."
+<br><br>
+<<link [[Tell <<him>> you feel the same|Claim Mint Mocha - Low Love Farm]]>><</link>>
+<br>
+<<link [[Tell <<him>> you don't feel that way|Decline Mint Mocha - Low Love Farm]]>><</link>>
+
+:: Claim Mint Mocha - Low Love Farm
+You close the distance instead of answering with words, and whatever <<he>> was bracing for, it wasn't this.
+<br><br>
+<<He>> makes a small, strangled sound against you as you embrace <<him>>, <<his>> hands fisting in your <<print $worn.upper.name>> like <<he>>'s afraid you'll change your mind if <<he>> lets go.
+<br><br>
+When <<he>> finally pulls back, <<his>> forehead rests against yours, breath unsteady, every trace of <<his>> usual bravado gone.
+<br><br>
+"Okay." <<His>> voice is wrecked, quiet. "Okay, good. That's— good." <<He>> laughs, a little disbelieving, fingers still curled tight in your jacket.
+<br><br>
+"Took me long enough to say it," <<he>> mutters. "Weeks of coming out here making up excuses. Should've just said it the first time."
+<br><br>
+"For the record," <<he>> adds, pulling back just enough to fix you with something that's trying to be a glare, "I'm still gonna beat you next season."<<gglove>><<lsuperiority>>
+<br><br>
+<<set $mintromance to 1>>
+<<if $loveInterest.primary is "None">>
+    <<set $loveInterest.primary to "Mint Mocha">>
+    <span class = "gold">Mint Mocha is now your love interest! The thought makes you feel warm.</span>
+    <br><br>
+<<else>>
+    <span class = "gold">Mint Mocha can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
+    <br><br>
+<</if>>
+<<link [[Next|Rowan Farmstead]]>><<npcincr "Mint Mocha" love 10>><<npcincr "Mint Mocha" dom -5>><<endevent>><</link>>
+
+:: Decline Mint Mocha - Low Love Farm
+"I'm flattered," you say gently, "but I don't think I feel the same way. I'd still like to be friends, though. Rivals. Whatever we are." You say.
+<br><br>
+<<He>> goes very still, the rejection visibly landing harder than <<he>> expected it to, before <<he>> forces <<his>> usual composure back into place, jaw tight. "Right. Of course. Should've known." <<He>> steps back, arms crossing again like <<he>> needs the wall back up.
+<br><br>
+"We're still rivals," <<he>> says, quieter now, some of the fight gone out of it. "That hasn't changed. I'll just have to settle for beating you on the track instead."
+<br><br>
+<<He>> manages something close to a smirk, though it doesn't quite reach <<his>> eyes, before turning to head back toward the gate.
+<br><br>
+<<He>> pauses a few steps off, back still turned, and adds it almost too quiet to catch.
+<br><br>
+"...If you ever decide you were wrong about this.. I'm not exactly hard to find."<<llove>>
+<br><br>
+<<link [[Next|Rowan Farmstead]]>><<npcincr "Mint Mocha" love -5>><<set $mintconfessed to 1>><<endevent>><</link>>
+
+:: Accept Mint Mocha's Confession
+<<npc "Mint Mocha">><<person1>>
+You find Mint Mocha exactly where you'd expect. <<He>> is sulking near the paddock fence, pretending <<he>>'s not watching the house for any sign of you.
+<br><br>
+<<He>> straightens the second <<he>> sees your face, arms crossing on instinct, already bracing.
+<br><br>
+"...What." <<He>> grumbles.
+<br><br>
+"I was wrong," you say. "I want this. Want you."
+<br><br>
+<<His>> arms drop. For once, <<he>> doesn't have a retort ready, doesn't have anything ready, mouth opening and closing before <<he>> manages to find <<his>> voice again.
+<br><br>
+"You—" <<He>> stops, swallows, tries again, quieter this time. "You're sure? Don't say it if you're not sure. I mean it."
+<br><br>
+"I'm sure." You reassure <<him>>.
+<br><br>
+That seems to be all <<he>> needed, because whatever's left of <<his>> composure gives out entirely, and <<he>>'s closing the distance between you before you've finished speaking, <<his>> hands fisting in your <<print $worn.upper.name>>, like <<he>>'s still afraid this is the kind of thing that gets taken back.
+<br><br>
+"Took you long enough," <<he>> mutters against you, voice thick, nowhere near as steady as <<he>>'d like it to sound. "Don't do that to me again."
+<br><br>
+<<He>> pulls back just far enough to look at you, and for once <<his>> whole face is doing exactly what <<he>> feels, no bravado covering it.
+<br><br>
+"For the record," <<he>> adds, a little wobbly, a little defiant as <<he>> embraces you tightly, "I'm still gonna beat you next season.. with love."<<gglove>><<lsuperiority>>
+<br><br>
+<<set $mintromance to 1>>
+<<if $loveInterest.primary is "None">>
+    <<set $loveInterest.primary to "Mint Mocha">>
+    <span class = "gold">Mint Mocha is now your love interest! The thought makes you feel warm.</span>
+    <br><br>
+<<else>>
+    <span class = "gold">Mint Mocha can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
+    <br><br>
+<</if>>
+<<link [[Next|Rowan Farmstead]]>><<npcincr "Mint Mocha" love 10>><<npcincr "Mint Mocha" dom -5>><<endevent>><</link>>

@@ -14,6 +14,8 @@ function copyLayers(){
 		"backgroundwardrobe",
 		"backgroundwindowsill",
 		"backgroundowlplushie",
+		"backgroundtable",
+		"backgroundpc",
 		"backgroundtank",
 		"backgroundtankdecorations",
 		"backgroundtankfeeder",

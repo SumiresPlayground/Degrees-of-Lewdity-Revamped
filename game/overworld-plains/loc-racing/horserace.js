@@ -211,7 +211,8 @@ setup.horserace = setup.horserace || {};
 	["Furious Froggy", "Paperbag Prowler", "Genetics", "Purple Rayne", "Frostberg Lettuce",
 	"J-Corner", "Rough and Stumble", "Lucky Bee", "Yawn in June", "Countess Elizabeth",
 	"Chylli Con Carnage", "Sex Professor", "Remy's Pride", "Moca Loca", "Lemon Melon",
-	"Sage Stellar", "Angel O' War", "Klutzy Mango", "Reiyu the Hung", "Momo Geko"];
+	"Sage Stellar", "Angel O' War", "Klutzy Mango", "Reiyu the Hung", "Momo Geko",
+	"Sasa Lele"];
 
 	HR.fallbackConditions = ["turf", "dirt", "wet", "muddy"];
 

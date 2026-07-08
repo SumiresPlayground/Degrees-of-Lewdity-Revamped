@@ -1,5 +1,6 @@
 :: Bedroom
 <<bedclotheson "bed">>
+<<updatesidebarimg>>
 <<set $outside to 0>><<set $location to "home">><<set $locationoverwrite to "bedroom">><<home_effects>><<effects>><<getTarget true>>
 <span class="camouflage text"><a onclick="V.codeinput = 1">
 You are in your bedroom.
@@ -566,6 +567,16 @@ The hallway outside connects to the rest of the orphanage.
 	<<set V.transformationParts.zombie.head to "default">>
 	<<set V.transformationParts.zombie.arms to "default">>
 	<<set V.transformationParts.zombie.eyes to "default">>
+	<<goto $passage>>
+<<elseif $code is "space">>
+	<<set Skin.color.natural to "space">>
+	<<set $haircolour to "space">>
+	<<set $hairfringecolour to "space">>
+	<<set $makeup.browscolour to "space">>
+	<<set V.transformationParts.cosmic.body to "default">>
+	<<set V.transformationParts.cosmic.head to "default">>
+	<<set V.transformationParts.cosmic.arms to "default">>
+	<<set V.transformationParts.cosmic.eyes to "default">>
 	<<goto $passage>>
 <<elseif !Story.has($inputCode.trim())>>
 	<<run UI.alert("[Error] Code doesn't exist!")>>

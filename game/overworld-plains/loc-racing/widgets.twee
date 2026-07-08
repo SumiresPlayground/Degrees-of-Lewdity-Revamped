@@ -300,15 +300,6 @@
 		<br><br>
 		"Three more years and that's gonna be us," one of them sighs.
 	<</addinlineevent>>
-	<<addinlineevent "event15">>
-		You catch two trainers speaking lowly near the stables, voices pitched to not carry.
-		<br><br>
-		"...heard Rowan's farm is in deeper than <<he>>'s letting on."
-		<br><br>
-		"She'll figure it out. Always does."
-		<br><br>
-		They notice you and the conversation stops dead, both of them suddenly very interested in their clipboards.
-	<</addinlineevent>>
 	<<addinlineevent "event16">>
 		A cluster of horsegirls are sprawled across the library tables, textbooks open but mostly ignored in favor of gossip about who's racing who next season.
 		<br><br>
@@ -397,7 +388,7 @@
 		<<elseif $pcWins gte 2>>
 			A couple of students glance your way as you grab your tray, a few murmurs passing between them that die down the second you're within earshot.
 			<br><br>
-			One of them gives you an awkward little nod, like <<he>>'s not sure if you two are supposed to know each other now.
+			One of them gives you an awkward little nod, like she's not sure if you two are supposed to know each other now.
 		<<else>>
 			Nobody pays you any particular mind as you find a seat, just the usual low hum of cafeteria noise and someone arguing two tables over about feed schedules.
 		<</if>>
@@ -413,7 +404,7 @@
 	<</addinlineevent>>
 	<<addinlineevent "event29">>
 		<<if $pcWins gte 2>>
-			Passing the trainer lounge, you catch a snippet of conversation through the half-open doo. Another trainer mentioning your name to a colleague, tone something close to envious. She doesn't appear to be talking to Rowan.
+			Passing the trainer lounge, you catch a snippet of conversation through the half-open door. Another trainer mentioning your name to a colleague, tone something close to envious. She doesn't appear to be talking to Rowan.
 		<<elseif $pcLosses gte 3>>
 			Passing the trainer lounge, you catch a snippet of conversation through the half-open door, something about "tough season" and "small farms" that cuts off abruptly when someone notices the door's ajar.
 		<<else>>
@@ -422,15 +413,15 @@
 	<</addinlineevent>>
 	<<addinlineevent "event30">>
 		<<if $pcWins gte 4>>
-			A younger horsegirl intercepts you near the stable entrance, looking nervous but determined.<br>
-			<br>
-			"Um! Sorry, I know this is weird, but could you sign my training log? You're like, the reason I started taking the sprint drills seriously."<br>
-			<br>
+			A younger horsegirl intercepts you near the stable entrance, looking nervous but determined.
+			<br><br>
+			"Um! Sorry, I know this is weird, but could you sign my training log? You're like, the reason I started taking the sprint drills seriously."
+			<br><br>
 			<<link [[Sign It|Fan Encounter - Sign]]>><</link>>
 			<br>
 			<<link [[Politely Decline|Fan Encounter - Decline]]>><</link>>
 		<<else>>
-			Nobody seems to be looking for your autograph today. The hallway carries on as it always does.<br>
+			Nobody seems to be looking for your autograph today. The hallway carries on as it always does.
 		<</if>>
 	<</addinlineevent>>
 	<<addinlineevent "event31">>
@@ -521,62 +512,76 @@
 			<<link [[Make a Quick Escape|Autograph Line - Escape]]>><</link>>
 		<</addinlineevent>>
 		<<addinlineevent "event39">>
-			<<npc Rowan>><<person1>>
-			Rowan's leaning against the fence when you finally make it back from whatever flock of admirers cornered you this time, arms crossed, watching the last of them scatter with an expression that isn't quite a glare but isn't far off either.
-			<br><br>
-			"Popular today," <<he>> says, deceptively casual.
-			<br><br>
-			<<link [[`Tease Him About It`|Rowan Notices - Tease]]>><</link>>
-			<br>
-			<<link [[`Reassure Him`|Rowan Notices - Reassure]]>><</link>>
-		<</addinlineevent>>
-		<<addinlineevent "event40">>
-			You find Mint Mocha waiting outside the locker room, arms crossed, clearly working up to something, judging by how long she's been standing there pretending to check her phone.
-			<br><br>
-			"Don't read into this," she says, before you've even said hello. "I just need to get somethin' off my chest."
-			<br><br>
-			She exhales sharply, like the words are physically difficult to get out.
-			<br><br>
-			"I hate that I can't stop thinkin' about you. There. Said it. Don't make it weird."
-			<br><br>
-			<<link [[Close the Distance|Mint Mocha's Hangup - Close]]>><</link>>
-			<br>
-			<<link [[Make Him Sweat|Mint Mocha's Hangup - Sweat]]>><</link>>
-		<</addinlineevent>>
-		<<addinlineevent "event41">>
 			Two upperclassmen linger by your locker a little longer than the changing-out-of-gear-clothes routine really requires, exchanging a look you catch in the mirror but aren't meant to.
 			<br><br>
 			"So," one of them says, leaning a hip against the lockers, all easy confidence, "we've got a theory my friend won't shut up about. Wanna hear it?"
 			<br><br>
 			"It's not a theory, it's a fact," the other cuts in, far less subtle about her interest, gaze doing a slow once-over that's anything but discreet. "We think you'd be a lot of fun for a threesome. With that speed on the track? You must be a good fuck. So, how about it?"
 			<br><br>
-			<<link [[`Consider the Offer`|Locker Room Company - Consider]]>><</link>>
+			<<link [[Consider the Offer|Locker Room Company - Consider]]>><</link>>
 			<br>
-			<<link [[`Laugh It Off`|Locker Room Company - Laugh]]>><</link>>
+			<<link [[Laugh It Off|Locker Room Company - Laugh]]>><</link>>
 		<</addinlineevent>>
-		<<if Time.dayState is "night" and $regionalrace lt 6>>
-			<<addinlineevent "event42">>
-				You find Mint Mocha alone on the track after hours, running drills nobody assigned her.
+		<<if $academygone isnot 1>>
+			<<addinlineevent "event15">>
+				You catch two trainers speaking lowly near the stables, voices pitched to not carry.
 				<br><br>
-				She spots you and straightens immediately, trying to look like she wasn't just pushing herself well past the point anyone would call sensible.
+				"...heard Rowan's farm is in deeper than they're letting on."
 				<br><br>
-				"What. You gonna report me for using the track after closing?"
+				"They'll figure it out. Always do."
 				<br><br>
-				<<link [[Challenge Him to a Lap|Track Side by Side - Challenge]]>><</link>>
-				<br>
-				<<link [[Tell Him to Rest|Track Side by Side - Rest]]>><</link>>
+				They notice you and the conversation stops dead, both of them suddenly very interested in their clipboards.
 			<</addinlineevent>>
-		<</if>>
-		<<if $regionalrace lt 6>>
-			<<addinlineevent "event42">>
-				You find Mint Mocha sitting alone by the lockers, uncharacteristically still, scrolling through something on her phone with a deep scowl.
+			<<addinlineevent "event40">>
+				<<npc Rowan>><<person1>>
+				Rowan's leaning against the fence when you finally make it back from whatever flock of admirers cornered you this time, arms crossed, watching the last of them scatter with an expression that isn't quite a glare but isn't far off either.
 				<br><br>
-				She notices you and immediately tries to school her expression back into something neutral. "What. Don't have anywhere better to be?"
+				"Popular today," <<he>> says, deceptively casual.
 				<br><br>
-				<<link [[Push|Mint Bad Day - Push]]>><</link>>
+				<<link [[Tease <<Him>> About It|Rowan Notices - Tease]]>><</link>>
 				<br>
-				<<link [[Give Her Space|Mint Bad Day - Space]]>><</link>>
+				<<link [[Reassure <<Him>>|Rowan Notices - Reassure]]>><</link>>
 			<</addinlineevent>>
+			<<if $regionalrace lt 6>>
+				<<addinlineevent "event41">>
+					<<npc "Mint Mocha">><<person1>>
+					You find Mint Mocha waiting outside the locker room, arms crossed, clearly working up to something, judging by how long she's been standing there pretending to check her phone.
+					<br><br>
+					"Don't read into this," she says, before you've even said hello. "I just need to get somethin' off my chest."
+					<br><br>
+					She exhales sharply, like the words are physically difficult to get out.
+					<br><br>
+					"I hate that I can't stop thinkin' about you. There. Said it. Don't make it weird."
+					<br><br>
+					<<link [[Close the Distance|Mint Mocha's Hangup - Close]]>><</link>>
+					<br>
+					<<link [[Make Her Sweat|Mint Mocha's Hangup - Sweat]]>><</link>>
+				<</addinlineevent>>
+				<<if Time.dayState is "night">>
+					<<addinlineevent "event42">>
+						<<npc "Mint Mocha">><<person1>>
+						You find Mint Mocha alone on the track after hours, running drills nobody assigned her.
+						<br><br>
+						She spots you and straightens immediately, trying to look like she wasn't just pushing herself well past the point anyone would call sensible.
+						<br><br>
+						"What. You gonna report me for using the track after closing?"
+						<br><br>
+						<<link [[Challenge Her to a Lap|Track Side by Side - Challenge]]>><</link>>
+						<br>
+						<<link [[Tell Her to Rest|Track Side by Side - Rest]]>><</link>>
+					<</addinlineevent>>
+				<</if>>
+				<<addinlineevent "event43">>
+					<<npc "Mint Mocha">><<person1>>
+					You find Mint Mocha sitting alone by the lockers, uncharacteristically still, scrolling through something on her phone with a deep scowl.
+					<br><br>
+					She notices you and immediately tries to school her expression back into something neutral. "What. Don't have anywhere better to be?"
+					<br><br>
+					<<link [[Push|Mint Bad Day - Push]]>><</link>>
+					<br>
+					<<link [[Give Her Space|Mint Bad Day - Space]]>><</link>>
+				<</addinlineevent>>
+			<</if>>
 		<</if>>
 	<</if>>
 	<<runeventpool>>

@@ -4923,4 +4923,39 @@ setup.LocationImages = {
 			},
 		},
 	},
+	rowanfarm: {
+		folder: "alex-farm",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		emissive: {
+			image: "emissive.png",
+			condition: () => Weather.lightsOn,
+			color: "#deae66",
+			strength: 2,
+		},
+		weather: {
+			fogDistributionCurve: 1.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 9,
+					bottom: 0,
+				},
+				fog: {
+					top: 16,
+					bottom: 0,
+				},
+			},
+		},
+	},
 };

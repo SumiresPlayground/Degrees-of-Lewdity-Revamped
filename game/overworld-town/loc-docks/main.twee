@@ -33,7 +33,7 @@ You are on the docks.
 	Dockers arrive for work. They won't let you join them on a school day.
 	<br><br>
 <</if>>
-<<if $money gte 100000 and $history gte 700 and $exposed lte 0>>
+<<if $history gte 700 and $exposed lte 0>>
 	<<socialiseicon "ask">><<link [[Look for a ride (0:20)|Docks Ride]]>><<pass 20>><</link>>
 	<br>
 <</if>>
@@ -2611,8 +2611,10 @@ You ask some of the fishermen on the dock about renting their vessel for a ride 
 <br><br>
 <<if $money gte 100000>>
 <<link [[Accept payment|Take Off]]>><<set $money -= 100000>><<set $rng to random(1,100)>><</link>>
-<br>
+<<else>>
+<span class="red">You cannot afford this</span>
 <</if>>
+<br>
 <<link [[Decline|Docks]]>><</link>>
 
 :: Take Off
