@@ -24,6 +24,10 @@ You are at the local horse racing track. Grandstands surround a central track. A
 <<else>>
 	People fill into seats as tickets are taken and betting begins, if you want to place a bet, make your way to the booth and pick a horse.
 	<br><br>
+	/*
+	<<getinicon>><<link [[Approach the academy|Horse Academy Entrance]]>><</link>>
+	<br>
+	*/
 	<<animalicon "horse">><<link [[Pick a horse to bet on|Racecourse Betting]]>><<if $weeklybetamount is undefined>><<set $weeklybetamount to 0>><</if>><</link>>
 	<br>
 	<<getouticon>><<link [[Leave|Farmland]]>><</link>>
@@ -71,7 +75,7 @@ You are at the local horse racing track. Grandstands surround a central track. A
 	<<if $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
 		<<link [[Approach the school|Horse Academy]]>><</link>>
 		<br>
-	<<elseif Time.daystate isnot "night" and $horseacademystudent is 1 and $academygone isnot 1>>
+	<<elseif $horseacademystudent is 1 and $academygone isnot 1>>
 		<<link [[Approach the school|Horse TF - Denied Academy Entry]]>><</link>>
 		<br>
 	<<elseif $academygone isnot 1>>
@@ -207,7 +211,7 @@ The <<personsimple>> lunges toward you and pushes you to the floor, pulling out 
 
 :: Rowan Offer
 <<npc Rowan>><<person1>>
-<<He>> looks a bit dumbfounded. "Ya would willin'ly be my trainee even after what I tried to do? You're either brave or stupid, but... thanks." <<He>> staggers slightly, still sore from the beating. "Name's Rowan, but you can call me Rowan. I own a local ranch a bit to the south. The farm's been strugglin' lately, so... I've been tryin' to get my hands on a racing horse to make some money."
+<<He>> looks a bit dumbfounded. "Ya would willin'ly be my trainee even after what I tried to do? You're either brave or stupid, but... thanks." <<He>> staggers slightly, still sore from the beating. "Name's Rowan. I own a local ranch a bit to the south. The farm's been strugglin' lately, so... I've been tryin' to get my hands on a racing horse to make some money."
 <br><br>
 You hold <<his>> shoulder and help guide <<him>> into the academy.
 <br><br>
@@ -218,7 +222,7 @@ You hold <<his>> shoulder and help guide <<him>> into the academy.
 <<if $phase is 1>>
 	You are dragged into the academy bound and gagged. The <<personsimple>> lies you down next to the table as <<he>> speaks to the receptionist. The receptionist begins, "Hello <<sir>>, what do you need today?"
 	<br><br>
-	In response, <<he>> gestures toward you. "I got myself one of them fancy racin' horses. Are ya gonna let me register now or what?" <<He>> begins to fill out paperwork before turning back to you. "You are now my property, ya got that? Name's Rowan, but you can call me Rowan. From now on, ya will be listenin' to me. Now, lets get you into ya new uniform."
+	In response, <<he>> gestures toward you. "I got myself one of them fancy racin' horses. Are ya gonna let me register now or what?" <<He>> begins to fill out paperwork before turning back to you. "You are now my property, ya got that? Name's Rowan. From now on, ya will be listenin' to me. Now, lets get you into ya new uniform."
 <<else>>
 	You enter the academy with Rowan, helping <<him>> to the front desk where the receptionist sits at her computer. <<He>> begins to speak, "Hey missy, I got myself one of them fancy racin' horses you mentioned. Ya gonna let me register now?" The receptionist slides <<him>> a few slips of paper which <<he>> fills out with haste. "There, ya now my own private racin' horse. Lets get ya into uniform."
 <</if>>
@@ -301,9 +305,9 @@ You are in your racing academy dorm room. It looks fairly basic, the lack of dec
 	Rowan is waiting outside the door.
 <</if>>
 <br><br>
-<<if _sleepinterupt is 0>>
-<<bedicon>><<link [[Lay in the bed|Horse Academy Bed]]>><<endevent>><</link>>
-<br>
+<<if _sleepinterupt isnot 1>>
+	<<bedicon>><<link [[Lay in the bed|Horse Academy Bed]]>><<endevent>><</link>>
+	<br>
 <</if>>
 <<wardrobeicon>><<link [[Wardrobe|Horse Academy Wardrobe]]>><<endevent>><</link>>
 <br>
@@ -1699,11 +1703,18 @@ You approach and attempt a conversation with Mint Mocha.
 <</if>>
 
 :: Passout Academy
-You wake up hours later in the infirmary. It seems one of the students carried you here after you passed out. The nurse turns to you with a grim look. "You are terribly overexerted. I understand your desire to grow but... If you continue like this, you will find yourself falling apart."
+<<generate1>><<person1>>
+You wake several hours later in the infirmary. The room is quiet, save for the soft rustle of curtains swaying in the breeze. It seems one of the students or faculty members carried you here after you collapsed.
+<br> <br>
+The nurse notices you've woken and approaches your bedside, a grim expression on <<his>> face.
+<br><br>
+"You're terribly overexerted," <<he>> says. "I understand your desire to improve, but if you keep pushing yourself like this... your body will eventually give out."
+<br><br>
+You already feel the effects. Every movement is heavier than before.
 <br><br>
 <span class="red">You feel weaker than before.</span>
 <br><br>
-<<link [[Next|Horse Academy]]>><<athletics -10>><<danceskill -10>><<physique -10>><<willpower -10>><<endevent>><</link>>
+<<link [[Next|Horse Academy]]>><<endevent>><<athletics -10>><<danceskill -10>><<physique -10>><<willpower -10>><<endevent>><</link>>
 
 :: Rowan Tease
 <<if $pcWins is 2>>
@@ -3389,7 +3400,7 @@ You and Rowan watch another heat from the stands, with you not racing today.
 <br><br>
 The horsegirl startles, swiping at her face fast. "Fine. Just.. failed a time trial. It's stupid, I shouldn't even be this upset about it."
 <br><br>
-<<He>> doesn't really want advice, just someone to sit there for a minute. So you do.
+She doesn't really want advice, just someone to sit there for a minute. So you do.
 <br><br>
 <<link [[Next|Horse Academy]]>><</link>>
 

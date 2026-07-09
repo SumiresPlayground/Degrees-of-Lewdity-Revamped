@@ -226,8 +226,11 @@ You are on Oxford Street. There's an eclectic mix of buildings, but most notable
 			You see Casey waiting outside the school with an umbrella.
 			<br><br>
 			<<link [[Walk home with Casey (0:20)|Casey Walk Home]]>><<set $dailycaseywalk to 1>><<npcincr Casey love 3>><<pass 30>><</link>><<ggglove>>
-			<br>
-			<<link [[Ask to bring Robin along (0:30)|Casey Walk Home Robin]]>><<set $dailycaseywalk to 1>><<npcincr Casey love 1>><<pass 40>><<run setRobinLocationOverride("orphanage", 15)>><</link>><<glove>><<kissvirginitywarning>>
+			<<if _robin_location is "school">>
+				<br>
+				<<link [[Ask to bring Robin along (0:30)|Casey Walk Home Robin]]>><<set $dailycaseywalk to 1>><<npcincr Casey love 1>><<pass 40>><<run setRobinLocationOverride("orphanage", 15)>><</link>><<glove>><<kissvirginitywarning>>
+				<br>
+			<</if>>
 			<br><br>
 		<</if>>
 		Places of interest

@@ -1191,7 +1191,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundBed": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.2,
+			z: ZIndices.backgroundOverlay +0.2,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1206,7 +1206,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundchair": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.9,
+			z: ZIndices.backgroundOverlay +0.9,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1221,7 +1221,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgrounddecoration": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.35,
+			z: ZIndices.backgroundOverlay +0.35,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1236,7 +1236,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgrounddesk": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.8,
+			z: ZIndices.backgroundOverlay +0.8,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1251,7 +1251,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundtable": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.45,
+			z: ZIndices.backgroundOverlay +0.45,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1266,7 +1266,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundposter": {
 			show: true,
-			z: ZIndices.backgroundOverlay + 1.3,
+			z: ZIndices.backgroundOverlay +0.4,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {} 
@@ -1281,7 +1281,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundwallpaper": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1,
+			z: ZIndices.backgroundOverlay +0.11,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1296,7 +1296,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundwardrobe": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.2,
+			z: ZIndices.backgroundOverlay +0.21,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1311,7 +1311,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundwindowsill": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.3,
+			z: ZIndices.backgroundOverlay +0.3,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1326,7 +1326,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundowlplushie": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.7,
+			z: ZIndices.backgroundOverlay +0.7,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1341,7 +1341,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundpc": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.9,
+			z: ZIndices.backgroundOverlay +0.94,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1356,7 +1356,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundtank": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.9,
+			z: ZIndices.backgroundOverlay +0.95,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1371,7 +1371,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundtankdecorations": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.5,
+			z: ZIndices.backgroundOverlay +0.5,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1386,7 +1386,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundtankfeeder": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.2,
+			z: ZIndices.backgroundOverlay +0.22,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -1401,7 +1401,7 @@ Renderer.CanvasModels.main = {
 		},
 		"backgroundparasite": {
 			show: true,
-			z: ZIndices.backgroundOverlay +1.85,
+			z: ZIndices.backgroundOverlay +0.85,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages > 1) {}
@@ -2717,7 +2717,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_stream_type)
 			},
-			z: ZIndices.background,
+			z: ZIndices.background + 1,
 			animation: "idle"
 		},
 
