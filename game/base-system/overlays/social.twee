@@ -91,8 +91,8 @@
 						lust : { name : "Lust", maxValue : 100 }
 					},
 					"Ivory Wraith" : {
-						important: true,
-						love: { maxValue: 50 },
+						important : V.wli.criteria,
+						love : { maxValue: 50 },
 						lust : { name: "Obsession", activeIcon : (V.wraith && (V.wraith.state == "haunt" || V.wraith.state == "despair") ? "img/ui/sym-obsession-blood.png" : "img/ui/sym-obsession.png"), inactiveIcon : "img/ui/sym-obsession-empty.png", maxValue : 25 }
 					},
 					"Taylor" : {
@@ -131,7 +131,7 @@
 				T.importantNpcOrder = ["Robin", "Whitney", "Eden", "Kylar", "Sydney", "Avery", "Great Hawk", "Black Wolf", "Alex", "Taylor", "Casey", "Salem", "Rowan", "Mint Mocha"];
 				if (V.gwylanSeen?.includes("yearning")) T.importantNpcOrder.pushUnique("Gwylan");
 				if ((V.stockholm_bailey || 0) >= 1) T.importantNpcOrder.pushUnique("Bailey");
-				T.importantNpcOrder.pushUnique("Ivory Wraith");
+				if (V.wli.criteria) T.importantNpcOrder.pushUnique("Ivory Wraith");
 				T.specialNPCs = [];
 
 				/* this list is sorted */
@@ -164,7 +164,7 @@
 		<span class="gold">People of Interest</span>
 		<div id="secondary-npcs" class="relation-box-list">
 			<<set _initNPC to 0>>
-			<<for _k= 0; _k lt _otherNPCs.length; _k++>>
+			<<for _k = 0; _k lt _otherNPCs.length; _k++>>
 				<<relation-box _otherNPCs[_k] _npcConfig[_otherNPCs[_k].nam]>>
 				<<set _initNPC += _npcData.init>>
 			<</for>>
