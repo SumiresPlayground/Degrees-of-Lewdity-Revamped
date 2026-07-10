@@ -10,11 +10,11 @@ You climb down a long, dirty ladder before entering some sort of bunker.
 	<<passouttrash>>
 <<else>>
 	<<set $danger to random(1, 10000)>><<set $dangerevent to 0>>
-	<<if $eventskip is 0>>
+	<<if $eventskip lte 0>>
 		<<rng>>
 		<<if $rng gte 91>>
 			<<eventbunkeritem>>
-		<<elseif $danger gte (9900 - $allure) and ($settings.bestialityEnabled or $monster is 1)>>
+		<<elseif $danger gte (9900 - $allure) and (($settings.bestialityEnabled or $monster is 1) or ($settings.spidersEnabled and $settings.swarmsEnabled))>>
 			<<eventbunker>>
 		<<else>>
 			<<eventbunkersafe>>

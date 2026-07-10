@@ -420,8 +420,8 @@
 			<<link [[Next|Hallways]]>><<endevent>><<set $eventskip to 1>><</link>>
 		<</addinlineevent>>
 
-		<<addinlineevent "taylor">>
-			<<if Time.days gte 30 and $TaylorMissing is 0>>
+		<<if Time.days gte 30 and $TaylorMissing is 0>>
+			<<addinlineevent "taylor">>
 				<<npc Taylor>><<person1>><<set $TaylorMissing to 1>>
 				While walking through the halls you hear some voices and listen in
 				<br>
@@ -434,8 +434,8 @@
 				They walk out of earshot and you continue on.
 				<br><br>
 				<<link [[Next|Hallways]]>><<endevent>><<set $eventskip to 1>><</link>>
-			<</if>>
-		<</addinlineevent>>
+			<</addinlineevent>>
+		<</if>>
 
 		<<if $schoolrep.herm gte 5 and !$worn.face.type.includes("mask")>>
 			<<addinlineevent "fame_herm">>

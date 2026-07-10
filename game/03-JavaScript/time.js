@@ -994,6 +994,8 @@ function dayPassed() {
 
 	V.dragonbreathuse = 3;
 	V.sirensong = 3;
+
+	V.rowanDaily = 0
 	
 	V.dailyghostmission = 0;
 	V.acceptedRequest = 0;
