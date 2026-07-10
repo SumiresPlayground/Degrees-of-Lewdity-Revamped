@@ -131,7 +131,7 @@ The <<personsimple>> blows another puff of smoke and takes a glance your way. "D
             <<getouticon>><<link [[Leave|Connudatus Street]]>><<npcincr Casey dom -1>><<endevent>><</link>><<lpride>>
         <</addinlineevent>>
     <</if>>
-    <<if C.npc.Kylar.love gte 30>>
+    <<if C.npc.Kylar.love gte 30 and C.npc.Kylar.state is "active">>
         <<addinlineevent "kylar_convo">>
             As you speak to Casey, you see Kylar out of the corner of your eye. Casey looks over and sees <<nnpc_him "Kylar">> "Who the hell is that? What a creep. Keep yourself safe okay?"
             <br><br>
@@ -317,7 +317,7 @@ You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from
     Casey is lying under a patchwork blanket in bed, you can hear light snores as <<he>> seems at peace. 
 <<elseif (Time.hour is 7 or Time.hour is 8) and $caseycook is 0>>
     Casey moves around the small kitchen, preparing to make breakfast.
-<<elseif Time.dayState is "dawn">>
+<<elseif Time.dayState is "dawn" or Time.dayState is "night">>
     Casey sits in <<his>> chair with a cigar in <<his>> hand, staring a bit blankly.
 <<else>>
     Casey is out of the house at the moment.

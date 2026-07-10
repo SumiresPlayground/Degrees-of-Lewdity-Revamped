@@ -935,7 +935,7 @@ function settingsObjects(type) {
 				facevariant: {
 					strings: ["default", "catty", "aloof", "sweet", "foxy", "gloomy", "plain", "cutieful", "modded1", "modded2", "modded3", "modded4", "modded5", "modded6", "modded7", "modded8", "modded9", "modded10"],
 					displayName: "Demeanour:",
-					textMap: { default: "Default", catty: "Catty", aloof: "Aloof", sweet: "Sweet", foxy: "Foxy", gloomy: "Gloomy", plain: "Plain", cutieful: "Cutieful", modded1: "Modded 1", modded2: "Modded 2", modded3: "Modded 3", modded4: "Modded 4", modded5: "Modded 5", modded6: "Modded 6", modded7: "Modded 7", modded8: "Modded 8", modded9: "Modded 9", modded10: "Modded 10"},
+					textMap: { default: "Gentle", catty: "Catty", aloof: "Aloof", sweet: "Sweet", foxy: "Foxy", gloomy: "Gloomy", plain: "Plain", cutieful: "Cutieful", modded1: "Modded 1", modded2: "Modded 2", modded3: "Modded 3", modded4: "Modded 4", modded5: "Modded 5", modded6: "Modded 6", modded7: "Modded 7", modded8: "Modded 8", modded9: "Modded 9", modded10: "Modded 10"},
 					randomize: "characterAppearance",
 				},
 				breastsensitivity: {

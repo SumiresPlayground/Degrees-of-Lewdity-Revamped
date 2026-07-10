@@ -1,0 +1,32 @@
+:: Widgets speech-Rowan [widget]
+<<widget "speech-rowan">>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Rowan") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Rowan")>>
+		"Reckon I set the bar pretty high." Rowan flashes you a crooked grin. "Poor soul who tries to top me."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Rowan">>
+		"...Well I'll be." <<He>> laughs. "Didn't know you were savin' that one." <<His>> smile returns, easy as ever. "Reckon I'll wear that little victory with pride."
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Rowan">>
+		"Careful." Rowan grins. "Might spoil you with it."
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Rowan">>
+		"Wish you'd warned me." Rowan chuckles, giving you a wink. "Would have stolen it slower."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<case "Black Wolf" "Great Hawk">>
+				Rowan speaks. "That's a wild animal, you have to be careful or you'll get hurt."
+			<<case "Alex">>
+				<<print `Rowan's eyes widen. "You're cheatin' on me with ALEX? THE OTHER FARMER?"`, `Rowan winces. "Is it because Alex's farm is better than mine?"`[random(0,1)] + `"`>>
+			<<case "Mint Mocha">>
+				Rowan laughs. "To think that I'd take in that stubborn horse only for them to homewreck me."
+			<<default>>
+				Rowan furrows <<his>> eyebrows. "Don't even think about anyone else right now."
+		<</switch>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<print `Rowan looks at your $_sexToy and smirks. "` + [`When were you trained how to do this.`, `I didn't think you were so naughty.`, `Show me what you have in mind.`, `What are your plans for this?`][random(0,3)] + `"`>>
+	<<elseif $speechchastity is 1>>
+		<<if $worn.genitals.name is "chastity parasite">>
+			<<print [`Rowan laughs. "Chastity? How can I train you in special ways with that?"`, `<<He>> grips you tightly. "It's alright, I'll train you in other ways."`][random(0, 2)]>>
+		<</if>>
+	<</if>>
+<</widget>>

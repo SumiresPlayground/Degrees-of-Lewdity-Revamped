@@ -374,7 +374,7 @@ window.combatSkillCheck = combatSkillCheck;
 function hairdressersReset() {
 	$(() =>
 		$("#hairDressers").on("change", ".macro-listbox, .macro-radiobutton, .macro-checkbox", function (e) {
-			Wikifier.wikifyEval("<<replace #hairDressers>><<hairDressersOptions>><</replace>>");
+			Wikifier.wikifyEval('<<replace #hairDressers>><<dhmUiReload>><</replace>>');
 			Wikifier.wikifyEval('<<replace #currentCost>>To pay: £<<print _currentCost / 100>><</replace>><<numberify "#passages > .passage">>');
 		})
 	);
@@ -1760,6 +1760,8 @@ function isPossibleLoveInterest(name) {
 			return V.farm_stage >= 7 && V.alex_countdown === undefined;
 		case "Gwylan":
 			return V.gwylanSeen?.includes("partners") || V.gwylanSeen?.includes("romance");
+		case "Ivory Wraith":
+			return V.wli.criteria;
 		case "Taylor":
 			return V.taylorromance === 1;
 		case "Casey":

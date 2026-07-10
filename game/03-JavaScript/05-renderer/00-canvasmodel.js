@@ -91,6 +91,7 @@ class CanvasModel {
 		if ("defaultOptions" in options) this.defaultOptions = options.defaultOptions;
 		if ("preprocess" in options) this.preprocess = options.preprocess;
 		if ("postprocess" in options) this.postprocess = options.postprocess;
+		if ("compile" in options) this.compile = options.compile;
 		this.layers = clone(options.layers);
 		for (const name in this.layers) {
 			if (!Object.hasOwn(this.layers, name)) continue;

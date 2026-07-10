@@ -1353,6 +1353,9 @@ function dawnCheck() {
 		// Reset daily crime of all types to 0
 		V.crime[crimeKeys].daily = 0;
 	}
+
+	delete V.raccoonCrimeProgress;
+	delete V.raccoonCrimeLimit;
 }
 
 function dailyNPCEffects() {

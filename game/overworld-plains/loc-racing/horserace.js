@@ -211,7 +211,8 @@ setup.horserace = setup.horserace || {};
 	["Furious Froggy", "Paperbag Prowler", "Genetics", "Purple Rayne", "Frostberg Lettuce",
 	"J-Corner", "Rough and Stumble", "Lucky Bee", "Yawn in June", "Countess Elizabeth",
 	"Chylli Con Carnage", "Sex Professor", "Remy's Pride", "Moca Loca", "Lemon Melon",
-	"Sage Stellar", "Angel O' War", "Klutzy Mango", "Reiyu the Hung", "Momo Geko"];
+	"Sage Stellar", "Angel O' War", "Klutzy Mango", "Reiyu the Hung", "Momo Geko",
+	"Sasa Lele"];
 
 	HR.fallbackConditions = ["turf", "dirt", "wet", "muddy"];
 
@@ -1238,9 +1239,11 @@ setup.horserace = setup.horserace || {};
 		} else {
 			if (HR.escapeHtml(winner.name) === V.playerhorsetitle) {
 				V.raceresult = "win";
+				V.pcWins += 1;
 				celebration += `<p><strong><span style="color:#5fcf7b;">You won!</span></strong> You are sure something good will be coming.</p>`;
 			} else {
 				V.raceresult = "lose";
+				V.pcLosses += 1;
 				celebration += `<p><strong><span style="color:#ff6b6b;">You lost...</span></strong> You're sure there will be consequences...</p>`;
 			}
 			}

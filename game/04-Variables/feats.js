@@ -2144,6 +2144,22 @@ setup.feats = {
 		filter: ["All", "Questline"],
 		hint: "Hint: Assist a witch on a far off island.",
 	},
+	"Krampus": {
+		title: "The Sinner",
+		desc: "Krampusnacht savior.",
+		difficulty: 4,
+		series: "",
+		filter: ["All", "Boss"],
+		hint: "Hint: Defeat the companion of Saint Nicholas.",
+	},
+	"Perchta": {
+		title: "The Christmas Witch",
+		desc: "In the presence of Frau Perchta.",
+		difficulty: 3,
+		series: "",
+		filter: ["All", "Special"],
+		hint: "Hint: Witness a winter goddess.",
+	},
 };
 
 async function featsMergePre() {

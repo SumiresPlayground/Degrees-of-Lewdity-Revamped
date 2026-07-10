@@ -1883,13 +1883,14 @@
 <<widget "peppersprays">>
 	<span id="peppersprays">
 		<<if $options.pepperSprayDisplay isnot "none">>
-			<div tooltip="<span class='def'>Pepper sprays: $spray / $spraymax</span>" id="pepper-sprays" class="pepper-sprays">
+			<div tooltip="<span class='def'>Pepper sprays: $spray / $spraymax</span>" id="pepper-sprays" class="pepper-sprays" style="position: absolute; right: 10px;">
 				<!-- Compact style (dots) -->
 				<<if $options.pepperSprayDisplay is "compact" or $spraymax gt 7>>
 					<div class="pepper-sprays-dots">
 						<<for _i to 1; _i lte $spraymax; _i++>>
 							<<if $spray gte _i>>
-								<div class="pepper-spray-dot-full"></div>
+								<div class="pepper-spray-dot-full">
+								</div>
 							<<else>>
 								<div class="pepper-spray-dot-empty"></div>
 							<</if>>
@@ -1913,10 +1914,10 @@
 <<widget "condomsSidebar">>
 	<span id="condomsSidebar">
 		<<if $settings.condomLevel gte 1 and $options.condomsDisplay isnot "none" and $condoms isnot null and $condoms isnot undefined>>
-			<div tooltip="<span class='meek'>Total condoms: $condoms</span>" id="condoms-sidebar" class="condoms-sidebar">
+			<div tooltip="<span class='meek'>Total condoms: $condoms</span>" id="condoms-sidebar" class="condoms-sidebar" style="position: absolute; right: 10px;">
 				<img draggable="false" @src='"img/ui/condom/" + $condomdisplay + ".png"'>
 			</div>
-			<div id="condoms-sidebar-text" class="condoms-sidebar-text">
+			<div id="condoms-sidebar-text" class="condoms-sidebar-text" style="position: absolute; right: 40px;">
 				$condoms x
 			</div>
 		<</if>>

@@ -415,7 +415,13 @@ class XrayCombatMapper {
 				};
 				break;
 			default:
-				Errors.report("Invalid npc for xray image. penetrator.npcType");
+				penetrator.penetratorSprite = "penis";
+				penetrator.size = 5;
+				options.filters[slot + "Penetrator"] = {
+					blend: "#ec3535",
+					blendMode: "multiply",
+					desaturate: true,
+				};
 				break;
 		}
 

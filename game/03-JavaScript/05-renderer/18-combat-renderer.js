@@ -406,12 +406,12 @@ class CombatRenderer {
 			// @ts-ignore
 			filter.brightness.adjustments[colorIndex][0] = filter.blend.lengthFunctions[0](hairLength, filter.blend.colors[colorIndex][0]);
 			// @ts-ignore
-			filter.brightness.adjustments[colorIndex][1] = setup.colours.hair_map[gradient.colours[colorIndex]].canvasfilter.brightness || 0;
+			filter.brightness.adjustments[colorIndex][1] = setup.colours.hair_map[dhmod.hair.is_custom ? dhmod.hair.colors[colorIndex] : gradient.colours[colorIndex]].canvasfilter.brightness || 0;
 
 			// @ts-ignore
 			filter.blend.colors[colorIndex][0] = filter.blend.lengthFunctions[0](hairLength, filter.blend.colors[colorIndex][0]);
 			// @ts-ignore
-			filter.blend.colors[colorIndex][1] = setup.colours.hair_map[gradient.colours[colorIndex]].canvasfilter.blend;
+			filter.blend.colors[colorIndex][1] = setup.colours.hair_map[dhmod.hair.is_custom ? dhmod.hair.colors[colorIndex] : gradient.colours[colorIndex]].canvasfilter.blend;
 		}
 
 		const prefilter = setup.colours.sprite_prefilters[prefilterName];
@@ -667,7 +667,7 @@ class CombatRenderer {
 	 */
 	static getHairFilter() {
 		if (V.hairColourStyle === "simple") {
-			return CombatRenderer.lookupColour(setup.colours.hair_map, V.haircolour, "hair", "hair_custom", "hair");
+			return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[0] : V.haircolour, "hair", "hair_custom", "hair");
 		}
 		if (["wide flaps", "hime", "curtain", "mohawk"].includes(V.fringetype)) {
 			return this.getFringeFilter();
@@ -699,23 +699,23 @@ class CombatRenderer {
 	 */
 	static getPartFilter(part) {
 		if (V.hairColourStyle === "simple") {
-			return CombatRenderer.lookupColour(setup.colours.hair_map, V.haircolour, "hair", "hair_custom", "hair");
+			return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[0] : V.haircolour, "hair", "hair_custom", "hair");
 		}
 		if (V.hairColourGradient.style === "split") {
 			if (["tail", "pubes"].includes(part) || (["wings", "ears"].includes(part) && CombatRenderer.getPosition(V.position) === "missionary")) {
-				return CombatRenderer.lookupColour(setup.colours.hair_map, V.hairColourGradient.colours[0], "hair", "hair_custom", "hair");
+				return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[0] : V.hairColourGradient.colours[0], "hair", "hair_custom", "hair");
 			}
-			return CombatRenderer.lookupColour(setup.colours.hair_map, V.hairColourGradient.colours[1], "hair", "hair_custom", "hair");
+			return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[1] : V.hairColourGradient.colours[1], "hair", "hair_custom", "hair");
 		}
 		if (V.hairColourGradient.style === "high-ombre") {
 			if (["tail", "pubes", "wings"].includes(part)) {
-				return CombatRenderer.lookupColour(setup.colours.hair_map, V.hairColourGradient.colours[0], "hair", "hair_custom", "hair");
+				return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[0] : V.hairColourGradient.colours[0], "hair", "hair_custom", "hair");
 			}
-			return CombatRenderer.lookupColour(setup.colours.hair_map, V.hairColourGradient.colours[1], "hair", "hair_custom", "hair");
+			return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[1] : V.hairColourGradient.colours[1], "hair", "hair_custom", "hair");
 		}
 		if (V.hairColourGradient.style === "low-ombre") {
 			if (["tail"].includes(part)) {
-				return CombatRenderer.lookupColour(setup.colours.hair_map, V.hairColourGradient.colours[0], "hair", "hair_custom", "hair");
+				return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[0] : V.hairColourGradient.colours[0], "hair", "hair_custom", "hair");
 			}
 			return CombatRenderer.createHairColourGradient(
 				"sides",
@@ -726,7 +726,7 @@ class CombatRenderer {
 			);
 		}
 		if (V.hairColourGradient.style === "face-frame") {
-			return CombatRenderer.lookupColour(setup.colours.hair_map, V.hairColourGradient.colours[1], "hair", "hair_custom", "hair");
+			return CombatRenderer.lookupColour(setup.colours.hair_map, dhmod.hair.is_custom ? dhmod.hair.colors[1] : V.hairColourGradient.colours[1], "hair", "hair_custom", "hair");
 		}
 		return CombatRenderer.createHairColourGradient(
 			"sides",

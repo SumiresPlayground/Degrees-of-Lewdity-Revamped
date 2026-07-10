@@ -76,11 +76,13 @@
 			<<unset $endeventerror>>
 		<</if>>
 
-		<<link "Trigger passout event">>
-			<<set $stress to $stressmax>>
-			<<run Engine.play(passage())>>
-		<</link>>
-		<br><br>
+		<<if $location is "fae_forest" or $passoutenable is '1'>>
+			<<link "Trigger passout event">>
+				<<set $stress to $stressmax>>
+				<<run Engine.play(passage())>>
+			<</link>>
+			<br><br>
+		<</if>>
 
 		<<if $physiquechange is 1>><<set $physiquechange to 0>>
 			<<if $physiqueuse gte $physique / 1000>>
