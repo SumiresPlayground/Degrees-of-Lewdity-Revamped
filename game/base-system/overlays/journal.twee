@@ -266,51 +266,49 @@
 			<</if>>
 
 			<<if $studyBooks isnot undefined and ($studyBooks?.rented isnot "none" or $studyBooks?.stolen isnot "none")>>
-				<li>
-					<<if $studyBooks.rented isnot "none">>
-						<<switch $studyBooks.rented>>
-							<<case "Pinch">>
-								<<if $per_npc.pinch isnot undefined>>
-									<<set _book to `copy of \"How ${$per_npc.pinch.pronoun is "m" ? "Mr" : "Ms"} Pinch Groped Christmas\"`>>
-								<<else>>
-									<<set _book to "olive-coloured book">>
-								<</if>>
-							<<case "Raul and Janet">>
-								<<set _book to `copy of \"${$studyBooks.rented}\"`>>
-							<<case "English" "science" "maths" "history">>
-								<<set _book to $studyBooks.rented + " textbook">>
-						<</switch>>
-						<<if Time.schoolTerm>>
-							<<if $book_rent_timer is 0>>
-								<span class="blue">You have <<a _book>> due.</span>
-							<<elseif $book_rent_timer lt 0>>
-								<span class="red">You have <<a _book>> overdue.</span>
+				<<if $studyBooks.rented isnot "none" and $book_rent_timer>>
+					<<switch $studyBooks.rented>>
+						<<case "Pinch">>
+							<<if $per_npc.pinch isnot undefined>>
+								<<set _book to `copy of \"How ${$per_npc.pinch.pronoun is "m" ? "Mr" : "Ms"} Pinch Groped Christmas\"`>>
 							<<else>>
-								You have <<a _book>> due in <span class="gold">$book_rent_timer</span> <<pluralise $book_rent_timer "day">>.
+								<<set _book to "olive-coloured book">>
 							<</if>>
+						<<case "Raul and Janet">>
+							<<set _book to `copy of \"${$studyBooks.rented}\"`>>
+						<<case "English" "science" "maths" "history">>
+							<<set _book to $studyBooks.rented + " textbook">>
+					<</switch>>
+					<<if Time.schoolTerm>>
+						<<if $book_rent_timer is 0>>
+							<li><span class="blue">You have <<a _book>> due.</span></li>
+						<<elseif $book_rent_timer lt 0>>
+							<li><span class="red">You have <<a _book>> overdue.</span></li>
+						<<else>>
+							<li>You have <<a _book>> due in <span class="gold">$book_rent_timer</span> <<pluralise $book_rent_timer "day">>.</li>
 						<</if>>
 					<</if>>
-					<<if $studyBooks.stolen isnot "none">>
-						<<set _colour to $bookStolenKnown gte 3 ? "red" : $bookStolenKnown is 2 ? "pink" : "white">>
-						<<switch $studyBooks.stolen>>
-							<<case "Pinch">>
-								<<if $per_npc.pinch isnot undefined>>
-									<span @class=_colour>You've stolen a copy of "How <<= $per_npc.pinch.pronoun is "m" ? "Mr" : "Ms">> Pinch Groped Christmas".</span>
-								<<else>>
-									<span @class=_colour>You've stolen an olive-coloured book.</span>
-								<</if>>
-							<<case "Raul and Janet">>
-								<span @class=_colour>You've stolen a copy of "$studyBooks.stolen".</span>
-							<<case "English" "science" "maths" "history">>
-								<span @class=_colour>You've stolen <<a $studyBooks.stolen>> textbook.</span>
-							<<default>>
-						<</switch>>
-					<</if>>
-					<<if !Time.schoolTerm and $studyBooks.rented isnot "none">>
-						<<if $studyBooks.rented>>You have <<a _book>> checked out.<</if>>
-						<span class="blue">Books are not due over school break!</span>
-					<</if>>
-				</li>
+				<</if>>
+				<<if $studyBooks.stolen isnot "none" and $book_rent_timer>>
+					<<set _colour to $bookStolenKnown gte 3 ? "red" : $bookStolenKnown is 2 ? "pink" : "white">>
+					<<switch $studyBooks.stolen>>
+						<<case "Pinch">>
+							<<if $per_npc.pinch isnot undefined>>
+								<li><span @class=_colour>You've stolen a copy of "How <<= $per_npc.pinch.pronoun is "m" ? "Mr" : "Ms">> Pinch Groped Christmas".</span></li>
+							<<else>>
+								<li><span @class=_colour>You've stolen an olive-coloured book.</span></li>
+							<</if>>
+						<<case "Raul and Janet">>
+							<li><span @class=_colour>You've stolen a copy of "$studyBooks.stolen".</span></li>
+						<<case "English" "science" "maths" "history">>
+							<li><span @class=_colour>You've stolen <<a $studyBooks.stolen>> textbook.</span></li>
+						<<default>>
+					<</switch>>
+				<</if>>
+				<<if !Time.schoolTerm and $studyBooks.rented isnot "none">>
+					<li><<if $studyBooks.rented>>You have <<a _book>> checked out.<</if>>
+					<span class="blue">Books are not due over school break!</span></li>
+				<</if>>
 			<</if>>
 
 			<<if $gwylanSeen?.includes("ritual_beast")>>

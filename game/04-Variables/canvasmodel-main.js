@@ -3112,7 +3112,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.slime_bubble_type)
 			},
-			z: ZIndices.over_upper,
+			z: ZIndices.skin + 0.1,
 			animation: "idle"
 		},
 		"slime_stream": {

@@ -1,14 +1,16 @@
 :: Widgets Bunker [widget]
 <<widget "eventbunker">>
 	<<cleareventpool>>
-	<<addinlineevent "bunker_rat">>
-		<<beastNEWinit 1 rat>>
-		The bunker reeks of rot. You plug your nose as you continue onward. The bunker dims significantly until you run into something. It feels gross and matted. It shifts and turns, exposing a large <<beasttype>>.
-		<br><br>
+	<<if $settings.bestialityEnabled or $monster is 1>>
+		<<addinlineevent "bunker_rat">>
+			<<beastNEWinit 1 rat>>
+			The bunker reeks of rot. You plug your nose as you continue onward. The bunker dims significantly until you run into something. It feels gross and matted. It shifts and turns, exposing a large <<beasttype>>.
+			<br><br>
 
-		<<link [[Next|Bunker Rat]]>><<set $eventskip to 2>><<set $molestationstart to 1>><</link>>
-	<</addinlineevent>>
-	<<if $settings.spidersEnabled>>
+			<<link [[Next|Bunker Rat]]>><<set $eventskip to 2>><<set $molestationstart to 1>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<if $settings.spidersEnabled and $settings.swarmsEnabled>>
 		<<addinlineevent "bunker_spider">>
 			While exploring the bunker you find yourself tangled in webs, you try to pull apart the web, but your hands get stuck. You manage to pull them free, but the rest of your body becomes tangled in the process, leaving you suspended in the air. Your struggling attracts unwanted attention as thousands of tiny, live spiders that start crawling from holes, cracks and furniture up the web toward you.
 			<br><br>
@@ -50,7 +52,7 @@
 		<br><br>
 
 		<<set $antiquemoney += 500>><<museumAntiqueStatus "antiquebunkertablet" "found">>
-		<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+		<<link [[Next|Bunker]]>><<set $eventskip to 2>><</link>>
 		<br>
 	<</addinlineevent>>
 	<<addinlineevent "bunkertag">>
@@ -61,7 +63,7 @@
 		<br><br>
 
 		<<set $antiquemoney += 800>><<museumAntiqueStatus "antiquebunkertag" "found">>
-		<<link [[Next|Bunker]]>><<set $eventskip to 1>><</link>>
+		<<link [[Next|Bunker]]>><<set $eventskip to 2>><</link>>
 		<br>
 	<</addinlineevent>>
 	<<runeventpool>>
