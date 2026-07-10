@@ -311,6 +311,14 @@
 					<<set _gwylanWake to true>>
 				<</if>>
 				/* ToDo: Gwylan */
+			<<case "horseacademy">>
+				<<if Time.hour is 8>>
+					<<if $rowanDaily isnot 1 or $rowanWake is 1>>
+						<<set _sleepinterrupt to 1>>
+						<<set $rowanWake to 1>>
+						<<set $rowanDaily to 1>>
+					<</if>>
+				<</if>>
 		<</switch>>
 		<!-- this will stop sleep from happening, meaning no fatigue reduction or time passing -->
 		<<if _sleepinterrupt>>

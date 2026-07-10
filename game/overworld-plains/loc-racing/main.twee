@@ -22,14 +22,19 @@ You are at the local horse racing track. Grandstands surround a central track. A
 	<br>
 
 <<else>>
-	People fill into seats as tickets are taken and betting begins, if you want to place a bet, make your way to the booth and pick a horse.
-	<br><br>
+	<<if Weather.precipitation === "rain" or Weather.precipitation === "snow" or Time.dayState is "night">>
+		It's closing time. The horses are being herded into their stables, and the customers from the grounds. <<if $exposed gte 1>>You skulk away before anyone sees your <<lewdness>>.<</if>>
+		<br><br>
+	<<else>>
+		People fill into seats as tickets are taken and betting begins, if you want to place a bet, make your way to the booth and pick a horse.
+		<br><br>
+		<<animalicon "horse">><<link [[Pick a horse to bet on|Racecourse Betting]]>><<if $weeklybetamount is undefined>><<set $weeklybetamount to 0>><</if>><</link>>
+		<br>
+	<</if>>
 	/*
 	<<getinicon>><<link [[Approach the academy|Horse Academy Entrance]]>><</link>>
 	<br>
 	*/
-	<<animalicon "horse">><<link [[Pick a horse to bet on|Racecourse Betting]]>><<if $weeklybetamount is undefined>><<set $weeklybetamount to 0>><</if>><</link>>
-	<br>
 	<<getouticon>><<link [[Leave|Farmland]]>><</link>>
 	<br>
 <</if>>
@@ -83,7 +88,7 @@ You are at the local horse racing track. Grandstands surround a central track. A
 		<br>
 	<</if>>
 	<<if $horseacademystudent is 1 and $academygone isnot 1>>
-		<<link [[Walk toward the training track|Horse Academy Track]]>><</link>>
+		<<trackicon>><<link [[Walk toward the training track|Horse Academy Track]]>><</link>>
 		<br>
 	<</if>>
 	<<getouticon>><<link [[Leave|Race Track]]>><</link>>
@@ -95,7 +100,7 @@ You are at the local horse racing track. Grandstands surround a central track. A
 <<getouticon>><<link [[Leave|Horse Academy Entrance]]>><</link>>
 
 :: Horse Academy
-<<set $outside to 0>>
+<<set $outside to 0>><<set $location to "horseacademy">>
 You are within the entrance hall of the legally distinct horse racing academy. 
 <br><br>
 <<if $academygone isnot 1>>
@@ -300,20 +305,19 @@ You get changed into the academy uniform and are guided down the hall to a dorm 
 <<link [[Next|Horse Academy Dorm]]>><<set $horseacademystudent to 1>><<set $horseacademycountdown to 7>><<endevent>><</link>>
 
 :: Horse Academy Dorm
+<<set $location to "horseacademy">>
 You are in your racing academy dorm room. It looks fairly basic, the lack of decorations leaving a plain room with only a bed, mirror, and wardrobe. 
-<<if _sleepinterrupt is 1>>
+<<if $rowanWake is 1>>
 	Rowan is waiting outside the door.
 <</if>>
 <br><br>
-<<if _sleepinterupt isnot 1>>
-	<<bedicon>><<link [[Lay in the bed|Horse Academy Bed]]>><<endevent>><</link>>
-	<br>
-<</if>>
+<<bedicon>><<link [[Lay in the bed|Horse Academy Bed]]>><<endevent>><</link>>
+<br>
 <<wardrobeicon>><<link [[Wardrobe|Horse Academy Wardrobe]]>><<endevent>><</link>>
 <br>
 <<mirroricon>><<link [[Mirror|Horse Academy Mirror]]>><<endevent>><</link>>
 <br>
-<<if _sleepinterrupt is 1>>
+<<if $rowanWake is 1>>
 	<<getouticon>><<link [[Leave the dorm room|Horse Academy Rowan Morning]]>><<rng>><<endevent>><</link>>
 <<else>>
 	<<getouticon>><<link [[Leave the dorm room|Horse Academy]]>><<endevent>><</link>>
@@ -370,7 +374,7 @@ You're on the academy's practice track.
 	<<if $athleticsSuccess>>
 		You jog against the wind. <span class="green">The fresh air <<if Weather.is("clear") and Time.dayState is "day">>and sunshine<</if>> is refreshing.</span>
 	<<else>>
-		You jog against the wind. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+		You jog against the wind. <span class="blue">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
 	<</if>>
 	<br><br>
 	<<runicon>><<link [[Continue jogging on the track (1:30)|Horse Academy Track Train]]>><<endevent>><<athletics 5>><<pass 90>><<tiredness 2>><<set $speed to "jog">><</link>><<athleticsdifficulty 250 700>><<ggathletics>><<gtiredness>>
@@ -385,7 +389,7 @@ You're on the academy's practice track.
 <<if $stress gte $stressmax>>
 	<<passoutacademy>>
 <<else>>
-	You jog with a weighted vest weighing you down. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	You jog with a weighted vest weighing you down. <span class="blue">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
 	<br><br>
 	<<runicon>><<link [[Continue weighted cardio on the track (1:30)|Horse Academy Track Weight]]>><<endevent>><<willpower 5>><<pass 90>><<tiredness 10>><</link>><<gggwillpower>><<gggtiredness>>
 	<br>
@@ -414,7 +418,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	<<passoutacademy>>
 <<else>>
 	<<wearProp "weight">>
-	You spend an hour lifting weights in the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	You spend an hour lifting weights in the multipurpose room. <span class="blue">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
 	<br><br>
 	<<prisonicon "lift">><<link [[Continue lifting weights (1:00)|Horse Academy Weights]]>><<endevent>><<physique 5>><<pass 60>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
 	<br>
@@ -427,7 +431,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 <<if $stress gte $stressmax>>
 	<<passoutacademy>>
 <<else>>
-	You spend an hour practicing dance in the aerobic section of the multipurpose room. <span class="red">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
+	You spend an hour practicing dance in the aerobic section of the multipurpose room. <span class="blue">You feel a little worn out.</span><<gtiredness>><<tiredness 2>>
 	<br><br>
 	<<dancestudioicon>><<link [[Continue to practice dancing (1:00)|Horse Academy Dance]]>><<endevent>><<danceskill 5>><<pass 60>><<tiredness 5>><</link>><<ggdanceskill>><<ggtiredness>>
 	<br>
@@ -438,19 +442,21 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 
 :: Horse Academy Rowan Morning
 <<npc Rowan>><<person1>>
+<<set _sleepinterrupt to 0>>
+<<set $rowanWake to 0>>
 <<set $trainingstage to 0>>
 <<if $transformationParts.horse.tail is "default" and $transformationParts.horse.ears is "default">>
 	<<if $horseacademycountdown is 0>>
 		"Oh you're finally awake, thought ya were gonna be sleepin' forever at this rate." Rowan sighs and places <<his>> hand on <<his>> hip. "It's racin' day, you ready?" <<He>> doesn't wait for an answer as <<he>> grabs your arm and pulls you along.
 		<br>
-		<<runicon>><<link [[Follow Rowan to the track (2:00)|Regional Race Go]]>><<pass 120>><<if $regionalrace is undefined>><<set $regionalrace to 6>><</if>><</link>>
+		<<raceicon>><<link [[Follow Rowan to the track (2:00)|Regional Race Go]]>><<pass 120>><<if $regionalrace is undefined>><<set $regionalrace to 6>><</if>><</link>>
 	<<else>>
 		"Oh, you're finally awake. Thought ya were gonna sleep the whole day away."
 		<br> <br>
 		Rowan lets out a sigh and rests a hand on <<his>> hip.
 		<br><br>
 		"We got a race comin' up, darlin'. Can't afford to be slackin' off now."
-		<br>
+		<br><br>
 		<<if $rng gt 75>>
 			<<He>> jerks <<his>> head toward the training grounds.
 			<br><br>
@@ -525,12 +531,12 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	<<elseif $dailytrain is 4>>
 		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Willpower]]>><</link>><<gggwillpower>><<gggtiredness>>
 	<</if>>
-	<br>
+	<br><br>
 	<<link [[Continue to disobey|Horse Academy Rowan Rape]]>><<set $molestationstart to 1>><</link>>
 <<else>>
 	"Fine, I suppose ya earned enough respect for me to respect ya choices. Just don't be lettin' me down durin' the race."
-	<br>
-	<<link [[Next|Horse Academy]]>><<set _sleepinterrupt to 0>><</link>>
+	<br><br>
+	<<link [[Next|Horse Academy]]>><</link>>
 <</if>>
 
 :: Horse Academy Rowan Rape
@@ -567,13 +573,13 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	<<clotheson>>
 	<<endcombat>>
 	<<if $dailytrain is 1>>
-		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggathletics>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Athletics]]>><<set C.npc.Rowan.dom += 10>><</link>><<gggathletics>><<gggtiredness>>
 	<<elseif $dailytrain is 2>>
-		<<prisonicon "lift">><<link [[Follow Rowan (4:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggphysique>><<gggtiredness>>
+		<<prisonicon "lift">><<link [[Follow Rowan (4:00)|Horse Academy Train Physique]]>><<set C.npc.Rowan.dom += 10>><</link>><<gggphysique>><<gggtiredness>>
 	<<elseif $dailytrain is 3>>
-		<<dancestudioicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.dom += 10>><<danceskill 50>><<tiredness 20>><<set _sleepinterrupt to 0>><</link>><<gggdanceskill>><<gggtiredness>>
+		<<dancestudioicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Dance]]>><<set C.npc.Rowan.dom += 10>><<danceskill 50>><<tiredness 20>><</link>><<gggdanceskill>><<gggtiredness>>
 	<<elseif $dailytrain is 4>>
-		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.dom += 10>><<set _sleepinterrupt to 0>><</link>><<gggwillpower>><<gggtiredness>>
+		<<runicon>><<link [[Follow Rowan (4:00)|Horse Academy Train Willpower]]>><<set C.npc.Rowan.dom += 10>><</link>><<gggwillpower>><<gggtiredness>>
 	<</if>>
 <<else>>
 	Hissing, Rowan backs away from you.
@@ -587,7 +593,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	<br><br>
 	<<clotheson>>
 	<<endcombat>>
-	<<link [[Next|Horse Academy]]>><<set _sleepinterrupt to 0>><<endevent>><</link>>
+	<<link [[Next|Horse Academy]]>><<endevent>><</link>>
 <</if>>
 
 :: Horse Academy Train Athletics
@@ -596,7 +602,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 <<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng or $trainstage is 1>>
 	Rowan leads you to the practice track at the front of the academy. "We're gonna be trainin' ya speed today. You aughta do about a dozen laps on the track and we'll see ya progress."
 	<br><br>
-	You spend a couple hours jogging. <span class="red">You feel exhausted.</span>
+	You spend a couple hours jogging. <span class="blue">You feel exhausted.</span>
 	<br><br>
 	<<if $trainstage is lt 1>>
 		<<if $rng gte 40>>
@@ -619,6 +625,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	"Now that we got ya in the back where noone'll hear, we can begin ya <span class="red">"special"</span> trainin'..."
 	<br><br>
 	Rowan leads you to an open room the size of an indoor pool with a small track. "Now... we're gonna let the horses out and we'll see how fast you can run."
+	<br><br>
 	<<link [[Next|Horse Backroom Athletics]]>><<endevent>><</link>>
 <</if>>
 
@@ -629,7 +636,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	<<wearProp "weight">>
 	Rowan guides you to the multipurpose room where there are several weights and machines set up for strength training. "Alrighty, today we're gonna be trainin' your strength so you can pass up other horses mid-race."
 	<br><br>
-	You spend a couple hours lifting weights. <span class="red">You feel exhausted.</span>
+	You spend a couple hours lifting weights. <span class="blue">You feel exhausted.</span>
 	<br><br>
 	<<if $trainstage is lt 1>>
 		<<if $rng gte 40>>
@@ -652,6 +659,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 	"Now that we got ya in the back where noone'll hear, we can begin ya <span class="red">"special"</span> trainin'..."
 	<br><br>
 	Rowan pulls you into a side room lit by red lights with a mat at the center. "Get down and begin your pushups. If ya begin strugglin' I'll have to give ya a punishment just for you."
+	<br><br>
 	<<link [[Next|Horse Backroom Physique]]>><<endevent>><</link>>
 <</if>>
 
@@ -661,7 +669,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 <<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng or $trainstage is 1>>
 	Walking a little ahead, Rowan guides you to the multipurpose room and sets down a boombox. "Today we're gonna take some time to train up ya footwork. We can't have ya slippin' on corners or fallin' mid-race."
 	<br><br>
-	You spend a couple hours practicing your dance skills. <span class="red">You feel exhausted.</span>
+	You spend a couple hours practicing your dance skills. <span class="blue">You feel exhausted.</span>
 	<br><br>
 	<<if $trainstage is lt 1>>
 		<<if $rng gte 40>>
@@ -694,7 +702,7 @@ You are in the academy's multi-purpose training room. Half of the room is taken 
 <<if C.npc.Rowan.love - C.npc.Rowan.dom gte $rng or $trainstage is 1>>
 	Rowan guides you toward the practice track out front. "We're gonna be trainin' ya on the track today. I brought ya a weighted vest, should help ya build up some endurance for the comin' races."
 	<br><br>
-	You spend a couple hours jogging with a weighted vest weighing you down. <span class="red">You feel exhausted.</span>
+	You spend a couple hours jogging with a weighted vest weighing you down. <span class="blue">You feel exhausted.</span>
 	<br><br>
 	<<if $trainstage is lt 1>>
 		<<if $rng gte 40>>
@@ -803,7 +811,7 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 	<<danceskill 5>>
 	<br><br>
 	Rowan grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar."
-
+	<br><br>
 	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Rowan.love += 3>><</link>><<ggglove>>
 <<else>>
 	The final lash lands, causing you to cry out in pain as your back is raw. Rowan pants as <<he>> hangs back up the whip. "Train your footwork skills if ya don't want so much pain next time."
@@ -811,7 +819,7 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 	<<danceskill 5>>
 	<br><br>
 	Rowan grabs your arm, pulling you back to the front of the academy. "That is the end of our special trainin'" <<He>> gives your rear a firm smack. "You're free for the rest of the day, sugar."
-
+	<br><br>
 	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Rowan.dom += 2>><</link>><<ggdom>>
 <</if>>
 
@@ -820,9 +828,11 @@ You are grabbed from the room and thrown back into the main hall of the academy.
 You begin to sprint as the box at the end of the room opens and a large horse barrels out. Rowan begins to laugh as <<he>> watches. "Run sugar run! Maybe you can escape if ya fast enough."
 <<if $athletics gte 800>>
 	You slowly start to gain distance from the horse before bursting out of the back rooms. You can hear Rowan's laughter continue from the other room.
+	<br><br>
 	<<link [[Next|Horse Academy]]>><<endevent>><<set C.npc.Rowan.love += 3>><<athletics 5>><</link>><<ggglove>>
 <<else>>
 	You slowly begin to lose ground as the horse speeds up. Rowan begins to laugh as <<he>> watches you get mowed over by the horse, pinned to the ground.
+	<br><br>
 	<<link [[Next|Horse Chase Rape]]>><<set C.npc.Rowan.dom += 2>><<set $molestationstart to 1>><<athletics 5>><</link>><<ggdom>>
 <</if>>
 
@@ -1367,7 +1377,7 @@ The board changes one last time while the bookie calls for final bets.
 	<</if>>
 <</if>>
 
-:: Post Race Mint Mocha 2
+:: Post Race Mocha 2
 
 <<if $regionalrace is 5>>
 	<<if $raceresult is "win">>
@@ -1444,7 +1454,7 @@ Before your brain can fully register her words, you feel a light tap on your sho
 <br><br>
 As you turn around, you're greeted by Rowan's smirking face.
 <br><br>
-<<link [[Next|Post Race Mint Mocha 3]]>><<endevent>><</link>>
+<<link [[Next|Post Race Rowan]]>><<endevent>><</link>>
 
 :: Post Race Rowan
 <<npc Rowan>><<person1>>
