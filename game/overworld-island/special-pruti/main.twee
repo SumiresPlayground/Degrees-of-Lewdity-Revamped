@@ -1,11 +1,12 @@
 :: Witch Intro
 <<location "prutihut">>
+<<callDoll>>
 <<npc "Pruti">><<person1>>
 You awaken from your stupor feeling oddly... stiff. When you try to move, you hear a sharp click. A cursory glance at your body reveals your skin to be some kind of fabric. You gasp in horror, but you fail to make a sound. Whatever happened to your body seems to be somewhat impeding your ability to talk. You're about to make an attempt to ascertain your surroundings when you notice a shadow looming over you. You look up.
 <br><br>
 It takes you a few seconds to mentally grasp what you're seeing. There appears to be a <<personsimple>> with a smug expression on <<his>> face standing above you. "Good morning, doll," <<he>> purrs. "It seems the ritual worked perfectly."
 <br><br>
-The <<personsimple>> introduces <<himself>> as Pruti, a powerful witch with a penchant for turning <<his>> enemies into inanimate objects. <<He>> explains that <<he>> conducted a ritual on you to remove your soul and put it into a doll, and that you'll remain in this state until <<he>> decides otherwise.
+The <<personsimple>> introduces <<himself>> as Pruti, a powerful witch with a penchant for turning <<his>> enemies into inanimate objects. <<He>> explains that <<he>> conducted a ritual on you to place your soul into a doll, and that you'll remain in this state until <<he>> decides otherwise.
 <br><br>
 Suddenly, a swarm of elongated arms appear and begin brushing through your hair and face, as if they were getting you ready for your day. "There, there, my little doll," the <<personsimple>> whispers. "Now you belong to me. You will do everything I say, understand?"
 <br><br>
@@ -53,6 +54,7 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<<set $syndromepruti to 1>>
 	Suddenly, your bindings loosen and disappear. Pruti approaches you and whispers into your ear. "You've been good thus far. You can move around but don't even think about leaving. Got it?" <<He>> steps back and lets you stand before returning to what <<he>> was doing. <<He>> doesn't seem to mind as you return to your original form.
 	<br><br>
+	<<sleepDoll>>
 	<span class="red">You've gained the Stockholm Syndrome: Pruti trait.</span>
 	<br><br>
 	<<if $bodyless is 1>>
@@ -145,6 +147,7 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<br><br>
 
 	<<link [[Next|Misland]]>>
+		<<sleepDoll>>
 		<<set $islanddistance to 45>>
 		<<set Skin.color.natural to "ghost">>
 		<<set V.transformationParts.ghost.eyes to "default">>
@@ -160,7 +163,7 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	You find your body within a closet and return to it before fleeing the hut.
 	<br><br>
 
-	<<link [[Next|Misland]]>><<set $islanddistance to 45>><<clearExtraTransformations>><</link>>
+	<<link [[Next|Misland]]>><<sleepDoll>><<set $islanddistance to 45>><<clearExtraTransformations>><</link>>
 	<br>
 <</if>>
 
@@ -307,6 +310,8 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 <<effects>>
 
 <<if $molestationstart is 1>>
+	<<set $monster to 1>>
+	<<set $NPCList[0].monster to "monster">>
 	<<set $molestationstart to 0>>
 	<<controlloss>>
 	<<violence 1>>
@@ -319,7 +324,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 		<<set $enemyarousalmax to 1500>>
 		<<set $enemyanger += ($NPCName[$NPCNameList.indexOf("Pruti")].love * 5)>>
 		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 3)>>
-		<<makeAbomination _wraithtentacles 8 "tentacle" "pale" true>>
+		<<makeAbomination _randomtentacles 8 "tentacle" "tentacle" true>>
 	<<else>>
 		<<set $enemyhealthmax to 1200>>
 		<<set $enemyhealth to 1200>>
@@ -330,7 +335,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 		<</for>>
 		<<set $enemyanger += 500>>
 		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 2)>>
-		<<makeAbomination _wraithtentacles 16 "tentacle" "pale">>
+		<<makeAbomination _randomtentacles 16 "tentacle" "tentacle" true>>
 	<</if>>
 <</if>>
 
@@ -352,7 +357,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 
 <<effects>>
 <<if $enemyarousal gte $enemyarousalmax>>
-	<<eastejaculation>>
+	<<beastejaculation>>
 
 	Satisfied, Pruti climbs off of you. <<His>> shape returns to normal with creaks and groans. "I... can't speak to you right now..." Pruti shakes <<his>> head as <<he>> locks you up and returns to <<his>> studying.
 	<br><br>
@@ -376,6 +381,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<<endcombat>>
 
 	<<link [[Next|Misland]]>>
+		<<sleepDoll>>
 		<<set $islanddistance to 45>>
 		<<set $prutimonster to 2>>
 		<<set $eventskip to 1>>
@@ -401,7 +407,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<<endcombat>>
 
 	<<link [[Next|Misland]]>>
-		<<set $islanddistance to 45>><<set $prutimonster to 2>><<set $eventskip to 1>><<clearExtraTransformations>>
+		<<sleepDoll>><<set $islanddistance to 45>><<set $prutimonster to 2>><<set $eventskip to 1>><<clearExtraTransformations>>
 	<</link>>
 	<br>
 <</if>>
@@ -507,6 +513,7 @@ Pruti sees you eyeing the door and sighs annoyed. "You do want to leave don't yo
 <br><br>
 <<if $bodyless is 1>>
 	<<link [[Exit Pruti's Hut|Misland]]>>
+		<<sleepDoll>>
 		<<set $islanddistance to 45>>
 		<<set $eventskip to 1>>
 		<<set Skin.color.natural to "ghost">>
@@ -521,7 +528,7 @@ Pruti sees you eyeing the door and sighs annoyed. "You do want to leave don't yo
 		<<endevent>>
 	<</link>>
 <<else>>
-	<<link [[Exit Pruti's Hut|Misland]]>><<set $islanddistance to 45>><<set $eventskip to 1>><<endevent>><</link>>
+	<<link [[Exit Pruti's Hut|Misland]]>><<sleepDoll>><<set $islanddistance to 45>><<set $eventskip to 1>><<endevent>><</link>>
 <</if>>
 
 :: Pruti Eat
@@ -585,6 +592,8 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 
 
 <<if $sexstart is 1>>
+	<<set $monster to 1>>
+	<<set $NPCList[0].monster to "monster">>
 	<<set $sexstart to 0>>
 	<<consensual>><<set $consensual to 1>>
 	<<neutral 1>>
@@ -594,7 +603,7 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 	<<set $enemyanger to 0>>
 	<<set $enemytrust to 500>>
 	<<maninit "beast">><<npcexpose>>
-	<<makeAbomination _randomtentacles 8 "tentacle" "pale" true>>
+	<<makeAbomination _randomtentacles 8 "tentacle" "tentacle" true>>
 <</if>>
 
 <br>

@@ -429,6 +429,9 @@ Renderer.CanvasModels.main = {
 			"cosmic_arms_type": "disabled",
 			"cosmic_head_type": "disabled",
 			"cosmic_eyes_type": "disabled",
+			"doll_body_type": "disabled",
+			"doll_arms_type": "disabled",
+			"doll_string_type": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -1133,13 +1136,18 @@ Renderer.CanvasModels.main = {
 							{if (V.npc.length > 0)
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else
-							if (V.npc.length > 0)
+							if (V.npc.length > 0) {
+										const skin = V.NPCList[0].skincolour;
+										const skinCls = 
+										skin === "white" ? "light" :
+                                        skin === "black" ? "dark" :
+                                        skin;
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
 									else if (V.npc[0] === "Sydney")
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
 			},
 		},
 		"npcpresentfront": {
@@ -1153,13 +1161,18 @@ Renderer.CanvasModels.main = {
 							{if (V.npc.length > 0)
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else
-							if (V.npc.length > 0)
+							if (V.npc.length > 0) {
+										const skin = V.NPCList[0].skincolour;
+										const skinCls = 
+										skin === "white" ? "light" :
+                                        skin === "black" ? "dark" :
+                                        skin;
 									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/monster.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
 									else if (V.npc[0] === "Sydney")
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
 			},
 		},
 		"background": {
@@ -1181,12 +1194,19 @@ Renderer.CanvasModels.main = {
 		},
 		"background2": {
 			show: true,
-			z: ZIndices.backgroundOverlay + 0.1,
+			z: ZIndices.backgroundOverlay + 1,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages2 > 1) {}
 				else if (V.staticimages2 > 0) {
 					return `img/background/static2/${V.static2}.png`;}
+				else {
+					const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
+      				const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
+					if (V.locationoverwrite === "bedroom") {
+						return `img/background/${V.locationoverwrite}/${timeSuffix}.png`;}
+					else {
+						return `img/background/${V.location}/${timeSuffix}.png`;}}
 			},
 		},
 		"backgroundBed": {
@@ -2994,7 +3014,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.zombie_head_type);
 			},
-			z: ZIndices.backhair - 1,
+			z: ZIndices.skin + 0.1,
 			animation: "idle"
 		},
 		"zombie_arms_right": {
@@ -3054,7 +3074,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.cosmic_head_type);
 			},
-			z: ZIndices.backhair - 1,
+			z: ZIndices.skin + 0.1,
 			animation: "idle"
 		},
 		"cosmic_arms_right": {
@@ -3094,7 +3114,84 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 
-		
+		/***
+		Doll
+		*/
+		"doll_body": {
+			filters: ["tan"],
+			srcfn(options) {
+				return `img/transformations/doll/body/${options.doll_body_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.doll_body_type);
+			},
+			z: ZIndices.breasts -0.2,
+			animation: "idle"
+		},
+		"doll_string_body": {
+			srcfn(options) {
+				return `img/transformations/doll/body/enhanced/${options.doll_body_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.doll_string_type);
+			},
+			z: ZIndices.breasts -0.1,
+			animation: "idle"
+		},
+		"doll_string_arms_right": {
+			srcfn(options) {
+				return `img/transformations/doll/arms/${options.doll_arms_type}/enhanced/right-${options.arm_right}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.doll_string_type);
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.2;
+			},
+			animation: "idle"
+		},
+		"doll_string_arms_left": {
+			srcfn(options) {
+				return `img/transformations/doll/arms/${options.doll_arms_type}/enhanced/left-${options.arm_left}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.doll_string_type);
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.2;
+			},
+			animation: "idle"
+		},
+		"doll_arms_right": {
+			filters: ["tan"],
+			srcfn(options) {
+				return `img/transformations/doll/arms/${options.doll_arms_type}/right-${options.arm_right}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.doll_arms_type);
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.1;
+			},
+			animation: "idle"
+		},
+		"doll_arms_left": {
+			filters: ["tan"],
+			srcfn(options) {
+				return `img/transformations/doll/arms/${options.doll_arms_type}/left-${options.arm_left}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.doll_arms_type);
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.1;
+			},
+			animation: "idle"
+		},
 
 		/***
          *     █████   ██      ████  ██████████   ███████
@@ -5539,56 +5636,101 @@ Renderer.CanvasModels.main = {
  * @return {CompositeLayerParams}
  */
 function lookupColour(options, dict, key, debugName, customFilterName, prefilterName) {
-	let filter;
-	if (key === "custom") {
-		filter = clone(options.filters[customFilterName]);
-		if (!filter) {
-			console.error(`custom ${debugName} colour not configured`);
-			return {};
-		}
-	} else {
-		let record = dict[key];
-		if (!record) {
-			console.error(`unknown ${debugName} colour: ${key}`);
-			return {};
-		}
-		filter = clone(record.canvasfilter);
-	}
+    let filter;
+    if (key === "custom") {
+        filter = clone(options.filters[customFilterName]);
+        if (!filter) {
+            console.error(`custom ${debugName} colour not configured`);
+            return {};
+        }
+    } else {
+        let record = dict[key];
+        if (!record) {
+            console.error(`unknown ${debugName} colour: ${key}`);
+            return {};
+        }
+        filter = clone(record.canvasfilter);
+    }
 
-	if (prefilterName) {
-		Renderer.mergeLayerData(
-			filter,
-			setup.colours.sprite_prefilters[prefilterName],
-			true
-		);
-	}
-	return filter;
+
+    if (prefilterName) {
+        Renderer.mergeLayerData(
+            filter,
+            setup.colours.sprite_prefilters[prefilterName],
+            true
+        );
+    }
+    return filter;
 }
+
 
 function createHairColourGradient(hairPart, gradient, hairType, hairLength, prefilterName) {
-	const filterPrototypeLibrary = setup.colours.hairgradients_prototypes[hairPart][gradient.style];
-	const filterPrototype = filterPrototypeLibrary[hairType] || filterPrototypeLibrary.all;
-	const filter = {
-		blend: clone(filterPrototype),
-		brightness: {
-			gradient: filterPrototype.gradient,
-			values: filterPrototype.values,
-			adjustments: [[], []]
-		},
-		blendMode: "hard-light"
-	};
-
-	for (const colorIndex in filter.blend.colors) {
-		filter.brightness.adjustments[colorIndex][0] = filter.blend.lengthFunctions[0](hairLength, filter.blend.colors[colorIndex][0]);
-		filter.brightness.adjustments[colorIndex][1] = setup.colours.hair_map[gradient.colours[colorIndex]].canvasfilter.brightness || 0;
-
-		filter.blend.colors[colorIndex][0] = filter.blend.lengthFunctions[0](hairLength, filter.blend.colors[colorIndex][0]);
-		filter.blend.colors[colorIndex][1] = setup.colours.hair_map[gradient.colours[colorIndex]].canvasfilter.blend;
-	}
-
-	Renderer.mergeLayerData(filter, setup.colours.sprite_prefilters[prefilterName], true);
-	return filter;
+    if (gradient.style === "split") {
+        const filter = {
+            blend: {
+                pattern: {
+                    type: "hairsplit",
+                    colors: [
+                        setup.colours.hair_map[gradient.colours[0]].canvasfilter.blend,
+                        setup.colours.hair_map[gradient.colours[1]].canvasfilter.blend,
+                    ],
+                },
+            },
+            blendMode: "hard-light",
+        };
+        Renderer.mergeLayerData(filter, setup.colours.sprite_prefilters[prefilterName], true);
+        return filter;
+    }
+    else if (gradient.style === "face-frame") {
+        const filter = {
+            blend: {
+                pattern: {
+                    type: "hairframe",
+                    colors: [
+                        setup.colours.hair_map[gradient.colours[0]].canvasfilter.blend,
+                        setup.colours.hair_map[gradient.colours[1]].canvasfilter.blend,
+                    ],
+                },
+            },
+            blendMode: "hard-light",
+        };
+        Renderer.mergeLayerData(filter, setup.colours.sprite_prefilters[prefilterName], true);
+        return filter;
+    }
+	else if (gradient.style === "low-ombre") {
+        const filter = {
+            blend: {
+                pattern: {
+                    type: "low-ombre",
+                    colors: [
+                        setup.colours.hair_map[gradient.colours[0]].canvasfilter.blend,
+                        setup.colours.hair_map[gradient.colours[1]].canvasfilter.blend,
+                    ],
+                },
+            },
+            blendMode: "hard-light",
+        };
+        Renderer.mergeLayerData(filter, setup.colours.sprite_prefilters[prefilterName], true);
+        return filter;
+    }
+	else if (gradient.style === "high-ombre") {
+        const filter = {
+            blend: {
+                pattern: {
+                    type: "high-ombre",
+                    colors: [
+                        setup.colours.hair_map[gradient.colours[0]].canvasfilter.blend,
+                        setup.colours.hair_map[gradient.colours[1]].canvasfilter.blend,
+                    ],
+                },
+            },
+            blendMode: "hard-light",
+        };
+        Renderer.mergeLayerData(filter, setup.colours.sprite_prefilters[prefilterName], true);
+        return filter;
+    }
 }
+
 
 function isPartEnabled(type) {
 	/* TODO: Enable this check and fix cases that have fallen prey to this design flaw of returning true for undefined.

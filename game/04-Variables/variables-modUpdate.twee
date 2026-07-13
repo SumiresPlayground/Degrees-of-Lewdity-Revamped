@@ -34,6 +34,8 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<specialClothesUpdate>>
 	<<generateNPCNameHairAndEyeColors>>
 
+	<<set $raccoonCrimeProgress to 0>>
+
 	<<if $farm isnot undefined>>
 		<<if $farm.tractor is undefined>>
 			<<set $farm.tractor to 0>>
@@ -644,6 +646,11 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<if V.transformationParts.cosmic is undefined>>
 		<<set $cosmic to 0>>
 		<<set V.transformationParts.cosmic to {body:"disabled", head:"disabled", arms:"disabled", eyes:"disabled"}>>
+	<</if>>
+
+	<<if V.transformationParts.doll is undefined>>
+		<<set $doll to 0>>
+		<<set V.transformationParts.doll to {body:"disabled", string:"disabled", arms:"disabled"}>>
 	<</if>>
 
 	<<if $hastail is undefined>>

@@ -19,10 +19,6 @@
 			<</link>>
 		<</if>>
     <</if>>
-
-    <<pass 1 hour>>
-
-    <<trauma 6>><<set $stress -= 2000>>
 <</widget>>
 
 <<widget "eventislanditem">>
@@ -277,4 +273,116 @@
 	<br><br>
 	<<link [[Next|Misland Bear]]>><<set $molestationstart to 1>><<set $eventskip to 3>><</link>>
 	<br>
+<</widget>>
+
+<<widget "callDoll">>
+	/*
+	<<script>>
+		const skipKeysOnFreeze = ["replayScene", "frozenValues", "statFreeze", "passage", "debug", "debugMenu", "options"];
+		V.frozenValues1 = {};
+		V.frozenValues1.deepMerge(V, (key, value, depth) => {
+			return !(depth === 1 && skipKeysOnFreeze.includes(key)) && typeof value !== "function";
+		});
+	<</script>>
+	<<set $worn.genitals to clone(setup.clothes.genitals[0])>>
+	<<run delete V.worn.butt_plug>>
+	<<set $clothingrebuy to 0>>
+	<<if $worn.neck.cursed is 1>>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined>>
+	<</if>>
+
+	<<for _bodypart range $parasite.bodyparts>>
+		<<set $parasite[_bodypart] to {}>>
+	<</for>>
+	<<set dhmod.hair.is_custom to false>>
+	<<set dhmod.fringe.is_custom to false>>
+	<<resetEarSlime>>
+	<<parasiteinit>>
+	<<bodyliquid "clear">>
+	<<bodywriting_init>>
+	<<if $player.gender_appearance is "f" and $settings.forcedCrossdressingEnabled>>
+		<<set $player.gender to "f">>
+		<<set $player.gender_appearance to "f">>
+		<<set $player.sex to "f">>
+		<<set $vaginastate to 0>>
+		<<set $vaginause to 0>>
+		<<set $penisuse to "none">>
+		<<set $penisstate to "none">>
+		<<set $player.breastsize to 5>>
+		<<set $player.penisExist to false>>
+		<<set $player.ballsExist to false>>
+		<<set $player.vaginaExist to true>>
+	<<elseif $player.gender_appearance is "m" and $settings.forcedCrossdressingEnabled>>
+		<<set $player.gender to "m">>
+		<<set $player.gender_appearance to "m">>
+		<<set $player.sex to "m">>
+		<<set $vaginastate to 0>>
+		<<set $vaginause to 0>>
+		<<set $penisuse to "none">>
+		<<set $penisstate to "none">>
+		<<set $player.breastsize to 0>>
+		<<set $player.penisExist to true>>
+		<<set $player.ballsExist to true>>
+		<<set $player.penissize to 4>>
+		<<set $player.vaginaExist to false>>
+	<</if>>
+	<<set $leftEyeColour to "brown">>
+	<<set $rightEyeColour to "brown">>
+	<<set $haircolour to "black">>
+	<<set $hairfringecolour to "black">>
+	<<set $makeup.browscolour to "black">>
+	<<set $hairColourStyle to "simple">>
+	<<set $hairFringeColourStyle to "simple">>
+	<<set $hairlength to 400>>
+	<<set $frozenValues1.skincolor to Skin.color.natural>>
+	<<set Skin.color.natural to "rmedium">>
+	<<set $facestyle to "default">>
+	<<set $facevariant to "gloomy">>
+
+	<<run Object.keys(V.transformationParts).forEach((tf) => {
+		Object.entries(V.transformationParts[tf]).forEach(([part, value]) => {
+			if (value !== 'disabled') {
+				V.transformationParts[tf][part] = 'disabled';
+			}
+		});
+	})>>
+
+	<<set V.transformationParts.doll.body to "default">>
+	<<set V.transformationParts.doll.arms to "default">>
+	<<if $permadoll is 1>>
+		<<set V.transformationParts.doll.string to "default">>
+	<</if>>
+
+	<<handheldstrip>>
+	<<feetwear "court heels">>
+	<<legswear "fishnet stockings">>
+	<<upperwear "janet dress" "wine" "white">>
+	<<underlowerwear "lace panties">>
+	*/
+<</widget>>
+
+<<widget "sleepDoll">>
+	/*
+	<<set $player to clone($frozenValues1.player)>>
+	<<set $worn to clone($frozenValues1.worn)>>
+	<<set $fringetype to clone($frozenValues1.fringetype)>>
+	<<set $fringelength to clone($frozenValues1.fringelength)>>
+	<<set $fringelengthstage to clone($frozenValues1.fringelengthstage)>>
+	<<set $hairtype to clone($frozenValues1.hairtype)>>
+	<<set $hairlength to clone($frozenValues1.hairlength)>>
+	<<set $hairlengthstage to clone($frozenValues1.hairlengthstage)>>
+	<<set $haircolour to clone($frozenValues1.haircolour)>>
+	<<set $hairColourGradient to clone($frozenValues1.hairColourGradient)>>
+	<<set $hairfringecolour to clone($frozenValues1.hairfringecolour)>>
+	<<set $hairFringeColourGradient to clone($frozenValues1.hairFringeColourGradient)>>
+	<<set $skin to clone($frozenValues1.skin)>>
+	<<set $parasite to clone($frozenValues1.parasite)>>
+	<<set $transformationParts to clone($frozenValues1.transformationParts)>>
+	<<set Skin.color.natural to $frozenValues1.skincolor>>
+	<<set V.transformationParts.doll.body to "disabled">>
+	<<set V.transformationParts.doll.arms to "disabled">>
+	<<set V.transformationParts.doll.string to "disabled">>
+	<<endcombat>>
+	*/
 <</widget>>
