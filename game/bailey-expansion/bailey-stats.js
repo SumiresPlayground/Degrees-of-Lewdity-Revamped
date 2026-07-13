@@ -57,6 +57,21 @@ $(document).one(":storyready", function () {
             console.log("[BaileyExpansion] Initialized missing $bailey_dom -> " + V.bailey_dom);
         }
         if (V.bailey_love === undefined) V.bailey_love = 0;
+
+        /* Same NaN trap as $bailey_dom above, but for $stockholm_bailey. Rebuild it
+           from the $stockholm_points ledger (read-only) so earned points survive. */
+        if (typeof V.stockholm_bailey !== "number" || Number.isNaN(V.stockholm_bailey)) {
+            var _pts = V.stockholm_points || {};
+            var _healStock = 0;
+            if (_pts.offer_defeat === true) _healStock += 3;
+            else if (_pts.offer === true) _healStock += 1;
+            ["temple", "kylar", "cafe", "whitney", "gwylan", "kick"].forEach(function (k) {
+                if (_pts[k] === true) _healStock += 1;
+            });
+            console.log("[BaileyExpansion] Healed $stockholm_bailey (" + V.stockholm_bailey + ") → " + _healStock);
+            V.stockholm_bailey = _healStock;
+        }
+
         if (baileyRevealed() && V.bailey_dom < 100) V.bailey_dom = 100;
         if (C.npc.Bailey.dom !== V.bailey_dom) C.npc.Bailey.dom = V.bailey_dom;
         /* Love mirror sync - 42 boot.json patches (Rent Fight Finish, Temple Bailey *, Chef Opening,

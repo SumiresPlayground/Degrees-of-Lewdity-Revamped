@@ -260,7 +260,25 @@ Bailey looks at you with an expression that sits between disgust and interest.
 :: Bailey Spanking Proper Begin
 <<effects>><<npc Bailey>><<person1>>
 
-You cross the room and lower yourself over <<his>> knee. <<His>> hand comes to rest on your back.
+You cross the room and lower yourself over <<his>> knee.
+<<if $worn.lower.name isnot "naked">>
+	<<He>> removes your $worn.lower.name with rough, but efficient motions. <<lowerstrip>>
+<<else>>
+	<<He>> lets out a sigh at your lack of clothing. "Shameless little shit."
+	<br><br>
+	<<if $parasite.vagina.name isnot undefined or $parasite.anus.name isnot undefined>>
+		<<He>> makes a sound of disgust upon seeing the <<if $parasite.vagina.name isnot undefined>>$parasite.vagina.name<<else>>$parasite.anus.name<</if>>. "Get that thing taken care of at the hospital."
+	<<elseif playerHasButtPlug()>>
+		You feel <<him>> rap a knuckle against the butt plug in your ass. "Always prepared, aren't you?"<<npcincr Bailey lust 1>><<glust "Bailey">>
+	<<elseif $worn.under_lower.type.includes("naked")>>
+		"No underwear," <<he>> remarks flatly. "Always looking for trouble."<<npcincr Bailey lust 1>><<glust "Bailey">>
+	<<else>>
+		You feel <<his>> finger trace along the seam of your $worn.under_lower.name.
+	<</if>>
+<</if>>
+<br><br>
+
+<<His>> hand comes to rest on your back.
 <br><br>
 
 "Ten," <<he>> says. "And you count every one."
@@ -587,7 +605,7 @@ The last strike resonates through the room. Your <<bottomsimple>> stings.
 		<br><br>
 		"You know how to count. Good for you," <<he>> says, not looking at you. "Get out."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<stress -8>><<lstress>>
 		<br><br>
-		<<tearful>> you leave <<his>> office.
+		<<tearful>> you fix your clothes and leave <<his>> office.<<silently>><<clotheson>><</silently>>
 		<br><br>
 		<<link [[Next|Orphanage]]>><<endevent>><</link>>
 		<br>
@@ -596,7 +614,7 @@ The last strike resonates through the room. Your <<bottomsimple>> stings.
 		<br><br>
 		"You handled it," <<he>> says. <<He>> nods towards the office door. "Now leave."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<stress -8>><<lstress>>
 		<br><br>
-		<<tearful>> you leave <<his>> office.
+		<<tearful>> you fix your clothes and leave <<his>> office.<<silently>><<clotheson>><</silently>>
 		<br><br>
 		<<link [[Next|Orphanage]]>><<endevent>><</link>>
 		<br>
@@ -620,7 +638,7 @@ The last strike resonates through the room. Your <<bottomsimple>> stings.
 		<br><br>
 		"Paid is paid. I hope it was worth your money." <<He>> points at the door. "Out."
 		<br><br>
-		<<tearful>> you leave <<his>> office.
+		<<tearful>> you fix your clothes and leave <<his>> office.<<silently>><<clotheson>><</silently>>
 		<br><br>
 		<<link [[Next|Orphanage]]>><<endevent>><</link>>
 		<br>
@@ -629,7 +647,7 @@ The last strike resonates through the room. Your <<bottomsimple>> stings.
 		<br><br>
 		"We're done here," <<he>> says, turning back to <<his>> work. "Leave."
 		<br><br>
-		<<tearful>> you leave <<his>> office.
+		<<tearful>> you fix your clothes and leave <<his>> office.<<silently>><<clotheson>><</silently>>
 		<br><br>
 		<<link [[Next|Orphanage]]>><<endevent>><</link>>
 		<br>
@@ -662,7 +680,7 @@ When the sting has mostly faded <<he>> wipes <<his>> fingers on a handkerchief a
 "Up."
 <br><br>
 
-You push yourself off <<his>> lap.
+You push yourself off <<his>> lap<<if $carried.lower.name isnot "naked">>, pulling up your $carried.lower.name<</if>>.<<silently>><<clotheson>><</silently>>
 <br><br>
 
 Bailey looks you over once. Satisfied, <<he>> turns back to <<his>> work. "Out."
