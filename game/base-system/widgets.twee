@@ -454,19 +454,6 @@
 <</widget>>
 
 <<widget "crimeUp">><<silently>>
-	<<if ($raccoonCrimeLimit is undefined or $raccoonCrimeLimit lt 3) and Math.max($foxbuild, $raccoonbuild) is $raccoonbuild>>
-		<<set $raccoonCrimeProgress ||= 0>>
-		<<set $raccoonCrimeLimit ||= 0>>
-		<<set $raccoonCrimeProgress += $_crimemod>>
-		<<set $_raccoonCrimeRequired = Math.floor(25 * (1 + $raccoonbuild))>>
-		<<if $raccoonCrimeProgress gte $_raccoonCrimeRequired>>
-			<<transform raccoon 1>>
-			<<set $effectsmessage to true>>
-			<<set $raccoonCrimeMessage to true>>
-			<<set $raccoonCrimeProgress to Math.clamp($raccoonCrimeProgress, 0, ($raccoonCrimeProgress - $_raccoonCrimeRequired))>>
-			<<set $raccoonCrimeLimit++>>
-		<</if>>
-	<</if>>
 	<<if $statFreeze isnot true>>
 		<<if _args[0] eq null>>
 			<<set _crimeError to `No input found for crimeUp widget!`>>
@@ -556,6 +543,23 @@
 					<<set $_foxCrimeRequired = Math.floor(25 * (1 + $foxbuild))>>
 					<<if $foxCrimeProgress gte $_foxCrimeRequired>>
 						<<transform fox 1>>
+						<<set $effectsmessage to true>>
+						<<set $foxCrimeMessage to true>>
+						<<set $foxCrimeProgress to Math.clamp($foxCrimeProgress, 0, ($foxCrimeProgress - $_foxCrimeRequired))>>
+						<<set $foxCrimeLimit++>>
+					<</if>>
+				<<elseif ["thievery", "petty"].includes(_crimeType) and
+				$foxbuild gte 1 and
+				($foxCrimeLimit is undefined or $foxCrimeLimit lt 3) and
+				Math.max($raccoonbuild, $foxbuild) is $raccoonbuild>>
+					<!-- If the player steals enough, and raccoon is their highest beast TF (and above 0), apply raccoon TF pressure -->
+					<!-- Resets daily at 6AM, in dawnCheck, time.js -->
+					<<set $foxCrimeProgress ||= 0>>
+					<<set $foxCrimeLimit ||= 0>>
+					<<set $foxCrimeProgress += $_crimemod>>
+					<<set $_foxCrimeRequired = Math.floor(25 * (1 + $foxbuild))>>
+					<<if $foxCrimeProgress gte $_foxCrimeRequired>>
+						<<transform raccoon 1>>
 						<<set $effectsmessage to true>>
 						<<set $foxCrimeMessage to true>>
 						<<set $foxCrimeProgress to Math.clamp($foxCrimeProgress, 0, ($foxCrimeProgress - $_foxCrimeRequired))>>

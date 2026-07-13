@@ -4536,6 +4536,22 @@ setup.LocationImages = {
 				color: "#e63e3e",
 			},
 		},
+		weather: {
+			fogDistributionCurve: 1,
+			rainSplashEnabled: false,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 0,
+					bottom: 0,
+				},
+				fog: {
+					top: 30,
+					bottom: 0,
+				},
+			},
+		},
 	},
 	abandoned_mansion: {
 		folder: "kylar-manor",

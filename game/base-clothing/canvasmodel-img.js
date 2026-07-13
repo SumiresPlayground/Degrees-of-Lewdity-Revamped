@@ -448,6 +448,10 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.cosmic_arms_type = V.transformationParts.cosmic.arms
 	T.modeloptions.cosmic_eyes_type = V.transformationParts.cosmic.eyes
 
+	T.modeloptions.doll_body_type = V.transformationParts.doll.body
+	T.modeloptions.doll_string_type = V.transformationParts.doll.string
+	T.modeloptions.doll_arms_type = V.transformationParts.doll.arms
+
 	T.modeloptions.horn_layer = V.hornlayer;
 	T.modeloptions.ear_layer = V.earlayer;
 	T.modeloptions.tail_layer = V.taillayer;
