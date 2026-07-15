@@ -5663,8 +5663,9 @@ function lookupColour(options, dict, key, debugName, customFilterName, prefilter
     return filter;
 }
 
-
 function createHairColourGradient(hairPart, gradient, hairType, hairLength, prefilterName) {
+	const filterPrototypeLibrary = setup.colours.hairgradients_prototypes[hairPart][gradient.style];
+	const filterPrototype = filterPrototypeLibrary || filterPrototypeLibrary.all;
     if (gradient.style === "split") {
         const filter = {
             blend: {
@@ -5730,7 +5731,6 @@ function createHairColourGradient(hairPart, gradient, hairType, hairLength, pref
         return filter;
     }
 }
-
 
 function isPartEnabled(type) {
 	/* TODO: Enable this check and fix cases that have fallen prey to this design flaw of returning true for undefined.

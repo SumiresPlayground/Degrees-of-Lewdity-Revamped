@@ -15,7 +15,7 @@ You are in your bedroom.
 <<if $furniture.bedroom.windowsill isnot undefined>>
 	<<if $furniture.bedroom.windowsill.id is "sewingmachine">>
 		<<set $furniture.bedroom.windowsill.id to "plantpot">>
-		<<run Furniture.set('utility', 'sewingmachine', {
+		<<run Furniture.set('sewingmachine', 'utility', {
 			name	: 'sewing machine',
 			nameCap	: 'Sewing machine'
 		})>>
@@ -154,7 +154,8 @@ You are in your bedroom.
 <<if V.furniture.bedroom.utility isnot undefined>>
 	<<if V.furniture.bedroom.utility.id is "sewingmachine">>
 		<br>
-		<<furnitureicon "sewing">>Your sewing machine sits on the table.
+		<<furnitureicon "sewing">>Your sewing machine sits on the table. You can sew clothing from the wardrobe menu.
+		<<set $sewingKit to 1>><<set $sewingBought to 1>>
 	<</if>>
 <</if>>
 
@@ -299,19 +300,6 @@ Your bed takes up most of the room.
 <br>
 <<furnitureicon _wardrobe.iconFile>><<link [[Wardrobe|Wardrobe]]>><</link>>
 <br>
-<<if V.furniture.bedroom.utility isnot undefined>>
-	<<if V.furniture.bedroom.utility.id is "sewingmachine">>
-		You can spend some time on your sewing machine to fully repair your clothing.
-		<br>
-		<<furnitureicon "sewing">><<link [[Use sewing machine (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<rng>><<if $rng lte 20>><<transform spider 1>><</if>><</link>>
-		<br>
-	<<elseif $transformationParts.spider.tail isnot "disabled">>
-		You can spend some time using silk from your tail to fully repair your clothing.
-		<br>
-		<<furnitureicon "sewing">><<link [[Begin sewing (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<transform spider 1>><</link>>
-		<br>
-	<</if>>
-<</if>>
 <<if $worn.lower.integrity gt 1 or $worn.upper.integrity gt 1 or $worn.under_lower.integrity gt 1 or $worn.under_upper.integrity gt 1>>
 	<<link [[Tear clothes slightly (0:10)|Clothes Tear]]>><<pass 10>><<set $worn.lower.integrity -= 20>><<set $worn.upper.integrity -= 20>><<set $worn.under_upper.integrity -= 20>><<set $worn.under_lower.integrity -= 20>><</link>>
 	<br>

@@ -478,17 +478,25 @@
 				<</if>>
 
 				<!--BEAUTY-->
-				<<set _beautyConfig = { name : "Beauty", icon : "ui/sym-beauty", displayType : "level", currentValue : $beauty, maxValue: $beautymax, modifier: 100, modTypes: { good: [], bad: [] },
-					states : [
-						{ requiredValue:	0,						level: 0, color: 'red',		description: 'You are plain.'},
-						{ requiredValue:	$beautymax / 7,			level: 1, color: 'pink',	description: 'You are cute.'},
-						{ requiredValue:	($beautymax / 7) * 2,	level: 2, color: 'purple',	description: 'You are pretty.'},
-						{ requiredValue:	($beautymax / 7) * 3,	level: 3, color: 'blue',	description: 'You are charming.'},
-						{ requiredValue:	($beautymax / 7) * 4,	level: 4, color: 'lblue',	description: 'You are beautiful.'},
-						{ requiredValue:	($beautymax / 7) * 5,	level: 5, color: 'teal',	description: 'You are ravishing.'},
-						{ requiredValue:	($beautymax / 7) * 6,	level: 6, color: 'green',	description: 'Your beauty is divine.'}
-					]
-				}>>
+				<<if $ugly is 1>>
+					<<set _beautyConfig = { name : "Beauty", icon : "ui/sym-beauty", displayType : "level", currentValue : $beauty, maxValue: $beautymax, modifier: 100, modTypes: { good: [], bad: [] },
+						states : [
+							{ requiredValue:	0,						level: 0, color: 'red',		description: 'You are ugly.'}
+						]
+					}>>
+				<<else>>
+					<<set _beautyConfig = { name : "Beauty", icon : "ui/sym-beauty", displayType : "level", currentValue : $beauty, maxValue: $beautymax, modifier: 100, modTypes: { good: [], bad: [] },
+						states : [
+							{ requiredValue:	0,						level: 0, color: 'red',		description: 'You are plain.'},
+							{ requiredValue:	$beautymax / 7,			level: 1, color: 'pink',	description: 'You are cute.'},
+							{ requiredValue:	($beautymax / 7) * 2,	level: 2, color: 'purple',	description: 'You are pretty.'},
+							{ requiredValue:	($beautymax / 7) * 3,	level: 3, color: 'blue',	description: 'You are charming.'},
+							{ requiredValue:	($beautymax / 7) * 4,	level: 4, color: 'lblue',	description: 'You are beautiful.'},
+							{ requiredValue:	($beautymax / 7) * 5,	level: 5, color: 'teal',	description: 'You are ravishing.'},
+							{ requiredValue:	($beautymax / 7) * 6,	level: 6, color: 'green',	description: 'Your beauty is divine.'}
+						]
+					}>>
+				<</if>>
 
 				<!--PROMISCUITY-->
 				<<set _promiscuityConfig = { name : "Promiscuity", icon : "ui/sym-lust", displayType : "level", currentValue : $promiscuity, maxValue: 100, modifier: 100, modTypes: { good: [], bad: [] },

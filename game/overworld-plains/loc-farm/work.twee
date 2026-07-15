@@ -527,7 +527,6 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 	<<set $farm.compostbin to 1>>
 	<span class="gold">You approach the newly built compost bin.</span>
 	It has just about enough space for you to compost 1 batch of fertiliser.
-	<<composting1>>
 	<br><br>
 	<<link [[Next|Farm Work]]>><<endevent>><</link>>
 	<br>
@@ -536,7 +535,6 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 	<<set $farm.compostbin to 2>>
 	<span class="gold">You approach the expanded compost bin.</span>
 	It has enough space for you to compost 2 batches of fertiliser.
-	<<composting2>>
 	<br><br>
 	<<link [[Next|Farm Work]]>><<endevent>><</link>>
 	<br>
@@ -545,8 +543,6 @@ You are on Alex's farm. A rustic farmhouse overlooks a yard and chicken coop. Ot
 	<<set $farm.compostbin to 3>>
 	<span class="gold">You approach the expanded compost bin.</span>
 	It now has enough space for you to compost 4 batches of fertiliser.
-	<<composting3>>
-	<<composting4>>
 	<br><br>
 	<<link [[Next|Farm Work]]>><<endevent>><</link>>
 	<br>
@@ -3794,7 +3790,7 @@ You approach the composting bin.
 	<br>
 <</if>>
 <<if $farm.compostReady gt 1>>
-	<<set $fertiliser.current+= $farm.compostReady>>
+	<<set $fertiliser.current += $farm.compostReady>>
 	You pick up <span class="green"><<print $farm.compostReady>> fertilisers</span>.
 	<<set $farm.compostReady to 0>>
 	<br>
@@ -3818,7 +3814,7 @@ You approach the composting bin.
 		How much green manure to compost?
 		<<numberslider "$farm.compostToProduce" $farm.compostToProduce 0 _max 3000>>
 
-		<<link [[Confirm|$passage]]>><<set $farm.compostWaiting += $farm.compostToProduce>><<set $foodstuff.green_manure.amount -= $farm.compostToProduce>><<composting>><</link>>
+		<<link [[Confirm|$passage]]>><<set $farm.compostWaiting += $farm.compostToProduce>><<set $foodstuff.green_manure.amount -= $farm.compostToProduce>><</link>>
 	<<else>>
 		You don't have enough green manure.
 		<br><br>

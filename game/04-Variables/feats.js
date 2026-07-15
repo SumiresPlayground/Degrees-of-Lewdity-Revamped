@@ -3000,6 +3000,133 @@ function applyFeatBoosts() {
 	// reincarnated into the same nightmare
 	if (V.featsBoosts.pointsUsed > 0) earnFeat("A New Life");
 
+	if (upgrades.wolf) {
+		V.wolftf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.cat) {
+		V.cattf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.cow) {
+		V.cowtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.harpy) {
+		V.harpytf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fox) {
+		V.foxtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.bee) {
+		V.beetf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.sheep) {
+		V.sheeptf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.deer) {
+		V.deertf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.bear) {
+		V.beartf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.dragon) {
+		V.dragontf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.lizard) {
+		V.lizardtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.dolphin) {
+		V.dolphintf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.dog) {
+		V.dogtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.raccoon) {
+		V.raccoontf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fish) {
+		V.fishtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.horse) {
+		V.horsetf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.pig) {
+		V.pigtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.spider) {
+		V.spidertf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.frog) {
+		V.frogtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.bunny) {
+		V.bunnytf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.angel) {
+		V.angeltf = 1;
+		V.angel = 6;
+		V.angelbuild = 100;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fallenangel) {
+		V.fallenangeltf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.demon) {
+		V.demontf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.eldritch) {
+		V.eldritch = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fae) {
+		V.faetf = 1;
+		V.permanentTransform = 1;
+	}
+
 	// starting money
 	if (upgrades.money > 0) statChange.money(details.money.purchased * details.money.max * 2500, "startingMoney");
 
@@ -3217,133 +3344,6 @@ function applyFeatBoosts() {
 
 			sexShopOnBuyClick(index, false, color, false);
 		}
-	}
-	
-	if (upgrades.wolf) {
-		V.wolftf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.cat) {
-		V.cattf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.cow) {
-		V.cowtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.harpy) {
-		V.harpytf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fox) {
-		V.foxtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bee) {
-		V.beetf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.sheep) {
-		V.sheeptf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.deer) {
-		V.deertf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bear) {
-		V.beartf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dragon) {
-		V.dragontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.lizard) {
-		V.lizardtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dolphin) {
-		V.dolphintf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dog) {
-		V.dogtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.raccoon) {
-		V.raccoontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fish) {
-		V.fishtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.horse) {
-		V.horsetf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.pig) {
-		V.pigtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.spider) {
-		V.spidertf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.frog) {
-		V.frogtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bunny) {
-		V.bunnytf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.angel) {
-		V.angeltf = 1;
-		V.angel = 6;
-		V.angelbuild = 100;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fallenangel) {
-		V.fallenangeltf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.demon) {
-		V.demontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.eldritch) {
-		V.eldritch = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fae) {
-		V.faetf = 1;
-		V.permanentTransform = 1;
 	}
 
 	// cleanup

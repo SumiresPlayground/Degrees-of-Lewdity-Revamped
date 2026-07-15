@@ -20,13 +20,8 @@ const Furniture = (() => {
 		windowsill: "windowsill",
 		poster: "poster",
 		wallpaper: "wallpaper",
-		/* Special category for Kylar event */
 		owlplushie: "owlplushie",
-		television: "television",
-		gameconsole: "gameconsole",
 		pc: "pc",
-		bookshelf: "bookshelf",
-		mirror: "mirror",
 		utility: "utility",
 		collectible1: "collectible1",
 		collectible2: "collectible2",

@@ -737,27 +737,29 @@ function dayPassed() {
 		delete V.community_service_done;
 	}
 
-	if (V.awareness >= 500) V.awarelevel = 4;
+	if (V.awareness >= 900) V.awarelevel = 6;
+	else if (V.awareness >= 800) V.awarelevel = 5;
+	else if (V.awareness >= 700) V.awarelevel = 4;
 	else if (V.awareness >= 400) V.awarelevel = 3;
 	else if (V.awareness >= 300) V.awarelevel = 2;
 	else if (V.awareness >= 200) V.awarelevel = 1;
 	else if (V.awareness <= -1) V.awarelevel = -1;
 	else V.awarelevel = 0;
 
-	if (V.awarelevel <= 1 && V.loveInterest.secondary !== "None") {
+	if (V.awarelevel >= 2 && !V.loveInterestAwareMessage) {
 		V.loveInterest_message = 1;
-		V.loveInterest.secondary = "None";
-		V.loveInterest.tertiary = "None";
 		V.effectsmessage = 1;
-	} else if (V.awarelevel >= 2 && V.loveInterest.primary !== "None" && V.loveInterest.secondary === "None" && !V.loveInterestAwareMessage) {
+	} else if (V.awarelevel >= 3 && !V.loveInterestAwareMessage === 1) {
 		V.loveInterest_message = 2;
 		V.effectsmessage = 1;
-	} else if (V.awarelevel <= 2 && V.loveInterest.tertiary !== "None" && V.loveInterestAwareMessage === 2) {
+	} else if (V.awarelevel >= 4 && V.loveInterestAwareMessage === 2) {
 		V.loveInterest_message = 3;
-		V.loveInterest.tertiary = "None";
 		V.effectsmessage = 1;
-	} else if (V.awarelevel >= 3 && V.loveInterest.secondary !== "None" && V.loveInterest.tertiary === "None" && V.loveInterestAwareMessage === 1) {
+	} else if (V.awarelevel >= 5 && V.loveInterestAwareMessage === 3) {
 		V.loveInterest_message = 4;
+		V.effectsmessage = 1;
+	} else if (V.awarelevel >= 6 && V.loveInterestAwareMessage === 4) {
+		V.loveInterest_message = 5;
 		V.effectsmessage = 1;
 	}
 	if (V.pound) {
@@ -994,6 +996,8 @@ function dayPassed() {
 
 	V.dragonbreathuse = 3;
 	V.sirensong = 3;
+
+	
 
 	V.rowanDaily = 0
 	
@@ -1753,7 +1757,9 @@ function dailyPlayerEffects() {
 	V.hairlength += 3;
 	V.fringelength += 3;
 	calchairlengthstage();
+	if (V.ugly !== 1) {
 	statChange.skill("beauty", 100 - (V.trauma / V.traumamax) * 200);
+	}
 	lustfulUpdate();
 
 	if (V.orgasmstat >= 1000 && V.orgasmtrait === 0) {
@@ -2347,6 +2353,50 @@ function dailyFarmEvents() {
 			wikifier("farm_cattle", -1);
 		}
 		wikifier("farm_build_day");
+		if (V.farm.compostbin >= 1 && V.farm.compostProducing[0] === -1 && V.farm.compostWaiting >= 3000) {
+			V.farm.compostWaiting -= 3000
+			V.farm.compostProducing[0] = random(2, 4)
+		}
+		else if (V.farm.compostbin >= 1 && V.farm.compostProducing[0] !== -1) {
+			V.farm.compostProducing[0] -= 1
+			if (V.farm.compostProducing[0] === 0) {
+				V.farm.compostReady += 1
+				V.farm.compostProducing[0] -= 1
+			}
+		}
+		if (V.farm.compostbin >= 2 && V.farm.compostProducing[1] === -1 && V.farm.compostWaiting >= 3000) {
+			V.farm.compostWaiting -= 3000
+			V.farm.compostProducing[1] = random(2, 4)
+		}
+		else if (V.farm.compostbin >= 2 && V.farm.compostProducing[1] !== -1) {
+			V.farm.compostProducing[1] -= 1
+			if (V.farm.compostProducing[1] === 0) {
+				V.farm.compostReady += 1
+				V.farm.compostProducing[1] -= 1
+			}
+		}
+		if (V.farm.compostbin >= 3 && V.farm.compostProducing[2] === -1 && V.farm.compostWaiting >= 3000) {
+			V.farm.compostWaiting -= 3000
+			V.farm.compostProducing[2] = random(2, 4)
+		}
+		else if (V.farm.compostbin >= 3 && V.farm.compostProducing[2] !== -1) {
+			V.farm.compostProducing[2] -= 1
+			if (V.farm.compostProducing[2] === 0) {
+				V.farm.compostReady += 1
+				V.farm.compostProducing[2] -= 1
+			}
+		}
+		if (V.farm.compostbin >= 3 && V.farm.compostProducing[3] === -1 && V.farm.compostWaiting >= 3000) {
+			V.farm.compostWaiting -= 3000
+			V.farm.compostProducing[3] = random(2, 4)
+		}
+		else if (V.farm.compostbin >= 3 && V.farm.compostProducing[3] !== -1) {
+			V.farm.compostProducing[3] -= 1
+			if (V.farm.compostProducing[3] === 0) {
+				V.farm.compostReady += 1
+				V.farm.compostProducing[3] -= 1
+			}
+		}
 	}
 	if (V.farm_stage >= 9) {
 		if (V.lurkers_stored >= 1) {

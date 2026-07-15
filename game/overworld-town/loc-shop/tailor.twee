@@ -4,7 +4,7 @@
 You are in the tailor shop. It has cloth of various colours hanging on racks.
 <br><br>
 
-<<if $sewingKit isnot 1 and $debug is 1>>
+<<if $sewingKit isnot 1>>
 	Looks like the shop has a new machine for sale in the display.
 	<br><br>
 <</if>>
@@ -200,8 +200,10 @@ You are in the tailor shop. It has cloth of various colours hanging on racks.
 			<</if>>
 			<br><br>
 
-			<<if $sewingKit isnot 1 and $debug is 1>>
-				<<ind>><<link [[Approach the display cabinet|Tailor Shop Sewing Machine]]>><</link>>
+			<<if $sewingKit isnot 1>>
+				You see in the back of the shop there is a special display cabinet for a limited time sale.
+				<br>
+				<<furnitureicon "sewing">><<link [[Approach the display cabinet|Tailor Shop Sewing Machine]]>><</link>>
 				<br><br>
 			<</if>>
 		<</if>>
@@ -277,11 +279,16 @@ Your lower clothes have been fixed.
 	<br><br>
 	- Comes With a Lifetime Supply of Cloth For Repairs!
 	<br><br>
-	- Only <span class ="gold">£1000.00!</span>
+	- Only <span class ="gold">£2000!</span>
 	<br><br>
 
-	<<if $money gte 100000>>
-		<<link [[Purchase sewing machine - Repair your clothes in your room! £1000|Tailor Shop]]>><<money -100000 "tailor">><<set $sewingKit to 1>><<set $sewingBought to 1>><<endevent>><</link>>
+	<<if $money gte 200000>>
+		<<furnitureicon "sewing">><<link [[Purchase sewing machine - Repair your clothes in your room! £2000|Tailor Shop]]>>
+		<<run Furniture.set('sewingmachine', 'utility', {
+			name	: 'sewing machine',
+			nameCap	: 'Sewing machine'
+		})>>
+		<<money -200000 "tailor">><<set $sewingKit to 1>><<set $sewingBought to 1>><<endevent>><</link>>
 		<br>
 	<</if>>
 	<<link [[Go back|Tailor Shop]]>><<endevent>><</link>>
