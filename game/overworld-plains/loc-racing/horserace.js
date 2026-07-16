@@ -212,7 +212,7 @@ setup.horserace = setup.horserace || {};
 	"J-Corner", "Rough and Stumble", "Lucky Bee", "Yawn in June", "Countess Elizabeth",
 	"Chylli Con Carnage", "Sex Professor", "Remy's Pride", "Moca Loca", "Lemon Melon",
 	"Sage Stellar", "Angel O' War", "Klutzy Mango", "Reiyu the Hung", "Momo Geko",
-	"Sasa Lele"];
+	"Sasa Lele", "Mai Blossom"];
 
 	HR.fallbackConditions = ["turf", "dirt", "wet", "muddy"];
 
