@@ -701,6 +701,7 @@
 	<<effectshandsclothes>>
 
 	/* -------- Arms and Legs -------- */
+	<<unset _br>>
 	<<if $leftaction is "swim" and $rightaction is "swim" and $feetaction is "swim">>
 		<<set $leftactiondefault to $leftaction>>
 		<<set $rightactiondefault to $rightaction>>
@@ -708,6 +709,7 @@
 		<<set $leftaction to 0>>
 		<<set $rightaction to 0>>
 		<<set $feetaction to 0>>
+		<<set _br to true>>
 		<<set $swimdistance -= 3>>
 		You paddle towards safety with your arms and legs.
 	<</if>>
@@ -717,6 +719,7 @@
 		<<set $rightactiondefault to $rightaction>>
 		<<set $feetactiondefault to $feetaction>>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $rightaction to 0>>
 		<<set $feetaction to 0>>
 		You rest your arms and legs.
@@ -727,6 +730,7 @@
 		<<set $leftactiondefault to $leftaction>>
 		<<set $rightactiondefault to $rightaction>>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $rightaction to 0>>
 		<<set $swimdistance -= 2>>
 		You paddle towards safety with both arms.
@@ -736,6 +740,7 @@
 		<<set $leftactiondefault to $leftaction>>
 		<<set $rightactiondefault to $rightaction>>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $rightaction to 0>>
 		You rest your arms.
 	<</if>>
@@ -745,6 +750,7 @@
 		<<set $leftactiondefault to $leftaction>>
 		<<set $feetactiondefault to $feetaction>>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $feetaction to 0>>
 		<<set $swimdistance -= 2>>
 		You paddle towards safety with your legs and left arm.
@@ -754,6 +760,7 @@
 		<<set $leftactiondefault to $leftaction>>
 		<<set $feetactiondefault to $feetaction>>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $feetaction to 0>>
 		You rest your legs and left arm.
 	<</if>>
@@ -765,6 +772,7 @@
 		<<set $feetactiondefault to $feetaction>>
 		<<set $rightaction to 0>>
 		<<set $feetaction to 0>>
+		<<set _br to true>>
 		<<set $swimdistance -= 2>>
 		You paddle towards safety with your legs and right arm.
 	<</if>>
@@ -774,6 +782,7 @@
 		<<set $feetactiondefault to $feetaction>>
 		<<set $rightaction to 0>>
 		<<set $feetaction to 0>>
+		<<set _br to true>>
 		You rest your legs and right arm.
 	<</if>>
 
@@ -781,6 +790,7 @@
 	<<if $leftaction is "leftwriggle">>
 		<<set $leftactiondefault to "swim">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<if $leftarm is "bound">>
 			<<unbind>><span class="green">You wriggle free from your bonds.</span>
 		<</if>>
@@ -789,6 +799,7 @@
 	<<if $leftaction is "leftfree">>
 		<<set $leftactiondefault to "swim">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $rightarm to 0>>
 		<span class="lblue">You push away the $swarm["type"] covering your right arm, freeing it.</span>
 	<</if>>
@@ -796,6 +807,7 @@
 	<<if $leftaction is "leftswarm">>
 		<<set $leftactiondefault to "leftswarm">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.active[2] -= 1>>
 		<<set _swarmamounts.active[3] += 1>>
 		<span class="lblue">You $swarm["steady"] one of the <<swarmName>> with your left hand.</span>
@@ -804,6 +816,7 @@
 	<<if $leftaction is "frontcoverleft">>
 		<<set $leftactiondefault to "frontcoverleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $front to "covered">>
 		You cover your <<genitals>> with your left hand to prevent the $swarm["type"] from violating you.
 	<</if>>
@@ -811,6 +824,7 @@
 	<<if $leftaction is "backcoverleft">>
 		<<set $leftactiondefault to "backcoverleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $back to "covered">>
 		You cover your butt with your left hand. Hopefully it will keep the $swarm["type"] from invading your rear. They prod and poke without success, for now.
 	<</if>>
@@ -818,12 +832,14 @@
 	<<if $leftaction is "chestcoverleft">>
 		<<set $leftactiondefault to "chestcoverleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $chest to "covered">>
 		You cover your chest with your left hand, keeping the $swarm["type"] away from your sensitive bust.
 	<</if>>
 
 	<<if $leftaction is "frontpurgeleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.genital[1] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="teal">You remove some of the $swarm["type"] that are <<print ($player.vaginaExist ? "penetrating" : "wrapped around")>> your <<if $player.vaginaExist and $player.penisExist>><<pussy>><<else>><<genitals>><</if>>.</span>
@@ -838,6 +854,7 @@
 
 	<<if $leftaction is "frontclearleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.genital[0] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="lblue">You prevent the encroaching $swarm["type"] from <<print ($player.vaginaExist ? "entering" : "enveloping")>> your <<if $player.vaginaExist and $player.penisExist>><<pussy>><<else>><<genitals>><</if>>.</span>
@@ -851,6 +868,7 @@
 
 	<<if $leftaction is "backpurgeleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.butt[1] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="teal">You extract some of the $swarm["type"] from your anus.</span>
@@ -865,6 +883,7 @@
 
 	<<if $leftaction is "backclearleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.butt[0] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="lblue">You prevent the encroaching $swarm["type"] from burrowing into your anus.</span>
@@ -878,6 +897,7 @@
 
 	<<if $leftaction is "chestclearleft">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.chest -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="lblue">You clear away some of the $swarm["type"] around your sensitive nipples.</span>
@@ -892,6 +912,7 @@
 	<<if $leftaction is "swim">>
 		<<set $leftactiondefault to "swim">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		<<set $swimdistance -= 1>>
 		You paddle towards safety with your left arm.
 	<</if>>
@@ -899,6 +920,7 @@
 	<<if $leftaction is "swarmrest">>
 		<<set $leftactiondefault to "swarmrest">>
 		<<set $leftaction to 0>>
+		<<set _br to true>>
 		You rest your left arm.
 	<</if>>
 
@@ -906,6 +928,7 @@
 	<<if $rightaction is "rightwriggle">>
 		<<set $rightactiondefault to "swim">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<if $rightarm is "bound">>
 			<<unbind>><span class="green">You wriggle free from your bonds.</span>
 		<</if>>
@@ -914,6 +937,7 @@
 	<<if $rightaction is "rightfree">>
 		<<set $rightactiondefault to "swim">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set $leftarm to 0>>
 		<span class="lblue">You push away the $swarm["type"] covering your left arm, freeing it.</span>
 	<</if>>
@@ -921,6 +945,7 @@
 	<<if $rightaction is "rightswarm">>
 		<<set $rightactiondefault to "rightswarm">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.active[2] -= 1>>
 		<<set _swarmamounts.active[3] += 1>>
 		<span class="lblue">You $swarm["steady"] one of the <<swarmName>> with your right hand.</span>
@@ -929,6 +954,7 @@
 	<<if $rightaction is "frontcoverright">>
 		<<set $rightactiondefault to "frontcoverright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set $front to "covered">>
 		You cover your <<genitals>> with your right hand to prevent the $swarm["type"] from violating you.
 	<</if>>
@@ -936,6 +962,7 @@
 	<<if $rightaction is "backcoverright">>
 		<<set $rightactiondefault to "backcoverright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set $back to "covered">>
 		You cover your butt with your right hand. Hopefully it will keep the $swarm["type"] from invading your rear.
 	<</if>>
@@ -943,12 +970,14 @@
 	<<if $rightaction is "chestcoverright">>
 		<<set $rightactiondefault to "chestcoverright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set $chest to "covered">>
 		You cover your chest with your right hand, keeping the $swarm["type"] away from your sensitive bust.
 	<</if>>
 
 	<<if $rightaction is "frontpurgeright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.genital[1] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="teal">You remove some of the $swarm["type"] that are <<print ($player.vaginaExist ? "penetrating" : "wrapped around")>> your <<if $player.vaginaExist and $player.penisExist>><<pussy>><<else>><<genitals>><</if>>.</span>
@@ -963,6 +992,7 @@
 
 	<<if $rightaction is "frontclearright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.genital[0] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="lblue">You prevent the encroaching $swarm["type"] from <<print ($player.vaginaExist ? "entering" : "enveloping")>> your <<if $player.vaginaExist and $player.penisExist>><<pussy>><<else>><<genitals>><</if>>.</span>
@@ -976,6 +1006,7 @@
 
 	<<if $rightaction is "backpurgeright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.butt[1] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="teal">You extract some of the $swarm["type"] from your anus.</span>
@@ -990,6 +1021,7 @@
 
 	<<if $rightaction is "backclearright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.butt[0] -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="lblue">You prevent the encroaching $swarm["type"] from burrowing into your anus.</span>
@@ -1003,6 +1035,7 @@
 
 	<<if $rightaction is "chestclearright">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set _swarmamounts.chest -= 1>>
 		<<set _swarmamounts.active[4] += 1>>
 		<span class="lblue">You clear away some of the $swarm["type"] around your sensitive nipples.</span>
@@ -1017,6 +1050,7 @@
 	<<if $rightaction is "swim">>
 		<<set $rightactiondefault to "swim">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		<<set $swimdistance -= 1>>
 		You paddle towards safety with your right arm.
 	<</if>>
@@ -1024,6 +1058,7 @@
 	<<if $rightaction is "swarmrest">>
 		<<set $rightactiondefault to "swarmrest">>
 		<<set $rightaction to 0>>
+		<<set _br to true>>
 		You rest your right arm.
 	<</if>>
 
@@ -1031,6 +1066,7 @@
 	<<if $feetaction is "feetswarm">>
 		<<set $feetactiondefault to "feetswarm">>
 		<<set $feetaction to 0>>
+		<<set _br to true>>
 		<<set $swarm.amount.active[2] -= 1>>
 		<<set $swarm.amount.active[3] += 1>>
 		<span class="lblue">You $swarm["steady"] one of the <<swarmName>> with your feet.</span>
@@ -1039,6 +1075,7 @@
 	<<if $feetaction is "swim">>
 		<<set $feetactiondefault to "swim">>
 		<<set $feetaction to 0>>
+		<<set _br to true>>
 		<<set $swimdistance -= 1>>
 		You paddle towards safety with your legs.
 	<</if>>
@@ -1046,6 +1083,7 @@
 	<<if $feetaction is "swarmrest">>
 		<<set $feetactiondefault to "swarmrest">>
 		<<set $feetaction to 0>>
+		<<set _br to true>>
 		You rest your legs.
 	<</if>>
 

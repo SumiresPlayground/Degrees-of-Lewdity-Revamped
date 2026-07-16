@@ -374,6 +374,8 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.fox_ears_type = V.transformationParts.fox.ears;
 	T.modeloptions.fox_cheeks_type = V.transformationParts.fox.cheeks;
 
+	T.modeloptions.tf_ears_layer = V.tfearslayer;
+
 	T.modeloptions.bee_tail_type = V.transformationParts.bee.tail;
 	T.modeloptions.bee_ears_type = V.transformationParts.bee.ears;
 	T.modeloptions.bee_wings_type = V.transformationParts.bee.wings;

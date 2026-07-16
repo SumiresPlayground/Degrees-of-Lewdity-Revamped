@@ -81,16 +81,20 @@
 				<<if $stockholm_active>>
 					<<print `<<His>> eyes darken. "Maybe I should sell <<nnpc_him "Robin">> somewhere you can't find <<nnpc_him "Robin">>."`>>
 				<<elseif $robinpaid is 1>>
-					<<print $_stringsPre + `"You pay <<nnpc_his "Robin">> debt and <<nnpc_he "Robin">> can't even watch."`>>
-				<<elseif C.npc.Robin.dom gte 60>>
-					<<print $_stringsPre + `"That brat's grown a spine thanks to you." <<He>> scoffs. "Shame <<nnpc_he "Robin">>'s not coming to save you."`>>
+					<<print $_stringsPre + `"You pay <<nnpc_his 'Robin'>> debt and <<nnpc_he 'Robin'>> can't even watch."`>>
+				<<elseif C.npc.Robin.dom gte 50>>
+					<<print $_stringsPre + `"That waif's grown a spine thanks to you. Shame <<nnpc_he 'Robin'>> won't save you."`>>
 				<<else>>
-					<<set $_strings to [
+					<<print $_stringsPre + either(
 						`"That worthless brat can't save you."`,
-						`"What do you expect that waif to do? Cry until I stop?"`,
-					]>>
-					<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
+						`"What do you expect that waif to do? Cry until I stop?"`
+					)>>
 				<</if>>
+			<<case "Black Wolf" "Great Hawk">>
+				<<print $_stringsPre + either(
+					`"People would pay extra to see you ${$player.penisExist ? "fuck" : "get fucked by"} some beast."`,
+					`"Animals get put down. You get put to work."`
+				)>>
 			<<case "Eden">>
 				<<if $stockholm_active>>
 					<<set $_strings to [
@@ -135,31 +139,40 @@
 					<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
 				<</if>>
 			<<case "Kylar">>
-				<<set $_strings to [
-					`"Call for <<nnpc_him "Kylar">> louder. Maybe <<nnpc_hes "Kylar">> outside the window."`,
-					`"That little freak is probably watching. Let <<nnpc_him "Kylar">>."`,
-				]>>
-				<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
-			<<case "Sydney">>
-				<<if C.npc.Sydney.purity lt 0>>
-					<<print $_stringsPre + `"You ruined <<nnpc_him "Sydney">>. You're more like me than you think."`>>
-				<<else>>
+				<<if $kylar_abduction_bailey is 1>>
 					<<set $_strings to [
-						`"Save it for confession."`,
-						`"That brat would pray for you. I'd rather <<nnpc_he "Sydney">> paid for you."`,
+						`"Call for <<nnpc_him "Kylar">> louder. Maybe <<nnpc_hes "Kylar">> outside the window."`,
+						`"That little freak is probably watching. Let <<nnpc_him "Kylar">>."`,
 					]>>
 					<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
+				<<else>>
+					<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
+				<</if>>
+			<<case "Sydney">>
+				<<if $temple_bailey>>
+					<<if C.npc.Sydney.purity lt 0>>
+						<<print $_stringsPre + `"You ruined <<nnpc_him "Sydney">>. You're more like me than you think."`>>
+					<<else>>
+						<<set $_strings to [
+							`"Save it for confession."`,
+							`"That brat would pray for you. I'd rather <<nnpc_he "Sydney">> paid for you."`,
+						]>>
+						<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
+					<</if>>
+				<<else>>
+					<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
 				<</if>>
 			<<case "Avery">>
 				<<if $avery_fate is "saved">>
 					<<print $_stringsPre + `"<<nnpc_He "Avery">>'d have let you fall."`>>
+				<<elseif $avery_mansion and $avery_fate isnot "fallen" and $avery_fate isnot "kicked" and $renttime lte 0>>
+					<<print $_stringsPre + `"I had a deal with <<nnpc_him 'Avery'>>, but <<nnpc_he 'Avery'>> dried up. Take it up with <<nnpc_him 'Avery'>>."`>>
+				<<elseif $bailey_avery_met>>
+					<<print $_stringsPre + `"Keep calling for that idiot. See if <<nnpc_his 'Avery'>> money reaches this far."`>>
 				<<else>>
-					<<set $_strings to [
-						`"<<nnpc_He "Avery">> paid for the privilege. I don't have to."`,
-						`"Call for <<nnpc_him "Avery">>. See if <<nnpc_his "Avery">> money reaches this far."`,
-					]>>
-					<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
+					<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
 				<</if>>
+				
 			<<case "Alex">>
 				<<set $_strings to [
 					`"What do you think that idiot ${C.npc.Alex.pronoun is "m" ? "cowboy" : "cowgirl"} is going to do?"`,
@@ -176,6 +189,8 @@
 		<<set $_strings to [
 			`<<He>> looks at your <<genitals>> with an appraising eye.`,
 			`<<He>> examines your <<genitals>> like something <<he>> owns. "Not bad."`,
+			`<<He>> looks at your <<genitals>>. "That'll sell."`,
+			`<<He>> looks at your <<genitals>>. "You'll earn your keep."`
 		]>>
 		<<print $_stringsPre + $_strings[random(0, $_strings.length-1)]>>
 	<<elseif $speechbreasts is 1>>
@@ -183,6 +198,8 @@
 			`<<He>> looks at your <<breasts>> with an appraising eye.`,
 			`<<He>> looks at your <<breasts>>. "Those'll do."`,
 			`<<He>> weighs your <<breasts>> in <<his>> hands. "Not bad."`,
+			`<<He>> looks at your <<breasts>>. "That'll sell."`,
+			`<<He>> looks at your <<breasts>>. "You'll earn your keep."`
 		]>>
 		<<print $_stringsPre + $_strings[random(0, $_strings.length-1)]>>
 	<<elseif $speechpregnant is 1 and $settings.pregnancySpeechEnabled>>
@@ -190,9 +207,10 @@
 			<<print `<<He>> sighs at your pregnant belly. "Knocked up. Typical."`>>
 		<<elseif $enemyanger lte 20>>
 			<<set $_strings to [
+				`<<He>> looks at your pregnant belly. "Couldn't keep your legs together, could you?"`,
 				`<<He>> frowns at your pregnant belly. "I hope you weren't planning on taking time off."`,
 				`"Pregnant." <<He>> looks you over. "You're still working."`,
-				`"You can still earn your keep like this."`,
+				`"You can still earn your keep like this."`
 			]>>
 			<<print $_strings[random(0, $_strings.length - 1)]>>
 		<<elseif $enemyanger lte 100>>
@@ -239,6 +257,7 @@
 	<<elseif $speechmoan is 1>>
 		<<if $bailey_dom lte 30>>
 			<<set $_strings to [
+				`"Keep it down."`,
 				`"Save the moaning for the customers."`,
 				`"Shut up. I don't need the racket."`,
 				`"Save the racket for someone who pays."`,
@@ -300,6 +319,7 @@
 		<<set $speechscream to 0>>
 		<<if $enemyanger lte 50>>
 			<<set $_strings to [
+				`"Be quiet."`,
 				`"Shut up. Be quiet."`,
 				`"No one's coming."`,
 				`"Who exactly do you think is going to help you?"`,
@@ -310,6 +330,7 @@
 				`<<He>> slaps you. "Shut up."`,
 				`<<He>> slaps you. "You're being noisy."`,
 				`<<He>> slaps you. "Be. Quiet."`,
+				`"Noisy little shit."`
 			]>>
 			<<print $_strings[random(0, $_strings.length - 1)]>>
 		<</if>>
@@ -1515,6 +1536,11 @@
 			<<set $_strings to [`"I hope you appreciate that."`, `"Just something to remember me by."`, `"We\'ll call that your going away gift."`, `"Already? I\'m not done with you."`, `"There it is. Couldn\'t help yourself, could you?"`]>>
 			<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
 		<</if>>
+	<<elseif $arousal gte 9500>>
+		<<print $_stringsPre + either(
+			`"Nice look. Some people would pay big to see you hot and bothered like this."`,
+			`"Should've brought a camera. Your profile would look great with this expression."`
+		)>>
 	/* HIGH AROUSAL POOL — about to cum */
 	<<elseif $enemyarousal gte ($enemyarousalmax * 0.7)>>
 		<<if $stockholm_active and $bailey_title_unlocked>>
@@ -1590,15 +1616,23 @@
 				<<print `<<He>> sees the brand on your buttock. <<He>> exhales. "Got my money's worth, at least."`>>
 			<</if>>
 		<<else>>
-			<<set $_strings to [
+			<<print $_stringsPre + either(
+				`"Why do you shits have to make it harder on yourselves?"`,
+				`"I told you to hold still."`,
+				`"You're making it harder on both of us."`,
+				`"You chose this."`,
+				`"Are you going to listen to me now?"`,
 				`"I have someone willing to pay big for you."`,
 				`"You're coming with me, and that's that."`,
-				`"Maybe I should inspect you before we go."`,
+				`"You owe me for the inconvenience."`,
+				`"Keep fighting. See where it gets you."`,
 				`"You'll fetch a decent sum if you keep your mouth shut."`,
 				`"Be grateful someone wants you at all."`,
-				`"Why do you shits have to make it harder on yourselves?"`,
-			]>>
-			<<print $_stringsPre + $_strings[random(0, $_strings.length - 1)]>>
+				`"You're costing me money every time you move."`,
+				`"This would be over already if you'd just behave."`,
+				`"Stop squirming, you're not going anywhere."`,
+				`"Every second you fight me is a second you owe me."`
+			)>>
 		<</if>>
-<</if>>
+	<</if>>
 <</widget>>
