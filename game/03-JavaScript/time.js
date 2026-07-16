@@ -1754,7 +1754,7 @@ function dailyNPCEffects() {
 }
 
 function dailyPlayerEffects() {
-	if (V.fallenangel < 4) {
+	if (V.transformationParts.fallenAngel.wings !== "disabled") {
 		V.willpower *= 0.99;
 	}
 

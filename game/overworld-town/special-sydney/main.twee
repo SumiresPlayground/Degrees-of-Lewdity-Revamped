@@ -352,7 +352,7 @@
 	You chat with Sydney. "I'm not supposed to make small talk when I'm working, but..." <<He>> pushes some books aside, and looks at you. It's the first time <<hes>> made full eye contact with you. "I've earned a break."
 <<elseif C.npc.Sydney.love gte 25 and $sydneyChatState is 3 and $sydneyromance isnot 1>>
 	<<set $sydneyChatState to 4>>
-	You chat with Sydney. "No one else has made such an effort to get to know me like this. Not in a long time, at least. I appreciate it." <<He>> holds up <<his>> holy pendant, kisses it, and places it against your forehead. "Blessings." <<if $demon gte 6>><<stress 6>><<gstress>><<else>><<trauma -3>><<ltrauma>><</if>>
+	You chat with Sydney. "No one else has made such an effort to get to know me like this. Not in a long time, at least. I appreciate it." <<He>> holds up <<his>> holy pendant, kisses it, and places it against your forehead. "Blessings." <<if $transformationParts.demon.wings isnot "disabled">><<stress 6>><<gstress>><<else>><<trauma -3>><<ltrauma>><</if>>
 <<elseif C.npc.Sydney.love gte 40 and !["early","first","late"].includes($schoolstate) and !$daily.sydney.SirrisLibrary and $rng gte 88>>
 	<<set $daily.sydney.SirrisLibrary to true>>
 	You chat with Sydney.
@@ -727,16 +727,16 @@
 				<<if $transformationParts.bird.tail isnot "disabled" and $transformationParts.bird.plumage isnot "hidden" and random(1, 2) is 1>>
 					<<His>> hand trails down, reaching your plumage. <<His>> eyes widen. <<if $rng is 1>>"The plumage of Accipiter Gentilis Gigantus, the Giant Goshawk. I've seen these before. Somewhere."<<else>>"Th-these are..."<</if>> <<He>> looks as though <<hes>> remembered something, but the look fades quickly.
 					<br><br>
-				<<elseif $transformationParts.angel.wings isnot "disabled" and $transformationParts.angel.halo isnot "hidden">>
+				<<elseif $transformationParts.angel.halo isnot "disabled" and $transformationParts.angel.halo isnot "hidden">>
 					<<His>> eyes widen, and you see the reflection of your halo in <<his>> <<if $sydney.glasses isnot "contacts">><<sydneyGlasses>><<else>>eyes<</if>>. <<He>> blinks and rubs <<his>> face, and the reflection is no longer there. "I thought I saw..." <<He>> shakes <<his>> head, looking <<if _sydneyStatus.includes("corrupt")>>conflicted<<else>>giddy<</if>>. <<npcincr Sydney purity 2>><<gspurity>>
 					<br><br>
-				<<elseif $transformationParts.fallenAngel.wings isnot "disabled" and $transformationParts.fallenAngel.halo isnot "hidden">>
+				<<elseif $transformationParts.fallenAngel.halo isnot "disabled" and $transformationParts.fallenAngel.halo isnot "hidden">>
 					<<His>> eyes widen, and you see the reflection of your broken halo in <<his>> <<if $sydney.glasses isnot "contacts">><<sydneyGlasses>><<else>>eyes<</if>>. <<He>> blinks and rubs <<his>> face, and the reflection is no longer there. "I thought I saw..." <<He>> shakes <<his>> head, looking <<if _sydneyStatus.includes("corrupt")>>guilty<<else>>saddened<</if>>. <<npcincr Sydney purity -2>><<lspurity>>
 					<br><br>
-				<<elseif $demon gte 2 and $transformationParts.demon.horns isnot "hidden">>
+				<<elseif $transformationParts.demon.horns isnot "disabled" and $transformationParts.demon.horns isnot "hidden">>
 					<<His>> eyes widen, and you see the reflection of your horns in <<his>> <<if $sydney.glasses isnot "contacts">><<sydneyGlasses>><<else>>eyes<</if>>. <<He>> blinks and rubs <<his>> face, and the reflection is no longer there. "I thought I saw..." <<He>> shakes <<his>> head, looking <<if _sydneyStatus.includes("corrupt")>>smug<<else>>distraught<</if>>. <<npcincr Sydney purity -2>><<lspurity>>
 					<br><br>
-				<<elseif $cow gte 2 and $transformationParts.cow.horns isnot "hidden">>
+				<<elseif $transformationParts.cow.horns isnot "disabled" and $transformationParts.cow.horns isnot "hidden">>
 					<<He>> stops at your horns. "I saw some props like this when unpacking at <<nnpc_Mum "Sirris">>'s new shop," <<he>> says. "I wonder what purpose they serve. I'm surprised they let you wear these here."
 					<br><br>
 				<<elseif ($transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.ears isnot "hidden") or ($transformationParts.cat.ears isnot "disabled" and $transformationParts.cat.ears isnot "hidden") or ($transformationParts.fox.ears isnot "disabled" and $transformationParts.fox.ears isnot "hidden")>>

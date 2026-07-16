@@ -254,16 +254,16 @@
 <</widget>>
 
 <<widget "rutCycle">>
-	<<if $player.penisExist and ($transformationParts.wolf.ears isnot "disabled" or $cat gte 2 or $cow gte 2 or $transformationParts.fox.ears isnot "disabled")>>
+	<<if $player.penisExist and ($transformationParts.wolf.ears isnot "disabled" or $transformationParts.cat.ears isnot "disabled" or $transformationParts.cow.horns isnot "disabled" or $transformationParts.fox.ears isnot "disabled")>>
 		<<if !$player.beastRut>>
 			<<set $player.beastRut to 0>>
 		<</if>>
 		<<set $_pills = $sexStats.pills.pills>>
 		<<if $transformationParts.wolf.ears isnot "disabled">>
 			<<set $_changeReduction to $wolfbuild>>
-		<<elseif $cat gte 2>>
+		<<elseif $transformationParts.cat.ears isnot "disabled">>
 			<<set $_changeReduction to $catbuild>>
-		<<elseif $cow gte 2>>
+		<<elseif $transformationParts.cow.horns isnot "disabled">>
 			<<set $_changeReduction to $cowbuild>>
 		<<elseif $transformationParts.fox.ears isnot "disabled">>
 			<<set $_changeReduction to $foxbuild>>
