@@ -211,7 +211,7 @@ function initOverUpper() {
 			warmth: 10,
 			cost: 12000,
 			description: "It's Godazaur!",
-			shop: [],
+			shop: ["clothing"],
 			accessory: 0,
 			accessory_colour: 0,
 			accessory_colour_options: [],
