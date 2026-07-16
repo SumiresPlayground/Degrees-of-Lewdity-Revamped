@@ -1907,7 +1907,7 @@
 			<<if $gwylan_rescue is 1>>
 				<span class="red">Gwylan does not come to help you<<if _args[0] isnot "Eden" and $syndromeeden is 1>>, and Eden must not be in the area<</if>>.</span>
 			<<else>>
-				<span class="red">You're too far from town for anyone to hear you<<if _args[0] isnot "hunter" and $syndromeeden is 1>>, and Eden must not be in the area<</if>>.</span>
+				<span class="red">You're too far from town for anyone to hear you<<if _args[0] isnot "Eden" and $syndromeeden is 1>>, and Eden must not be in the area<</if>>.</span>
 			<</if>>
 		<</if>>
 	<<else>>
@@ -2541,7 +2541,7 @@
 			<</if>>
 		<<else>> /* beast */
 			<<if $gwylanSeen?.includes("ritual_beast") and $rng gte 51>>
-				The <<beasttype>> <<beast_growls_text $_type>>, but it quiets down as you hear something else. Singing.
+				The <<beasttype>> <<beast_growls_text $_type>>, but <<bhe>> quiets down as you hear something else. Singing.
 				<<if $_type.includes("boar")>>
 					<<bHe>> grunts, looking around, before slowly bowing <<bhis>> head.
 					<<if $monster is 1>>
@@ -2806,7 +2806,16 @@
 		<</if>>
 		<br><br>
 
-		<<clotheson>><<set $gwylanRescue.failed to "">>
+		<<clotheson>>
+		<<if $gwylanRescue is undefined>>
+			<<set $gwylanRescue to {
+				seen: [],
+				failed: "",
+				count: 0,
+				eden: 0,
+			}>>
+		<</if>>
+		<<set $gwylanRescue.failed to "">>
 		<<endcombat>>
 
 		<<if _args.includes("slime")>>
@@ -3071,7 +3080,7 @@
 <</widget>>
 
 <<widget "gwylanRescueNotice">>
-	<<if $gwylan_rescue isnot 1 or $gwylanSeen?.includes("ritual_sex") and ($worn.neck.name is "familiar collar" and !$gwylanRescue.seen.includes("collarScream") or $fox gte 6 and !$gwylanRescue.seen.includes("foxScream"))>>
+	<<if $gwylan_rescue isnot 1 or $gwylanSeen?.includes("ritual_sex") and ($worn.neck.name is "familiar collar" and !$gwylanRescue.seen.includes("collarScream") or $transformationParts.fox.tail isnot "disabled" and !$gwylanRescue.seen.includes("foxScream"))>>
 		<<set _gwylanRescueNotice to true>>
 		<<nnpc_He "Gwylan">> starts to walk off, but stops and turns around. "By the way," <<nnpc_he "Gwylan">> says.
 		<<if $gwylan_rescue isnot 1>>
@@ -3082,7 +3091,7 @@
 					<<set $gwylanRescue.seen.pushUnique("collarScream")>>
 					While you're wearing this..." <<nnpc_He "Gwylan">> brushes <<nnpc_his "Gwylan">> fingers against your collar affectionately. "<span class="forest-green">I'll be able to hear you throughout the entire forest.</span> Otherwise...
 				<</if>>
-				<<if $fox gte 6>>
+				<<if $transformationParts.fox.tail isnot "disabled">>
 					<<set $gwylanRescue.seen.pushUnique("foxScream")>>
 					I'll be able to hear you up to the border of the deepest parts of the forest, but that's only as long as you have that <span class="orange">foxiness</span> to you. If you lose it...
 				<</if>>
@@ -3090,13 +3099,13 @@
 			<span class="gold">If you go any further than the start of the lake, I won't be able to hear you.</span> Keep it in mind."
 		<<elseif !$gwylanSeen?.includes("ritual_sex")>>
 			<!-- Do nothing -->
-		<<elseif $worn.neck.name is "familiar collar" and $fox gte 6 and !$gwylanRescue.seen.includesAny("collarScream","foxScream")>>
+		<<elseif $worn.neck.name is "familiar collar" and $transformationParts.fox.tail isnot "disabled" and !$gwylanRescue.seen.includesAny("collarScream","foxScream")>>
 			<<set $gwylanRescue.seen.pushUnique("collarScream","foxScream")>>
 			<<nnpc_He "Gwylan">> brushes <<nnpc_his "Gwylan">> fingers against your collar affectionately. "As long as you're wearing this, <span class="forest-green">I'll be able to hear you throughout the entire forest.</span> And even if you're not, as long as you have that <span class="orange">foxiness</span> to you that you do now, I'll be able to hear you up to the border of the deepest parts of the forest. Keep it in mind."
 		<<elseif $worn.neck.name is "familiar collar" and !$gwylanRescue.seen.includes("collarScream")>>
 			<<set $gwylanRescue.seen.pushUnique("collarScream")>>
 			<<nnpc_He "Gwylan">> brushes <<nnpc_his "Gwylan">> fingers against your collar affectionately. "As long as you're wearing this, <span class="forest-green">I'll be able to hear you throughout the entire forest.</span> Keep it in mind."
-		<<elseif $fox gte 6 and !$gwylanRescue.seen.includes("foxScream")>>
+		<<elseif $transformationParts.fox.tail isnot "disabled" and !$gwylanRescue.seen.includes("foxScream")>>
 			<<set $gwylanRescue.seen.pushUnique("foxScream")>>
 			"As long as you have that <span class="orange">foxiness</span> to you that you do now, I'll be able to hear you up to the border of the deepest parts of the forest. Keep it in mind."
 		<</if>>

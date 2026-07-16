@@ -984,22 +984,26 @@ function effects() {
 			delete V.toy_message;
 		}
 
-		if (V.loveInterest_message === 1) {
-			element("i", "You feel that having multiple lovers is wrong. You can no longer choose more than one love interest.", "blue");
-			delete V.loveInterest_message;
-			delete V.loveInterestAwareMessage;
-		} else if (V.loveInterest_message === 2 && !V.loveInterestAwareMessage) {
+		if (V.loveInterest_message === 1 && !V.loveInterestAwareMessage) {
 			element("i", "Your mind is open to the possibility of another lover. You may now choose a second love interest.", "pink");
 			delete V.loveInterest_message;
 			V.loveInterestAwareMessage = 1;
-		} else if (V.loveInterest_message === 3 && V.loveInterestAwareMessage === 2) {
-			element("i", "You feel that it's wrong to have so many lovers. You can no longer choose more than two love interests.", "blue");
-			delete V.loveInterest_message;
-			V.loveInterestAwareMessage = 1;
-		} else if (V.loveInterest_message === 4 && V.loveInterestAwareMessage === 1) {
+		} else if (V.loveInterest_message === 2 && V.loveInterestAwareMessage === 1) {
 			element("i", "Your mind is open to the possibility of multiple lovers. You may now choose a third love interest.", "pink");
 			delete V.loveInterest_message;
 			V.loveInterestAwareMessage = 2;
+		} else if (V.loveInterest_message === 3 && V.loveInterestAwareMessage === 2) {
+			element("i", "Your mind is open to the possibility of multiple lovers. You may now choose a fourth love interest.", "pink");
+			delete V.loveInterest_message;
+			V.loveInterestAwareMessage = 3;
+		} else if (V.loveInterest_message === 4 && V.loveInterestAwareMessage === 3) {
+			element("i", "Your mind is open to the possibility of multiple lovers. You may now choose a fifth love interest.", "pink");
+			delete V.loveInterest_message;
+			V.loveInterestAwareMessage = 4;
+		} else if (V.loveInterest_message === 5 && V.loveInterestAwareMessage === 4) {
+			element("i", "Your mind is open to the possibility of multiple lovers. You may now choose a sixth love interest.", "pink");
+			delete V.loveInterest_message;
+			V.loveInterestAwareMessage = 5;
 		}
 
 		if (V.fallenangelmessage) {
@@ -2228,10 +2232,6 @@ function effects() {
 	sWikifier("<<bindings>>");
 
 	if (V.worn.genitals.cursed === 1 && V.worn.genitals.integrity <= 0) V.worn.genitals.type.push("broken");
-
-	if (V.worn.feet.type.includes("heels") && currentSkillValue("feetskill") < V.worn.feet.reveal) {
-		V.tiredness += (V.worn.feet.reveal - currentSkillValue("feetskill")) / 150;
-	}
 
 	sWikifier("<<exposure>>");
 

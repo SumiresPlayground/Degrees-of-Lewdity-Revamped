@@ -15,7 +15,7 @@ You are in your bedroom.
 <<if $furniture.bedroom.windowsill isnot undefined>>
 	<<if $furniture.bedroom.windowsill.id is "sewingmachine">>
 		<<set $furniture.bedroom.windowsill.id to "plantpot">>
-		<<run Furniture.set('utility', 'sewingmachine', {
+		<<run Furniture.set('sewingmachine', 'utility', {
 			name	: 'sewing machine',
 			nameCap	: 'Sewing machine'
 		})>>
@@ -154,7 +154,8 @@ You are in your bedroom.
 <<if V.furniture.bedroom.utility isnot undefined>>
 	<<if V.furniture.bedroom.utility.id is "sewingmachine">>
 		<br>
-		<<furnitureicon "sewing">>Your sewing machine sits on the table.
+		<<furnitureicon "sewing">>Your sewing machine sits on the table. You can sew clothing from the wardrobe menu.
+		<<set $sewingKit to 1>><<set $sewingBought to 1>>
 	<</if>>
 <</if>>
 
@@ -299,19 +300,6 @@ Your bed takes up most of the room.
 <br>
 <<furnitureicon _wardrobe.iconFile>><<link [[Wardrobe|Wardrobe]]>><</link>>
 <br>
-<<if V.furniture.bedroom.utility isnot undefined>>
-	<<if V.furniture.bedroom.utility.id is "sewingmachine">>
-		You can spend some time on your sewing machine to fully repair your clothing.
-		<br>
-		<<furnitureicon "sewing">><<link [[Use sewing machine (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<rng>><<if $rng lte 20>><<transform spider 1>><</if>><</link>>
-		<br>
-	<<elseif $transformationParts.spider.tail isnot "disabled">>
-		You can spend some time using silk from your tail to fully repair your clothing.
-		<br>
-		<<furnitureicon "sewing">><<link [[Begin sewing (2:00)|Clothes Repair]]>><<pass 120>><<set $worn.lower.integrity to setup.clothes.lower[clothesIndex('lower',$worn.lower)].integrity_max>><<set $worn.upper.integrity to setup.clothes.upper[clothesIndex('upper',$worn.upper)].integrity_max>><<set $worn.under_upper.integrity to setup.clothes.under_upper[clothesIndex('under_upper',$worn.under_upper)].integrity_max>><<set $worn.under_lower.integrity to setup.clothes.under_lower[clothesIndex('under_lower',$worn.under_lower)].integrity_max>><<transform spider 1>><</link>>
-		<br>
-	<</if>>
-<</if>>
 <<if $worn.lower.integrity gt 1 or $worn.upper.integrity gt 1 or $worn.under_lower.integrity gt 1 or $worn.under_upper.integrity gt 1>>
 	<<link [[Tear clothes slightly (0:10)|Clothes Tear]]>><<pass 10>><<set $worn.lower.integrity -= 20>><<set $worn.upper.integrity -= 20>><<set $worn.under_upper.integrity -= 20>><<set $worn.under_lower.integrity -= 20>><</link>>
 	<br>
@@ -2821,8 +2809,11 @@ and !$fromRobinRoom and _robin.cdquest is 2 and _robin.trauma lte 20 and !$daily
 		<br><br>
 		A brown-haired girl in a white sundress sits by the window.
 		<br>
-		<<dooricon "whitney">><<link [[Approach|Orphanage Sneaky Whitney]]>><</link>> <i>Sneaky update: Enable Whitney's romance, and increase love, for testing their home</i>
-		<br><br>
+		<<dooricon "whitney">><<link [[Approach and ask about Whitney|Orphanage Sneaky Whitney]]>><</link>> <i>Sneaky update: Enable Whitney's romance, and increase love, for testing their home</i>
+		<br>
+		<<photographystudioicon>><<link [[Approach and ask about Niki|Orphanage Sneaky Niki]]>><</link>> <i>Sneaky update: Enable Niki's photo studio</i>
+		<br>
+		<br>
 	<</if>>
 	<<if $halloween is 1 and Time.monthDay is 31 and !$fromRobinRoom and $robinmissing is 0 and Time.hour gte 16 and Time.hour lt 19 and _robin.init is 1>>
 		<<if $halloween_robin_costume>>
@@ -4952,10 +4943,36 @@ The girl nods, and produces a wooden rod. "You're off to the park! Stay safe." S
 <<link [[Next|Whitney Home Intro 3]]>><<npc Whitney>><<person1>><</link>>
 <br>
 
-:: Clothes Repair
-You get to work, carefully sewing your clothes torn seams back together. It takes a lot of time and effort but by the time you are done, they are almost as good as new!
+:: Orphanage Sneaky Niki
+<<effects>>
+
+The girl smiles as you approach.
 <br><br>
-<<link [[Next|Bedroom]]>><</link>>
+
+<<if $photo>>
+	<<link [[Teleport to photo studio|Photo]]>><</link>>
+	<br>
+<<else>>
+	"Hello! You wouldn't be interested in a modelling career, by chance? I could speed up the paperwork." She lifts a comically large pen.
+	<br><br>
+
+	<<link [[Enable photography studio|Orphanage Sneaky Niki Enable]]>><</link>>
+	<br>
+	<<link [[Decline for now|Orphanage]]>><</link>>
+	<br>
+<</if>>
+
+:: Orphanage Sneaky Niki Enable
+<<effects>>
+
+The girl takes out a notebook, and draws a large tick on a blank page. <span class="gold">"You are now signed up as a model.</span> Have a nice day!"
+<br><br>
+
+With that, a brisk wind whisks you away, to the photo studio on Nightingale Street.
+<br><br>
+
+<<link [[Next|Photo Intro]]>><</link>>
+<br>
 
 :: Clothes Tear
 You grab a knife from the counter and begin to slice away at the threads of your clothing. After a few minutes of cutting, fabric falls and your clothes look a little more worn.

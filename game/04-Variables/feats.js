@@ -5,6 +5,8 @@
 	softLockable: true, //Will disable the unlocking of the feat if softmode is enabled
 	pregnancyLockable: true, //Will disable the unlocking of the feat if certain pregnancy settings are too low
 	hidden: true, //Will hide the feat at all times unless unlocked, best for feats for unreleased content
+	alt: "altTitle", //Alternate title to display if the feat is unlocked and altCond is met
+	altCond: "conditional" //Conditional evaluated to decide whether or not to display the altTitle (the feat must be owned in the current save for this to happen, regardless of the conditional)
 */
 setup.feats = {
 	"Pocket Change": {
@@ -211,8 +213,17 @@ setup.feats = {
 		title: "Science Fair Winner",
 		desc: "Blind them with science.",
 		difficulty: 2,
-		series: "",
+		series: "scienceFair",
 		filter: ["All", "General"],
+		softLockable: true,
+	},
+	"Thesis Offence": {
+		title: "Thesis Offence",
+		desc: "You maintained your scientific integrity by force.",
+		difficulty: 3,
+		series: "scienceFair",
+		filter: ["All", "General"],
+		hint: "Hint: Blind them with something not-quite-scientific.",
 		softLockable: true,
 	},
 	"Maths Competition Winner": {
@@ -233,11 +244,11 @@ setup.feats = {
 	},
 	"50 Shades of Tan": {
 		title: "50 Shades of Tan",
-		desc: "Achieved 5 distinct tanlines at once.",
+		desc: "Achieved 5 distinct tan lines at once.",
 		difficulty: 2,
 		series: "",
 		filter: ["All", "Special"],
-		hint: "?????",
+		hint: "Hint: Spend some time in the sun.",
 	},
 	"Most Aware": {
 		title: "Most Aware",
@@ -323,6 +334,8 @@ setup.feats = {
 		difficulty: 3,
 		series: "",
 		filter: ["All", "Stats"],
+		alt: "Degree in Lewdity",
+		altCond: "random(100) is 100",
 	},
 	"Perfect Record": {
 		title: "Perfect Record",
@@ -1992,6 +2005,24 @@ setup.feats = {
 		hint: "Hint: Date your way into the town's upper echelons.",
 		softLockable: true,
 	},
+	"Stomping Down The Street": {
+		title: "Stomping Down The Street",
+		desc: "Handed out lots of flyers on the High Street.",
+		difficulty: 1,
+		series: "Flyers",
+		filter: ["All", "Discoveries-Town"],
+		hint: "Hint: Work with Niki.",
+		softLockable: true,
+	},
+	"Hear Me Roar": {
+		title: "Hear Me Roar",
+		desc: "Handed out even more flyers on the High Street.",
+		difficulty: 2,
+		series: "Flyers",
+		filter: ["All", "Discoveries-Town"],
+		hint: "Hint: Work with Niki.",
+		softLockable: true,
+	},
 	"Max Those Shots": {
 		title: "Max Those Shots",
 		desc: "Holding a lot of pepper spray.",
@@ -2258,7 +2289,12 @@ function featsMerge() {
 	if (localStorageSaves) {
 		if (localStorageSaves.autosave) {
 			localStorageSaves.autosave.state.history = State.deltaDecode(localStorageSaves.autosave.state.delta);
-			DoLSave.decompressIfNeeded(localStorageSaves.autosave);
+			try {
+				DoLSave.decompressIfNeeded(localStorageSaves.autosave);
+			} catch (e) {
+				// a save that cannot be decompressed has no feats to read, skip it
+				console.warn("Couldn't decompress a save while loading feats, skipping it.", e);
+			}
 
 			if (localStorageSaves.autosave.state?.history?.[localStorageSaves.autosave.state.index]?.variables) {
 				const variables = localStorageSaves.autosave.state.history[localStorageSaves.autosave.state.index].variables;
@@ -2274,7 +2310,12 @@ function featsMerge() {
 			localStorageSaves.slots.forEach(slot => {
 				if (slot) {
 					slot.state.history = State.deltaDecode(slot.state.delta);
-					DoLSave.decompressIfNeeded(slot);
+					try {
+						DoLSave.decompressIfNeeded(slot);
+					} catch (e) {
+						// a save that cannot be decompressed has no feats to read, skip it
+						console.warn("Couldn't decompress a save while loading feats, skipping it.", e);
+					}
 					if (slot.state.history?.[slot.state.index]?.variables) {
 						const variables = slot.state.history[slot.state.index].variables;
 						if (variables.feats) {
@@ -2498,7 +2539,8 @@ function earnHourlyFeats() {
 		earnFeat("Broodmother Zoologist");
 	}
 
-	if (V.spraymax >= 7) earnFeat("Max Those Shots");
+	if (V.spraymax >= 8) earnFeat("Max Those Shots");
+	if (V.spraymax > 8) console.warn("pepper spray count above 8! does feat threshold need to be increased?");
 	if ((V.semen_volume >= 2000 && V.semen_amount >= V.semen_volume) || (V.milk_volume >= 2000 && V.milk_amount >= V.milk_volume)) earnFeat("Feeling Full");
 	if (V.cool >= 400) earnFeat("Social Butterfly");
 	if (V.cool <= 2 && !V.backgroundTraits.includes("nerd")) earnFeat("Anti-Social Moth");
@@ -2523,9 +2565,9 @@ function earnHourlyFeats() {
 	if (V.produce_sold >= 100) earnFeat("Hawker");
 	if (V.produce_sold >= 1000) earnFeat("Vendor");
 	if (V.produce_sold >= 5000) earnFeat("Merchant");
-	let total_seeds = Object.values(setup.foodstuff).filter(plant => plant.tending?.has_seeds).length;
-	if (V.plants_known.length >= total_seeds / 2) earnFeat("Seedy");
-	if (V.plants_known.length >= total_seeds) earnFeat("Breedy");
+	const totalSeeds = Object.values(setup.foodstuff).filter(plant => plant.tending?.has_seeds).length;
+	if (V.plants_known.length >= totalSeeds / 2) earnFeat("Seedy");
+	if (V.plants_known.length >= totalSeeds) earnFeat("Breedy");
 	if (V.daily.ex.road === 1 && V.daily.ex.cream === 1 && V.daily.ex.flyover === 1) earnFeat("A Lewd Adventure");
 	if (V.athletics >= 1000) earnFeat("Swift");
 
@@ -2597,7 +2639,7 @@ function earnHourlyFeats() {
 	}
 
 	// Should be last
-	let currentMax = Object.values(setup.feats).reduce((sum, feat) => sum + feat.difficulty, 0);
+	const currentMax = Object.values(setup.feats).reduce((sum, feat) => sum + feat.difficulty, 0);
 	if (V.feats.allSaves.points >= Math.floor(currentMax * 0.5)) earnFeat("My Collection of Feats");
 	if (V.feats.allSaves.points >= Math.floor(currentMax * 0.95)) earnFeat("My Timeless Collection of Feats");
 
@@ -3000,6 +3042,133 @@ function applyFeatBoosts() {
 	// reincarnated into the same nightmare
 	if (V.featsBoosts.pointsUsed > 0) earnFeat("A New Life");
 
+	if (upgrades.wolf) {
+		V.wolftf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.cat) {
+		V.cattf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.cow) {
+		V.cowtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.harpy) {
+		V.harpytf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fox) {
+		V.foxtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.bee) {
+		V.beetf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.sheep) {
+		V.sheeptf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.deer) {
+		V.deertf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.bear) {
+		V.beartf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.dragon) {
+		V.dragontf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.lizard) {
+		V.lizardtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.dolphin) {
+		V.dolphintf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.dog) {
+		V.dogtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.raccoon) {
+		V.raccoontf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fish) {
+		V.fishtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.horse) {
+		V.horsetf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.pig) {
+		V.pigtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.spider) {
+		V.spidertf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.frog) {
+		V.frogtf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.bunny) {
+		V.bunnytf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.angel) {
+		V.angeltf = 1;
+		V.angel = 6;
+		V.angelbuild = 100;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fallenangel) {
+		V.fallenangeltf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.demon) {
+		V.demontf = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.eldritch) {
+		V.eldritch = 1;
+		V.permanentTransform = 1;
+	}
+
+	if (upgrades.fae) {
+		V.faetf = 1;
+		V.permanentTransform = 1;
+	}
+
 	// starting money
 	if (upgrades.money > 0) statChange.money(details.money.purchased * details.money.max * 2500, "startingMoney");
 
@@ -3217,133 +3386,6 @@ function applyFeatBoosts() {
 
 			sexShopOnBuyClick(index, false, color, false);
 		}
-	}
-	
-	if (upgrades.wolf) {
-		V.wolftf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.cat) {
-		V.cattf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.cow) {
-		V.cowtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.harpy) {
-		V.harpytf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fox) {
-		V.foxtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bee) {
-		V.beetf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.sheep) {
-		V.sheeptf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.deer) {
-		V.deertf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bear) {
-		V.beartf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dragon) {
-		V.dragontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.lizard) {
-		V.lizardtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dolphin) {
-		V.dolphintf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.dog) {
-		V.dogtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.raccoon) {
-		V.raccoontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fish) {
-		V.fishtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.horse) {
-		V.horsetf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.pig) {
-		V.pigtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.spider) {
-		V.spidertf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.frog) {
-		V.frogtf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.bunny) {
-		V.bunnytf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.angel) {
-		V.angeltf = 1;
-		V.angel = 6;
-		V.angelbuild = 100;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fallenangel) {
-		V.fallenangeltf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.demon) {
-		V.demontf = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.eldritch) {
-		V.eldritch = 1;
-		V.permanentTransform = 1;
-	}
-
-	if (upgrades.fae) {
-		V.faetf = 1;
-		V.permanentTransform = 1;
 	}
 
 	// cleanup

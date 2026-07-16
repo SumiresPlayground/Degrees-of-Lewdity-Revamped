@@ -430,7 +430,7 @@ Your eyes were so drawn by the water that it takes you a moment to notice the <<
 		<br>
 	<</if>>
 
-	<<if $fox gte 3>>
+	<<if $transformationParts.fox.tail isnot "disabled">>
 		<<link [[Present yourself|Meadow Cave Sex]]>><<set $sexstart to 1>><</link>><<deviant1>><<fox>>
 		<br>
 	<<elseif hasSexStat("deviancy", 4)>>
@@ -451,7 +451,7 @@ Your eyes were so drawn by the water that it takes you a moment to notice the <<
 	<<link [[Forgive|Meadow Cave Accept]]>><</link>>
 	<br>
 	<<if $settings.bestialityEnabled>>
-		<<if $fox gte 3>>
+		<<if $transformationParts.fox.tail isnot "disabled">>
 			<<link [[Present yourself|Meadow Cave Sex]]>><<set $sexstart to 1>><</link>><<deviant1>><<fox>>
 			<br>
 		<<elseif hasSexStat("deviancy", 4)>>
@@ -567,7 +567,7 @@ You make it to the top, and squeeze through the entrance, emerging near the mead
 		<<bHe>> cautiously approaches you, sniffing you.
 	<</if>>
 	<<set $NPCList[0].stance to "top">>
-	<<if $fox gte 3>>
+	<<if $transformationParts.fox.tail isnot "disabled">>
 		<<deviancy1>>
 	<<else>>
 		<<deviancy4>>
@@ -629,6 +629,7 @@ You keep low as you move, though you see no one else around.
 
 		You outpace your quarry, and catch <<bhim>> a little into the trees.
 		<<if $monster is 1>>
+			<<earnFeat "Cornered Rogue">>
 			<<if $museumAntiques.antiques.antiquestonetalisman isnot "found" and $museumAntiques.antiques.antiquestonetalisman isnot "talk" and $museumAntiques.antiques.antiquestonetalisman isnot "museum">>
 				<<set $phase to "monster">>
 				"I-I'm sorry," <<bhe>> says, your arm around <<bhis>> neck. "I didn't mean any harm. Here." <<bHe>> drops your clothes. "I'll give you a present too if you don't hurt me. Something I found in a cave."
@@ -643,7 +644,7 @@ You keep low as you move, though you see no one else around.
 				<br>
 			<</if>>
 
-			<<if $fox gte 3>>
+			<<if $transformationParts.fox.tail isnot "disabled">>
 				<<link [[Present yourself|Meadow Chase Hill Sex]]>><<set $sexstart to 1>><</link>><<deviant1>><<fox>>
 				<br>
 			<<elseif hasSexStat("deviancy", 4)>>
@@ -664,7 +665,7 @@ You keep low as you move, though you see no one else around.
 			<<link [[Forgive|Meadow Chase Hill Accept]]>><</link>>
 			<br>
 			<<if $settings.bestialityEnabled>>
-				<<if $fox gte 3>>
+				<<if $transformationParts.fox.tail isnot "disabled">>
 					<<link [[Present yourself|Meadow Chase Hill Sex]]>><<set $sexstart to 1>><</link>><<deviant1>><<fox>>
 					<br>
 				<<elseif hasSexStat("deviancy", 4)>>
@@ -710,7 +711,7 @@ You keep low as you move, though you see no one else around.
 		<<bHe>> cautiously looks to you, sniffing you.
 	<</if>>
 	<<set $NPCList[0].stance to "top">>
-	<<if $fox gte 3>>
+	<<if $transformationParts.fox.tail isnot "disabled">>
 		<<deviancy1>>
 	<<else>>
 		<<deviancy4>>
@@ -1085,7 +1086,6 @@ You walk back to the meadow.
 <<deviancy4>>
 <<endevent>>
 <<link [[Next|Meadow]]>><<unset $foxGen>><</link>>
-<br>
 
 :: Meadow Sheep Resist 
 <<effects>>

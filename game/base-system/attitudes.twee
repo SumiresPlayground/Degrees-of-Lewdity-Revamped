@@ -123,6 +123,9 @@
 		<<set _loveIntStart1 to $loveInterest.primary>>
 		<<set _loveIntStart2 to $loveInterest.secondary>>
 		<<set _loveIntStart3 to $loveInterest.tertiary>>
+		<<set _loveIntStart4 to $loveInterest.quaternary>>
+		<<set _loveIntStart5 to $loveInterest.quinary>>
+		<<set _loveIntStart6 to $loveInterest.senary>>
 		<div id="loveInterest" class="settingsToggleItem">
 			<div class="gold bold">Who do you consider to be your love interest?</div>
 			<<loveInterest>>
@@ -803,6 +806,13 @@
 <</widget>>
 
 <<widget "loveInterest">>
+
+	<<if $loveInterest.quaternary is undefined>>
+		<<set $loveInterest.quaternary to "None">>
+		<<set $loveInterest.quinary to "None">>
+		<<set $loveInterest.senary to "None">>
+	<</if>>
+
 	Primary Love Interest:
 	<br>
 	<<set _npc = ["None"].concat(setup.loveInterestNpc)>>
@@ -820,7 +830,7 @@
 		<br><br>
 		Secondary Love Interest:
 		<br>
-		<<if $awarelevel gte 2>>
+		<<if $awarelevel gte 2 or $poly is 1>>
 			<<if $loveInterest.primary is "None">>
 				<<set $loveInterest.secondary to "None">>
 				<span class="black">You need to choose a primary love interest before you can choose a secondary.</span>
@@ -839,7 +849,7 @@
 		<br><br>
 		Tertiary Love Interest:
 		<br>
-		<<if $awarelevel gte 3>>
+		<<if $awarelevel gte 3 or $poly is 1>>
 			<<if $loveInterest.secondary is "None">>
 				<<set $loveInterest.tertiary to "None">>
 				<span class="black">You need to choose a secondary love interest before you can choose a tertiary.</span>
@@ -847,10 +857,67 @@
 				<<listbox "$loveInterest.tertiary" autoselect>>
 					<<optionsfrom _potentialLoveInterests>>
 				<</listbox>>
+				<<if $loveInterest.tertiary isnot "None">>
+					<<run _potentialLoveInterests.delete($loveInterest.tertiary)>>
+				<</if>>
 			<</if>>
 		<<else>>
 			<span class="black">You don't consider it possible to have more than two love interests.</span>
 			<<set $loveInterest.tertiary to "None">>
+		<</if>>
+		<br><br>
+		Quaternary Love Interest:
+		<br>
+		<<if $awarelevel gte 4 or $poly is 1>>
+			<<if $loveInterest.tertiary is "None">>
+				<<set $loveInterest.quaternary to "None">>
+				<span class="black">You need to choose a tertiary love interest before you can choose a quaternary.</span>
+			<<else>>
+				<<listbox "$loveInterest.quaternary" autoselect>>
+					<<optionsfrom _potentialLoveInterests>>
+				<</listbox>>
+				<<if $loveInterest.quaternary isnot "None">>
+					<<run _potentialLoveInterests.delete($loveInterest.quaternary)>>
+				<</if>>
+			<</if>>
+		<<else>>
+			<span class="black">You don't consider it possible to have more than three love interests.</span>
+			<<set $loveInterest.quaternary to "None">>
+		<</if>>
+		<br><br>
+		Quinary Love Interest:
+		<br>
+		<<if $awarelevel gte 5 or $poly is 1>>
+			<<if $loveInterest.quaternary is "None">>
+				<<set $loveInterest.quinary to "None">>
+				<span class="black">You need to choose a quaternary love interest before you can choose a quinary.</span>
+			<<else>>
+				<<listbox "$loveInterest.quinary" autoselect>>
+					<<optionsfrom _potentialLoveInterests>>
+				<</listbox>>
+				<<if $loveInterest.quinary isnot "None">>
+					<<run _potentialLoveInterests.delete($loveInterest.quinary)>>
+				<</if>>
+			<</if>>
+		<<else>>
+			<span class="black">You don't consider it possible to have more than four love interests.</span>
+			<<set $loveInterest.quinary to "None">>
+		<</if>>
+		<br><br>
+		Senary Love Interest:
+		<br>
+		<<if $awarelevel gte 6 or $poly is 1>>
+			<<if $loveInterest.quinary is "None">>
+				<<set $loveInterest.senary to "None">>
+				<span class="black">You need to choose a quinary love interest before you can choose a senary.</span>
+			<<else>>
+				<<listbox "$loveInterest.senary" autoselect>>
+					<<optionsfrom _potentialLoveInterests>>
+				<</listbox>>
+			<</if>>
+		<<else>>
+			<span class="black">You don't consider it possible to have more than five love interests.</span>
+			<<set $loveInterest.senary to "None">>
 		<</if>>
 	<</if>>
 	<<if $transformationParts.traits.mateForLife isnot "disabled" and (!isLoveInterest(_loveIntStart1) or (_loveIntStart2 isnot "None" and !isLoveInterest(_loveIntStart2)) or (_loveIntStart3 isnot "None" and !isLoveInterest(_loveIntStart3)))>>
@@ -872,6 +939,12 @@
 			<<set $loveInterest.secondary to $_LI>><<set $_assigned to true>>
 		<<elseif $loveInterest.tertiary is "None" and $awarelevel gte 3>>
 			<<set $loveInterest.tertiary to $_LI>><<set $_assigned to true>>
+		<<elseif $loveInterest.quaternary is "None" and $awarelevel gte 3>>
+			<<set $loveInterest.quaternary to $_LI>><<set $_assigned to true>>
+		<<elseif $loveInterest.quinary is "None" and $awarelevel gte 3>>
+			<<set $loveInterest.quinary to $_LI>><<set $_assigned to true>>
+		<<elseif $loveInterest.senary is "None" and $awarelevel gte 3>>
+			<<set $loveInterest.senary to $_LI>><<set $_assigned to true>>
 		<</if>>
 		<<if $_assigned>>
 			<<= $_LI>> is now your love interest!
@@ -920,6 +993,12 @@
 			<<set $loveInterest.secondary to "None">>
 		<<elseif $loveInterest.tertiary is $_LI>>
 			<<set $loveInterest.tertiary to "None">>
+		<<elseif $loveInterest.quaternary is $_LI>>
+			<<set $loveInterest.quaternary to "None">>
+		<<elseif $loveInterest.quinary is $_LI>>
+			<<set $loveInterest.quinary to "None">>
+		<<elseif $loveInterest.senary is $_LI>>
+			<<set $loveInterest.senary to "None">>
 		<</if>>
 		<<if $loveInterest.primary is "None" and $loveInterest.secondary isnot "None">>
 			<<set $loveInterest.primary to $loveInterest.secondary>>
@@ -928,6 +1007,18 @@
 		<<if $loveInterest.secondary is "None" and $loveInterest.tertiary isnot "None">>
 			<<set $loveInterest.secondary to $loveInterest.tertiary>>
 			<<set $loveInterest.tertiary to "None">>
+		<</if>>
+		<<if $loveInterest.tertiary is "None" and $loveInterest.quaternary isnot "None">>
+			<<set $loveInterest.tertiary to $loveInterest.quaternary>>
+			<<set $loveInterest.quaternary to "None">>
+		<</if>>
+		<<if $loveInterest.quaternary is "None" and $loveInterest.quinary isnot "None">>
+			<<set $loveInterest.quaternary to $loveInterest.quinary>>
+			<<set $loveInterest.quinary to "None">>
+		<</if>>
+		<<if $loveInterest.quinary is "None" and $loveInterest.senary isnot "None">>
+			<<set $loveInterest.quinary to $loveInterest.senary>>
+			<<set $loveInterest.senary to "None">>
 		<</if>>
 	<</if>>
 <</widget>>
@@ -947,6 +1038,9 @@
 		/* there's no point in highlighting that you can assign the second LI if you've not assigned the first one */
 		V.attitudesControl.unlockLoveInterest2 = V.awarelevel >= 2 && V.loveInterest.primary !== "None" && V.loveInterest.secondary === "None";
 		V.attitudesControl.unlockLoveInterest3 = V.awarelevel >= 3 && V.loveInterest.primary !== "None" && V.loveInterest.secondary !== "None" && V.loveInterest.tertiary === "None";
+		V.attitudesControl.unlockLoveInterest4 = V.awarelevel >= 4 && V.loveInterest.primary !== "None" && V.loveInterest.secondary !== "None" && V.loveInterest.tertiary !== "None" && V.loveInterest.quaternary === "None";
+		V.attitudesControl.unlockLoveInterest5 = V.awarelevel >= 5 && V.loveInterest.primary !== "None" && V.loveInterest.secondary !== "None" && V.loveInterest.tertiary !== "None" && V.loveInterest.quaternary !== "None" && V.loveInterest.quinary === "None";
+		V.attitudesControl.unlockLoveInterest6 = V.awarelevel >= 6 && V.loveInterest.primary !== "None" && V.loveInterest.secondary !== "None" && V.loveInterest.tertiary !== "None" && V.loveInterest.quaternary !== "None" && V.loveInterest.quinary !== "None" && V.loveInterest.senary === "None";
 		V.attitudesControl.unlockDefaultActions = V.moleststat > 0;
 		V.attitudesControl.unlockLewd = V.exhibitionism >= 35 || V.promiscuity >= 35 || V.deviancy >= 35;
 		V.attitudesControl.unlockHypnosis = Object.keys(V.hypnosis_traits).length >= 1;

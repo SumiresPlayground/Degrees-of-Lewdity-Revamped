@@ -46,6 +46,8 @@
 <</widget>>
 
 <<widget "farm_work_time">>
+	<!-- Math.trunc means any time from 6:00 AM to 6:19 AM will be set to "1".
+		It seems this is coded so that farm work only officially begins when 1 <= _farm_work_time <= 45  -->
 	<<set _farm_work_time to Math.trunc(((Time.hour * 60) / 20) - 17)>>
 	<<if _farm_work_time gte 46 or _args[0] is "midnight">>
 		<<set _farm_work_time to 46>>
@@ -102,6 +104,7 @@
 		<<if $farm>>
 			<<if $farm.woodland>>
 				<<set $farm_work.woodland to 0>>
+				<<set $farm_work.forage to 0>>
 			<</if>>
 		<</if>>
 		<<set $farm_work.event_time to random(60, 300)>>
@@ -2379,7 +2382,7 @@
 			"You're my angel," <<he>> coos and beams. "And my <<woman>>."
 		<<elseif $transformationParts.angel.wings isnot "disabled" and $transformationParts.angel.halo isnot "hidden" and $transformationParts.angel.wings isnot "hidden">>
 			"I'm glad I'm no exception." <<He>> smiles at you. "You sure do look the part."
-		<<elseif $demon gte 2>>
+		<<elseif $transformationParts.demon.wings isnot "disabled">>
 			"Never took you for the righteous type," <<he>> teases. "With that devilish grin of yours."
 		<<else>>
 			"I don't know about that," <<he>> says, pretending to roll <<his>> eyes. "I'm joking. I could tell you had a good heart ever since we first met."
@@ -3636,74 +3639,53 @@
 	<</if>>
 <</widget>>
 
-<<widget "composting">>
-	<<composting1>>
-	<<composting2>>
-	<<composting3>>
-	<<composting4>>
-<</widget>>
+<<widget "pigsOpinion">>
+	<<outfitChecks>>
+	<<set _silent to _args[0] ? _args[0] : false>>
+	<<set _newlineCount to _args[1] ? _args[1] : 2>>
 
-<<widget "composting1">>
-	<<if $farm.compostbin gte 1 and $farm.compostProducing[0] is -1 and $farm.compostWaiting gte 3000>>
-		<<set $farm.compostProducing[0] to random(2, 4)>>
-		<<set $farm.compostWaiting -= 3000>>
-	<<elseif $farm.compostProducing[0] gte 0>>
-		<<set $farm.compostProducing[0] -= 1>>
-		<<if $farm.compostProducing[0] is 0>>
-			<<set $farm.compostReady += 1>>
-			<<set $farm.compostProducing[0] -= 1>>
-			<<composting1>>
+	<<if not _silent and ($settings.bestialityEnabled or $farm_work.pig.monster is true)>>
+		<<if _fullyNaked or $allure gte 6000 * $settings.allureModifier>>
+			<span class="red">The <<farm_text_many pig>> watch you with open desire.</span>
+		<<elseif $allure gte 4000 * $settings.allureModifier>>
+			<span class="pink">You feel lustful gazes from the <<farm_text_many pig>>.</span>
+		<<elseif $allure gte 3000 * $settings.allureModifier>>
+			<span class="purple">The <<farm_text_many pig>> admire how you look.</span>
+		<<elseif $allure gte 2000 * $settings.allureModifier>>
+			<span class="blue">Some <<farm_text_many pig>> are staring at you.</span>
+		<<elseif $allure gte 1500 * $settings.allureModifier>>
+			<span class="lblue">A few <<farm_text_many pig>> follow you with their eyes.</span>
+		<<elseif $allure gte 1000 * $settings.allureModifier>>
+			<span class="teal">The <<farm_text_many pig>> glance at you from time to time.</span>
+		<<else>>
+			<span class="green">The <<farm_text_many pig>> think you look boring.</span>
 		<</if>>
+		<<for $_i = 0; $_i < _newlineCount; $_i++>>
+			<br>
+		<</for>>
 	<</if>>
 <</widget>>
 
-<<widget "composting2">>
-	<<if $farm.compostbin gte 2 and $farm.compostProducing[1] is -1 and $farm.compostWaiting gte 3000>>
-		<<set $farm.compostProducing[1] to random(2, 4)>>
-		<<set $farm.compostWaiting -= 3000>>
-	<<elseif $farm.compostProducing[1] gte 0>>
-		<<set $farm.compostProducing[1] -= 1>>
-		<<if $farm.compostProducing[1] is 0>>
-			<<set $farm.compostReady += 1>>
-			<<set $farm.compostProducing[1] -= 1>>
-			<<composting2>>
-		<</if>>
-	<</if>>
-<</widget>>
+<<widget "endWoodlandForage">>
+	<!-- Temporary Foraging Variables -->
+	<<unset $tempBasket>>
+	<<unset $tempAttempts>>
+	<<unset $tempForageType>>
+	<<unset $tempExtreme>>
 
-<<widget "composting3">>
-	<<if $farm.compostbin gte 3 and $farm.compostProducing[2] is -1 and $farm.compostWaiting gte 3000>>
-		<<set $farm.compostProducing[2] to random(2, 4)>>
-		<<set $farm.compostWaiting -= 3000>>
-	<<elseif $farm.compostProducing[2] gte 0>>
-		<<set $farm.compostProducing[2] -= 1>>
-		<<if $farm.compostProducing[2] is 0>>
-			<<set $farm.compostReady += 1>>
-			<<set $farm.compostProducing[2] -= 1>>
-			<<composting3>>
-		<</if>>
-	<</if>>
-<</widget>>
+	<!-- Temporary Reward Variables -->
+	<<unset $tempRewardType>>
+	<<unset $tempRewardQuantity>>
 
-<<widget "composting4">>
-	<<if $farm.compostbin gte 3 and $farm.compostProducing[3] is -1 and $farm.compostWaiting gte 3000>>
-		<<set $farm.compostProducing[3] to random(2, 4)>>
-		<<set $farm.compostWaiting -= 3000>>
-	<<elseif $farm.compostProducing[3] gte 0>>
-		<<set $farm.compostProducing[3] -= 1>>
-		<<if $farm.compostProducing[3] is 0>>
-			<<set $farm.compostReady += 1>>
-			<<set $farm.compostProducing[3] -= 1>>
-			<<composting4>>
-		<</if>>
-	<</if>>
-<</widget>>
+	<!-- Temporary Sex Variables -->
+	<<unset $tempPosition>>
+	<<unset $tempRewardHelpful>>
+	<<unset $tempGenderHelpful>>
 
-<<widget "securityskill">>
-	<<set $NPCList[0].skills.security += 20>>
-	<<set $NPCList[0].skills.security to Math.clamp($NPCList[0].skills.security, 0, 1000)>>
-	<<set $farm.tower_guard_skill to clone($NPCList[0].skills.security)>>
-	<<if $NPCList[0].skills.security gte 1000>>
-		<<earnFeat "Reliable Employer">>
-	<</if>>
+	<<unset $tempTrueConsensual>>
+
+	<<unset $tempResponse>>
+
+	<<unset $tempLocation>>
+	<<unset $tempPigTracker>>
 <</widget>>
