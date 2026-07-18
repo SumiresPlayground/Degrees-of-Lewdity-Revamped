@@ -1099,6 +1099,28 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 			<br><br>
 			<<neckon>>
 			<<robinoptions>>
+		<<case "Bailey">>
+			<<if $robinPunishments.includes("docks")>>
+				"It's... Bailey!?" <<His>> eyes dart back and forth, to you and the photo. "Why would you have a picture of <<nnpc_him "Bailey">>?"
+				<br><br>
+				<<if C.npc.Robin.trauma gte 40>>
+					<<He>> takes a sharp inhale, then <<his>> breath quickens at an unnatural pace while <<his>> eyes focus on a spot on the wall. <<npcincr Robin trauma 5>><<ggrtrauma>>
+					<br><br>
+					You stay near <<him>>, not touching or being too invasive, but close enough to remind <<him>> that you're with <<him>>. Eventually, <<his>> breathing slows.
+					<br><br>
+				<<else>>
+					<<He>> stares at the locket in disbelief for a long moment before <<he>> shakes <<his>> head.
+					<br><br>
+				<</if>>
+				"Sorry. I..." <<He>> looks into your eyes for a moment before turning away. <<He>> holds the locket back out to you. "Please, take this back.<<if $robinromance is 1>> If Bailey ever hurts you, you'll tell me, right?<</if>>"
+			<<else>>
+				"Oh, it's Bailey!" Robin smiles at the picture. "That makes sense... <<nnpc_Hes "Bailey">> taken care of us all this time."
+				<br><br>
+				<<He>> hands the locket back to you. "<<if $robinromance is 1>>I just thought you might put someone you liked in it, instead.<<else>>Thank you for showing me. I don't know who I was expecting.<</if>>"
+			<</if>>
+			<br><br>
+			<<neckon>>
+			<<robinoptions>>
 		<<default>>
 			<<He>> teases you. "Ooh, someone has a crush."<<if $robinromance is 1>> <<He>> pouts at you, crossing <<his>> arms. <<if C.npc.Robin.dom gte 60>>"Why would you have some stranger in your locket instead of..." <<He>> trails off.<<else>><<He>> seems to want to say something, but can't bring <<himself>> to do it.<</if>><<npcincr Robin love -1>><<llove>><</if>> <<npcincr Robin trauma -1>><<stress -6>><<lrtrauma>><<lstress>>
 			<br><br>

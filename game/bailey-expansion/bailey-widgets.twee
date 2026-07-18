@@ -199,7 +199,7 @@ Type a name (15 characters max):
 	<</if>>
 
 	<<if $stockholm_bailey gte 1 and !$daily.baileyFlirt and hasSexStat("promiscuity", 1)>>
-		<<brothelicon>><<link [[Flirt (0:15)|Bailey Office Flirt]]>><<pass 15>><<npcincr Bailey love 1>><<npcincr Bailey lust 1>><<set $daily.baileyFlirt to 1>><<handheldon 1>><</link>><<promiscuous1>><<glove>><<glust>>
+		<<brothelicon>><<link [[Flirt (0:15)|Bailey Office Flirt]]>><<pass 15>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<npcincr Bailey lust 1>><<set $daily.baileyFlirt to 1>><<handheldon 1>><</link>><<promiscuous1>><<glove>><<glust>>
 		<br>
 	<</if>>
 
@@ -228,11 +228,10 @@ Type a name (15 characters max):
 :: Bailey Date Waiting Widget [widget]
 /* ══════════════════════════════════════════════════════
    <<baileyDateWaiting>> — shows Bailey waiting at the Orphanage door
-   at 7PM for a scheduled Medium or All Night date, and plays the
-   stand-up scene if PC never showed. Injected into the Orphanage
-   passage via boot.json.
+   at 7PM for a scheduled Medium or All Night date. Injected into the
+   Orphanage passage via boot.json.
    ══════════════════════════════════════════════════════ */
-<<widget "baileyDateWaiting">><<if $bailey_date_missed is 1>><<goto "Bailey Date Stood Up">><<elseif $bailey_date_allnight_scheduled is 1 and Time.hour gte 19 and Time.hour lt 20 and $renttime gt 0>><<npc Bailey>><<person1>>Bailey waits for you near the front door. <<He>> checks <<his>> watch.
+<<widget "baileyDateWaiting">><<if $bailey_date_allnight_scheduled is 1 and Time.hour gte 19 and Time.hour lt 20 and $renttime gt 0>><<npc Bailey>><<person1>>Bailey waits for you near the front door. <<He>> checks <<his>> watch.
 <br>
 <<script>>var _img=document.createElement("img");_img.className="icon";_img.src=window.baileyCarIcon;$(this.output).append(_img);<</script>><<link [[Date with Bailey|Bailey Date All Night Pickup]]>><</link>>
 <br><br>

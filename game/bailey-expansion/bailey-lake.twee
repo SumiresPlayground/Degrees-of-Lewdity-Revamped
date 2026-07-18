@@ -177,11 +177,11 @@ Bailey stands. <<He>> shoulders the rod.
 <<He>> holds out <<his>> hand. "Pay up."
 <br><br>
 
-<<if $money gte $rentmoney>>
+<<if $money gte $rentmoney + ($babyRent || 0)>>
 	<<link [[Pay|Bailey Eden Lake Solo Pay]]>><</link>>
 	<br>
 <</if>>
-<<if $stockholm_bailey gte 1 and $money gte $rentmoney>>
+<<if $stockholm_bailey gte 1 and $money gte $rentmoney + ($babyRent || 0)>>
 	<span class="red bailey-stockholm"><<link [[Offer yourself|Bailey Eden Lake Solo Offer]]>><</link>></span>
 	<br>
 <</if>>
@@ -193,12 +193,12 @@ Bailey stands. <<He>> shoulders the rod.
 <<effects>><<pass 5>>
 <<npc Bailey>><<person1>>
 
-You hand over the money. Bailey counts it before folding it into <<his>> jacket.
+You hand over the money.
 <br><br>
 
-<<set $money -= $rentmoney>><<set $renttime to 7>>
+<<rentpay>><<set $renttime to 7>><<set $rentday to Time.weekDay>>
 
-"Good." <<He>> nods towards the tree line. "Go home."
+<<He>> nods towards the tree line, towards town. "Go home, brat."
 <br><br>
 
 <<He>> walks into the trees without looking back, rod over <<his>> shoulder.
@@ -215,7 +215,7 @@ You're alone at the lake. Lotus flowers drift across the surface.
 <<effects>><<pass 10>>
 <<npc Bailey>><<person1>>
 
-/* PC has the rent money but offers to be sold anyway. Meek / bratty / neutral wording. */
+/* PC has the rent money but offers to be sold anyway. */
 <<if ($speech_attitude is "meek" or $speech_attitude is "shy")>>
 	"I-I have the money," you say quietly. You hold it out, then pull it back slightly. "But I could... go. If you wanted. I-I'll be back."
 <<elseif $speech_attitude is "bratty">>
@@ -225,10 +225,9 @@ You're alone at the lake. Lotus flowers drift across the surface.
 <</if>>
 <br><br>
 
-Bailey looks between you and the trees where Eden left. <<He>> takes the money from you.<<set $money -= $rentmoney>>
-<br><br>
+<<rentpay>><<set $renttime to 7>><<set $rentday to Time.weekDay>>
 
-"Wait here."
+Bailey looks between you and the trees where Eden left. "Wait here."
 <br><br>
 
 <<He>> turns from you and walks a few steps towards the forest. You hear a whistle made up of two sharp notes. A minute passes. Then, you hear heavy footsteps approaching.
@@ -237,7 +236,7 @@ Bailey looks between you and the trees where Eden left. <<He>> takes the money f
 Eden comes back through the trees. <<nnpc_He "Eden">> is carrying the freezer in one hand and <<nnpc_his "Eden">> rifle in the other. <<nnpc_He "Eden">> stops when <<nnpc_he "Eden">> sees you.
 <br><br>
 
-Bailey is counting the money. "Take this one too."<<if $bailey_offered is undefined>><<set $bailey_offered to 0>><</if>><<if $bailey_offered is 0>><<set $bailey_dom += 3>><<npcincr Bailey dom 3>><<gdom "Bailey">><<npcincr Bailey love 3>><<set $bailey_love += 3>><<glove "Bailey">><<set $stockholm_bailey += 1>><<gbaileystock>><<else>><<set $bailey_dom += 1>><<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><</if>><<set $bailey_offered += 1>><<set $renttime to 7>>
+Bailey gestures towards you with a flick of <<his>> wrist. "Take this one too."<<if $bailey_offered is undefined>><<set $bailey_offered to 0>><</if>><<if $bailey_offered is 0>><<set $bailey_dom += 3>><<npcincr Bailey dom 3>><<gdom "Bailey">><<npcincr Bailey love 3>><<set $bailey_love += 3>><<glove "Bailey">><<set $stockholm_bailey += 1>><<gbaileystock>><<else>><<set $bailey_dom += 1>><<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><</if>><<set $bailey_offered += 1>>
 <br><br>
 
 <<if edenFreedomStatus() is 0>>
@@ -330,7 +329,7 @@ Eden comes back through the trees. <<nnpc_He "Eden">> is carrying the freezer in
 <br><br>
 
 Bailey's jaw is tight as <<he>> nods towards you. "Take this one too."<<set $bailey_dom += 1>><<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">><<stress 6>><<ggstress>>
-<<set $renttime to 7>>
+<<set $renttime to 7>><<set $rentday to Time.weekDay>>
 <br><br>
 
 <<if edenFreedomStatus() is 0>>
@@ -451,7 +450,7 @@ You take the rod. It's heavier than you expected.
 You pull the rod back and swing it forward. The line lands in the water with a loud slap.
 <br><br>
 
-"Too hard." <<He>> takes your hand and adjusts your grip. <<His>> fingers are rough. "Again."<<if $player.virginity.handholding is true>><<if $stockholm_bailey gte 1>> <span class="lewd">You feel elated holding Bailey's hand for the first time.</span><<arousal 500>><<garousal>><<else>> <span class="red">You feel mortified holding Bailey's hand for the first time.</span><<stress 40>><<ggstress>><</if>><<takeNPCVirginity "Bailey" "handholding" "pc">><<takeVirginity "Bailey" "handholding">><</if>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<arousal 100>>
+"Too hard." <<He>> takes your hand and adjusts your grip. <<His>> fingers are rough. "Again."<<if $player.virginity.handholding is true>><<if $stockholm_bailey gte 1>> <span class="lewd">You feel elated holding Bailey's hand for the first time.</span><<arousal 500>><<garousal>><<else>> <span class="red">You feel mortified holding Bailey's hand for the first time.</span><<stress 40>><<ggstress>><</if>><<takeVirginity "Bailey" "handholding">><</if>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<arousal 100>>
 <br><br>
 
 You cast again with <<his>> guidance. The line arcs out and lands softly between the lotuses.
@@ -1167,6 +1166,6 @@ Bailey nods. <<He>> shoulders <<his>> fishing rod and turns around, heading into
 Eden stays quiet. <<nnpc_He "Eden">> stares at Bailey until <<he>> fades into the trees, then <<nnpc_he "Eden">> sets <<nnpc_his "Eden">> attention on you.
 <br><br>
 
-<<set $renttime to 7>>
+<<set $renttime to 7>><<set $rentday to Time.weekDay>>
 <<link [[Next|Bailey Eden Lake Eden Takes You]]>><</link>>
 <br>

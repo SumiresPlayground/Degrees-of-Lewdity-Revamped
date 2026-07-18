@@ -1,37 +1,26 @@
 $(document).one(":storyready", function () {
 
-    /* Bailey's car icon - embedded as base64 to avoid ModLoader image path issues */
+    /* Car icon as a base64 data URI in JS (not a shipped image file), so there's no path
+       for ModLoader/the build to fail to resolve. It's injected via a <<script>> block at
+       the date event, not pasted into passage text — inline base64 gets eaten by SugarCube's
+       // italic parser. */
     window.baileyCarIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAilJREFUSIntlb9rE2EYxz9Xrp5YmgbTxB8IVqKXwR8U3CwmOBnELIbiUJw6Bjq5dMs/0N09uLiJSybFQrcKVeOQK6FR0Eh+aJJaJdPrEN7zzfW9s6lNlvqFkLvn3vf5PM/3ebmDYyvbnhe2PS/GDtVdj1ITEjTubg2Ab+2f4nT4lCELuJ5Y4H15AwDH2TJGQq58bN2WP4BsJifGYb1Zrn7/6g3KLtUxHHXnJtDxe+g4W4Y6hpEqm8m51nrHcJQygx7qxjAWsDqG1cX0wCH78asHwNvtT4EJ1ssV7ZgCwfdSl+trK8sCYHPyAgDdVoNQJAqT/TW9uRAAVrVE7O5DOs06vTevsG7eodtqkAShK2AiCLy2siyKTYNn5eYAdGY25t4DnGntuFAZm5mNEYpE6c1dAyCZiA845guWUIBQJDoAVQFWtcSJW/fpNOsD+9U1KlwWsM//bCYn7JMVXnatIDNcWdWSm1iNSau9cSlDdicDzdpnNt5tHwj6LzJWF9Piw86XQ21u7+4NvSc8PUV7d69/qq9eOj90AulKeHpKW5AaV+9lsYb3tI1LhtjMi9RSAYCFG1f2LVDn/frpo/5FLU/qcfzAkKidpuEUPeAXCM7lSS0VtLZJPX/yAGp5ABeqJvSzXK6R/3Kd2U9S0Hardt135U+X3oQXz0a0YF1svVwxTFlt0Mn2dqNL+Ld3Np7XpumXaFj5fQySFIV2xocFJRNxN6Ef9L+Ot34DE0wbOE6jz3IAAAAASUVORK5CYII=";
 
     function baileyRevealed() {
         return V.stockholm_active === true;
     }
 
-    /* Bailey dom sync - $bailey_dom is our source of truth, mirrors to C.npc.Bailey.dom.
-       The Stockholm clamp (floor at 100) only applies when stockholm_active is true, but
-       the sync itself runs unconditionally so social panel always shows the real value.
-       Self-heals saves from earlier mod versions where the two values drifted. */
+    /* Bailey carries two dom values that must agree: the mod gates prose/options on the plain
+       $bailey_dom (trivial to <<set>> from twee), while the vanilla social panel reads
+       C.npc.Bailey.dom. This runs every passage and mirrors $bailey_dom (source of truth) onto
+       the NPC stat — plus the NaN/undefined self-heals below, and the Stockholm floor of 100. */
     function syncBaileyDom() {
         if (!C.npc.Bailey) return;
 
-        /* NaN self-heal - pre-mod or legacy saves can have $bailey_dom / $bailey_love
-           stuck at NaN because `<<set $bailey_dom += 1>>` on an undefined variable
-           yields NaN. NaN silently fails every comparison (`NaN gte 30` is false,
-           `NaN lt 30` is also false), so dom-gated prose and options break without
-           any error surface. Worse, the mirror line below will clobber a previously
-           valid C.npc.Bailey.dom with NaN if we don't fix the story variable first.
-
-           Fallback strategy - preferred in order:
-             1. The NPC system stat (C.npc.Bailey.dom/love) if it's still a valid
-                number. Usually the cleanest source since most corruption lives in
-                $bailey_dom/$bailey_love, not the NPC side.
-             2. Failsafe defaults for the rare case both are corrupted:
-                - dom: 100 if Stockholm is active (matches the clamp on the next
-                  line), otherwise 50 (Orphanage Intro init default).
-                - love: 25 - a deliberately conservative "earned respect" floor.
-                  Love accumulates slowly, so we don't want to zero it out.
-
-           Only triggers on actual NaN - undefined and valid numbers pass through. */
+        /* Heal NaN. `<<set $bailey_dom += 1>>` on an undefined var gives NaN, which
+           fails every comparison (both gte and lt) silently and breaks dom-gated prose —
+           and would clobber a good C.npc.Bailey.dom via the mirror below. Prefer the
+           NPC-side value; if that's junk too, fall back (dom 100/50, love 25). */
         if (Number.isNaN(V.bailey_dom)) {
             var _npcDom = C.npc.Bailey.dom;
             var _hasNpcDom = typeof _npcDom === "number" && !Number.isNaN(_npcDom);
@@ -47,19 +36,17 @@ $(document).one(":storyready", function () {
             V.bailey_love = _healLove;
         }
 
-        /* Existing-save init: on a save that never ran "Orphanage Intro" (mod installed
-           mid-playthrough), $bailey_dom was never set and stays undefined, so every dom-tier
-           check silently fails. Set it to the mod baseline (50, or 100 if Stockholm somehow
-           already active) so Bailey behaves as a fresh install would. Mirror $bailey_love to 0
-           for the same reason. */
+        /* Mod added mid-save: Orphanage Intro never ran, so $bailey_dom is undefined and
+           dom checks fail silently. Seed the baseline (love too). */
         if (V.bailey_dom === undefined) {
             V.bailey_dom = baileyRevealed() ? 100 : 50;
             console.log("[BaileyExpansion] Initialized missing $bailey_dom -> " + V.bailey_dom);
         }
         if (V.bailey_love === undefined) V.bailey_love = 0;
 
-        /* Same NaN trap as $bailey_dom above, but for $stockholm_bailey. Rebuild it
-           from the $stockholm_points ledger (read-only) so earned points survive. */
+        /* Same NaN trap for $stockholm_bailey. Rebuild the count from the $stockholm_points
+           ledger (the per-source flags: offer/temple/kylar/…) so a corrupted counter can't
+           silently wipe Stockholm the player actually earned. */
         if (typeof V.stockholm_bailey !== "number" || Number.isNaN(V.stockholm_bailey)) {
             var _pts = V.stockholm_points || {};
             var _healStock = 0;
@@ -74,21 +61,18 @@ $(document).one(":storyready", function () {
 
         if (baileyRevealed() && V.bailey_dom < 100) V.bailey_dom = 100;
         if (C.npc.Bailey.dom !== V.bailey_dom) C.npc.Bailey.dom = V.bailey_dom;
-        /* Love mirror sync - 42 boot.json patches (Rent Fight Finish, Temple Bailey *, Chef Opening,
-           Home Orphan *, Rent Seduce, etc.) only bump $bailey_love and forget <<npcincr Bailey love>>.
-           Without this line the UI card's Respect bar freezes while the mod variable climbs silently. */
+        /* Lots of scenes bump $bailey_love but skip <<npcincr Bailey love>>; without this
+           mirror the Respect bar freezes while the mod var climbs. */
         if (V.bailey_love !== undefined && C.npc.Bailey.love !== V.bailey_love) C.npc.Bailey.love = V.bailey_love;
     }
     $(document).on(":passagestart :passageend", syncBaileyDom);
 
-    /* Bailey Date Stand-Up Check - if scheduled date wasn't attended by midnight, mark as missed.
-       Covers both Medium ($bailey_date_scheduled) and All Night ($bailey_date_allnight_scheduled). */
+    /* Stood-up check: date scheduled but not attended by midnight -> missed. Medium + All Night. */
     $(document).on(":passagestart", function () {
         if (typeof Time === "undefined" || typeof Time.hour === "undefined") return;
         if (Time.hour < 0 || Time.hour >= 7) return;
-        /* Day-stamp guard: only flag a no-show once a midnight has actually passed
-           since scheduling. Without this, booking during the 0-6 night window would
-           mark the date missed on the very next passage (stood up right after paying). */
+        /* Only after a midnight has actually passed, or booking at night marks it missed
+           on the very next passage. */
         if (V.bailey_date_sched_day !== undefined && Time.days <= V.bailey_date_sched_day) return;
         if (V.bailey_date_scheduled === 1) {
             if (V.bailey_date_attended !== 1) {
@@ -107,13 +91,9 @@ $(document).one(":storyready", function () {
     });
 
 
-    /*
-       Bailey Daily Lust - once Stockholm is fully active, Bailey
-       accrues +1 lust per in-game day, mirroring vanilla love
-       interests (Eden/Kylar/Robin/Alex). Tracked via
-       $bailey_lust_lastday because vanilla's dailyNPCEffects() tick
-       is not exposed on window to wrap. Clamped 0-100.
-       */
+    /* +1 lust/day once Stockholm's active, like the vanilla LIs.
+       Own day-counter ($bailey_lust_lastday) since vanilla's daily tick isn't exposed
+       to wrap. Clamp 0-100. */
     $(document).on(":passagestart", function () {
         if (typeof Time === "undefined" || typeof Time.days === "undefined") return;
         if (V.bailey_lust_lastday === undefined) { V.bailey_lust_lastday = Time.days; return; }
@@ -125,19 +105,10 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /*
-       Christmas Yearly Reset (Bailey gifts)
-       Vanilla's time.js clears its own christmas_gift_* vars when the season
-       ends, but it doesn't know about Bailey's. Without this, once a player
-       gifts Bailey anything in year one, $christmas_gift_bailey stays defined
-       forever and the shop's "Find a gift for Bailey" link (gated on it being
-       undefined) never reappears - locking out ALL future Bailey gifting.
-       Once the season is over ($christmas falsy), clear the per-year vars so
-       the player can gift again next year. $christmas_bailey_lotus_day (the
-       permanent "lotus given, ever" memory that gates the once-only lotus and
-       ages the office display) and $bailey_office_gift (permanent display) are
-       deliberately NOT cleared.
-       */
+    /* Christmas gift reset. Vanilla clears its own christmas_gift_* vars but not
+       Bailey's, so $christmas_gift_bailey would stick forever and the shop's gift-for-Bailey
+       link (gated on it being undefined) never comes back. Clear the per-year vars once
+       the season's over. Lotus-day memory + office display stay permanent — leave them. */
     $(document).on(":passagestart", function () {
         if (V.christmas) return;
         if (V.christmas_gift_bailey === undefined &&
@@ -148,14 +119,9 @@ $(document).one(":storyready", function () {
         delete V.christmas_gift_bailey_given;
     });
 
-    /*
-       Permanent Lure Memory
-       When Bailey receives the snake-shaped fishing lure for Christmas it
-       becomes his displayed gift ($bailey_office_gift = "lure" on Dec 25).
-       Record that permanently so scenes like the Eden lake can recognize the
-       lure forever, even if a later year's gift overwrites $bailey_office_gift.
-       (Also back-fills existing saves where the lure was already received.)
-       */
+    /* The Christmas lure becomes his displayed gift, but a later year's gift can
+       overwrite $bailey_office_gift. Stamp it permanently so scenes (Eden lake) still
+       know he got the lure. Back-fills old saves too. */
     $(document).on(":passagestart", function () {
         if (V.bailey_office_gift === "lure" && !V.bailey_lure_received) {
             V.bailey_lure_received = true;
@@ -264,17 +230,9 @@ $(document).one(":storyready", function () {
         }
     };
 
-    /*
-       Custom Collar Art - Player-Uploaded Image
-       Opens a file picker, reads the selected image as a
-       base64 data URI, stores it in localStorage (survives
-       page reload, does NOT bloat save files), registers it
-       as window.baileyCollarImages.custom, flips
-       $bailey_collar_art to "custom", and redraws.
-
-       Maximum: ~2MB raw file (base64 is ~33% larger, and
-       localStorage per-origin limit is usually 5-10MB).
-       */
+    /* Custom collar art. File picker -> base64 -> localStorage (survives reload, stays out
+       of the save) -> $bailey_collar_art = "custom" -> redraw. 2MB cap (base64 runs ~33%
+       bigger and localStorage tops out around 5-10MB). */
     window.baileyCollarUpload = function () {
         var input = document.createElement("input");
         input.type = "file";
@@ -344,12 +302,8 @@ $(document).one(":storyready", function () {
             console.log("[BaileyExpansion] listbox refresh failed:", e);
         }
     };
-    /*
-       Listbox Picker Change Handler
-       Attached at document level so it survives passage
-       transitions and fires whenever the collar-art listbox
-       changes - no setTimeout/render-timing fragility.
-       */
+    /* Collar-listbox change handler. Document-level so it survives passage transitions
+       without setTimeout/render-timing hacks. */
     $(document).on("change", "#collar-listbox select", function () {
         /* Manual variable sync - we emit <select> directly so no SugarCube binding */
         if (typeof State !== "undefined" && State.variables) {
@@ -370,15 +324,9 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /*
-       Bailey Title System - "It's Bailey." -> "It's Daddy."
-       Swaps when:
-       1. $stockholm_active is true
-       2. $bailey_title_unlocked is true
-       3. $bailey_title is set and not "Bailey"
-       Stockholm gate required - the title only shows while Stockholm is active.
-       Stockholm deactivation also resets $bailey_title to "Bailey".
-       */
+    /* Title swap: "It's Bailey." -> "It's Daddy." (or whatever it's set to). Only while
+       Stockholm's active, the title's unlocked, and it's not still "Bailey". Deactivating
+       Stockholm resets it back to "Bailey". */
     $(document).on(":passageend", function () {
         if (!V.stockholm_active) return;
         if (!V.bailey_title_unlocked || !V.bailey_title || V.bailey_title === "Bailey") return;
@@ -397,15 +345,9 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /*
-       Mod Active Indicator - Start Screen
-       Injects a glowing red line on the Start passage so
-       players can confirm the mod loaded. Runs inside
-       :storyready because :passageend for Start fires
-       BEFORE :storyready - a handler registered here
-       would miss it. Since :storyready guarantees we're
-       on Start, we inject directly.
-       */
+    /* Glowing "mod active" line on the Start screen. Injected here in :storyready rather
+       than a :passageend handler — Start's :passageend fires before this would register,
+       so a handler would miss it. */
     var _indicatorContainer = document.getElementById("passage-content") || document.querySelector(".passage");
     if (_indicatorContainer && !_indicatorContainer.querySelector("#bailey-mod-indicator")) {
         var el = document.createElement("div");
@@ -414,7 +356,7 @@ $(document).one(":storyready", function () {
         el.style.textAlign = "center";
         el.style.marginTop = "1em";
         el.style.marginBottom = "1em";
-        el.textContent = "Reiyu's Bailey Expansion v0.4.13 for New World \u2014 Active";
+        el.textContent = "Reiyu's Bailey Expansion v0.4.14 for New World \u2014 Active";
         var firstChild = _indicatorContainer.firstChild;
         if (firstChild) {
             _indicatorContainer.insertBefore(el, firstChild);
@@ -423,19 +365,11 @@ $(document).one(":storyready", function () {
         }
     }
 
-    /*
-       Bailey's Collar - registered via baileyCollar.json
-       The clothing item is now defined in baileyCollar.json and
-       loaded by ModdedClothesAddon during modloader bootstrap.
-       Moved out of JS (was causing "collar disappears on load"
-       bug because JS-side registration ran AFTER save deserialization).
-       */
+    /* Collar item lives in baileyCollar.json now (loaded at modloader bootstrap). Used to
+       be registered here in JS, which ran after save deserialization and made the collar
+       vanish on load. */
 
-    /*
-       Bailey as Love Interest
-       Adds Bailey to the love interest dropdown.
-       Only appears as selectable when Stockholm is active.
-       */
+    /* Add Bailey to the love-interest roster (selectable only while Stockholm's active). */
     if (typeof setup !== "undefined" && setup.loveInterestNpc) {
         if (!setup.loveInterestNpc.includes("Bailey")) {
             /* unshift (not push): place Bailey at the START of the love interest
@@ -455,12 +389,9 @@ $(document).one(":storyready", function () {
         return _origIsPossibleLoveInterest(name);
     };
 
-    /* Bailey's virginities show pink (love interest), not green (just consensual).
-       statistics.twee colors the PC's own virginities via isPossibleLoveInterestVirginity(),
-       whose vanilla body calls a CLOSURE-LOCAL isPossibleLoveInterest -- so it never sees the
-       window patch above, and Bailey fell through to the green branch. Wrap it too: Bailey
-       counts once Stockholm is active, combined "X and Y" takers route through the patched
-       window fn, everything else keeps vanilla behaviour. Guarded by typeof for safety. */
+    /* Make Bailey's virginities read pink (love interest), not green. Vanilla's
+       isPossibleLoveInterestVirginity() calls a closure-local isPossibleLoveInterest, so it
+       never sees the window patch above — wrap it too. Also handles combined "X and Y" takers. */
     if (typeof window.isPossibleLoveInterestVirginity === "function") {
         var _origLoveInterestVirginity = window.isPossibleLoveInterestVirginity;
         window.isPossibleLoveInterestVirginity = function (taker) {
@@ -476,19 +407,12 @@ $(document).one(":storyready", function () {
         };
     }
 
-    /*
-       Bailey as sex-shop gift recipient
-       Vanilla's determineRecipient() (sexShopMenu.js) builds the
-       "Make a gift for:" dropdown from a HARDCODED name array, not
-       setup.loveInterestNpc - so registering Bailey as a love interest
-       does NOT reach it. We wrap the function: delegate to vanilla,
-       then inject a Bailey <option> (first) when he's an unlocked love
-       interest (Stockholm active). The edge case where Bailey is the
-       ONLY eligible recipient - vanilla returns "" - is handled by
-       rebuilding vanilla's wrapper around just him.
-       NOTE: that rebuild mirrors vanilla's builder markup; re-sync it
-       if upstream ever changes determineRecipient's HTML.
-       */
+    /* Bailey as a sex-shop gift recipient. Vanilla's determineRecipient() builds the
+       "Make a gift for:" dropdown from a hardcoded array, not setup.loveInterestNpc, so
+       adding him as an LI doesn't reach it. Wrap it: run vanilla, then inject a Bailey
+       <option> up top when he's unlocked. If he's the only recipient vanilla returns ""
+       and we rebuild the wrapper around him — that rebuild copies vanilla's markup, so
+       re-sync if upstream ever changes it. */
     if (typeof window.determineRecipient === "function") {
         var _origDetermineRecipient = window.determineRecipient;
         window.determineRecipient = function (index) {
@@ -512,10 +436,7 @@ $(document).one(":storyready", function () {
         };
     }
 
-    /*
-       Mod Feats - register with setup.feats so earnFeat
-       can display the popup and record them correctly.
-       */
+    /* Register mod feats with setup.feats so earnFeat can show the popup and record them. */
     if (typeof setup !== "undefined" && setup.feats) {
         if (!setup.feats["Caring for the Caretaker"]) {
             setup.feats["Caring for the Caretaker"] = {
