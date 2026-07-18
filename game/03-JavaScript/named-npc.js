@@ -627,12 +627,3 @@ function wraithSleepEventCheck() {
 	return V.wraith.state !== "" && V.wraith.nightmare === 1 && npcCanHunt("Ivory Wraith");
 }
 window.wraithSleepEventCheck = wraithSleepEventCheck;
-
-if (typeof setup !== "undefined" && setup.loveInterestNpc) {
-	if (!setup.loveInterestNpc.includes("Ivory Wraith")) {
-		/* unshift (not push): place Bailey at the START of the love interest
-			list so he leads the Attitudes-menu picker rather than being buried
-			beneath each fork's own LIs (notably New World's extra five). */
-		setup.loveInterestNpc.unshift("Ivory Wraith");
-	}
-}

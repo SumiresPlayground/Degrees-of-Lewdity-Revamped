@@ -32,9 +32,15 @@ You are at the local horse racing track. Grandstands surround a central track. A
 		<br>
 	<</if>>
 	/*
-	<<getinicon>><<link [[Approach the academy|Horse Academy Entrance]]>><</link>>
+	<<academyicon>><<link [[Approach the academy|Horse Academy Entrance]]>><</link>>
 	<br>
 	*/
+	<<if Time.dayState isnot "night" and $horseacademystudent is 1 and $academygone isnot 1>>
+		An academy hired chauffeur is parked on the drive, you can use this service to return to town.
+		<br>
+		<<chauffeuringicon>><<link [[Get a ride to town|Academy Chauffeur]]>><<set $phase to 1>><</link>>
+		<br>
+	<</if>>
 	<<getouticon>><<link [[Leave|Farmland]]>><</link>>
 	<br>
 <</if>>
@@ -84,7 +90,7 @@ You are at the local horse racing track. Grandstands surround a central track. A
 		<<link [[Approach the school|Horse TF - Denied Academy Entry]]>><</link>>
 		<br>
 	<<elseif $academygone isnot 1>>
-		<<oxfordicon>><<link [[Approach the school|Horse Academy Locked]]>><</link>>
+		<<academyicon>><<link [[Approach the school|Horse Academy Locked]]>><</link>>
 		<br>
 	<</if>>
 	<<if $horseacademystudent is 1 and $academygone isnot 1>>
@@ -154,7 +160,7 @@ She looks over some papers and turns back to you. "And your trainer?" She pauses
 
 :: Rowan Meet
 <<npc Rowan>><<person1>>
-You approach the <<personsimple>>. <<He>> has <<his>> blonde hair worn in a <<if $pronoun is "m">>masculine<<else>>feminine<</if>> braid. <<He>> wears a brown vest over a short sleeved white shirt, as well as a pair of well fit jeans and boots.
+You approach the <<personsimple>>. <<He>> has <<his>> blonde hair worn in a <<if $pronoun is "m">>masculine<<else>>feminine<</if>> braid. <<He>> wears a brown leather vest over a white shirt with rolled sleeves, revealing muscles from years of hard work, as well as a pair of well fit jeans and field boots.
 <br><br>
 As you approach <<he>> turns to face you. "Who are... oh you're a horse<<girl>>. I've been lookin' for one as magnificent as ya. Come 'ere."
 <br><br>
@@ -3908,3 +3914,35 @@ You don't push it further, and she doesn't offer anything more either, the two o
 She doesn't slow back down until you're nearly at your door, at which point she seems to remember she was supposed to be unbothered the whole time.<<lsuperiority>>
 <br><br>
 <<link [[Next|Horse Academy]]>><<npcincr "Mint Mocha" dom -2>><<endevent>><</link>>
+
+:: Academy Chauffeur
+<<generate1>><<person1>>
+<<if $phase is 1>>
+	You climb into the kindly older <<personsimple>>'s car. <<He>> turns back and catches sight of you before speaking in a tough voice, "Where ya headed."
+	<br><br>
+	<u>Residential Town Areas</u>
+	<br>
+	<<domusicon>><<link [[Domus Street (0:41)|Domus Street]]>><<pass 41>><</link>><br>
+	<<barbicon>><<link [[Barb Street (0:39)|Barb Street]]>><<pass 39>><</link>><br>
+	<<danubeicon>><<link [[Danube Street (0:39)|Danube Street]]>><<pass 39>><</link>><br>
+	<<wolficon>><<link [[Wolf Street (0:35)|Wolf Street]]>><<pass 35>><</link>><br>
+
+	<u>Commercial Town Areas</u>
+	<br>
+	<<connudatusicon>><<link [[Connudatus Street (0:37)|Connudatus Street]]>><<pass 37>><</link>><br>
+	<<clifficon>><<link [[Cliff Street (0:35)|Cliff Street]]>><<pass 35>><</link>><br>
+	<<highicon>><<link [[High Street (0:33)|High Street]]>><<pass 33>><</link>><br>
+	<<starfishicon>><<link [[Starfish Street (0:31)|Starfish Street]]>><<pass 31>><</link>><br>
+	<<nightingaleicon>><<link [[Nightingale Street (0:31)|Nightingale Street]]>><<pass 31>><</link>><br>
+	<<oxfordicon>><<link [[Oxford Street (0:29)|Oxford Street]]>><<pass 29>><</link>><br>
+
+	<u>Industrial Town Areas</u>
+	<br>
+	<<mericon>><<link [[Mer Street (0:27)|Mer Street]]>><<pass 27>><</link>><br>
+	<<elkicon>><<link [[Elk Street (0:27)|Elk Street]]>><<pass 27>><</link>><br>
+	<<harvesticon>><<link [[Harvest Street (0:25)|Harvest Street]]>><<pass 25>><</link>><br>
+<<else>>
+	You climb into the kindly older <<personsimple>>'s car. <<He>> turns back and catches sight of you before speaking in a tough voice, "Seems like ya headed to the academy? Buckle in."
+	<br><br>
+	<<academyicon>><<link [[Race Track (0:25)|Race Track]]>><<pass 25>><</link>><br>
+<</if>>

@@ -993,14 +993,24 @@ function dayPassed() {
 		delete V.whitney_roof;
 	}
 
-	/* World Expanded Daily Variables*/
+	/* New World Daily Variables*/
 
 	V.dragonbreathuse = 3;
 	V.sirensong = 3;
 
-	
+	V.facebruise -= 1;
+	V.chestbruise -= 1;
+	V.tummybruise -= 1;
+	V.vaginabruise -= 1;
+	V.penisbruise -= 1;
+	V.anusbruise -= 1;
+	V.bottombruise -= 1;
+	V.thighbruise -= 1;
+	V.leftarmbruise -= 1;
+	V.rightarmbruise -= 1;
+	V.neckbruise -= 1;
 
-	V.rowanDaily = 0
+	V.rowanDaily = 0;
 	
 	V.dailyghostmission = 0;
 	V.acceptedRequest = 0;
@@ -1246,6 +1256,162 @@ function minutePassed(minutes) {
 	Weather.setIceThickness(minutes);
 
 	// Effects
+	/*
+	if (V.settings.bruisingEnabled){
+		{if (V.facebruise >= 80)
+			V.face_bruise = "scarred";
+		else if (V.facebruise >= 60)
+			V.face_bruise = "swollen";
+		else if (V.facebruise >= 40)
+			V.face_bruise = "hurt";
+		else if (V.facebruise >= 20)
+			V.face_bruise = "red";
+		else
+			V.face_bruise = "disabled";}
+
+		{if (V.facebruise >= 60)
+			V.eye_bruise = "swollen";
+		else
+			V.eye_bruise = "disabled";}
+
+		{if (V.chestbruise >= 80)
+			V.chest_bruise = "scarred";
+		else if (V.chestbruise >= 60)
+			V.chest_bruise = "swollen";
+		else if (V.chestbruise >= 40)
+			V.chest_bruise = "hurt";
+		else if (V.chestbruise >= 20)
+			V.chest_bruise = "red";
+		else
+			V.chest_bruise = "disabled";}
+
+		{if (V.neckbruise >= 80)
+			V.neck_bruise = "scarred";
+		else if (V.neckbruise >= 60)
+			V.neck_bruise = "swollen";
+		else if (V.neckbruise >= 40)
+			V.neck_bruise = "hurt";
+		else if (V.neckbruise >= 20)
+			V.neck_bruise = "red";
+		else
+			V.neck_bruise = "disabled";}
+
+		{if (V.leftarmbruise >= 80)
+			V.leftarm_bruise = "scarred";
+		else if (V.leftarmbruise >= 60)
+			V.leftarm_bruise = "swollen";
+		else if (V.leftarmbruise >= 40)
+			V.leftarm_bruise = "hurt";
+		else if (V.leftarmbruise >= 20)
+			V.leftarm_bruise = "red";
+		else
+			V.leftarm_bruise = "disabled";}
+
+		{if (V.rightarmbruise >= 80)
+			V.rightarm_bruise = "scarred";
+		else if (V.rightarmbruise >= 60)
+			V.rightarm_bruise = "swollen";
+		else if (V.rightarmbruise >= 40)
+			V.rightarm_bruise = "hurt";
+		else if (V.rightarmbruise >= 20)
+			V.rightarm_bruise = "red";
+		else
+			V.rightarm_bruise = "disabled";}
+
+		{if (V.thighbruise >= 80)
+			V.thigh_bruise = "scarred";
+		else if (V.thighbruise >= 60)
+			V.thigh_bruise = "swollen";
+		else if (V.thighbruise >= 40)
+			V.thigh_bruise = "hurt";
+		else if (V.thighbruise >= 20)
+			V.thigh_bruise = "red";
+		else
+			V.thigh_bruise = "disabled";}
+
+		{if (V.tummybruise >= 80)
+			V.tummy_bruise = "scarred";
+		else if (V.tummybruise >= 60)
+			V.tummy_bruise = "swollen";
+		else if (V.tummybruise >= 40)
+			V.tummy_bruise = "hurt";
+		else if (V.tummybruise >= 20)
+			V.tummy_bruise = "red";
+		else
+			V.tummy_bruise = "disabled";}
+
+		{if (V.penisbruise >= 80)
+			V.penis_bruise = "scarred";
+		else if (V.penisbruise >= 60)
+			V.penis_bruise = "swollen";
+		else if (V.penisbruise >= 40)
+			V.penis_bruise = "hurt";
+		else if (V.penisbruise >= 20)
+			V.penis_bruise = "red";
+		else
+			V.penis_bruise = "disabled";}}
+	else{
+		V.face_bruise = "disabled";
+		V.eye_bruise = "disabled";
+		V.chest_bruise = "disabled";
+		V.neck_bruise = "disabled";
+		V.leftarm_bruise = "disabled";
+		V.rightarm_bruise = "disabled";
+		V.thigh_bruise = "disabled";
+		V.tummy_bruise = "disabled";
+		V.penis_bruise = "disabled";}
+
+	if (V.settings.goreEnabled){
+		{if (V.facebruise >= 80)
+			V.face_blood = "enabled";
+		else
+			V.face_blood = "disabled";}
+
+		{if (V.chestbruise >= 80)
+			V.chest_blood = "enabled";
+		else
+			V.chest_blood = "disabled";}
+
+		{if (V.neckbruise >= 80)
+			V.neck_blood = "enabled";
+		else
+			V.neck_blood = "disabled";}
+
+		{if (V.leftarmbruise >= 80)
+			V.leftarm_blood = "enabled";
+		else
+			V.leftarm_blood = "disabled";}
+
+		{if (V.rightarmbruise >= 80)
+			V.rightarm_blood = "enabled";
+		else
+			V.rightarm_blood = "disabled";}
+
+		{if (V.thighbruise >= 80)
+			V.thigh_blood = "enabled";
+		else
+			V.thigh_blood = "disabled";}
+
+		{if (V.tummybruise >= 80)
+			V.tummy_blood = "enabled";
+		else
+			V.tummy_blood = "disabled";}
+
+		{if (V.penisbruise >= 80)
+			V.penis_blood = "enabled";
+		else
+			V.penis_blood = "disabled";}}
+	else{
+		V.face_blood = "disabled";
+		V.chest_blood = "disabled";
+		V.neck_blood = "disabled";
+		V.leftarm_blood = "disabled";
+		V.rightarm_blood = "disabled";
+		V.thigh_blood = "disabled";
+		V.tummy_blood = "disabled";
+		V.penis_blood = "disabled";}
+	*/
+
 	V.stress = Math.min(V.stress, V.stressmax);
 	if (V.drunk > 0) {
 		// use fancy math to ensure that `pass(60);` and `pass(30);pass(30);` apply the same amount of tiredness regardless of changed V.drunk value

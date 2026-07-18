@@ -2908,7 +2908,7 @@ function initUpper() {
 			warmth: 5,
 			cost: 7000,
 			description: "Festive wear from a foreign land.",
-			shop: ["clothing"],
+			shop: ["clothing","misland"],
 			accessory: 0,
 			accessory_colour: 0,
 			accessory_colour_options: [],
@@ -12567,7 +12567,7 @@ function initUpper() {
 			variable: "dirndl blouse",
 			description: "Folklore style.",
 			cost: 4000,
-			shop: ["clothing"],
+			shop: ["clothing","misland"],
 			type: ["costume"],
 			combat: {
 				reference: "blouse",
@@ -13578,7 +13578,7 @@ function initUpper() {
 			iconFile: "",
 			accIcon: 0,
 			notuck: 0,
-			pregType: 0
+			pregType: 0,
 		},
 	
 			{index: 2,
@@ -13625,7 +13625,7 @@ function initUpper() {
 			iconFile: "",
 			accIcon: 0,
 			notuck: 0,
-			pregType: 0
+			pregType: 0,
 		},
 	
 			{index: 3,
@@ -13760,7 +13760,8 @@ function initUpper() {
 			breast_img: { 0: null, 1: null, 2: null, 3: 3, 4: 4, 5: 5, 6: 6 },
 			cursed: 0,
 			location: 0,
-			iconFile: "race1top.png",
+			iconFile: "spring-dancer-upper.png",
+			accIcon: "spring-dancer-upper-acc.png",
 			notuck: 0,
 			pregType: 0,
 			back_img: 0,

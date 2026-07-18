@@ -128,20 +128,20 @@ You are inside Rowan's ranch house. The small cabin is only about four rooms, co
         <<runeventpool>>
     <<else>>
         <<if Time.hour gte 8 and Time.hour lt 18>>
-            <<link [[Help Rowan with farmwork (1:00)|Rowan Farmwork]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
+            <<gardenicon "till">><<link [[Help Rowan with farmwork (1:00)|Rowan Farmwork]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
             <br>
         <</if>>
         <<if Time.hour gte 8 and Time.hour lt 16>>
-            <<link [[Help Mint with farmwork (1:00)|Mint Farmwork]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
+            <<gardenicon "water">><<link [[Help Mint with farmwork (1:00)|Mint Farmwork]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
             <br>
         <</if>>
         <<if Time.hour gte 16 and Time.hour lt 18>>
             <<link [[Stretch with Mint (1:00)|Mint Exercise]]>><<endevent>><<pass 60>><<stress -10>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<lstress>>
             <br>
         <</if>>
-        <<link [[Plant plot|Rowan Plot]]>><<endevent>><</link>>
+        <<gardenicon "plot">><<link [[Plant plot|Rowan Plot]]>><<endevent>><</link>>
         <br>
-        <<link [[Enter Rowan's ranch house (0:05)|Rowan Farmhouse]]>><<pass 5>><<endevent>><</link>>
+        <<farmhouseicon>><<link [[Enter Rowan's ranch house (0:05)|Rowan Farmhouse]]>><<pass 5>><<endevent>><</link>>
         <br>
         <<link [[Enter Rowan's barn (0:02)|Rowan Barn]]>><<pass 2>><<endevent>><</link>>
         <br>
@@ -317,18 +317,18 @@ You are inside Rowan's barn. You can see several cows, sheep, pigs, and even a s
     <br><br>
 <</if>>
 <<if Time.hour gte 4 and Time.hour lt 6>>
-    <<link [[Help Rowan with the animals (1:00)|Rowan Animals]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
+    <<animalicon "chicken">><<link [[Help Rowan with the animals (1:00)|Rowan Animals]]>><<endevent>><<pass 60>><<tending 2>><<tiredness 12>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<gtiredness>><<gtending>>
     <br>
 <</if>>
 <<rng>>
 <<if $rng gte 70>>
-    <<link [[Observe the pigs|Rowan Pig Observe]]>><<endevent>><</link>>
+    <<animalicon "pig">><<link [[Observe the pigs|Rowan Pig Observe]]>><<endevent>><</link>>
     <br>
 <<elseif $rng gte 40>>
-    <<link [[Observe the sheep|Rowan Sheep Observe]]>><<endevent>><</link>>
+    <<sheepicon>><<link [[Observe the sheep|Rowan Sheep Observe]]>><<endevent>><</link>>
     <br>
 <<else>>
-    <<link [[Observe the cows|Rowan Cow Observe]]>><<endevent>><</link>>
+    <<animalicon "cow">><<link [[Observe the cows|Rowan Cow Observe]]>><<endevent>><</link>>
     <br>
 <</if>>
 <<link [[Leave|Rowan Farmstead]]>><<endevent>><</link>>
