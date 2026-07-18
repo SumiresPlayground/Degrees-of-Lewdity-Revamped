@@ -433,6 +433,23 @@ Renderer.CanvasModels.main = {
 			"doll_body_type": "disabled",
 			"doll_arms_type": "disabled",
 			"doll_string_type": "disabled",
+			"face_bruise": "disabled",
+			"face_blood": "disabled",
+			"eye_bruise": "disabled",
+			"chest_bruise": "disabled",
+			"chest_blood": "disabled",
+			"neck_bruise": "disabled",
+			"neck_blood": "disabled",
+			"leftarm_bruise": "disabled",
+			"leftarm_blood": "disabled",
+			"rightarm_bruise": "disabled",
+			"rightarm_blood": "disabled",
+			"thigh_bruise": "disabled",
+			"thigh_blood": "disabled",
+			"tummy_bruise": "disabled",
+			"tummy_blood": "disabled",
+			"penis_bruise": "disabled",
+			"penis_blood": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -1187,7 +1204,7 @@ Renderer.CanvasModels.main = {
 				else {
 					const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       				const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-					if (V.locationoverwrite === "bedroom") {
+					if (V.locationoverwrite != "0") {
 						return `img/background/${V.locationoverwrite}/${timeSuffix}.png`;}
 					else {
 						return `img/background/${V.location}/${timeSuffix}.png`;}}
@@ -1204,7 +1221,7 @@ Renderer.CanvasModels.main = {
 				else {
 					const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       				const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-					if (V.locationoverwrite === "bedroom") {
+					if (V.locationoverwrite != "0") {
 						return `img/background/${V.locationoverwrite}/${timeSuffix}.png`;}
 					else {
 						return `img/background/${V.location}/${timeSuffix}.png`;}}
@@ -3421,6 +3438,267 @@ Renderer.CanvasModels.main = {
 			zfn(options) {
 				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
 			},
+			animation: "idle"
+		},
+
+		// Bruises
+		
+		"face_bruise": {
+			srcfn(options) {
+				return `img/bruises/face${options.face_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.face_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["body"],
+			z: ZIndices.basehead + 0.1,
+			animation: "idle"
+		},
+		"face_blood": {
+			srcfn() {
+				return `img/bruises/faceblood.png`;
+			},
+			showfn(options) {
+				if (options.face_blood === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			z: ZIndices.basehead + 0.2,
+			animation: "idle"
+		},
+		"eye_bruise": {
+			srcfn() {
+				return `img/bruises/faceeyes.png`;
+			},
+			showfn(options) {
+				if (options.eye_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			z: ZIndices.lashes + 0.1,
+			animation: "idle"
+		},
+		"chest_bruise": {
+			srcfn(options) {
+				return `img/bruises/chest${options.chest_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.chest_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["body"],
+			z: ZIndices.skin + 1.1,
+			animation: "idle"
+		},
+		"chest_blood": {
+			srcfn() {
+				return `img/bruises/chestblood.png`;
+			},
+			showfn(options) {
+				if (options.chest_blood === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			z: ZIndices.skin + 1.2,
+			animation: "idle"
+		},
+		"neck_bruise": {
+			srcfn(options) {
+				return `img/bruises/neck${options.neck_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.neck_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["body"],
+			z: ZIndices.skin + 1.1,
+			animation: "idle"
+		},
+		"neck_blood": {
+			srcfn() {
+				return `img/bruises/neckblood.png`;
+			},
+			showfn(options) {
+				if (options.neck_blood === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			z: ZIndices.skin + 1.2,
+			animation: "idle"
+		},
+		"leftarm_bruise": {
+			srcfn(options) {
+				return `img/bruises/left${options.arm_left}${options.leftarm_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.leftarm_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.2;
+			},
+			filters: ["body"],
+			animation: "idle"
+		},
+		"leftarm_blood": {
+			srcfn(options) {
+				return `img/bruises/left${options.arm_left}blood.png`;
+			},
+			showfn(options) {
+				if (options.leftarm_blood === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.3;
+			},
+			animation: "idle"
+		},
+		"rightarm_bruise": {
+			srcfn(options) {
+				return `img/bruises/right${options.arm_right}${options.rightarm_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.rightarm_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.2;
+			},
+			filters: ["body"],
+			animation: "idle"
+		},
+		"rightarm_blood": {
+			srcfn(options) {
+				return `img/bruises/right${options.arm_right}blood.png`;
+			},
+			showfn(options) {
+				if (options.rightarm_blood === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
+				return ZIndices.armsidle + 0.3;
+			},
+			animation: "idle"
+		},
+		"thigh_bruise": {
+			srcfn(options) {
+				return `img/bruises/thigh${options.thigh_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.thigh_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["body"],
+			z: ZIndices.skin + 1.1,
+			animation: "idle"
+		},
+		"thigh_blood": {
+			srcfn() {
+				return `img/bruises/thighblood.png`;
+			},
+			showfn(options) {
+				if (options.thigh_blood === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			z: ZIndices.skin + 1.2,
+			animation: "idle"
+		},
+		"tummy_bruise": {
+			srcfn(options) {
+				return `img/bruises/tummy${options.tummy_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.tummy_bruise === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["body"],
+			z: ZIndices.skin + 1.1,
+			animation: "idle"
+		},
+		"tummy_blood": {
+			srcfn() {
+				return `img/bruises/tummyblood.png`;
+			},
+			showfn(options) {
+				if (options.tummy_blood === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			z: ZIndices.skin + 1.2,
+			animation: "idle"
+		},
+		"penis_bruise": {
+			srcfn(options) {
+				return `img/bruises/penis/${options.penis}${options.penis_bruise}.png`;
+			},
+			showfn(options) {
+				if (options.penis_bruise === "disabled" || !options.crotch_visible || playerHasStrapon() || (options.ear_slime_panties && V.arousal < 6000)){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["body"],
+			z: ZIndices.tailPenisCover - 1.1,
+			animation: "idle"
+		},
+		"penis_blood": {
+			srcfn(options) {
+				return `img/bruises/penis/${options.penis}blood.png`;
+			},
+			showfn(options) {
+				if (options.penis_blood === "disabled" || !options.crotch_visible || playerHasStrapon() || (options.ear_slime_panties && V.arousal < 6000)){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			z: ZIndices.tailPenisCover - 1,
 			animation: "idle"
 		},
 

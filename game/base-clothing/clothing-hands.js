@@ -769,7 +769,9 @@ function initHands() {
 		location: 0,
 		iconFile: "race1gloves.png",
 		accIcon: 0,
-		mainImage:0
+		mainImage:0,
+		leftImage: 1,
+		rightImage: 1,
 	}
 	];
 

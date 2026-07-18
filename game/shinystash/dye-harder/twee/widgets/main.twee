@@ -3,13 +3,7 @@
 	<<run dhmShop.newSession();>>
 <</widget>>
 
-<!--
----- hairdresser mannequin
-{{{-->
 <<widget "dhmMannequinRender">>
-	<!--
-	---- initial setup
-	{{{ -->
 	<<set _colorNames to ["",""]>>
 	<<set _colorNames to $dhmod.tmp.colors>>
 	
@@ -32,7 +26,6 @@
 	<<elseif _args[0] isnot "default">>
 	<<set $dhmod.tmp.is_custom to true>>
 	<</if>>
-	<!-- }}} -->
 
 	<div class="mannequin-inner" @style="'transform: translateX('+ $dhmod.movedoll + 'px);'">
 		<<selectmodel "main" "shop">>
@@ -44,18 +37,13 @@
 			<<set _modeloptions.hair_colour_gradient to $hairColourGradient>>
 		<</if>>
 
-		<!-- new vanilla hairdresser chair -->
 		<<hidelayer "base">>
 		<<set _modeloptions.arm_left to "none">>
 		<<set _modeloptions.arm_right to "none">>
 		<<set _modeloptions.worn.over_upper.index to 3>>
 
-		<!--
-		---- hair fringe/length setup
-		{{{ -->
 		<<set _modeloptions.hair_sides_length to $hairOption != $hairlength ? convertHairLengthToStage("sides", $hairOption) : $hairlengthstage>>
 		<<set _modeloptions.hair_fringe_length to $fringeOption != $fringelength ? convertHairLengthToStage("fringe", $fringeOption) : $fringelengthstage>>
-		<!--}}}-->
 
 		<<if $browsDyeOption isnot "noChange" and $browsDyeOption isnot "removeDye">>
 			<<set _modeloptions.brows_colour to $browsDyeOption>>
@@ -88,25 +76,21 @@
 		<<rendermodel "canvas-mannequin">>
 	</div>
 <</widget>>
-<!--}}}-->
 
 <<widget "dhmMannequinUpdate">>
 	<<replace "#mannequin">><<dhmMannequinRender _args[0] _args[1]>><</replace>>
 <</widget>>
 
 <<widget "dhmMannequinControls">>
-	<!-- {{{ -->
 	<div id="mannequin-controls">
 		<div class="movedoll"><<button '<'>><<set $dhmod.movedoll -= 5>><</button>></div>
 		<div> Adjust position </div>
 		<div class="movedoll"><<button '>'>><<set $dhmod.movedoll += 5>><</button>></div>
 	</div>
 	<<run $(() => { $(".movedoll").click(function(){ $(".mannequin-inner").css("transform", `translateX(${V.dhmod.movedoll}px)`) }); });>>
-	<!--}}}-->
 <</widget>>
 
 <<widget "dhmDoll">>
-	<!-- {{{ -->
 	<div id="doll-container" class="dhm no-numberify">
 		<<dhmMannequinControls>>
 		<div>
@@ -115,22 +99,17 @@
 			</div>
 		</div>
 	</div>
-<!-- }}} -->
 <</widget>>
-<!-- }}} -->
 
 <<widget "dhmFooter">>
 	<div class="footer"><small>dye harder v<<print dhmod.version>></small></div>
 <</widget>>
 
-<!-- mathematics
-{{{-->
 <<widget "calcWrapper">>
 	£<<print (dhmShop.calcWrapper(_args[0], _args[1])/100).toFixed(2)>>
 <</widget>>
 
 <<widget "dhmPrices">>
-	<!-- {{{ -->
 	A new sign by the mirror reads:
 	<table class="dhm prices">
 		<tr><td class="empty"></td><th>Plain dye</th><th>Two-tone</th></tr>
@@ -139,11 +118,9 @@
 		<tr><th>Sides only</th><td><<calcWrapper 'simple-custom' 'sides'>></td><td><<calcWrapper 'gradient-custom' 'sides'>></td></tr>
 		<tr><th>'Specialist' fee</th><td colspan=2>£30</td></tr>
 	</table>
-	<!-- }}} -->
 <</widget>>
 
 <<widget "dhmPayments">>
-	<!-- {{{ -->
 	<div class="gold">
 		To pay: £ <span id="currentCost"><<print _currentCost/100>></span>
 		<br><br>
@@ -155,14 +132,9 @@
 		You don't have enough money to dye your <<print $dyedHairPart>>.
 		<br>
 	<</if>>
-	<!-- }}} -->
 <</widget>>
-<!-- }}} -->
 
-<!-- custom hairdresser ui
-{{{ -->
 <<widget "dhmPanel">>
-	<!-- {{{ -->
 	<<set _currentCost to 3000>>
 	<<set _currentCost += dhmShop.cashGrabCustom()>>
 	
@@ -201,14 +173,9 @@
 			dhmShop.pickerResizeAll();
 		});
 	});>>
-	<!-- }}} -->
 <</widget>>
-<!-- }}} -->
 
-<!-- custom color controls
-{{{-->
 <<widget "dhmPicker">>
-	<!-- {{{ -->
 	<<if _args[0] isnot undefined>>
 		<<set _index to _args[0]>>
 	<<else>>
@@ -248,11 +215,9 @@
 			</div>
 		</div>
 	<</capture>>
-	<!-- }}} -->
 <</widget>>
 
 <<widget "dhmPresetsDropdown">>
-	<!-- {{{ -->
 	<<if _args[0] isnot undefined>>
 		<<set _index to _args[0]>>
 	<<else>>
@@ -285,7 +250,4 @@
 			<</button>>
 		</div>
 	</div>
-	<!--}}}-->
 <</widget>>
-<!--
-}}}-->

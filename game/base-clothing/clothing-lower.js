@@ -351,7 +351,7 @@ function initLower() {
 			femininity: 0,
 			warmth: 2,
 			cost: 4000,
-			description: "An outfit designed for a racing horse.",
+			description: "Lightweight and layered, tough enough for any track.",
 			shop: ["academy"],
 			accessory: 1,
 			accessory_colour: 0,
@@ -363,8 +363,8 @@ function initLower() {
 			cursed: 0,
 			notuck: 0,
 			location: 0,
-			iconFile: "race1bottom.png",
-			accIcon: 0,
+			iconFile: "spring-dancer-lower.png",
+			accIcon: "spring-dancer-lower-acc.png",
 		}
 	];
 
@@ -2998,7 +2998,7 @@ function initLower() {
 			warmth: 2,
 			cost: 0,
 			description: "For when your clientele expect a certain class.",
-			shop: ["clothing"],
+			shop: ["clothing","misland"],
 			accessory: 0,
 			accessory_colour: 0,
 			accessory_colour_options: [],
@@ -11863,7 +11863,7 @@ function initLower() {
 			variable: "dirndl skirt",
 			description: "A folklore style skirt.",
 			cost: 4000,
-			shop: ["clothing"],
+			shop: ["clothing","misland"],
 			type: ["costume"],
 			combat: {
 				reference: "longskirt",

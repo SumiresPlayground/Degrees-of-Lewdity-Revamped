@@ -21,13 +21,13 @@
 	<<set $hairselect to "red">>
 	<<set $hairlength to 200>>
 	<<set $awareselect to "innocent">>
-	<<set $background to "waif">>
 	<<set $startingseason to "autumn">>
 	<<set $gamemode to "normal">>
 	<<set $settings.darkSkinChance to 10>>
 	<<set $settings.swarmsEnabled to true>>
 	<<set $settings.spidersEnabled to true>>
 	<<set $settings.goreEnabled to false>>
+	<<set $settings.bruisingEnabled to false>>
 	<<set $settings.slugsEnabled to true>>
 	<<set $settings.waspsEnabled to true>>
 	<<set $settings.beesEnabled to true>>
@@ -235,6 +235,23 @@
 <<widget "settingsStart">>
 	<<updatehistorycontrols>><!-- hides controls on going back in history after enabling that option -->
 	<<set $settings.cheatsEnabledToggle to $cheatsEnabled>>
+	<<unset $background>>
+	<<set $background to {}>>
+	<<set $background.waif to true>>
+	<<set $background.nerd to false>>
+	<<set $background.athlete to false>>
+	<<set $background.delinquent to false>>
+	<<set $background.promiscuous to false>>
+	<<set $background.exhibitionist to false>>
+	<<set $background.deviant to false>>
+	<<set $background.beautiful to false>>
+	<<set $background.crossdresser to false>>
+	<<set $background.plantlover to false>>
+	<<set $background.masochist to false>>
+	<<set $background.sadist to false>>
+	<<set $background.polyamorous to false>>
+	<<set $background.ugly to false>>
+	<<set $background.innocent to false>>
 	<<if _selectedStart is undefined>>
 		<<set _selectedStart to "default">>
 	<</if>>
@@ -370,9 +387,9 @@
 	<<else>>
 		<<button "Save changes">>
 			<<if ($feats.locked or ($settings.cheatsEnabledToggle is false and $settings.rentCostModifier gte 1 and $settings.tendingYieldModifier lte 5)) and ($feats.soft or ($gamemode isnot "soft" and $settings.allureModifier gte 1)) and ($feats.pregnancyLocked or ($settings.humanPregnancyMonths gte 3 and $settings.wolfPregnancyWeeks gte 4)) and ($feats.pregnancySillyLocked or $settings.pregnancyType isnot "silly")>>
-				<<settingsExitFunction>>
+				<<pass 1>><<settingsExitFunction>>
 			<<else>><!-- confirm cheats -->
-				<<replace #settingsExit>><<settingsExitConfirm>><</replace>>
+				<<pass 1>><<replace #settingsExit>><<settingsExitConfirm>><</replace>>
 			<</if>>
 		<</button>>
 	<</if>>
@@ -1184,40 +1201,48 @@
 			</div>
 			<div class="settingsToggleItemWide">
 				<span class="gold">Background:</span><br>
-				<label><span class="green">Waif</span> <<radiobutton "$background" "waif" autocheck>> - No special advantages or disadvantages. <i>Recommended for beginners.</i></label>
-				<br>
-				<label><span class="teal">Nerd</span> <<radiobutton "$background" "nerd" autocheck>> - Good at school. Picked on. <span class="red">(This will prevent the 'Unsocial Moth' feat from being earned)</span></label>
-				<br>
-				<label><span class="teal">Athlete</span> <<radiobutton "$background" "athlete" autocheck>> - Physically capable. Grades have suffered.</label>
-				<br>
-				<label><span class="teal">Delinquent</span> <<radiobutton "$background" "delinquent" autocheck>> - Your antics have made you popular with other students. Less so with the teachers.</label>
-				<br>
-				<label><span class="blue">Promiscuous</span> <<radiobutton "$background" "promiscuous" autocheck>> - You've experimented sexually.</label>
-				<br>
-				<label><span class="blue">Exhibitionist</span> <<radiobutton "$background" "exhibitionist" autocheck>> - You have an affinity for exposing yourself in public places.</label>
-				<br>
-				<label><span class="blue">Deviant</span> <<radiobutton "$background" "deviant" autocheck>> - You <i>really</i> like animals.</label>
-				<br>
-				<label><span class="lewd">Beautiful</span> <<radiobutton "$background" "beautiful" autocheck>> - You turn heads. <i>Not recommended for beginners.</i></label>
-				<br>
-				<<if $player.sex isnot "h">>
-					<label><span class="lewd"><<= $player.gender isnot $player.sex ? `\"Crossdresser\"` : "Crossdresser">></span> <<radiobutton "$background" "crossdresser" autocheck>> - You've taken a liking to the clothing of the opposite sex. Stress decays faster when you look like a <<= $player.sex is "f" ? "boy" : "girl">>, but slower when you look like a <<pcSex>>.</label>
-					<br>
-				<</if>>
-				<label><span class="lewd">Lustful</span> <<radiobutton "$background" "lustful" autocheck>> - Arousal increases over time and needs to be managed.</label>
-				<br>
-				<label><mouse class="tooltip"><span class="lewd">Dendrophile</span> <<radiobutton "$background" "plantlover" autocheck>> - Plants are everything to you.<span class="green">You're addicted to nectar. You're more vulnerable to aphrodisiacs and alcohol. Plantpeople and plant-based tentacles no longer require hallucinations to encounter. You get a bonus to Tending as your Trauma increases.</span></mouse>
+				<label data-target='["background.athlete","background.delinquent"]' data-disabledif="V.background.athlete===true||V.background.delinquent===true">
+					<<checkbox "$background.nerd" false true autocheck>> <span class="teal">Nerd</span> - Good at school. Picked on. <span class="red">(This will prevent the 'Unsocial Moth' feat from being earned)</span>
 				</label>
 				<br>
-				<label><span class="lewd">Masochist</span> <<radiobutton "$background" "masochist" autocheck>> - Begin the game with maxed masochism.</label>
+				<label data-target='["background.nerd","background.delinquent"]' data-disabledif="V.background.nerd===true||V.background.delinquent===true">
+					<<checkbox "$background.athlete" false true autocheck>> <span class="teal">Athlete</span> - Physically capable. Grades have suffered.
+				</label>
 				<br>
-				<label><span class="lewd">Sadist</span> <<radiobutton "$background" "sadist" autocheck>> - Begin the game with maxed sadism.</label>
+				<label data-target='["background.athlete","background.nerd"]' data-disabledif="V.background.athlete===true||V.background.nerd===true">
+					<<checkbox "$background.delinquent" false true autocheck>> <span class="teal">Delinquent</span> - Your antics have made you popular with other students. Less so with the teachers.
+				</label>
 				<br>
-				<label><span class="lewd">Polyamorous</span> <<radiobutton "$background" "polyamorous" autocheck>> - Always able to have multiple partners.</label>
+				<label><<checkbox "$background.promiscuous" false true autocheck>> <span class="blue">Promiscuous</span> - You've experimented sexually.</label>
 				<br>
-				<label><span class="red">Ugly</span> <<radiobutton "$background" "ugly" autocheck>> - Beauty will always remain at 0.</label>
+				<label><<checkbox "$background.exhibitionist" false true autocheck>> <span class="blue">Exhibitionist</span> - You have an affinity for exposing yourself in public places.</label>
 				<br>
-				<label><span class="gold">True Innocence</span> <<radiobutton "$background" "innocent" autocheck>> - Start the game with negative innocence.</label>
+				<label><<checkbox "$background.deviant" false true autocheck>> <span class="blue">Deviant</span> - You <i>really</i> like animals.</label>
+				<br>
+				<label><<checkbox "$background.beautiful" false true autocheck>> <span class="lewd">Beautiful</span> - You turn heads. <i>Not recommended for beginners.</i></label>
+				<br>
+				<<if $player.sex isnot "h">>
+					<label><<checkbox "$background.crossdresser" false true autocheck>> <span class="lewd"><<= $player.gender isnot $player.sex ? `\"Crossdresser\"` : "Crossdresser">></span> - You've taken a liking to the clothing of the opposite sex. Stress decays faster when you look like a <<= $player.sex is "f" ? "boy" : "girl">>, but slower when you look like a <<pcSex>>.</label>
+					<br>
+				<</if>>
+				<label><<checkbox "$background.lustful" false true autocheck>> <span class="lewd">Lustful</span> - Arousal increases over time and needs to be managed.</label>
+				<br>
+				<label><<checkbox "$background.plantlover" false true autocheck>> <mouse class="tooltip"><span class="lewd">Dendrophile</span> - Plants are everything to you.<span class="green">You're addicted to nectar. You're more vulnerable to aphrodisiacs and alcohol. Plantpeople and plant-based tentacles no longer require hallucinations to encounter. You get a bonus to Tending as your Trauma increases.</span></mouse>
+				</label>
+				<br>
+				<label data-target='["background.sadist"]' data-disabledif="V.background.sadist===true">
+					<<checkbox "$background.masochist" false true autocheck>> <span class="lewd">Masochist</span> - Begin the game with maxed masochism.
+				</label>
+				<br>
+				<label data-target='["background.masochist"]' data-disabledif="V.background.masochist===true">
+					<<checkbox "$background.sadist" false true autocheck>> <span class="lewd">Sadist</span> - Begin the game with maxed sadism.
+				</label>
+				<br>
+				<label><<checkbox "$background.polyamorous" false true autocheck>> <span class="lewd">Polyamorous</span> - Always able to have multiple partners.</label>
+				<br>
+				<label><<checkbox "$background.ugly" false true autocheck>> <span class="red">Ugly</span> - Beauty will always remain at 0.</label>
+				<br>
+				<label><<checkbox "$background.innocent" false true autocheck>> <span class="gold">True Innocence</span> - Start the game with negative awareness.</label>
 				<br>
 			</div>
 		</div>
@@ -2289,7 +2314,14 @@
 <<widget "moddedSettings">>
 	<div class="solidBorderContainer settings-container">
 		<div class="settingsGrid">
+			<div class="settingsHeader">
+				Brutal Toggles
+			</div>
 			<div class="settingsToggleItemWide">
+				<label>
+					<<checkbox "$settings.bruisingEnabled" false true autocheck>> <span class="red">Enable bruising</span>
+				</label>
+				<br>
 				<label>
 					<<checkbox "$settings.goreEnabled" false true autocheck>> <span class="red">Enable gore</span>
 				</label>

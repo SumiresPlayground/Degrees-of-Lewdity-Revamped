@@ -9,7 +9,7 @@
 	You are in the forest cemetery. An old manor looms from a hill, surrounded by stone ruins. It's quiet.
 	<br><br>
 	<<if !$plants_known.includes("honeysuckle")>>
-		<<link [[Search for Seeds (0:30)|Honeysuckle Seeds]]>><<set $plants_known.push("honeysuckle")>><<pass 30>><</link>>
+		<<foodstufficon "honeysuckle">><<link [[Search for Seeds (0:30)|Honeysuckle Seeds]]>><<set $plants_known.push("honeysuckle")>><<pass 30>><</link>>
 		<br>
 	<</if>>
 	<<link [[Tend to the Gravestones (0:30)|Forest Mansion Graves]]>><<tending 2>><<tiredness 2>><<trauma -2>><<pass 30>><</link>><<gtending>><<gtiredness>><<ltrauma>>
@@ -219,10 +219,8 @@ On both your left and right loom hallways loaded with doors. Directly before you
 <<else>>
 	<<if $TaylorWith is 1>>
 		"This place is still in quite remarkable condition for being as old as it is." Taylor remarks. 
+		<br><br>
 	<</if>>
-
-	There's doors to the left and right as well as a staircase upwards.
-	<br><br>
 
 	<<link [[Enter the left hallway (0:05)|Forest Mansion Left Hallway]]>><<pass 5>><<set $eventskip to 0>><<set $rng to random(1,100)>><</link>>
 	<br>

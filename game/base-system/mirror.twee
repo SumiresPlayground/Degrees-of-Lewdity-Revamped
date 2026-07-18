@@ -2427,10 +2427,11 @@
 	<<link "Dump Selected TF">>
 	<<set _chosenTF = $("#tfs").val()>>
 	<<if _chosenTF === "wolf">>
-		<<set _varName = _chosenTF + "build">>
-		<<set State.variables[_varName] = 0>>
-		<<set _varName = _chosenTF + "girl">>
-		<<set State.variables[_varName] = 0>>
+		<<set $wolfbuild to 0>>
+		<<set $wolfgirl to 0>>
+	<<elseif _chosenTF === "bird">>
+		<<set $birdbuild to 0>>
+		<<set $harpy to 0>>
 	<<elseif _chosenTF !== "">>
 		<<set _varName = _chosenTF + "build">>
 		<<set State.variables[_varName] = 0>>
@@ -2736,13 +2737,13 @@
 		__Horns__<br>
 		<<link "Clear">><<clearhorns>><<updatesidebarimg>><</link>><br>
 		<<if $demon gte 2 or $demontf is 1>>
-			<<tficon "demon">><<link "Demon Default">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<tficon "demon">><<link "Demon Default">><<clearhorns>><<set _demon.horns = "default">><<updatesidebarimg>><</link>><<gencolourselector "_demon.horns_colour">><br>
 		<</if>>
 		<<if $demon gte 2 or $demontf is 1>>
-			<<tficon "demon">><<link "Demon Succubus">><<clearhorns>><<set _demon.horns = "succubus">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<tficon "demon">><<link "Demon Succubus">><<clearhorns>><<set _demon.horns = "succubus">><<updatesidebarimg>><</link>><<gencolourselector "_demon.horns_colour">><br>
 		<</if>>
 		<<if $demon gte 2 or $demontf is 1>>
-			<<tficon "demon">><<link "Demon Classic">><<clearhorns>><<set _demon.horns = "classic">><<updatesidebarimg>><</link>><<if $slime lt 1>><<gencolourselector "_demon.horns_colour">><</if>><br>
+			<<tficon "demon">><<link "Demon Classic">><<clearhorns>><<set _demon.horns = "classic">><<updatesidebarimg>><</link>><<gencolourselector "_demon.horns_colour">><br>
 		<</if>>
 		<<if $cow gte 2 or $cowtf is 1>>
 			<<tficon "cow">><<link "Cow">><<clearhorns>><<set _cow.horns = "default">><<updatesidebarimg>><</link>><br>

@@ -4596,7 +4596,7 @@ function initHead() {
 			cursed: 0,
 			location: 0,
 			iconFile: "Cloud Hairclip.png",
-			accIcon: 0
+			accIcon: 0,
 		},
 
 		{
@@ -4634,7 +4634,7 @@ function initHead() {
 			cursed: 0,
 			location: 0,
 			iconFile: "Honeycomb Hairclip.png",
-			accIcon: 0
+			accIcon: 0,
 		},
 
 		{
@@ -4672,7 +4672,7 @@ function initHead() {
 			cursed: 0,
 			location: 0,
 			iconFile: "Spotted Hairclip.png",
-			accIcon: 0
+			accIcon: 0,
 		},
 
 		{
@@ -4710,7 +4710,7 @@ function initHead() {
 			cursed: 0,
 			location: 0,
 			iconFile: "Truffle Hairclip.png",
-			accIcon: 0
+			accIcon: 0,
 		},
 
 		{
@@ -4750,7 +4750,7 @@ function initHead() {
 			cursed: 0,
 			location: 0,
 			iconFile: "frog_hat.png",
-			accIcon: 0
+			accIcon: 0,
 		},
 
 		{
@@ -4787,7 +4787,7 @@ function initHead() {
 			cursed: 1,
 			location: 0,
 			iconFile: "",
-			accIcon: 0
+			accIcon: 0,
 		},
 
 		{
@@ -4978,8 +4978,8 @@ function initHead() {
 			back_img: 0,
 			cursed: 0,
 			location: 0,
-			iconFile: "race1tiara.png",
-			accIcon: 0,
+			iconFile: "sparkle-band.png",
+			accIcon: "sparkle-band-acc.png",
 		}
 	];
 
