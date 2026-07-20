@@ -1,6 +1,6 @@
 :: Hive Entrance 
 
-<<set $outside to 1>><<set $location to "hive">><<effects>>
+<<set $outside to 1>><<set $location to "forest">><<effects>>
 
 <<if $foresthunt gte 1 and $edenforesthunt is 1>>
 	<<set $rng to random(1, 60)>>
@@ -55,7 +55,7 @@
 		<<link [[Observe|Hive Observe]]>><</link>>
 		<br>
 	<</if>>
-	<<link [[Approach (0:02)|Hive Approach]]>><<pass 2>><</link>>
+	<<hiveentranceicon>><<link [[Approach (0:02)|Hive Approach]]>><<pass 2>><</link>>
 	<br>
 	<<if Time.hour lte 10 and Time.hour gte 6>>
 		<<if $bjob is "Worker">>
@@ -76,7 +76,7 @@
 
 
 :: Hive Approach 
-<<set $outside to 1>><<set $location to "hive">><<effects>><<set $hivestage to 0>>
+<<effects>><<set $hivestage to 0>>
 <<if $stress gte 10000 and $hivemember is 1>>
 	<<passouthive>>
 <<elseif $stress gte 10000 and $hivemember is 0>>
@@ -86,7 +86,7 @@
 		The guards recognize you and don't block your way. 
 		<br><br>
 
-		<<link [[Enter Hive|Hive Corridor]]>><</link>>
+		<<hiveentranceicon>><<link [[Enter Hive|Hive Corridor]]>><</link>>
 		<br>
 		<<getouticon>><<link [[Leave|Hive Entrance]]>><</link>>
 		<br>
@@ -112,7 +112,7 @@
 <</if>>
 
 :: Hive Corridor 
-<<set $outside to 0>><<set $location to "hive">><<effects>><<set $hivestage to 1>>
+<<set $location to "hive">><<set $outside to 0>><<effects>><<set $hivestage to 1>>
 <<if $foresthunt gte 1>>
 	<span class="lblue">You're safe in the hive. Whatever was hunting you will have given up.</span>
 	<br><br>
@@ -154,7 +154,7 @@
 
 	<<link [[Barracks|Hive Barracks]]>><<endevent>><</link>>
 	<br>
-	<<link [[Cells|Hive Cell Outside]]>><<endevent>><</link>>
+	<<hivecellicon>><<link [[Cells|Hive Cell Outside]]>><<endevent>><</link>>
 	<br>
 	<<link [[Throne Room|Hive Throne Room]]>><<endevent>><</link>>
 	<br>

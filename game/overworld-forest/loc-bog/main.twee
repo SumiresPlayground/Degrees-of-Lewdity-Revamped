@@ -123,7 +123,7 @@ You're in the bog between the forest and moor.
 		The canopy catches most of the snow, creating a surreal <<if Weather.bloodMoon>>red<<else>>white<</if>> blanket above.
 <</switch>>
 <<if $bogdepth is 4>>
-	A rocky cliff face blocks the way back to the forest. <span class="red">There's no way up.</span>
+	A rocky cliff face blocks the way back to the forest.
 <<elseif $bogdepth is 1>>
 	The treeline is thin, and you can see the moor from here.
 <</if>>
@@ -148,12 +148,12 @@ You're in the bog between the forest and moor.
 		<</if>>
 	<<else>>
 		<<if $cultsuspicion gte 10 and $cultjoined isnot 1>>
-			<<link [[Investigate the source of oddities (0:10)|Bog Cult Intro]]>><<pass 10>><</link>>
+			<<fellowshipicon>><<link [[Investigate the source of oddities (0:10)|Bog Cult Intro]]>><<pass 10>><</link>>
 			<br>
 		<<elseif $cultsuspicion gte 10 and $cultjoined is 1 and $bogdepth is 4 and $bogwater is 0>>
 			The hidden entrance to the cult is now obvious to you within the cliff face. You can enter from this path.
 			<br>
-			<<link [[Enter the temple grounds (0:10)|Bog Cult]]>><<pass 10>><</link>>
+			<<fellowshipicon>><<link [[Enter the temple grounds (0:10)|Bog Cult]]>><<pass 10>><</link>>
 			<br>
 		<</if>>
 		<<if $bogwater gte 1>>
@@ -164,6 +164,9 @@ You're in the bog between the forest and moor.
 			<br>
 			<<if $bogdepth lte 3>>
 				<<foresticon>><<link [[West, towards the forest (0:10)|Bog]]>><<set $bogdepth += 1>><<pass 10>><</link>>
+				<br>
+			<<elseif $bogdepth is 4>>
+				<<foresticon>><<link [[Climb Up (0:20)|Bog Climb Up]]>><<pass 20>><</link>><<athleticsdifficulty 200 800>>
 				<br>
 			<</if>>
 			<<if $bogdepth gte 2>>
@@ -746,4 +749,41 @@ The shrooms release burning spores into your lungs, causing you to gag and choke
 	<br><br>
 
 	<<link [[Next|Bog]]>><<set $eventskip to 1>><</link>>
+<</if>>
+
+:: Bog Climb Up
+<<effects>>
+You grip the sheer face of the rock wall.
+<br><br>
+<<if $athleticsSuccess>>
+	<<unset $athleticsSuccess>>
+	You take your time, slowly working your way up until <span class="green">your hand finds purchase and you pull yourself up.</span>
+	<br><br>
+
+	<<if $worn.lower.name isnot "naked">>
+		You dust off your hands on your $worn.lower.name.
+	<<elseif $worn.upper.name isnot "naked">>
+		You dust off your hands on your $worn.upper.name.
+	<<else>>
+		You dust off your hands.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Forest Brook]]>><</link>>
+	<br>
+<<else>>
+	You take your time, slowly working your way up until <span class="red">you slip about halfway</span>. You fall, plunging back into the mire. <<pain 4>><<stress 12>><<trauma 6>><<gpain>><<gstress>><<gtrauma>>
+	<br><br>
+
+	<<water>><<waterbr 2>><<effects>>
+
+	<<if Time.season is "winter">>
+		The frigid water steals the breath from your lungs. You nearly gasp for breath on instinct, but manage to surface before doing so.
+	<<else>>
+		The water is murky and unpleasant. You surface, covered in stray plant matter.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Bog]]>><<set $bogdepth to 4>><<set $bogwater to 1>><</link>>
+	<br>
 <</if>>

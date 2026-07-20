@@ -161,31 +161,39 @@
 
 	<<set $backgroundTraits to []>>
 
-	<<if $background is "nerd">>
+	<<if V.background.nerd===true>>
 		<<set $science += 100>><<set $maths += 100>><<set $english += 100>><<set $history += 100>><<set $school += 400>><<set $cool to 0>>
 		<<set $sciencetrait to 1>><<set $mathstrait to 1>><<set $englishtrait to 1>><<set $historytrait to 1>>
 		<<set $backgroundTraits.push("nerd")>>
-	<<elseif $background is "athlete">>
+	<</if>>
+	<<if V.background.athlete===true>>
 		<<set $physique += ($physiquesize / 4)>><<set $swimmingskill += 200>><<set $athletics += 200>>
 		<<set $science to 0>><<set $maths to 0>><<set $english to 0>><<set $history to 0>><<set $school to 0>>
 		<<set $sciencetrait to -1>><<set $mathstrait to -1>><<set $englishtrait to -1>><<set $historytrait to -1>>
 		<<set $backgroundTraits.push("athlete")>>
-	<<elseif $background is "delinquent">>
+	<</if>>
+	<<if V.background.delinquent===true>>
 		<<set $delinquency += 401>><<set $cool += 200>>
 		<<set $backgroundTraits.push("delinquent")>>
-	<<elseif $background is "promiscuous">>
+	<</if>>
+	<<if V.background.promiscuous===true>>
 		<<set $promiscuity += 35>>
 		<<set $backgroundTraits.push("promiscuous")>>
-	<<elseif $background is "exhibitionist">>
+	<</if>>
+	<<if V.background.exhibitionist===true>>
 		<<set $exhibitionism += 35>>
 		<<set $backgroundTraits.push("exhibitionist")>>
-	<<elseif $background is "deviant">>
+	<</if>>
+	<<if V.background.deviant===true>>
 		<<set $deviancy += 35>>
 		<<set $backgroundTraits.push("deviant")>>
-	<<elseif $background is "beautiful">>
+	
+	<</if>>
+	<<if V.background.beautiful===true>>
 		<<set $beauty += ($beautymax / 2)>>
 		<<set $backgroundTraits.push("beautiful")>>
-	<<elseif $background is "crossdresser">>
+	<</if>>
+	<<if V.background.crossdresser===true>>
 		<<if $player.sex is "f">>
 			<<set $player.gender_posture to "m">>
 		<<elseif $player.sex is "m">>
@@ -194,30 +202,37 @@
 			<<set $player.gender_posture to "n">>
 		<</if>>
 		<<set $backgroundTraits.push("crossdresser")>>
-	<<elseif $background is "greenthumb">>
+	<</if>>
+	<<if V.background.greenthumb===true>>
 		/* Leaving this here in case we ever turn Green Thumb back into a background. Can't be set to the background variable in current state. */
 		<<set $tending += 200>>
 		<<set $backgroundTraits.push("greenthumb")>>
-	<<elseif $background is "plantlover">>
+	<</if>>
+	<<if V.background.plantlover===true>>
 		<<set $nectar_addiction to 200>>
 		<<set $nectar_timer to 21>>
 		<<set $backgroundTraits.push("plantlover")>>
-	<<elseif $background is "masochist">>
+	<</if>>
+	<<if V.background.athlete===true>>
 		<<set $masochism_level to 4>>
 		<<set $masochism to 1000>>
 		<<set $backgroundTraits.push("masochist")>>
-	<<elseif $background is "sadist">>
+	<</if>>
+	<<if V.background.sadist===true>>
 		<<set $sadism_level to 4>>
 		<<set $sadism to 1000>>
 		<<set $backgroundTraits.push("sadist")>>
-	<<elseif $background is "polyamorous">>
+	<</if>>
+	<<if V.background.polyamorous===true>>
 		<<set $poly to 1>>
 		<<set $awarelevel to 6>>
 		<<set $backgroundTraits.push("polyamorous")>>
-	<<elseif $background is "innocent">>
+	<</if>>
+	<<if V.background.innocent===true>>
 		<<set $awareness to -200>>
 		<<set $backgroundTraits.push("innocent")>>
-	<<elseif $background is "ugly">>
+	<</if>>
+	<<if V.background.ugly===true>>
 		<<set $beauty to 0>>
 		<<set $ugly to 1>>
 		<<set $backgroundTraits.push("ugly")>>

@@ -52,7 +52,7 @@ You are at the local horse racing track. Grandstands surround a central track. A
 	<<passoutacademy>>
 <<else>>
 	You are at the entrance to the legally distinct horse racing academy. 
-	<<if Time.daystate isnot "night" and $academygone isnot 1>>
+	<<if Time.dayState isnot "night" and $academygone isnot 1>>
 		Trainers and their horses can be seen training for upcoming races. They run the track at the front of the academy.
 	<<elseif $academygone isnot 1>>
 		The academy entrance is mostly empty. Seems nobody is out training so late.
@@ -60,7 +60,7 @@ You are at the local horse racing track. Grandstands surround a central track. A
 		The racing season is over the academy is closed for good.
 	<</if>>
 	<br><br>
-	<<if Time.daystate is "day" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+	<<if Time.dayState is "day" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
 		You can see Rowan leaning against the railing of the practice track, more looking into the distance than watching the other trainers.
 		<br>
 		<<link [[Approach Rowan|Horse Academy Rowan Talk]]>><</link>>
@@ -71,13 +71,13 @@ You are at the local horse racing track. Grandstands surround a central track. A
 		<br>
 		<<link [[Properly introduce yourself|Horse Academy Mintro]]>><</link>>
 		<br><br>
-	<<elseif Time.daystate is "day" and $regionalrace lt 6 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+	<<elseif Time.dayState is "day" and $regionalrace lt 6 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
 		You can see Mint Mocha sitting alone on the steps near the entrance to the academy.
 		<br>
 		<<link [[Spend some time talking with her (0:30)|Horse Academy Mint Talk]]>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
 		<br><br>
 	<</if>>
-	<<if Time.daystate isnot "night" and $trainersearch is 1 and $academygone isnot 1>>
+	<<if Time.dayState isnot "night" and $trainersearch is 1 and $academygone isnot 1>>
 		In the main yard of the academy, you can see a trainer who appears slightly lost.
 		<br>
 		<<link [[Greet the trainer|Rowan Meet]]>><</link>>
@@ -113,7 +113,7 @@ You are within the entrance hall of the legally distinct horse racing academy.
 	<<eventshorseacademy>>
 	<br><br>
 <</if>>
-<<if Time.daystate isnot "night">>
+<<if Time.dayState isnot "night">>
 	Trainers can be seen chatting around the room with their horses. For the most part they look pretty happy.
 <<else>>
 	Even at such a late hour, trainers can be seen getting some late night training with their horses.
@@ -124,19 +124,19 @@ You are within the entrance hall of the legally distinct horse racing academy.
 <<elseif $horseacademystudent isnot 1>>
 	<span class='red'>You must be a horse<<girl>> to register at the racing academy.</span>
 <<else>>
-	<<if Time.daystate is "day" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+	<<if (Time.dayState is "day") and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation is "rain">>
 		You can see Rowan reading training manuals in the library.
 		<br>
 		<<link [[Approach Rowan|Horse Academy Rowan Talk]]>><<endevent>><</link>>
 		<br><br>
 	<</if>>
-	<<if Time.daystate is "dusk" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation isnot "rain">>
+	<<if Time.dayState is "dusk" and $horseacademystudent is 1 and $academygone isnot 1 and Weather.precipitation is "rain">>
 		You can see Rowan in the offices.
 		<br>
 		<<link [[Approach Rowan|Rowan Office Hours]]>><<endevent>><</link>>
 		<br><br>
 	<</if>>
-	<<if Time.daystate is "day" and $regionalrace lt 6 and $academygone isnot 1 and Weather.precipitation isnot "rain" and $mintmochaintro is 1>>
+	<<if (Time.dayState is "day" or Time.dayState is "dusk") and $regionalrace lt 6 and $academygone isnot 1 and Weather.precipitation isnot "rain" and $mintmochaintro is 1>>
 		You can see Mint Mocha sitting with her friends at a cafe. Upon seeing you, they leave Mint to speak with you alone.
 		<br>
 		<<link [[Spend some time talking with her (0:30)|Horse Academy Mint Talk]]>><<endevent>><<pass 30>><<set C.npc["Mint Mocha"].love += 1>><<set C.npc["Mint Mocha"].dom -= 1>><</link>><<glove>><<ldom>>
@@ -359,7 +359,7 @@ You snuggle under the covers.
 
 :: Horse Academy Track
 You're on the academy's practice track.
-<<if Time.daystate isnot "night">>
+<<if Time.dayState isnot "night">>
 	Trainers and their horses can be seen training for upcoming races. Every couple minutes, a horse rushes past you.
 <<else>>
 	The train is completely empty. Seems nobody is out training so late.
@@ -407,7 +407,7 @@ You're on the academy's practice track.
 :: Horse Academy Training Room
 You are in the academy's multi-purpose training room. Half of the room is taken up by weight equipment and the other half is left open for aerobic exercise. 
 <br><br>
-<<if Time.daystate isnot "night">>
+<<if Time.dayState isnot "night">>
 	Trainers are seen coaching their horsegirls as they lift weights or dance.
 <<else>>
 	The room is mostly quiet with only one or two late night trainers.
