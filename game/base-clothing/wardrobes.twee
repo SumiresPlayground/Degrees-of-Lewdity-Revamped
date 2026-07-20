@@ -205,6 +205,10 @@
 			<br>
 		<<elseif $wardrobeOption is "repair">>
 			<<set _item.integrity to clothingData(_slot,_item,'integrity_max')>>
+			<<rng>>
+			<<if $rng gte 80>>
+				<<transform spider 1>>
+			<</if>>
 			<<set $_timeSpent to 5>>
 			/*Repair the relating items*/
 			<<for $_outfitSlot, $_outfitId range _outfitPieceIds>>
@@ -532,7 +536,7 @@
 
 	<label><<radiobutton "$wardrobeOption" "wear" autocheck>> Wear</label> |
 	<label><<radiobutton "$wardrobeOption" "delete" autocheck>> Discard</label> |
-	<<if $sewingKit is 1 and $location is "home">>
+	<<if ($sewingKit is 1 or $transformationParts.spider.tail isnot "disabled") and $location is "home">>
 		<label><<radiobutton "$wardrobeOption" "repair" autocheck>> Repair (0:05 per piece)</label> |
 	<</if>>
 	<label><<radiobutton "$wardrobeOption" "separateOutfits" autocheck>> Separate Outfits (0:10)</label> |

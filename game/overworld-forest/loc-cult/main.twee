@@ -1,40 +1,173 @@
 :: Bog Cult Intro
-Following the trail of strange activities, you find yourself in the bog. Suspiciously, the trail cut off as the forest opened up into the bog. You begin to scan your surroundings before a throbbing pain fills your head and the world goes black.
+You steel yourself and decide to investigate the source of all these strange instances in the bog. Following the beaten wood path, you find that it cuts off abruptly, leaving you with no direction. You cast a glance out into the densely packed trees, attempting to locate a landmark nearby. <<stress 4>><<gstress>>
 <br><br>
-<<link [[Next|Bog Cult Dream]]>><</link>>
+Suddenly, a <span class="purple">sharp pain resonates within your skull, and your world goes dark.</span>
+<br><br>
+<<link [[Wake up|Bog Cult Dream]]>><</link>>
 
 :: Bog Cult Dream
-<<set $outside to 1>>
-Your eyes blink open and you find yourself in a small wooden room, a flickering florescent light strobes the room revealing rotten walls and floorboards. Black ooze drips from the cracks and you swear you can spot eyes hiding between the crevices. Suddenly, you feel a damp touch to your skin as tentacles stretch from the dark holes in the floorboards binding you.
+<<set $outside to 0>>
+You awake bleary-eyed and disoriented, finding yourself in a small wooden room. A flickering florescent light flickers, revealing rotten walls and floorboards. An unknowable black ooze drips from the cracks.
 <br><br>
-You start to panic, but a voice permeates the entire room drawing your full attention. It speaks in a language you cannot understand but the words alone seem to calm your soul. The tentacles caress your skin, oozing black fluid over your body as the voice slowly fades to silence.
+Your furtive look towards the cracks in the wall to find an exit only reveal eyes blinking back at you. You suppress your scream, and scramble away. <<gstress>><<stress 4>>
 <br><br>
-<<link [[Next|Bog Cult Wake]]>><<pass 60>><</link>>
+Tentacles coil around your legs, disrupting your movements and causing you to fall to the floor. <<stress 8>><<ggstress>>
+<br><br>
+<<if $speech_attitude is "meek">>
+	You struggle for a moment, “P-please, please spare me…” you plead, clasping your hands together.
+<<elseif $speech_attitude is "bratty">>
+	You struggle for a moment, “I'm not scared of you!” You kick and squirm around in vain.
+<<else>>
+	You struggle for a moment, “Let me go!” you shout.
+<</if>>
+<br><br>
+It's only when a voice resonating inside of your head—<span class="purple">No, inside the whole room</span>—whispers to you, your body forcibly going lax, that you finally rest. It speaks in a language you cannot understand but the words alone seem to calm your soul. The tentacles caress your skin, oozing black fluid over your body as the voice slowly fades to silence.
+<br><br>
+<<if Time.hour lt 22>><<set _passTime to "<<passTimeUntil 22>>">><<set _passTimeDisplay to "0:" + ("0" + ((45 - Time.minute + 60) % 60)).slice(-2)>><</if>>
+<<link [[Wake up|Bog Cult Wake]]>>_passTime<</link>>
 
 :: Bog Cult Wake
+<<location "bogcult">>
+<<set $outside to 0>>
 <<npc Salem>><<person1>>
 <<if $worn.upper.exposed gte 2 or $worn.lower.exposed gte 2>>
 	<<upperwear 79>>
 	<<lowerwear 71>>
 <</if>>
-<<location "bogcult">>
-You awaken once again in yet another unfamiliar room. You go to get up but you seem to be tied down to a bed, wrist and ankle cuffs bind you to the posts. You seem to be in some kind of cell. Your thoughts are interupted as someone else in the room clears their throat. "Um hello please don't panic, I can explain."
+By the time your eyes open, your surroundings have changed once again. Rotten wood is replaced by cracked stone, and through an unpatched hole in the ceiling you can see the moon hanging high in the sky. The rest of the space doesn't have much to look at, either, the windows covered in bars and a bucket in the corner. It seems to be a cell.
 <br><br>
-A young <<personsimple>> steps out from the shadows nervously. <<His>> hair is long and black matching <<his>> flowing black robe. <<His>> eyes shine a faint purple and almost seem to glow in the darkness. "U-um... I'm sorry we have to meet under such circumstances. My name's Salem." <<His>> eyes dart around nervously. "The fellowship has felt your presence getting close to the truth and decided they needed to stop you before you did anything hasty." <<He>> whispers. "I swear we're not bad people. You just have to hear me out."
+You freeze in place as purple orbs glow in the dark of the room, letting out a shout when they blink. Your attempts to get away are halted by the bindings you've only now realised you were in, keeping you tied down to the bed.<<stress 6>><<gstress>>
 <br><br>
-<<He>> unlocks your cuffs and helps you sit up. "We're the true religion of this town. That other group, the ones on Wolf Street, they're heretics. They forsook our way of life and banished our ancestors from the church. Sure our ceremonies can look dangerous from an outsiders perspective but we'd never harm anybody." <<He>> seems to believe what <<hes>> saying at least and seems to be more confident and comfortable speaking about the subject. "Um... If you would please follow me, I'd like to show you something."
+A <<personsimple>> scrambles out from the dark, hands waving in front of <<him>> in a flurry of fright, “Wait, wait, wait! I-I can explain, please don't panic!”
 <br><br>
-<<link [[Next (0:10)|Bog Cult Salem Intro]]>><<endevent>><<pass 10>><</link>>
+<<if $speech_attitude is "bratty">>
+    <<link [[Spit at <<him>>|Bog Cult Salem Spit]]>><</link>><<lstress>>
+    <br>
+<<elseif $speech_attitude is "meek">>
+    <<link [[Cower|Bog Cult Salem Cower]]>><</link>><<ltrauma>>
+    <br>
+<<else>>
+    <<link [[Stare|Bog Cult Salem Stare]]>><</link>>
+<</if>>
+
+:: Bog Cult Salem Spit
+<<He>> jumps back with a small yelp, “I-I'm only trying to help!”
+The <<personsimple>> waits stiffly for you to relax, and only moves to help you out of the cuffs when you give <<him>> a curt nod. <<stress -6>>
+<br><br>
+“I am truly sorry we had to meet like this,” <<He>> frowns, taking a bobby pin from <<his>> hair as <<he>> began to attempt picking at the lock, “M-My name is Salem, I wish we could've talked under… better circumstances.”
+<br><br>
+You're able to get a better look at Salem now that <<he>>'s closer. <<His>> long black hair blends in with the fabric of <<his>> robes, blanketing you in a sea of darkness, with only <<his>> pale purple eyes standing out against it all, glowing like moonlight. The careful expression you've been watching fades into quiet glee as you both hear a click, the cuffs finally falling free. <<stress -6>><<lstress>>
+<br><br>
+“I-I did it!” Salem mutters in excitement, moving away from you with haste to get the ones at your feet.
+<br><br>
+<<link [[Next|Bog Cult Salem After]]>><</link>>
+
+:: Bog Cult Salem Cower
+The <<personsimple>> gives you an apologetic look, taking a step back, “S-sorry, May I help you out of those?”
+<br><br>
+<<He>> awaits your permission, a placating smile on <<his>> face as <<he>> holds <<his>> hands up, showing <<he>> was no threat. At your nod, <<he>> moves to help. <<trauma -6>>
+“I am truly sorry we had to meet like this,” <<He>> frowns, taking a bobby pin from <<his>> hair as <<he>> began to attempt picking at the lock, “M-My name is Salem, I wish we could've talked under… better circumstances.”
+<br><br>
+You're able to get a better look at Salem now that <<he>>'s closer. <<His>> long black hair blends in with the fabric of <<his>> robes, blanketing you in a sea of darkness, with only <<his>> pale purple eyes standing out against it all, glowing like moonlight. The careful expression you've been watching fades into quiet glee as you both hear a click, the cuffs finally falling free. <<stress -6>><<lstress>>
+<br><br>
+“I-I did it!” Salem mutters in excitement, moving away from you with haste to get the ones at your feet.
+<br><br>
+<<link [[Next|Bog Cult Salem After]]>><</link>>
+
+:: Bog Cult Salem Stare
+<<He>> quietly approaches, caution in <<his>> steps as <<he>> leans over you.
+“I am truly sorry we had to meet like this,” <<He>> frowns, taking a bobby pin from <<his>> hair as <<he>> began to attempt picking at the lock, “M-My name is Salem, I wish we could've talked under… better circumstances.”
+<br><br>
+You're able to get a better look at Salem now that <<he>>'s closer. <<His>> long black hair blends in with the fabric of <<his>> robes, blanketing you in a sea of darkness, with only <<his>> pale purple eyes standing out against it all, glowing like moonlight. The careful expression you've been watching fades into quiet glee as you both hear a click, the cuffs finally falling free. <<stress -6>><<lstress>>
+<br><br>
+“I-I did it!” Salem mutters in excitement, moving away from you with haste to get the ones at your feet.
+<br><br>
+<<link [[Next|Bog Cult Salem After]]>><</link>>
+
+:: Bog Cult Salem After
+Salem gingerly helps you sit up, concern written on <<his>> face, “I promise we're not bad people, T-The Fellowship is just heavily guarded. The elders sensed your presence encroaching onto temple territory, so they, um.”
+<br><br>
+Salem bites <<his>> lip, wringing <<his>> hands together to try and exorcise <<his>> nerves.
+<br><br>
+“T-The Fellowship is the true religion of the town, that other group currently taking residence in our old temple are heretic defectors! …As the elders have told me,” <<he>> continued, <<his>> voice growing steadier as <<he>> spoke, his belief clearly unwavering, “Our ancestors were banished from town without a rhyme or reason. Our ceremonies may look dangerous, but we wouldn't hurt a soul!”
+<br><br>
+<<He>> gets up abruptly, <<his>> composure faltering as <<he>> stands face to face with you.
+<br><br>
+“A-anyway, If you would please follow me,” Salem straightens <<his>> shoulders with feigned confidence, “There is something I'd like to show you.”
+<br><br>
+<<link [[Next (0:10)|Bog Cult Salem Intro]]>><<pass 10>><</link>>
 
 :: Bog Cult Salem Intro
-<<npc Salem>><<person1>>
-You follow Salem out from the cell and down a long corridor that opens into a large central room. "T-this is the main prayer chamber." The room is large and open, lit only by candles placed on the altar and lining the walls. "I-If you don't mind, I'd like to speak to you privately for a moment..." <<He>> stands awkwardly for a moment before walking away again.
+Salem peeks out of the cell entryway, motioning for you to follow along as soon as the coast is clear.
 <br><br>
-You follow <<him>> down another corridor, past many doors, until you reach a door near the end of the hall. "T-this is it..." Salem slowly opens the door and beckons you to enter. The room is made of stone like the others, illuminated by smooth candles, but potted plants intersperce the room. Vines covered in flowers drape down the walls painting the would be drab room in a rainbow of shades.
+<<His>> footsteps are hurried, you struggle to follow <<him>> through the winding temple halls. Salem occasionally looks behind <<himself>> to make sure <<he>> hasn't lost you.
 <br><br>
-"T-this is my room..." Salem whispers embarrassed. "I've never really shown it to anybody... But I have something important I want to discuss with you." <<He>> breathes out a sigh and continues. "Now that you know we exist, the elders aren't going to want you to leave here, but I have a plan. You can become an initiate in the fellowship. It should allow you to enter and leave as you like." Once again you notice that Salem seems to be more confident when <<hes>> thinking of solutions instead of worrying. "The initiation ceremony shouldn't take long. Just speak to me when you're ready."
+“Don't worry, it seems like a lot at first, b-but I'm sure you'll get used to it soon,” <<he>> assures, breaking the silence. <<He>> turns away quickly as you shoot <<him>> a confused look.
 <br><br>
-<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+Soon, the maze of halls gives way to a large, dimly lit room. Flickering candle light illuminates the altar beyond the rows of pews.
+<br><br>
+“This is our temple's chapel. We, um, pray and hold mass here every Sunday.” <<He>> gestures around awkwardly, standing back with <<his>> hands clasped in front of <<himself>>. <<He>> looks like <<he>> has something to say.
+<br><br>
+<<if $speech_attitude is "meek">>
+	“Are you alright? You look nervous,” you say, trying to coax <<him>> out of <<his>> shell.
+<<elseif $speech_attitude is "bratty">>
+	“Well? Out with it.” you snap, causing <<him>> to startle.
+<<else>>
+	You raise a brow at <<him>>, waiting for <<him>> to continue.
+<</if>>
+<br><br>
+<<He>> lets out a deep sigh, looking at the ground, “Can we speak, Privately? I have an idea to… um.” Salem leans in close, putting <<his>> hand up to your ear, “I want to help you get out of here.”
+<br><br>
+<<link [[Next|Bog Cult Salem Next]]>><</link>>
+
+:: Bog Cult Salem Next
+<<He>> leads you down another hall, this one covered with doors as far as you can see. <<He>> only halts when you both reach the end of it in front of a decrepit door, much like any other in here.
+<br><br>
+“This is it…” <<he>> heaves out a breath, slowly turning the doorknob. The area you see looks similar to the cell you were in.
+<br><br>
+It's only set apart by the various vines growing out of the cracks, with flowers blooming in a myriad of shades. There are two beds in there, one with merely a sheet and pillow, and the other an eclectic assembly of torn sheets and blankets. There's potted plants littered around the corners of the room, and you notice a well used bookshelf between the two beds.
+<br><br>
+“This is my room,” <<he>> explains, scratching the back of <<his>> neck as <<he>> shifts on <<his>> feet. Soon, Salem opens the door further, making space for you, “W-Would you like to come in?”
+<br><br>
+<<link [[Enter|Bog Cult Salem Next Again]]>><</link>>
+<br>
+<<if $promiscuity gte 15>>
+    <<link [[Flirt|Bog Cult Salem Flirt Intro]]>><</link>>
+<</if>>
+
+:: Bog Cult Salem Flirt Intro
+<<if $speech_attitude is "bratty">>
+    “You're skipping a few steps…” you goad, “Most people beg to see me in their room first.” You walk past <<him>>, squeezing <<his>> thin bicep. <<He>> gapes at you in shock.<<stress -6>><<lstress>>
+<<elseif $speech_attitude is "meek">>
+    “I didn't take you for that kind of person, Salem,” you mumble coyly, “I guess looks can be deceiving?” You brush past <<him,>> your hand gently skimming <<his>> shoulder. <<He>> takes pause, looking at <<his>> shoulder, then back at you. <<stress -6>><<lstress>>
+<<else>> 
+    “Oh wow, you're forward, aren't you?” you tease, squeezing <<his>> shoulder as you pass. <<He>> takes pause, fixing you with a confused stare until the realisation sets in.<<stress -6>><<lstress>>
+<</if>>
+<br><br>
+“T-That is most certainly not w-what I invited you here for!” <<he>> retorts, <<his>> voice dry and dying out by the end. It's clear you caught <<him>> off guard. <<He>> covers <<his>> flushed face and retreats to <<his>> side of the room. <<lust 3>>
+<br><br>
+Salem sits on <<his>> bed, posture stiff as <<he>> pulls <<his>> knees to <<his>> chest, “T-This is so awkward, I've never let anyone in here before,” <<he>> whispers, embarrassed as <<his>> hands dig into the skirt of <<his>> robe, “B-But it's really important, because I have a plan. The elders won't let us leave if you know about our existence, but becoming an initiate should fix that! Then you'll be able to come and go as you like!”
+<br><br>
+You notice <<his>> anxieties take a backseat when <<he>>'s got a set goal in mind, <<his>> words far more confident as <<he>> explains, “The ceremony is actually pretty simple. Just an altar and some… um… Wax? I don't remember my own, but I remember it not hurting that much, so you should be fine!”
+<br><br>
+You don't really share the same confidence <<he>> does.
+<br><br>
+“Just… let me know when you're ready to go,” <<he>> smiles sheepishly, turning away from you as <<he>> begins to meditate.
+<br><br>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Next Again
+You nod, passing <<him>> by and into the room.
+<br><br>
+Salem sits on <<his>> bed, posture stiff as <<he>> pulls <<his>> knees to <<his>> chest, “T-This is so awkward, I've never let anyone in here before,” <<he>> whispers, embarrassed as <<his>> hands dig into the skirt of <<his>> robe, “B-But it's really important, because I have a plan. The elders won't let us leave if you know about our existence, but becoming an initiate should fix that! Then you'll be able to come and go as you like!”
+<br><br>
+You notice <<his>> anxieties take a backseat when <<he>>'s got a set goal in mind, <<his>> words far more confident as <<he>> explains, “The ceremony is actually pretty simple. Just an altar and some… um… Wax? I don't remember my own, but I remember it not hurting that much, so you should be fine!”
+<br><br>
+You don't really share the same confidence <<he>> does.
+<br><br>
+“Just… let me know when you're ready to go,” <<he>> smiles sheepishly, turning away from you as <<he>> begins to meditate.
+<br><br>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><</link>>
 
 :: Bog Cult Salem Room
 <<npc Salem>><<person1>>
@@ -42,26 +175,30 @@ You follow <<him>> down another corridor, past many doors, until you reach a doo
     Salem returns for the first time since the initiation. <<He>> looks exhausted. "Oh... hey you're still here. I wasn't sure if you'd immediately leave after the initiation or not." <<He>> begins to sit but winces and stands back up. Under <<his>> flowy sleeves you can make out faint burn marks. <<He>> notices you looking and hastily covers them up. "O-oh uh... I... It's because I let you out without letting anybody know... Please don't worry about it. I'll be fine." <<He>> gives a pained smile before sitting once more.
     <<set $salemgone to 0>>
     <br><br>
-    <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 <<else>>
-    You're in Salem's room. The room is made of stone like the others, illuminated by smooth candles, but potted plants intersperce the room. Vines covered in flowers drape down the walls painting the would be drab room in a rainbow of shades.
+    You're in Salem's room. The walls are made of the same repetitive stone that's everywhere else, broken up only by flowery vines coming out between the crevices, bathing the space in a prismatic glow. Potted plants litter the floor on <<his>> side of the room. Freshly lit candles are placed in each sconce.
     <br><br>
-    <<if $salemgone is 0 and Time.daystate isnot "night">>
+    <<if $cultjoined is 1 and $salemgone is 0 and Time.dayState isnot "night">>
         Salem seems to be meditating in silence on <<his>> bed.
         <br><br>
         <<link [[Speak to Salem|Bog Cult Salem Speak]]>><<endevent>><</link>>
         <br>
-    <<elseif $salemgone is 0>>
+    <<elseif $cultjoined is 1 and $salemgone is 0>>
         Salem is fast asleep. You can hear quiet whispers under <<his>> breath.
         <br><br>
+    <<elseif $salemgone is 1>>
+        <<endevent>>
     <</if>>
     <<if $cultjoined isnot 1>>
-        <<link [[Speak to Salem|Bog Cult Salem Initiation]]>><<endevent>><</link>>
+        <<link [[Join the Fellowship|Bog Cult Salem Initiation]]>><<endevent>><</link>>
+        <br>
+        <<link [[Speak to Salem|Bog Cult Salem Speak]]>><<endevent>><</link>>
     <<else>>
-        <<link [[Lay in your bed|Bog Cult Bed]]>><<endevent>><</link>>
+        <<fellowshipbedicon>><<link [[Lay in your bed|Bog Cult Bed]]>><<endevent>><</link>>
     <</if>>
     <br>
-    <<link [[Read a book off the shelf (0:10)|Bog Cult Salem Read]]>><<endevent>><<pass 10>><</link>>
+    <<salemshelficon>><<link [[Read a book off the shelf (0:10)|Bog Cult Salem Read]]>><<endevent>><<pass 10>><</link>>
     <br>
     <<link [[Observe the plants|Bog Cult Salem Plant]]>><<endevent>><</link>>
     <br>
@@ -73,34 +210,81 @@ You follow <<him>> down another corridor, past many doors, until you reach a doo
 :: Bog Cult Salem Plant
 The plants seem to be of all types. You can spot Asters and Vervain among other more dangerous species like Nightshade. You probably shouldn't touch them.
 <br><br>
-<<link [[Back|Bog Cult Salem Room]]>><</link>>
+<<salemroomicon>><<link [[Back|Bog Cult Salem Room]]>><</link>>
 
 :: Bog Cult Salem Read
-You take a book off the shelf and read the title. "Magnus Liber Ultra" its pages are clean and new but it looks to have been copied from an older text. It seems to be something of an old journal or Bible. It documents the life of an unnamed author and their pursuit of the truth of the universe. In the end the author writes of their approaching demise and desire to preserve their knowledge. You assume something bad must have happened to the original members of the fellowship. 
+You skim the bookshelf for anything interesting, landing on a book named "Magnus Liber Ultra". The pages are pristine and sharp, standing out against the old run down temple building, it piques your curiosity.
 <br><br>
-<<link [[Back|Bog Cult Salem Room]]>><</link>>
+Opening it up, it seems to be an old diary of sorts. It documents the daily life of an unnamed author searching for the truth of the universe. By the end of the book, the author writes of their untimely demise and their prayers to preserve the knowledge they held inside their diary. You note that a few pages are torn out.
+<br><br>
+You assume misfortune must've fallen on the original sector that would become 'The Fellowship'.
+<br><br>
+<<salemroomicon>><<link [[Back|Bog Cult Salem Room]]>><</link>>
 
 :: Bog Cult Salem Initiation
 <<npc Salem>><<person1>>
-"You ready?" <<He>> asks calmly. It appears that <<he>> has steeled <<himself>> in anticipation. "Please follow me one more time."
+“Are you ready to begin?” <<He>> asks, surprisingly stoic despite his past behaviour. It seems like his meditation gave <<him>> time to prepare <<himself>>, “Please, follow after me.”
 <br><br>
-Salem leads you back to the main hall of the temple where a large group has begun to gather. "Honorable elders." Salem speaks up and bows, prostrating <<himself>> before the elders. "I have taken it upon myself to speak to the interloper and have reached a conclusion. I humbly request that we innitate <<pher>> as a member of the fellowship." <<He>> continues to hold his head to the floor in reverence as the group stands in a moment of silence.
+<<link [[Back|Bog Cult Salem Beg]]>><</link>>
+
+:: Bog Cult Salem Beg
+Salem leads you back down the same corridor, not looking back to check on you this time. Luckily, you manage to keep pace. <<He>> leads you back into the main hall, hands behind his back as <<he>> bows before the elders.
 <br><br>
-"Salem." A raspy voice rises from the body of one of the elders. "We have... much to discuss." They look down upon <<him>> for several minutes before speaking once more. "We... Shall carry out this initiation... However... We wish to speak with you alone afterward... Salem..." The room is hushed once again, the only noise breaking the silence is the flickering of candles.
+“Honorable elders,” <<He>> greets, lowering to <<his>> knees and prostrating <<himself>> before them, “Forgive me for my insolence, for I have taken it upon myself to speak with the interloper and have reached my own conclusion of <<pher>> fate. It is with great humility that I request we take <<phim>> in as one of our own rather than risk any alternative.”
 <br><br>
-"You... Child..." The elder points their long bony finger in your direction. "Lie upon the altar..." Everyone's eyes are on you and you feel compelled to listen. You lie upon the alter as the elders surround you. You feel cloth cover your eyes as the surroundings fade to black. You feel a tingle before a searing pain on your stomach. The pain spreads to your sides and chest as you breath more heavily. The elders begin to chant in a language you're unfamiliar with before you feel a strong ripping sensation, leaving your torso feeling raw. Finally after a moment, the blindfold is removed. Your skin is red raw and strips of wax line the altar. "You child... You will share a room with Salem..." Deeming their job done, the elders hobble away slowly. 
+<<if $churchsalemtold>>
+“N-Not to mention, <<pshe>>… is one of <i>theirs</i>… Should <<pshe>> be missing for too long, I-I fear they may come searching.”
+<br><br>
+The elders stare down at Salem, mumbling amongst themselves.
+<br><br>
+<</if>>
+<<link [[Next|Bog Cult Salem Ritual Intro]]>><</link>>
+
+:: Bog Cult Salem Ritual Intro
+“Salem.” The voice that speaks up is raspy, coming from one of the elders, “You are correct, your insolence bodes consequence, but we do find merit in what you speak of.”
+<br><br>
+Another elder raises their hand, stepping forward, “<<pShe>> shall undergo the initiation ritual as suggested.. However, your punishment for going behind your elder’s back shall be carried out swiftly.”
+<br><br>
+Salem’s forehead pressed deep into the stone, “T-Thank you, Honorable elders. I will not forget your mercy.”
+<br><br>
+<<He>> is soon ushered away by two nuns. <<He>> looks back at you, a small smile on his face as he nods at you.
+<br><br>
+You turn your attention to the elders, all of whom have set their sights directly on you.<<stress 4>><<gstress>>
+<br><br>
+"You, child.” One of them points a bony finger at you, the rest splitting away from the altar to make space, “Lie herein, upon our altar, and you shall be reborn through our God.”
+<br><br>
+<<link [[Next|Bog Cult Salem Ritual Start]]>><</link>>
+
+:: Bog Cult Salem Ritual Start
+The elders crowd around you, placing cloth over your head and obscuring your vision.
+<br><br>
+An ice cold fear seizes you as they begin to displace your clothes, your limbs being forcibly held down as your skin is exposed to the chilly air of the temple. <<stress 4>><<gstress>>
+<br><br>
+You jolt with alarm as something drips onto your skin, searing hot at first, and then quickly cooling against you. This must be the wax Salem had mentioned beforehand. <<pain 4>><<gpain>>
+<br><br>
+You grit your teeth, fighting back against the tears welling in your eyes as your hands clench into fists. This lasts several minutes before you feel the hands on you retreat and the cloth is pulled off your face.
+<br><br>
+<<link [[Next|Bog Cult Salem Ritual End]]>><</link>>
+
+:: Bog Cult Salem Ritual End
+The elders are seemingly done with you, going about their regular duties aside from a single one who waited for you. You hastily fix your clothes, prying off bits of wax as you go.
+<br><br>
+“You shall be rooming with Salem,” The elder informs you, “<<He>> must take responsibility for your tutelage as part of his own consequences. Behave, and you shall not face any troubles here.”
+<br><br>
+With that, they leave you alone for the time being. You can explore the temple if you wish.
 <br><br>
 <<link [[Next|Bog Cult]]>><<set $cultjoined to 1>><<set $salempunishment to 1>><<set $salemgone to 1>><<endevent>><</link>>
 
 :: Bog Cult
 <<location "bogcult">>
+<<set $outside to 0>>
 You're in the main ritual room of the fellowship. The room is large and open, lit only by candles placed on the altar and lining the walls. Monks and nuns kneel in prayer as many others enter and leave through the rooms many corridors.
 <br><br>
 <<if $eldritch isnot 1>>
     <<link [[Speak to the elders (0:05)|Bog Cult Elder Task]]>><<pass 5>><</link>>
     <br>
 <</if>>
-<<link [[Enter Salem's room (0:05)|Bog Cult Salem Room]]>><<pass 5>><</link>>
+<<salemroomicon>><<link [[Enter Salem's room (0:05)|Bog Cult Salem Room]]>><<pass 5>><</link>>
 <br>
 <<getouticon>><<link [[Leave (0:10)|Bog]]>><<set $bogdepth to 4>><<set $bogwater to 0>><<pass 10>><<endevent>><</link>>
 
@@ -112,7 +296,7 @@ You lie in your bed, the blankets are firm and slightly uncomfortable.
 
 <<generateSleepLinks "Bog Cult Sleep">>
 
-<<link [[Get up|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Get up|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 
 :: Bog Cult Sleep
@@ -128,16 +312,91 @@ You dream you are in the presence of something dark... The darkness whispers inc
 <</if>>
 <br><br>
 
-<<link [[Get up|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Get up|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Speak
-As you speak, Salem is startled for a moment before answering. "O-oh geez sorry. I was meditating and didn't notice you speaking. What do you need?"
+<<npc Salem>><<person1>>
+You sit by Salem and tap <<him>> on the shoulder, causing <<him>> to jump.
 <br><br>
-<<link [[Hangout (0:30)|Bog Cult Salem Hangout]]>><<npcincr Salem love 1>><<pass 30>><</link>><<glove>>
+“Y-Yes? Did you need something?” <<He>> asks, turning to you.
+<br><br>
+<<if $cultjoined is 1>>
+    <<link [[Hangout (0:30)|Bog Cult Salem Hangout]]>><<npcincr Salem love 1>><<pass 30>><</link>><<glove>>
+    <br>
+<</if>>
+<<if $churchsalemtold isnot 1 and ($temple_rank is "monk" or $temple_rank is "priest")>>
+    <<link [[Talk about your temple (0:10)|Bog Cult Salem Temple]]>><<pass 10>><</link>>
+    <br>
+<</if>>
+<<link [[Ask how <<he>> joined the fellowship (0:10)|Bog Cult Salem Backstory]]>><<pass 10>><</link>>
 <br>
 <<link [[Ask for more info about the fellowship (0:10)|Bog Cult Salem Info]]>><<pass 10>><</link>>
 <br>
-<<link [[Back|Bog Cult Salem Room]]>><</link>>
+<<salemroomicon>><<link [[Back|Bog Cult Salem Room]]>><</link>>
+
+:: Bog Cult Salem Temple
+You begin to talk about life at the wolf street temple, much to Salem's utter shock.
+<br><br>
+“Eh-wait, you're one of… them?” <<He>> gasps out, covering <<his>> mouth. <<His>> demeanour turns a bit sour as <<he>> bites down on <<his>> lip, edging away from you.
+<br><br>
+<<if $speech_attitude is "bratty">>
+    “What? What were you expecting?” You scoff, rolling your eyes as you grab <<his>> arm to keep <<him>> from inching away, “I'm not going to bite your head off or anything, quit being a wuss.”
+<<elseif $speech_attitude is "meek">>
+    “I-I wasn't sure how to tell you!” you try to comfort <<him>>, heart breaking when <<he>> flinches away from you, “You told me you weren't going to hurt me, so why can't you trust that I won't, too?”
+<<else>> 
+    “Hey, that's not fair” you frown, “You said the fellowship wasn't bad, despite how it could come across. Why can't you give me the benefit of the doubt, huh?”
+<</if>>
+<br><br>
+<<He>> looks at you through <<his>> hair, <<his>> eyes look watery< “No, no, y-you're right. I'm sorry. I was just really excited to have someone who was-”
+<br><br>
+<<He>> stops himself abruptly, “N-Nevermind.”
+<br><br>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<set $churchsalemtold to 1>><<endevent>><</link>>
+
+:: Bog Cult Salem Backstory
+Salem hums at your question, a small laugh leaving <<him>>.
+<br><br>
+"H-How did I join?" <<He>> parrots, and you nod at <<him>>, "I was born into this. My father's the premiere elder, and I've been studying to follow in his footsteps. My life has always been this way, and I'm quite content with it.”
+<br><br>
+<<His>> expression is serene at the topic, if not a little melancholic.
+<br><br>
+“A-Anyway, there's something I'm curious about, too.” <<His>> fingers interlace with each other as <<he>> fidgets.
+<br><br>
+“You kept coming back to the bog, despite everything you saw…” <<he>> starts, staring at <<his>> hands, “Why? Were you not afraid?”
+<br><br>
+<<link [[Answer|Bog Cult Salem Answer]]>><</link>>
+<br>
+<<link [[Decline to say|Bog Cult Salem Decline]]>><</link>>
+
+:: Bog Cult Salem Answer
+<<if $willpower gte ($willpowermax * 0.6)>>
+    <<if $speech_attitude is "bratty">>
+        “I don't get scared” You boast with a scoff, “Unlike a certain someone, no?”
+    <<elseif $speech_attitude is "meek">>
+        “Ah, well…” You giggle, rubbing your neck, “I-It's difficult to be afraid when I get curious.”
+    <<else>> 
+       “Not scared” You say, “Just.. curious?”
+    <</if>>
+    <br><br>
+    “You're so.. Brave…” <<he>> says, running <<his>> hands through his hair, “I-I don't think I could ever leave the temple, let alone the bog itself. It's too… dangerous, out there. My father tells me I should stay here, where it's… safe.”
+<<else>>
+    <<if $speech_attitude is "bratty">>
+        ”I don't get scared.” You cross your arms and turn away from Salem, who can't help but quietly giggle.
+    <<elseif $speech_attitude is "meek">>
+        “I was!” you exclaim, clutching your arms, “I-It was super scary, I thought I w-wasn't going to make it!”
+    <<else>> 
+        “Yeah, I was pretty scared” You say, shrugging, “But I had no other way out anyway.”
+    <</if>>
+    <br><br>
+    “I-I think it's scary out there too,” <<he>> says, idly twirling a strand of <<his>> hair, “That's why I stay in the temple. My father says that it's the safest here. You could be safe here, too…”
+<</if>>
+<br><br>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+
+:: Bog Cult Salem Decline
+Salem frowns, but doesn't seem to press you on it. Pulling <<his>> knees close to his chest, you change to different topics.
+<br><br>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Hangout
 <<npc Salem>><<person1>>
@@ -161,7 +420,7 @@ After about 30 minutes the whispers intensify and you're shocked out of your med
     <<link [[Ask to have sex|Bog Cult Salem Sex]]>><<endevent>><</link>>
     <br>
 <</if>>
-<<link [[Yeah it's nothing|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Yeah it's nothing|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Explain
 <<npc Salem>><<person1>>
@@ -169,7 +428,7 @@ After about 30 minutes the whispers intensify and you're shocked out of your med
 <br><br>
 <<He>> blushes under your blank stare. "U-um I swear it's nothing I promise..."
 <br><br>
-<<link [[Back|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Back|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Info
 <<npc Salem>><<person1>>
@@ -179,7 +438,7 @@ After about 30 minutes the whispers intensify and you're shocked out of your med
 <br><br>
 "O-oh! Sorry was I speaking too fast I- I uh..." <<He>> blushes and falls silent.
 <br><br>
-<<link [[Back|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Back|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Elder Task
 <<if $culttask is 1>>
@@ -279,11 +538,11 @@ You offer to assist Salem with <<his>> gardening shelf. <<He>> hesitates but agr
 <<if $tending gte 600>>
     "Whoa, you're so talented." Salem peers over your shoulder in awe. "I didn't realize you were such a skilled gardener." Salem catches <<himself>> talking and covers <<his>> mouth, blushing. "I-I mean, uh... sorry." <<He>> looks away awkwardly.
     <br><br>
-    <<link [[Next|Bog Cult Salem Room]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
+    <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
 <<else>>
     "Careful, careful." Salem nervously glances over your shoulder. "U-um, maybe you should leave those to me? I-I just mean, I wouldn't want you to hurt yourself." Salem catches <<himself>> talking and covers <<his>> mouth, blushing. "I-I mean, uh... sorry." <<He>> looks away awkwardly.
     <br><br>
-    <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 <</if>>
 
 :: Bog Cult Salem Read To
@@ -306,7 +565,7 @@ You sit next to Salem, respecting <<his>> space, and begin to read from one of h
 <br><br>
 Salem sits alert and listens as you read the religious script. <<His>> eyes follow your finger as you read the page. After a little bit, you close the book and sit up. Salem looks to you and speaks. "Done already? Typically my study sessions tend to go on a bit longer, but I am okay with calling it here. U-um... thank you. This was nice."
 <br><br>
-<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Story
 <<npc Salem>><<person1>>
@@ -319,7 +578,7 @@ You sit next to Salem, respecting <<his>> space, and begin to tell your own stor
     <br><br>
     "Oh, um, sorry, I didn't realize I had gotten so close... It's just, I have never heard such a story before. T-thank you, this was really nice. M-maybe we can do this again sometime soon?"
     <br><br>
-    <<link [[Next|Bog Cult Salem Room]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
+    <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<npcincr Salem love 3>><<endevent>><</link>><<gglove>>
 <<else>>
     You begin to tell a story but begin to get lost along the way. The story is full of inconsistencies, and the characters behave strangely. As you speak, Salem tilts <<his>> head a bit, confused. 
     <br><br>
@@ -327,7 +586,7 @@ You sit next to Salem, respecting <<his>> space, and begin to tell your own stor
     <br><br>
     Salem catches <<himself>> and turns away, looking down. "S-sorry, I didn't mean to sound so ungrateful. Thank you for this."
     <br><br>
-    <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 <</if>>
 
 :: Bog Cult Salem Handhold
@@ -338,7 +597,7 @@ As Salem blushes and looks away, you wrap your hand around <<his>>. <<takeHandho
 <br><br>
 <<link [[Kiss <<him>>|Bog Cult Salem Kiss]]>><<npcincr Salem love 3>><<endevent>><</link>><<kissvirginitywarning>><<gglove>>
 <br>
-<<link [[Back away|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Back away|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Kiss
 <<npc Salem>><<person1>>
@@ -362,7 +621,7 @@ The shock in <<his>> eyes slowly fades as <<he>> begins to lean into the kiss as
     <span class="gold">Salem can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
     <br><br>
 <</if>>
-<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Romance Handhold
 <<npc Salem>><<person1>>
@@ -372,7 +631,7 @@ As Salem blushes and looks away, you wrap your hand around <<his>>.
 <br><br>
 <<link [[Kiss <<him>>|Bog Cult Salem Romantic Kiss]]>><<npcincr Salem love 3>><<npcincr Salem corruption 2>><<endevent>><</link>><<gcorruption>><<gglove>>
 <br>
-<<link [[Back away|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Back away|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Romantic Kiss
 <<npc Salem>><<person1>>
@@ -382,7 +641,7 @@ The kiss lasts a while longer yet feels like no time at all. After a moment, the
 <br><br>
 "I'm sorry. L-let's do this again sometime." <<His>> face is red with embarrassment as <<he>> takes a step back.
 <br><br>
-<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Date Talk
 <<npc Salem>><<person1>>
@@ -409,7 +668,7 @@ The kiss lasts a while longer yet feels like no time at all. After a moment, the
 <<npc Salem>><<person1>>
 You begin to apologize for the request but Salem stops you. "N-no please, don't be sorry. It was very nice of you but... I just don't think it's a good idea with how things are in the Fellowship right now." <<He>> holds your hand gently. "Really, I'm sorry."
 <br><br>
-<<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 
 :: Bog Cult Salem Convince
 <<npc Salem>><<person1>>
@@ -427,7 +686,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
 <<else>>
     "P-please, I really am sorry but... I can't do this. N-not now. Not yet." <<He>> looks away ashamed. "I have responsibilities to the Fellowship and... I can't be breaking rules even if I want to. I'm sorry..." You comfort <<him>> as <<his>> face grows red with frustration.
     <br><br>
-    <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+    <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
 <</if>>
 
 :: Salem Cafe
@@ -481,7 +740,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<set $salemsammeet to 1>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<set $salemsammeet to 1>><<endevent>><</link>>
     <<elseif $oceanbreezejob is 1 and $salemsammeet is 1>>
         Salem patiently sits, holding your hand. <<He>> lets you take a bite, then <<he>> takes his own. As the bowl grows empty, Salem takes the napkin and gently presses the napkin to your lips. "You know, your lips are quite nice." <<He>> folds the napkin before his hand returns to your hand. 
         <br><br>
@@ -489,7 +748,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
     <<elseif $salemcafe is 1>>
         <<He>> pokes at the fruits with interest. "At the Fellowship, we typically don't eat these kinds of foods." <<He>> takes a bite and <<his>> eyes go wide. "Wow this is so delicious!" <<He>> says excitedly eating quickly. It wasn't long before <<he>> had finished half of the fruit salad. <<He>> freezes as his face blushes. "Oh geez, I-I'm sorry. You haven't even had a chance to eat yet..." <<He>> looks away, <<his>> face slightly red.
         <br><br>
@@ -499,7 +758,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
     <<else>>
         Salem patiently sits, holding your hand. <<He>> lets you take a bite, then <<he>> takes his own. As the bowl grows empty, Salem takes the napkin and gently presses the napkin to your lips. "You know, your lips are quite nice." 
         <br><br>
@@ -507,7 +766,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         The two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<set $salemcafe to 1>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<set $salemcafe to 1>><<endevent>><</link>>
     <</if>>
 
 :: Salem Arcade
@@ -521,7 +780,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         Salem reaches out <<his>> hand to take yours as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
     <<else>>
         The arcade is mostly empty which causes Salem to relax. <<He>> slowly lets go of your arm and looks at the arcade cabinets. Curiously Salem touches one and tilts <<his>> head. "What are these things? Are they kind of like a television?" You take a moment to explain what an arcade is and Salem looks dumbfounded. "W-wait so it's like a television that you control what happens on the glass? That's so cool!"
         <br><br>
@@ -529,7 +788,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         Salem reaches out <<his>> hand to take yours as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<set $salemarcade to 1>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<set $salemarcade to 1>><<endevent>><</link>>
     <</if>>
 
 :: Salem Museum
@@ -573,7 +832,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<set $salemwintermeet to 1>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<set $salemwintermeet to 1>><<endevent>><</link>>
     <<elseif $museumintro is 1 and $salemwintermeet is 1>>
         Salem takes your hand, peeking around the corner, and silently sneaks out of the room with you, careful to avoid Winter's gaze. After spending a little more time looking over some of the other artefacts, Salem tugs your arm. 
         <br><br>
@@ -581,7 +840,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
     <<elseif $salemmuseum is 1>>
         Salem takes your hand, peeking around the corner, and silently sneaks out of the room with you. After spending a little more time looking over some of the artefacts, Salem tugs your arm. 
         <br><br>
@@ -589,13 +848,13 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
         <br><br>
         You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<endevent>><</link>>
     <<else>>
         After spending some time looking over some of the artefacts, Salem tugs your arm. "H-hey, it's getting a little late, we should probably head back soon." <<He>> lets go of your sleeve but holds your hand. "This was really nice. T-thank you." <<He>> blushes.
         <br><br>
         You take Salem's hand as the two of you return down the path back to the Fellowship, sneaking Salem back to <<his>> room and closing the door gently.
         <br><br>
-        <<link [[Next|Bog Cult Salem Room]]>><<set $salemmuseum to 1>><<endevent>><</link>>
+        <<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><<set $salemmuseum to 1>><<endevent>><</link>>
     <</if>>
 
 :: Bog Cult Salem Oral
@@ -654,7 +913,7 @@ You begin to apologize for the request but Salem stops you. "N-no please, don't 
 <</if>>
 <br><br>
 <<clotheson>><<endcombat>>
-<<link [[Next|Bog Cult Salem Room]]>><</link>>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><</link>>
 
 :: Bog Cult Salem Sex
 <<npc Salem>><<person1>>
@@ -705,4 +964,4 @@ The two of you settle on Salem's bed and Salem slowly lifts <<his>> robe.
 <</if>>
 <br><br>
 <<clotheson>><<endcombat>>
-<<link [[Next|Bog Cult Salem Room]]>><</link>>
+<<salemroomicon>><<link [[Next|Bog Cult Salem Room]]>><</link>>
