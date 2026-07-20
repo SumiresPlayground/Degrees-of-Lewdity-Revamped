@@ -458,6 +458,24 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.ear_layer = V.earlayer;
 	T.modeloptions.tail_layer = V.taillayer;
 
+	T.modeloptions.face_bruise = V.face_bruise;
+	T.modeloptions.face_blood = V.face_blood;
+	T.modeloptions.eye_bruise = V.eye_bruise;
+	T.modeloptions.chest_bruise = V.chest_bruise;
+	T.modeloptions.chest_blood = V.chest_blood;
+	T.modeloptions.neck_bruise = V.neck_bruise;
+	T.modeloptions.neck_blood = V.neck_blood;
+	T.modeloptions.leftarm_bruise = V.leftarm_bruise;
+	T.modeloptions.leftarm_blood = V.leftarm_blood;
+	T.modeloptions.rightarm_bruise = V.rightarm_bruise;
+	T.modeloptions.rightarm_blood = V.rightarm_blood;
+	T.modeloptions.thigh_bruise = V.thigh_bruise;
+	T.modeloptions.thigh_blood = V.thigh_blood;
+	T.modeloptions.tummy_bruise = V.tummy_bruise;
+	T.modeloptions.tummy_blood = V.tummy_blood;
+	T.modeloptions.penis_bruise = V.penis_bruise;
+	T.modeloptions.penis_blood = V.penis_blood;
+
 	/*
 			██████ ██   ██ ██ ███    ███ ███████ ██████   █████
 			██      ██   ██ ██ ████  ████ ██      ██   ██ ██   ██

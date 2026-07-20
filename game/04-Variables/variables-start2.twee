@@ -159,23 +159,32 @@
 	<<run Weather.sidebar.initialize()>>
 	<<set $hourly to {}>>
 
+	<<set $backgroundTraits to []>>
+
 	<<if $background is "nerd">>
 		<<set $science += 100>><<set $maths += 100>><<set $english += 100>><<set $history += 100>><<set $school += 400>><<set $cool to 0>>
 		<<set $sciencetrait to 1>><<set $mathstrait to 1>><<set $englishtrait to 1>><<set $historytrait to 1>>
+		<<set $backgroundTraits.push("nerd")>>
 	<<elseif $background is "athlete">>
 		<<set $physique += ($physiquesize / 4)>><<set $swimmingskill += 200>><<set $athletics += 200>>
 		<<set $science to 0>><<set $maths to 0>><<set $english to 0>><<set $history to 0>><<set $school to 0>>
 		<<set $sciencetrait to -1>><<set $mathstrait to -1>><<set $englishtrait to -1>><<set $historytrait to -1>>
+		<<set $backgroundTraits.push("athlete")>>
 	<<elseif $background is "delinquent">>
 		<<set $delinquency += 401>><<set $cool += 200>>
+		<<set $backgroundTraits.push("delinquent")>>
 	<<elseif $background is "promiscuous">>
 		<<set $promiscuity += 35>>
+		<<set $backgroundTraits.push("promiscuous")>>
 	<<elseif $background is "exhibitionist">>
 		<<set $exhibitionism += 35>>
+		<<set $backgroundTraits.push("exhibitionist")>>
 	<<elseif $background is "deviant">>
 		<<set $deviancy += 35>>
+		<<set $backgroundTraits.push("deviant")>>
 	<<elseif $background is "beautiful">>
 		<<set $beauty += ($beautymax / 2)>>
+		<<set $backgroundTraits.push("beautiful")>>
 	<<elseif $background is "crossdresser">>
 		<<if $player.sex is "f">>
 			<<set $player.gender_posture to "m">>
@@ -183,30 +192,36 @@
 			<<set $player.gender_posture to "f">>
 		<<else>>
 			<<set $player.gender_posture to "n">>
-			<<set $background to "waif">>
 		<</if>>
+		<<set $backgroundTraits.push("crossdresser")>>
 	<<elseif $background is "greenthumb">>
 		/* Leaving this here in case we ever turn Green Thumb back into a background. Can't be set to the background variable in current state. */
 		<<set $tending += 200>>
+		<<set $backgroundTraits.push("greenthumb")>>
 	<<elseif $background is "plantlover">>
 		<<set $nectar_addiction to 200>>
 		<<set $nectar_timer to 21>>
+		<<set $backgroundTraits.push("plantlover")>>
 	<<elseif $background is "masochist">>
 		<<set $masochism_level to 4>>
 		<<set $masochism to 1000>>
+		<<set $backgroundTraits.push("masochist")>>
 	<<elseif $background is "sadist">>
 		<<set $sadism_level to 4>>
 		<<set $sadism to 1000>>
+		<<set $backgroundTraits.push("sadist")>>
 	<<elseif $background is "polyamorous">>
 		<<set $poly to 1>>
 		<<set $awarelevel to 6>>
+		<<set $backgroundTraits.push("polyamorous")>>
 	<<elseif $background is "innocent">>
 		<<set $awareness to -200>>
+		<<set $backgroundTraits.push("innocent")>>
 	<<elseif $background is "ugly">>
 		<<set $beauty to 0>>
 		<<set $ugly to 1>>
+		<<set $backgroundTraits.push("ugly")>>
 	<</if>>
-	<<set $backgroundTraits to [$background]>>
 
 	<<if $hairlength gte 900>>
 		<<set $hairlengthstage to "feet">>

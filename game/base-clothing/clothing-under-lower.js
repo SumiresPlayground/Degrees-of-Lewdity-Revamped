@@ -2799,7 +2799,7 @@ function initUnderLower() {
 			high_img: 0,
 			cursed: 0,
 			location: 0,
-			iconFile: "",
+			iconFile: "speedster-panties.png",
 			accIcon: 0,
 			
 		}
