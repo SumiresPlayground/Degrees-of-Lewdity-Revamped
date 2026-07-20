@@ -2441,13 +2441,17 @@ You snuggle under the covers with Robin. You can feel the heat from <<his>> <<pr
 <</if>>
 
 :: Orphanage
-<<set $outside to 0>><<set $location to "home">><<home_effects>><<effects>>
+<<set $outside to 0>><<set $location to "home">><<home_effects>>
+<<if $bailey_date_missed is 1>><<include "Bailey Date Stood Up">><<exitAll>><</if>>
+<<if $bailey_monogamous and baileyWeeksMissed() gte 1 and !$weekly.baileyMonogamyWarning>><<include "Bailey Monogamy Warning">><<exitAll>><</if>>
+<<if Time.monthDay is 31 and Time.monthName is "October" and Time.hour gte 7 and Time.hour lt 10 and $fame.social gte 600 and $renttime gt 0 and $bailey_halloween_asked isnot Time.year and !$possessed>><<include "Bailey Halloween Start">><<exitAll>><</if>>
+<<effects>>
 <<set _robin to statusCheck("Robin")>>
 <<set _robinAtOrphanage to ["orphanage","bath","sleep"].includes(_robin_location)>>
 
 You are in the main hall of the orphanage.
 <br><br>
-<<baileyDateWaiting>><<baileyBathTF>>
+<<baileyDateWaiting>><<baileyHalloweenWaiting>><<baileyTF>>
 
 <<if $christmas is 1 and Time.monthDay is 25 and Time.dayState isnot "night">>
 	The room is alive with festive merriment.
@@ -2517,12 +2521,12 @@ You are in the main hall of the orphanage.
 		Bailey leans against a wall. A missing person's poster with a picture of you on it is pinned next to <<him>>.
 		<br><br>
 
-		"You took your time getting back. I'm glad you're alright."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">> <<He>> smirks. "Hope you enjoyed your vacation."<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">>
+		"You took your time getting back. I'm glad you're alright." <<He>> smirks. "Hope you enjoyed your vacation."<<npcincr Bailey love 2>><<set $bailey_love += 2>><<gglove "Bailey">>
 		<br><br>
 
 		<<He>> pushes <<himself>> off the wall, tearing down the poster and crumpling it up.
 	<<else>>
-		A snide voice greets you on your way inside. "You're a slippery little shit, aren't you?" <span class="bailey-red">It's Bailey.</span><<npcincr Bailey love 3>><<set $bailey_love += 3>><<ggglove "Bailey">> <<Hes>> leaning against the wall, musing at you. "I'm glad you're alright."
+		A snide voice greets you on your way inside. "You're a slippery little shit, aren't you?" <span class="bailey-red">It's Bailey.</span> <<Hes>> leaning against the wall, musing at you. "I'm glad you're alright."<<npcincr Bailey love 3>><<set $bailey_love += 3>><<ggglove "Bailey">>
 		<br><br>
 
 		<<He>> pushes <<himself>> off the wall and prowls towards you.

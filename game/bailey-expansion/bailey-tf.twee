@@ -1,5 +1,5 @@
-:: Bailey Bath TF Reaction [widget]
-<<widget "baileyBathTF">>
+:: Bailey TF Reaction [widget]
+<<widget "baileyTF">>
 <<if $weekly.baileyTFseen isnot true and random(1,5) is 1>><<set $weekly.baileyTFseen to true>>
 	<<npc Bailey>><<person1>>
 	/* React to PC's transformation. Checks each TF in order and uses the first visible one. */
@@ -100,6 +100,177 @@
 			Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes flick to your horns with a sneer. "Seems about right." <<He>> shoulders past you.
 		<<else>>
 			Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes flick to your horns. <<His>> mouth twitches. "Suits you." <<He>> brushes past you.
+		<</if>>
+		<br><br>
+
+	/* New World transformations. */
+	<<elseif $transformationParts.dog.ears isnot "hidden" and $transformationParts.dog.ears isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> scratches behind one of your dog ears, slow and deliberate. "Good dog. You'd come when called." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> grabs your dog tail and tugs. "Remember, strays get put down." <<He>> lets go and shoulders past you. <<gpain>><<pain 4>>
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at your wagging tail. "Go on. Sit. Stay. Beg. Heel. It's all you're good for." <<He>> bumps past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.deer.horns isnot "hidden" and $transformationParts.deer.horns isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze travels up your antlers. "Someone will want you mounted on a wall." <<He>> brushes past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your antlers with a sneer. "Roadkill." <<He>> shoulders past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks one of your antlers. "I can think of at least one hunter who'd like to mount you." <<He>> bumps past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.horse.ears isnot "hidden" and $transformationParts.horse.ears isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> runs a hand along your horse ear. "A workhorse, are you? Good." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your horse tail. "Don't think I won't sell you to a glue factory if you keep misbehaving." <<He>> shoulders past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your horse ears. "You'll pull your weight." <<He>> bumps past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.pig.ears isnot "hidden" and $transformationParts.pig.ears isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> pinches your pig ear. "Just keep bringing home the bacon." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your pig tail with disgust. "A pig. Filthy. Greedy. Fit for the slaughter. Suits you." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your pig tail. "It'll do you well to remember that every part of a pig gets used." <<He>> shoulders past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.sheep.ears isnot "hidden" and $transformationParts.sheep.ears isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> buries a hand in your wool. "Easy to lead, are you? Good." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> yanks a curl of your wool. "Sheep. Born to be fleeced and led to slaughter. Pathetic." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your fleece. "Careful. Sheep get sheared." <<He>> shoulders past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.raccoon.ears isnot "hidden" and $transformationParts.raccoon.ears isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> tugs your raccoon tail. "Little thief. I'll find use for you." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your raccoon mask. "Vermin. Get into my things and I'll set a trap." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> sees your raccoon mask. "Keep your paws out of my things." <<He>> brushes past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.bee.wings isnot "hidden" and $transformationParts.bee.wings isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze catches on your wings. "Busy little worker. Someone always profits off the hive." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks one of your antennae with a scoff. "Pathetic little drone. Buzz off." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your wings buzz. "Keep the buzzing out of my office." <<He>> shoulders past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.dragon.wings isnot "hidden" and $transformationParts.dragon.wings isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze climbs your dragon features. "Rare. Expensive. Mine to sell." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at your dragon wings. "You're just a delusional little reptile." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> takes in your dragon wings. "A hoarder, are you? Just remember what's yours is mine." <<He>> brushes past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.lizard.horns isnot "hidden" and $transformationParts.lizard.horns isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs down your tail. "Cold-blooded. I can work with that." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your lizard tail. "Drop your tail and run, if you like. I'll still find you." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> studies your horns. "Go crawl back under your rock." <<He>> brushes past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.spider.eyes isnot "hidden" and $transformationParts.spider.eyes isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze lingers on your many eyes. "Patient little predator, are you?" <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> grimaces at your extra eyes. "Revolting. I've crushed larger." <<He>> gives you a wide berth as <<he>> passes.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your spider features. "Spin all you want. I own the web you're in." <<He>> brushes past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.frog.eyes isnot "hidden" and $transformationParts.frog.eyes isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> tilts your chin up to look at your froggish eyes. "I can think of a few clients who'd like a little frog like you." <<He>> lets go and brushes past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks your cheek. "Pathetic little frog." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your frog features. "Croak all you like. No one's listening." <<He>> shoulders past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.fish.tail isnot "hidden" and $transformationParts.fish.tail isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your fins. "Plenty of fish. Plenty of buyers, too." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "A fish out of water. Useless." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "Plenty of fish. Plenty of nets, too." <<He>> shoulders past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.dolphin.tail isnot "hidden" and $transformationParts.dolphin.tail isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs down your tail. "Valuable little fish, aren't you?" <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "A beached dolphin. Useless." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your tail. "Try not to beach yourself." <<He>> shoulders past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.fae.wings isnot "hidden" and $transformationParts.fae.wings isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your wings flutter. "Pretty. Pointless. Valuable." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> swats at your wing. "Playing make-believe. Grow up, already." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes follow your wings. "Go on. Fly away. See how far you get before I retrieve you." <<He>> brushes past you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.mushroom.eyes isnot "hidden" and $transformationParts.mushroom.eyes isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes the cap crowning your head. "Some spores are worth good money." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at the fungus on you. "Disgusting." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> keeps <<his>> distance from your spores. "Keep those to yourself." <<He>> steps around you.
+		<</if>>
+		<br><br>
+
+	<<elseif $transformationParts.zombie.eyes isnot "hidden" and $transformationParts.zombie.eyes isnot "disabled">>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> tilts your grey face toward the light. "Damaged goods. But I've sold worse for more." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> curls <<his>> lip at your grey face. "Spoiled meat. Useless." <<He>> bumps past you.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your grey face. "Still standing, at least." <<He>> shoulders past you.
+		<</if>>
+		<br><br>
+
+	<<elseif ($transformationParts.ghost.eyes isnot "hidden" and $transformationParts.ghost.eyes isnot "disabled") or ($transformationParts.eldritch.eyes isnot "hidden" and $transformationParts.eldritch.eyes isnot "disabled") or ($transformationParts.cosmic.eyes isnot "hidden" and $transformationParts.cosmic.eyes isnot "disabled")>>
+		<<if $bailey_dom gte 70>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> seems uneasy. "Take that off. Stop messing around." <<He>> gives you a wide berth as <<he>> passes.
+		<<elseif $bailey_dom lte 30>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> grimaces. "Go haunt someone else." <<He>> gives you a wide berth as <<he>> passes.
+		<<else>>
+			Bailey is walking down the hallway when <<he>> sees you. <<He>> seems uneasy. <<His>> jaw tightens. "Quit messing around, brat." <<He>> steps around you.
 		<</if>>
 		<br><br>
 

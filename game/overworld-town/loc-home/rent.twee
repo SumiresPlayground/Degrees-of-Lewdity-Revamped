@@ -35,7 +35,14 @@
 		<<homeBabyIntro>>
 	<</if>>
 	<<babyRent>>
-	<<if $money gte $rentmoney + ($babyRent or 0)>>
+	<<bratTaxCalc>>
+	<<if $bailey_brat and $bailey_brat.points gt 0>>
+		"And you've been a pain this week," <<he>> adds. "That's <<printmoney $bratTax "pink">> extra. Don't argue."
+		<br><br>
+		You think Bailey is mad because <<bratReasonList>>.
+		<br><br>
+	<</if>>
+	<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
 		<<link [[Pay|Rent Pay]]>><<set $phase to $_robinWasInRoom>><</link>>
 		<br>
 		<<link [[Refuse|Rent Refuse]]>><<def 1>><</link>>
@@ -115,7 +122,14 @@
 		<<homeBabyIntro>>
 	<</if>>
 	<<babyRent>>
-	<<if $money gte $rentmoney + ($babyRent or 0)>>
+	<<bratTaxCalc>>
+	<<if $bailey_brat and $bailey_brat.points gt 0>>
+		"And you've been a pain this week," <<he>> adds. "That's <<printmoney $bratTax "pink">> extra. Don't argue."
+		<br><br>
+		You think Bailey is mad because <<bratReasonList>>.
+		<br><br>
+	<</if>>
+	<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
 		<<if $inRobinsRoom>>
 			<<link [[Pay|Rent Pay Robin]]>><<set $inRobinsRoom to true>><</link>>
 		<<else>>
@@ -241,7 +255,7 @@
 <</widget>>
 
 <<widget "rentpay">>
-	<<money `-($rentmoney + ($babyRent or 0))` "baileyRent">>
+	<<money `-($rentmoney + ($babyRent or 0) + ($bratTax or 0))` "baileyRent">>
 	<<set $rentmoney to [10000,30000,50000,70000,100000,150000,200000][Math.clamp($rentstage,1,6)]>> <!-- note: clamping to 1 is intentional -->
 	<<rentmod>>
 
@@ -306,6 +320,7 @@
 
 	<<set $baileydefeatedchain to 0>>
 	<<set $baileyRefusedToPay to 0>>
+	<<set $bailey_brat to { points: 0, reasons: [] }>><<set $bratTax to 0>>
 	<<set $baileypaychain to ($baileypaychain || 0) + 1>>
 	<<unset $bailey_encroach>>
 	<<set $rentstage += 1>>
@@ -695,7 +710,7 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 	<br><br>
 
 	<<He>> releases you and presses <<his>> hand on your chest, shoving you. You stumble backwards as Bailey takes a menacing step towards you
-	<<if $money gte $rentmoney + ($babyRent or 0)>>
+	<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
 		with <<his>> palm open expectantly. "Your payment. Now."
 		<br><br>
 
@@ -718,7 +733,7 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 		<</if>>
 	<</if>>
 <<else>>
-	"You can pay me," <<person1>><<he>> sneers. "With money. <span class="pink">£<<print ($rentmoney + ($babyRent or 0)) / 100>>.</span> <span class="red">That's what your body's worth.</span>"<<npcincr Bailey lust 1>><<glust "Bailey">>
+	"You can pay me," <<person1>><<he>> sneers. "With money. <span class="pink">£<<print ($rentmoney + ($babyRent or 0) + ($bratTax or 0)) / 100>>.</span> <span class="red">That's what your body's worth.</span>"<<npcincr Bailey lust 1>><<glust "Bailey">>
 	<br><br>
 
 	<<if $baileydefeatedchain gte 1>>
@@ -731,7 +746,7 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 	<</if>>
 	It's too late to negotiate with Bailey. <<He>> wants <<his>> payment.
 
-	<<if $money gte $rentmoney + ($babyRent or 0)>>
+	<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
 		<<He>> holds out <<his>> hand.
 		<br><br>
 
@@ -769,6 +784,7 @@ Robin hugs you softly after Bailey leaves. "I'm so sorry," <<he>> says.
 <<effects>>
 <<set $baileydefeatedchain to 0>><<set $soldCount += 1>>
 <<set $baileyRefusedToPay to 0>>
+<<set $bailey_brat to { points: 0, reasons: [] }>><<set $bratTax to 0>>
 <<set $baileyRefusedToPayTotal to $baileyRefusedToPayTotal lt $rentmoney + ($babyRent || 0) ? 0 : $baileyRefusedToPayTotal - ($rentmoney + ($babyRent || 0))>>
 <<unset $bailey_encroach>>
 
@@ -1079,6 +1095,7 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 :: Rent Robin Fight Finish
 <<effects>>
 <<set _robin to statusCheck("Robin")>>
+<<set $bailey_brat to { points: 0, reasons: [] }>><<set $bratTax to 0>>
 
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<ejaculation "short">><<set $baileydefeatedlewd += 1>><<set $baileydefeatedchain += 1>><<earnFeat "Bailey's Trouble Maker">>
@@ -1154,6 +1171,7 @@ You fall to the ground, too hurt to move.
 
 :: Rent Fight Finish
 <<effects>>
+<<set $bailey_brat to { points: 0, reasons: [] }>><<set $bratTax to 0>>
 
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<ejaculation "short">><<set $baileydefeatedlewd += 1>><<set $baileydefeatedchain += 1>><<earnFeat "Bailey's Trouble Maker">>

@@ -558,6 +558,7 @@ The walk back to the orphanage is uneventful, for the most part. Bailey walks wi
 	<<His>> hand finds the small of your back.
 	<br><br>
 
+	<<rng>>
 	<<if $rng lt 25>>
 		<<He>> steers you around something in the pavement. <<His>> hand feels warm against your back.<<arousal 200>><<garousal>>
 	<<elseif $rng lt 50>>
@@ -727,7 +728,7 @@ Bailey offers <<his>> hand.
 <span class="lewd">You feel elated holding Bailey's hand for the first time.</span><<arousal 500>><<garousal>>\
 <<else>>
 <span class="red">You feel mortified holding Bailey's hand for the first time.</span><<stress 40>><<ggstress>>\
-<</if>><<takeNPCVirginity "Bailey" "handholding" "pc">><<takeVirginity "Bailey" "handholding">>\
+<</if>><<takeVirginity "Bailey" "handholding">>\
 <</if>><<npcincr Bailey lust 1>><<arousal 200>><<garousal>>
 <br><br>
 
@@ -901,7 +902,7 @@ You both order. <<person2>>The <<personsimple>> takes your menus and scampers aw
 Bailey's eyes scan the room constantly.
 <br><br>
 
-<<generateNPC 3 a>><<person3>><<if $rng lt 25>>\
+<<generateNPC 3 a>><<person3>><<rng>><<if $rng lt 25>>\
 	Someone across the room catches Bailey's eye. <<person1>><<He>> raises <<his>> glass. The smile is perfect.
 <<elseif $rng lt 50>>\
 	A <<person3>><<person>> stops at the table to say hello. <<person1>>Bailey laughs at something <<person3>><<he>> says. It sounds practiced.
@@ -1076,7 +1077,7 @@ You try and make small talk with Bailey.
 You and Bailey dig in. Bailey cuts <<his>> food precisely and eats slowly. <<He>> doesn't talk but <<he>> listens to you when you do.
 <br><br>
 
-<<if $rng lt 25>>\
+<<rng>><<if $rng lt 25>>\
 	A <<generateNPC 3 a>><<person3>><<person>> at a nearby table keeps glancing at Bailey. Bailey doesn't notice, or pretends not to.
 <<elseif $rng lt 50>>\
 	You catch <<person2>>the <<personsimple>> whispering to another server. They both glance at your table.
@@ -1297,6 +1298,7 @@ You pay the bill.
 :: Bailey Date Medium Drive Home
 <<pass 15>><<effects>>
 <<npc Bailey>><<person1>>
+<<if !$bailey_date_pc_paid>><<baileyBrat 1 "bill">><</if>>
 
 Bailey drives. <<He>> doesn't talk.
 <br><br>
@@ -1642,7 +1644,7 @@ You and Robin's identification papers sit on the counter top, close enough to gr
 :: Bailey Date All Night Steal
 <<pass 5>><<effects>>
 <<npc Bailey>><<person1>>
-<<baileySeenAdd "papersCaught">>
+<<baileySeenAdd "papersCaught">><<baileyBrat 2 "papers">>
 
 You reach for the papers. <span class="red">You fail in your skulduggery.</span>
 <br><br>
@@ -1916,7 +1918,7 @@ Eventually, <<he>> opens <<his>> eyes, sits up straight, and picks up <<his>> ph
 
 
 :: Bailey Date All Night Couch Sex Finish
-<<pass 5>><<effects>>
+<<pass 5>><<person1>><<effects>>
 
 <<if $enemyarousal gte $enemyarousalmax>>\
 	<<ejaculation>><<npcincr Bailey love 3>><<set $bailey_love += 3>><<npcincr Bailey lust -20>>
@@ -1932,8 +1934,7 @@ Eventually, <<he>> opens <<his>> eyes, sits up straight, and picks up <<his>> ph
 	<</if>>
 
 <<elseif $enemyhealth lte 0>>\
-	<<npcincr Bailey love -3>><<set $bailey_love -= 3>><<llllove "Bailey">>
-	You push Bailey off.
+	You push Bailey off.<<npcincr Bailey love -3>><<set $bailey_love -= 3>><<llllove "Bailey">><<baileyBrat 3 "seducebeat">>
 	<br><br>
 	<<He>> has gone still. <<His>> face is flat as <<he>> touches the bruise you inflicted, but something in <<his>> eyes burn. You don't waste time. <<tearful>> you grab your clothes and scramble off of the couch, towards the door. You hear Bailey's slow footsteps behind you as you run outside of <<his>> apartment. You slam the door behind you and run towards the stairs.<<stress 18>><<ggstress>><<trauma 12>><<ggtrauma>>
 	<br><br>
@@ -2115,7 +2116,7 @@ You reach forward and touch <<his>> chest. <<He>> stiffens beneath your touch fo
 
 
 :: Bailey Date All Night Bed Sex Finish
-<<pass 5>><<effects>>
+<<pass 5>><<person1>><<effects>>
 
 <<if $enemyarousal gte $enemyarousalmax>>\
 	<<ejaculation>><<npcincr Bailey love 3>><<set $bailey_love += 3>><<npcincr Bailey lust -20>>
@@ -2126,8 +2127,7 @@ You reach forward and touch <<his>> chest. <<He>> stiffens beneath your touch fo
 	<br>
 
 <<elseif $enemyhealth lte 0>>\
-	<<npcincr Bailey love -3>><<set $bailey_love -= 3>><<llllove "Bailey">>
-	You push Bailey off.
+	You push Bailey off.<<npcincr Bailey love -3>><<set $bailey_love -= 3>><<llllove "Bailey">><<baileyBrat 3 "seducebeat">>
 	<br><br>
 	<<He>> has gone still. <<His>> face is flat as <<he>> touches the bruise you inflicted, but something in <<his>> eyes burn. You don't waste time. <<tearful>> you grab your clothes and scramble out of the bed in the dark, rushing towards the door. You hear Bailey's slow footsteps behind you as you run outside of <<his>> apartment. You slam the door behind you and run towards the stairs.<<stress 18>><<ggstress>><<trauma 12>><<ggtrauma>>
 	<br><br>
@@ -2524,26 +2524,4 @@ You can hear orphans throughout the building getting ready for their day.
 <br><br>
 
 <<link [[Next|Orphanage]]>><<endevent>><</link>>
-<br>
-
-
-:: Bailey Flat Door
-<<set $location to "town">><<effects>>
-
-You climb the stairs to Bailey's flat and look at the <span style="color:#b39ddb;">lotus doorknob</span>. Bailey probably isn't here right now.
-<br><br>
-
-<<link [[Knock|Bailey Flat Knock]]>><<pass 1>><</link>>
-<br>
-<<link [[Leave|Flats]]>><<pass 1>><</link>>
-<br>
-
-
-:: Bailey Flat Knock
-<<pass 1>><<effects>>
-
-You knock on Bailey's door. There is no answer.
-<br><br>
-
-<<link [[Leave|Flats]]>><<pass 1>><</link>>
 <br>

@@ -1,6 +1,7 @@
 :: Bailey Whitney Office Walk In
 <<effects>><<getTarget>>
 <<npc Bailey>><<person1>>
+<<set $bailey_whitney_dom_entry to $bailey_dom>>
 
 The office door opens. <span class="bailey-red">It's Bailey.</span>
 <br><br>
@@ -74,7 +75,7 @@ Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> d
 		<br><br>
 
 		<<npc Whitney>><<person1>>
-		Whitney looks at Bailey. Bailey doesn't blink. Whitney leaves and you follow him out.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom>>
+		Whitney looks at Bailey. Bailey doesn't blink. Whitney leaves and you follow <<nnpc_him "Whitney">> out.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom>>
 		<br><br>
 	<<else>>
 		"Not on my desk," <<he>> says.<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
@@ -359,7 +360,7 @@ Whitney's fists clench at <<his>> sides. <<His>> whole body is rigid. <<He>> doe
 	Bailey pulls back from you, holding <<his>> cheek. <<His>> jaw is tight.
 	<br><br>
 
-	<<He>> stands up with a sneer. <<He>> doesn't look at you or Whitney. <<He>> kicks <<his>> chair back and slams <<his>> hand down on his <<desk>>.<<npcincr Bailey dom -1>><<set $bailey_dom -= 1>><<ldom "Bailey">><<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
+	<<He>> stands up with a sneer. <<He>> doesn't look at you or Whitney. <<He>> kicks <<his>> chair back and slams <<his>> hand down on <<his>> desk.<<npcincr Bailey dom -1>><<set $bailey_dom -= 1>><<ldom "Bailey">><<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
 	<br><br>
 
 	"Get out," Bailey snarls. <<He>>'s talking to both of you. "Now!"
@@ -439,13 +440,14 @@ Whitney's friends are nowhere in sight.
 :: Bailey Whitney Office After
 <<effects>><<getTarget>>
 
-<<if $bailey_dom lt 30>>
+<<set _domEntry to ($bailey_whitney_dom_entry is undefined) ? $bailey_dom : $bailey_whitney_dom_entry>>
+<<if _domEntry lt 30>>
 	Whitney and <<nnpc_his "Whitney">> friends are nowhere to be found.
 	<br><br>
 
 	You go to your room. Your face stings.
 	<br><br>
-<<elseif $bailey_dom lt 70>>
+<<else>>
 	<<npc Whitney>><<person1>>
 	Whitney's friends are nowhere in sight.
 	<br><br>
