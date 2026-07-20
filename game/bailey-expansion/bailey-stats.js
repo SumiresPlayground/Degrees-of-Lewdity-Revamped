@@ -64,6 +64,12 @@ $(document).one(":storyready", function () {
         /* Lots of scenes bump $bailey_love but skip <<npcincr Bailey love>>; without this
            mirror the Respect bar freezes while the mod var climbs. */
         if (V.bailey_love !== undefined && C.npc.Bailey.love !== V.bailey_love) C.npc.Bailey.love = V.bailey_love;
+
+        /* Keep monogamous Bailey at 0 so he skips condoms; the game won't re-zero it once it drifts. */
+        if (V.bailey_monogamous === true && C.npc.Bailey.pregnancyAvoidance !== 0) {
+            console.log("[BaileyExpansion] Monogamous Bailey pregnancyAvoidance " + C.npc.Bailey.pregnancyAvoidance + " -> 0");
+            C.npc.Bailey.pregnancyAvoidance = 0;
+        }
     }
     $(document).on(":passagestart :passageend", syncBaileyDom);
 
@@ -363,7 +369,7 @@ $(document).one(":storyready", function () {
         el.style.textAlign = "center";
         el.style.marginTop = "1em";
         el.style.marginBottom = "1em";
-        el.textContent = "Reiyu's Bailey Expansion v0.5.0 for New World \u2014 Active";
+        el.textContent = "Reiyu's Bailey Expansion v0.5.1 for New World \u2014 Active";
         var firstChild = _indicatorContainer.firstChild;
         if (firstChild) {
             _indicatorContainer.insertBefore(el, firstChild);
