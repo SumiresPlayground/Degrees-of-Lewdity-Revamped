@@ -13719,8 +13719,8 @@ function initUpper() {
 	
 			{index: 5,
 			slot: "upper",
-			name: "Spring dancer top",
-			name_cap: "spring dancer top",
+			name: "spring dancer top",
+			name_cap: "Spring dancer top",
 			variable: "spring dancer",
 			combat: {
 				reference: "regularshirt",

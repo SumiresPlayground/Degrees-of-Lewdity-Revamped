@@ -5,6 +5,9 @@
 	* EDIT widget "backComp" FOR VERSIONS 0.3.4.8+
 	*/
 
+	<<if V.studyBooks.rented.count is 0>>
+		<<set $studyBooks.rented to "none">>
+	<</if>>
 	<<if $objectVersion is undefined>>
 		<<set $objectVersion to {}>>
 	<</if>>
@@ -1190,7 +1193,7 @@
 	<</if>>
 
 	<<if $player.gender_posture is undefined>>
-		<<if $background is "crossdresser">>
+		<<if V.background.crossdresser===true>>
 			<<if $player.sex is "f">>
 				<<set $player.gender_posture to "m">>
 			<<elseif $player.sex is "m">>
@@ -5052,7 +5055,7 @@
 
 	<!-- V0.4.0.2 SNEAKY posture undefined -->
 	<<if $player.gender_posture is undefined>>
-		<<if $background is "crossdresser">>
+		<<if V.background.crossdresser===true>>
 			<<if $player.sex is "f">>
 				<<set $player.gender_posture to "m">>
 			<<elseif $player.sex is "m">>
@@ -5484,12 +5487,12 @@
 		<<set $wardrobe.handheld to []>>
 		<<set $store.handheld to []>>
 		<<set $wear_handheld to "none">>
-		<<if ($player.sex is "f" and $background isnot "crossdresser") or
-		($player.sex is "m" and $background is "crossdresser") or
+		<<if ($player.sex is "f" and V.background.crossdresser===false) or
+		($player.sex is "m" and V.background.crossdresser===true) or
 		($player.sex is "h" and
 			(
-				(($player.gender_body is "m" or ($player.gender_body is "a" and $player.breastsize lte 3)) and $background is "crossdresser") or
-				(($player.gender_body is "f" or ($player.gender_body is "a" and $player.breastsize gt 3)) and $background isnot "crossdresser")
+				(($player.gender_body is "m" or ($player.gender_body is "a" and $player.breastsize lte 3)) and V.background.crossdresser===true) or
+				(($player.gender_body is "f" or ($player.gender_body is "a" and $player.breastsize gt 3)) and V.background.crossdresser===false)
 			)
 		)>>
 			<<set $wardrobe.handheld.push(clone(setup.clothes.handheld[8]))>>
