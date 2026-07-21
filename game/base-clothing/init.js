@@ -154,7 +154,7 @@ function givestartclothing() {
 		}
 	}
 
-	if (V.background === "crossdresser") clothesType = V.player.sex === "m" ? "female" : "male";
+	if (V.background.crossdresser===true) clothesType = V.player.sex === "m" ? "female" : "male";
 
 	if (clothesType === "female") {
 		V.outfit.push(

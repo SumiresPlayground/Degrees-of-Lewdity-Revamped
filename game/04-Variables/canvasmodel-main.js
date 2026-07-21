@@ -2221,24 +2221,8 @@ Renderer.CanvasModels.main = {
 				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
 			},
 		}),
-		"cow_ear_left": genlayer_ears("cow", false, {
-			z: ZIndices.horns,
-			masksrcfn(options) {
-				if (options.worn.over_upper.setup.name === "kaiju costume")
-					return `img/clothes/over-upper/kaiju/mask.png`;
-				return "img/face/masks/left.png"
-			}
-		}),
-		"cow_ear_right": genlayer_ears("cow", false, {
-			zfn() {
-				return ZIndices.ears + 0.5;
-			},
-			masksrcfn(options) {
-				if (options.worn.over_upper.setup.name === "kaiju costume")
-					return `img/clothes/over-upper/kaiju/mask.png`;
-				return "img/face/masks/right.png"
-			}
-		}),
+		"cow_ear_left": genlayer_ears("cow", false),
+		"cow_ear_right": genlayer_ears("cow", false),
 		"cow_tag": genlayer_ears("cow", false, {
 			z: ZIndices.facewear,
 			src: `img/transformations/cow/ears/tag.png`,
@@ -3040,7 +3024,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.zombie_body_type);
 			},
-			z: ZIndices.skin + 0.1,
+			z: ZIndices.bellyBase + 0.1,
 			animation: "idle"
 		},
 		"zombie_head": {
