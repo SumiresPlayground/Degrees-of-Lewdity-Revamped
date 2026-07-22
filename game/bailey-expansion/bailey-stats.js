@@ -396,7 +396,7 @@ $(document).one(":storyready", function () {
         el.style.textAlign = "center";
         el.style.marginTop = "1em";
         el.style.marginBottom = "1em";
-        el.textContent = "Reiyu's Bailey Expansion v0.5.2 for New World \u2014 Active";
+        el.textContent = "Reiyu's Bailey Expansion v0.5.3 for New World \u2014 Active";
         var firstChild = _indicatorContainer.firstChild;
         if (firstChild) {
             _indicatorContainer.insertBefore(el, firstChild);
