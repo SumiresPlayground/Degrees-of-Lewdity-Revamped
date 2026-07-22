@@ -1,26 +1,75 @@
+function baileyRevealed() {
+    return V.stockholm_active === true;
+}
+
+window.baileyMaxRent = function () {
+    var modifier = (V.settings && V.settings.rentCostModifier) || 1;
+    return Math.floor(200000 * modifier);
+};
+
+/*   "leaving" 05:30–06:30  heading out
+     "away"    06:30–19:00  at the orphanage
+     "asleep"  02:00–05:30  there but won't come to the door
+     "home"    19:00–02:00  home and reactive */
+window.baileyFlatState = function () {
+    var t = Time.hour * 60 + Time.minute;       
+    if (t >= 330 && t < 390)  return "leaving"; // 05:30–06:30
+    if (t >= 390 && t < 1140) return "away";    // 06:30–19:00
+    if (t >= 120 && t < 330)  return "asleep";  // 02:00–05:30
+    return "home";                              // 19:00–02:00
+};
+
+/* Weekend-obligation state. 
+   $bailey_weekend_lastvisit (Time.days at the last flat visit)
+   baileyWeeksMissed(): whole weeks since that visit
+   baileyStraying(): 2+ weeks */
+window.baileyWeeksMissed = function () {
+    if (!V.bailey_monogamous) return 0;
+    var last = (typeof V.bailey_weekend_lastvisit === "number") ? V.bailey_weekend_lastvisit : Time.days;
+    return Math.max(0, Math.floor((Time.days - last) / 7));
+};
+window.baileyStraying = function () { return baileyWeeksMissed() >= 2; };
+
+/* Bailey-specific Stockholm indicator */
+Macro.add("gbaileystock", {
+    handler: function () {
+        if (typeof statDisplay === "undefined" || typeof statDisplay.statChange !== "function") return;
+        const label = baileyRevealed() ? "Stockholm Syndrome" : "???";
+        this.output.append(statDisplay.statChange(label, 1, "bailey-stockholm"));
+    }
+});
+
+/* Brat Tax feedback, e.g. "+ £50 Brat Tax". */
+Macro.add("gbrattax", {
+    handler: function () {
+        if (typeof statDisplay === "undefined" || typeof statDisplay.statChange !== "function") return;
+        if (typeof formatMoney !== "function") return;
+        const pennies = Number(this.args[0]);
+        if (!pennies || pennies < 0) return;
+        this.output.append(statDisplay.statChange(formatMoney(pennies) + " Brat Tax", 1, "pink"));
+    }
+});
+
 $(document).one(":storyready", function () {
+
+    /* One-time compatibility repair for persistent RBE values that are read as objects or text. */
+    if (!V.stockholm_points || typeof V.stockholm_points !== "object" || Array.isArray(V.stockholm_points)) V.stockholm_points = {};
+    if (typeof V.bailey_title !== "string") V.bailey_title = "Bailey";
+    V.bailey_title = V.bailey_title.replace(/[<>]/g, "").trim().slice(0, 15) || "Bailey";
+    if (typeof V.bailey_title_unlocked !== "boolean") V.bailey_title_unlocked = false;
 
     /* Car icon as a base64 data URI in JS (not a shipped image file), so there's no path
        for ModLoader/the build to fail to resolve. It's injected via a <<script>> block at
-       the date event, not pasted into passage text — inline base64 gets eaten by SugarCube's
-       // italic parser. */
+       the date event — pasted into passage text, SugarCube's // italic parser eats it. */
     window.baileyCarIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAilJREFUSIntlb9rE2EYxz9Xrp5YmgbTxB8IVqKXwR8U3CwmOBnELIbiUJw6Bjq5dMs/0N09uLiJSybFQrcKVeOQK6FR0Eh+aJJaJdPrEN7zzfW9s6lNlvqFkLvn3vf5PM/3ebmDYyvbnhe2PS/GDtVdj1ITEjTubg2Ab+2f4nT4lCELuJ5Y4H15AwDH2TJGQq58bN2WP4BsJifGYb1Zrn7/6g3KLtUxHHXnJtDxe+g4W4Y6hpEqm8m51nrHcJQygx7qxjAWsDqG1cX0wCH78asHwNvtT4EJ1ssV7ZgCwfdSl+trK8sCYHPyAgDdVoNQJAqT/TW9uRAAVrVE7O5DOs06vTevsG7eodtqkAShK2AiCLy2siyKTYNn5eYAdGY25t4DnGntuFAZm5mNEYpE6c1dAyCZiA845guWUIBQJDoAVQFWtcSJW/fpNOsD+9U1KlwWsM//bCYn7JMVXnatIDNcWdWSm1iNSau9cSlDdicDzdpnNt5tHwj6LzJWF9Piw86XQ21u7+4NvSc8PUV7d69/qq9eOj90AulKeHpKW5AaV+9lsYb3tI1LhtjMi9RSAYCFG1f2LVDn/frpo/5FLU/qcfzAkKidpuEUPeAXCM7lSS0VtLZJPX/yAGp5ABeqJvSzXK6R/3Kd2U9S0Hardt135U+X3oQXz0a0YF1svVwxTFlt0Mn2dqNL+Ld3Np7XpumXaFj5fQySFIV2xocFJRNxN6Ef9L+Ot34DE0wbOE6jz3IAAAAASUVORK5CYII=";
 
-    function baileyRevealed() {
-        return V.stockholm_active === true;
-    }
-
-    /* Bailey carries two dom values that must agree: the mod gates prose/options on the plain
-       $bailey_dom (trivial to <<set>> from twee), while the vanilla social panel reads
-       C.npc.Bailey.dom. This runs every passage and mirrors $bailey_dom (source of truth) onto
-       the NPC stat — plus the NaN/undefined self-heals below, and the Stockholm floor of 100. */
+    /* Bailey carries two dom values that must agree: $bailey_dom and C.npc.Bailey.dom.
+    This runs every passage and mirrors $bailey_dom onto the NPC stat.
+    NaN/undefined self-heals below, and the Stockholm floor of 100. */
     function syncBaileyDom() {
         if (!C.npc.Bailey) return;
 
-        /* Heal NaN. `<<set $bailey_dom += 1>>` on an undefined var gives NaN, which
-           fails every comparison (both gte and lt) silently and breaks dom-gated prose —
-           and would clobber a good C.npc.Bailey.dom via the mirror below. Prefer the
-           NPC-side value; if that's junk too, fall back (dom 100/50, love 25). */
+        /* NaN fails gte and lt both, so dom gates stop firing silently. */
         if (Number.isNaN(V.bailey_dom)) {
             var _npcDom = C.npc.Bailey.dom;
             var _hasNpcDom = typeof _npcDom === "number" && !Number.isNaN(_npcDom);
@@ -36,17 +85,15 @@ $(document).one(":storyready", function () {
             V.bailey_love = _healLove;
         }
 
-        /* Mod added mid-save: Orphanage Intro never ran, so $bailey_dom is undefined and
-           dom checks fail silently. Seed the baseline (love too). */
+        /* If the mod is added mid-save: Orphanage Intro never ran,
+        so $bailey_dom is undefined and dom checks fail silently. */
         if (V.bailey_dom === undefined) {
             V.bailey_dom = baileyRevealed() ? 100 : 50;
             console.log("[BaileyExpansion] Initialized missing $bailey_dom -> " + V.bailey_dom);
         }
         if (V.bailey_love === undefined) V.bailey_love = 0;
 
-        /* Same NaN trap for $stockholm_bailey. Rebuild the count from the $stockholm_points
-           ledger (the per-source flags: offer/temple/kylar/…) so a corrupted counter can't
-           silently wipe Stockholm the player actually earned. */
+        /* Rebuild $stockholm_bailey from $stockholm_points */
         if (typeof V.stockholm_bailey !== "number" || Number.isNaN(V.stockholm_bailey)) {
             var _pts = V.stockholm_points || {};
             var _healStock = 0;
@@ -59,11 +106,19 @@ $(document).one(":storyready", function () {
             V.stockholm_bailey = _healStock;
         }
 
-        if (baileyRevealed() && V.bailey_dom < 100) V.bailey_dom = 100;
-        if (C.npc.Bailey.dom !== V.bailey_dom) C.npc.Bailey.dom = V.bailey_dom;
-        /* Lots of scenes bump $bailey_love but skip <<npcincr Bailey love>>; without this
-           mirror the Respect bar freezes while the mod var climbs. */
-        if (V.bailey_love !== undefined && C.npc.Bailey.love !== V.bailey_love) C.npc.Bailey.love = V.bailey_love;
+        mirrorBaileyDom();
+    }
+
+    /* Lightweight mirror for :passageend, so mid-passage changes show without redoing the healing. */
+    function mirrorBaileyDom() {
+        if (!C.npc.Bailey) return;
+        if (typeof V.bailey_dom === "number" && !Number.isNaN(V.bailey_dom)) {
+            if (baileyRevealed() && V.bailey_dom < 100) V.bailey_dom = 100;
+            if (C.npc.Bailey.dom !== V.bailey_dom) C.npc.Bailey.dom = V.bailey_dom;
+        }
+        if (typeof V.bailey_love === "number" && !Number.isNaN(V.bailey_love) && C.npc.Bailey.love !== V.bailey_love) {
+            C.npc.Bailey.love = V.bailey_love;
+        }
 
         /* Keep monogamous Bailey at 0 so he skips condoms; the game won't re-zero it once it drifts. */
         if (V.bailey_monogamous === true && C.npc.Bailey.pregnancyAvoidance !== 0) {
@@ -71,7 +126,8 @@ $(document).one(":storyready", function () {
             C.npc.Bailey.pregnancyAvoidance = 0;
         }
     }
-    $(document).on(":passagestart :passageend", syncBaileyDom);
+    $(document).on(":passagestart", syncBaileyDom);
+    $(document).on(":passageend", mirrorBaileyDom);
 
     /* Stood-up check: date scheduled but not attended by midnight -> missed. Medium + All Night. */
     $(document).on(":passagestart", function () {
@@ -102,10 +158,7 @@ $(document).one(":storyready", function () {
         }
     });
 
-
-    /* +1 lust/day once Stockholm's active, +2 while monogamous, like the vanilla LIs.
-       Own day-counter ($bailey_lust_lastday) since vanilla's daily tick isn't exposed
-       to wrap. Clamp 0-100. */
+    /* +1 lust/day once Stockholm's active, +2 while monogamous. */
     $(document).on(":passagestart", function () {
         if (typeof Time === "undefined" || typeof Time.days === "undefined") return;
         if (V.bailey_lust_lastday === undefined) { V.bailey_lust_lastday = Time.days; return; }
@@ -118,10 +171,7 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /* Christmas gift reset. Vanilla clears its own christmas_gift_* vars but not
-       Bailey's, so $christmas_gift_bailey would stick forever and the shop's gift-for-Bailey
-       link (gated on it being undefined) never comes back. Clear the per-year vars once
-       the season's over. Lotus-day memory + office display stay permanent — leave them. */
+    /* Christmas gift reset. Lotus + office display stay permanent — leave them. */
     $(document).on(":passagestart", function () {
         if (V.christmas) return;
         if (V.christmas_gift_bailey === undefined &&
@@ -132,23 +182,14 @@ $(document).one(":storyready", function () {
         delete V.christmas_gift_bailey_given;
     });
 
-    /* The Christmas lure becomes his displayed gift, but a later year's gift can
-       overwrite $bailey_office_gift. Stamp it permanently so scenes (Eden lake) still
-       know he got the lure. Back-fills old saves too. */
+    /* Keeps the Christmas Fishing Lure Gift permanent. */
     $(document).on(":passagestart", function () {
         if (V.bailey_office_gift === "lure" && !V.bailey_lure_received) {
             V.bailey_lure_received = true;
         }
     });
 
-    /*
-       Bailey Collar Art Registry
-       Single source of truth for all built-in collar art.
-       Adding a new collar:
-         1. Append one entry to this array (key + pack + label + base64).
-         2. Done - every picker auto-populates, renderer auto-serves.
-       The pack field controls which <optgroup> the listbox shows it in.
-       */
+    /* Bailey Collar Art Registry - base64 */
     window.baileyCollarRegistry = [
         { key: "goose", pack: "Goose", label: "Goose by Reiyu", image: "data:image/webp;base64,UklGRg4CAABXRUJQVlA4TAECAAAv/8E/EF+hJpKt5v9PDh2DAIzgBOtooExd1KCobSQn2b0G4I4/hYPXPmoCAGnYEICbEmSlhHms4GcEjvn/gUNcVQ+neqBAKEERiigIigCEgkd78BGAKAhLls/lCgkzrT0Gq7Pq/0ptHpM4Go8Bsm1bbRvbKeoF49i4dxAJ//+BWimaZb3Ruzei/4zctg3DfKBQ222nPSCJf9R/6j/1n/pP/af+07a8zL6ZUe7deQHAueC7O4MBBnLvDrrnAPeS5N4d5vq8Mv3/3cU/6j/1n/pP/adH6ab/2E/K3btmMjoZd89ezPQVva5k3L18myzPShF3r16ZTX3svlsZd2/eq8XUDbHIRNx9SRbvk/DVohZx93fbmtdlMeFj/N0CmYi75xZwZVv2v+KpzqtRL+Lu2Qhmk+U0ZUJI2JoVYb9NJuLuuYWzcB92V5tziFh1vT0f3DeliLu3I8DujTsdQxwi3P7gAGBUibh7/Q2A4PEcSHiE79WBQsTdkTXbEdd+4PPr8+tJ+h+yJOPu2Fcbh/D90n0+yegRnF3aMkm5Oxo7ivQD+S37EIMDPpKcu+O8t7sQ+Yj05GOIYb3p10nS3YHDDsEH+DsCfDi5TYKwuwM4bG93gsSeCZB4dwC3e+ItAf99d/GP+k/9p/5T/6n/1H/qP/Wf+k/9p/5T/6n/1H/qP/WfMg0A" },
         { key: "goosecolored", pack: "Goose", label: "Goose - Colored Lotus by En", image: "data:image/png;base64,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EEgvoACkj9iCBAgQIEAgCigA0cSEAAECBAikF1AA0kdsQQIECBAgEAUUgGhiQoAAAQIE0gsoAOkjtiABAgQIEIgCCkA0MSFAgAABAukFFID0EVuQAAECBAhEAQUgmpgQIECAAIH0AgpA+ogtSIAAAQIEooACEE1MCBAgQIBAegEFIH3EFiRAgAABAlFAAYgmJgQIECBAIL2AApA+YgsSIECAAIEooABEExMCBAgQIJBeQAFIH7EFCRAgQIBAFFAAookJAQIECBBIL6AApI/YggQIECBAIAooANHEhAABAgQIpBdQANJHbEECBAgQIBAFFIBoYkKAAAECBNILKADpI7YgAQIECBCIAgpANDEhQIAAAQLpBRSA9BFbkAABAgQIRAEFIJqYECBAgACB9AIKQPqILUiAAAECBKKAAhBNTAgQIECAQHoBBSB9xBYkQIAAAQJRQAGIJiYECBAgQCC9gAKQPmILEiBAgACBKKAARBMTAgQIECCQXkABSB+xBQkQIECAQBRQAKKJCQECBAgQSC+gAKSP2IIECBAgQCAKKADRxIQAAQIECKQXUADSR2xBAgQIECAQBRSAaGJCgAABAgTSCygA6SO2IAECBAgQiAIKQDQxIUCAAAEC6QUUgPQRW5AAAQIECEQBBSCamBAgQIAAgfQCCkD6iC1IgAABAgSigAIQTUwIECBAgEB6AQUgfcQWJECAAAECUUABiCYmBAgQIEAgvYACkD5iCxIgQIAAgSigAEQTEwIECBAgkF5AAUgfsQUJECBAgEAUUACiiQkBAgQIEEgvoACkj9iCBAgQIEAgCigA0cSEAAECBAikF/gPm/3uo5vglE0AAAAASUVORK5CYII=" },
@@ -243,9 +284,8 @@ $(document).one(":storyready", function () {
         }
     };
 
-    /* Custom collar art. File picker -> base64 -> localStorage (survives reload, stays out
-       of the save) -> $bailey_collar_art = "custom" -> redraw. 2MB cap (base64 runs ~33%
-       bigger and localStorage tops out around 5-10MB). */
+    /* Custom collar art. File picker -> base64 -> localStorage
+    -> $bailey_collar_art = "custom" -> redraw. 2 MB Cap. */
     window.baileyCollarUpload = function () {
         var input = document.createElement("input");
         input.type = "file";
@@ -298,7 +338,6 @@ $(document).one(":storyready", function () {
         if (typeof window.baileyCollarRefreshListbox === "function") window.baileyCollarRefreshListbox();
     };
 
-
     /* Re-render any visible #collar-listbox (the listbox widget output)
        so Custom options reflect the current localStorage state.
        Called after upload and after remove-custom. */
@@ -318,7 +357,6 @@ $(document).one(":storyready", function () {
     /* Collar-listbox change handler. Document-level so it survives passage transitions
        without setTimeout/render-timing hacks. */
     $(document).on("change", "#collar-listbox select", function () {
-        /* Manual variable sync - we emit <select> directly so no SugarCube binding */
         if (typeof State !== "undefined" && State.variables) {
             State.variables.bailey_collar_art = this.value;
         }
@@ -327,19 +365,9 @@ $(document).one(":storyready", function () {
         }
     });
 
-
-    /* Bailey-specific Stockholm indicator - does NOT override the global <<gstockholm>> */
-    Macro.add("gbaileystock", {
-        handler: function () {
-            if (typeof statDisplay === "undefined" || typeof statDisplay.statChange !== "function") return;
-            const label = baileyRevealed() ? "Stockholm Syndrome" : "???";
-            this.output.append(statDisplay.statChange(label, 1, "bailey-stockholm"));
-        }
-    });
-
-    /* Title swap: "It's Bailey." -> "It's Daddy." (or whatever it's set to). Only while
-       Stockholm's active, the title's unlocked, and it's not still "Bailey". Deactivating
-       Stockholm resets it back to "Bailey". */
+    /* Title swap: "It's Bailey." -> "It's Daddy." (or whatever it's set to).
+        Only while Stockholm's active, the title's unlocked, and it's not still "Bailey".
+        Deactivating Stockholm resets it back to "Bailey". */
     $(document).on(":passageend", function () {
         if (!V.stockholm_active) return;
         if (!V.bailey_title_unlocked || !V.bailey_title || V.bailey_title === "Bailey") return;
@@ -358,9 +386,8 @@ $(document).one(":storyready", function () {
         }
     });
 
-    /* Glowing "mod active" line on the Start screen. Injected here in :storyready rather
-       than a :passageend handler — Start's :passageend fires before this would register,
-       so a handler would miss it. */
+    /* Glowing "mod active" line on the Start screen. Injected here in :storyready because
+       Start's :passageend fires before a handler would register. */
     var _indicatorContainer = document.getElementById("passage-content") || document.querySelector(".passage");
     if (_indicatorContainer && !_indicatorContainer.querySelector("#bailey-mod-indicator")) {
         var el = document.createElement("div");
@@ -369,7 +396,7 @@ $(document).one(":storyready", function () {
         el.style.textAlign = "center";
         el.style.marginTop = "1em";
         el.style.marginBottom = "1em";
-        el.textContent = "Reiyu's Bailey Expansion v0.5.1 for New World \u2014 Active";
+        el.textContent = "Reiyu's Bailey Expansion v0.5.2 for New World \u2014 Active";
         var firstChild = _indicatorContainer.firstChild;
         if (firstChild) {
             _indicatorContainer.insertBefore(el, firstChild);
@@ -378,22 +405,15 @@ $(document).one(":storyready", function () {
         }
     }
 
-    /* Collar item lives in baileyCollar.json now (loaded at modloader bootstrap). Used to
-       be registered here in JS, which ran after save deserialization and made the collar
-       vanish on load. */
 
     /* Add Bailey to the love-interest roster (selectable only while Stockholm's active). */
     if (typeof setup !== "undefined" && setup.loveInterestNpc) {
         if (!setup.loveInterestNpc.includes("Bailey")) {
-            /* unshift (not push): place Bailey at the START of the love interest
-               list so he leads the Attitudes-menu picker rather than being buried
-               beneath each fork's own LIs (notably New World's extra five). */
             setup.loveInterestNpc.unshift("Bailey");
             console.log("[BaileyExpansion] Bailey added to start of loveInterestNpc list");
         }
     }
 
-    /* Patch isPossibleLoveInterest to recognize Bailey */
     var _origIsPossibleLoveInterest = window.isPossibleLoveInterest;
     window.isPossibleLoveInterest = function (name) {
         if (name === "Bailey") {
@@ -402,9 +422,7 @@ $(document).one(":storyready", function () {
         return _origIsPossibleLoveInterest(name);
     };
 
-    /* Make Bailey's virginities read pink (love interest), not green. Vanilla's
-       isPossibleLoveInterestVirginity() calls a closure-local isPossibleLoveInterest, so it
-       never sees the window patch above — wrap it too. Also handles combined "X and Y" takers. */
+    /* Make Bailey's virginities read pink (love interest), not green. */
     if (typeof window.isPossibleLoveInterestVirginity === "function") {
         var _origLoveInterestVirginity = window.isPossibleLoveInterestVirginity;
         window.isPossibleLoveInterestVirginity = function (taker) {
@@ -420,12 +438,7 @@ $(document).one(":storyready", function () {
         };
     }
 
-    /* Bailey as a sex-shop gift recipient. Vanilla's determineRecipient() builds the
-       "Make a gift for:" dropdown from a hardcoded array, not setup.loveInterestNpc, so
-       adding him as an LI doesn't reach it. Wrap it: run vanilla, then inject a Bailey
-       <option> up top when he's unlocked. If he's the only recipient vanilla returns ""
-       and we rebuild the wrapper around him — that rebuild copies vanilla's markup, so
-       re-sync if upstream ever changes it. */
+    /* Bailey as a sex-shop gift recipient. */
     if (typeof window.determineRecipient === "function") {
         var _origDetermineRecipient = window.determineRecipient;
         window.determineRecipient = function (index) {
@@ -440,10 +453,6 @@ $(document).one(":storyready", function () {
                 /* Vanilla built the dropdown - slot Bailey in as the first option. */
                 return html.replace('id="recipientList">', 'id="recipientList">' + baileyOption);
             }
-            /* html === "": either the money gate failed, or Bailey is the sole
-               recipient. Re-check affordability (item cost + £15 wrap fee; money is
-               stored x100). If affordable, Bailey is the only recipient - rebuild
-               vanilla's wrapper around him alone. */
             if (V.money < item.cost + 15 * 100) return html;
             return '<br id="giftBr"><a id="ssmGiftButton" onclick="window.sexShopOnGiftClick(' + item.index + ')" class="ssm_gift_button">\nMake a gift for :  </a><select name="recipient" id="recipientList">' + baileyOption + '</select>\n<div id="spanGift">(<span class="gold">£' + (item.cost / 100 + 15) + '</span>)</div>';
         };
@@ -461,34 +470,6 @@ $(document).one(":storyready", function () {
             };
         }
     }
-
-    /* Bailey's flat availability — schedule anchored to him running the orphanage.
-       Uniform every day (for now), minute-aware. Reused by the flat door + future systems.
-       Returns:
-         "leaving" 05:30–06:30  heading out — ride window
-         "away"    06:30–19:00  at the orphanage
-         "asleep"  02:00–05:30  there but won't come to the door
-         "home"    19:00–02:00  home and reactive
-       Tune the windows here in one place. */
-    window.baileyFlatState = function () {
-        var t = Time.hour * 60 + Time.minute;       // minutes since midnight
-        if (t >= 330 && t < 390)  return "leaving"; // 05:30–06:30
-        if (t >= 390 && t < 1140) return "away";    // 06:30–19:00
-        if (t >= 120 && t < 330)  return "asleep";  // 02:00–05:30
-        return "home";                               // 19:00–02:00 (wraps midnight)
-    };
-
-    /* Weekend-obligation state. One stored var does all the work —
-       $bailey_weekend_lastvisit (Time.days at the last flat visit) — and these derive
-       the rest so nothing can fall out of sync.
-       baileyWeeksMissed(): whole weeks since that visit, but only while the pact holds.
-       baileyStraying(): 2+ weeks neglected, at which point his infidelity scenes re-open. */
-    window.baileyWeeksMissed = function () {
-        if (!V.bailey_monogamous) return 0;
-        var last = (typeof V.bailey_weekend_lastvisit === "number") ? V.bailey_weekend_lastvisit : Time.days;
-        return Math.max(0, Math.floor((Time.days - last) / 7));
-    };
-    window.baileyStraying = function () { return baileyWeeksMissed() >= 2; };
 
     console.log("[BaileyExpansion] stat display overrides + title system + love interest registered");
 });

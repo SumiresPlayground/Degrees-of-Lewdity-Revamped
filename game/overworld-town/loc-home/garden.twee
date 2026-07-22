@@ -169,7 +169,7 @@ You are in the garden behind the orphanage.
 <<elseif !$weekly.gardenBaileyLotus and $rng gte 81 and $mason_pond gte 5 and Time.dayState isnot "night" and $plots["garden"] isnot undefined and $plots["garden"].find(function(p){return p.plant === "lotus" && p.stage >= 5})>>
 	<<set $weekly.gardenBaileyLotus to true>>
 
-	<<goto "Bailey Lotus Garden">>
+	<<include "Bailey Lotus Garden">>
 <<elseif !$weekly.gardenCropTheft and $orphan_hope lte -10 and $plots.garden and $plots.garden.some(p => p.stage >= 5) and $rng gte 81>>
 
 	<<set $weekly.gardenCropTheft to true>>

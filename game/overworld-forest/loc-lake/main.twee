@@ -56,7 +56,7 @@ You are at the shore of the <<= Weather.isFrozen("lake") ? "frozen lake" : "lake
 <<elseif $foresthunt gte 10>>
 	<<foresthunt>>
 <<elseif $syndromeeden gte 1 and $stockholm_bailey gte 1 and Time.hour gte 11 and Time.hour lt 14 and !$possessed and $laketeenspresent isnot 1 and $rng gte 81 and (!$baileySeen?.includes("edenLakeSeen") or $rng gte 91)>>
-	<<goto "Bailey Eden Lake">>
+	<<include "Bailey Eden Lake">>
 <<elseif dangerEvent() and $eventskip is 0 and $laketeenspresent isnot 1 and !$possessed>>
 	<<eventlake>>
 <<elseif $town_projects.diving is 1 and $exposed lte 0 and !$possessed>>

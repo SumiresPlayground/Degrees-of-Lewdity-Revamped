@@ -165,6 +165,7 @@ You ask the <<person>> if you can have your shackles removed. "Dunno what you ex
 "I'll be right round," the <<person>> says. <<He>> enters the lobby proper moments later, holding a strange-looking key. <<He>> holds it up to the collar, and the lock clicks open, releasing your neck. <<He>> takes the collar. "As I said, government property."
 <br><br>
 <<set $worn.neck.type.push("broken")>><<neckruined true>><<set $worn.neck.collaredpolice to 0>>
+	<<if $worn.neck.cursed is 1 and $worn.neck.name is "naked">><<set $worn.neck.cursed to 0>><</if>>
 <<link [[Next|Police Station]]>><</link>>
 <br>
 
@@ -200,6 +201,7 @@ You ask the <<person>> if you can have your shackles removed. "Dunno what you ex
 	<<He>> takes a strange key from <<his>> belt and holds it up to your collar. Your collar comes loose with a click, falling to the ground. <<He>> picks it up. "Government property. Goes without saying you shouldn't tell anyone this happened." <<tearful>> you gather yourself, and watch <<him>> leave.
 	<br><br>
 	<<set $worn.neck.type.push("broken")>><<neckruined>>
+	<<if $worn.neck.cursed is 1 and $worn.neck.name is "naked">><<set $worn.neck.cursed to 0>><</if>>
 	<<clotheson>>
 	<<endcombat>>
 <<elseif $enemyhealth lte 0>>
