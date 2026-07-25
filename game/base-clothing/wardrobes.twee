@@ -37,6 +37,54 @@
 	<<if $randomWear>>
 		<<randomWear>>
 	<</if>>
+	<<if $repair isnot undefined and $repair isnot 0>>
+		<<set $repaircount to 0>>
+		<<for _key range Object.keys($wardrobe)>>
+			<<if !Array.isArray($wardrobe[_key]) or $wardrobe[_key].length is 0>>
+				<<continue>>
+			<</if>>
+			<<for _i to 0; _i lt $wardrobe[_key].length; _i++>>
+				<<if $wardrobe[_key][_i].integrity lt clothingData(_key, $wardrobe[_key][_i],'integrity_max')>>
+					<<set $repaircount += Math.ceil((clothingData(_key, $wardrobe[_key][_i],'integrity_max') - $wardrobe[_key][_i].integrity) / 100)>>
+					<<set $wardrobe[_key][_i].integrity = clothingData(_key, $wardrobe[_key][_i],'integrity_max')>>
+				<</if>>
+			<</for>>
+		<</for>>
+		<<for _key range Object.keys($worn)>>
+			<<if not $worn[_key].integrity>>
+				<<continue>>
+			<</if>>
+			<<if $worn[_key].integrity lt clothingData(_key, $worn[_key],'integrity_max') && !clothingData(_key, $worn[_key],'altDamage')>>
+				<<set $repaircount += Math.ceil((clothingData(_key, $worn[_key], 'integrity_max') - $worn[_key].integrity) / 100)>>
+				<<set $worn[_key].integrity = clothingData(_key, $worn[_key],'integrity_max')>>
+			<</if>>
+		<</for>>
+		<<set $repairtime to 5 * $repaircount>>
+		<<updatesidebarimg>>
+		<<pass $repairtime>>
+		<<set $repair to 0>>
+	<</if>>
+	<<set $repaircount to 0>>
+	<<for _key range Object.keys($wardrobe)>>
+		<<if !Array.isArray($wardrobe[_key]) or $wardrobe[_key].length is 0>>
+			<<continue>>
+		<</if>>
+		<<for _i to 0; _i lt $wardrobe[_key].length; _i++>>
+			<<if $wardrobe[_key][_i].integrity lt clothingData(_key, $wardrobe[_key][_i],'integrity_max')>>
+				<<set $repaircount += Math.ceil((clothingData(_key, $wardrobe[_key][_i], 'integrity_max') - $wardrobe[_key][_i].integrity) / 100)>>
+			<</if>>
+		<</for>>
+	<</for>>
+	<<for _key range Object.keys($worn)>>
+		<<if not $worn[_key].integrity>>
+			<<continue>>
+		<</if>>
+		<<if $worn[_key].integrity lt clothingData(_key, $worn[_key],'integrity_max') && !clothingData(_key, $worn[_key],'altDamage')>>
+			<<set $repaircount += Math.ceil((clothingData(_key, $worn[_key], 'integrity_max') - $worn[_key].integrity) / 100)>>
+		<</if>>
+	<</for>>
+	<<set $repairtime to 5 * $repaircount>>
+	<<set $repairtime to getTimeString($repairtime)>>
 	<<set _equip to ["over_upper", "over_lower", "upper", "lower", "under_upper", "under_lower", "over_head", "head", "face", "neck", "hands", "handheld", "legs", "feet", "genitals"]>>
 	<<set _slimePrevent to ["upper", "lower", "under_upper", "under_lower"]>>
 	<<set _towelCheck to ["upper", "lower"]>>
@@ -357,6 +405,15 @@
 	</div>
 	<br>
 	<div id="clotheson"><<clotheson>></div> /*Fixes perma pulled aside clothes introduced by 0.2.3.0 bug.*/
+	<<if ($sewingKit is 1 or $transformationParts.spider.tail isnot "disabled") and $location is "home" and $repaircount gte 1>>
+		<div class="wardrobe-dry">
+			<<link [["Repair all clothing ($repairtime)"|$passage]]>>
+				<<updatewardrobe>>
+				<<set $repair to 1>>
+			<</link>>
+			<br>
+		</div>
+	<</if>>
 	<<if $upperwet gte 1 or $lowerwet gte 1 or $underlowerwet gte 1 or $underupperwet gte 1>>
 		<div class="wardrobe-dry">
 		<<link "Dry your clothes">>

@@ -3438,7 +3438,7 @@ Renderer.CanvasModels.main = {
 					return true;
 				}
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			z: ZIndices.basehead + 0.1,
 			animation: "idle"
 		},
@@ -3457,8 +3457,8 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 		"eye_bruise": {
-			srcfn() {
-				return `img/bruises/faceeyes.png`;
+			srcfn(options) {
+				return `img/bruises/${options.facevariant}eyes.png`;
 			},
 			showfn(options) {
 				if (options.eye_bruise === "disabled"){
@@ -3481,7 +3481,7 @@ Renderer.CanvasModels.main = {
 					return true;
 				}
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			z: ZIndices.skin + 1.1,
 			animation: "idle"
 		},
@@ -3510,7 +3510,7 @@ Renderer.CanvasModels.main = {
 					return true;
 				}
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			z: ZIndices.skin + 1.1,
 			animation: "idle"
 		},
@@ -3543,7 +3543,7 @@ Renderer.CanvasModels.main = {
 				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
 				return ZIndices.armsidle + 0.2;
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			animation: "idle"
 		},
 		"leftarm_blood": {
@@ -3578,7 +3578,7 @@ Renderer.CanvasModels.main = {
 				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
 				return ZIndices.armsidle + 0.2;
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			animation: "idle"
 		},
 		"rightarm_blood": {
@@ -3609,7 +3609,7 @@ Renderer.CanvasModels.main = {
 					return true;
 				}
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			z: ZIndices.skin + 1.1,
 			animation: "idle"
 		},
@@ -3638,7 +3638,7 @@ Renderer.CanvasModels.main = {
 					return true;
 				}
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			z: ZIndices.skin + 1.1,
 			animation: "idle"
 		},
@@ -3667,7 +3667,7 @@ Renderer.CanvasModels.main = {
 					return true;
 				}
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			z: ZIndices.tailPenisCover - 1.1,
 			animation: "idle"
 		},

@@ -136,45 +136,45 @@ setup.colours = {
 			desaturate: false,
 		},
 		ylight: {
-			gradient: ["#f0ffe6", "#f0e4bc"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
-		ymedium: {
-			gradient: ["#f0e4bc", "#8e7f68"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
-		ydark: {
-			gradient: ["#8e7f68", "#483f35"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
-		ygyaru: {
-			gradient: ["#f0ffe6", "#f0e4bc", "#8e7f68", "#483f35"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
-		glight: {
-			gradient: ["#fdf4d7", "#ffc482"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
-		gmedium: {
-			gradient: ["#ffc482", "#9a6b36"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
-		gdark: {
-			gradient: ["#9a6b36", "#513400"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
-		ggyaru: {
-			gradient: ["#fdf4d7", "#ffc482", "#9a6b36", "#513400"],
-			blendMode: "multiply",
-			desaturate: false,
-		},
+            gradient: ["#F9FFEE", "#F0DDBC"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
+        ymedium: {
+            gradient: ["#F0DDBC", "#8A6740"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
+        ydark: {
+            gradient: ["#8A6740", "#46382D"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
+        ygyaru: {
+            gradient: ["#F9FFEE", "#F0DDBC", "#8A6740", "#46382D"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
+        glight: {
+            gradient: ["#FFF8E6", "#F3C094"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
+        gmedium: {
+            gradient: ["#F3C094", "#946647"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
+        gdark: {
+            gradient: ["#9a6b36", "#3E2400"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
+        ggyaru: {
+            gradient: ["#FFF8E6", "#F3C094", "#946647", "#3E2400"],
+            blendMode: "multiply",
+            desaturate: false,
+        },
 		rlight: {
 			gradient: ["#f7e4e0", "#ebae8a"],
 			blendMode: "multiply",
@@ -378,8 +378,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#454545",
-			brightness: -0.3,
+			blend: "#303030",
 		},
 	},
 	{
@@ -390,8 +389,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#504949",
-			brightness: -0.3,
+			blend: "#383333",
 		},
 	},
 	{
@@ -468,8 +466,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#784a3a",
-			brightness: -0.3,
+			blend: "#543429",
 		},
 	},
 	{
@@ -480,8 +477,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#8f6e56",
-			brightness: -0.3,
+			blend: "#644d3c",
 		},
 	},
 	{
@@ -492,8 +488,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#bf7540",
-			brightness: -0.3,
+			blend: "#86522d",
 		},
 	},
 	{
@@ -504,8 +499,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#e49b67",
-			brightness: -0.3,
+			blend: "#c56623",
 		},
 	},
 	{
@@ -516,8 +510,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#e08d52",
-			brightness: -0.3,
+			blend: "#b65f21",
 		},
 	},
 	{
@@ -550,8 +543,7 @@ setup.colours.hair = [
 		natural: false,
 		dye: true,
 		canvasfilter: {
-			blend: "#3973ac",
-			brightness: -0.3,
+			blend: "#285078",
 		},
 	},
 	{
@@ -562,8 +554,7 @@ setup.colours.hair = [
 		natural: false,
 		dye: true,
 		canvasfilter: {
-			blend: "#1349b5",
-			brightness: -0.3,
+			blend: "#0d337f",
 		},
 	},
 	{
@@ -662,8 +653,7 @@ setup.colours.hair = [
 		natural: false,
 		dye: true,
 		canvasfilter: {
-			blend: "#d6855c",
-			brightness: 0.2,
+			blend: "#de9d7d",
 		},
 	},
 	{
@@ -718,8 +708,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#BBBBBB",
-			brightness: 0.3,
+			blend: "#cfcfcf",
 		},
 	},
 	{

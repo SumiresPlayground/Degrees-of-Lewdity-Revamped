@@ -103,6 +103,14 @@ Some homes host extravagant Halloween displays.
 			<<set $TaylorReward to 1>>
 			<<goto "Taylor Meeting After Freed">>
 		<</if>>
+		<<if $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall" or $acceptedRequest is "Mysterious Death" or $acceptedRequest is "Screaming Children" or $acceptedRequest is "Screaming Children">>
+			<span class="ghost-footer">
+				You are at the request location
+				<br>
+				<<dooricon "danube">><<link [[Knock on the house (0:02)|Danube Job Knock]]>><<pass 2>><</link>>
+			</span>
+			<br><br>
+		<</if>>
 		<<if $wrenHeist is true and (Time.hour gte 19 and Time.hour lte 20) and $wrenHeistDance.attended isnot true>>
 			In the distance, you see the mansion where you're supposed to meet Wren. <<nnpc_He "Wren">> will be waiting for you there.
 			<br>
@@ -111,15 +119,6 @@ Some homes host extravagant Halloween displays.
 			<<else>>
 				<span class="red">You can't go in your current state of exposure.</span>
 			<</if>>
-			<br><br>
-		<</if>>
-
-		<<if $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall" or $acceptedRequest is "Mysterious Death">>
-			<span class="ghost-footer">
-				You are at the request location
-				<br>
-				<<dooricon "danube">><<link [[Knock on the house (0:02)|Danube Job Knock]]>><<pass 2>><</link>>
-			</span>
 			<br><br>
 		<</if>>
 
