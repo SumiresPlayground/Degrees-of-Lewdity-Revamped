@@ -25,6 +25,14 @@
         <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers4>>
             <<custom-nnpc-fix-custom-layers4>>
         <</if>>
+        <!-- 1.2.2 mask -->
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers5>>
+            <<custom-nnpc-fix-custom-layers5>>
+        <</if>>
+        <!-- 1.2.3 clothing layer, 6th time the charm -->
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.customLayers6>>
+            <<custom-nnpc-fix-custom-layers6>>
+        <</if>>
         <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.hairEyeColour>>
             <<custom-nnpc-fix-hair-eye-colour>>
         <</if>>
@@ -152,10 +160,10 @@
         <<set $customNNPC.errorStack to []>>
     <</if>>
     <<if ndef $customNNPC.canvasLocation >>
-        <<set $customNNPC.canvasLocation to "sidebar">>
+        <<set $customNNPC.canvasLocation to "footer">>
     <</if>>
-    <<if ndef $customNNPC.sidebarLayer>>
-        <<set $customNNPC.sidebarLayer to "front">>
+    <<if ndef $customNNPC.sidebarLayer >>
+        <<set $customNNPC.sidebarLayer to "back">>
     <</if>>
     <<if ndef $customNNPC.canvasContents >>
         <<set $customNNPC.canvasContents to {}>>
@@ -231,9 +239,9 @@
 
         <!-- Night Monster -->
         <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"] to {}>>
-        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["lizard_tail_type"] to "default">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["wolf_tail_type"] to "feral">>
         <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["wolf_tail_layer"] to "back">>
-        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["sheep_horns_type"] to "dark">>
+        <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["demon_horns_type"] to "default">>
         <<set setup.customNNPC.canvasOptionsOverrides["Night Monster"]["demon_horns_layer"] to "front">>
 
         <!-- Ivory Wraith -->

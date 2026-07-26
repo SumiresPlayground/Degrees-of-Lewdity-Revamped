@@ -15,11 +15,11 @@ function updateAll() {
 
 function nnpcImagePreviewUpdate() {
     let targets = "#npcSettingsMenu .macro-radiobutton," +
-      "#npcSettingsMenu .macro-listbox," +
-      "#npcSettingsMenu .macro-checkbox,"+
-      "#npcSettingsMenu .macro-textbox,"+
-      "#npcSettingsMenu .custom-nnpc-tear-slider,"+
-      "#npcSettingsMenu .macro-numberbox";
+        "#npcSettingsMenu .macro-listbox," +
+        "#npcSettingsMenu .macro-checkbox,"+
+        "#npcSettingsMenu .macro-textbox,"+
+        "#npcSettingsMenu .custom-nnpc-tear-slider,"+
+        "#npcSettingsMenu .macro-numberbox";
 
     jQuery(document).on("change", targets, (event) => {
         updateAll();
@@ -175,6 +175,10 @@ function nnpcOutfitSetupSelector() {
     let target = T.clothesTargets[T.i];
     let worn = T.wornClothes[target];
 
+    if(worn === undefined) {
+        worn = "naked";
+    }
+
     if (T.customNNPCClothingSet === "naked") {
         T.customNPCClothingMain["Naked"] = "naked";
         return "";
@@ -197,11 +201,11 @@ function nnpcOutfitSetupSelector() {
                 }
             });
             if (
-              typeIncludes ||
-              clothing.variable === worn ||
-              clothing.index === 0 ||
-              clothing.name.toLowerCase().includes(search) ||
-              clothing.description.toLowerCase().includes(search)) {
+                typeIncludes ||
+                clothing.variable === worn ||
+                clothing.index === 0 ||
+                clothing.name.toLowerCase().includes(search) ||
+                clothing.description.toLowerCase().includes(search)) {
                 T.customNPCClothingMain[clothing.name_cap] = clothing.variable;
             }
         } else {
@@ -557,16 +561,16 @@ DefineMacro("custom-nnpc-settings-tattoos", function () {
 
     let list = {...setup.bodywriting};
     for (const [key, value] of Object.entries(list).sort(
-      ([, tatA], [, tatb]) => {
-          orderTattoosByName(tatA, tatb);
-      }
+        ([, tatA], [, tatb]) => {
+            orderTattoosByName(tatA, tatb);
+        }
     )) {
         if (search !== "") {
             if (
-              keysList.indexOf(key) !== -1 ||
-              value.special.toLowerCase().includes(search) ||
-              value.type.toLowerCase().includes(search) ||
-              value.writing.toLowerCase().includes(search)) {
+                keysList.indexOf(key) !== -1 ||
+                value.special.toLowerCase().includes(search) ||
+                value.type.toLowerCase().includes(search) ||
+                value.writing.toLowerCase().includes(search)) {
                 T.customNNPCTattoosOptions[value.writing] = key;
             }
         } else {
@@ -665,23 +669,27 @@ function customNNPCAddAssetLayer(){
     const activeNPC = V.customNNPC.settingsActivePreview;
     const id = V.customNNPC.customImageLayers[activeNPC].length;
     V.customNNPC.customImageLayers[activeNPC].push(
-      {
-          "source":"",
-          "zIndex":0,
-          "clothingSet":["all"],
-          "filterOption":"none",
+        {
+            "source":"",
+            "sourceMask":"",
+            "targetMask": "none",
+            "mask": "none",
+            "zIndex":0,
+            "clothingSet":["all"],
+            "filterOption":"none",
+            "clothingLayer":"none",
 
-          "filterColour":"#000000",
-          "blendMode":"multiply",
-          "desaturate":false,
+            "filterColour":"#000000",
+            "blendMode":"multiply",
+            "desaturate":false,
 
-          "toggles": [],
+            "toggles": [],
 
-          "displaySceneExact": true,
-          "displayScene": "",
+            "displaySceneExact": true,
+            "displayScene": "",
 
-          "children": []
-      });
+            "children": []
+        });
 
     const fragment = Wikifier.wikifyEval(`<<options-custom-nnpc-custom-layers-list-item $customNNPC.settingsActivePreview ${id}>>`);
     $("#options-custom-nnpc-custom-layers-list").append(fragment);
@@ -696,6 +704,9 @@ DefineMacroS("custom-nnpc-settings-custom-layer-add-child", function(NPCname, n)
         onclick="
             V.customNNPC.customImageLayers['${NPCname}'][${n}].children.push({
                 source: '',
+                sourceMask: '',
+                targetMask: 'none',
+                mask: 'none',
                 filterOption:'copy',
                 filterColour:'#000000',
                 blendMode:'multiply',

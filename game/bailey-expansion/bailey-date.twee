@@ -1,13 +1,19 @@
 /* ================================================================
    BAILEY DATE SYSTEM
-   Three paid dates PC can buy from the office menu: Short (£1,000),
-   Medium (£2,000), and All Night (£5,000). The "Spend time with Bailey"
+   Three paid dates PC can buy from the office menu: Short, Medium, and
+   All Night, priced off what rent tops out at. The "Spend time with Bailey"
    menu only appears when Stockholm >= 1 and rent is current ($renttime > 0).
    ================================================================ */
 
 :: Bailey Date Menu
 <<effects>>
 <<npc Bailey>><<person1>>
+/* Bailey prices his time against what rent tops out at, so the tiers stay
+   proportional when a player scales rent up or down. */
+<<set _spankPrice to Math.floor(baileyMaxRent() * 0.25)>>
+<<set _shortPrice to Math.floor(baileyMaxRent() * 0.5)>>
+<<set _mediumPrice to baileyMaxRent()>>
+<<set _allNightPrice to Math.floor(baileyMaxRent() * 2.5)>>
 
 <<if $renttime lte 0>>
 	<<He>> looks at you like you've lost your mind.
@@ -43,46 +49,46 @@
 		<br>
 	<</if>>
 
-	/* ── Proper Spanking — £500 ── */
+	/* ── Proper Spanking ── */
 	<<if $daily.baileySpankingProper>>
-		<span class="blue">"I have £500. Spank me properly." (You've already asked today.)</span>
+		<span class="blue">"I have <<print formatMoney(_spankPrice)>>. Spank me properly." (You've already asked today.)</span>
 		<br>
-	<<elseif $money gte 50000>>
-		<<link [["I have £500. Spank me properly." (0:10)|Bailey Spanking Proper Entry]]>><</link>>
+	<<elseif $money gte _spankPrice>>
+		<<link "\"I have <<print formatMoney(_spankPrice)>>. Spank me properly.\" (0:10)" "Bailey Spanking Proper Entry">><</link>>
 		<br>
 	<<else>>
-		<span class="blue">"I have £500. Spank me properly." (You don't have enough money.)</span>
+		<span class="blue">"I have <<print formatMoney(_spankPrice)>>. Spank me properly." (You don't have enough money.)</span>
 		<br>
 	<</if>>
 
 	/* ── Short Date ── */
 	<<if $daily.baileyDate>>
-		<span class="blue">"I have £1,000. Take me with you." (You've already spent time with Bailey today.)</span>
+		<span class="blue">"I have <<print formatMoney(_shortPrice)>>. Take me with you." (You've already spent time with Bailey today.)</span>
 		<br>
-	<<elseif $money gte 100000>>
-		<<link [["I have £1,000. Take me with you." (1:00)|Bailey Date Short]]>><<money -100000 "baileyDate">><<pass 5>><<set $daily.baileyDate to 1>><</link>>
+	<<elseif $money gte _shortPrice>>
+		<<link "\"I have <<print formatMoney(_shortPrice)>>. Take me with you.\" (1:00)" "Bailey Date Short">><<money `-_shortPrice` "baileyDate">><<pass 5>><<set $daily.baileyDate to 1>><</link>>
 		<br>
 	<<else>>
-		<span class="blue">"I have £1,000. Take me with you." (You don't have enough money.)</span>
+		<span class="blue">"I have <<print formatMoney(_shortPrice)>>. Take me with you." (You don't have enough money.)</span>
 		<br>
 	<</if>>
 
 	/* ── Medium Date — requires Short done ── */
 	<<if $bailey_date_short gte 1>>
 		<<if $bailey_date_scheduled is 1>>
-			<span class="blue">"I have £2,000. Let me buy you dinner." (You already have a date scheduled tonight.)</span>
+			<span class="blue">"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner." (You already have a date scheduled tonight.)</span>
 			<br>
 		<<elseif $daily.baileyDate>>
-			<span class="blue">"I have £2,000. Let me buy you dinner." (You've already spent time with Bailey today.)</span>
+			<span class="blue">"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner." (You've already spent time with Bailey today.)</span>
 			<br>
 		<<elseif Time.hour gte 19>>
-			<span class="blue">"I have £2,000. Let me buy you dinner." (It's too late to book dinner tonight. Ask in the morning.)</span>
+			<span class="blue">"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner." (It's too late to book dinner tonight. Ask in the morning.)</span>
 			<br>
-		<<elseif $money gte 200000>>
-			<<link [["I have £2,000. Let me buy you dinner."|Bailey Date Medium Schedule]]>><<money -200000 "baileyDate">><<set $daily.baileyDate to 1>><</link>>
+		<<elseif $money gte _mediumPrice>>
+			<<link "\"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner.\"" "Bailey Date Medium Schedule">><<money `-_mediumPrice` "baileyDate">><<set $daily.baileyDate to 1>><</link>>
 			<br>
 		<<else>>
-			<span class="blue">"I have £2,000. Let me buy you dinner." (You don't have enough money.)</span>
+			<span class="blue">"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner." (You don't have enough money.)</span>
 			<br>
 		<</if>>
 	<</if>>
@@ -90,46 +96,48 @@
 	/* ── All Night Date — requires Medium done ── */
 	<<if $bailey_date_medium gte 1>>
 		<<if $bailey_date_allnight_scheduled is 1>>
-			<span class="blue">"I have £5,000. I want to spend the night." (You already have a date scheduled tonight.)</span>
+			<span class="blue">"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night." (You already have a date scheduled tonight.)</span>
 			<br>
 		<<elseif $daily.baileyDate>>
-			<span class="blue">"I have £5,000. I want to spend the night." (You've already spent time with Bailey today.)</span>
+			<span class="blue">"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night." (You've already spent time with Bailey today.)</span>
 			<br>
 		<<elseif Time.hour gte 19>>
-			<span class="blue">"I have £5,000. I want to spend the night." (It's too late to schedule tonight. Ask in the morning.)</span>
+			<span class="blue">"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night." (It's too late to schedule tonight. Ask in the morning.)</span>
 			<br>
-		<<elseif $money gte 500000>>
-			<<link "\"I have £5,000. I want to spend the night.\"" "Bailey Date All Night Schedule">><<money -500000 "baileyDate">><<set $daily.baileyDate to 1>><</link>>
+		<<elseif $money gte _allNightPrice>>
+			<<link "\"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night.\"" "Bailey Date All Night Schedule">><<money `-_allNightPrice` "baileyDate">><<set $daily.baileyDate to 1>><</link>>
 			<br>
 		<<else>>
-			<span class="blue">"I have £5,000. I want to spend the night." (You don't have enough money.)</span>
+			<span class="blue">"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night." (You don't have enough money.)</span>
 			<br>
 		<</if>>
 	<</if>>
 
 	/* ── Cat Ears ── */
 	<br>
-	<<set _catprice to 200000>>
+	<<set _catprice to baileyMaxRent()>>
 	<<if $money gte _catprice>>
 		<<if $bailey_catears is undefined or $bailey_catears is 0>>
-			<<link [["I'll pay you £2,000 to put on cat ears." (0:05)|Bailey Cat Ears]]>><<pass 5>><</link>>
+			<<link "\"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears.\" (0:05)" "Bailey Cat Ears">><<pass 5>><</link>>
 		<<else>>
-			<<link [["I'll pay you £2,000 to put on cat ears again." (0:05)|Bailey Cat Ears]]>><<pass 5>><</link>>
+			<<link "\"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears again.\" (0:05)" "Bailey Cat Ears">><<pass 5>><</link>>
 		<</if>>
 		<br>
 	<<else>>
 		<<if $bailey_catears is undefined or $bailey_catears is 0>>
-			<span class="blue">"I'll pay you £2,000 to put on cat ears." (You don't have enough money.)</span>
+			<span class="blue">"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears." (You don't have enough money.)</span>
 		<<else>>
-			<span class="blue">"I'll pay you £2,000 to put on cat ears again." (You don't have enough money.)</span>
+			<span class="blue">"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears again." (You don't have enough money.)</span>
 		<</if>>
 		<br>
 	<</if>>
 
 	/* ── Change what you call Bailey ── */
-	<br>
-	<<if $stockholm_active>><<ind>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "date_menu">><</link>><</if>>
-	<br>
+	<<if $stockholm_active>>
+		<br>
+		<<ind>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "date_menu">><</link>>
+		<br>
+	<</if>>
 
 	<br>
 	<<link [[Back|Orphanage]]>><<endevent>><</link>>
@@ -172,7 +180,7 @@ Bailey takes the money and counts it before folding it into <<his>> jacket pocke
 
 :: Bailey Date Short Arrive
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $date_short_stole to false>><<set $date_short_leaned to false>><<set $date_short_listened to false>><<set $date_short_intimidated to false>>
 
 Bailey takes you to a sketchy, unmarked building on the west side of town. <<He>> tries the door and it opens.
@@ -205,7 +213,7 @@ You look around. This appears to be an interrogation room of sorts. <<He>> sits 
 
 :: Bailey Date Short Arrive Stand
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $date_short_position to "stand">>
 <<set $NPCList[1] to clone($date_short_npc)>>
 
@@ -230,7 +238,7 @@ Bailey doesn't look at you.
 
 :: Bailey Date Short Arrive Kneel
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $date_short_position to "kneel">>
 <<set $NPCList[1] to clone($date_short_npc)>>
 
@@ -253,7 +261,7 @@ You cross the room before kneeling next to Bailey's legs.
 
 :: Bailey Date Short Arrive Watch
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $date_short_position to "watch">>
 <<set $NPCList[1] to clone($date_short_npc)>>
 
@@ -272,7 +280,7 @@ They speak too vaguely for you to understand exactly what they were talking abou
 
 :: Bailey Date Short Meeting
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_short_npc)>>
 
 <<person2>>The <<personsimple>> puts a folder on the table. The meeting starts.
@@ -292,7 +300,7 @@ They speak too vaguely for you to understand exactly what they were talking abou
 
 :: Bailey Date Short Steal
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_short_npc)>>
 <<skulduggerycheck "silent">>
 
@@ -326,7 +334,7 @@ They speak too vaguely for you to understand exactly what they were talking abou
 
 :: Bailey Date Short Listen
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_short_npc)>>
 <<skulduggerycheck "silent">>
 
@@ -377,7 +385,7 @@ You listen to Bailey and <<person2>>the <<personsimple>> as they discuss busines
 
 :: Bailey Date Short Lean
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_short_npc)>>
 <<set $seductiondifficulty to 6000>><<seductioncheck>>
 
@@ -413,7 +421,7 @@ You listen to Bailey and <<person2>>the <<personsimple>> as they discuss busines
 
 :: Bailey Date Short Intimidate
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_short_npc)>>
 
 The conversation between Bailey and <<person2>>the <<personsimple>> seems to sour. <<person2>>The <<personsimple>> isn't backing down and Bailey sounds annoyed.
@@ -431,8 +439,6 @@ You cross your arms and glower at <<person2>>the <<personsimple>>.
 
 <<if $physiqueSuccess is 1>>
 	<span class="green"><<person2>>The <<personsimple>> sneaks a nervous glance towards you, <<his>> eyes focused on your crossed arms and hardened physique. <<He>> grunts out, "Fine."</span>
-	<br><br>
-
 	<<set $date_short_intimidated to true>>
 <<else>>
 	<span class="red"><<person2>>The <<personsimple>> scoffs. "Tell your <<if $player.gender_appearance is "m">>boy<<else>>girl<</if>> to stand down."</span>
@@ -448,7 +454,7 @@ You cross your arms and glower at <<person2>>the <<personsimple>>.
 
 :: Bailey Date Short Quiet
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_short_npc)>>
 
 You watch quietly while Bailey and <<person2>>the <<personsimple>> conduct business.
@@ -463,7 +469,7 @@ They speak too vaguely for you to understand exactly what they were talking abou
 
 :: Bailey Date Short Men
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_short_npc)>>
 
 <<person2>>The <<personsimple>> glances towards the door.
@@ -509,7 +515,7 @@ Bailey's goons follow behind you.
 
 :: Bailey Date Short Acknowledge
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 Outside, Bailey nods to <<his>> goons, who disperse in separate directions.
 <br><br>
@@ -549,7 +555,7 @@ Outside, Bailey nods to <<his>> goons, who disperse in separate directions.
 
 :: Bailey Date Short Walk Back
 <<pass 10>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 The walk back to the orphanage is uneventful, for the most part. Bailey walks without looking at you.
 <br><br>
@@ -577,7 +583,7 @@ The walk back to the orphanage is uneventful, for the most part. Bailey walks wi
 
 :: Bailey Date Short End
 <<pass 35>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<He>> stops at the orphanage door.
 <br><br>
@@ -635,12 +641,12 @@ Bailey takes the money and counts it. <<He>> folds it into <<his>> jacket pocket
 
 
 :: Bailey Date Medium
-<<goto "Bailey Date Medium Schedule">>
+<<include "Bailey Date Medium Schedule">>
 
 
 :: Bailey Date Medium Pickup
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $bailey_date_attended to 1>>
 <<set $bailey_date_medium to ($bailey_date_medium || 0) + 1>>
 <<set $bailey_date_bill to 6000>>
@@ -684,7 +690,7 @@ You approach Bailey, who's leaning against the front door.
 
 :: Bailey Date Medium Car
 <<pass 15>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<He>> drives. <<He>> doesn't talk the whole ride.
 <br><br>
@@ -704,7 +710,7 @@ You approach Bailey, who's leaning against the front door.
 
 :: Bailey Date Medium Arrive
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<He>> pulls up outside a small restaurant with a logo that looks like a happy tomato. <<He>> gets out. <<He>> comes around to your side and opens the door.
 <br><br>
@@ -720,7 +726,7 @@ Bailey offers <<his>> hand.
 
 :: Bailey Date Medium Arrive Take
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<His>> grip is firm and warm as <<he>> leads you through the doors of the restaurant, holding it open for you both without letting go of your hand.\
 <<if $player.virginity.handholding is true>>\
@@ -738,7 +744,7 @@ Bailey offers <<his>> hand.
 
 :: Bailey Date Medium Arrive No
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<He>> drops <<his>> hand. <<He>> doesn't comment on it.<<npcincr Bailey love -1>><<llove "Bailey">><<set $bailey_love -= 1>>
 <br><br>
@@ -752,7 +758,7 @@ Bailey offers <<his>> hand.
 
 :: Bailey Date Medium Restaurant
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<generateNPC 2 a>><<set $date_medium_waiter to clone($NPCList[1])>><<person2>>The <<personsimple>> at the front of the restaurant straightens the moment <<he>> spots Bailey.
 <br><br>
@@ -772,7 +778,7 @@ Bailey offers <<his>> hand.
 
 :: Bailey Date Medium Restaurant 2
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 <<person2>>The <<personsimple>> escorts the two of you to a table tucked away in the back of the restaurant. <<person1>>Bailey pulls your chair out and waits. You sit. <<He>> pushes it in before taking <<his>> own seat across from you, facing the door.
@@ -797,7 +803,7 @@ You look at the menu in your hands.
 
 :: Bailey Date Medium Order Top
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 <<set $bailey_date_bill += 4000>>
 
@@ -819,7 +825,7 @@ You order something nice for yourself. <<person2>>The <<personsimple>> looks to 
 
 :: Bailey Date Medium Order Vodka
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 <<set $bailey_date_bill += 4000>>
 
@@ -835,7 +841,7 @@ You both order. <<person2>>The <<personsimple>> takes your menus and scampers aw
 
 :: Bailey Date Medium Order Other
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 <<set $bailey_date_bill += 3000>>
 
@@ -851,7 +857,7 @@ You both order. <<person2>>The <<personsimple>> takes your menus and scampers aw
 
 :: Bailey Date Medium Order Nothing
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 Bailey doesn't look up from <<his>> menu. <<He>> works something in <<his>> jaw.<<npcincr Bailey love -1>><<llove "Bailey">><<set $bailey_love -= 1>>
@@ -866,7 +872,7 @@ You both order. <<person2>>The <<personsimple>> takes your menus and scampers aw
 
 :: Bailey Date Medium Order Food
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 You both order. <<person2>>The <<personsimple>> takes your menus and heads for the kitchen.
@@ -878,7 +884,7 @@ You both order. <<person2>>The <<personsimple>> takes your menus and heads for t
 
 :: Bailey Date Medium Order Alcohol
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 Bailey shakes <<his>> head.
@@ -896,7 +902,7 @@ You both order. <<person2>>The <<personsimple>> takes your menus and scampers aw
 
 :: Bailey Date Medium Restaurant 3
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 Bailey's eyes scan the room constantly.
@@ -929,7 +935,7 @@ Bailey's eyes scan the room constantly.
 
 :: Bailey Date Medium Drop
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 "Oops." You knock your fork off the table. You slide out of your chair and duck under the tablecloth.
@@ -973,7 +979,7 @@ Bailey's eyes scan the room constantly.
 
 :: Bailey Date Medium Flirt Bailey
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<silently>><<seductioncheck>><</silently>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
@@ -1005,7 +1011,7 @@ Your foot trails up Bailey's leg below the table.
 
 :: Bailey Date Medium Chat
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 You try and make small talk with Bailey.
@@ -1071,7 +1077,7 @@ You try and make small talk with Bailey.
 
 :: Bailey Date Medium Eat
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 You and Bailey dig in. Bailey cuts <<his>> food precisely and eats slowly. <<He>> doesn't talk but <<he>> listens to you when you do.
@@ -1105,7 +1111,7 @@ You and Bailey dig in. Bailey cuts <<his>> food precisely and eats slowly. <<He>
 
 :: Bailey Date Medium Incident
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You sit alone at the table. You don't see Bailey from here.
 <br><br>
@@ -1129,7 +1135,7 @@ The other leans back in <<person4>><<his>> chair like <<he>> owns it. "Nice plac
 
 :: Bailey Date Medium Incident Quiet
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[2] to clone($date_medium_goon1)>><<set $NPCList[3] to clone($date_medium_goon2)>>
 
 You don't answer. They don't leave.
@@ -1165,7 +1171,7 @@ You don't answer. They don't leave.
 
 :: Bailey Date Medium Incident Seat
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[2] to clone($date_medium_goon1)>><<set $NPCList[3] to clone($date_medium_goon2)>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
@@ -1204,7 +1210,7 @@ A shadow looms over the table from behind you. <span class="bailey-red">It's Bai
 
 :: Bailey Date Medium Incident Defiant
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[2] to clone($date_medium_goon1)>><<set $NPCList[3] to clone($date_medium_goon2)>>
 <<wolfDefiant 500>>
 
@@ -1237,7 +1243,7 @@ The air goes cold. <<person3>>The <<personsimple>> gawks at you for one second b
 
 :: Bailey Date Medium Bill
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $NPCList[1] to clone($date_medium_waiter)>>
 
 <<pass 20>>
@@ -1258,7 +1264,7 @@ Bailey looks at you.
 	<br><br>
 	Bailey scoffs and shakes <<his>> head almost imperceptibly. <<He>> picks up the bill. <<He>> sets down the cash without looking at you.
 	<br><br>
-	"I'll get it," <<he>> says.<<npcincr Bailey love -1>><<llove "Bailey">><<set $bailey_love -= 1>><<set $bailey_date_pc_paid to false>>
+	"I'll get it," <<he>> says.<<npcincr Bailey love -1>><<llove "Bailey">><<set $bailey_love -= 1>><<set $bailey_date_pc_paid to false>><<baileyBrat 1 "bill">>
 	<br><br>
 	<<link [[Next|Bailey Date Medium Drive Home]]>><</link>>
 	<br>
@@ -1267,7 +1273,7 @@ Bailey looks at you.
 
 :: Bailey Date Medium Refuse Pay
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You have enough, but you refuse to pay.
 <br><br>
@@ -1275,7 +1281,7 @@ You have enough, but you refuse to pay.
 Bailey picks up the bill. <<He>> sets down the cash without looking at you.
 <br><br>
 
-"I'll get it," <<he>> says.
+"I'll get it," <<he>> says.<<baileyBrat 1 "bill">>
 <br><br>
 
 <<link [[Next|Bailey Date Medium Drive Home]]>><</link>>
@@ -1284,7 +1290,7 @@ Bailey picks up the bill. <<He>> sets down the cash without looking at you.
 
 :: Bailey Date Medium Pay
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You pay the bill.
 <br><br>
@@ -1297,8 +1303,7 @@ You pay the bill.
 
 :: Bailey Date Medium Drive Home
 <<pass 15>><<effects>>
-<<npc Bailey>><<person1>>
-<<if !$bailey_date_pc_paid>><<baileyBrat 1 "bill">><</if>>
+<<person1>>
 
 Bailey drives. <<He>> doesn't talk.
 <br><br>
@@ -1322,7 +1327,7 @@ The ride passes in silence.
 :: Bailey Date Medium End
 <<set $bailey_date_scheduled to 0>><<set $bailey_date_attended to 0>>
 <<pass 30>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You arrive at the orphanage.
 <br><br>
@@ -1385,7 +1390,7 @@ You leave <<his>> office.
 
 :: Bailey Date All Night Pickup
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $bailey_date_attended to 1>>
 <<set $bailey_date_allnight to ($bailey_date_allnight || 0) + 1>>
 
@@ -1415,7 +1420,7 @@ You approach Bailey, who's leaning against the front door.
 
 :: Bailey Date All Night Car
 <<pass 15>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 Bailey pulls away from the orphanage. You watch the streets pass through the window.
 <br><br>
@@ -1443,7 +1448,7 @@ Bailey pulls away from the orphanage. You watch the streets pass through the win
 
 :: Bailey Date All Night Arrive
 <<pass 5>><<set $bus to "barb">><<set $location to "town">><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 Bailey gets out of the car.
 <br><br>
@@ -1465,7 +1470,7 @@ You climb several floors in silence. <<He>> opens the door to a corridor and you
 
 :: Bailey Date All Night Enter
 <<pass 5>><<set $location to "town">><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 Bailey unlocks the door and walks in. You enter after <<him>>. <<He>> looks both ways down the corridor before shutting the door behind you.
 <br><br>
@@ -1482,7 +1487,7 @@ Bailey walks past you into <<his>> apartment.
 
 :: Bailey Date All Night Kitchen
 <<pass 5>><<set $location to "town">><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 Bailey walks to the kitchen. You watch from the doorway as <<he>> opens a cupboard and pulls down a set of bowls, mugs, and cutlery onto the countertop.
 <br><br>
@@ -1506,7 +1511,7 @@ Bailey walks to the kitchen. You watch from the doorway as <<he>> opens a cupboa
 
 :: Bailey Date All Night Kitchen Set
 <<pass 30>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 Bailey boils a pot of water over the stove. <<He>> chops the meat and vegetables into uneven chunks. <<He>> dumps them from the chopping board into the pot. You note that <<he>> didn't use any seasoning.
 <br><br>
@@ -1532,7 +1537,7 @@ You take a bite from your bowl. It is flavourless. You chew and swallow and chew
 
 :: Bailey Date All Night Kitchen Watch
 <<pass 30>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You don't move from the doorway. You watch Bailey work.
 <br><br>
@@ -1561,7 +1566,7 @@ You take a bite from your bowl. It is flavourless. You chew and swallow and chew
 
 :: Bailey Date All Night Kitchen Cook
 <<pass 30>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
 	"L-Let me cook for you." You step forward. "Please."
@@ -1601,7 +1606,7 @@ You step over to the countertop. The meat and produce are already out. You work 
 
 :: Bailey Date All Night Undress
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 When you're both done eating, Bailey takes your bowl with <<his>> to the kitchen sink.
 <br><br>
@@ -1621,7 +1626,7 @@ You recognise the papers. You see your name and Robin's name. <span class="red">
 
 :: Bailey Date All Night Papers
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You are alone in Bailey's living room. You can hear <<him>> brushing <<his>> teeth and cleaning up in the bathroom.
 <br><br>
@@ -1643,13 +1648,13 @@ You and Robin's identification papers sit on the counter top, close enough to gr
 
 :: Bailey Date All Night Steal
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
-<<baileySeenAdd "papersCaught">><<baileyBrat 2 "papers">>
+<<person1>>
+<<baileySeenAdd "papersCaught">>
 
 You reach for the papers. <span class="red">You fail in your skulduggery.</span>
 <br><br>
 
-Bailey's hand is around your wrist before your fingers touch them.
+Bailey's hand is around your wrist before your fingers touch them. 
 <br><br>
 
 You don't know how <<he>> exited the bathroom and crossed the room so fast without you hearing.
@@ -1658,10 +1663,10 @@ You don't know how <<he>> exited the bathroom and crossed the room so fast witho
 <<His>> eyes find yours. <<His>> grip on your wrist turns painful.<<pain 1>><<gpain>><<stress 18>><<ggstress>><<trauma 18>><<ggtrauma>><<control -25>><<llcontrol>><<npcincr Bailey love -3>><<set $bailey_love -= 3>><<llllove "Bailey">>
 <br><br>
 
-<<He>> picks up the papers and lets go of your hand. <<He>> stomps to the door and opens it.
+<<He>> picks up the papers and lets go of your hand. <<He>> stomps to the door and opens it. 
 <br><br>
 
-"Out," <<he>> snarls.
+"Out," <<he>> snarls. <<baileyBrat 2 "papers">>
 <br><br>
 
 You don't move.
@@ -1683,7 +1688,7 @@ The night air hits you. You're outside the flats. Alone.
 
 :: Bailey Date All Night Ask Papers
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 The door to the bathroom opens. Bailey exits, running a hand through <<his>> hair.
 <br><br>
@@ -1709,7 +1714,7 @@ Bailey stills. <<He>> doesn't respond. <<He>> walks over to the counter and snat
 
 :: Bailey Date All Night Say Nothing
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 The door to the bathroom opens. Bailey exits, running a hand through <<his>> hair.
 <br><br>
@@ -1726,7 +1731,7 @@ When <<he>> sees the papers, <<he>> frowns briefly before picking them up. They 
 
 :: Bailey Date All Night Snake
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 Something shifts under the rug. A serpent slithers out and crosses the floor towards Bailey.
 <br><br>
@@ -1748,7 +1753,7 @@ Something shifts under the rug. A serpent slithers out and crosses the floor tow
 
 :: Bailey Date All Night Snake Touch
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<if currentSkillValue("willpower") gte random(1, 400)>>\
 	You reach out to touch the serpent. The snake lunges at you, <span class="green">but you don't move.</span> You slowly extend your hand closer until you can pet it.
@@ -1775,7 +1780,7 @@ Something shifts under the rug. A serpent slithers out and crosses the floor tow
 
 :: Bailey Date All Night Snake Refuse
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You stay where you are. Bailey strokes the serpent with a finger.
 <br><br>
@@ -1792,7 +1797,7 @@ Neither of them look at you. Their calm and unimpressed expressions mirror each 
 
 :: Bailey Date All Night Advance
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<set $seductiondifficulty to (5000 - (C.npc.Bailey.lust * 60))>>
 
 Bailey drops onto the couch. <<He>> stretches one arm along the back of it and lets <<his>> head fall against the cushions.
@@ -1812,7 +1817,7 @@ Bailey drops onto the couch. <<He>> stretches one arm along the back of it and l
 
 :: Bailey Date All Night Advance Approach
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<silently>><<seductioncheck>><</silently>>
 <<seductionskilluptext>>
 <<seductionskilluse>>
@@ -1874,7 +1879,7 @@ You cross the room to Bailey. <<His>> eyes are still closed.
 
 :: Bailey Date All Night Advance Watch
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You stay where you are and watch.
 <br><br>
@@ -1891,7 +1896,7 @@ Eventually, <<he>> opens <<his>> eyes, sits up straight, and picks up <<his>> ph
 
 :: Bailey Date All Night Couch Sex
 <<if $sexstart is 1>>
-	<<npc Bailey>><<person1>>
+	<<person1>>
 	<<set $sexstart to 0>>
 	<<consensual>>
 	<<set $consensual to 1>>
@@ -2026,7 +2031,7 @@ Bailey stands up from the couch. <<He>> looks at you before nodding towards a do
 
 :: Bailey Date All Night Ask
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
 	"C-Can I stay with you?" you ask. "In... In your bed."
@@ -2061,7 +2066,7 @@ You climb into bed beside <<him>>.
 
 :: Bailey Date All Night In Bed
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 The room is dark. You can barely make out Bailey in the bed but <<he>>'s there, turned towards you. You can't see <<his>> expression.
 <br><br>
@@ -2088,7 +2093,7 @@ You reach forward and touch <<his>> chest. <<He>> stiffens beneath your touch fo
 
 :: Bailey Date All Night Bed Sex
 <<if $sexstart is 1>>
-	<<npc Bailey>><<person1>>
+	<<person1>>
 	<<set $sexstart to 0>>
 	<<consensual>>
 	<<set $consensual to 1>>
@@ -2169,7 +2174,7 @@ You drift off to sleep under the blankets, in Bailey's arms.
 
 :: Bailey Date All Night Bed
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You accept Bailey's offer, stepping into the bedroom.
 <br><br>
@@ -2192,7 +2197,7 @@ You close the door and lay down in the bed. The sheets are softer than you expec
 
 :: Bailey Date All Night Couch
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
 	"Y-You should take the bed," you say. "I insist."
@@ -2276,7 +2281,7 @@ You pull the blanket Bailey found over yourself.
 	<<unset $baileyWatchingMasturbation>>
 	<<endmasturbation>>
 	<<endcombat>>
-	<<goto "Bailey Date All Night Masturbation Caught">>
+	<<include "Bailey Date All Night Masturbation Caught">>
 <</if>>
 
 
@@ -2353,7 +2358,7 @@ You don't know how long it takes you to fall asleep, but you eventually drift aw
 <<pass _toPass>>
 <<set $tiredness to 0>><<set $stress to Math.clamp($stress - 10000, 0, $stressmax)>>
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You wake up. The entire flat smells like coffee.
 <br><br>
@@ -2385,7 +2390,7 @@ Bailey exits the kitchen with a mug of coffee in hand. <<He>> is already dressed
 
 :: Bailey Date All Night Coffee
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
 	"M-May I have some coffee, please?" you ask.
@@ -2419,7 +2424,7 @@ You sip the black coffee slowly.
 
 :: Bailey Date All Night Good Morning
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
 	"Good morning, <<baileyTitleNarration>>," you say. "I-I hope you slept well."
@@ -2444,7 +2449,7 @@ Bailey says nothing back to you. <<He>> continues to drink from <<his>> coffee.
 
 :: Bailey Date All Night Stay Quiet
 <<pass 5>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 You say nothing.
 <br><br>
@@ -2466,7 +2471,7 @@ After a moment, <<he>> looks at you.
 
 :: Bailey Date All Night Morning Insist
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>\
 	"I-I can walk myself," you say. "You don't have to drive me."
@@ -2486,7 +2491,7 @@ After a moment, <<he>> looks at you.
 
 :: Bailey Date All Night End
 <<set $bus to "barb">><<set $location to "town">><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 
 The two of you exit Bailey's flat. <<He>> locks the door behind <<him>> before leading you down the stairs into the underground car park. <<He>> taps <<his>> jacket and <<his>> car lights up.
 <br><br>
@@ -2506,7 +2511,7 @@ The drive back is short and uneventful.
 
 :: Bailey Date All Night End 2
 <<pass 15>><<set $location to "home">><<set $outside to 0>><<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<baileySeenAdd "flatUnlock">>
 <<set $bailey_date_allnight_scheduled to 0>>
 <<set $bailey_date_attended to 0>>

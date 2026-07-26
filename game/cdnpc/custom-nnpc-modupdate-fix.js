@@ -103,6 +103,44 @@ DefineMacro("custom-nnpc-fix-custom-layers4", function(){
     V.customNNPC.versionFixes["customLayers4"] = true;
 });
 
+DefineMacro("custom-nnpc-fix-custom-layers5", function(){
+    for (let i = 0; i < V.NPCNameList.length; i++) {
+        let npcName = V.NPCNameList[i];
+        for (let j = 0; j < V.customNNPC.customImageLayers[npcName].length; j++) {
+            if(!("sourceMask" in V.customNNPC.customImageLayers[npcName][j])){
+                V.customNNPC.customImageLayers[npcName][j].sourceMask = "";
+                V.customNNPC.customImageLayers[npcName][j].targetMask = "none";
+                V.customNNPC.customImageLayers[npcName][j].mask = "none";
+            }
+
+            if("children" in V.customNNPC.customImageLayers[npcName][j]){
+                for (let k = 0; k <  V.customNNPC.customImageLayers[npcName][j].children.length; k++) {
+                    if(!("sourceMask" in V.customNNPC.customImageLayers[npcName][j].children[k])){
+                        V.customNNPC.customImageLayers[npcName][j].children[k].sourceMask = "";
+                        V.customNNPC.customImageLayers[npcName][j].children[k].targetMask = "none";
+                        V.customNNPC.customImageLayers[npcName][j].children[k].mask = "none";
+                    }
+                }
+            }
+        }
+    }
+
+    V.customNNPC.versionFixes["customLayers5"] = true;
+});
+
+DefineMacro("custom-nnpc-fix-custom-layers6", function(){
+    for (let i = 0; i < V.NPCNameList.length; i++) {
+        let npcName = V.NPCNameList[i];
+        for (let j = 0; j < V.customNNPC.customImageLayers[npcName].length; j++) {
+            if(!("clothingLayer" in V.customNNPC.customImageLayers[npcName][j])){
+                V.customNNPC.customImageLayers[npcName][j].clothingLayer = "none";
+            }
+        }
+    }
+
+    V.customNNPC.versionFixes["customLayers6"] = true;
+});
+
 DefineMacro("custom-nnpc-fix-hair-eye-colour", function(){
     for (let i = 0; i < V.NPCName.length; i++) {
         let hairColour = V.NPCName[i].hairColour;

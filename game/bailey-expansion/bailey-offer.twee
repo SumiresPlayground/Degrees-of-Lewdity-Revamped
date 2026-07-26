@@ -1,6 +1,6 @@
 :: Bailey Offer Yourself
 <<effects>>
-<<npc Bailey>><<person1>>
+<<person1>>
 <<if $stockholm_points is undefined>><<set $stockholm_points to {}>><</if>>
 <<set $bailey_offered to ($bailey_offered || 0)>>
 
@@ -13,13 +13,8 @@
 <</if>>
 <br><br>
 
-/* MONEY DEDUCTION POLICY
-   Always guard with `<<if $money gte $rentmoney + ($babyRent || 0)>>` before
-   `<<set $money -= ...>>`. The vanilla <<money>> macro crashes if PC can't
-   afford the amount, and a broke PC can reach this scene (e.g. the street
-   ambush), so we deduct with a plain <<set>> behind the guard. The
-   ($babyRent || 0) part makes sure PCs with babies don't get babyRent waived
-   for free. */
+/* Always guard with `<<if $money gte $rentmoney + ($babyRent || 0)>>` before
+   `<<set $money -= ...>>`. */
 
 <<if $bailey_offered is undefined or $bailey_offered is 0>>
 	<<if $baileydefeated gte 5>>
@@ -263,7 +258,7 @@
 <</if>>
 
 :: Bailey Choose Buyer Ask
-<<effects>><<npc Bailey>><<person1>>
+<<effects>><<person1>>
 
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>
 	"Uhm... May I choose where I am sent?" you ask, avoiding <<his>> gaze. "I'll pay."
