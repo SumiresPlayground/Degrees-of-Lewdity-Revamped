@@ -16,7 +16,7 @@ You are in the brothel. Several stages dot the crowded room. The staff look flus
 <br><br>
 
 <<if $stress gte $stressmax>>
-	<<passoutshop>>
+	<<passoutshop "brothel">>
 <<elseif $briarPunishment gte 1>>
 	<<set $briarPunishReason to "default">>
 	<<npc Briar>><<generate2>><<generate3>><<person1>>
@@ -54,7 +54,7 @@ You are in the brothel. Several stages dot the crowded room. The staff look flus
 	<<link [[Refuse|Brothel Pay Refuse]]>><<npcincr Briar dom -1>><<def 1>><</link>>
 	<br>
 
-<<elseif C.npc.Leighton.init is 1 and $leightonbrothel is undefined and $brotheljob is 1 and Time.weekDay gte 6 and $pillory.tenant.special.name isnot "Leighton">><<set $leightonbrothel to 1>>
+<<elseif C.npc.Leighton.init is 1 and $leightonbrothel is undefined and $brotheljob is 1 and Time.weekDay gte 6 and $pillory.tenant.special.name isnot "Leighton" and (!Time.schoolDay or Time.hour gte 17)>><<set $leightonbrothel to 1>>
 	<<npc Leighton>><<person1>>
 	"You look like one of my students," says an amused voice from your right. <span class="red">It's Leighton.</span>
 	<<if playerBellyVisible()>>
@@ -1865,7 +1865,7 @@ You are in the bathroom at the brothel. There are communal showers for the dance
 <br><br>
 
 <<if $stress gte $stressmax>>
-<<passoutshop>>
+<<passoutshop "brothel">>
 <<else>>
 	<<pregnancyTest "Brothel Bathroom">>
 	<<if hasSexStat("exhibitionism", 3)>>

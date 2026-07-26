@@ -21,7 +21,7 @@ function detectedNNPC(){
 DefineMacro("custom-nnpc-autodetect", detectedNNPC);
 
 function getNNPCNameId(NPCname){
-	return V.NPCNameList.indexOf(NPCname);
+		return V.NPCNameList.indexOf(NPCname);
 }
 
 function getNNPCData(NPCname){
@@ -64,6 +64,56 @@ function getNNPCData(NPCname){
 	else return {};
 }
 
+function compileCustomLayer(layer, assetN, childN){
+	let filter = [];
+	if(layer.filterOption === "custom"){
+		let filterTitle = "customNPCArtAsset" + assetN + (childN >= 0 ? "-"+childN : "");
+		T.modeloptions.additional_filters[filterTitle] = {
+			blend: layer.filterColour.toLowerCase(),
+			blendMode: layer.blendMode,
+			desaturate: layer.desaturate,
+		};
+		filter = [filterTitle];
+	}
+	else if(layer.filterOption !== "none"){
+		filter = [layer.filterOption];
+	}
+
+	let layerOptions = {
+		name: "custom-npc-asset-"+assetN + (childN >= 0 ? "-"+childN : ""),
+		show: true,
+		filters: filter,
+		animation: "idle",
+		srcfn(options){
+			return "img/" + layer.source.replace(/(?:\.\.[\/\\])+/g, '');
+		},
+		zfn(options) {
+			return Number(layer.zIndex);
+		},
+		defaultOptions:{
+			show: false,
+			brightness: 0.0,
+			contrast: 1.0,
+			blend: "",
+			blendMode: "",
+			maskBlendMode: "destination-in",
+			alpha: 1.0,
+			desaturate: false,
+		}
+	};
+
+	if(layer.targetMask !== "none" && layer.sourceMask !== ""){
+		T.modeloptions.additional_masks.push([layer.targetMask, "img/" + layer.sourceMask.replace(/(?:\.\.[\/\\])+/g, '')]);
+	}
+	if(layer.mask !== "none") {
+		layerOptions.masksrcfn = function (options) {
+			return options[layer.mask];
+		};
+	}
+
+	return layerOptions;
+}
+
 function filterLayerForScene(layer) {
 	if(layer.displayScene === ""){
 		return true;
@@ -89,8 +139,21 @@ function filterLayerForScene(layer) {
 	return false;
 }
 
+function filterLayerForClothing(layer) {
+	switch (layer.clothingLayer) {
+		case "upper":
+			return !V.customNNPC.topExposed;
+		case "lower":
+			return !V.customNNPC.bottomExposed;
+		case "none":
+		default:
+			return true;
+	}
+}
+
 function modelPrepareNNPCBody(NPCname, setName) {
 	T.modeloptions.additional_filters = {};
+	T.modeloptions.additional_masks = [];
 
 	if(NPCname === ""){
 		T.modeloptions.force_defaults = true;
@@ -418,7 +481,7 @@ function modelPrepareNNPCBody(NPCname, setName) {
 	for (let i = 0; i < V.customNNPC.customImageLayers[NPCname].length; i++) {
 		const layer = V.customNNPC.customImageLayers[NPCname][i];
 		if(layer.clothingSet.includes("all") || layer.clothingSet.includes(setName)) {
-			if(!filterLayerForScene(layer)){
+			if(!filterLayerForScene(layer) || !filterLayerForClothing(layer)){
 				continue;
 			}
 
@@ -436,85 +499,10 @@ function modelPrepareNNPCBody(NPCname, setName) {
 				T.modeloptions.additional_layers_options_overrides["arm_left"] = "cover";
 			}
 
-
-			let filter = [];
-			if(layer.filterOption === "custom"){
-				let filterTitle = "customNPCArtAsset" + i;
-				T.modeloptions.additional_filters[filterTitle] = {
-					blend: layer.filterColour.toLowerCase(),
-					blendMode: layer.blendMode,
-					desaturate: layer.desaturate,
-				};
-				filter = [filterTitle];
-			}
-			else if(layer.filterOption !== "none"){
-				filter = [layer.filterOption];
-			}
-
-			T.modeloptions.additional_layers.push({
-				name: "custom-npc-asset-"+i,
-				show: true,
-				filters: filter,
-				animation: "idle",
-				srcfn(options){
-					return "img/" + layer.source.replace(/(?:\.\.[\/\\])+/g, '');
-				},
-				zfn(options) {
-					return Number(layer.zIndex);
-				},
-				defaultOptions:{
-					show: false,
-					brightness: 0.0,
-					contrast: 1.0,
-					blend: "",
-					blendMode: "",
-					maskBlendMode: "destination-in",
-					alpha: 1.0,
-					desaturate: false,
-				}
-			});
+			T.modeloptions.additional_layers.push(compileCustomLayer(layer, i,-1));
 
 			for (let j = 0; j < layer.children.length; j++) {
-				const sublayer = layer.children[j];
-				let subfilter = [];
-				if(sublayer.filterOption === "custom"){
-					let filterTitle = "customNPCArtAsset" + i + "-" + j;
-					T.modeloptions.additional_filters[filterTitle] = {
-						blend: sublayer.filterColour.toLowerCase(),
-						blendMode: sublayer.blendMode,
-						desaturate: sublayer.desaturate,
-					};
-					subfilter = [filterTitle];
-				}
-				else if(sublayer.filterOption === "copy"){
-					subfilter = filter;
-				}
-				else if(sublayer.filterOption !== "none"){
-					subfilter = [sublayer.filterOption];
-				}
-
-				T.modeloptions.additional_layers.push({
-					name: "custom-npc-asset-"+i+"-"+j,
-					show: true,
-					filters: subfilter,
-					animation: "idle",
-					srcfn(options){
-						return "img/" + sublayer.source.replace(/(?:\.\.[\/\\])+/g, '');
-					},
-					zfn(options) {
-						return Number(sublayer.zIndex);
-					},
-					defaultOptions:{
-						show: false,
-						brightness: 0.0,
-						contrast: 1.0,
-						blend: "",
-						blendMode: "",
-						maskBlendMode: "destination-in",
-						alpha: 1.0,
-						desaturate: false,
-					}
-				});
+				T.modeloptions.additional_layers.push(compileCustomLayer(layer.children[j], i, j));
 			}
 		}
 	}
@@ -646,7 +634,7 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 		customNNPCDefaultClothes(setName, NPCname);
 	}
 
-	worn = V.customNNPC.customClothesSets[NPCname][setName];
+	worn = $.extend( true, {}, V.customNNPC.customClothesSets[NPCname][setName]);
 
 	if(NPCname === "Sydney" && V.customNNPC.sydney.sync === true){
 		if(V.sydney.glasses === "glasses" || V.sydney.glasses === "playerbought"){
@@ -743,13 +731,17 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 	T.modeloptions.arm_right  =
 		setup.clothes_all_slots.some(slot => ["right_hold", "clutch"].includes(worn[slot]?.holdPosition)) ||
 		(worn.handheld.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.handheld?.holdPosition))
-			? "cover" : "idle";
+	? "cover" : "idle";
 	T.modeloptions.arm_left = setup.clothes_all_slots.some(slot => worn[slot]?.holdPosition === "left_hold") ? "cover" : "idle";
 
 	if("prop_arm_position" in T.modeloptions){
 		switch (T.modeloptions.prop_arm_position){
 			case "hold":
 				T.modeloptions.arm_right = "hold";
+				break;
+			case "hold_both":
+				T.modeloptions.arm_right = "hold";
+				T.modeloptions.arm_left = "cover";
 				break;
 			default:
 				break;

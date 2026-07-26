@@ -90,7 +90,7 @@ function effectsWater(waterType = "liquid") {
 		}
 	}
 
-	if (!V.worn.under_lower.type.includes("naked") && !playerChastity() && !waterproofCheck(V.worn.under_lower)) {
+	if (!V.worn.under_lower.type.includes("naked") && !waterproofCheck(V.worn.under_lower)) {
 		if (V.underlowerwet >= 100 && V.underlowerwetstage < 3 && V.pantiesSoaked) {
 			V.underlowerwetstage = 3;
 			if (V.lowerwetstage === 3 || V.worn.lower.type.includes("naked")) {
@@ -1824,7 +1824,7 @@ function effects() {
 					element("span","Your body tingles.","gold");
 					break;
 				case "bearUp6":
-					element("span","A surge of aggression wells forward, but quickly disappears, replaced by a sense of weariness, which also fades. Something seems to sprout just above your <<bottom>>. You reach behind you and feel your new bear tail.","gold");
+					element("span","A surge of aggression wells forward, but quickly disappears, replaced by a sense of weariness, which also fades. Something seems to sprout just above your bottom. You reach behind you and feel your new bear tail.","gold");
 					break;
 				case "bearDown0":
 					element("span", "Your toothache has stopped.", "gold");

@@ -8,10 +8,10 @@ You are stood in the police station lobby. A <<person1>><<person>> in an officer
 <<if crimeSumCurrent() gte 5000>>
 	There's a wanted poster behind <<him>>. <span class="red">It has a picture of your face.</span>
 <</if>>
+<br><br>
 <<if $arousal gte $arousalmax>>
 	<<orgasmLocation "policeStation">>
 <</if>>
-<br><br>
 <<if $community_service gte 1 and $community_service_done isnot 1 and $exposed lte 0 and Time.hour lt 21 and Time.hour gte 6>>
 	<<icon "community-service.png">><<link [[Community service (1:00)|Police Community]]>><</link>>
 	<br>
@@ -165,6 +165,7 @@ You ask the <<person>> if you can have your shackles removed. "Dunno what you ex
 "I'll be right round," the <<person>> says. <<He>> enters the lobby proper moments later, holding a strange-looking key. <<He>> holds it up to the collar, and the lock clicks open, releasing your neck. <<He>> takes the collar. "As I said, government property."
 <br><br>
 <<set $worn.neck.type.push("broken")>><<neckruined true>><<set $worn.neck.collaredpolice to 0>>
+	<<if $worn.neck.cursed is 1 and $worn.neck.name is "naked">><<set $worn.neck.cursed to 0>><</if>>
 <<link [[Next|Police Station]]>><</link>>
 <br>
 
@@ -200,6 +201,7 @@ You ask the <<person>> if you can have your shackles removed. "Dunno what you ex
 	<<He>> takes a strange key from <<his>> belt and holds it up to your collar. Your collar comes loose with a click, falling to the ground. <<He>> picks it up. "Government property. Goes without saying you shouldn't tell anyone this happened." <<tearful>> you gather yourself, and watch <<him>> leave.
 	<br><br>
 	<<set $worn.neck.type.push("broken")>><<neckruined>>
+	<<if $worn.neck.cursed is 1 and $worn.neck.name is "naked">><<set $worn.neck.cursed to 0>><</if>>
 	<<clotheson>>
 	<<endcombat>>
 <<elseif $enemyhealth lte 0>>

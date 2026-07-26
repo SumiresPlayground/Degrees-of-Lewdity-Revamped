@@ -87,6 +87,15 @@ Renderer.CanvasModels.customNNPC = {
 			V.customNNPC.errorStack.push("Custom NNPC Preprocess Failed:" + e);
 			console.error("Custom NNPC Preprocess Failed:" + e);
 		}
+
+		for (let i = 0; i < T.modeloptions.additional_masks.length; i++) {
+			const mask = T.modeloptions.additional_masks[i][0];
+			const src = T.modeloptions.additional_masks[i][1];
+			if(mask in options && Array.isArray(options[mask])){
+				options[mask].push(src);
+			}
+		}
+
 	},
 	postprocess(options) {
 		if(T.modeloptions.force_defaults){

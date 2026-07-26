@@ -2329,7 +2329,7 @@ function initFeet() {
 			shop: ["clothing"],
 			type: ["normal", "heels"],
 			combat: {
-				reference: "none",
+				reference: "stripperheels",
 			},
 			state: 0,
 			state_base: 0,
@@ -2366,7 +2366,7 @@ function initFeet() {
 			shop: ["clothing"],
 			type: ["normal", "heels", "formal"],
 			combat: {
-				reference: "anklecuffs",
+				reference: "bootheels",
 			},
 			state: 0,
 			state_base: 0,
@@ -2403,7 +2403,7 @@ function initFeet() {
 			shop: ["clothing"],
 			type: ["normal", "heels"],
 			combat: {
-				reference: "anklecuffs",
+				reference: "bootheels",
 			},
 			state: 0,
 			state_base: 0,
@@ -2439,7 +2439,7 @@ function initFeet() {
 			shop: ["clothing"],
 			type: ["normal"],
 			combat: {
-				reference: "anklecuffs",
+				reference: "bootheels",
 			},
 			state: 0,
 			state_base: 0,
@@ -2475,7 +2475,7 @@ function initFeet() {
 			shop: ["clothing"],
 			type: ["normal", "heels"],
 			combat: {
-				reference: "anklecuffs",
+				reference: "stripperheels",
 			},
 			state: 0,
 			state_base: 0,
@@ -2549,7 +2549,7 @@ function initFeet() {
 			shop: ["clothing"],
 			type: ["normal"],
 			combat: {
-				reference: "anklecuffs",
+				reference: "bootheels",
 			},
 			state: 0,
 			state_base: 0,
@@ -2583,7 +2583,7 @@ function initFeet() {
 			description: "Vintage charm.",
 			cost: 10500,
 			shop: ["clothing"],
-			type: ["normal", "formal"],
+			type: ["normal", "formal", "heels"],
 			combat: {
 				reference: "kittenheels",
 			},
@@ -2807,7 +2807,7 @@ function initFeet() {
 			shop: ["clothing"],
 			type: ["normal"],
 			combat: {
-				reference: "anklecuffs",
+				reference: "bootheels",
 			},
 			state: 0,
 			state_base: 0,
@@ -2841,7 +2841,7 @@ function initFeet() {
 			description: "Smell the roses.",
 			cost: 21000,
 			shop: ["clothing"],
-			type: ["normal", "formal"],
+			type: ["normal", "formal", "heels"],
 			combat: {
 				reference: "stripperheels",
 			},
@@ -2915,7 +2915,7 @@ function initFeet() {
 			description: "Wraps the ankles.",
 			cost: 19500,
 			shop: ["clothing"],
-			type: ["normal", "formal"],
+			type: ["normal", "formal", "heels"],
 			combat: {
 				reference: "stripperheels",
 			},
@@ -3021,6 +3021,11 @@ function initFeet() {
 			name: "bow snow boots",
 			name_cap: "Bow snow boots",
 			variable: "bowsnowboots",
+			combat: {
+				reference: "lightuptrainers",
+				hasMainImg: false,
+				accColour: "primary",
+			},
 			description: "Keeps feet warm.",
 			cost: 8000,
 			shop: ["clothing"],
@@ -3234,7 +3239,12 @@ function initFeet() {
 			index: 87,
 			slot: "feet",
 			name: "spat shoes",
+			name_cap: "Spat shoes",
 			variable: "spat shoes",
+			combat: {
+				reference: "lightuptrainers",
+				hasMainImg: false,
+			},
 			description: "Classic vintage style.",
 			cost: 10000,
 			shop: ["clothing"],

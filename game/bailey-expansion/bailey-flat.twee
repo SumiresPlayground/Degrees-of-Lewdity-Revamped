@@ -1,3 +1,16 @@
+:: Bailey Flat Rent Due
+<<set $location to "town">><<effects>><<npc Bailey>><<person1>>
+
+You approach Bailey's door. The <span class="purple">lotus knob</span> shines in the streetlight.
+<br><br>
+
+You can't bring yourself to knock the door knowing that <span class="bailey-red">rent is due.</span>
+<br><br>
+
+<<link [[Leave|Flats]]>><<endevent>><</link>>
+<br>
+
+
 :: Bailey Flat Door
 <<pass 1>><<set $location to "town">><<effects>><<npc Bailey>><<person1>>
 
@@ -58,7 +71,7 @@
 		<br><br>
 		"What are you doing here?" <<he>> says. "<<if $bailey_monogamous>>I don't have time tonight. Come back during the weekend.<</if>> Go away."
 		<br><br>
-		<<set $seductiondifficulty to 4000>>
+		<<set $seductiondifficulty to 8000>>
 		<<if hasSexStat("exhibitionism", 4)>>
 			<<link [[Flash <<him>> (0:05)|Bailey Flat Door Flash]]>><</link>><<exhibitionist4>>
 			<br>
@@ -73,7 +86,7 @@
 
 
 :: Bailey Flat Door Flash
-<<pass 5>><<effects>><<npc Bailey>><<person1>>
+<<pass 5>><<effects>><<person1>>
 You smile up at <<him>>. 
 <<if $player.penisExist and $worn.lower.name isnot "naked">>
 	You hook aside your $worn.lower.name and flash <<him>> your <<genitals>>.
@@ -93,7 +106,7 @@ You run away before <<he>> can do anything. As you run down the stairs, you hear
 <br>
 
 :: Bailey Flat Door Seduce
-<<pass 5>><<effects>><<npc Bailey>><<person1>>
+<<pass 5>><<effects>><<person1>>
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>
 	"You... You aren't going to send me away, are you?" you ask, leaning into <<him>>. "I came all this way."
 <<elseif $speech_attitude is "bratty">>
@@ -102,7 +115,7 @@ You run away before <<he>> can do anything. As you run down the stairs, you hear
 	"I came all this way to see you," you say, leaning into <<him>>. "Won't you let me in?"
 <</if>>
 <br><br>
-<<set $seductiondifficulty to 4000>><<silently>><<seductioncheck>><</silently>>
+<<set $seductiondifficulty to 8000>><<silently>><<seductioncheck>><</silently>>
 <<if $seductionrating gte $seductionrequired>>
 	Bailey looks over you. <span class="green"><<His>> sneer softens into a frown.</span>
 	<br><br>
@@ -143,7 +156,7 @@ You run away before <<he>> can do anything. As you run down the stairs, you hear
 
 
 :: Bailey Flat Door Leave
-<<pass 1>><<effects>><<npc Bailey>><<person1>>
+<<pass 1>><<effects>><<person1>>
 You leave. You hear Bailey shut the door behind you.
 <br><br>
 <<link [[Next|Flats]]>><<endevent>><</link>>
@@ -151,7 +164,7 @@ You leave. You hear Bailey shut the door behind you.
 
 
 :: Bailey Flat Ride
-<<pass 15>><<effects>><<npc Bailey>><<person1>>
+<<pass 15>><<effects>><<person1>>
 
 Bailey escorts you to <<his>> car.
 <br><br>
@@ -182,7 +195,7 @@ Bailey escorts you to <<his>> car.
 <<pass 5>>
 <<if $bailey_weekend_visits is undefined>><<set $bailey_weekend_visits to 0>><</if>>
 <<if $bailey_weekend_visits gte 5 and Time.isWeekEnd() and random(1, 10) is 1>><<goto "Bailey Flat Fight">><</if>>
-<<effects>><<npc Bailey>><<person1>>
+<<effects>><<person1>>
 <<set $bailey_weekend_round to 1>>
 The door shuts behind you. 
 <<if baileyWeeksMissed() gte 1>>
@@ -196,9 +209,9 @@ The door shuts behind you.
 	<<if $rng lte 25>>
 		Bailey says nothing to you. <<He>> shoves you up against the door and presses <<his>> lips to your neck. <<He>> pushes <<his>> leg between yours without warning, causing you to jolt.<<arousal 500>><<garousal>>
 	<<elseif $rng lte 50>>
-		Bailey catches your wrist before the door has even shut and pulls you flush against <<him>>. "Right on time," <<he>> murmurs into your ear. You feel <<him>> smile against your skin.<<arousal 500>><<garousal>>
+		Bailey catches your wrist before the door has even shut and pulls you flush against <<him>>. "Right on time," <<he>> murmurs into your ear. You feel <<him>> snicker against your skin.<<arousal 500>><<garousal>>
 	<<elseif $rng lte 75>>
-		Bailey grabs your arm and reels you in until you're pressed to <<him>>, <<his>> hand splayed low on your back. <<He>> doesn't say a word.<<arousal 500>><<garousal>>
+		Bailey grabs your arm and reels you in until you're pressed to <<him>>, <<his>> hand splayed low on your back. <<He>> doesn't say a word, but <<he>> presses his lips to your neck. <<arousal 500>><<garousal>>
 	<<else>>
 		Bailey takes your jaw in one hand and tilts your face up, studying you in the light. Then <<he>> kisses you, slow and certain.<<arousal 500>><<garousal>>
 	<</if>>
@@ -215,8 +228,7 @@ The door shuts behind you.
 :: Bailey Flat Weekend Sex
 <<if $molestationstart is 1>>
 	<<set $molestationstart to 0>>
-	<<npc Bailey>><<person1>>
-	<<controlloss>>
+	<<person1>>
 	<<consensual>>
 	<<set $consensual to 1>>
 	<<neutral 1>>
@@ -349,7 +361,7 @@ Bailey peels away from you. <<He>> looks over the <<if $semenoutsidecount gte 1 
 
 
 :: Bailey Flat Bath Join
-<<pass 15>><<effects>><<npc Bailey>><<person1>>
+<<pass 15>><<effects>><<person1>>
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>
 	"Um, would you, maybe, like to j-join me?" you ask, flustered.
 <<elseif $speech_attitude is "bratty">>
@@ -379,7 +391,7 @@ When the water goes cold, <<he>> stands and pulls you up with <<him>>. <<He>> dr
 
 
 :: Bailey Flat Bath Alone
-<<pass 15>><<effects>><<npc Bailey>><<person1>>
+<<pass 15>><<effects>><<person1>>
 You climb into the tub. The water is warm.
 <br><br>
 
@@ -402,7 +414,7 @@ Once you're dry, <<he>> guides you back to <<his>> bed and pulls the cover over 
 <br>
 
 :: Bailey Flat Fight
-<<pass 5>><<effects>><<npc Bailey>><<person1>>
+<<pass 5>><<effects>><<person1>>
 <<set $bailey_weekend_round to 1>>
 You notice Bailey is taking things slow today. <<He>> would normally have you in <<his>> bed by now. Today, <<he>> leans against the doorframe of <<his>> bedroom, watching you.
 <br><br>
@@ -425,7 +437,7 @@ You stare back. Eventually, <<he>> peels from the doorframe and steps towards yo
 
 
 :: Bailey Flat Fight Ask
-<<effects>><<npc Bailey>><<person1>>
+<<effects>><<person1>>
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>
 	"W-What?" you ask. "Why would I fight you?"
 <<elseif $speech_attitude is "bratty">>
@@ -451,7 +463,7 @@ Bailey pauses for a moment. <<He>> works something in <<his>> jaw while <<he>> s
 
 
 :: Bailey Flat Fight Refuse
-<<effects>><<npc Bailey>><<person1>>
+<<effects>><<person1>>
 <<if $speech_attitude is "meek" or $speech_attitude is "shy">>
 	"I-I really don't want to do that," you murmur. "I don't want to hurt you."
 <<elseif $speech_attitude is "bratty">>
@@ -481,7 +493,7 @@ Bailey pauses for a moment. <<He>> works something in <<his>> jaw while <<he>> s
 
 
 :: Bailey Flat Fight Him
-<<effects>><<npc Bailey>><<person1>>
+<<effects>><<person1>>
 You don't hesitate. You press both palms to Bailey's chest and shove <<him>> away from you. <<He>> takes a step back before <<he>> recovers.
 <br><br>
 
@@ -499,8 +511,7 @@ You don't hesitate. You press both palms to Bailey's chest and shove <<him>> awa
 <<if $fightstart is 1>>
 	<<set $fightstart to 0>>
 	<<pass 10>>
-	<<npc Bailey>><<person1>>
-	<<controlloss>>
+	<<person1>>
 	<<consensual>>
 	<<set $consensual to 1>>
 	<<neutral 1>>
@@ -572,6 +583,6 @@ You don't hesitate. You press both palms to Bailey's chest and shove <<him>> awa
 
 	<<baileyWeekendVisitDone>><<set $bailey_weekend_visits += 1>>
 	<<clotheson>><<endcombat>>
-	<<link [[Next|Bailey Date All Night Morning]]>><<set $bailey_sleep_config to "alone_bed">><</link>>
+	<<link [[Next|Bailey Date All Night Morning]]>><<npc Bailey>><<set $bailey_sleep_config to "alone_bed">><</link>>
 	<br>
 <</if>>

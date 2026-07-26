@@ -314,14 +314,26 @@
 		{label:"Hissing from Garage",   text:"Some kind of animal or something keeps hissing from the garage."},
 		{label:"Something in Cupboard",   text:"Every night, there is a strange scratching from the cupboard."},
 		{label:"Strange Holes",   text:"Strange holes are appearing in my lawn, anybody recognize these?"},
-		{label:"Something Following",   text:"I feel like something is following me, can someone investigate?"},
 		{label:"Cracked Wall",   text:"Strange cracks keep appearing on my wall out of nowhere."}
 		]>>
 	<<if $fame.investigator gte 400>>
 		<<set _all.pushUnique(
-			{label:"Stuff Disappearing",   text:"Goods and valuables keep disappearing from the factory at night."}
+			{label:"Stuff Disappearing",   text:"Goods and valuables keep disappearing from the factory at night."},
+			{label:"Something Following",   text:"I feel like something is following me, can someone investigate?"}
 		)>>
-	<</if>>061329
+	<</if>>
+	<<if $fame.investigator gte 800>>
+		<<set _all.pushUnique(
+			{label:"Something Watching at Night",   text:"Something stands over my bed at night, watching me."},
+			{label:"Ravaged Farm",   text:"My livestock keep going missing and there is strange noises at night."},
+			{label:"Screaming Children",   text:"My children wake up screaming most nights, can someone check it out?"}
+		)>>
+	<</if>>
+	<<if $fame.investigator gte 1200>>
+		<<set _all.pushUnique(
+			{label:"Crying Baby",   text:"Something sounds like a baby has been crying outside of my house for days."}
+		)>>
+	<</if>>
 	<<if $fame.investigator gte 1600>>
 		<<if $settings.goreEnabled>>
 			<<set _all.pushUnique(
@@ -399,9 +411,9 @@
 		<<if $acceptedRequest>>
 			Accepted request: «$acceptedRequest»
 			<br>
-			<<if $acceptedRequest is "Strange Creaking" or $acceptedRequest is "Weird Creature" or $acceptedRequest is "Something in Cupboard" or $acceptedRequest is "Something Following" or $acceptedRequest is "Missing Children">>
+			<<if $acceptedRequest is "Strange Creaking" or $acceptedRequest is "Weird Creature" or $acceptedRequest is "Something in Cupboard" or $acceptedRequest is "Something Following" or $acceptedRequest is "Missing Children" or $acceptedRequest is "Something Watching at Night">>
 				The request location is on «Domus Street»
-			<<elseif $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall" or $acceptedRequest is "Mysterious Death">>
+			<<elseif $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall" or $acceptedRequest is "Mysterious Death" or $acceptedRequest is "Screaming Children" or $acceptedRequest is "Crying Baby">>
 				The request location is on «Danube Street»
 			<<elseif $acceptedRequest is "Stuff Disappearing">>
 				The request location is on «Harvest Street»
@@ -409,6 +421,8 @@
 				The request location is on «Nightingale Street»
 			<<elseif $acceptedRequest is "Special Request">>
 				The request location is in the «Commercial Alleyways»
+			<<elseif $acceptedRequest is "Ravaged Farm">>
+				The request location is in the «Farmlands»
 			<</if>>
 			<br>
 		<</if>>

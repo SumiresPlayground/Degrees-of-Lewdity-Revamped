@@ -213,7 +213,7 @@
 		<<set $nectar_timer to 21>>
 		<<set $backgroundTraits.push("plantlover")>>
 	<</if>>
-	<<if V.background.athlete===true>>
+	<<if V.background.masochist===true>>
 		<<set $masochism_level to 4>>
 		<<set $masochism to 1000>>
 		<<set $backgroundTraits.push("masochist")>>
@@ -558,4 +558,11 @@
 
 	<<generateTipsList>>
 	<<custom-nnpc-init>>
+	<<if $skincolourreset is undefined>>
+		<<set $skincolourreset to Skin.color.natural>>
+	<</if>>
+	<<if $haircolourreset is undefined>>
+		<<set $haircolourreset to $haircolour>>
+		<<set $hairfringecolourreset to $hairfringecolour>>
+	<</if>>
 <</widget>>

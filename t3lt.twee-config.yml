@@ -2575,6 +2575,15 @@ sugarcube-2:
       tags: ["dom"]
     chastityBreakWraith:
       name: chastityBreakWraith
+    cheatAveryMansion:
+      description: |-
+        Sets cheats to enter Avery's mansion early (debug only).
+        Provides the initial cheats from the debug and automatically pushes the required states to unlock the mansion. The vavlues are set to fit the criteria of a score of 130 and above.
+
+        - Avery is met and their love is set at 90
+        - You start with a housekeeping of B
+        - You start with 12 random level 1 recipes 
+        - You have dated Avery 12 times and they're unlocked as your Love Interest
     cheatBodyLiquid:
       description: |-
         Prints links to change amount of bodily fluids to all parts of the pc's body
@@ -3881,6 +3890,9 @@ sugarcube-2:
       description: |-
         Prints amount ambient light based on time of day
       tags: ["text"]
+    debug_avery_skip_to_return:
+      description: |-
+        [DEBUG] Advances time in the mansion until Avery returns
     def:
       description: |-
         Adds defiant quality to pc's state and applies effects
@@ -10547,20 +10559,21 @@ sugarcube-2:
         Manages storage of handheld items in `lockers2` location
 
         See `<<lockers>>` for first slot
-    lockerclothesautoequip:
-      name: lockerclothesautoequip
-    lockerclothesautoequip2:
-      name: lockerclothesautoequip2
-    lockerclothesautoequiprun:
-      name: lockerclothesautoequiprun
-    lockerclothesautooption:
-      name: lockerclothesautooption
-    lockerclothesautostore:
-      name: lockerclothesautostore
-    lockerclothesautostore2:
-      name: lockerclothesautostore2
-    lockerclothesautostorerun:
-      name: lockerclothesautostorerun
+    lockerClothesAutoEquip:
+      description: |-
+        Automatically equips or swaps out to the handheld item in the school lockers
+
+        See `<<lockerClothesAutoOption>>` for the toggle and `<<lockerClothesAutoStore>>` for storing or swapping out your current handheld item in the school lockers
+    lockerClothesAutoOption:
+      description: |-
+        Toggle to automatically store, equip, and swap handheld items in the school lockers
+
+        See `<<lockerClothesAutoEquip>>` and `<<lockerClothesAutoStore>>` for functionality
+    lockerClothesAutoStore:
+      description: |-
+        Automatically stores or swaps out your current handheld item in the school lockers
+
+        See `<<lockerClothesAutoOption>>` for the toggle and `<<lockerClothesAutoEquip>>` for equipping or swapping out to the handheld item in the school lockers
     lockerevent:
       name: lockerevent
     lockereventnext:
@@ -12951,6 +12964,10 @@ sugarcube-2:
       description: |-
         Passes out and prints links for players at the Lake
       tags: ["links"]
+    passoutmansion:
+      description: |-
+        Passes out and prints links for players at Avery's mansion
+      tags: ["links"]
     passoutpark:
       description: |-
         Passes out and prints links for players in the Park
@@ -12969,7 +12986,9 @@ sugarcube-2:
       tags: ["links"]
     passoutshop:
       description: |-
-        Passes out and prints links for players in the Shopping Centre
+        Passes out and prints links for players in the Shops
+      parameters:
+        - "pregLocation |+ Pregnancy Passout location"
       tags: ["links"]
     passoutstreet:
       description: |-
@@ -17465,9 +17484,9 @@ sugarcube-2:
       name: updateFeats
     updateFeatsPointsMenu:
       name: updateFeatsPointsMenu
-    updateFoodstuffKey:
+    updateFoodstuffVariables:
       description: |-
-        For use when renaming (not deleting) setup.foodstuff keys. This widget mirrors changes to V.foodstuff and other variables
+        For use after renaming (not deleting) setup.foodstuff keys. This widget mirrors changes to V.foodstuff and other variables
     updateHallucinations:
       description: |-
         Updates pc's hallucination state based on trauma, awareness, drugs, weather, and clothing

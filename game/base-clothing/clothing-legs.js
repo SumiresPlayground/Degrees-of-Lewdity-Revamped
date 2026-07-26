@@ -2241,7 +2241,7 @@ function initLegs() {
 			name_cap: "Fishnet kneehighs",
 			variable: "fishnetkneehighs",
 			combat: {
-				renderType: "kneehighs",
+				reference: "fishnetstockings",
 			},
 			integrity: 20,
 			integrity_max: 20,
@@ -2358,6 +2358,7 @@ function initLegs() {
 			index: 62,
 			slot: "legs",
 			name: "patterned leggings",
+			name_cap: "Patterned leggings",
 			variable: "patterned leggings",
 			description: "Adds some details.",
 			cost: 2500,

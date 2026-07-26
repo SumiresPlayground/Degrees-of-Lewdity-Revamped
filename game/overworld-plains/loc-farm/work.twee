@@ -1341,6 +1341,7 @@ You enter the sty, and release the <<farm_text_many pig>>. They walk down the ai
 
 <<pigsOpinion>>
 
+<<clearsinglenpc 0>>
 <<npc Alex>><<person1>>
 <<alexRemyTattoosCheck "chores">>
 <<wearProp "bucket">>
@@ -1382,7 +1383,7 @@ You help Alex carry feed across the yard, spilling it over the fence and into th
 		When feeding the pigs with Alex, Alex will have a chance of being targeted instead of the PC, with the odds split 50 / 50. If the PC gets harassed, there will be an automatic Tending check. Passing it will raise the Pig's Respect, while failing will cause them to be saved by Alex (+Stress, +Dominance). The Pig will also only make 1 attempt to grab the PC before Alex notices.
 
 		The skill checks happen automatically because Alex is there to help the PC, even if they fail the check. This removes the need for the "Scream for help" option. Alex's presence also reduces the severity of failure
-		and makes the Tending checks slightly easier. -->>
+		and makes the Tending checks slightly easier. -->
 	<<elseif random(0, 1) is 0>>
 		<!-- First tending check is for normal Respect. Second tending check is for very low Respect. -->
 		<<set _checkResults to [
@@ -3311,12 +3312,15 @@ You take one of the suction tubes, and attach it to your <<penis>>.
 <</if>>
 <<set _original_amount to $semen_amount>>
 The machine continues its devilish work, sucking with more intensity. You feel a warmth build.<<gggarousal>><<arousal 10000>>
+<br><br>
 <<orgasm>>
 <br>
 <<if _deniedOrgasm>>
 	Despite the attempts to milk your <<penis>>, your orgasm is still ruined by the slime in your ear. The machine doesn't give you a chance to recover.<<gggarousal>><<arousal 10000>>
+	<br><br>
 	<<orgasm>>
 	<<arousal 10000>>
+	<br><br>
 	<<orgasm>>
 
 	You remain on your hands and knees as the machine attempts to milks you again and again, only causing you more pain as it continues. Just when you fear you're about to pass out, the machine comes to a halt.
@@ -3330,8 +3334,10 @@ The machine continues its devilish work, sucking with more intensity. You feel a
 		Your semen is sucked up the tube, where it drips into a glass tank.
 	<</if>>
 	The machine doesn't give you a chance to recover.<<gggarousal>><<arousal 10000>>
+	<br><br>
 	<<orgasm>><<if $femaleclimax>><<set _femaleclimaxAmount++>><</if>>
 	<<arousal 10000>>
+	<br><br>
 	<<orgasm>><<if $femaleclimax>><<set _femaleclimaxAmount++>><</if>>
 	<br>
 	<<if _femaleclimaxAmount lt 3>>
