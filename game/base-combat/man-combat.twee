@@ -2582,9 +2582,9 @@ Hands are 'inverted': NPC holds PC's left hand with their right one, and vice ve
 		<!-- PENIS START -->
 
 		<<rng>>
-		<<if T.underNaked and $NPCList[_n].penis isnot "none">>
+		<<if T.underNaked and $NPCList[_n].penis is "clothed">>
 			<<set $NPCList[_n].penis to 0>>
-			<<if $NPCList[_n].vagina isnot "none">>
+			<<if $NPCList[_n].vagina is "clothed">>
 				<<set $NPCList[_n].vagina to 0>>
 			<</if>>
 		<</if>>
@@ -4084,9 +4084,9 @@ Hands are 'inverted': NPC holds PC's left hand with their right one, and vice ve
 		<!-- VAGINA START -->
 
 		<<rng>>
-		<<if T.underNaked and $NPCList[_n].vagina isnot "none">>
+		<<if T.underNaked and $NPCList[_n].vagina is "clothed">>
 			<<set $NPCList[_n].vagina to 0>>
-			<<if $NPCList[_n].penis isnot "none">>
+			<<if $NPCList[_n].penis is "clothed">>
 				<<set $NPCList[_n].penis to 0>>
 			<</if>>
 		<</if>>
@@ -4910,7 +4910,7 @@ Hands are 'inverted': NPC holds PC's left hand with their right one, and vice ve
 		<!-- CHEST START -->
 
 		<<rng>>
-		<<if T.topless>>
+		<<if T.topless and $NPCList[_n].chest is "clothed">>
 			<<set $NPCList[_n].chest to 0>>
 		<</if>>
 		<<if $NPCList[_n].chest is "clothed" and $npcSub isnot 1>>
