@@ -383,7 +383,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#303030",
+			blend: "#1b1b1b",
 		},
 	},
 	{
@@ -394,7 +394,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#383333",
+			blend: "#303030",
 		},
 	},
 	{
