@@ -801,10 +801,11 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 <<if $bailey_dom lt 30>>
 	<<set $bailey_kick_returning to true>>
 	<<set $bailey_kick_return to "Rent Intro">>
-	<<include "Bailey Sell Kick">><<exitAll>>
+	<<include "Bailey Sell Kick">><<set _baileySellKick to true>>
 <</if>>
 <</if>>
 
+<<if not _baileySellKick>>
 <<if $tutorial is 0>>
 	<<endevent>>
 	<<generate1>><<person1>>
@@ -966,6 +967,7 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 
 	<<link [[Next|Danube Meal]]>><<endevent>><<set $phase to (_robinIsPresent ? 1 : 0)>><</link>>
 	<br>
+<</if>>
 <</if>>
 
 :: Rent Fight
