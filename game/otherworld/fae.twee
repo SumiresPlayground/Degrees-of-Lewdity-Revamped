@@ -93,7 +93,7 @@ You enter the large decaying stone fort. Cracks cover the wall and it creaks omi
 :: Fae Fort Back
 You are in the back room of the fort. The damage seems much less here but there is still holes in the ceiling and crumbled brick across the floor. Various trashy knicknacks sit in boxes around the room. You might be able to find something if you look hard enough.
 <br><br>
-<<link [[Search the boxes|Fae Fort Search]]>><</link>>
+<<link [[Search the boxes|Fae Fort Search]]>><<tiredness 10>><<stress 5>><</link>><<ggtiredness>><<gstress>>
 <br>
 <<link [[Go back to the front of the fort|Fae Fort]]>><</link>>
 
@@ -101,25 +101,27 @@ You are in the back room of the fort. The damage seems much less here but there 
 <<rng>>
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutfae>>
-<<elseif $rng gte 81 and $haegishquest is 1>>
-	You reach inside one of the boxes. You find a jar of leaves. The label seems to be some kind of obscure tea brand? You pocket it for Haegish.<<set $haegishquest to 2>>
-<<elseif $rng gte 81>>
-	You reach inside one of the boxes. It's full of small coins. You could probably fetch some money for these.<<money 50000>>
-<<elseif $rng gte 61>>
-	You reach inside one of the boxes. Something inside snaps at you. You pull your hand away in time, but it was close.
-	<<gstress>><<stress 3>>
-<<elseif $rng gte 41>>
-	You reach inside one of the boxes. It's full of mud.
-<<elseif $rng gte 21>>
-	<<wearProp "rock">>
-	You reach inside one of the boxes. It's full of pebbles.
 <<else>>
-	You reach inside one of the boxes. It's empty.
+	<<if $rng gte 81 and $haegishquest is 1>>
+		You reach inside one of the boxes. You find a jar of leaves. The label seems to be some kind of obscure tea brand? You pocket it for Haegish.<<set $haegishquest to 2>>
+	<<elseif $rng gte 81>>
+		You reach inside one of the boxes. It's full of small coins. You could probably fetch some money for these.<<money 5000>>
+	<<elseif $rng gte 61>>
+		You reach inside one of the boxes. Something inside snaps at you. You pull your hand away in time, but it was close.
+		<<gstress>><<stress 3>>
+	<<elseif $rng gte 41>>
+		You reach inside one of the boxes. It's full of mud.
+	<<elseif $rng gte 21>>
+		<<wearProp "rock">>
+		You reach inside one of the boxes. It's full of pebbles.
+	<<else>>
+		You reach inside one of the boxes. It's empty.
+	<</if>>
+	<br><br>
+	<<link [[Search the boxes|Fae Fort Search]]>><<tiredness 10>><<stress 5>><</link>><<ggtiredness>><<gstress>>
+	<br>
+	<<link [[Go back to the front of the fort|Fae Fort]]>><</link>>
 <</if>>
-<br><br>
-<<link [[Search the boxes|Fae Fort Search]]>><</link>>
-<br>
-<<link [[Go back to the front of the fort|Fae Fort]]>><</link>>
 
 :: Fae Fort Pick Lock
 <<effects>><<skulduggeryskilluse>>

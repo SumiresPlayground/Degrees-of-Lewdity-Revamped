@@ -1010,24 +1010,25 @@ The board changes one last time while the bookie calls for final bets.
 	<<if $weeklybetamount is undefined>>
 	<<set $weeklybetamount to 0>>
 	<</if>>
-	<<if $money gte 10000 and $weeklybetamount lt 4000>>
-		<<link [[Bet £100|Racecourse Betting Submit]]>><<set $horserace.betInput to 100>><</link>><br>
-	<<else>>
+	<<if $money lte 10000>>
 		<span class='red'>You do not have enough money to place a bet.</span><br>
 	<</if>>
-	<<if $money gte 20000 and $weeklybetamount lt 4000>>
+	<<if $money gte 10000 and $weeklybetamount lt 1000000>>
+		<<link [[Bet £100|Racecourse Betting Submit]]>><<set $horserace.betInput to 100>><</link>><br>
+	<</if>>
+	<<if $money gte 20000 and $weeklybetamount lt 1000000>>
 		<<link [[Bet £200|Racecourse Betting Submit]]>><<set $horserace.betInput to 200>><</link>><br>
 	<</if>>
-	<<if $money gte 50000 and $weeklybetamount lt 4000>>
+	<<if $money gte 50000 and $weeklybetamount lt 1000000>>
 		<<link [[Bet £500|Racecourse Betting Submit]]>><<set $horserace.betInput to 500>><</link>><br>
 	<</if>>
-	<<if $money gte 100000 and $weeklybetamount lt 4000>>
+	<<if $money gte 100000 and $weeklybetamount lt 1000000>>
 		<<link [[Bet £1000|Racecourse Betting Submit]]>><<set $horserace.betInput to 1000>><</link>><br>
 	<</if>>
-	<<if $money gte 200000 and $weeklybetamount lt 4000>>
+	<<if $money gte 200000 and $weeklybetamount lt 1000000>>
 		<<link [[Bet £2000|Racecourse Betting Submit]]>><<set $horserace.betInput to 2000>><</link>><br>
 	<</if>>
-	<<if $weeklybetamount gt 4000>>
+	<<if $weeklybetamount gt 1000000>>
 		<span class='red'>You are barred from horse betting for the next week.</span><br>
 	<</if>>
 	<br>

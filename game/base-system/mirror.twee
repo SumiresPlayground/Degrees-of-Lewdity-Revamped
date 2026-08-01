@@ -39,6 +39,8 @@
 			<<mirrorMakeup>>
 		<<case "transformation">>
 			<<mirrorTransformation>>
+		<<case "transformation2">>
+			<<mirrorTransformation2>>
 		<<case "display">>
 			<<mirrorDisplayfull>>
 		<<default>>
@@ -170,10 +172,13 @@
 
 	<<if !$simpleMirror>>
 		<<if $specialTransform is 1 or $physicalTransform is 1 or $permanentTransform is 1 or $mushroomtf gte 1 or $traumatized isnot undefined>>
-			__Transformation__
+			__Pure__ __Transformations__
 			<br>
 			<<tficon "angel">><<link "Examine your inner self">><<set $mirrorMenu to "transformation">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 			<br><br>
+			__Chimeric__ __Transformations__
+			<br>
+			<<tficon "angel">><<link "Examine your inner self">><<set $mirrorMenu to "transformation2">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 		<<else>>
 			Obtain otherworldly powers to examine further.
 		<</if>>
@@ -2535,7 +2540,7 @@
 		<br>
 	<</if>>
 
-	<<if $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $fish gte 2 or $fishtf is 1 or $frog gte 2 or $frogtf is 1>>
+	<<if $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $frog gte 2 or $frogtf is 1>>
 		__Lungs__<br>
 		<<if $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $frog gte 2 or $frogtf is 1>>
 			Aqua Lungs:<br>
@@ -2757,10 +2762,10 @@
 		<<if $deer gte 2 or $deertf is 1>>
 			<<tficon "deer">><<link "Deer">><<clearhorns>><<set _deer.horns = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $dragon gte 1 or $dragontf is 1>>
+		<<if $dragon gte 3 or $dragontf is 1>>
 			<<tficon "dragon">><<link "Dragon">><<clearhorns>><<set _dragon.horns = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
-		<<if $dragon gte 1 or $dragontf is 1>>
+		<<if $dragon gte 3 or $dragontf is 1>>
 			<<tficon "dragon">><<link "Chinese Dragon">><<clearhorns>><<set _dragon.horns = "chinese">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<br>
@@ -2905,212 +2910,9 @@
 		<br>
 	<</if>>
 
-	<<if ($demon gte 2 or $demontf is 1 and ($cow gte 2 or $cowtf is 1)) or ($demon gte 2 or $demontf is 1 and ($wolf gte 2 or $wolftf is 1)) or($demon gte 4 or $demontf is 1 and ($cat gte 6 or $cattf is 1)) or ($demon gte 6 or $demontf is 1 and ($harpy gte 6 or $harpytf is 1)) or ($angel gte 2 or $angeltf is 1 and ($harpy gte 2 or $harpytf is 1)) or ($fallenangel gte 2 or $fallenangeltf is 1 and ($harpy gte 2 or $harpytf is 1)) or ($fallenangel gte 2 or $fallenangeltf is 1 and ($eldritch is 1))>>
-		__Chimera__<br>
-		<<if ($demon gte 6 or $demontf is 1) and ($cow gte 2 or $cowtf is 1)>>
-			<<tficon "demon">><<tficon "cow">>Demon Cow Horns:<br>
-			<<link "Set">>
-				<<clearhorns>>
-				<<set _demon.horns = "default">>
-				<<set _cow.horns = "default-demon">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<clearhorns>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($demon gte 6 or $demontf) is 1 and ($cow gte 2 or $cowtf is 1)>>
-			<<tficon "demon">><<tficon "cow">>Succubus Cow Horns:<br>
-			<<link "Set">>
-				<<clearhorns>>
-				<<set _demon.horns = "succubus">>
-				<<set _cow.horns = "succubus-demon">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<clearhorns>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($demon gte 6 or $demontf is 1) and ($cat gte 6 or $cattf is 1)>>
-			<<tficon "demon">><<tficon "cat">>Demon Cat Tail:<br>
-			<<link "Set">>
-				<<cleartail>>
-				<<set _demon.tail = "default-cat">>
-				<<set _cat.tail = "default">>
-				<<set $hastail to "true">>
-				<<set $thintail to "true">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<cleartail>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($demon gte 6 or $demontf is 1) and ($cow gte 6 or $cowtf is 1)>>
-			<<tficon "demon">><<tficon "cow">>Demon Cow Tail:<br>
-			<<link "Set">>
-				<<cleartail>>
-				<<set _demon.tail = "default-cow">>
-				<<set _cow.tail = "default-demon">>
-				<<set $hastail to "true">>
-				<<set $thintail to "true">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<cleartail>>
-				<<updatesidebarimg>>
-			<</link>><br>
-			<<tficon "demon">><<tficon "cow">>Demon Cow Tail Black:<br>
-			<<link "Set">>
-				<<cleartail>>
-				<<set _demon.tail = "default-cow">>
-				<<set _cow.tail = "black-demon">>
-				<<set $hastail to "true">>
-				<<set $thintail to "true">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<cleartail>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($demon gte 6 or $demontf is 1) and ($wolf gte 6 or $wolftf is 1)>>
-			<<tficon "demon">><<tficon "wolf">>Demon Wolf Tail:<br>
-			<<link "Set">>
-				<<cleartail>>
-				<<set _wolf.tail = "default">>
-				<<set _demon.tail = "default-wolf">>
-				<<set $hastail to "true">>
-				<<set $thintail to "true">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<cleartail>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($demon gte 6 or $demontf is 1) and ($wolf gte 6 or $wolftf is 1)>>
-			<<tficon "demon">><<tficon "wolf">>Demon Wolf Tail Feral:<br>
-			<<link "Set">>
-				<<cleartail>>
-				<<set _wolf.tail = "feral">>
-				<<set _demon.tail = "default-feral">>
-				<<set $hastail to "true">>
-				<<set $thintail to "true">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<cleartail>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($demon gte 6 or $demontf is 1) and ($harpy gte 6 or $harpytf is 1)>>
-			<<tficon "demon">><<tficon "bird">>Demon Harpy Wings:<br>
-			<<link "Set">>
-				<<clearwings>>
-				<<set _demon.wings = "default">>
-				<<set _bird.wings = "default-demon">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<clearwings>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($angel gte 6 or $angeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
-			<<tficon "angel">><<tficon "bird">>Angel Harpy Wings:<br>
-			<<link "Set">>
-				<<set _angel.wings = "harpy-default">>
-				<<set _bird.wings = "default-angel">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<clearwings>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
-			<<tficon "fallenangel">><<tficon "bird">>Fallen Angel Harpy Wings:<br>
-			<<link "Set">>
-				<<clearwings>>
-				<<set _fallen.wings = "harpy-default">>
-				<<set _bird.wings = "default-fallen">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<clearwings>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($fallenangel gte 4 or $fallenangeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
-			<<tficon "fallenangel">><<tficon "bird">>Fallen Angel Plus Harpy Wings:<br>
-			<<link "Set">>
-				<<clearwings>>
-				<<set _fallen.wings = "harpy-fallenplus">>
-				<<set _bird.wings = "default-fallen">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<clearwings>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($fox gte 4 or $foxtf is 1) and ($demon gte 2 or $demontf is 1)>>
-			<<tficon "demon">><<tficon "fox">>Demon Fox Ears:<br>
-			<<link "Set">>
-				<<clearears>><<clearhorns>>
-				<<set _fox.ears = "default-demon">>
-				<<set _demon.horns = "default">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<clearears>><<clearhorns>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($fox gte 6 or $foxtf is 1) and ($demon gte 6 or $demontf is 1)>>
-			<<tficon "demon">><<tficon "fox">>Demon Fox Tail:<br>
-			<<link "Set">>
-				<<cleartail>>
-				<<set _fox.tail = "default-demon">>
-				<<set _demon.tail = "default">>
-				<<updatesidebarimg>>
-			<</link>> / 
-			<<link "Clear">>
-				<<cleartail>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
-			<<tficon "eldritch">><<tficon "fallenangel">>Forgotten Angel Skin:<br>
-			<<link "Set">>
-				<<set _eldritch.crown = "forgotten">>
-				<<updatesidebarimg>>
-			<</link>>/
-			<<link "Clear">>
-				<<set _eldritch.crown = "disabled">>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
-			<<tficon "eldritch">><<tficon "fallenangel">>Forgotten Angel Wings:<br>
-			<<link "Set">>
-				<<clearwings>>
-				<<set _eldritch.skin = "forgotten">>
-				<<updatesidebarimg>>
-			<</link>>/
-			<<link "Clear">>
-				<<clearwings>>
-				<<updatesidebarimg>>
-			<</link>><br>
-		<</if>>
-	<</if>>
-
 	<<if ($traumatized isnot undefined)>>
 		__Trauma__<br>
-		<<link [[Set|$passage]]>><<set $traumatized to true>><<faceimg>><<updatesidebarimg>><</link>> / <<link [[Clear|$passage]]>><<set $traumatized to false>><<faceimg>><<updatesidebarimg>><</link>><br>
+		<<link [[Set|$passage]]>><<set $irisempty to true>><<updatesidebarimg>><</link>> / <<link [[Clear|$passage]]>><<set $irisempty to false>><<updatesidebarimg>><</link>><br>
 		<br>
 	<</if>>
 
@@ -3157,6 +2959,524 @@
 		<<updatesidebarimg>>
 		<</link>>
 	<</if>>
+		<br>
+		<<if _isMenuEnabled>>
+			<details class="expandMenu">
+				<summary class="expandMenu">Custom Colours</summary>
+				<div class="menuWarning">
+					You haven't chosen any transformation parts! Select the checkboxes for the parts you'd like to recolour.
+				</div>
+				<div class="menuContent hidden">
+					<<set _options to ['ffffff', 'ff0000', '00ff00', '0000ff', '590099', '000000']>>
+					<<gencoloursquares _options>>
+					<<gencolourpicker>>
+				</div>
+			</details>
+		<</if>>
+
+	<!-- Attach an event to every listbox item to update the PC on the sidebar. -->
+	<<script>>
+		jQuery('.passage').on('change', 'select.macro-listbox', function (e) {
+			if (V.transformationParts.cat.heterochromia === "hidden") {
+				Wikifier.wikifyEval('<<catHeterochromiaTF "hide">>');
+			} else if (V.cat >= 7 && V.cat <= 10) {
+				Wikifier.wikifyEval('<<catHeterochromiaTF `$cat - 7`>>')
+			};
+			Wikifier.wikifyEval('<<updatesidebarimg true>>');
+		});
+	<</script>>
+<</widget>>
+
+<<widget "mirrorTransformation2">>
+	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
+	<br><br>
+	/*Hiding parts of your Inner Self will slowly increase your Trauma over time (excludes pubes and pits).
+	If your Trauma gets too high, you will be unable to hide.*/
+
+	<<link "__Remove All Transformation Points__">><<clearDivineTransformations>><<clearAnimalTransformations>><<updatesidebarimg>><</link>>
+	<br>
+
+	<label for="tfs">Remove a Specific Transformatiom:</label>
+
+	<select name="tfs" id="tfs">
+	<option value="angel">Angel</option>
+	<option value="demon">Demon</option>
+	<option value="wolf">Wolf</option>
+	<option value="cat">Cat</option>
+	<option value="cow">Cow</option>
+	<option value="bird">Bird</option>
+	<option value="fox">Fox</option>
+	<option value="bee">Bee</option>
+	<option value="sheep">Sheep</option>
+	<option value="deer">Deer</option>
+	<option value="bear">Bear</option>
+	<option value="dragon">Dragon</option>
+	<option value="lizard">Lizard</option>
+	<option value="dolphin">Dolphin</option>
+	<option value="dog">Dog</option>
+	<option value="raccoon">Raccoon</option>
+	<option value="fish">Fish</option>
+	<option value="horse">Horse</option>
+	<option value="spider">Spider</option>
+	<option value="frog">Frog</option>
+	<option value="pig">Pig</option>
+	</select>
+	<br>
+	<<link "Dump Selected TF">>
+	<<set _chosenTF = $("#tfs").val()>>
+	<<if _chosenTF === "wolf">>
+		<<set $wolfbuild to 0>>
+		<<set $wolfgirl to 0>>
+	<<elseif _chosenTF === "bird">>
+		<<set $birdbuild to 0>>
+		<<set $harpy to 0>>
+	<<elseif _chosenTF !== "">>
+		<<set _varName = _chosenTF + "build">>
+		<<set State.variables[_varName] = 0>>
+		<<set _varName = _chosenTF>>
+		<<set State.variables[_varName] = 0>>
+	<</if>>
+	<</link>>
+
+	<br><br>
+
+	<<set _angel to V.transformationParts.angel>>
+	<<set _fallen to V.transformationParts.fallenAngel>>
+	<<set _demon to V.transformationParts.demon>>
+	<<set _eldritch to V.transformationParts.eldritch>>
+	<<set _fae to V.transformationParts.fae>>
+	<<set _cat to V.transformationParts.cat>>
+	<<set _cow to V.transformationParts.cow>>
+	<<set _wolf to V.transformationParts.wolf>>
+	<<set _bird to V.transformationParts.bird>>
+	<<set _fox to V.transformationParts.fox>>
+	<<set _bee to V.transformationParts.bee>>
+	<<set _sheep to V.transformationParts.sheep>>
+	<<set _deer to V.transformationParts.deer>>
+	<<set _bear to V.transformationParts.bear>>
+	<<set _dragon to V.transformationParts.dragon>>
+	<<set _lizard to V.transformationParts.lizard>>
+	<<set _dolphin to V.transformationParts.dolphin>>
+	<<set _dog to V.transformationParts.dog>>
+	<<set _raccoon to V.transformationParts.raccoon>>
+	<<set _fish to V.transformationParts.fish>>
+	<<set _horse to V.transformationParts.horse>>
+	<<set _spider to V.transformationParts.spider>>
+	<<set _frog to V.transformationParts.frog>>
+	<<set _pig to V.transformationParts.pig>>
+	<<set _bunny to V.transformationParts.bunny>>
+	<<set _goblin to V.transformationParts.goblin>>
+	<<set _traits to V.transformationParts.traits>>
+
+	__Layering__<br>
+	<<link "Horns layered above headwear">><<run State.setVar("$hornlayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Horns layered below headwear">><<run State.setVar("$hornlayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Ears layered in front of hair">><<run State.setVar("$earlayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Ears layered behind hair">><<run State.setVar("$earlayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Tail layered in front of hair">><<run State.setVar("$taillayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Tail layered behind hair">><<run State.setVar("$taillayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br><br>
+
+	<br>__Ears__<br>
+		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 4 or $sheeptf is 1>>
+			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Ears:<br>
+			<<link "Set">>
+				<<clearears>>
+				<<set _sheep.ears = "cloud">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearears>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fox gte 4 or $foxtf is 1) and ($demon gte 2 or $demontf is 1)>>
+			<<tficon "demon">><<tficon "fox">>Demon Fox Ears:<br>
+			<<link "Set">>
+				<<clearears>>
+				<<set _fox.ears = "default-demon">>
+				<<set $chimera.demonfox.ears to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearears>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fish gte 4 or $fishtf is 1) and ($dragon gte 2 or $dragontf is 1)>>
+			<<tficon "dragon">><<tficon "fish">>Water Dragon Ears:<br>
+			<<link "Set">>
+				<<clearears>>
+				<<set _fish.fins = "water">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearears>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+	<br>__Halo__<br>
+		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 6 or $sheeptf is 1>>
+			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Halo:<br>
+			<<link "Set">>
+				<<clearhalo>>
+				<<set _angel.halo = "cloud">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearhalo>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+	<br>__Horns__<br>
+		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 2 or $sheeptf is 1>>
+			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _sheep.horns = "cloud">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearhorns>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and ($cow gte 2 or $cowtf is 1)>>
+			<<tficon "demon">><<tficon "cow">>Demon Cow Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _demon.horns = "default">>
+				<<set _cow.horns = "default-demon">>
+				<<set $chimera.demoncow.horns to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearhorns>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf) is 1 and ($cow gte 2 or $cowtf is 1)>>
+			<<tficon "demon">><<tficon "cow">>Succubus Cow Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _demon.horns = "succubus">>
+				<<set _cow.horns = "succubus-demon">>
+				<<set $chimera.demoncow.horns to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearhorns>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fish gte 2 or $fishtf is 1) and ($dragon gte 3 or $dragontf is 1)>>
+			<<tficon "dragon">><<tficon "fish">>Water Dragon Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _dragon.horns = "water">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearhorns>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fish gte 2 or $fishtf is 1) and ($dragon gte 3 or $dradragontfgon is 1)>>
+			<<tficon "dragon">><<tficon "fish">>Short Water Dragon Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _dragon.horns = "shortwater">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearhorns>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($angel gte 4 or $angeltf is 1) and ($fish gte 2 or $fishtf is 1) and ($dragon gte 3 or $dragontf is 1)>>
+			<<tficon "angel">><<tficon "dragon">><<tficon "fish">>Angelic Water Dragon Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _dragon.horns = "waterangel">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearhorns>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 4 or $demontf is 1) and ($fish gte 2 or $fishtf is 1) and ($dragon gte 3 or $dragontf is 1)>>
+			<<tficon "demon">><<tficon "dragon">><<tficon "fish">>Demonic Water Dragon Horns:<br>
+			<<link "Set">>
+				<<clearhorns>>
+				<<set _dragon.horns = "waterdemon">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearhorns>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+	<br>__Tail__<br>
+		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 6 or $sheeptf is 1>>
+			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Tail:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _sheep.tail = "cloud">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and ($cat gte 6 or $cattf is 1)>>
+			<<tficon "demon">><<tficon "cat">>Demon Cat Tail:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _demon.tail = "default-cat">>
+				<<set _cat.tail = "default">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<set $chimera.demoncat.tail to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and ($cow gte 6 or $cowtf is 1)>>
+			<<tficon "demon">><<tficon "cow">>Demon Cow Tail:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _demon.tail = "default-cow">>
+				<<set _cow.tail = "default">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<set $chimera.demoncow.tail to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+			<<tficon "demon">><<tficon "cow">>Demon Cow Tail Black:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _demon.tail = "default-cow">>
+				<<set _cow.tail = "black">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<set $chimera.demoncow.tail to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and ($wolf gte 6 or $wolftf is 1)>>
+			<<tficon "demon">><<tficon "wolf">>Demon Wolf Tail:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _wolf.tail = "default">>
+				<<set _demon.tail = "default-wolf">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<set $chimera.demonwolf.tail to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and ($wolf gte 6 or $wolftf is 1)>>
+			<<tficon "demon">><<tficon "wolf">>Demon Wolf Tail Feral:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _wolf.tail = "feral">>
+				<<set _demon.tail = "default-feral">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<set $chimera.demonwolf.tail to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fox gte 6 or $foxtf is 1) and ($demon gte 6 or $demontf is 1)>>
+			<<tficon "demon">><<tficon "fox">>Demon Fox Tail:<br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _fox.tail = "default-demon">>
+				<<set _demon.tail = "default">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<set $chimera.demonfox.tail to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fish gte 6 or $fishtf is 1) and ($dragon gte 4 or $dragontf is 1)>>
+			<<tficon "dragon">><<tficon "fish">>Water Dragon Tail:<<gencolourselector "_dragon.tail_colour">><br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _dragon.tail = "water">>
+				<<set _fish.tail = "hidden">>
+				<<set $hastail to "true">>
+				<<set $swimtail to "true">>
+				<<set $thicktail to "true">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fish gte 6 or $fishtf is 1) and ($dragon gte 4 or $dragontf is 1)>>
+			<<tficon "dragon">><<tficon "fish">>Short Water Dragon Tail:<<gencolourselector "_dragon.tail_colour">><br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _dragon.tail = "shortwater">>
+				<<set _fish.tail = "hidden">>
+				<<set $hastail to "true">>
+				<<set $thintail to "true">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($angel gte 6 or $angeltf is 1) and ($fish gte 6 or $fishtf is 1) and ($dragon gte 4 or $dragontf is 1)>>
+			<<tficon "angel">><<tficon "dragon">><<tficon "fish">>Angelic Water Dragon Tail:<<gencolourselector "_dragon.tail_colour">><br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _dragon.tail = "waterangel">>
+				<<set _fish.tail = "hidden">>
+				<<set $hastail to "true">>
+				<<set $swimtail to "true">>
+				<<set $thicktail to "true">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+	<br>__Wings__<br>
+		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
+			<<tficon "eldritch">><<tficon "fallenangel">>Forgotten Angel Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _eldritch.skin = "forgotten">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if $angel gte 6 or $angeltf is 1 and $sheep gte 6 or $sheeptf is 1>>
+			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _angel.wings = "cloud">>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and ($harpy gte 6 or $harpytf is 1)>>
+			<<tficon "demon">><<tficon "bird">>Demon Harpy Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _demon.wings = "default">>
+				<<set _bird.wings = "default-demon">>
+				<<set $chimera.demonharpy.wings to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($angel gte 6 or $angeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
+			<<tficon "angel">><<tficon "bird">>Angel Harpy Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _angel.wings = "harpy-default">>
+				<<set _bird.wings = "default-angel">>
+				<<set $chimera.angelharpy.wings to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
+			<<tficon "fallenangel">><<tficon "bird">>Fallen Angel Harpy Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _fallen.wings = "harpy-default">>
+				<<set _bird.wings = "default-fallen">>
+				<<set $chimera.fallenharpy.wings to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fallenangel gte 4 or $fallenangeltf is 1) and ($harpy gte 6 or $harpytf is 1)>>
+			<<tficon "fallenangel">><<tficon "bird">>Fallen Angel Plus Harpy Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _fallen.wings = "harpy-fallenplus">>
+				<<set _bird.wings = "default-fallen">>
+				<<set $chimera.fallenharpy.wings to true>>
+				<<updatesidebarimg>>
+			<</link>> / 
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+	<br>__Skin__<br>
+		<<if ($fallenangel gte 2 or $fallenangeltf is 1) and $eldritch is 1>>
+			<<tficon "eldritch">><<tficon "fallenangel">>Forgotten Angel Skin:<br>
+			<<link "Set">>
+				<<set _eldritch.crown = "forgotten">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<set _eldritch.crown = "disabled">>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($fish gte 6 or $fishtf is 1) and ($dragon gte 6 or $dragontf is 1) and $ghost is 0 and $slime is 0 and $mushroom is 0>>
+			<<tficon "dragon">><<tficon "fish">>Water Dragon Skin:<br>
+			<<link "Set">>
+				<<set Skin.color.natural to "waterdragon">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<set Skin.color.natural to $skincolourreset>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+
 		<br>
 		<<if _isMenuEnabled>>
 			<details class="expandMenu">

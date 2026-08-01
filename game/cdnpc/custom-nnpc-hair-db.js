@@ -1195,7 +1195,7 @@ function customNNPCHairInitDb(){
             name: "Doren f",
             gender: "f",
             hair_fringe_name: "ruffled",
-            hair_side_name: "draggletail",
+            hair_side_name: "messy ponytail",
             hair_fringe_length: "chest",
             hair_side_length: ["short", "neck"],
             type: "Doren"

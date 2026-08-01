@@ -864,7 +864,7 @@ function specialClothesRefresh() {
 		});
 
 	if (getUnlockedSpecialSets().length >= getSpecialSets().length / 2) wikifier("earnFeat", "'Curious Attire'");
-	if (getUnlockedSpecialSets().length >= getSpecialSets().length) wikifier("earnFeat", "'Wicked Wardrobe'");
+	if (getUnlockedSpecialSets().length >= getSpecialSets().length - 1) wikifier("earnFeat", "'Wicked Wardrobe'");
 
 	statusCheck("Gwylan");
 }

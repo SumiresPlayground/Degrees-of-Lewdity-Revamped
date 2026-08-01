@@ -1152,20 +1152,29 @@ Renderer.CanvasModels.main = {
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
 							{if (V.npc.length > 0)
-								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
+								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;
+							else if (V.NPCList[0].name === "'Mickey'")
+								return `img/npc/${V.creatorname}/${V.NPCList[0].name}.png`;}
 						else
 							if (V.npc.length > 0) {
-										const skin = V.NPCList[0].skincolour;
-										const skinCls = 
-										skin === "white" ? "light" :
-                                        skin === "black" ? "dark" :
-                                        skin;
-									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney")
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
-									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
+								const skin = V.NPCList[0].skincolour;
+								const skinCls = 
+								skin === "white" ? "light" :
+								skin === "black" ? "dark" :
+								skin;
+								{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
+								else if (V.npc[0] === "Sydney")
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+								else
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
+							else if (V.NPCList[0].name === "'Mickey'") {
+								const skin = V.NPCList[0].skincolour;
+								const skinCls = 
+								skin === "white" ? "light" :
+								skin === "black" ? "dark" :
+								skin;
+								return `img/npc/${V.creatorname}/${V.NPCList[0].name}/${V.NPCList[0].gender}/${skinCls}.png`;}
 			},
 		},
 		"npcpresentfront": {
@@ -1177,20 +1186,29 @@ Renderer.CanvasModels.main = {
 					if (V.NPCenable > 0)
 						if (V.NPCstatic > 0)
 							{if (V.npc.length > 0)
-								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
+								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;
+							else if (V.NPCList[0].name === "'Mickey'")
+								return `img/npc/${V.creatorname}/${V.NPCList[0].name}.png`;}
 						else
 							if (V.npc.length > 0) {
-										const skin = V.NPCList[0].skincolour;
-										const skinCls = 
-										skin === "white" ? "light" :
-                                        skin === "black" ? "dark" :
-                                        skin;
-									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney")
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
-									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
+								const skin = V.NPCList[0].skincolour;
+								const skinCls = 
+								skin === "white" ? "light" :
+								skin === "black" ? "dark" :
+								skin;
+								{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
+								else if (V.npc[0] === "Sydney")
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+								else
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
+							else if (V.NPCList[0].name === "'Mickey'") {
+								const skin = V.NPCList[0].skincolour;
+								const skinCls = 
+								skin === "white" ? "light" :
+								skin === "black" ? "dark" :
+								skin;
+								return `img/npc/${V.creatorname}/${V.NPCList[0].name}/${V.NPCList[0].gender}/${skinCls}.png`;}
 			},
 		},
 		"background": {
@@ -1268,7 +1286,7 @@ Renderer.CanvasModels.main = {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-						if (V.furniture.bedroom.decoration.id !== undefined) {
+						if (V.furniture.bedroom.decoration !== undefined) {
         					return `img/background/furniture/decoration/${V.furniture.bedroom.decoration.id}/${timeSuffix}.png`;}}}
 			},
 		},
@@ -1448,7 +1466,7 @@ Renderer.CanvasModels.main = {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-						if (V.container.home.creatures !== undefined) {
+						if (V.container.home.creatures[0] !== null || V.container.home.creatures[1] !== undefined) {
 							if (V.container.home.creatures[0].creature !== null) {
         						return `img/background/furniture/tank/parasites/${V.container.home.creatures[0].creature}/${timeSuffix}.png`;}
 							else if (V.container.home.creatures[1].creature !== null) {
@@ -1460,7 +1478,7 @@ Renderer.CanvasModels.main = {
 							else if (V.container.home.creatures[4].creature !== null) {
         						return `img/background/furniture/tank/parasites/${V.container.home.creatures[4].creature}/${timeSuffix}.png`;}
 							else if (V.container.home.creatures[5].creature !== null) {
-        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[5].creature}/${timeSuffix}.png`;}}}}		
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[5].creature}/${timeSuffix}.png`;}}}}
 			},
 			masksrcfn(options){
 				{return `img/background/furniture/tank/${V.container.home.name}/mask.png`;}
@@ -1738,7 +1756,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				const iris = options.trauma ? "iris-empty" : "iris";
+				const iris = options.trauma || V.irisempty ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
 				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
 			},
@@ -1755,7 +1773,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				const iris = options.trauma ? "iris-empty" : "iris";
+				const iris = options.trauma || V.irisempty ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
 				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
 			},
@@ -2384,7 +2402,6 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_ears_type);
 			},
-			filters: ["hair"],
 			zfn(options) {
 				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
 			},
@@ -2397,7 +2414,6 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_tail_type);
 			},
-			filters: ["hair"],
 			zfn(options) {
 				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
 			},

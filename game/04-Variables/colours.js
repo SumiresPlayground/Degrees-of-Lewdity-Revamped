@@ -284,6 +284,11 @@ setup.colours = {
 			blendMode: "exclusion",
 			desaturate: false,
 		},
+		waterdragon: {
+			gradient: ["#d692fc", "#70E0C4"],
+			blendMode: "multiply",
+			desaturate: false,
+		},
 	},
 	/*
 	 * Get canvas filter for skin of given type and tan progression (0..1).

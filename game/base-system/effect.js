@@ -2243,6 +2243,8 @@ function effects() {
 
 	if (V.combat === 0 && V.ironmanmode === true) IronMan.scheduledSaves();
 
+	if (V.trauma >= (V.traumamax * 0.9)) V.traumatized = true;
+
 	if (V.slime > 0) {
 
 	if (V.oxygen <= V.oxygenmax) {
