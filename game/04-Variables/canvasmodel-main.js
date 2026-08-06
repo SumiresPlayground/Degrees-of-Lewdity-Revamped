@@ -1165,10 +1165,10 @@ Renderer.CanvasModels.main = {
 								{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
 									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
 								else if (V.npc[0] === "Sydney")
-									{if (C.npc.Sydney.purity <= 0)
+									{if (C.npc.Sydney.purity > 0)
 										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/pure/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/corrupted/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/corrupt/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;}
 								else
 									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
 							else if (V.NPCList[0].name === "'Mickey'") {
@@ -1202,7 +1202,10 @@ Renderer.CanvasModels.main = {
 								{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
 									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
 								else if (V.npc[0] === "Sydney")
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+									{if (C.npc.Sydney.purity > 0)
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/pure/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+									else
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/corrupt/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;}
 								else
 									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
 							else if (V.NPCList[0].name === "'Mickey'") {
