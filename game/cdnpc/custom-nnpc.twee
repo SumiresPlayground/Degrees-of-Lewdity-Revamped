@@ -56,7 +56,7 @@
         </mouse>
         :</span>
         <<listbox "$customNNPC.canvasLocation" autoselect>>
-            <<option "Sidebar" "sidebar">>
+            <<option "None" "sidebar">>
             <<option "Top of the page" "header">>
             <<option "Bottom of the page" "bottom">>
         <</listbox>>
@@ -467,6 +467,7 @@
     <</if>>
 <</widget>>
 
+
 <<widget "options-custom-nnpc-custom-layers-list-item">>
     <div class="settingsToggleItemWide">
 
@@ -486,47 +487,47 @@
         <span class="gold">Add layer mask to:</span>
         <br>
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "none" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "none" true>>
             None
         </label>
         |
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "lowerMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerMask" true>>
             Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "lowerBellyMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerBellyMask" true>>
             Lower Belly
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "lowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerShadowMask" true>>
             Lower shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "underLowerMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerMask" true>>
             Under Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "underLowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerShadowMask" true>>
             Under Lower Shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "underUpperMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underUpperMask" true>>
             Under Upper
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "legsMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "legsMask" true>>
             Legs
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].targetMask" "headMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "headMask" true>>
             Head
         </label>
         <br>
@@ -534,47 +535,47 @@
         <span class="gold">Apply mask to layer:</span>
         <br>
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "none" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "none" false>>
             None
         </label>
         |
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "lowerMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerMask" false>>
             Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "lowerBellyMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerBellyMask" false>>
             Lower Belly
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "lowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerShadowMask" false>>
             Lower shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "underLowerMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerMask" false>>
             Under Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "underLowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerShadowMask" false>>
             Under Lower Shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "underUpperMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underUpperMask" false>>
             Under Upper
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "legsMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "legsMask" false>>
             Legs
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].mask" "headMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "headMask" false>>
             Head
         </label>
         <br>
@@ -713,95 +714,97 @@
         <br>
 
         <span class="gold">Add layer mask to:</span>
+        <br>
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "none" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "none" true _args[2]>>
             None
         </label>
         |
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "lowerMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerMask" true _args[2]>>
             Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "lowerBellyMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerBellyMask" true _args[2]>>
             Lower Belly
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "lowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerShadowMask" true _args[2]>>
             Lower shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "underLowerMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerMask" true _args[2]>>
             Under Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "underLowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerShadowMask" true _args[2]>>
             Under Lower Shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "underUpperMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underUpperMask" true _args[2]>>
             Under Upper
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "legsMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "legsMask" true _args[2]>>
             Legs
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].targetMask" "headMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "headMask" true _args[2]>>
             Head
         </label>
         <br>
 
         <span class="gold">Apply mask to layer:</span>
+        <br>
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "none" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "none" false _args[2]>>
             None
         </label>
         |
         <label>
-            <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "lowerMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerMask" false _args[2]>>
             Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "lowerBellyMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerBellyMask" false _args[2]>>
             Lower Belly
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "lowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "lowerShadowMask" false _args[2]>>
             Lower shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "underLowerMask" autocheck>>
+            <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerMask" false _args[2]>>
             Under Lower
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "underLowerShadowMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underLowerShadowMask" false _args[2]>>
             Under Lower Shadow
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "underUpperMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "underUpperMask" false _args[2]>>
             Under Upper
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "legsMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "legsMask" false _args[2]>>
             Legs
         </label>
         |
         <label>
-        <<radiobutton "$customNNPC.customImageLayers[_args[0]][_args[1]].children[_args[2]].mask" "headMask" autocheck>>
+        <<custom-nnpc-settings-custom-layer-clothing-mask-checkbox _args[0] _args[1] "headMask" false _args[2]>>
             Head
         </label>
         <br>

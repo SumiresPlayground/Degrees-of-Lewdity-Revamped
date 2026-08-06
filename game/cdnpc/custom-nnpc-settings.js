@@ -752,6 +752,34 @@ function customNNPCAssetLayerClothingSetCheckbox(NPCname, layerID, clothingSet){
 
 DefineMacroS("custom-nnpc-settings-custom-layer-clothing-checkbox", customNNPCAssetLayerClothingSetCheckbox);
 
+function customNNPCAssetLayerClothingMaskCheckbox(NPCname, layerID, optionName, isTarget, childID=-1){
+    let subType = isTarget ? "targetMask" : "mask";
+    let current = ""
+    if (childID === -1) {
+        current = V.customNNPC.customImageLayers[NPCname][layerID][subType];
+    }else{
+        current = V.customNNPC.customImageLayers[NPCname][layerID].children[childID][subType];
+    }
+    return `
+        <input type="radio"
+        class="macro-radiobutton"
+        value="${optionName}"
+        onclick="
+            let childID = ${childID}
+            let selfValue = '${optionName}'
+            if(childID === -1){
+                V.customNNPC.customImageLayers['${NPCname}'][${layerID}]['${subType}'] = '${optionName}';
+            }else{
+                V.customNNPC.customImageLayers['${NPCname}'][${layerID}].children[childID]['${subType}'] = '${optionName}';  
+            }
+        "
+        ${current === optionName ? 'checked="checked"' : ""}
+        >
+    `;
+}
+
+DefineMacroS("custom-nnpc-settings-custom-layer-clothing-mask-checkbox", customNNPCAssetLayerClothingMaskCheckbox);
+
 function customNNPCAssetLayerToggleCheckboxes(NPCname, layerID){
     let ret = ``;
 
