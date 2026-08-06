@@ -35,6 +35,8 @@
 			<<mirrorSkin>>
 		<<case "hair">>
 			<<mirrorHair>>
+		<<case "specialHair">>
+			<<specialHair>>
 		<<case "makeup">>
 			<<mirrorMakeup>>
 		<<case "transformation">>
@@ -146,16 +148,9 @@
 	<<hairdressericon "hairspray">><<link "Change your hair style">><<set $mirrorMenu to "hair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
 		
-	<<if $slime gt 0>>
-	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
-	<</if>>
-
-	<<if $ghost gte 1>>
-	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
-	<</if>>
-
-	<<if $mushroom gte 1>>
-	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span><br><br>
+	<<if $slime gt 0 or $ghost gte 1 or $mushroom gte 1>>
+	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span>
+	<br><br>
 	<</if>>
 	
 	__Makeup__
@@ -2596,9 +2591,9 @@
 	<<if $cat gte 7 or $cattf is 1>>
 		__Heterochromia__<br>
 		<<if _cat.heterochromia isnot "default">>
-			<<link [[Set|$passage]]>><<set _cat.heterochromia = "default">><<run window.determineCatEyeStages()>><<set $original_colour = [$leftEyeColour, $rightEyeColour]>><<catHeterochromiaTF 3>><<updatesidebarimg>><</link>>
+			<<link [[Set|$passage]]>><<set _cat.heterochromia = "default">><<run window.determineCatEyeStages()>><<catHeterochromiaTF 3>><<updatesidebarimg>><</link>>
 		<<else>>
-			<<link [[Clear|$passage]]>><<set _cat.heterochromia = "disabled">><<set $leftEyeColour to $original_colour[0]>><<set $rightEyeColour to $original_colour[1]>><<catHeterochromiaTF 0>><<updatesidebarimg>><</link>><br>
+			<<link [[Clear|$passage]]>><<set _cat.heterochromia = "disabled">><<if V.original_colour isnot undefined>><<set $leftEyeColour to $original_colour[0]>><<set $rightEyeColour to $original_colour[1]>><</if>><<catHeterochromiaTF 0>><<updatesidebarimg>><</link>>
 		<</if>>
 		<br><br>
 	<</if>>
@@ -2967,20 +2962,20 @@
 		<<updatesidebarimg>>
 		<</link>>
 	<</if>>
-		<br>
-		<<if _isMenuEnabled>>
-			<details class="expandMenu">
-				<summary class="expandMenu">Custom Colours</summary>
-				<div class="menuWarning">
-					You haven't chosen any transformation parts! Select the checkboxes for the parts you'd like to recolour.
-				</div>
-				<div class="menuContent hidden">
-					<<set _options to ['ffffff', 'ff0000', '00ff00', '0000ff', '590099', '000000']>>
-					<<gencoloursquares _options>>
-					<<gencolourpicker>>
-				</div>
-			</details>
-		<</if>>
+	<br>
+	<<if _isMenuEnabled>>
+		<details class="expandMenu">
+			<summary class="expandMenu">Custom Colours</summary>
+			<div class="menuWarning">
+				You haven't chosen any transformation parts! Select the checkboxes for the parts you'd like to recolour.
+			</div>
+			<div class="menuContent hidden">
+				<<set _options to ['ffffff', 'ff0000', '00ff00', '0000ff', '590099', '000000']>>
+				<<gencoloursquares _options>>
+				<<gencolourpicker>>
+			</div>
+		</details>
+	<</if>>
 
 	<!-- Attach an event to every listbox item to update the PC on the sidebar. -->
 	<<script>>
@@ -3085,7 +3080,7 @@
 	<<link "Tail layered behind hair">><<run State.setVar("$taillayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br><br>
 
 	<br>__Ears__<br>
-		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 4 or $sheeptf is 1>>
+		<<if ($angel gte 4 or $angeltf is 1) and ($sheep gte 4 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Ears:<br>
 			<<link "Set">>
 				<<clearears>>
@@ -3123,7 +3118,7 @@
 			<</link>><br>
 		<</if>>
 	<br>__Halo__<br>
-		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 6 or $sheeptf is 1>>
+		<<if ($angel gte 4 or $angeltf is 1) and ($sheep gte 6 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Halo:<br>
 			<<link "Set">>
 				<<clearhalo>>
@@ -3136,7 +3131,7 @@
 			<</link>><br>
 		<</if>>
 	<br>__Horns__<br>
-		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 2 or $sheeptf is 1>>
+		<<if ($angel gte 4 or $angeltf is 1) and ($sheep gte 2 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Horns:<br>
 			<<link "Set">>
 				<<clearhorns>>
@@ -3225,7 +3220,7 @@
 			<</link>><br>
 		<</if>>
 	<br>__Tail__<br>
-		<<if $angel gte 4 or $angeltf is 1 and $sheep gte 6 or $sheeptf is 1>>
+		<<if ($angel gte 4 or $angeltf is 1) and ($sheep gte 6 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Tail:<br>
 			<<link "Set">>
 				<<cleartail>>
@@ -3393,7 +3388,7 @@
 				<<updatesidebarimg>>
 			<</link>><br>
 		<</if>>
-		<<if $angel gte 6 or $angeltf is 1 and $sheep gte 6 or $sheeptf is 1>>
+		<<if ($angel gte 6 or $angeltf is 1) and ($sheep gte 6 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Wings:<br>
 			<<link "Set">>
 				<<clearwings>>
@@ -3476,7 +3471,7 @@
 		<<if ($fish gte 6 or $fishtf is 1) and ($dragon gte 6 or $dragontf is 1) and $ghost is 0 and $slime is 0 and $mushroom is 0>>
 			<<tficon "dragon">><<tficon "fish">>Water Dragon Skin:<br>
 			<<link "Set">>
-				<<set Skin.color.natural to "waterdragon">>
+				<<set Skin.color.natural to "aquatic">>
 				<<updatesidebarimg>>
 			<</link>>/
 			<<link "Clear">>
@@ -3538,4 +3533,24 @@
 			<<lititles2>>
 		<</if>>
 	</div>
+<</widget>>
+
+<<widget "specialHair">>
+	<<mirroricon>><<link "Back">><<replace #mirror>><<mirrorMenu>><</replace>><<numberify "#passages > .passage">><<set $mirrordisplay to 0>><<unset $mirrorMenu>><</link>>
+	<br><br>
+	<<if $slime gt 0>>
+		<span class='green'>You may not be able to alter your body's shape to the degree most slimes can...
+		<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
+		<br><br>
+	<<elseif $ghost gte 1>>
+		<span class='wraith'>Your supernatural abilities are normally limited to phasing through walls...
+		<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
+		<br><br>
+	<<elseif $mushroom gte 1>>
+		<span class='yellow'>It'll take some focus, but you can shift your biomass to elongate or retract your hair length.
+		</span>
+		<br><br>
+	<</if>>
+	<<numberStepper "Hair length" $hairlength {max: 1000, callback: value => {V.hairlength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+	<<numberStepper "Fringe length" $fringelength {max: 1000, callback: value => {V.fringelength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
 <</widget>>

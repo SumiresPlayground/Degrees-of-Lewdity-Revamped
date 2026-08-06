@@ -1165,7 +1165,10 @@ Renderer.CanvasModels.main = {
 								{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
 									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
 								else if (V.npc[0] === "Sydney")
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+									{if (C.npc.Sydney.purity <= 0)
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/pure/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+									else
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/corrupted/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;}
 								else
 									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
 							else if (V.NPCList[0].name === "'Mickey'") {
@@ -1230,7 +1233,7 @@ Renderer.CanvasModels.main = {
 		},
 		"background2": {
 			show: true,
-			z: ZIndices.backgroundOverlay + 1,
+			z: ZIndices.backgroundOverlay -0.1,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages2 > 1) {}
@@ -1250,8 +1253,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.2,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1265,8 +1268,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.9,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1280,8 +1283,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.35,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1295,8 +1298,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.8,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1310,8 +1313,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.45,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1325,8 +1328,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.4,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {} 
-				else if (V.staticimages > 0) {} 
+				if (V.staticimages > 1 && V.staticimages2 > 1) {} 
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {} 
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === 'night' && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1340,8 +1343,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.11,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1355,8 +1358,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.21,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1370,8 +1373,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.3,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1385,8 +1388,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.7,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1400,8 +1403,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.94,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1415,8 +1418,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.95,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1430,8 +1433,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.5,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1445,8 +1448,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.22,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1460,8 +1463,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.85,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);

@@ -284,7 +284,7 @@ setup.colours = {
 			blendMode: "exclusion",
 			desaturate: false,
 		},
-		waterdragon: {
+		aquatic: {
 			gradient: ["#d692fc", "#70E0C4"],
 			blendMode: "multiply",
 			desaturate: false,
