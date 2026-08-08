@@ -1360,13 +1360,13 @@ function customNNPCHairInitDb(){
 
         // Night Monster
         {
-            contributor: "Numberjack",
+            contributor: "Chylli",
             name: "Night Monster n",
             gender: "n",
-            hair_fringe_name: "buzzcut",
-            hair_side_name: "sidecut",
-            hair_fringe_length: "short",
-            hair_side_length: "short",
+            hair_fringe_name: "bedhead",
+            hair_side_name: "bedhead",
+            hair_fringe_length: ["short", "neck", "chest"],
+            hair_side_length: ["short", "neck", "chest"],
             type: "Night Monster"
         },
 

@@ -296,6 +296,11 @@ setup.shopDetails = {
 		desc: "Something to wear atop your head.",
 		details: "none",
 	},
+	apotropaic: {
+		name: "Apotropaic",
+		desc: "Wards off malicious spirits.",
+		details: "Repels spirits, usually at a cost.",
+	},
 };
 
 setup.hairDetails = {

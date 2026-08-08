@@ -4812,7 +4812,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             }
         },
         {
-            passage: "Pub Landry",
+            passage: ["Pub Landry","Mansion Mickey Interrupt","Mansion Brown Fox Interrupt","Mansion Brown Fox Wounded","Mansion Fox Heist","Mansion Fox Heist Vault Whip 4","Mansion Fox Heist Vault Fight Finish 2","Mansion Piano Fox","Mansion Piano Fox 2"],
             exact: true,
             callback(worn) {
                 worn["face"] = $.extend(true, {}, setup.clothes["face"].find(hs => hs.variable === "foxmask"));

@@ -4983,7 +4983,45 @@ function initHead() {
 			location: 0,
 			iconFile: "sparkle-band.png",
 			accIcon: "sparkle-band-acc.png",
-		}
+		}/*,
+
+		{
+			index: 12,
+			slot: "head",
+			name: "detective hat",
+			name_cap: "Detective hat",
+			variable: "detective",
+			state: 0,
+			state_base: 0,
+			combat: {
+				reference: "maid",
+			},
+			integrity: 500,
+			integrity_max: 500,
+			fabric_strength: 30,
+			reveal: 1,
+			word: "a",
+			plural: 0,
+			mask_img: 1,
+			colour: 0,
+			colour_options: [],
+			colour_sidebar: 0,
+			type: ["costume"],
+			gender: "n",
+			femininity: 0,
+			warmth: 0,
+			cost: 3000,
+			description: "An outfit made for a star detective.",
+			shop: ["cursed"],
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			accessory_colour_sidebar: 0,
+			back_img: 0,
+			cursed: 0,
+			location: 0,
+			iconFile: "sparkle-band.png",
+		}*/
 	];
 
 	setup.moddedClothes.head.forEach((x, i) => (x.index = setup.clothes.head.length + i));

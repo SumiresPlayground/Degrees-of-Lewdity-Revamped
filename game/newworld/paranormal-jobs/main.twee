@@ -472,13 +472,14 @@ You inspect the inside of the cupboard but you see nothing of real interest. The
 <<link [[Wait a few hours (2:00)|Something in Cupboard Wait]]>><<pass 120>><</link>>
 
 :: Something in Cupboard Wait
+<<set $payoutmultiplier to 1>>
 You sit and begin to wait for whatever has been clawing the inside of the cupboard. As you sit, the cats, curious of your presence, approach and lie next to you. <<lstress>><<stress -6>>
 <br><br>
 Eventually, you hear a small chittering near the cupboard. You put down the cat that has curled onto your lap and approach the cupboard.
 <br><br>
 Inside, you find a small mouse. It seems like a mouse has somehow been managing to climb up into the cupboard every so often. You scoop up the small critter and report to the home owner.
 <br><br>
-<<link [[Next (0:05)|Something in Cupboard Success]]>><<pass 5>><</link>>
+<<link [[Next (0:05)|Something in Cupboard Success]]>><<pass 5>><<set $investigatorpayout to (100 * $payoutmultiplier)>><</link>>
 
 :: Something in Cupboard Success
 "A mouse?" The employer looks curiously at the small white mouse held in your hands. "I never would have expected a mouse to show up here with so many cats around. What a brave little soldier. Here, hand him to me."
@@ -522,13 +523,55 @@ You trail behind your employer as <<he>> walks. At first you begin to think it w
     <<set $payoutmultiplier to 2>>
     At first the figure appears human, but as you approach it, the shape becomes no clearer. What is manifested before you is nothing more than a shadowy mass.
     <br><br>
-    <<link [[Attempt to apprehend the figure|Something Following Fail]]>><</link>>
+    <<if $worn.face.name.includes("apotropaic")>>
+        <<link [[Attempt to apprehend the figure|Something Following Ward]]>><<set $payoutmultiplier to 3>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<endevent>><</link>>
+    <<else>>
+        <<link [[Attempt to apprehend the figure|Something Following Fail]]>><</link>>
+    <</if>>
 <<else>>
     <<set $payoutmultiplier to 1>>
     As you approach the figure, it ducks into an alleyway. The moment you enter, a hand covers your mouth and pulls you to the ground.
     <br><br>
-	<<link [[Struggle against the figure|Something Following Rape]]>><<endevent>><<set $molestationstart to 1>><</link>>
+	<<link [[Struggle against the figure|Something Following Rape]]>><<set $payoutmultiplier to 2>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<endevent>><<set $molestationstart to 1>><</link>>
 <</if>>
+
+:: Something Following Ward
+<<generate1>><<person1>>
+You begin to grab at the creature. As you do, its form warps due to your spirit repellant clothing. The shadow flickers and you can hear a scream of pain further down the alley.
+<br><br>
+Gripping the flickering form tight in your hand, you follow the screams to a small apartment. It seems the door is already unlocked. Opening the door, you find a <<person>> rolling on the floor in pain.
+<br><br>
+"You! You bitch! What are you doing to me! How are you able to touch my astral projection?!" You look between the shadowy mass writhing in your hand and the <<personsimple>>.
+<br><br>
+It seems like this figure wasn't a spirit at all, but this <<personsimple>>'s astral projection <<he>> was using to stalk other people.
+<br><br>
+<<link [[Next|Something Following Success]]>><</link>>
+
+:: Something Following Success
+It doesn't take much longer before police arrive. The shadowed form disappears as officers cuff the <<person>> and lead <<him>> into a police car. Silence fills the room for but a moment before your employer appears at the doorway.
+<br><br>
+<<loadNPC 0 "Domus">><<person1>>
+"Wow you really did it?" The employer looks impressed and relieved. "When I saw you run off, I was worried and called the police. I'm glad you're alright and that creep is where they belong."
+<br><br>
+The <<personsimple>> turns to you with a smile. <<He>> hands you <<moneyGain $investigatorpayout>> as <<he>> speaks, "Really, I have to say well done. I can sleep well now knowing that pervert is behind bars. I will make sure to tell my friends to message if they need help with anything."
+<br><br>
+<<if $completedRequest1 is 0 or $completedRequest1 is undefined>>
+    <<set $completedRequest1 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest2 is 0 or $completedRequest2 is undefined>>
+    <<set $completedRequest2 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest3 is 0 or $completedRequest3 is undefined>>
+    <<set $completedRequest3 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest4 is 0 or $completedRequest4 is undefined>>
+    <<set $completedRequest4 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<<elseif $completedRequest5 is 0 or $completedRequest5 is undefined>>
+    <<set $completedRequest5 to $acceptedRequest>>
+    <<set $acceptedRequest to 0>>
+<</if>>
+<<link [[Next|Barb Street]]>><<endevent>><<clearNPC "Domus">><<fameinvestigator 50>><<famescrap 30>><</link>>
 
 :: Something Following Rape
 <<if $molestationstart is 1>>
@@ -1099,7 +1142,7 @@ As you relax on the nice chair, you can hear the sound of something chewing in t
 	<<set $payoutmultiplier to 1>>
 	You ready yourself and check the yard, only to find a small cute bunny. You pick up the small creature in your arms and it sniffs you curiously. Taking the small fluffy ball in your arms, you return to the front of the manor.
 	<br><br>
-	<<link [[Next|Strange Holes Success]]>><</link>>
+	<<link [[Next|Strange Holes Success]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><</link>>
 <</if>>
 
 :: Strange Holes Rape
@@ -2070,7 +2113,19 @@ The next room is cluttered and full of random garbage you are sure hasn't been t
 <br><br>
 A crash comes from deeper in the room and a skateboard rolls toward you. You stop it with your foot and take a step further before the door slams behind you. The noise startles you and you turn to check, but at that moment, you hear fast footsteps toward you.
 <br><br>
-<<link [[Raise your arms in defense|Something Watching at Night Attack]]>><<set $investigatorpayout to (100 * $payoutmultiplier)>><<set $molestationstart to 1>><</link>>
+<<set $investigatorpayout to (100 * $payoutmultiplier)>>
+<<if $worn.face.name.includes("apotropaic")>>
+    <<link [[Raise your arms in defense|Something Watching at Night Ward]]>><</link>>
+<<else>>
+    <<link [[Raise your arms in defense|Something Watching at Night Attack]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Something Watching at Night Ward
+As the creature attempts to grab you, a rancid odor fills the room as its flesh begins to bubble. It lets out a digusting pained scream as it falls backward, its flesh bubbling like it was melting. 
+<br><br>
+The creature slowly fades from reality, as if it never existed at all.
+<br><br>
+<<link [[Next|Something Watching at Night 3]]>><<set $phase to 2>><</link>>
 
 :: Something Watching at Night Attack
 <<if $molestationstart is 1>>
@@ -2124,14 +2179,20 @@ A crash comes from deeper in the room and a skateboard rolls toward you. You sto
 	<<clotheson>>
 	<<endcombat>>
 
-	<<link [[Next|Something Watching at Night 3]]>><</link>>
+	<<link [[Next|Something Watching at Night 3]]>><<set $phase to 1>><</link>>
 <</if>>
 
 :: Something Watching at Night 3
 <<loadNPC 0 "Domus">><<person1>>
-After you catch your breath, you make your way back up the stairs to the ground floor. As you do, the <<person>> gasps at your current state
-<br><br>
-"Oh my, are you alright? You look terrible." You spend a moment trying to explain the events and the <<personsimple>> nods along, though you're unsure how much <<he>> believes.
+<<if $phase is 1>>
+    After you catch your breath, you make your way back up the stairs to the ground floor. As you do, the <<person>> gasps at your current state
+    <br><br>
+    "Oh my, are you alright? You look terrible." You spend a moment trying to explain the events and the <<personsimple>> nods along, though you're unsure how much <<he>> believes.
+<<else>>
+    You make your way back up the stairs to the ground floor. As you arrive back in the lounge, the <<person>> looks surprised. "Back already? That was awfully quick."
+    <br><br>
+    You spend a moment trying to explain the events and the <<personsimple>> nods along, though you're unsure how much <<he>> believes.
+<</if>>
 <br><br>
 The <<person>> opens <<his>> wallet and hands you the money. "Great, well, if I need help again, I know who to reach out to. Thank you so much for your help."
 <br><br>
@@ -2407,7 +2468,7 @@ The cries grow louder as you cautiously step into the forest. You follow a small
 <br><br>
 As you draw close you feel a tearing pain at your back as something sinks claws into you. <<gpain>><<pain 5>>
 <br><br>
-A sound of a small voice whispers wet into your ear, "Bring my body to the graveyard... I need to be buried..."
+A sound of a small voice whispers wet into your ear, "Bring my body to the churchyard... I need to be buried..."
 <br><br>
 The weight on your back slowly grows as the claws sink further into your back. <<gpain>><<pain 5>>
 <br><br>
@@ -2418,7 +2479,7 @@ You begin to dig into the shallow grave and find a tiny skeleton buried not too 
 <br><br>
 You pick up the bones, it seems the myling wants you to bring these to the churchyard within the forest.
 <br><br>
-<<link [[Begin the journey to the graveyard|Crying Baby Forest]]>><<set $forest to 0>><</link>>
+<<link [[Begin the journey to the churchyard|Crying Baby Forest]]>><<set $forest to 0>><</link>>
 
 :: Crying Baby Forest
 <<location "forest">><<effects>>
