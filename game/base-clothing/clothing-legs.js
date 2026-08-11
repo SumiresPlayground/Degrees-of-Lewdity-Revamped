@@ -2448,7 +2448,7 @@ function initLegs() {
 			accessory_colour: 0,
 			accessory_colour_options: [],
 			accessory_colour_sidebar: 1,
-			cursed: 0,
+			cursed: 1,
 			location: 0,
 			iconFile: "",
 			accIcon: ""
@@ -2483,7 +2483,7 @@ function initLegs() {
 			accessory_colour: 0,
 			accessory_colour_options: [],
 			accessory_colour_sidebar: 1,
-			cursed: 0,
+			cursed: 1,
 			location: 0,
 			iconFile: "",
 			accIcon: ""

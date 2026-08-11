@@ -125,7 +125,7 @@
 		<<case 12>>
 			<!-- Wraith? -->
 			<<rngWraith 1>>
-			<<if _wraithEvent is true>>
+			<<if _wraithEvent is true and !$worn.face.name.includes("apotropaic")>>
 				You hear a breathless voice whisper in your ear.
 				<br>
 				"<span class="wraith"><<print either("Wracked with your charm. Circled like prey","We are not dead. We have ever lived.","The fire in the sky is extinguished","What once was is now away. All longing and pain","Fall to my arms, hold their mesmeric sway","I'm a prayer for your loneliness","In the pool of dreams, the water darkens","<<pcPetname \"Wraith\">> mine")>>.</span>"
@@ -649,7 +649,7 @@
 	<</if>>
 
 	<<rngWraith 1>>
-	<<if _wraithEvent is true and $awareness gt 300 and $settings.swarmsEnabled>>
+	<<if _wraithEvent is true and $awareness gt 300 and $settings.swarmsEnabled and !$worn.face.name.includes("apotropaic")>>
 		<<addinlineevent "wraithdildoswarm" 2>>
 			<<wearProp "dildo">>
 			As you're stocking a shelf with dildos, the toys start shaking. A breathless voice whispers in your ear.

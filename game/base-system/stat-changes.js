@@ -321,10 +321,10 @@ const statChange = (() => {
 	DefineMacro("straighttrauma", straighttrauma);
 
 	function updatePlayerTraumaState() {
-		V.sleeptrouble = V.trauma >= 1 ? 1 : 0;
-		V.nightmares = V.trauma >= (V.traumamax / 10) * 1 ? 1 : 0;
+		V.sleeptrouble = (V.trauma >= 1 || V.insanitytrait === 1) ? 1 : 0;
+		V.nightmares = ((V.trauma >= (V.traumamax / 10) * 1) || V.insanitytrait === 1) ? 1 : 0;
 
-		if (V.trauma >= (V.traumamax / 10) * 7) {
+		if ((V.trauma >= (V.traumamax / 10) * 7) || V.insanitytrait === 1) {
 			V.anxiety = 2;
 		} else if (V.trauma >= (V.traumamax / 10) * 2) {
 			V.anxiety = 1;
@@ -332,9 +332,9 @@ const statChange = (() => {
 			V.anxiety = 0;
 		}
 
-		V.flashbacks = V.trauma >= (V.traumamax / 10) * 8 ? 1 : 0;
+		V.flashbacks = ((V.trauma >= (V.traumamax / 10) * 8) || V.insanitytrait === 1) ? 1 : 0;
 
-		if (V.trauma >= (V.traumamax / 10) * 6) {
+		if ((V.trauma >= (V.traumamax / 10) * 6) || V.insanitytrait === 1) {
 			V.panicattacks = 2;
 		} else if (V.trauma >= (V.traumamax / 10) * 4) {
 			V.panicattacks = 1;
@@ -342,7 +342,7 @@ const statChange = (() => {
 			V.panicattacks = 0;
 		}
 
-		if (V.trauma >= (V.traumamax / 10) * 9.5) {
+		if ((V.trauma >= (V.traumamax / 10) * 9.5) || V.insanitytrait === 1) {
 			V.dissociation = 2;
 		} else if (V.trauma >= (V.traumamax / 10) * 8.5) {
 			V.dissociation = 1;
@@ -359,7 +359,8 @@ const statChange = (() => {
 			(V.awareness < 200 && V.hypnosis_traits.insight && V.settings.hypnosisEnabled) ||
 			V.hallucinogen > 0 ||
 			Time.isBloodMoon() ||
-			Object.values(V.worn).find(c => c.type.includes("esoteric"))
+			Object.values(V.worn).find(c => c.type.includes("esoteric")) || 
+			V.insanitytrait === 1
 		) {
 			V.hallucinations = 2;
 		} else if (

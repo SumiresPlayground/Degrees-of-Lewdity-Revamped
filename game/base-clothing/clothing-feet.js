@@ -3334,7 +3334,7 @@ function initFeet() {
 		accessory: 0,
 		accessory_colour: 0,
 		accessory_colour_options: [],
-		cursed: 0,
+		cursed: 1,
 		location: 0,
 		iconFile: "",
 		accIcon: 0
@@ -3369,7 +3369,7 @@ function initFeet() {
 		accessory: 0,
 		accessory_colour: 0,
 		accessory_colour_options: [],
-		cursed: 0,
+		cursed: 1,
 		location: 0,
 		iconFile: "",
 		accIcon: 0

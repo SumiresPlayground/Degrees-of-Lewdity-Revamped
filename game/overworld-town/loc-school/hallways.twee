@@ -467,7 +467,7 @@ You turn and slap the <<person>> before <<he>> can get away, wiping the smirk of
 	<br><br>
 
 	<<rngWraith>>
-	<<if _wraithEvent>>
+	<<if _wraithEvent and !$worn.face.name.includes("apotropaic")>>
 
 		<<if hasSexStat("promiscuity", 2)>>
 			<<if $wraith.seen gte 3 and $wli.criteria>>
@@ -506,7 +506,7 @@ You turn and slap the <<person>> before <<he>> can get away, wiping the smirk of
 
 <<addinlineevent "encounter_chat" 5>>
 	<<rngWraith 1 "noBlood">>
-	<<if _wraithEvent>>
+	<<if _wraithEvent and !$worn.face.name.includes("apotropaic")>>
 		You make small talk.
 		<<if $rng lte 10 or (W.wraithIsAngry() and $rng lte 20)>>
 			<<His>> face grows more and more pale by the second, until it turns

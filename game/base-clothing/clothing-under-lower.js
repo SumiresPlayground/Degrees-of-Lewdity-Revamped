@@ -2750,7 +2750,7 @@ function initUnderLower() {
 			accessory_colour_combat:"",
 			penis_img: 0,
 			high_img: 0,
-			cursed: 0,
+			cursed: 1,
 			location: 0,
 			iconFile: "",
 			accIcon: 0,
