@@ -23,6 +23,7 @@ const Furniture = (() => {
 		owlplushie: "owlplushie",
 		pc: "pc",
 		utility: "utility",
+		shrine: "shrine",
 		collectible1: "collectible1",
 		collectible2: "collectible2",
 		collectible3: "collectible3",
@@ -519,6 +520,52 @@ const Furniture = (() => {
 			cost: 5000,
 			description: "A personal computer for browsing the internet.",
 			iconFile: "laptop",
+		});
+		/* ------------- Shrine -------------- */
+		mapper.set("blank", {
+			name: "blank shrine",
+			nameCap: "Blank shrine",
+			category: ["shrine"],
+			type: [],
+			cost: 2000,
+			description: "A blank empty shrine.",
+			iconFile: "sewing",
+		});
+		mapper.set("virgo", {
+			name: "virgo shrine",
+			nameCap: "Virgo shrine",
+			category: ["shrine"],
+			type: [],
+			cost: 2000,
+			description: "A shrine dedicated to Virgo.",
+			iconFile: "sewing",
+		});
+		mapper.set("auriga", {
+			name: "auriga shrine",
+			nameCap: "Auriga shrine",
+			category: ["shrine"],
+			type: [],
+			cost: 2000,
+			description: "A shrine dedicated to Auriga.",
+			iconFile: "sewing",
+		});
+		mapper.set("abyssina", {
+			name: "dark mother shrine",
+			nameCap: "Dark Mother shrine",
+			category: ["shrine"],
+			type: [],
+			cost: 2000,
+			description: "A shrine dedicated to the Dark Mother, Abyssina.",
+			iconFile: "sewing",
+		});
+		mapper.set("auspacia", {
+			name: "auspacia shrine",
+			nameCap: "Auspacia shrine",
+			category: ["shrine"],
+			type: [],
+			cost: 2000,
+			description: "A shrine dedicated to the God of the Wilds, Auspacia.",
+			iconFile: "sewing",
 		});
 	}
 

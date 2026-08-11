@@ -586,11 +586,14 @@
 	<<if setup.foodstuff[$_type].tending?.affected_by_tending_skill>>
 		<<set _tending_amount *= (1 + (currentSkillValue('tending') / 1000))>>
 	<</if>>
-		<<if $transformationParts.traits.strongnose isnot "disabled">>
+	<<if $transformationParts.traits.strongnose isnot "disabled">>
 		<<set _tending_amount *= 1.2>>
 	<</if>>
 	<<if $backgroundTraits.includes("greenthumb")>>
 		<<set _tending_amount *= 1.2>>
+	<</if>>
+	<<if $daily.auspaciatending>>
+		<<set _tending_amount *= 1.5>>
 	<</if>>
 	<<set _tending_amount to Math.trunc(_tending_amount)>>
 	<<set $foodstuff[$_type].amount += _tending_amount>>

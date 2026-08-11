@@ -4423,7 +4423,7 @@ function customNNPCClothingInitDb() {
         },
         "ritualRobes": {
             "rant": "Oh Gwylan, Gwylan, Gwylan... Why does the story text cals you naked here yet you insist on calling it 'ritual robes' in the gamefiles?" +
-                "though I do respect the hat staying on during sex part. That is pretty funny I gotta admit."
+              "though I do respect the hat staying on during sex part. That is pretty funny I gotta admit."
         },
     };
 }
@@ -4723,7 +4723,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Garden Robin Help",
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("watering can");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -4731,7 +4731,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: ["Robin Study", "Robin Study 2", "Robin Study Concentrate", "Robin Study Competition", "Robin Study Competition 2"],
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("pencil");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -4739,7 +4739,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Robin Study Peek",
             exact: false,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("open history");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -4747,10 +4747,10 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: ["Robin Study Mess", "Robin Study Doodle", "Robin Study Doodle"],
             exact: true,
-            callback(worn) {
-            T.modeloptions.prop = customNNPC_compileProp("notebook");
-            T.modeloptions.prop_arm_position = "hold";
-        }
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("notebook");
+                T.modeloptions.prop_arm_position = "hold";
+            }
         },
         {
             passage: "English Play Watch",
@@ -4768,7 +4768,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: ["Robin Watch Pass", "Robin Pillow", "Robin Options", "Robin's Room Entrance", "Robin Study Winner End"],
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("game controller");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -4776,7 +4776,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Robin Money",
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("cash");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -4784,7 +4784,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Robin Amusements Lollipop",
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 if(Math.random() >= 0.9){
                     T.modeloptions.prop = customNNPC_compileProp("lollipop big");
                 }else{
@@ -4796,7 +4796,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Robin Amusements Sweets",
             exact: false,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("packet of sweets");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -4812,7 +4812,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             }
         },
         {
-            passage: "Pub Landry",
+            passage: ["Pub Landry","Mansion Mickey Interrupt","Mansion Brown Fox Interrupt","Mansion Brown Fox Wounded","Mansion Fox Heist","Mansion Fox Heist Vault Whip 4","Mansion Fox Heist Vault Fight Finish 2","Mansion Piano Fox","Mansion Piano Fox 2"],
             exact: true,
             callback(worn) {
                 worn["face"] = $.extend(true, {}, setup.clothes["face"].find(hs => hs.variable === "foxmask"));
@@ -4831,456 +4831,456 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Museum Waterlogged Ivory Box",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("ivory box");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique ivory box");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Worn Silver Ring",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver ring");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver ring");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Ornate Gold Necklace",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("gold necklace");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique gold necklace");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Golden Chastity Belt",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("chastity");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique chastity");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Arousing Crystal",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("crystal pink");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique crystal pink");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Hunting Horn",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("horn");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique horn");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Mossy Forest Arrow",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("arrow");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique arrow");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Rusted Forest Dagger",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("dagger");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique dagger");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Noble Candlestick",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("candlestick");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique candlestick");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Old Watch",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("watch");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique watch");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Odd Medical Aid",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("antiquedildo");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique antiquedildo");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Pulsing Forest Gem",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("forest gem");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique forest gem");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Brooch",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver brooch");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver brooch");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Discarded Cup",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("cup");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique cup");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Incense Burner",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("incense");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique incense");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Copper Compass",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("copper compass");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique copper compass");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Old Grenade",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("grenade");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique grenade");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Stone Talisman",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("stone talisman");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique stone talisman");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Mask",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver mask");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver mask");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Diamond",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("diamond");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique diamond");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Compass",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver compass");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver compass");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Dagger",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver dagger");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver dagger");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Rusted Cutlass",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("rusted cutlass");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique rusted cutlass");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Cutlass",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("cutlass");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique cutlass");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Leather Map",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("map");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique map");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Sonorous Bell",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("bell");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique bell");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Artillery Shell",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("artillery");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique artillery");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Gold Ring",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("gold ring");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique gold ring");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Gold Brooch",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("gold brooch");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique gold brooch");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Coral Ring",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("coral ring");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique coral ring");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Inscribed Hourglass",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("hourglass");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique hourglass");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Copper Coin",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("copper coin");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique copper coin");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Coin",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver coin");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver coin");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Gold Coin",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("gold coin");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique gold coin");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Blade",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver blade");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver blade");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Ivory Statuette",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("ivory statuette");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique ivory statuette");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Strange Fetish",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("fetish");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique fetish");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Goblet",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver goblet");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver goblet");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Silver Crown",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("silver crown");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique silver crown");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum White Crystal",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("crystal");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique crystal");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Bailey Sign",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("bailey");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique bailey");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Obsidian Disc",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("disc");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique disc");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Wooden Mask",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("islander mask");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique islander mask");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Trilobite Fossil",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("trilobite");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique trilobite");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Islander Arrow",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("islander arrow");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique islander arrow");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Gold Compass",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("gold compass");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique gold compass");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Sword Cane",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("sword cane");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique sword cane");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Chocolate",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("chocolate");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique chocolate");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Tea Caddy",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("tea caddy");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique tea caddy");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Wooden Figurine",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("figurine");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique figurine");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Copper Ring",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("copper ring");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique copper ring");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Snuffer",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("snuffer");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique snuffer");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Gold Amulet",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("gold amulet");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique gold amulet");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Gold Mask",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("gold mask");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique gold mask");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Bucket",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("bucket");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique bucket");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Whip",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("whip");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique whip");
                 T.modeloptions.prop_arm_position = "hold";
             }
         },
         {
             passage: "Museum Intricate Horn",
             exact: true,
-            callback(worn) {
-                T.modeloptions.prop = customNNPC_compileProp("horn");
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("antique horn");
                 T.modeloptions.prop_arm_position = "hold";
             }
         }
@@ -5302,7 +5302,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "",
             exact: false,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("clipboard pen");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5313,7 +5313,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "",
             exact: false,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("whip");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5324,7 +5324,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Sydney Library Bodywriting Allow",
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("pen");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5335,7 +5335,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "English Kylar Move",
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("knife");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5343,7 +5343,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Kylar Drawing",
             exact: false,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("notebook pen");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5354,7 +5354,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Bird Tower Give Captured Lurker",
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("lurker");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5365,7 +5365,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: "Dilapidated Shop",
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("dildo");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5373,7 +5373,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: ["School Front Courtyard", "School Sirris Watch", "School Sirris Help"],
             exact: true,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("box");
                 T.modeloptions.prop_arm_position = "hold";
             }
@@ -5396,7 +5396,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         {
             passage: ["Whitney Park", "Whitney Chat", "Whitney Ask"],
             exact: false,
-            callback(worn) {
+            callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("cigarette");
                 T.modeloptions.prop_arm_position = "hold";
             }

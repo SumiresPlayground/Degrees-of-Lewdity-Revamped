@@ -1,0 +1,185 @@
+/* Fae Realm minimap */
+	.frmap-wrap{
+		display:block;
+		margin:.6em 0;
+		text-align:center;
+	}
+	.frmap-gridbox{
+		display:block;
+		position:relative;
+		padding:0;
+		width:fit-content;
+		margin:0 auto;
+	}
+	.frmap-grid{
+		display:grid;
+		width:min(360px, 92vw);
+		aspect-ratio:1 / 1;
+		height:auto;
+		grid-template-columns:repeat(11, minmax(0, 1fr));
+		grid-template-rows:repeat(11, minmax(0, 1fr));
+		box-sizing:border-box;
+		border:1px solid rgba(255,255,255,.65);
+		border-radius:8px;
+		overflow:hidden;
+		background:transparent;
+		margin:0 auto;
+	}
+	.frmap-cell{
+		width:100%;
+		height:100%;
+		min-width:0;
+		min-height:0;
+		box-sizing:border-box;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		border:1px solid #ffffffbf;
+		background:#d8a175;
+		overflow:hidden;
+	}
+	.frmap-cell.frmap-outer{ background:#1e271f !important; }
+	.frmap-cell.frmap-inner{ background:#0c3611 !important; }
+	.frmap-cell.frmap-core { background:#25544a !important; }
+	.frmap-you{
+		font-weight:900;
+		font-size:clamp(8px, 1.9vw, 12px);
+		line-height:1;
+		letter-spacing:.04em;
+		padding:.12em .24em;
+		border:1px solid rgba(255,255,255,.35);
+		background:rgba(0,0,0,.20);
+		border-radius:4px;
+		max-width:100%;
+	}
+	.frmap-icon{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		width:100%;
+		height:100%;
+		min-width:0;
+		min-height:0;
+	}
+	.frmap-icon img,
+	.frmap-icon svg,
+	.frmap-icon span{
+		width:clamp(12px, 4.6vw, 22px);
+		height:clamp(12px, 4.6vw, 22px);
+		display:block;
+		max-width:100%;
+		max-height:100%;
+		image-rendering:pixelated;
+	}
+	@media (max-width: 480px){
+		.frmap-grid{
+			width:min(320px, 94vw);
+			border-radius:6px;
+		}
+		.frmap-cell{
+			border-width:1px;
+		}
+		.frmap-you{
+			font-size:clamp(7px, 2.1vw, 10px);
+			padding:.08em .18em;
+		}
+		.frmap-icon img,
+		.frmap-icon svg,
+		.frmap-icon span{
+			width:clamp(10px, 4.2vw, 16px);
+			height:clamp(10px, 4.2vw, 16px);
+		}
+	}
+
+/* Modded Island Caldera minimap */
+	.micmap-wrap{
+		display:block;
+		margin:.6em 0;
+		text-align:center;
+	}
+	.micmap-gridbox{
+		display:block;
+		position:relative;
+		padding:0;
+		width:fit-content;
+		margin:0 auto;
+	}
+	.micmap-grid{
+		display:grid;
+		width:min(360px, 92vw);
+		aspect-ratio:1 / 1;
+		height:auto;
+		grid-template-columns:repeat(7, minmax(0, 1fr));
+		grid-template-rows:repeat(7, minmax(0, 1fr));
+		box-sizing:border-box;
+		border:1px solid #ffffffa6;
+		border-radius:8px;
+		overflow:hidden;
+		background:transparent;
+		margin:0 auto;
+	}
+	.micmap-cell{
+		width:100%;
+		height:100%;
+		min-width:0;
+		min-height:0;
+		box-sizing:border-box;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		border:1px solid rgba(255,255,255,.75);
+		background:#d8a175;
+		overflow:hidden;
+	}
+	.micmap-cell.micmap-outer{ background:#727272 !important; }
+	.micmap-cell.micmap-inner{ background:#d4d4d4 !important; }
+	.micmap-cell.micmap-core { background:#d4d4d4 !important; }
+	.micmap-you{
+		font-weight:900;
+		font-size:clamp(8px, 1.9vw, 12px);
+		line-height:1;
+		letter-spacing:.04em;
+		padding:.12em .24em;
+		border:1px solid rgba(255,255,255,.35);
+		background:rgba(0,0,0,.20);
+		border-radius:4px;
+		max-width:100%;
+	}
+	.micmap-icon{
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		width:100%;
+		height:100%;
+		min-width:0;
+		min-height:0;
+	}
+	.micmap-icon img,
+	.micmap-icon svg,
+	.micmap-icon span{
+		width:clamp(12px, 4.6vw, 22px);
+		height:clamp(12px, 4.6vw, 22px);
+		display:block;
+		max-width:100%;
+		max-height:100%;
+		image-rendering:pixelated;
+	}
+	@media (max-width: 480px){
+		.micmap-grid{
+			width:min(320px, 94vw);
+			border-radius:6px;
+		}
+		.micmap-cell{
+			border-width:1px;
+		}
+		.micmap-you{
+			font-size:clamp(7px, 2.1vw, 10px);
+			padding:.08em .18em;
+		}
+		.micmap-icon img,
+		.micmap-icon svg,
+		.micmap-icon span{
+			width:clamp(10px, 4.2vw, 16px);
+			height:clamp(10px, 4.2vw, 16px);
+		}
+	}

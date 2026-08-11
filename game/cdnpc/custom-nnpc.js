@@ -417,10 +417,6 @@ function modelPrepareNNPCBody(NPCname, setName) {
 		};
 	}
 
-	if(NPCname === "Night Monster"){
-		T.modeloptions.show_hair = false;
-	}
-
 	T.modeloptions.hair_sides_type = V.customNNPC.customData[NPCname].hairstyle_side;
 	T.modeloptions.hair_fringe_type = V.customNNPC.customData[NPCname].hairstyle_fringe;
 

@@ -876,6 +876,10 @@ Renderer.CanvasModels.main = {
 			options.headMask.push(`img/clothes/handheld/${options.worn.handheld.setup.variable}/mask.png`);
 		}
 
+		if (options.worn.face.setup.mask_img === 1) {
+			options.headMask.push(`img/clothes/face/${options.worn.face.setup.variable}/mask.png`);
+		}
+
 		if (["fro", "afro pouf", "afro puffs"].includes(options.hair_sides_type) && options.hair_fringe_type === "fro") {
 			options.fringe_mask_src = `img/hair/fringe/${options.hair_fringe_type}/mask.png`;
 		} else {
@@ -1143,54 +1147,36 @@ Renderer.CanvasModels.main = {
 		 *
 		 *
 		 */
-		"npcpresentback": {
+		"npcpresent": {
 			show: true,
-			z: ZIndices.NPCOverlayBack,
 			animation: "idle",
-			srcfn() {
-				if (V.NPCposition > 0)
-					if (V.NPCenable > 0)
-						if (V.NPCstatic > 0)
-							{if (V.npc.length > 0)
-								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
-						else
-							if (V.npc.length > 0) {
-										const skin = V.NPCList[0].skincolour;
-										const skinCls = 
-										skin === "white" ? "light" :
-                                        skin === "black" ? "dark" :
-                                        skin;
-									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney")
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
-									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
+			zfn() {
+				return V.NPCposition === '2' ? ZIndices.NPCOverlay : ZIndices.NPCOverlayBack;
 			},
-		},
-		"npcpresentfront": {
-			show: true,
-			z: ZIndices.NPCOverlay,
-			animation: "idle",
 			srcfn() {
-				if (V.NPCposition > 1)
-					if (V.NPCenable > 0)
-						if (V.NPCstatic > 0)
-							{if (V.npc.length > 0)
+				const skin = V.NPCList[0].skincolour;
+				const skinCls = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+				if (V.NPCposition > 0 && V.NPCenable > 0)
+						if (V.NPCstatic > 0) {
+							if (V.NPCList[0].name === "'Mickey'")
+								return `img/npc/${V.creatorname}/Mickey.png`;
+							else if (V.npc.length > 0)
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
-						else
-							if (V.npc.length > 0) {
-										const skin = V.NPCList[0].skincolour;
-										const skinCls = 
-										skin === "white" ? "light" :
-                                        skin === "black" ? "dark" :
-                                        skin;
-									{if (V.npc[0] === "Black Wolf" && !V.monster > 0 || V.npc[0] === "Great Hawk" && !V.monster > 0 || V.npc[0] === "Night Monster" && !V.monster > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[0].pronoun}/monster.png`;
-									else if (V.npc[0] === "Sydney")
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+						else {
+							if (V.NPCList[0].name === "'Mickey'")
+								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].gender}/${skinCls}.png`;
+							else if (V.npc.length > 0)
+								if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(V.npc[0]))
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/monster.png`;
+								else if (V.npc[0] === "Sydney")
+									if (C.npc.Sydney.purity > 0)
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/pure/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}}
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/corrupt/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+								else if (V.npc[0] === "Gwylan" && V.brownfox === 1)
+									return `img/npc/${V.creatorname}/Brown Fox/${V.NPCList[0].gender}/${skinCls}.png`;
+								else
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/${skinCls}.png`;}
 			},
 		},
 		"background": {
@@ -1212,7 +1198,7 @@ Renderer.CanvasModels.main = {
 		},
 		"background2": {
 			show: true,
-			z: ZIndices.backgroundOverlay + 1,
+			z: ZIndices.backgroundOverlay -0.1,
 			animation: "idle",
 			srcfn() {
 				if (V.staticimages2 > 1) {}
@@ -1232,8 +1218,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.2,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1247,8 +1233,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.9,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1262,13 +1248,13 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.35,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-						if (V.furniture.bedroom.decoration.id !== undefined) {
+						if (V.furniture.bedroom.decoration !== undefined) {
         					return `img/background/furniture/decoration/${V.furniture.bedroom.decoration.id}/${timeSuffix}.png`;}}}
 			},
 		},
@@ -1277,8 +1263,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.8,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1292,8 +1278,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.45,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1307,8 +1293,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.4,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {} 
-				else if (V.staticimages > 0) {} 
+				if (V.staticimages > 1 && V.staticimages2 > 1) {} 
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {} 
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === 'night' && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1322,8 +1308,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.11,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1337,8 +1323,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.21,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1352,8 +1338,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.3,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1367,8 +1353,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.7,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1382,8 +1368,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.94,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1397,8 +1383,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.95,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1412,8 +1398,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.5,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1427,8 +1413,8 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.22,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
@@ -1442,13 +1428,13 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.backgroundOverlay +0.85,
 			animation: "idle",
 			srcfn() {
-				if (V.staticimages > 1) {}
-				else if (V.staticimages > 0) {}
+				if (V.staticimages > 1 && V.staticimages2 > 1) {}
+				else if (V.staticimages > 0 && V.staticimages2 > 0) {}
 				else {
 					if (V.locationoverwrite === "bedroom") {
 						const isBloodmoon = Time.dayState === "night" && (Time.isBloodMoon() || V.forcedBloodmoon);
       					const timeSuffix = isBloodmoon ? "bloodmoon" : Time.dayState;
-						if (V.container.home.creatures !== undefined) {
+						if (V.container.home.creatures[0] !== null || V.container.home.creatures[1] !== undefined) {
 							if (V.container.home.creatures[0].creature !== null) {
         						return `img/background/furniture/tank/parasites/${V.container.home.creatures[0].creature}/${timeSuffix}.png`;}
 							else if (V.container.home.creatures[1].creature !== null) {
@@ -1460,7 +1446,7 @@ Renderer.CanvasModels.main = {
 							else if (V.container.home.creatures[4].creature !== null) {
         						return `img/background/furniture/tank/parasites/${V.container.home.creatures[4].creature}/${timeSuffix}.png`;}
 							else if (V.container.home.creatures[5].creature !== null) {
-        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[5].creature}/${timeSuffix}.png`;}}}}		
+        						return `img/background/furniture/tank/parasites/${V.container.home.creatures[5].creature}/${timeSuffix}.png`;}}}}
 			},
 			masksrcfn(options){
 				{return `img/background/furniture/tank/${V.container.home.name}/mask.png`;}
@@ -1738,7 +1724,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				const iris = options.trauma ? "iris-empty" : "iris";
+				const iris = options.trauma || V.irisempty || V.insanitytrait ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
 				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
 			},
@@ -1755,7 +1741,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				const iris = options.trauma ? "iris-empty" : "iris";
+				const iris = options.trauma || V.irisempty || V.insanitytrait ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
 				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
 			},
@@ -2384,7 +2370,6 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_ears_type);
 			},
-			filters: ["hair"],
 			zfn(options) {
 				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
 			},
@@ -2397,7 +2382,6 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.sheep_tail_type);
 			},
-			filters: ["hair"],
 			zfn(options) {
 				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
 			},

@@ -2064,7 +2064,7 @@ function initUnderUpper() {
 			accessory_colour_options: [],
 			sleeve_img: 0,
 			breast_img: 0,
-			cursed: 0,
+			cursed: 1,
 			location: 0,
 			iconFile: "",
 			accIcon: 0

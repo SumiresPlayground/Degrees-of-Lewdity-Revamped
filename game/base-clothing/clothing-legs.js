@@ -2448,7 +2448,7 @@ function initLegs() {
 			accessory_colour: 0,
 			accessory_colour_options: [],
 			accessory_colour_sidebar: 1,
-			cursed: 0,
+			cursed: 1,
 			location: 0,
 			iconFile: "",
 			accIcon: ""
@@ -2483,7 +2483,7 @@ function initLegs() {
 			accessory_colour: 0,
 			accessory_colour_options: [],
 			accessory_colour_sidebar: 1,
-			cursed: 0,
+			cursed: 1,
 			location: 0,
 			iconFile: "",
 			accIcon: ""
@@ -2574,7 +2574,42 @@ function initLegs() {
 			location: 0,
 			iconFile: "academysocks.png",
 			accIcon: 0,
-		}
+		}/*,
+		
+			{index: 6,
+			slot: "legs",
+			name: "detective socks",
+			name_cap: "Detective socks",
+			variable: "detective",
+			combat: {
+				reference: "thighhighs",
+			},
+			integrity: 300,
+			integrity_max: 300,
+			fabric_strength: 20,
+			reveal: 300,
+			word: "n",
+			state: "thighs",
+			state_base: "thighs",
+			plural: 1,
+			colour: 0,
+			colour_options: [],
+			colour_sidebar: 0,
+			type: ["costume"],
+			gender: "n",
+			warmth: 1,
+			cost: 5000,
+			description: "An outfit made for a star detective.",
+			shop: ["cursed"],
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			accessory_colour_sidebar: 0,
+			cursed: 0,
+			location: 0,
+			iconFile: "academysocks.png",
+			accIcon: 0,
+		}*/
 	];
 
 	setup.moddedClothes.legs.forEach((x, i) => (x.index = setup.clothes.legs.length + i));

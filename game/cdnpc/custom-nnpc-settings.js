@@ -589,11 +589,9 @@ function customNNPCSettingsTabSetup(){
     T.CustomNNPCSettingsTabs.push(["Eyes", "custom-nnpc-settings-tab-eyes"]);
 
     // Hair
-    if(V.customNNPC.settingsActivePreview !== "Night Monster"){
-        T.CustomNNPCSettingsTabs.push(["Hair Colour", "custom-nnpc-settings-tab-hair1"]);
-        T.CustomNNPCSettingsTabs.push(["Hair Colour (Fringe)", "custom-nnpc-settings-tab-hair2"]);
-        T.CustomNNPCSettingsTabs.push(["Hairstyle", "custom-nnpc-settings-tab-hairstyles"]);
-    }
+    T.CustomNNPCSettingsTabs.push(["Hair Colour", "custom-nnpc-settings-tab-hair1"]);
+    T.CustomNNPCSettingsTabs.push(["Hair Colour (Fringe)", "custom-nnpc-settings-tab-hair2"]);
+    T.CustomNNPCSettingsTabs.push(["Hairstyle", "custom-nnpc-settings-tab-hairstyles"]);
 
     // Body
     T.CustomNNPCSettingsTabs.push(["Body", "custom-nnpc-settings-tab-bodyshape"]);
@@ -751,6 +749,49 @@ function customNNPCAssetLayerClothingSetCheckbox(NPCname, layerID, clothingSet){
 }
 
 DefineMacroS("custom-nnpc-settings-custom-layer-clothing-checkbox", customNNPCAssetLayerClothingSetCheckbox);
+
+function customNNPCAssetLayerClothingLayerRadio(NPCname, layerID, optionName){
+    let current = V.customNNPC.customImageLayers[NPCname][layerID].clothingLayer;
+    return `
+        <input type="radio"
+        class="macro-radiobutton"
+        onclick="
+            V.customNNPC.customImageLayers['${NPCname}'][${layerID}].clothingLayer = '${optionName}';
+        "
+        ${current === optionName ? 'checked="checked"' : ""}
+        >
+    `;
+}
+
+DefineMacroS("custom-nnpc-settings-custom-layer-clothing-layer-radio", customNNPCAssetLayerClothingLayerRadio);
+
+function customNNPCAssetLayerClothingMaskCheckbox(NPCname, layerID, optionName, isTarget, childID=-1){
+    let subType = isTarget ? "targetMask" : "mask";
+    let current = ""
+    if (childID === -1) {
+        current = V.customNNPC.customImageLayers[NPCname][layerID][subType];
+    }else{
+        current = V.customNNPC.customImageLayers[NPCname][layerID].children[childID][subType];
+    }
+    return `
+        <input type="radio"
+        class="macro-radiobutton"
+        value="${optionName}"
+        onclick="
+            let childID = ${childID}
+            let selfValue = '${optionName}'
+            if(childID === -1){
+                V.customNNPC.customImageLayers['${NPCname}'][${layerID}]['${subType}'] = '${optionName}';
+            }else{
+                V.customNNPC.customImageLayers['${NPCname}'][${layerID}].children[childID]['${subType}'] = '${optionName}';  
+            }
+        "
+        ${current === optionName ? 'checked="checked"' : ""}
+        >
+    `;
+}
+
+DefineMacroS("custom-nnpc-settings-custom-layer-clothing-mask-checkbox", customNNPCAssetLayerClothingMaskCheckbox);
 
 function customNNPCAssetLayerToggleCheckboxes(NPCname, layerID){
     let ret = ``;

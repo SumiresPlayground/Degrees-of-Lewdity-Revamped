@@ -210,7 +210,7 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 
 		<<addinlineevent "general_gossip">>
 			<<rngWraith>>
-			<<if _wraithEvent>>
+			<<if _wraithEvent and !$worn.face.name.includes("apotropaic")>>
 				<<silently>><<speechWraith "lines">><</silently>>
 				"_line1"
 				<br>
@@ -391,7 +391,7 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 			<<link [[Ask Sydney for help|School Library Harass]]>><<set $phase to 2>><</link>>
 			<br>
 		<</if>>
-	<<elseif _wraithEvent>>
+	<<elseif _wraithEvent and !$worn.face.name.includes("apotropaic")>>
 		After some time, you begin to feel anxious. You move to replace your textbook in the bookshelf.
 		<br><br>
 		You catch a brief glimpse of a pale face through the gaps on the other side. <<stress 12>><<ggstress>><<trauma 4>><<gtrauma>>
@@ -466,7 +466,7 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 			<<link [[Stay hidden (0:10)|Library Study Hide]]>><<stress 3>><<pass 10>><</link>><<gstress>>
 		<</if>>
 		<br>
-	<<elseif _wraithEvent>>
+	<<elseif _wraithEvent and !$worn.face.name.includes("apotropaic")>>
 		After some time, you begin to feel anxious. You move to replace your textbook in the bookshelf.
 		<br><br>
 		You catch a brief glimpse of a pale face through the gaps on the other side. <<stress 12>><<ggstress>><<trauma 4>><<gtrauma>>

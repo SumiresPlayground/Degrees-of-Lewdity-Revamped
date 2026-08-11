@@ -394,6 +394,7 @@ DefineMacro("modelprepare-player-body", function () {
 	T.modeloptions.lizard_horns_type = V.transformationParts.lizard.horns;
 	T.modeloptions.sheep_ears_type = V.transformationParts.sheep.ears;
 	T.modeloptions.sheep_horns_type = V.transformationParts.sheep.horns;
+	T.modeloptions.sheep_tail_type = V.transformationParts.sheep.tail;
 	T.modeloptions.dolphin_tail_type = V.transformationParts.dolphin.tail;
 	T.modeloptions.dog_tail_type = V.transformationParts.dog.tail;
 	T.modeloptions.dog_ears_type = V.transformationParts.dog.ears;

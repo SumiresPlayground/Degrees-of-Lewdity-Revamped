@@ -848,132 +848,6 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
-	"Sheep":{
-		title: "Woolly Dream",
-		desc: "Soft as a cloud.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Dog":{
-		title: "Man's best friend",
-		desc: "Maybe too friendly.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Bee":{
-		title: "All the Buzz",
-		desc: "Watch out for honey.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Raccoon": {
-		title: "Unclean Getaway",
-		desc: "A furry, yet smooth criminal.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Fish": {
-		title: "The Wetter, The Better",
-		desc: "Just keep swimming.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Horse": {
-		title: "Wild and Free",
-		desc: "Run like the wind.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Spider": {
-		title: "Does Whatever a Spider Can",
-		desc: "Wrap it up.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Frog": {
-		title: "It's Not Easy",
-		desc: "Some mouth, all tongue.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Pig": {
-		title: "Some Pig",
-		desc: "If only Charlotte were here.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Dragon": {
-		title: "How to Tame Your Dragon",
-		desc: "Breathe in, breathe out.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Lizard": {
-		title: "Lizzing Out",
-		desc: "Cold-blooded, warm-hearted.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Dolphin": {
-		title: "Flippin' Out",
-		desc: "Thanks for all the fish.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Deer":{
-		title: "Town Prancer",
-		desc: "Ready to run.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Bear":{
-		title: "UnBearable",
-		desc: "Big and burly.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Bunny":{
-		title: "Professional Breeder",
-		desc: "Breed breed breed.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Mushroom": {
-		title: "Mushroom Samba",
-		desc: "Spread them spores.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Ghost": {
-		title: "Who You Gonna Call?",
-		desc: "Bustin' makes you feel good.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
-	"Slime": {
-		title: "It's Slime Time!",
-		desc: "No lube, no problem.",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
-	},
 	Angel: {
 		title: "Walk Like an Angel",
 		desc: "Try not to fall.",
@@ -994,22 +868,6 @@ setup.feats = {
 		difficulty: 1,
 		series: "",
 		filter: ["All", "Transformation"],
-	},
-	"Eldritch": {
-		title: "Cthu-who?",
-		desc: "The Mother from the Other",
-		difficulty: 7,
-		series: "",
-		filter: ["All", "Transformation", "Questline"],
-		hint: "Hint: Find the cult and fulfil the ritual.",
-	},
-	"Fae": {
-		title: "Enchanted",
-		desc: "Blessed by the Wild",
-		difficulty: 7,
-		series: "",
-		filter: ["All", "Transformation"],
-		hint: "Hint: Recieve the blessing of a goddess.",
 	},
 	"A Special Trait": {
 		title: "A Special Trait",
@@ -2139,6 +1997,148 @@ setup.feats = {
 		filter: ["All", "Special"],
 		hint: "Hint: Time and effort.",
 	},
+	"Sheep":{
+		title: "Woolly Dream",
+		desc: "Soft as a cloud.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Dog":{
+		title: "Man's best friend",
+		desc: "Maybe too friendly.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Bee":{
+		title: "All the Buzz",
+		desc: "Watch out for honey.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Raccoon": {
+		title: "Unclean Getaway",
+		desc: "A furry, yet smooth criminal.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Fish": {
+		title: "The Wetter, The Better",
+		desc: "Just keep swimming.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Horse": {
+		title: "Wild and Free",
+		desc: "Run like the wind.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Spider": {
+		title: "Does Whatever a Spider Can",
+		desc: "Wrap it up.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Frog": {
+		title: "It's Not Easy",
+		desc: "Some mouth, all tongue.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Pig": {
+		title: "Some Pig",
+		desc: "If only Charlotte were here.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Dragon": {
+		title: "How to Tame Your Dragon",
+		desc: "Breathe in, breathe out.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Lizard": {
+		title: "Lizzing Out",
+		desc: "Cold-blooded, warm-hearted.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Dolphin": {
+		title: "Flippin' Out",
+		desc: "Thanks for all the fish.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Deer":{
+		title: "Town Prancer",
+		desc: "Ready to run.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Bear":{
+		title: "UnBearable",
+		desc: "Big and burly.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Bunny":{
+		title: "Professional Breeder",
+		desc: "Breed breed breed.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Mushroom": {
+		title: "Mushroom Samba",
+		desc: "Spread them spores.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Ghost": {
+		title: "Who You Gonna Call?",
+		desc: "Bustin' makes you feel good.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Slime": {
+		title: "It's Slime Time!",
+		desc: "No lube, no problem.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
+	"Eldritch": {
+		title: "Cthu-who?",
+		desc: "The Mother from the Other",
+		difficulty: 7,
+		series: "",
+		filter: ["All", "Transformation", "Questline"],
+		hint: "Hint: Find the cult and fulfil the ritual.",
+	},
+	"Fae": {
+		title: "Enchanted",
+		desc: "Blessed by the Wild",
+		difficulty: 7,
+		series: "",
+		filter: ["All", "Transformation"],
+		hint: "Hint: Recieve the blessing of a goddess.",
+	},
 	"Salem the Cultist": {
 		title: "Salem the Cultist",
 		desc: "You gave your virginity to them.",
@@ -2190,6 +2190,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Special"],
 		hint: "Hint: Witness a winter goddess.",
+	},
+	"Will of Steel": {
+		title: "Will of Steel",
+		desc: "You are unbreakable.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Stats"],
 	},
 };
 
@@ -2463,6 +2470,8 @@ function earnHourlyFeats() {
 			if (Time.days >= 150) earnFeat("Long Stressful Challenge");
 		}
 	}
+
+	if (V.willpower >= 1000) earnFeat("Will of Steel");
 
 	if (V.awareness >= 500) earnFeat("Most Aware");
 	if (V.awareness <= -199) earnFeat("Most Innocent");
@@ -2821,6 +2830,13 @@ function setupFeatBoosts(force) {
 			cost: 5,
 			max: 10,
 			missing: "Unlock this boost by obtaining the 'Seductress' feat",
+		},
+		willpower: {
+			name: "Willpower Grade",
+			required: ["Will of Steel"],
+			cost: 15,
+			max: 10,
+			missing: "Unlock this boost by obtaining the 'Will of Steel' feat",
 		},
 		purity: {
 			name: "Daily Purity Boost",
@@ -3198,6 +3214,7 @@ function applyFeatBoosts() {
 	if (upgrades.athletics) V.athletics += gain("athletics", 100);
 	if (upgrades.seduction) V.seductionskill = gain("seduction", 100);
 	if (upgrades.housekeeping) V.housekeeping = gain("housekeeping", 100);
+	if (upgrades.willpower) V.willpower = gain("willpower", 100);
 
 	// daily (im)purity
 	if (upgrades.purity) V.featsPurityBoost = gain("purity", 1);
