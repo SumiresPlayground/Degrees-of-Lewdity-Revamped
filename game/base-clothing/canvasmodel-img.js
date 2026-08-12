@@ -242,7 +242,14 @@ DefineMacro("modelprepare-player-body", function () {
 	// Eyes
 	if (V.possessed) {
 		T.modeloptions.trauma = V.possessed;
-	} else {
+	}
+	else if (V.irisempty) {
+		T.modeloptions.trauma = V.irisempty;
+	}
+	else if (V.insanitytrait) {
+		T.modeloptions.trauma = V.insanitytrait;
+	}
+	else {
 		T.modeloptions.trauma = V.trauma >= V.traumamax * 0.9;
 	}
 	T.modeloptions.blink = V.options.blinkingEnabled;
