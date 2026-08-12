@@ -1164,19 +1164,19 @@ Renderer.CanvasModels.main = {
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else {
 							if (V.NPCList[0].name === "'Mickey'")
-								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].gender}/${skinCls}.png`;
+								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].pronoun}/${skinCls}.png`;
 							else if (V.npc.length > 0)
 								if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(V.npc[0]))
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/monster.png`;
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/monster.png`;
 								else if (V.npc[0] === "Sydney")
 									if (C.npc.Sydney.purity > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/pure/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/pure/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/corrupt/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/corrupt/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 								else if (V.npc[0] === "Gwylan" && V.brownfox === 1)
-									return `img/npc/${V.creatorname}/Brown Fox/${V.NPCList[0].gender}/${skinCls}.png`;
+									return `img/npc/${V.creatorname}/Brown Fox/${V.NPCList[0].pronoun}/${skinCls}.png`;
 								else
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].gender}/${skinCls}.png`;}
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}
 			},
 		},
 		"background": {
@@ -1724,7 +1724,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				const iris = options.trauma || V.irisempty || V.insanitytrait ? "iris-empty" : "iris";
+				const iris = options.trauma ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
 				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
 			},
@@ -1741,7 +1741,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				const iris = options.trauma || V.irisempty || V.insanitytrait ? "iris-empty" : "iris";
+				const iris = options.trauma ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
 				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
 			},

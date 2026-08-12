@@ -1173,14 +1173,14 @@
 				{
 					name: "Visibly Disturbed",
 					colour: "red",
-					has: $dissociation gte 1,
+					has: $dissociation gte 1 || V.insanitytrait === 1,
 					text: "There's something wrong with you, and people can tell.",
 					textColour: "red",
 				},
 				{
 					name: () => V.controlled === 0 ? "Dissociation" : "Controlled Dissociation",
 					colour: () => V.controlled === 0 ? "red" : "blue",
-					has: $dissociation gte 2,
+					has: $dissociation gte 2 || V.insanitytrait === 1,
 					text: "Nothing feels real.",
 					textColour: () => V.controlled === 0 ? "red" : "black",
 				},

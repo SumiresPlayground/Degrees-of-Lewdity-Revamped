@@ -3223,7 +3223,18 @@
 		<<set $worn.head.type.push("broken")>><<headruined>><<headwear "naked">>
 	<</if>>
 	<<if $worn.upper.name is "mushroom dress" or $worn.lower.name is "mushroom skirt" or $worn.upper.name is "mushroom bodice" or $worn.lower.name is "mushroom gown" or $worn.under_upper.name is "mushroom top" or $worn.under_lower.name is "mushroom bottom">>
-		<<upperruined>><<underupperruined>><<lowerruined>><<underlowerruined>><<legsruined>><<feetruined>>
+		<<set $worn.under_upper.cursed to 0>>
+		<<set $worn.under_lower.cursed to 0>>
+		<<set $worn.legs.cursed to 0>>
+		<<set $worn.upper.cursed to 0>>
+		<<set $worn.lower.cursed to 0>>
+		<<set $worn.feet.cursed to 0>>
+		<<underupperruined>>
+		<<underlowerruined>>
+		<<legsruined>>
+		<<upperruined>>
+		<<lowerruined>>
+		<<feetruined>>
 	<</if>>
 	<<set Skin.color.natural to $skincolourreset>>
 	<<set $haircolour to $haircolourreset>>

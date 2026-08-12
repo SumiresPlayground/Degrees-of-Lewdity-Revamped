@@ -2649,7 +2649,8 @@
 			<<tficon "wolf">><<link "Wolf">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 4 or $foxtf is 1>>
-			<<tficon "fox">><<link "Fox">><<clearears>><<set _fox.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">><<link "Fox Default">><<clearears>><<set _fox.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">><<link "Fox Floppy">><<clearears>><<set _fox.ears = "floppy">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $bee gte 2 or $beetf is 1>>
 			<<tficon "bee">><<link "Bee">><<clearears>><<set _bee.ears = "default">><<updatesidebarimg>><</link>><br>
@@ -2803,7 +2804,8 @@
 			<<tficon "bird">><<link "Harpy">><<cleartail>><<set _bird.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 6 or $foxtf is 1>>
-			<<tficon "fox">><<link "Fox">><<cleartail>><<set _fox.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">><<link "Fox Default">><<cleartail>><<set _fox.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">><<link "Fox Floppy">><<cleartail>><<set _fox.tail = "floppy">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $bee gte 4 or $beetf is 1>>
 			<<tficon "bee">><<link "Bee">><<cleartail>><<set _bee.tail = "default">><<set $hastail to "true">><<set $thicktail to "true">><<updatesidebarimg>><</link>><br>
@@ -2922,7 +2924,20 @@
 	<<if ($mushroom gte 1)>>
 		__Mushroom__<br>
 		
-		<<link [[Clear Outfit|$passage]]>><<strip>><</link>>
+		<<link [[Clear Outfit|$passage]]>>
+			<<set $worn.under_upper.cursed to 0>>
+			<<set $worn.under_lower.cursed to 0>>
+			<<set $worn.legs.cursed to 0>>
+			<<set $worn.upper.cursed to 0>>
+			<<set $worn.lower.cursed to 0>>
+			<<set $worn.feet.cursed to 0>>
+			<<underupperruined>>
+			<<underlowerruined>>
+			<<legsruined>>
+			<<upperruined>>
+			<<lowerruined>>
+			<<feetruined>>
+		<</link>>
 		<br>
 
 		<<if $mushroom is 1>>
@@ -3143,6 +3158,18 @@
 				<<updatesidebarimg>>
 			<</link>><br>
 		<</if>>
+		<<if ($demon gte 4 or $demontf is 1) and ($fish gte 4 or $fishtf is 1) and ($dragon gte 2 or $dragontf is 1)>>
+			<<tficon "dragon">><<tficon "fish">>Demonic Water Dragon Ears:<br>
+			<<link "Set">>
+				<<clearears>>
+				<<set _fish.fins = "waterdemon">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearears>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
 	<br>__Halo__<br>
 		<<if ($angel gte 4 or $angeltf is 1) and ($sheep gte 6 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Halo:<br>
@@ -3151,6 +3178,18 @@
 				<<set _angel.halo = "cloud">>
 				<<updatesidebarimg>>
 			<</link>> / 
+			<<link "Clear">>
+				<<clearhalo>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($angel gte 4 or $angeltf is 1) and ($fish gte 2 or $fishtf is 1) and ($dragon gte 3 or $dragontf is 1)>>
+			<<tficon "angel">><<tficon "dragon">><<tficon "fish">>Angelic Water Dragon Halo:<br>
+			<<link "Set">>
+				<<clearhalo>>
+				<<set _angel.halo = "waterangel">>
+				<<updatesidebarimg>>
+			<</link>>/
 			<<link "Clear">>
 				<<clearhalo>>
 				<<updatesidebarimg>>
@@ -3209,7 +3248,7 @@
 				<<updatesidebarimg>>
 			<</link>><br>
 		<</if>>
-		<<if ($fish gte 2 or $fishtf is 1) and ($dragon gte 3 or $dradragontfgon is 1)>>
+		<<if ($fish gte 2 or $fishtf is 1) and ($dragon gte 3 or $dragontf is 1)>>
 			<<tficon "dragon">><<tficon "fish">>Short Water Dragon Horns:<br>
 			<<link "Set">>
 				<<clearhorns>>
@@ -3391,6 +3430,23 @@
 				<<cleartail>>
 				<<set _dragon.tail = "waterangel">>
 				<<set _fish.tail = "hidden">>
+				<<set $hastail to "true">>
+				<<set $swimtail to "true">>
+				<<set $thicktail to "true">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<cleartail>>
+				<<updatesidebarimg>>
+			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and ($fish gte 6 or $fishtf is 1) and ($dragon gte 4 or $dragontf is 1)>>
+			<<tficon "angel">><<tficon "dragon">><<tficon "fish">>Demonic Water Dragon Tail:<<gencolourselector "_dragon.tail_colour">><br>
+			<<link "Set">>
+				<<cleartail>>
+				<<set _dragon.tail = "waterdemon">>
+				<<set _fish.tail = "hidden">>
+				<<set _demon.tail = "hidden">>
 				<<set $hastail to "true">>
 				<<set $swimtail to "true">>
 				<<set $thicktail to "true">>

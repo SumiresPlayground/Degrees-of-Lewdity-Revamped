@@ -13666,7 +13666,7 @@ function initUpper() {
 			gender: "n",
 			warmth: 6,
 			cost: 2000,
-			description: "Part of an racing academy uniform.",
+			description: "Part of a racing academy uniform.",
 			shop: ["academy"],
 			accessory: 0,
 			accessory_colour: 0,
