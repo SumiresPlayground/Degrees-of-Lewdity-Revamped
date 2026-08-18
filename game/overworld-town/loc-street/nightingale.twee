@@ -53,13 +53,17 @@ You are on Nightingale Street. It is dominated by the civic hospital but there a
 			<br>
 		<</if>>
 
-		<<if $acceptedRequest is "Unknown Blood">>
+		<<if $acceptedRequest is "Unknown Blood" and $exposed lte 0 and Time.dayState isnot "night">>
 			<span class="ghost-footer">
 				You are at the request location
 				<br>
 				<<hospitalicon>><<link [[Enter the Hospital (0:02)|Hospital Job Knock]]>><<pass 2>><</link>>
 			</span>
 			<br><br>
+		<<elseif $acceptedRequest is "Unknown Blood" and Time.dayState is "night">>
+			<span class="blue">It's too late to do investigative work!</span>
+		<<elseif $acceptedRequest is "Unknown Blood" and $exposed gte 1>>
+			<span class="blue">You're too exposed to do investigative work!</span>
 		<</if>>
 
 		Places of interest

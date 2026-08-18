@@ -3334,7 +3334,8 @@ function initFeet() {
 		accessory: 0,
 		accessory_colour: 0,
 		accessory_colour_options: [],
-		cursed: 0,
+		cursed: 1,
+		notuck: 1,
 		location: 0,
 		iconFile: "",
 		accIcon: 0
@@ -3369,7 +3370,8 @@ function initFeet() {
 		accessory: 0,
 		accessory_colour: 0,
 		accessory_colour_options: [],
-		cursed: 0,
+		cursed: 1,
+		notuck: 1,
 		location: 0,
 		iconFile: "",
 		accIcon: 0
@@ -3409,7 +3411,43 @@ function initFeet() {
 		location: 0,
 		iconFile: "race1boots.png",
 		accIcon: 0
-	}
+	}/*,
+		
+		{index: 5,
+		slot: "feet",
+		name: "detective shoes",
+		name_cap: "Detective shoes",
+		variable: "detective",
+		state: 0,
+		state_base: 0,
+		combat: {
+				reference: "lightuptrainers",
+			},
+		integrity: 300,
+		integrity_max: 300,
+		fabric_strength: 60,
+		reveal: 1,
+		word: "n",
+		plural: 1,
+		colour: 0,
+		colour_options: [],
+		colour_sidebar: 0,
+		type: ["costume"],
+		gender: "n",
+		femininity: 0,
+		warmth: 2,
+		cost: 5000,
+		description: "An outfit made for a star detective.",
+		shop: ["cursed"],
+		accessory: 0,
+		accessory_colour: 0,
+		accessory_colour_options: [],
+		cursed: 0,
+		notuck: 1,
+		location: 0,
+		iconFile: "race1boots.png",
+		accIcon: 0
+	}*/
 	];
 
 	setup.moddedClothes.feet.forEach((x, i) => (x.index = setup.clothes.feet.length + i));

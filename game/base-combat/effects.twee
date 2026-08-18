@@ -3293,7 +3293,7 @@
 		<</if>>
 
 		<<if $rightaction is "lurker_whip">>
-			<<set $rightaction to 0>><<set $rightactiondefault to "lurker_whip">><<personselect $righttarget>>
+			<<set $rightaction to 0>><<set $rightactiondefault to "lurker_whip">><<personselect $righttarget>><<bruise leftarm>><<bruise rightarm>><<bruise leftarm>><<bruise rightarm>>
 			<<if $parasite.left_ear.name is "slime" and random(1, 3) is 3 or $parasite.right_ear.name is "slime" and random(1, 3) is 3>>
 				<<if $corruption_slime gte (currentSkillValue('willpower') / 10)>>
 					You try to eject your lurker tentacle at the <<if $enemytype is "beast">><<beasttype>><<else>><<person>><</if>>
@@ -3309,7 +3309,7 @@
 		<</if>>
 
 		<<if $leftaction is "lurker_whip">>
-			<<set $leftaction to 0>><<set $leftactiondefault to "lurker_whip">><<personselect $lefttarget>>
+			<<set $leftaction to 0>><<set $leftactiondefault to "lurker_whip">><<personselect $lefttarget>><<bruise leftarm>><<bruise rightarm>><<bruise leftarm>><<bruise rightarm>>
 			<<if $parasite.left_ear.name is "slime" and random(1, 3) is 3 or $parasite.right_ear.name is "slime" and random(1, 3) is 3>>
 				<<if $corruption_slime gte (currentSkillValue('willpower') / 10)>>
 					You try to eject your lurker tentacle at the <<if $enemytype is "beast">><<beasttype>><<else>><<personselect $lefttarget>><<person>><</if>>
@@ -3397,7 +3397,7 @@
 
 		<<if $tailaction is "tailwag">>
 			<<set $tailaction to 0>><<set $tailactiondefault to "tailwag">>
-			<<actionswag $tailtarget>><<set $enemyanger -= 10>><<set $enemytrust -= 10>>
+			<<actionswag $tailtarget>><<set $enemyanger -= 5>><<set $enemytrust += 5>><<submission 10>>
 		<</if>>
 
 

@@ -66,13 +66,17 @@ You are in the farmlands.
 <<elseif $rng gte 81 and $eventskip is 0 or $skulduggery gte 600 and $farmland_manors isnot 1>>
 	<<farmland_road_events>>
 <<else>>
-	<<if $acceptedRequest is "Ravaged Farm">>
+	<<if $acceptedRequest is "Ravaged Farm" and $exposed lte 0 and Time.dayState isnot "night">>
 		<span class="ghost-footer">
 			You are at the request location
 			<br>
 			<<farmicon "barn">><<link [[Approach the farm (0:02)|Farmland Job Knock]]>><<pass 2>><</link>>
 		</span>
 		<br><br>
+	<<elseif $acceptedRequest is "Ravaged Farm" and Time.dayState is "night">>
+		<span class="blue">It's too late to do investigative work!</span>
+	<<elseif $acceptedRequest is "Ravaged Farm" and $exposed gte 1>>
+		<span class="blue">You're too exposed to do investigative work!</span>
 	<</if>>
 	<<if $farm_stage is undefined>>
 		A sign stands beside a dirt track leading up to a farmhouse. It advertises fresh eggs, carrots, and other produce. One line is written in darker paint than the others. It reads: "Farmhands needed. Ask inside." <<if Time.dayState is "night">>You'd need to come back during the day.<</if>>

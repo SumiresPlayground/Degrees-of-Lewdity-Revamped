@@ -132,7 +132,7 @@
 			<</if>>
 
 			<<set _baseTime to 60>>
-			<<if $location is "alex_farm">>
+			<<if $bus is "farm_fields">>
 				<<if $farm.tractor gte 3>>
 					<<set _baseTime = Math.round(_baseTime * 0.7)>>
 					<<set _tractor = 0.25>>
@@ -358,7 +358,7 @@
 		<<set _baseTiredness *= 4>>
 	<</if>>
 	
-	<<if $location is "alex_farm">>
+	<<if $bus is "farm_fields">>
 		<<if $farm.tractor gte 1>>
 			<<set _baseTiredness = Math.round(_baseTiredness * 0.8)>>
 		<</if>>
@@ -395,7 +395,7 @@
 				<<link "Till (_timeString)" $passage>>
 					<<set $tendingvars.plot_tilled to true>>
 					<<tiredness _baseTiredness>><<physique _baseTiredness>>
-					<<if $location is "alex_farm">>
+					<<if $bus is "farm_fields">>
 						<<farm_count _baseTime>>
 					<</if>>
 					<<pass _baseTime>>
@@ -414,7 +414,7 @@
 					<!-- Till -->
 					<<set $tendingvars.plot_tilled_fertiliser to true>>
 					<<tiredness _fertTiredness>><<physique _fertTiredness>>
-					<<if $location is "alex_farm">>
+					<<if $bus is "farm_fields">>
 						<<farm_count _baseTimeFert>>
 					<</if>>
 					<<pass _baseTimeFert>>
@@ -586,11 +586,14 @@
 	<<if setup.foodstuff[$_type].tending?.affected_by_tending_skill>>
 		<<set _tending_amount *= (1 + (currentSkillValue('tending') / 1000))>>
 	<</if>>
-		<<if $transformationParts.traits.strongnose isnot "disabled">>
+	<<if $transformationParts.traits.strongnose isnot "disabled">>
 		<<set _tending_amount *= 1.2>>
 	<</if>>
 	<<if $backgroundTraits.includes("greenthumb")>>
 		<<set _tending_amount *= 1.2>>
+	<</if>>
+	<<if $daily.auspaciatending>>
+		<<set _tending_amount *= 1.5>>
 	<</if>>
 	<<set _tending_amount to Math.trunc(_tending_amount)>>
 	<<set $foodstuff[$_type].amount += _tending_amount>>

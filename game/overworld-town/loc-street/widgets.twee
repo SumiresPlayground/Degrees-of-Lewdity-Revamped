@@ -627,7 +627,7 @@
 	You hear footsteps behind you. <span class="blue">You feel followed.</span>
 	<br><br>
 	<<rngWraith 2 "noBlood">>
-	<<if _wraithEvent and $wraithIntro and $rng gte 51>>
+	<<if _wraithEvent and $wraithIntro and $rng gte 51 and !$worn.face.name.includes("apotropaic")>>
 		<<generateWraith 1 true>><<person1>>
 		<<set $NPCList[0].skills to {athletics: random(300,500) + C.npc["Ivory Wraith"].lust * 25, security: random(300,500) + C.npc["Ivory Wraith"].lust * 25}>>
 		<<set $combatgoal to "confront">>
@@ -1601,7 +1601,7 @@
 
 		<<npc Kylar>><<person1>>Something tugs your arm. It's Kylar. "H-hi," <<he>> gulps. <<He>> tries to pull you toward a dark alley. "We need privacy. I need you to do things to me."
 		<br><br>
-		<<if $wraith.state and _wraithEvent and (["haunt", "despair"].includes($wraith.state) or ["dead","sold"].includes($wraith.offspring))>>
+		<<if $wraith.state and _wraithEvent and (["haunt", "despair"].includes($wraith.state) or ["dead","sold"].includes($wraith.offspring)) and !$worn.face.name.includes("apotropaic")>>
 			<<set $wraith.mimic to "Kylar">><<set $wraith.exit to "town">>
 			<<link [[Go with Kylar|Wraith Mimic Fight]]>><<set $sexstart to 1>><</link>><<promiscuous1>><<gglove>><<llksuspicion>>
 			<br>

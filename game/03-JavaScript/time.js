@@ -1248,7 +1248,9 @@ function minutePassed(minutes) {
 	// Body temperature
 	const temperature = V.outside ? Weather.apparentTemperature : Weather.insideTemperature;
 	if (!V.possessed) Weather.BodyTemperature.update(temperature, minutes);
-	V.stress += Math.round(Weather.BodyTemperature.stressModifier * minutes);
+	if (V.ghost !== 2) {
+		V.stress += Math.round(Weather.BodyTemperature.stressModifier * minutes);
+	}
 	statChange.stressClamp();
 
 	// Snow & ice

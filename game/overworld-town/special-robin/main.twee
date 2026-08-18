@@ -5657,30 +5657,14 @@ Finally, <<he>> relents and gives you the money. You make £<<print $robinmoney>
 
 <</if>>
 
-:: Robin Dragon
+:: Robin Water Dragon
 <<set $outside to 0>><<set $location to "home">><<effects>>
-
-<<if $robindragon isnot 1>><<set $robindragon to 1>>
-
-You curl up on Robin's bed. <<He>> looks at you and smiles. <<if V.transformationParts.dragon.horns isnot "hidden">>"These are so pointy!" <<he>> exclaims.<</if>>
+Feeling safe and happy as you relax with Robin, little squeaks and clicks bubble up your throat and your tail starts to wag. Robin pauses <<his>> game to look over at you in surprise. "You sound like a dolphin!" <<he>> giggles, and you can't help but to laugh along with <<him>>.
 <br><br>
-
-Robin laughs. "Cute dragon!" <<He>> strokes your hair, and wraps <<his>> arm around your shoulders. Your eyes close. Immense relaxation comes over you.
+<<He>> takes a breath and attempts to replicate the sound. <<Hes>> not great at first, but you squeak and click along with <<him>> until <<he>> almost gets the hang of it. You go back and forth for a time, enjoying the moment.
 <br><br>
 
 <<robinoptions>>
-
-<<else>>
-
-You curl up on Robin's bed. <<He>> looks at you and smiles. <<if V.transformationParts.dragon.horns isnot "hidden">>"You must be really tired," <<he>> says.<</if>>
-<br><br>
-
-Robin laughs. "Cute dragon!" <<He>> strokes your hair, and wraps <<his>> arm around your shoulders. Your eyes close. Immense relaxation comes over you.
-	<br><br>
-
-	<<robinoptions>>
-
-<</if>>
 
 :: Robin Cow
 <<set $outside to 0>><<set $location to "home">><<effects>>
@@ -6678,7 +6662,7 @@ You get into bed next to <<him>>, and turn off the lamp.
 <<set _autosavehere to true>>
 <<sleep true>><<effects>>
 <<sleepeffects>>
-<<if $wraith.nightmare is 2 and Time.isBloodMoon()>>
+<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.name.includes("apotropaic")>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
 	It's surrounded by trees, all bending inwards, and floating above a lake. Everything moves around you, and you find yourself hanging above a large ruin. You can't breathe.

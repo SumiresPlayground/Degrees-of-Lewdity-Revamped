@@ -1,0 +1,100 @@
+:: Widgets MiniMap [widget]
+
+<<widget "faerealm_map">>
+	<<silently>>
+		<<set _mapSize to 5>>
+		<<set _innerR  to 3>>
+
+		<<set _playerN to ($faenorth is undefined ? 0 : $faenorth)>>
+		<<set _playerE to ($faeeast  is undefined ? 0 : $faeeast)>>
+	<</silently>>
+
+	<div class="frmap-wrap">
+		<div class="frmap-gridbox">
+			<div class="frmap-grid">
+
+				<<for _n = _mapSize; _n gte -_mapSize; _n-->>
+					<<for _e = -_mapSize; _e lte _mapSize; _e++>>
+						<<capture _n, _e>>
+							<<set _class to "frmap-cell frmap-outer">>
+
+							/* inner 7x7 (no abs needed) */
+							<<if _n gte -_innerR and _n lte _innerR and _e gte -_innerR and _e lte _innerR>>
+								<<set _class to "frmap-cell frmap-inner">>
+							<</if>>
+
+							/* core overrides */
+							<<if _n is 0 and _e is 0>>
+								<<set _class to "frmap-cell frmap-core">>
+							<</if>>
+
+							<div @class="_class">
+								<<if _n is _playerN and _e is _playerE>>
+									<span class="frmap-you">YOU</span>
+
+								<<elseif _n is 3 and _e is -2>>
+									<span class="frmap-icon"><<birdicon "sing">></span>
+
+								<<elseif _n is -2 and _e is -3>>
+									<span class="frmap-icon"><<birdicon "tower">></span>
+
+								<<elseif $faeidol isnot undefined and _n is -4 and _e is 2>>
+									<span class="frmap-icon"><<caveicon>></span>
+								<</if>>
+							</div>
+						<</capture>>
+					<</for>>
+				<</for>>
+
+			</div>
+		</div>
+	</div>
+<</widget>>
+
+<<widget "caldera_map">>
+	<<silently>>
+		<<set _mapSize to 3>>
+		<<set _innerR  to 2>>
+
+		<<set _playerN to ($calderanorth is undefined ? 0 : $calderanorth)>>
+		<<set _playerE to ($calderawest  is undefined ? -3 : $calderawest)>>
+	<</silently>>
+
+	<div class="micmap-wrap">
+		<div class="micmap-gridbox">
+			<div class="micmap-grid">
+
+				<<for _n = _mapSize; _n gte -_mapSize; _n-->>
+					<<for _e = -_mapSize; _e lte _mapSize; _e++>>
+						<<capture _n, _e>>
+							<<set _class to "micmap-cell micmap-outer">>
+
+							/* inner 7x7 (no abs needed) */
+							<<if _n gte -_innerR and _n lte _innerR and _e gte -_innerR and _e lte _innerR>>
+								<<set _class to "micmap-cell micmap-inner">>
+							<</if>>
+
+							/* core overrides */
+							<<if _n is 0 and _e is 0>>
+								<<set _class to "micmap-cell micmap-core">>
+							<</if>>
+
+							<div @class="_class">
+								<<if _n is _playerN and _e is _playerE>>
+									<span class="micmap-you">YOU</span>
+
+								<<elseif _n is 0 and _e is -3>>
+									<span class="micmap-icon"><<exiticon>></span>
+
+								<<elseif _n is -2 and _e is 1>>
+									<span class="micmap-icon"><<caveicon>></span>
+								<</if>>
+							</div>
+						<</capture>>
+					<</for>>
+				<</for>>
+
+			</div>
+		</div>
+	</div>
+<</widget>>

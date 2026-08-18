@@ -78,13 +78,17 @@ You are on Harvest Street. There's a road leading out of town, and many of the b
 			<</if>>
 		<</if>>
 
-		<<if $acceptedRequest is "Stuff Disappearing">>
+		<<if $acceptedRequest is "Stuff Disappearing" and $exposed lte 0 and Time.dayState isnot "night">>
 			<span class="ghost-footer">
 				You are at the request location
 				<br>
 				<<factoryicon>><<link [[Enter the Factory (0:02)|Factory Job Knock]]>><<pass 2>><</link>>
 			</span>
 			<br><br>
+		<<elseif $acceptedRequest is "Stuff Disappearing" and Time.dayState is "night">>
+			<span class="blue">It's too late to do investigative work!</span>
+		<<elseif $acceptedRequest is "Stuff Disappearing" and $exposed gte 1>>
+			<span class="blue">You're too exposed to do investigative work!</span>
 		<</if>>
 
 		Places of interest
@@ -120,10 +124,12 @@ You are on Harvest Street. There's a road leading out of town, and many of the b
 		<</if>>
 		<br>
 		Road<br>
+		<<if Time.dayState isnot "night" and $horseacademystudent is 1 and $academygone isnot 1>>
 			An academy hired chauffeur is parked by the road out of town, you can use this service to return to the academy.
 			<br>
 			<<chauffeuringicon>><<link [[Get a ride to the academy|Academy Chauffeur]]>><<set $phase to 2>><</link>>
 			<br>
+		<</if>>
 		<<roadicon>><<link [[Leave town (0:05)|Farm Road 1]]>><<set $phase to 1>><</link>>
 		<br><br>
 		<<if $exposed gte 1 and Time.dayState isnot "night">>

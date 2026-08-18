@@ -1356,7 +1356,39 @@ function initHandheld() {
 		Clothes that modders add go into this array. This should be empty in the base game at all times.
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
-	setup.moddedClothes.handheld = [];
+	setup.moddedClothes.handheld = [
+		/*{
+			index: 1,
+			slot: "handheld",
+			name: "magnifying glass",
+			name_cap: "Magnifying glass",
+			variable: "detective",
+			state: 0,
+			state_base: 0,
+			integrity: 500,
+			integrity_max: 500,
+			fabric_strength: 20,
+			reveal: 100,
+			word: "a",
+			plural: 0,
+			colour: 0,
+			colour_options: [],
+			type: ["costume"],
+			colour_combat: 0,
+			gender: "n",
+			warmth: 0,
+			cost: 8000,
+			description: "A detective's magnifying glass.",
+			shop: ["cursed"],
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			cursed: 0,
+			location: 0,
+			iconFile: "perchten-mask.png",
+			accIcon: 0,
+		}*/
+	];
 
 	setup.moddedClothes.handheld.forEach((x, i) => (x.index = setup.clothes.handheld.length + i));
 	setup.clothes.handheld.push(...setup.moddedClothes.handheld);

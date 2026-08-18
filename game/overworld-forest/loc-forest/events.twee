@@ -1580,7 +1580,7 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 
 <<elseif $danger gte (9900 - ($allure * $forestmod))>>
 	<<beastNEWinit 1 deer>>
-	You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pounces on you.
+	You creep forward. The <<beasttype>> remains still. You step within arm's reach, and hold out your hand. It sniffs you, then pins you down.
 	<br><br>
 
 	<<link [[Next|Deer Rape]]>><<set $molestationstart to 1>><</link>>
@@ -1590,7 +1590,10 @@ You give <<him>> a slow twirl while walking towards <<him>>, making sure <<he>> 
 	You creep forward. The deer remains still. You step within arm's reach, and hold out your hand. It sniffs you, then goes back to grazing.
 	<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
 	<br><br>
-
+	<<if hasSexStat("deviancy", 3)>>
+		<<link [[Present yourself to the deer|Deer Rape]]>><<set $sexstart to 1>><</link>>
+		<br>
+	<</if>>
 	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
 	<br>
 <<else>>
@@ -3107,7 +3110,7 @@ You approach the nest and look inside.
 		<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 		<br>
 	<<else>>
-		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 		<br>
 		<<link [[Leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><</link>>
 		<br>
@@ -3444,7 +3447,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 		<br><br>
 
 		<<if $forest_nest.eggs gte 1>>
-			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
 		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
@@ -3504,7 +3507,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 		<br><br>
 
 		<<if $forest_nest.eggs gte 1>>
-			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
 		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
@@ -3533,7 +3536,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 		<br><br>
 
 		<<if $forest_nest.eggs gte 1>>
-			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
 		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
@@ -3777,7 +3780,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 	<br><br>
 
 	<<if $forest_nest.eggs gte 1>>
-		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 		<br>
 	<</if>>
 	<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
@@ -3801,7 +3804,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 		<br><br>
 
 		<<if $forest_nest.eggs gte 1>>
-			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+			<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 			<br>
 		<</if>>
 		<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
@@ -3844,7 +3847,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 			<br><br>
 
 			<<if $forest_nest.eggs gte 1>>
-				<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+				<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 				<br>
 			<</if>>
 			<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
@@ -4283,7 +4286,7 @@ You put your head right next to the <<beasttype>>.
 	<br><br>
 
 	<<if $forest_nest.eggs gte 1>>
-		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 1>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
+		<<link [[Bury one|Forest Nest Bury]]>><<trauma -3>><<transform fox 2>><<set $foodstuff.bird_egg.amount -= 1>><</link>><<ltrauma>><<note "- Egg" "red">>
 		<br>
 	<</if>>
 	<<link [[Leave|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $forest_nest>><</link>>
@@ -7596,6 +7599,13 @@ After inspecting you for a minute or so, the <<beasttype>> prepares to mount you
 	<<violence 1>>
 	<<neutral 1>>
 	<<molested>>
+	<<beastCombatInit>>
+	<<set $enemytrust += 40>>
+<<elseif $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
 	<<beastCombatInit>>
 	<<set $enemytrust += 40>>
 <</if>>

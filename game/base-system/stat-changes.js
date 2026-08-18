@@ -213,7 +213,9 @@ const statChange = (() => {
 			}
 
 			// The player's body temperature being too high will increase their fatigue gains by up to 200%
-			fatigueMod += Weather.BodyTemperature.fatigueModifier - 1;
+			if (V.ghost !== 2) {
+				fatigueMod += Weather.BodyTemperature.fatigueModifier - 1;
+			}
 		}
 
 		// The passage of time changes the player's fatigue by 0.05% = 1 $tiredness per point.
@@ -321,10 +323,10 @@ const statChange = (() => {
 	DefineMacro("straighttrauma", straighttrauma);
 
 	function updatePlayerTraumaState() {
-		V.sleeptrouble = V.trauma >= 1 ? 1 : 0;
-		V.nightmares = V.trauma >= (V.traumamax / 10) * 1 ? 1 : 0;
+		V.sleeptrouble = (V.trauma >= 1 || V.insanitytrait === 1) ? 1 : 0;
+		V.nightmares = ((V.trauma >= (V.traumamax / 10) * 1) || V.insanitytrait === 1) ? 1 : 0;
 
-		if (V.trauma >= (V.traumamax / 10) * 7) {
+		if ((V.trauma >= (V.traumamax / 10) * 7) || V.insanitytrait === 1) {
 			V.anxiety = 2;
 		} else if (V.trauma >= (V.traumamax / 10) * 2) {
 			V.anxiety = 1;
@@ -332,9 +334,9 @@ const statChange = (() => {
 			V.anxiety = 0;
 		}
 
-		V.flashbacks = V.trauma >= (V.traumamax / 10) * 8 ? 1 : 0;
+		V.flashbacks = ((V.trauma >= (V.traumamax / 10) * 8) || V.insanitytrait === 1) ? 1 : 0;
 
-		if (V.trauma >= (V.traumamax / 10) * 6) {
+		if ((V.trauma >= (V.traumamax / 10) * 6) || V.insanitytrait === 1) {
 			V.panicattacks = 2;
 		} else if (V.trauma >= (V.traumamax / 10) * 4) {
 			V.panicattacks = 1;
@@ -359,7 +361,8 @@ const statChange = (() => {
 			(V.awareness < 200 && V.hypnosis_traits.insight && V.settings.hypnosisEnabled) ||
 			V.hallucinogen > 0 ||
 			Time.isBloodMoon() ||
-			Object.values(V.worn).find(c => c.type.includes("esoteric"))
+			Object.values(V.worn).find(c => c.type.includes("esoteric")) || 
+			V.insanitytrait === 1
 		) {
 			V.hallucinations = 2;
 		} else if (
@@ -606,7 +609,9 @@ const statChange = (() => {
 				mod *= 1 - Math.clamp(playerHeatMinArousal() + playerRutMinArousal(), 0, 4000) / 5000;
 			}
 
-			V.arousal += amount * mod * Weather.BodyTemperature.arousalModifier;
+			if (V.ghost !== 3) {
+				V.arousal += amount * mod * Weather.BodyTemperature.arousalModifier;
+			}
 			arousalClamp();
 
 			// Add to the tracker
@@ -657,7 +662,9 @@ const statChange = (() => {
 				}
 			}
 
-			V.pain += pain * Weather.BodyTemperature.painModifier;
+			if (V.ghost !== 3) {
+				V.pain += pain * Weather.BodyTemperature.painModifier;
+			}
 		}
 		painClamp();
 	}

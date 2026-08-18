@@ -92,7 +92,7 @@
 		<</if>>
 		Having a look round your surroundings, you think that you've somehow been relocated to the <<print _newLocation.toLocaleLowerCase()>>.
 		<br><br>
-		<<link [[Next|_newLocation]]>><</link>>
+		<<link [[Next|_newLocation]]>><<set $locationoverwrite to "0">><</link>>
 	<<else>>
 		<<set $tutorial to 1>>
 		<<generate1>><<person1>>Without warning, a <<person>> passing by bumps into you. <<He>> staggers back and looks at you with anger, but <<his>> rage turns to lechery as <<he>> beholds you. "You're the cutest thing I've seen all week! Come 'ere."
@@ -172,7 +172,7 @@
 
 <<widget "orphanageWardOptions">>
 	<<getChildrenIds `{location:"home", father:"Ivory Wraith"}`>><<rngWraith 1 "night">>
-	<<if _childrenIds.length gte 1 and _wraithEvent and !$possessed and !$daily.wraithNursery>>
+	<<if _childrenIds.length gte 1 and _wraithEvent and !$possessed and !$daily.wraithNursery and !$worn.face.name.includes("apotropaic")>>
 		<<childicon "crib">><<link [[Nursery|Orphanage Ward Wraith Sing]]>><<set $exitPassage to $passage>><</link>>
 		<br>
 	<<else>>

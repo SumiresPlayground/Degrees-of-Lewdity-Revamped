@@ -723,6 +723,24 @@
 	<<set _anus["Pull away from their hand"] to "handescape">>
 
 	<<set _anus["Cooperate with their fingers"] to "handcooperate">>
+
+	<<set _tail to {
+		"Rest":"rest",
+	}>>
+
+	<<if _args[0] is true>>
+		<<if $transformationParts.bee.tail isnot "disabled">>
+			<<set _tail["Stab"] to "tailstab">>
+		<<elseif $transformationParts.spider.tail isnot "disabled">>
+			<<set _tail["Web"] to "tailweb">>
+		<<elseif $thicktail is 1>>
+			<<set _tail["Smack"] to "tailsmack">>
+		<</if>>
+	<<else>>
+		<<if $thintail is 1>>
+			<<set _tail["Wag"] to "tailwag">>
+		<</if>>
+	<</if>>
 <</widget>>
 
 <<widget "tentacleDefaults">>

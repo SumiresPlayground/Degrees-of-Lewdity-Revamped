@@ -284,6 +284,11 @@ setup.colours = {
 			blendMode: "exclusion",
 			desaturate: false,
 		},
+		aquatic: {
+			gradient: ["#d692fc", "#70E0C4"],
+			blendMode: "multiply",
+			desaturate: false,
+		},
 	},
 	/*
 	 * Get canvas filter for skin of given type and tan progression (0..1).
@@ -378,7 +383,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#303030",
+			blend: "#1b1b1b",
 		},
 	},
 	{
@@ -389,7 +394,7 @@ setup.colours.hair = [
 		natural: true,
 		dye: true,
 		canvasfilter: {
-			blend: "#383333",
+			blend: "#303030",
 		},
 	},
 	{
@@ -1209,7 +1214,7 @@ setup.colours.eyes = [
 		natural: true,
 		lens: true,
 		canvasfilter: {
-			blend: "#f45b08",
+			blend: "#d30707",
 		},
 	},
 	{
@@ -1220,7 +1225,7 @@ setup.colours.eyes = [
 		natural: true,
 		lens: true,
 		canvasfilter: {
-			blend: "#F76EF7",
+			blend: "#F86DA8",
 			brightness: +0.2,
 		},
 	},

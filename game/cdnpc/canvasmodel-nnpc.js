@@ -2,8 +2,7 @@ function copyLayers(){
 	let layers = $.extend( true, {}, Renderer.CanvasModels.main.layers );
 
 	const layersToDelete = [
-		"npcpresentback",
-		"npcpresentfront",
+		"npcpresent",
 		"background",
 		"backgroundBed",
 		"backgroundchair",
