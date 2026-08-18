@@ -746,7 +746,7 @@ function determineRecipient(index) {
 	// Add 15$ for gifting paperwrap
 	if (V.money < item.cost + 15 * 100) return "";
 
-	for (const li of ["Alex", "Eden", "Kylar", "Robin", "Sydney"]) {
+	for (const li of ["Alex", "Bailey", "Eden", "Kylar", "Robin", "Sydney"]) {
 		if (isPossibleLoveInterest(li)) {
 			optionBuilder += `<option value="${li}">${li}</option>`;
 		}

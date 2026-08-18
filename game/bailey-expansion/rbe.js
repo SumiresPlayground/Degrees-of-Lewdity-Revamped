@@ -527,9 +527,7 @@ $(document).one(":storyready", function () {
 				Story.has("Bailey Expansion Credits Display")
 			) {
 				Wikifier.wikifyEval('<<popup "Bailey Expansion Credits Display" "Reiyu\'s Bailey Expansion">>');
-				return;
 			}
-			SugarCube.Engine.play("Bailey Expansion Credits Display");
 		});
 		const firstChild = _indicatorContainer.firstChild;
 		if (firstChild) {
