@@ -1194,16 +1194,16 @@
 			<<set _bodyWritingOptions["Love Interests"]["Accomplice"] to "accomplice">>
 		<</if>>
 	<</if>>
-	<<if $stockholm_active>>
+	<<if $syndromebailey>>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Asset"] to "baileys_asset">>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Ward"] to "baileys_ward">>
 		<<set _bodyWritingOptions["Love Interests"]["Property of Bailey"] to "property_of_bailey">>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Investment"] to "baileys_investment">>
 		<<set _bodyWritingOptions["Love Interests"]["Debt Collector's Pet"] to "debt_collectors_pet">>
-		<<if $bailey_love gte 20>>
+		<<if C.npc.Bailey.love gte 20>>
 			<<set _bodyWritingOptions["Love Interests"]["Paid In Full"] to "paid_in_full">>
 		<</if>>
-		<<if $bailey_love gte 30>>
+		<<if C.npc.Bailey.love gte 30>>
 			<<set _bodyWritingOptions["Love Interests"]["Bailey's Favourite"] to "baileys_favourite">>
 		<</if>>
 		<<if $bailey_title_unlocked>>
@@ -1220,7 +1220,7 @@
 	<<if $baileydefeatedlewd gte 1>>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Trouble Maker"] to "baileys_trouble_maker">>
 	<</if>>
-	<<if $speech_attitude is "bratty" and $stockholm_active>>
+	<<if $speech_attitude is "bratty" and $syndromebailey>>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Brat"] to "baileys_brat">>
 	<</if>>
 	<<if $debug is 1>>
@@ -3138,7 +3138,6 @@
 			<<link "Set">>
 				<<clearears>>
 				<<set _fox.ears = "default-demon">>
-				<<set $chimera.demonfox.ears to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3214,7 +3213,6 @@
 				<<clearhorns>>
 				<<set _demon.horns = "default">>
 				<<set _cow.horns = "default-demon">>
-				<<set $chimera.demoncow.horns to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3228,7 +3226,6 @@
 				<<clearhorns>>
 				<<set _demon.horns = "succubus">>
 				<<set _cow.horns = "succubus-demon">>
-				<<set $chimera.demoncow.horns to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3307,7 +3304,6 @@
 				<<set _cat.tail = "default">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
-				<<set $chimera.demoncat.tail to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3323,7 +3319,6 @@
 				<<set _cow.tail = "default">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
-				<<set $chimera.demoncow.tail to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3337,7 +3332,6 @@
 				<<set _cow.tail = "black">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
-				<<set $chimera.demoncow.tail to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3353,7 +3347,6 @@
 				<<set _demon.tail = "default-wolf">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
-				<<set $chimera.demonwolf.tail to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3369,7 +3362,6 @@
 				<<set _demon.tail = "default-feral">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
-				<<set $chimera.demonwolf.tail to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3385,7 +3377,6 @@
 				<<set _demon.tail = "default">>
 				<<set $hastail to "true">>
 				<<set $thintail to "true">>
-				<<set $chimera.demonfox.tail to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3488,7 +3479,6 @@
 				<<clearwings>>
 				<<set _demon.wings = "default">>
 				<<set _bird.wings = "default-demon">>
-				<<set $chimera.demonharpy.wings to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3502,7 +3492,6 @@
 				<<clearwings>>
 				<<set _angel.wings = "harpy-default">>
 				<<set _bird.wings = "default-angel">>
-				<<set $chimera.angelharpy.wings to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3516,7 +3505,6 @@
 				<<clearwings>>
 				<<set _fallen.wings = "harpy-default">>
 				<<set _bird.wings = "default-fallen">>
-				<<set $chimera.fallenharpy.wings to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>
@@ -3530,7 +3518,6 @@
 				<<clearwings>>
 				<<set _fallen.wings = "harpy-fallenplus">>
 				<<set _bird.wings = "default-fallen">>
-				<<set $chimera.fallenharpy.wings to true>>
 				<<updatesidebarimg>>
 			<</link>> / 
 			<<link "Clear">>

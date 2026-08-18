@@ -11,7 +11,7 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.11.9 New World 0.1.9.1",
+	version: "0.5.11.9 New World 0.1.9.2",
 	versionName: `"The Great Equaliser" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,
@@ -169,6 +169,10 @@ Config.navigation.override = function (dest) {
 			V.bypassHeader = true;
 			return "Downgrade Waiting Room";
 		}
+		if (V.saveVersion.includes("New World") && !StartConfig.version.includes("New World")) {
+			V.bypassHeader = true;
+			return "Modded Waiting Room";
+		}
 		if (dest.includes("Playground")) {
 			return dest.replace("Playground", "Courtyard");
 			/* Try not to include "Playground" in any passage names after this. */
@@ -183,6 +187,8 @@ Config.navigation.override = function (dest) {
 		}
 		switch (dest) {
 			case "Downgrade Waiting Room":
+				return V.passage;
+			case "Modded Waiting Room":
 				return V.passage;
 
 			case "Pharmacy Select Custom Lenses":

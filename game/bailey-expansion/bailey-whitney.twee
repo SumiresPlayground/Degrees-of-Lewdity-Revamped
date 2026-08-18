@@ -1,9 +1,12 @@
 :: Bailey Whitney Office Walk In
-<<effects>><<getTarget>>
+<<getTarget>>
 <<npc Bailey>><<person1>>
-<<set $bailey_whitney_dom_entry to $bailey_dom>>
+<<set $bailey_whitney_dom_entry to C.npc.Bailey.dom>>
+<<if C.npc.Bailey.dom gte 70 and C.npc.Bailey.lust gte 20 and $syndromebaileybuild gte 1>>
+<<include "Bailey Whitney Office Sex">>
+<<else>>
 
-The office door opens. <span class="bailey-red">It's Bailey.</span>
+The office door opens. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 <br><br>
 
 <<if $whitney_bailey_met gte 1>>
@@ -16,23 +19,21 @@ The office door opens. <span class="bailey-red">It's Bailey.</span>
 Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> desk.
 <br><br>
 
-<<if $bailey_dom gte 70 and C.npc.Bailey.lust gte 20 and $stockholm_bailey gte 1>>
-	<<goto "Bailey Whitney Office Sex">>
-<<elseif $bailey_dom gte 70>>
+<<if C.npc.Bailey.dom gte 70>>
 	<<if $whitney_bailey_met gte 1>>
 		Bailey walks to <<his>> desk. <<He>> runs one finger along the surface, then looks at it.
 		<br><br>
 
-		"You got my desk dirty," <<he>> says. <<He>>'s looking at Whitney when <<he>> says it.
+		"You got my desk dirty," <<he>> says, fixing Whitney with a level stare.
 		<br><br>
 
 		Whitney opens <<nnpc_his "Whitney">> mouth. Nothing comes out.
 		<br><br>
 
-		Bailey pulls <<his>> chair back and sits down. <<He>> picks up a pen. <<He>> starts writing.
+		Bailey pulls <<his>> chair back and sits down. <<He>> picks up a pen and starts writing.
 		<br><br>
 
-		"Clean it," <<he>> says. <<He>> doesn't look up. "Both of you."<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -2>><<ldom "Whitney">>
+		"Clean it," <<he>> says. <<He>> doesn't look up. "Both of you."<<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Whitney dom -2>><<ldom "Whitney">>
 		<br><br>
 	<<else>>
 		Bailey walks to <<his>> desk. <<He>> looks at it. Then <<he>> looks at Whitney in <<his>> chair.
@@ -47,16 +48,16 @@ Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> d
 		"You got my desk dirty," <<he>> says, picking up a pen and getting to work.
 		<br><br>
 
-		"Clean it," <<he>> says. <<He>> doesn't look up. "Both of you."<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -2>><<ldom "Whitney">>
+		"Clean it," <<he>> says. <<He>> doesn't look up. "Both of you."<<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Whitney dom -2>><<ldom "Whitney">>
 		<br><br>
 	<</if>>
 
 	<<link [[Next|Bailey Whitney Office Clean]]>><</link>>
 	<br>
 
-<<elseif $bailey_dom gte 30>>
+<<elseif C.npc.Bailey.dom gte 30>>
 	<<if $whitney_bailey_met gte 1>>
-		"Our arrangement doesn't cover my desk," <<he>> says.<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
+		"Our arrangement doesn't cover my desk," <<he>> says.<<npcincr Bailey love -1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
 		<br><br>
 
 		Whitney's face flushes. <<nnpc_He "Whitney">> fixes <<nnpc_his "Whitney">> clothing. "We were—"
@@ -65,10 +66,10 @@ Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> d
 		"Both of you. Out. Now."
 		<br><br>
 
-		Whitney looks at Bailey. Bailey doesn't blink. Whitney leaves and you follow <<nnpc_him "Whitney">> out.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
+		Whitney looks at Bailey. Bailey doesn't blink. Whitney leaves and you follow <<nnpc_him "Whitney">> out.<<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
 		<br><br>
 	<<else>>
-		"Not on my desk," <<he>> says.<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
+		"Not on my desk," <<he>> says.<<npcincr Bailey love -1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
 		<br><br>
 
 		Whitney's jaw tightens. "We were just—"
@@ -77,7 +78,7 @@ Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> d
 		"I don't care." Bailey interrupts. "Out. Both of you."
 		<br><br>
 
-		Whitney holds <<nnpc_his "Whitney">> ground for a moment. Bailey doesn't move. Whitney leaves. You follow.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
+		Whitney holds <<nnpc_his "Whitney">> ground for a moment. Bailey doesn't move. Whitney leaves. You follow.<<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
 		<br><br>
 	<</if>>
 
@@ -98,10 +99,10 @@ Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> d
 		"Our arrangement doesn't cover my office," Bailey says, glaring Whitney down. "Get out."
 		<br><br>
 
-		Whitney seethes in place. <<nnpc_He "Whitney">> hesitates for one moment before <<nnpc_he "Whitney">> leaves.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
+		Whitney seethes in place. <<nnpc_He "Whitney">> hesitates for one moment before <<nnpc_he "Whitney">> leaves.<<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
 		<br><br>
 
-		Bailey turns to you. "You. Room. Now."<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
+		Bailey turns to you. "You. Room. Now."<<npcincr Bailey love -1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
 		<br><br>
 
 		You leave Bailey's office, nursing your cheek.
@@ -119,10 +120,10 @@ Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> d
 		Bailey glares Whitney down. "I said get out."
 		<br><br>
 
-		Whitney leaves.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
+		Whitney leaves.<<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Whitney dom -1>><<ldom "Whitney">>
 		<br><br>
 
-		Bailey turns to you. "You. Room. Now."<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
+		Bailey turns to you. "You. Room. Now."<<npcincr Bailey love -1>><<llove "Bailey">><<baileyBrat 2 "whitney_desk">>
 		<br><br>
 
 		You leave Bailey's office, nursing your cheek.
@@ -131,6 +132,7 @@ Bailey stands in the doorway. <<His>> eyes move from Whitney to you to <<his>> d
 
 	<<link [[Next|Bailey Whitney Office After]]>><</link>>
 	<br>
+<</if>>
 <</if>>
 
 
@@ -154,7 +156,7 @@ The only sound is the scratch of Bailey's pen and the wet drag of rags on wood.
 Whitney finishes first. <<nnpc_He "Whitney">> drops the rag on the shelf and stands there, jaw tight, waiting.
 <br><br>
 
-Bailey doesn't look up. <<He>> turns a page. <<if $whitney_bailey_met gte 1>>Whitney leaves without a word.<<else>>Whitney leaves. The tips of <<nnpc_his "Whitney">> ears are red.<</if>><<npcincr Whitney dom -1>><<ldom "Whitney">><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">>
+Bailey doesn't look up. <<He>> turns a page. <<if $whitney_bailey_met gte 1>>Whitney leaves without a word.<<else>>Whitney leaves. The tips of <<nnpc_his "Whitney">> ears are red.<</if>><<npcincr Whitney dom -1>><<ldom "Whitney">><<npcincr Bailey dom 1>><<gdom "Bailey">>
 <br><br>
 
 You finish cleaning. Bailey still doesn't look up.
@@ -168,7 +170,7 @@ You finish cleaning. Bailey still doesn't look up.
 
 
 :: Bailey Whitney Office Sex
-<<effects>><<getTarget>>
+<<getTarget>>
 <<person1>>
 
 <<if $whitney_bailey_met gte 1>>
@@ -178,7 +180,7 @@ You finish cleaning. Bailey still doesn't look up.
 <</if>>
 <br><br>
 
-Someone stands in the doorway. <span class="bailey-red">It's Bailey.</span>
+Someone stands in the doorway. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 <br><br>
 
 <<His>> eyes move from Whitney to you to <<his>> desk. You feel Whitney shift above you while Bailey walks towards the desk.
@@ -202,16 +204,15 @@ Bailey's hand closes around the back of your neck. <<He>> pushes you flat agains
 Whitney's fists clench at <<nnpc_his "Whitney">> sides. <<nnpc_His "Whitney">> whole body is rigid. <<nnpc_He "Whitney">> doesn't move.
 <br><br>
 
-<<set $baileywhitneysex to 1>>
 
-<<if $stockholm_bailey gte 1>>
-	<<link [[Spread your legs for Bailey|Bailey Whitney Office Sex Combat]]>><<set $sexstart to 1>><<set $consensual to 1>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<set $stockholm_bailey += 1>><<set $stockholm_points to ($stockholm_points || {})>><<set $stockholm_points.whitney to true>><<npcincr Whitney dom -1>><<npcincr Whitney love -1>><</link>><<glove "Bailey">><<gdom "Bailey">><<ldom "Whitney">><<llove "Whitney">>
+<<if $syndromebaileybuild gte 1>>
+	<<link [[Spread your legs for Bailey|Bailey Whitney Office Sex Combat]]>><<set $sexstart to 1>><<set $consensual to 1>><<npcincr Bailey love 1>><<npcincr Bailey dom 1>><<set $syndromebaileybuild += 1>><<set $stockholm_points to ($stockholm_points || {})>><<set $stockholm_points.whitney to true>><<npcincr Whitney dom -1>><<npcincr Whitney love -1>><</link>><<glove "Bailey">><<gdom "Bailey">><<gbaileystock>><<ldom "Whitney">><<llove "Whitney">>
 	<br>
 <<elseif isLoveInterest("Bailey")>>
-	<<link [[Spread your legs for Bailey|Bailey Whitney Office Sex Combat]]>><<set $sexstart to 1>><<set $consensual to 1>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<npcincr Whitney dom -1>><<npcincr Whitney love -1>><</link>><<glove "Bailey">><<gdom "Bailey">><<ldom "Whitney">><<llove "Whitney">><<promiscuous1>>
+	<<link [[Spread your legs for Bailey|Bailey Whitney Office Sex Combat]]>><<set $sexstart to 1>><<set $consensual to 1>><<npcincr Bailey love 1>><<npcincr Bailey dom 1>><<npcincr Whitney dom -1>><<npcincr Whitney love -1>><</link>><<glove "Bailey">><<gdom "Bailey">><<ldom "Whitney">><<llove "Whitney">><<promiscuous1>>
 	<br>
 <<elseif hasSexStat("promiscuity", 4)>>
-	<<link [[Spread your legs for Bailey|Bailey Whitney Office Sex Combat]]>><<set $sexstart to 1>><<set $consensual to 1>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<npcincr Whitney dom -1>><<npcincr Whitney love -1>><</link>><<glove "Bailey">><<gdom "Bailey">><<ldom "Whitney">><<llove "Whitney">><<promiscuous4>>
+	<<link [[Spread your legs for Bailey|Bailey Whitney Office Sex Combat]]>><<set $sexstart to 1>><<set $consensual to 1>><<npcincr Bailey love 1>><<npcincr Bailey dom 1>><<set $syndromebaileybuild += 1>><<set $stockholm_points to ($stockholm_points || {})>><<set $stockholm_points.whitney to true>><<npcincr Whitney dom -1>><<npcincr Whitney love -1>><</link>><<glove "Bailey">><<gdom "Bailey">><<gbaileystock>><<ldom "Whitney">><<llove "Whitney">><<promiscuous4>>
 	<br>
 <</if>>
 <<link [[Allow it|Bailey Whitney Office Sex Combat]]>><<set $sexstart to 1>><<set $consensual to 1>><<sub 1>><</link>>
@@ -243,8 +244,6 @@ Whitney's fists clench at <<nnpc_his "Whitney">> sides. <<nnpc_His "Whitney">> w
 <<effectsman>>
 <<man>>
 
-/* Whitney watches and reacts to what's happening in the fight. */
-/* Don't use <<npc Whitney>><<person1>> here — it overwrites $NPCList and breaks Bailey's combat rendering. Use the <<nnpc_X "Whitney">> macros instead. This goes for anyone wanting to do cucking scenes lol. */
 <<if $baileywhitneyround gte 2>>
 	<<rng>>
 	<<if $enemyarousal gte ($enemyarousalmax * 0.7)>>
@@ -297,7 +296,7 @@ Whitney's fists clench at <<nnpc_his "Whitney">> sides. <<nnpc_His "Whitney">> w
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<ejaculation>><<earnFeat "Bailey's Trouble Maker">>
 	<br><br>
-	Bailey exhales, satisfied. <<His>> eyes flicker across your body for a moment before <<he>> sits down in <<his>> chair.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">><<gdom "Bailey">>
+	Bailey exhales, satisfied. <<His>> eyes flicker across your body for a moment before <<he>> sits down in <<his>> chair.<<npcincr Bailey dom 1>><<npcincr Bailey love 1>><<glove "Bailey">><<gdom "Bailey">>
 	<br><br>
 
 	<<if $whitney_bailey_met gte 1>>
@@ -322,7 +321,7 @@ Whitney's fists clench at <<nnpc_his "Whitney">> sides. <<nnpc_His "Whitney">> w
 	Bailey pulls back from you, holding <<his>> cheek. <<His>> jaw is tight.
 	<br><br>
 
-	<<He>> stands up with a sneer. <<He>> doesn't look at you or Whitney. <<He>> kicks <<his>> chair back and slams <<his>> hand down on <<his>> desk.<<npcincr Bailey dom -1>><<set $bailey_dom -= 1>><<ldom "Bailey">><<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
+	<<He>> stands up with a sneer. <<He>> doesn't look at you or Whitney. <<He>> kicks <<his>> chair back and slams <<his>> hand down on <<his>> desk.<<npcincr Bailey dom -1>><<ldom "Bailey">><<npcincr Bailey love -1>><<llove "Bailey">>
 	<br><br>
 
 	"Get out," Bailey snarls. <<He>>'s talking to both of you. "Now!"
@@ -332,7 +331,7 @@ Whitney's fists clench at <<nnpc_his "Whitney">> sides. <<nnpc_His "Whitney">> w
 	You can't take any more.<<trauma 6>><<gtrauma>><<stress 6>><<gstress>>
 	<br><br>
 
-	Bailey looks down at your tear-slick face. <<He>> pulls you to your feet by your arm and tosses you in the direction of Whitney.<<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">>
+	Bailey looks down at your tear-slick face. <<He>> pulls you to your feet by your arm and tosses you in the direction of Whitney.<<npcincr Bailey dom 1>><<gdom "Bailey">>
 	<br><br>
 
 	Whitney catches you. <<nnpc_He "Whitney">>'s shaking with anger.
@@ -344,7 +343,6 @@ Whitney's fists clench at <<nnpc_his "Whitney">> sides. <<nnpc_His "Whitney">> w
 
 <<clotheson>>
 <<endcombat>>
-<<set $baileywhitneysex to 0>>
 <<unset $baileywhitneyround>>
 
 <<if $kylar_camera is 3>>
@@ -399,7 +397,7 @@ Whitney's friends are nowhere in sight.
 :: Bailey Whitney Office After
 <<effects>><<getTarget>>
 
-<<set _domEntry to ($bailey_whitney_dom_entry is undefined) ? $bailey_dom : $bailey_whitney_dom_entry>>
+<<set _domEntry to ($bailey_whitney_dom_entry is undefined) ? C.npc.Bailey.dom : $bailey_whitney_dom_entry>>
 <<if _domEntry lt 30>>
 	Whitney and <<nnpc_his "Whitney">> friends are nowhere to be found.
 	<br><br>

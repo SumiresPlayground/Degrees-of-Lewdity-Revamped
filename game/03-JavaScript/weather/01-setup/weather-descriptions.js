@@ -116,30 +116,32 @@ setup.WeatherDescriptions = {
 		return "";
 	},
 	bodyTemperature: () => {
-		if (Weather.bodyTemperature <= 34) {
+		if (Weather.bodyTemperature <= 34 && V.ghost !== 2) {
 			return "You're suffering from severe hypothermia.";
-		} else if (Weather.bodyTemperature <= 35) {
+		} else if (Weather.bodyTemperature <= 35 && V.ghost !== 2) {
 			return "You feel freezing cold.";
-		} else if (Weather.bodyTemperature <= 35.5) {
+		} else if (Weather.bodyTemperature <= 35.5 && V.ghost !== 2) {
 			return "You feel very cold and shiver uncontrollably.";
-		} else if (Weather.bodyTemperature <= 36) {
+		} else if (Weather.bodyTemperature <= 36 && V.ghost !== 2) {
 			return "You shiver.";
-		} else if (Weather.bodyTemperature <= 36.5) {
+		} else if (Weather.bodyTemperature <= 36.5 && V.ghost !== 2) {
 			return "You feel chilly.";
 		} else if (Weather.bodyTemperature <= 37.5) {
 			return "You feel comfortable.";
-		} else if (Weather.bodyTemperature <= 38) {
+		} else if (Weather.bodyTemperature <= 38 && V.ghost !== 3) {
 			return "You feel snug.";
-		} else if (Weather.bodyTemperature <= 38.5) {
+		} else if (Weather.bodyTemperature <= 38.5 && V.ghost !== 3) {
 			return "You feel a slight sweating and discomfort.";
-		} else if (Weather.bodyTemperature <= 39) {
+		} else if (Weather.bodyTemperature <= 39 && V.ghost !== 3) {
 			return "You feel warm and sweaty.";
-		} else if (Weather.bodyTemperature <= 39.5) {
+		} else if (Weather.bodyTemperature <= 39.5 && V.ghost !== 3) {
 			return "You feel overheated and uncomfortable.";
-		} else if (Weather.bodyTemperature <= 40) {
+		} else if (Weather.bodyTemperature <= 40 && V.ghost !== 3) {
 			return "You feel hot.";
-		} else {
+		} else if (Weather.bodyTemperature <= 41 && V.ghost !== 3) {
 			return "You're suffering from heatstroke.";
+		} else {
+			return "You feel comfortable.";
 		}
 	},
 	bodyTemperatureChanges: () => {

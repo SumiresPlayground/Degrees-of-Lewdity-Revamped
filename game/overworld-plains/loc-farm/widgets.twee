@@ -1053,10 +1053,36 @@
 		<<else>>
 			<<set _cattleMilkHand to 5 * (6 - Math.ceil(Math.clamp(currentSkillValue('tending'), 0, 1000) / 200))>>
 		<</if>>
-		<<farmicon "bucket">><<link [["Milk by hand (0:" + String(_cattleMilkHand).padStart(2, '0') + ")"|Farm Cattle Milk Hand]]>><<farm_yield 1>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<farm_cattle 1>><<set $phase to _cattleMilkHand>><<pass _cattleMilkHand>><</link>><<deviant1>><<gfarm>><<gtending>><<grespect>>
+		<<farmicon "bucket">><<link [["Milk by hand (0:" + String(_cattleMilkHand).padStart(2, '0') + ")"|Farm Cattle Milk Hand]]>><<farm_yield 1>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<farm_cattle 1>><<handskill 1>><<set $phase to _cattleMilkHand>><<pass _cattleMilkHand>><</link>><<deviant1>><<gfarm>><<gtending>><<grespect>><<ghandskill>>
 		<br>
 		<<if hasSexStat("deviancy", 4) and ($settings.bestialityEnabled or $monster is 1)>>
-			<<brothelicon>><<link [[Milk with your mouth (0:03)|Farm Cattle Milk Mouth]]>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<farm_count 3>><</link>><<deviant4>><<gtending>>
+			<<brothelicon>><<link [[Milk with your mouth (0:03)|Farm Cattle Milk Mouth]]>><<set $cattle_milked += 1>><<set $farm_work.cattle_milked += 1>><<tending 1>><<farm_count 3>><<oralskill 1>><</link>><<deviant4>><<gtending>><<goralskill>>
+			<<if $NPCList[0].penis isnot "none" and $player.virginity.oral is true>>
+				<<oralvirginitywarning>>
+			<</if>>
+			<br>
+		<</if>>
+
+		<<set _quickhandmilk to _cattleMilkHand * $farm_work.cattle_need>>
+		<<set _passTime1 to _quickhandmilk>>
+		<<set _passhour1 to 0>>
+		<<set _repeat to Math.floor(_quickhandmilk / 60)>>
+		<<for _i to 0; _i < _repeat; _i++>>
+			<<set _passhour1 += 1>>
+			<<set _quickhandmilk -= 60>>
+		<</for>>
+		<<set _quickmouthmilk to 3 * $farm_work.cattle_need>>
+		<<set _passTime2 to _quickmouthmilk>>
+		<<set _passhour2 to 0>>
+		<<set _repeat to Math.floor(_quickmouthmilk / 60)>>
+		<<for _i to 0; _i < _repeat; _i++>>
+			<<set _passhour2 += 1>>
+			<<set _quickmouthmilk -= 60>>
+		<</for>>
+		<<farmicon "bucket">><<link [[Milk all by hand (_passhour1:<<if _quickhandmilk lt 10>>0<</if>>_quickhandmilk)|Farm Cattle Milk Hand]]>><<farm_yield $farm_work.cattle_need>><<set $cattle_milked += $farm_work.cattle_need>><<set $farm_work.cattle_milked += $farm_work.cattle_need>><<tending $farm_work.cattle_need>><<farm_cattle $farm_work.cattle_need>><<handskill $farm_work.cattle_need>><<set $phase to _passTime1>><<pass _passTime1>><</link>><<deviant1>><<gfarm>><<gtending>><<grespect>><<ghandskill>>
+		<br>
+		<<if hasSexStat("deviancy", 4) and ($settings.bestialityEnabled or $monster is 1)>>
+			<<brothelicon>><<link [[Milk all with your mouth (_passhour2:<<if _quickmouthmilk lt 10>>0<</if>>_quickmouthmilk)|Farm Cattle Milk Mouth]]>><<set $cattle_milked += $farm_work.cattle_need>><<set $farm_work.cattle_milked += $farm_work.cattle_need>><<tending $farm_work.cattle_need>><<farm_count (3 x $farm_work.cattle_need)>><<oralskill $farm_work.cattle_need>><<set $phase to _passTime2>><<pass _passTime2>><</link>><<deviant4>><<gtending>><<goralskill>>
 			<<if $NPCList[0].penis isnot "none" and $player.virginity.oral is true>>
 				<<oralvirginitywarning>>
 			<</if>>
@@ -2558,6 +2584,12 @@
 					<<set $farm.woodland to 2>>
 				<<case "woodland 3">>
 					<<set $farm.woodland to 3>>
+				<<case "waterland 1">>
+					<<set $farm.waterland to 1>>
+				<<case "waterland 2">>
+					<<set $farm.waterland to 2>>
+				<<case "waterland 3">>
+					<<set $farm.waterland to 3>>
 				<<case "kennel 1">>
 					<<set $farm.kennel to 1>>
 				<<case "barn 1">>
@@ -3025,6 +3057,18 @@
 			<<link [[Purchase more|Farm Upgrades Woodland 2]]>><</link>>
 		<<else>>
 			<<link [[Purchase|Farm Upgrades Woodland 1]]>><</link>>
+		<</if>>
+		<br>
+		Waterland:
+		<<if $farm.waterland gte 3 or $farm.build is "waterland 3">>
+			<span class="green">Expansive artificial water basins</span>
+			<<set _upgrade_count += 1>>
+		<<elseif $farm.waterland gte 2 or $farm.build is "waterland 2">>
+			<<link [[Purchase even more|Farm Upgrades Waterland 3]]>><</link>>
+		<<elseif $farm.waterland gte 1 or $farm.build is "waterland 1">>
+			<<link [[Purchase more|Farm Upgrades Waterland 2]]>><</link>>
+		<<else>>
+			<<link [[Purchase|Farm Upgrades Waterland 1]]>><</link>>
 		<</if>>
 		<br>
 		Kennel:

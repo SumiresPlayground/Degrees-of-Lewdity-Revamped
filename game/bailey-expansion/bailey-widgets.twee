@@ -1,17 +1,17 @@
 /* ══════════════════════════════════════════════════════
-   LOTUS COLLAR ART PICKER
-   The dropdown fills itself from window.baileyCollarRegistry. To add a
-   new collar, just add it to that registry in bailey-stats.js and it
-   shows up in every picker automatically.
-   ══════════════════════════════════════════════════════ */
+LOTUS COLLAR ART PICKER
+The dropdown fills itself from window.baileyCollarRegistry.
+To add a new collar, just add it to that registry in rbe.js.
+══════════════════════════════════════════════════════ */
 :: Lotus Collar Picker Widgets [widget nobr]
 
 <<widget "lotus_listbox">>
-	/* Build the dropdown as raw HTML so options can be grouped by pack (SugarCube's <<listbox>> can't group). A handler in bailey-stats.js saves the choice to $bailey_collar_art and redraws the sidebar. */
+	/* Build the dropdown as raw HTML so options can be grouped by pack (SugarCube's <<listbox>> can't group).
+	A handler in rbe.js saves the choice to $bailey_collar_art and redraws the sidebar. */
 	<span id="collar-listbox"><<script>>
 		var reg = window.baileyCollarRegistry || [];
 		var hasCustom = !!(window.baileyCollarImages && window.baileyCollarImages.custom);
-		var current = (State.variables.bailey_collar_art) || "goose";
+		var current = (State.variables.bailey_collar_art) || "reiyu_goose";
 
 		/* Group the registry entries by pack, keeping their original order. */
 		var groups = [];
@@ -50,46 +50,42 @@
 			window.baileyCollarRemoveCustom();
 			/* Redraw the listbox so the "Custom (your image)" option disappears. */
 			$.wiki('<<replace "#collar-listbox">><<lotus_listbox>><</replace>>');
-		<</script>><</button>></span>
+			<</script>><</button>></span>
 	<</if>>
 <</widget>>
 
 :: Bailey Title Widget [widget]
-/* ══════════════════════════════════════════════════════
-   <<baileyTitle>> — prints what PC calls Bailey (e.g. "Daddy").
-   Use it in PC speech or thoughts, never in narration. When writing
-   "It's <<baileyTitle>>.", gate it behind $stockholm_active AND
-   $bailey_title_unlocked.
-   ══════════════════════════════════════════════════════ */
 <<widget "baileyTitle">><<silently>>
-	<<if $bailey_title and $bailey_title isnot "Bailey">>
-		<<set _bt_out to $bailey_title>>
-	<<else>>
-		<<set _bt_out to "Bailey">>
-	<</if>>
-<</silently>><<print _bt_out>><</widget>>
+		<<if $bailey_title and $bailey_title isnot "Bailey">>
+			<<set _bt_out to $bailey_title>>
+		<<else>>
+			<<set _bt_out to "Bailey">>
+		<</if>>
+	<</silently>><<print _bt_out>><</widget>>
 
 /* Same as <<baileyTitle>> but capitalised, for the start of a sentence. */
 <<widget "BaileyTitle">><<silently>>
-	<<if $bailey_title and $bailey_title isnot "Bailey">>
-		<<set _bt_out to $bailey_title.charAt(0).toUpperCase() + $bailey_title.slice(1)>>
-	<<else>>
-		<<set _bt_out to "Bailey">>
-	<</if>>
-<</silently>><<print _bt_out>><</widget>>
+		<<if $bailey_title and $bailey_title isnot "Bailey">>
+			<<set _bt_out to $bailey_title.charAt(0).toUpperCase() + $bailey_title.slice(1)>>
+		<<else>>
+			<<set _bt_out to "Bailey">>
+		<</if>>
+	<</silently>><<print _bt_out>><</widget>>
 
-/* Narration version: only prints the title once $bailey_title_unlocked is set (this one doesn't check Stockholm). */
+<<widget "baileyTitleClean">><<set $bailey_title to String($bailey_title || "").replace(/[<>]/g, "").trim().slice(0, 15) || "Bailey">><</widget>>
+
+/* Narration version: only prints the title once $bailey_title_unlocked is set. */
 <<widget "baileyTitleNarration">><<silently>>
-	<<if $stockholm_active and $bailey_title_unlocked and $bailey_title and $bailey_title isnot "Bailey">>
-		<<set _bt_out to $bailey_title>>
-	<<else>>
-		<<set _bt_out to "Bailey">>
-	<</if>>
-<</silently>><<print _bt_out>><</widget>>
+		<<if $syndromebailey and $bailey_title_unlocked and $bailey_title and $bailey_title isnot "Bailey">>
+			<<set _bt_out to $bailey_title>>
+		<<else>>
+			<<set _bt_out to "Bailey">>
+		<</if>>
+	<</silently>><<print _bt_out>><</widget>>
 
 
 :: Bailey Title Choose
-<<npc Bailey>><<person1>>
+<<npc Bailey>><<person1>><<baileyTitleClean>>
 <span class="gold">What do you call <<him>>?</span>
 <br><br>
 
@@ -112,15 +108,15 @@
 <br><br>
 
 <<if $worn.neck.name is "Bailey's collar">>
-<hr>
-<span class="gold">Collar art style:</span>
-<br><br>
-<<lotus_listbox>>
-<br>
-<<lotus_collar_buttons>>
-<br>
-<br>
-<br>
+	<hr>
+	<span class="gold">Collar art style:</span>
+	<br><br>
+	<<lotus_listbox>>
+	<br>
+	<<lotus_collar_buttons>>
+	<br>
+	<br>
+	<br>
 <</if>>
 
 <<if $bailey_title_from is "office">>
@@ -149,14 +145,14 @@ Type a name (15 characters max):
 
 
 :: Bailey Title Set
-<<person1>>
+<<person1>><<baileyTitleClean>>
 <<if $bailey_title is "Bailey">>
 	<<set $bailey_title_unlocked to false>>
 	You call <<him>> Bailey. Just Bailey. Nothing more.
 <<else>>
 	<<set $bailey_title_unlocked to true>>
 	You call <<him>> <span class="lewd"><<print $bailey_title>></span> now. The word sits in your mouth like it belongs there.
-	<<if $stockholm_active>>
+	<<if $syndromebailey>>
 		<<Him>>. Yours. <<BaileyTitle>>.
 	<</if>>
 <</if>>
@@ -186,24 +182,18 @@ Type a name (15 characters max):
 
 
 :: Bailey Office Options Widget [widget]
-/* ══════════════════════════════════════════════════════
-   <<baileyofficeoptions>> — the mod's shared menu of office actions.
-   Called from the vanilla office passage (via boot.json) and from
-   sub-passages like Flirt, so PC can keep interacting without
-   re-entering the office and bumping the visit counter ($daily.baileyVisit).
-   ══════════════════════════════════════════════════════ */
 <<widget "baileyofficeoptions">>
-	<<if $stockholm_bailey gte 1 and $renttime gt 0>>
+	<<if $syndromebaileybuild gte 1 and $renttime gt 0>>
 		<<socialiseicon>><<link [[Spend time with Bailey|Bailey Date Menu]]>><</link>>
 		<br>
 	<</if>>
 
-	<<if $stockholm_bailey gte 1 and !$daily.baileyFlirt and hasSexStat("promiscuity", 1)>>
-		<<brothelicon>><<link [[Flirt (0:15)|Bailey Office Flirt]]>><<pass 15>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<npcincr Bailey lust 1>><<set $daily.baileyFlirt to 1>><<handheldon 1>><</link>><<promiscuous1>><<glove>><<glust>>
+	<<if $syndromebaileybuild gte 1 and !$daily.baileyFlirt and hasSexStat("promiscuity", 1)>>
+		<<brothelicon>><<link [[Flirt (0:15)|Bailey Office Flirt]]>><<pass 15>><<npcincr Bailey love 1>><<npcincr Bailey lust 1>><<set $daily.baileyFlirt to 1>><<handheldon 1>><</link>><<promiscuous1>><<glove>><<glust>>
 		<br>
 	<</if>>
 
-	<<if $stockholm_active>>
+	<<if $syndromebailey>>
 		<<ind>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "office">><</link>>
 		<br>
 	<</if>>
@@ -218,7 +208,7 @@ Type a name (15 characters max):
 		<br>
 	<</if>>
 
-	<<if $stockholm_bailey gte 1 and !$daily.baileyOfficeSex and C.npc.Bailey.lust gte 20 and hasSexStat("promiscuity", 2)>>
+	<<if $syndromebaileybuild gte 1 and !$daily.baileyOfficeSex and C.npc.Bailey.lust gte 20 and hasSexStat("promiscuity", 2)>>
 		<<officeicon>><<link [[Offer stress relief|Bailey Desk Offer]]>><</link>><<promiscuous2>>
 		<br>
 	<</if>>
@@ -228,32 +218,88 @@ Type a name (15 characters max):
 
 
 :: Bailey Date Waiting Widget [widget]
-/* ══════════════════════════════════════════════════════
-   <<baileyDateWaiting>> — shows Bailey waiting at the Orphanage door
-   at 7PM for a scheduled Medium or All Night date. Injected into the
-   Orphanage passage via boot.json.
-   ══════════════════════════════════════════════════════ */
-<<widget "baileyDateWaiting">><<if $bailey_date_allnight_scheduled is 1 and Time.hour gte 19 and Time.hour lt 20 and $renttime gt 0>><<npc Bailey>><<person1>>Bailey waits for you near the front door. <<He>> checks <<his>> watch.
-<br>
-<<script>>var _img=document.createElement("img");_img.className="icon";_img.src=window.baileyCarIcon;$(this.output).append(_img);<</script>><<link [[Date with Bailey|Bailey Date All Night Pickup]]>><</link>>
+<<widget "baileyDateWaiting">><<if $bailey_date_allnight_scheduled is 1 and Time.hour gte 19 and Time.hour lt 20 and $renttime gt 0>><<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><</if>>Bailey waits for you near the front door. <<He>> checks <<his>> watch.
+		<br>
+		<img class="icon" src="img/misc/icon/baileys_car.png"><<link [[Date with Bailey|Bailey Date All Night Pickup]]>><</link>>
 <br><br>
-<<elseif $bailey_date_scheduled is 1 and Time.hour gte 19 and Time.hour lt 20 and $renttime gt 0>><<npc Bailey>><<person1>>Bailey waits for you near the front door. <<He>> checks <<his>> watch.
-<br>
-<<script>>var _img=document.createElement("img");_img.className="icon";_img.src=window.baileyCarIcon;$(this.output).append(_img);<</script>><<link [[Date with Bailey|Bailey Date Medium Pickup]]>><</link>>
+	<<elseif $bailey_date_scheduled is 1 and Time.hour gte 19 and Time.hour lt 20 and $renttime gt 0>><<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><</if>>Bailey waits for you near the front door. <<He>> checks <<his>> watch.
+		<br>
+		<img class="icon" src="img/misc/icon/baileys_car.png"><<link [[Date with Bailey|Bailey Date Medium Pickup]]>><</link>>
 <br><br>
-<</if>><</widget>>
+	<</if>><</widget>>
 
 
 :: Bailey Halloween Waiting Widget [widget]
-/* Shows the evening pickup link in the Orphanage hall for the Halloween
-   gala (6:30-7:30PM Oct 31), same inline-link approach as baileyDateWaiting.
-   The morning request is a separate on-entry event in the Orphanage passage.
-   The hint line is a placeholder pending final prose. */
-<<widget "baileyHalloweenWaiting">><<if $bailey_halloween_scheduled is Time.year and Time.monthDay is 31 and Time.monthName is "October" and ((Time.hour is 18 and Time.minute gte 30) or (Time.hour is 19 and Time.minute lte 30)) and $bailey_halloween_attended isnot Time.year and !$possessed>><<npc Bailey>><<person1>>It's almost time to leave for the gala. Bailey is waiting for you in <<his>> office.
-<br>
-<<link [[Go to Bailey's office|Bailey Halloween Pickup]]>><</link>>
-<br><br>
-<</if>><</widget>>
+<<widget "baileyHalloweenWaiting">><<if $bailey_halloween_scheduled is Time.year and Time.monthDay is 31 and Time.monthName is "October" and ((Time.hour is 18 and Time.minute gte 30) or (Time.hour is 19 and Time.minute lte 30)) and $bailey_halloween_attended isnot Time.year and !$possessed>><<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><</if>>It's almost time to leave for the gala. Bailey is waiting for you in <<his>> office.
+		<br>
+		<<link [[Go to Bailey's office|Bailey Halloween Pickup]]>><</link>>
+		<br><br>
+	<</if>><</widget>>
+
+
+:: Bailey Orphan Gossip [widget]
+<<widget "baileyOrphanGossip">>
+	<<if $syndromebaileybuild gte 1 and !$weekly.baileyOrphanGossip>>
+		<<set $bailey_gossip_seen to ($bailey_gossip_seen || {})>>
+		<<set _pick to "">>
+
+		/* One-shot: <<if CONDITION and !$bailey_gossip_seen.KEY>><<run _once.push("KEY")>><</if>> */
+		<<set _once to []>>
+		<<if $stockholm_points and $stockholm_points.cafe and !$bailey_gossip_seen.cafe>><<run _once.push("cafe")>><</if>>
+
+		<<if _once.length gt 0>>
+			<<set _pick to _once[random(0, _once.length - 1)]>>
+			<<set $bailey_gossip_seen[_pick] to true>>
+		<<else>>
+			/* Repeatable: <<if CONDITION>><<run _pool.push("KEY")>><</if>> */
+			<<set _pool to []>>
+			<<if $bailey_date_allnight gte 1>><<run _pool.push("allnight")>><</if>>
+			<<if $bailey_title_unlocked and $bailey_title isnot "Bailey">><<run _pool.push("title")>><</if>>
+			<<if $bailey_desk_offered gte 1>><<run _pool.push("desk")>><</if>>
+			<<if $worn.neck.name is "Bailey's collar">><<run _pool.push("collar")>><</if>>
+			<<if $baileydefeated gt 1>><<run _pool.push("defeated")>><</if>>
+			<<if $baileydefeatedlewd gt 1>><<run _pool.push("defeatedlewd")>><</if>>
+			<<if $bailey_date_short gte 1>><<run _pool.push("snitch")>><</if>>
+			<<if $bailey_offered gt 1>><<run _pool.push("offered")>><</if>>
+			<<if $syndromebailey>><<run _pool.push("generic")>><</if>>
+
+			<<if _pool.length gt 0>>
+				<<set _pick to _pool[random(0, _pool.length - 1)]>>
+			<</if>>
+		<</if>>
+
+		<<if _pick isnot "">>
+			<<set $weekly.baileyOrphanGossip to true>>
+			You see a group of orphans whispering amongst themselves and sneaking glances at you.
+			<br><br>
+			<<switch _pick>>
+				<<case "cafe">>
+					"Did you hear?" One of the orphans murmurs, loud enough for you to listen in. "At the Cafe opening, <<pshe>> actually lied that the orphanage is a great place and that Bailey takes care of us."<<hope -1>><<lhope>>
+				<<case "allnight">>
+					One of the orphans whispers, "I saw Bailey drive <<phim>> to the orphanage early in the morning<<if $bailey_date_allnight gte 2 or $bailey_monogamous>> many times!"<<else>>."<</if>>
+				<<case "title">>
+					"I heard <<phim>> call Bailey <<baileyTitle>>," says one of the orphans. Another orphan <<print either("gasps", "looks surprised")>>.
+				<<case "desk">>
+					"Whenever <<pshe>> goes into Bailey's office, <<pshe>> locks the door and stays in there way too long," murmurs one of the orphans. Another orphan <<print either("giggles", "scoffs")>>.
+				<<case "collar">>
+					"<<pShes>> wearing that collar with the lotus on it again," whispers one of the orphans. "There's something weird going on between <<phim>> and Bailey, I swear..."
+				<<case "defeated">>
+					"<<pShe>> beat Bailey up! I saw it!" says one of the orphans, a bit too enthusiastically. Another orphan in the crowd looks <<print either("inspired", "hopeful")>>.<<hope 1>><<ghope>><<reb 1>><<greb>>
+				<<case "defeatedlewd">>
+					"<<pShe>> made Bailey cum in <<nnpc_his "Bailey">> trousers! No, really! I saw it!" laughs one of the orphans. Another orphan in the crowd <<print either("snickers", "giggles")>>.<<hope 1>><<ghope>><<reb 1>><<greb>>
+				<<case "snitch">>
+					"Whatever you do, don't talk to <<phim>>," whispers one of the orphans, pointing at you without shame. "<<print either("<<pShes>> in cahoots with Bailey.", "<<pShe>>'ll snitch on you to Bailey.")>>"<<reb -1>><<lreb>>
+				<<case "offered">>
+					"<<pShes>> a freak. I saw <<phim>> pay Bailey rent and then offer <<pherself>> to be sold anyway," murmurs one of the orphans, pointing right at you. Another orphan looks at you with <<print either("confusion", "pity")>>.<<hope -1>><<lhope>>
+				<<case "generic">>
+					"<<pShe>> is always <<print either("hanging around", "looking at")>> Bailey," says one of the orphans. "<<print either("What a suck up.", "Looks like Bailey's got a pet.")>>"<<hope -1>><<lhope>>
+			<</switch>>
+			<br><br>
+			One of the orphans makes eye contact with you and looks away. They moved on to gossiping about someone else.
+			<br><br>
+		<</if>>
+	<</if>>
+<</widget>>
 
 
 :: Bailey Date Stood Up
@@ -263,16 +309,16 @@ Type a name (15 characters max):
 You are in the main hall of the orphanage.
 <br><br>
 
-A hand circles your arm. <span class="bailey-red">It's Bailey.</span>
+A hand circles your arm. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 <br><br>
 
-<<if $bailey_dom gte 70>>\
+<<if C.npc.Bailey.dom gte 70>>
 	"I waited." <<He>> says flatly. "You didn't show."
-<<elseif $bailey_dom gte 30>>\
+<<elseif C.npc.Bailey.dom gte 30>>
 	"You stood me up." <<He>> says calmly. <<His>> jaw is set. "You wasted my time."
-<<else>>\
+<<else>>
 	"You wasteful little shit." <<He>> sneers at you. "You stood me up."
-<</if>><<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
+<</if>><<npcincr Bailey love -1>><<llove "Bailey">>
 <br><br>
 
 <<link [[Apologise|Bailey Date Stood Up Apologise]]>><</link>>
@@ -289,15 +335,15 @@ A hand circles your arm. <span class="bailey-red">It's Bailey.</span>
 You apologise for standing Bailey up.
 <br><br>
 
-<<if $bailey_dom gte 70>>\
-	<<He>> studies you for a long moment. "Don't let it happen again." <<He>> lets go of your arm.
-<<elseif $bailey_dom gte 30>>\
-	<<He>> sneers at you. "Save it. Don't let it happen again." <<He>> releases your arm.
-<<else>>\
-	"At least you paid for it." <<His>> lip curls. <<He>> lets you go. "Don't waste my time again, brat."
+<<if C.npc.Bailey.dom gte 70>>
+	<<He>> studies you for a long moment. "Don't let it happen again."
+<<elseif C.npc.Bailey.dom gte 30>>
+	<<He>> sneers at you. "Save it. Don't let it happen again."
+<<else>>
+	"At least you paid for it." <<His>> lip curls. "Don't waste my time again, brat."
 <</if>>
 <br><br>
-Bailey stomps away, leaving you alone in the hallway.
+<<He>> lets go of your arm and stomps away, leaving you alone in the hallway.
 <br><br>
 
 <<link [[Next|Orphanage]]>><<endevent>><</link>>
@@ -309,14 +355,14 @@ Bailey stomps away, leaving you alone in the hallway.
 <<set $bailey_date_missed to 0>>
 <<person1>>
 
-You say nothing.<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
+You say nothing.<<npcincr Bailey love -1>><<llove "Bailey">>
 <br><br>
 
-<<if $bailey_dom gte 70>>\
+<<if C.npc.Bailey.dom gte 70>>
 	The silence stretches. <<He>> lets go of your arm. "Don't let it happen again."
-<<elseif $bailey_dom gte 30>>\
+<<elseif C.npc.Bailey.dom gte 30>>
 	<<He>> releases your arm. "Don't waste my time again."
-<<else>>\
+<<else>>
 	<<He>> glowers at you. <<He>> slaps you across the face.<<pain 4>><<gpain>><<stress 6>><<gstress>><<trauma 3>><<gtrauma>>
 	<br><br>
 	<<He>> lets you go. "See what happens next time, damn brat."
@@ -330,13 +376,10 @@ Bailey stomps away, leaving you alone in the hallway.
 
 
 :: Bailey Seen Widget [widget]
-/* ══════════════════════════════════════════════════════
-   <<baileySeenAdd "eventName">> — records that an event happened, in
-   the $baileySeen array (the mod's version of vanilla's <npc>Seen
-   arrays). It creates the array if missing (safe on old saves), and
-   pushUnique skips duplicates so calling it again is harmless.
-   Read it back with: $baileySeen?.includes("eventName")
-   ══════════════════════════════════════════════════════ */
+/*  <<baileySeenAdd "eventName">> records that an event in the $baileySeen array.
+It creates the array if missing (safe on old saves).
+pushUnique skips duplicates so calling it again is harmless.
+Read it back with: $baileySeen?.includes("eventName") */
 <<widget "baileySeenAdd">><<if $baileySeen is undefined>><<set $baileySeen to []>><</if>><<set $baileySeen.pushUnique(_args[0])>><</widget>>
 
 
@@ -344,16 +387,557 @@ Bailey stomps away, leaving you alone in the hallway.
 :: Bailey Kiss Virginity Widget [widget]
 
 /* Bailey taking the PC's first kiss. Elated at Stockholm 3+, mortified otherwise.
-   Renders nothing if the kiss virginity is already gone, so it is safe to call
-   after any Bailey kiss. */
+Renders nothing if the kiss virginity is already gone. */
 <<widget "baileyKissVirginity">>
 	<<if $player.virginity.kiss is true>>
 		<br><br>
-		<<if $stockholm_bailey gte 3>>
+		<<if $syndromebaileybuild gte 3>>
 			<span class="pink">You feel elated having Bailey take your first kiss.</span><<arousal 500>><<garousal>>
 		<<else>>
 			<span class="red">You feel mortified having Bailey take your first kiss.</span><<arousal 100>><<garousal>><<stress 6>><<gstress>><<trauma 6>><<gtrauma>>
 		<</if>>
 		<<takeVirginity "Bailey" "kiss">>
 	<</if>>
+<</widget>>
+
+/* Bailey taking the PC's first handhold. Elated at Stockholm 1+, mortified otherwise.
+Renders nothing if the handholding virginity is already gone.
+Call sites own their own spacing. */
+/* Pass false where the surrounding passage already takes the virginity itself. */
+<<widget "baileyHandholdText">>
+	<<set _first to _args[0] isnot false>>
+	<<if $syndromebaileybuild gte 1>>
+		<span class="lewd">You feel elated holding Bailey's hand<<if _first>> for the first time<</if>>.</span><<arousal 500>><<garousal>>
+	<<else>>
+		<span class="red">You feel mortified holding Bailey's hand<<if _first>> for the first time<</if>>.</span><<stress 40>><<ggstress>>
+	<</if>>
+<</widget>>
+
+<<widget "baileyHandholdVirginity">>
+	<<if $player.virginity.handholding is true>>
+		<<baileyHandholdText>>
+		<<takeVirginity "Bailey" "handholding">>
+	<</if>>
+<</widget>>
+
+
+:: Bailey Brat Tax [widget]
+
+/* Weekly Brat Tax. Accrue with <<baileyBrat N "reason">> */
+
+<<widget "baileyBrat">>
+	<<if $bailey_brat is undefined>><<set $bailey_brat to { points: 0, reasons: [] }>><</if>>
+	<<set _bratBefore to $bailey_brat.points>>
+	<<set $bailey_brat.points to Math.clamp($bailey_brat.points + _args[0], 0, 20)>>
+	<<run $bailey_brat.reasons.pushUnique(_args[1])>>
+	<<set _bratGained to ($bailey_brat.points - _bratBefore) * Math.floor($rentmoney / 10)>>
+	<<gbrattax _bratGained>>
+<</widget>>
+
+/* $bratTax = points * 1/10 of current rent. Call beside <<babyRent>>. */
+<<widget "bratTaxCalc">>
+	<<set $bratTax to (($bailey_brat and $bailey_brat.points) || 0) * Math.floor($rentmoney / 10)>>
+<</widget>>
+
+<<widget "bratReasonList">>
+	<<set _phrases to ($bailey_brat ? $bailey_brat.reasons : []).map(function (r) {
+		var him = C.npc.Bailey.pronoun === "m" ? "him" : "her";
+		var his = C.npc.Bailey.pronoun === "m" ? "his" : "her";
+		switch (r) {
+			case "papers":  return "you tried to lift your identification papers";
+			case "bill":    return "you made " + him + " cover dinner";
+			case "chair":   return "you got caught masturbating in " + his + " chair";
+			case "whitney_desk": return "you fooled around with Whitney on " + his + " desk";
+			case "stoodup": return "you stood Bailey up after asking " + him + " on a date";
+			case "gala_steal": return "you got caught stealing at " + his + " gala";
+			case "gala_scene": return "you made a scene at " + his + " gala";
+			case "seducebeat": return "you beat Bailey up after seducing " + him;
+			case "vent_blame": return "you blamed " + him + " for your problems";
+			case "vent_fight": return "you beat " + him + " up and ran out on " + him;
+			default:        return r;
+		}
+	})>>
+	<<print formatList(_phrases, "and")>>
+<</widget>>
+
+:: Bailey Combat Widgets [widget]
+
+<<widget "bodywriting_npc_bailey">>
+	<<if $npc.includes("Bailey") and $NPCList and $NPCList[0] and $NPCList[0].fullDescription>>
+		<<set $_text_output to "">>
+		<<set _bwEntry to $skin[_args[0]]>>
+		<<set _bwOwner to (_bwEntry && _bwEntry.owner) ? _bwEntry.owner : "">>
+		<<if !_bwOwner>>
+			<<set _bwExisting to Object.values($skin).find(s => s && s.owner === "Bailey")>>
+			<<if _bwExisting and !(_bwExisting.writing and _bwExisting.writing.startsWith("£"))>>
+				<<set _bwOwner to "Bailey">>
+				<<set _bwEntry to _bwExisting>>
+			<</if>>
+		<</if>>
+
+		<<if _bwOwner is "Bailey">>
+			<<if $syndromebailey>><<set $_text_output to `<<He>> has a fierce look in <<his>> eyes. "That's right. Mine."`>>
+			<<elseif C.npc.Bailey.dom gte 70>><<set $_strings to [
+					`<<He>> snarls. "Who else has seen that?"`,
+					`<<He>> growls. "Good <<girl>>."`,
+					`<<His>> eyes burn. "Mine."`,
+				]>><<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+			<<elseif C.npc.Bailey.dom lte 30>><<set $_text_output to `<<He>> scoffs. "Don't you forget it."`>>
+			<<else>><<set $_strings to [
+					`<<He>> murmurs. "Right where you belong."`,
+					`<<He>> thumbs it. "Don't wash that off."`,
+					`<<He>> says nothing. <<He>> looks satisfied.`,
+					`<<He>> exhales. "So you do know who you belong to."`,
+				]>><<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+			<</if>>
+
+		<<elseif _bwOwner is "Robin">>
+			<<if $syndromebailey>>
+				<<set $_text_output to `<<His>> eyes darken. "Maybe I should sell <<nnpc_him "Robin">> somewhere you can't find <<nnpc_him "Robin">>."`>>
+			<<else>>
+				<<set $_strings to [
+					`<<He>> sneers. "That worthless brat can't save you."`,
+					`<<He>> snickers. "Good thinking. They'll pay double for a package deal."`,
+					`<<He>> snickers. "Keep bringing <<nnpc_him "Robin">> around. I'll find a use for <<nnpc_him "Robin">> too."`,
+				]>>
+				<<if C.npc.Bailey.dom lte 30>>
+					<<run $_strings.push(`<<He>> sneers. "Useless. Both of you."`)>>
+				<</if>>
+				<<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+			<</if>>
+
+		<<elseif _bwOwner is "Eden">>
+			<<if $syndromebailey>>
+				<<set $_strings to [
+					`<<He>> growls, gripping the mark hard enough to hurt. "Get <<nnpc_his "Eden">> name off of you."`,
+					`<<He>> traces Eden's mark with <<his>> thumb. Slowly. Then <<his>> nail digs in. "Get rid of it."`,
+				]>>
+				<<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+			<<else>>
+				<<set $_strings to [
+					`<<He>> snarls. "<<nnpc_He "Eden">> chose the trees over people. Over you. Over everyone."`,
+					`<<His>> fingers close around the marked skin. "<<nnpc_He "Eden">> doesn't get to keep anything."`,
+				]>>
+				<<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+			<</if>>
+
+		<<elseif _bwOwner is "Sydney">>
+			<<set $_text_output to `<<He>> sneers. "Your little saint isn't here."`>>
+
+		<<elseif _bwOwner is "Avery">>
+			<<if $avery_mansion>>
+				<<set $_text_output to `<<He>> smirks. "<<nnpc_He "Avery">> paid and still needs to write <<nnpc_his "Avery">> name on it?"`>>
+			<<else>>
+				<<set $_text_output to `<<His>> lip curls. <<His>> fingers dig painfully into the mark.`>>
+			<</if>>
+
+		<<elseif _bwOwner is "Alex">>
+			<<set $_text_output to `<<He>> scoffs. "That idiot farmer? At least cattle know their place."`>>
+
+		<<elseif _bwOwner is "Whitney">>
+			<<set $_strings to [
+				`<<He>> snickers. "I'll let <<nnpc_him "Whitney">> keep pretending."`,
+				`<<He>> exhales. "That brat can't afford you."`,
+			]>>
+			<<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+
+		<<elseif _bwOwner is "Kylar">>
+			<<set $_text_output to `<<He>> reads it. "Obsessive little shit."`>>
+
+		<<elseif _bwOwner is "Remy">>
+			<<set $_text_output to `<<He>> sneers at the mark with disgust. "Looks like Remy got <<nnpc_his "Remy">> money's worth."`>>
+
+		<<elseif _bwOwner is "Gwylan">>
+			<<set $_text_output to `<<He>> traces the mark. "<<nnpc_He "Gwylan">> can take what <<nnpc_he "Gwylan">> wants from your head. I'll take what I want from the rest of you."`>>
+
+		<<elseif _bwOwner is "rape">>
+			<<set $_strings to [
+				`<<He>> curls <<his>> lip. "What a waste."`,
+				`<<He>> curls <<his>> lip. "Throwing your body away like garbage. Pathetic."`,
+			]>>
+			<<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+
+		<<elseif _bwOwner is "prostitution">>
+			<<set _bp_looks     to (Math.min($beauty || 0, $beautymax || 10000) / ($beautymax || 10000) + Math.min($allure || 0, 8000) / 8000) / 2>>
+			<<set _bp_seduction to Math.min($seductionskill || 0, 10000) / 10000>>
+			<<set _bp_physique  to Math.min($physique || 0, $physiquesize || 12000) / ($physiquesize || 12000)>>
+			<<set _bp_school    to Math.min(($maths||0)+($english||0)+($science||0)+($history||0), 4000) / 4000>>
+			<<set _bp_skuld     to Math.min($skulduggery || 0, 1000) / 1000>>
+			<<set _bp_raw to (_bp_looks*3000) + (_bp_seduction*2000) + (_bp_physique*1000) + (_bp_school*500) + (_bp_skuld*500)>>
+			<<set _baileyPrice to Math.max(5, Math.min(1000, Math.floor((_bp_raw / 7000) * 1000 / 5) * 5))>>
+			<<set _oldDegree to _bwEntry.degree || 0>>
+			<<add_bodywriting _args[0] "baileys_asset" _args[1]>>
+			<<set $skin[_args[0]].writing to "£" + _baileyPrice>>
+			<<set $skin[_args[0]].degree to _baileyPrice * 10>>
+			<<if $syndromebailey>>
+				<<set $skin[_args[0]].special to "prostitution">>
+			<</if>>
+			<<bodywriting_finalisation _args[0]>>
+			<<if (_baileyPrice * 10) gt _oldDegree>>
+				<<set $_strings to [
+					`<<He>> scoffs at the old price and scratches it out. "Wrong." <<He>> writes a new number. "You're worth more than that."`,
+					`<<He>> crosses out the mark. "Whoever wrote that doesn't know what they have." <<He>> writes <<his>> own price.`,
+				]>>
+			<<elseif (_baileyPrice * 10) lt _oldDegree>>
+				<<set $_strings to [
+					`<<He>> sneers at the number. "Overpaying." <<He>> scratches it out and writes a lower one.`,
+					`<<He>> crosses out the mark with a scoff. "Flattering yourself." <<He>> writes <<his>> own appraisal.`,
+				]>>
+			<<else>>
+				<<set $_strings to [
+					`<<He>> reads the old price. <<He>> crosses it out anyway and writes the same number in <<his>> own hand.`,
+				]>>
+			<</if>>
+			<<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+
+		<<elseif _bwEntry && _bwEntry.owner>>
+			<<set $_strings to [
+				`<<He>> eyes it. "If they cared, they'd have paid for you."`,
+				`<<He>> glances at it, then at you. "Cheap."`,
+				`<<He>> looks unimpressed. "That cost them nothing."`,
+			]>>
+			<<set $_text_output to $_strings[random(0, $_strings.length - 1)]>>
+
+		<</if>>
+
+		<<if $_text_output>>
+			<<print $_text_output>>
+		<<else>>
+			/* PC is unmarked, so Bailey writes a price tag based on their stats. */
+			<<set _bp_looks     to (Math.min($beauty || 0, $beautymax || 10000) / ($beautymax || 10000) + Math.min($allure || 0, 8000) / 8000) / 2>>
+			<<set _bp_seduction to Math.min($seductionskill || 0, 10000) / 10000>>
+			<<set _bp_physique  to Math.min($physique || 0, $physiquesize || 12000) / ($physiquesize || 12000)>>
+			<<set _bp_school    to Math.min(($maths||0)+($english||0)+($science||0)+($history||0), 4000) / 4000>>
+			<<set _bp_skuld     to Math.min($skulduggery || 0, 1000) / 1000>>
+			<<set _bp_raw to (_bp_looks*3000) + (_bp_seduction*2000) + (_bp_physique*1000) + (_bp_school*500) + (_bp_skuld*500)>>
+			<<set _baileyPrice to Math.max(5, Math.min(1000, Math.floor((_bp_raw / 7000) * 1000 / 5) * 5))>>
+			<<add_bodywriting _args[0] "baileys_asset" _args[1]>>
+			<<set $skin[_args[0]].writing to "£" + _baileyPrice>>
+			<<set $skin[_args[0]].degree to _baileyPrice * 10>>
+			<<if $syndromebailey>>
+				<<set $skin[_args[0]].special to "prostitution">>
+			<</if>>
+			<<bodywriting_finalisation _args[0]>>
+			<<if _baileyPrice gte 800>><<set $_strings to [
+					`"Good." <<He>> looks satisfied.`,
+					`"You lived up to your potential." <<He>> looks satisfied.`,
+				]>><<print $_strings[random(0, $_strings.length - 1)]>>
+			<<elseif _baileyPrice gte 500>><<set $_strings to [
+					`"Not bad," <<he>> says. "For now."`,
+					`"Could be worse."`,
+					`"Still room to grow."`,
+				]>><<print $_strings[random(0, $_strings.length - 1)]>>
+			<<elseif _baileyPrice gte 200>><<set $_strings to [
+					`<<He>> shrugs. "I've sold cheaper."`,
+					`"Middling."`,
+				]>><<print $_strings[random(0, $_strings.length - 1)]>>
+			<<else>><<if C.npc.Bailey.dom lte 30>>"Worthless." <<He>> caps the pen.<<else>>"Disappointing." <<He>> caps the pen.<</if>>
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+
+:: Bailey TF Reaction [widget]
+<<widget "baileyTF">>
+	<<if $weekly.baileyTFseen isnot true and random(1,5) is 1>><<set $weekly.baileyTFseen to true>>
+		<<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><</if>>
+		<<if $transformationParts.wolf.ears isnot "hidden" and $transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.tail isnot "hidden" and $transformationParts.wolf.tail isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> stare lingers on your wolf ears. <<He>> reaches out and tilts your head to the side, examining one. <<He>> lets out an appraising hum before <<he>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> stares at your wolf ears. <<He>> flicks one with <<his>> finger. "You look like a stray." <<He>> brushes past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> stops to run two fingers along one of your wolf ears. <<He>> lets out an appraising hum before <<he>> lets go, bumping past your shoulder as <<he>> leaves.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.cat.ears isnot "hidden" and $transformationParts.cat.ears isnot "disabled" and $transformationParts.cat.tail isnot "hidden" and $transformationParts.cat.tail isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your feline tail flick behind you, expression unreadable. "Fitting. You do always land on your feet." <<He>> brushes past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> grabs your feline tail and yanks it full force. <<He>> lets go and shoulders past you, wiping <<his>> hand on <<his>> trousers as <<he>> leaves.<<gpain>><<pain 4>>
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your feline tail flick. "I know someone who would pay good money for a pussycat." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.cow.ears isnot "hidden" and $transformationParts.cow.ears isnot "disabled" and $transformationParts.cow.tail isnot "hidden" and $transformationParts.cow.tail isnot "disabled" and $transformationParts.cow.horns isnot "hidden" and $transformationParts.cow.horns isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze travels from your cow horns to your cow tail. "Cows are in demand. Lucky you." <<He>> brushes past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> glances at your cow horns and sneers. "Pathetic." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> stares at your cow tail with a sneer. <<He>> bumps your shoulder as <<he>> passes through.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.bird.wings isnot "hidden" and $transformationParts.bird.wings isnot "disabled" and $transformationParts.bird.tail isnot "hidden" and $transformationParts.bird.tail isnot "disabled" and $transformationParts.bird.plumage isnot "hidden" and $transformationParts.bird.plumage isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze follows the line of your wings. <<He>> straightens a crooked feather. "Someone's going to try to cage you." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> plucks a loose feather from your shoulder and inspects it before dropping it on the floor. "Pick that up." <<He>> shoulders past you down the hall.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> stops to run a finger along a feather. <<His>> expression stays flat. "Careful. Someone might want to clip them." <<He>> bumps your shoulder as <<he>> passes.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.fox.ears isnot "hidden" and $transformationParts.fox.ears isnot "disabled" and $transformationParts.fox.tail isnot "hidden" and $transformationParts.fox.tail isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> stares at your fox ears, then at you. Something flickers behind <<his>> eyes. "Foxes," <<he>> sneers. "I've had my fill of foxes." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> lip curls at the sight of your fox ears. "Great. Another one." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your fox ears and stops mid-stride. <<He>> exhales sharply and keeps walking, bumping past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.bunny.ears isnot "hidden" and $transformationParts.bunny.ears isnot "disabled" and $transformationParts.bunny.tail isnot "hidden" and $transformationParts.bunny.tail isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> catches one of your bunny ears between two fingers and runs <<his>> fingers from root to tip. "Try not to get eaten." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> grabs both your bunny ears in one hand and yanks your head back before letting go, sneering. "Only an idiot like you would bounce about announcing yourself as prey." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze drops from your bunny ears to your bunny tail. "Announcing yourself to the wolves, are we?" <<He>> bumps past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.bear.ears isnot "hidden" and $transformationParts.bear.ears isnot "disabled" and $transformationParts.bear.tail isnot "hidden" and $transformationParts.bear.tail isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> tugs one of your bear ears between two fingers, examining it. "You make decent muscle." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> gives your bear ears a flat look. "Still just a cub." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> stops. <<His>> eyes move over you — the bulk of your shoulders, the way you fill the corridor. <<He>> holds your stare. "You've been eating well." <<He>> doesn't step aside. Neither do you. <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.fallenAngel.wings isnot "hidden" and $transformationParts.fallenAngel.wings isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze traces your darkened wings. <<He>> runs a thumb along one blackened feather, slow and deliberate. "Damaged goods sell at a discount." <<He>> lets the feather go. "Unless you know the right buyer." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> lip curls at your darkened wings. "You had one thing going for you." <<He>> flicks a blackened feather off your shoulder. "Not anymore." <<He>> shoulders past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes move from your wings to your halo. <<He>> stares at the dim glow for a long moment, <<his>> expression stiff. "Stupid little shit." <<He>> bumps past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.angel.wings isnot "hidden" and $transformationParts.angel.wings isnot "disabled" and $transformationParts.angel.halo isnot "hidden" and $transformationParts.angel.halo isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> regards your halo, then your wings. <<He>> straightens your feathers with two fingers. "You'll draw attention." <<He>> shoulders past.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes move from your halo to your wings. <<He>> scowls at them before bumping past you down the hallway.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> shoots a glare at your halo. "Take that off. You look ridiculous." <<He>> bumps past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.demon.horns isnot "hidden" and $transformationParts.demon.horns isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze settles on your horns. <<He>> reaches up and taps one with <<his>> knuckle. "Fitting." <<He>> drops <<his>> hand and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes flick to your horns with a sneer. "Seems about right." <<He>> shoulders past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes flick to your horns. <<His>> mouth twitches. "Suits you." <<He>> brushes past you.
+			<</if>>
+			<br><br>
+
+			/* New World transformations. */
+		<<elseif $transformationParts.dog.ears isnot "hidden" and $transformationParts.dog.ears isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> scratches behind one of your dog ears, slow and deliberate. "Good dog. You'd come when called." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> grabs your dog tail and tugs. "Remember, strays get put down." <<He>> lets go and shoulders past you. <<gpain>><<pain 4>>
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at your wagging tail. "Go on. Sit. Stay. Beg. Heel. It's all you're good for." <<He>> bumps past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.deer.horns isnot "hidden" and $transformationParts.deer.horns isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze travels up your antlers. "Someone will want you mounted on a wall." <<He>> brushes past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your antlers with a sneer. "Roadkill." <<He>> shoulders past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks one of your antlers. "I can think of at least one hunter who'd like to mount you." <<He>> bumps past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.horse.ears isnot "hidden" and $transformationParts.horse.ears isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> runs a hand along your horse ear. "A workhorse, are you? Good." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your horse tail. "Don't think I won't sell you to a glue factory if you keep misbehaving." <<He>> shoulders past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your horse ears. "You'll pull your weight." <<He>> bumps past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.pig.ears isnot "hidden" and $transformationParts.pig.ears isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> pinches your pig ear. "Just keep bringing home the bacon." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your pig tail with disgust. "A pig. Filthy. Greedy. Fit for the slaughter. Suits you." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your pig tail. "It'll do you well to remember that every part of a pig gets used." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.sheep.ears isnot "hidden" and $transformationParts.sheep.ears isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> buries a hand in your wool. "Easy to lead, are you? Good." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> yanks a curl of your wool. "Sheep. Born to be fleeced and led to slaughter. Pathetic." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your fleece. "Careful. Sheep get sheared." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.raccoon.ears isnot "hidden" and $transformationParts.raccoon.ears isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> tugs your raccoon tail. "Little thief. I'll find use for you." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your raccoon mask. "Vermin. Get into my things and I'll set a trap." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> sees your raccoon mask. "Keep your paws out of my things." <<He>> brushes past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.bee.wings isnot "hidden" and $transformationParts.bee.wings isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze catches on your wings. "Busy little worker. Someone always profits off the hive." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks one of your antennae with a scoff. "Pathetic little drone. Buzz off." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your wings buzz. "Keep the buzzing out of my office." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.dragon.wings isnot "hidden" and $transformationParts.dragon.wings isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze climbs your dragon features. "Rare. Expensive. Mine to sell." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at your dragon wings. "You're just a delusional little reptile." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> takes in your dragon wings. "A hoarder, are you? Just remember what's yours is mine." <<He>> brushes past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.lizard.horns isnot "hidden" and $transformationParts.lizard.horns isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs down your tail. "Cold-blooded. I can work with that." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your lizard tail. "Drop your tail and run, if you like. I'll still find you." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> studies your horns. "Go crawl back under your rock." <<He>> brushes past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.spider.eyes isnot "hidden" and $transformationParts.spider.eyes isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze lingers on your many eyes. "Patient little predator, are you?" <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> grimaces at your extra eyes. "Revolting. I've crushed larger." <<He>> gives you a wide berth as <<he>> passes.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your spider features. "Spin all you want. I own the web you're in." <<He>> brushes past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.frog.eyes isnot "hidden" and $transformationParts.frog.eyes isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> tilts your chin up to look at your froggish eyes. "I can think of a few clients who'd like a little frog like you." <<He>> lets go and brushes past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks your cheek. "Pathetic little frog." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your frog features. "Croak all you like. No one's listening." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.fish.tail isnot "hidden" and $transformationParts.fish.tail isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your fins. "Plenty of fish. Plenty of buyers, too." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "A fish out of water. Useless." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "Plenty of fish. Plenty of nets, too." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.dolphin.tail isnot "hidden" and $transformationParts.dolphin.tail isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs down your tail. "Valuable little fish, aren't you?" <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "A beached dolphin. Useless." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your tail. "Try not to beach yourself." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.fae.wings isnot "hidden" and $transformationParts.fae.wings isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your wings flutter. "Pretty. Pointless. Valuable." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> swats at your wing. "Playing make-believe. Grow up, already." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes follow your wings. "Go on. Fly away. See how far you get before I retrieve you." <<He>> brushes past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.mushroom.eyes isnot "hidden" and $transformationParts.mushroom.eyes isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes the cap crowning your head. "Some spores are worth good money." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at the fungus on you. "Disgusting." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> keeps <<his>> distance from your spores. "Keep those to yourself." <<He>> steps around you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.zombie.eyes isnot "hidden" and $transformationParts.zombie.eyes isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> tilts your grey face toward the light. "Damaged goods. But I've sold worse for more." <<He>> lets go and shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> curls <<his>> lip at your grey face. "Spoiled meat. Useless." <<He>> bumps past you.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your grey face. "Still standing, at least." <<He>> shoulders past you.
+			<</if>>
+			<br><br>
+
+		<<elseif ($transformationParts.ghost.eyes isnot "hidden" and $transformationParts.ghost.eyes isnot "disabled") or ($transformationParts.eldritch.eyes isnot "hidden" and $transformationParts.eldritch.eyes isnot "disabled") or ($transformationParts.cosmic.eyes isnot "hidden" and $transformationParts.cosmic.eyes isnot "disabled")>>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> seems uneasy. "Take that off. Stop messing around." <<He>> gives you a wide berth as <<he>> passes.
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> grimaces. "Go haunt someone else." <<He>> gives you a wide berth as <<he>> passes.
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> seems uneasy. <<His>> jaw tightens. "Quit messing around, brat." <<He>> steps around you.
+			<</if>>
+			<br><br>
+			/* End of New World Transformations */
+
+		<<elseif $worn.neck.name is "Bailey's collar">>
+			Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes find your collar. <<He>> wraps <<his>> hand around your neck like a second collar, smiling. "Good. Don't lose it." <<He>> lets you go and bumps past you.
+			<br><br>
+
+		<<elseif $worn.neck.collared is 1>>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes find the leash. <<He>> holds your stare for a long moment, expression flat. <<He>> reaches up and runs <<his>> hand along your collar. "Someone thinks they own you." <<He>> bumps past you as <<he>> leaves.
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze drops to the leash. <<He>> grabs it, winds it once around <<his>> fist, and gives it a sharp tug, causing you to stumble forward. "Someone already broke you in. Good." <<He>> lets go of the leash and bumps past you.<<gpain>><<pain 4>>
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes drop to the leash. <<He>> reaches for it and tugs you towards <<him>>, causing you to stumble. Then, <<he>> lets go and bumps past you.
+			<</if>>
+			<br><br>
+
+		<<elseif $beauty gte ($beautymax * 0.8)>>
+			<<if C.npc.Bailey.dom gte 70>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs over you, slow and deliberate. "Valuable, aren't you?" <<he>> says, before <<he>> bumps past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<elseif C.npc.Bailey.dom lte 30>>
+				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks you over. "You clean up well. Might get more out of you yet." <<He>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<<else>>
+				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes linger on you. <<His>> jaw tightens before <<he>> shoulders past you.<<npcincr Bailey lust 1>><<glust "Bailey">>
+			<</if>>
+			<br><br>
+
+		<</if>>
+		<<endevent>><</if>>
 <</widget>>

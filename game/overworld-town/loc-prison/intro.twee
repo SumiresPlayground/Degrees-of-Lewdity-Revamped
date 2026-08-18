@@ -193,7 +193,7 @@ You emit several high-pitched yips in protest. <<He>> averts <<his>> eyes at onc
 :: Police Prison Intro Bailey
 <<effects>>
 
-The <<person2>><<person>> shoves you aboard the boat, where you fall into a heap just as you hear the rev of an engine. You struggle to your knees, and see a familiar car approaching. <span class="bailey-red">It's Bailey.</span>
+The <<person2>><<person>> shoves you aboard the boat, where you fall into a heap just as you hear the rev of an engine. You struggle to your knees, and see a familiar car approaching. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 <br><br>
 
 "Shit," the <<person>> mutters, putting <<himself>> between the boat and approaching car as the crew rush to untie the mooring rope.
@@ -215,7 +215,7 @@ Bailey's car screeches to a halt, almost colliding with the <<person2>><<person>
 <br>
 "And we our orders," the <<person2>><<person>> responds, reaching for the baton at <<his>> side. The <<person3>><<person>> does likewise. "Please step away <<person1>><<sir>>."
 <br>
-<<npc Bailey>><<person1>>Bailey takes a step closer, and the officers tense up. <span class="bailey-red">"There'll be blood to pay,"</span> <<he>> says. Then <<he>> laughs. The officers share a worried glance. "I'll make this work." <<He>> still watches you. "Be on your best behaviour."<<npcincr Bailey love 3>><<set $bailey_love += 3>><<ggglove "Bailey">><<npcincr Bailey lust 1>><<glust "Bailey">>
+<<npc Bailey>><<person1>>Bailey takes a step closer, and the officers tense up. <span class="bailey-red">"There'll be blood to pay,"</span> <<he>> says. Then <<he>> laughs. The officers share a worried glance. "I'll make this work." <<He>> still watches you. "Be on your best behaviour."<<npcincr Bailey love 3>><<ggglove "Bailey">><<npcincr Bailey lust 1>><<glust "Bailey">>
 <br><br>
 Bailey drives away as the boat leaves the harbour. Even at this distance, you can see the officers relax their posture.
 <br><br>
@@ -1295,7 +1295,7 @@ You walk through the cave, and emerge at the pier. The boat awaits. You sit bene
 <<badEndTrackingEnd "Prison" { reason: "prisonServed" }>>
 <<earnFeat "Institutionalised">>
 <<pass 60>>
-<<relaxed_guard 0 cap>> steers the boat into port while <<veteran_guard 2>> removes your cuffs. A figure waits, leaning against a car. <span class="bailey-red">It's Bailey.</span>
+<<relaxed_guard 0 cap>> steers the boat into port while <<veteran_guard 2>> removes your cuffs. A figure waits, leaning against a car. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 <<prison_bondage_removal>>
 <br><br>
 
@@ -1323,13 +1323,13 @@ Bailey opens the passenger door as <<he>> watches the guard depart. "Get in."
 <<set $location to "town">><<effects>>
 <<pass 5>>
 <<npc Bailey>><<person1>>
-<<if $bailey_dom lte 30>>
+<<if C.npc.Bailey.dom lte 30>>
 	Bailey shoves you into the car and slams the door behind you.
 	<br><br>
 	<<He>> pulls onto the main road. <<He>> isn't even trying to hide <<his>> anger.
 	<br><br>
 	"Try not to get caught again," <<he>> snarls. "Sorting that out was a waste of my time."
-<<elseif $bailey_dom gte 70>>
+<<elseif C.npc.Bailey.dom gte 70>>
 	Bailey places a firm hand on your back and half-guides, half-shoves you into the car before slamming the door shut behind you.
 	<br><br>
 	<<He>> pulls onto the main road. <<His>> eyes find you in the mirror.
@@ -1340,7 +1340,7 @@ Bailey opens the passenger door as <<he>> watches the guard depart. "Get in."
 	<br><br>
 	Bailey pulls onto the main road before speaking. "Try not to be caught in the future," <<he>> says. "I was reimbursed, but it was a headache."
 <</if>>
-<<npcincr Bailey love 1>><<set $bailey_love += 1>><<glove "Bailey">>
+<<npcincr Bailey love 1>><<glove "Bailey">>
 <br><br>
 
 <<link [[Remain silent|Prison End Car Silent]]>><</link>>
@@ -1375,11 +1375,11 @@ You remain silent, and so does Bailey.
 	<<gagged_speech "Thanks for picking me up,">> you say.
 <</if>>
 <<npc Bailey>><<person1>>
-<<if $bailey_dom lte 30>>
+<<if C.npc.Bailey.dom lte 30>>
 	Bailey says nothing. <<His>> jaw tightens slightly.
 	<br><br>
 	<<He>> stops outside the orphanage and walks you inside without looking at you.
-<<elseif $bailey_dom gte 70>>
+<<elseif C.npc.Bailey.dom gte 70>>
 	Bailey doesn't respond. <<He>> meets your eyes in the rearview mirror for a moment, expression unreadable.
 	<br><br>
 	<<He>> stops outside the orphanage. <<He>> gets out of the car before you and holds your door open. <<His>> hand finds the back of your arm as you step out. <<He>> steers you inside.
@@ -1408,7 +1408,7 @@ You remain silent, and so does Bailey.
 "Watch your tone," Bailey says in a low voice. "There are worse places than that island."
 <br><br>
 
-Bailey stops the car outside the orphanage. <<He>> holds your arm, and walks you inside.<<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
+Bailey stops the car outside the orphanage. <<He>> holds your arm, and walks you inside.<<npcincr Bailey love -1>><<llove "Bailey">>
 <br><br>
 
 <<link [[Next|Orphanage]]>><<endevent>><</link>>
@@ -1419,7 +1419,7 @@ Bailey stops the car outside the orphanage. <<He>> holds your arm, and walks you
 <<effects>>
 
 <<npc Bailey>><<person1>>
-<<if $bailey_dom gte 70>>
+<<if C.npc.Bailey.dom gte 70>>
 	You turn and walk in the other direction.
 	<br><br>
 	You hear the car door open. Then you hear heavy footsteps eating up the pavement behind you.
@@ -1436,11 +1436,11 @@ Bailey stops the car outside the orphanage. <<He>> holds your arm, and walks you
 	<br>
 	<<link [[Get angry|Prison End Car Angry]]>><</link>>
 	<br>
-<<elseif $bailey_dom lte 30>>
+<<elseif C.npc.Bailey.dom lte 30>>
 	You turn and walk in the other direction.
 	<br><br>
 	The car door slams almost immediately. You hear the engine, and then nothing.
-	<<npcincr Bailey dom -1>><<set $bailey_dom -= 1>>
+	<<npcincr Bailey dom -1>><<ldom "Bailey">>
 	<br><br>
 	<<link [[Next|Docks]]>><<endevent>><</link>>
 	<br>
