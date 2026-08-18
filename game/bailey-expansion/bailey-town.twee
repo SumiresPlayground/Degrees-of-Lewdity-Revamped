@@ -1,14 +1,11 @@
-:: Street Bailey Test
-<<streetbaileyangry>>
-
-
 :: Bailey Stalk Widgets [widget]
 
 <<widget "streetbaileyangry">>
 	<<set $weekly.streetBailey to true>>
 	<<npc Bailey>><<person1>>
 	<<set $NPCList[0].skills to {athletics: random(850, 1600), security: random(750, 1500)}>>
-	You spot Bailey across the street. <<He>> hasn't noticed you yet. <<Hes>> talking to someone, <<his>> hand holding a phone, the other gesturing at a car. 	<br><br>
+	You spot Bailey across the street. <<He>> hasn't noticed you yet. <<Hes>> talking to someone, <<his>> hand holding a phone, the other gesturing at a car.
+	<br><br>
 	
 	Your rent is overdue.
 	<br><br>
@@ -29,9 +26,9 @@
 You cross the street. Bailey sees you before you reach <<him>>. <<He>> ends the conversation without a word, pocketing <<his>> phone.
 <br><br>
 
-<<if $bailey_dom gte 70>>
+<<if C.npc.Bailey.dom gte 70>>
 	"There you are." <<His>> hand finds your arm. "Let's go." <<He>> walks you toward the orphanage without waiting for an answer.
-<<elseif $bailey_dom lte 30>>
+<<elseif C.npc.Bailey.dom lte 30>>
 	"You." <<His>> jaw tightens. "You owe me. Walk. Now." <<He>> grabs your arm and yanks you forward.
 <<else>>
 	"You owe me money," <<he>> says flatly. <<His>> hand closes on your arm. "Move."
@@ -64,13 +61,13 @@ You cross the street. Bailey sees you before you reach <<him>>. <<He>> ends the 
 	You press yourself against a wall, out of sight. Bailey walks past — then stops. <span class="red"><<He>> looks over <<his>> shoulder, directly at where you're standing.</span>
 	<br><br>
 
-	<<if $bailey_dom gte 70>>
+	<<if C.npc.Bailey.dom gte 70>>
 		"I could hear you breathing." <<He>> rounds the corner. <<His>> hand finds the back of your neck. "Let's not make this difficult."
-	<<elseif $bailey_dom lte 30>>
+	<<elseif C.npc.Bailey.dom lte 30>>
 		"You think I'm blind?" <<He>> rounds the corner and grabs your arm. <<His>> grip is too tight. "Get up."
 	<<else>>
 		<<He>> rounds the corner. "You're not as clever as you think." <<His>> hand closes on your arm. "Let's go."
-	<</if>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">>
+	<</if>><<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love -1>><<llove "Bailey">>
 	<br><br>
 
 	<<He>> walks you home in silence.
@@ -113,7 +110,7 @@ You cross the street. Bailey sees you before you reach <<him>>. <<He>> ends the 
 :: Street Stalk Run Bailey Finish
 <<set $outside to 1>><<set $location to "town">><<effects>>
 
-<<npc Bailey>><<person1>>
+<<person1>>
 <<if $stalk_end is "confront">>
 	<<if $phase is 1>>
 		Bailey's hand closes on your arm from behind. <<His>> grip is bruising.
@@ -123,18 +120,18 @@ You cross the street. Bailey sees you before you reach <<him>>. <<He>> ends the 
 	<<endcombat>>
 	<<npc Bailey>><<person1>>
 
-	<<if $bailey_dom gte 70>>
+	<<if C.npc.Bailey.dom gte 70>>
 		"You ran." <<He>> sounds almost disappointed. <<He>> pulls you along with a firm grip. "Don't do that again."
-	<<elseif $bailey_dom lte 30>>
+	<<elseif C.npc.Bailey.dom lte 30>>
 		"Stupid." <<He>> yanks you forward. <<His>> jaw is tight. "You can't outrun what you owe."
 	<<else>>
 		"Done?" <<He>> pulls you along by the arm. "Good. Let's go."
-	<</if>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><<gdom "Bailey">><<npcincr Bailey love -1>><<set $bailey_love -= 1>><<llove "Bailey">><<stress 6>><<ggstress>>
+	<</if>><<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love -1>><<llove "Bailey">><<stress 6>><<ggstress>>
 	<br><br>
 
-	<<link [[Try to pull away|Bailey Stalk Pull Away]]>><<def 1>><<npcincr Bailey dom -1>><<set $bailey_dom -= 1>><</link>><<physiquedifficulty 2000 18000>><<ldom>>
+	<<link [[Try to pull away|Bailey Stalk Pull Away]]>><<def 1>><<npcincr Bailey dom -1>><</link>><<physiquedifficulty 2000 18000>><<ldom>>
 	<br>
-	<<link [[Submit (0:10)|Bailey Stalk Submit]]>><<pass 10>><<sub 1>><<npcincr Bailey dom 1>><<set $bailey_dom += 1>><</link>><<gdom>>
+	<<link [[Submit (0:10)|Bailey Stalk Submit]]>><<pass 10>><<sub 1>><<npcincr Bailey dom 1>><</link>><<gdom>>
 	<br>
 <<elseif $stalk_end is "hide">>
 	You pant as you emerge from your hiding place. Bailey is nowhere to be found.
@@ -148,26 +145,23 @@ You cross the street. Bailey sees you before you reach <<him>>. <<He>> ends the 
 
 	<<destinationeventend>>
 <<elseif $stalk_end is "ambush">>
-	/* Extra physique check after the ambush. PC needs physique higher than a random 2000–18000 roll to actually pin Bailey down. */
 	<<set _physique_topple to random(2000, 18000)>>
 	<<if $physique gte _physique_topple>>
-		/* PC passed the check */
 		You end up on top of <<him>>. <<He>> looks annoyed with you. <<His>> chest rises and falls evenly under your palm. You try to decide what to do next.
 		<br><br>
 
 		<<silently>><<endcombat>><</silently>>
 		<<npc Bailey>><<person1>>
 
-		<<link [[Fight|Bailey Stalk Ambush Fight]]>><<set $fightstart to 1>><<def 1>><<npcincr Bailey dom -1>><<set $bailey_dom -= 1>><</link>><<ldom>>
+		<<link [[Fight|Bailey Stalk Ambush Fight]]>><<set $fightstart to 1>><<def 1>><<npcincr Bailey dom -1>><</link>><<ldom>>
 		<br>
-		<<link [[Run|Bailey Stalk Ambush]]>><<set $phase to 0>><<def 1>><<npcincr Bailey dom -1>><<set $bailey_dom -= 1>><</link>><<ldom>>
+		<<link [[Run|Bailey Stalk Ambush]]>><<set $phase to 0>><<def 1>><<npcincr Bailey dom -1>><</link>><<ldom>>
 		<br>
-		<<if $stockholm_active is true>>
-			<<link [[Kiss Bailey, and then run|Bailey Stalk Ambush]]>><<set $phase to 1>><<npcincr Bailey love 1>><<set $bailey_love += 1>><<npcincr Bailey dom -1>><<set $bailey_dom -= 1>><</link>><<glove>><<ldom>><<kissvirginitywarning>>
+		<<if $syndromebailey is true>>
+			<<link [[Kiss Bailey, and then run|Bailey Stalk Ambush]]>><<set $phase to 1>><<npcincr Bailey love 1>><<npcincr Bailey dom -1>><</link>><<glove>><<ldom>><<kissvirginitywarning>>
 			<br>
 		<</if>>
 	<<else>>
-		/* PC failed the physique check  */
 		Bailey stumbles. <<His>> shoulder hits the wall from your sudden assault, but <<he>> doesn't falter again. <<He>> grabs your throat and throws you against the concrete.
 		<br><br>
 
@@ -224,9 +218,9 @@ You shove off <<him>> and run. The alley empties out behind you and you don't lo
 <<He>> throws you sideways and you crash into the alley wall. <<Hes>> on you before you've registered the impact. <<His>> hand fists in your hair and yanks your head back.
 <br><br>
 
-<<if $bailey_dom gte 70>>
+<<if C.npc.Bailey.dom gte 70>>
 	"You're coming with me," <<he>> says calmly.
-<<elseif $bailey_dom lte 30>>
+<<elseif C.npc.Bailey.dom lte 30>>
 	"Stupid little shit," <<he>> hisses.
 <<else>>
 	"Stop wasting time," <<he>> says.
@@ -294,9 +288,9 @@ You don't fight <<him>>. You let <<him>> walk you.
 <<effects>>
 
 <<npc Bailey>><<person1>>
-<<if $bailey_dom gte 70>>
+<<if C.npc.Bailey.dom gte 70>>
 	<<He>> steers you into <<his>> office and shuts the door behind you. <<He>> doesn't let go of your arm until you're standing in front of <<his>> desk. <<He>> rounds <<his>> desk before looking at you.
-<<elseif $bailey_dom lte 30>>
+<<elseif C.npc.Bailey.dom lte 30>>
 	<<He>> shoves you through the front door and into <<his>> office. The door slams behind you. <<He>> rounds <<his>> desk and drops into the chair, jaw still tight.
 <<else>>
 	<<He>> walks you into <<his>> office and closes the door. <<He>> lets go of your arm, moves behind <<his>> desk, and sits down.
@@ -324,9 +318,9 @@ You don't fight <<him>>. You let <<him>> walk you.
 <<babyRent>>
 <<if $money gte $rentmoney + ($babyRent or 0)>>
 	<<person1>>
-	<<if $bailey_dom gte 70>>
+	<<if C.npc.Bailey.dom gte 70>>
 		"You know the amount." <<He>> holds out <<his>> hand, palm up.
-	<<elseif $bailey_dom lte 30>>
+	<<elseif C.npc.Bailey.dom lte 30>>
 		"Pay me." <<He>> holds out <<his>> hand. "Now."
 	<<else>>
 		"Hand it over," <<he>> says. <<He>> holds out <<his>> hand.
@@ -346,7 +340,7 @@ You don't fight <<him>>. You let <<him>> walk you.
 			<br>
 		<</if>>
 	<</if>>
-	<<if $stockholm_active is true or $baileydefeated gte 5>>
+	<<if ($syndromebailey is true or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0)>>
 		<span class="bailey-red bailey-stockholm"><<link "Offer yourself" "Bailey Offer Yourself">><</link>></span>
 		<br>
 	<</if>>
