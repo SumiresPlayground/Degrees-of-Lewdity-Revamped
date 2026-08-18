@@ -1154,19 +1154,19 @@ Renderer.CanvasModels.main = {
 				return V.NPCposition === '2' ? ZIndices.NPCOverlay : ZIndices.NPCOverlayBack;
 			},
 			srcfn() {
-				const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha"];
-				const index = npcs.indexOf(V.npc[0]);
-				const skin = V.NPCName[index].skincolour;
-				const skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
-				if (V.NPCposition > 0 && V.NPCenable > 0)
+				if (V.NPCposition > 0 && V.NPCenable > 0 && (V.NPCList[0].name === "'Mickey'" || V.npc.length > 0))
 						if (V.NPCstatic > 0) {
 							if (V.NPCList[0].name === "'Mickey'")
 								return `img/npc/${V.creatorname}/Mickey.png`;
 							else if (V.npc.length > 0)
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else {
+							const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha"];
+							const index = npcs.indexOf(V.npc[0]);
+							const skin = V.NPCName[index].skincolour;
+							const skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
 							if (V.NPCList[0].name === "'Mickey'")
-								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].pronoun}/${skincolour}.png`;
+								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;
 							else if (V.npc.length > 0)
 								if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(V.npc[0]))
 									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/monster.png`;
