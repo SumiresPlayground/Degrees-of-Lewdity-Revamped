@@ -1154,8 +1154,10 @@ Renderer.CanvasModels.main = {
 				return V.NPCposition === '2' ? ZIndices.NPCOverlay : ZIndices.NPCOverlayBack;
 			},
 			srcfn() {
-				const skin = V.NPCList[0].skincolour;
-				const skinCls = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+				const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha"];
+				const index = npcs.indexOf(V.npc[0]);
+				const skin = V.NPCName[index].skincolour;
+				const skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
 				if (V.NPCposition > 0 && V.NPCenable > 0)
 						if (V.NPCstatic > 0) {
 							if (V.NPCList[0].name === "'Mickey'")
@@ -1164,19 +1166,19 @@ Renderer.CanvasModels.main = {
 								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
 						else {
 							if (V.NPCList[0].name === "'Mickey'")
-								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].pronoun}/${skinCls}.png`;
+								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].pronoun}/${skincolour}.png`;
 							else if (V.npc.length > 0)
 								if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(V.npc[0]))
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/monster.png`;
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/monster.png`;
 								else if (V.npc[0] === "Sydney")
 									if (C.npc.Sydney.purity > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/pure/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/pure/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/corrupt/${skinCls}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
+										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/corrupt/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
 								else if (V.npc[0] === "Gwylan" && V.brownfox === 1)
-									return `img/npc/${V.creatorname}/Brown Fox/${V.NPCList[0].pronoun}/${skinCls}.png`;
+									return `img/npc/${V.creatorname}/Brown Fox/${V.NPCName[index].pronoun}/${skincolour}.png`;
 								else
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCList[0].pronoun}/${skinCls}.png`;}
+									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/${skincolour}.png`;}
 			},
 		},
 		"background": {
@@ -7069,7 +7071,7 @@ function genlayer_tail(tf, hair, overrideOptions) {
 		filters: hair ? ["hair"] : [],
 
 		srcfn(options) {
-			const demon = tf === "demon" || isChimeraEnabled("demoncow", "tail") || isChimeraEnabled("demoncat", "tail") || isChimeraEnabled("demonwolf", "tail") || isChimeraEnabled("demonfox", "tail");
+			const demon = tf === "demon";
 			const tail = demon ? `tail-${options.demon_tail_state}` : "tail-idle";
 
 			return `img/transformations/${tf}/${tail}/${options[`${tf}_tail_type`]}.png`;

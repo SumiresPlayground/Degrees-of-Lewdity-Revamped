@@ -23,8 +23,8 @@ Tentacles coil around your legs, disrupting your movements and causing you to fa
 <br><br>
 It's only when a voice resonating inside of your head—<span class="purple">No, inside the whole room</span>—whispers to you, your body forcibly going lax, that you finally rest. It speaks in a language you cannot understand but the words alone seem to calm your soul. The tentacles caress your skin, oozing black fluid over your body as the voice slowly fades to silence.
 <br><br>
-<<if Time.hour lt 22>><<set _passTime to "<<passTimeUntil 22>>">><<set _passTimeDisplay to "0:" + ("0" + ((45 - Time.minute + 60) % 60)).slice(-2)>><</if>>
-<<link [[Wake up|Bog Cult Wake]]>>_passTime<</link>>
+<<set _passhour to 21 - Time.hour>><<set _passminute to 60 - Time.minute>><<if _passminute is 60>><<set _passminute to 0>><<set _passhour += 1>><</if>>
+<<link [[Wake up <<if Time.hour lt 22>>(_passhour:<<if _passminute lt 10>>0<</if>>_passminute)<</if>>|Bog Cult Wake]]>><<if Time.hour lt 22>><<passTimeUntil 22>><</if>><</link>>
 
 :: Bog Cult Wake
 <<location "bogcult">>

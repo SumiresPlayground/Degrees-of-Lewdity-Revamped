@@ -1194,7 +1194,7 @@ As you relax on the nice chair, you can hear the sound of something chewing in t
 
 	<<link [[Next|Strange Holes Success 2]]>><<set $eventskip to 1>><</link>>
 	<br>
-<<elseif $enemyhealth lte 0>>
+<<else>>
 
 	You scare the mighty <<beasttype>>. <<bHe>> flees deeper into the forest.
 	<<if $monster is 1>>
@@ -2040,8 +2040,8 @@ Finally, you arrive at the entrance to the moor. The officer glances around and 
 <br><br>
 <<He>> sits down and pats the dirt next to <<him>>. You glance around before sitting in the tall grass. 
 <br><br>
-<<if Time.hour lt 20>><<set _passTime to "<<passTimeUntil 20>>">><<set _passTimeDisplay to "0:" + ("0" + ((45 - Time.minute + 60) % 60)).slice(-2)>><</if>>
-<<link [[Wait for something to happen|Mysterious Death Wait]]>>_passTime<</link>>
+<<set _passhour to 19 - Time.hour>><<set _passminute to 60 - Time.minute>><<if _passminute is 60>><<set _passminute to 0>><<set _passhour += 1>><</if>>
+<<link [[Wait for something to happen <<if Time.hour lt 20>>(_passhour:<<if _passminute lt 10>>0<</if>>_passminute)<</if>>|Mysterious Death Wait]]>><<if Time.hour lt 20>><<passTimeUntil 20>><</if>><</link>>
 
 :: Mysterious Death Wait
 You spend some time talking with the officer. <<He>> tells you <<his>> name is Eirian and tells you a bit of <<his>> story. <<He>> mentions <<he>> came from a long line of officers but always hated the corruption that plagued the department, about wanting to make the world a truly better place, about making this town safe.

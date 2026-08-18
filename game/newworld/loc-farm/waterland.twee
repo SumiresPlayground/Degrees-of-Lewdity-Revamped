@@ -1,0 +1,62 @@
+:: Farm Waterland
+<<set $outside to 1>><<set $location to "alex_farm">><<set $bus to "waterland">><<effects>>
+
+You are at the water basins within the farm grounds.
+<<if $farm.waterland is 1>>
+	Small water basins sit ready to be planted.
+<<elseif $farm.waterland is 2>>
+	The larger basins have been dammed and are ready to be planted.
+<<elseif $farm.waterland is 3>>
+	A vast artificial basin network covers the land, ready to be planted.
+<</if>>
+
+<<if Weather.precipitation is "snow">>
+	Ice covers the basins and renders them unusable.
+<<elseif Weather.precipitation is "rain">>
+	The icy rain pelts you.
+<<else>>
+	The chill breeze is lessened here.
+<</if>>
+<br><br>
+
+<<if $stress gte 10000>>
+	<<passoutfarmroad>>
+<<elseif $farm_attack_timer is 0 and Time.hour gte 21>>
+	<<npc Alex>><<person1>>
+	Alex rushes over. <span class="red">"Remy's here,"</span> <<he>> says. "We can do this. Go get ready, I'll
+	<<if $farm.tower_guard>>
+		check on $farm.tower_guard."
+	<<else>>
+		see if I can spot them."
+	<</if>>
+	<br><br>
+
+	<<farm_assault_intro>>
+	<br><br>
+
+	<<link [[Prepare|Farm Assault Wardrobe]]>><<endevent>><<set $phase to 2>><</link>>
+	<br>
+<<else>>
+	<<if pcAreArmsBound("both")>>
+		<span class="red">Both of your arms are bound</span>, so you are unable to farm.
+	<<elseif Weather.isFrozen("lake")>>
+		<span class="blue">The water basins are frozen over.</span>
+		<br><br>
+	<<else>>
+		<<if $waterfarm is undefined>>
+			<<set $waterfarm to 1>>
+			<<plots_init waterfarm 1 water 1 small>>
+		<</if>>
+		<<if $farm.waterland gte 2 and $waterfarm is 1>>
+			<<set $waterfarm to 2>>
+			<<add_plot waterfarm water 2 medium>>
+		<</if>>
+		<<if $farm.waterland is 3 and $waterfarm is 2>>
+			<<set $waterfarm to 3>>
+			<<add_plot waterfarm water 3 large>>
+		<</if>>
+		<<plot_effects>>
+		<<display_plot waterfarm>>
+	<</if>>
+	<<getouticon>><<link [[Leave (0:10)|Farm Work]]>><<pass 5>><</link>>
+<</if>>

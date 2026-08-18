@@ -213,7 +213,9 @@ const statChange = (() => {
 			}
 
 			// The player's body temperature being too high will increase their fatigue gains by up to 200%
-			fatigueMod += Weather.BodyTemperature.fatigueModifier - 1;
+			if (V.ghost !== 2) {
+				fatigueMod += Weather.BodyTemperature.fatigueModifier - 1;
+			}
 		}
 
 		// The passage of time changes the player's fatigue by 0.05% = 1 $tiredness per point.
@@ -607,7 +609,9 @@ const statChange = (() => {
 				mod *= 1 - Math.clamp(playerHeatMinArousal() + playerRutMinArousal(), 0, 4000) / 5000;
 			}
 
-			V.arousal += amount * mod * Weather.BodyTemperature.arousalModifier;
+			if (V.ghost !== 3) {
+				V.arousal += amount * mod * Weather.BodyTemperature.arousalModifier;
+			}
 			arousalClamp();
 
 			// Add to the tracker
@@ -658,7 +662,9 @@ const statChange = (() => {
 				}
 			}
 
-			V.pain += pain * Weather.BodyTemperature.painModifier;
+			if (V.ghost !== 3) {
+				V.pain += pain * Weather.BodyTemperature.painModifier;
+			}
 		}
 		painClamp();
 	}
