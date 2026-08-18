@@ -84,7 +84,7 @@
 						love : { maxValue : 100 },
 						dom : { maxValue : 50 }
 					},
-"Bailey" : {
+					"Bailey" : {
 						important : (V.syndromebaileybuild || 0) >= 1,
 						love : { name : "Respect", maxValue : 100 },
 						dom : { name : "Dominance", maxValue : 100, activeIcon : "img/ui/sym-dominance-bailey.png" },
@@ -131,7 +131,8 @@
 				T.importantNpcOrder = ["Robin", "Whitney", "Eden", "Kylar", "Sydney", "Avery", "Great Hawk", "Black Wolf", "Alex", "Taylor", "Casey", "Salem", "Rowan", "Mint Mocha"];
 				if (V.gwylanSeen?.includes("yearning")) T.importantNpcOrder.pushUnique("Gwylan");
 				if ((V.syndromebaileybuild || 0) >= 1) T.importantNpcOrder.pushUnique("Bailey");
-				T.specialNPCs = ["Ivory Wraith"];
+				if (V.wli.criteria) T.importantNpcOrder.pushUnique("Ivory Wraith");
+				T.specialNPCs = [];
 
 				/* this list is sorted */
 				T.importantNPCs = T.importantNpcOrder.map(name => V.NPCName[V.NPCNameList.indexOf(name)]);
