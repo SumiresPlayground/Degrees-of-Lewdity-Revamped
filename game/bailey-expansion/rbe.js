@@ -89,11 +89,9 @@ $(document).one(":storyready", function () {
 			console.log("[BaileyExpansion] Migrated $stockholm_active -> $syndromebailey (" + V.syndromebailey + ")");
 			delete V.stockholm_active;
 		}
-		if (V.stockholm_bailey !== undefined) {
-			if (typeof V.stockholm_bailey === "number" && !Number.isNaN(V.stockholm_bailey)) {
-				V.syndromebaileybuild = V.stockholm_bailey;
-				console.log("[BaileyExpansion] Migrated $stockholm_bailey -> $syndromebaileybuild (" + V.syndromebaileybuild + ")");
-			}
+		if (V.stockholm_bailey !== undefined && V.stockholm_bailey !== NaN) {
+			V.syndromebaileybuild = V.stockholm_bailey;
+			console.log("[BaileyExpansion] Migrated $stockholm_bailey -> $syndromebaileybuild (" + V.syndromebaileybuild + ")");
 			delete V.stockholm_bailey;
 		}
 
