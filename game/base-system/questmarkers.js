@@ -17,6 +17,7 @@ const events = [
 		text: "<<schoolday>>",
 		// text shown if condition() is still met, but it's past the time to attend
 		failuretext:
+			// eslint-disable-next-line no-template-curly-in-string
 			"You have missed <<print Object.keys(V.daily.school.attended).length === 4 ? 'a lesson' : `<<number ${5 - Object.keys(V.daily.school.attended).length}>>` + ' lessons'>> today.",
 	},
 	{
@@ -211,6 +212,34 @@ const events = [
 		},
 		priority: 2,
 		text: "The school plays are being held at Cliff Street tomorrow.",
+	},
+	{
+		name: "bailey date",
+		condition() {
+			return (V.bailey_date_scheduled === 1 || V.bailey_date_allnight_scheduled === 1) && V.renttime > 0 && V.bailey_date_attended !== 1;
+		},
+		starthour: 19,
+		endhour: 19,
+		priority: 4,
+		text: "You have an arrangement with Bailey at the Orphanage at <<ampm 19 00>>.",
+		failuretext: "You didn't show up for your arrangement with Bailey.",
+	},
+	{
+		name: "bailey halloween gala",
+		condition() {
+			return (
+				V.bailey_halloween_scheduled === Time.year &&
+				Time.monthDay === 31 &&
+				Time.monthName === "October" &&
+				V.bailey_halloween_attended !== Time.year &&
+				!V.possessed
+			);
+		},
+		starthour: 18,
+		endhour: 19,
+		priority: 4,
+		text: "You have an arrangement with Bailey at the Orphanage at <<ampm 18 30>>.",
+		failuretext: "You didn't show up for your arrangement with Bailey.",
 	},
 ];
 setup.events = events;
