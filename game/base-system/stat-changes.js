@@ -213,7 +213,10 @@ const statChange = (() => {
 			}
 
 			// The player's body temperature being too high will increase their fatigue gains by up to 200%
-			if (V.ghost !== 2) {
+			if (V.ghost === 2) {
+				fatigueMod - 1;
+			}
+			else {
 				fatigueMod += Weather.BodyTemperature.fatigueModifier - 1;
 			}
 		}
@@ -609,7 +612,10 @@ const statChange = (() => {
 				mod *= 1 - Math.clamp(playerHeatMinArousal() + playerRutMinArousal(), 0, 4000) / 5000;
 			}
 
-			if (V.ghost !== 3) {
+			if (V.ghost === 3) {
+				V.arousal += amount * mod;
+			}
+			else {
 				V.arousal += amount * mod * Weather.BodyTemperature.arousalModifier;
 			}
 			arousalClamp();
@@ -662,7 +668,10 @@ const statChange = (() => {
 				}
 			}
 
-			if (V.ghost !== 3) {
+			if (V.ghost === 3) {
+				V.pain += pain;
+			}
+			else {
 				V.pain += pain * Weather.BodyTemperature.painModifier;
 			}
 		}

@@ -49,7 +49,7 @@ Weather.Tooltips = (() => {
 		const arousalOutput = (arousalModifier > 0 && V.ghost !== 2) ? `<span class="teal">${"- ".repeat(Math.abs(arousalModifier))}Arousal gains</span><br>` : "";
 		const fatigueOutput = (fatigueModifier > 0 && V.ghost !== 3) ? `<span class="red">${"+ ".repeat(Math.abs(fatigueModifier))}Fatigue gains</span><br>` : "";
 		const painOutput = (painModifier > 0 && V.ghost !== 2) ? `<span class="red">${"+ ".repeat(Math.abs(painModifier))}Pain gains</span><br>` : "";
-		const stressOutput = (stressModifier > 0 && V.ghost !== 3) ? `<span class="red">${"+ ".repeat(Math.abs(stressModifier))}Stress gains</span><br>` : "";
+		const stressOutput = (stressModifier > 0 && V.ghost !== 2 && V.ghost !== 3) ? `<span class="red">${"+ ".repeat(Math.abs(stressModifier))}Stress gains</span><br>` : "";
 		const modifiers =
 			arousalOutput || fatigueOutput || painOutput || stressOutput ? "<br>" + arousalOutput + fatigueOutput + painOutput + stressOutput : "";
 

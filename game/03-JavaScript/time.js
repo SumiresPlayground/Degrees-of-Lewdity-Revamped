@@ -1248,7 +1248,13 @@ function minutePassed(minutes) {
 	// Body temperature
 	const temperature = V.outside ? Weather.apparentTemperature : Weather.insideTemperature;
 	if (!V.possessed) Weather.BodyTemperature.update(temperature, minutes);
-	if (V.ghost !== 2) {
+	if (V.ghost === 2) {
+		V.stress += minutes;
+	}
+	if (V.ghost === 3) {
+		V.stress += minutes;
+	}
+	else {
 		V.stress += Math.round(Weather.BodyTemperature.stressModifier * minutes);
 	}
 	statChange.stressClamp();
