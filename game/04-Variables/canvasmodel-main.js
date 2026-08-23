@@ -3385,7 +3385,7 @@ Renderer.CanvasModels.main = {
 				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
 				return ZIndices.armsidle + 0.1;
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			animation: "idle",
 		},
 
@@ -3400,7 +3400,7 @@ Renderer.CanvasModels.main = {
 				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
 				return ZIndices.armsidle + 0.1;
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			animation: "idle",
 		},
 
@@ -3413,7 +3413,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.goblin_ears_type)
 			},
-			filters: ["body"],
+			filters: ["tan"],
 			zfn(options) {
 				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
 			},
