@@ -447,6 +447,48 @@
 		<<if _args[0] isnot "fox" and $worn.head.name isnot "spirit mask" and $worn.neck.name isnot "jasper pendant">>
 			<<set $foxbuild = Math.clamp($foxbuild - _args[1], 0, 100)>>
 		<</if>>
+		<<if _args[0] isnot "sheep" and $worn.head.name isnot "cloud hair clip">>
+			<<set $sheepbuild = Math.clamp($sheepbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "bee" and $worn.head.name isnot "honeycomb hair clip">>
+			<<set $beebuild = Math.clamp($beebuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if  _args[0] isnot "deer" and $worn.head.name isnot "spotted hair clip">>
+			<<set $deerbuild = Math.clamp($deerbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "bear" and $worn.head.name isnot "honeycomb hair clip">>
+			<<set $bearbuild = Math.clamp($bearbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "dragon" and $worn.hands.name isnot "dragonstone ring">>
+			<<set $dragonbuild = Math.clamp($dragonbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "lizard" and $worn.hands.name isnot "dragonstone ring">>
+			<<set $lizardbuild = Math.clamp($lizardbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "dolphin" and $worn.head.name isnot "fish hairpin">>
+			<<set $dolphinbuild = Math.clamp($dolphinbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "raccoon" and $worn.hands.name isnot "scuffed ring" and $worn.head.name isnot "raccoon cap">>
+			<<set $raccoonbuild = Math.clamp($raccoonbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "fish" and $worn.head.name isnot "fish hairpin">>
+			<<set $fishbuild = Math.clamp($fishbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "horse" and $worn.neck.name isnot "horseshoe pendant">>
+			<<set $horsebuild = Math.clamp($horsebuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "spider" and $worn.neck.name isnot "cloth choker">>
+			<<set $spiderbuild = Math.clamp($spiderbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "frog" and $worn.head.name isnot "frog hat">>
+			<<set $frogbuild = Math.clamp($frogbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "pig" and $worn.head.name isnot "truffle hair clip">>
+			<<set $pigbuild = Math.clamp($pigbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "dog" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
+			<<set $dogbuild = Math.clamp($dogbuild - _args[1], 0, 100)>>
+		<</if>>
 	<</if>>
 <</widget>>
 
@@ -540,32 +582,6 @@
 		<<set $physicalTransform to 1>>
 	<<else>>
 		<<set $physicalTransform to 0>>
-	<</if>>
-	<<if ($physicalTransform is 1 or $specialTransform is 1) and !($hypnosis_traits.peace and $settings.hypnosisEnabled)>>
-		<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
-			<<if ($transformationParts.bird.wings is "hidden" or $transformationParts.dragon.wings is "hidden") and ($transformationParts.demon.wings is "hidden" or $transformationParts.angel.wings is "hidden" or $transformationParts.fallenAngel.wings is "hidden" or $transformationParts.bee.wings is "hidden")>>
-			<<else>>
-				<<set _excludeWings to true>>
-			<</if>>
-		<</if>>
-		<<set _keys to Object.keys($transformationParts)>>
-		<<for _i to 0; _i lt _keys.length; _i++>>
-			<<set _key to _keys[_i]>>
-			<<for _label, _value range $transformationParts[_key]>>
-				<<if _value is "hidden" and _key isnot "traits" and !["pubes", "pits"].includes(_label) and !(_label is "wings" and _excludeWings is true)>>
-					<<if $panicattacks gte 2>>
-						<<set $transformationParts[clone(_key)][clone(_label)] to "default">>
-						<<set _hidingFailed to true>>
-						<<set $effectsmessage to 1>>
-						<<set $hiddenTransformMessage to 1>>
-					<<else>>
-						<<trauma 15>>
-						<<set $effectsmessage to 1>>
-						<<set $hiddenTransformMessage to 2>>
-					<</if>>
-				<</if>>
-			<</for>>
-		<</for>>
 	<</if>>
 
 	<<set _tfs to ["angel", "fallenangel", "demon", "dryad", "wolfgirl", "cat", "cow", "harpy", "fox"]>>

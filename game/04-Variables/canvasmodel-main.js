@@ -830,6 +830,11 @@ Renderer.CanvasModels.main = {
 				options.hideLeash = true;
 			}
 		}
+		if (V.worn.neck.name === "Eden collar" || V.worn.neck.name === "Whitney collar") {
+			if (!V.worn.neck.type.includes("leash")) {
+				options.hideLeash = true;
+			}
+		}
 
 		// Generate mask images
 		options.lowerMask = [];
@@ -1154,31 +1159,35 @@ Renderer.CanvasModels.main = {
 				return V.NPCposition === '2' ? ZIndices.NPCOverlay : ZIndices.NPCOverlayBack;
 			},
 			srcfn() {
-				if (V.NPCposition > 0 && V.NPCenable > 0 && (V.NPCList[0].name === "'Mickey'" || V.npc.length > 0))
-						if (V.NPCstatic > 0) {
-							if (V.NPCList[0].name === "'Mickey'")
-								return `img/npc/${V.creatorname}/Mickey.png`;
-							else if (V.npc.length > 0)
-								return `img/npc/${V.creatorname}/${V.npc[0]}.png`;}
-						else {
-							const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha"];
-							const index = npcs.indexOf(V.npc[0]);
-							const skin = V.NPCName[index].skincolour;
-							const skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
-							if (V.NPCList[0].name === "'Mickey'")
-								return `img/npc/${V.creatorname}/Mickey/${V.NPCList[0].pronoun}/${V.NPCList[0].skincolour}.png`;
-							else if (V.npc.length > 0)
-								if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(V.npc[0]))
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/monster.png`;
-								else if (V.npc[0] === "Sydney")
-									if (C.npc.Sydney.purity > 0)
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/pure/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
-									else
-										return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/corrupt/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}.png`;
-								else if (V.npc[0] === "Gwylan" && V.brownfox === 1)
-									return `img/npc/${V.creatorname}/Brown Fox/${V.NPCName[index].pronoun}/${skincolour}.png`;
-								else
-									return `img/npc/${V.creatorname}/${V.npc[0]}/${V.NPCName[index].pronoun}/${skincolour}.png`;}
+				if (V.NPCposition > 0 && V.NPCenable > 0 && V.creatorname === "png" && (V.NPCList[0].name === "'Mickey'" || V.npc.length > 0 || V.npcview)) {
+					const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha"];
+					const currentNPC = V.npc[0] || V.selectedNPC;
+					const excludedNPCs = ["Mickey", "Brown Fox"];
+					let index, skin, skincolour, creatorvariable;
+					if (!excludedNPCs.includes(currentNPC)) {
+						index = npcs.indexOf(currentNPC);
+						skin = V.NPCName[index].skincolour;
+						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+					} else if (currentNPC === "Brown Fox") {
+						index = 7;
+						skin = V.NPCName[index].skincolour;
+						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+					}
+					creatorvariable = V["creator" + currentNPC.replace(/\s+/g, '')];
+
+					if (V.NPCList[0].name === "'Mickey'" || V.selectedNPC === "Mickey")
+						return `img/npc/Mickey/${V.mickeyPronoun}/${V.mickeySkincolour}/${V.creatorMickey}.png`;
+					else if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(currentNPC))
+						return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/monster/${creatorvariable}.png`;
+					else if (currentNPC === "Sydney")
+						if (C.npc.Sydney.purity > 0)
+							return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/pure/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}/${creatorvariable}.png`;
+						else
+							return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/corrupt/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}/${creatorvariable}.png`;
+					else if ((V.npc[0] === "Gwylan" && V.brownfox === 1) || currentNPC === "Brown Fox")
+						return `img/npc/Brown Fox/${V.NPCName[index].pronoun}/${skincolour}/${creatorvariable}.png`;
+					else
+						return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/${skincolour}/${creatorvariable}.png`;}
 			},
 		},
 		"background": {

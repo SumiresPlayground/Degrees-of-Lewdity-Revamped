@@ -1,8 +1,5 @@
 :: Race Track
 <<set $outside to 1>><<set $location to "riding_school">><<effects>>
-<<if $weeklybetamount gte 4000>>
-	<<set $betcountdown to 7>>
-<</if>>
 
 You are at the local horse racing track. Grandstands surround a central track. A small office sits to one side.
 <br><br>
@@ -28,7 +25,7 @@ You are at the local horse racing track. Grandstands surround a central track. A
 	<<else>>
 		People fill into seats as tickets are taken and betting begins, if you want to place a bet, make your way to the booth and pick a horse.
 		<br><br>
-		<<animalicon "horse">><<link [[Pick a horse to bet on|Racecourse Betting]]>><<if $weeklybetamount is undefined>><<set $weeklybetamount to 0>><</if>><</link>>
+		<<animalicon "horse">><<link [[Pick a horse to bet on|Racecourse Betting]]>><<if $weekly.betamount is undefined>><<set $weekly.betamount to 0>><</if>><</link>>
 		<br>
 	<</if>>
 	/*
@@ -1007,28 +1004,28 @@ The board changes one last time while the bookie calls for final bets.
 	<<set _horse to setup.horserace.getHorse($horserace.selectedHorseId)>>
 	You choose <<print _horse.name>>. Enter the amount you want to bet.
 	<br>
-	<<if $weeklybetamount is undefined>>
-	<<set $weeklybetamount to 0>>
+	<<if $weekly.betamount is undefined>>
+		<<set $weekly.betamount to 0>>
 	<</if>>
 	<<if $money lte 10000>>
 		<span class='red'>You do not have enough money to place a bet.</span><br>
 	<</if>>
-	<<if $money gte 10000 and $weeklybetamount lt 1000000>>
+	<<if $money gte 10000 and $weekly.betamount lt 1000000>>
 		<<link [[Bet £100|Racecourse Betting Submit]]>><<set $horserace.betInput to 100>><</link>><br>
 	<</if>>
-	<<if $money gte 20000 and $weeklybetamount lt 1000000>>
+	<<if $money gte 20000 and $weekly.betamount lt 1000000>>
 		<<link [[Bet £200|Racecourse Betting Submit]]>><<set $horserace.betInput to 200>><</link>><br>
 	<</if>>
-	<<if $money gte 50000 and $weeklybetamount lt 1000000>>
+	<<if $money gte 50000 and $weekly.betamount lt 1000000>>
 		<<link [[Bet £500|Racecourse Betting Submit]]>><<set $horserace.betInput to 500>><</link>><br>
 	<</if>>
-	<<if $money gte 100000 and $weeklybetamount lt 1000000>>
+	<<if $money gte 100000 and $weekly.betamount lt 1000000>>
 		<<link [[Bet £1000|Racecourse Betting Submit]]>><<set $horserace.betInput to 1000>><</link>><br>
 	<</if>>
-	<<if $money gte 200000 and $weeklybetamount lt 1000000>>
+	<<if $money gte 200000 and $weekly.betamount lt 1000000>>
 		<<link [[Bet £2000|Racecourse Betting Submit]]>><<set $horserace.betInput to 2000>><</link>><br>
 	<</if>>
-	<<if $weeklybetamount gt 1000000>>
+	<<if $weekly.betamount gt 1000000>>
 		<span class='red'>You are barred from horse betting for the next week.</span><br>
 	<</if>>
 	<br>

@@ -1050,10 +1050,6 @@ function dayPassed() {
 
 	if (V.mushroom >= 1 && V.fungalgrowth >= 1) {V.fungalgrowth += 1;}
 
-	if (V.betcountdown >= 1) {V.betcountdown -= 1;}
-
-	if (V.betcountdown === 0 && V.weeklybetamount >= 4000) {V.weeklybetamount = 0;}
-
 	if (V.caseybaileyfight >= 1) {V.caseybaileyfight -= 1;}
 
 	if (V.prutitimer >= 7) {V.prutiquest = 8;}
