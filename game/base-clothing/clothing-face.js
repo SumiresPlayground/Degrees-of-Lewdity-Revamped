@@ -1727,7 +1727,7 @@ function initFace() {
 			location: 0,
 			iconFile: "perchten-mask.png",
 			accIcon: 0,
-		}/*,
+		},
 		{
 			index: 2,
 			slot: "face",
@@ -1756,9 +1756,9 @@ function initFace() {
 			accessory_colour_options: [],
 			cursed: 0,
 			location: 0,
-			iconFile: "perchten-mask.png",
+			iconFile: "mustache.png",
 			accIcon: 0,
-		}*/
+		}
 	];
 
 	setup.moddedClothes.face.forEach((x, i) => (x.index = setup.clothes.face.length + i));

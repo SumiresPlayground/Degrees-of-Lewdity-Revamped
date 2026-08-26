@@ -1357,7 +1357,7 @@ function initHandheld() {
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
 	setup.moddedClothes.handheld = [
-		/*{
+		{
 			index: 1,
 			slot: "handheld",
 			name: "magnifying glass",
@@ -1385,9 +1385,9 @@ function initHandheld() {
 			accessory_colour_options: [],
 			cursed: 0,
 			location: 0,
-			iconFile: "perchten-mask.png",
+			iconFile: "magnifying-glass.png",
 			accIcon: 0,
-		}*/
+		}
 	];
 
 	setup.moddedClothes.handheld.forEach((x, i) => (x.index = setup.clothes.handheld.length + i));

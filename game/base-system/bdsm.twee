@@ -11,6 +11,10 @@
 			/* To catch any stray cases of an NPC 'attaching a leash' to the collar, only Gwylan should be able to do it */
 			<<set _magicLeash to true>>
 		<</if>>
+	<<elseif $worn.neck.name is "Whitney collar">>
+		<<set $worn.neck.type.pushUnique("leash")>>
+	<<elseif $worn.neck.name is "Eden collar">>
+		<<set $worn.neck.type.pushUnique("leash")>>
 	<<elseif $worn.neck.name is "collar">>
 		<<set $worn.neck.type.push("broken")>>
 		<<neckruined _args[1]>>
@@ -42,6 +46,10 @@
 			<<set $worn.neck.type.delete("leash")>>
 			<<unset $familiarLeash>>
 		<</if>>
+	<<elseif $worn.neck.name is "Whitney collar">>
+		<<set $worn.neck.type.delete("leash")>>
+	<<elseif $worn.neck.name is "Eden collar">>
+		<<set $worn.neck.type.delete("leash")>>
 	<<elseif $worn.neck.name is "collar with leash">>
 		<<set $worn.neck.type.push("broken")>>
 		<<neckruined _args[1]>>

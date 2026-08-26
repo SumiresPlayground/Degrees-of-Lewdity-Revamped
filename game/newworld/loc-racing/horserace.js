@@ -1080,7 +1080,7 @@ setup.horserace = setup.horserace || {};
 			const betHorse = HR.getHorse(race.betHorseId);
 			if (race.won && betHorse) {
 				race.payout = HR.roundMoney(race.betAmount * betHorse.odds);
-				V.weeklybetamount += race.payout;
+				V.weekly.betamount += race.payout;
 				V.money = HR.roundMoney((Number.isFinite(V.money) ? V.money : 0) + race.payout);
 			}
 			race.paidOut = true;

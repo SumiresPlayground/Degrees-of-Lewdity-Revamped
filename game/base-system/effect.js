@@ -958,17 +958,6 @@ function effects() {
 			delete V.nectarmessage;
 		}
 
-		if (V.hiddenTransformMessage) {
-			element(
-				"span",
-				V.hiddenTransformMessage === 1
-					? "Your mental state is too fragile to continue hiding your inner self."
-					: "Hiding your inner self takes a toll on your mental state.",
-				"red"
-			);
-			delete V.hiddenTransformMessage;
-		}
-
 		if (V.prof_spray_message) {
 			element("span", "Your spray was accurate. You didn't need to use a full cartridge, saving ammo.", "green");
 			delete V.prof_spray_message;

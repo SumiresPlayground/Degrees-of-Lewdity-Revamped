@@ -4983,7 +4983,7 @@ function initHead() {
 			location: 0,
 			iconFile: "sparkle-band.png",
 			accIcon: "sparkle-band-acc.png",
-		}/*,
+		},
 
 		{
 			index: 12,
@@ -5020,8 +5020,8 @@ function initHead() {
 			back_img: 0,
 			cursed: 0,
 			location: 0,
-			iconFile: "sparkle-band.png",
-		}*/
+			iconFile: "detective-hat.png",
+		}
 	];
 
 	setup.moddedClothes.head.forEach((x, i) => (x.index = setup.clothes.head.length + i));

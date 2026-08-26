@@ -285,7 +285,7 @@ setup.colours = {
 			desaturate: false,
 		},
 		aquatic: {
-			gradient: ["#d692fc", "#70E0C4"],
+			gradient: ["#dcc6e3", "#70E0C4"],
 			blendMode: "multiply",
 			desaturate: false,
 		},

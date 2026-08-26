@@ -1002,6 +1002,9 @@ function specialClothesUnlockText(toUnlock, group) {
 					case "bird":
 						output += '<span class="brown">Feathered accessories</span> <span class="gold">are now available at the forest shop!</span><br><br>';
 						break;
+					case "perchten_mask":
+						output += '<span class="teal">The perchten mask</span> <span class="gold">is now available at the cursed shop!</span><br><br>';
+						break;
 					default:
 						output +=
 							'<span class="gold">New clothes are available at the forest shop:</span> <span class="teal">' +

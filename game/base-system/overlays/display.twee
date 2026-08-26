@@ -2,6 +2,24 @@
 <<widget "npcsettings">>
 	<div class="settingsGrid">
 		<div class="settingsHeader options">NPC Display</div>
+			<<set $npcview to 1>>
+			<<if $mickeySkincolour is undefined>>
+				<<if random(1, 100) lte $settings.darkSkinChance>>
+					<<set $mickeySkincolour to "dark">>
+				<<else>>
+					<<set $mickeySkincolour to "light">>
+				<</if>>
+			<</if>>
+			<<if $sydney is undefined>>
+				<<set $NPCName[28].purity to 100>>
+				<<set $sydney to {
+					glasses: "glasses",
+					hair: "ponytail",
+					swim: "school",
+					sexTotal: 0,
+					rank: "initiate",
+				}>>
+			<</if>>
 			<div class="settingsToggleItemWide">
 				<span class="green">NPC Display will display an image of a named NPC if they are present in the scene. To add an NPC image, go into the npc folder in the img folder and replace the character you want to use.</span>
 				<br><br>
@@ -10,35 +28,84 @@
 				<label>Disabled <<radiovar "$NPCenable" "0">><<updatesidebarimg>><</radiovar>></label>
 			</div>
 			<div class="settingsToggleItemWide">
-				<span class="green">The creator pack will change all NNPC sprites to the ones created by the chosen user.</span>
-				<br><br>
-				<span class="gold">Creator Pack:</span><br>
-				<label>mozumelody <<radiovar "$creatorname" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
-				<label>CDNPC
-				<mouse class = "tooltip linkBlue">(?)
-				        <span>
-				            Use the Custom Dynamic NPC Portraits Mod in the sidebar
-                        </span>
-                </mouse>
-                <<radiovar "$creatorname" "cdnpc">><<updatesidebarimg>><</radiovar>></label> |
-				<label>Custom <<radiovar "$creatorname" "custom">><<updatesidebarimg>><</radiovar>></label>
-			</div>
-			<div class="settingsToggleItemWide">
-				<span class="green">Static NPC display will display the NPC's named files, found in the npc folder inside the img folder.<br><br>
-				Dynamic NPCs will automatically adjust for NPC sex, skin color, and species in the cases of Great Hawk and Black Wolf.<br><br>
-				These dynamic files can be found inside the npc folder, go into the folders labeled with each NPC name, the sex of the NPC, m for male, f for female, then the skin tone dark, light, or monster.</span>
-				<br><br>
-				<span class="gold">NPC Display Type:</span><br>
-				<label>Dynamic <<radiovar "$NPCstatic" "0">><<updatesidebarimg>><</radiovar>></label> |
-				<label>Static <<radiovar "$NPCstatic" "1">><<updatesidebarimg>><</radiovar>></label>
-			</div>
-			<div class="settingsToggleItemWide">
 				<span class="green">The layering of the NPC. Behind will display the NPC behind the player, in front will display them in front.</span>
 				<br><br>
 				<span class="gold">NPC Display Position:</span><br>
 				<label>Behind <<radiovar "$NPCposition" "1">><<updatesidebarimg>><</radiovar>></label> |
 				<label>In Front <<radiovar "$NPCposition" "2">><<set $customNNPC.sidebarLayer to "front">><<updatesidebarimg>><</radiovar>></label>
 			</div>
+			<div class="settingsToggleItemWide">
+				<span class="green">Whether the NPC display will use supplied pngs or CDNPCs.</span>
+				<br><br>
+				<span class="gold">Display Type:</span><br>
+				<label>PNG <<radiovar "$creatorname" "png">><<set $customNNPC.canvasLocation to "sidebar">><<updatesidebarimg>><</radiovar>></label> |
+				<label>CDNPC <<radiovar "$creatorname" "cdnpc">><<set $customNNPC.sidebarLayer to "front">><<updatesidebarimg>><</radiovar>></label>
+			</div>
+			<div class="settingsToggleItemWide">
+				<span class="green">When set to pngs, the creator pack will change NNPC sprites to the ones created by the chosen user.</span>
+				<br><br>
+				<span class="gold">NNPC sprites:</span><br>
+
+				<<set _npcList to [
+					"Alex", "Avery", "Bailey", "Black Wolf", "Briar", "Brown Fox", "Charlie", 
+					"Darryl", "Doren", "Eden", "Great Hawk", "Gwylan", "Harper", "Ivory Wraith",
+					"Jordan", "Kylar", "Landry", "Leighton", "Mason", "Mickey", "Morgan",
+					"Night Monster", "Niki", "Quinn", "Remy", "River", "Robin", "Sam",
+					"Sirris", "Sydney", "Whitney", "Winter", "Wren", "Zephyr", "Casey",
+					"Haegish", "Pruti", "Salem", "Taylor"
+				]>>
+
+				<<set $selectedNPC to "">>
+
+				<div class="npc-selector">
+					<label for="npc-listbox"><span class="gold">Select NPC:</span></label>
+					<<listbox "$selectedNPC" autoselect>>
+						<<optionsfrom _npcList>>
+					<</listbox>>
+				</div>
+				<div id="sprite-options">
+					<<switch $selectedNPC>>
+					<<case "Alex">>
+						<span class="gold">Alex:</span>
+						<label>mozumelody
+							<mouse class="tooltip linkBlue">(?)
+								<span>Only male sprites</span>
+							</mouse>
+							<<radiovar "$creatorAlex" "mozumelody">><<updatesidebarimg>><</radiovar>>
+						</label> |
+						<label>Maganat
+							<mouse class="tooltip linkBlue">(?)
+								<span>Only female sprites</span>
+							</mouse>
+							<<radiovar "$creatorAlex" "Maganat">><<updatesidebarimg>><</radiovar>>
+						</label> |
+						<label>pinkprince
+							<mouse class="tooltip linkBlue">(?)
+								<span>Only male sprites</span>
+							</mouse>
+							<<radiovar "$creatorAlex" "pinkprince">><<updatesidebarimg>><</radiovar>>
+						</label> |
+						<label>lzbear
+							<mouse class="tooltip linkBlue">(?)
+								<span>Only male light skin sprites</span>
+							</mouse>
+							<<radiovar "$creatorAlex" "lzbear">><<updatesidebarimg>><</radiovar>>
+						</label> |
+						<label>Custom <<radiovar "$creatorAlex" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+					<</switch>>
+					<<script>>
+						$(document).on('change', '#listbox-selectednpc', function() {
+
+						var npc = State.variables.selectedNPC;
+						var $container = $('#sprite-options');
+						if (npc) {
+							$container.empty().wiki('<<include "NPC Sprite Options">>').show();
+						} else {
+							$container.empty().hide();
+						}
+						});
+					<</script>>
+				</div>
 	</div>
 <</widget>>
 
@@ -2227,3 +2294,762 @@
 			</div>
 	</div>
 <</widget>>
+
+:: NPC Sprite Options
+<<switch $selectedNPC>>
+	<<case "Alex">>
+		<span class="gold">Alex:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorAlex" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorAlex" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>pinkprince
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorAlex" "pinkprince">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorAlex" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorAlex" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Avery">>
+		<span class="gold">Avery:</span>
+		<label>mozumelody <<radiovar "$creatorAvery" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate female sprites</span>
+			</mouse>
+			<<radiovar "$creatorAvery" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody3
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate female sprites</span>
+			</mouse>
+			<<radiovar "$creatorAvery" "mozumelody3">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorAvery" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorAvery" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>saturdayat11
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorAvery" "saturdayat11">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorAvery" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Bailey">>
+		<span class="gold">Bailey:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorBailey" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>morguesuite
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorBailey" "morguesuite">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>rmnff
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorBailey" "rmnff">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorBailey" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Black Wolf">>
+		<span class="gold">Black Wolf:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorBlackWolf" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>pinkprince
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorBlackWolf" "pinkprince">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only monster sprites</span>
+			</mouse>
+			<<radiovar "$creatorBlackWolf" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorBlackWolf" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Briar">>
+		<span class="gold">Briar:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorBriar" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorBriar" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Brown Fox">>
+		<span class="gold">Brown Fox:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorBrownFox" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorBrownFox" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Charlie">>
+		<span class="gold">Charlie:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorCharlie" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorCharlie" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorCharlie" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Darryl">>
+		<span class="gold">Darryl:</span>
+		<label>mozumelody <<radiovar "$creatorDarryl" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorDarryl" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorDarryl" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Doren">>
+		<span class="gold">Doren:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorDoren" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorDoren" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Eden">>
+		<span class="gold">Eden:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ryonanoia
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "ryonanoia">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>pinkprince
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "pinkprince">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>morguesuite
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "morguesuite">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>YO <<radiovar "$creatorEden" "YO">><<updatesidebarimg>><</radiovar>></label> |
+		<label>YO2 <<radiovar "$creatorEden" "YO2">><<updatesidebarimg>><</radiovar>></label> |
+		<label>anaxmii
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "anaxmii">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>anaxmii2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "anaxmii2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorEden" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Great Hawk">>
+		<span class="gold">Great Hawk:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorGreatHawk" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only monster sprites</span>
+			</mouse>
+			<<radiovar "$creatorGreatHawk" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorGreatHawk" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Gwylan">>
+		<span class="gold">Gwylan:</span>
+		<label>mozumelody <<radiovar "$creatorGwylan" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2 <<radiovar "$creatorGwylan" "mozumelody2">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorGwylan" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ryonanoia
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorGwylan" "ryonanoia">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorGwylan" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Harper">>
+		<span class="gold">Harper:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorHarper" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorHarper" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>saturdayat11
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorHarper" "saturdayat11">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ikan_busuk
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorHarper" "ikan_busuk">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>sunaraei
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorHarper" "sunaraei">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorHarper" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Ivory Wraith">>
+		<span class="gold">Ivory Wraith:</span>
+		<label>YO <<radiovar "$creatorIvoryWraith" "YO">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Custom <<radiovar "$creatorIvoryWraith" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Jordan">>
+		<span class="gold">Jordan:</span>
+		<label>mozumelody <<radiovar "$creatorJordan" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorJordan" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorJordan" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>bluechiizu
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorJordan" "bluechiizu">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorJordan" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Kylar">>
+		<span class="gold">Kylar:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites | Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ryonanoia
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "ryonanoia">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>soup
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "soup">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>pinkprince
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "pinkprince">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>homebodyc_c
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "homebodyc_c">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>sunaraei
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "sunaraei">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>reisen
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorKylar" "reisen">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>YO <<radiovar "$creatorKylar" "YO">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Custom <<radiovar "$creatorKylar" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Landry">>
+		<span class="gold">Landry:</span>
+		<label>mozumelody <<radiovar "$creatorLandry" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorLandry" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorLandry" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>pinkprince
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorLandry" "pinkprince">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorLandry" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Leighton">>
+		<span class="gold">Leighton:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorLeighton" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>pinkprince
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorLeighton" "pinkprince">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorLeighton" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Mason">>
+		<span class="gold">Mason:</span>
+		<label>mozumelody <<radiovar "$creatorMason" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate female dark skin</span>
+			</mouse>
+			<<radiovar "$creatorMason" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorMason" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorMason" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Mickey">>
+		<span class="gold">Mickey:</span>
+		<label>mozumelody <<radiovar "$creatorMickey" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2 <<radiovar "$creatorMickey" "mozumelody2">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Maganat <<radiovar "$creatorMickey" "Maganat">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Custom <<radiovar "$creatorMickey" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Morgan">>
+		<span class="gold">Morgan:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorMorgan" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorMorgan" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorMorgan" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Night Monster">>
+		<span class="gold">Night Monster:</span>
+		<label>Custom <<radiovar "$creatorNightMonster" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Niki">>
+		<span class="gold">Niki:</span>
+		<label>mozumelody <<radiovar "$creatorNiki" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2 <<radiovar "$creatorNiki" "mozumelody2">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorNiki" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorNiki" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Quinn">>
+		<span class="gold">Quinn:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorQuinn" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites | No glasses</span>
+			</mouse>
+			<<radiovar "$creatorQuinn" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorQuinn" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorQuinn" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Remy">>
+		<span class="gold">Remy:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorRemy" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorRemy" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "River">>
+		<span class="gold">River:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorRiver" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorRiver" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Robin">>
+		<span class="gold">Robin:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites | Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites | Crossdressing available</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ryonanoia
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "ryonanoia">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>soup
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "soup">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>saturdayat11
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "saturdayat11">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ENNE
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites sprites | Crossdressing available</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "ENNE">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorRobin" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Sam">>
+		<span class="gold">Sam:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorSam" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites | Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorSam" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorSam" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorSam" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Sirris">>
+		<span class="gold">Sirris:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorSirris" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorSirris" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Sydney">>
+		<span class="gold">Sydney:</span>
+		<label>mozumelody <<radiovar "$creatorSydney" "mozumelody">><<updatesidebarimg>><</radiovar>></label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorSydney" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorSydney" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ryonanoia
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorSydney" "ryonanoia">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>soup
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorSydney" "soup">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorSydney" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>politicalcompass
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorSydney" "politicalcompass">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>YO <<radiovar "$creatorSydney" "YO">><<updatesidebarimg>><</radiovar>></label> |
+		<label>YO2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate ponytail sprites</span>
+			</mouse>
+			<<radiovar "$creatorSydney" "YO2">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Custom <<radiovar "$creatorSydney" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Whitney">>
+		<span class="gold">Whitney:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ryonanoia
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "ryonanoia">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>soup
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "soup">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>lzbear
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "lzbear">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>homebodyc_c
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "homebodyc_c">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>YO <<radiovar "$creatorWhitney" "YO">><<updatesidebarimg>><</radiovar>></label> |
+		<label>YO2 <<radiovar "$creatorWhitney" "YO2">><<updatesidebarimg>><</radiovar>></label> |
+		<label>bluechiizu
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorWhitney" "bluechiizu">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorWhitney" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Winter">>
+		<span class="gold">Winter:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorWinter" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorWinter" "Maganat2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>pinkprince
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorWinter" "pinkprince">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorWinter" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Wren">>
+		<span class="gold">Wren:</span>
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorWren" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>ikan_busuk
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorWren" "ikan_busuk">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>YO <<radiovar "$creatorWren" "YO">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Custom <<radiovar "$creatorWren" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Zephyr">>
+		<span class="gold">Zephyr:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorZephyr" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites | Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorZephyr" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Maganat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorZephyr" "Maganat">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorZephyr" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Casey">>
+		<span class="gold">Casey:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorCasey" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorCasey" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Haegish">>
+		<span class="gold">Haegish:</span>
+		<label>Custom <<radiovar "$creatorHaegish" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Pruti">>
+		<span class="gold">Pruti:</span>
+		<label>Custom <<radiovar "$creatorPruti" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Salem">>
+		<span class="gold">Salem:</span>
+		<label>Custom <<radiovar "$creatorSalem" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Taylor">>
+		<span class="gold">Taylor:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorTaylor" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Custom <<radiovar "$creatorTaylor" "custom">><<updatesidebarimg>><</radiovar>></label>
+<</switch>>

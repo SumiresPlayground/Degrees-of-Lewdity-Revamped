@@ -209,6 +209,8 @@ function closeOverlay() {
 	$.event.trigger(":oncloseoverlay", [T.currentOverlay]);
 	delete T.currentOverlay;
 	delete V.tempDisable;
+	delete V.npcview;
+	Wikifier.wikifyEval("<<updatesidebarimg>>");
 }
 window.closeOverlay = closeOverlay;
 
