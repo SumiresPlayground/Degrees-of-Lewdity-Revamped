@@ -2574,7 +2574,7 @@ function initLegs() {
 			location: 0,
 			iconFile: "academysocks.png",
 			accIcon: 0,
-		}/*,
+		},
 		
 			{index: 6,
 			slot: "legs",
@@ -2607,9 +2607,9 @@ function initLegs() {
 			accessory_colour_sidebar: 0,
 			cursed: 0,
 			location: 0,
-			iconFile: "academysocks.png",
+			iconFile: "detective-socks.png",
 			accIcon: 0,
-		}*/
+		}
 	];
 
 	setup.moddedClothes.legs.forEach((x, i) => (x.index = setup.clothes.legs.length + i));

@@ -365,7 +365,7 @@ function initLower() {
 			location: 0,
 			iconFile: "spring-dancer-lower.png",
 			accIcon: "spring-dancer-lower-acc.png",
-		}/*,
+		},
 	
 			{index: 8,
 			slot: "lower",
@@ -413,9 +413,9 @@ function initLower() {
 			cursed: 0,
 			notuck: 1,
 			location: 0,
-			iconFile: "academyskirt.png",
+			iconFile: "detective-lower.png",
 			accIcon: 0,
-		}*/
+		}
 	];
 
 	/** @type {ClothesItem[]} */

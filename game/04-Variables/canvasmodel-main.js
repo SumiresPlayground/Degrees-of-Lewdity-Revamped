@@ -1166,17 +1166,21 @@ Renderer.CanvasModels.main = {
 					let index, skin, skincolour, creatorvariable;
 					if (!excludedNPCs.includes(currentNPC)) {
 						index = npcs.indexOf(currentNPC);
+						/*skin = V.NPCName[index].skincolour;
+						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;*/
 						skin = V.NPCName[index].skincolour;
 						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
 					} else if (currentNPC === "Brown Fox") {
 						index = 7;
+						/*skin = V.NPCName[index].skincolour;
+						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;*/
 						skin = V.NPCName[index].skincolour;
 						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
 					}
 					creatorvariable = V["creator" + currentNPC.replace(/\s+/g, '')];
 
 					if (V.NPCList[0].name === "'Mickey'" || V.selectedNPC === "Mickey")
-						return `img/npc/Mickey/${V.mickeyPronoun}/${V.mickeySkincolour}/${V.creatorMickey}.png`;
+						return `img/npc/Mickey/${V.mickeySkincolour}/${V.creatorMickey}.png`;
 					else if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(currentNPC))
 						return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/monster/${creatorvariable}.png`;
 					else if (currentNPC === "Sydney")
@@ -1184,8 +1188,12 @@ Renderer.CanvasModels.main = {
 							return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/pure/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}/${creatorvariable}.png`;
 						else
 							return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/corrupt/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}/${creatorvariable}.png`;
+					else if ((V.npc[0] === "Robin" || currentNPC === "Robin") && V.NPCName[16].crossdress === 2 && C.npc.Robin.trauma < 40)
+						return `img/npc/${currentNPC}/crossdress/${V.NPCName[index].pronoun}/${skincolour}/${creatorvariable}.png`;
 					else if ((V.npc[0] === "Gwylan" && V.brownfox === 1) || currentNPC === "Brown Fox")
 						return `img/npc/Brown Fox/${V.NPCName[index].pronoun}/${skincolour}/${creatorvariable}.png`;
+					else if (V.npc[0] === "Ivory Wraith" || currentNPC === "Ivory Wraith")
+						return `img/npc/Ivory Wraith/${(V.wraith.state === "despair" || V.wraith.state === "haunt") ? "haunt" : "active"}/${creatorvariable}.png`;
 					else
 						return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/${skincolour}/${creatorvariable}.png`;}
 			},

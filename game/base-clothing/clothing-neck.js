@@ -2229,7 +2229,7 @@ function initNeck() {
 		accessory_colour_options: [],
 		cursed: 1,
 		location: 0,
-		iconFile: "collar.png",
+		iconFile: "whitneycollar.png",
 		accIcon: 0,
 	},
 	{
@@ -2266,7 +2266,7 @@ function initNeck() {
 		accessory_colour_options: [],
 		cursed: 1,
 		location: 0,
-		iconFile: "collar.png",
+		iconFile: "edencollar.png",
 		accIcon: 0,
 	}
 	];

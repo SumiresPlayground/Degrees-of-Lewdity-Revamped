@@ -13773,7 +13773,7 @@ function initUpper() {
 			notuck: 0,
 			pregType: 0,
 			back_img: 0,
-		}/*,
+		},
 	
 			{index: 6,
 			slot: "upper",
@@ -13815,10 +13815,10 @@ function initUpper() {
 			back_img: 1,
 			cursed: 0,
 			location: 0,
-			iconFile: "academytop.png",
+			iconFile: "detective-upper.png",
 			notuck: 0,
 			pregType: 0,
-		}*/
+		}
 	];
 
 	setup.moddedClothes.upper.forEach((x, i) => (x.index = setup.clothes.upper.length + i));

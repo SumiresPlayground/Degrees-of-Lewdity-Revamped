@@ -3411,7 +3411,7 @@ function initFeet() {
 		location: 0,
 		iconFile: "race1boots.png",
 		accIcon: 0
-	}/*,
+	},
 		
 		{index: 5,
 		slot: "feet",
@@ -3445,9 +3445,9 @@ function initFeet() {
 		cursed: 0,
 		notuck: 1,
 		location: 0,
-		iconFile: "race1boots.png",
+		iconFile: "detective-shoes.png",
 		accIcon: 0
-	}*/
+	}
 	];
 
 	setup.moddedClothes.feet.forEach((x, i) => (x.index = setup.clothes.feet.length + i));
