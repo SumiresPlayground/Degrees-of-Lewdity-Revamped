@@ -274,12 +274,12 @@ setup.colours = {
 			alpha: 0.8,
 			desaturate: false,
 		},
-		rot: {
+		rotten: {
 			gradient: ["#a6bba4", "#5f6b59"],
 			blendMode: "multiply",
 			desaturate: false,
 		},
-		space: {
+		cosmic: {
 			gradient: ["#f9edd9", "#f9edd9"],
 			blendMode: "exclusion",
 			desaturate: false,
@@ -287,6 +287,16 @@ setup.colours = {
 		aquatic: {
 			gradient: ["#dcc6e3", "#70E0C4"],
 			blendMode: "multiply",
+			desaturate: false,
+		},
+		demonic: {
+			gradient: ["#9767e4", "#eb5a5a"],
+			blendMode: "multiply",
+			desaturate: false,
+		},
+		angelic: {
+			gradient: ["#8fb9d1", "#dddca5"],
+			blendMode: "luminosity",
 			desaturate: false,
 		},
 	},

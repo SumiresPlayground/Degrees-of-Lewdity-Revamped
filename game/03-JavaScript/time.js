@@ -1266,159 +1266,64 @@ function minutePassed(minutes) {
 
 	// Effects
 	/*
-	if (V.settings.bruisingEnabled){
-		{if (V.facebruise >= 80)
-			V.face_bruise = "scarred";
-		else if (V.facebruise >= 60)
-			V.face_bruise = "swollen";
-		else if (V.facebruise >= 40)
-			V.face_bruise = "hurt";
-		else if (V.facebruise >= 20)
-			V.face_bruise = "red";
-		else
-			V.face_bruise = "disabled";}
+	const bruiselevels = [
+	{ min: 80, bruise: "scarred",   blood: "wounded" },
+	{ min: 60, bruise: "swollen",   blood: null },
+	{ min: 40, bruise: "hurt",      blood: null },
+	{ min: 20, bruise: "red",       blood: null },
+	{ min: 0,  bruise: "disabled",  blood: "disabled" }
+	];
 
-		{if (V.facebruise >= 60)
-			V.eye_bruise = "swollen";
-		else
-			V.eye_bruise = "disabled";}
+	const bodyparts = [
+	"face", "eye", "chest", "neck", 
+	"leftarm", "rightarm", "thigh", "tummy", "penis"
+	];
 
-		{if (V.chestbruise >= 80)
-			V.chest_bruise = "scarred";
-		else if (V.chestbruise >= 60)
-			V.chest_bruise = "swollen";
-		else if (V.chestbruise >= 40)
-			V.chest_bruise = "hurt";
-		else if (V.chestbruise >= 20)
-			V.chest_bruise = "red";
-		else
-			V.chest_bruise = "disabled";}
+	function getBruiseLevel(value, blood = false) {
 
-		{if (V.neckbruise >= 80)
-			V.neck_bruise = "scarred";
-		else if (V.neckbruise >= 60)
-			V.neck_bruise = "swollen";
-		else if (V.neckbruise >= 40)
-			V.neck_bruise = "hurt";
-		else if (V.neckbruise >= 20)
-			V.neck_bruise = "red";
-		else
-			V.neck_bruise = "disabled";}
+	for (const t of bruiselevels) {
+		if (value >= t.min) {
+			return blood ? t.blood : t.bruise;
+		}
+	}
+	return blood ? "disabled" : "disabled";
+	}
 
-		{if (V.leftarmbruise >= 80)
-			V.leftarm_bruise = "scarred";
-		else if (V.leftarmbruise >= 60)
-			V.leftarm_bruise = "swollen";
-		else if (V.leftarmbruise >= 40)
-			V.leftarm_bruise = "hurt";
-		else if (V.leftarmbruise >= 20)
-			V.leftarm_bruise = "red";
-		else
-			V.leftarm_bruise = "disabled";}
-
-		{if (V.rightarmbruise >= 80)
-			V.rightarm_bruise = "scarred";
-		else if (V.rightarmbruise >= 60)
-			V.rightarm_bruise = "swollen";
-		else if (V.rightarmbruise >= 40)
-			V.rightarm_bruise = "hurt";
-		else if (V.rightarmbruise >= 20)
-			V.rightarm_bruise = "red";
-		else
-			V.rightarm_bruise = "disabled";}
-
-		{if (V.thighbruise >= 80)
-			V.thigh_bruise = "scarred";
-		else if (V.thighbruise >= 60)
-			V.thigh_bruise = "swollen";
-		else if (V.thighbruise >= 40)
-			V.thigh_bruise = "hurt";
-		else if (V.thighbruise >= 20)
-			V.thigh_bruise = "red";
-		else
-			V.thigh_bruise = "disabled";}
-
-		{if (V.tummybruise >= 80)
-			V.tummy_bruise = "scarred";
-		else if (V.tummybruise >= 60)
-			V.tummy_bruise = "swollen";
-		else if (V.tummybruise >= 40)
-			V.tummy_bruise = "hurt";
-		else if (V.tummybruise >= 20)
-			V.tummy_bruise = "red";
-		else
-			V.tummy_bruise = "disabled";}
-
-		{if (V.penisbruise >= 80)
-			V.penis_bruise = "scarred";
-		else if (V.penisbruise >= 60)
-			V.penis_bruise = "swollen";
-		else if (V.penisbruise >= 40)
-			V.penis_bruise = "hurt";
-		else if (V.penisbruise >= 20)
-			V.penis_bruise = "red";
-		else
-			V.penis_bruise = "disabled";}}
-	else{
-		V.face_bruise = "disabled";
+	if (V.settings.bruisingEnabled) {
+		for (const part of bodyparts) {
+			const value = V[`${part}bruise`];
+			if (value === undefined) continue;
+			const level = getBruiseLevel(value);
+			if (part === "eye") {
+				V.eye_bruise = value >= 60 ? "swollen" : "disabled";
+			} else {
+				V[`${part}_scar`] = value >= 80 ? "scarred" : "disabled";
+				V[`${part}_bruise`] = level;
+			}
+		}
+	} else {
+		for (const part of bodyparts) {
+			V[`${part}_bruise`] = "disabled";
+			V[`${part}_scar`] = "disabled";
+		}
 		V.eye_bruise = "disabled";
-		V.chest_bruise = "disabled";
-		V.neck_bruise = "disabled";
-		V.leftarm_bruise = "disabled";
-		V.rightarm_bruise = "disabled";
-		V.thigh_bruise = "disabled";
-		V.tummy_bruise = "disabled";
-		V.penis_bruise = "disabled";}
+	}
 
-	if (V.settings.goreEnabled){
-		{if (V.facebruise >= 80)
-			V.face_blood = "enabled";
-		else
-			V.face_blood = "disabled";}
-
-		{if (V.chestbruise >= 80)
-			V.chest_blood = "enabled";
-		else
-			V.chest_blood = "disabled";}
-
-		{if (V.neckbruise >= 80)
-			V.neck_blood = "enabled";
-		else
-			V.neck_blood = "disabled";}
-
-		{if (V.leftarmbruise >= 80)
-			V.leftarm_blood = "enabled";
-		else
-			V.leftarm_blood = "disabled";}
-
-		{if (V.rightarmbruise >= 80)
-			V.rightarm_blood = "enabled";
-		else
-			V.rightarm_blood = "disabled";}
-
-		{if (V.thighbruise >= 80)
-			V.thigh_blood = "enabled";
-		else
-			V.thigh_blood = "disabled";}
-
-		{if (V.tummybruise >= 80)
-			V.tummy_blood = "enabled";
-		else
-			V.tummy_blood = "disabled";}
-
-		{if (V.penisbruise >= 80)
-			V.penis_blood = "enabled";
-		else
-			V.penis_blood = "disabled";}}
-	else{
-		V.face_blood = "disabled";
-		V.chest_blood = "disabled";
-		V.neck_blood = "disabled";
-		V.leftarm_blood = "disabled";
-		V.rightarm_blood = "disabled";
-		V.thigh_blood = "disabled";
-		V.tummy_blood = "disabled";
-		V.penis_blood = "disabled";}
+	if (V.settings.goreEnabled) {
+		for (const part of bodyparts) {
+			const value = V[`${part}bruise`];
+			if (value === undefined) continue;
+			const bloodLevel = getBruiseLevel(value, true);
+			if (part !== "eye") {
+				if (value >= 80) V[`${part}_bruise`] = "wounded";
+				V[`${part}_blood`] = bloodLevel;
+			}
+		}
+	} else {
+		for (const part of bodyparts) {
+			if (part !== "eye") V[`${part}_blood`] = "disabled";
+		}
+	}
 	*/
 
 	V.stress = Math.min(V.stress, V.stressmax);

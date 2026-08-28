@@ -2403,7 +2403,12 @@
 	/*Hiding parts of your Inner Self will slowly increase your Trauma over time (excludes pubes and pits).
 	If your Trauma gets too high, you will be unable to hide.*/
 
-	<<link "__Remove All Transformation Points__">><<clearDivineTransformations>><<clearAnimalTransformations>><<updatesidebarimg>><</link>>
+	<<link "__Remove All Transformation Points__">>
+		<<if $ghost is 0 and $slime is 0 and $mushroom is 0>>
+			<<set Skin.color.natural to $skincolourreset>>
+		<</if>>
+		<<clearDivineTransformations>><<clearAnimalTransformations>><<updatesidebarimg>>
+	<</link>>
 	<br>
 
 	<label for="tfs">Remove a Specific Transformatiom:</label>
@@ -2914,7 +2919,31 @@
 		<</if>>
 		<br>
 	<</if>>
-
+	<<if $demon gte 6 or $demontf is 1 or $angel gte 6 or $angeltf is 1>>
+		__Skin__<br>
+			<<if ($demon gte 6 or $demontf is 1) and $ghost is 0 and $slime is 0 and $mushroom is 0>>
+				<<tficon "demon">>Demonic Skin:<br>
+				<<link "Set">>
+					<<set Skin.color.natural to "demonic">>
+					<<updatesidebarimg>>
+				<</link>>/
+				<<link "Clear">>
+					<<set Skin.color.natural to $skincolourreset>>
+					<<updatesidebarimg>>
+				<</link>><br>
+			<</if>>
+			<<if ($angel gte 6 or $angeltf is 1) and $ghost is 0 and $slime is 0 and $mushroom is 0>>
+				<<tficon "angel">>Angelic Skin:<br>
+				<<link "Set">>
+					<<set Skin.color.natural to "angelic">>
+					<<updatesidebarimg>>
+				<</link>>/
+				<<link "Clear">>
+					<<set Skin.color.natural to $skincolourreset>>
+					<<updatesidebarimg>>
+				<</link>><br>
+			<</if>>
+	<</if>>
 	<<if ($traumatized isnot undefined)>>
 		__Trauma__<br>
 		<<link [[Set|$passage]]>><<set $irisempty to true>><<updatesidebarimg>><</link>> / <<link [[Clear|$passage]]>><<set $irisempty to false>><<updatesidebarimg>><</link>><br>
@@ -3037,7 +3066,12 @@
 	/*Hiding parts of your Inner Self will slowly increase your Trauma over time (excludes pubes and pits).
 	If your Trauma gets too high, you will be unable to hide.*/
 
-	<<link "__Remove All Transformation Points__">><<clearDivineTransformations>><<clearAnimalTransformations>><<updatesidebarimg>><</link>>
+	<<link "__Remove All Transformation Points__">>
+		<<if $ghost is 0 and $slime is 0 and $mushroom is 0>>
+			<<set Skin.color.natural to $skincolourreset>>
+		<</if>>
+		<<clearDivineTransformations>><<clearAnimalTransformations>><<updatesidebarimg>>
+	<</link>>
 	<br>
 
 	<label for="tfs">Remove a Specific Transformatiom:</label>

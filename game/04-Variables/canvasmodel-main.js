@@ -3461,7 +3461,7 @@ Renderer.CanvasModels.main = {
 		},
 		"eye_bruise": {
 			srcfn(options) {
-				return `img/bruises/${options.facevariant}eyes.png`;
+				return `img/bruises/faceeyes.png`;
 			},
 			showfn(options) {
 				if (options.eye_bruise === "disabled"){
@@ -3475,7 +3475,7 @@ Renderer.CanvasModels.main = {
 		},
 		"chest_bruise": {
 			srcfn(options) {
-				return `img/bruises/chest${options.chest_bruise}.png`;
+				return `img/bruises/breasts/${options.breast_size}${options.chest_bruise}.png`;
 			},
 			showfn(options) {
 				if (options.chest_bruise === "disabled"){
@@ -3489,8 +3489,8 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 		"chest_blood": {
-			srcfn() {
-				return `img/bruises/chestblood.png`;
+			srcfn(options) {
+				return `img/bruises/breasts/${options.breast_size}blood.png`;
 			},
 			showfn(options) {
 				if (options.chest_blood === "disabled"){
@@ -3661,7 +3661,7 @@ Renderer.CanvasModels.main = {
 		},
 		"penis_bruise": {
 			srcfn(options) {
-				return `img/bruises/penis/${options.penis}${options.penis_bruise}.png`;
+				return `img/bruises/penis/${options.penis.replace("-virgin", "")}${options.penis_bruise}.png`;
 			},
 			showfn(options) {
 				if (options.penis_bruise === "disabled" || !options.crotch_visible || playerHasStrapon() || (options.ear_slime_panties && V.arousal < 6000)){
@@ -3676,7 +3676,7 @@ Renderer.CanvasModels.main = {
 		},
 		"penis_blood": {
 			srcfn(options) {
-				return `img/bruises/penis/${options.penis}blood.png`;
+				return `img/bruises/penis/${options.penis.replace("-virgin", "")}blood.png`;
 			},
 			showfn(options) {
 				if (options.penis_blood === "disabled" || !options.crotch_visible || playerHasStrapon() || (options.ear_slime_panties && V.arousal < 6000)){
