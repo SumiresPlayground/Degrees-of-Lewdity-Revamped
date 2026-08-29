@@ -881,11 +881,7 @@ Renderer.CanvasModels.main = {
 			options.headMask.push(`img/clothes/handheld/${options.worn.handheld.setup.variable}/mask.png`);
 		}
 
-		if (options.worn.face.setup.mask_img === 1) {
-			options.headMask.push(`img/clothes/face/${options.worn.face.setup.variable}/mask.png`);
-		}
-
-		if (["fro", "afro pouf", "afro puffs"].includes(options.hair_sides_type) && options.hair_fringe_type === "fro") {
+		if (["fro"].includes(options.hair_sides_type) && options.hair_fringe_type === "fro") {
 			options.fringe_mask_src = `img/hair/fringe/${options.hair_fringe_type}/mask.png`;
 		} else {
 			options.fringe_mask_src = null;
@@ -1996,19 +1992,25 @@ Renderer.CanvasModels.main = {
 					"loose",
 					"curl",
 					"defined curl",
+					"drill ringlets",
 					"neat",
 					"dreads",
 					"afro pouf",
 					"thick ponytail",
 					"all down",
-					"half-up",
+					"half up",
 					"messy ponytail",
 					"ruffled",
-					"half up twintail",
+					"half up twintails",
 					"princess wave",
 					"space buns",
 					"sleek",
 					"bedhead",
+					"classic",
+					"cornrows",
+					"french curls",
+					"jellyfish bob",
+					"princess ponytail"
 				];
 
 				const path = `img/hair/back/${options.hair_sides_type}`;
@@ -3918,7 +3920,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_face
 					&& !!options.drip_mouth
-					&& !options.worn.face.setup.type.includesAny("mask", "face_covering");
+					&& !options.worn.face.setup.type.includesAny("face_covering");
 			},
 			dxfn(options) {
 				return options.facestyle === "small-eyes" ? 2 : 0;

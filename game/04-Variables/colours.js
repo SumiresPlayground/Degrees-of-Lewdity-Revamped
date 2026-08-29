@@ -386,6 +386,17 @@ setup.colours.hair = [
 		},
 	},
 	{
+		variable: "ebony",
+		name: "ebony",
+		name_cap: "Ebony",
+		csstext: "black",
+		natural: false,
+		dye: true,
+		canvasfilter: {
+			blend: "#000000",
+		},
+	},
+	{
 		variable: "jetblack",
 		name: "jet black",
 		name_cap: "Jet Black",
@@ -477,7 +488,7 @@ setup.colours.hair = [
 		variable: "darkbrown",
 		name: "dark brown",
 		name_cap: "Dark Brown",
-		csstext: "brown",
+		csstext: "darkbrown",
 		natural: true,
 		dye: true,
 		canvasfilter: {
@@ -493,6 +504,17 @@ setup.colours.hair = [
 		dye: true,
 		canvasfilter: {
 			blend: "#644d3c",
+		},
+	},
+	{
+		variable: "copperbrown",
+		name: "copper brown",
+		name_cap: "Copper Brown",
+		csstext: "copperbrown",
+		natural: true,
+		dye: true,
+		canvasfilter: {
+			blend: "#83432f",
 		},
 	},
 	{
@@ -584,6 +606,17 @@ setup.colours.hair = [
 		},
 	},
 	{
+		variable: "frostblue",
+		name: "frost blue",
+		name_cap: "Frost Blue",
+		csstext: "frostblue",
+		natural: false,
+		dye: true,
+		canvasfilter: {
+			blend: "#b0c0f3",
+		},
+	},
+	{
 		variable: "green",
 		name: "green",
 		name_cap: "Green",
@@ -625,6 +658,17 @@ setup.colours.hair = [
 		dye: true,
 		canvasfilter: {
 			blend: "#008040",
+		},
+	},
+	{
+		variable: "aquamarine",
+		name: "aquamarine",
+		name_cap: "Aquamarine",
+		csstext: "aquamarine",
+		natural: false,
+		dye: true,
+		canvasfilter: {
+			blend: "#6dd1b0",
 		},
 	},
 	{
@@ -672,6 +716,17 @@ setup.colours.hair = [
 		},
 	},
 	{
+		variable: "rosegold",
+		name: "rosegold",
+		name_cap: "Rosegold",
+		csstext: "rosegold",
+		natural: false,
+		dye: true,
+		canvasfilter: {
+			blend: "#c47984",
+		},
+	},
+	{
 		variable: "crimson",
 		name: "crimson",
 		name_cap: "Crimson",
@@ -680,6 +735,17 @@ setup.colours.hair = [
 		dye: true,
 		canvasfilter: {
 			blend: "#b30000",
+		},
+	},
+	{
+		variable: "wine",
+		name: "wine",
+		name_cap: "Wine",
+		csstext: "winehair",
+		natural: false,
+		dye: true,
+		canvasfilter: {
+			blend: "#660722",
 		},
 	},
 	{
@@ -713,6 +779,17 @@ setup.colours.hair = [
 		dye: true,
 		canvasfilter: {
 			blend: "#ab66ff",
+		},
+	},
+	{
+		variable: "grey",
+		name: "grey",
+		name_cap: "Grey",
+		csstext: "grey",
+		natural: false,
+		dye: true,
+		canvasfilter: {
+			blend: "#888484",
 		},
 	},
 	{

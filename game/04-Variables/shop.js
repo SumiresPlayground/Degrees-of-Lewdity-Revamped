@@ -296,6 +296,11 @@ setup.shopDetails = {
 		desc: "Something to wear atop your head.",
 		details: "none",
 	},
+	fishing_rod: {
+		name: "Fishing Rod",
+		desc: "Needed to go fishing.",
+		details: "none",
+	},
 	apotropaic: {
 		name: "Apotropaic",
 		desc: "Wards off malicious spirits.",

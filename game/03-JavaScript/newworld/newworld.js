@@ -33,3 +33,33 @@ window.importCreators = function (file) {
     reader.readAsText(file[0]);
     closeOverlay()
 }
+
+function desktopMove(moveTo) {
+		Engine.play(moveTo);
+}
+window.desktopMove = desktopMove;
+
+function sillypregnancy(carrier, carrierSpecies, donor, donorSpecies, orifice, location = V.location) {
+    if (V.settings.pregnancyType !== "silly") return null;
+    if (V.worn.hands.name !== "naked" && (V.leftaction === "lefthandholdkeep" || V.rightaction === "lefthandholdkeep")) return null;
+    if (V.worn.face.type.includes("face_covering") && V.NPCList[_nn].mouth === "kiss") return null;
+    const pregnancyId = createPregnancy(
+		"pc",
+		"human",
+		donor,
+		donorSpecies,
+		[{ name: donor, species: donorSpecies }],
+		Time.date.timeStamp,
+		orifice,
+		location
+	);
+	if (V.settings.pregnancyType === "silly") {
+		setKnowsDonor(pregnancyId, "pc");
+		setKnowsCarrier(pregnancyId, "pc");
+		T.playerIsNowPregnant = donor;
+	}
+	return pregnancyId;
+}
+window.sillypregnancy = sillypregnancy;
+
+DefineMacro("sillypregnancy", sillypregnancy);
