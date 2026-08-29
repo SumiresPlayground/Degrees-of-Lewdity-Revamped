@@ -418,7 +418,7 @@ You open the window and perch on the edge of the sill, dangling your feet in the
 :: Orphanage Loft Bay Window Sing
 <<effects>>
 
-<<if $harpy gte 6>>
+<<if $transformationParts.bird.wings isnot "disabled">>
 	<<transform bird 1>>
 	<<print either(
 		"Your powerful, clear voice pierces the air and subdues every creature it can reach, even the most finicky. The forest yields to you.",
@@ -692,7 +692,7 @@ You watch the forest.
 				Fallen leaves blow through the open window.
 			<</if>>
 		<<case 6>>
-			<<if $harpy gte 6 and $transformationParts.bird.wings isnot "hidden">>
+			<<if $transformationParts.bird.wings isnot "disabled" and $transformationParts.bird.wings isnot "hidden">>
 				<<print either(
 					"Your feathers flutter loosely in the breeze.",
 					"A warm breeze slips through your feathers.",

@@ -1,6 +1,6 @@
 W.countPaleBabies = () => {
 	Wikifier.wikifyEval(
-		"<<getChildrenIds `{location:'home', father:'Ivory Wraith'}`>>",
+		"<<getChildrenIds `{location:'home', donor:'Ivory Wraith'}`>>",
 	);
 	return T.childrenIds.length;
 };
