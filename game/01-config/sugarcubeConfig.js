@@ -11,7 +11,7 @@ const StartConfig = {
 	debug: false,
 	enableImages: true,
 	enableLinkNumberify: true,
-	version: "0.5.12.6 New World 0.1.9.7",
+	version: "0.5.12.6 New World 0.1.9.8",
 	versionName: `"Abyssal" edition`,
 	sneaky: false,
 	socialMediaEnabled: true,
