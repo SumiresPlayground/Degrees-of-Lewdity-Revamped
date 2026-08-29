@@ -32,7 +32,7 @@ setup.shopDetails = {
 	diving: {
 		name: "Diving",
 		desc: "Helps keep you warm underwater.",
-		details: "Prevents stress from rising when swimming in cold water.",
+		details: "Prevents stress from rising when swimming in cold water and protects a slime's membrane.",
 	},
 	dance: {
 		name: "Dance",
@@ -294,6 +294,11 @@ setup.shopDetails = {
 	hat: {
 		name: "Hat",
 		desc: "Something to wear atop your head.",
+		details: "none",
+	},
+	fishing_rod: {
+		name: "Fishing Rod",
+		desc: "Needed to go fishing.",
 		details: "none",
 	},
 	apotropaic: {

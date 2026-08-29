@@ -1087,21 +1087,29 @@
 		You rest your legs.
 	<</if>>
 
-	<br><br>
-
 	<<set $tailactiondefault to $tailaction>>
-	<<if $tailaction is "tailswarm">><<set $tailaction to 0>>
+	<<if $tailaction is "tailswarm">>
+		<<set $tailaction to 0>>
+		<<set _br to true>>
 		<<set $swarm.amount.active[2] -= 1>><<set $swarm.amount.active[3] += 1>>
 		<span class="lblue">You $swarm["steady"] one of the <<swarmName>> with your tail.</span>
 	<</if>>
 
-	<<if $tailaction is "swim">><<set $tailaction to 0>><<set $swimdistance -= 1>>
+	<<if $tailaction is "swim">>
+		<<set $tailaction to 0>><<set $swimdistance -= 1>>
+		<<set _br to true>>
 		You paddle towards safety with your tail.
 	<</if>>
 
-	<<if $hastail is "true" and $tailaction is "swarmrest">><<set $tailaction to 0>>
+	<<if $hastail is "true" and $tailaction is "swarmrest">>
+		<<set $tailaction to 0>>
+		<<set _br to true>>
 		You rest your tail.
 	<</if>>
 
-	<br><br>
+	<<if _br>>
+		<br>
+		<<unset _br>>
+	<</if>>
+	<br>
 <</widget>>

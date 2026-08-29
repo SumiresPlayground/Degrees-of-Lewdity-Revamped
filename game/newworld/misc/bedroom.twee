@@ -1,0 +1,438 @@
+:: Clothes Tear
+You grab a knife from the counter and begin to slice away at the threads of your clothing. After a few minutes of cutting, fabric falls and your clothes look a little more worn.
+<br><br>
+<<link [[Next|Bedroom]]>><</link>>
+
+:: Large Bear Plushie Cuddle
+<<effects>>
+<<wearProp "large teddy bear">>
+<<if $trauma gte ($traumamax / 7) * 3 or $stress gte ($stressmax / 7) * 5>>
+	You desperately cling onto the large bear plushie with your entire body and almost wind up pulling it down onto the ground, whimpering and crying loudly into it.
+<<elseif $trauma gte ($traumamax / 7) * 2 or $stress gte ($stressmax / 7) * 3>>
+	You cling to the large bear plushie and bury your head in it's back, silently crying into it.
+<<elseif $trauma gte ($traumamax / 7) * 1 or $stress gte ($stressmax / 7) * 1>>
+	You wrap your arms around the large bear plushie from behind and rest your head against it's shoulder, hugging it quietly.
+<<else>>
+	You happily take the large bear plushie in your arms.
+<</if>>
+<br><br>
+<<link [[Cuddle with the large bear plushie (0:10)|Large Bear Plushie Cuddle]]>><<stress -2>><<trauma -2>><<pass 10>><</link>><<ltrauma>><<lstress>>
+<br>
+<<link [[Next|Bedroom]]>><</link>>
+
+:: Bedroom Shine
+<<if $stress gte $stressmax>>
+	<<passouthome>>
+<<else>>
+	<<if $aurigafavor is undefined>>
+		<<set $aurigafavor to 0>>
+		<<set $virgofavor to 0>>
+		<<set $abyssinafavor to 0>>
+		<<set $auspaciafavor to 0>>
+	<</if>>
+	You kneel at your shrine. 
+	<br><br>
+	<<if V.furniture.bedroom.shrine.id is "blank">>
+		<span class="blue">You do not presently have a patron deity.</span>
+		<br>
+	<<elseif V.furniture.bedroom.shrine.id is "auriga">>
+		<span class="purple">Your shrine is currently decorated with a carved elk.</span>
+		<br><br>
+		<span class="blue">Current favor = <<print $aurigafavor>></span>
+		<br><br>
+		<<if !$weekly.godoffering>>
+			<<skinicon "give">><<link [[Make an offering|God Offering]]>><</link>>
+			<br>
+		<</if>>
+		<<link [[Pray at the shrine (1:00)|God Pray]]>>
+			<<if $purity gte ((1000 / 7) * 7)>>
+				<<stress -6>><<awareness -2>><<arousal -1200>>
+			<<elseif $purity gte ((1000 / 7) * 6)>>
+				<<stress -6>><<awareness -1>><<arousal -1000>>
+			<<elseif $purity gte ((1000 / 7) * 5)>>
+				<<stress -5>><<awareness -1>><<arousal -800>>
+			<<elseif $purity gte ((1000 / 7) * 4)>>
+				<<stress -4>><<awareness -1>><<arousal -600>>
+			<<elseif $purity gte ((1000 / 7) * 3)>>
+				<<stress -3>><<awareness -1>><<arousal -500>>
+			<<elseif $purity gte ((1000 / 7) * 2)>>
+				<<stress -2>><<awareness -1>><<arousal -400>>
+			<<else>>
+				<<stress -1>><<awareness -1>><<arousal -300>>
+			<</if>>
+			<<pass 60>>
+		<</link>>
+		<<lawareness>><<lstress>><<larousal>>
+		<br>
+		<<link [[Pray for a boon|God Boon]]>><</link>>
+	<<elseif V.furniture.bedroom.shrine.id is "virgo">>
+		<span class="gold">Your shrine is currently decorated with a small six armed Virgo statuette.</span>
+		<br><br>
+		<span class="blue">Current favor = <<print $virgofavor>></span>
+		<br><br>
+		<<if !$weekly.godoffering>>
+			<<skinicon "give">><<link [[Make an offering|God Offering]]>><</link>>
+			<br>
+		<</if>>
+		<<link [[Pray at the shrine (1:00)|God Pray]]>>
+			<<pass 60>><<set $phase to 2>>
+			<<if $purity gte ((1000 / 7) * 7)>>
+				<<stress -6>><<awareness -2>><<arousal -1200>>
+			<<elseif $purity gte ((1000 / 7) * 6)>>
+				<<stress -6>><<awareness -1>><<arousal -1000>>
+			<<elseif $purity gte ((1000 / 7) * 5)>>
+				<<stress -5>><<awareness -1>><<arousal -800>>
+			<<elseif $purity gte ((1000 / 7) * 4)>>
+				<<stress -4>><<awareness -1>><<arousal -600>>
+			<<elseif $purity gte ((1000 / 7) * 3)>>
+				<<stress -3>><<awareness -1>><<arousal -500>>
+			<<elseif $purity gte ((1000 / 7) * 2)>>
+				<<stress -2>><<awareness -1>><<arousal -400>>
+			<<else>>
+				<<stress -1>><<awareness -1>><<arousal -300>>
+			<</if>>
+		<</link>>
+		<<lawareness>><<lstress>><<larousal>>
+		<br>
+		<<link [[Pray for a boon|God Boon]]>><</link>>
+	<<elseif V.furniture.bedroom.shrine.id is "abyssina">>
+		<span class="purple">Your shrine is currently decorated with a small purple wax statuette of the Dark Mother.</span>
+		<br><br>
+		<span class="blue">Current favor = <<print $abyssinafavor>></span>
+		<br><br>
+		<<if !$weekly.godoffering>>
+			<<skinicon "give">><<link [[Make an offering|God Offering]]>><</link>>
+			<br>
+		<</if>>
+		<<link [[Pray at the shrine (1:00)|God Pray]]>>
+			<<pass 60>><<set $phase to 2>>
+			<<if $purity gte ((1000 / 7) * 7)>>
+				<<stress -6>><<awareness -2>><<arousal -1200>>
+			<<elseif $purity gte ((1000 / 7) * 6)>>
+				<<stress -6>><<awareness -1>><<arousal -1000>>
+			<<elseif $purity gte ((1000 / 7) * 5)>>
+				<<stress -5>><<awareness -1>><<arousal -800>>
+			<<elseif $purity gte ((1000 / 7) * 4)>>
+				<<stress -4>><<awareness -1>><<arousal -600>>
+			<<elseif $purity gte ((1000 / 7) * 3)>>
+				<<stress -3>><<awareness -1>><<arousal -500>>
+			<<elseif $purity gte ((1000 / 7) * 2)>>
+				<<stress -2>><<awareness -1>><<arousal -400>>
+			<<else>>
+				<<stress -1>><<awareness -1>><<arousal -300>>
+			<</if>>
+		<</link>>
+		<<lawareness>><<lstress>><<larousal>>
+		<br>
+		<<link [[Pray for a boon|God Boon]]>><</link>>
+	<<elseif V.furniture.bedroom.shrine.id is "auspacia">>
+		<span class="green">Your shrine is currently decorated with a small golden statuette of Auspacia and strange herbs.</span>
+		<br><br>
+		<span class="blue">Current favor = <<print $auspaciafavor>></span>
+		<br><br>
+		<<if !$weekly.godoffering>>
+			<<skinicon "give">><<link [[Make an offering|God Offering]]>><</link>>
+			<br>
+		<</if>>
+		<<link [[Pray at the shrine (1:00)|God Pray]]>>
+			<<pass 60>><<set $phase to 2>>
+			<<if $purity gte ((1000 / 7) * 7)>>
+				<<stress -6>><<awareness -2>><<arousal -1200>>
+			<<elseif $purity gte ((1000 / 7) * 6)>>
+				<<stress -6>><<awareness -1>><<arousal -1000>>
+			<<elseif $purity gte ((1000 / 7) * 5)>>
+				<<stress -5>><<awareness -1>><<arousal -800>>
+			<<elseif $purity gte ((1000 / 7) * 4)>>
+				<<stress -4>><<awareness -1>><<arousal -600>>
+			<<elseif $purity gte ((1000 / 7) * 3)>>
+				<<stress -3>><<awareness -1>><<arousal -500>>
+			<<elseif $purity gte ((1000 / 7) * 2)>>
+				<<stress -2>><<awareness -1>><<arousal -400>>
+			<<else>>
+				<<stress -1>><<awareness -1>><<arousal -300>>
+			<</if>>
+		<</link>>
+		<<lawareness>><<lstress>><<larousal>>
+		<br>
+		<<link [[Pray for a boon|God Boon]]>><</link>>
+	<</if>>
+	<br>
+	<<link [[Select a god to worship|God Select]]>><</link>>
+	<br>
+	<<link [[Back|Bedroom]]>><</link>>
+<</if>>
+
+:: God Select
+<<if ($temple_rank isnot "monk" and $temple_rank isnot "priest") and $eldritch isnot 1 and $faetf isnot 1 and !$auriga_scar>>
+	<span class="red">You do not know of any gods to dedicate this shrine to.</span>
+	<br><br>
+	<<link [[Back|Bedroom Shine]]>><</link>>
+<<else>>
+	<<if V.furniture.bedroom.shrine.id is "blank">>
+		<span class="blue">You do not presently have a patron deity.</span>
+	<<elseif V.furniture.bedroom.shrine.id is "auriga">>
+		<span class="purple">Your shrine is currently decorated with a carved elk.</span>
+	<<elseif V.furniture.bedroom.shrine.id is "virgo">>
+		<span class="gold">Your shrine is currently decorated with a small six armed Virgo statuette.</span>
+	<<elseif V.furniture.bedroom.shrine.id is "abyssina">>
+		<span class="purple">Your shrine is currently decorated with a small purple wax statuette of the Dark Mother.</span>
+	<<elseif V.furniture.bedroom.shrine.id is "auspacia">>
+		<span class="green">Your shrine is currently decorated with a small golden statue of Auspacia and strange herbs.</span>
+	<</if>>
+	<br><br>
+	<<if $auriga_scar and V.furniture.bedroom.shrine.id isnot "auriga">>
+		<<link [[Dedicate your shrine to Auriga (0:10)|Auriga Decorate]]>><<pass 10>><</link>>
+		<br>
+	<<elseif $auriga_scar>>
+		<span class="blue">Your shrine is already dedicated to Auriga.</span>
+		<br>
+	<</if>>
+
+	<<if ($temple_rank is "monk" or $temple_rank is "priest") and V.furniture.bedroom.shrine.id isnot "virgo">>
+		<<link [[Dedicate your shrine to Virgo (0:10)|Virgo Decorate]]>><<pass 10>><</link>>
+		<br>
+	<<elseif $temple_rank is "monk" or $temple_rank is "priest">>
+		<span class="blue">Your shrine is already dedicated to Virgo.</span>
+		<br>
+	<</if>>
+
+	<<if $eldritch is 1 and V.furniture.bedroom.shrine.id isnot "abyssina">>
+		<<link [[Dedicate your shrine to the Dark Mother (0:10)|Abyssina Decorate]]>><<pass 10>><</link>>
+		<br>
+	<<elseif $eldritch is 1>>
+		<span class="blue">Your shrine is already dedicated to the Dark Mother.</span>
+		<br>
+	<</if>>
+
+	<<if $faetf is 1 and V.furniture.bedroom.shrine.id isnot "auspacia">>
+		<<link [[Dedicate your shrine to Auspacia (0:10)|Auspacia Decorate]]>><<pass 10>><</link>>
+		<br>
+	<<elseif $faetf is 1>>
+		<span class="blue">Your shrine is already dedicated to Auspacia.</span>
+		<br>
+	<</if>>
+	<<link [[Back|Bedroom Shine]]>><</link>>
+<</if>>
+
+:: Auriga Decorate
+You decide to take some time and dedicate your shrine to Auriga. You place a carved elk statuette on the altar and feel the air of the room shift.
+<br><br>
+<span class="red">You feel that changing the shrine to a different deity may have consequences.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><<set $currentgod to "auriga">>
+	<<if V.furniture.bedroom.shrine.id is "virgo">><<set $virgofavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "abyssina">><<set $abyssinafavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "auspacia">><<set $auspaciafavor -= 10>><</if>>
+	<<run Furniture.set('auriga', 'shrine', {
+		name	: 'auriga shrine',
+		nameCap	: 'Auriga shrine'
+	})>>
+<</link>>
+
+:: Virgo Decorate
+You decide to take some time and dedicate your shrine to Virgo. You place a six armed statuette of Virgo on the altar and feel the air of the room shift.
+<br><br>
+<span class="red">You feel that changing the shrine to a different deity may have consequences.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><<set $currentgod to "virgo">>
+	<<if V.furniture.bedroom.shrine.id is "auriga">><<set $aurigafavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "abyssina">><<set $abyssinafavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "auspacia">><<set $auspaciafavor -= 10>><</if>>
+	<<run Furniture.set('virgo', 'shrine', {
+		name	: 'virgo shrine',
+		nameCap	: 'Virgo shrine'
+	})>>
+<</link>>
+
+:: Abyssina Decorate
+You decide to take some time and dedicate your shrine to the Dark Mother. You place a purple waxen and tentacled idol of her grace on the altar and feel the air of the room shift.
+<br><br>
+<span class="red">You feel that changing the shrine to a different deity may have consequences.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><<set $currentgod to "abyssina">>
+	<<if V.furniture.bedroom.shrine.id is "auriga">><<set $aurigafavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "virgo">><<set $virgofavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "auspacia">><<set $auspaciafavor -= 10>><</if>>
+	<<run Furniture.set('abyssina', 'shrine', {
+		name	: 'dark mother shrine',
+		nameCap	: 'Dark Mother shrine'
+	})>>
+<</link>>
+
+:: Auspacia Decorate
+You decide to take some time and dedicate your shrine to Auspacia. You place a small golden fae statuette along with a variety of herbs on the altar and feel the air of the room shift.
+<br><br>
+<span class="red">You feel that changing the shrine to a different deity may have consequences.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><<set $currentgod to "auspacia">>
+	<<if V.furniture.bedroom.shrine.id is "auriga">><<set $aurigafavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "virgo">><<set $virgofavor -= 10>><<elseif V.furniture.bedroom.shrine.id is "abyssina">><<set $abyssinafavor -= 10>><</if>>
+	<<run Furniture.set('auspacia', 'shrine', {
+		name	: 'auspacia shrine',
+		nameCap	: 'Auspacia shrine'
+	})>>
+<</link>>
+
+:: God Offering
+What would you like to offer the gods?
+<br><br>
+<<food_gift_list>>
+
+<<if _food_gift_found is true>>
+	<<skinicon "give">><<link [[Make the offering (0:05)|God Offering 2]]>><<pass 5>><<give_gift>><<set $weekly.godoffering to true>><</link>>
+	<br>
+<</if>>
+<<refuseicon>><<link [[Reconsider|Bedroom Shine]]>><</link>>
+
+:: God Offering 2
+<<set _gift to setup.foodstuff[$gift].name + (setup.foodstuff[$gift].food.handheld_gift ? " gift" : "")>>
+<<wearProp _gift>>
+
+You place the <<recipe_name $gift>> onto the altar.
+<br><br>
+The air hums with a strange energy and you can feel that something is pleased with the offering. <span class="green">+Favor.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>>
+	<<if $currentgod is "auriga">>
+		<<set $aurigafavor += 5>>
+	<<elseif $currentgod is "virgo">>
+		<<set $virgofavor += 5>>
+	<<elseif $currentgod is "abyssina">>
+		<<set $abyssinafavor += 5>>
+	<<elseif $currentgod is "auspacia">>
+		<<set $auspaciafavor += 5>>
+	<</if>>
+<</link>>
+
+:: God Boon
+You kneel at your altar and begin to pray for a boon.
+<br><br>
+<<if V.furniture.bedroom.shrine.id is "auriga">>
+	<span class="purple">Your shrine is currently decorated with a carved elk.</span>
+<<elseif V.furniture.bedroom.shrine.id is "virgo">>
+	<span class="gold">Your shrine is currently decorated with a small six armed Virgo statue.</span>
+<<elseif V.furniture.bedroom.shrine.id is "abyssina">>
+	<span class="purple">Your shrine is currently decorated with a small purple wax statuette of the Dark Mother.</span>
+<<elseif V.furniture.bedroom.shrine.id is "auspacia">>
+	<span class="green">Your shrine is currently decorated with a small golden statue of Auspacia and strange herbs.</span>
+<</if>>
+<br><br>
+<<if $aurigafavor lt 10 and $virgofavor lt 10 and $abyssinafavor lt 10 and $auspaciafavor lt 10>>
+	<span class="red">You do not have enough favor for a boon.</span>
+	<br>
+<<elseif V.furniture.bedroom.shrine.id is "auriga">>
+	<<if $aurigafavor gte 10>>
+		<<link [[Pray for impurity|Auriga Impurity]]>><<set $aurigafavor -= 10>>
+			<<if V.featsPurityBoost is undefined>><<set V.featsPurityBoost to -1>><<else>><<set V.featsPurityBoost -= 1>><</if>>
+		<</link>>
+	<</if>>
+	<<if $aurigafavor gte 20>>
+		<<link [[Pray for pure lust|Auriga Lust]]>><<set $aurigafavor -= 20>>
+		<<if !$backgroundTraits.includes("lustful")>>
+			<<set $backgroundTraits.pushUnique("lustful")>>
+		<<else>>
+			<<set $arousalmax to ($arousalmax x 0.9)>>
+		<</if>>
+		<<set $arousal to $arousalmax>><</link>>
+	<</if>>
+<<elseif V.furniture.bedroom.shrine.id is "virgo">>
+	<<if $virgofavor gte 10>>
+		<<link [[Pray for purity|Virgo Purity]]>><<set $virgofavor -= 10>>
+			<<if V.featsPurityBoost is undefined>><<set V.featsPurityBoost to 1>><<else>><<set V.featsPurityBoost += 1>><</if>>
+		<</link>>
+	<</if>>
+	<<if $virgofavor gte 20>>
+		<<link [[Pray to purge corruption|Virgo Uncorrupt]]>><<set $virgofavor -= 20>><<set $world_corruption_soft -= 10>><</link>>
+	<</if>>
+<<elseif V.furniture.bedroom.shrine.id is "abyssina">>
+	<<if $abyssinafavor gte 10>>
+		<<link [[Pray for corruption|Abyssina Corruption]]>><<set $abyssinafavor -= 10>><<set $world_corruption_soft += 5>><</link>>
+	<</if>>
+	<<if $abyssinafavor gte 20>>
+		<<link [[Pray for greater corruption|Abyssina Hard Corruption]]>><<set $abyssinafavor -= 20>><<set $world_corruption_hard += 1>><</link>>
+	<</if>>
+<<elseif V.furniture.bedroom.shrine.id is "auspacia">>
+	<<if $auspaciafavor gte 10>>
+		<<link [[Pray for bounty|Auspacia Bounty]]>><<set $auspaciafavor -= 10>><<set $daily.auspaciatending to true>><</link>>
+	<</if>>
+	<<if $auspaciafavor gte 20>>
+		<<link [[Pray for fortune|Auspacia Fortune]]>><<set $auspaciafavor -= 20>><<set $antiquemoney * 1.1>><</link>>
+	<</if>>
+<</if>>
+<br>
+<<link [[Back|Bedroom Shine]]>><</link>>
+
+:: Auriga Impurity
+You pray for a boon of impurity. The air runs quiet as you feel an energy in the room. A purple mist releases from the elk statuette and you feel a sense of imbalance within your soul.
+<br><br>
+<span class="purple">You feel that your soul will become more impure from now on.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: Auriga Lust
+You pray for a boon of lust. The air runs quiet as you feel an energy in the room. A purple mist releases from the elk statuette and you feel an unnatural heat within you.
+<br><br>
+<span class="purple">Your <<genitals>> burn with arousal unlike anything before.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: Virgo Purity
+You pray for a boon of purity. The air runs quiet as you feel an energy in the room. A yellow aura emanates from the six armed statuette and you feel a sense of imbalance within your soul.
+<br><br>
+<span class="gold">You feel that your soul will become more pure from now on.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: Virgo Uncorrupt
+You pray for a boon of world purity. The air runs quiet as you feel an energy in the room. A yellow aura emanates from the six armed statuette and you feel balance returning to reality.
+<br><br>
+<span class="gold">The world has inched closer to normality.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: Abyssina Corruption
+You pray for a boon of corruption. The air runs quiet as you feel an energy in the room. A black ooze releases from the waxen idol and you feel a the balance of the world shake.
+<br><br>
+<span class="purple">The world has inched closer to corruption.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: Abyssina Hard Corruption
+You pray for a boon of corruption. The air runs quiet as you feel an energy in the room. A black ooze releases from the waxen idol and you feel reality around you creaking with stress.
+<br><br>
+<span class="purple">You sense perhaps a permanent shift in the balance of reality.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: Auspacia Bounty
+You pray for a boon of bounty. The air runs quiet as you feel an energy in the room. A green energy releases from the fae statuette and you feel a an unusual tingle within your fingers.
+<br><br>
+<span class="green">You feel that for the next day, you could tend crops much better.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: Auspacia Fortune
+You pray for a boon of bounty. The air runs quiet as you feel an energy in the room. A green energy releases from the fae statuette and you a weight in your pockets.
+<br><br>
+<span class="green">Your antiques have become gilded and will sell for more money.</span>
+<br><br>
+<<link [[Next|Bedroom Shine]]>><</link>>
+
+:: God Pray
+<<rng>>
+<<if $rng gte 90>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	As you pray you feel a presence as the smoke from the candles wisps unnaturally. You feel like something has accepted your prayers.
+	<br><br>
+	<<link [[Next|Bedroom Shine]]>>
+		<<if $currentgod is "auriga">>
+			<<set $aurigafavor += 1>>
+		<<elseif $currentgod is "virgo">>
+			<<set $virgofavor += 1>>
+		<<elseif $currentgod is "abyssina">>
+			<<set $abyssinafavor += 1>>
+		<<elseif $currentgod is "auspacia">>
+			<<set $auspaciafavor += 1>>
+		<</if>>
+	<</link>>
+<<else>>
+	You pray for salvation. Your thoughts drift to your hopes for the future, and how things could be better.
+	<br><br>
+	An hour passes, and you feel less burdened.
+	<br><br>
+	<<link [[Next|Bedroom Shine]]>><</link>>
+<</if>>

@@ -455,6 +455,8 @@
 				<<leftcamerapose>>
 				<<lefthandpull>>
 			<<case "handheld">>
+				<<if $player.vaginaExist>><<set $pregnancysilly to "vagina">><<else>><<set $pregnancysilly to "anus">><</if>>
+				<<sillypregnancy $NPCList[0].fullDescription `($enemytype is "man" ? "human" : $NPCList[$lefttarget].type)` "pc" "human" $pregnancysilly $location>>
 				<<if $consensual is 1>>
 				<<set _leftaction["Keep holding"] to "lefthandholdkeep">>
 				<</if>>
@@ -809,6 +811,8 @@
 				<<rightcamerapose>>
 				<<righthandpull>>
 			<<case "handheld">>
+				<<if $player.vaginaExist>><<set $pregnancysilly to "vagina">><<else>><<set $pregnancysilly to "anus">><</if>>
+				<<sillypregnancy $NPCList[0].fullDescription `($enemytype is "man" ? "human" : $NPCList[$righttarget].type)` "pc" "human" $pregnancysilly $location>>
 				<<if $consensual is 1>>
 					<<set _rightaction["Keep holding"] to "righthandholdkeep">>
 				<</if>>
@@ -1270,6 +1274,8 @@
 						<span @class="($lastOptions.mouth isnot _mouthOptions or _mouthGold is true ?'gold':'')">Your mouth is pressed by <<combatpersons>>.</span>
 					<<case "kiss">>
 						<<selectNpcWithPartInPosition "mouth" "kiss">><<set $mouthtarget to $index>>
+						<<if $player.vaginaExist>><<set $pregnancysilly to "vagina">><<else>><<set $pregnancysilly to "anus">><</if>>
+						<<sillypregnancy $NPCList[0].fullDescription `($enemytype is "man" ? "human" : $NPCList[$mouthtarget].type)` "pc" "human" $pregnancysilly $location>>
 						<span @class="($lastOptions.mouth isnot _mouthOptions or _mouthGold is true ?'gold':'')">Your mouth is engulfed by <<combatpersons>>.</span>
 				<</switch>>
 			<<case "facesit">>

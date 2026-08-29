@@ -729,6 +729,8 @@ function dayPassed() {
 	if (V.bell_timer) V.bell_timer--;
 	if (V.lake_ice_broken >= 1) V.lake_ice_broken--;
 	if (V.lake_ice_broken < 1) delete V.lake_ice_broken;
+	if (V.lake_fishing_ice_broken >= 1) V.lake_fishing_ice_broken--;
+	if (V.lake_fishing_ice_broken < 1) delete V.lake_fishing_ice_broken;
 	if (V.community_service >= 1) {
 		if (V.community_service_done !== 1 && !["asylum", "prison"].includes(V.location) && !V.daily?.asylumPrison) {
 			wikifier("crimeUp", 200, "obstruction");
@@ -771,28 +773,22 @@ function dayPassed() {
 	if (V.valentines && Time.monthDay === 13) V.timeMessages.pushUnique("valentinesTomorrow");
 	if (V.valentines && Time.monthDay === 14) V.timeMessages.pushUnique("valentinesToday");
 
-	if (V.avery_mansion && V.avery_fate !== "fallen" && V.avery_fate !== "kicked") {
-		// Avery takes on the PC's debt, but stops if unsatisfied
-		if (Time.weekDay !== 1) {
-			V.avery_mansion.days_absent++;
-		}
-		if (V.avery_mansion.rage.assess >= 9 || V.avery_mansion.days_absent >= 2) {
-			V.renttime--;
-			// Not seen bailey for more than 2 weeks, tracks missed rent
-			if (V.renttime < 0 && V.renttime % 7 === 0) {
-				V.baileyRefusedToPayTotal += V.rentmoney + (V.babyRent || 0);
-				V.baileyRefusedToPayTotalStat += V.rentmoney + (V.babyRent || 0);
+	// Avery takes on the PC's debt, but stops if unsatisfied
+	const rentPaused = inRentPausedBadEnd();
+	const hasMansion = V.avery_mansion && V.avery_fate !== "fallen" && V.avery_fate !== "kicked";
+	if (!rentPaused) {
+		if (hasMansion) {
+			if (Time.weekDay !== 1) {
+				V.avery_mansion.days_absent++;
 			}
-		}
-		V.avery_mansion.study_unlocked = 0;
-	} else {
-		V.renttime--;
-		// Not seen bailey for more than 2 weeks, tracks missed rent
-		if (V.renttime < 0 && V.renttime % 7 === 0) {
-			V.baileyRefusedToPayTotal += V.rentmoney + (V.babyRent || 0);
-			V.baileyRefusedToPayTotalStat += V.rentmoney + (V.babyRent || 0);
+			if (V.avery_mansion.rage.assess >= 9 || V.avery_mansion.days_absent >= 2) {
+				passRentTick();
+			}
+		} else {
+			passRentTick();
 		}
 	}
+	if (hasMansion) V.avery_mansion.study_unlocked = 0;
 
 	if (V.flashbacktown > 0) V.flashbacktown--;
 	if (V.flashbackhome > 0) V.flashbackhome--;
@@ -932,8 +928,8 @@ function dayPassed() {
 	}
 
 	wikifier("menstruationCycle", "daily");
-	pregnancyProgress();
-	pregnancyProgress("anus");
+	advancePregnancy("vagina");
+	advancePregnancy("anus");
 	wikifier("rutCycle");
 	npcPregnancyCycle();
 	randomPregnancyProgress();
@@ -972,6 +968,10 @@ function dayPassed() {
 				delete V.whitneyRescueStatus;
 			}
 		}
+	}
+
+	if (C.npc.Whitney.state === "dungeon") {
+		V.whitney.daysSinceCapture++;
 	}
 
 	if (V.pirate_journey > 1) {
@@ -1145,8 +1145,6 @@ function hourPassed(hours) {
 			if (numberOfEarSlime() > 1 && V.earSlime.growth < 100) V.earSlime.defyCooldown--;
 			if (V.earSlime.defyCooldown <= 0) V.earSlime.defyCooldown = 0;
 		}
-		playerEndWaterProgress();
-
 		if (V.wolfpatrolsent >= 1) V.wolfpatrolsent++;
 
 		if (C.npc.Sydney.init === 1) {
@@ -1195,9 +1193,35 @@ function hourPassed(hours) {
 			minutePassed(60);
 			Time.set(V.timeStamp + 3600);
 		}
+		// Pregnancy uses the current time, so it runs after the clock moves forward above.
+		if (V.settings.pregnancyType !== "realistic") {
+			// Fetish mode. Pending conceptions from realistic mode are thrown out.
+			V.pendingPregnancies.vagina = null;
+			V.pendingPregnancies.anus = null;
+		}
+		hourlyPregnancyUpdate();
+		checkLabour();
+		if (V.settings.pregnancyType === "realistic") {
+			rollAndRecordConception("vagina");
+			rollAndRecordConception("anus");
+		}
+
+		if (V.fishing) {
+			// Decrease fishing danger values by 0.5 per hour, and remove the event if the danger is 0.
+			Object.values(V.fishing).forEach(location => {
+				if (location?.eventDanger > 0) {
+					location.eventDanger = Math.max(0, location.eventDanger - 0.5);
+					if (location.eventDanger === 0) {
+						location.event = "none";
+					}
+				}
+			});
+		}
 	}
 	/* changes that can be applied just once. consider if using V.hourly would make better sense before putting things here */
 	calchairlengthstage();
+
+	window.baileyConfiscationTick();
 
 	if (
 		V.sexStats.vagina.menstruation.running &&
@@ -1266,159 +1290,64 @@ function minutePassed(minutes) {
 
 	// Effects
 	/*
-	if (V.settings.bruisingEnabled){
-		{if (V.facebruise >= 80)
-			V.face_bruise = "scarred";
-		else if (V.facebruise >= 60)
-			V.face_bruise = "swollen";
-		else if (V.facebruise >= 40)
-			V.face_bruise = "hurt";
-		else if (V.facebruise >= 20)
-			V.face_bruise = "red";
-		else
-			V.face_bruise = "disabled";}
+	const bruiselevels = [
+	{ min: 80, bruise: "scarred",   blood: "wounded" },
+	{ min: 60, bruise: "swollen",   blood: null },
+	{ min: 40, bruise: "hurt",      blood: null },
+	{ min: 20, bruise: "red",       blood: null },
+	{ min: 0,  bruise: "disabled",  blood: "disabled" }
+	];
 
-		{if (V.facebruise >= 60)
-			V.eye_bruise = "swollen";
-		else
-			V.eye_bruise = "disabled";}
+	const bodyparts = [
+	"face", "eye", "chest", "neck", 
+	"leftarm", "rightarm", "thigh", "tummy", "penis"
+	];
 
-		{if (V.chestbruise >= 80)
-			V.chest_bruise = "scarred";
-		else if (V.chestbruise >= 60)
-			V.chest_bruise = "swollen";
-		else if (V.chestbruise >= 40)
-			V.chest_bruise = "hurt";
-		else if (V.chestbruise >= 20)
-			V.chest_bruise = "red";
-		else
-			V.chest_bruise = "disabled";}
+	function getBruiseLevel(value, blood = false) {
 
-		{if (V.neckbruise >= 80)
-			V.neck_bruise = "scarred";
-		else if (V.neckbruise >= 60)
-			V.neck_bruise = "swollen";
-		else if (V.neckbruise >= 40)
-			V.neck_bruise = "hurt";
-		else if (V.neckbruise >= 20)
-			V.neck_bruise = "red";
-		else
-			V.neck_bruise = "disabled";}
+	for (const t of bruiselevels) {
+		if (value >= t.min) {
+			return blood ? t.blood : t.bruise;
+		}
+	}
+	return blood ? "disabled" : "disabled";
+	}
 
-		{if (V.leftarmbruise >= 80)
-			V.leftarm_bruise = "scarred";
-		else if (V.leftarmbruise >= 60)
-			V.leftarm_bruise = "swollen";
-		else if (V.leftarmbruise >= 40)
-			V.leftarm_bruise = "hurt";
-		else if (V.leftarmbruise >= 20)
-			V.leftarm_bruise = "red";
-		else
-			V.leftarm_bruise = "disabled";}
-
-		{if (V.rightarmbruise >= 80)
-			V.rightarm_bruise = "scarred";
-		else if (V.rightarmbruise >= 60)
-			V.rightarm_bruise = "swollen";
-		else if (V.rightarmbruise >= 40)
-			V.rightarm_bruise = "hurt";
-		else if (V.rightarmbruise >= 20)
-			V.rightarm_bruise = "red";
-		else
-			V.rightarm_bruise = "disabled";}
-
-		{if (V.thighbruise >= 80)
-			V.thigh_bruise = "scarred";
-		else if (V.thighbruise >= 60)
-			V.thigh_bruise = "swollen";
-		else if (V.thighbruise >= 40)
-			V.thigh_bruise = "hurt";
-		else if (V.thighbruise >= 20)
-			V.thigh_bruise = "red";
-		else
-			V.thigh_bruise = "disabled";}
-
-		{if (V.tummybruise >= 80)
-			V.tummy_bruise = "scarred";
-		else if (V.tummybruise >= 60)
-			V.tummy_bruise = "swollen";
-		else if (V.tummybruise >= 40)
-			V.tummy_bruise = "hurt";
-		else if (V.tummybruise >= 20)
-			V.tummy_bruise = "red";
-		else
-			V.tummy_bruise = "disabled";}
-
-		{if (V.penisbruise >= 80)
-			V.penis_bruise = "scarred";
-		else if (V.penisbruise >= 60)
-			V.penis_bruise = "swollen";
-		else if (V.penisbruise >= 40)
-			V.penis_bruise = "hurt";
-		else if (V.penisbruise >= 20)
-			V.penis_bruise = "red";
-		else
-			V.penis_bruise = "disabled";}}
-	else{
-		V.face_bruise = "disabled";
+	if (V.settings.bruisingEnabled) {
+		for (const part of bodyparts) {
+			const value = V[`${part}bruise`];
+			if (value === undefined) continue;
+			const level = getBruiseLevel(value);
+			if (part === "eye") {
+				V.eye_bruise = value >= 60 ? "swollen" : "disabled";
+			} else {
+				V[`${part}_scar`] = value >= 80 ? "scarred" : "disabled";
+				V[`${part}_bruise`] = level;
+			}
+		}
+	} else {
+		for (const part of bodyparts) {
+			V[`${part}_bruise`] = "disabled";
+			V[`${part}_scar`] = "disabled";
+		}
 		V.eye_bruise = "disabled";
-		V.chest_bruise = "disabled";
-		V.neck_bruise = "disabled";
-		V.leftarm_bruise = "disabled";
-		V.rightarm_bruise = "disabled";
-		V.thigh_bruise = "disabled";
-		V.tummy_bruise = "disabled";
-		V.penis_bruise = "disabled";}
+	}
 
-	if (V.settings.goreEnabled){
-		{if (V.facebruise >= 80)
-			V.face_blood = "enabled";
-		else
-			V.face_blood = "disabled";}
-
-		{if (V.chestbruise >= 80)
-			V.chest_blood = "enabled";
-		else
-			V.chest_blood = "disabled";}
-
-		{if (V.neckbruise >= 80)
-			V.neck_blood = "enabled";
-		else
-			V.neck_blood = "disabled";}
-
-		{if (V.leftarmbruise >= 80)
-			V.leftarm_blood = "enabled";
-		else
-			V.leftarm_blood = "disabled";}
-
-		{if (V.rightarmbruise >= 80)
-			V.rightarm_blood = "enabled";
-		else
-			V.rightarm_blood = "disabled";}
-
-		{if (V.thighbruise >= 80)
-			V.thigh_blood = "enabled";
-		else
-			V.thigh_blood = "disabled";}
-
-		{if (V.tummybruise >= 80)
-			V.tummy_blood = "enabled";
-		else
-			V.tummy_blood = "disabled";}
-
-		{if (V.penisbruise >= 80)
-			V.penis_blood = "enabled";
-		else
-			V.penis_blood = "disabled";}}
-	else{
-		V.face_blood = "disabled";
-		V.chest_blood = "disabled";
-		V.neck_blood = "disabled";
-		V.leftarm_blood = "disabled";
-		V.rightarm_blood = "disabled";
-		V.thigh_blood = "disabled";
-		V.tummy_blood = "disabled";
-		V.penis_blood = "disabled";}
+	if (V.settings.goreEnabled) {
+		for (const part of bodyparts) {
+			const value = V[`${part}bruise`];
+			if (value === undefined) continue;
+			const bloodLevel = getBruiseLevel(value, true);
+			if (part !== "eye") {
+				if (value >= 80) V[`${part}_bruise`] = "wounded";
+				V[`${part}_blood`] = bloodLevel;
+			}
+		}
+	} else {
+		for (const part of bodyparts) {
+			if (part !== "eye") V[`${part}_blood`] = "disabled";
+		}
+	}
 	*/
 
 	V.stress = Math.min(V.stress, V.stressmax);
@@ -1426,8 +1355,8 @@ function minutePassed(minutes) {
 		// use fancy math to ensure that `pass(60);` and `pass(30);pass(30);` apply the same amount of tiredness regardless of changed V.drunk value
 		const sum = (from, to) => ((from - to) * (from + to + 1)) / 2;
 		const drunkMod = sum(V.drunk, Math.max(V.drunk - minutes, 0));
-		// warning: assumes 1:1 negative alcohol changes, true as of yet
-		statChange.alcohol(-minutes);
+		// warning: assumes 1:1 negative drunk changes, true as of yet
+		statChange.drunk(-minutes);
 		// V.drunk ranging from 0 to 1000, 1 minute at 1000 will add extra 1.25 of tiredness (2.25x total)
 		// reference values are 2x at 800, 1.5x at 400 (pain reduction from drunkenness starts at 360), 1.25x at 200
 		if (minutes < 1200) statChange.tiredness(drunkMod / 12000);
@@ -1489,8 +1418,8 @@ function noonCheck() {
 	if (V.edenNightmareWake) delete V.edenNightmareWake;
 
 	wikifier("menstruationCycle");
-	pregnancyProgress();
-	pregnancyProgress("anus");
+	advancePregnancy("vagina");
+	advancePregnancy("anus");
 
 	if (V.weekly.schoolNightPoolParty && V.weekly.schoolNightPoolParty !== "intro") V.weekly.schoolNightPoolParty = false;
 	delete V.birdSleep;
@@ -1635,6 +1564,7 @@ function dailyNPCEffects() {
 	if (C.npc.Avery.state !== "dismissed") {
 		V.averyschoolpickup = 0;
 		V.averyseen = 0;
+		V.averyBodyWritingSeen = false;
 		if (V.averydate && Time.weekDay === 1) {
 			V.averydate = 0;
 			if (V.averydateattended !== 1 && !V.avery_injury) V.averydatemissed = 1;
@@ -1654,7 +1584,7 @@ function dailyNPCEffects() {
 		if (V.avery_mansion) {
 			V.avery_mansion.days++;
 			V.avery_mansion.date_ready = false;
-			if (Time.weekDay === 2 && !V.avery_injury) {
+			if (Time.weekDay === 2 && !V.avery_injury && !inRentPausedBadEnd()) {
 				if (["waiting", "skipped"].includes(V.avery_mansion.party_state)) {
 					V.avery_mansion.party_state = "missed";
 					V.avery_mansion.party_missed_guest = V.avery_mansion.guest;
@@ -1682,7 +1612,7 @@ function dailyNPCEffects() {
 				}
 			}
 
-			if (V.avery_mansion.rage.dinner_done !== 1 && between(Time.weekDay, 3, 7) && !V.avery_injury) {
+			if (V.avery_mansion.rage.dinner_done !== 1 && between(Time.weekDay, 3, 7) && !V.avery_injury && !inRentPausedBadEnd()) {
 				if (V.avery_valentines?.done && Time.monthDay === 15 && Time.monthName === "February") {
 					// do not spoil the valentines
 				} else {
@@ -2376,7 +2306,9 @@ function dailySchoolEffects() {
 		V.schoolLessonsMissed.english += !Number(V.daily.school.attended.english);
 		V.schoolLessonsMissed.history += !Number(V.daily.school.attended.history);
 		V.schoolLessonsMissed.swimming += !Number(V.daily.school.attended.swimming);
-		V.lessonmissed += 5 - attended * 2; // Reduce lessonmissed if lessons are attended
+		const BREAKPOINTS = [200, 400, 700, 1000];
+		const bonus = BREAKPOINTS.filter(t => V.school / 4 >= t).length;
+		V.lessonmissed += 5 - attended * (2 + bonus); // Reduce lessonmissed if lessons are attended
 		V.lessonmissed = Math.max(0, V.lessonmissed);
 		V.lessonmissedtext = 5 - attended;
 	}
@@ -2788,7 +2720,7 @@ function getArousal(passMinutes) {
 			} else if (V.earSlime.vibration > 0) {
 				addedArousal += Math.clamp(minuteMultiplier * 4, 0, V.earSlime.vibration * 40) * V.genitalsensitivity;
 				V.earSlime.vibration -= Math.clamp(passMinutes, 0, V.earSlime.vibration);
-				V.earSlime.lastVibration = Math.clamp(passMinutes - V.earSlime.vibration, 0, Infinity);
+				V.earSlime.lastVibration = Math.max(passMinutes - V.earSlime.vibration, 0);
 			}
 		}
 	} else {
@@ -2953,3 +2885,18 @@ function supermarketWeekly() {
 	});
 }
 DefineMacro("supermarketWeekly", supermarketWeekly);
+
+function inRentPausedBadEnd() {
+	const badEnd = V.badEndStats?.last();
+	if (!Number.isFinite(badEnd?.trackedStart) || badEnd.trackedEnd !== undefined) return false;
+	return window.Constants.badEndsThatPauseRent.includes(badEnd.source);
+}
+
+/* Not seen bailey for more than 2 weeks, tracks missed rent */
+function passRentTick() {
+	V.renttime--;
+	if (V.renttime < 0 && V.renttime % 7 === 0) {
+		V.baileyRefusedToPayTotal += V.rentmoney + (V.babyRent || 0);
+		V.baileyRefusedToPayTotalStat += V.rentmoney + (V.babyRent || 0);
+	}
+}

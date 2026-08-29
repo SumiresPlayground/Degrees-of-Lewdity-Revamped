@@ -881,11 +881,7 @@ Renderer.CanvasModels.main = {
 			options.headMask.push(`img/clothes/handheld/${options.worn.handheld.setup.variable}/mask.png`);
 		}
 
-		if (options.worn.face.setup.mask_img === 1) {
-			options.headMask.push(`img/clothes/face/${options.worn.face.setup.variable}/mask.png`);
-		}
-
-		if (["fro", "afro pouf", "afro puffs"].includes(options.hair_sides_type) && options.hair_fringe_type === "fro") {
+		if (["fro"].includes(options.hair_sides_type) && options.hair_fringe_type === "fro") {
 			options.fringe_mask_src = `img/hair/fringe/${options.hair_fringe_type}/mask.png`;
 		} else {
 			options.fringe_mask_src = null;
@@ -1996,19 +1992,25 @@ Renderer.CanvasModels.main = {
 					"loose",
 					"curl",
 					"defined curl",
+					"drill ringlets",
 					"neat",
 					"dreads",
 					"afro pouf",
 					"thick ponytail",
 					"all down",
-					"half-up",
+					"half up",
 					"messy ponytail",
 					"ruffled",
-					"half up twintail",
+					"half up twintails",
 					"princess wave",
 					"space buns",
 					"sleek",
 					"bedhead",
+					"classic",
+					"cornrows",
+					"french curls",
+					"jellyfish bob",
+					"princess ponytail"
 				];
 
 				const path = `img/hair/back/${options.hair_sides_type}`;
@@ -3461,7 +3463,7 @@ Renderer.CanvasModels.main = {
 		},
 		"eye_bruise": {
 			srcfn(options) {
-				return `img/bruises/${options.facevariant}eyes.png`;
+				return `img/bruises/faceeyes.png`;
 			},
 			showfn(options) {
 				if (options.eye_bruise === "disabled"){
@@ -3475,7 +3477,7 @@ Renderer.CanvasModels.main = {
 		},
 		"chest_bruise": {
 			srcfn(options) {
-				return `img/bruises/chest${options.chest_bruise}.png`;
+				return `img/bruises/breasts/${options.breast_size}${options.chest_bruise}.png`;
 			},
 			showfn(options) {
 				if (options.chest_bruise === "disabled"){
@@ -3489,8 +3491,8 @@ Renderer.CanvasModels.main = {
 			animation: "idle"
 		},
 		"chest_blood": {
-			srcfn() {
-				return `img/bruises/chestblood.png`;
+			srcfn(options) {
+				return `img/bruises/breasts/${options.breast_size}blood.png`;
 			},
 			showfn(options) {
 				if (options.chest_blood === "disabled"){
@@ -3661,7 +3663,7 @@ Renderer.CanvasModels.main = {
 		},
 		"penis_bruise": {
 			srcfn(options) {
-				return `img/bruises/penis/${options.penis}${options.penis_bruise}.png`;
+				return `img/bruises/penis/${options.penis.replace("-virgin", "")}${options.penis_bruise}.png`;
 			},
 			showfn(options) {
 				if (options.penis_bruise === "disabled" || !options.crotch_visible || playerHasStrapon() || (options.ear_slime_panties && V.arousal < 6000)){
@@ -3676,7 +3678,7 @@ Renderer.CanvasModels.main = {
 		},
 		"penis_blood": {
 			srcfn(options) {
-				return `img/bruises/penis/${options.penis}blood.png`;
+				return `img/bruises/penis/${options.penis.replace("-virgin", "")}blood.png`;
 			},
 			showfn(options) {
 				if (options.penis_blood === "disabled" || !options.crotch_visible || playerHasStrapon() || (options.ear_slime_panties && V.arousal < 6000)){
@@ -3918,7 +3920,7 @@ Renderer.CanvasModels.main = {
 			showfn(options) {
 				return options.show_face
 					&& !!options.drip_mouth
-					&& !options.worn.face.setup.type.includesAny("mask", "face_covering");
+					&& !options.worn.face.setup.type.includesAny("face_covering");
 			},
 			dxfn(options) {
 				return options.facestyle === "small-eyes" ? 2 : 0;

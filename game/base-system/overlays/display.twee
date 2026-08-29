@@ -32,14 +32,14 @@
 				<br><br>
 				<span class="gold">NPC Display Position:</span><br>
 				<label>Behind <<radiovar "$NPCposition" "1">><<updatesidebarimg>><</radiovar>></label> |
-				<label>In Front <<radiovar "$NPCposition" "2">><<set $customNNPC.sidebarLayer to "front">><<updatesidebarimg>><</radiovar>></label>
+				<label>In Front <<radiovar "$NPCposition" "2">><<updatesidebarimg>><</radiovar>></label>
 			</div>
 			<div class="settingsToggleItemWide">
 				<span class="green">Whether the NPC display will use supplied pngs or CDNPCs.</span>
 				<br><br>
 				<span class="gold">Display Type:</span><br>
-				<label>PNG <<radiovar "$creatorname" "png">><<set $customNNPC.canvasLocation to "sidebar">><<updatesidebarimg>><</radiovar>></label> |
-				<label>CDNPC <<radiovar "$creatorname" "cdnpc">><<set $customNNPC.sidebarLayer to "front">><<updatesidebarimg>><</radiovar>></label>
+				<label>PNG <<radiovar "$creatorname" "png">><<updatesidebarimg>><</radiovar>></label> |
+				<label>CDNPC <<radiovar "$creatorname" "cdnpc">><<updatesidebarimg>><</radiovar>></label>
 			</div>
 			<div class="settingsToggleItemWide">
 				<span class="green">When set to pngs, the creator pack will change NNPC sprites to the ones created by the chosen user.</span>
@@ -100,12 +100,25 @@
 						var $container = $('#sprite-options');
 						if (npc) {
 							$container.empty().wiki('<<include "NPC Sprite Options">>').show();
+							Wikifier.wikifyEval("<<updatesidebarimg>>");
 						} else {
 							$container.empty().hide();
 						}
 						});
 					<</script>>
 				</div>
+			</div>
+			<div class="settingsToggleItemWide">
+				<<if SugarCube.Browser.isMobile.any() is true>>
+					Note that saving and loading from file does not work on Android currently.
+				<<else>>
+					<span class="gold">Export/Import NNPC selection from file: </span><br>
+					<<button "Export Sprite List">>
+						<<exportCreators>>
+					<</button>>
+					<br><input type="file" accept=".json" onchange="importCreators(this.files)"><br>
+				<</if>>
+			</div>
 	</div>
 <</widget>>
 
@@ -2595,6 +2608,12 @@
 			</mouse>
 			<<radiovar "$creatorJordan" "bluechiizu">><<updatesidebarimg>><</radiovar>>
 		</label> |
+		<label>wroom
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorJordan" "wroom">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Custom <<radiovar "$creatorJordan" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Kylar">>
 		<span class="gold">Kylar:</span>
@@ -3001,6 +3020,12 @@
 				<span>Only male light skin sprites</span>
 			</mouse>
 			<<radiovar "$creatorWren" "ikan_busuk">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>morguesuite
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male light skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorWren" "morguesuite">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>YO <<radiovar "$creatorWren" "YO">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Custom <<radiovar "$creatorWren" "custom">><<updatesidebarimg>><</radiovar>></label><br>

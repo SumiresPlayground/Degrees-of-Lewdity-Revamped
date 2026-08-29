@@ -2077,6 +2077,27 @@
 	<<set _text_output to ($pronoun is "m" ? "gentleman" : "lady")>>
 <</silently>><<print _text_output>><</widget>>
 
+<<widget "gentleman_bnpc">><<silently>>
+	<<if typeof _args[0] is "number">>
+		<<set _na to _args[0]>>
+	<<elseif $enemyno gte 0>>
+		<<set _na to $enemyno-1>>
+	<<else>>
+		<<set _na to 0>>
+	<</if>>
+	<<if $NPCList[_na].monster is "monster">>
+		<<if $NPCList[_na].pronoun is "m">>
+			<<set _text_output to "gentleman">>
+		<<elseif $NPCList[_na].pronoun is "f">>
+			<<set _text_output to "lady">>
+		<<else>>
+			<<set _text_output to "gentlebeing">>
+		<</if>>
+	<<else>>
+		<<set _text_output to "gentlebeing">>
+	<</if>>
+<</silently>><<print _text_output>><</widget>>
+
 <<widget "lord">><<silently>>
 	<<set _text_output to ($pronoun is "m" ? "lord" : "lady")>>
 <</silently>><<print _text_output>><</widget>>
@@ -4942,8 +4963,22 @@
 			medium
 		<<case "dark" "rdark" "ydark" "gdark" "bdark">>
 			dark
-		<<case "gyaru" "rgyaru" "ygyaru" "ggyaru" "bgyaru">>
+		<<case "gyaru" "rgyaru" "ygyaru" "ggyaru" "bgyaru" "aquatic">>
 			<<set _textOverride to true>>
+		<<case "demonic">>
+			demonic
+		<<case "angelic">>
+			angelic
+		<<case "slimy" "chilly" "amethyst">>
+			slimy
+		<<case "ghost" "ice" "water" "flame">>
+			ghostly
+		<<case "dusky">>
+			dusky
+		<<case "rotten">>
+			rotten
+		<<case "cosmic">>
+			cosmic
 	<</switch>>
 	<<if _textOverride is true>>
 		<<if Skin.color.tan gte 66>>
@@ -6512,19 +6547,19 @@ Argument 2, where appropriate, determines whether it's the player undressing the
 	<</if>>
 <</widget>>
 
-<<widget "galcohol">>
+<<widget "gdrunk">>
 	<<if !$settings.blindStatsEnabled>> |
 		<span class="purple">+ Alcohol</span>
 	<</if>>
 <</widget>>
 
-<<widget "ggalcohol">>
+<<widget "ggdrunk">>
 	<<if !$settings.blindStatsEnabled>> |
 		<span class="purple">+ + Alcohol</span>
 	<</if>>
 <</widget>>
 
-<<widget "gggalcohol">>
+<<widget "gggdrunk">>
 	<<if !$settings.blindStatsEnabled>> |
 		<span class="purple">+ + + Alcohol</span>
 	<</if>>

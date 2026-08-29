@@ -100,7 +100,7 @@
 	<</switch>>
 	here.
 	<<if $fertiliser.current + $fertiliser.used gt 0>>
-		You have <<number $fertiliser.current>> fertiliser.
+		You have <<number $fertiliser.current>> <<pluralise $fertiliser.current "bag">> of fertiliser.
 	<</if>>
 	Tilling time is reduced by tending skill.
 	<br><br>
@@ -551,6 +551,9 @@
 	<<if $backgroundTraits.includes("greenthumb")>>
 		<<set _tending_amount *= 1.2>>
 	<</if>>
+	<<if $daily.auspaciatending>>
+		<<set _tending_amount *= 1.5>>
+	<</if>>
 	<!-- The game's default setting sets the tendingYieldModifer to 5x. 1x is for the "Legacy" Hard Mode. -->
 	<<set _tending_amount *= $settings.tendingYieldModifier>>
 
@@ -560,7 +563,7 @@
 	<<set $tendingvars.harvest to true>>
 	<<set $tendingvars.harvest_amount to _tending_amount>>
 	<<set $tendingvars.harvest_name to (_tending_amount is 1 ? setup.foodstuff[$_type].name.replace(/_/g," ") : setup.foodstuff[$_type].plural)>>
-	<<rng>><<if $rng lte 50>><<transform pig 1>><</if>>
+	<<rng>><<if $rng lte 5>><<transform pig 1>><</if>>
 <</widget>>
 
 <<widget "tending_pick">>
@@ -619,7 +622,7 @@
 		<</if>>
 		<<number _tending_amount>> <<print setup.foodstuff[$_type].plural>>.
 	<</if>>
-	<<rng>><<if $rng lte 50>><<transform pig 1>><</if>>
+	<<rng>><<if $rng lte 5>><<transform pig 1>><</if>>
 <</widget>>
 
 <<widget "tending_give">>
