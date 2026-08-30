@@ -89,7 +89,7 @@ const combatActionColours = {
 		],
 		def: [
 			/* leftaction or rightaction */
-			"spray", "lefthit", "righthit", "leftstruggle", "rightstruggle", "stopchokenoncon", "pursuit_grab", "lurker_whip",
+			"spray", "lefthit", "righthit", "leftstruggle", "rightstruggle", "stopchokenoncon", "pursuit_grab", "lurker_whip", "rightswing",
 			/* feetaction */
 			"kick", "ambush",
 			/* tailaction */
@@ -945,7 +945,7 @@ window.DefaultActions = {
 		this.addMany(type, "Submissive", "feetaction", ["grabrub", "grabrub", "vaginagrabrub", "feetCurl"]);
 		this.addMany(type, "Submissive", "tailaction", ["tailwag"]);
 		this.addMany(type, "Defiant", "leftaction", ["lefthit", "leftstruggle", "burn"]);
-		this.addMany(type, "Defiant", "rightaction", ["penwhack", "righthit", "rightstruggle", "hypnosiswhack", "burn"]);
+		this.addMany(type, "Defiant", "rightaction", ["penwhack", "righthit", "rightstruggle", "hypnosiswhack", "burn", "rightswing", "lurker_whip"]);
 		this.addMany(type, "Defiant", "mouthaction", ["headbutt", "pullaway", "bite", "handbite", "breastbite", "bitepussy", "demand", "dragonbreath"]);
 		this.addMany(type, "Defiant", "penisaction", ["escape", "otheranusescape", "othermouthescape"]);
 		this.addMany(type, "Defiant", "vaginaaction", ["escape", "othermouthescape"]);

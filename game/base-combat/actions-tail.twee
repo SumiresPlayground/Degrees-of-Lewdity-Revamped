@@ -120,7 +120,7 @@
 		<<elseif $pain lte 60>>
 			<span class='orange'>You fight through pain and blast the <<beasttype>> with concentrated heat.</span>
 		<<else>>
-			<span class='orange'>Panicking, you wildly fire a blast of heat at the <<beasttype>>.</span
+			<span class='orange'>Panicking, you wildly fire a blast of heat at the <<beasttype>>.</span>
 		<</if>>
 	<<else>>
 		<<if $pain lte 20>>
@@ -160,6 +160,37 @@
 			<span class='purple'>You fight through the pain as a tentacle burst from your arm, stabbing <<someone $_target>> with a sharp point but ripping up your arm in the process.</span>
 		<<else>>
 			<span class='purple'>Pained and terrified, you release a tentacle at your assailant. Ripping up your arm in the process.</span>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "actionsswing">>
+	<<if _args[0] is "both">>
+		<<set _hand to "hands">>
+		<<set $_target to $lefttarget>>
+	<<else>>
+		<<set _hand to "hand">>
+		<<if _args[0] isnot undefined>>
+			<<set $_target to _args[0]>>
+		<<else>>
+			<<set $_target to 0>>
+		<</if>>
+	<</if>>
+	<<if $enemytype is "beast">>
+		<<if $pain lte 20>>
+			You swing the $worn.handheld.name at the <<beasttype>>.
+		<<elseif $pain lte 60>>
+			You fight through pain and swing the $worn.handheld.name at the <<beasttype>>.
+		<<else>>
+			Panicking, you wildly swing the $worn.handheld.name at the <<beasttype>>.
+		<</if>>
+	<<else>>
+		<<if $pain lte 20>>
+			You swing the $worn.handheld.name at the <<someone $_target>>.
+		<<elseif $pain lte 60>>
+			You fight through the pain and swing the $worn.handheld.name at the <<someone $_target>>.
+		<<else>>
+			Pained and terrified, you wildly swing the $worn.handheld.name at the <<someone $_target>>.
 		<</if>>
 	<</if>>
 <</widget>>
