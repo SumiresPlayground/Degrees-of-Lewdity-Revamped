@@ -127,7 +127,7 @@ A <<personssimple>> voice greets you.
 	You share your doubts about the temple and its faith with <<him>>.
 <</if>>
 
-<<if _wraithEvent and $wraithIntro and !$daily.wraithConfess and !$worn.face.name.includes("apotropaic")>>
+<<if _wraithEvent and $wraithIntro and !$daily.wraithConfess and !$worn.face.type.includes("apotropaic")>>
 	<<pass 30>><<set $daily.wraithConfess to true>>
 	<br><br>
 	<<if $world_corruption_soft gte 100>>
@@ -1463,7 +1463,7 @@ Jordan places a hand on your head. "You must use your best judgement to properly
 :: Temple Confess
 <<set $outside to 0>><<set $location to "temple">><<sydneySchedule>><<temple_effects>><<effects>><<rngWraith>>
 <<set $confessionsTaken = ($confessionsTaken || 0) + 1>>
-<<if _wraithEvent and $wraithIntro and !$weekly.wraithConfess and !$worn.face.name.includes("apotropaic")>>
+<<if _wraithEvent and $wraithIntro and !$weekly.wraithConfess and !$worn.face.type.includes("apotropaic")>>
 	<<set _wraithConfess to true>><<set $weekly.wraithConfess to true>><<set $attendant to "wraith">><<set _noOptions to true>>
 	You hear the other door open. Before you can greet your penitent, you feel a cold wind blow. It steals your breath.
 

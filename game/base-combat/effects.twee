@@ -557,6 +557,26 @@
 			<</if>>
 		<</if>>
 
+		<<if $rightaction is "rightswing">>
+			<<set $rightaction to 0>><<set $rightactiondefault to "rightswing">><<personselect $righttarget>>
+			<<if numberOfEarSlime() and (($parasite.left_ear.name is "slime" and random(1, 3) is 3) or ($parasite.right_ear.name is "slime" and random(1, 3) is 3) or ($earSlime.growth gte 50 and random(1, 3) is 3))>>
+				<<if $earSlime.growth gte (currentSkillValue('willpower') / 10) and random(0,100) gte $earSlime.growth / 3>>
+					You try to hit the <<if $enemytype is "beast">><<beasttype>><<else>><<person>><</if>>
+					with your $worn.handheld.name, <span class="red">but the slime immobilises your limb.</span>
+					<<if $earSlime.growth gt 50>><<set $earSlime.defyCooldown++>><</if>>
+				<<elseif $earSlime.corruption gte (currentSkillValue('willpower') / 10) and random(0,100) gte 50>>
+					You try to hit the <<if $enemytype is "beast">><<beasttype>><<else>><<person>><</if>>
+					with your $worn.handheld.name, <span class="red">but the slime distracts you, so you miss.</span>
+					<<gwillpower>><<willpower 1>>
+				<<else>>
+					The slime tries to prevent you from hitting the <<if $enemytype is "beast">><<beasttype>><<else>><<personselect $righttarget>><<person>><</if>>, <span class="green">but you make contact regardless.</span>
+					<<actionsswing $righttarget>><<defiance 4 $righttarget>><<set $speechhit to 1>><<set $attackstat += 1>>
+				<</if>>
+			<<else>>
+				<<actionsswing $righttarget>><<set $speechhit to 1>><<defiance 4 $righttarget>><<set $attackstat += 1>>
+			<</if>>
+		<</if>>
+
 		<<if $leftaction is "leftcamerapose" and $rightaction is "rightcamerapose">>
 			<<set $leftaction to 0>><<set $rightaction to 0>><<set $leftactiondefault to "leftcamerapose">><<set $rightactiondefault to "rightcamerapose">>
 			<<neutral 4>>

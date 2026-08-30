@@ -435,21 +435,29 @@ Renderer.CanvasModels.main = {
 			"doll_string_type": "disabled",
 			"face_bruise": "disabled",
 			"face_blood": "disabled",
+			"face_scar": "disabled",
 			"eye_bruise": "disabled",
 			"chest_bruise": "disabled",
 			"chest_blood": "disabled",
+			"chest_scar": "disabled",
 			"neck_bruise": "disabled",
 			"neck_blood": "disabled",
+			"neck_scar": "disabled",
 			"leftarm_bruise": "disabled",
 			"leftarm_blood": "disabled",
+			"leftarm_scar": "disabled",
 			"rightarm_bruise": "disabled",
 			"rightarm_blood": "disabled",
+			"rightarm_scar": "disabled",
 			"thigh_bruise": "disabled",
 			"thigh_blood": "disabled",
+			"thigh_scar": "disabled",
 			"tummy_bruise": "disabled",
 			"tummy_blood": "disabled",
+			"tummy_scar": "disabled",
 			"penis_bruise": "disabled",
 			"penis_blood": "disabled",
+			"penis_scar": "disabled",
 			// body writings
 			"writing_forehead": "",
 			"writing_left_cheek": "",
@@ -3461,6 +3469,21 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.basehead + 0.2,
 			animation: "idle"
 		},
+		"face_scar": {
+			srcfn() {
+				return `img/bruises/scars/facescarred.png`;
+			},
+			showfn(options) {
+				if (options.face_scar === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["tan"],
+			z: ZIndices.basehead + 0.11,
+			animation: "idle"
+		},
 		"eye_bruise": {
 			srcfn(options) {
 				return `img/bruises/faceeyes.png`;
@@ -3504,6 +3527,21 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.skin + 1.2,
 			animation: "idle"
 		},
+		"chest_scar": {
+			srcfn(options) {
+				return `img/bruises/scars/${options.breast_size}scarred.png`;
+			},
+			showfn(options) {
+				if (options.chest_scar === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["tan"],
+			z: ZIndices.skin + 1.11,
+			animation: "idle"
+		},
 		"neck_bruise": {
 			srcfn(options) {
 				return `img/bruises/neck${options.neck_bruise}.png`;
@@ -3531,6 +3569,21 @@ Renderer.CanvasModels.main = {
 				}
 			},
 			z: ZIndices.skin + 1.2,
+			animation: "idle"
+		},
+		"neck_scar": {
+			srcfn() {
+				return `img/bruises/scars/neckscarred.png`;
+			},
+			showfn(options) {
+				if (options.neck_scar === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["tan"],
+			z: ZIndices.skin + 0.11,
 			animation: "idle"
 		},
 		"leftarm_bruise": {
@@ -3563,9 +3616,27 @@ Renderer.CanvasModels.main = {
 				}
 			},
 			zfn(options) {
-				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.1;
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.2;
 				return ZIndices.armsidle + 0.3;
 			},
+			animation: "idle"
+		},
+		"leftarm_scar": {
+			srcfn(options) {
+				return `img/bruises/scars/left${options.arm_left}scarred.png`;
+			},
+			showfn(options) {
+				if (options.leftarm_scar === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_left)) return ZIndices.left_cover_arm + 0.11;
+				return ZIndices.armsidle + 0.21;
+			},
+			filters: ["tan"],
 			animation: "idle"
 		},
 		"rightarm_bruise": {
@@ -3598,9 +3669,27 @@ Renderer.CanvasModels.main = {
 				}
 			},
 			zfn(options) {
-				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.1;
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.2;
 				return ZIndices.armsidle + 0.3;
 			},
+			animation: "idle"
+		},
+		"rightarm_scar": {
+			srcfn(options) {
+				return `img/bruises/scars/right${options.arm_right}scarred.png`;
+			},
+			showfn(options) {
+				if (options.rightarm_scar === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			zfn(options) {
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.left_cover_arm + 0.11;
+				return ZIndices.armsidle + 0.21;
+			},
+			filters: ["tan"],
 			animation: "idle"
 		},
 		"thigh_bruise": {
@@ -3632,6 +3721,21 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.skin + 1.2,
 			animation: "idle"
 		},
+		"thigh_scar": {
+			srcfn() {
+				return `img/bruises/scars/thighscarred.png`;
+			},
+			showfn(options) {
+				if (options.thigh_scar === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["tan"],
+			z: ZIndices.skin + 0.11,
+			animation: "idle"
+		},
 		"tummy_bruise": {
 			srcfn(options) {
 				return `img/bruises/tummy${options.tummy_bruise}.png`;
@@ -3661,6 +3765,21 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.skin + 1.2,
 			animation: "idle"
 		},
+		"tummy_scar": {
+			srcfn() {
+				return `img/bruises/scars/tummyscarred.png`;
+			},
+			showfn(options) {
+				if (options.tummy_scar === "disabled"){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["tan"],
+			z: ZIndices.skin + 0.11,
+			animation: "idle"
+		},
 		"penis_bruise": {
 			srcfn(options) {
 				return `img/bruises/penis/${options.penis.replace("-virgin", "")}${options.penis_bruise}.png`;
@@ -3688,6 +3807,21 @@ Renderer.CanvasModels.main = {
 				}
 			},
 			z: ZIndices.tailPenisCover - 1,
+			animation: "idle"
+		},
+		"penis_scar": {
+			srcfn(options) {
+				return `img/bruises/scars/${options.penis.replace("-virgin", "")}scarred.png`;
+			},
+			showfn(options) {
+				if (options.penis_scar === "disabled" || !options.crotch_visible || playerHasStrapon() || (options.ear_slime_panties && V.arousal < 6000)){
+					return false;
+				}else{
+					return true;
+				}
+			},
+			filters: ["tan"],
+			z: ZIndices.tailPenisCover - 1.01,
 			animation: "idle"
 		},
 

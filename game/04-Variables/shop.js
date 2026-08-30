@@ -301,6 +301,11 @@ setup.shopDetails = {
 		desc: "Needed to go fishing.",
 		details: "none",
 	},
+	sturdy: {
+		name: "Sturdy",
+		desc: "Sturdy enough to swing.",
+		details: "Unlocks a new right arm combat option.",
+	},
 	apotropaic: {
 		name: "Apotropaic",
 		desc: "Wards off malicious spirits.",

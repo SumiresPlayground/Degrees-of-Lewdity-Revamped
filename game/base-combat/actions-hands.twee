@@ -396,8 +396,10 @@
 <<widget "rightdefault">>
 	<<if $righttarget isnot "self" and $punishmentposition isnot "gloryhole">>
 		<<set _rightaction["Stroke"] to "rightchest">>
-		<<if $consensual isnot 1 and ($fightTargets is undefined or $fightTargets.includes($righttarget))>>
+		<<if $consensual isnot 1 and ($fightTargets is undefined or $fightTargets.includes($righttarget)) and !$worn.handheld.type.includes("sturdy")>>
 			<<set _rightaction["Punch"] to "righthit">>
+		<<elseif $consensual isnot 1 and ($fightTargets is undefined or $fightTargets.includes($righttarget)) and $worn.handheld.type.includes("sturdy")>>
+			<<set _rightaction["Swing"] to "rightswing">>
 		<</if>>
 		<<if $consensual isnot 1 and $ghost is 3 and ($fightTargets is undefined or $fightTargets.includes($righttarget))>>
 			<<set _rightaction["Soul Flare"] to "burn">>

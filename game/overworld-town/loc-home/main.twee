@@ -306,7 +306,7 @@ Your bed takes up most of the room.
 <<if $nextPassageCheck is "Mirror">>
 	<span class="nextLink"><<mirroricon>><<link [[Mirror|Mirror]]>><<preMirror>><</link>></span>
 	<br>
-<<elseif $christmas is 1 and !$christmas_wraith and _wraithEvent and !$worn.face.name.includes("apotropaic")>>
+<<elseif $christmas is 1 and !$christmas_wraith and _wraithEvent and !$worn.face.type.includes("apotropaic")>>
 	<<mirroricon "blood">><<link [[Mirror|Christmas Mirror]]>><<set $locationoverwrite to "0">><<preMirror>><</link>>
 	<<note "You catch a strange glint in your mirror" "purple">>
 	<br>
@@ -1129,7 +1129,7 @@ You are in the bathroom.
 	<br><br>
 	<<link [[Next|Bed]]>><<endevent>><</link>>
 	<br>
-<<elseif _wraithEvent and _robin.lovewake is 1 and $robinromance is 1 and C.npc["Ivory Wraith"].lust gte 14 and $rng gte 61 and !$worn.face.name.includes("apotropaic")>>
+<<elseif _wraithEvent and _robin.lovewake is 1 and $robinromance is 1 and C.npc["Ivory Wraith"].lust gte 14 and $rng gte 61 and !$worn.face.type.includes("apotropaic")>>
 	<<set _robin.lovewake to 0>><<set $wraith.mimic to "Robin">><<set $wraith.exit to "home">><<set $robinbed to "yours">>
 	<<npc Robin>><<person1>>You feel a presence. Robin wraps <<his>> arms around you.
 	<br><br>
@@ -1161,7 +1161,7 @@ You are in the bathroom.
 		<<link [[Kiss|Bed Robin Sex]]>><<set $sexstart to 1>><</link>>
 	<</if>>
 	<br>
-<<elseif $location is "home" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.name.includes("apotropaic")>>
+<<elseif $location is "home" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
 	It's surrounded by trees, all bending inwards, and floating above a lake. Everything moves around you, and you find yourself hanging above a large ruin. You can't breathe.
@@ -1468,7 +1468,7 @@ You are in the bathroom.
 
 	<<link [[Next|Sleep Rape]]>><<set $molestationstart to 1>><</link>>
 	<br>
-<<elseif $location is "home" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.name.includes("apotropaic")>>
+<<elseif $location is "home" and $wraith and $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
 	It's surrounded by trees, all bending inwards, and floating above a lake. Everything moves around you, and you find yourself hanging above a large ruin. You can't breathe.
@@ -2847,7 +2847,7 @@ and !$fromRobinRoom and _robin.cdquest is 2 and _robin.trauma lte 20 and !$daily
 	<<if $halloween is 1 and Time.monthDay is 31 and !$fromRobinRoom and $robinmissing is 0 and Time.hour gte 16 and Time.hour lt 19 and _robin.init is 1>>
 		<<if $halloween_robin_costume>>
 			You see Robin, dressed as a $halloween_robin_costume and surrounded by excited orphans.
-		<<elseif _wraithEvent and !$worn.face.name.includes("apotropaic")>>
+		<<elseif _wraithEvent and !$worn.face.type.includes("apotropaic")>>
 			You see someone wearing a bedsheet over their head. They're completely motionless, and the hall is empty and silent. <span class="red">The bedsheet is a terrible, familiar pale.</span>
 			<br><br>
 
