@@ -1310,39 +1310,42 @@ function minutePassed(minutes) {
 			return blood ? t.blood : t.bruise;
 		}
 	}
-	return blood ? "disabled" : "disabled";
+	return "disabled";
 	}
 
 	if (V.settings.bruisingEnabled) {
-		for (const part of bodyparts) {
-			const value = V[`${part}bruise`];
-			if (value === undefined) continue;
-			const level = getBruiseLevel(value);
-			if (part === "eye") {
-				V.eye_bruise = value >= 60 ? "swollen" : "disabled";
-			} else {
-				V[`${part}_scar`] = value >= 80 ? "scarred" : "disabled";
-				V[`${part}_bruise`] = level;
+	for (const part of bodyparts) {
+		const value = V[`${part}bruise`];
+		if (value === undefined) continue;
+		const level = getBruiseLevel(value);
+		if (part === "eye") {
+			V.eye_bruise = value >= 60 ? "swollen" : "disabled";
+		} else {
+			if (value >= 80) {
+				V[`${part}scarred`] = true;
 			}
+			V[`${part}_scar`] = V[`${part}scarred`] ? "scarred" : "disabled";
+			V[`${part}_bruise`] = level;
 		}
+	}
 	} else {
-		for (const part of bodyparts) {
-			V[`${part}_bruise`] = "disabled";
-			V[`${part}_scar`] = "disabled";
-		}
-		V.eye_bruise = "disabled";
+	for (const part of bodyparts) {
+		V[`${part}_bruise`] = "disabled";
+		V[`${part}_scar`] = V[`${part}scarred`] ? "scarred" : "disabled";
+	}
+	V.eye_bruise = "disabled";
 	}
 
 	if (V.settings.goreEnabled) {
-		for (const part of bodyparts) {
-			const value = V[`${part}bruise`];
-			if (value === undefined) continue;
-			const bloodLevel = getBruiseLevel(value, true);
-			if (part !== "eye") {
-				if (value >= 80) V[`${part}_bruise`] = "wounded";
-				V[`${part}_blood`] = bloodLevel;
-			}
+	for (const part of bodyparts) {
+		const value = V[`${part}bruise`];
+		if (value === undefined) continue;
+		const bloodLevel = getBruiseLevel(value, true);
+		if (part !== "eye") {
+			if (value >= 80) V[`${part}_bruise`] = "wounded";
+			V[`${part}_blood`] = bloodLevel;
 		}
+	}
 	} else {
 		for (const part of bodyparts) {
 			if (part !== "eye") V[`${part}_blood`] = "disabled";

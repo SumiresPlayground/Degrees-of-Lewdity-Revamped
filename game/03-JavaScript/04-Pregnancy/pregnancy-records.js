@@ -134,19 +134,26 @@ window.createChild = createChild;
  * @returns {number} the full gestation length in seconds
  */
 function gestationSeconds(species) {
-	switch (childBaseSpecies(species)) {
-		case "human":
-			if (typeof V.settings.humanPregnancyMonths !== "number") throw new Error("V.settings.humanPregnancyMonths is undefined");
-			return V.settings.humanPregnancyMonths * 30 * TimeConstants.secondsPerDay;
-		case "wolf":
-			if (typeof V.settings.wolfPregnancyWeeks !== "number") throw new Error("V.settings.wolfPregnancyWeeks is undefined");
-			return V.settings.wolfPregnancyWeeks * 7 * TimeConstants.secondsPerDay;
-		case "hawk":
-			if (typeof V.settings.birdPregnancyWeeks !== "number") throw new Error("V.settings.birdPregnancyWeeks is undefined");
-			return V.settings.birdPregnancyWeeks * 7 * TimeConstants.secondsPerDay;
-	}
+let baseSeconds;
+switch (childBaseSpecies(species)) {
+	case "human":
+		if (typeof V.settings.humanPregnancyMonths !== "number") throw new Error("V.settings.humanPregnancyMonths is undefined");
+		baseSeconds = V.settings.humanPregnancyMonths * 30 * TimeConstants.secondsPerDay;
+		break;
+	case "wolf":
+		if (typeof V.settings.wolfPregnancyWeeks !== "number") throw new Error("V.settings.wolfPregnancyWeeks is undefined");
+		baseSeconds = V.settings.wolfPregnancyWeeks * 7 * TimeConstants.secondsPerDay;
+		break;
+	case "hawk":
+		if (typeof V.settings.birdPregnancyWeeks !== "number") throw new Error("V.settings.birdPregnancyWeeks is undefined");
+		baseSeconds = V.settings.birdPregnancyWeeks * 7 * TimeConstants.secondsPerDay;
+		break;
 }
-window.gestationSeconds = gestationSeconds;
+if (V.transformationParts.bunny.tail !== "disabled" && V.transformationParts.bunny.ears !== "disabled") {
+	baseSeconds = Math.round(baseSeconds / 3);
+}
+return baseSeconds;
+}
 
 /**
  * When a pregnancy is due to deliver (the lay, for an egg species), per its gestation setting. Can be sped up by layCare.
