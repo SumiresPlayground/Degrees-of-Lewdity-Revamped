@@ -153,7 +153,7 @@
 	<br><br>
 		
 	<<if $slime gt 0 or $ghost gte 1 or $mushroom gte 1>>
-	<span class='green'><<link "Change your hair length">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>></span>
+	<<link "Change your body">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
 	<</if>>
 	
@@ -3647,7 +3647,7 @@
 	<br><br>
 	<<if $slime gt 0>>
 		<span class='green'>You may not be able to alter your body's shape to the degree most slimes can...
-		<br> but if you focus, modifying your hair length shouldn't be too much trouble.</span>
+		<br> but if you focus, modifying your body slightly shouldn't be too much trouble.</span>
 		<br><br>
 	<<elseif $ghost gte 1>>
 		<span class='wraith'>Your supernatural abilities are normally limited to phasing through walls...
@@ -3658,6 +3658,81 @@
 		</span>
 		<br><br>
 	<</if>>
-	<<numberStepper "Hair length" $hairlength {max: 1000, callback: value => {V.hairlength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
-	<<numberStepper "Fringe length" $fringelength {max: 1000, callback: value => {V.fringelength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+	<div class="settingsToggleItem" id="hair">
+		<span class="gold">Hair:</span><br>
+		<<numberStepper "Hair length" $hairlength {max: 1000, callback: value => {V.hairlength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+		<<numberStepper "Fringe length" $fringelength {max: 1000, callback: value => {V.fringelength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+	</div>
+	<<if $slime gt 0>>
+		<div class="settingsToggleItem" id="genitals">
+			<<if $player.sex is "m">>
+				<span class="gold">Penis</span> |
+			<<else>>
+				<<link "Penis">>
+					<<wash>>
+					<<removeparasite clit>>
+					<<removeparasite penis>>
+					<<set $vaginause to "none">>
+					<<set $vaginastate to "none">>
+					<<set $penisuse to 0>>
+					<<set $penisstate to 0>>
+					<<set $player.sex to "m">>
+					<<set $player.ballsExist to true>>
+					<<set $player.penisExist to true>>
+					<<set $player.vaginaExist to false>>
+					<<set $sexStats.vagina.menstruation.running = false>>
+					<<updatesidebarimg>>
+					<<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">>
+				<</link>> |
+			<</if>>
+			<<if $player.sex is "f">>
+				<span class="gold">Vagina</span> |
+			<<else>>
+				<<link "Vagina">>
+					<<wash>>
+					<<removeparasite clit>>
+					<<removeparasite penis>>
+					<<set $vaginause to 0>>
+					<<set $vaginastate to 0>>
+					<<set $penisuse to "none">>
+					<<set $penisstate to "none">>
+					<<set $player.sex to "f">>
+					<<set $player.ballsExist to false>>
+					<<set $player.penisExist to false>>
+					<<set $player.vaginaExist to true>>
+					<<set $sexStats.vagina.menstruation.running = true>>
+					<<updatesidebarimg>>
+					<<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">>
+				<</link>> |
+			<</if>>
+			<<if $player.sex is "h">>
+				<span class="gold">Both</span>
+			<<else>>
+				<<link "Both">>
+					<<wash>>
+					<<removeparasite clit>>
+					<<removeparasite penis>>
+					<<set $vaginause to 0>>
+					<<set $vaginastate to 0>>
+					<<set $penisuse to 0>>
+					<<set $penisstate to 0>>
+					<<set $player.sex to "h">>
+					<<set $player.penisExist to true>>
+					<<set $player.vaginaExist to true>>
+					<<set $sexStats.vagina.menstruation.running = true>>
+					<<updatesidebarimg>>
+					<<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">>
+				<</link>>
+			<</if>>
+			<<if $player.sex is "h">>
+				<br>
+				Hermaphrodite Balls: <span id="statsBallsExist"><<= $player.ballsExist ? "Present" : "Disabled">></span> |
+				<<link "Change">>
+					<<set $player.ballsExist to clone(!$player.ballsExist)>>
+					<<updatesidebarimg>>
+					<<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">>
+				<</link>>
+			<</if>>
+		</div>
+	<</if>>
 <</widget>>

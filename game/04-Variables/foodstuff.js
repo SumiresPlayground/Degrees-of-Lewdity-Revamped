@@ -3626,14 +3626,14 @@ function initFoodstuff() {
 			prop_folder: "tending",
 			tending: {
 				planting_bed: "earth",
-				growth_days: 4,
-				yield_multiplier: 4,
+				growth_days: 7,
+				yield_multiplier: 2,
 				has_seeds: true,
 				seasons: ["spring", "autumn"],
 				tags: [],
 			},
 			shop: {
-				sell_price: 300,
+				sell_price: 250,
 			},
 		},
 	};

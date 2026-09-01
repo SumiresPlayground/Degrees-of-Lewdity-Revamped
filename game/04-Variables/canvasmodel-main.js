@@ -1183,7 +1183,7 @@ Renderer.CanvasModels.main = {
 					}
 					creatorvariable = V["creator" + currentNPC.replace(/\s+/g, '')];
 
-					if (V.NPCList[0].name === "'Mickey'" || V.selectedNPC === "Mickey")
+					if (V.NPCList[0].name === "'Mickey'" || V.NPCList[1].name === "'Mickey'" || V.selectedNPC === "Mickey")
 						return `img/npc/Mickey/${V.mickeySkincolour}/${V.creatorMickey}.png`;
 					else if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(currentNPC))
 						return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/monster/${creatorvariable}.png`;
@@ -3686,7 +3686,7 @@ Renderer.CanvasModels.main = {
 				}
 			},
 			zfn(options) {
-				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.left_cover_arm + 0.11;
+				if (["cover", "hold"].includes(options.arm_right)) return ZIndices.right_cover_arm + 0.11;
 				return ZIndices.armsidle + 0.21;
 			},
 			filters: ["tan"],

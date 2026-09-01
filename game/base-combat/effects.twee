@@ -5430,15 +5430,7 @@
 
 		<<if $mouthaction is "dragonBreath">>
 			<<set $mouthactiondefault to "dragonBreath">><<set $mouthaction to 0>>
-			<<set $enemyhealth -= 200>>
-			<<for _npctodamage to 0; _npctodamage lt $enemynomax; _npctodamage++>>
-				<<if $NPCList[_npctodamage].active is "active" and $NPCList[_npctodamage].stance isnot "defeated">>
-					<<set $NPCList[_npctodamage].health -= (200/$enemyno)>>/* Divide damage by all current active enemies. */
-					<<if $enemyno gte 2>>
-						<<npcdamage _npctodamage>>
-					<</if>>
-				<</if>>
-			<</for>>
+			<<set _baseDamage to 200>>
 			<<if $dragonbreathuse is undefined>>
 				<<set $dragonbreathuse to 0>>
 			<</if>>
@@ -5447,14 +5439,35 @@
 				<span class='gold'>You breathe dragon fire at the <<beasttype>>. It whimpers.</span>
 			<<elseif $enemyno gte 2>>
 				<span class='gold'>You breathe dragon fire at the <<group>>. They recoil in pain.</span>
-				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
+				<<if !$npc.includesAny("Eden", "Morgan", "Kylar", "Gwylan", "Pruti") and !$abomination and !["island"].includes($location)>>
 					<<ggcrime>><<crimeUp 500 "assault">>
 				<</if>>
 			<<else>>
 				<span class='gold'>You breathe dragon fire at the assailant. <<He>> recoils in pain.</span>
-				<<if !$npc.includes("Eden") and !$npc.includes("Morgan") and !$npc.includes("Kylar") and !$npc.includes("Ivory Wraith") and !$abomination>>
+				<<if !$npc.includesAny("Eden", "Morgan", "Kylar", "Gwylan", "Pruti") and !$abomination and !["island"].includes($location)>>
 					<<ggcrime>><<crimeUp 500 "assault">>
 				<</if>>
+			<</if>>
+			<<if _baseDamage>>
+				<<set _totalDamage to 0>>
+				<<set _npctodefeat to []>>
+				<<for _npctodamage to 0; _npctodamage lt $enemynomax; _npctodamage++>>
+					<<if $NPCList[_npctodamage].active is "active" and $NPCList[_npctodamage].stance isnot "defeated" and (!$fightTargets or $fightTargets.includes(_npctodamage))>>
+						<<set _enemydivide to $fightTargets ? $fightTargets.length : $enemyno>> /* Divide damage by all current active enemies. */
+						<<set _thedamage to _baseDamage/_enemydivide>>
+						<<set $NPCList[_npctodamage].health -= _thedamage>>
+						<<set _totalDamage += _thedamage>>
+						<<if $enemyno gte 2 and $NPCList[_npctodamage].health lte 0>>
+							<<set _npctodefeat.push(_npctodamage)>>
+						<</if>>
+					<</if>>
+				<</for>>
+				<<for $_defeatcontroller to 0; $_defeatcontroller lt _npctodefeat.length; $_defeatcontroller++>>
+					<<if $enemyno gte 2>>
+					<<defeatnpc _npctodefeat[$_defeatcontroller]>>
+					<</if>>
+				<</for>>
+				<<set $enemyhealth -= _totalDamage>>
 			<</if>>
 		<</if>>
 

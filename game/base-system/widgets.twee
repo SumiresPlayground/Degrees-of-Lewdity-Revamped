@@ -2283,8 +2283,8 @@
 		<<underlowerwet 200>>
 	<</if>>
 
-	<<if $slime gt 0 and !(V.worn.upper.type.includes("diving")) and !(V.worn.lower.type.includes("diving"))>>
-		$pain += 10;
+	<<if $slime gt 0 and !(V.worn.upper.type.includes("diving")) and !(V.worn.lower.type.includes("diving")) and $location isnot "pool">>
+		<<set $pain += 10>>
 		<span class="red">Get out of the water! It stings!</span><br><br>
 	<</if>>
 	<<waterwash>>
