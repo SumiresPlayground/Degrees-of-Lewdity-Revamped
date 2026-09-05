@@ -2507,7 +2507,7 @@
 		<</if>>
 		<<if $cow gte 6 or $cowtf is 1 or $sheep gte 6 or $sheeptf is 1>>
 			Double Semen/Milk:<br>
-			<<link "Set">><<set $semen_max to 6000>><<set $milk_max to 6000>><</link>> / <<link "Clear">><<set $semen_max to 3000>><<set $milk_max to 3000>><</link>><br>
+			<<link "Set">><<set $semen_mult to 1>><<set $milk_mult to 1>><</link>> / <<link "Clear">><<set $semen_mult to 0>><<set $milk_mult to 0>><</link>><br>
 		<</if>>
 		<<if $harpy gte 3 or $harpytf is 1 or $fox gte 3 or $foxtf is 1>>
 			Mate for Life:<br>
@@ -3616,6 +3616,7 @@
 <</widget>>
 
 <<widget "mirrorDisplayfull">>
+	NNPCs will be displayed for viewing if selected in the "Display" option on the sidebar.
 	<div class="mirror">
 		<<script>>
 			document.querySelector("canvas.mainCanvas").style.height = "768px";
@@ -3624,6 +3625,12 @@
 		<<selectmodel "main" "sidebar">>
 		<<modelprepare-player-body>>
 		<<modelprepare-player-clothes>>
+		<<switch setup.snapBodySize($bodysize)>>
+			<<case 0>><<set _modeloptions.body_size_scale to 0.91>>
+			<<case 1>><<set _modeloptions.body_size_scale to 0.94>>
+			<<case 2>><<set _modeloptions.body_size_scale to 0.97>>
+			<<case 3>><<set _modeloptions.body_size_scale to 1>>
+		<</switch>>
 		<<if $options.sidebarAnimations isnot false>>
 			<<animatemodel _args[0]>>
 		<<else>>

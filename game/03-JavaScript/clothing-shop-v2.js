@@ -58,7 +58,7 @@ window.getTrueWarmth = getTrueWarmth;
 function clothingSlotToIconName(slotName, outfits) {
 	switch (slotName) {
 		case "over_upper":
-			return "overoutfit";
+			return outfits ? "overoutfit" : "overupper";
 		case "upper":
 			return outfits ? "outfit" : "upper";
 		case "under_upper":

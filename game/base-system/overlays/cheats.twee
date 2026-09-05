@@ -283,7 +283,7 @@
 				},
 				step: 10,
 				valueFormat: value => Math.round(value) + "ml",
-				percentage: false, min: 24, max: (V.cow >= 6 ? 6000 : 3000)
+				percentage: false, min: 24, max: ((V.cow >= 6 || V.milk_mult === 1) ? 6000 : 3000)
 			}>>
 			<<if $player.penisExist>>
 				<<numberStepper "Semen Volume" $semen_volume {
@@ -294,7 +294,7 @@
 					},
 					step: 10,
 					valueFormat: value => Math.round(value) + "ml",
-					percentage: false, max: (V.cow >= 6 ? 4000 : 3000)
+					percentage: false, max: ((V.cow >= 6 || V.semen_mult === 1) ? 4000 : 3000)
 				}>>
 			<</if>>
 		</div>
@@ -2461,6 +2461,7 @@
 					<<set _physique_max_old to $physiquesize>>
 					<<set $physiquesize to _size[_i]>>
 					<<set $physique *= $physiquesize / _physique_max_old>>
+					<<updatesidebarimg>>
 					<<replace "#statsBodySize">><<cheatsBodySize>><</replace>>
 				<</link>>
 			</span> <<= _i lt _size.length - 1 ? "|" : "">>

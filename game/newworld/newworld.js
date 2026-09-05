@@ -63,3 +63,51 @@ function sillypregnancy(carrier, carrierSpecies, donor, donorSpecies, orifice, l
 window.sillypregnancy = sillypregnancy;
 
 DefineMacro("sillypregnancy", sillypregnancy);
+
+(() => {
+	// Ensure setup exists
+	if (typeof window.setup !== "object" || window.setup === null) {
+		window.setup = {};
+	}
+
+	// Ensure Math.clamp exists (some forks have it, some don't)
+	if (typeof Math.clamp !== "function") {
+		Math.clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+	}
+
+	// Valid bodysize values in build
+	setup.bodySizeSteps = [-1, 0, 1, 2, 2.5, 3, 4];
+
+	// Snap any number to nearest valid bodysize step
+	setup.snapBodySize = function (v) {
+		v = Number(v);
+		if (!Number.isFinite(v)) return 2;
+
+		let best = setup.bodySizeSteps[0];
+		let bestD = Math.abs(v - best);
+
+		for (const s of setup.bodySizeSteps) {
+			const d = Math.abs(v - s);
+			if (d < bestD) {
+				best = s;
+				bestD = d;
+			}
+		}
+		return best;
+	};
+
+	// Move by N steps in the discrete list (prevents 1.5 / 3.5 etc)
+	setup.stepBodySize = function (cur, stepDelta) {
+		cur = setup.snapBodySize(cur);
+		stepDelta = Math.trunc(Number(stepDelta) || 0);
+
+		const arr = setup.bodySizeSteps;
+		let idx = arr.indexOf(cur);
+		if (idx < 0) idx = arr.indexOf(2);
+
+		let next = idx + stepDelta;
+		next = Math.clamp(next, 0, arr.length - 1);
+
+		return arr[next];
+	};
+})();

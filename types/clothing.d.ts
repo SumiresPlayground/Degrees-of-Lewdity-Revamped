@@ -338,6 +338,7 @@ declare global {
 		 * if 1, this item has mask.png image to cut out hair & animal ears layers
 		 */
 		mask_img?: 0 | 1 | "combat";
+		sleeve_mask_img?: 0 | 1 | "combat";
 		collared?: 0 | 1;
 		rearresize?: number;
 		short?: 0 | 1;

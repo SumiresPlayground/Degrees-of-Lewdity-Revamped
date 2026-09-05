@@ -250,6 +250,7 @@ class CanvasModel {
 			layer.contrast = layer.defaultOptions.contrast;
 			layer.frameDx = 0;
 			layer.frameDy = 0;
+			layer.renderScale = 1;
 		}
 
 		function propeval(layer, propname) {

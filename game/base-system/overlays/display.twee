@@ -109,6 +109,8 @@
 				</div>
 			</div>
 			<div class="settingsToggleItemWide">
+				This is a function to import/export the NNPC selection <span class="red">NOT to import images.</span> This will allow you to instantly copy your choices to a new save.
+				<br>
 				<<if SugarCube.Browser.isMobile.any() is true>>
 					Note that saving and loading from file does not work on Android currently.
 				<<else>>
@@ -2251,7 +2253,7 @@
 					<br><br>
 				</div>
 			<</if>>
-			<<if $spray isnot null and $spray isnot undefined and $spray isnot 0>>
+			<<if $spray isnot null and $spray isnot undefined>>
 				<div class="settingsToggleItemWide">
 					<span class="green">Custom pepper icons will display a different icon depending on the current setting. These icons are found in img/ui/pepper-spray.</span>
 					<br><br>
@@ -2421,6 +2423,18 @@
 		<label>Custom <<radiovar "$creatorBlackWolf" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Briar">>
 		<span class="gold">Briar:</span>
+		<label>mozumelody
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorBriar" "mozumelody">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>mozumelody2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alternate dark skin sprites</span>
+			</mouse>
+			<<radiovar "$creatorBriar" "mozumelody2">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Maganat
 			<mouse class="tooltip linkBlue">(?)
 				<span>Only female sprites</span>
@@ -2573,11 +2587,12 @@
 			</mouse>
 			<<radiovar "$creatorGwylan" "ryonanoia">><<updatesidebarimg>><</radiovar>>
 		</label> |
-		<label>kon
+		<label>kon <<radiovar "$creatorGwylan" "kon">><<updatesidebarimg>><</radiovar>> |
+		<label>kon2
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male sprites</span>
+				<span>Vanilla style alternate sprites</span>
 			</mouse>
-			<<radiovar "$creatorGwylan" "kon">><<updatesidebarimg>><</radiovar>>
+			<<radiovar "$creatorGwylan" "kon2">><<updatesidebarimg>><</radiovar>> |
 		</label> |
 		<label>Custom <<radiovar "$creatorGwylan" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Harper">>
@@ -2612,6 +2627,13 @@
 			</mouse>
 			<<radiovar "$creatorHarper" "sunaraei">><<updatesidebarimg>><</radiovar>>
 		</label> |
+		<label>kon <<radiovar "$creatorHarper" "kon">><<updatesidebarimg>><</radiovar>> |
+		<label>RazzPixel
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorHarper" "RazzPixel">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Custom <<radiovar "$creatorHarper" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Ivory Wraith">>
 		<span class="gold">Ivory Wraith:</span>
@@ -2640,9 +2662,15 @@
 		</label> |
 		<label>wroom
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Androgenous sprites</span>
 			</mouse>
 			<<radiovar "$creatorJordan" "wroom">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>kon
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorJordan" "kon">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorJordan" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Kylar">>
@@ -2809,12 +2837,7 @@
 		<label>Custom <<radiovar "$creatorMorgan" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Night Monster">>
 		<span class="gold">Night Monster:</span>
-		<label>RazzPixel
-			<mouse class="tooltip linkBlue">(?)
-				<span>Only monster sprites</span>
-			</mouse>
-			<<radiovar "$creatorNightMonster" "RazzPixel">><<updatesidebarimg>><</radiovar>>
-		</label> |
+		<label>RazzPixel <<radiovar "$creatorNightMonster" "RazzPixel">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Custom <<radiovar "$creatorNightMonster" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Niki">>
 		<span class="gold">Niki:</span>
@@ -2862,6 +2885,12 @@
 			</mouse>
 			<<radiovar "$creatorRemy" "Maganat">><<updatesidebarimg>><</radiovar>>
 		</label> |
+		<label>RazzPixel
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorRemy" "RazzPixel">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Custom <<radiovar "$creatorRemy" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "River">>
 		<span class="gold">River:</span>
@@ -2871,12 +2900,7 @@
 			</mouse>
 			<<radiovar "$creatorRiver" "Maganat">><<updatesidebarimg>><</radiovar>>
 		</label> |
-		<label>RazzPixel
-			<mouse class="tooltip linkBlue">(?)
-				<span>Only female sprites</span>
-			</mouse>
-			<<radiovar "$creatorRiver" "RazzPixel">><<updatesidebarimg>><</radiovar>>
-		</label> |
+		<label>RazzPixel <<radiovar "$creatorRiver" "RazzPixel">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Custom <<radiovar "$creatorRiver" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Robin">>
 		<span class="gold">Robin:</span>
@@ -3131,15 +3155,39 @@
 			</mouse>
 			<<radiovar "$creatorCasey" "mozumelody">><<updatesidebarimg>><</radiovar>>
 		</label> |
+		<label>kiraa
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin male sprites</span>
+			</mouse>
+			<<radiovar "$creatorCasey" "kiraa">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Custom <<radiovar "$creatorCasey" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Haegish">>
 		<span class="gold">Haegish:</span>
 		<label>Custom <<radiovar "$creatorHaegish" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Pruti">>
 		<span class="gold">Pruti:</span>
+		<label>kiraa
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin male sprites</span>
+			</mouse>
+			<<radiovar "$creatorPruti" "kiraa">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Custom <<radiovar "$creatorPruti" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Salem">>
 		<span class="gold">Salem:</span>
+		<label>kan
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only dark skin female sprites</span>
+			</mouse>
+			<<radiovar "$creatorSalem" "kan">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>deadmeat
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorSalem" "deadmeat">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Custom <<radiovar "$creatorSalem" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Taylor">>
 		<span class="gold">Taylor:</span>
