@@ -230,7 +230,73 @@ function initOverUpper() {
 		Clothes that modders add go into this array. This should be empty in the base game at all times.
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
-	setup.moddedClothes.over_upper = [];
+	setup.moddedClothes.over_upper = [
+		/*
+		{
+			index: 1,
+			slot: "over_upper",
+			name: "school blazer",
+			name_cap: "School Blazer",
+			variable: "blazer",
+			integrity: 300,
+			integrity_max: 300,
+			fabric_strength: 30,
+			reveal: 100,
+			bustresize: 0,
+			word: "a",
+			one_piece: 0,
+			strap: 0,
+			open: 1,
+			zip: 0,
+			state: "waist",
+			state_base: "waist",
+			state_top: "chest",
+			state_top_base: "chest",
+			plural: 0,
+			colour: 0,
+			colour_options: [
+				"black",
+				"brown",
+				"silver",
+				"gold",
+				"rose gold",
+				"blue",
+				"green",
+				"pink",
+				"purple",
+				"red",
+				"tangerine",
+				"teal",
+				"white",
+				"yellow",
+				"neon blue",
+				"custom",
+			],
+			colour_sidebar: 1,
+			exposed: 0,
+			exposed_base: 0,
+			type: ["school"],
+			gender: "n",
+			femininity: 0,
+			warmth: 8,
+			cost: 5000,
+			description: "A smart school blazer that makes you feel especially studious.",
+			shop: ["clothing"],
+			accessory: 1,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			accessory_colour_sidebar: 0,
+			sleeve_img: 1,
+			sleeve_acc_img: 1,
+			sleeve_mask_img: 1,
+			breast_img: { 0: null, 1: null, 2: null, 3: 3, 4: 4, 5: 5, 6: 6 },
+			cursed: 0,
+			location: 0,
+			iconFile: "",
+			accIcon: 0,
+		}
+		*/
+	];
 
 	setup.moddedClothes.over_upper.forEach((x, i) => (x.index = setup.clothes.over_upper.length + i));
 	setup.clothes.over_upper.push(...setup.moddedClothes.over_upper);

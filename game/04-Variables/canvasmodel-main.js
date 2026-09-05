@@ -215,6 +215,29 @@ replace (?<!["'\w])_(?=\w) with T.
  * - "worn_SLOT" - generated from sprite prefilter and custom or predefined colour
  * - "worn_SLOT_acc" - generated from sprite prefilter and custom or predefined colour
  */
+
+const bodySizeIndependentLayers = new Set([
+	"npcpresent",
+	"background",
+	"backgroundBed",
+	"backgroundchair",
+	"backgrounddecoration",
+	"backgrounddesk",
+	"backgroundposter",
+	"backgroundwallpaper",
+	"backgroundwardrobe",
+	"backgroundwindowsill",
+	"backgroundowlplushie",
+	"backgroundtable",
+	"backgroundpc",
+	"backgroundtank",
+	"backgroundtankdecorations",
+	"backgroundtankfeeder",
+	"backgroundparasite",
+	"foregroundmirror",
+	"foreground",
+]);
+
 Renderer.CanvasModels.main = {
 	name: "main",
 	width: 256,
@@ -1144,6 +1167,15 @@ Renderer.CanvasModels.main = {
 					return acc;
 				}, { layers: [], slots: {} });
 		}
+
+		const bodySizeScale = Number(options.body_size_scale) || 1;
+		if (bodySizeScale !== 1) {
+			for (const layer of this.layerList) {
+				if (!bodySizeIndependentLayers.has(layer.name) && !layer.name.startsWith("follower_")) layer.renderScale = bodySizeScale;
+			}
+		}
+		// Generated (tanning) layers are a persistent cached object, so always (re)stamp their scale to clear a stale value left by an earlier render at a different body size.
+		for (const layer of Object.values(options.generatedLayers)) layer.renderScale = bodySizeScale;
 	},
 	layers: {
 		// banner comments generated in http://patorjk.com/software/taag/#p=display&c=c&f=ANSI%20Regular&t=base
@@ -1168,6 +1200,10 @@ Renderer.CanvasModels.main = {
 					const currentNPC = V.npc[0] || V.selectedNPC;
 					const excludedNPCs = ["Mickey", "Brown Fox"];
 					let index, skin, skincolour, creatorvariable;
+					let ismonster;
+					if (currentNPC === "Black Wolf") ismonster = V.blackwolfmonster;
+					else if (currentNPC === "Great Hawk") ismonster = V.greathawkmonster;
+					else if (currentNPC === "Night Monster") ismonster = V.nightmonstermonster;
 					if (!excludedNPCs.includes(currentNPC)) {
 						index = npcs.indexOf(currentNPC);
 						/*skin = V.NPCName[index].skincolour;
@@ -1185,8 +1221,8 @@ Renderer.CanvasModels.main = {
 
 					if (V.NPCList[0].name === "'Mickey'" || V.NPCList[1].name === "'Mickey'" || V.selectedNPC === "Mickey")
 						return `img/npc/Mickey/${V.mickeySkincolour}/${V.creatorMickey}.png`;
-					else if (V.monster === 0 && ["Black Wolf","Great Hawk","Night Monster"].includes(currentNPC))
-						return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/monster/${creatorvariable}.png`;
+					else if (["Black Wolf", "Great Hawk", "Night Monster"].includes(currentNPC) && (ismonster === 0 || ismonster === 1 && V.hallucinations >= 1))
+						return `img/npc/${currentNPC}/i/monster/${creatorvariable}.png`;
 					else if (currentNPC === "Sydney")
 						if (C.npc.Sydney.purity > 0)
 							return `img/npc/${currentNPC}/${V.NPCName[index].pronoun}/pure/${skincolour}/${C.npc.Sydney.hairColour}-${V.sydney.hair}-${V.sydney.glasses}/${creatorvariable}.png`;
@@ -1471,7 +1507,7 @@ Renderer.CanvasModels.main = {
 							else if (V.container.home.creatures[5].creature !== null) {
         						return `img/background/furniture/tank/parasites/${V.container.home.creatures[5].creature}/${timeSuffix}.png`;}}}}
 			},
-			masksrcfn(options){
+			masksrcfn(){
 				{return `img/background/furniture/tank/${V.container.home.name}/mask.png`;}
 			}
 		},
@@ -4532,6 +4568,10 @@ Renderer.CanvasModels.main = {
 			zfn(options) {
 				return options.zupperright;
 			},
+			masksrcfn(options) {
+				if (options.worn.over_upper.setup.sleeve_mask_img === 1)
+					return `img/clothes/masks/arm-mask.png`;
+			},
 		}),
 		"upper_leftarm": genlayer_clothing_arm("left", "upper", {
 			zfn(options) {
@@ -4540,6 +4580,8 @@ Renderer.CanvasModels.main = {
 			masksrcfn(options) {
 				if (options.worn.over_upper.setup.name === "kaiju costume")
 					return `img/clothes/over-upper/kaiju/mask.png`;
+				if (options.worn.over_upper.setup.sleeve_mask_img === 1)
+					return `img/clothes/masks/arm-mask.png`;
 				return options.belly_hides_lower ? options.belly_mask_clip_src : null;
 			},
 		}),
@@ -4583,13 +4625,25 @@ Renderer.CanvasModels.main = {
 		"over_upper_rightarm": genlayer_clothing_arm("right", "over_upper", {
 			zfn(options) {
 				return (options.arm_right === "cover" || options.arm_right === "hold") ?
-					ZIndices.over_upper_arms + 0.9 : ZIndices.over_upper_arms;
+					ZIndices.over_upper_arms_cover : ZIndices.over_upper_arms;
 			},
 		}),
 		"over_upper_leftarm": genlayer_clothing_arm("left", "over_upper", {
 			zfn(options) {
 				return options.arm_left === "cover" ?
-					ZIndices.over_upper_arms + 0.9 : ZIndices.over_upper_arms;
+					ZIndices.over_upper_arms_cover : ZIndices.over_upper_arms;
+			},
+		}),
+		"over_upper_rightarm_acc": genlayer_clothing_arm_acc("right", "over_upper", {
+			zfn(options) {
+				return (options.arm_right === "cover" || options.arm_right === "hold") ?
+					ZIndices.over_upper_arms_cover + 0.1 : ZIndices.over_upper_arms + 0.1;
+			},
+		}),
+		"over_upper_leftarm_acc": genlayer_clothing_arm_acc("left", "over_upper", {
+			zfn(options) {
+				return (options.arm_right === "cover" || options.arm_right === "hold") ?
+					ZIndices.over_upper_arms_cover + 0.1 : ZIndices.over_upper_arms + 0.1;
 			},
 		}),
 		"over_upper_back": genlayer_clothing_back_img('over_upper', {

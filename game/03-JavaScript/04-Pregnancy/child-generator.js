@@ -115,17 +115,17 @@ window.rollChildGender = rollChildGender;
  */
 function pcHeritage() {
 	let beast = null;
-	if (V.cat >= 6) beast = "cat";
-	else if (V.cow >= 6) beast = "cow";
-	else if (V.wolfgirl >= 6) beast = "wolf";
-	else if (V.harpy >= 6) beast = "bird";
-	else if (V.fox >= 6) beast = "fox";
+	if (V.transformationParts.cat.tail !== "disabled") beast = "cat";
+	else if (V.transformationParts.cow.tail !== "disabled") beast = "cow";
+	else if (V.transformationParts.wolf.tail !== "disabled") beast = "wolf";
+	else if (V.transformationParts.bird.wings !== "disabled") beast = "bird";
+	else if (V.transformationParts.fox.tail !== "disabled") beast = "fox";
 
 	// Fallen needs to be checked before angel
 	let divine = null;
-	if (V.fallenangel >= 4) divine = "fallen";
-	else if (V.angel >= 6) divine = "angel";
-	else if (V.demon >= 6) divine = "demon";
+	if (V.transformationParts.fallenAngel.wings) divine = "fallen";
+	else if (V.transformationParts.angel.wings) divine = "angel";
+	else if (V.transformationParts.demon.wings) divine = "demon";
 
 	return { beast, divine };
 }

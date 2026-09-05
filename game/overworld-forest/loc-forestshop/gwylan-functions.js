@@ -60,9 +60,9 @@ function gwylanRequest(override = null) {
 		V.gwylanTalked.includes("bird") &&
 		!V.plucked &&
 		(!V.gwylan.timer.preen || V.gwylan.timer.preen < Time.date.timeStamp) &&
-		((V.harpy >= 6 && V.birdFly >= 1) || V.gwylan.requestCount >= 10)
+		((V.transformationParts.bird.wings !== "disabled" && V.birdFly >= 1) || V.gwylan.requestCount >= 10)
 	) {
-		if (V.harpy >= 6 && V.birdFly >= 1) {
+		if (V.transformationParts.bird.wings !== "disabled" && V.birdFly >= 1) {
 			allPossibleRequests.push(["preen", 2]); // Preen player's wings
 		} else if (!V.avery_mansion || V.avery_fate) {
 			allPossibleRequests.push(["preen", 1]); // Feathers from GH, more rare since it's harder without TF. Do not request this if Avery's mansion is unlocked but before the end of the skyscraper questline to avoid missing dinner, dates, or parties
@@ -71,7 +71,7 @@ function gwylanRequest(override = null) {
 	if (
 		T.gwylanStatus.includesAny("dom", "lust") &&
 		V.gwylan.requestCount >= 5 &&
-		(V.gwylanSeen.includesAny("cream_lick", "cafe_chef_truth", "nectar_lick") || V.cat >= 6) &&
+		(V.gwylanSeen.includesAny("cream_lick", "cafe_chef_truth", "nectar_lick") || V.transformationParts.cat.tail !== "disabled") &&
 		(!V.gwylan.timer.cream || V.gwylan.timer.cream < Time.date.timeStamp)
 	)
 		allPossibleRequests.push(["cream", 1]); // Lewd event
@@ -156,8 +156,8 @@ function gwylanRequest(override = null) {
 			V.gwylan.request.event = "preen";
 			V.gwylan.request.items = [{ category: "other", name: "feathers", need: seedrng.randomInt(3, 6) }];
 			V.gwylan.request.timer =
-				V.harpy >= 6 && V.birdFly >= 1 ? new DateTime(Time.date).addDays(1).timeStamp : new DateTime(Time.date).addDays(10).timeStamp; // 10 day timer if no bird tf
-			V.gwylan.request.special = V.harpy >= 6 ? "harpy" : "feathers";
+				V.transformationParts.bird.wings !== "disabled" && V.birdFly >= 1 ? new DateTime(Time.date).addDays(1).timeStamp : new DateTime(Time.date).addDays(10).timeStamp; // 10 day timer if no bird tf
+			V.gwylan.request.special = V.transformationParts.bird.wings !== "disabled" ? "harpy" : "feathers";
 			return V.gwylan.request;
 		case "cream":
 			V.gwylan.request.event = "cream";
@@ -1075,7 +1075,7 @@ window.gwylanHypnoMax = gwylanHypnoMax;
 function gwylanForestRescueRange() {
 	if (!V.gwylanSeen?.includes("ritual_sex")) return 25;
 	if (V.worn.neck.name === "familiar collar" && V.worn.neck.cursed === 1) return 100;
-	if (V.fox >= 6) return 50;
+	if (V.transformationParts.fox.tail !== "disabled") return 50;
 	return 25;
 }
 window.gwylanForestRescueRange = gwylanForestRescueRange;

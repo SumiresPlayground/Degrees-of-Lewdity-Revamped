@@ -389,7 +389,7 @@ function kylarStatusCheck(kylar) {
 }
 
 function understandsBirdBehaviour() {
-	return V.harpy >= 6 || V.tending >= 600;
+	return V.transformationParts.bird.wings !== "disabled" || V.tending >= 600;
 }
 window.understandsBirdBehaviour = understandsBirdBehaviour;
 

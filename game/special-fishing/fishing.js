@@ -605,7 +605,7 @@ window.onBaitLoss = onBaitLoss;
  * @returns {boolean}
  */
 function canEatFishTf(fish) {
-	return (V.cat >= 3 || V.fox >= 3 || V.harpy >= 3) && fish.size <= 20;
+	return (V.transformationParts.cat.tail !== "disabled" || V.transformationParts.fox.tail !== "disabled" >= 3 || V.transformationParts.bird.wings !== "disabled" >= 3) && fish.size <= 20;
 }
 window.canEatFishTf = canEatFishTf;
 

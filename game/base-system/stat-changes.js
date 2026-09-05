@@ -422,7 +422,7 @@ const statChange = (() => {
 		amount = Number(amount);
 		if (V.player.penisExist && amount) {
 			amount *= 3;
-			if (V.cow >= 6) amount *= 1.25;
+			if (V.cow >= 6 || V.semen_mult === 1) amount *= 1.25;
 
 			/* Prevents those who can only have "female climax" increase their cum volume */
 			if (V.player.penissize > 0 || amount <= 0) V.semen_volume += amount;
@@ -445,9 +445,9 @@ const statChange = (() => {
 		if (isNaN(amount)) paramError("milkvolume", "amount", amount, "Expected a number.");
 		amount = Number(amount);
 		if (amount) {
-			if (amount > 0) lactationPressure(V.cow >= 6 ? 2 : 1);
+			if (amount > 0) lactationPressure((V.cow >= 6  || V.milk_mult === 1) ? 2 : 1);
 			if (V.lactating) {
-				if (V.cow >= 6) amount *= 2;
+				if (V.cow >= 6 || V.milk_mult === 1) amount *= 2;
 				V.milk_volume = Math.clamp(V.milk_volume + amount, 24, V.milk_max);
 			}
 		}
@@ -488,7 +488,7 @@ const statChange = (() => {
 		if (isNaN(amount)) paramError("wolfDefiant", "amount", amount, "Expected a number.");
 		amount = Number(amount);
 		if (amount) {
-			if (V.wolfgirl >= 6) {
+			if (V.transformationParts.wolf.tail !== "disabled") {
 				stress(-6);
 				if (V.submissive > amount) {
 					trauma(30);

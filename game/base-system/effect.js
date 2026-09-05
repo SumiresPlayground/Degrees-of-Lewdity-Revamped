@@ -2254,17 +2254,16 @@ function effects() {
 	}
 
 	if (V.slime > 0 || V.ghost >= 1 || V.mushroom >= 1) {
-
-	V.pblevel = 0;
-	V.pbgrowth = 0;
-	V.pblevelballs = 0;
-	V.pbgrowthballs = 0;
-	V.pbstrip = 0;
-	V.makeup.pbcolour = 0;
+		V.pblevel = 0;
+		V.pbgrowth = 0;
+		V.pblevelballs = 0;
+		V.pbgrowthballs = 0;
+		V.pbstrip = 0;
+		V.makeup.pbcolour = 0;
 	}
 
 	if (V.mouthsensitivity < 4 && V.transformationParts.traits.longtongue !== "disabled") {
-	V.mouthsensitivity = 4;
+		V.mouthsensitivity = 4;
 	}
 	
 	if (V.mushroom === 1 && V.fungalgrowth === 0) {
@@ -2305,6 +2304,11 @@ function effects() {
 		updatesidebarimg();
 		sWikifier(`<span class="yellow">Your mushroom attire broke! Your transformation has been reverted to the previous stage!</span><br><br>`);
 	}
+	}
+
+	if (["over_lower", "lower"].every(slot => itemExposure(slot) >= 2) && itemExposure("under_lower") >= 1 && V.exhibitionism >= 75 && V.nudist !== 1) {
+		V.nudist = 1
+		sWikifier(`<span class="lewd">You are no longer ashamed to be seen naked. You are now a nudist.</span><br><br>`);
 	}
 	
 	return fragment;

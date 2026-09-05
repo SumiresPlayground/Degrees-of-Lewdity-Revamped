@@ -2560,7 +2560,7 @@ function calculateSemenReleased() {
 
 	if (V.femaleclimax === 1) released /= 30;
 	if (V.orgasmtrait >= 1) released *= 1.5;
-	if (V.cow >= 6) released *= 1.2;
+	if (V.cow >= 6 || V.semen_mult === 1) released *= 1.2;
 
 	/* if the player doesn't have enough semen, set $_semen_released to whatever they have left */
 	if (V.semen_amount < released) released = V.semen_amount;
@@ -3249,15 +3249,15 @@ function hasSharpSenses(sense = "any") {
 		if (currentSkillValue("skulduggery") >= 600) return "experienced eyes";
 	}
 	if (["any", "hearing"].includes(sense)) {
-		if (V.transformationParts.wolf.ears !== "disabled" && V.transformationParts.wolf.ears !== "hidden") return "wolf ears";
-		if (V.transformationParts.cat.ears !== "disabled" && V.transformationParts.cat.ears !== "hidden") return "cat ears";
-		if (V.transformationParts.fox.ears !== "disabled" && V.transformationParts.fox.ears !== "hidden") return "fox ears";
+		if (V.transformationParts.wolf.ears !== "disabled") return "wolf ears";
+		if (V.transformationParts.cat.ears !== "disabled") return "cat ears";
+		if (V.transformationParts.fox.ears !== "disabled") return "fox ears";
 		if (currentSkillValue("skulduggery") >= 600) return "experienced ears";
 	}
 	if (["instincts"].includes(sense)) {
-		if (V.wolfgirl >= 6) return "wolf instincts";
-		if (V.cat >= 6) return "cat instincts";
-		if (V.fox >= 6) return "fox instincts";
+		if (V.transformationParts.wolf.tail !== "disabled") return "wolf instincts";
+		if (V.transformationParts.cat.tail !== "disabled") return "cat instincts";
+		if (V.transformationParts.fox.tail !== "disabled") return "fox instincts";
 		if (V.dryad >= 6 || currentSkillValue("tending") >= 900) return "nature-trained instincts";
 	}
 	return false;
@@ -3268,7 +3268,7 @@ function displayDefiantOption(amount) {
 	if (isNaN(amount)) paramError("displayDefiantOption", "amount", amount, "Expected a number.");
 	amount = Number(amount);
 	if (amount) {
-		if (V.submissive <= amount || V.wolfgirl >= 6) {
+		if (V.submissive <= amount || V.transformationParts.wolf.tail !== "disabled") {
 			return true;
 		}
 		return false;
