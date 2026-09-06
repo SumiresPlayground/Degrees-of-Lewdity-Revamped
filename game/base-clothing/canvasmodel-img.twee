@@ -10,12 +10,16 @@ Render full player image.
 	<<selectmodel "main" "sidebar">>
 	<<modelprepare-player-body>>
 	<<modelprepare-player-clothes>>
-	<<switch setup.snapBodySize($bodysize)>>
-		<<case 0>><<set _modeloptions.body_size_scale to 0.91>>
-		<<case 1>><<set _modeloptions.body_size_scale to 0.94>>
-		<<case 2>><<set _modeloptions.body_size_scale to 0.97>>
-		<<case 3>><<set _modeloptions.body_size_scale to 1>>
-	<</switch>>
+	<<if $settings.sizingEnabled is true>>
+		<<switch setup.snapBodySize($bodysize)>>
+			<<case 0>><<set _modeloptions.body_size_scale to 0.91>>
+			<<case 1>><<set _modeloptions.body_size_scale to 0.94>>
+			<<case 2>><<set _modeloptions.body_size_scale to 0.97>>
+			<<case 3>><<set _modeloptions.body_size_scale to 1>>
+		<</switch>>
+	<<else>>
+		<<set _modeloptions.body_size_scale to 1>>
+	<</if>>
 	<<if $options.sidebarAnimations isnot false>>
 		<<animatemodel _args[0]>>
 	<<else>>

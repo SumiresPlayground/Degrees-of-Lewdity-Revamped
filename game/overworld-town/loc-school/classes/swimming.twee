@@ -72,10 +72,10 @@
 			<</if>>
 			<br>
 		<</if>>
-	<<elseif $exposed gte 2 and $swimall isnot 1>>
+	<<elseif ($exposed gte 2 and $swimall isnot 1) or $nudist is 1>>
 		<<npc Mason>><<person1>>
 		<<schoolpoolexposed>>
-		<<if hasSexStat("exhibitionism", 5) and $swimall isnot 1>>
+		<<if (hasSexStat("exhibitionism", 5) and $swimall isnot 1) or $nudist is 1>>
 			<<socialiseicon "ask">><<link [[Ask to swim naked|School Pool Ask Naked]]>><<fameexhibitionism 15>><<endevent>><<set $swimnudecounter += 1>><</link>><<exhibitionist5>>
 			<br>
 		<</if>>
@@ -168,7 +168,7 @@
 			Go get changed."
 			<br><br>
 
-			<<if hasSexStat("exhibitionism", 5) and $swimall isnot 1>>
+			<<if (hasSexStat("exhibitionism", 5) and $swimall isnot 1) or $nudist is 1>>
 				<<set _hasAskLink to true>>
 				<<socialiseicon "ask">><<link [[Ask to swim naked|School Pool Ask Naked]]>><<fameexhibitionism 15>><<endevent>><<set $swimnudecounter += 1>><</link>><<exhibitionist5>>
 				<br>
