@@ -2308,6 +2308,7 @@ function effects() {
 
 	if (["over_lower", "lower"].every(slot => itemExposure(slot) >= 2) && itemExposure("under_lower") >= 1 && V.exhibitionism >= 75 && V.nudist !== 1) {
 		V.nudist = 1
+		V.publicnudist = false
 		sWikifier(`<span class="lewd">You are no longer ashamed to be seen naked. You are now a nudist.</span><br><br>`);
 	}
 	
