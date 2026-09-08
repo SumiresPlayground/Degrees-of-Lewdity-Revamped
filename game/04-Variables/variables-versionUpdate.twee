@@ -2358,6 +2358,14 @@
 		<<set $uncomfortable.lewd to true>>
 	<</if>>
 
+	<<if $publicnudist is undefined>>
+		<<if $nudist is 1>>
+			<<set $publicnudist to false>>
+		<<else>>
+			<<set $publicnudist to true>>
+		<</if>>
+	<</if>>
+
 	<<if $player.bodyliquid is undefined>>
 		<<set $player.bodyliquid to {}>>
 
@@ -3438,7 +3446,7 @@
 			bodywritingImages: $bodywritingImages !== undefined ? $bodywritingImages : true,
 			silhouetteEnabled: $silhouettedisable !== undefined ? $silhouettedisable === "f" : true,
 			sidebarAnimations: $sidebarAnimations !== undefined ? $sidebarAnimations : true,
-			blinkingEnabled: $blinkingdisable !== undefined ? $blinkingdisable === "f" : true,
+			blinkingEnabled: $blinkingdisable !== undefined ? $blinkingdisable === "f" : false,
 			combatAnimations: $combatAnimations !== undefined ? $combatAnimations : true,
 			halfClosedEnabled: $halfcloseddisable !== undefined ? $halfcloseddisable === "f" : true,
 			characterLightEnabled: true,

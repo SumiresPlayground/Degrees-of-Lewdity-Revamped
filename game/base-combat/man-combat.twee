@@ -5081,7 +5081,7 @@ Hands are 'inverted': NPC holds PC's left hand with their right one, and vice ve
 						<span class="pink"><<He>> pushes <<his>> tongue into your virgin pussy,</span><span class="red"> breaking your hymen and <<virginitylosttext $NPCList[_n].fullDescription>></span>
 						<<sex 100 "genital" _n>><<takeVirginity $NPCList[_n].fullDescription "vaginal">><<violence 100>>
 					<</if>>
-					<<vaginalstat>><<set $NPCList[_n].mouth to "vagina">><<bruise vagina>><<violence 1>><<set $vaginastate to "othermouth">>
+					<<vaginalstat>><<takeNPCVirginity _n "oral">><<set $NPCList[_n].mouth to "vagina">><<bruise vagina>><<violence 1>><<set $vaginastate to "othermouth">>
 					<<if $virginitytest is 1>><<raped>><<vaginaraped>><</if>>
 				<<else>>
 					Respecting your wishes, <<he>> does not penetrate your <<pussy>> with <<his>> tongue, instead running <<his>> tongue up and down your labia.
@@ -6530,6 +6530,14 @@ Hands are 'inverted': NPC holds PC's left hand with their right one, and vice ve
 					<<violence 3>><<bruise face>><<set $speechfacesit to 1>><<set $mouthtarget to _n>>
 					<<set $NPCList[_n].location.genitals = "head">>
 				<<else>>
+					<<if $player.virginity.oral isnot true>>
+						<<if $NPCList[_n].type is "plant">>
+							<span class="pink">Sweet nectar drips into your mouth.</span>
+							<<nectarfed 10>>
+						<</if>>
+					<<elseif $player.virginity.oral is true>>
+						<<takeVirginity $NPCList[_n].fullDescription "oral">><<set $speechmouthvirgin to 1>>
+					<</if>>
 					<span class="purple"><<He>> wraps <<his>> legs around your head and presses <<his>> pussy against your mouth.</span>
 					<<submission 5 _n>><<set $mouthuse to "othervagina">><<set $NPCList[_n].vagina to "mouth">><<set $mouthstate to "othervagina">><<violence 3>><<bruise face>><<set $speechvaginamouth to 1>>
 					<<set $NPCList[_n].location.genitals = "head">><<set $mouthtarget to _n>>

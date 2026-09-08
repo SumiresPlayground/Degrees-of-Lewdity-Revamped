@@ -1310,7 +1310,7 @@
 					<span class="pink"><<bHe>> pushes <<bhis>> long tongue into your virgin pussy,</span><span class="red"> breaking your hymen and forever robbing you of your purity.</span>
 					<<sex 100 "genitals">><<takeVirginity $NPCList[_n].fullDescription "vaginal">><<violence 100>>
 				<</if>>
-				<<vaginalstat>><<set $NPCList[_n].mouth to "vagina">><<bruise vagina>><<set $vaginastate to "othermouth">>
+				<<vaginalstat>><<takeNPCVirginity _n "oral">><<set $NPCList[_n].mouth to "vagina">><<bruise vagina>><<set $vaginastate to "othermouth">>
 				<<if $virginitytest is 1>><<raped>><<vaginaraped>><</if>>
 			<<else>>
 				Respecting your wishes, <<bhe>> does not penetrate your <<pussy>> with <<bhis>> tongue, instead licking your labia with a primal thirst.
@@ -1789,9 +1789,15 @@
 				<<bHe>> rubs <<bhis>> pussy against your lips.
 				<<neutral 3 "mouth">>
 			<<elseif ($enemyanger + $rng) lte 100>>
+				<<if $player.virginity.oral is true>>
+					<<submission 30>><<takeVirginity $NPCList[_n].fullDescription "oral">>
+				<</if>>
 				<span class="blue"><<bHe>> pushes <<bhis>> pussy against your lips.</span>
 				<<sex 3 "mouth">><<set $NPCList[_n].vagina to "mouth">><<set $mouthuse to "othervagina">><<set $mouthstate to "othervagina">><<set $mouthtarget to _n>>
 			<<else>>
+				<<if $player.virginity.oral is true>>
+					<<submission 30>><<takeVirginity $NPCList[_n].fullDescription "oral">>
+				<</if>>
 				<span class="purple"><<bHe>> shoves <<bhis>> pussy against your lips.</span>
 				<<sex 3 "mouth">><<set $NPCList[_n].vagina to "mouth">><<set $mouthuse to "othervagina">><<set $mouthstate to "othervagina">><<set $mouthtarget to _n>>
 			<</if>>
