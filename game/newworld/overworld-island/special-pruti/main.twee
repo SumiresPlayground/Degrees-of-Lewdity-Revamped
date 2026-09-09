@@ -108,6 +108,8 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<br><br>
 	Pruti is sitting, eating a meal of meat and herb. <<He>> seems to wince every few bites due to the bitter taste. 
 	<br><br>
+	<<link [[Clean up the hut (1:00)|Witch Hut]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
+	<br>
 	<<link [[Wait (1:00)|Witch Hut]]>><<pass 60>><<endevent>><</link>>
 
 <<elseif Time.hour is 12>>
@@ -127,8 +129,10 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	Pruti sits idly riding a book. <<He>> occasionally looks up from the book to draw a sigil on the desktop before returning to reading. The entire room has a sort of ominous vibe. 
 	<br><br>
 	/* 
-	<<link [[Try to spend time with Pruti (1:00)|Witch Hut Pruti Spend]]>><<pass 60>><<endevent>><</link>>
+	<<link [[Try to spend time with Pruti (1:00)|Witch Hut Pruti Spend]]>><<pass 60>><</link>>
 	<br>*/
+	<<link [[Clean up the hut (1:00)|Witch Hut]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
+	<br>
 	<<link [[Wait (1:00)|Witch Hut]]>><<pass 60>><<endevent>><</link>>
 
 <<elseif Time.hour is 20>>
@@ -152,6 +156,8 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<<else>>
 		<<link [[Flee (0:30)|Witch Hut Flee]]>><<pass 30>><<endevent>><</link>>
 	<</if>>
+	<br>
+	<<link [[Clean up the hut (1:00)|Witch Hut]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
 	<br>
 	<<link [[Wait (1:00)|Witch Hut]]>><<pass 60>><<endevent>><</link>>
 <</if>>
@@ -325,8 +331,6 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 <<effects>>
 
 <<if $molestationstart is 1>>
-	<<set $monster to 1>>
-	<<set $NPCList[0].monster to "monster">>
 	<<set $molestationstart to 0>>
 	<<controlloss>>
 	<<violence 1>>
@@ -343,6 +347,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<<else>>
 		<<set $enemyhealthmax to 1200>>
 		<<set $enemyhealth to 1200>>
+		<<set $enemyarousalmax to 1500>>
 		<<set $enemyanger += 500>>
 		<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 2)>>
 		<<makeAbomination _randomtentacles 16 "tentacle" "tentacle" true>>
@@ -431,7 +436,15 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<br><br>
 	Pruti lies still in <<his>> bed, asleep.
 	<br><br>
-
+/*
+<<elseif Time.hour lte 7>>
+	You're within a small hut bound among a pile of other dolls. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
+	<br><br>
+	Pruti is cooking but <<he>> seems apprehensive, it looks like <<he>> is unsure what to add to the meal. 
+	<br><br>
+	<<link [[Ask if <<he>> needs help (0:10)|Witch Trust Cook]]>><<pass 10>><</link>>
+	<br>
+ */
 <<elseif Time.hour lte 8>>
 	You're within Pruti's small hut. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
@@ -511,7 +524,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
     <<link [[Lie with Pruti|Pruti Bed]]>><<endevent>><</link>>
     <br>
 <</if>>
-<<link [[Clean up the hut (1:00)|Witch Hut Trust]]>><<npcincr Pruti love 1>><<glove>><<pass 60>><<endevent>><</link>>
+<<link [[Clean up the hut (1:00)|Witch Hut Trust]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
 <br>
 <<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
     <<link [[Leave|Pruti Sendoff]]>><<endevent>><</link>>
@@ -550,13 +563,15 @@ You sit together with Pruti. You know you can't eat but you feel <<he>>'ll appre
 
 :: Pruti Massage
 <<npc "Pruti">>
-You approach Pruti. <<He>> looks exhausted. You sit and begin to rub <<his>> shoulders. <<He>> seems a bit taken aback for a moment before looking away and letting you continue. After a while, <<he>> glances your way before standing. "Thanks for that, doll. I wasn't expecting it but it was nice."
+You approach Pruti. <<He>> looks exhausted. You sit and begin to rub <<his>> shoulders. <<He>> seems a bit taken aback for a moment before looking away and letting you continue. After a while, <<he>> glances your way before standing. "Thanks for that, my doll. I wasn't expecting it but it was nice."
 <br><br>
 <<link [[Next|Witch Hut Trust]]>><<pass 60>><<endevent>><</link>>
 
 :: Pruti Bathe
 <<npc "Pruti">>
-You enter the bathroom where you find Pruti completely naked. <<He>> looks at you unashamed of <<his>> nudity. "Yes doll? Did you need something?" You waste no time before picking up a rag and helping <<him>> get <<his>> back. "Oh you wished to help? I suppose that should be fine." <<He>> lets you clean <<his>> back before helping you wipe down your body as well.
+You enter the bathroom where you find Pruti completely naked. <<He>> looks at you unashamed of <<his>> nudity. "Yes my doll? Did you need something?" 
+<br><br>
+You waste no time before picking up a rag and helping <<him>> wash <<his>> back. "Oh you wished to help? I suppose that should be fine." <<He>> lets you clean <<his>> back before helping you wipe down your body as well.
 <br><br>
 <<link [[Next|Witch Hut Trust]]>><<pass 60>><<endevent>><</link>>
 
@@ -602,14 +617,12 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 :: Pruti Sleep Sex
 
 <<if $sexstart is 1>>
-	<<set $monster to 1>>
-	<<set $NPCList[0].monster to "monster">>
 	<<set $sexstart to 0>>
 	<<consensual>><<set $consensual to 1>>
 	<<neutral 1>>
-	<<set $enemyhealthmax to 500>>
-	<<set $enemyhealth to 500>>
-	<<set $enemyarousalmax to 1300>>
+	<<set $enemyhealthmax to 1200>>
+	<<set $enemyhealth to 1200>>
+	<<set $enemyarousalmax to 1500>>
 	<<set $enemyanger to 0>>
 	<<set $enemytrust to 500>>
 	<<maninit "beast">><<npcexpose>>
@@ -756,23 +769,22 @@ The arms gripping your wrist and neck apply more force, causing your body to buc
 <br><br>
 <<link [[Obey|Witch Help Cook 7]]>><<set $sexstart to 1>><</link>><<oralvirginitywarning>>
 <br>
-<<link [[Struggle|Witch Help Cook 8]]>><<set $molestationstart to 1>><</link>><<oralvirginitywarning>>
+<<link [[Struggle|Witch Help Cook 8]]>><<set $molestationstart to 1>><</link>>
 
 :: Witch Help Cook 8
 <<if $molestationstart is 1>>
-	<<set $monster to 1>>
-	<<set $NPCList[0].monster to "monster">>
 	<<set $molestationstart to 0>>
 	<<controlloss>>
 	<<violence 1>>
 	<<neutral 1>>
 	<<molested>>
-	<<maninit "beast">><<npcexpose>>
+	<<maninit>><<npcexpose>>
+	<<makeAbomination _randomtentacles 8 "tentacle" "tentacle" true>>
 	<<set $enemyhealthmax to 1200>>
 	<<set $enemyhealth to 1200>>
+	<<set $enemyarousalmax to 1500>>
 	<<set $enemyanger += 500>>
 	<<set $enemytrust -= ($NPCName[$NPCNameList.indexOf("Pruti")].love * 2)>>
-	<<makeAbomination _randomtentacles 16 "tentacle" "tentacle" true>>
 	<<npcoral>>
 <</if>>
 
@@ -808,17 +820,15 @@ Pruti breathes heavily, taking a step back and readjusting <<his>> clothing.
 
 :: Witch Help Cook 7
 <<if $sexstart is 1>>
-	<<set $monster to 1>>
-	<<set $NPCList[0].monster to "monster">>
 	<<set $sexstart to 0>>
 	<<consensual>><<set $consensual to 1>>
 	<<neutral 1>>
-	<<set $enemyhealthmax to 500>>
-	<<set $enemyhealth to 500>>
-	<<set $enemyarousalmax to 1300>>
+	<<set $enemyhealthmax to 1200>>
+	<<set $enemyhealth to 1200>>
+	<<set $enemyarousalmax to 1500>>
 	<<set $enemyanger to 0>>
 	<<set $enemytrust to 500>>
-	<<maninit "beast">><<npcexpose>>
+	<<maninit>><<npcexpose>>
 	<<makeAbomination _randomtentacles 8 "tentacle" "tentacle" true>>
 <</if>>
 
@@ -864,3 +874,119 @@ After finishing, Pruti cleans the wooden plate in a bucket of water and gently g
 <<link [[Next|Witch Hut]]>><<npcincr Pruti love 5>><</link>>
 
 :: Witch Hut Pruti Spend
+You slowly nudge close, sitting alongside Pruti. <<He>> pays you little mind as <<he>> looks down into <<his>> book. 
+<br><br>
+<<He>> reaches over and makes a small red mark on another paper before turning and meeting your gaze. "Oh hello my beautiful doll, did you need something?"
+<br><br>
+You let Pruti know you just wanted to spend some time with <<him>>. <<He>> gives a small smile before returning <<his>> eyes to the page.
+<br><br>
+"Right now, I am working on building a new body to house your soul." Taking a closer look, you can see the paper <<he>> is drawing on has a complex diagram of symbols you have never seen before.
+<br><br>
+<<link [[Quietly watch Pruti work|Witch Hut Pruti Spend 2]]>><<npcincr Pruti love 3>><</link>><<glove>>
+
+:: Witch Hut Pruti Spend 2
+You quietly sit and watch Pruti work. As the paper grows with more symbols, you can see the silhouette of a human body forming on the paper.  
+<br><br>
+It looks like Pruti is making some kind of new enhanced doll body.
+<br><br>
+<<if $science gte 900>>
+	Pruti pauses before drawing the next symbol but you notice something wrong. The most recent marking seems to have been drawn incorrectly, the limb joint seems to have been accidentally drawn backwards.
+	<br><br>
+	You gently tap <<his>> arm and grab his attention. "This symbol, shouldn't it be like this?" Your fingers tremble with effort as you gently correct the marking.
+	<br><br>
+	Pruti looks between you and the marking for a moment before giving a small smirk. "Smart doll, definitely mine." Pruti brushes a loving hand through your hair and returns to <<his>> work. <<npcincr Pruti love 2>><<glove>>
+<<else>>
+	Pruti pauses before drawing the next symbol. You wonder if you had paid more attention in school if you might have been able to understand some of this.
+<</if>>
+<br><br>
+It's probably best to let <<him>> focus for now.
+<br><br>
+<<link [[Next|Witch Hut]]>><</link>>
+
+:: Witch Trust Cook
+You sidle up to Pruti and peek over <<his>> shoulder. You can see <<him>> beginning to struggle with the cut of meat, it seems like this genius isn't as gifted with cooking as <<he>> is in science.
+<br><br>
+As you gently grip <<his>> hand from behind, he lets you guide the knife. "Hello my doll, what's this?" <<He>> gives a small smirk as <<he>> glances your way before returning to the meat.
+<br><br>
+"You know I can handle the meat darling. It would help more to cut the vegetables to save time." Pruti says, but you know better than to believe it.
+<br><br>
+<<link [[Next|Witch Trust Cook 2]]>><</link>>
+
+:: Witch Trust Cook 2
+You gently cut the meat. It looks like a dark meat, some kind of bird. Pruti lets out a sigh and a small smirk.
+<br><br>
+"Alright well then... If my doll has the meat covered, I will get to work on the vegetables." Pruti's lithe form disappears from your arms before you can even register, appearing beside you.
+<br><br>
+"Though be warned doll, if your meal is worse than mine, I won't let you hear the end of it." <<He>> teases, as <<he>> begins to dice vegetables.
+<br><br>
+<<link [[Continue to cut the meat (1:00)|Witch Trust Cook 3]]>><<pass 60>><</link>>
+<br>
+<span class="black">==Attempt to stab Pruti in the back==</span> <span class="red">You could never bring yourself to harm your owner</span>
+
+:: Witch Trust Cook 3
+Tending to the meat is tough, you wonder what kind of bird this was in life.
+<br><br>
+<<if $housekeeping gte 600>>
+	You gut the meat before removing the bones, trimming the excess fat, and plunging the meat into the bucket of cold water.
+	<br><br>
+	Now clean and ready to continue, you cut the meat into bite sized pieces and slide them into the pot.
+	<<set $prutimeal2 to 1>>
+<<else>>
+	You poke at the meat. You were sure you knew what you were doing, but now, left with the meat and your own thoughts, you are worried.
+	<br><br>
+	Maybe you should have paid more attention in housekeeping class.
+	<br><br>
+	You rinse the meat but struggle to cut through the gamey flesh. You gently slide the messy looking meat into the pot for cooking.
+	<<set $prutimeal1 to 1>>
+<</if>>
+<br><br>
+Pruti follows after, putting what look like carrots and some kind of tuberous root into the water.
+<br><br>
+You follow behind Pruti and place the pot over a fire lit near <<his>> chemistry table. It will take a while for the food to cook.
+<br><br>
+<<link [[Wait with Pruti|Witch Trust Cook 4]]>><</link>>
+
+:: Witch Trust Cook 4
+<<prutihairdress>>
+
+You sit beside Pruti. <<He>> gives a small smirk as <<he>> gently grips your arm and pulls you closer.
+<br><br>
+"Come now, darling. We have some time, lets get you looking nice and proper." Pruti grabs a hairbrush and pats <<his>> lap.
+<br><br>
+<span class="red">You must obey your owner. <<He>> only wants the best for you.</span>
+<br><br>
+By the time <<he>> is done, your hair is done up in a neat hairdo. "Well done holding still, my doll." Pruti purrs as <<he>> nuzzles gently into your neck with kisses.
+<br><br>
+You lose track of time, and before you even realize, the meal is finished cooking.
+<br><br>
+<<link [[Eat with Pruti (1:00)|Witch Trust Cook 5]]>><<pass 60>><</link>>
+
+:: Witch Trust Cook 5
+Pruti and you set the table, laying the smooth wooden plates and cutlery. Pruti pulls out a chair for you, gesturing for you to sit, before putting a helping of stew onto your plate.
+<br><br>
+<<if $prutimeal2 is 1 and $prutimeal1 isnot 1>>
+	The plated meal looks great. The vegetables are al dente and the meat is soft and rich. Pruti looks visible impressed by your cooking prowess. <<gglove>> <<npcincr Pruti love 5>>
+	<br><br>
+	Pruti gently cuts a piece of meat and takes a bite. "Wow, my doll. You truly did wonders on this meat. It's so flavorful and has a perfect savory taste. Well done darling."
+	<br><br>
+	You are flashed a gentle and sincere smile as the two of you eat your hard cooked meal.
+<<elseif $prutimeal2 is 1 and $prutimeal1 is 1>>
+	The plated meal looks great. A drastic difference from your previous meals. The vegetables are al dente and the meat is soft and rich. Pruti looks visible impressed by your cooking prowess, yet is apprehensive to taste. <<glove>> <<npcincr Pruti love 5>>
+	<br><br>
+	Pruti gently cuts a piece of meat and braces before taking a bite. <<His>> face lightens as <<he>> chews, "Wow, my doll. You truly did wonders on this meat. It's so flavorful and has a perfect savory taste. Well done darling."
+	<br><br>
+	You are flashed a gentle and sincere smile as the two of you eat your hard cooked meal.
+<<elseif $prutimeal1 is 1>>
+	As the food is scooped onto your plates the two of you look down in disgust. The meat has melted in the pot into a thick gross slurry. You imagine the texture to be like eating tar.
+	<br><br>
+	Looking down at the ruined meal, Pruti is silent for a moment, before a small gentle laugh escapes <<his>> lips. "Wow my doll, and I thought I was bad at cooking. Is this even meat anymore?" <<glove>> <<npcincr Pruti love 3>>
+	<br><br>
+	Pruti teases you relentlessly for a few minutes before standing and returning to the kitchen. <<He>> returns moments later with a basket of raw vegetables.
+	<br><br>
+	"I guess this will have to do for now, huh?" <<He>> flashes a smug grin before taking a bite from what looks like a carrot.
+<</if>>
+<br><br>
+The two of you finish the meal in no time and are ready to continue on with your day.
+<br><br>
+<<link [[Finish cleaning the plates and cutlery|Witch Hut Trust]]>><</link>>
+

@@ -3401,7 +3401,9 @@
 			/* Same probability regardless of time of day */
 			<<addevent "streetCatcall" 1.2>>
 			<<addevent "streetSoloStalk" 1>>
-			<<addevent "streetMoneyProposition" 1>>
+			<<if !V.worn.under_lower.type.includes("naked")>>
+				<<addevent "streetMoneyProposition" 1>>
+			<</if>>
 			<<addevent "streetClothingTorn" 0.5>>
 			<<addevent "streetFlirt" 1>>
 			<<addevent "streetBreastGlance" 1>>
@@ -3529,7 +3531,7 @@
 				<</if>>
 			<</if>>
 
-			<<if $hallucinations gte 2 and $settings.tentaclesEnabled>>
+			<<if $hallucinations gte 2 and $settings.tentaclesEnabled and !V.worn.lower.type.includes("naked")>>
 				<<addevent "streettentacle" 0.9>>
 			<</if>>
 

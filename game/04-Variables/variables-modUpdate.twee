@@ -34,6 +34,14 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<specialClothesUpdate>>
 	<<generateNPCNameHairAndEyeColors>>
 
+	<<if $publicnudist is undefined>>
+		<<if $nudist is 1>>
+			<<set $publicnudist to false>>
+		<<else>>
+			<<set $publicnudist to true>>
+		<</if>>
+	<</if>>
+
 	<<if $settings.sizingEnabled is undefined>>
 		<<set $settings.goreEnabled to false>>
 		<<set $settings.bruisingEnabled to false>>
@@ -66,6 +74,10 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set V.penis_bruise to "disabled">>
 		<<set V.penis_blood to "disabled">>
 		<<set V.penis_scar to "disabled">>
+	<</if>>
+
+	<<if C.npc.Kylar.init is 1 and C.npc.Kylar.state isnot "active" and C.npc.Kylar.state isnot "prison">>
+		<<set C.npc.Kylar.init to 0>>
 	<</if>>
 
 	<<if C.npc.Sydney.hairColour is "strawberryblond">>
