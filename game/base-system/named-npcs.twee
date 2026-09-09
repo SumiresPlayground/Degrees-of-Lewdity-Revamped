@@ -1202,6 +1202,20 @@ Zohar
 		<</if>>
 	<</if>>
 
+	<!-- Adjust for Beast type NNPCs: Pruti -->
+	<<if $NPCList[_npcno].type is "cat">>
+		<<set $beastname to "pruti">>
+		<<set $NPCList[_npcno].lefthand to "none">>
+		<<set $NPCList[_npcno].righthand to "none">>
+		<<set $NPCList[_npcno].stance to "approach">>
+		<<set $NPCList[_npcno].monster to "monster">>
+		<<set $monster to 1>><<set _monsterOverride to true>>
+		<<set $NPCList[_npcno].type to "Pruti">>
+		<<set $NPCList[_npcno].lefthand to 0>>
+		<<set $NPCList[_npcno].righthand to 0>>
+		<<run delete $NPCList[_npcno].claws>>
+	<</if>>
+
 	<<if $enemyno lt 6>><<set $enemyno += 1>><</if>>
 
 	<<if $NPCList[0].monster is "monster" or _monsterOverride>>

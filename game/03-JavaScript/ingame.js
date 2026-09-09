@@ -1804,6 +1804,8 @@ function isPossibleLoveInterest(name) {
 			return V.caseyromance === 1;
 		case "Salem":
 			return V.salemromance === 1;
+		case "Pruti":
+			return V.prutiromance === 1;
 		case "Rowan":
 			return V.rowanromance === 1;
 		case "Mint Mocha":

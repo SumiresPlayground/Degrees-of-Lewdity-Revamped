@@ -2358,14 +2358,6 @@
 		<<set $uncomfortable.lewd to true>>
 	<</if>>
 
-	<<if $publicnudist is undefined>>
-		<<if $nudist is 1>>
-			<<set $publicnudist to false>>
-		<<else>>
-			<<set $publicnudist to true>>
-		<</if>>
-	<</if>>
-
 	<<if $player.bodyliquid is undefined>>
 		<<set $player.bodyliquid to {}>>
 
@@ -8034,5 +8026,9 @@
 
 	<<if $foodstuff.cod?.supermarket>>
 		<<unset $foodstuff.cod.supermarket>>
+	<</if>>
+
+	<<if C.npc.Kylar.init and C.npc.Kylar.state is 0>>
+		<<set C.npc.Kylar.init to 0>>
 	<</if>>
 <</widget>>

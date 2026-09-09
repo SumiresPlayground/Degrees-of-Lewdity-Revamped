@@ -712,7 +712,7 @@ function exposure() {
 	}
 
 	// calculate libertine factors.
-	const safeLocations = ["Bedroom", "Sleep", "Bird Tower", "Bird Hunt", "Spa Tan Underwear", "Spa Tan Curtains", "Spa Tan Naked", "Mirror"];
+	const safeLocations = ["Sleep", "Bird Tower", "Bird Hunt", "Spa Tan Underwear", "Spa Tan Curtains", "Spa Tan Naked", "Mirror"];
 	if (
 		// the check for safe locations might be too generous with included passage names, but seems to be working as of 0.5.4.9
 		// wardrobes should not be safe locations though, as they must show what clothes are appropriate outside. if you wanna stop pc from covering themselves - use "don't cover yourself" link in the wardrobes instead of altering the libertine score.
