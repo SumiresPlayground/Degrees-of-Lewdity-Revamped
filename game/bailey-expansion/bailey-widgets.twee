@@ -194,12 +194,12 @@ Type a name (15 characters max):
 	<</if>>
 
 	<<if $syndromebailey>>
-		<<ind>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "office">><</link>>
+		<<mysteryicon>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "office">><</link>>
 		<br>
 	<</if>>
 
 	<<if $worn.neck.name is "Bailey's collar">>
-		<<ind>><<link [[Change collar art style|Bailey Collar Art Choose]]>><</link>>
+		<<iconUi "sym-dominance-bailey.png">><<link [[Change collar art style|Bailey Collar Art Choose]]>><</link>>
 		<br>
 	<</if>>
 
@@ -439,6 +439,11 @@ Call sites own their own spacing. */
 	<<set $bratTax to (($bailey_brat and $bailey_brat.points) || 0) * Math.floor($rentmoney / 10)>>
 <</widget>>
 
+/* bratTax for the journal */
+<<widget "bratTaxDisplay">>
+<<bratTaxCalc>><<if $bratTax>><<print _args[0]>><<printmoney $bratTax _args[2]>><<print _args[1]>><</if>>
+<</widget>>
+
 <<widget "bratReasonList">>
 	<<set _phrases to ($bailey_brat ? $bailey_brat.reasons : []).map(function (r) {
 		var him = C.npc.Bailey.pronoun === "m" ? "him" : "her";
@@ -451,9 +456,11 @@ Call sites own their own spacing. */
 			case "stoodup": return "you stood Bailey up after asking " + him + " on a date";
 			case "gala_steal": return "you got caught stealing at " + his + " gala";
 			case "gala_scene": return "you made a scene at " + his + " gala";
+			case "gala_expose": return "you tried to expose Bailey at " + his + " gala";
 			case "seducebeat": return "you beat Bailey up after seducing " + him;
 			case "vent_blame": return "you blamed " + him + " for your problems";
 			case "vent_fight": return "you beat " + him + " up and ran out on " + him;
+			case "monogamy_refused": return "you refused to fulfill your obligations after agreeing to them";
 			default:        return r;
 		}
 	})>>

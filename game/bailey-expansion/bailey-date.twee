@@ -50,12 +50,25 @@ proportional when a player scales rent up or down. */
 		<br>
 	<</if>>
 
+	/* Strap-on Gift */
+	<<if C.npc.Bailey.sextoys>>
+		<<for _key range Object.keys(C.npc.Bailey.sextoys).filter(t => C.npc.Bailey.sextoys[t][0].gift_state === "held" && checkIfNPCHasCategorySextoy("Bailey","strap-on").length <= 5)>>
+			<<set _toy to C.npc.Bailey.sextoys[_key][0]>>
+			<<set _icon to `sex-toys/${_toy.name.replace(/ /g, "-")}.png`>>
+			<span @class="`clothes-${_toy.colour}`"><<icon _icon>></span>
+			<<capture _toy>>
+				<<link [[Gift Bailey the _toy.colour _toy.name|Bailey Gift Strap-on]]>><<set $bailey_gift_toy to _toy.name>><</link>>
+			<</capture>>
+			<br>
+		<</for>>
+	<</if>>
+
 	/* Spanking*/
 	<<if $daily.baileySpankingProper>>
 		<span class="blue">"I have <<print formatMoney(_spankPrice)>>. Spank me properly." (You've already asked today.)</span>
 		<br>
 	<<elseif $money gte _spankPrice>>
-		<<link "\"I have <<print formatMoney(_spankPrice)>>. Spank me properly.\" (0:10)" "Bailey Spanking Proper Entry">><</link>>
+		<<skinicon "strip">><<link "\"I have <<print formatMoney(_spankPrice)>>. Spank me properly.\" (0:10)" "Bailey Spanking Proper Entry">><</link>>
 		<br>
 	<<else>>
 		<span class="blue">"I have <<print formatMoney(_spankPrice)>>. Spank me properly." (You don't have enough money.)</span>
@@ -67,7 +80,7 @@ proportional when a player scales rent up or down. */
 		<span class="blue">"I have <<print formatMoney(_shortPrice)>>. Take me with you." (You've already spent time with Bailey today.)</span>
 		<br>
 	<<elseif $money gte _shortPrice>>
-		<<link "\"I have <<print formatMoney(_shortPrice)>>. Take me with you.\" (1:00)" "Bailey Date Short">><<money `-_shortPrice` "baileyDate">><<pass 5>><<set $daily.baileyDate to 1>><</link>>
+		<<highicon>><<link "\"I have <<print formatMoney(_shortPrice)>>. Take me with you.\" (1:00)" "Bailey Date Short">><<money `-_shortPrice` "baileyDate">><<pass 5>><<set $daily.baileyDate to 1>><</link>>
 		<br>
 	<<else>>
 		<span class="blue">"I have <<print formatMoney(_shortPrice)>>. Take me with you." (You don't have enough money.)</span>
@@ -86,7 +99,7 @@ proportional when a player scales rent up or down. */
 			<span class="blue">"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner." (It's too late to book dinner tonight. Ask in the morning.)</span>
 			<br>
 		<<elseif $money gte _mediumPrice>>
-			<<link "\"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner.\"" "Bailey Date Medium Schedule">><<money `-_mediumPrice` "baileyDate">><<set $daily.baileyDate to 1>><</link>>
+			<<highicon>><<link "\"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner.\"" "Bailey Date Medium Schedule">><<money `-_mediumPrice` "baileyDate">><<set $daily.baileyDate to 1>><</link>>
 			<br>
 		<<else>>
 			<span class="blue">"I have <<print formatMoney(_mediumPrice)>>. Let me buy you dinner." (You don't have enough money.)</span>
@@ -106,7 +119,7 @@ proportional when a player scales rent up or down. */
 			<span class="blue">"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night." (It's too late to schedule tonight. Ask in the morning.)</span>
 			<br>
 		<<elseif $money gte _allNightPrice>>
-			<<link "\"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night.\"" "Bailey Date All Night Schedule">><<money `-_allNightPrice` "baileyDate">><<set $daily.baileyDate to 1>><</link>>
+			<<highicon>><<link "\"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night.\"" "Bailey Date All Night Schedule">><<money `-_allNightPrice` "baileyDate">><<set $daily.baileyDate to 1>><</link>>
 			<br>
 		<<else>>
 			<span class="blue">"I have <<print formatMoney(_allNightPrice)>>. I want to spend the night." (You don't have enough money.)</span>
@@ -120,9 +133,9 @@ proportional when a player scales rent up or down. */
 	<<set $bailey_catears_price to _catprice>>
 	<<if $money gte _catprice>>
 		<<if $bailey_catears is undefined or $bailey_catears is 0>>
-			<<link "\"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears.\" (0:05)" "Bailey Cat Ears">><<pass 5>><</link>>
+			<<petshopicon>><<link "\"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears.\" (0:05)" "Bailey Cat Ears">><<pass 5>><</link>>
 		<<else>>
-			<<link "\"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears again.\" (0:05)" "Bailey Cat Ears">><<pass 5>><</link>>
+			<<petshopicon>><<link "\"I'll pay you <<print formatMoney(_catprice)>> to put on cat ears again.\" (0:05)" "Bailey Cat Ears">><<pass 5>><</link>>
 		<</if>>
 		<br>
 	<<else>>
@@ -137,7 +150,7 @@ proportional when a player scales rent up or down. */
 	/* Change what you call Bailey */
 	<<if $syndromebailey>>
 		<br>
-		<<ind>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "date_menu">><</link>>
+		<<mysteryicon>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "date_menu">><</link>>
 		<br>
 	<</if>>
 

@@ -73,27 +73,29 @@ Macro.add("gbaileyMood", {
 });
 
 $(document).one(":storyready", function () {
-	/* One-time compatibility repair for persistent RBE values that are read as objects or text. */
-	if (!V.stockholm_points || typeof V.stockholm_points !== "object" || Array.isArray(V.stockholm_points)) V.stockholm_points = {};
-	if (typeof V.bailey_title !== "string") V.bailey_title = "Bailey";
-	V.bailey_title = V.bailey_title.replace(/[<>]/g, "").trim().slice(0, 15) || "Bailey";
-	if (typeof V.bailey_title_unlocked !== "boolean") V.bailey_title_unlocked = false;
-
-	function syncBaileyDom() {
-		if (!C.npc.Bailey) return;
-
-		/* Must stay above the build counter heal, or a migrating save gets rebuilt from
-        $stockholm_points instead of keeping its real total. */
+	function migrateLegacyStockholm() {
 		if (V.stockholm_active !== undefined) {
-			V.syndromebailey = V.stockholm_active === true;
-			console.log("[BaileyExpansion] Migrated $stockholm_active -> $syndromebailey (" + V.syndromebailey + ")");
+			const raw = V.stockholm_active;
+			V.syndromebailey = !!raw && raw !== "0" && raw !== "false";
+			console.log("[BaileyExpansion] Migrated $stockholm_active (" + raw + ") -> $syndromebailey (" + V.syndromebailey + ")");
 			delete V.stockholm_active;
 		}
-		if (V.stockholm_bailey !== undefined && V.stockholm_bailey !== NaN) {
-			V.syndromebaileybuild = V.stockholm_bailey;
-			console.log("[BaileyExpansion] Migrated $stockholm_bailey -> $syndromebaileybuild (" + V.syndromebaileybuild + ")");
+
+		if (V.stockholm_bailey !== undefined) {
+			const build = Number(V.stockholm_bailey);
+			V.syndromebaileybuild = Number.isFinite(build) ? Math.max(0, Math.round(build)) : 0;
+			console.log("[BaileyExpansion] Migrated $stockholm_bailey (" + V.stockholm_bailey + ") -> $syndromebaileybuild (" + V.syndromebaileybuild + ")");
 			delete V.stockholm_bailey;
 		}
+	}
+
+	function syncBaileyDom() {
+		if (!V.stockholm_points || typeof V.stockholm_points !== "object" || Array.isArray(V.stockholm_points)) V.stockholm_points = {};
+		if (typeof V.bailey_title !== "string") V.bailey_title = "Bailey";
+		V.bailey_title = V.bailey_title.replace(/[<>]/g, "").trim().slice(0, 15) || "Bailey";
+		if (typeof V.bailey_title_unlocked !== "boolean") V.bailey_title_unlocked = false;
+		migrateLegacyStockholm();
+		if (!C.npc.Bailey) return;
 
 		["dom", "love"].forEach(function (stat) {
 			const old = V["bailey_" + stat];
@@ -141,16 +143,15 @@ $(document).one(":storyready", function () {
 		}
 		if (V.stockholm_points === undefined) V.stockholm_points = {};
 
-		if (typeof V.syndromebaileybuild !== "number" || Number.isNaN(V.syndromebaileybuild)) {
-			const _pts = V.stockholm_points || {};
-			let _healStock = 0;
-			if (_pts.offer_defeat === true) _healStock += 3;
-			else if (_pts.offer === true) _healStock += 1;
-			["temple", "kylar", "cafe", "whitney", "gwylan", "kick", "avery", "halloween", "eden"].forEach(function (k) {
-				if (_pts[k] === true) _healStock += 1;
-			});
-			console.log("[BaileyExpansion] Healed $syndromebaileybuild (" + V.syndromebaileybuild + ") -> " + _healStock);
-			V.syndromebaileybuild = _healStock;
+		if (typeof V.syndromebaileybuild !== "number" || Number.isNaN(V.syndromebaileybuild)) V.syndromebaileybuild = 0;
+		const pts = V.stockholm_points || {};
+		let floor = pts.offer_defeat === true ? 3 : pts.offer === true ? 1 : 0;
+		["temple", "kylar", "cafe", "whitney", "gwylan", "kick", "avery", "halloween", "eden"].forEach(function (k) {
+			if (pts[k] === true) floor += 1;
+		});
+		if (V.syndromebaileybuild < floor) {
+			console.log("[BaileyExpansion] Raised $syndromebaileybuild " + V.syndromebaileybuild + " -> " + floor);
+			V.syndromebaileybuild = floor;
 		}
 
 		enforceBaileyState();
@@ -169,7 +170,13 @@ $(document).one(":storyready", function () {
 			C.npc.Bailey.pregnancyAvoidance = 0;
 		}
 	}
-	$(document).on(":passagestart", syncBaileyDom);
+	$(document).on(":passagestart", function () {
+		try {
+			syncBaileyDom();
+		} catch (e) {
+			console.error("[BaileyExpansion] syncBaileyDom", e);
+		}
+	});
 	$(document).on(":passageend", enforceBaileyState);
 
 	/* Stood-up check: date scheduled but not attended by midnight -> missed. */
@@ -514,7 +521,7 @@ $(document).one(":storyready", function () {
 		el.style.textAlign = "center";
 		el.style.marginTop = "1em";
 		el.style.marginBottom = "1em";
-		el.textContent = "Reiyu's Bailey Expansion v0.6.0 for New World \u2014 Active";
+		el.textContent = "Reiyu's Bailey Expansion v0.6.1 for New World \u2014 Active";
 		el.style.cursor = "pointer";
 		el.title = "Mod credits";
 		el.addEventListener("click", function () {

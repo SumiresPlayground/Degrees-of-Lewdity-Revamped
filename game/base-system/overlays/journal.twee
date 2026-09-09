@@ -788,6 +788,17 @@
 		</ul>
 	<</if>>
 
+	<<if ["requested", "ready"].includes($daily?.fishing?.baitShopRequest) and Time.hour lt 19>>
+		<hr>
+		<h1 class="header gold bold">Fishing</h1>
+		<ul class="journal">
+			<<icon `"fish/" + $daily.fishing.baitShopRequestFish + ".png"`>> The bait shop owner wants a freshly-caught <span class="gold">$daily.fishing.baitShopRequestFish</span>, brought to them before they close at <<ampm 19 00>>.
+			<<if $daily.fishing.baitShopRequest is "ready">>
+				<span class="green">You've caught one to hand over.</span>
+			<</if>>
+		</ul>
+	<</if>>
+
 	<<if ($valentines is 1) or $halloween is 1 or $christmas is 1>>
 		<hr>
 		<h1 class="header gold bold">Holidays</h1>
