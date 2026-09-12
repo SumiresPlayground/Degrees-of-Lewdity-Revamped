@@ -1872,7 +1872,7 @@
 			<br>
 		<</if>>
 
-		<<if _availableActions.includes("flashBreasts1")>>
+		<<if _availableActions.includes("flashBreasts1") and !$worn.under_upper.type.includes("naked") and !$worn.upper.type.includes("naked")>>
 			<<link [[Flash your breasts|Street Exhibitionism Fame Flaunt]]>><<set $flaunt_type to 'top'>> <<set $flaunt_part to 'breasts'>><</link>><<exhibitionist4>><<lstress>><<garousal>>
 			<br>
 		<<elseif _availableActions.includes("flashBreasts2")>>
@@ -3413,7 +3413,9 @@
 			<<addevent "streetexshow" 0.5>>
 			<<addevent "streetfamerape" 1>>
 			<<addevent "streetmodelshow" 0.5>>
-			<<addevent "streetnpcflash" 0.5>>
+			<<if $publicnudist is true>>
+				<<addevent "streetnpcflash" 0.5>>
+			<</if>>
 			<<addevent "streetrocks" 0.5>>
 			<<addevent "streetvan" 1>>
 

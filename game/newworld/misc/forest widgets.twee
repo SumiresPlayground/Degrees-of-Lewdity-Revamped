@@ -56,3 +56,105 @@
 		<br>
 	<</if>>
 <</widget>>
+
+<<widget "eyeStyleOptions">>
+	Your current eye style is:
+	<<listbox "_facestyle" autoselect>>
+		<<optionsfrom setup.faceStyleOptions>>
+	<</listbox>>
+	<br>
+	<<link "Apply">>
+		<<if $facestyle isnot _facestyle>>
+			<<set $facestyle to _facestyle>>
+			<<set $facevariant to "default">>
+			<<replace "#visualsFaceVariantRadios">><<eyeVariantOptions>><</replace>>
+			<<updatesidebarimg true>>
+		<</if>>
+	<</link>>
+<</widget>>
+
+<<widget "eyeVariantOptions">>
+	<<if Object.keys(setup.faceVariantOptions[$facestyle]).length gt 1>>
+		Your current eye style is:
+		<<listbox "$eyevariant" autoselect>>
+			<<optionsfrom setup.faceVariantOptions[$facestyle]>>
+		<</listbox>>
+		<br>
+		<<run $(() => {
+			$("#listbox-eyevariant").on("change", () => {
+				Wikifier.wikifyEval('<<updatesidebarimg true>>');
+			});
+		})>>
+	<<else>>
+		There are
+		<mouse class = "gold tooltip-small" style="border-bottom-color:white">
+			no alternative eye styles available.
+			<span class="blue">
+				Selecting a different eye style may make additional styles available to you.
+			</span>
+		</mouse>
+	<</if>>
+<</widget>>
+
+<<widget "mouthStyleOptions">>
+	Your current mouth style is:
+	<<listbox "_facestyle" autoselect>>
+		<<optionsfrom setup.faceStyleOptions>>
+	<</listbox>>
+	<br>
+	<<link "Apply">>
+		<<if $facestyle isnot _facestyle>>
+			<<set $facestyle to _facestyle>>
+			<<set $facevariant to "default">>
+			<<replace "#visualsFaceVariantRadios">><<mouthVariantOptions>><</replace>>
+			<<updatesidebarimg true>>
+		<</if>>
+	<</link>>
+<</widget>>
+
+<<widget "mouthVariantOptions">>
+	<<if Object.keys(setup.faceVariantOptions[$facestyle]).length gt 1>>
+		Your current mouth style is:
+		<<listbox "$mouthvariant" autoselect>>
+			<<optionsfrom setup.faceVariantOptions[$facestyle]>>
+		<</listbox>>
+		<br>
+		<<run $(() => {
+			$("#listbox-mouthvariant").on("change", () => {
+				Wikifier.wikifyEval('<<updatesidebarimg true>>');
+			});
+		})>>
+	<<else>>
+		There are
+		<mouse class = "gold tooltip-small" style="border-bottom-color:white">
+			no alternative mouth styles available.
+			<span class="blue">
+				Selecting a different mouth style may make additional styles available to you.
+			</span>
+		</mouse>
+	<</if>>
+<</widget>>
+
+<<widget "cheatsEye">>
+<<listbox "$eyevariant" autoselect>>
+	<<optionsfrom setup.faceVariantOptions[$facestyle]>>
+<</listbox>>
+<br>
+<<run $(() => {
+	$("#listbox-eyevariant").on("change", () => {
+		Wikifier.wikifyEval('<<updatesidebarimg>>');
+	});
+})>>
+<</widget>>
+
+<<widget "cheatsMouth">>
+<<listbox "$mouthvariant" autoselect>>
+	<<optionsfrom setup.faceVariantOptions[$facestyle]>>
+<</listbox>>
+<br>
+<<run $(() => {
+	$("#listbox-mouthvariant").on("change", () => {
+		Wikifier.wikifyEval('<<updatesidebarimg>>');
+	});
+})>>
+<</widget>>

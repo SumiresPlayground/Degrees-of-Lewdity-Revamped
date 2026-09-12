@@ -2317,14 +2317,15 @@ function effects() {
 
 Macro.add("effects", {
 	handler() {
+		if (V.options.images !== 1) return;
 		const fragment = effects();
-		this.output.append(fragment);
-		$(document)
-		.off(':passageend.effects') 
-		.on(':passageend.effects', function () {
-			document.querySelector("canvas.mainCanvas").style.height = "256px";
-			document.querySelector("canvas.mainCanvas").style.width = "256px";
+    	this.output.append(fragment);
+		$(document).off(':passageend.effects');
+		$(document).on(':passageend.effects', () => {
+			if (document.querySelector("canvas.mainCanvas")) {
+				document.querySelector("canvas.mainCanvas").style.height = "256px";
+				document.querySelector("canvas.mainCanvas").style.width = "256px";
 			}
-		);
-	},
+		});
+	}
 });
