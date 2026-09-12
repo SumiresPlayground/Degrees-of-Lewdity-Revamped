@@ -43,6 +43,8 @@
 			show_face: true,
 			facestyle: "default",
 			facevariant: "default",
+			eyevariant: "default",
+			mouthvariant: "default",
 			freckles: false,
 			brows: "none",
 			mouth: "none",
@@ -570,8 +572,13 @@
 		<</listbox>>
 		<br><br>
 	<</if>>
-	<span class="gold">Demeanour:</span><br>
-	<<listbox "$characterViewer.bodyState.facevariant" autoselect>>
+	<span class="gold">Eye Shape:</span><br>
+	<<listbox "$characterViewer.bodyState.eyevariant" autoselect>>
+		<<optionsfrom setup.faceVariantOptions[$characterViewer.bodyState.facestyle]>>
+	<</listbox>>
+	<br><br>
+	<span class="gold">Mouth Shape:</span><br>
+	<<listbox "$characterViewer.bodyState.mouthvariant" autoselect>>
 		<<optionsfrom setup.faceVariantOptions[$characterViewer.bodyState.facestyle]>>
 	<</listbox>>
 	<br><br>
@@ -1400,6 +1407,8 @@
 	/*Face*/
 	<<set _modeloptions.facestyle to $characterViewer.bodyState.facestyle>>
 	<<set _modeloptions.facevariant to $characterViewer.bodyState.facevariant>>
+	<<set _modeloptions.eyevariant to $characterViewer.bodyState.eyevariant>>
+	<<set _modeloptions.mouthvariant to $characterViewer.bodyState.mouthvariant>>
 	<<set _modeloptions.freckles to $characterViewer.bodyState.freckles>>
 	<<set _modeloptions.brows to $characterViewer.bodyState.brows>>
 	<<set _modeloptions.mouth to $characterViewer.bodyState.mouth>>

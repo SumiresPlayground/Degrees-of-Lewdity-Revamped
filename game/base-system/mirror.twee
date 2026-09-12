@@ -850,10 +850,18 @@
 		<</if>>
 
 		<div id="visualsFaceVariants" @class="setup.faceStyleOptions.length gt 1 ? 'settingsToggleItem' : 'settingsToggleItemWide'">
-			<span class="gold bold">Demeanour:</span>
+			<span class="gold bold">Eye Shape:</span>
 			<br>
 			<div id="visualsFaceVariantRadios">
-				<<faceVariantOptions>>
+				<<eyeVariantOptions>>
+			</div>
+		</div>
+
+		<div id="visualsFaceVariants" @class="setup.faceStyleOptions.length gt 1 ? 'settingsToggleItem' : 'settingsToggleItemWide'">
+			<span class="gold bold">Mouth Shape:</span>
+			<br>
+			<div id="visualsFaceVariantRadios">
+				<<mouthVariantOptions>>
 			</div>
 		</div>
 	</div>
@@ -1756,6 +1764,8 @@
 						<<set _modeloptions.freckles = $player.freckles == true and $makeup.concealer != 1>>
 						<<set _modeloptions.mouth to 'neutral'>>
 						<<set _modeloptions.facevariant = $facevariant>>
+						<<set _modeloptions.eyevariant = $eyevariant>>
+						<<set _modeloptions.mouthvariant = $mouthvariant>>
 						<<set _modeloptions.left_eye = $makeup.eyelenses.left != 0 ? $makeup.eyelenses.left : $leftEyeColour>>
 						<<set _modeloptions.right_eye = $makeup.eyelenses.right != 0 ? $makeup.eyelenses.right : $rightEyeColour>>
 						<<set _modeloptions.hair_colour = $haircolour>>
@@ -3619,8 +3629,10 @@
 	NNPCs will be displayed for viewing if selected in the "Display" option on the sidebar.
 	<div class="mirror">
 		<<script>>
-			document.querySelector("canvas.mainCanvas").style.height = "768px";
-			document.querySelector("canvas.mainCanvas").style.width = "768px";
+			if (document.querySelector("canvas.mainCanvas")) {
+				document.querySelector("canvas.mainCanvas").style.height = "768px";
+				document.querySelector("canvas.mainCanvas").style.width = "768px";
+			}
 		<</script>>
 		<<selectmodel "main" "sidebar">>
 		<<modelprepare-player-body>>

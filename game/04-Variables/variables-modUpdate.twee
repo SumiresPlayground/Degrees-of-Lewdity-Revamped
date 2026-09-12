@@ -34,6 +34,17 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<specialClothesUpdate>>
 	<<generateNPCNameHairAndEyeColors>>
 
+	<<if $trauma is NaN>>
+		<<set $trauma to 0>>
+	<</if>>
+	
+	<<set $innocencetrauma to $trauma>>
+
+	<<if $eyevariant is undefined>>
+		<<set $eyevariant to $facevariant>>
+		<<set $mouthvariant to $facevariant>>
+	<</if>>
+		
 	<<if $publicnudist is undefined>>
 		<<if $nudist is 1>>
 			<<set $publicnudist to false>>

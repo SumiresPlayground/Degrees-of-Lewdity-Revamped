@@ -235,6 +235,8 @@ function modelPrepareNNPCBody(NPCname, setName) {
 	// Face
 	T.modeloptions.facestyle = "default";
 	T.modeloptions.facevariant = V.customNNPC.customData[NPCname].facevariant || "default";
+	T.modeloptions.eyevariant = V.customNNPC.customData[NPCname].eyevariant || "default";
+	T.modeloptions.mouthvariant = V.customNNPC.customData[NPCname].mouthvariant || "default";
 	T.modeloptions.freckles = V.customNNPC.customData[NPCname].freckles === true;
 	T.modeloptions.brows_colour = NNPCData.hairColour;
 

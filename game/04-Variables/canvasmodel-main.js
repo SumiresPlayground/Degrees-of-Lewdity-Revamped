@@ -1739,7 +1739,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.freckles,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/freckles.png`;
+				return `img/face/${options.facestyle}/${options.mouthvariant}/freckles.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.freckles;
@@ -1750,7 +1750,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.ears,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/ears.png`;
+				return `img/face/${options.facestyle}/${options.mouthvariant}/ears.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.ears_position === "front";
@@ -1761,7 +1761,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.eyes,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/eyes.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/eyes.png`;
 			},
 			showfn(options) {
 				return options.show_face;
@@ -1771,7 +1771,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.sclera,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/${options.eyes_bloodshot ? "sclera-bloodshot" : "sclera"}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/${options.eyes_bloodshot ? "sclera-bloodshot" : "sclera"}.png`;
 			},
 			showfn(options) {
 				return options.show_face;
@@ -1785,7 +1785,7 @@ Renderer.CanvasModels.main = {
 			srcfn(options) {
 				const iris = options.trauma ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/${iris}${half}.png`;
 			},
 			showfn(options) {
 				return options.show_face;
@@ -1802,7 +1802,7 @@ Renderer.CanvasModels.main = {
 			srcfn(options) {
 				const iris = options.trauma ? "iris-empty" : "iris";
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.facevariant}/${iris}${half}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/${iris}${half}.png`;
 			},
 			showfn(options) {
 				return options.show_face;
@@ -1818,7 +1818,7 @@ Renderer.CanvasModels.main = {
 
 			srcfn(options) {
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.facevariant}/eyelids${half}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/eyelids${half}.png`;
 			},
 			animationfn(options) {
 				return options.blink_animation;
@@ -1830,7 +1830,7 @@ Renderer.CanvasModels.main = {
 
 			srcfn(options) {
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.facevariant}/lashes${half}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/lashes${half}.png`;
 			},
 			showfn(options) {
 				return options.show_face;
@@ -1850,7 +1850,7 @@ Renderer.CanvasModels.main = {
 
 			srcfn(options) {
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.facevariant}/makeup/eyeshadow${half}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/makeup/eyeshadow${half}.png`;
 			},
 			animationfn(options) {
 				return options.blink_animation;
@@ -1865,7 +1865,7 @@ Renderer.CanvasModels.main = {
 
 			srcfn(options) {
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.facevariant}/makeup/mascara${half}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/makeup/mascara${half}.png`;
 			},
 			animationfn(options) {
 				return options.blink_animation;
@@ -1879,7 +1879,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.blush + 1,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/blusher.png`;
+				return `img/face/${options.facestyle}/${options.mouthvariant}/blusher.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.blusher_colour;
@@ -1890,7 +1890,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.brow,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/brow-${options.brows}.png`;
+				return `img/face/${options.facestyle}/${options.mouthvariant}/brow-${options.brows}.png`;
 			},
 			zfn(options) {
 				return options.brows_position === "back" ? ZIndices.back_brow : ZIndices.brow;
@@ -1904,7 +1904,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.mouth,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/mouth-${options.mouth}.png`;
+				return `img/face/${options.facestyle}/${options.mouthvariant}/mouth-${options.mouth}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.mouth !== "none";
@@ -1920,7 +1920,7 @@ Renderer.CanvasModels.main = {
 			},
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/lipstick-${options.mouth}.png`;
+				return `img/face/${options.facestyle}/${options.mouthvariant}/lipstick-${options.mouth}.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.lipstick_colour;
@@ -1931,7 +1931,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.blush,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/blush-${options.blush}.png`;
+				return `img/face/${options.facestyle}/${options.mouthvariant}/blush-${options.blush}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.blush > 0;
@@ -1942,7 +1942,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/tears-${options.tears}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/tears-${options.tears}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.tears > 0;
@@ -1953,7 +1953,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.mascara_running,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.facevariant}/makeup/mascara${options.mascara_running}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/makeup/mascara${options.mascara_running}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.mascara_running > 0 && !!options.mascara_colour;
@@ -2311,7 +2311,7 @@ Renderer.CanvasModels.main = {
 			animation: "idle",
 
 			srcfn(options) {
-				return `img/transformations/bird/eyes/${options.facevariant}/${options.bird_eyes_type}.png`;
+				return `img/transformations/bird/eyes/${options.eyevariant}/${options.bird_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf
@@ -2321,7 +2321,7 @@ Renderer.CanvasModels.main = {
 			},
 			masksrcfn(options) {
 				return {
-					path: `img/face/${options.facestyle}/${options.facevariant}/iris.png`,
+					path: `img/face/${options.facestyle}/${options.eyevariant}/iris.png`,
 					convert: true,
 				};
 			}
@@ -2614,7 +2614,7 @@ Renderer.CanvasModels.main = {
 		"dragon_eyes": {
 			filters: ["left_eye"],
 			srcfn(options) {
-				return `img/transformations/dragon/eyes/${options.facevariant}/${options.dragon_eyes_type}.png`;
+				return `img/transformations/dragon/eyes/${options.eyevariant}/${options.dragon_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.dragon_eyes_type)
@@ -2682,7 +2682,7 @@ Renderer.CanvasModels.main = {
          */
 		"lizard_eyes": {
 			srcfn(options) {
-				return `img/transformations/lizard/eyes/${options.facevariant}/${options.lizard_eyes_type}.png`;
+				return `img/transformations/lizard/eyes/${options.eyevariant}/${options.lizard_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.lizard_eyes_type)
@@ -2757,7 +2757,7 @@ Renderer.CanvasModels.main = {
 
 		"ghost_eyes": {
 			srcfn(options) {
-				return `img/transformations/ghost/eyes/${options.facevariant}/${options.ghost_eyes_type}.png`;
+				return `img/transformations/ghost/eyes/${options.eyevariant}/${options.ghost_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.ghost_eyes_type)
@@ -2924,7 +2924,7 @@ Renderer.CanvasModels.main = {
 
 		"spider_eyes": {
 			srcfn(options) {
-				return `img/transformations/spider/eyes/${options.facevariant}/${options.spider_eyes_type}.png`;
+				return `img/transformations/spider/eyes/${options.eyevariant}/${options.spider_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.spider_eyes_type);
@@ -2951,7 +2951,7 @@ Renderer.CanvasModels.main = {
 
 		"frog_eyes": {
 			srcfn(options) {
-				return `img/transformations/frog/eyes/${options.facevariant}/${options.frog_eyes_type}.png`;
+				return `img/transformations/frog/eyes/${options.eyevariant}/${options.frog_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.frog_eyes_type);
@@ -3114,7 +3114,7 @@ Renderer.CanvasModels.main = {
 		},
 		"zombie_eyes": {
 			srcfn(options) {
-				return `img/transformations/zombie/eyes/${options.facevariant}/${options.zombie_eyes_type}.png`;
+				return `img/transformations/zombie/eyes/${options.eyevariant}/${options.zombie_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.zombie_eyes_type)
@@ -3174,7 +3174,7 @@ Renderer.CanvasModels.main = {
 		},
 		"cosmic_eyes": {
 			srcfn(options) {
-				return `img/transformations/cosmic/eyes/${options.facevariant}/${options.cosmic_eyes_type}.png`;
+				return `img/transformations/cosmic/eyes/${options.eyevariant}/${options.cosmic_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.cosmic_eyes_type)
@@ -3316,7 +3316,7 @@ Renderer.CanvasModels.main = {
 		},
 		"mushroom_eyes": {
 			srcfn(options) {
-				return `img/transformations/mushroom/eyes/${options.facevariant}/${options.mushroom_eyes_type}.png`;
+				return `img/transformations/mushroom/eyes/${options.eyevariant}/${options.mushroom_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.mushroom_eyes_type)
@@ -3363,7 +3363,7 @@ Renderer.CanvasModels.main = {
 
 		"eldritch_eyes": {
 			srcfn(options) {
-				return `img/transformations/eldritch/eyes/${options.facevariant}/${options.eldrich_eyes_type}.png`;
+				return `img/transformations/eldritch/eyes/${options.eyevariant}/${options.eldrich_eyes_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && options.show_face && isPartEnabled(options.eldrich_eyes_type)

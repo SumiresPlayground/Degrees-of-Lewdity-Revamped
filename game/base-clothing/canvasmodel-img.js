@@ -236,6 +236,8 @@ DefineMacro("modelprepare-player-body", function () {
 
 	T.modeloptions.facestyle = V.facestyle || "default";
 	T.modeloptions.facevariant = V.facevariant || "default";
+	T.modeloptions.eyevariant = V.eyevariant;
+	T.modeloptions.mouthvariant = V.mouthvariant;
 	T.modeloptions.freckles = V.player.freckles === true && V.makeup.concealer !== 1;
 	T.modeloptions.ears_position = V.earsposition;
 	T.modeloptions.toast = T.toast === true;
