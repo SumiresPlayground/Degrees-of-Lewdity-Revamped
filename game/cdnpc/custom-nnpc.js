@@ -343,11 +343,19 @@ function modelPrepareNNPCBody(NPCname, setName) {
 		neck: [null, "1", "1", "2", "2", "3"],
 		thigh: [null, "1", "2", "3", "4", "5"],
 		tummy: [null, "1", "2", "3", "4", "5"],
+		vaginal: [null, "start", "very-slow", "slow", "fast", "very-fast"],
+		anal: [null, "start", "very-slow", "slow", "fast", "very-fast"],
+		mouth: [null, "start", "very-slow", "slow", "fast", "very-fast"]
 	};
 	const bodyparts = ["chest", "face", "feet", "leftarm", "rightarm", "neck", "thigh", "tummy"];
+	const innerparts = ["vaginal", "anal", "mouth"];
 	bodyparts.forEach(bodypart => {
 		const liquidamt = Math.clamp(V.customNNPC.orgasmCount[bodypart], 0, 5);
 		T.modeloptions["cum_" + bodypart] = cumsprite[bodypart].select(liquidamt);
+	});
+	innerparts.forEach(innerpart => {
+		const liquidamt = Math.clamp(V.customNNPC.orgasmCount[innerpart], 0, 5);
+		T.modeloptions["drip_" + innerpart] = cumsprite[innerpart].select(liquidamt);
 	});
 
 	// Makeup
@@ -419,6 +427,10 @@ function modelPrepareNNPCBody(NPCname, setName) {
 		};
 	}
 
+	if(V.customNNPC.customData[NPCname].bald === true){
+		T.modeloptions.show_hair = false;
+	}
+
 	T.modeloptions.hair_sides_type = V.customNNPC.customData[NPCname].hairstyle_side;
 	T.modeloptions.hair_fringe_type = V.customNNPC.customData[NPCname].hairstyle_fringe;
 
@@ -432,7 +444,7 @@ function modelPrepareNNPCBody(NPCname, setName) {
 
 	// Penis
 	if(hasPenis){
-		T.modeloptions.penis_size = Math.clamp(NNPCData.penissize, 0, 6);
+		T.modeloptions.penis_size = Math.clamp((NNPCData.penissize > 1 ? NNPCData.penissize + 2 : NNPCData.penissize + 1), 0, 6);
 		T.modeloptions.balls = V.customNNPC.customData[NPCname].testicles;
 
 		if("condom" in V.NPCList[0] && V.NPCList[0].condom.worn === true){
@@ -646,13 +658,15 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 	if(NPCname in setup.customNNPC.sceneTweaks){
 		for (let i = 0; i < setup.customNNPC.sceneTweaks[NPCname].length; i++) {
 			const tweak = setup.customNNPC.sceneTweaks[NPCname][i];
+			const passages = Array.isArray(tweak.passage) ? tweak.passage : [tweak.passage];
 
-			if(!tweak.exact){
-				if(!V.passage.includes(tweak.passage)){
+			if (!tweak.exact) {
+				const matchesPartial = passages.some(p => V.passage.includes(p));
+				if (!matchesPartial) {
 					continue;
 				}
-			}else{
-				if(V.passage !== tweak.passage){
+			} else {
+				if (!passages.includes(V.passage)) {
 					continue;
 				}
 			}
@@ -690,7 +704,21 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 	}
 	// using the default values of $breastsizemin and $breastsizemax, to avoid issues with the values changing during the game
 	let perceived_breastsize = Math.clamp(tempbreast, 0, setup.breastsizes.length - 1);
-	T.modeloptions.breast_size = Math.floor(perceived_breastsize / 2);
+	const breastSizeMap = {
+		12: 6,
+		8: 5,
+		9: 5,
+		10: 5,
+		11: 5,
+		6: 4,
+		7: 4,
+		4: 3,
+		5: 3,
+		3: 2,
+		1: 1,
+		2: 1,
+	};
+	T.modeloptions.breast_size = breastSizeMap[perceived_breastsize] || 0;
 
 	/*
 	const hairstyle = setup.hairstyles.sides.find(hs => hs.variable === V.customNNPC.customData[NPCname].hairstyle_side);
@@ -705,6 +733,8 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 		!worn.upper.type.includes("naked") || !worn.under_upper.type.includes("naked");
 
 	T.modeloptions.crotch_visible = !!V.customNNPC.bottomExposed;
+
+	T.modeloptions.crotch_exposed = !!V.customNNPC.bottomExposed;
 
 	T.modeloptions.hood_down = worn.upper.hoodposition === "down";
 
@@ -734,6 +764,10 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 
 	if("prop_arm_position" in T.modeloptions){
 		switch (T.modeloptions.prop_arm_position){
+			case "bound":
+				T.modeloptions.arm_right = "none";
+				T.modeloptions.arm_left = "none";
+				break;
 			case "hold":
 				T.modeloptions.arm_right = "hold";
 				break;
@@ -788,32 +822,63 @@ function modelPrepareNNPCNaked() {
 
 DefineMacro("modelprepare-nnpc-naked", modelPrepareNNPCNaked);
 
-function customNNPCTrackOrgasmPosition(action){
-	<!--
-"chest", "face", "feet", "leftarm", "rightarm", "neck", "thigh", "tummy"
--->
+function customNNPCTrackOrgasmPosition(action, state){
 	let allTargets = ["chest", "face", "feet", "leftarm", "rightarm", "neck", "thigh", "tummy"];
+	let upperTargets = ["chest", "face", "neck", "tummy"];
+	let lowerTargets = ["feet", "thigh", "tummy"];
 	let arms = ["leftarm","rightarm"];
 
 	let targets = [];
-	if (action.includes("othermouth")){
+	if (action === "none"){
+		return targets;
+	}
+	const actionName = String(action).toLowerCase();
+	const actionState = String(state).toLowerCase();
+	if (actionName.includes("othermouth")){
 		targets.push("face");
-		targets.push("neck");
-	}else if(action.includes("othervagina")){
+		if (actionState.includes("othermouth")){
+			targets.push("mouth");
+		}else{
+			targets.push("neck");
+		}
+	}else if(actionName.includes("othervagina")){
 		targets.push("thigh");
-		targets.push("tummy");
-	}else if(action.includes("otheranus")){
+		if (actionState.includes("penetrated")){		
+			targets.push("vaginal");
+		}else{
+			targets.push("tummy");
+			targets.push("chest");
+		}
+	}else if(actionName.includes("otheranus")){
 		targets.push("thigh");
-	}else if(action.includes("otherpenis")){
+		if (actionState.includes("otheranus")){
+			targets.push("anal");
+		}
+	}else if(actionName.includes("otherpenis")){
 		targets.push("tummy");
 		targets.push("chest");
-	}else if(action.includes("otherhand")){
-		targets.push("chest");
+	}else if(actionName.includes("penis")){
+		targets.push("thigh");
+	}else if(action === 1){
+		if(V.penisuse === 1)
+		{
+			targets.push(upperTargets[Math.floor(Math.random() * upperTargets.length)]);
+		}
+		if(V.vaginause === 1)
+		{
+			targets.push(lowerTargets[Math.floor(Math.random() * lowerTargets.length)]);	
+		}
 		targets.push(arms[Math.floor(Math.random() * arms.length)]);
-	}else if(action.includes("otherfeet")){
+	}else if(actionName.includes("feet")){
 		targets.push("feet");
 	}else{
-		targets.push(allTargets[Math.floor(Math.random() * allTargets.length)]);
+		if(!V.penisuse && !V.vaginause){
+			targets.push(allTargets[Math.floor(Math.random() * allTargets.length)]);
+		}else if(!V.penisuse){
+			targets.push(upperTargets[Math.floor(Math.random() * upperTargets.length)]);
+		}else if(!V.vaginause){
+			targets.push(lowerTargets[Math.floor(Math.random() * lowerTargets.length)]);	
+		}
 	}
 	return targets;
 }
@@ -823,8 +888,8 @@ function customNNPCTrackOrgasm(){
 		return;
 	}
 
-	let penisTargets = customNNPCTrackOrgasmPosition(V.penisuse);
-	let vaginaTargets = customNNPCTrackOrgasmPosition(V.vaginause);
+	let penisTargets = customNNPCTrackOrgasmPosition(V.penisuse, V.penisstate);
+	let vaginaTargets = customNNPCTrackOrgasmPosition(V.vaginause, V.vaginastate);
 
 	//$customNNPC.orgasmCount.X
 	for (let i = 0; i < penisTargets.length; i++) {
