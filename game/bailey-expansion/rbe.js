@@ -522,7 +522,7 @@ $(document).one(":storyready", function () {
 		el.style.textAlign = "center";
 		el.style.marginTop = "1em";
 		el.style.marginBottom = "1em";
-		el.textContent = "Reiyu's Bailey Expansion v0.6.1 for New World \u2014 Active";
+		el.textContent = "Reiyu's Bailey Expansion v0.6.1.1 for New World \u2014 Active";
 		el.style.cursor = "pointer";
 		el.title = "Mod credits";
 		el.addEventListener("click", function () {
