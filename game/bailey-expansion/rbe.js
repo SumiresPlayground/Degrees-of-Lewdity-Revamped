@@ -142,6 +142,7 @@ $(document).one(":storyready", function () {
 			C.npc.Bailey.love = 0;
 		}
 		if (V.stockholm_points === undefined) V.stockholm_points = {};
+		if (C.npc.Bailey.sextoys == null) C.npc.Bailey.sextoys = {};
 
 		if (typeof V.syndromebaileybuild !== "number" || Number.isNaN(V.syndromebaileybuild)) V.syndromebaileybuild = 0;
 		const pts = V.stockholm_points || {};
