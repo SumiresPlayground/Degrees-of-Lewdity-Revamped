@@ -467,7 +467,6 @@
     <</if>>
 <</widget>>
 
-
 <<widget "options-custom-nnpc-custom-layers-list-item">>
     <div class="settingsToggleItemWide">
 
@@ -860,6 +859,11 @@
                 T.fringeTypeByName[style.name_cap] = style.variable;
         })>>
         <div class="settingsToggleItemWide">
+            <label>
+                <<checkbox "$customNNPC.customData[_args[0]].bald" false true autocheck>> <span class="hypno-text hypno">Inflict Baldness</span>
+            </label>
+        </div>
+        <div class="settingsToggleItemWide">
             <span class="gold">Hairstyle (fringe):</span><br>
             <<listbox "$customNNPC.customData[_args[0]].hairstyle_fringe" autoselect>>
                 <<optionsfrom _fringeTypeByName>>
@@ -1013,8 +1017,7 @@
             <label><<= _variant[0]>> <<radiobutton "$customNNPC.customData[_args[0]].eyevariant" _variant[1] autocheck>></label>
             <<= _i < _NNPCvariants.length - 1 ? "|" : "">>
         <</for>>
-    </div>
-    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-face">
+        <br>
         <span class="gold">Mouth Shape:</span><br>
         <<set _NNPCvariants = Object.entries(setup.faceVariantOptions[$facestyle])>>
         <<for _i, _variant range _NNPCvariants>>
@@ -1391,9 +1394,12 @@
                 <span class="gold">Bottom: </span><span id="nnpc-outfit-desc-bottom">naked</span>
             </div>
             <div class="settingsToggleItemWide">
+                <span class="gold">Outfit actions:</span>
+                <br>
                 <<button "Regenerate default outfit">>
                     <<custom-nnpc-options-reset-outfit>>
                 <</button>>
+                <br>
             </div>
             <<set _clothesTargets to []>>
             <<run

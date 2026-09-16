@@ -36,6 +36,9 @@
         <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.hairEyeColour>>
             <<custom-nnpc-fix-hair-eye-colour>>
         <</if>>
+        <<if def $customNNPC.versionFixes && ndef $customNNPC.versionFixes.baldness>>
+            <<custom-nnpc-inflict-baldness>>
+        <</if>>
     <</if>>
 
     <<custom-nnpc-init>>
@@ -56,6 +59,7 @@
         <<set $customNNPC.customData[_args[0]].heterochromic to false>>
         <<set $customNNPC.customData[_args[0]].testicles to false>>
         <<set $customNNPC.customData[_args[0]].freckles to false>>
+        <<set $customNNPC.customData[_args[0]].bald to false>>
         <<set $customNNPC.customData[_args[0]].skintone to "">>
         <<set $customNNPC.customData[_args[0]].skintan to 0>>
         <<set $customNNPC.customData[_args[0]].hairstyle_fringe to "default">>

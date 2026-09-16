@@ -14,6 +14,68 @@
                 <<set $NPCList[0].clothes.upper.name to "naked">>
                 <<set $NPCList[0].clothes.lower.name to "naked">>
             <</if>>
+            <<if $passage.includes("Robin Mischief")>>
+                <<set $NPCList[0].clothes.lower.name to "naked">>
+            <</if>>
+            <<if $passage.includes("Whitney Beach")>>
+                <<if $NPCList[0].pronoun == "m">>
+                    <<set $NPCList[0].clothes.set to "maleSwim1">>
+                    <<set $NPCList[0].clothes.upper.name to "naked">>
+                    <<set $NPCList[0].clothes.lower.name to "speedo">>
+                <<else>>
+                    <<set $NPCList[0].clothes.set to "femaleSwim2">>
+                    <<set $NPCList[0].clothes.upper.name to "microkini top">>
+                    <<set $NPCList[0].clothes.lower.name to "microkini bottoms">>
+                <</if>>
+            <</if>>
+            <<if $passage.includes("Doren Beach Volleyball")>>
+                <<if $NPCList[0].pronoun == "m">>
+                    <<set $NPCList[0].clothes.set to "maleSwim2">>
+                    <<set $NPCList[0].clothes.upper.name to "naked">>
+                    <<set $NPCList[0].clothes.lower.name to "board shorts">>
+                <<else>>
+                    <<set $NPCList[0].clothes.set to "femaleSwim2">>
+                    <<set $NPCList[0].clothes.upper.name to "bikini top">>
+                    <<set $NPCList[0].clothes.lower.name to "bikini bottoms">>
+                <</if>>
+            <</if>>
+            <<if $passage.includes("Docks_Robin") || $passage.includes("Danube Meal") || $passage.includes("Robin Mist") || $passage.includes("Robin Pillory Failure")>>
+                <<set $NPCList[0].clothes.upper.name to "naked">>
+                <<set $NPCList[0].clothes.lower.name to "naked">>
+                <<if !($passage.includes("Docks_Robin"))>>
+                    <<set $customNNPC.orgasmCount.chest to 5 >>
+                    <<set $customNNPC.orgasmCount.face to 5 >>
+                    <<set $customNNPC.orgasmCount.feet to 5 >>
+                    <<set $customNNPC.orgasmCount.leftarm to 5 >>
+                    <<set $customNNPC.orgasmCount.rightarm to 5 >>
+                    <<set $customNNPC.orgasmCount.neck to 5 >>
+                    <<set $customNNPC.orgasmCount.thigh to 5 >>
+                    <<set $customNNPC.orgasmCount.tummy to 5 >>
+                <</if>>    
+                <<if $passage.includes("Robin Pillory Failure")>>
+                    <<set $customNNPC.orgasmCount.vaginal to 5 >>
+                    <<set $customNNPC.orgasmCount.anal to 5 >>
+                    <<set $customNNPC.orgasmCount.mouth to 5 >>                    
+                <</if>>      
+            <</if>>
+            <<if ($passage.includes("Robin Pillory")) && !($passage.includes("Robin Pillory Failure")) && !($passage === "Robin Pillory Finish")>>
+                <<if $robinPillory.danger gt 5>>
+                    <<set $NPCList[0].clothes.upper.name to "naked">>
+                    <<set $NPCList[0].clothes.lower.name to "naked">>
+                <</if>>
+                <<if $robinPillory.danger gt 7>>
+                    <<set $customNNPC.orgasmCount.chest to 4 >>
+                    <<set $customNNPC.orgasmCount.face to 3 >>
+                    <<set $customNNPC.orgasmCount.neck to 3 >>
+                <</if>>
+                <<if $robinPillory.danger gt 11>>
+                    <<set $customNNPC.orgasmCount.feet to 2 >>
+                    <<set $customNNPC.orgasmCount.leftarm to 2 >>
+                    <<set $customNNPC.orgasmCount.rightarm to 2 >>
+                    <<set $customNNPC.orgasmCount.thigh to 5 >>
+                    <<set $customNNPC.orgasmCount.tummy to 5 >>
+                <</if>>                             
+            <</if>>
             <<if $passage === "Sydney Beach Changing Room">>
                 <<set $customNNPC.sydney.beachFitPrev to $NPCList[0].clothes.set>>
                 <<set $NPCList[0].clothes.set to "naked">>
@@ -71,6 +133,9 @@
             <<set $customNNPC.orgasmCount.neck to 0 >>
             <<set $customNNPC.orgasmCount.thigh to 0 >>
             <<set $customNNPC.orgasmCount.tummy to 0 >>
+            <<set $customNNPC.orgasmCount.vaginal to 0 >>
+            <<set $customNNPC.orgasmCount.anal to 0 >>
+            <<set $customNNPC.orgasmCount.mouth to 0 >>   
         <</if>>
         <<if def $sydney>>
             <<if $customNNPC.sydney.hair !== $sydney.hair>>

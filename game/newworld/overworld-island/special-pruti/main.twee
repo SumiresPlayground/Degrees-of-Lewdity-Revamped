@@ -74,6 +74,13 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
         <<link [[Next|Witch Hut Trust]]>><</link>>
     <</if>>
 
+<<elseif Time.hour gt 6 and Time.hour lte 20 and (V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked")) and $prutidev is false>>
+	"My doll, you seem worse for ware. Come, let me get you fixed up." Pruti gently guides you to a chair and sits you with a smirk.
+	<br><br>
+	"Now hold still, this may take a while."
+	<br><br>
+	<<link [[Sit still (1:00)|Witch Hut Pruti Dress]]>><<pass 60>><</link>>
+
 <<elseif Time.hour lte 6>>
 	You're within a small hut bound among a pile of other dolls. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
@@ -91,8 +98,8 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	You start to fall asleep before you're awaken with a start by Pruti. "What's this?!" <<He>> yells as he finds your bindings broken. "Your bindings broke overnight and... you chose to stay? I... W-wait..." <<He>> seems confused. "Do you not want to be free?" <<He>> mutters confused to <<himself>> as <<he>> fixes your bindings and walks away.
 	<br><br>
 	<<link [[Wait (1:00)|Witch Hut]]>><<npcincr Pruti love 5>><<set $prutibinding to 20>><<pass 60>><<endevent>><</link>>
-/*
-<<elseif Time.hour lte 7>>
+
+<<elseif Time.hour lte 7 and $prutidev is false>>
 	
 	You're within a small hut bound among a pile of other dolls. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
@@ -101,7 +108,7 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<<link [[Struggle to stand and ask if <<he>> needs help (0:10)|Witch Help Cook]]>><<pass 10>><</link>>
 	<br>
 	<<link [[Wait (1:00)|Witch Hut]]>><<pass 60>><<endevent>><</link>>
- */
+
 <<elseif Time.hour lte 8>>
 	
 	You're within a small hut bound among a pile of other dolls. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
@@ -431,20 +438,28 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 <<location "prutihut">>
 <<set $outside to 0>>
 <<npc "Pruti">><<person1>>
-<<if Time.hour lte 6>>
+
+<<if Time.hour gt 6 and Time.hour lte 20 and (V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked")) and $prutidev is false>>
+	"My doll, you seem worse for ware. Come, let me get you fixed up." Pruti gently guides you to a chair and sits you with a smirk.
+	<br><br>
+	"Now hold still, this may take a while."
+	<br><br>
+	<<link [[Sit still (1:00)|Witch Hut Pruti Dress Trust]]>><<pass 60>><</link>>
+
+<<elseif Time.hour lte 6>>
 	You're within Pruti's small hut. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
 	Pruti lies still in <<his>> bed, asleep.
 	<br><br>
-/*
-<<elseif Time.hour lte 7>>
+
+<<elseif Time.hour lte 7 and $prutidev is false>>
 	You're within a small hut bound among a pile of other dolls. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
 	Pruti is cooking but <<he>> seems apprehensive, it looks like <<he>> is unsure what to add to the meal. 
 	<br><br>
 	<<link [[Ask if <<he>> needs help (0:10)|Witch Trust Cook]]>><<pass 10>><</link>>
 	<br>
- */
+
 <<elseif Time.hour lte 8>>
 	You're within Pruti's small hut. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
@@ -524,6 +539,10 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
     <<link [[Lie with Pruti|Pruti Bed]]>><<endevent>><</link>>
     <br>
 <</if>>
+/*
+<<link [[Spend some time with Pruti (1:00)|Witch Hut Trust Pruti Time]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
+<br>
+*/
 <<link [[Clean up the hut (1:00)|Witch Hut Trust]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
 <br>
 <<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
@@ -533,7 +552,13 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 
 :: Pruti Sendoff
 <<npc "Pruti">>
-Pruti sees you eyeing the door and sighs annoyed. "You do want to leave don't you?" <<He>> grumbles. "Look I don't usually do this... but I could free you and let you go." <<He>> seems to be having a hard time getting <<his>> words out. "Well, what I mean is I usually don't let my tools go, but as long as you come back I wouldn't... exactly be against it." <<He>> hesitates for a moment before striking you with <<his>> tendril, you feel a sort of severance. "Leave now. Before I change my mind."
+Pruti sees you eyeing the door and sighs annoyed. "You do want to leave don't you?" <<He>> grumbles. 
+<br><br>
+"Look I don't usually do this... but I could free you and let you go." <<He>> seems to be having a hard time getting <<his>> words out. 
+<br><br>
+"Well, what I mean is I usually don't let my tools go, but as long as you come back I wouldn't... exactly be against it." <<He>> hesitates for a moment before striking you with <<his>> tendril, you feel a sort of severance. 
+<br><br>
+"Leave now. Before I change my mind."
 <br><br>
 <<if $bodyless is 1>>
 	<<link [[Exit Pruti's Hut|Misland]]>>
@@ -990,3 +1015,78 @@ The two of you finish the meal in no time and are ready to continue on with your
 <br><br>
 <<link [[Finish cleaning the plates and cutlery|Witch Hut Trust]]>><</link>>
 
+:: Witch Hut Pruti Dress
+<<prutihairdress>>
+<<prutidressup>>
+You sit still as Pruti begins to comb your hair and style it into a style <<he>> claims is cute.
+<br><br>
+<<He>> lovingly stroaks your hair before trimming the remains of your tattered clothing that still clings to your skin. 
+<br><br>
+Pruti turns <<his>> back to you and fumbles with some fabric near <<his>> sewing materials.
+<br><br>
+<span class="blue">If you had more control of your body, you might have been able to use this opportunity.</span>
+<br><br>
+After a moment, Pruti returns with a new set of clothes, dressing you and making sure the clothes sit perfectly on your frame.
+<br><br>
+"There you go, my doll. All fixed up. What do you say to your owner now?"
+<br><br>
+<<link [[Thank Pruti|Witch Hut Thank]]>><<npcincr Pruti love 1>><</link>><<glove>>
+<br>
+<<link [[Refuse Pruti|Witch Hut Refuse]]>><</link>>
+
+:: Witch Hut Thank
+"Thank you, my owner." You whisper as Pruti kisses along your neck.
+<br><br>
+Pruti smirks and steps back a few steps. "Your welcome darling. Now lets continue with our day, shall we?"
+<br><br>
+<<link [[Next|Witch Hut]]>><<endevent>><</link>>
+
+:: Witch Hut Refuse
+You keep your mouth shut, refusing to thank Pruti for the forced makeover.
+<br><br>
+Pruti sits waiting for a moment, but after realizing you don't intend to thank <<him>>, <<he>> sighs and returns to <<his>> business.
+<br><br>
+<<link [[Next|Witch Hut]]>><<endevent>><</link>>
+
+:: Witch Hut Pruti Dress Trust
+<<prutihairdress>>
+<<prutidressup>>
+You sit still as Pruti begins to comb your hair and style it into a style <<he>> claims is cute.
+<br><br>
+<<He>> lovingly stroaks your hair before trimming the remains of your tattered clothing that still clings to your skin. 
+<br><br>
+Pruti turns <<his>> back to you and fumbles with some fabric near <<his>> sewing materials.
+<br><br>
+<span class="red">You couldn't even consider the idea of disobeying your owner and moving without permission.</span>
+<br><br>
+After a moment, Pruti returns with a new set of clothes, dressing you and making sure the clothes sit perfectly on your frame.
+<br><br>
+"There you go, my doll. All fixed up. What do you say to your owner now?"
+<br><br>
+Before you can even think, your mouth is opening with words. <span class="purple">"Thank you, my owner."</span> You beam with a forced smile.
+<br><br>
+Pruti smirks and steps back a few steps. "Your welcome darling. Now lets continue with our day, shall we?"
+<br><br>
+<<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
+
+:: Witch Hut Trust Pruti Time
+
+:: Witch Hut Front
+You are at the front of Pruti's hut. The forest breaks into a clearing where Pruti is growing some small plantbeds for food.
+<br><br>
+You could probably use these to grow your own plants as well.
+<br><br>
+<<gardenicon "plot">><<link [[Check the plantbeds|Witch Hut Plants]]>><</link>>
+<br>
+<<prutihuticon>><<link [[Enter Pruti's Hut|Witch Hut Return]]>><</link>>
+
+:: Witch Hut Plants
+<<effects>>
+<<plot_effects>>
+<<if $prutigarden is undefined>>
+	<<set $prutigarden to 1>>
+	<<plots_init prutigarden 2 earth 1 medium>>
+<</if>>
+<<display_plot prutigarden>>
+<br>
+<<getouticon>><<link [[Step back|Witch Hut Front]]>><</link>>

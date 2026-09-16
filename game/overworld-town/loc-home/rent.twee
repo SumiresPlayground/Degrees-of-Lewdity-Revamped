@@ -292,10 +292,10 @@
 		<br><br>
 		"You've been getting around." <<nnpc_He "Bailey">> pockets your rent. "Good industry. But keep it off the orphanage doorstep."<<npcincr Bailey love 1>><<glove "Bailey">><<set $bailey_rent_seen.exhib1 to true>>
 	<</if>>
-	<<if $exposed lt 1 and $allure gte (6000 * $settings.allureModifier) and !$bailey_rent_seen.allure2>>
+	<<if $syndromebaileybuild gte 1 and $exposed lt 1 and $allure gte (6000 * $settings.allureModifier) and !$bailey_rent_seen.allure2>>
 		<br><br>
 		<<nnpc_His "Bailey">> eyes move over you slowly. <<nnpc_He "Bailey">> doesn't look away.<<npcincr Bailey lust 2>><<gglust "Bailey">><<set $bailey_rent_seen.allure2 to true>>
-	<<elseif $exposed lt 1 and $allure gte (3000 * $settings.allureModifier) and !$bailey_rent_seen.allure1>>
+	<<elseif $syndromebaileybuild gte 1 and $exposed lt 1 and $allure gte (3000 * $settings.allureModifier) and !$bailey_rent_seen.allure1>>
 		<br><br>
 		<<nnpc_His "Bailey">> eyes linger on you a moment longer than usual before <<nnpc_he "Bailey">> looks away.<<npcincr Bailey lust 1>><<glust "Bailey">><<set $bailey_rent_seen.allure1 to true>>
 	<</if>>
@@ -308,11 +308,11 @@
 		<<else>>
 			<<nnpc_He "Bailey">> glances at you. "Put some clothes on."
 		<</if>>
-		<<npcincr Bailey lust 2>><<gglust "Bailey">>
+		<<if $syndromebaileybuild gte 1>><<npcincr Bailey lust 2>><<gglust "Bailey">><</if>>
 	<<elseif $exposed gte 1>>
 		<br><br>
 		<<nnpc_His "Bailey">> eyes flick down over your body, then back up. "Get dressed."
-		<<npcincr Bailey lust 1>><<glust "Bailey">>
+		<<if $syndromebaileybuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 	<</if>>
 	<br><br>
 
@@ -519,7 +519,7 @@
 					<<if C.npc.Alex.pregnancy.selfKnowledge or C.npc.Alex.pregnancy.pcKnowledge>>
 						"I got word that you knocked up some <<if C.npc.Alex.pronoun is "f">>bitch<<else>>slut<</if>> outside town. I paid <<nnpc_him "Alex">> a little visit and saw that that farm's no place for a brat. I did you the favour of bringing your spawn back here, where it belongs."
 					<<else>>
-						"I've paid a little visit to that farmer <<nnpc_gendery "Alex">> You should have done the same. Anyway, <<nnpc_he "Alex">> popped out <<print _childrenText>>, and I already know it's yours."
+						"I've paid a little visit to that farmer <<nnpc_gendery "Alex">>. You should have done the same. Anyway, <<nnpc_he "Alex">> popped out <<print _childrenText>>, and I already know it's yours."
 					<</if>>
 				<<else>>
 					"You're a careless little fuck, you know that? Making me drive all the way there again just because you don't know how to assume your own responsibilities, instead, making more and more," <<he>> says.
@@ -529,7 +529,7 @@
 			<<elseif $NPCNameList.includes(_value.mother)>>
 				"Someone named _value.mother dropped off <<print _childrenText>>, and a paternity test with your name on it to match."
 			<<else>>
-				"A _value.mother dropped off <<print _childrenText>>, and a paternity test with your name on it."
+				"A <<print _value.description or _value.mother>> dropped off <<print _childrenText>>, and a paternity test with your name on it."
 			<</if>>
 			<<set _continues to true>>
 		<</for>>
@@ -1388,7 +1388,7 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<</if>>
 	<br><br>
 
-	You gently hold <<his>> hand, and <<if robinromance is 1>>give <<him>> a comforting kiss on the forehead.<<else>>wrap your other arm around <<his>> shoulder comfortingly.<</if>>
+	You gently hold <<his>> hand, and <<if $robinromance is 1>>give <<him>> a comforting kiss on the forehead.<<else>>wrap your other arm around <<his>> shoulder comfortingly.<</if>>
 	<<takeHandholdingVirginity "Robin">>
 	<br><br>
 

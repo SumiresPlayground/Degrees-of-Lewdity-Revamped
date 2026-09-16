@@ -1890,7 +1890,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.brow,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.mouthvariant}/brow-${options.brows}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/brow-${options.brows}.png`;
 			},
 			zfn(options) {
 				return options.brows_position === "back" ? ZIndices.back_brow : ZIndices.brow;
