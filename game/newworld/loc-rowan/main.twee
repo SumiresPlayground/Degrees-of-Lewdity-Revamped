@@ -45,11 +45,11 @@ You are inside Rowan's ranch house. The small cabin is only about four rooms, co
     The ranch house is quiet. You can hear gentle snoring from Rowan's room.
 <</if>>
 <br><br>
-<<if Time.hour is 6 or Time.hour is 7>>
+<<if (Time.hour is 6 or Time.hour is 7) and $daily.rowanbreakfast isnot 1>>
 <<link [[Eat Breakfast with Rowan and Mint (1:00)|Rowan Breakfast]]>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><<set C.npc.Rowan.dom -= 1>><<set C.npc.Rowan.love += 2>><<pass 60>><<endevent>><</link>><<glove>><<ldom>>
 <br>
 <</if>>
-<<if Time.hour is 21 or Time.hour is 22>>
+<<if Time.hour gte 18 and Time.hour lt 21 and $daily.rowandinner isnot 1>>
 <<link [[Eat dinner with Rowan and Mint (1:00)|Rowan Dinner]]>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><<set C.npc.Rowan.dom -= 1>><<set C.npc.Rowan.love += 2>><<pass 60>><<endevent>><</link>><<glove>><<ldom>>
 <br>
 <</if>>
@@ -139,7 +139,7 @@ You are inside Rowan's ranch house. The small cabin is only about four rooms, co
             <<link [[Stretch with Mint (1:00)|Mint Exercise]]>><<endevent>><<pass 60>><<stress -10>><<set C.npc["Mint Mocha"].dom -= 1>><<set C.npc["Mint Mocha"].love += 2>><</link>><<gglove>><<ldom>><<lstress>>
             <br>
         <</if>>
-        <<gardenicon "plot">><<link [[Plant plot|Rowan Plot]]>><<endevent>><</link>>
+        <<gardenicon "plot">><<link [[Check your plantbeds|Rowan Plot]]>><<endevent>><</link>>
         <br>
         <<farmhouseicon>><<link [[Enter Rowan's ranch house (0:05)|Rowan Farmhouse]]>><<pass 5>><<endevent>><</link>>
         <br>
@@ -169,7 +169,7 @@ You enter the dining room and Rowan guides you to a chair at the small table. Mi
 <br><br>
 The three of you sit together at the table and Rowan offers a silent prayer. It does not take long before the plates are cleaned and the table is clear. Rowan and Mint Mocha take a moment of silent peace before returning to their roles.
 <br><br>
-<<link [[Next|Rowan Farmhouse]]>><<set $dailyrowandinner to 1>><<endevent>><</link>>
+<<link [[Next|Rowan Farmhouse]]>><<set $daily.rowandinner to 1>><<endevent>><</link>>
 
 :: Rowan Room
 <<if Time.hour is 21 or Time.hour is 22>>
@@ -237,7 +237,7 @@ The three of you sit together at the table and Rowan offers a silent prayer. It 
 
 :: Mint Room
 You are in Mint Mocha's room.
-<<if Time.hour is 21 or Time.hour is 22 and $mintromance isnot 1 and C.npc["Mint Mocha"].love gte 100>>
+<<if (Time.hour is 21 or Time.hour is 22) and $mintromance isnot 1 and C.npc["Mint Mocha"].love gte 100>>
     As you enter, Mint turns to you, a red glow across <<his>> face. "Hey, I wanted to talk with you privately. Do you have a moment?"
     <br><br>
     <<link [[Ask what Mint needs|Mint Romance]]>><<endevent>><</link>>
@@ -601,7 +601,7 @@ While <<his>> attention's on your knife work, you swipe a finger through the sau
 <br><br>
 "It does not need salt." <<He>> says it on reflex, already turning to check anyway, muttering something about smart-mouthed racers under his breath that doesn't sound the least bit annoyed.<<glove>>
 <br><br>
-<<link [[Next|Rowan Farmhouse]]>><<set C.npc.Rowan.love += 4>><<set $dailyrowanbreakfast to 1>><<endevent>><</link>>
+<<link [[Next|Rowan Farmhouse]]>><<set C.npc.Rowan.love += 4>><<set $daily.rowanbreakfast to 1>><<endevent>><</link>>
 
 :: Rowan Cooking Behave
 You let <<him>> correct your grip, holding still as <<his>> hand wraps around yours, guiding the knife through a proper dice.
@@ -616,7 +616,7 @@ Neither of you moves to put the distance back. The pot simmers, forgotten for a 
 <br><br>
 "No." You're not sure what else to say to that, and from the way <<his>> mouth curves, <<he>> knows it.<<arousal 4>><<garousal>><<glove>>
 <br><br>
-<<link [[Next|Rowan Farmhouse]]>><<set C.npc.Rowan.love += 3>><<set $dailyrowanbreakfast to 1>><<endevent>><</link>>
+<<link [[Next|Rowan Farmhouse]]>><<set C.npc.Rowan.love += 3>><<set $daily.rowanbreakfast to 1>><<endevent>><</link>>
 
 :: Spending Time Rowan
 <<npc Rowan>><<person1>>

@@ -400,7 +400,7 @@
 			{hair: "scorpion tails", fringe: "framing locks"},
 			{hair: "princess ribbons", fringe: "princess wave"},
 			{hair: "little doll", fringe: "little doll"},
-			{hair: "princess ponytail", fringe: "milkmaid braid"},
+			{hair: "princess ponytail", fringe: "milkmaid"},
 			{hair: "ribbon tail", fringe: "framed"},
 			{hair: "fairy low buns", fringe: "side braid"},
 			{hair: "sailor buns", fringe: "ringlets"},
@@ -429,6 +429,7 @@
 <</widget>>
 
 <<widget "prutidressup">>
+	<<strip>>
 	<<if $player.gender_appearance is "f" or $settings.forcedCrossdressingEnabled>>
 		<<set _clothesOptions to [
 			{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
@@ -443,7 +444,6 @@
 		]>>
 	<</if>>
 	<<set _selectedClothesStyle to _clothesOptions.random()>>
-	<<undress "wardrobe">>
 	<<if _selectedClothesStyle.upper is "gothic gown">>
 		<<upperwear _selectedClothesStyle.upper "white" "black">>
 		<<headwear _selectedClothesStyle.head "black" "white">>

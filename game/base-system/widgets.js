@@ -739,10 +739,9 @@ function exposure() {
 	// when applied to lower - it covers under_upper. when applied to under_upper - it makes it okay to be seen. when applied to face - it doesn't cover under_upper and doesn't make face okay to be seen...
 	// If under_upper is not covering or exposing/displaced exposed should be 1 because either it's underwear or PCs breasts are visible
 	if (
-		(["over_upper", "upper"].every(slot => itemExposure(slot) >= 1) &&
+		["over_upper", "upper"].every(slot => itemExposure(slot) >= 1) &&
 		(!V.worn.lower.type.includes("overalls") || itemExposure("lower") >= 2) &&
 		(!V.worn.under_upper.type.includes("torso_covering") || itemExposure("under_upper") >= 1) &&
-		V.exhibitionism < 55) &&
 		V.publicnudist === true
 	) {
 		// the answer is yes
@@ -757,9 +756,8 @@ function exposure() {
 		panties
 	*/
 	if (
-		(["over_lower", "lower"].every(slot => itemExposure(slot) >= 1) &&
+		["over_lower", "lower"].every(slot => itemExposure(slot) >= 1) &&
 		(!V.worn.under_lower.type.includes("lower_covering") || itemExposure("under_lower") >= 1) &&
-		V.exhibitionism < 55) &&
 		V.publicnudist === true
 	) {
 		V.exposed = 1;
@@ -769,7 +767,7 @@ function exposure() {
 	/*
 		genitals
 	*/
-	if (["over_lower", "lower"].every(slot => itemExposure(slot) >= 2) && itemExposure("under_lower") >= 1 && V.exhibitionism < 75 && V.publicnudist === true) {
+	if (["over_lower", "lower"].every(slot => itemExposure(slot) >= 2) && itemExposure("under_lower") >= 1 && V.publicnudist === true) {
 		V.exposed = 2;
 		T.exposedLower = 2;
 	}
