@@ -157,6 +157,72 @@ function customNNPCSetupMoodCallbacks() {
                 break;
         }
 
+        setup.customNNPC.expressionOverrides["Robin"] = function (mood) {
+            if(V.robin.timer.hurt >= 1){
+                T.modeloptions.brows = "low";
+                T.modeloptions.mouth = "neutral";
+            }
+
+            const landfillDrugged = ["Robin Mist Intro", "Robin Mist Fight"];
+            const pilloryLocked = ["Robin Pillory Watch", "Robin Pillory Lockpick", "Robin Pillory Distractions", "Robin Pillory Speech", "Robin Pillory Fruit", "Robin Pillory Money", "Robin Pillory Crime", "Robin Pillory Flower"];
+
+            if(V.passage.includes("Docks_Robin")){
+                T.modeloptions.blush = 0;
+                T.modeloptions.mouth = "neutral";
+                T.modeloptions.trauma = true;
+                if(V.passage === "Robin Mist Walk"){
+                    T.modeloptions.tears = 3;
+                }
+            }else if(V.passage.includes("Robin Mist")){
+                T.modeloptions.blush = 0;
+                T.modeloptions.mouth = "neutral";
+                T.modeloptions.trauma = true;
+                T.modeloptions.tears = 3;
+                if(landfillDrugged.some(p => V.passage.includes(p))){
+                    T.modeloptions.brows = "orgasm";
+                    T.modeloptions.mouth = "smile";
+                    T.modeloptions.blush = 5;
+                }else if(V.passage === "Robin Mist Walk"){
+                    T.modeloptions.tears = 1;
+                }
+            }else if(pilloryLocked.some(p => V.passage.includes(p))){
+                T.modeloptions.blush = 0;
+                T.modeloptions.brows = (C.npc.Robin.dom >= 70 ? "low" : "orgasm");
+                T.modeloptions.mouth = (C.npc.Robin.dom >= 70 ? "smile" : "neutral");
+                if(V.robinPillory.danger > 3){
+                    T.modeloptions.mouth = (C.npc.Robin.dom >= 70 ? "neutral" : "cry");
+                    T.modeloptions.tears = 3;
+                }
+                if(V.robinPillory.danger > 7){
+                    T.modeloptions.brows = "orgasm";
+                    T.modeloptions.tears = 4;
+                }
+                if(V.robinPillory.danger > 11){
+                    T.modeloptions.brows = "mid";                    
+                    T.modeloptions.mouth = "neutral";
+                    T.modeloptions.trauma = true;
+                }
+            }
+            else if(V.passage.includes("Robin Pillory Failure")){
+                T.modeloptions.blush = 0;
+                T.modeloptions.brows = "mid";
+                T.modeloptions.mouth = "neutral";
+                T.modeloptions.trauma = true;
+                T.modeloptions.tears = 4;
+                if(V.passage === "Robin Pillory Failure 2" || V.passage === "Robin Pillory Failure Optimism"){
+                    T.modeloptions.mouth = "smile";
+                    T.modeloptions.tears = 3;
+                }
+            }
+        };
+
+        setup.customNNPC.expressionOverrides["Sydney"] = function (mood) {
+            if(V.passage.includes("Sydney Temple Corrupt Sex") && V.loveDrunk > 0){
+                T.modeloptions.blush = 5;
+                T.modeloptions.trauma = true;
+            }
+        };
+
         setup.customNNPC.expressionOverrides["Ivory Wraith"] = function (mood) {
             if(V.wraith.state === "haunt"){
                 T.modeloptions.left_eye = "red possessed";

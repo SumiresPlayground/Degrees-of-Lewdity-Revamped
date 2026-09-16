@@ -3,6 +3,8 @@ function copyLayers(){
 
 	const layersToDelete = [
 		"npcpresent",
+		"npcpresentback",
+		"npcpresentfront",
 		"background",
 		"backgroundBed",
 		"backgroundchair",

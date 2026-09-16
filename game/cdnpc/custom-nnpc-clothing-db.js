@@ -4423,7 +4423,7 @@ function customNNPCClothingInitDb() {
         },
         "ritualRobes": {
             "rant": "Oh Gwylan, Gwylan, Gwylan... Why does the story text cals you naked here yet you insist on calling it 'ritual robes' in the gamefiles?" +
-              "though I do respect the hat staying on during sex part. That is pretty funny I gotta admit."
+                "though I do respect the hat staying on during sex part. That is pretty funny I gotta admit."
         },
     };
 }
@@ -4729,6 +4729,14 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             }
         },
         {
+            passage: ["Robin Bath Join", "Robin Bath Watch", "Robin Bath Trauma", "Bath Robin Help", "Bath Robin Join", "Bath Robin Join 2"],
+            exact: true,
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("soap");
+                T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+        {
             passage: ["Robin Study", "Robin Study 2", "Robin Study Concentrate", "Robin Study Competition", "Robin Study Competition 2"],
             exact: true,
             callback(_worn) {
@@ -4737,7 +4745,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             }
         },
         {
-            passage: "Robin Study Peek",
+            passage: ["Robin Study Peek", "History Classroom"],
             exact: false,
             callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("open history");
@@ -4745,12 +4753,42 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             }
         },
         {
-            passage: ["Robin Study Mess", "Robin Study Doodle", "Robin Study Doodle"],
+            passage: ["Robin Study Mess", "Robin Study Doodle"],
             exact: true,
             callback(_worn) {
-                T.modeloptions.prop = customNNPC_compileProp("notebook");
+            T.modeloptions.prop = customNNPC_compileProp("notebook");
+            T.modeloptions.prop_arm_position = "hold";
+        }
+        },
+        {
+            passage: ["Robin's Lemonade Help", "Robin's Lemonade Sign", "Robin's Lemonade Flirt"],
+            exact: true,
+            callback(_worn) {
+                if(Math.random() >= 0.5){
+                    T.modeloptions.prop = customNNPC_compileProp("strawberry lemonade");
+                }else{
+                    T.modeloptions.prop = customNNPC_compileProp("lemonade");
+                }
                 T.modeloptions.prop_arm_position = "hold";
             }
+        },
+        {
+            passage: ["Robin Chocolate Help", "Robin Chocolate Kiss", "Hot Chocolate Doren"],
+            exact: true,
+            callback(worn) {
+                worn["neck"] = $.extend(true, {}, setup.clothes["neck"].find(hs => hs.variable === "naked"));
+                T.modeloptions.prop = customNNPC_compileProp("hot cocoa");
+                T.modeloptions.prop_arm_position = "hold";
+        }
+        },
+        {
+            passage: ["Robin Chocolate Take", "Robin Chocolate Audacious", "Robin Chocolate Patient"],
+            exact: true,
+            callback(worn) {
+                worn["neck"] = $.extend(true, {}, setup.clothes["neck"].find(hs => hs.variable === "naked"));
+                T.modeloptions.prop = customNNPC_compileProp("snowball");
+                T.modeloptions.prop_arm_position = "hold";
+        }
         },
         {
             passage: "English Play Watch",
@@ -4766,7 +4804,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             }
         },
         {
-            passage: ["Robin Watch Pass", "Robin Pillow", "Robin Options", "Robin's Room Entrance", "Robin Study Winner End"],
+            passage: ["Robin Watch Pass", "Robin Pillow", "Robin Stroke", "Robin Study Winner End"],
             exact: true,
             callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("game controller");
@@ -4783,7 +4821,7 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
         },
         {
             passage: "Robin Amusements Lollipop",
-            exact: true,
+            exact: false,
             callback(_worn) {
                 if(Math.random() >= 0.9){
                     T.modeloptions.prop = customNNPC_compileProp("lollipop big");
@@ -4799,6 +4837,33 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("packet of sweets");
                 T.modeloptions.prop_arm_position = "hold";
+            }
+        },
+                {
+            passage: "Danube Meal",
+            exact: true,
+            callback(worn) {
+                T.modeloptions.prop_arm_position = "bound";
+                worn["face"] = $.extend(true, {}, setup.clothes["face"].find(hs => hs.variable === "gag"));
+            }
+        },
+        {
+            passage: ["Robin Pillory Watch", "Robin Pillory Lockpick", "Robin Pillory Distractions", "Robin Pillory Speech", "Robin Pillory Fruit", "Robin Pillory Money", "Robin Pillory Crime", "Robin Pillory Flower"],
+            exact: true,
+            callback(worn) {
+                if (V.robinPillory.locks > 0){
+                    T.modeloptions.prop_arm_position = "bound";                   
+                }
+            }
+        },
+        {
+            passage: ["Underground Cell Robin", "Underground Robin"],
+            exact: false,
+            callback(worn) {
+                if (V.undergroundbrothel.time >= 4){
+                    worn["upper"].integrity = worn["upper"].integrity_max / 5;
+                    worn["lower"].integrity = worn["lower"].integrity_max / 5;
+                }
             }
         }
     ];
@@ -5327,7 +5392,36 @@ DefineMacro("custom-nnpc-setup-scene-tweaks", function () {
             callback(_worn) {
                 T.modeloptions.prop = customNNPC_compileProp("pen");
                 T.modeloptions.prop_arm_position = "hold";
-            }
+            },
+            passage: "Sydney Beach Volleyball Play",
+            exact: true,
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("volleyball");
+                T.modeloptions.prop_arm_position = "hold";
+            }            
+        }
+    ];
+
+    setup.customNNPC.sceneTweaks["Alex"] = [
+        {
+            passage: ["Farm Breakfast", "Farm Breakfast Eat"],
+            exact: true,
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("pancake fork");
+                T.modeloptions.prop_arm_position = "hold";
+            },            
+            passage: "Farm Breakfast Tea",
+            exact: false,
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("tea");
+                T.modeloptions.prop_arm_position = "hold";
+            },
+            passage: ["Farm Alex Admin", "Farm Phone Cuddle"],
+            exact: true,
+            callback(_worn) {
+                T.modeloptions.prop = customNNPC_compileProp("telephone");
+                T.modeloptions.prop_arm_position = "hold";
+            }            
         }
     ];
 

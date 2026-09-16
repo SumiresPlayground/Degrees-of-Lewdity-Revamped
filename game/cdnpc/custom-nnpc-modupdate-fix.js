@@ -161,3 +161,12 @@ DefineMacro("custom-nnpc-fix-hair-eye-colour", function(){
 
     V.customNNPC.versionFixes["hairEyeColour"] = true;
 });
+
+DefineMacro("custom-nnpc-inflict-baldness", function () {
+    for (let i = 0; i < V.NPCNameList.length; i++) {
+        let npcName = V.NPCNameList[i];
+        if (V.customNNPC.customData[npcName].bald === undefined){
+            V.customNNPC.customData[npcName].bald = false
+        }
+    }
+})
