@@ -71,8 +71,9 @@
 	<<water>><<set $underwater to 1>><<set $underwatercheck to 1>><<unset $oxygenRecovery>>
 	<<waterbr 1>>
 	<<if $combat isnot 1>>
-		<<if $slime gt 0 or $ghost is 4 or ($transformationParts.fish.tail isnot "hidden" and $transformationParts.fish.tail isnot "disabled")>>
+		<<if $slime gt 0 or $ghost is 4 or ($transformationParts.fish.tail isnot "disabled" and $transformationParts.fish.fins isnot "disabled")>>
 			<<set $nooxygen to 0>>
+			<<set $oxygen to $oxygenmax>>
 		<<elseif $oxygen lt 0 and $nooxygen is 1>>
 			<<set $stress += 1000>>
 		<<elseif $oxygen lt 0 and $nooxygen isnot 1>>
@@ -81,7 +82,7 @@
 			<<set $nooxygen to 0>>
 		<</if>>
 		<span class="lblue">Air:</span>
-		<<if $slime gt 0 or $ghost is 4 or ($transformationParts.fish.tail isnot "hidden" and $transformationParts.fish.tail isnot "disabled")>>
+		<<if $slime gt 0 or $ghost is 4 or ($transformationParts.fish.tail isnot "disabled" and $transformationParts.fish.fins isnot "disabled")>>
 		<<elseif $oxygen lt 0>>
 			<span class="red">You can't breathe! Your stress will increase and you'll soon pass out if you can't find air.</span>
 		<</if>>
