@@ -379,26 +379,7 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 		<br>
 		<<link [[Help out (0:10)|Library Study Science Fair]]>><<set $phase to 1>><<pass 10>><<status 6>><</link>><<gcool>>
 		<br>
-	<<elseif $rng gte 51>>
-		<<generatey1>><<generatey2>>While you are minding your own business, a <<fullGroup>> start harassing you.
-		<br><br>
-
-		<<link [[Ignore them|School Library Harass]]>><<set $phase to 0>><<trauma 2>><<stress 2>><</link>><<gtrauma>><<gstress>>
-		<br>
-		<<link [[Ask the librarian for help|School Library Harass]]>><<set $phase to 1>><<status -10>><</link>><<llcool>>
-		<br>
-		<<if C.npc.Sydney.init is 1 and $sydneySeen.includes("library") and _sydney_location is "library">>
-			<<link [[Ask Sydney for help|School Library Harass]]>><<set $phase to 2>><</link>>
-			<br>
-		<</if>>
-	<<elseif _wraithEvent and !$worn.face.type.includes("apotropaic")>>
-		After some time, you begin to feel anxious. You move to replace your textbook in the bookshelf.
-		<br><br>
-		You catch a brief glimpse of a pale face through the gaps on the other side. <<stress 12>><<ggstress>><<trauma 4>><<gtrauma>>
-		<br><br>
-		<<link [[Next|School Library]]>><<endevent>><</link>>
-		<br>
-	<<else>>
+	<<elseif $rng gte 51 and $worn.under_lower.type.includes("naked")>>
 		<<outfitChecks>>
 		<<set _bottom.integrity -= 10>>
 		<<if _bottom.integrity lte 0>>
@@ -411,6 +392,25 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 		<</if>>
 		<<link [[Next|School Library]]>><<endevent>><</link>>
 		<br>
+	<<elseif _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+		After some time, you begin to feel anxious. You move to replace your textbook in the bookshelf.
+		<br><br>
+		You catch a brief glimpse of a pale face through the gaps on the other side. <<stress 12>><<ggstress>><<trauma 4>><<gtrauma>>
+		<br><br>
+		<<link [[Next|School Library]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		<<generatey1>><<generatey2>>While you are minding your own business, a <<fullGroup>> start harassing you.
+		<br><br>
+
+		<<link [[Ignore them|School Library Harass]]>><<set $phase to 0>><<trauma 2>><<stress 2>><</link>><<gtrauma>><<gstress>>
+		<br>
+		<<link [[Ask the librarian for help|School Library Harass]]>><<set $phase to 1>><<status -10>><</link>><<llcool>>
+		<br>
+		<<if C.npc.Sydney.init is 1 and $sydneySeen.includes("library") and _sydney_location is "library">>
+			<<link [[Ask Sydney for help|School Library Harass]]>><<set $phase to 2>><</link>>
+			<br>
+		<</if>>
 	<</if>>
 <<else>>
 	<<link [[Next|School Library]]>><<endevent>><</link>>
