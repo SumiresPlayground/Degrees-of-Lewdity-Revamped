@@ -710,6 +710,36 @@ function wardrobesUpdate() {
 		V.wardrobes.avery_mansion.space = 80;
 		if (V.avery_mansion) V.wardrobes.avery_mansion.unlocked = true;
 		V.wardrobes.avery_mansion.locationRequirement.push("avery_mansion", "alley");
+		/* casey */
+		V.wardrobes.casey.name = "casey";
+		V.wardrobes.casey.transfer = true;
+		V.wardrobes.casey.isolated = true;
+		V.wardrobes.casey.shopSend = true;
+		V.wardrobes.casey.space = 40;
+		/* rowan */
+		V.wardrobes.rowan.name = "rowan";
+		V.wardrobes.rowan.transfer = true;
+		V.wardrobes.rowan.isolated = true;
+		V.wardrobes.rowan.shopSend = true;
+		V.wardrobes.rowan.space = 80;
+		/* horseacademy */
+		V.wardrobes.horseacademy.name = "horseacademy";
+		V.wardrobes.horseacademy.transfer = true;
+		V.wardrobes.horseacademy.isolated = true;
+		V.wardrobes.horseacademy.shopSend = true;
+		V.wardrobes.horseacademy.space = 60;
+		/* pruti */
+		V.wardrobes.pruti.name = "pruti";
+		V.wardrobes.pruti.transfer = false;
+		V.wardrobes.pruti.isolated = true;
+		V.wardrobes.pruti.shopSend = false;
+		V.wardrobes.pruti.space = 60;
+		/* mansion */
+		V.wardrobes.mansion.name = "mansion";
+		V.wardrobes.mansion.transfer = false;
+		V.wardrobes.mansion.isolated = true;
+		V.wardrobes.mansion.shopSend = false;
+		V.wardrobes.mansion.space = 80;
 		/* add .lastTaken prop to everything */
 		if (V.worn !== undefined) Object.keys(V.worn).forEach(s => (V.worn[s].lastTaken = "wardrobe"));
 		if (V.carried !== undefined) Object.keys(V.carried).forEach(s => (V.carried[s].lastTaken = "wardrobe"));

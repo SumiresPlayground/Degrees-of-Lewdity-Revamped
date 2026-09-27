@@ -1879,7 +1879,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.blush + 1,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.mouthvariant}/blusher.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/blusher.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.blusher_colour;
@@ -1931,7 +1931,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.blush,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.mouthvariant}/blush-${options.blush}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/blush-${options.blush}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.blush > 0;

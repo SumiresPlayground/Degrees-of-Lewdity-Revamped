@@ -12,11 +12,7 @@
 		<<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
 			<<link [[Wake up|Pruti Save]]>><<strip>><</link>>
 		<<else>>
-			<<link [[Wake up|Witch Intro]]>><<strip>>
-			<<if $ghost is 1>>
-				<<set $bodyless to 1>><<clearExtraTransformations>>
-			<</if>>
-			<</link>>
+			<<link [[Wake up|Witch Intro]]>><<strip>><</link>>
 		<</if>>
     <</if>>
 <</widget>>
@@ -273,7 +269,15 @@
 <</widget>>
 
 <<widget "callDoll">>
-	/*
+	<<if $ghost gte 1>>
+		<<set $bodyless to 1>><<set $ghostrestore to $ghost>><<clearExtraTransformations>>
+	<</if>>
+	<<if $slime gte 1>>
+		<<set $bodyless to 1>><<set $slimerestore to $slime>><<clearExtraTransformations>>
+	<</if>>
+	<<if $mushroom gte 1>>
+		<<set $bodyless to 1>><<set $mushroomrestore to $mushroom>><<set $mushroomtfrestore to $mushroomtf>><<set $fungalrestore to $fungalgrowth>><<clearExtraTransformations>>
+	<</if>>
 	<<script>>
 		const skipKeysOnFreeze = ["replayScene", "frozenValues", "statFreeze", "passage", "debug", "debugMenu", "options"];
 		V.frozenValues1 = {};
@@ -298,46 +302,125 @@
 	<<parasiteinit>>
 	<<bodyliquid "clear">>
 	<<bodywriting_init>>
-	<<if $player.gender_appearance is "f" and $settings.forcedCrossdressingEnabled>>
-		<<set $player.gender to "f">>
-		<<set $player.gender_appearance to "f">>
-		<<set $player.sex to "f">>
-		<<set $vaginastate to 0>>
-		<<set $vaginause to 0>>
-		<<set $penisuse to "none">>
-		<<set $penisstate to "none">>
-		<<set $player.breastsize to 5>>
-		<<set $player.penisExist to false>>
-		<<set $player.ballsExist to false>>
-		<<set $player.vaginaExist to true>>
-	<<elseif $player.gender_appearance is "m" and $settings.forcedCrossdressingEnabled>>
-		<<set $player.gender to "m">>
-		<<set $player.gender_appearance to "m">>
-		<<set $player.sex to "m">>
-		<<set $vaginastate to 0>>
-		<<set $vaginause to 0>>
-		<<set $penisuse to "none">>
-		<<set $penisstate to "none">>
-		<<set $player.breastsize to 0>>
-		<<set $player.penisExist to true>>
-		<<set $player.ballsExist to true>>
-		<<set $player.penissize to 4>>
-		<<set $player.vaginaExist to false>>
+	<<rng>>
+	<<if $permadoll is 1>>
+		<<if $doll is "female">>
+			<<set $player.gender to "f">>
+			<<set $player.gender_appearance to "f">>
+			<<set $player.sex to "f">>
+			<<set $vaginastate to 0>>
+			<<set $vaginause to 0>>
+			<<set $penisuse to "none">>
+			<<set $penisstate to "none">>
+			<<set $sexStats.vagina.menstruation.running = true>>
+			<<set $player.breastsize to 5>>
+			<<set $player.penisExist to false>>
+			<<set $player.ballsExist to false>>
+			<<set $player.vaginaExist to true>>
+		<<elseif $doll is "male">>
+			<<set $player.gender to "m">>
+			<<set $player.gender_appearance to "m">>
+			<<set $player.sex to "m">>
+			<<set $vaginastate to 0>>
+			<<set $vaginause to 0>>
+			<<set $penisuse to "none">>
+			<<set $penisstate to "none">>
+			<<set $player.breastsize to 0>>
+			<<set $player.penisExist to true>>
+			<<set $player.ballsExist to true>>
+			<<set $player.penissize to 4>>
+			<<set $player.vaginaExist to false>>
+			<<set $sexStats.vagina.menstruation.running = false>>
+		<<elseif $doll is "both">>
+			<<set $vaginause to 0>>
+			<<set $vaginastate to 0>>
+			<<set $penisuse to 0>>
+			<<set $penisstate to 0>>
+			<<set $player.sex to "h">>
+			<<set $player.penisExist to true>>
+			<<set $player.vaginaExist to true>>
+			<<set $sexStats.vagina.menstruation.running = true>>
+			<<set $player.breastsize to 0>>
+			<<set $player.penisExist to true>>
+			<<set $player.ballsExist to true>>
+			<<set $player.penissize to 4>>
+			<<set $player.vaginaExist to false>>
+		<</if>>
+	<<elseif $player.gender_appearance is "f">>
+		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+			<<set $player.gender to "f">>
+			<<set $player.gender_appearance to "f">>
+			<<set $player.sex to "f">>
+			<<set $vaginastate to 0>>
+			<<set $vaginause to 0>>
+			<<set $penisuse to "none">>
+			<<set $penisstate to "none">>
+			<<set $sexStats.vagina.menstruation.running = false>>
+			<<set $player.breastsize to 5>>
+			<<set $player.penisExist to false>>
+			<<set $player.ballsExist to false>>
+			<<set $player.vaginaExist to true>>
+		<<else>>
+			<<set $player.gender to "m">>
+			<<set $player.gender_appearance to "m">>
+			<<set $player.sex to "m">>
+			<<set $vaginastate to 0>>
+			<<set $vaginause to 0>>
+			<<set $penisuse to "none">>
+			<<set $penisstate to "none">>
+			<<set $sexStats.vagina.menstruation.running = true>>
+			<<set $player.breastsize to 0>>
+			<<set $player.penisExist to true>>
+			<<set $player.ballsExist to true>>
+			<<set $player.penissize to 4>>
+			<<set $player.vaginaExist to false>>
+		<</if>>
+	<<else>>
+		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+			<<set $player.gender to "m">>
+			<<set $player.gender_appearance to "m">>
+			<<set $player.sex to "m">>
+			<<set $vaginastate to 0>>
+			<<set $vaginause to 0>>
+			<<set $penisuse to "none">>
+			<<set $penisstate to "none">>
+			<<set $sexStats.vagina.menstruation.running = false>>
+			<<set $player.breastsize to 0>>
+			<<set $player.penisExist to true>>
+			<<set $player.ballsExist to true>>
+			<<set $player.penissize to 4>>
+			<<set $player.vaginaExist to false>>
+		<<else>>
+			<<set $player.gender to "f">>
+			<<set $player.gender_appearance to "f">>
+			<<set $player.sex to "f">>
+			<<set $vaginastate to 0>>
+			<<set $vaginause to 0>>
+			<<set $penisuse to "none">>
+			<<set $penisstate to "none">>
+			<<set $sexStats.vagina.menstruation.running = true>>
+			<<set $player.breastsize to 5>>
+			<<set $player.penisExist to false>>
+			<<set $player.ballsExist to false>>
+			<<set $player.vaginaExist to true>>
+		<</if>>
 	<</if>>
-	<<set $leftEyeColour to "brown">>
-	<<set $rightEyeColour to "brown">>
-	<<set $haircolour to "black">>
-	<<set $hairfringecolour to "black">>
-	<<set $makeup.browscolour to "black">>
-	<<set $hairColourStyle to "simple">>
-	<<set $hairFringeColourStyle to "simple">>
-	<<set $hairlength to 400>>
-	<<set $frozenValues1.skincolor to Skin.color.natural>>
-	<<set Skin.color.natural to "rmedium">>
-	<<set $facestyle to "default">>
-	<<set $facevariant to "gloomy">>
-	<<set $eyevariant to "gloomy">>
-	<<set $mouthvariant to "gloomy">>
+	<<if $permadoll isnot 1>>
+		<<set $leftEyeColour to "brown">>
+		<<set $rightEyeColour to "brown">>
+		<<set $haircolour to "black">>
+		<<set $hairfringecolour to "black">>
+		<<set $makeup.browscolour to "black">>
+		<<set $hairColourStyle to "simple">>
+		<<set $hairFringeColourStyle to "simple">>
+		<<set $hairlength to 400>>
+		<<set $frozenValues1.skincolor to Skin.color.natural>>
+		<<set Skin.color.natural to "rmedium">>
+		<<set $facestyle to "default">>
+		<<set $facevariant to "gloomy">>
+		<<set $eyevariant to "gloomy">>
+		<<set $mouthvariant to "gloomy">>
+	<</if>>
 
 	<<run Object.keys(V.transformationParts).forEach((tf) => {
 		Object.entries(V.transformationParts[tf]).forEach(([part, value]) => {
@@ -349,20 +432,14 @@
 
 	<<set V.transformationParts.doll.body to "default">>
 	<<set V.transformationParts.doll.arms to "default">>
+	<<set $dollstate to 1>>
 	<<if $permadoll is 1>>
 		<<set V.transformationParts.doll.string to "default">>
+		<<set $dollstate to 2>>
 	<</if>>
-
-	<<handheldstrip>>
-	<<feetwear "court heels">>
-	<<legswear "fishnet stockings">>
-	<<upperwear "janet dress" "wine" "white">>
-	<<underlowerwear "lace panties">>
-	*/
 <</widget>>
 
 <<widget "sleepDoll">>
-	/*
 	<<set $player to clone($frozenValues1.player)>>
 	<<set $worn to clone($frozenValues1.worn)>>
 	<<set $fringetype to clone($frozenValues1.fringetype)>>
@@ -379,46 +456,161 @@
 	<<set $parasite to clone($frozenValues1.parasite)>>
 	<<set $transformationParts to clone($frozenValues1.transformationParts)>>
 	<<set Skin.color.natural to $frozenValues1.skincolor>>
+	<<if $ghostrestore is 1>>
+		<<set Skin.color.natural to "ghost">>
+		<<set V.transformationParts.ghost.eyes to "default">>
+		<<set V.transformationParts.ghost.hitodama to "default">>
+		<<set $haircolour to "ghost">>
+		<<set $hairfringecolour to "ghost">>
+		<<set $makeup.browscolour to "ghost">>
+		<<set $options.lightGlow to 1>>
+		<<set $ghost to $ghostrestore>>
+	<<elseif $ghostrestore is 2>>
+		<<set Skin.color.natural to "ice">>
+		<<set V.transformationParts.ghost.eyes to "default">>
+		<<set V.transformationParts.ghost.mist to "default">>
+		<<set $haircolour to "snowblue">>
+		<<set $hairfringecolour to "snowblue">>
+		<<set $makeup.browscolour to "snowblue">>
+		<<set $options.lightGlow to 1>>
+		<<set $ghost to $ghostrestore>>
+	<<elseif $ghostrestore is 3>>
+		<<set Skin.color.natural to "flame">>
+		<<set V.transformationParts.ghost.eyes to "default">>
+		<<set V.transformationParts.ghost.flame to "default">>
+		<<set $haircolour to "ghost">>
+		<<set $hairfringecolour to "ghost">>
+		<<set $makeup.browscolour to "ghost">>
+		<<set $options.lightGlow to 1>>
+		<<set $ghost to $ghostrestore>>
+	<<elseif $ghostrestore is 4>>
+		<<set Skin.color.natural to "water">>
+		<<set V.transformationParts.ghost.eyes to "default">>
+		<<set V.transformationParts.ghost.stream to "default">>
+		<<set $haircolour to "ghostblue">>
+		<<set $hairfringecolour to "ghostblue">>
+		<<set $makeup.browscolour to "ghostblue">>
+		<<set $options.lightGlow to 1>>
+		<<set $ghost to $ghostrestore>>
+	<<elseif $slimerestore is 1>>
+		<<set Skin.color.natural to "slimy">>
+		<<set V.transformationParts.slime.bubble to "default">>
+		<<set V.transformationParts.slime.stream to "default">>
+		<<set V.transformationParts.slime.core to "default">>
+		<<set $haircolour to "slimegreen">>
+		<<set $hairfringecolour to "slimegreen">>
+		<<set $makeup.browscolour to "slimegreen">>
+		<<set $slime to $slimerestore>>
+	<<elseif $slimerestore is 2>>
+		<<set Skin.color.natural to "amethyst">>
+		<<set V.transformationParts.slime.bubble to "pdefault">>
+		<<set V.transformationParts.slime.stream to "pdefault">>
+		<<set V.transformationParts.slime.core to "default">>
+		<<set $haircolour to "lilacpurple">>
+		<<set $hairfringecolour to "lilacpurple">>
+		<<set $makeup.browscolour to "lilacpurple">>
+		<<set $slime to $slimerestore>>
+	<<elseif $slimerestore is 3>>
+		<<set Skin.color.natural to "chilly">>
+		<<set V.transformationParts.slime.bubble to "bdefault">>
+		<<set V.transformationParts.slime.stream to "bdefault">>
+		<<set V.transformationParts.slime.core to "default">>
+		<<set $haircolour to "chillyblue">>
+		<<set $hairfringecolour to "chillyblue">>
+		<<set $makeup.browscolour to "chillyblue">>
+		<<set $slime to $slimerestore>>
+	<<elseif $mushroomrestore gte 1>>
+		<<set Skin.color.natural to "dusky">>
+		<<set $transformationParts.mushroom.cap to "default">>
+		<<set $transformationParts.mushroom.eyes to "default">>
+		<<set $transformationParts.mushroom.spores to "default">>
+		<<set $transformationParts.mushroom.mushrooms to "default">>
+		<<set $haircolour to "amberyellow">>
+		<<set $makeup.browscolour to "amberyellow">>
+		<<set $hairfringecolour to "amberyellow">>
+		<<set $makeup.browscolour to "amberyellow">>
+		<<headruined>>
+		<<headwear "mushroom cap">>
+		<<set $mushroom to $mushroomrestore>>
+		<<set $mushroomtf to $mushroomtfrestore>>
+		<<set $fungalgrowth to $fungalrestore>>
+	<</if>>
 	<<set V.transformationParts.doll.body to "disabled">>
 	<<set V.transformationParts.doll.arms to "disabled">>
 	<<set V.transformationParts.doll.string to "disabled">>
-	<<endcombat>>
-	*/
+	<<set $dollstate to 0>>
 <</widget>>
 
 <<widget "prutihairdress">>
-	<<if $player.gender_appearance is "f" or $settings.forcedCrossdressingEnabled>>
-		<<if $hairlength lt 800 or $fringelength lt 500>>
-			<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+	<<rng>>
+	<<if $player.gender_appearance is "f">>
+		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+			<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
+			<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
+			<<set _hairOptions to [
+				{hair: "french bob", fringe: "blunt locks"},
+				{hair: "neat", fringe: "french bob"},
+				{hair: "ruffled", fringe: "emo left"},
+				{hair: "layered bob", fringe: "messy curls"},
+				{hair: "short", fringe: "framed"},
+				{hair: "short spiky", fringe: "loose antenna"},
+				{hair: "short", fringe: "sectioned"},
+				{hair: "fishtail right", fringe: "overgrown"},
+			]>>
+		<<else>>
+			<<if $hairlength lt 800 or $fringelength lt 500>>
+				<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+			<</if>>
+			<<if $hairlength gte 800>><<set $hairlength to 600>><</if>>
+			<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
+			<<set _hairOptions to [
+				{hair: "fluffy pigtails", fringe: "fairy waves"},
+				{hair: "magical ribbons", fringe: "front braids"},
+				{hair: "ribbon tail", fringe: "heart rows"},
+				{hair: "scorpion tails", fringe: "framing locks"},
+				{hair: "princess ribbons", fringe: "princess wave"},
+				{hair: "little doll", fringe: "little doll"},
+				{hair: "princess ponytail", fringe: "milkmaid"},
+				{hair: "ribbon tail", fringe: "framed"},
+				{hair: "fairy low buns", fringe: "sideswept braid"},
+				{hair: "sailor buns", fringe: "ringlets"},
+				{hair: "drill ringlets", fringe: "hime"},
+			]>>
 		<</if>>
-		<<if $hairlength gte 800>><<set $hairlength to 600>><</if>>
-		<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
-		<<set _hairOptions to [
-			{hair: "fluffy pigtails", fringe: "fairy waves"},
-			{hair: "magical ribbons", fringe: "front braids"},
-			{hair: "ribbon tail", fringe: "heart rows"},
-			{hair: "scorpion tails", fringe: "framing locks"},
-			{hair: "princess ribbons", fringe: "princess wave"},
-			{hair: "little doll", fringe: "little doll"},
-			{hair: "princess ponytail", fringe: "milkmaid"},
-			{hair: "ribbon tail", fringe: "framed"},
-			{hair: "fairy low buns", fringe: "side braid"},
-			{hair: "sailor buns", fringe: "ringlets"},
-			{hair: "drill ringlets", fringe: "hime"},
-		]>>
-	<<elseif $player.gender_appearance is "m" or $settings.forcedCrossdressingEnabled>>
-		<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
-		<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
-		<<set _hairOptions to [
-			{hair: "french bob", fringe: "blunt locks"},
-			{hair: "neat", fringe: "french bob"},
-			{hair: "ruffled", fringe: "emo left"},
-			{hair: "layered bob", fringe: "messy curls"},
-			{hair: "short", fringe: "framed"},
-			{hair: "short spiky", fringe: "loose antenna"},
-			{hair: "short", fringe: "sectioned"},
-			{hair: "fishtail right", fringe: "overgrown"},
-		]>>
+	<<else>>
+		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+			<<if $hairlength lt 800 or $fringelength lt 500>>
+				<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+			<</if>>
+			<<if $hairlength gte 800>><<set $hairlength to 600>><</if>>
+			<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
+			<<set _hairOptions to [
+				{hair: "fluffy pigtails", fringe: "fairy waves"},
+				{hair: "magical ribbons", fringe: "front braids"},
+				{hair: "ribbon tail", fringe: "heart rows"},
+				{hair: "scorpion tails", fringe: "framing locks"},
+				{hair: "princess ribbons", fringe: "princess wave"},
+				{hair: "little doll", fringe: "little doll"},
+				{hair: "princess ponytail", fringe: "milkmaid"},
+				{hair: "ribbon tail", fringe: "framed"},
+				{hair: "fairy low buns", fringe: "sideswept braid"},
+				{hair: "sailor buns", fringe: "ringlets"},
+				{hair: "drill ringlets", fringe: "hime"},
+			]>>
+		<<else>>
+			<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
+			<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
+			<<set _hairOptions to [
+				{hair: "french bob", fringe: "blunt locks"},
+				{hair: "neat", fringe: "french bob"},
+				{hair: "ruffled", fringe: "emo left"},
+				{hair: "layered bob", fringe: "messy curls"},
+				{hair: "short", fringe: "framed"},
+				{hair: "short spiky", fringe: "loose antenna"},
+				{hair: "short", fringe: "sectioned"},
+				{hair: "fishtail right", fringe: "overgrown"},
+			]>>
+		<</if>>
 	<</if>>
 	<<set _sameStyleIndex to _hairOptions.indexOf(style => style.hair is $hairtype)>>
 	<<if _sameStyleIndex gte 0>><<run _hairOptions.deleteAt(_sameStyleIndex)>><</if>>
@@ -430,18 +622,34 @@
 
 <<widget "prutidressup">>
 	<<strip>>
-	<<if $player.gender_appearance is "f" or $settings.forcedCrossdressingEnabled>>
-		<<set _clothesOptions to [
-			{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
-			{upper: "princess dress", head: "large lace bow", legs: "elegant knee-high socks", underlower: "bloomers", feet: "rose platform heels"},
-			{upper: "puff sleeve a-line dress", head: "lolita headband", legs: "lace socks with ribbons", underlower: "bloomers", feet: "spat shoes"},
-		]>>
-	<<elseif $player.gender_appearance is "m" or $settings.forcedCrossdressingEnabled>>
-		<<set _clothesOptions to [
-			{upper: "gothic jacket", lower: "plaid school shorts", head: "top hat", legs: "men's garter socks", underlower: "bloomers", feet: "suede pumps"},
-			{upper: "frilly rose wedding suit", head: "rose", underlower: "bloomers", feet: "wingtips"},
-			{upper: "shadbelly coat", lower: "puffy shorts", head: "large bow beret", legs: "lace socks", underlower: "bloomers", feet: "platform mary janes"},
-		]>>
+	<<if $player.gender_appearance is "f">>
+		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+			<<set _clothesOptions to [
+				{upper: "gothic jacket", lower: "plaid school shorts", head: "top hat", legs: "men's garter socks", underlower: "bloomers", feet: "suede pumps"},
+				{upper: "frilly rose wedding suit", head: "rose", underlower: "bloomers", feet: "wingtips"},
+				{upper: "shadbelly coat", lower: "puffy shorts", head: "large bow beret", legs: "lace socks", underlower: "bloomers", feet: "platform mary janes"},
+			]>>
+		<<else>>
+			<<set _clothesOptions to [
+				{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
+				{upper: "princess dress", head: "large lace bow", legs: "elegant knee-high socks", underlower: "bloomers", feet: "rose platform heels"},
+				{upper: "puff sleeve a-line dress", head: "lolita headband", legs: "lace socks with ribbons", underlower: "bloomers", feet: "spat shoes"},
+			]>>
+		<</if>>
+	<<elseif $player.gender_appearance is "m">>
+		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+			<<set _clothesOptions to [
+				{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
+				{upper: "princess dress", head: "large lace bow", legs: "elegant knee-high socks", underlower: "bloomers", feet: "rose platform heels"},
+				{upper: "puff sleeve a-line dress", head: "lolita headband", legs: "lace socks with ribbons", underlower: "bloomers", feet: "spat shoes"},
+			]>>
+		<<else>>
+			<<set _clothesOptions to [
+				{upper: "gothic jacket", lower: "plaid school shorts", head: "top hat", legs: "men's garter socks", underlower: "bloomers", feet: "suede pumps"},
+				{upper: "frilly rose wedding suit", head: "rose", underlower: "bloomers", feet: "wingtips"},
+				{upper: "shadbelly coat", lower: "puffy shorts", head: "large bow beret", legs: "lace socks", underlower: "bloomers", feet: "platform mary janes"},
+			]>>
+		<</if>>
 	<</if>>
 	<<set _selectedClothesStyle to _clothesOptions.random()>>
 	<<if _selectedClothesStyle.upper is "gothic gown">>

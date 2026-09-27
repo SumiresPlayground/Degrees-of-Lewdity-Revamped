@@ -615,6 +615,9 @@ const statChange = (() => {
 			if (V.ghost === 3) {
 				V.arousal += amount * mod;
 			}
+			else if (V.dollstate >= 1) {
+				V.arousal += amount * mod * Weather.BodyTemperature.arousalModifier * 0.6;
+			}
 			else {
 				V.arousal += amount * mod * Weather.BodyTemperature.arousalModifier;
 			}

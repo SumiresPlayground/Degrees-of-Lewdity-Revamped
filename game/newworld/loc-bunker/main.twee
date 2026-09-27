@@ -35,6 +35,8 @@ You climb down a long, dirty ladder before entering some sort of bunker.
 			<<iconUi `"bunker-door.png"`>><<link [[Inspect the keypad|Bunker Keypad]]>><</link>>
 			<br>
 		<</if>>
+		<<if $ghost gte 1>>
+			<<iconUi `"bunker-door.png"`>><<link [[Phase through the door|Bunker Ghost]]>><</link>>
 		<<if $bunkerdepth lt 10>>
 			<<walkicon>><<link [[Head deeper into the Bunker|Bunker]]>><<set $eventskip -= 1>><<set $bunkerdepth += 1>><</link>>
 			<br>
@@ -200,3 +202,10 @@ The note is more hastily written this time, due either to excitement or somethin
 The note begins, "This is truly unbelievable. At first I thought it was the hallucinogenics but I truly found myself within another realm. There existed beings that defied rational thought and have completely changed my understanding of our reality. I have procured eggs from the nest within the cave situated northeast of the entrypoint. These eggs shall reveal the truth in time, I am sure of it."
 <br><br>
 <<getouticon>><<link [[Put down the book|Bunker Lab]]>><</link>>
+
+:: Bunker Ghost
+You focus, your hand flickering before becoming incorporeal. You place it to the door, attempting to phase through. A sharp pain jolts through your body and you fall back in agony. <<gpain>><<pain 10>>
+<br><br>
+Something is wrong with the construction of this place. The walls and doors are all made of something that seems to severely injure spiritual interferance.
+<br><br>
+<<getouticon>><<link [[Back|Bunker]]>><</link>>

@@ -3492,7 +3492,7 @@
 					<<addevent "rainyDayHarass" 0.6>>
 				<</if>>
 
-				<<if $bus is "high" and !Time.schoolDay and $bullytimer gte $rng and C.npc.Whitney.init is 1 and !["dungeon", "pillory"].includes(C.npc.Whitney.state) and C.npc.Whitney.dom gte 10>>
+				<<if $bus is "high" and !Time.schoolDay and $bullytimer gte $rng and C.npc.Whitney.init is 1 and !["dungeon", "pillory"].includes(C.npc.Whitney.state) and C.npc.Whitney.dom gte 10 and $worn.lower.name isnot 'naked'>>
 					<<addinlineevent "whitneyHigh" 3>>
 						<<set $bullytimer to 0>>
 						<<if random(1, 100) gte 51 and ($whitneyromance is 1 or ($whitneyskirtcheck gte 1 and $settings.forcedCrossdressingEnabled and C.npc.Whitney.dom gte 18)) and !$daily.whitney.shoppingCentre and !($weekly.whitneyShoppingCentre gte 2)>>

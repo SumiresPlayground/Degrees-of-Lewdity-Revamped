@@ -2,6 +2,8 @@
 <<location "prutihut">>
 <<set $outside to 0>>
 <<callDoll>>
+<<prutihairdress>>
+<<prutidressup>>
 <<npc "Pruti">><<person1>>
 You awaken from your stupor feeling oddly... stiff. When you try to move, you hear a sharp click. A cursory glance at your body reveals your skin to be some kind of rubbery false skin. You gasp in horror, but you fail to make a sound. Whatever happened to your body seems to be somewhat impeding your ability to talk. You're about to make an attempt to ascertain your surroundings when you notice a shadow looming over you. You look up.
 <br><br>
@@ -54,27 +56,15 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 
 <<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 40 and Time.dayState is "day">>
 	<<set $syndromepruti to 1>>
+	<<npcincr Pruti dom 1>>
 	Suddenly, your bindings loosen and disappear. Pruti approaches you and whispers into your ear. "You've been good thus far. You can move around but don't even think about leaving. Got it?" <<He>> steps back and lets you stand before returning to what <<he>> was doing. <<He>> doesn't seem to mind as you return to your original form.
 	<br><br>
 	<<sleepDoll>><<stress -1000>>
-	<span class="red">You've gained the Stockholm Syndrome: Pruti trait.</span>
+	<span class="crashpink">You've gained the Stockholm Syndrome: Pruti trait.</span>
 	<br><br>
-	<<if $bodyless is 1>>
-        <<link [[Next|Witch Hut Trust]]>>
-            <<set Skin.color.natural to "ghost">>
-            <<set V.transformationParts.ghost.eyes to "default">>
-            <<set V.transformationParts.ghost.hitodama to "default">>
-            <<set $haircolour to "ghost">>
-            <<set $hairfringecolour to "ghost">>
-            <<set $makeup.browscolour to "ghost">>
-            <<set $options.lightGlow to 1>>
-            <<set $ghost to 1>>
-        <</link>>
-    <<else>>
-        <<link [[Next|Witch Hut Trust]]>><</link>>
-    <</if>>
+    <<link [[Next|Witch Hut Trust]]>><</link>>
 
-<<elseif Time.hour gt 6 and Time.hour lte 20 and (V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked")) and $prutidev is false>>
+<<elseif Time.hour gt 6 and Time.hour lte 20 and (V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked"))>>
 	"My doll, you seem worse for ware. Come, let me get you fixed up." Pruti gently guides you to a chair and sits you with a smirk.
 	<br><br>
 	"Now hold still, this may take a while."
@@ -99,7 +89,7 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<br><br>
 	<<link [[Wait (1:00)|Witch Hut]]>><<npcincr Pruti love 5>><<set $prutibinding to 20>><<pass 60>><<endevent>><</link>>
 
-<<elseif Time.hour lte 7 and $prutidev is false>>
+<<elseif Time.hour lte 7>>
 	
 	You're within a small hut bound among a pile of other dolls. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
@@ -135,9 +125,8 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<br><br>
 	Pruti sits idly riding a book. <<He>> occasionally looks up from the book to draw a sigil on the desktop before returning to reading. The entire room has a sort of ominous vibe. 
 	<br><br>
-	/* 
 	<<link [[Try to spend time with Pruti (1:00)|Witch Hut Pruti Spend]]>><<pass 60>><</link>>
-	<br>*/
+	<br>
 	<<link [[Clean up the hut (1:00)|Witch Hut]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
 	<br>
 	<<link [[Wait (1:00)|Witch Hut]]>><<pass 60>><<endevent>><</link>>
@@ -174,37 +163,24 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	You free yourself from the vessel and flee the hut.
 	<br><br>
 
-	<<link [[Next|Misland]]>>
-		<<sleepDoll>><<stress -1000>>
-		<<set $islanddistance to 45>>
-		<<set Skin.color.natural to "ghost">>
-		<<set V.transformationParts.ghost.eyes to "default">>
-		<<set V.transformationParts.ghost.hitodama to "default">>
-		<<set $haircolour to "ghost">>
-		<<set $hairfringecolour to "ghost">>
-		<<set $makeup.browscolour to "ghost">>
-		<<set $options.lightGlow to 1>>
-		<<set $ghost to 1>>
-	<</link>>
+	<<link [[Next|Misland]]>><<sleepDoll>><<stress -1000>><<set $islanddistance to 45>><</link>>
 	<br>
 <<else>>
 	You find your body within a closet and return to it before fleeing the hut.
 	<br><br>
 
-	<<link [[Next|Misland]]>><<sleepDoll>><<stress -1000>><<set $islanddistance to 45>><<clearExtraTransformations>><</link>>
+	<<link [[Next|Misland]]>><<sleepDoll>><<stress -1000>><<set $islanddistance to 45>><</link>>
 	<br>
 <</if>>
 
 :: Witch Forage
-<<npc "Pruti">>
 Pruti quickly slinks into the forest and out of your sights nearly instantly. The rain pours but you can't really feel it with your rubbery false skin. The sound of animals and nature surround you as you sit and wait for Pruti's return.
 <br><br>
-<<link [[Try to make a run for it|Witch Run]]>><<endevent>><</link>>
+<<link [[Try to make a run for it|Witch Run]]>><</link>>
 <br>
-<<link [[Wait (2:00)|Witch Forage End]]>><<npcincr Pruti love 4>><<pass 120>><<endevent>><</link>>
+<<link [[Wait (2:00)|Witch Forage End]]>><<npcincr Pruti love 4>><<pass 120>><</link>>
 
 :: Witch Forage End
-<<npc "Pruti">>
 You wait patiently in the grass. You never actually see any animals, but after two hours Pruti returns with a basket full of herbs and meat. "I hope you weren't too bored, my doll. Good job staying still like I asked." <<He>> doesn't mention anything but <<his>> body seems sore and there's bloodstains on his skin and clothes. "Come now, doll. We're returning to the hut."
 <br><br>
 Pruti leads you back through the door of the hut and locks you back into your plush corner.
@@ -212,14 +188,13 @@ Pruti leads you back through the door of the hut and locks you back into your pl
 <<link [[Wait (1:00)|Witch Hut]]>><<pass 60>><<endevent>><</link>>
 
 :: Witch Run 
-<<npc "Pruti">>
 <<set $rng to random(1,100)>>
 <<if $rng gte 20>>
 	You take start to sprint and try to escape from Pruti. Thorns and branches scratch at you, cutting open your flesh and causing cotton to seep from your wounds.
 	<br><br>
 	A beast crashes to the ground before you, before standing high on its hind legs. <<His>> body seems all sorts of wrong. Claws match oddly animalistic paws as <<his>> body sprouts fur all the way across. <<His>> fangs are bared sharp and <<his>> animalistic eyes glare at you a brilliant yellow. "You're being a bad doll. I think I need to punish you..." It comes out as a gutteral growl as Pruti's mostly animalistic body twitches and <<his>> pupils shake unsteadily. "Surrender now... Before I tear you apart, little doll."
 	<br><br>
-	<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+	<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 	<br>
 	<<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 <<else>>
@@ -227,9 +202,9 @@ Pruti leads you back through the door of the hut and locks you back into your pl
 	<br><br>
 	You make it to Pruti's hut and frantically bar the door. It doesn't take long for the door to start banging as Pruti yells from the other side. "You better open up this door right now, doll! You don't want to get me angry. I'll give you to the count of three!"
 	<br><br>
-	<<link [[Open the door|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+	<<link [[Open the door|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 	<br>
-	<<link [[Look for a way to escape|Witch Search]]>><<endevent>><</link>>
+	<<link [[Look for a way to escape|Witch Search]]>><</link>>
 <</if>>
 
 :: Witch Search
@@ -244,40 +219,36 @@ You search around the hut for anything at all that could be of use.
 <<link [[Grab a jar of water|Pruti Water]]>><</link>>
 
 :: Pruti Doll
-<<npc "Pruti">>
 You sense a presence approaching. You dive to the floor just in time as Pruti jumps toward you from the ceiling, cutting off the head of the other doll. <<His>> body seems all sorts of wrong. Claws match oddly animalistic paws as <<his>> body sprouts fur all the way across. <<His>> fangs are bared sharp and <<his>> animalistic eyes glare at you a brilliant yellow. "You're being a bad doll. I think I need to punish you..." It comes out as a gutteral growl as Pruti's mostly animalistic body twitches and <<his>> pupils shake unsteadily. "Surrender now... Before I tear you apart, little doll."
 <br><br>
 A dark pool of saliva forms on the floor as Pruti starts to lose <<his>> patience. Fleshy tendrils emerge from within <<him>>.
 <br><br>
-<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 <br>
 <<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 
 :: Pruti Potion
-<<npc "Pruti">>
 You sense a presence approaching. You dive to the floor just in time as Pruti jumps toward you from the ceiling. <<His>> body seems all sorts of wrong. Claws match oddly animalistic paws as <<his>> body sprouts fur all the way across. <<His>> fangs are bared sharp and <<his>> animalistic eyes glare at you a brilliant yellow. "You're being a bad doll. I think I need to punish you..." It comes out as a gutteral growl as Pruti's mostly animalistic body twitches and <<his>> pupils shake unsteadily. "Surrender now... Before I tear you apart little doll." A dark pool of saliva forms on the floor as Pruti starts to lose patience and fleshy tendrils emerge from within <<him>>.
 <br><br>
-<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 <br>
 <<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 <br>
 <<link [[Throw the potion|Pruti Potion Use]]>><<npcincr Pruti love -1>><</link>>
 
 :: Pruti Fire
-<<npc "Pruti">>
 You sense a presence approaching. You dive to the floor just in time as Pruti jumps toward you from the ceiling. <<His>> body seems all sorts of wrong. Claws match oddly animalistic paws as <<his>> body sprouts fur all the way across. <<His>> fangs are bared sharp and <<his>> animalistic eyes glare at you a brilliant yellow. "You're being a bad doll. I think I need to punish you..." It comes out as a gutteral growl as Pruti's mostly animalistic body twitches and <<his>> pupils shake unsteadily. "Surrender now... Before I tear you apart little doll." A dark pool of saliva forms on the floor as Pruti starts to lose patience and fleshy tendrils emerge from within <<him>>.
 <br><br>
-<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 <br>
 <<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 <br>
 <<link [[Use the jumping fire|Pruti Fire Use]]>><<npcincr Pruti love -1>><</link>>
 
 :: Pruti Water
-<<npc "Pruti">>
 You sense a presence approaching. You dive to the floor just in time as Pruti jumps toward you from the ceiling. <<His>> body seems all sorts of wrong. Claws match oddly animalistic paws as <<his>> body sprouts fur all the way across. <<His>> fangs are bared sharp and <<his>> animalistic eyes glare at you a brilliant yellow. "You're being a bad doll. I think I need to punish you..." It comes out as a gutteral growl as Pruti's mostly animalistic body twitches and <<his>> pupils shake unsteadily. "Surrender now... Before I tear you apart, little doll." A dark pool of saliva forms on the floor as Pruti starts to lose patience and fleshy tendrils emerge from within <<him>>.
 <br><br>
-<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 <br>
 <<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 <br>
@@ -286,14 +257,14 @@ You sense a presence approaching. You dive to the floor just in time as Pruti ju
 :: Pruti Potion Use
 You throw the potion toward Pruti who, without flinching, smashes the glass, spreading the liquid through the room. Pruti lets out a gutteral growl and cleans <<his>> face with <<his>> long tongue. "This is your last warning..." <<He>> pants as <<he>> gets into a pouncing stance <<his>> eyes wild.
 <br><br>
-<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 <br>
 <<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 
 :: Pruti Water Use
 You throw the water toward Pruti who, without flinching, smashes the glass, spreading the liquid through the room. Pruti lets out a gutteral growl and cleans <<his>> face with <<his>> long tongue. "This is your last warning..." <<He>> pants as <<he>> gets into a pouncing stance <<his>> eyes wild.
 <br><br>
-<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><<endevent>><</link>>
+<<link [[Surrender|Pruti Punishment]]>><<npcincr Pruti love 2>><</link>>
 <br>
 <<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 
@@ -317,7 +288,6 @@ Pruti grins a long fangy smile. The fleshy tendrils brush you gently. "I can sti
 <<link [[Fight|Pruti Rape]]>><<npcincr Pruti love -2>><<set $prutimonster to 0>><<set $molestationstart to 1>><</link>>
 
 :: Pruti Punishment
-<<npc "Pruti">>
 You surrender to Pruti, not wanting to anger <<him>> any further. The beast's eyes twitch slightly slower as cracks and creaks are heard from <<his>> body. The animalistic features fade as Pruti coughs blood and staggers for a moment before steadying <<himself>>. 
 <br><br>
 "Regardless of your surrender, you need to be punished for your disobedience, little doll." Pruti catches <<his>> breath and continues. "I'll be keeping a portion of your soul as compensation." One of <<his>> long tendrils jabs into you and saps your essence. You feel weak as <<he>> retracts the tendril. 
@@ -402,21 +372,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<<clotheson>>
 	<<endcombat>>
 
-	<<link [[Next|Misland]]>>
-		<<sleepDoll>><<stress -1000>>
-		<<set $islanddistance to 45>>
-		<<set $prutimonster to 2>>
-		<<set $eventskip to 1>>
-		<<set Skin.color.natural to "ghost">>
-		<<set V.transformationParts.ghost.eyes to "default">>
-		<<set V.transformationParts.ghost.hitodama to "default">>
-		<<set $haircolour to "ghost">>
-		<<set $hairfringecolour to "ghost">>
-		<<set $makeup.browscolour to "ghost">>
-		<<set $options.lightGlow to 1>>
-		<<set $ghost to 1>>
-		<<earnFeat "Ghost">>
-	<</link>>
+	<<link [[Next|Misland]]>><<sleepDoll>><<stress -1000>><<set $islanddistance to 45>><</link>>
 	<br>
 <<else>>
 	You beat back Pruti, who falls onto the floor. <<He>> attempts to recover but slips on the mysterious liquid spewing from <<his>> tentacles. 
@@ -429,7 +385,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<<endcombat>>
 
 	<<link [[Next|Misland]]>>
-		<<sleepDoll>><<stress -1000>><<set $islanddistance to 45>><<set $prutimonster to 2>><<set $eventskip to 1>><<clearExtraTransformations>>
+		<<sleepDoll>><<stress -1000>><<set $islanddistance to 45>><<set $prutimonster to 2>><<set $eventskip to 1>>
 	<</link>>
 	<br>
 <</if>>
@@ -439,7 +395,23 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 <<set $outside to 0>>
 <<npc "Pruti">><<person1>>
 
-<<if Time.hour gt 6 and Time.hour lte 20 and (V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked")) and $prutidev is false>>
+<<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 60 and Time.dayState is "day" and $portalquest is undefined>>
+	<<set $portalquest to 1>>
+	Without warning, a purple wisp of light glows around you before forming into a shadowed dark collar around your neck. It gently pulls, dragging you toward the back of the hut.
+	<br><br>
+	You notice something, a strange doorway that makes no real sense given the structure of the building. It should just lead outside.
+	<br><br>
+	Yet as you step in, you find yourself in a clean wooden room. The walls feature strange holes, dripping a dark unknowable fluid. Pruti stands in the back wearing what looks like a new outfit.
+	<br><br>
+	<<His>> old clothes swapped out for a nice formal <<if $pronoun is "m">>suit<<else>>dress<</if>>. "What do you think? Made it myself, you like?"
+	<br><br>
+	<<He>> gives a small spin, showing off the immaculate stitching and fabric quality. 
+	<br><br>
+    <<link [[Compliment <<his>> new outfit|Witch New Compliment]]>><<npcincr Pruti love 2>><</link>><<glove>>
+	<br>
+    <<link [[Say you liked the old one better|Witch New Old]]>><</link>>
+
+<<elseif Time.hour gt 6 and Time.hour lte 20 and (V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked"))>>
 	"My doll, you seem worse for ware. Come, let me get you fixed up." Pruti gently guides you to a chair and sits you with a smirk.
 	<br><br>
 	"Now hold still, this may take a while."
@@ -452,7 +424,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	Pruti lies still in <<his>> bed, asleep.
 	<br><br>
 
-<<elseif Time.hour lte 7 and $prutidev is false>>
+<<elseif Time.hour lte 7>>
 	You're within a small hut bound among a pile of other dolls. Rain pitter patters against the roof as fire crackles in the corner. The fire looks to be part of a chemistry set? A box of red flame flickers angrily underneath, bubbling some sort of strange liquid above. 
 	<br><br>
 	Pruti is cooking but <<he>> seems apprehensive, it looks like <<he>> is unsure what to add to the meal. 
@@ -507,51 +479,95 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 <</if>>
 
 <<if Time.hour lte 6>>
-    <<link [[Lie with Pruti|Pruti Bed]]>><<endevent>><</link>>
-    <br>
-<<elseif Time.hour is 7 or Time.hour is 8>>
-    <<link [[Sit with Pruti (2:00)|Pruti Eat]]>><<npcincr Pruti love 2>><<gglove>><<endevent>><</link>>
-    <br>
-<<elseif Time.hour gt 8 and Time.hour lt 12 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
-    <<if ($prutiquest is 0 or $prutiquest is undefined) and $settings.lurkersEnabled>>
-        <<link [[Ask if Pruti needs help with anything|Pruti Request]]>><<endevent>><<set $prutiquest to 1>><</link>>
-        <br>
-    <<elseif $prutiquest is 2>>
-        <<link [[Turn in the vial of substance|Pruti Vial]]>><<npcincr Pruti love 5>><<endevent>><</link>>
-        <br>
-    <<elseif $prutiquest is 4>>
-        <<link [[Turn in the fluid extracted from the ant egg|Pruti Egg]]>><<npcincr Pruti love 5>><<endevent>><</link>>
-        <br>
-    <<elseif $prutiquest is 6>>
-        <<link [[Turn in the body of the lurker from the bear|Pruti Bear]]>><<npcincr Pruti love 5>><<endevent>><</link>>
-        <br>
-    <<elseif $prutiquest is 8>>
-        <<link [[Agree to recieve the lurker injection|Pruti Injection]]>><<npcincr Pruti love 5>><<endevent>><</link>>
-        <br>
-    <</if>>
-<<elseif Time.hour is 14>>
-    <<link [[Offer Pruti a massage (1:00)|Pruti Massage]]>><<npcincr Pruti love 2>><<gglove>><<endevent>><</link>>
-    <br>
-<<elseif Time.hour is 20>>
-    <<link [[Enter the bathroom (1:00)|Pruti Bathe]]>><<npcincr Pruti love 2>><<gglove>><<endevent>><</link>>
-    <br>
+	<<link [[Lie with Pruti|Pruti Bed]]>><</link>>
+	<br>
+	<<wardrobeicon>><<link [[Wardrobe|Pruti Wardrobe]]>><<endevent>><</link>>
+	<br>
+	<<mirroricon>><<link [[Mirror|Pruti Mirror]]>><<endevent>><</link>>
+	<br>
+	<<link [[Settings|Pruti Settings]]>><<endevent>><</link>>
+	<br>
+	<<attitudesControlCheck>>
+	<<if $attitudesControl.showGoldLink is true>>
+		<span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+	<<else>>
+		<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+	<</if>>
+<<elseif Time.hour gt 6 and Time.hour lte 20 and !(V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked"))>>
+	<<if Time.hour is 7 or Time.hour is 8>>
+		<<link [[Sit with Pruti (2:00)|Pruti Eat]]>><<npcincr Pruti love 2>><</link>><<glove>>
+		<br>
+	<<elseif Time.hour gt 8 and Time.hour lt 12 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
+		<<if ($prutiquest is 0 or $prutiquest is undefined) and $settings.lurkersEnabled>>
+			<<link [[Ask if Pruti needs help with anything|Pruti Request]]>><<set $prutiquest to 1>><</link>>
+			<br>
+		<<elseif $prutiquest is 2>>
+			<<link [[Turn in the vial of substance|Pruti Vial]]>><<npcincr Pruti love 5>><</link>><<gglove>>
+			<br>
+		<<elseif $prutiquest is 4>>
+			<<link [[Turn in the fluid extracted from the ant egg|Pruti Egg]]>><<npcincr Pruti love 5>><</link>><<gglove>>
+			<br>
+		<<elseif $prutiquest is 6>>
+			<<link [[Turn in the body of the lurker from the bear|Pruti Bear]]>><<npcincr Pruti love 5>><</link>><<gglove>>
+			<br>
+		<<elseif $prutiquest is 8>>
+			<<link [[Agree to recieve the lurker injection|Pruti Injection]]>><<npcincr Pruti love 5>><</link>><<gglove>>
+			<br>
+		<</if>>
+	<<elseif Time.hour is 14>>
+		<<link [[Offer Pruti a massage (1:00)|Pruti Massage]]>><<npcincr Pruti love 2>><</link>><<glove>>
+		<br>
+	<<elseif Time.hour is 20>>
+		<<link [[Enter the bathroom (1:00)|Pruti Bathe]]>><<npcincr Pruti love 2>><</link>><<glove>>
+		<br>
+	
+	<</if>>
+	<<link [[Spend some time with Pruti (1:00)|Witch Hut Trust Pruti Time]]>><<npcincr Pruti love 1>><<pass 60>><</link>><<glove>>
+	<br>
+	<<link [[Clean up the hut (1:00)|Witch Hut Trust]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
+	<br>
+	<<if $dollstate is 2>>
+		<<link [[Return to your human form|Witch Hut Human]]>><</link>>
+		<br>
+	<<elseif $prutiromance is 1>>
+		<<link [[Return to your doll form|Witch Hut Doll]]>><</link>>
+		<br>
+	<</if>>
+	<<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
+		<<link [[Leave|Pruti Sendoff]]>><</link>>
+		<br>
+	<</if>>
+	<br>
+	<<wardrobeicon>><<link [[Wardrobe|Pruti Wardrobe]]>><<endevent>><</link>>
+	<br>
+	<<mirroricon>><<link [[Mirror|Pruti Mirror]]>><<endevent>><</link>>
+	<br>
+	<<link [[Settings|Pruti Settings]]>><<endevent>><</link>>
+	<br>
+	<<attitudesControlCheck>>
+	<<if $attitudesControl.showGoldLink is true>>
+		<span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+	<<else>>
+		<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+	<</if>>
 <<elseif Time.hour gt 20>>
-    <<link [[Lie with Pruti|Pruti Bed]]>><<endevent>><</link>>
-    <br>
-<</if>>
-/*
-<<link [[Spend some time with Pruti (1:00)|Witch Hut Trust Pruti Time]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
-<br>
-*/
-<<link [[Clean up the hut (1:00)|Witch Hut Trust]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
-<br>
-<<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
-    <<link [[Leave|Pruti Sendoff]]>><<endevent>><</link>>
-    <br>
+	<<link [[Lie with Pruti|Pruti Bed]]>><</link>>
+	<br>
+	<<wardrobeicon>><<link [[Wardrobe|Pruti Wardrobe]]>><<endevent>><</link>>
+	<br>
+	<<mirroricon>><<link [[Mirror|Pruti Mirror]]>><<endevent>><</link>>
+	<br>
+	<<link [[Settings|Pruti Settings]]>><<endevent>><</link>>
+	<br>
+	<<attitudesControlCheck>>
+	<<if $attitudesControl.showGoldLink is true>>
+		<span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>  </span><span class="red">!!</span>
+	<<else>>
+		<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+	<</if>>
 <</if>>
 
 :: Pruti Sendoff
-<<npc "Pruti">>
 Pruti sees you eyeing the door and sighs annoyed. "You do want to leave don't you?" <<He>> grumbles. 
 <br><br>
 "Look I don't usually do this... but I could free you and let you go." <<He>> seems to be having a hard time getting <<his>> words out. 
@@ -560,40 +576,19 @@ Pruti sees you eyeing the door and sighs annoyed. "You do want to leave don't yo
 <br><br>
 "Leave now. Before I change my mind."
 <br><br>
-<<if $bodyless is 1>>
-	<<link [[Exit Pruti's Hut|Misland]]>>
-		<<sleepDoll>><<stress -1000>>
-		<<set $islanddistance to 45>>
-		<<set $eventskip to 1>>
-		<<set Skin.color.natural to "ghost">>
-		<<set V.transformationParts.ghost.eyes to "default">>
-		<<set V.transformationParts.ghost.hitodama to "default">>
-		<<set $haircolour to "ghost">>
-		<<set $hairfringecolour to "ghost">>
-		<<set $makeup.browscolour to "ghost">>
-		<<set $options.lightGlow to 1>>
-		<<set $ghost to 1>>
-		<<earnFeat "Ghost">>
-		<<endevent>>
-	<</link>>
-<<else>>
-	<<link [[Exit Pruti's Hut|Misland]]>><<sleepDoll>><<stress -1000>><<set $islanddistance to 45>><<set $eventskip to 1>><<endevent>><</link>>
-<</if>>
+<<link [[Exit Pruti's Hut|Witch Hut Front]]>><<stress -1000>><<set $islanddistance to 45>><<set $eventskip to 1>><<endevent>><</link>>
 
 :: Pruti Eat
-<<npc "Pruti">>
 You sit together with Pruti. You know you can't eat but you feel <<he>>'ll appreciate the company. You sit together in silence as Pruti eats the dangerously bitter meal before <<he>> finishes and washes the wooden platter.
 <br><br>
 <<link [[Next|Witch Hut Trust]]>><<pass 120>><<endevent>><</link>>
 
 :: Pruti Massage
-<<npc "Pruti">>
 You approach Pruti. <<He>> looks exhausted. You sit and begin to rub <<his>> shoulders. <<He>> seems a bit taken aback for a moment before looking away and letting you continue. After a while, <<he>> glances your way before standing. "Thanks for that, my doll. I wasn't expecting it but it was nice."
 <br><br>
 <<link [[Next|Witch Hut Trust]]>><<pass 60>><<endevent>><</link>>
 
 :: Pruti Bathe
-<<npc "Pruti">>
 You enter the bathroom where you find Pruti completely naked. <<He>> looks at you unashamed of <<his>> nudity. "Yes my doll? Did you need something?" 
 <br><br>
 You waste no time before picking up a rag and helping <<him>> wash <<his>> back. "Oh you wished to help? I suppose that should be fine." <<He>> lets you clean <<his>> back before helping you wipe down your body as well.
@@ -601,7 +596,6 @@ You waste no time before picking up a rag and helping <<him>> wash <<his>> back.
 <<link [[Next|Witch Hut Trust]]>><<pass 60>><<endevent>><</link>>
 
 :: Pruti Bed
-<<endevent>>
 <<effects>>
 <<set $outside to 0>>
 
@@ -621,20 +615,16 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 
 <<sleepeffects>>
 <<if $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour gt 20 or $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour lt 7>>
-	<<npc "Pruti">>
 	You wake up to Pruti's groping. <<He>> starts rubbing up against you.
 	<br><br>
-
 	<<ind>><<link [[Let it happen|Pruti Sleep Sex]]>><<set $sexstart to 1>><<npcincr Pruti love 3>><</link>><<promiscuous1>>
 	<br>
 	<<ind>><<link [[Push away and get up|Witch Hut Trust]]>><<npcincr Pruti love -3>><</link>><<lllove>>
 	<br>
 <<else>>
 	<br><br>
-
 	As you awaken, you find yourself having absolutely no recollection of your dreams. Normally, you'd be able to remember them for a while after waking up. Perhaps it's due to the influence of your new state of being.
 	<br><br>
-
 	<<getouticon>><<link [[Get out of bed|Witch Hut Trust]]>><<endevent>><</link>>
 	<br><br>
 <</if>>
@@ -694,7 +684,6 @@ You awaken back in Pruti's hut. Pruti has a tendril fed into you that seems to b
 <<link [[Next|Witch Hut Trust]]>><</link>>
 
 :: Pruti Request
-<<npc Pruti>><<person1>>
 Upon hearing your offer, Pruti pulls you to the side. <<He>> whispers in a dark tone.
 <br><br>
 "Oh really? You wish to assist in my studies? Well, a rather troublesome issue has recently come to my attention. After the collapse of the… aircraft. Some foreign contaminant has found its way into the local ecosystem."
@@ -704,7 +693,6 @@ Pruti draws a rough map of the island on a sheet of parchment. From the beaches 
 <<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
 
 :: Pruti Vial
-<<npc Pruti>><<person1>>
 You return the vial to Pruti, <<he>> examines it with interest. "It appears this glass instrument was used to contain and study the specimen. I should be able to examine this sample more in due time. In the meantime, I have more to request of you. The… creatures have started spreading and infecting many of the native wildlife."
 <br><br>
 Pruti returns to <<his>> rough map drawn on the parchment. <<He>> points to a portion of the desert near the shore. "I have heard rumors through the woods about a colony of ants that have experienced massive unexplainable growth. I require a sample from the nesting chamber and I should be able to make some more progress in my study." <<He>> hands you something that looks like a homemade glass syringe. "Come back once you have the sample."
@@ -712,7 +700,6 @@ Pruti returns to <<his>> rough map drawn on the parchment. <<He>> points to a po
 <<link [[Next|Witch Hut Trust]]>><<set $prutiquest to 3>><<endevent>><</link>>
 
 :: Pruti Egg
-<<npc Pruti>><<person1>>
 You return the syringe filled with yellowish fluid mixed with the purple and pale goo. Pruti examines the vial with intrigue. <<He>> speaks up after a moment. "This is simply incredible, I have never seen something like this before, and you said there were these… "lurkers" inside of the egg sack with the developing ant?"
 <br><br>
 Pruti squeezes the mixture into a glass vial alongside the previous sample. "You see, I've been studying this previous sample since you left and it is beyond anything I've seen before. It seems these creatures are… parasitizing other species and manipulating their genetics. If you could find me another sample, I might be able to do something about the destruction of natural order."
@@ -724,7 +711,6 @@ Pruti marks the very end of the map at the peak of the mountain. "If the beast i
 <<link [[Next|Witch Hut Trust]]>><<set $prutiquest to 5>><<endevent>><</link>>
 
 :: Pruti Bear
-<<npc Pruti>><<person1>>
 You return to Pruti triumphant. You place the body of one of the strange lurkers on the table. Pruti appears impressed.
 <br><br>
 "Wow this is an impressive specimen. Comparing it to one from the ant nest, it is drastically different but shares a common root ancestor, they seem to have bred and mutated to an unprecedented degree in a very short time. With this last sample I should be able to create an antibody in due time. It won't be able to help the already mutated creatures like the ants, but it should slow the spread of these creatures, if not kill them off entirely."
@@ -734,7 +720,6 @@ Pruti puts a clawed hand to <<his>> face in thought. "Additionally, I may be abl
 <<link [[Next|Witch Hut Trust]]>><<set $prutiquest to 7>><<set $prutitimer to 0>><<endevent>><</link>>
 
 :: Pruti Injection
-<<npc Pruti>><<person1>>
 After a week has passed, you return to find Pruti's hut a mess. Parchment scatters the floor, the chemistry set is a complete mess, and Pruti stands a bit disheveled perhaps from a lack of sleep. As you enter, Pruti turns with a manic look before <<his>> eyes soften. <<He>> returns to the messy disordered chemistry set and brushes <<his>> hair back to look more orderly.
 <br><br>
 "Sorry about the state of affairs, this research is just so exciting. I haven't found something of this magnitude since the discovery of Abyssina. This species of creature doesn't even seem to be from this reality. It is truly a sight to behold. Shortly after you left, the specimen came back to life, or perhaps was never dead in the first place."
@@ -1013,7 +998,7 @@ Pruti and you set the table, laying the smooth wooden plates and cutlery. Pruti 
 <br><br>
 The two of you finish the meal in no time and are ready to continue on with your day.
 <br><br>
-<<link [[Finish cleaning the plates and cutlery|Witch Hut Trust]]>><</link>>
+<<link [[Finish cleaning the plates and cutlery|Witch Hut Trust]]>><<endevent>><</link>>
 
 :: Witch Hut Pruti Dress
 <<prutihairdress>>
@@ -1069,16 +1054,20 @@ Pruti smirks and steps back a few steps. "Your welcome darling. Now lets continu
 <br><br>
 <<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
 
-:: Witch Hut Trust Pruti Time
-
 :: Witch Hut Front
 You are at the front of Pruti's hut. The forest breaks into a clearing where Pruti is growing some small plantbeds for food.
 <br><br>
 You could probably use these to grow your own plants as well.
 <br><br>
+<<if ($transformationParts.bird.wings isnot "disabled" and $birdFly gte 1 and !$plucked) or $transformationParts.dragon.wings isnot "disabled">>
+	<<glideicon>><<link [[Soar to the desert village|Desert Village]]>><</link>>
+	<br>
+<</if>>
 <<gardenicon "plot">><<link [[Check the plantbeds|Witch Hut Plants]]>><</link>>
 <br>
 <<prutihuticon>><<link [[Enter Pruti's Hut|Witch Hut Return]]>><</link>>
+<br>
+<<foresticon>><<link [[Depart into the forest|Misland]]>><<set $islanddistance to 45>><</link>>
 
 :: Witch Hut Plants
 <<effects>>
@@ -1090,3 +1079,229 @@ You could probably use these to grow your own plants as well.
 <<display_plot prutigarden>>
 <br>
 <<getouticon>><<link [[Step back|Witch Hut Front]]>><</link>>
+
+:: Witch Hut Trust Pruti Time
+You slide close to Pruti, peeking around <<his>> arm. Pruti seems to be messing with what looks like a Lurker, though unlike the usual specimens, this one is much smaller and white, lacking the carapace they are known for.
+<br><br>
+"A younger hatchling," Pruti says, sensing your presence. 
+<br><br>
+<<if $prutiquest gte 7>>
+	"Thanks to your help, their numbers have dropped quite a bit. With a sharp drop in viable hosts, most hatchlings don't reach adulthood." <<He>> gently strokes your hair.
+	<br><br>
+	"You really did good for the remaining lives on this island. I'm proud of you my doll."
+<<else>>
+	"Since their introduction to the island, the ecosystem has been unable to recover. The wildlife are becoming deformed from the egg laying and most humans avoid these parts of the island altogether."
+	<br><br>
+	"With the proper drive and assistance, I should be able to help. At least marginally."
+<</if>>
+<br><br>
+You step back and let Pruti return to <<his>> study.
+<br><br>
+<<link [[Next|Witch Hut Trust]]>><<npcincr Pruti love 3>><</link>><<glove>>
+
+:: Witch New Compliment
+"Why thank you, my doll, I think your outfit is quite beautiful as well." <<He>> teases, knowing that the clothes you wear are <<his>> own creation.
+<br><br>
+"How do you like the room?" <<He>> asks with a tilt of the head, <<his>> cat ears bobbing with gravity. "I was able to complete a spell while meditating that allows me to create subdimensional space."
+<br><br>
+"A blessing from my goddess, Abyssina. With it, I should be able to assist you, if you would like. A way to link this land and the land beyond. If you assist, I can suprise you with a gift, something for you."
+<br><br>
+<<He>> smiles an assured grin, one that says <<he>> is sure you will love the reward.
+<br><br>
+<<link [[Take Pruti's hand|Witch Hut Shake]]>><</link>>
+
+:: Witch New Old
+"No worries my doll, this wear is the kind for deals. I will be back in my normal wear in time." <<He>> looks a bit annoyed at the lack of affection, but quickly moves on.
+<br><br>
+"How do you like the room?" <<He>> asks with a tilt of the head, <<his>> cat ears bobbing with gravity. "I was able to complete a spell while meditating that allows me to create subdimensional space."
+<br><br>
+"A blessing from my goddess, Abyssina. With it, I should be able to assist you, if you would like. A way to link this land and the land beyond. If you assist, I can suprise you with a gift, something for you."
+<br><br>
+<<He>> smiles an assured grin, one that says <<he>> is sure you will love the reward.
+<br><br>
+<<link [[Take Pruti's hand|Witch Hut Shake]]>><</link>>
+
+:: Witch Hut Shake
+You shake the hand Pruti held out for you and find yourself back in the hut as if you never left. Pruti gently pats your back and continues.
+<br><br>
+"What I need is a focus. Something I can channel the energy into to maintain a prolonged rift." A contemplative expression dresses Pruti's face as <<he>> thinks.
+<br><br>
+"Perhaps... something dark yet reflective. They may have something at the village. I need to prepare. I will meet you at the wreckage when you have something that works."
+<br><br>
+<<link [[Next|Witch Hut Trust]]>><</link>>
+
+:: Pruti Shop Search
+You search through the stalls yet don't find much of value. Your final stop is the artifact shop.
+<br><br>
+As you enter, the man behind the counter regards you with wary eyes. "What do you need."
+<br><br>
+You let the man know you are looking for an item that is dark and reflective. He thinks for a moment before going to the back room and returning a moment later.
+<br><br>
+"Is this something you would be interested in?" The man says, revealing an obsidian lens. It focuses the surrounding light into a rainbow gleam. Dark, reflective, this should be perfect.
+<br><br>
+"Well... this is a rare find but I could cut you a deal." The man lets out a crooked grin. "£10,000. This is a great deal you'd get nowhere else. We have a deal?"
+<br><br>
+<<if $money gte 1000000>>
+	<<link [[Buy the lens|Lens Buy]]>><</link>>
+<<else>>
+	<span class="red">You don't have the funds for this purchase.</span>
+<</if>>
+<br>
+<<link [[Come back later|Desert Dock Shops]]>><</link>>
+
+:: Lens Buy
+You fork over the money to the artifact seller.
+<br><br>
+His crooked grin persists as he hands over the smooth obsidian lens. "Nice doin' business sweetheart."
+<br><br>
+You step back out of the tent and back to the scorching desert air.
+<br><br>
+<<link [[Next|Desert Dock Shops]]>><<set $portalquest to 2>><</link>>
+
+:: Pruti Rift Setup
+<<npc "Pruti">><<person1>>
+As you enter the wreckage of the plane, you find Pruti. <<He>> is in his usual outfit, and seems to have modified the plane's interior. 
+<br><br>
+The plane's seats have been removed, leaving a metalic tube decorated with a new plinth that Pruti seems to have brought from elsewhere. 
+<br><br>
+Sensing your arrival, Pruti turns with a smile. "My doll, just in time. As you can see, I have refitted this vessel for our own needs. Do you have the focus?"
+<br><br>
+Pruti's probing shadowy arms feel up your form, grabbing the obsidian lens, pulling it to Pruti. <<He>> grips the surface and inspects it for a moment.
+<br><br>
+"A darkness that absorbs all light, yet reflects what needs reflected. This is perfect." Pruti places the lens onto the plinth.
+<br><br>
+The surroundings dim for a moment, before the light is reflected like a prism. The light freezes in the air, the space tearing into a purple rift.
+<br><br>
+<<link [[Next|Pruti Rift Setup 2]]>><<set $portalquest to 3>><</link>>
+
+:: Pruti Rift Setup 2
+"Well doll? Shall we?" Pruti holds out a hand. <<He>> holds you gently as you both step through the rift.
+<br><br>
+You emerge into the forest, but not the same forest. You can hear cars in the distance. It seems like you are on the outskirts of town.
+<br><br>
+This seems to be a small ruin hidden in the leaves. A small shrine built into a divot in the ground where what looks like a huge pearl sustains this end of the rift. 
+<br><br>
+Pruti winces and covers <<his>> sensitive ears from the loud noises of civilization. "Wow my doll, this place certainly is... loud. And the air here is quite sickening."
+<br><br>
+Despite the obvious discomfort, Pruti gives a shaky grin. "We should return home for now. I have something for you. Come."
+<br><br>
+<<link [[Follow Pruti back through the rift|Pruti Rift Setup 3]]>><<set $daily.riftisland to 1>><<set $daily.riftforest to 1>><</link>>
+
+:: Pruti Rift Setup 3
+You once again arrive on the island. As you exit the rift the air becomes thick. The portal begins to ooze a deep purple and black bile before winding and sealing.
+<br><br>
+Pruti notices your discomfort and confustion and begins to explain. "The energy that sustains the rift is limited. It uses the ambient magic that flows from the Earth."
+<br><br>
+<<He>> takes a moment to inspect the obsidian lens before turning back to you. "I would say the portal will likely only work once a day. Taking you between here and there."
+<br><br>
+Pruti turns to you and smirks. "How about a race home. Lets see if you can keep up."
+<br><br>
+<<link [[Race Pruti|Pruti Race]]>><</link>>
+<br>
+<<link [[Take your time|Race Result]]>><<set $prutiracelost to 1>><</link>>
+
+:: Pruti Race
+<<if $athletics gte 800>>
+	The race begins and you are able to keep pace with Pruti somewhat. <<He>> slinks through the brush like a true beast.
+<<else>>
+	Pruti immediately is off to a headstart. You are unable to keep up with <<his>> experienced technique. Within seconds <<he>> is out of sight.
+	<<set $prutiracelost to 1>>
+<</if>>
+<br><br>
+<<if $danceskill gte 800>>
+	You are able to skillfully evade the many thorns and plants along the path that obscure the way forward.
+<<else>>
+	Unable to keep your footwork stable, you find yourself tripping over the vines and thorns along the path, losing Pruti in the darkness.
+	<<set $prutiracelost to 1>>
+<</if>>
+<br><br>
+<<link [[Next|Race Result]]>><</link>>
+
+:: Race Result
+<<if $player.gender_appearance is "f">>
+	<<set $doll to "female">>
+<<else>>
+	<<set $doll to "male">>
+<</if>>
+<<if $prutiracelose is 1>>
+	As you arrive Pruti is waiting with a smirk. "Took you long enough. I've been waiting ages, slow doll."
+<<else>>
+	You arrive only moments before Pruti. "Wow my doll, I am impressed. You are faster than I thought." <<He>> says this but you can tell <<he>>'s not even breaking a sweat.
+<</if>>
+<br><br>
+"Anyway," Pruti continues, "Come in, I have a present for your hard work." <<He>> snakes in before you, leaving you to enter alone.
+<br><br>
+As you enter the hut, you are shocked by what you see. Sitting beside Pruti is a lifelike doll of... yourself. Its face, body, everything are identical to your own. Small purple tentacles leak from the joints, thrashing wildly.
+<br><br>
+"What do you think, perfect isn't it? I took the liberty of studying you greatly while you were under my care. This updated model has built in organic systems that allow dynamic movement, taste and digestion, and even... the ability to have children."
+<br><br>
+Pruti gives a confident smirk. "Well, my doll? What do you think? You can even change aspects about it you dislike."
+<br><br>
+<<link [[Say you love it|Pruti Doll Permanent]]>><<set $permadoll to 1>><</link>>
+<br>
+<span class="black">==Say you don't like it==</span> <span class="red">You cannot deny your master's magnum opus</span>
+
+:: Pruti Doll Permanent
+<<callDoll>>
+<<prutihairdress>>
+<<prutidressup>>
+The words leave your lips with ease. <span class="purple">"Yes my owner, I love it."</span>
+<br><br>
+Pruti presses a shadowed hand to your chest and before you know it, your soul is removed from your mortal vessel. Your body falls to the ground with a thud as your soul is placed into the new vessel.
+<br><br>
+<span class="red">You feel sick. There is something squirming inside you.</span>
+<br><br>
+The illness slowly fades as you realize that squirming is part of you. Your new muscles, your new organs. You stumble to your feet with ease, this new body mechanically superior to your old one.
+<br><br>
+Pruti looks at you with a proud grin. "Well, my doll? How is it." <<He>> gently holds your shoulders and licks your neck.
+<br><br>
+You can feel it, even in this synthetic form. Though the feeling is dulled. You respond with practiced ease, <span class="purple">"I feel great my owner, this body is perfect."</span>
+<br><br>
+With your assurance, Pruti lets out a chuckle before nuzzling against you. "That's good to hear, my doll. With this, we are now together, do you understand?"
+<br><br>
+<<set $prutiromance to 1>>
+<<loveInterestAdd "Pruti">>
+<br><br>
+<<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
+
+:: Pruti Mirror
+<<effects>>
+
+<<link [[Next|Witch Hut Trust]]>><<set $mirrordisplay to 0>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+<br>
+
+<<mirror>>
+<br><br>
+
+:: Pruti Settings [exitCheckBypass]
+<<set $settingsExitPassage to "Witch Hut Trust">>
+
+<<settings>>
+
+:: Witch Hut Human
+<<sleepDoll>>
+<<prutihairdress>>
+<<prutidressup>>
+You tell Pruti you wish to return to your human form.
+<br><br>
+Pruti lets out a mock gasp, "Your human form? What do you mean doll? Don't you love the vessel I made? It's almost as if you were never a human at all." <<He>> teases.
+<br><br>
+After a moment in the back room, Pruti emerges with your body. "Here you go, my doll. I know you have duties in that wasteland you call civilisation. I trust your return will be swift, understood?"
+<br><br>
+Pruti's shadow arms wrench your soul from the doll's form, placing it firmly back into your own body. "Go on then. I will be waiting."
+<br><br>
+<<link [[Next|Witch Hut Trust]]>><</link>>
+
+:: Witch Hut Doll
+<<callDoll>>
+<<prutihairdress>>
+<<prutidressup>>
+You tell Pruti you wish to return to your doll form.
+<br><br>
+Pruti lets out a smug grin, "Well well well, realized your true form did you?" <<He>> teases.
+<br><br>
+After a moment in the back room, Pruti emerges with your doll body. "Here you go, my doll. You know, you look much better in my collection. I don't know what you see in that old meat suit."
+<br><br>
+Pruti's shadow arms wrench your soul from the your human form, placing it firmly back into your doll body. "There we go, nice and beautiful once again. I love you, my doll."
+<br><br>
+<<link [[Next|Witch Hut Trust]]>><</link>>

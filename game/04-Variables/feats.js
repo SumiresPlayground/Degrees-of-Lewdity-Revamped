@@ -2219,6 +2219,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Social"],
 	},
+	"Pruti the Witch": {
+		title: "Pruti the Witch",
+		desc: "You gave your virginity to them.",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Social"],
+	},
 	"Rowan the Trainer": {
 		title: "Rowan the Trainer",
 		desc: "You gave your virginity to them.",

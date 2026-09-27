@@ -3,56 +3,276 @@
 
 You take to the sky.
 <br><br>
-<u>Residential Town Areas</u>
-<br>
-<<domusicon>><<link [[Domus Street (0:02)|Domus Street]]>><<pass 2>><</link>><br>
-<<barbicon>><<link [[Barb Street (0:02)|Barb Street]]>><<pass 2>><</link>><br>
-<<danubeicon>><<link [[Danube Street (0:02)|Danube Street]]>><<pass 2>><</link>><br>
-<<wolficon>><<link [[Wolf Street (0:02)|Wolf Street]]>><<pass 2>><</link>><br>
-<<alleyicon>><<link [[Residential Alleyways (0:02)|Residential Alleyways]]>><<pass 2>><</link>><br>
+<<if $location is "desert">>
+    <u>Residential Town Areas</u>
+    <br>
+    <<if $bus isnot "domus">>
+        <<domusicon>><<link [[Domus Street (2:02)|Domus Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "barb">>
+        <<barbicon>><<link [[Barb Street (2:02)|Barb Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "danube">>
+        <<danubeicon>><<link [[Danube Street (2:02)|Danube Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "wolf">>
+        <<wolficon>><<link [[Wolf Street (2:02)|Wolf Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "residential">>
+        <<alleyicon>><<link [[Residential Alleyways (2:02)|Residential Alleyways]]>><<pass 122>><</link>><br>
+    <</if>>
 
-<u>Commercial Town Areas</u>
-<br>
-<<connudatusicon>><<link [[Connudatus Street (0:02)|Connudatus Street]]>><<pass 2>><</link>><br>
-<<clifficon>><<link [[Cliff Street (0:02)|Cliff Street]]>><<pass 2>><</link>><br>
-<<highicon>><<link [[High Street (0:02)|High Street]]>><<pass 2>><</link>><br>
-<<starfishicon>><<link [[Starfish Street (0:02)|Starfish Street]]>><<pass 2>><</link>><br>
-<<nightingaleicon>><<link [[Nightingale Street (0:02)|Nightingale Street]]>><<pass 2>><</link>><br>
-<<oxfordicon>><<link [[Oxford Street (0:02)|Oxford Street]]>><<pass 2>><</link>><br>
-<<alleyicon>><<link [[Commercial Alleyways (0:02)|Commercial Alleyways]]>><<pass 2>><</link>><br>
-<<parkicon>><<link [[Park (0:02)|Park]]>><<pass 2>><</link>><br>
+    <u>Commercial Town Areas</u>
+    <br>
+    <<if $bus isnot "connudatus">>
+        <<connudatusicon>><<link [[Connudatus Street (2:02)|Connudatus Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "cliff">>
+        <<clifficon>><<link [[Cliff Street (2:02)|Cliff Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "high">>
+        <<highicon>><<link [[High Street (2:02)|High Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "starfish">>
+        <<starfishicon>><<link [[Starfish Street (2:02)|Starfish Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "nightingale">>
+        <<nightingaleicon>><<link [[Nightingale Street (2:02)|Nightingale Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "oxford">>
+        <<oxfordicon>><<link [[Oxford Street (2:02)|Oxford Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "commercial">>
+        <<alleyicon>><<link [[Commercial Alleyways (2:02)|Commercial Alleyways]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "park">>
+        <<parkicon>><<link [[Park (2:02)|Park]]>><<pass 122>><</link>><br>
+    <</if>>
 
-<u>Industrial Town Areas</u>
-<br>
-<<mericon>><<link [[Mer Street (0:02)|Mer Street]]>><<pass 2>><</link>><br>
-<<elkicon>><<link [[Elk Street (0:02)|Elk Street]]>><<pass 2>><</link>><br>
-<<harvesticon>><<link [[Harvest Street (0:02)|Harvest Street]]>><<pass 2>><</link>><br>
-<<alleyicon>><<link [[Industrial Alleyways (0:02)|Industrial Alleyways]]>><<pass 2>><</link>><br>
+    <u>Industrial Town Areas</u>
+    <br>
+    <<if $bus isnot "mer">>
+        <<mericon>><<link [[Mer Street (2:02)|Mer Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "elk">>
+        <<elkicon>><<link [[Elk Street (2:02)|Elk Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "harvest">>
+        <<harvesticon>><<link [[Harvest Street (2:02)|Harvest Street]]>><<pass 122>><</link>><br>
+    <</if>>
+    <<if $bus isnot "industrial">>
+        <<alleyicon>><<link [[Industrial Alleyways (2:02)|Industrial Alleyways]]>><<pass 122>><</link>><br>
+    <</if>>
+    <u>Out of Town</u>
+    <br>
+    <<if $location isnot "lake">>
+        <<lakeicon>><<link [[Lake (2:15)|Lake Shore]]>><<pass 135>><</link>><br>
+    <</if>>
+    <<if $location isnot "farm">>
+        <<farmicon>><<link [[Farmland (2:30)|Farmland]]>><<pass 150>><</link>><br>
+    <</if>>
+    <<if $syndromeeden gte 1 and $location isnot "cabin">>
+        <<foresticon>><<link [[Eden Cabin (2:30)|Eden Clearing]]>><<pass 150>><</link>><br>
+    <</if>>
+    <<if $syndromewolves gte 1 and $location isnot "wolf_cave">>
+        <<link [[Wolf Cave (2:30)|Wolf Cave Clearing]]>><<pass 150>><</link>><br>
+    <</if>>
+    <<if $syndromebird gte 1 and $location isnot "tower">>
+        <<link [[Great Hawk Tower (2:45)|Bird Tower]]>><<pass 165>><</link>><br>
+    <</if>>
+    <u>Modded Locations</u>
+    <br>
+    <<if $hive_intro is 1 and $location isnot "hive">>
+        <<bighiveicon>><<link [[Hive (2:20)|Hive Entrance]]>><<pass 150>><</link>><br>
+    <</if>>
+    <<if $historytrait gte 1 and $location isnot "abandoned_mansion">>
+        <<abandonedmanoricon>><<link [[Forest Mansion (2:25)|Forest Mansion Explore]]>><<pass 155>><</link>><br>
+    <</if>>
+    <<if $syndromepruti is 1>>
+        <<prutihuticon>><<link [[Pruti's Hut (0:30)|Witch Hut Front]]>><<pass 30>><</link>><br>
+    <</if>>
+<<elseif $location is "town" or $location is "park" or $location is "alley">>
+    <u>Residential Town Areas</u>
+    <br>
+    <<if $bus isnot "domus">>
+        <<domusicon>><<link [[Domus Street (0:02)|Domus Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "barb">>
+        <<barbicon>><<link [[Barb Street (0:02)|Barb Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "danube">>
+        <<danubeicon>><<link [[Danube Street (0:02)|Danube Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "wolf">>
+        <<wolficon>><<link [[Wolf Street (0:02)|Wolf Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "residential">>
+        <<alleyicon>><<link [[Residential Alleyways (0:02)|Residential Alleyways]]>><<pass 2>><</link>><br>
+    <</if>>
 
-<u>Out of Town</u>
-<br>
-<<lakeicon>><<link [[Lake (0:15)|Lake Shore]]>><<pass 10>><</link>><br>
-<<farmicon>><<link [[Farmland (0:30)|Farmland]]>><<pass 30>><</link>><br>
-<<if $syndromeeden gte 1>>
-    <<foresticon>><<link [[Eden Cabin (0:30)|Eden Clearing]]>><<pass 30>><</link>><br>
-<</if>>
-<<if $syndromewolves gte 1>>
-    <<link [[Wolf Cave (0:30)|Wolf Cave Clearing]]>><<pass 30>><</link>><br>
-<</if>>
-<<if $syndromebird gte 1>>
-    <<link [[Great Hawk Tower (0:45)|Bird Tower]]>><<pass 45>><</link>><br>
-<</if>>
-<br>
-<u>Modded Locations</u>
-<br>
-<<if $hive_intro is 1>>
-	<<bighiveicon>><<link [[Hive (0:20)|Hive Entrance]]>><<pass 20>><</link>><br>
-<</if>>
-<<if $historytrait gte 1>>
-    <<abandonedmanoricon>><<link [[Forest Mansion (0:25)|Forest Mansion Explore]]>><<pass 25>><</link>><br>
-<</if>>
-<<if $history gte 700>>
-    <<oasisicon>><<link [[Isla Carna (2:00)|Desert Village]]>><<pass 120>><</link>><br>
+    <u>Commercial Town Areas</u>
+    <br>
+    <<if $bus isnot "connudatus">>
+        <<connudatusicon>><<link [[Connudatus Street (0:02)|Connudatus Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "cliff">>
+        <<clifficon>><<link [[Cliff Street (0:02)|Cliff Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "high">>
+        <<highicon>><<link [[High Street (0:02)|High Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "starfish">>
+        <<starfishicon>><<link [[Starfish Street (0:02)|Starfish Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "nightingale">>
+        <<nightingaleicon>><<link [[Nightingale Street (0:02)|Nightingale Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "oxford">>
+        <<oxfordicon>><<link [[Oxford Street (0:02)|Oxford Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "commercial">>
+        <<alleyicon>><<link [[Commercial Alleyways (0:02)|Commercial Alleyways]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "park">>
+        <<parkicon>><<link [[Park (0:02)|Park]]>><<pass 2>><</link>><br>
+    <</if>>
+
+    <u>Industrial Town Areas</u>
+    <br>
+    <<if $bus isnot "mer">>
+        <<mericon>><<link [[Mer Street (0:02)|Mer Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "elk">>
+        <<elkicon>><<link [[Elk Street (0:02)|Elk Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "harvest">>
+        <<harvesticon>><<link [[Harvest Street (0:02)|Harvest Street]]>><<pass 2>><</link>><br>
+    <</if>>
+    <<if $bus isnot "industrial">>
+        <<alleyicon>><<link [[Industrial Alleyways (0:02)|Industrial Alleyways]]>><<pass 2>><</link>><br>
+    <</if>>
+    <u>Out of Town</u>
+    <br>
+    <<if $location isnot "lake">>
+        <<lakeicon>><<link [[Lake (0:15)|Lake Shore]]>><<pass 15>><</link>><br>
+    <</if>>
+    <<if $location isnot "farm">>
+        <<farmicon>><<link [[Farmland (0:30)|Farmland]]>><<pass 30>><</link>><br>
+    <</if>>
+    <<if $syndromeeden gte 1 and $location isnot "cabin">>
+        <<foresticon>><<link [[Eden Cabin (0:30)|Eden Clearing]]>><<pass 30>><</link>><br>
+    <</if>>
+    <<if $syndromewolves gte 1 and $location isnot "wolf_cave">>
+        <<link [[Wolf Cave (0:30)|Wolf Cave Clearing]]>><<pass 30>><</link>><br>
+    <</if>>
+    <<if $syndromebird gte 1 and $location isnot "tower">>
+        <<link [[Great Hawk Tower (0:45)|Bird Tower]]>><<pass 45>><</link>><br>
+    <</if>>
+    <u>Modded Locations</u>
+    <br>
+    <<if $hive_intro is 1 and $location isnot "hive">>
+        <<bighiveicon>><<link [[Hive (0:20)|Hive Entrance]]>><<pass 20>><</link>><br>
+    <</if>>
+    <<if $historytrait gte 1 and $location isnot "abandoned_mansion">>
+        <<abandonedmanoricon>><<link [[Forest Mansion (0:25)|Forest Mansion Explore]]>><<pass 25>><</link>><br>
+    <</if>>
+    <<if ($history gte 700 or $syndromepruti is 1) and $location isnot "desert">>
+        <<oasisicon>><<link [[Isla Carna (2:00)|Desert Village]]>><<pass 120>><</link>><br>
+    <</if>>
+    <<if $syndromepruti is 1>>
+        <<prutihuticon>><<link [[Pruti's Hut (2:30)|Witch Hut Front]]>><<pass 150>><</link>><br>
+    <</if>>
+<<else>>
+    <u>Residential Town Areas</u>
+    <br>
+    <<if $bus isnot "domus">>
+        <<domusicon>><<link [[Domus Street (0:42)|Domus Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "barb">>
+        <<barbicon>><<link [[Barb Street (0:42)|Barb Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "danube">>
+        <<danubeicon>><<link [[Danube Street (0:42)|Danube Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "wolf">>
+        <<wolficon>><<link [[Wolf Street (0:42)|Wolf Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "residential">>
+        <<alleyicon>><<link [[Residential Alleyways (0:42)|Residential Alleyways]]>><<pass 42>><</link>><br>
+    <</if>>
+
+    <u>Commercial Town Areas</u>
+    <br>
+    <<if $bus isnot "connudatus">>
+        <<connudatusicon>><<link [[Connudatus Street (0:42)|Connudatus Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "cliff">>
+        <<clifficon>><<link [[Cliff Street (0:42)|Cliff Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "high">>
+        <<highicon>><<link [[High Street (0:42)|High Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "starfish">>
+        <<starfishicon>><<link [[Starfish Street (0:42)|Starfish Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "nightingale">>
+        <<nightingaleicon>><<link [[Nightingale Street (0:42)|Nightingale Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "oxford">>
+        <<oxfordicon>><<link [[Oxford Street (0:42)|Oxford Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "commercial">>
+        <<alleyicon>><<link [[Commercial Alleyways (0:42)|Commercial Alleyways]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "park">>
+        <<parkicon>><<link [[Park (0:42)|Park]]>><<pass 42>><</link>><br>
+    <</if>>
+
+    <u>Industrial Town Areas</u>
+    <br>
+    <<if $bus isnot "mer">>
+        <<mericon>><<link [[Mer Street (0:42)|Mer Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "elk">>
+        <<elkicon>><<link [[Elk Street (0:42)|Elk Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "harvest">>
+        <<harvesticon>><<link [[Harvest Street (0:42)|Harvest Street]]>><<pass 42>><</link>><br>
+    <</if>>
+    <<if $bus isnot "industrial">>
+        <<alleyicon>><<link [[Industrial Alleyways (0:42)|Industrial Alleyways]]>><<pass 42>><</link>><br>
+    <</if>>
+    <u>Out of Town</u>
+    <br>
+    <<if $location isnot "lake">>
+        <<lakeicon>><<link [[Lake (0:05)|Lake Shore]]>><<pass 5>><</link>><br>
+    <</if>>
+    <<if $location isnot "farm">>
+        <<farmicon>><<link [[Farmland (0:10)|Farmland]]>><<pass 10>><</link>><br>
+    <</if>>
+    <<if $syndromeeden gte 1 and $location isnot "cabin">>
+        <<foresticon>><<link [[Eden Cabin (0:10)|Eden Clearing]]>><<pass 10>><</link>><br>
+    <</if>>
+    <<if $syndromewolves gte 1 and $location isnot "wolf_cave">>
+        <<link [[Wolf Cave (0:10)|Wolf Cave Clearing]]>><<pass 10>><</link>><br>
+    <</if>>
+    <<if $syndromebird gte 1 and $location isnot "tower">>
+        <<link [[Great Hawk Tower (0:15)|Bird Tower]]>><<pass 15>><</link>><br>
+    <</if>>
+    <u>Modded Locations</u>
+    <br>
+    <<if $hive_intro is 1 and $location isnot "hive">>
+        <<bighiveicon>><<link [[Hive (0:05)|Hive Entrance]]>><<pass 5>><</link>><br>
+    <</if>>
+    <<if $historytrait gte 1 and $location isnot "abandoned_mansion">>
+        <<abandonedmanoricon>><<link [[Forest Mansion (0:10)|Forest Mansion Explore]]>><<pass 10>><</link>><br>
+    <</if>>
+    <<if ($history gte 700 or $syndromepruti is 1) and $location isnot "desert">>
+        <<oasisicon>><<link [[Isla Carna (2:30)|Desert Village]]>><<pass 150>><</link>><br>
+    <</if>>
+    <<if $syndromepruti is 1>>
+        <<prutihuticon>><<link [[Pruti's Hut (3:00)|Witch Hut Front]]>><<pass 180>><</link>><br>
+    <</if>>
 <</if>>
 <br>
 <<return "Cancel flight">>

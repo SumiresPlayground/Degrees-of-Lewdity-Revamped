@@ -296,6 +296,8 @@
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.20>>
 			<<elseif $worn.upper.name is "mushroom bodice" and $worn.lower.name is "mushroom gown">>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.20>>
+			<<elseif $dollstate gte 1>>
+				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.60>>
 			<<elseif  $transformationParts.fish.tail isnot "disabled" and $transformationParts.fish.fins isnot "disabled">>
 				<<set $pain += (_violence * _painMod * (1 - ($masochism / 1200)) * (1 - ($sciencetrait / 10)) / _possessMod / _clothesMod) * 0.75>>
 			<<else>>
@@ -401,11 +403,12 @@
 		<<if $arousal gte ($arousalmax * 0.8)>>
 			<<sadism _args[0]>>
 		<</if>>
-		<<if $slime is 1>>
-			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.25>>
-		<</if>>
 		<<if $transformationParts.bear.tail is "default" and $transformationParts.bear.ears is "default">>
 			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.4>>
+		<<elseif $dollstate gte 2>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.3>>
+		<<elseif $slime is 1>>
+			<<set _thedamage to (2 * _defiance * ($physique / 4000)) * 1.25>>
 		<<else>>
 			<<set _thedamage to (2 * _defiance * ($physique / 4000))>>
 		<</if>>
