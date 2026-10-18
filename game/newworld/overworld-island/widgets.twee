@@ -405,6 +405,7 @@
 			<<set $player.vaginaExist to true>>
 		<</if>>
 	<</if>>
+	<<set $frozenValues1.skincolor to Skin.color.natural>>
 	<<if $permadoll isnot 1>>
 		<<set $leftEyeColour to "brown">>
 		<<set $rightEyeColour to "brown">>
@@ -414,8 +415,9 @@
 		<<set $hairColourStyle to "simple">>
 		<<set $hairFringeColourStyle to "simple">>
 		<<set $hairlength to 400>>
-		<<set $frozenValues1.skincolor to Skin.color.natural>>
 		<<set Skin.color.natural to "rmedium">>
+		<<set $frozenValues1.eyevariant to $eyevariant>>
+		<<set $frozenValues1.mouthvariant to $mouthvariant>>
 		<<set $facestyle to "default">>
 		<<set $facevariant to "gloomy">>
 		<<set $eyevariant to "gloomy">>
@@ -456,6 +458,8 @@
 	<<set $parasite to clone($frozenValues1.parasite)>>
 	<<set $transformationParts to clone($frozenValues1.transformationParts)>>
 	<<set Skin.color.natural to $frozenValues1.skincolor>>
+	<<set $eyevariant to $frozenValues1.eyevariant>>
+	<<set $mouthvariant to $frozenValues1.mouthvariant>>
 	<<if $ghostrestore is 1>>
 		<<set Skin.color.natural to "ghost">>
 		<<set V.transformationParts.ghost.eyes to "default">>
@@ -542,6 +546,7 @@
 <</widget>>
 
 <<widget "prutihairdress">>
+	<<wash>>
 	<<rng>>
 	<<if $player.gender_appearance is "f">>
 		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
@@ -621,6 +626,7 @@
 <</widget>>
 
 <<widget "prutidressup">>
+	<<wash>>
 	<<strip>>
 	<<if $player.gender_appearance is "f">>
 		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>

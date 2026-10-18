@@ -1265,6 +1265,7 @@
 			<<tficon "slime2">>Lust Slime: <<link "Set">><<clearExtraTransformations>><<set Skin.color.natural to "amethyst">><<set V.transformationParts.slime.bubble to "pdefault">><<set V.transformationParts.slime.stream to "pdefault">><<set V.transformationParts.slime.core to "default">><<set $haircolour to "lilacpurple">><<set $hairfringecolour to "lilacpurple">><<set $makeup.browscolour to "lilacpurple">><<set $slime to 2>><<updatesidebarimg>><</link>> | <<link "Clear">><<clearExtraTransformations>><<updatesidebarimg>><</link>><br>
 			<<tficon "slime3">>Pure Slime: <<link "Set">><<clearExtraTransformations>><<set Skin.color.natural to "chilly">><<set V.transformationParts.slime.bubble to "bdefault">><<set V.transformationParts.slime.stream to "bdefault">><<set V.transformationParts.slime.core to "default">><<set $haircolour to "chillyblue">><<set $hairfringecolour to "chillyblue">><<set $makeup.browscolour to "chillyblue">><<set $slime to 3>><<updatesidebarimg>><</link>> | <<link "Clear">><<clearExtraTransformations>><<updatesidebarimg>><</link>><br>
 			<<tficon "mushroom">>Mushroom: <<link "Set">><<clearExtraTransformations>><<set $mushroom to 1>><<set Skin.color.natural to "dusky">><<set $transformationParts.mushroom.cap to "default">><<set $transformationParts.mushroom.eyes to "default">><<set $transformationParts.mushroom.spores to "default">><<set $transformationParts.mushroom.mushrooms to "default">><<set $haircolour to "amberyellow">><<set $makeup.browscolour to "amberyellow">><<set $hairfringecolour to "amberyellow">><<set $makeup.browscolour to "amberyellow">><<headruined>><<headwear "mushroom cap">><<updatesidebarimg>><</link>> | <<link "Clear">><<clearExtraTransformations>><<updatesidebarimg>><</link>><br>
+			<<tficon "doll">>Doll: <<link "Set">><<set $permadoll to 1>><<callDoll>><<updatesidebarimg>><</link>> | <<link "Clear">><<sleepDoll>><<updatesidebarimg>><</link>><br>
 		</div>
 		<div class="settingsToggleItem">
 			<span class="gold">Transformation Points</span>
@@ -1811,6 +1812,7 @@
 <</widget>>
 
 <<widget "cheats-teleport-function">>
+	<<set $locationoverwrite to "0">>
 	<<set _lastBadEnd to $badEndStats.last()>>
 	<<if _lastBadEnd?.trackedStart and _lastBadEnd.trackedEnd is undefined>>
 		<<badEndTrackingEnd _lastBadEnd.source { reason: "teleportCheater" }>>

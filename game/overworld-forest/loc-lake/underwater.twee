@@ -445,6 +445,10 @@ You are deep in the lake ruin, in a small room with a plinth.
 		<<icon "clothes/ivory-necklace.png">><<link [[Take the necklace|Lake Ruin Ivory]]>><<set $antiquemoney += 2000>><<museumAntiqueStatus "antiqueivorynecklace" "found">><<set $necklaceThief to "player">><</link>>
 		<br>
 	<</if>>
+	<<if $museumAntiques.antiques.antiqueivorynecklace is "found">>
+		<<icon "clothes/ivory-necklace.png">><<link [[Put the necklace back|Lake Ruin Ivory 2]]>><<set $antiquemoney -= 2000>><<museumAntiqueStatus "antiqueivorynecklace" "notFound">><<set $necklaceThief to "">><</link>>
+		<br>
+	<</if>>
 	<<swimicon "back">><<link [[Leave|Lake Ruin Deep]]>><<set $phase to 0>><</link>>
 	<br>
 <</if>>

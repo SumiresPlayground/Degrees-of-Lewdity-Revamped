@@ -7,15 +7,15 @@
 <<npc "Pruti">><<person1>>
 You awaken from your stupor feeling oddly... stiff. When you try to move, you hear a sharp click. A cursory glance at your body reveals your skin to be some kind of rubbery false skin. You gasp in horror, but you fail to make a sound. Whatever happened to your body seems to be somewhat impeding your ability to talk. You're about to make an attempt to ascertain your surroundings when you notice a shadow looming over you. You look up.
 <br><br>
-It takes you a few seconds to mentally grasp what you're seeing. There appears to be a <<personsimple>> with a smug expression on <<his>> face standing above you. "Good morning, doll," <<he>> purrs. "It seems the ritual worked perfectly."
+It takes you a few seconds to mentally grasp what you're seeing. There appears to be a cat<<person>> with a smug expression on <<his>> face standing above you. "Good morning, doll," <<he>> purrs. "It seems the ritual worked perfectly."
 <br><br>
-The <<personsimple>> introduces <<himself>> as Pruti, a powerful witch with a penchant for turning <<his>> enemies into inanimate objects. <<He>> explains that <<he>> conducted a ritual on you to place your soul into a doll, and that you'll remain in this state until <<he>> decides otherwise.
+The cat<<person>> introduces <<himself>> as Pruti, a powerful witch with a penchant for turning <<his>> enemies into inanimate objects. <<He>> explains that <<he>> conducted a ritual on you to place your soul into a doll, and that you'll remain in this state until <<he>> decides otherwise.
 <br><br>
-Suddenly, a swarm of elongated arms appear and begin brushing through your hair and face, as if they were getting you ready for your day. "There, there, my little doll," the <<personsimple>> whispers. "Now you belong to me. You will do everything I say, understand?"
+Suddenly, a swarm of elongated arms appear and begin brushing through your hair and face, as if they were getting you ready for your day. "There, there, my little doll," the cat<<person>> whispers. "Now you belong to me. You will do everything I say, understand?"
 <br><br>
 "Don't worry," <<he>> adds, "I'll take good care of you. I'm sure you'll make a adorable addition to my collection."
 <br><br>
-<<link [[Next|Witch Hut]]>><<set $prutibinding to 20>><<endevent>><</link>>
+<<link [[Next|Witch Hut]]>><<set $prutibinding to 12>><<endevent>><</link>>
 
 
 :: Witch Hut
@@ -31,22 +31,22 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 		The bindings slip and break away.
 		<br><br>
 	</span>
-<<elseif $prutibinding lt 5>>
+<<elseif $prutibinding lt 3>>
 	<span class="pink">
 		The bindings feel very loose and nearly fall off.
 		<br><br>
 	</span>
-<<elseif $prutibinding lt 10>>
+<<elseif $prutibinding lt 6>>
 	<span class="purple">
 		The bindings still feel quite firm.
 		<br><br>
 	</span>
-<<elseif $prutibinding lt 15>>
+<<elseif $prutibinding lt 10>>
 	<span class="blue">
 		The bindings hold strong against any struggle you can manage.
 		<br><br>
 	</span>
-<<elseif $prutibinding lt 20>>
+<<elseif $prutibinding lt 13>>
 	<span class="lblue">
 		The bindings are pristine and strong.
 		<br><br>
@@ -87,7 +87,7 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 <<elseif Time.hour lte 8 and $prutibinding is 0>>
 	You start to fall asleep before you're awaken with a start by Pruti. "What's this?!" <<He>> yells as he finds your bindings broken. "Your bindings broke overnight and... you chose to stay? I... W-wait..." <<He>> seems confused. "Do you not want to be free?" <<He>> mutters confused to <<himself>> as <<he>> fixes your bindings and walks away.
 	<br><br>
-	<<link [[Wait (1:00)|Witch Hut]]>><<npcincr Pruti love 5>><<set $prutibinding to 20>><<pass 60>><<endevent>><</link>>
+	<<link [[Wait (1:00)|Witch Hut]]>><<npcincr Pruti love 5>><<set $prutibinding to 12>><<pass 60>><<endevent>><</link>>
 
 <<elseif Time.hour lte 7>>
 	
@@ -117,7 +117,7 @@ Suddenly, a swarm of elongated arms appear and begin brushing through your hair 
 	<br><br>
 	With that, <<he>> picks up the bag and makes <<his>> way towards the door. "Come on, we need to go before the light fades," <<He>> says as <<he>> opens the door and steps outside. You follow <<him>>, feeling somewhat nervous about the whole situation.
 	<br><br>
-	<<link [[Next|Witch Forage]]>><<endevent>><</link>>
+	<<link [[Next|Witch Forage]]>><</link>>
 
 <<elseif Time.hour lte 19>>
 	
@@ -411,6 +411,42 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<br>
     <<link [[Say you liked the old one better|Witch New Old]]>><</link>>
 
+<<elseif Time.hour gt 6 and Time.hour lte 20 and C.npc.Pruti.lust gte 30>>
+	<<strip>>
+	As you enter the hut, you find it in a state of disarray. Before you even realize it, you are pinned to the floor. Pruti sits atop you, <<his>> eyes with a feral edge.
+	<br><br>
+	After a pause, Pruti's eyes regain a glint of clarity. <<He>> backs up a bit, holding <<his>> head in pain. "Oh dear, my doll. There is something wrong. I think my faith has been pushed to its limits."
+	<br><br>
+	Pruti's eyes lose their clarity once again as <<he>> gives a long lick along your neck. <<if $worn.lower.name isnot "naked" and $worn.under_lower.name isnot "naked">><<His>> claws tear open your clothes, tossing them aside.<</if>>
+	<br><br>
+	<span class="purple">You cannot resist your owner's desire.</span>
+	<br><br>
+	<<link [[Next|Witch Hut Pruti Control]]>><<set $sexstart to 1>><<set C.npc.Pruti.lust to 0>><</link>>
+
+<<elseif Time.hour gt 6 and Time.hour lte 20 and C.npc.Pruti.lust gte 20>>
+	As you enter, Pruti looks a bit weary before pulling you in for a tight embrace. "My doll, you are really pushing me with this distance." Pruti pulls you close, pressing a kiss to your lips. <<takeKissVirginity "Pruti" "romantic">>
+	<br><br>
+	<span class="purple">You cannot resist your owner's desire.</span>
+	<br><br>
+	"It looks like we are both a bit damaged huh?" Pruti lets out a small laugh. "Now hold still, this may take a while."
+	<br><br>
+	<<link [[Next (0:40)|Witch Hut Trust Cure]]>><<set C.npc.Pruti.lust to 0>><<pass 40>><</link>>
+
+<<elseif Time.hour gt 6 and Time.hour lte 20 and C.npc.Pruti.lust gte 10>>
+	As you enter, Pruti smiles gently. "You were gone quite a while, I missed you, my doll." Pruti pulls you into a tight embrace, <<his>> shadowed arms gently stroking your hair.
+	<br><br>
+	"Your soul seems to have been pretty strained recently. I'll get you fixed up right away."
+	<br><br>
+	<<link [[Next (0:20)|Witch Hut Trust Cure]]>><<set C.npc.Pruti.lust to 0>><<pass 20>><</link>>
+
+<<elseif Time.hour gt 6 and Time.hour lte 20 and C.npc.Pruti.lust gte 1>>
+	As you enter, Pruti regards you with a smirk. "Back already, my darling doll? Couldn't keep away too long could you?" Pruti nuzzles into your neck.
+	<br><br>
+	"It looks like your soul is a bit damaged by the distance of our bond. Hold still, this fix shouldn't take too long."
+	<br><br>
+	<<link [[Next (0:10)|Witch Hut Trust Cure]]>><<set C.npc.Pruti.lust to 0>><<pass 10>><</link>>
+
+
 <<elseif Time.hour gt 6 and Time.hour lte 20 and (V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked"))>>
 	"My doll, you seem worse for ware. Come, let me get you fixed up." Pruti gently guides you to a chair and sits you with a smirk.
 	<br><br>
@@ -493,7 +529,7 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<<else>>
 		<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
 	<</if>>
-<<elseif Time.hour gt 6 and Time.hour lte 20 and !(V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked"))>>
+<<elseif Time.hour gt 6 and Time.hour lte 20 and !(V.worn.lower.type.includes("naked") or V.worn.upper.type.includes("naked")) and C.npc.Pruti.lust is 0>>
 	<<if Time.hour is 7 or Time.hour is 8>>
 		<<link [[Sit with Pruti (2:00)|Pruti Eat]]>><<npcincr Pruti love 2>><</link>><<glove>>
 		<br>
@@ -527,10 +563,10 @@ You surrender to Pruti, not wanting to anger <<him>> any further. The beast's ey
 	<<link [[Clean up the hut (1:00)|Witch Hut Trust]]>><<npcincr Pruti love 1>><<pass 60>><<endevent>><</link>><<glove>>
 	<br>
 	<<if $dollstate is 2>>
-		<<link [[Return to your human form|Witch Hut Human]]>><</link>>
+		<<tficon "doll">><<link [[Return to your human form|Witch Hut Human]]>><</link>>
 		<br>
 	<<elseif $prutiromance is 1>>
-		<<link [[Return to your doll form|Witch Hut Doll]]>><</link>>
+		<<tficon "doll">><<link [[Return to your doll form|Witch Hut Doll]]>><</link>>
 		<br>
 	<</if>>
 	<<if $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
@@ -589,6 +625,7 @@ You approach Pruti. <<He>> looks exhausted. You sit and begin to rub <<his>> sho
 <<link [[Next|Witch Hut Trust]]>><<pass 60>><<endevent>><</link>>
 
 :: Pruti Bathe
+<<wash>>
 You enter the bathroom where you find Pruti completely naked. <<He>> looks at you unashamed of <<his>> nudity. "Yes my doll? Did you need something?" 
 <br><br>
 You waste no time before picking up a rag and helping <<him>> wash <<his>> back. "Oh you wished to help? I suppose that should be fine." <<He>> lets you clean <<his>> back before helping you wipe down your body as well.
@@ -614,6 +651,7 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 <<effects>>
 
 <<sleepeffects>>
+<<npc "Pruti">><<person1>>
 <<if $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour gt 20 or $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour lt 7>>
 	You wake up to Pruti's groping. <<He>> starts rubbing up against you.
 	<br><br>
@@ -639,18 +677,18 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 	<<set $enemyhealth to 1200>>
 	<<set $enemyarousalmax to 1500>>
 	<<set $enemyanger to 0>>
-	<<set $enemytrust to 500>>
-	<<maninit "beast">><<npcexpose>>
-	<<makeAbomination _randomtentacles 8 "tentacle" "tentacle" true>>
+	<<set $enemytrust to 0>>
+	<<beastCombatInit>>
 <</if>>
 
-<br>
 <<effects>>
-<<effectsabomination>>
-<<abomination>>
-<<stateabomination>>
+<<effectsman>>
+<<beast $enemyno>>
 <br><br>
-<<actionsabomination>>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
 
 <<if _combatend>>
 	<span id="next"><<link [[Next|Pruti Sleep Sex Finish]]>><</link>></span><<nexttext>>
@@ -837,18 +875,18 @@ Pruti breathes heavily, taking a step back and readjusting <<his>> clothing.
 	<<set $enemyhealth to 1200>>
 	<<set $enemyarousalmax to 1500>>
 	<<set $enemyanger to 0>>
-	<<set $enemytrust to 500>>
-	<<maninit>><<npcexpose>>
-	<<makeAbomination _randomtentacles 8 "tentacle" "tentacle" true>>
+	<<set $enemytrust to 0>>
+	<<beastCombatInit>>
 <</if>>
 
-<br>
 <<effects>>
-<<effectsabomination>>
-<<abomination>>
-<<stateabomination>>
+<<effectsman>>
+<<beast $enemyno>>
 <br><br>
-<<actionsabomination>>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
 
 <<if _combatend>>
 	<span id="next"><<link [[Next|Witch Help Cook 7 Finish]]>><</link>></span><<nexttext>>
@@ -1055,6 +1093,7 @@ Pruti smirks and steps back a few steps. "Your welcome darling. Now lets continu
 <<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
 
 :: Witch Hut Front
+<<location "prutihut">>
 You are at the front of Pruti's hut. The forest breaks into a clearing where Pruti is growing some small plantbeds for food.
 <br><br>
 You could probably use these to grow your own plants as well.
@@ -1290,7 +1329,7 @@ After a moment in the back room, Pruti emerges with your body. "Here you go, my 
 <br><br>
 Pruti's shadow arms wrench your soul from the doll's form, placing it firmly back into your own body. "Go on then. I will be waiting."
 <br><br>
-<<link [[Next|Witch Hut Trust]]>><</link>>
+<<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
 
 :: Witch Hut Doll
 <<callDoll>>
@@ -1304,4 +1343,68 @@ After a moment in the back room, Pruti emerges with your doll body. "Here you go
 <br><br>
 Pruti's shadow arms wrench your soul from the your human form, placing it firmly back into your doll body. "There we go, nice and beautiful once again. I love you, my doll."
 <br><br>
-<<link [[Next|Witch Hut Trust]]>><</link>>
+<<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
+
+:: Witch Hut Trust Cure
+Several dark shadowed arms emerge from Pruti's back. They gently glide over your skin, caressing your body. The hands sink under your skin and you feel a freezing sensation spread through your core.
+<br><br>
+The unsettling unease in your heart slowly fades as Pruti's hands cleanse the very core of your soul. As <<his>> hands retract, <<he>> gives your <<genitals>> a rub with a noticable smirk. <<garousal>>
+<br><br>
+"There you go, my beautiful doll. All better right? I even feel quite satisfied myself. Try not to stay away so long next time."
+<br><br>
+<<link [[Next|Witch Hut Trust]]>><<endevent>><</link>>
+
+:: Witch Hut Pruti Control
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>><<set $consensual to 1>>
+	<<neutral 1>>
+	<<set $enemyhealthmax to 1200>>
+	<<set $enemyhealth to 1200>>
+	<<set $enemyarousalmax to 1500>>
+	<<set $enemyanger to 0>>
+	<<set $enemytrust to 0>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Witch Hut Pruti Control Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Witch Hut Pruti Control]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Witch Hut Pruti Control Finish
+<<if $enemyhealth lte 0>>
+	<<endcombat>>
+	<<npc "Pruti">><<person1>>
+	You push back Pruti. <<He>> falls back with a growl. But once again, <<his>> eyes regain some clarity. <<He>> breathes heavily, pushing <<himself>> back to <<his>> feet.
+<<else>>
+	<<beastejaculation>>
+	<br>
+	<<endcombat>>
+	<<npc "Pruti">><<person1>>
+	As Pruti ejaculates, the glint of clarity returns to <<his>> eyes. <<He>> breathes heavily, pushing <<himself>> back to <<his>> feet.
+<</if>>
+<br><br>
+<<He>> extends a hand to help you up. <<tearful>> you climb to your feet.
+<br><br>
+"I'm terribly sorry my doll. I-" Pruti winces in pain, from the struggle of course but also some unseen wound. <<His>> shadow arms extend, releasing some kind of dark fluid that rapidly closes <<his>> wounds.
+<br><br>
+You stagger back as the arms extend toward you, expecting another fight. However, instead of aggression, the arms sink under your skin. You feel the sickening feeling in your soul lighten.
+<br><br>
+Pruti looks away ashamed at what <<he>> descended into. "I think I know what happened, my doll. My faith seems unfit to stretch such vast distances. It is damaging your soul, as well as mine."
+<br><br>
+"Please return before it gets this bad once again, my doll. I- I cannot stomach the thought of losing myself to these feelings and hurting you again." <<llllove>>
+<br><br>
+<<set $pain -= 100>>
+<<clotheson>>
+<<link [[Next|Witch Hut Trust]]>><<endevent>><<if C.npc.Pruti.love gte 60>><<set C.npc.Pruti.love -= 10>><</if>><</link>>

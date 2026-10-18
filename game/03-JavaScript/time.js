@@ -998,6 +998,17 @@ function dayPassed() {
 	V.dragonbreathuse = 3;
 	V.sirensong = 3;
 
+	if (V.syndromepruti === 1 && V.location !== "prutihut") {
+		C.npc.Pruti.lust += 1
+		if (V.dollstate === 2) {
+			V.prutipain = 1
+		}
+	}
+
+	if (V.gymmembership > 0) {
+		V.gymmembership -= 1
+	}
+
 	V.facebruise -= 1;
 	V.chestbruise -= 1;
 	V.tummybruise -= 1;
@@ -1857,6 +1868,9 @@ function dailyNPCEffects() {
 		}
 		if (V.gwylan.timer.petBed && Time.date.dayDifference(new DateTime(V.gwylan.timer.petBed)) <= 0) delete V.gwylan.timer.petBed;
 	}
+
+	if (V.harloweknown === 1) C.npc.Harlowe.title = "boss";
+	else C.npc.Harlowe.title = "coach";
 
 	wikifier("relationshipclamp");
 }

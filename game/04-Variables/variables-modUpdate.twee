@@ -35,7 +35,7 @@ If the result is "undefined", this widget is not called for some reason. If the 
 	<<generateNPCNameHairAndEyeColors>>
 
 	<<if $syndromepruti is 1>>
-		<<npcincr Pruti dom 1>>
+		<<set C.npc.Pruti.dom to 1>>
 	<</if>>
 
 	<<if $dollstate is undefined>>
@@ -52,6 +52,8 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $eyevariant to $facevariant>>
 		<<set $mouthvariant to $facevariant>>
 	<</if>>
+
+	<<set $facevariant to $eyevariant>>
 		
 	<<if $publicnudist is undefined>>
 		<<if $nudist is 1>>
@@ -150,6 +152,18 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $bailey_title_unlocked to false>>
 	<</if>>
 
+	<<if $creatorJordan is "bluechiizu">>
+		<<set $creatorJordan to "sussyorenji">>
+	<</if>>
+
+	<<if $creatorKylar is "bluechiizu">>
+		<<set $creatorKylar to "sussyorenji">>
+	<</if>>
+
+	<<if $creatorWhitney is "bluechiizu">>
+		<<set $creatorWhitney to "sussyorenji">>
+	<</if>>
+
 	<<if $creatorAlex is undefined>>
 		<<set $NPCenable to "1">>
 		<<set $NPCposition to "1">>
@@ -190,9 +204,14 @@ If the result is "undefined", this widget is not called for some reason. If the 
 		<<set $creatorZephyr to "custom">>
 		<<set $creatorCasey to "custom">>
 		<<set $creatorHaegish to "custom">>
+		<<set $creatorHarlowe to "custom">>
 		<<set $creatorPruti to "custom">>
 		<<set $creatorSalem to "custom">>
 		<<set $creatorTaylor to "custom">>
+	<</if>>
+
+	<<if $creatorHarlowe is undefined>>
+		<<set $creatorHarlowe to "custom">>
 	<</if>>
 
 	<<if $staticimages is undefined>>
@@ -1077,6 +1096,8 @@ If the result is "undefined", this widget is not called for some reason. If the 
 			<<set $farm.watchtowerDailyAttempt to 0>>
 		<</if>>
 	<</if>>
+
+	<<wardrobesUpdate>>
 
 	<<wliInit>>
 	<<dhmInit>>

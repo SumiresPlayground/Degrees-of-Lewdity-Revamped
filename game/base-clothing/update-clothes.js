@@ -654,6 +654,12 @@ function wardrobesUpdate() {
 			schoolGirls: clone(defWardrobe),
 			prison: clone(defWardrobe),
 			avery_mansion: clone(defWardrobe),
+			casey: clone(defWardrobe),
+			rowan: clone(defWardrobe),
+			horseacademy: clone(defWardrobe),
+			pruti: clone(defWardrobe),
+			mansion: clone(defWardrobe),
+			gym: clone(defWardrobe),
 		};
 		/* beach */
 		V.wardrobes.changingRoom.name = "Beach changing room";
@@ -740,6 +746,9 @@ function wardrobesUpdate() {
 		V.wardrobes.mansion.isolated = true;
 		V.wardrobes.mansion.shopSend = false;
 		V.wardrobes.mansion.space = 80;
+		/* gym */
+		V.wardrobes.gym.name = "gym";
+		V.wardrobes.gym.space = 10;
 		/* add .lastTaken prop to everything */
 		if (V.worn !== undefined) Object.keys(V.worn).forEach(s => (V.worn[s].lastTaken = "wardrobe"));
 		if (V.carried !== undefined) Object.keys(V.carried).forEach(s => (V.carried[s].lastTaken = "wardrobe"));

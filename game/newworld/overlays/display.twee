@@ -20,6 +20,7 @@
 					rank: "initiate",
 				}>>
 			<</if>>
+			<<nnpcupdate>>
 			<div class="settingsToggleItemWide">
 				<span class="green">NPC Display will display an image of a named NPC if they are present in the scene. To add an NPC image, go into the npc folder in the img folder and replace the character you want to use.</span>
 				<br><br>
@@ -58,7 +59,7 @@
 					"Jordan", "Kylar", "Landry", "Leighton", "Mason", "Mickey", "Morgan",
 					"Night Monster", "Niki", "Quinn", "Remy", "River", "Robin", "Sam",
 					"Sirris", "Sydney", "Whitney", "Winter", "Wren", "Zephyr", "Casey",
-					"Haegish", "Pruti", "Salem", "Taylor"
+					"Haegish", "Harlowe", "Pruti", "Salem", "Taylor"
 				]>>
 
 				<<set $selectedNPC to "">>
@@ -93,7 +94,7 @@
 						</label> |
 						<label>lzbear
 							<mouse class="tooltip linkBlue">(?)
-								<span>Only male light skin sprites</span>
+								<span>Only light skin male sprites</span>
 							</mouse>
 							<<radiovar "$creatorAlex" "lzbear">><<updatesidebarimg>><</radiovar>>
 						</label> |
@@ -109,6 +110,7 @@
 							</mouse>
 							<<radiovar "$creatorAlex" "RazzPixel2">><<updatesidebarimg>><</radiovar>>
 						</label> |
+						<label>Leni <<radiovar "$creatorAlex" "Leni">><<updatesidebarimg>><</radiovar>></label> |
 						<label>Custom <<radiovar "$creatorAlex" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 					<</switch>>
 					<<script>>
@@ -2238,7 +2240,7 @@
 					<br><br>
 				</div>
 			<</if>>
-			<<if $condoms isnot null and $condoms isnot undefined>>
+			<<if $condoms>>
 				<div class="settingsToggleItemWide">
 					<span class="green">Custom condom icons will display a different icon depending on the current setting. These icons are found in img/ui/condom.</span>
 					<br><br>
@@ -2276,7 +2278,7 @@
 					<br><br>
 				</div>
 			<</if>>
-			<<if $spray isnot null and $spray isnot undefined>>
+			<<if $spraymax>>
 				<div class="settingsToggleItemWide">
 					<span class="green">Custom pepper icons will display a different icon depending on the current setting. These icons are found in img/ui/pepper-spray.</span>
 					<br><br>
@@ -2333,6 +2335,20 @@
 	</div>
 <</widget>>
 
+<<widget "nnpcupdate">>
+	<<if $creatorJordan is "bluechiizu">>
+		<<set $creatorJordan to "sussyorenji">>
+	<</if>>
+
+	<<if $creatorKylar is "bluechiizu">>
+		<<set $creatorKylar to "sussyorenji">>
+	<</if>>
+
+	<<if $creatorWhitney is "bluechiizu">>
+		<<set $creatorWhitney to "sussyorenji">>
+	<</if>>
+<</widget>>
+
 :: NPC Sprite Options
 <<switch $selectedNPC>>
 	<<case "Alex">>
@@ -2357,7 +2373,7 @@
 		</label> |
 		<label>lzbear
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorAlex" "lzbear">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2373,6 +2389,7 @@
 			</mouse>
 			<<radiovar "$creatorAlex" "RazzPixel2">><<updatesidebarimg>><</radiovar>>
 		</label> |
+		<label>Leni <<radiovar "$creatorAlex" "Leni">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Custom <<radiovar "$creatorAlex" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Avery">>
 		<span class="gold">Avery:</span>
@@ -2409,7 +2426,7 @@
 		</label> |
 		<label>lzbear
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorAvery" "lzbear">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2420,6 +2437,18 @@
 			<<radiovar "$creatorAvery" "saturdayat11">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Zero_Otherian <<radiovar "$creatorAvery" "Zero_Otherian">><<updatesidebarimg>><</radiovar>></label> |
+		<label>Zero_Otherian2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin male sprites</span>
+			</mouse>
+			<<radiovar "$creatorAvery" "Zero_Otherian2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Zero_Otherian3
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin male sprites | Vanilla style alternate sprites</span>
+			</mouse>
+			<<radiovar "$creatorAvery" "Zero_Otherian3">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Ringo
 			<mouse class="tooltip linkBlue">(?)
 				<span>Only light skin female sprites</span>
@@ -2467,7 +2496,7 @@
 		</label> |
 		<label>morguesuite
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorBailey" "morguesuite">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2485,7 +2514,7 @@
 		</label> |
 		<label>Zero_Otherian
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorBailey" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2500,6 +2529,13 @@
 				<span>Only male sprites | dark edit by fishfish</span>
 			</mouse>
 			<<radiovar "$creatorBailey" "CARCARA">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>sunaraei <<radiovar "$creatorBailey" "sunaraei">><<updatesidebarimg>><</radiovar>></label> |
+		<label>sunaraei2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Alt coat sprites</span>
+			</mouse>
+			<<radiovar "$creatorBailey" "sunaraei2">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorBailey" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Black Wolf">>
@@ -2533,6 +2569,12 @@
 				<span>Alternate beastperson sprites</span>
 			</mouse>
 			<<radiovar "$creatorBlackWolf" "RazzPixel2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Narwhal
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorBlackWolf" "Narwhal">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorBlackWolf" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Briar">>
@@ -2639,7 +2681,7 @@
 		</label> |
 		<label>ryonanoia
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorEden" "ryonanoia">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2651,7 +2693,7 @@
 		</label> |
 		<label>lzbear
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorEden" "lzbear">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2681,6 +2723,18 @@
 			</mouse>
 			<<radiovar "$creatorEden" "CARCARA">><<updatesidebarimg>><</radiovar>>
 		</label> |
+		<label>Zero_Otherian
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Corvus Sonata
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorEden" "Corvus Sonata">><<updatesidebarimg>><</radiovar>>
+		</label> |
 		<label>Custom <<radiovar "$creatorEden" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Great Hawk">>
 		<span class="gold">Great Hawk:</span>
@@ -2698,7 +2752,7 @@
 		</label> |
 		<label>Narwhal
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only female light skin sprites</span>
+				<span>Only light skin female sprites</span>
 			</mouse>
 			<<radiovar "$creatorGreatHawk" "Narwhal">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2727,7 +2781,7 @@
 		</label> |
 		<label>ryonanoia
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorGwylan" "ryonanoia">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2755,22 +2809,17 @@
 		</label> |
 		<label>saturdayat11
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorHarper" "saturdayat11">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>ikan_busuk
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorHarper" "ikan_busuk">><<updatesidebarimg>><</radiovar>>
 		</label> |
-		<label>sunaraei
-			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
-			</mouse>
-			<<radiovar "$creatorHarper" "sunaraei">><<updatesidebarimg>><</radiovar>>
-		</label> |
+		<label>sunaraei <<radiovar "$creatorHarper" "sunaraei">><<updatesidebarimg>><</radiovar>></label> |
 		<label>kon <<radiovar "$creatorHarper" "kon">><<updatesidebarimg>><</radiovar>> |
 		<label>RazzPixel
 			<mouse class="tooltip linkBlue">(?)
@@ -2780,7 +2829,7 @@
 		</label> |
 		<label>116a
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only light skin androgenous sprites</span>
+				<span>Only light skin androgynous sprites</span>
 			</mouse>
 			<<radiovar "$creatorHarper" "116a">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2829,11 +2878,11 @@
 			</mouse>
 			<<radiovar "$creatorJordan" "Maganat">><<updatesidebarimg>><</radiovar>>
 		</label> |
-		<label>bluechiizu
+		<label>sussyorenji
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
-			<<radiovar "$creatorJordan" "bluechiizu">><<updatesidebarimg>><</radiovar>>
+			<<radiovar "$creatorJordan" "sussyorenji">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>wroom
 			<mouse class="tooltip linkBlue">(?)
@@ -2888,7 +2937,7 @@
 		</label> |
 		<label>lzbear
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorKylar" "lzbear">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -2918,15 +2967,15 @@
 			<<radiovar "$creatorKylar" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>kon <<radiovar "$creatorKylar" "kon">><<updatesidebarimg>><</radiovar>></label> |
-		<label>bluechiizu
+		<label>sussyorenji
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only female light skin sprites</span>
+				<span>Only light skin female sprites</span>
 			</mouse>
-			<<radiovar "$creatorKylar" "bluechiizu">><<updatesidebarimg>><</radiovar>>
+			<<radiovar "$creatorKylar" "sussyorenji">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>碱性糖
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only female light skin sprites</span>
+				<span>Only light skin female sprites</span>
 			</mouse>
 			<<radiovar "$creatorKylar" "碱性糖">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -3111,9 +3160,15 @@
 		</label> |
 		<label>Ringo
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only female sprites | Aoki Utage</span>
+				<span>Only dark skin female sprites</span>
 			</mouse>
 			<<radiovar "$creatorRemy" "Ringo">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Ringo2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites | Aoki Utage</span>
+			</mouse>
+			<<radiovar "$creatorRemy" "Ringo2">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorRemy" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "River">>
@@ -3148,7 +3203,7 @@
 		</label> |
 		<label>ryonanoia
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorRobin" "ryonanoia">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -3177,17 +3232,25 @@
 			<<radiovar "$creatorRobin" "ENNE">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>kon <<radiovar "$creatorRobin" "kon">><<updatesidebarimg>><</radiovar>></label> |
-		<label>Zero_Otherian
-			<mouse class="tooltip linkBlue">(?)
-				<span>Only male sprites</span>
-			</mouse>
-			<<radiovar "$creatorRobin" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
+		<label>Zero_Otherian <<radiovar "$creatorRobin" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Narwhal
 			<mouse class="tooltip linkBlue">(?)
 				<span>Only female sprites</span>
 			</mouse>
 			<<radiovar "$creatorRobin" "Narwhal">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Narwhal2
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only female sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "Narwhal2">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Diachuu!
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only male sprites</span>
+			</mouse>
+			<<radiovar "$creatorRobin" "Diachuu!">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorRobin" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Sam">>
@@ -3280,7 +3343,7 @@
 		</label> |
 		<label>lzbear
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorSydney" "lzbear">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -3299,10 +3362,11 @@
 		<label>kon <<radiovar "$creatorSydney" "kon">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Keykey
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male dark hair sprites</span>
+				<span>Only dark hair sprites</span>
 			</mouse>
 			<<radiovar "$creatorSydney" "Keykey">><<updatesidebarimg>><</radiovar>>
 		</label> |
+		<label>Leni <<radiovar "$creatorSydney" "Leni">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Custom <<radiovar "$creatorSydney" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Whitney">>
 		<span class="gold">Whitney:</span>
@@ -3338,7 +3402,7 @@
 		</label> |
 		<label>lzbear
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorWhitney" "lzbear">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -3350,11 +3414,11 @@
 		</label> |
 		<label>YO <<radiovar "$creatorWhitney" "YO">><<updatesidebarimg>><</radiovar>></label> |
 		<label>YO2 <<radiovar "$creatorWhitney" "YO2">><<updatesidebarimg>><</radiovar>></label> |
-		<label>bluechiizu
+		<label>sussyorenji
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only female light skin sprites</span>
+				<span>Only light skin female sprites</span>
 			</mouse>
-			<<radiovar "$creatorWhitney" "bluechiizu">><<updatesidebarimg>><</radiovar>>
+			<<radiovar "$creatorWhitney" "sussyorenji">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>kon <<radiovar "$creatorWhitney" "kon">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Zero_Otherian
@@ -3407,20 +3471,20 @@
 		</label> |
 		<label>ikan_busuk
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorWren" "ikan_busuk">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>morguesuite
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorWren" "morguesuite">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>YO <<radiovar "$creatorWren" "YO">><<updatesidebarimg>><</radiovar>></label> |
 		<label>Zero_Otherian
 			<mouse class="tooltip linkBlue">(?)
-				<span>Only male light skin sprites</span>
+				<span>Only light skin male sprites</span>
 			</mouse>
 			<<radiovar "$creatorWren" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
 		</label> |
@@ -3482,6 +3546,9 @@
 			<<radiovar "$creatorHaegish" "backseatluvrs">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorHaegish" "custom">><<updatesidebarimg>><</radiovar>></label><br>
+	<<case "Harlowe">>
+		<span class="gold">Harlowe:</span>
+		<label>Custom <<radiovar "$creatorHarlowe" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Pruti">>
 		<span class="gold">Pruti:</span>
 		<label>kiraa
@@ -3502,6 +3569,24 @@
 				<span>Only male dark skin sprites</span>
 			</mouse>
 			<<radiovar "$creatorPruti" "CARCARA">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Zero_Otherian
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin male sprites</span>
+			</mouse>
+			<<radiovar "$creatorPruti" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Baggy
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin male sprites</span>
+			</mouse>
+			<<radiovar "$creatorPruti" "Baggy">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>116a
+			<mouse class="tooltip linkBlue">(?)
+				<span>Only light skin male sprites</span>
+			</mouse>
+			<<radiovar "$creatorPruti" "116a">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorPruti" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Salem">>
@@ -3529,6 +3614,18 @@
 				<span>Only female sprites</span>
 			</mouse>
 			<<radiovar "$creatorSalem" "backseatluvrs">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>Zero_Otherian
+			<mouse class="tooltip linkBlue">(?)
+				<span>Androgynous sprites</span>
+			</mouse>
+			<<radiovar "$creatorSalem" "Zero_Otherian">><<updatesidebarimg>><</radiovar>>
+		</label> |
+		<label>fay
+			<mouse class="tooltip linkBlue">(?)
+				<span>Light skin androgynous sprites</span>
+			</mouse>
+			<<radiovar "$creatorSalem" "fay">><<updatesidebarimg>><</radiovar>>
 		</label> |
 		<label>Custom <<radiovar "$creatorSalem" "custom">><<updatesidebarimg>><</radiovar>></label><br>
 	<<case "Taylor">>

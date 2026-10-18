@@ -16,14 +16,14 @@
 	<!-- Draft default pronoun list. Random selection is part of initNPCgender widget -->
 	/% <<set _pro to ["m","f","f","m","m","m","m","m","f","f","m","m","f","m","f","m","m","m","f","m","m","m","m","m","f","m","m"]>> %/
 
-	<<set _tit to ["businessperson", "caretaker", "brothel owner", "dance coach", "club owner", "English teacher", "hunter", "shopkeeper", "doctor", "pious", "loner", "criminal", "headteacher", "swimming teacher", "sewer dweller", "maths teacher", "orphan", "cafe owner", "science teacher", "bully", "history teacher", "alpha", "photographer", "mayor", "farmer", "farmhand", "terror", "smuggler", "faithful", "reflection", "pirate", "horror", "explorer", "delinquent", "initiate", "witch", "mad", "trainer", "rival"]>>
+	<<set _tit to ["businessperson", "caretaker", "brothel owner", "dance coach", "club owner", "English teacher", "hunter", "shopkeeper", "doctor", "pious", "loner", "criminal", "headteacher", "swimming teacher", "sewer dweller", "maths teacher", "orphan", "cafe owner", "science teacher", "bully", "history teacher", "alpha", "photographer", "mayor", "farmer", "farmhand", "terror", "smuggler", "faithful", "reflection", "pirate", "horror", "explorer", "delinquent", "initiate", "witch", "mad", "trainer", "rival", "coach"]>>
 
-	<<set _ins to ["weak", "weak", "looks", "ethics", "ethics", "ethics", "looks", "weak", "skill", "ethics", "weak", "skill", "skill", "ethics", "weak", "ethics", "ethics", "ethics", "ethics", "looks", "skill", "weak", "skill", "looks", "looks", "weak", "looks", "ethics", "skill", "looks", "skill", "weak", "ethics", "skill", "skill", "looks", "skill", "skill"]>>
+	<<set _ins to ["weak", "weak", "looks", "ethics", "ethics", "ethics", "looks", "weak", "skill", "ethics", "weak", "skill", "skill", "ethics", "weak", "ethics", "ethics", "ethics", "ethics", "looks", "skill", "weak", "skill", "looks", "looks", "weak", "looks", "ethics", "skill", "looks", "skill", "weak", "ethics", "skill", "skill", "looks", "skill", "skill", "ethics"]>>
 
 	<!-- Type needs to conform to beast type: wolf, dog, etc. -->
-	<<set _tpe to ["human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "wolf", "human", "human", "human", "human", "hawk", "human", "human", "human", "human", "creature", "human", "human", "human", "cat", "rabbit", "human", "horse"]>>
+	<<set _tpe to ["human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "human", "wolf", "human", "human", "human", "human", "hawk", "human", "human", "human", "human", "creature", "human", "human", "human", "cat", "rabbit", "human", "horse", "human"]>>
 
-	<<set _swi to ["a","a","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","a","t","t","t","t","a","a","a"]>>
+	<<set _swi to ["a","a","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","a","a","a","t","a","a","t","a","a","a","t","t","t","t","a","a","a","a"]>>
 
 	<<for _i to 0; _i lt $NPCName.length; _i++>>
 
@@ -143,6 +143,7 @@
 			"haegish": {nam : "Haegish", title: "mad", insecurity: "looks", adult: 1, type: "rabbit", claws: "claws"},
 			"rowan": {nam : "Rowan", title: "trainer", insecurity: "skill", adult: 1},
 			"mintmocha": {nam : "Mint Mocha", title: "rival", insecurity: "skill", adult: 1, type: "horse"},
+			"harlowe": {nam : "Harlowe", title: "coach", insecurity: "ethics", adult: 1},
 		}>>
 		<<for _npc range Object.keys(_newNNPCs)>>
 			<<if !$NPCNameList.includes(_newNNPCs[_npc].nam)>>
@@ -326,6 +327,11 @@
 					<<set $NPCName[_i].eyeColour to "brown">>
 					<<set $NPCName[_i].hairColour to "mint green">>
 				<</if>>
+			<<case "Harlowe">>
+				<<if $NPCName[_i].eyeColour is 0 or $NPCName[_i].eyeColour is undefined>>
+					<<set $NPCName[_i].eyeColour to "hazel">>
+					<<set $NPCName[_i].hairColour to "wine">>
+				<</if>>
 			<<default>>
 				<<if $NPCName[_i].eyeColour is 0 or $NPCName[_i].eyeColour is undefined>>
 					<<set $NPCName[_i].eyeColour to ["purple","dark blue","light blue","amber","hazel","green","red","pink","grey", "light grey", "lime green"].pluck()>>
@@ -368,7 +374,7 @@
 			<<set $NPCName[_args[0]].virginity.penile to false>>
 			<<set $NPCName[_args[0]].virginity.vaginal to false>>
 			<<set $NPCName[_args[0]].virginity.kiss to false>>
-		<<case "Sam" "Mason" "Casey" "Rowan">>
+		<<case "Sam" "Mason" "Casey" "Rowan" "Harlowe">>
 			/* Has anal and oral virginity. Missing penile/vaginal, kiss, and handholding. */
 			<<set $NPCName[_args[0]].virginity.penile to false>>
 			<<set $NPCName[_args[0]].virginity.vaginal to false>>

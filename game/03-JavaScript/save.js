@@ -1397,7 +1397,7 @@ function settingsObjects(type) {
 					bodywritingImages: { bool: true, displayName: "Bodywriting images:" },
 					silhouetteEnabled: { bool: true, displayName: "NPC silhouettes:" },
 					sidebarAnimations: { bool: true, displayName: "Sidebar images:" },
-					blinkingEnabled: { bool: false, displayName: "Animated blinking:" },
+					blinkingEnabled: { bool: true, displayName: "Animated blinking:" },
 					combatAnimations: { bool: true, displayName: "Combat animations:" },
 					halfClosedEnabled: { bool: true, displayName: "Half-closed eyes:" },
 					characterLightEnabled: { bool: true, displayName: "Character lighting:" },

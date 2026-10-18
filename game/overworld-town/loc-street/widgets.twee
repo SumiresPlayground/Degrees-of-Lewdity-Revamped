@@ -3399,7 +3399,9 @@
 			<</if>>
 
 			/* Same probability regardless of time of day */
-			<<addevent "streetCatcall" 1.2>>
+			<<if !V.worn.under_lower.type.includes("naked")>>
+				<<addevent "streetCatcall" 1.2>>
+			<</if>>
 			<<addevent "streetSoloStalk" 1>>
 			<<if !V.worn.under_lower.type.includes("naked")>>
 				<<addevent "streetMoneyProposition" 1>>

@@ -718,7 +718,7 @@ The <<person>> sighs. "Fine." <<He>> chucks it onto the earth beside you. You cr
 <</if>>
 <br><br>
 
-"Great," the <<person>> says. "Prove it. Show me your <<if $player.gender_appearance is "m">>cock<<else>>pussy<</if>>."
+"Great," the <<person>> says. <<if $worn.under_lower.type.includes("naked")>>"Go ahead and flaunt your <<if $player.gender_appearance is "m">>cock<<else>>pussy<</if>> then."<<else>>"Prove it. Show me your <<if $player.gender_appearance is "m">>cock<<else>>pussy<</if>>."<</if>>
 <br><br>
 
 <<if hasSexStat("exhibitionism", 4)>>
@@ -740,6 +740,8 @@ The <<person>> sighs. "Fine." <<He>> chucks it onto the earth beside you. You cr
 	<<flaunting>> you lift your skirt.
 <<elseif $worn.upper.set is $worn.lower.set>>
 	<<flaunting>> you tug your $worn.upper.name down your chest, over you waist, and then your thighs.
+<<elseif $worn.under_lower.type.includes("naked")>>
+	<<flaunting>> you show off your <<if $player.gender_appearance is "m">>cock<<else>>pussy<</if>>.
 <<else>>
 	<<flaunting>> you tug your $worn.lower.name down your thighs.
 <</if>>

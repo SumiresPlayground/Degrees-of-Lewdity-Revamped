@@ -2311,6 +2311,12 @@ function effects() {
 		V.publicnudist = false
 		sWikifier(`<span class="lewd">You are no longer ashamed to be seen naked. You are now a nudist.</span><br><br>`);
 	}
+
+	if (V.prutipain === 1) {
+		V.pain += (1 * C.npc.Pruti.lust)
+		V.prutipain = 0
+		sWikifier(`<span class="purple">You feel your soul unraveling from an unseen wound. Is it yours or someone else's?</span><br><br>`);
+	}
 	
 	return fragment;
 }

@@ -5172,4 +5172,39 @@ setup.LocationImages = {
 			},
 		},
 	},
+	harvestgym: {
+		folder: "pub",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		emissive: {
+			condition: () => Weather.lightsOn,
+			image: "emissive.png",
+			color: "#deae66",
+			strength: 3,
+		},
+		weather: {
+			fogDistributionCurve: 1.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 5,
+					bottom: 0,
+				},
+				fog: {
+					top: 9,
+					bottom: 0,
+				},
+			},
+		},
+	},
 };

@@ -1196,7 +1196,7 @@ Renderer.CanvasModels.main = {
 			},
 			srcfn() {
 				if (V.NPCposition > 0 && V.NPCenable > 0 && V.creatorname === "png" && (V.NPCList[0].name === "'Mickey'" || V.npc.length > 0 || V.npcview)) {
-					const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha"];
+					const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha", "Harlowe"];
 					const currentNPC = V.npc[0] || V.selectedNPC;
 					const excludedNPCs = ["Mickey", "Brown Fox"];
 					let index, skin, skincolour, creatorvariable;
@@ -1818,7 +1818,7 @@ Renderer.CanvasModels.main = {
 
 			srcfn(options) {
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.eyevariant}/eyelids${half}.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/eyelids${half}.png`;
 			},
 			animationfn(options) {
 				return options.blink_animation;
