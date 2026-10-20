@@ -660,7 +660,8 @@
 
 <<widget "temple_bailey_options">>
 	<<babyRent>>
-	<<if $money gte $rentmoney + ($babyRent or 0)>>
+	<<bratTaxCalc>>
+	<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
 		<<link [[Pay up|Temple Bailey Pay]]>><</link>>
 		<br>
 		<<link [[Refuse|Temple Bailey Refuse]]>><<def 1>><<grace -30>><</link>><<lllgrace>>

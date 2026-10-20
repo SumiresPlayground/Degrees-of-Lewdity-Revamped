@@ -71,6 +71,7 @@ window.actionsreplace = actionsreplace;
 // prettier-ignore
 const combatActionColours = {
 	Default: {
+		"bailey-red": ["safeword"],
 		brat: [
 			/* leftaction or rightaction */
 			"steal", "penwhack", "freeface", "leftcovervagina", "leftcoverpenis", "leftcoveranus", "rightcovervagina", "rightcoverpenis", "rightcoveranus", "leftunderpull", "leftskirtpull", "leftlowerpull", "leftupperpull", "rightunderpull", "rightskirtpull", "rightlowerpull", "rightupperpull", "rightUndressOther", "leftUndressOther", "stopchoke", "clench", "shacklewhack", "leftfold", "rightfold", "dildowhack", "hypnosiswhack", "leftstruggleweak", "rightstruggleweak", "handpullpenis", "handpullvagina", "handpullanus", "leftresistW", "rightresistW", "leftstillW", "rightstillW", "penisremovecondom", "npcremovecondom",
@@ -293,7 +294,7 @@ function combatButtonAdjustments(name, extra) {
 	jQuery(document).on("change", "#listbox-" + name, { name, extra }, function (e) {
 		/* console.log(e.data); */
 		Wikifier.wikifyEval("<<replace #" + e.data.name + "Difficulty>><<" + e.data.name + "Difficulty" + e.data.extra + ">><</replace>>");
-		$("#" + e.data.name + "Select").removeClass("whiteList bratList meekList defList subList");
+		$("#" + e.data.name + "Select").removeClass("whiteList bratList meekList defList subList bailey-redList");
 		$("#" + e.data.name + "Select").addClass(combatListColor(e.data.name, undefined, e.data.extra) + "List");
 	});
 	return "";

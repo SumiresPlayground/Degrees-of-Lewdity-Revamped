@@ -57,7 +57,7 @@
 				<br>
 			<</if>>
 		<</if>>
-		<<if ($syndromebaileybuild gte 1 or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0)>>
+		<<if ($syndromebaileybuild gte 1 or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0) + ($bratTax or 0)>>
 			<span class="bailey-red bailey-stockholm"><<link "Offer yourself" "Bailey Offer Yourself">><</link>></span>
 			<br>
 		<</if>>
@@ -138,7 +138,7 @@
 		<br>
 		<<link [[Refuse|Rent Refuse Robin]]>><<def 1>><</link>>
 		<br>
-		<<if ($syndromebaileybuild gte 1 or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0)>>
+		<<if ($syndromebaileybuild gte 1 or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0) + ($bratTax or 0)>>
 			<span class="bailey-red bailey-stockholm"><<link "Offer yourself" "Bailey Offer Yourself">><</link>></span>
 			<br>
 		<</if>>
@@ -1496,8 +1496,8 @@ You're escorted by Bailey back to your bedroom and left alone.
 
 <<widget "baileyRentReclaimOption">>
 	<<if $bailey_confiscation>>
-		<<babyRent true>>
-		<<set _owed to $rentmoney + ($babyRent or 0)>>
+		<<babyRent true>><<bratTaxCalc>>
+		<<set _owed to $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
 		<<if $money gte _owed>>
 			<<highicon>><<link [[Reclaim your confiscated things|Bailey Rent Reclaim]]>><</link>> (<<printmoney _owed>>)
 			<br>

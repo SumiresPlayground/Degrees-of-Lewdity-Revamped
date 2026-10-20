@@ -8,7 +8,10 @@
 	<<molested>>
 	<<maninit>>
 	<<set $enemytrust -= 100>>
-	<<set $enemyanger += 30>>
+	<<set $enemyanger += 40>>
+	<<if $passagePrev is "Bailey's Office">>
+		<<set $enemyanger to 150>>
+	<</if>>
 	<<set $enemyarousalmax to 500>>
 
 <</if>>
@@ -102,7 +105,7 @@
 	<<violence 1>>
 	<<neutral 1>>
 	<<maninit>><<npcspank>><<npcidlegenitals>>
-	<<set $enemyanger to 50>>
+	<<set $enemyanger to 100>>
 	<<set $enemytrust to 0>>
 	<<set $enemyarousalmax to 500>>
 	<<set $enemyhealth to 600>><<set $enemyhealthmax to 600>>
@@ -664,7 +667,7 @@ The last strike resonates through the room. Your <<bottomsimple>> stings.
 <<He>> finds what <<hes>> looking for. A small jar. <<He>> sets it on the desk where you can see it. It looks to be some kind of salve.
 <br><br>
 
-The cap clicks open. Then <<his>> hand touches your <<bottomsimple>> — cold, slick, sharp-smelling. <<His>> fingers spread it across your skin in slow circles. Where they pass, the burn dulls.<<pain -10>><<lpain>><<stress -6>><<lstress>><<trauma -3>><<ltrauma>>
+The cap clicks open. <<His>> hand touches your <<bottomsimple>>, spreading the sharp-smelling salve across your skin in slow circles. The pain starts to ease.<<pain -10>><<lpain>><<stress -6>><<lstress>><<trauma -3>><<ltrauma>>
 <br><br>
 
 <<He>> works in silence, methodical and slow. <<His>> hand doesn't hurry. The cold of the salve turns warm.
@@ -1512,7 +1515,7 @@ You come around the desk. <<He>> watches you the whole way, arms loose on the ar
 	<<case 2>>
 	You feel Bailey's arms on either side of you moving about as <<he>> gets <<his>> desk set up for work. <<His>> <<print $NPCList[0].penisdesc>> sits inside your <<= $baileyWarming.hole is "anus" ? "ass" : "cunt">>. You do your best not to move.
 	<br><br>
-	<<He>> moves slightly to reach for something across the desk. <<if $player.penisExist>>Your cock twitches, squashed between your bodies.<<else>>You're suddenly aware how wet you've gotten.<</if>> When you try to adjust your hips to accomodate the new angle, <<his>> hand lands on your ass, firm and unyielding.  
+	<<He>> moves slightly to reach for something across the desk. <<if $player.penisExist>>Your cock twitches, squashed between your bodies.<<else>>You're suddenly aware how wet you've gotten.<</if>> When you try to adjust your hips to accommodate the new angle, <<his>> hand lands on your ass, firm and unyielding.  
 	<br><br>
 	<<if $player.bottomsize gte 5>>
 		Your <<bottom>> overflows from <<his>> hand, <<his>> fingers sinking into the pillowy flesh. 
@@ -1560,7 +1563,7 @@ You come around the desk. <<He>> watches you the whole way, arms loose on the ar
 				<<His>> fingers trace your <<penis>> head, unhurried.
 			<</if>>
 		<<else>>
-			<<His>> thumb trace slow circles against your clit, over and over.
+			<<His>> thumb traces slow circles against your clit, over and over.
 		<</if>>
 		The teasing motion seems to keep in time with the scratches of <<his>> pen.
 		<br><br>
@@ -1747,6 +1750,16 @@ You stay there kneeling for a moment, faced held to <<his>> <<= C.npc.Bailey.pen
 <br><br>
 
 <<unset $baileyWarming>>
+<<if $kylar_camera is 3>>
+	<<if !$syndromekylar and C.npc.Kylar.state is "active">>
+		A dreadful shiver passes through you. <span class="blue">Something is watching you.</span>
+		<<set $kylar_mad to 1>>
+	<<elseif C.npc.Kylar.state is "active">>
+		The owl plushie watches you, judging you from its perch.<<gggksuspicion>><<npcincr Kylar rage 10>>
+	<</if>>
+	<br><br>
+<</if>>
+
 <<link [[Next|Orphanage]]>><<endevent>><</link>>
 <br>
 
@@ -1773,6 +1786,16 @@ You gather your clothes off the floor and leave.
 <<set $daily.baileyOfficeSex to 1>><<set $daily.baileyVisit to 100>>
 
 <<clotheson>><<unset $baileyWarming>>
+<<if $kylar_camera is 3>>
+	<<if !$syndromekylar and C.npc.Kylar.state is "active">>
+		A dreadful shiver passes through you. <span class="blue">Something is watching you.</span>
+		<<set $kylar_mad to 1>>
+	<<elseif C.npc.Kylar.state is "active">>
+		The owl plushie watches you, judging you from its perch.<<gggksuspicion>><<npcincr Kylar rage 10>>
+	<</if>>
+	<br><br>
+<</if>>
+
 <<link [[Next|Orphanage]]>><<endevent>><</link>>
 <br>
 
@@ -1828,6 +1851,16 @@ You steady yourself on your feet. Bailey is already scooting <<his>> chair forwa
 <<tearful>> you leave Bailey's office. <<clotheson>>
 
 <<unset $baileyWarming>>
+<<if $kylar_camera is 3>>
+	<<if !$syndromekylar and C.npc.Kylar.state is "active">>
+		A dreadful shiver passes through you. <span class="blue">Something is watching you.</span>
+		<<set $kylar_mad to 1>>
+	<<elseif C.npc.Kylar.state is "active">>
+		The owl plushie watches you, judging you from its perch.<<gggksuspicion>><<npcincr Kylar rage 10>>
+	<</if>>
+	<br><br>
+<</if>>
+
 <<link [[Next|Orphanage]]>><<endevent>><</link>>
 <br>
 
