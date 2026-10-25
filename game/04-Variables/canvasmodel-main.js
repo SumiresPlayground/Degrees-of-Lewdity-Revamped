@@ -153,6 +153,10 @@ replace (?<!["'\w])_(?=\w) with T.
  * For each body writing SLOT (key in $skin):
  * - "writing_SLOT" - key in setup.bodywwriting, "" for no writing
  *
+ * BODY FRECKLE OPTIONS:
+ * --------------------
+ * "bodyFreckles": "none"|"upper"|"full"
+ *
  * DRIPPING FLUIDS OPTIONS:
  * -----------------------
  * "drip_vaginal": ""|"Start"|"VerySlow"|"Slow"|"Fast"|"VeryFast"
@@ -284,6 +288,8 @@ Renderer.CanvasModels.main = {
 			"skin_type": "light",
 			"skin_tone": 0,
 			"skin_scars":false,
+			"bodyFreckles": "none",
+			"freckles": false,
 			// Hair
 			"hair_colour": "red",
 			"hair_colour_gradient": {
@@ -312,7 +318,6 @@ Renderer.CanvasModels.main = {
 			"facestyle": "default",
 			"facevariant": "default",
 			"ears_position": "back",
-			"freckles": false,
 			"trauma": false,
 			"blink": true,
 			"eyes_half": false,
@@ -1736,7 +1741,7 @@ Renderer.CanvasModels.main = {
 		 */
 		"freckles": {
 			filters: ["tan"],
-			z: ZIndices.freckles,
+			z: ZIndices.faceFreckles,
 
 			srcfn(options) {
 				return `img/face/${options.facestyle}/${options.mouthvariant}/freckles.png`;
@@ -1927,8 +1932,8 @@ Renderer.CanvasModels.main = {
 			},
 		},
 		"blush": {
-			filters: ["tan"],
 			z: ZIndices.blush,
+			filters: ["tan"],
 
 			srcfn(options) {
 				return `img/face/${options.facestyle}/${options.eyevariant}/blush-${options.blush}.png`;
@@ -4019,6 +4024,76 @@ Renderer.CanvasModels.main = {
 			},
 			showfn(options) {
 				return !!options.writing_right_thigh;
+			},
+		},
+
+		/*
+				███████ ██████  ███████  ██████ ██   ██ ██      ███████ ███████ 
+				██      ██   ██ ██      ██      ██  ██  ██      ██      ██      
+				█████   ██████  █████   ██      █████   ██      █████   ███████ 
+				██      ██   ██ ██      ██      ██  ██  ██      ██           ██ 
+				██      ██   ██ ███████  ██████ ██   ██ ███████ ███████ ███████
+		*/
+		"freckles_base": {
+			filters: ["tan"],
+			z: ZIndices.bodyFreckles,
+			animation: "idle",
+
+			srcfn(options) {
+				return `img/body/freckles/base-${options.body_type}-freckles-${options.bodyFreckles}.png`;
+			},
+			showfn(options) {
+				return options.bodyFreckles !== "none" && !options.mannequin;
+			},
+		},
+		"freckles_pregnant_belly": {
+			filters: ["tan"],
+			z: ZIndices.bellyBase + 0.1,
+			animation: "idle",
+
+			srcfn(options) {
+				return between(options.belly, 1, 24) ? `img/body/freckles/pregnant-belly/${options.belly}-freckles.png` : "";
+			},
+			showfn(options) {
+				return options.bodyFreckles === "full" && !options.mannequin && !!options.belly;
+			},
+		},
+		"freckles_left_arm": {
+			filters: ["tan"],
+			animation: "idle",
+
+			srcfn(options) {
+				if (options.arm_left === "cover") {
+					return "img/body/freckles/left-arm-cover-freckles.png";
+				} else if (options.arm_left === "idle") {
+					return `img/body/freckles/left-arm-idle-${options.body_type}-freckles.png`;
+				}
+			},
+			showfn(options) {
+				return options.bodyFreckles !== "none" && !options.mannequin && options.arm_left !== "none";
+			},
+			zfn(options) {
+				return options.arm_left === "cover" ? ZIndices.left_cover_arm + 0.1 : ZIndices.armsidle + 0.1;
+			},
+		},
+		"freckles_right_arm": {
+			filters: ["tan"],
+			animation: "idle",
+
+			srcfn(options) {
+				if (options.arm_right === "cover") {
+					return "img/body/freckles/right-arm-cover-freckles.png";
+				} else if (options.arm_right === "hold") {
+					return "img/body/freckles/right-arm-hold-freckles.png";
+				} else if (options.arm_right === "idle") {
+					return `img/body/freckles/right-arm-idle-${options.body_type}-freckles.png`;
+				}
+			},
+			showfn(options) {
+				return options.bodyFreckles !== "none" && !options.mannequin && options.arm_right !== "none";
+			},
+			zfn(options) {
+				return ["cover", "hold"].includes(options.arm_right) ? ZIndices.right_cover_arm + 0.1 : ZIndices.armsidle + 0.1;
 			},
 		},
 

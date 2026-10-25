@@ -690,10 +690,10 @@
 		<<set $fallenangeltf to 1>>
 		<<set $permanentTransform to 1>>
 		<<earnFeat "Fallen Angel">>
+		<<set $speechFallenTransform to 1>>
 	<<elseif $angel gte 4>>
 		<span class="red">Your halo shatters and fades.</span>
 	<</if>>
-	<<set $speechfallentransform to 1>>
 	<<if $angel gt 0>>
 		<<angelTransform 99>>
 	<</if>>
@@ -719,12 +719,9 @@
 			<<case 3>>
 				<<if $fallenbuild gte 30>>
 					<<set $fallenangel to 4>>
-					<span class="gold">The familiar feeling of soft feathers fills you with hope.</span>
+					<<run $timeMessages.pushUnique("fallenAngelWings")>>
 					<<clearwings>>
-					<<set $transformationParts.fallenAngel.wings to "fallenplus">>
-					<<if $transformationParts.bird.wings is "default">>
-						<<set $transformationParts.fallenAngel.wings to "hidden">>
-					<</if>>
+					<<set $transformationParts.fallenAngel.wings to ($transformationParts.fallenAngel.wings is "classic" ? "classic-fallenplus" : "fallenplus")>>
 				<</if>>
 			<<case 99>>
 				<<set $specialTransform to 0>>
