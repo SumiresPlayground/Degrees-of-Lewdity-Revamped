@@ -3497,6 +3497,7 @@ function initFoodstuff() {
 
 	setup.moddedFoodstuff = {
 		mouse_ear: {
+			modder: "New World",
 			name: "mouse_ear",
 			singular: "mouse ear",
 			plural: "mouse ears",
@@ -3517,6 +3518,7 @@ function initFoodstuff() {
 			},
 		},
 		glacier_crowfoot: {
+			modder: "New World",
 			name: "glacier_crowfoot",
 			singular: "glacier_crowfoot",
 			plural: "glacier crowfoot",
@@ -3537,6 +3539,7 @@ function initFoodstuff() {
 			},
 		},
 		green_manure: {
+			modder: "New World",
 			name: "green_manure",
 			singular: "green manure",
 			plural: "green manure",
@@ -3557,6 +3560,7 @@ function initFoodstuff() {
 			},
 		},
 		honeysuckle: {
+			modder: "New World",
 			name: "honeysuckle",
 			singular: "honeysuckle",
 			plural: "honeysuckles",

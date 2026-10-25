@@ -1211,16 +1211,12 @@ Renderer.CanvasModels.main = {
 					else if (currentNPC === "Night Monster") ismonster = V.nightmonstermonster;
 					if (!excludedNPCs.includes(currentNPC)) {
 						index = npcs.indexOf(currentNPC);
-						/*skin = V.NPCName[index].skincolour;
-						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;*/
 						skin = V.NPCName[index].skincolour;
-						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;
 					} else if (currentNPC === "Brown Fox") {
 						index = 7;
-						/*skin = V.NPCName[index].skincolour;
-						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;*/
 						skin = V.NPCName[index].skincolour;
-						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;
 					}
 					creatorvariable = V["creator" + currentNPC.replace(/\s+/g, '')];
 
