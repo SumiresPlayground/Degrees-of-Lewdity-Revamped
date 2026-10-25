@@ -316,7 +316,8 @@ You don't fight <<him>>. You let <<him>> walk you.
 	<<homeBabyIntro>>
 <</if>>
 <<babyRent>>
-<<if $money gte $rentmoney + ($babyRent or 0)>>
+<<bratTaxCalc>>
+<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
 	<<person1>>
 	<<if C.npc.Bailey.dom gte 70>>
 		"You know the amount." <<He>> holds out <<his>> hand, palm up.
@@ -340,7 +341,7 @@ You don't fight <<him>>. You let <<him>> walk you.
 			<br>
 		<</if>>
 	<</if>>
-	<<if ($syndromebailey is true or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0)>>
+	<<if ($syndromebailey is true or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0) + ($bratTax or 0)>>
 		<span class="bailey-red bailey-stockholm"><<link "Offer yourself" "Bailey Offer Yourself">><</link>></span>
 		<br>
 	<</if>>

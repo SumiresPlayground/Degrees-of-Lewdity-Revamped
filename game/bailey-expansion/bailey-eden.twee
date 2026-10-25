@@ -175,11 +175,12 @@ Bailey stands. <<He>> shoulders the rod.
 <<He>> holds out <<his>> hand. "Pay up."
 <br><br>
 
-<<if $money gte $rentmoney + ($babyRent || 0)>>
+<<bratTaxCalc>>
+<<if $money gte $rentmoney + ($babyRent || 0) + ($bratTax or 0)>>
 	<<link [[Pay|Bailey Eden Lake Solo Pay]]>><</link>>
 	<br>
 <</if>>
-<<if $syndromebaileybuild gte 1 and $money gte $rentmoney + ($babyRent || 0)>>
+<<if $syndromebaileybuild gte 1 and $money gte $rentmoney + ($babyRent || 0) + ($bratTax or 0)>>
 	<span class="red bailey-stockholm"><<link [[Offer yourself|Bailey Eden Lake Solo Offer]]>><</link>></span>
 	<br>
 <</if>>

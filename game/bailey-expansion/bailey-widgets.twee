@@ -8,7 +8,7 @@ To add a new collar, just add it to that registry in rbe.js.
 <<widget "lotus_listbox">>
 	/* Build the dropdown as raw HTML so options can be grouped by pack (SugarCube's <<listbox>> can't group).
 	A handler in rbe.js saves the choice to $bailey_collar_art and redraws the sidebar. */
-	<span id="collar-listbox"><<script>>
+	<<script>>
 		var reg = window.baileyCollarRegistry || [];
 		var hasCustom = !!(window.baileyCollarImages && window.baileyCollarImages.custom);
 		var current = (State.variables.bailey_collar_art) || "reiyu_goose";
@@ -39,18 +39,14 @@ To add a new collar, just add it to that registry in rbe.js.
 		}
 		html += '</select>';
 		$(this.output).append(html);
-	<</script>></span>
+	<</script>>
 <</widget>>
 
 <<widget "lotus_collar_buttons">>
 	<span class="custom-collar-btn no-numberify"><<button "Upload your own...">><<script>>window.baileyCollarUpload();<</script>><</button>></span>
 	<<if window.baileyCollarImages && window.baileyCollarImages.custom>>
 		<span style="font-size: 1.2em;"> | </span>
-		<span class="custom-collar-btn no-numberify"><<button "Remove custom">><<script>>
-			window.baileyCollarRemoveCustom();
-			/* Redraw the listbox so the "Custom (your image)" option disappears. */
-			$.wiki('<<replace "#collar-listbox">><<lotus_listbox>><</replace>>');
-			<</script>><</button>></span>
+		<span class="custom-collar-btn no-numberify"><<button "Remove custom">><<script>>window.baileyCollarRemoveCustom();<</script>><</button>></span>
 	<</if>>
 <</widget>>
 
@@ -72,6 +68,14 @@ To add a new collar, just add it to that registry in rbe.js.
 		<</if>>
 	<</silently>><<print _bt_out>><</widget>>
 
+<<widget "baileySafeWord">><<print $baileySafeWord>><</widget>>
+
+<<widget "BaileySafeWord">><<print $baileySafeWord.charAt(0).toUpperCase() + $baileySafeWord.slice(1)>><</widget>>
+
+<<widget "baileySafeWordLine">>You use your safe word. "<span class="purple"><<BaileySafeWord>></span>."<</widget>>
+
+<<widget "baileySafeWordClean">><<set $baileySafeWord to $baileySafeWord.replace(/[^\p{L}\p{N} \u0027\-]/gu, "").trim() || "Marshmallow">><</widget>>
+
 <<widget "baileyTitleClean">><<set $bailey_title to String($bailey_title || "").replace(/[<>]/g, "").trim().slice(0, 15) || "Bailey">><</widget>>
 
 /* Narration version: only prints the title once $bailey_title_unlocked is set. */
@@ -85,7 +89,7 @@ To add a new collar, just add it to that registry in rbe.js.
 
 
 :: Bailey Title Choose
-<<npc Bailey>><<person1>><<baileyTitleClean>>
+<<person1>><<baileyTitleClean>>
 <span class="gold">What do you call <<him>>?</span>
 <br><br>
 
@@ -111,7 +115,7 @@ To add a new collar, just add it to that registry in rbe.js.
 	<hr>
 	<span class="gold">Collar art style:</span>
 	<br><br>
-	<<lotus_listbox>>
+	<span id="collar-listbox"><<lotus_listbox>></span>
 	<br>
 	<<lotus_collar_buttons>>
 	<br>
@@ -167,11 +171,42 @@ Type a name (15 characters max):
 <br>
 
 
+:: Bailey Safe Word Change
+<<person1>>
+<span class="bailey-red">Choose a safe word to use with Bailey:</span>
+<br>
+<<textbox "$baileySafeWordEntry" $baileySafeWord autofocus>>
+<br><br>
+<<link [[Confirm|Bailey Safe Word Change Set]]>><</link>>
+<br>
+<<link [[Back|Bailey's Office]]>><<unset $baileySafeWordEntry>><<endevent>><</link>>
+<br>
+
+
+:: Bailey Safe Word Change Set
+<<person1>>
+<<set _previousSafeWord to $baileySafeWord>>
+<<set $baileySafeWord to $baileySafeWordEntry>><<unset $baileySafeWordEntry>>
+<<baileySafeWordClean>>
+<<if baileySafeWordIsName($baileySafeWord)>>
+	<<set $baileySafeWord to _previousSafeWord>>
+	It seems Bailey won't let you use someone's name as your safe word.
+	<br><br>
+	<<link [[Choose a word|Bailey Safe Word Change]]>><</link>>
+	<br>
+<<else>>
+	Your safe word is now <span class="purple"><<baileySafeWord>></span>.
+	<br><br>
+<</if>>
+<<link [[Back|Bailey's Office]]>><<endevent>><</link>>
+<br>
+
+
 :: Bailey Collar Art Choose
-<<npc Bailey>><<person1>>
+<<person1>>
 <span class="gold">Collar art style:</span>
 <br><br>
-<<lotus_listbox>>
+<span id="collar-listbox"><<lotus_listbox>></span>
 <br>
 <<lotus_collar_buttons>>
 <br>
@@ -195,6 +230,11 @@ Type a name (15 characters max):
 
 	<<if $syndromebailey>>
 		<<mysteryicon>><<link [[Change what you call <<him>>|Bailey Title Choose]]>><<set $bailey_title_from to "office">><</link>>
+		<br>
+	<</if>>
+
+	<<if $baileySafeWord>>
+		<<mysteryicon>><<link [[Change your safe word|Bailey Safe Word Change]]>><</link>>
 		<br>
 	<</if>>
 
@@ -437,6 +477,19 @@ Call sites own their own spacing. */
 /* $bratTax = points * 1/10 of current rent. Call beside <<babyRent>>. */
 <<widget "bratTaxCalc">>
 	<<set $bratTax to (($bailey_brat and $bailey_brat.points) || 0) * Math.floor($rentmoney / 10)>>
+<</widget>>
+
+<<widget "baileyOfferPay">>
+	<<bratTaxCalc>>
+	<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
+		<<money `-($rentmoney + ($babyRent or 0) + ($bratTax or 0))` "baileyRent">>
+		<<set $baileyRefusedToPayTotal to $baileyRefusedToPayTotal lt $rentmoney + ($babyRent || 0) ? 0 : $baileyRefusedToPayTotal - ($rentmoney + ($babyRent || 0))>>
+		<<set $bailey_brat to { points: 0, reasons: [] }>><<set $bratTax to 0>>
+		<<if $bailey_confiscation>><<run baileyConfiscationRestore()>><</if>>
+		<<set $rentmoney to [10000,30000,50000,70000,100000,150000,200000][Math.clamp($rentstage,1,6)]>>
+		<<rentmod>>
+		<<set $rentstage += 1>>
+	<</if>>
 <</widget>>
 
 /* bratTax for the journal */

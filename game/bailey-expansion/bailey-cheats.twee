@@ -18,7 +18,8 @@
 	</div>
 	<div class="settingsToggleItem">
 		<span class="gold">Stockholm Syndrome</span>
-		<<numberStepper "Stockholm Points" `V.syndromebaileybuild` { callback: value => { V.syndromebaileybuild = value }, min: 0, max: 10, step: 1, percentage: false }>>
+		<<set _stockholmFloor to baileyStockholmFloor()>>
+		<<numberStepper "Stockholm Points" `V.syndromebaileybuild` { callback: value => { V.syndromebaileybuild = value }, min: _stockholmFloor, max: baileyStockholmFloorMax(), step: 1, percentage: false }>>
 		<<numberStepper "Times Offered" `V.bailey_offered` { callback: value => { V.bailey_offered = value }, min: 0, step: 1, percentage: false }>>
 		<<numberStepper "Wraith Encounters" `V.bailey_wraith_seen` { callback: value => { V.bailey_wraith_seen = value }, min: 0, step: 1, percentage: false }>>
 		<br>

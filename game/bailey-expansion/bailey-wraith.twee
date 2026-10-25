@@ -58,7 +58,7 @@
 		"The Elk sees you too, serpent.",
 	)>>
 <</if>>
-<<if Object.values($children).length gte 1>>
+<<if getBornChildren().length gte 1>>
 	<<run $wraithPool.push("Eggs in the serpent's nest.")>>
 <</if>>
 <<if $baileydefeated gte 5>>
@@ -395,7 +395,9 @@ Bailey shuffles some paper together.
 :: Wraith Snatched Home Bailey 5
 <<effects>><<getTarget>>
 <<npc Bailey>><<person1>>
-<<set Time.setTime(6, 0)>><<set $moonstate to "morning">>
+<<set _minsToSunrise to (6 * 60 - (Time.hour * 60 + Time.minute) + 1440) % 1440>>
+<<if _minsToSunrise gt 0 and _minsToSunrise lte 720>><<pass _minsToSunrise>><</if>>
+<<set $moonstate to "morning">>
 
 The office window lightens. Grey, then pale gold. The light falls across <<his>> desk and onto the floor, where you sit.
 <br><br>
