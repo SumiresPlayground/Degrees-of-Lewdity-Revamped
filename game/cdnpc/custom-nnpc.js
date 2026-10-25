@@ -216,11 +216,7 @@ function modelPrepareNNPCBody(NPCname, setName) {
 	// Skin
 	if(NPCname !== "Ivory Wraith"){
 		T.modeloptions.skin_type = V.customNNPC.customData[NPCname].skintone + "gyaru";
-		if(NNPCData.skincolour === "black"){
-			T.modeloptions.skin_tone = 50 + V.customNNPC.customData[NPCname].skintan;
-		}else{
-			T.modeloptions.skin_tone = 0 + V.customNNPC.customData[NPCname].skintan;
-		}
+		T.modeloptions.skin_tone = NNPCData.skincolour ?? 0;
 	}else {
 		T.modeloptions.skin_type = "wraith";
 		T.modeloptions.filters["tan"] = {
@@ -238,6 +234,7 @@ function modelPrepareNNPCBody(NPCname, setName) {
 	T.modeloptions.eyevariant = V.customNNPC.customData[NPCname].eyevariant || "default";
 	T.modeloptions.mouthvariant = V.customNNPC.customData[NPCname].mouthvariant || "default";
 	T.modeloptions.freckles = V.customNNPC.customData[NPCname].freckles === true;
+	T.modeloptions.bodyFreckles = V.customNNPC.customData[NPCname].body_freckles;
 	T.modeloptions.ears_position = (V.customNNPC.customData[NPCname].ears_position) ? "front" : "back";
 	T.modeloptions.brows_colour = NNPCData.hairColour;
 

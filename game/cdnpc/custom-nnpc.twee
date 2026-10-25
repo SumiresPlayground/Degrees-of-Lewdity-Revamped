@@ -213,27 +213,6 @@
             <</capture>>
             <<options-render-custom-nnpc-update>>
         <</link>>
-        |
-        <<link "Skin colour">>
-            <<set _customNNPCRandomTone = ["", "r", "g", "b", "y" ] >>
-            <<capture _n>>
-                <<for _n to 0; _n < $NPCNameList.length; _n ++>>
-                    <<if $NPCNameList[_n] !== "Ivory Wraith">>
-                        <<set
-                            $customNNPC.customData[$NPCNameList[_n]].skintone
-                        to
-                            _customNNPCRandomTone[Math.floor(Math.random() * _customNNPCRandomTone.length)]
-                        >>
-                        <<set
-                            $customNNPC.customData[$NPCNameList[_n]].skintan
-                        to
-                            Math.floor((Math.random() * 50))
-                        >>
-                    <</if>>
-                <</for>>
-            <</capture>>
-            <<options-render-custom-nnpc-update>>
-        <</link>>
     </div>
     <hr>
     <div class="settingsToggleIndent">
@@ -1267,31 +1246,6 @@
         <</capture>>
         </div>
     </div>
-    <<if _args[0] !== "Ivory Wraith">>
-        <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-skin" style="display:none">
-            <div class="settingsToggleItemWide">
-                <span class="gold">Skin Tone:</span><br>
-                <label>Neutral <<radiobutton "$customNNPC.customData[_args[0]].skintone" "" autocheck>></label> |
-                <label>Warm <<radiobutton "$customNNPC.customData[_args[0]].skintone" "r" autocheck>></label> |
-                <label>Golden <<radiobutton "$customNNPC.customData[_args[0]].skintone" "g" autocheck>></label> |
-                <label>Olive <<radiobutton "$customNNPC.customData[_args[0]].skintone" "y" autocheck>></label> |
-                <label>Cool <<radiobutton "$customNNPC.customData[_args[0]].skintone" "b" autocheck>></label>
-            </div>
-            <div class="settingsToggleItemWide">
-                <div class="numberslider-inline">
-                    <label><span class="gold">Tan:</span>
-                        <<numberslider "_NNPCskinTan" $customNNPC.customData[_args[0]].skintan 0 50 1 {
-                            onInputChange: value => {
-                                V.customNNPC.customData[V.customNNPC.settingsActivePreview].skintan = value;
-                                Wikifier.wikifyEval("<<options-render-custom-nnpc-update _customNNPCClothingSet>>");
-                            },
-                                value: v => `${v}%`
-                        }>>
-                    </label>
-                </div>
-            </div>
-        </div>
-    <</if>>
     <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-bodyshape" style="display:none">
         <div class="settingsToggleItemWide">
             <span class="gold">Body shape:</span><br>
@@ -1303,14 +1257,31 @@
             <</capture>>
         </div>
         <div class="settingsToggleItemWide">
+            <span class="gold">Toggles:</span><br>
             <label>
                 <<checkbox "$customNNPC.customData[_args[0]].testicles" false true autocheck>> Has testicles
             </label>
             <br>
             <label>
-                <<checkbox "$customNNPC.customData[_args[0]].freckles" false true autocheck>> Has freckles
+                <<checkbox "$customNNPC.customData[_args[0]].freckles" false true autocheck>> Face freckles
             </label>
         </div>
+        <div class="settingsToggleItemWide">
+            <span class="gold">Body Freckles:</span><br>
+            <label>None <<radiobutton "$customNNPC.customData[_args[0]].body_freckles" "none" autocheck>></label> |
+            <label>Upper Body <<radiobutton "$customNNPC.customData[_args[0]].body_freckles" "upper" autocheck>></label> |
+            <label>Full Body <<radiobutton "$customNNPC.customData[_args[0]].body_freckles" "full" autocheck>></label>
+        </div>
+        <<if _args[0] !== "Ivory Wraith">>
+            <div class="settingsToggleItemWide">
+                <span class="gold">Skin Tone:</span><br>
+                <label>Neutral <<radiobutton "$customNNPC.customData[_args[0]].skintone" "" autocheck>></label> |
+                <label>Warm <<radiobutton "$customNNPC.customData[_args[0]].skintone" "r" autocheck>></label> |
+                <label>Golden <<radiobutton "$customNNPC.customData[_args[0]].skintone" "g" autocheck>></label> |
+                <label>Olive <<radiobutton "$customNNPC.customData[_args[0]].skintone" "y" autocheck>></label> |
+                <label>Cool <<radiobutton "$customNNPC.customData[_args[0]].skintone" "b" autocheck>></label>
+            </div>
+        <</if>>
     </div>
     <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-hairstyles" style="display:none">
         <<custom-nnpc-settings-tab-hairstyles $customNNPC.settingsActivePreview>>
