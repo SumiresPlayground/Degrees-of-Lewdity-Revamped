@@ -238,6 +238,7 @@ function modelPrepareNNPCBody(NPCname, setName) {
 	T.modeloptions.eyevariant = V.customNNPC.customData[NPCname].eyevariant || "default";
 	T.modeloptions.mouthvariant = V.customNNPC.customData[NPCname].mouthvariant || "default";
 	T.modeloptions.freckles = V.customNNPC.customData[NPCname].freckles === true;
+	T.modeloptions.ears_position = (V.customNNPC.customData[NPCname].ears_position) ? "front" : "back";
 	T.modeloptions.brows_colour = NNPCData.hairColour;
 
 	// Eyes
@@ -756,11 +757,52 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 
 
 	// Arm position
-	T.modeloptions.arm_right  =
-		setup.clothes_all_slots.some(slot => ["right_hold", "clutch"].includes(worn[slot]?.holdPosition)) ||
-		(worn.handheld.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.handheld?.holdPosition))
-	? "cover" : "idle";
-	T.modeloptions.arm_left = setup.clothes_all_slots.some(slot => worn[slot]?.holdPosition === "left_hold") ? "cover" : "idle";
+	function useCover(arm){
+		const leftCoverClothes = setup.clothes_all_slots.some(slot => ["left_cover", "clutch", "cover_both"].includes(worn[slot]?.holdPosition));
+		const rightCoverClothes = setup.clothes_all_slots.some(slot => ["right_cover", "cover_both"].includes(worn[slot]?.holdPosition));
+
+		if ((arm === "left" && leftCoverClothes) || (arm === "right" && rightCoverClothes)) return true;
+		/*
+		if (arm === "right" && setup.clothes.handheld[V.worn.handheld.index]?.holdingPreventsRightCover) return false;
+		if (arm === "left" && setup.clothes.handheld[V.worn.handheld.index]?.holdingPreventsLeftCover) return false;
+		if (!wings && ((arm === "left" && coverBreasts) || (arm === "right" && coverCrotch))) return true;
+		*/
+		return false;
+	}
+
+	function useHold(arm) {
+		let rightHoldClothes =
+			setup.clothes_all_slots.some(slot => ["right_hold", "clutch"].includes(worn[slot]?.holdPosition)) ||
+			(worn.handheld.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.handheld?.holdPosition));
+
+		if(typeof(playerIsXChanged) === "function"){
+			rightHoldClothes = rightHoldClothes ||
+				(worn.bag?.name !== undefined && worn.bag.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.bag?.holdPosition));
+		}
+
+		const leftHoldClothes = setup.clothes_all_slots.some(slot => worn[slot]?.holdPosition === "left_hold");
+
+		return (arm === "right" && rightHoldClothes) || (arm === "left" && leftHoldClothes);
+	}
+
+	// Arm position
+	if(useCover("right")){
+		T.modeloptions.arm_right = "cover";
+	}
+	else if(useHold("right")){
+		T.modeloptions.arm_right = "hold";
+	} else {
+		T.modeloptions.arm_right = "idle";
+	}
+
+	if(useCover("left")){
+		T.modeloptions.arm_left = "cover";
+	}
+	else if(useHold("left")){
+		T.modeloptions.arm_left = "hold";
+	} else {
+		T.modeloptions.arm_left = "idle";
+	}
 
 	if("prop_arm_position" in T.modeloptions){
 		switch (T.modeloptions.prop_arm_position){

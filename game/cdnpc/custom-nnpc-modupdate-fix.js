@@ -170,3 +170,13 @@ DefineMacro("custom-nnpc-inflict-baldness", function () {
         }
     }
 })
+
+DefineMacro("custom-nnpc-fix-ears", function () {
+    for (let i = 0; i < V.NPCNameList.length; i++) {
+        let npcName = V.NPCNameList[i];
+        if (V.customNNPC.customData[npcName].ears_position === undefined){
+            V.customNNPC.customData[npcName].ears_position = false
+        }
+    }
+    V.customNNPC.versionFixes["ears"] = true;
+})

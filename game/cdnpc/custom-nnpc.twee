@@ -864,6 +864,11 @@
             </label>
         </div>
         <div class="settingsToggleItemWide">
+            <label>
+                <<checkbox "$customNNPC.customData[_args[0]].ears_position" false true autocheck>> <span class="gold">Tuck hair behind ear</span>
+            </label>
+        </div>
+        <div class="settingsToggleItemWide">
             <span class="gold">Hairstyle (fringe):</span><br>
             <<listbox "$customNNPC.customData[_args[0]].hairstyle_fringe" autoselect>>
                 <<optionsfrom _fringeTypeByName>>
@@ -1400,6 +1405,17 @@
                     <<custom-nnpc-options-reset-outfit>>
                 <</button>>
                 <br>
+                <<if SugarCube.Browser.isMobile.any() is true>>
+                    <textarea id="custom-nnpc-outfit-settings-textarea" rows="4" cols="40" onclick="if(V.disableAutoSelect == false)this.select();"></textarea>
+                    <br>
+                    <input type="button" id="custom-nnpc-outfit-settings-import" value="Load">
+                    <input type="button" id="custom-nnpc-outfit-settings-export" value="Save">
+                <<else>>
+                    <span class="gold">Load from file <mouse class="tooltip linkBlue">(?)<span>May need to save changes before they are reflected ingame.</span></mouse></span> :
+                    <input id="custom-nnpc-outfit-settings-import" type="file" value="Load from file">
+                    <input type="button" id="custom-nnpc-outfit-settings-export" value="Save to file">
+                <</if>>
+                <<custom-nnpc-outfit-import-export-setup>>
             </div>
             <<set _clothesTargets to []>>
             <<run
