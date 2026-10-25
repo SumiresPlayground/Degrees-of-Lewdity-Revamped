@@ -180,3 +180,22 @@ DefineMacro("custom-nnpc-fix-ears", function () {
     }
     V.customNNPC.versionFixes["ears"] = true;
 })
+
+DefineMacro("custom-nnpc-fix-v5_13", function () {
+    for (let i = 0; i < V.NPCNameList.length; i++) {
+        let npcName = V.NPCNameList[i];
+        if("skintan" in V.customNNPC.customData[npcName] && typeof C.npc[npcName].skincolour === "number"){
+            if (C.npc[npcName].skincolour > 50){
+                C.npc[npcName].skincolour = 50
+            }else{
+                C.npc[npcName].skincolour = 0
+            }
+
+            C.npc[npcName].skincolour += V.customNNPC.customData[npcName].skintan
+        }
+        if(!"body_freckles" in V.customNNPC.customData[npcName]){
+            V.customNNPC.customData[npcName].body_freckles = "none";
+        }
+    }
+    V.customNNPC.versionFixes["v5_13"] = true;
+})

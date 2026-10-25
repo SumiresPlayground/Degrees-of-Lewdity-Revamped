@@ -19,7 +19,8 @@ function nnpcImagePreviewUpdate() {
       "#npcSettingsMenu .macro-checkbox,"+
       "#npcSettingsMenu .macro-textbox,"+
       "#npcSettingsMenu .custom-nnpc-tear-slider,"+
-      "#npcSettingsMenu .macro-numberbox";
+      "#npcSettingsMenu .macro-numberbox,"+
+      "#npcSettingsMenu input";
 
     jQuery(document).on("change", targets, (event) => {
         updateAll();
@@ -672,9 +673,6 @@ function customNNPCSettingsTabSetup(){
 
     // Body
     T.CustomNNPCSettingsTabs.push(["Body", "custom-nnpc-settings-tab-bodyshape"]);
-    if(V.customNNPC.settingsActivePreview !== "Ivory Wraith"){
-        T.CustomNNPCSettingsTabs.push(["Skin colour", "custom-nnpc-settings-tab-skin"]);
-    }
 
     T.CustomNNPCSettingsTabs.push(["Makeup", "custom-nnpc-settings-tab-makeup"]);
 
