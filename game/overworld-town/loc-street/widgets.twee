@@ -283,20 +283,20 @@
 		<<link [[Pet|Street Dog Pet]]>><<stress -6>><</link>><<lstress>>
 		<br>
 	<</if>>
-	<<if $wolfgirl gte 6>>
-		<<link [[Growl|Street Dog Growl]]>><<stress -6>><<transform wolf 1>><</link>><<wolfgirl>>
+	<<if $transformationParts.wolf.tail isnot "disabled">>
+		<<link [[Growl|Street Dog TF React]]>><<set $phase to 0>><<stress -6>><<transform wolf 1>><</link>><<wolfgirl>>
 		<br>
 	<</if>>
-	<<if $cat gte 6>>
-		<<link [[Hiss|Street Dog Hiss]]>><<def 1>><<transform cat 1>><</link>><<cat>>
+	<<if $transformationParts.cat.tail isnot "disabled">>
+		<<link [[Hiss|Street Dog TF React]]>><<set $phase to 1>><<def 1>><<transform cat 1>><</link>><<cat>>
 		<br>
 	<</if>>
-	<<if $fox gte 6>>
-		<<link [[Yip|Street Dog Yipp]]>><<transform fox 1>><</link>><<fox>>
+	<<if $transformationParts.fox.tail isnot "disabled">>
+		<<link [[Yip|Street Dog TF React]]>><<set $phase to 2>><<transform fox 1>><</link>><<fox>>
 		<br>
 	<</if>>
-	<<if $harpy gte 6>>
-		<<link [[Screech|Street Dog Screech]]>><<transform bird 1>><</link>><<harpy>>
+	<<if $transformationParts.bird.wings isnot "disabled">>
+		<<link [[Screech|Street Dog TF React]]>><<set $phase to 3>><<transform bird 1>><</link>><<harpy>>
 		<br>
 	<</if>>
 	<<link [[Ignore|Street Dog Ignore]]>><</link>>
@@ -1857,19 +1857,19 @@
 <<widget "kylarWatchStalkSex">>
 	<<set $kylarwatchedtimer to 0>><<rngWraith 2 "night">>
 
-		<<npc Kylar>><<person1>>Something tugs your arm. It's Kylar. "H-hi," <<he>> gulps. <<He>> tries to pull you toward a dark alley. "We need privacy. I need you to do things to me."
-		<br><br>
-		<<if $wraith.state and _wraithEvent and (["haunt", "despair"].includes($wraith.state) or ["dead","sold"].includes($wraith.offspring))>>
-			<<set $wraith.mimic to "Kylar">><<set $wraith.exit to "town">>
-			<<link [[Go with Kylar|Wraith Mimic Fight]]>><<set $sexstart to 1>><</link>><<promiscuous1>><<gglove>><<llksuspicion>>
-			<br>
-			<<link [[Refuse|Wraith Mimic Kylar]]>><</link>><<lllove>><<gggksuspicion>>
-		<<else>>
-			<<link [[Go with Kylar|Street Kylar Sex]]>><<set $sexstart to 1>><<npcincr Kylar love 5>><<npcincr Kylar rage -10>><</link>><<promiscuous1>><<gglove>><<llksuspicion>>
-			<br>
-			<<link [[Refuse|Street Kylar Refuse]]>><<npcincr Kylar love -5>><<npcincr Kylar rage 20>><</link>><<lllove>><<gggksuspicion>>
-		<</if>>
-		<br><br>
+	<<npc Kylar>><<person1>>Something tugs your arm. It's Kylar. "H-hi," <<he>> gulps. <<He>> tries to pull you toward a dark alley. "We need privacy. I need you to do things to me."
+	<br><br>
+	<<if $wraith.state and _wraithEvent and (["haunt", "despair"].includes($wraith.state) or ["dead","sold"].includes($wraith.offspring))>>
+		<<set $wraith.mimic to "Kylar">><<set $wraith.exit to "town">>
+		<<link [[Go with Kylar|Wraith Mimic Fight]]>><<set $sexstart to 1>><</link>><<promiscuous1>><<gglove>><<llksuspicion>>
+		<br>
+		<<link [[Refuse|Wraith Mimic Kylar]]>><</link>><<lllove>><<gggksuspicion>>
+	<<else>>
+		<<link [[Go with Kylar|Street Kylar Sex]]>><<set $sexstart to 1>><<npcincr Kylar love 5>><<npcincr Kylar rage -10>><</link>><<promiscuous1>><<gglove>><<llksuspicion>>
+		<br>
+		<<link [[Refuse|Street Kylar Refuse]]>><<npcincr Kylar love -5>><<npcincr Kylar rage 20>><</link>><<lllove>><<gggksuspicion>>
+	<</if>>
+	<br><br>
 <</widget>>
 
 <<widget "kylarWatchStalkMolestation">>
@@ -3707,25 +3707,21 @@
 			<</if>>
 
 			/* Same probability regardless of time of day */
-			<<if !V.worn.under_lower.type.includes("naked")>>
-				<<addevent "streetCatcall" 1.2>>
-			<</if>>
+			<<addevent "streetCatcall" 1.2>>
 			<<addevent "streetSoloStalk" 1>>
-			<<if !V.worn.under_lower.type.includes("naked")>>
-				<<addevent "streetMoneyProposition" 1>>
-			<</if>>
+			<<addevent "streetMoneyProposition" 1>>
 			<<addevent "streetClothingTorn" 0.5>>
 			<<addevent "streetFlirt" 1>>
 			<<addevent "streetBreastGlance" 1>>
 			<<addevent "streetWaterBalloon" 0.5>>
 
-			<<addevent "streetbottomgrope" 1>>
-			<<addevent "streetexshow" 0.5>>
-			<<addevent "streetfamerape" 1>>
-			<<addevent "streetmodelshow" 0.5>>
-			<<addevent "streetnpcflash" 0.5>>
-			<<addevent "streetrocks" 0.5>>
-			<<addevent "streetvan" 1>>
+			<<addevent "streetBottomGrope" 1>>
+			<<addevent "streetExhibitionismShow" 0.5>>
+			<<addevent "streetFameRape" 1>>
+			<<addevent "streetModelShow" 0.5>>
+			<<addevent "streetNPCFlash" 0.5>>
+			<<addevent "streetRocks" 0.5>>
+			<<addevent "streetVan" 1>>
 
 			<<if $bus is "elk">>
 				<<addevent "elkBreeze" 1>>
@@ -3800,7 +3796,7 @@
 					<<addevent "rainyDayHarass" 0.6>>
 				<</if>>
 
-				<<if $bus is "high" and !Time.schoolDay and $bullytimer gte $rng and C.npc.Whitney.init is 1 and !["dungeon", "pillory"].includes(C.npc.Whitney.state) and C.npc.Whitney.dom gte 10 and $worn.lower.name isnot 'naked'>>
+				<<if $bus is "high" and !Time.schoolDay and $bullytimer gte $rng and C.npc.Whitney.init is 1 and !["dungeon", "pillory"].includes(C.npc.Whitney.state) and C.npc.Whitney.dom gte 10>>
 					<<addinlineevent "whitneyHigh" 3>>
 						<<set $bullytimer to 0>>
 						<<if random(1, 100) gte 51 and ($whitneyromance is 1 or ($whitneyskirtcheck gte 1 and $settings.forcedCrossdressingEnabled and C.npc.Whitney.dom gte 18)) and !$daily.whitney.shoppingCentre and !($weekly.whitneyShoppingCentre gte 2)>>
@@ -3842,7 +3838,7 @@
 			<</if>>
 
 			<<if $hallucinations gte 2 and $settings.tentaclesEnabled>>
-				<<addevent "streettentacle" 0.9>>
+				<<addevent "streetTentacle" 0.9>>
 			<</if>>
 
 			<<if $fame.sex gte random(1, 1000)>>

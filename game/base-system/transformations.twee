@@ -3256,44 +3256,6 @@
 	<<set $makeup.browscolour to clone($haircolourreset)>>
 <</widget>>
 
-
-<<widget "revealTransformations">>
-	/* DO NOT USE without calling rehideTransformations before scene end */
-	<<set $tfPartsHidden to clone(V.transformationParts)>>
-	<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
-		<<if V.transformationParts.bird.wings is "hidden" and (V.transformationParts.demon.wings is "hidden" or V.transformationParts.angel.wings is "hidden" or V.transformationParts.fallenAngel.wings is "hidden")>>
-		<<else>>
-			<<set $_excludeWings to true>>
-		<</if>>
-	<</if>>
-	<<set $_keys to Object.keys(V.transformationParts)>>
-	<<for $_i to 0; $_i lt $_keys.length; $_i++>>
-		<<set $_key to $_keys[$_i]>>
-		<<for $_label, $_value range V.transformationParts[$_key]>>
-			<<if $_value is "hidden" and $_key isnot "traits" and !["pubes", "pits", "cheeks"].includes($_label) and !($_label is "wings" and $_excludeWings is true)>>
-				<<set V.transformationParts[clone($_key)][clone($_label)] to "default">>
-				<<set $tfPartsHidden[clone($_key)][clone($_label)] to "hideLater">>
-				<<set _unhidden to true>>
-			<</if>>
-		<</for>>
-	<</for>>
-<</widget>>
-
-<<widget "rehideTransformations">>
-	<<if $tfPartsHidden>>
-		<<set $_keys to Object.keys($tfPartsHidden)>>
-		<<for $_i to 0; $_i lt $_keys.length; $_i++>>
-			<<set $_key to $_keys[$_i]>>
-			<<for $_label, $_value range $tfPartsHidden[$_key]>>
-				<<if $_value is "hideLater">>
-					<<set V.transformationParts[clone($_key)][clone($_label)] to "hidden">>
-				<</if>>
-			<</for>>
-		<</for>>
-		<<unset $tfPartsHidden>>
-	<</if>>
-<</widget>>
-
 <<widget "clearcheeks">>
 	<<set $transformationParts.wolf.cheeks = "disabled">>
 	<<set $transformationParts.fox.cheeks = "disabled">>

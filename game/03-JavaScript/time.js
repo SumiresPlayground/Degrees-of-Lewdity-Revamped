@@ -1895,7 +1895,7 @@ function dailyNPCEffects() {
 	if (V.harloweknown === 1) C.npc.Harlowe.title = "boss";
 	else C.npc.Harlowe.title = "coach";
 
-	wikifier("relationshipclamp");
+	wikifier("relationshipClamp");
 }
 
 function dailyPlayerEffects() {
