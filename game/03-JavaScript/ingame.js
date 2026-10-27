@@ -1824,7 +1824,7 @@ function isPossibleLoveInterest(name) {
 		case "Mint Mocha":
 			return V.mintromance === 1;
 		case "Bailey":
-			return V.syndromebailey === true;
+			return V.syndromeBailey === true;
 		default:
 			return false;
 	}

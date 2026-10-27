@@ -430,7 +430,7 @@
 						<<dancedarryl>>
 					<</if>>
 				<<else>>
-					<<if Time.isWeekEnd() and !$weekly.baileyDanceSeen and (!$bailey_monogamous or baileyStraying()) and $rng gte 90>>
+					<<if Time.isWeekEnd() and !$weekly.baileyDanceSeen and (!$baileyMonogamous or baileyStraying()) and $rng gte 90>>
 						<<dancebailey>>
 					<<elseif $rng gte 99>>
 						<<dancedarryl>>
@@ -757,7 +757,7 @@
 		<br><br>
 	<</if>>
 
-	<<if $renttime lte 0 and $uncomfortable.prostituting is false>>
+	<<if $rentTime lte 0 and $uncomfortable.prostituting is false>>
 		<span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 		<br><br>
 
@@ -782,7 +782,7 @@
 		The thought overwhelms you. You flee the stage.<<ggtrauma>><<trauma 12>><<ggstress>><<stress 12>>
 		<<set $daily.baileyStripClub to "rent">>
 		<<set $danceevent to "finish">>
-	<<elseif $renttime lte 0>>
+	<<elseif $rentTime lte 0>>
 		<span class="bailey-red">It's <<baileyTitleNarration>>.</span> <<nnpc_He "Bailey">> stares at you.
 		<br><br>
 
@@ -791,7 +791,7 @@
 		<<set $danceevent to 0>>
 	<<else>>
 		<span class="purple">It's <<baileyTitleNarration>>.</span>
-		<<if ($bailey_monogamous or isLoveInterest("Bailey")) and C.npc.Bailey.lust gte 80>>
+		<<if ($baileyMonogamous or isLoveInterest("Bailey")) and C.npc.Bailey.lust gte 80>>
 			<<set $daily.baileyStripClub to "lust">>
 		<</if>>
 	<</if>>
