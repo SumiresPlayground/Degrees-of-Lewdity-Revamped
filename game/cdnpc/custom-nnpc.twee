@@ -278,7 +278,7 @@
 
 <<widget "options-render-custom-nnpc">>
 
-    <<selectmodel "customNNPC" "">>
+    <<selectmodel "customNNPC" "options">>
     <<modelprepare-nnpc-body $customNNPC.settingsActivePreview _args[0]>>
     <<modelprepare-nnpc-clothes $customNNPC.settingsActivePreview _args[0] _CustomNNPCForceSetReset>>
     <<rendermodel>>
@@ -444,6 +444,54 @@
             <</for>>
         <</replace>>
     <</if>>
+<</widget>>
+
+
+<<widget "options-custom-nnpc-tanning-layers-list-update">>
+	<<if $passage.includes("Settings") || $passage === "Start">>
+	    <<replace #options-custom-nnpc-tanning-layers-list>>
+            <<for _n to 0; _n lt $customNNPC.customData[$customNNPC.settingsActivePreview].tanning_layers.length; _n++>>
+                <<options-custom-nnpc-tanning-layers-list-item $customNNPC.settingsActivePreview _n>>
+            <</for>>
+        <</replace>>
+    <</if>>
+<</widget>>
+
+<<widget "options-custom-nnpc-tanning-layers-list-item">>
+    <div class="settingsToggleItemWide">
+        <span class="gold">Tanning Layer Value:</span>
+        <<numberbox "$customNNPC.customData[_args[0]].tanning_layers[_args[1]].value" $customNNPC.customData[_args[0]].tanning_layers[_args[1]].value>>
+        <br>
+        <label>
+            <span class="gold">Only apply during specific months: </span> <<checkbox "$customNNPC.customData[_args[0]].tanning_layers[_args[1]].monthSpecific" false true autocheck>>
+        </label>
+        <br>
+        <<if $customNNPC.customData[_args[0]].tanning_layers[_args[1]].monthSpecific>>
+            <span>First Month:</span>
+            <<numberbox "$customNNPC.customData[_args[0]].tanning_layers[_args[1]].monthMin" $customNNPC.customData[_args[0]].tanning_layers[_args[1]].monthMin>>
+            <br>
+            <span>Last Month:</span>
+            <<numberbox "$customNNPC.customData[_args[0]].tanning_layers[_args[1]].monthMax" $customNNPC.customData[_args[0]].tanning_layers[_args[1]].monthMax>>
+            <br>
+        <</if>>
+        <span class="gold">Skin colour adjust:
+        <mouse class = "tooltip linkBlue">(?)<span>Changes base skin colour if the tanline layer is active.<br>Value between -100 and 100.</span></mouse>
+        </span>
+        <<numberbox "$customNNPC.customData[_args[0]].tanning_layers[_args[1]].colorAdjust" $customNNPC.customData[_args[0]].tanning_layers[_args[1]].colorAdjust>>
+        <br>
+
+        <br>
+        <br>
+        <button class="macro-button" type="button" @onclick="`
+            if(confirm('Do you want to delete this tanning layer?')){
+                V.customNNPC.customData['${_args[0]}'].tanning_layers.splice(${_args[1]},1);
+                Wikifier.wikifyEval('<<options-custom-nnpc-tanning-layers-list-update>>');
+                Wikifier.wikifyEval('<<options-render-custom-nnpc-update _customNNPCClothingSet>>');
+            }
+            `">
+            Remove
+        </button>
+    </div>
 <</widget>>
 
 <<widget "options-custom-nnpc-custom-layers-list-item">>
@@ -1283,6 +1331,19 @@
             </div>
         <</if>>
     </div>
+    <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-tanning" style="display:none">
+        <span class="gold">Tanning Layers:</span><br>
+        <p>
+            Generate tanline bases using the clothes tab, then use this tab to tweak the tanline.
+            <br>
+            You can use the sandbox outfit for that purpose.
+        </p><br>
+        <div id="options-custom-nnpc-tanning-layers-list">
+            <<for _n to 0; _n lt $customNNPC.customData[_args[0]].tanning_layers.length; _n++>>
+                <<options-custom-nnpc-tanning-layers-list-item $customNNPC.settingsActivePreview _n>>
+            <</for>>
+        </div>
+    </div>
     <div class="settingsToggleItemWide custom-nnpc-settings-tab" id="custom-nnpc-settings-tab-hairstyles" style="display:none">
         <<custom-nnpc-settings-tab-hairstyles $customNNPC.settingsActivePreview>>
     </div>
@@ -1338,7 +1399,7 @@
             </span></mouse>
             :</span><br>
             <<if $passage !== "Start">>
-                <<set _customNnpcAllOutfits to {"Naked":"naked"}>>
+                <<set _customNnpcAllOutfits to {"Naked":"naked", "Sandbox":"CDNPC_OUTFIT_SANDBOX"}>>
                 <<custom-nnpc-get-all-sets>>
                 <<listbox "_customNNPCClothingSet" autoselect>>
                     <<optionsfrom _customNnpcAllOutfits>>
@@ -1374,6 +1435,10 @@
                 <br>
                 <<button "Regenerate default outfit">>
                     <<custom-nnpc-options-reset-outfit>>
+                <</button>>
+                <br>
+                <<button "Generate tanlines from outfit">>
+                    <<custom-nnpc-options-generate-tanlines>>
                 <</button>>
                 <br>
                 <<if SugarCube.Browser.isMobile.any() is true>>

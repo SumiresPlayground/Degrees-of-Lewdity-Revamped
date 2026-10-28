@@ -103,6 +103,11 @@ Renderer.CanvasModels.customNNPC = {
 			options = this.defaultOptions();
 		}
 
+		let tmpTanning = {};
+		tmpTanning = V.player.skin.layers
+		V.player.skin.layers = options.tanning_layers;
+
+		T.modeloptions.skip_skin_caching = true;
 		// Try catching otherwise if the evil hack has been applied then we're in trouble
 		try{
 			Renderer.CanvasModels.main.postprocess.bind(this)(options);
@@ -111,6 +116,8 @@ Renderer.CanvasModels.customNNPC = {
 			console.error("Custom NNPC Postprocess Failed:" + e);
 		}
 
+		V.player.skin.layers = tmpTanning;
+		T.modeloptions.skip_skin_caching = false;
 	},
 	layers: copyLayers(),
 

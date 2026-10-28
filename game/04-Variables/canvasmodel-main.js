@@ -1081,7 +1081,7 @@ Renderer.CanvasModels.main = {
 
 		if (options.tanningEnabled) {
 			if (V.options.tanLines) {
-				if (!Skin.cachedLayers) {
+				if (!Skin.cachedLayers || ("skip_skin_caching" in options && options.skip_skin_caching === true)) {
 					const canvasModel = this;
 
 					// Don't modify the original options object
@@ -1144,7 +1144,8 @@ Renderer.CanvasModels.main = {
 							options.generatedLayers[`tan_rightarm${i}`] = (genlayer_tanning("rightarm", i, layers.arms, alpha));
 						}
 					}
-					Skin.cachedLayers = options.generatedLayers;
+					if (!"skip_skin_caching" in options || options.skip_skin_caching === false)
+						{Skin.cachedLayers = options.generatedLayers;}
 				} else {
 					options.generatedLayers = Skin.cachedLayers;
 				}
