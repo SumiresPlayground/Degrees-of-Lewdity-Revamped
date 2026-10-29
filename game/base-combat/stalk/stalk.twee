@@ -927,8 +927,8 @@
 				`Bailey sighs. "When will you learn that you aren't getting away?" <<His>> hand closes around your arm painfully. "Come here."`
 			]>>
 			<<set $NPCList[0].intro to 0>>
-			<<print $_catchLines[($baileyCatchCounter || 0) % 10]>>
-			<<set $baileyCatchCounter to (($baileyCatchCounter || 0) + 1) % 10>>
+			<<print $_catchLines[$baileyCatchCounter % 10]>>
+			<<set $baileyCatchCounter to ($baileyCatchCounter + 1) % 10>>
 		<<case "Briar">>
 			<<switch random(1, 4)>>
 				<<case 4>>"Let me show you who's boss around here."
@@ -1067,7 +1067,7 @@
 				<<case 1>><<He>> stands in front of you and raises <<his>> phone. You hear a click. <span class="green"><<He>> leaves without a word.</span>
 			<</switch>>
 			<br><br>
-			You let out a shaky breath as <<he>> walks on.<<stress 6>><<gstress>><<npcincr Bailey lust 1>><<glust "Bailey">>
+			You let out a shaky breath as <<he>> walks on.<<stress 6>><<gstress>><<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 		<<case "Briar">>
 			<<switch random(1, 3)>>
 				<<case 3>><<He>> smirks, eyes you up and down, <span class="green">then walks right past you.</span>

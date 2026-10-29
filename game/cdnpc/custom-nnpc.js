@@ -154,12 +154,15 @@ function filterLayerForClothing(layer) {
 function modelPrepareNNPCBody(NPCname, setName) {
 	T.modeloptions.additional_filters = {};
 	T.modeloptions.additional_masks = [];
+	T.modeloptions.tanning_layers = [];
 
 	if(NPCname === ""){
 		T.modeloptions.force_defaults = true;
+		T.modeloptions.tanningEnabled = false;
 		return;
 	}else{
 		T.modeloptions.force_defaults = false;
+		T.modeloptions.tanningEnabled = true;
 	}
 
 	T.modeloptions.force_naked = setName.toLowerCase() === "naked";
@@ -211,8 +214,6 @@ function modelPrepareNNPCBody(NPCname, setName) {
 	T.modeloptions.breast_size = breastSizeMap[NNPCData.breastsize] || 0;
 	T.modeloptions.breasts = "default";
 
-	T.modeloptions.tanningEnabled = false;
-
 	// Skin
 	if(NPCname !== "Ivory Wraith"){
 		T.modeloptions.skin_type = V.customNNPC.customData[NPCname].skintone + "gyaru";
@@ -227,6 +228,16 @@ function modelPrepareNNPCBody(NPCname, setName) {
 			},
 		};
 	}
+
+	for (let i = 0; i < V.customNNPC.customData[NPCname].tanning_layers.length; i++) {
+		const layer = V.customNNPC.customData[NPCname].tanning_layers[i];
+		if(layer.monthSpecific && (Time.month < layer.monthMin || Time.month > layer.monthMax)){
+			continue;
+		}
+		T.modeloptions.tanning_layers.push(layer)
+		T.modeloptions.skin_tone += layer.colorAdjust;
+	}
+	T.modeloptions.skin_tone = T.modeloptions.skin_tone.clamp(0,100);
 
 	// Face
 	T.modeloptions.facestyle = "default";

@@ -24,8 +24,8 @@ You are in the wolf cave. The ceiling hangs low. There's a breeze blowing from t
 	<<wolfcavestate>>
 <</if>>
 <br><br>
-<<if Time.month is 4 and Time.monthDay is 1 and $renttime lte 0 and !$bailey_wolfsuit_seen>>
-	<<set $bailey_wolfsuit_seen to true>><<set $renttime to 7>><<set $rentday to Time.weekDay>>
+<<if Time.month is 4 and Time.monthDay is 1 and $rentTime lte 0 and !$baileySeen.includes("wolfsuit")>>
+	<<baileySeenAdd "wolfsuit">><<set $rentTime to 7>><<set $rentDay to Time.weekDay>>
 	<<include "Wolf Cave Bailey Wolfsuit">>
 <<elseif isPregnancyEnding() and !$possessed>>
 	<<pregnancyBirthWolfCave>>

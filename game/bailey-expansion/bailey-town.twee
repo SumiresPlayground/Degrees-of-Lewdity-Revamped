@@ -145,8 +145,8 @@ You cross the street. Bailey sees you before you reach <<him>>. <<He>> ends the 
 
 	<<destinationeventend>>
 <<elseif $stalk_end is "ambush">>
-	<<set _physique_topple to random(2000, 18000)>>
-	<<if $physique gte _physique_topple>>
+	<<set _physiqueTopple to random(2000, 18000)>>
+	<<if $physique gte _physiqueTopple>>
 		You end up on top of <<him>>. <<He>> looks annoyed with you. <<His>> chest rises and falls evenly under your palm. You try to decide what to do next.
 		<br><br>
 
@@ -157,7 +157,7 @@ You cross the street. Bailey sees you before you reach <<him>>. <<He>> ends the 
 		<br>
 		<<link [[Run|Bailey Stalk Ambush]]>><<set $phase to 0>><<def 1>><<npcincr Bailey dom -1>><</link>><<ldom>>
 		<br>
-		<<if $syndromebailey is true>>
+		<<if $syndromeBailey is true>>
 			<<link [[Kiss Bailey, and then run|Bailey Stalk Ambush]]>><<set $phase to 1>><<npcincr Bailey love 1>><<npcincr Bailey dom -1>><</link>><<glove>><<ldom>><<kissvirginitywarning>>
 			<br>
 		<</if>>
@@ -234,7 +234,7 @@ The orphanage door shuts behind you. <<His>> grip doesn't loosen until you're in
 <br><br>
 
 <<set $outside to 0>><<set $bus to "home">>
-<<set $bailey_ambush_advantage to true>>
+<<set $baileyAmbushAdvantage to Time.days>>
 <<link [[Next|Street Bailey Rent]]>><</link>>
 <br>
 
@@ -297,7 +297,7 @@ You don't fight <<him>>. You let <<him>> walk you.
 <</if>>
 <br><br>
 
-<<if $baileydefeatedchain gte 3 or ($robinpaid is 1 and $robinromance gte 1 and $bus is "home" and $robinfirstrentfight isnot 1 and $renttime lte -14)>>
+<<if $baileydefeatedchain gte 3 or ($robinpaid is 1 and $robinromance gte 1 and $bus is "home" and $robinfirstrentfight isnot 1 and $rentTime lte -14)>>
 	<<generateRole 1 0 "thug">><<generateRole 2 0 "thug">>
 	A rough-looking <<person2>><<person>> and <<person3>><<person>> stand next to <<person1>><<him>>.
 	The <<person2>><<person>> cracks <<his>> knuckles, and the <<person3>><<person>> grins darkly.
@@ -317,7 +317,7 @@ You don't fight <<him>>. You let <<him>> walk you.
 <</if>>
 <<babyRent>>
 <<bratTaxCalc>>
-<<if $money gte $rentmoney + ($babyRent or 0) + ($bratTax or 0)>>
+<<if $money gte $rentMoney + ($babyRent or 0) + $baileyBratTax>>
 	<<person1>>
 	<<if C.npc.Bailey.dom gte 70>>
 		"You know the amount." <<He>> holds out <<his>> hand, palm up.
@@ -341,7 +341,7 @@ You don't fight <<him>>. You let <<him>> walk you.
 			<br>
 		<</if>>
 	<</if>>
-	<<if ($syndromebailey is true or $baileydefeated gte 5) and $money gte $rentmoney + ($babyRent || 0) + ($bratTax or 0)>>
+	<<if ($syndromeBailey is true or $baileydefeated gte 5) and $money gte $rentMoney + ($babyRent || 0) + $baileyBratTax>>
 		<span class="bailey-red bailey-stockholm"><<link "Offer yourself" "Bailey Offer Yourself">><</link>></span>
 		<br>
 	<</if>>
@@ -358,7 +358,7 @@ You don't fight <<him>>. You let <<him>> walk you.
 
 	<<rentnopay true>>
 <</if>>
-<<set $renttime to 7>><<set $rentday to Time.weekDay>>
+<<set $rentTime to 7>><<set $rentDay to Time.weekDay>>
 
 :: Bailey Strip Club Confront
 <<set $outside to 1>><<set $location to "town">><<set $bus to "connudatus">><<effects>>
@@ -380,7 +380,7 @@ You step out onto Connudatus Street. A hand suddenly lands on your shoulder. <sp
 	<br>
 	<<link [[Run|Street Stalk Run Bailey]]>><<set $molestationstart to 1>><</link>>
 	<br>
-<<elseif $bailey_monogamous>> /* Only reachable if Bailey is straying. */
+<<elseif $baileyMonogamous>> /* Only reachable if Bailey is straying. */
 	<<if baileyWeeksMissed() gte 3>>
 		"There you are. You little shit," <<he>> says, voice low. <<Hes>> smiling at you, but there's not a shred of compassion behind the expression. The gaze <<he>> fixes you with burns. "Is this fun for you? Wasting my time? Leading me on?"
 	<<else>> /* 2+ weekends missed */
@@ -394,7 +394,7 @@ You step out onto Connudatus Street. A hand suddenly lands on your shoulder. <sp
 	"My flat." His tone leaves you little room to argue. "Now."
 	<br><br>
 
-	<<link [[Go with <<him>>|Bailey Flat Weekend Visit]]>><<baileySeenAdd "flatUnlock">><<set $bailey_flat_dragged to true>><<pass 10>><</link>>
+	<<link [[Go with <<him>>|Bailey Flat Weekend Visit]]>><<baileySeenAdd "flatUnlock">><<set $baileyFlatDragged to true>><<pass 10>><</link>>
 	<br>
 	<<link [[Refuse|Bailey Strip Club Confront Refuse]]>><</link>>
 	<br>

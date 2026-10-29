@@ -7,6 +7,7 @@ function updateAll() {
     }
     Wikifier.wikifyEval("<<options-render-custom-nnpc-update T.customNNPCClothingSet>>");
     Wikifier.wikifyEval('<<options-custom-nnpc-custom-layers-list-update>>');
+    Wikifier.wikifyEval('<<options-custom-nnpc-tanning-layers-list-update>>');
     Wikifier.wikifyEval("<<options-custom-nnpc-tattoos-list-update>>");
 
     $('#imageset-target')?.text(V.customNNPC.imageset[V.customNNPC.settingsActivePreview].replace(/[^a-zA-Z0-9_]/g, ''));
@@ -36,9 +37,28 @@ DefineMacroS("nnpc-image-preview-auto-update", nnpcImagePreviewUpdate);
 
 function nnpcOutfitUpdate() {
     let activeNPC = V.customNNPC.settingsActivePreview;
-    let outfit = setup.npcClothesSets.find(hs => hs.name === T.customNNPCClothingSet);
+    let outfit;
+    if(T.customNNPCClothingSet === "CDNPC_OUTFIT_SANDBOX"){
+        outfit = {
+            name: "CDNPC_OUTFIT_SANDBOX",
+            desc: "An outfit not used anywhere, use to test styles or create tanlines!",
+            type: "Sandbox",
+            clothes:{
+                upper:{
+                    name: "N/A",
+                    word:"n"
+                },
+                lower:{
+                    name: "N/A",
+                    word:"n"
+                }
+            }
+        }
+    }else {
+        outfit = setup.npcClothesSets.find(hs => hs.name === T.customNNPCClothingSet);
+    }
 
-    if(!(outfit.name in V.customNNPC.customClothesSets[activeNPC])){
+    if(!(outfit.name in V.customNNPC.customClothesSets[activeNPC]) && outfit){
         console.log("Generating clothing set "+outfit.name+" for "+activeNPC);
         customNNPCDefaultClothes(outfit.name, activeNPC);
     }
@@ -673,7 +693,7 @@ function customNNPCSettingsTabSetup(){
 
     // Body
     T.CustomNNPCSettingsTabs.push(["Body", "custom-nnpc-settings-tab-bodyshape"]);
-
+    T.CustomNNPCSettingsTabs.push(["Tanlines", "custom-nnpc-settings-tab-tanning"]);
     T.CustomNNPCSettingsTabs.push(["Makeup", "custom-nnpc-settings-tab-makeup"]);
 
     // Pubes
@@ -947,6 +967,35 @@ function customNNPCOptionsResetOutfit(){
 }
 
 DefineMacro("custom-nnpc-options-reset-outfit",customNNPCOptionsResetOutfit);
+
+DefineMacro("custom-nnpc-options-generate-tanlines", function () {
+    const activeNPC = V.customNNPC.settingsActivePreview;
+
+    let previewModel = Renderer.locateModel(...["customNNPC","options"]);
+    if(!previewModel.tanningLayers){
+        alert("Could not generate tanlines from outfit.")
+        return;
+    }
+    V.customNNPC.customData[activeNPC].tanning_layers.push(
+      {
+          layers: previewModel.tanningLayers.layers,
+          value: 50.0,
+          colorAdjust: 0.0,
+          slots: previewModel.tanningLayers.slots,
+          monthSpecific: false,
+          monthMin : 6,
+          monthMax : 8
+      });
+
+    for (let i = 0; i < T.CustomNNPCSettingsTabs.length; i++) {
+        if(T.CustomNNPCSettingsTabs[i][1] === "custom-nnpc-settings-tab-tanning"){
+            T.customNNPCClothingSet = "naked";
+            customNNPCSettingsTabSetActive(i)
+            updateAll();
+            break;
+        }
+    }
+});
 
 function customNNPCResetHairstyle(){
     if(confirm("You are about to reset " + V.customNNPC.settingsActivePreview + "'s hair. \n\nProceed?")){
