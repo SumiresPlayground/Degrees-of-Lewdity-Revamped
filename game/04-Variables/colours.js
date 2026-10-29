@@ -786,8 +786,8 @@ setup.colours.hair = [
 	},
 	{
 		variable: "rosegold",
-		name: "rosegold",
-		name_cap: "Rosegold",
+		name: "rose gold",
+		name_cap: "Rose Gold",
 		csstext: "rosegold",
 		natural: true,
 		dye: true,
