@@ -4,8 +4,8 @@
  * example usage: npcDecompressor("~2sY|2qyos.a93.n");
  */
 const { npcDecompressor } = (function () {
-	const typeList = ["human", "dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "boar", "creature", "horse", "fox", "hawk", "cow", "spider", "plant"];
-	const beastList = ["dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "boar", "creature", "horse", "fox", "hawk", "cow", "spider"];
+	const typeList = ["human", "dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "boar", "creature", "horse", "fox", "hawk", "cow", "spider", "plant", "snake", "sheep", "deer", "bee", "wasp", "dragon", "ant", "raccoon", "frog", "rat", "rabbit"];
+	const beastList = ["dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "boar", "creature", "horse", "fox", "hawk", "cow", "spider", "snake" ,"sheep", "deer", "bee", "wasp", "dragon", "ant", "raccoon", "frog", "rat", "rabbit"];
 	const insecurityList = ["none", "vagina", "penis", "ethics", "weak", "skill", "looks"];
 	const genproList = ["mm", "fm", "hm", "mf", "ff", "hf"]; /* stores gender first, pronoun second. */
 	const breastdescList = ["nipple", "budding", "tiny", "small", "pert", "modest", "full", "large", "ample", "massive", "huge", "gigantic", "enormous"];

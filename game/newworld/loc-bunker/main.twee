@@ -14,7 +14,7 @@ You climb down a long, dirty ladder before entering some sort of bunker.
 		<<rng>>
 		<<if $rng gte 91>>
 			<<eventbunkeritem>>
-		<<elseif $danger gte (9900 - $allure) and (($settings.bestialityEnabled or $monster is 1) or ($settings.spidersEnabled and $settings.swarmsEnabled))>>
+		<<elseif $danger gte (9900 - $allure) and ((beastSexEnabledForType("rat", $monster is 1)) or ($settings.spidersEnabled and $settings.swarmsEnabled))>>
 			<<eventbunker>>
 		<<else>>
 			<<eventbunkersafe>>

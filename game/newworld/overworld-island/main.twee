@@ -73,7 +73,11 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
 		<<rng>>
 		<<if $rng gte 81>>
 			<<eventislanditem>>
-		<<elseif $danger gte (9900 - $allure) and ($settings.bestialityEnabled or $monster is 1)>>
+		<<elseif $danger gte (9900 - $allure) and ($location is "desert" or $location is "beach") and (beastSexEnabledForType("ant", $monster is 1) or beastSexEnabledForType("hawk", $monster is 1) or beastSexEnabledForType("lizard", $monster is 1))>>
+			<<eventisland>>
+        <<elseif $danger gte (9900 - $allure) and $location is "mforest" and (beastSexEnabledForType("boar", $monster is 1) or beastSexEnabledForType("wolf", $monster is 1) or beastSexEnabledForType("cat", $monster is 1) or $settings.voreEnabled or $settings.lurkersEnabled)>>
+			<<eventisland>>
+        <<elseif $danger gte (9900 - $allure) and $location is "glacier" and (beastSexEnabledForType("bear", $monster is 1) or beastSexEnabledForType("wolf", $monster is 1))>>
 			<<eventisland>>
 		<<else>>
 			<<eventislandsafe>>

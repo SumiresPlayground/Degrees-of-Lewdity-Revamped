@@ -210,7 +210,7 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 
 		<<addinlineevent "general_gossip">>
 			<<rngWraith>>
-			<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+			<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 				<<silently>><<speechWraith "lines">><</silently>>
 				"_line1"
 				<br>
@@ -219,6 +219,10 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 				Those weren't students.
 				<<trauma 6>><<gtrauma>>
 			<<else>>
+				<<if _wraithEvent and $wraith.state is "haunt">>
+					<<apotropaic>>
+					<br><br>
+				<</if>>
 				"?chatter1"
 				<br>
 				"?chatter2"
@@ -416,13 +420,16 @@ Next to the shelf is a small basket with returned and not yet sorted books.
 			<<link [[Stay hidden (0:10)|Library Study Hide]]>><<stress 3>><<pass 10>><</link>><<gstress>>
 		<</if>>
 		<br>
-	<<elseif _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+	<<elseif _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 		After some time, you begin to feel anxious. You move to replace your textbook in the bookshelf.
 		<br><br>
 		You catch a brief glimpse of a pale face through the gaps on the other side. <<stress 12>><<ggstress>><<trauma 4>><<gtrauma>>
 		<br><br>
 		<<link [[Next|School Library]]>><<endevent>><</link>>
 		<br>
+	<<elseif _wraithEvent>>
+		<<apotropaic>>
+		<br><br>
 	<<else>>
 		<<generate1>><<generate2>>A <<fullGroup>> walk along the street outside the window. They will see you if they look through.
 

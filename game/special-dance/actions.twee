@@ -373,7 +373,7 @@
 				<br><br>
 			<</if>>
 			<<rng>><<rngWraith 2 "night">>
-			<<if ($wraith.state is "haunt" or $wraith.offspring is "dead") and _wraithEvent and $rng lte 10 and !$worn.face.type.includes("apotropaic")>>
+			<<if ($wraith.state is "haunt" or $wraith.offspring is "dead") and _wraithEvent and $rng lte 10 and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 				<<danceWraith>>
 				<<set $_blockDancingEvents to true>>
 			<<elseif currentSkillValue('danceskill') lt ( ($dance_stage_cum * 50) + random(1,250) )>>

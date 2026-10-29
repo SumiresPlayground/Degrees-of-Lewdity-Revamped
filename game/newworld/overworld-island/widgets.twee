@@ -88,15 +88,23 @@
 <<widget "eventisland">>
 	<<cleareventpool>>
     <<if $location is "desert" or $location is "beach">>
-		<<if $settings.bestialityEnabled or $monster is 1>>
+		<<if beastSexEnabledForType("ant", $monster is 1)>>
 			<<addevent "islandant">>
+		<</if>>
+		<<if beastSexEnabledForType("hawk", $monster is 1)>>
 			<<addevent "islandhawk">>
+		<</if>>
+		<<if beastSexEnabledForType("lizard", $monster is 1)>>
 			<<addevent "islandlizard">>
 		<</if>>
     <<elseif $location is "mforest">>
-		<<if $settings.bestialityEnabled or $monster is 1>>
+		<<if beastSexEnabledForType("wolf", $monster is 1)>>
        		<<addevent "islandwolf">>
+		<</if>>
+		<<if beastSexEnabledForType("boar", $monster is 1)>>
 			<<addevent "islandboar">>
+		<</if>>
+		<<if beastSexEnabledForType("cat", $monster is 1)>>
 			<<addevent "islandcat">>
 		<</if>>
         <<if $settings.lurkersEnabled>>
@@ -106,8 +114,10 @@
 			<<addevent "islandsnake">>
 		<</if>>
 	<<elseif $location is "glacier">>
-		<<if $settings.bestialityEnabled or $monster is 1>>
+		<<if beastSexEnabledForType("bear", $monster is 1)>>
 			<<addevent "islandbear">>
+		<</if>>
+		<<if beastSexEnabledForType("wolf", $monster is 1)>>
 			<<addevent "islandgwolf">>
 		<</if>>
 	<</if>>

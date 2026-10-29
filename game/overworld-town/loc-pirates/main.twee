@@ -1529,7 +1529,7 @@ You are beside your bed, if it could be called that, in the bilge of the pirate 
 :: Pirate Sleep
 <<set _autosavehere to true>>
 <<sleep>>
-<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
+<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<sleepeffects>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
@@ -1546,6 +1546,10 @@ You are beside your bed, if it could be called that, in the bilge of the pirate 
 <<elseif _dreaming>>
 	/* <<earSlimeFocusChoice>> or similar widgets are running */
 <<else>>
+	<<if $wraith.nightmare is 2 and Time.isBloodMoon()>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<effects>>
 	<<wakingEffects $sleepHoursTotal>>
 	<<if $nightmares gte 1 and $controlled is 0>>

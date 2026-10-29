@@ -2,8 +2,11 @@
 <<set $outside to 0>><<effects>><<rngWraith 1>>
 
 You feel yourself being lifted onto a stretcher before passing out again.
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	You think you saw someone standing next to you. Someone pale and beautiful.
+<<elseif _wraithEvent>>
+	<<apotropaic>>
+	<br><br>
 <</if>>
 <br><br>
 

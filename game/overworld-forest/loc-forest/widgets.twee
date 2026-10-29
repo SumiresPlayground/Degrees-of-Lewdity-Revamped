@@ -1178,13 +1178,17 @@
 		<</if>>
 	<<else>>
 		<<rngWraith 2 "night">>
-		<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1 and !$worn.face.type.includes("apotropaic")>>
+		<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1 and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 			<<set $wraith.mimic to "Eden">><<npc Eden>><<person1>>Something whizzes past and hits a tree in front of you. You shield your face with your arms and stagger backwards. Something presses against your back, and you hear a <<personssimple>> voice. "I've got you now. Don't resist."
 			<br><br>
 
 			<<link [[Next|Wraith Mimic Fight]]>><<set $wraith.exit to "forest">><<set $molestationstart to 1>><</link>>
 			<br>
 		<<elseif $edenCagedEscape>>
+			<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1>>
+				<<apotropaic>>
+				<br><br>
+			<</if>>
 			<<npc Eden>><<person1>>
 			A hand grabs you by the back of the neck as you look off into the forest. "Told you I'd find you again, didn't I?" It's Eden.
 			<br><br>
@@ -1199,6 +1203,10 @@
 			<<link [[Submit (0:30)|Eden Caged Caught]]>><<set $phase to 1>><<pass 30>><<npcincr Eden dom 1>><</link>><<gdom>>
 			<br>
 		<<elseif edenFreedomStatus() gte 2>>
+			<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1>>
+				<<apotropaic>>
+				<br><br>
+			<</if>>
 			<<npc Eden>><<person1>>
 			A hand grabs you by the back of the neck as you look off into the forest. "Where the fuck have you been?" snarls a <<personsimple>>. It's Eden. "I've been worried sick!"
 			<br><br>
@@ -1213,6 +1221,10 @@
 			<<link [[Submit (0:30)|Eden Caged Caught]]>><<set $phase to 1>><<pass 30>><<sub 1>><<npcincr Eden dom 1>><</link>><<gdom>>
 			<br>
 		<<elseif edenFreedomStatus() is 1>>
+			<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1>>
+				<<apotropaic>>
+				<br><br>
+			<</if>>
 			<<npc Eden>><<person1>>
 			An arm wraps around your neck from behind, while a hand presses against the back of your head. You hear a <<personssimple>> voice. "I've been looking for you all over." It's Eden. "Come on, let's go home."
 			<br><br>
@@ -1226,6 +1238,10 @@
 			<<link [[Go to the cabin (0:30)|Eden Recaptured]]>><<edenTrackers>><<pass 30>><</link>>
 			<br>
 		<<elseif edenFreedomStatus() is 0>>
+			<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1>>
+				<<apotropaic>>
+				<br><br>
+			<</if>>
 			<<rng>>
 			<<if Time.dayState isnot "night">>
 				<<if $rng gte 51>>
@@ -1279,6 +1295,10 @@
 
 			<<forestCabinReturnLinks>>
 		<<elseif $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1>>
+			<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1>>
+				<<apotropaic>>
+				<br><br>
+			<</if>>
 			A mist billows around you all of a sudden, concealing the forest from view. It thickens, until even the closest trees are hidden, yet you feel safe in its embrace. You hear a distant thunder, almost like a gunshot. It sounds dull, and distant, as if reverberating through the earth.
 			<br><br>
 			A wind blows the mist away as quick as it arrived. Your surroundings are unfamiliar. <span class="green">You no longer feel hunted.</span>
@@ -1286,6 +1306,10 @@
 			<<link [[Next|Forest]]>><<endevent>><</link>>
 			<br>
 		<<else>>
+			<<if _wraithEvent and (["haunt", "despair"].includes($wraith.state) or $wraith.offspring is "dead") and $syndromeeden is 1>>
+				<<apotropaic>>
+				<br><br>
+			<</if>>
 			<<npc Eden>><<person1>>
 			A bullet whizzes past and hits a tree in front of you. You shield your face with your arms and stagger backwards. A cold hard object presses against your back, and you hear a <<personssimple>> voice. "I've got you now. Don't resist."
 			<br><br>

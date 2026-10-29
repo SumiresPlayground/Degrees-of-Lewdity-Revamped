@@ -201,7 +201,7 @@ You are in an underground cell. You can't see a thing but can tell that the wall
 <<elseif $undergroundbrothel.timepass is false>>
 	<<undergroundCellOptions>>
 
-<<elseif _wraithEvent and !$wraithUnderground and !$worn.face.type.includes("apotropaic")>>
+<<elseif _wraithEvent and !$wraithUnderground and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<set $wraithUnderground to true>>
 	<<set $undergroundbrothel.water to 1>>
 	The lights flicker on for a moment. You brace yourself, but your room remains sealed. A dim white light hovers above you.
@@ -599,9 +599,12 @@ The stone gives way and you fall several feet into cold water.
 <<set _fromUB to $undergroundbrothel?.active>>
 <<set _withRobin to _fromUB ? $undergroundbrothel.robin : false>>
 <<rngWraith>>
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<set _drown to ($wraith.state is "haunt" ? "Drown" : "Don't")>>
 	<div style="text-indent: 6em;"><span class="wraith-flicker">_drown</span></div>
+	<br><br>
+<<elseif _wraithEvent>>
+	<<apotropaic>>
 	<br><br>
 <</if>>
 
@@ -649,7 +652,7 @@ The stone gives way and you fall several feet into cold water.
 	<<dungeonescape>>
 	<<specialClothesUnlock "set" "underground_brothel">>
 <</if>>
-<<if _wraithEvent and !_withRobin and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !_withRobin and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<div style="text-indent: 13em;"><span class="wraith-flicker">_drown</span></div>
 	<br><br><br><br><br><br><span class="wraith-flicker">_drown</span>
 <</if>>

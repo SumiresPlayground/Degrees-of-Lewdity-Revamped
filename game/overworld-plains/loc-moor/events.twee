@@ -356,7 +356,7 @@ The creatures disappear into the mire.
 
 
 :: Moor Quicksand
-<<effects>><<rngWraith 1>><<if _wraithEvent and !$worn.face.type.includes("apotropaic")>><<set $quicksandWraith to true>><</if>>
+<<effects>><<rngWraith 1>><<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>><<set $quicksandWraith to true>><</if>>
 <<if $quicksandWraith>><<if $wraith.state is "haunt">><<set _drown to "Drown">><<else>><<set _drown to "Calm">><</if>><<ind>><<ind>><<ind>><span class="wraith-flicker">_drown</span><br><</if>>
 
 You are up to your
@@ -1058,7 +1058,7 @@ You examine the ring. A black gemstone sits surrounded by engravings of what app
 
 
 
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<generateWraith 1>><<initWraith>><<rainWraith>>
 	"<span class="wraith">Graverobber.</span>"
 	<br><br>
@@ -1070,6 +1070,10 @@ You examine the ring. A black gemstone sits surrounded by engravings of what app
 	<br><br>
 	<<link [[Next|Wraith Moor Ring]]>><</link>>
 <<else>>
+	<<if _wraithEvent>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
 <</if>>
 <br>

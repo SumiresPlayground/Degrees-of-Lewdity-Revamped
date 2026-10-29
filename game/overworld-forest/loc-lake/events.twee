@@ -1022,12 +1022,15 @@ You join the others and enter the darkening forest. People don't talk much, unti
 You wave at the <<person>>. <<He>> waves back. <<Hes>> a distance away, but you think <<hes>> smiling.
 <br><br>
 
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<if ["haunt", "despair"].includes($wraith.state)>>
 		<<His>> head tilts to the side, and <<his>> smile falters as <<he>> turns pale. For a brief moment, you see <<him>> clutching at <<his>> neck and reaching for you. You blink, and <<hes>> gone. <<trauma 6>><<gtrauma>>
 	<<else>>
 		Upon closer inspection, you see a necklace of ivory wrapped around <<his>> neck. You blink, and <<hes>> suddenly gone. <<trauma 3>><<gtrauma>>
 	<</if>>
+	<br><br>
+<<elseif _wraithEvent>>
+	<<apotropaic>>
 	<br><br>
 <</if>>
 

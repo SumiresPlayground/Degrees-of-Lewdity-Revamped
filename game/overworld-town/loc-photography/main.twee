@@ -165,10 +165,14 @@ Niki nods. "You know where I am if you change your mind."
 	<<elseif $fame.model gte 1000 and $nikiSeen.includes("photo")>>
 		<br>
 		<<rngWraith>>
-		<<if $rng gte 21 and _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+		<<if $rng gte 21 and _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 			<span class="wraith">A full-size picture of a pale figure hangs front and centre, smiling at you.</span>
 			<<trauma 6>><<gtrauma>>
 		<<else>>
+			<<if $rng gte 21 and _wraithEvent>>
+				<<apotropaic>>
+				<br><br>
+			<</if>>
 			<span class="green">A full-size picture of you hangs front and centre, smiling back at you.</span>
 			<<if !$daily.photo>>
 				<<stress -3>><<lstress>>

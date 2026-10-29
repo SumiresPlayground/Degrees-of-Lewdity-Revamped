@@ -9,8 +9,10 @@
 
 <<widget "eventfae">>
 	<<cleareventpool>>
-		<<if $settings.bestialityEnabled or $monster is 1>>
+		<<if beastSexEnabledForType("rabbit", $monster is 1)>>
 			<<addevent "faerabbit">>
+		<</if>>
+		<<if beastSexEnabledForType("dragon", $monster is 1)>>
 			<<addevent "faedragon">>
 		<</if>>
 		<<if $settings.voreEnabled>>

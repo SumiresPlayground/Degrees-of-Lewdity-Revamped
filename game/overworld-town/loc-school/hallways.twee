@@ -467,7 +467,7 @@ You turn and slap the <<person>> before <<he>> can get away, wiping the smirk of
 	<br><br>
 
 	<<rngWraith>>
-	<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+	<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 
 		<<if hasSexStat("promiscuity", 2)>>
 			<<if $wraith.seen gte 3 and $wli.criteria>>
@@ -492,6 +492,11 @@ You turn and slap the <<person>> before <<he>> can get away, wiping the smirk of
 
 	<<else>>
 
+		<<if _wraithEvent>>
+			<<apotropaic>>
+			<br><br>
+		<</if>>
+
 		<<if hasSexStat("promiscuity", 2)>>
 			<<link [[Accept|Hallways Encounter Sex]]>><<set $sexstart to 1>><</link>><<promiscuous2>>
 			<br>
@@ -506,7 +511,7 @@ You turn and slap the <<person>> before <<he>> can get away, wiping the smirk of
 
 <<addinlineevent "encounter_chat" 5>>
 	<<rngWraith 1 "noBlood">>
-	<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+	<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 		You make small talk.
 		<<if $rng lte 10 or (W.wraithIsAngry() and $rng lte 20)>>
 			<<His>> face grows more and more pale by the second, until it turns
@@ -552,6 +557,11 @@ You turn and slap the <<person>> before <<he>> can get away, wiping the smirk of
 		<</if>>
 		<br>
 	<<else>>
+		<<if _wraithEvent>>
+			<<apotropaic>>
+			<br><br>
+		<</if>>
+		
 		You make small talk. <<He>> seems nice enough.
 		<br><br>
 

@@ -981,7 +981,7 @@ Held by the ankles, you're forced over the edge of the dumpster. Your fall is cu
 <<ruffleHair>>
 <br><br>
 
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	You hear rustling beneath you. Suddenly, pale hands burst from below to grab you. Not one pair, but several.
 	<<if $wraith.state is "haunt">>
 		Fingernails dig deep into your flesh, dragging along your skin. They leave painful welts in their wake.
@@ -1002,6 +1002,10 @@ Held by the ankles, you're forced over the edge of the dumpster. Your fall is cu
 	<</if>>
 	You collapse onto the pavement, chest heaving. Whitney and <<his>> friends are nowhere to be found.
 <<else>>
+	<<if _wraithEvent>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<if C.npc.Whitney.dom gte 15>>
 		You wait a moment before pushing the lid up. It doesn't budge. You hear Whitney and <<his>> friends laugh. <<Hes>> sat above you, trapping you inside. Unable to do much else, you <<if $speech_attitude is "meek">>curl up in a ball<<elseif $speech_attitude is "bratty">>sigh in frustration<<else>>lie back down<</if>> and wait for them to leave.
 		<<pass 10>><<trauma 6>><<stress 6>><<gtrauma>><<gstress>>

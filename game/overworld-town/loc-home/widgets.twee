@@ -174,10 +174,14 @@
 <<widget "orphanageWardOptions">>
 	<<getChildrenIds `{location: "home", donor: "Ivory Wraith"}`>>
 	<<rngWraith 1 "night">>
-	<<if _childrenIds.length gte 1 and _wraithEvent and !$possessed and !$daily.wraithNursery and !$worn.face.type.includes("apotropaic")>>
+	<<if _childrenIds.length gte 1 and _wraithEvent and !$possessed and !$daily.wraithNursery and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 		<<childicon "crib">><<link [[Nursery|Orphanage Ward Wraith Sing]]>><<set $exitPassage to $passage>><</link>>
 		<br>
 	<<else>>
+		<<if _childrenIds.length gte 1 and _wraithEvent and !$possessed and !$daily.wraithNursery>>
+			<<apotropaic>>
+			<br><br>
+		<</if>>
 		<<childicon "crib">><<link [[Nursery|Childrens Home]]>><<set $exitPassage to $passage>><</link>>
 		<br>
 	<</if>>

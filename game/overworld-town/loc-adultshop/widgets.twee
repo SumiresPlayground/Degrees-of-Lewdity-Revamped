@@ -125,7 +125,7 @@
 		<<case 12>>
 			<!-- Wraith? -->
 			<<rngWraith 1>>
-			<<if _wraithEvent is true and !$worn.face.type.includes("apotropaic")>>
+			<<if _wraithEvent is true and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 				You hear a breathless voice whisper in your ear.
 				<br>
 				"<span class="wraith"><<print either("Wracked with your charm. Circled like prey","We are not dead. We have ever lived.","The fire in the sky is extinguished","What once was is now away. All longing and pain","Fall to my arms, hold their mesmeric sway","I'm a prayer for your loneliness","In the pool of dreams, the water darkens","<<pcPetname \"Wraith\">> mine")>>.</span>"
@@ -133,6 +133,10 @@
 				Startled, you knock over a display of <<print either("lubricants","ball gags","strokers","dildos")>>. Spinning about, there's no one behind you.
 				<<stress 12>><<ggstress>><<trauma 4>><<gtrauma>>
 			<<else>>
+				<<if _wraithEvent is true>>
+					<<apotropaic>>
+					<br><br>
+				<</if>>
 				Something pokes your back. You spin around only to see a <<person1>><<person>> poking you with a dildo, grinning ear-to-ear.
 				<<stress 5>><<gstress>>
 			<</if>>
@@ -649,7 +653,7 @@
 	<</if>>
 
 	<<rngWraith 1>>
-	<<if _wraithEvent is true and $awareness gt 300 and $settings.swarmsEnabled and !$worn.face.type.includes("apotropaic")>>
+	<<if _wraithEvent is true and $awareness gt 300 and $settings.swarmsEnabled and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 		<<addinlineevent "wraithdildoswarm" 2>>
 			<<wearProp "dildo">>
 			As you're stocking a shelf with dildos, the toys start shaking. A breathless voice whispers in your ear.
@@ -661,6 +665,9 @@
 			<br><br>
 			<<link [[Next|Adult Shop Dildo Swarm]]>><<handheldon>><<set $molestationstart to 1>><</link>>
 		<</addinlineevent>>
+	<<elseif _wraithEvent is true>>
+		<<apotropaic>>
+		<br><br>
 	<</if>>
 
 	/* Event ideas: */

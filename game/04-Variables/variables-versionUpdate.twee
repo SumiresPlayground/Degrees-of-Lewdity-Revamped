@@ -4124,7 +4124,6 @@
 	<</script>>
 	<!-- version 0.5.6.0 END Gameplay Options Variable Refactor END -->
 
-	<<variablesModUpdate>>
 	<!-- Must precede <<updateNewNamedNpcs>> -->
 	<<if $settings.skinToneMode is undefined>>
 		<<run Object.assign($settings, skinToneSettingsFromDarkChance($settings.darkSkinChance))>>
@@ -8073,6 +8072,21 @@
 		<<unset $settings.monsterChance>>
 	<</if>>
 
+	<<if $settings.beastSettings.sheep is undefined>>
+		<<run Object.assign($settings.beastSettings, {
+			sheep: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			deer: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			bee: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			wasp: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			dragon: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			ant: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			raccoon: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			frog: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			rat: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+			rabbit: {monsterChance: 50, hallucinationsOnly: true, maleChance: 50, maleChanceMale: 50, maleChanceFemale: 50, maleChanceSplit: false, bestiality: "on", victimsAlwaysMonster: false},
+		})>>
+	<</if>>
+
 	<<if $genericBeastSettings is undefined>>
 		<<set $genericBeastSettings to {
 			beastMaleChance: 80,
@@ -8269,4 +8283,6 @@
 	<</if>>
 
 	<<unset $rentDay>>
+
+	<<variablesModUpdate>>
 <</widget>>

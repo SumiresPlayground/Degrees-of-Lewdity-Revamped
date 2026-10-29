@@ -198,7 +198,54 @@ function initOverLower() {
 		Clothes that modders add go into this array. This should be empty in the base game at all times.
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
-	setup.moddedClothes.over_lower = [];
+	setup.moddedClothes.over_lower = [
+		{
+			index: 1,
+			slot: "over_lower",
+			name: "adhesive lower talisman",
+			name_cap: "Adhesive Lower Talisman",
+			variable: "talisman",
+			integrity: 10,
+			integrity_max: 10,
+			fabric_strength: 1,
+			reveal: 1000,
+			rearresize: 0,
+			word: "n",
+			one_piece: 0,
+			skirt: 0,
+			skirt_down: 0,
+			zip: 0,
+			state: "waist",
+			state_base: "waist",
+			plural: 1,
+			colour: 0,
+			colour_options: [],
+			colour_sidebar: 0,
+			exposed: 0,
+			exposed_base: 0,
+			vagina_exposed: 0,
+			vagina_exposed_base: 0,
+			anus_exposed: 0,
+			anus_exposed_base: 0,
+			type: ["costume", "apotropaic"],
+			gender: "n",
+			femininity: 0,
+			warmth: 0,
+			cost: 1000,
+			description: "Talismans designed to repel spirits.",
+			shop: ["cursed"],
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			accessory_colour_sidebar: 0,
+			high_img: 0,
+			back_img: 0,
+			cursed: 0,
+			location: 0,
+			iconFile: "talisman.png",
+			accIcon: 0,
+		}
+	];
 
 	setup.moddedClothes.over_lower.forEach((x, i) => (x.index = setup.clothes.over_lower.length + i));
 	setup.clothes.over_lower.push(...setup.moddedClothes.over_lower);

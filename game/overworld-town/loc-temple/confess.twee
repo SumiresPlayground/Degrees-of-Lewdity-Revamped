@@ -127,7 +127,7 @@ A <<personssimple>> voice greets you.
 	You share your doubts about the temple and its faith with <<him>>.
 <</if>>
 
-<<if _wraithEvent and $wraithIntro and !$daily.wraithConfess and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and $wraithIntro and !$daily.wraithConfess and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<pass 30>><<set $daily.wraithConfess to true>>
 	<br><br>
 	<<if $world_corruption_soft gte 100>>
@@ -181,6 +181,10 @@ A <<personssimple>> voice greets you.
 	<<link [[Leave|Temple]]>><<endconfessionself>><</link>>
 	<br>
 <<else>>
+	<<if _wraithEvent>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<He>> lends a patient ear all the while, saying nothing until you're finished.
 	<br><br>
 
@@ -1463,7 +1467,7 @@ Jordan places a hand on your head. "You must use your best judgement to properly
 :: Temple Confess
 <<set $outside to 0>><<set $location to "temple">><<sydneySchedule>><<temple_effects>><<effects>><<rngWraith>>
 <<set $confessionsTaken = ($confessionsTaken || 0) + 1>>
-<<if _wraithEvent and $wraithIntro and !$weekly.wraithConfess and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and $wraithIntro and !$weekly.wraithConfess and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<set _wraithConfess to true>><<set $weekly.wraithConfess to true>><<set $attendant to "wraith">><<set _noOptions to true>>
 	You hear the other door open. Before you can greet your penitent, you feel a cold wind blow. It steals your breath.
 
@@ -1473,6 +1477,9 @@ Jordan places a hand on your head. "You must use your best judgement to properly
 	<br><br>
 
 	"Welcome. Lay your sins bare, so they may be forgiven," you say. You do your best to keep your voice even. When you go to light the incense, the flame flickers out no matter how many times you try.
+<<elseif _wraithEvent and $wraithIntro and !$weekly.wraithConfess>>
+	<<apotropaic>>
+	<br><br>
 <<else>>
 	You hear the other door open and greet your attendant.
 	"Welcome. Lay your sins bare, so they may be forgiven." You light the incense and do your best to speak outside your usual tone.

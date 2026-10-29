@@ -3223,11 +3223,14 @@ Soon enough, you both reach the lake. The <<if Weather.dayState is "night">>moon
 You and Eden inflate the raft and push it onto the water. You spend the time basking in the peaceful scenery of the lake. <<stress -6>><<lstress>>
 <br><br>
 
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	You see someone standing out in the middle of the lake. Silver hair blows in the wind behind it,<<if ["haunt", "despair"].includes($wraith.state)>> and a pair of red eyes stare through you<<else>> and an ornate necklace of ivory hangs around its neck<</if>>. Your ears begin to ring as it slowly turns to you.
 	<br><br>
 
 	You turn to Eden, but <<nnpc_he "Eden">> doesn't react. You look back, and the figure is gone. <<stress 12>><<ggstress>><<trauma 4>><<gtrauma>>
+	<br><br>
+<<elseif _wraithEvent>>
+	<<apotropaic>>
 	<br><br>
 <</if>>
 

@@ -108,7 +108,45 @@ function initOverHead() {
 		Clothes that modders add go into this array. This should be empty in the base game at all times.
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
-	setup.moddedClothes.over_head = [];
+	setup.moddedClothes.over_head = [
+		{
+			index: 1,
+			slot: "over_head",
+			name: "adhesive head talisman",
+			name_cap: "Adhesive Head Talisman",
+			variable: "talisman",
+			state: 0,
+			state_base: 0,
+			integrity: 10,
+			integrity_max: 10,
+			fabric_strength: 1,
+			reveal: 1000,
+			bustresize: 0,
+			word: "n",
+			plural: 1,
+			hood: 0,
+			colour: 0,
+			colour_options: [],
+			colour_sidebar: 0,
+			exposed: 0,
+			exposed_base: 0,
+			type: ["costume", "apotropaic"],
+			gender: "n",
+			femininity: 0,
+			warmth: 0,
+			cost: 1000,
+			description: "Talismans designed to repel spirits.",
+			shop: ["cursed"],
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			accessory_colour_sidebar: 0,
+			cursed: 0,
+			location: 0,
+			iconFile: "talisman.png",
+			accIcon: 0,
+		}
+	];
 
 	setup.moddedClothes.over_head.forEach((x, i) => (x.index = setup.clothes.over_head.length + i));
 	setup.clothes.over_head.push(...setup.moddedClothes.over_head);

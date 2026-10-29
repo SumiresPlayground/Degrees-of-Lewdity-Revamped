@@ -25,7 +25,7 @@ const constants = {
 	// Soft ends that pause Bailey's rent
 	badEndsThatPauseRent: ["Prison", "Asylum", "Underground Farm", "Underground Dungeon"],
 
-	beastSettingTypes: ["dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "boar", "horse", "fox", "hawk", "cow", "spider", "snake"],
+	beastSettingTypes: ["dog", "cat", "pig", "wolf", "dolphin", "lizard", "bear", "boar", "horse", "fox", "hawk", "cow", "spider", "snake", "sheep", "deer", "bee", "wasp", "dragon", "ant", "raccoon", "frog", "rat", "rabbit"],
 
 	namedBeasts: ["blackwolf", "greathawk", "nightmonster"],
 
