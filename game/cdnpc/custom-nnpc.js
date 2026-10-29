@@ -154,12 +154,15 @@ function filterLayerForClothing(layer) {
 function modelPrepareNNPCBody(NPCname, setName) {
 	T.modeloptions.additional_filters = {};
 	T.modeloptions.additional_masks = [];
+	T.modeloptions.tanning_layers = [];
 
 	if(NPCname === ""){
 		T.modeloptions.force_defaults = true;
+		T.modeloptions.tanningEnabled = false;
 		return;
 	}else{
 		T.modeloptions.force_defaults = false;
+		T.modeloptions.tanningEnabled = true;
 	}
 
 	T.modeloptions.force_naked = setName.toLowerCase() === "naked";
@@ -211,16 +214,10 @@ function modelPrepareNNPCBody(NPCname, setName) {
 	T.modeloptions.breast_size = breastSizeMap[NNPCData.breastsize] || 0;
 	T.modeloptions.breasts = "default";
 
-	T.modeloptions.tanningEnabled = false;
-
 	// Skin
 	if(NPCname !== "Ivory Wraith"){
 		T.modeloptions.skin_type = V.customNNPC.customData[NPCname].skintone + "gyaru";
-		if(NNPCData.skincolour === "black"){
-			T.modeloptions.skin_tone = 50 + V.customNNPC.customData[NPCname].skintan;
-		}else{
-			T.modeloptions.skin_tone = 0 + V.customNNPC.customData[NPCname].skintan;
-		}
+		T.modeloptions.skin_tone = NNPCData.skincolour ?? 0;
 	}else {
 		T.modeloptions.skin_type = "wraith";
 		T.modeloptions.filters["tan"] = {
@@ -232,12 +229,24 @@ function modelPrepareNNPCBody(NPCname, setName) {
 		};
 	}
 
+	for (let i = 0; i < V.customNNPC.customData[NPCname].tanning_layers.length; i++) {
+		const layer = V.customNNPC.customData[NPCname].tanning_layers[i];
+		if(layer.monthSpecific && (Time.month < layer.monthMin || Time.month > layer.monthMax)){
+			continue;
+		}
+		T.modeloptions.tanning_layers.push(layer)
+		T.modeloptions.skin_tone += layer.colorAdjust;
+	}
+	T.modeloptions.skin_tone = T.modeloptions.skin_tone.clamp(0,100);
+
 	// Face
 	T.modeloptions.facestyle = "default";
 	T.modeloptions.facevariant = V.customNNPC.customData[NPCname].facevariant || "default";
 	T.modeloptions.eyevariant = V.customNNPC.customData[NPCname].eyevariant || "default";
 	T.modeloptions.mouthvariant = V.customNNPC.customData[NPCname].mouthvariant || "default";
 	T.modeloptions.freckles = V.customNNPC.customData[NPCname].freckles === true;
+	T.modeloptions.bodyFreckles = V.customNNPC.customData[NPCname].body_freckles;
+	T.modeloptions.ears_position = (V.customNNPC.customData[NPCname].ears_position) ? "front" : "back";
 	T.modeloptions.brows_colour = NNPCData.hairColour;
 
 	// Eyes
@@ -756,11 +765,52 @@ function modelPrepareNNPCClothes(NPCname, setName, reset=false) {
 
 
 	// Arm position
-	T.modeloptions.arm_right  =
-		setup.clothes_all_slots.some(slot => ["right_hold", "clutch"].includes(worn[slot]?.holdPosition)) ||
-		(worn.handheld.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.handheld?.holdPosition))
-	? "cover" : "idle";
-	T.modeloptions.arm_left = setup.clothes_all_slots.some(slot => worn[slot]?.holdPosition === "left_hold") ? "cover" : "idle";
+	function useCover(arm){
+		const leftCoverClothes = setup.clothes_all_slots.some(slot => ["left_cover", "clutch", "cover_both"].includes(worn[slot]?.holdPosition));
+		const rightCoverClothes = setup.clothes_all_slots.some(slot => ["right_cover", "cover_both"].includes(worn[slot]?.holdPosition));
+
+		if ((arm === "left" && leftCoverClothes) || (arm === "right" && rightCoverClothes)) return true;
+		/*
+		if (arm === "right" && setup.clothes.handheld[V.worn.handheld.index]?.holdingPreventsRightCover) return false;
+		if (arm === "left" && setup.clothes.handheld[V.worn.handheld.index]?.holdingPreventsLeftCover) return false;
+		if (!wings && ((arm === "left" && coverBreasts) || (arm === "right" && coverCrotch))) return true;
+		*/
+		return false;
+	}
+
+	function useHold(arm) {
+		let rightHoldClothes =
+			setup.clothes_all_slots.some(slot => ["right_hold", "clutch"].includes(worn[slot]?.holdPosition)) ||
+			(worn.handheld.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.handheld?.holdPosition));
+
+		if(typeof(playerIsXChanged) === "function"){
+			rightHoldClothes = rightHoldClothes ||
+				(worn.bag?.name !== undefined && worn.bag.name !== "naked" && !["left_cover", "left_idle", "idle_both"].includes(worn.bag?.holdPosition));
+		}
+
+		const leftHoldClothes = setup.clothes_all_slots.some(slot => worn[slot]?.holdPosition === "left_hold");
+
+		return (arm === "right" && rightHoldClothes) || (arm === "left" && leftHoldClothes);
+	}
+
+	// Arm position
+	if(useCover("right")){
+		T.modeloptions.arm_right = "cover";
+	}
+	else if(useHold("right")){
+		T.modeloptions.arm_right = "hold";
+	} else {
+		T.modeloptions.arm_right = "idle";
+	}
+
+	if(useCover("left")){
+		T.modeloptions.arm_left = "cover";
+	}
+	else if(useHold("left")){
+		T.modeloptions.arm_left = "hold";
+	} else {
+		T.modeloptions.arm_left = "idle";
+	}
 
 	if("prop_arm_position" in T.modeloptions){
 		switch (T.modeloptions.prop_arm_position){

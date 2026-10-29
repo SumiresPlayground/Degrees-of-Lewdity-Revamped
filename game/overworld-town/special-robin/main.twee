@@ -75,7 +75,7 @@
 		<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<pass 1>><</link>>
 	<</if>>
 	<br>
-	<<if $debug is 1>>
+	<<if $debug>>
 		<<loitericon>><<link [[Wait for Robin (DEBUG)|$passage]]>><<passTimeUntil 7>><</link>>
 	<</if>>
 
@@ -929,15 +929,15 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 		<<neckon>>
 		<<robinoptions>>
 	<<else>>
-		Inside is a picture of 
+		Inside is a picture of
 		<<if $carried.neck.photo is "Robin">>
-			`<<nnpc_him "Robin">>.`
-		<<elseif($carried.neck.photo is "Black Wolf" or $carried.neck.photo is "Great Hawk")>>
-			"the " + $carried.neck.photo + "."
+			<<nnpc_him "Robin">>.
+		<<elseif $carried.neck.photo is "Black Wolf" or $carried.neck.photo is "Great Hawk">>
+			the <<print $carried.neck.photo>>.
 		<<elseif $carried.neck.photo is "Gwylan" and $gwylan?.timer?.nobody gte Time.date.timeStamp>>
 			Nobody.
 		<<else>>
-			`<<print $carried.neck.photo>>.`
+			<<print $carried.neck.photo>>.
 		<</if>>
 		<br><br>
 		<<switch $carried.neck.photo>>
@@ -976,7 +976,7 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 			<<He>> has a <<if isLoveInterest("Robin") and C.npc.Robin.trauma gte 40>>pained<<else>>conflicted<</if>> look on <<his>> face<<if $robinnote is 1 and !$robinromance>> and a hint of sadness<</if>>.
 			<<if $robinromance is 1>>
 				<br><br>
-				<<He>> looks at you. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Whitney">> more than me? What does <<nnpc_he "Whitney">> have that I don't?"<<else>>but seems unable to bring <<himself>> to say anything.<</if>><<npcincr Robin love -1>><<llove>>
+				<<He>> looks at you<<if C.npc.Robin.dom gte 60>>. "Do you love <<nnpc_him "Whitney">> more than me? What does <<nnpc_he "Whitney">> have that I don't?"<<else>>, but seems unable to bring <<himself>> to say anything.<</if>><<npcincr Robin love -1>><<llove>>
 			<</if>>
 			<br><br>
 			<<neckon>>
@@ -990,13 +990,13 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 				You stay near <<him>>, not touching or being too invasive, but close enough to remind <<him>> that you're with <<him>>. Eventually, <<his>> breathing slows.
 				<br><br>
 				"Sorry. I couldn't save you then. But," <<He>> looks into your eyes. "If <<nnpc_he "Eden">> ever harasses you again, I'll protect you.<<if $robinromance is 1>> For you, I will do it no matter how scared it makes me.<</if>>"
-				<<set $robin.hurtReason to "you having Eden in your love locket">>
+				<<set $robin.hurtReason to "you having Eden in your love locket">><<set $robin.timer.hurt to 1>>
 				<<if $robinromance is 1>>
 					<br><br>
-					<<He>> looks at you. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Eden">> more than me? How could you?"<<else>>but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>>
+					<<He>> looks at you<<if C.npc.Robin.dom gte 60>>. "Do you love <<nnpc_him "Eden">> more than me? How could you?"<<else>>, but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>>
 				<</if>>
 			<<else>>
-				"Who is <<nnpc_he "Eden">>? A celebrity? A lumberjack?"<<if $robinnote is 1 and !$robinromance>> <<he>> asks, looking a bit dejected.<<elseif $robinromance is 1>> <<He>> looks at you. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Eden">> more than me?"<<else>>but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>><</if>>
+				"Who is <<nnpc_he "Eden">>? A celebrity? A lumberjack?"<<if $robinnote is 1 and !$robinromance>> <<he>> asks, looking a bit dejected.<<elseif $robinromance is 1>> <<He>> looks at you<<if C.npc.Robin.dom gte 60>>. "Do you love <<nnpc_him "Eden">> more than me?"<<else>>, but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>><</if>>
 			<</if>>
 			<br><br>
 			<<neckon>>
@@ -1019,7 +1019,7 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 				You tease <<him>> for shouting that you're <<hers>> when <<he>> hits Avery with a bookbag.<<if $robinromance>> "But, it's true, is it not?"<</if>> <<He>> blushes.
 				<<if $robinromance is 1>>
 					<br><br>
-					<<He>> looks at you. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Avery">> more than me? What does <<nnpc_he "Avery">> have that I don't?"<<else>>but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>>
+					<<He>> looks at you<<if C.npc.Robin.dom gte 60>>. "Do you love <<nnpc_him "Avery">> more than me? What does <<nnpc_he "Avery">> have that I don't?"<<else>>, but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>>
 				<</if>>
 				<br><br>
 				<<neckon>>
@@ -1031,7 +1031,7 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 				<<robinoptions>>
 			<</if>>
 		<<case "Alex">>
-			"Who is <<nnpc_he "Alex">>? A celebrity? A farmer?"<<if $robinnote is 1 and !$robinromance>> <<he>> asks, looking a bit dejected.<<elseif $robinromance is 1>> <<He>> looks at you. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Alex">> more than me?"<<else>>but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>><</if>>
+			"Who is <<nnpc_he "Alex">>? A celebrity? A farmer?"<<if $robinnote is 1 and !$robinromance>> <<he>> asks, looking a bit dejected.<<elseif $robinromance is 1>> <<He>> looks at you<<if C.npc.Robin.dom gte 60>>. "Do you love <<nnpc_him "Alex">> more than me?"<<else>>, but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>><</if>>
 			<br><br>
 			<<neckon>>
 			<<robinoptions>>
@@ -1051,12 +1051,12 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 			<<neckon>>
 			<<robinoptions>>
 		<<case "Kylar">>
-			"I'm glad you're getting along with Kylar. Most people don't," Robin's eyes widen, realization dawning on <<him>>. "Oh! That's why <<nnpc_he "Kylar">> eats lunch with us in the cafeteria."<<if $robinnote is 1 and !$robinromance>> <<His>> smile doesn't reach <<his>> eyes.<<elseif $robinromance is 1>> <<He>> looks at you. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Kylar">> more than me?"<<else>>but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>><</if>> <<npcincr Robin trauma -1>><<stress -6>><<lrtrauma>><<lstress>>
+			"I'm glad you're getting along with Kylar. Most people don't," Robin's eyes widen, realisation dawning on <<him>>. "Oh! That's why <<nnpc_he "Kylar">> eats lunch with us in the cafeteria."<<if $robinnote is 1 and !$robinromance>> <<His>> smile doesn't reach <<his>> eyes.<<elseif $robinromance is 1>> <<He>> looks at you<<if C.npc.Robin.dom gte 60>>. "Do you love <<nnpc_him "Kylar">> more than me?"<<else>>, but seems unable to bring <<himself>> to say something.<</if>><<npcincr Robin love -1>><<llove>><</if>> <<npcincr Robin trauma -1>><<stress -6>><<lrtrauma>><<lstress>>
 			<br><br>
 			<<neckon>>
 			<<robinoptions>>
 		<<case "Black Wolf">>
-			<<if $blackwolfmonster is 2>>
+			<<if resolveIfNamedBeastIsMonster("blackwolf")>>
 				<<He>> chuckles. "Is this a real picture? It looks so real!"
 			<<else>>
 				"It's a wolf!" <<he>> gasps, a smile spreading across <<his>> face. "That's so cool!"
@@ -1071,10 +1071,10 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 			<<neckon>>
 			<<robinoptions>>
 		<<case "Great Hawk">>
-			<<if $greathawkmonster is 2>>
+			<<if resolveIfNamedBeastIsMonster("greathawk")>>
 				<<He>> chuckles. "Is this a real picture? It looks so real!"
 			<<else>>
-				"It's… a hawk!" <<he>> gasps, a smile spreading across <<his>> face. "It's beautiful! I like birds, too!"
+				"It's... a hawk!" <<he>> gasps, a smile spreading across <<his>> face. "It's beautiful! I like birds, too!"
 			<</if>>
 			<<if $robinromance is 1>>
 				<br><br>
@@ -1087,7 +1087,7 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 			<<robinoptions>>
 		<<case "Gwylan">>
 			<<if $gwylan?.timer?.nobody gte Time.date.timeStamp>>
-				"There's… <span class="pink">nobody</span>. It's empty." <<he>> says. You tell <<him>> you just wear it as a necklace.
+				"There's... <span class="pink">nobody</span>. It's empty," <<he>> says. You tell <<him>> you just wear it as a necklace.
 				<br><br>
 				"It suits you!" <<he>> says with a smile. <<stress -6>><<lstress>>
 			<<elseif $hypnosis_traits.devotion gte 4>>
@@ -1097,7 +1097,7 @@ You shove the note <<if !$worn.under_lower.type.includes("naked")>>into your $wo
 				<br><br>
 				"What was that beam of light?" Robin rubs <<his>> eyes.
 			<<elseif $gwylan?.robin gte 50>>
-				"Oh, isn't this <<nnpc_he "Gwylan">>?" <<He>> asks with a smile. <<if $robinromance is 1>> Then, <<he>> pouts at you, crossing <<his>> arms. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Gwylan">> more than me?"<<else>><<He>> seems to want to say something, but can't bring <<himself>> to do it.<</if>><<npcincr Robin love -1>><<llove>><</if>>
+				"Oh, isn't this <<nnpc_he "Gwylan">>?" <<he>> asks with a smile. <<if $robinromance is 1>> Then, <<he>> pouts at you, crossing <<his>> arms. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Gwylan">> more than me?"<<else>><<He>> seems to want to say something, but can't bring <<himself>> to do it.<</if>><<npcincr Robin love -1>><<llove>><</if>>
 			<<elseif $gwylan?.robinShop>>
 				"Oh, isn't <<nnpc_he "Gwylan">> the forest shopkeeper?"<<if $robinromance is 1>> <<He>> pouts at you, crossing <<his>> arms. <<if C.npc.Robin.dom gte 60>>"Do you love <<nnpc_him "Gwylan">> more than me? What does <<nnpc_he "Gwylan">> have that I don't?"<<else>><<He>> seems to want to say something, but can't bring <<himself>> to do it.<</if>><<npcincr Robin love -1>><<llove>><</if>>
 				<br><br>
@@ -2462,7 +2462,7 @@ Once home, Robin gives you a surprise hug. "Thank you," <<he>> says. <<Hes>> tea
 <<set $outside to 1>><<set $location to "town">><<effects>>
 <<set _robin to statusCheck("Robin")>>
 
-<<if $tutorial is 0 and $debug is 0>>
+<<if $tutorial is 0 and !$debug>>
 	<<endevent>>
 	<<generate1>><<person1>>As you leave the orphanage with Robin you bump into a <<person>> passing by. <<He>> staggers back and looks at you with anger, but <<his>> rage turns to lechery as <<he>> beholds you. "You're the cutest thing I've seen all week! Come 'ere."
 	<br><br>
@@ -2509,7 +2509,7 @@ Once home, Robin gives you a surprise hug. "Thank you," <<he>> says. <<Hes>> tea
 	<br><br>
 <</if>>
 
-<<if $tutorial is 0 and $debug is 0>>
+<<if $tutorial is 0 and !$debug>>
 	<<set $tutorial to 1>>
 
 <<elseif C.npc.Avery.love gte random(20, 100) and C.npc.Avery.state is "active" and $avery_mansion?.schedule isnot "away" and !$avery_injury and $robinaverybeat isnot 1>>
@@ -3147,16 +3147,16 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 	You enter Bailey's office. <<Hes>> not there. <<He>> should be around between 7 and 9 in the morning.
 	<br><br>
 
-	<<if $bailey_office_gift is "lotus">>
-		<<if $christmas_bailey_lotus_day gte 0 and (Time.days - $christmas_bailey_lotus_day) lt 3>>
+	<<if $baileyOfficeGift is "lotus">>
+		<<if $christmasBaileyLotusDay gte 0 and (Time.days - $christmasBaileyLotusDay) lt 3>>
 			<span class="blue">A lotus flower arrangement sits on the corner of <<his>> desk. The petals are still open.</span>
-		<<elseif $christmas_bailey_lotus_day gte 0 and (Time.days - $christmas_bailey_lotus_day) lt 14>>
+		<<elseif $christmasBaileyLotusDay gte 0 and (Time.days - $christmasBaileyLotusDay) lt 14>>
 			<span class="blue">A lotus flower arrangement sits on the corner of <<his>> desk. The petals have begun to curl inward.</span>
 		<<else>>
 			<span class="blue">A glass frame hangs behind <<his>> desk. Inside is a lotus flower, pressed flat and perfectly preserved.</span>
 		<</if>>
 		<br><br>
-	<<elseif $bailey_office_gift is "chessboard">>
+	<<elseif $baileyOfficeGift is "chessboard">>
 		<span class="blue">The ebony-and-ivory chessboard sits open on the corner of <<his>> desk. The pieces are set up. A game is in progress against no one, as far as you can tell.</span>
 		<<set _chessDetails to []>>
 		<<if $avery_fate is "ascended">>
@@ -3181,10 +3181,10 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 			<span class="blue"> <<print _chessDetails.join(" ")>></span>
 		<</if>>
 		<br><br>
-	<<elseif $bailey_office_gift is "lure">>
+	<<elseif $baileyOfficeGift is "lure">>
 		<span class="blue">A small fishing lure shaped like a snake hangs from the desk lamp. Its scales catch the light.</span>
 		<br><br>
-	<<elseif $bailey_office_gift is "vodka">>
+	<<elseif $baileyOfficeGift is "vodka">>
 		<span class="blue">A bottle of winter reserve vodka sits on the shelf behind <<his>> desk. The seal is unbroken.</span>
 		<br><br>
 	<</if>>
@@ -3207,24 +3207,24 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 		<<set $daily.baileyVisit to 0>>
 		<<set _options to 1>>
 		<<if $dissociation gte 1>>
-			<<if C.npc.Bailey.dom gte 70 or $syndromebailey>>
+			<<if C.npc.Bailey.dom gte 70 or $syndromeBailey>>
 				<<He>> looks at your eyes. <<He>> gets up and rounds <<his>> desk to you. <<His>> hand finds your jaw and <<he>> turns your face toward <<his>>.
 				<br><br>
 				"Look at me."
 				<br><br>
 				<<He>> waits until your eyes focus on <<him>>.
 				<br><br>
-				<<if $syndromebailey>>
+				<<if $syndromeBailey>>
 					<span class="bailey-red"><<nnpc_He "Bailey">> is looking right at you.</span> You're home.<<lstress>><<ltrauma>><<stress -6>><<trauma -6>>
 				<</if>>
 				<br><br>
-				"There you are." <<He>> says, letting go of your jaw.
+				"There you are," <<he>> says, letting go of your jaw.
 				<br><br>
 			<<else>>
 			<<He>> looks at your eyes and grimaces. "I'm sure someone's into it," <<he>> mutters, shifting aside a paper <<he>> had been reading.
 			<</if>>
 		<<elseif $pain gte 40>>
-			<<if C.npc.Bailey.dom gte 70 or $syndromebailey>>
+			<<if C.npc.Bailey.dom gte 70 or $syndromeBailey>>
 				<<He>> looks at your tear-covered face. <<He>> opens the bottom drawer of <<his>> desk and tosses a first aid kit onto the desk in front of you. "Sort yourself out."
 				<br><br>
 				You grab and use what you need.<<lpain>><<pain -10>>
@@ -3235,7 +3235,7 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 		<<elseif $goooutsidecount + $semenoutsidecount gte 25>>
 			<<He>> looks at your body, covered in <<if $semenoutsidecount gte 1 and $goooutsidecount gte 1>>slime and semen<<elseif $semenoutsidecount gte 1>>semen<<else>>slime<</if>>, and turns away. "Get yourself cleaned up, you're a disgrace."
 		<<elseif $arousal gte ($arousalmax / 5) * 3>>
-			<<if C.npc.Bailey.lust gte 20 and (C.npc.Bailey.dom gte 70 or $syndromebailey)>>
+			<<if C.npc.Bailey.lust gte 20 and (C.npc.Bailey.dom gte 70 or $syndromeBailey)>>
 				<<He>> looks at your flushed face. <<He>> stops typing and gets up from <<his>> desk.
 				<br><br>
 				"Lock the door," <<he>> says.
@@ -3251,24 +3251,24 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 				"Sort that out somewhere else," <<he>> says, not looking up from <<his>> paperwork.
 			<</if>>
 		<<else>>
-			<<if C.npc.Bailey.dom gte 70 or $syndromebailey>>
+			<<if C.npc.Bailey.dom gte 70 or $syndromeBailey>>
 				<<He>> glances at you before going back to <<his>> paperwork.
-				<<if $bailey_office_gift is "lotus" and $christmas_bailey_lotus_day gte 0>>
+				<<if $baileyOfficeGift is "lotus" and $christmasBaileyLotusDay gte 0>>
 					<br><br>
-					<<if (Time.days - $christmas_bailey_lotus_day) lt 3>>
+					<<if (Time.days - $christmasBaileyLotusDay) lt 3>>
 						<span class="bailey-red">A lotus flower arrangement sits on the corner of <<his>> desk. The petals are still open.</span>
-					<<elseif (Time.days - $christmas_bailey_lotus_day) lt 14>>
+					<<elseif (Time.days - $christmasBaileyLotusDay) lt 14>>
 						<span class="bailey-red">A lotus flower arrangement sits on the corner of <<his>> desk. The petals have begun to curl inward.</span>
 					<<else>>
 						<span class="bailey-red">A glass frame hangs behind <<his>> desk. Inside is a lotus flower, pressed flat and perfectly preserved.</span>
 					<</if>>
-				<<elseif $bailey_office_gift is "chessboard">>
+				<<elseif $baileyOfficeGift is "chessboard">>
 					<br><br>
 					<span class="bailey-red">The chessboard is open on <<his>> desk. The game is still in progress.</span>
-				<<elseif $bailey_office_gift is "lure">>
+				<<elseif $baileyOfficeGift is "lure">>
 					<br><br>
 					<span class="bailey-red">The lure is still hanging from the desk lamp.</span>
-				<<elseif $bailey_office_gift is "vodka">>
+				<<elseif $baileyOfficeGift is "vodka">>
 					<br><br>
 					<span class="bailey-red">The vodka is on <<his>> shelf. The seal is still unbroken.</span>
 				<</if>>
@@ -3282,21 +3282,21 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 			<<He>> stares at you. "This better be about that payment you mentioned."
 		<<elseif $mason_pond is 2>>
 			<<He>> stares at you. "Is this about the spring? You better have the money."
-		<<elseif C.npc.Bailey.dom gte 70 or $syndromebailey>>
+		<<elseif C.npc.Bailey.dom gte 70 or $syndromeBailey>>
 			<<He>> doesn't glance at you this time. <<He>> continues working.
 		<<else>>
 			<<He>> glares at you. "You again? Piss off."
 		<</if>>
 	<<elseif $daily.baileyVisit is 2>>
 		<<set _options to 1>>
-		<<if C.npc.Bailey.dom gte 70 or $syndromebailey>>
+		<<if C.npc.Bailey.dom gte 70 or $syndromeBailey>>
 			<<He>> doesn't look up from <<his>> work. "Don't push it."
 		<<else>>
 		<<He>> glares at you. "Stop bothering me, brat."
 		<</if>>
 	<<elseif $daily.baileyVisit is 3>>
 		<<set _options to 2>>
-		<<if $syndromebailey>>
+		<<if $syndromeBailey>>
 			<<He>> looks up from <<his>> computer. The corner of <<his>> mouth moves just a fraction.
 			<br><br>
 			<<if C.npc.Bailey.lust gte 20>>
@@ -3304,7 +3304,9 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 				<br><br>
 				<<He>> gets up.
 				<br><br>
-				<<link [[Next|Bailey Office Visit Sex]]>><<set $molestationstart to 1>><</link>>
+				<<link [[Give in|Bailey Office Visit Sex Willing]]>><<set $molestationstart to 1>><</link>>
+				<br>
+				<<link [[Fight <<him>>|Bailey Office Visit Sex]]>><<set $molestationstart to 1>><</link>>
 			<<else>>
 				<<set _options to 1>>
 				<<He>> doesn't look up from <<his>> work. <<He>> seems busy. "I'll deal with you later."
@@ -3312,12 +3314,14 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 		<<elseif C.npc.Bailey.dom gte 70>>
 			<<He>> looks up from <<his>> computer. The corner of <<his>> mouth moves just a fraction.
 			<br><br>
-			<<if C.npc.Bailey.lust gte 20>>
+			<<if C.npc.Bailey.lust gte 40>>
 				"On your knees."
 				<br><br>
 				<<He>> gets up.
 				<br><br>
-				<<link [[Next|Bailey Office Visit Sex]]>><<set $molestationstart to 1>><</link>>
+				<<link [[Give in|Bailey Office Visit Sex Willing]]>><<set $molestationstart to 1>><</link>>
+				<br>
+				<<link [[Fight <<him>>|Bailey Office Visit Sex]]>><<set $molestationstart to 1>><</link>>
 			<<else>>
 				"Begging for a spanking, are we?"
 				<br><br>
@@ -3341,13 +3345,13 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 			<<else>>
 				<<He>> turns back to <<his>> work. "I'm busy. Leave."
 			<</if>>
-		<<elseif C.npc.Bailey.dom gte 70 or $syndromebailey>>
+		<<elseif C.npc.Bailey.dom gte 70 or $syndromeBailey>>
 			<<He>> doesn't look up from <<his>> computer. "You're becoming a habit."
 		<<else>>
 		<<He>> looks tired. "Don't you have anything better to do?"
 		<</if>>
 	<<else>>
-		<<if $syndromebailey or C.npc.Bailey.dom gte 70>>
+		<<if $syndromeBailey or C.npc.Bailey.dom gte 70>>
 			<<set _options to 1>>
 			<<He>> doesn't look up from <<his>> work.
 	<<else>>
@@ -3414,7 +3418,7 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 	<<if Time.hour gte 7 and Time.hour lte 9>>
 		<<baileyofficeoptions>>
 	<</if>>
-	<<if $syndromebailey and $baileycollar is 1 and $worn.neck.name isnot "Bailey's collar" and Time.hour gte 7 and Time.hour lte 9>>
+	<<if $syndromeBailey and $baileySeen.includes("collar") and $worn.neck.name isnot "Bailey's collar" and Time.hour gte 7 and Time.hour lte 9>>
 		<<lockicon>><<link [[Ask Bailey for another collar (0:05)|Bailey Collar Request]]>><</link>>
 		<br>
 	<</if>>
@@ -3461,7 +3465,7 @@ You produce the photo of you, Robin, Bailey, and someone else.
 "Do you know who that is behind us?"
 <br><br>
 
-<<if $syndromebailey and C.npc.Bailey.dom gte 70>>
+<<if $syndromeBailey and C.npc.Bailey.dom gte 70>>
 	<<He>> doesn't answer, and grabs the photo from the top <span class="red">as if <<hes>> about to rip it</span>. <<He>> hesitates. <<His>> jaw tightens. <<His>> crushing grip on the photo relaxes, marginally. <<He>> hands it back to you.
 	<br><br>
 
@@ -3611,15 +3615,15 @@ You put the cash on the desk. Bailey snatches it, and reclines in <<his>> chair 
 
 <<if $enemyarousal gte $enemyarousalmax>>
 	<<ejaculation>><<earnFeat "Bailey's Trouble Maker">><<npcincr Bailey lust -20>><<npcincr Bailey love 2>>
-	<<set $renttime += 1>>
-	<<if $rentday is 7>>
-		<<set $rentday to 1>>
+	<<set $rentTime += 1>>
+	<<if $rentDay is 7>>
+		<<set $rentDay to 1>>
 	<<else>>
-		<<set $rentday += 1>>
+		<<set $rentDay += 1>>
 	<</if>>
-	<<if $syndromebailey>>
+	<<if $syndromeBailey>>
 		Bailey sighs and looks over at you. <<He>> seems satisfied.
-	<br><br>
+		<br><br>
 		"Good," <<he>> mutters. "Right where you belong."
 		<br><br>
 		<<He>> gets off of you slowly. <<He>> grabs you by the chin and tilts it away from <<him>>, as if inspecting you.
@@ -3723,12 +3727,12 @@ You take the plushie back to your room and nestle it atop your wardrobe. It shou
 <<set $outside to 0>><<set $location to "home">><<effects>>
 
 <<set $robinpaid to 1>>
-<<set $rentmoney *= 2>>
+<<set $rentMoney *= 2>>
 <<if $robineventnote is 1>>
 	<<set $robineventnote to 0>>
 <</if>>
 
-"Fine," Bailey says. "You owe me <<printmoney $rentmoney "red">> for this week then. I'd get busy if I were you."
+"Fine," Bailey says. "You owe me <<printmoney $rentMoney "red">> for this week then. I'd get busy if I were you."
 <br><br>
 <<link [[Next|Orphanage]]>><<endevent>><</link>>
 <br>
@@ -4536,7 +4540,7 @@ Robin tugs your arm, and you rise from your seat.
 
 		<<if $player.penisExist and $player.vaginaExist>>
 			<<He>> kisses the tip of your <<penis>>, and runs <<his>> tongue along your length.
-			Meanwhile, <<he>> plunges a finger into your quim and begins pumping in and out. <<He>> gazes up at you.
+			Meanwhile, <<he>> plunges a finger into your quim and begins pumping in and out.
 		<<elseif $player.penisExist>>
 			<<He>> kisses the tip of your <<penis>> and runs <<his>> tongue along your length, flicking and licking as <<he>> does.
 		<<else>>
@@ -5031,7 +5035,7 @@ When it's done, Robin looks a little relieved. "Are you feeling better now?" <<h
 <br><br>
 <<endcombat>>
 
-<<if $kylar_camera is 2 and C.npc.Kylar.state is "active">>
+<<if [2, 7].includes($kylar_camera) and C.npc.Kylar.state is "active">>
 	<<if !$syndromekylar>>
 		A dreadful shiver passes through you. <span class="blue">Something is watching you.</span><<set $kylar_mad to 1>>
 		<br><br>
@@ -5078,7 +5082,7 @@ When it's done, Robin looks a little relieved. "Are you feeling better now?" <<h
 
 		You can feel Robin getting aroused.
 		<<if C.npc.Robin.dom gte 60>>
-			<<He>> starts lightly grinding against you. "Do you want to?" <<He>> whispers in your ear.
+			<<He>> starts lightly grinding against you. "Do you want to?" <<he>> whispers in your ear.
 		<<else>>
 			<<He>> seems to be trying to hide it.
 		<</if>>
@@ -5343,15 +5347,15 @@ When it's done, Robin looks a little relieved. "Are you feeling better now?" <<h
 	<<set $robinbaileyhelp to 1>>
 	You curl up into a foetal position and place your hands over your face as you continue to sob.
 	<<npc Bailey 2>><<person2>>
-	<<if C.npc.Bailey.dom gte 70 or $syndromebailey>>
+	<<if C.npc.Bailey.dom gte 70 or $syndromeBailey>>
 		A few minutes later you hear a pair of footsteps coming down the hall. A rough hand grabs you by the chin and pulls you up into a sitting position.
 		<span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 	<br><br>
 
-		"That's enough." <<He>> says, meeting your teary eyes with <<his>> own. Robin stands at the doorframe. Bailey looks you over with an assessing gaze. "Look at me. Stop crying." <<He>> squeezes your chin hard enough to hurt and you stop crying from pain grounding you. "You've been through worse."
+		"That's enough," <<he>> says, meeting your teary eyes with <<his>> own. Robin stands at the doorframe. Bailey looks you over with an assessing gaze. "Look at me. Stop crying." <<He>> squeezes your chin hard enough to hurt and you stop crying from pain grounding you. "You've been through worse."
 		<br><br>
 
-		<<if $syndromebailey>>
+		<<if $syndromeBailey>>
 			<span class="bailey-red">You're home.</span><<stress -6>><<lstress>><<trauma -6>><<ltrauma>><<npcincr Bailey love 1>><<glove "Bailey">>
 			<br><br>
 		<</if>>
@@ -6269,7 +6273,7 @@ You cuddle Robin, but <<his>> hands continue to wander and grope. <<He>> pulls y
 <</if>>
 <<clotheson>>
 <<if $phase is 1>>
-	<<if $pubfame and $pubfame.task is "bailey" and $pubfame.status isnot "done">>
+	<<if $pubfame?.task is "bailey" and $pubfame.status isnot "done">>
 		<span class="red">You can't say for sure that Mickey isn't on <<his>> computer. You'll need to try again.</span>
 	<<elseif $hacker_tasks.length gte 2>>
 		<span class="green">You have completed the hacker's tasks. You should talk to Landry.</span>
@@ -6462,7 +6466,7 @@ You install the USB, and a file folder automatically pops up a second later. You
 	Time passes, and the truck comes to a stop. Someone opens the trunk. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 	<br><br>
 
-	<<if $renttime lte 0>>
+	<<if $rentTime lte 0>>
 		"It's about time you paid up anyway," <<nnpc_he "Bailey">> sneers.
 	<<else>>
 		"It's not quite payment day yet," <<nnpc_he "Bailey">> sneers.
@@ -6667,7 +6671,7 @@ You get into bed next to <<him>>, and turn off the lamp.
 <<set _autosavehere to true>>
 <<sleep true>><<effects>>
 <<sleepeffects>>
-<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
+<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
 	It's surrounded by trees, all bending inwards, and floating above a lake. Everything moves around you, and you find yourself hanging above a large ruin. You can't breathe.
@@ -6678,6 +6682,10 @@ You get into bed next to <<him>>, and turn off the lamp.
 	<span class="nextLink"><<link [[Walk.|Bedroom]]>><<unset $robinbed>><<unset $bedGuest>><<endevent>><</link>></span>
 	<br>
 <<else>>
+	<<if $wraith.nightmare is 2 and Time.isBloodMoon()>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	You wake up refreshed and ready to tackle the day. Robin, still sleeping soundly, lies beside you. A small smile has formed over <<his>> face. You do your best to get out from <<his>> bed and leave without disturbing the slumbering orphan.
 	<br><br>
 
@@ -7444,9 +7452,9 @@ Robin's grip on your hand trembles, then tightens. <<His>> arm reaches up yours,
 "I'm so s-sorry! I knew what I was doing but... I couldn't..." <<He>> trails off, tears freely flowing from <<his>> face.
 <br><br>
 <<if C.npc.Robin.dom gte 50>>
-	<<if $robinromance is 1>>"I'm supposed to be the one protecting you, not hurting you..."<<else>>"I'm sorry," <<He>> chokes back a sob, "You're my friend, I... I'm supposed to be there for you..." <<He>> clenches <<his>> fists, a grim look on <<his>> tear-streaked face.<</if>>
+	<<if $robinromance is 1>>"I'm supposed to be the one protecting you, not hurting you..."<<else>>"I'm sorry." <<He>> chokes back a sob, "You're my friend, I... I'm supposed to be there for you..." <<He>> clenches <<his>> fists, a grim look on <<his>> tear-streaked face.<</if>>
 <<else>>
-	<<if $robinromance is 1>>"I hurt you... I can never forgive myself."<<else>>"Please... Don't hate me, I... I'm so sorry," <<He>> barely manages, looking horrified with <<himself>>. "I hurt you... I'm sorry, I'm so sorry," <<He>> keeps apologizing, looking almost frantic as <<he>> holds <<his>> arms against <<himself>>.<</if>>
+	<<if $robinromance is 1>>"I hurt you... I can never forgive myself."<<else>>"Please... Don't hate me, I... I'm so sorry," <<he>> barely manages, looking horrified with <<himself>>. "I hurt you... I'm sorry, I'm so sorry." <<He>> keeps apologising, looking almost frantic as <<he>> holds <<his>> arms against <<himself>>.<</if>>
 <</if>>
 <br><br>
 
@@ -7460,7 +7468,7 @@ Robin's grip on your hand trembles, then tightens. <<His>> arm reaches up yours,
 <<if $speech_attitude is "meek">>
 	<<if $robinromance is 1>>"I forgive you..." you whisper. "That wasn't you."<<else>>"It's... It's okay," you manage to say through your own tears, "It wasn't you. It wasn't Robin."<</if>>
 <<elseif $speech_attitude is "bratty">>
-	<<if $robinromance is 1>>"Hey, it's not your fault," you say. "I know you'd never do that normally."<<else>>"Don't apologize," you say, though you can't quite meet <<his>> eyes as you do so, "I know it wasn't your fault. You wouldn't do that to me."<</if>>
+	<<if $robinromance is 1>>"Hey, it's not your fault," you say. "I know you'd never do that normally."<<else>>"Don't apologise," you say, though you can't quite meet <<his>> eyes as you do so, "I know it wasn't your fault. You wouldn't do that to me."<</if>>
 <<else>>
 	<<if $robinromance is 1>>"You must've been through so much." You give <<him>> a weak smile. "I forgive you."<<else>>"You were crying so much. I know you didn't want to hurt me," you give <<him>> a weak smile, though you still feel a little apprehensive. "I forgive you."<</if>>
 <</if>>
@@ -9662,7 +9670,7 @@ Robin looks
 			One of the younger orphans beams. "It smells good, Robin!" <<He>> relaxes at the compliment, sneaking a small, relieved look at you. You give <<him>> a subtle thumbs up.
 		<</if>>
 	<<else>>
-		<<wearProp "burnt">>
+		<<wearProp "inedible burnt">>
 		The two of you work side by side, but it's clear who the more skilled cook is. While Robin moves with practiced ease, you fumble your way through the cooking process. Between the clatter of utensils and the orphans' not-so-subtle glances, your concentration wavers.<<housekeeping 1 400>><<ghousekeeping 400>>
 		<br><br>
 		A faint burning smell hits your nose. You glance down at your pan, <span class="red">only to find a charred mess where your dish should have been.</span> An orphan coughs.<<stress 6>><<gstress>>

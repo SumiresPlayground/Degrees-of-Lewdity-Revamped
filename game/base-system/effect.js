@@ -349,7 +349,7 @@ function effects() {
 	if (isPregnancyEnding()) {
 		sWikifier(
 			`<span class="red">Your waters have broken.</span> ${
-				["asylum", "prison", "hospital"].includes(V.location) ? "You need to find help, fast!" : "You need to head to the hospital, fast!"
+				["asylum", "prison", "hospital", "mines"].includes(V.location) ? "You need to find help, fast!" : "You need to head to the hospital, fast!"
 			} <<ggstress>>`
 		);
 		br();
@@ -950,7 +950,7 @@ function effects() {
 					break;
 				case "withdrawals":
 					sWikifier(
-						'<span class="red">Your body craves nectar and has begun to suffer from withdrawals.</span> <<stress 12>><<ggstress>><<trauma 12>><<ggtrauma>><<physique_loss 4>><<lphysique>>'
+						'<span class="red">Your body craves nectar and has begun to suffer from withdrawals.</span> <<stress 12>><<ggstress>><<trauma 12>><<ggtrauma>><<physique -4>><<lphysique>>'
 					);
 					br();
 					break;
@@ -1130,12 +1130,12 @@ function effects() {
 			}
 			if (!T.hasVaginaParasiteForEvent) {
 				V.daily.parasiteEvent = V.daily.parasiteEvent.filter(function (event) {
-					return !event.includes("vagina");
+					return !event?.includes("vagina");
 				});
 			}
 			if (!T.hasAnusParasiteForEvent) {
 				V.daily.parasiteEvent = V.daily.parasiteEvent.filter(function (event) {
-					return !event.includes("anus");
+					return !event?.includes("anus");
 				});
 			}
 		}
@@ -1207,8 +1207,10 @@ function effects() {
 						break;
 				}
 			});
-			if (arousalGain) sWikifier(`<<arousal ${Math.clamp(arousalGain, 0, 10000)}>>`);
-			br();
+			if (arousalGain) {
+				sWikifier(`<<arousal ${Math.clamp(arousalGain, 0, 10000)}>>`);
+				br();
+			}
 			delete V.daily.parasiteEvent;
 		}
 	}
@@ -2310,6 +2312,12 @@ function effects() {
 		V.nudist = 1
 		V.publicnudist = false
 		sWikifier(`<span class="lewd">You are no longer ashamed to be seen naked. You are now a nudist.</span><br><br>`);
+	}
+
+	if (V.prutipain === 1) {
+		V.pain += (1 * C.npc.Pruti.lust)
+		V.prutipain = 0
+		sWikifier(`<span class="purple">You feel your soul unraveling from an unseen wound. Is it yours or someone else's?</span><br><br>`);
 	}
 	
 	return fragment;

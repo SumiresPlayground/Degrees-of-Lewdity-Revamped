@@ -57,6 +57,7 @@
 						<<case "Gwylan">><<displayFeatFake "Gwylan the Bewitching">>
 						<<case "Salem">><<displayFeatFake "Salem the Cultist">>
 						<<case "Casey">><<displayFeatFake "Casey the Biker">>
+						<<case "Pruti">><<displayFeatFake "Pruti the Witch">>
 						<<case "Rowan">><<displayFeatFake "Rowan the Trainer">>
 						<<case "Mint Mocha">><<displayFeatFake "Mint the Mocha">>
 					<</switch>>
@@ -132,7 +133,7 @@
 				<<set $virginityProtected to false>>
 				<<set $player.virginity.temple to $_taker>>
 				<<countBrokenVows $_taker>>
-				<<set $speechtemplevirgin to 1>>
+				<<set $speechTempleVirgin to 1>>
 			<</if>>
 		<</if>>
 	<</if>>
@@ -155,6 +156,7 @@
 		<<case "Gwylan">><<earnFeat "Gwylan the Bewitching">>
 		<<case "Salem">><<earnFeat "Salem the Cultist">>
 		<<case "Casey">><<earnFeat "Casey the Biker">>
+		<<case "Pruti">><<earnFeat "Pruti the Witch">>
 		<<case "Rowan">><<earnFeat "Rowan the Trainer">>
 		<<case "Mint Mocha">><<earnFeat "Mint the Mocha">>
 	<</switch>>
@@ -169,7 +171,7 @@
 				<<set $virginityProtected to false>>
 				<<set $player.virginity.temple to _args[0]>>
 				<<countBrokenVows _args[0]>>
-				<<set $speechtemplevirgin to 1>>
+				<<set $speechTempleVirgin to 1>>
 			<</if>>
 		<</if>>
 	<</if>>
@@ -297,6 +299,7 @@
 		<<case "Taylor">>      <<set $_isLoveInterest to ($taylorromance is 1)>>
 		<<case "Casey">>      <<set $_isLoveInterest to ($caseyromance is 1)>>
 		<<case "Salem">>      <<set $_isLoveInterest to ($salemromance is 1)>>
+		<<case "Pruti">>      <<set $_isLoveInterest to ($prutiromance is 1)>>
 		<<case "Rowan">>        <<set $_isLoveInterest to ($rowanromance is 1)>>
 		<<case "Mint Mocha">> <<set $_isLoveInterest to ($mintromance is 1)>>
 		<<default>>           <<run $NPCNameList.includes(_args[0]) ? $_isLoveInterest = false : Errors.report("wrong argument passed to takeKissVirginityNamed: ", _args)>>
@@ -440,7 +443,7 @@
 		<<set $_npc to $NPCList[$_npcId]>>
 	<</if>>
 
-	<<if $_npc and $_npc.penisdesc && $_npc.penisdesc.includes("strap-on")>>
+	<<if $_npc?.penisdesc?.includes("strap-on")>>
 		<<set $_straponvirginityIgnore to ($_vType is "penile")>>
 	<</if>>
 
@@ -594,7 +597,7 @@
 /* Cannot remove as it is used in combat logic */
 <<widget "leg_position">>
 	<<set $_parts to [$anususe, $vaginause, $chestuse, $mouthuse]>>
-	<<if $machine and $machine.tattoo and ["left_thigh", "right_thigh"].includes($machine.tattoo.use)>>
+	<<if ["left_thigh", "right_thigh"].includes($machine?.tattoo?.use)>>
 		<<set _leg_position to "up">>
 	<<elseif $_parts.includes("penis") or $_parts.includes(1)>>
 		<<set _leg_position to "up">>
@@ -762,7 +765,7 @@
 <<widget "npcCondomEquipImmediate">>
 	<<set $_condomnpc to (_args[0] ? _args[0] : 0)>>
 	<<set $_condomArticle to (_args[1] ? _args[1] : 0)>>
-	<<if $NPCList[$_condomnpc].condom and $NPCList[$_condomnpc].condom.willUse>>
+	<<if $NPCList[$_condomnpc].condom?.willUse>>
 		/*Your penis*/
 		<<if $penisstate is "entrance" or $penisstate is "imminent" or $penisstate is "otheranusentrance" or $penisstate is "otheranusimminent">>
 			<<if ($NPCList[$_condomnpc].vagina.toString().includes("penis") or $NPCList[$_condomnpc].penis.toString().includes("otheranus")) and !$player.condom and $parasite.penis.name is undefined>>

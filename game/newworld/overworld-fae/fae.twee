@@ -6,7 +6,7 @@ You are in a strange mystical place. Towering luminous purple mushrooms light up
 <<if $stress gte $stressmax and !$possessed>>
 	<<passoutfae>>
 <<elseif $eventskip is 0>>
-	<<if $danger gte (9900 - $allure) and ($settings.bestialityEnabled or $monster is 1)>>
+	<<if $danger gte (9900 - $allure) and (beastSexEnabledForType("dragon", $monster is 1) or beastSexEnabledForType("rabbit", $monster is 1) or $settings.voreEnabled or $settings.swarmsEnabled)>>
 		<<eventfae>>
 	<<else>>
 		<<eventfaesafe>>

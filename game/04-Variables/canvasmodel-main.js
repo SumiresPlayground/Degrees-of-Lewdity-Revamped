@@ -153,6 +153,10 @@ replace (?<!["'\w])_(?=\w) with T.
  * For each body writing SLOT (key in $skin):
  * - "writing_SLOT" - key in setup.bodywwriting, "" for no writing
  *
+ * BODY FRECKLE OPTIONS:
+ * --------------------
+ * "bodyFreckles": "none"|"upper"|"full"
+ *
  * DRIPPING FLUIDS OPTIONS:
  * -----------------------
  * "drip_vaginal": ""|"Start"|"VerySlow"|"Slow"|"Fast"|"VeryFast"
@@ -284,6 +288,8 @@ Renderer.CanvasModels.main = {
 			"skin_type": "light",
 			"skin_tone": 0,
 			"skin_scars":false,
+			"bodyFreckles": "none",
+			"freckles": false,
 			// Hair
 			"hair_colour": "red",
 			"hair_colour_gradient": {
@@ -312,7 +318,6 @@ Renderer.CanvasModels.main = {
 			"facestyle": "default",
 			"facevariant": "default",
 			"ears_position": "back",
-			"freckles": false,
 			"trauma": false,
 			"blink": true,
 			"eyes_half": false,
@@ -1076,7 +1081,7 @@ Renderer.CanvasModels.main = {
 
 		if (options.tanningEnabled) {
 			if (V.options.tanLines) {
-				if (!Skin.cachedLayers) {
+				if (!Skin.cachedLayers || ("skip_skin_caching" in options && options.skip_skin_caching === true)) {
 					const canvasModel = this;
 
 					// Don't modify the original options object
@@ -1139,7 +1144,8 @@ Renderer.CanvasModels.main = {
 							options.generatedLayers[`tan_rightarm${i}`] = (genlayer_tanning("rightarm", i, layers.arms, alpha));
 						}
 					}
-					Skin.cachedLayers = options.generatedLayers;
+					if (!"skip_skin_caching" in options || options.skip_skin_caching === false)
+						{Skin.cachedLayers = options.generatedLayers;}
 				} else {
 					options.generatedLayers = Skin.cachedLayers;
 				}
@@ -1196,32 +1202,28 @@ Renderer.CanvasModels.main = {
 			},
 			srcfn() {
 				if (V.NPCposition > 0 && V.NPCenable > 0 && V.creatorname === "png" && (V.NPCList[0].name === "'Mickey'" || V.npc.length > 0 || V.npcview)) {
-					const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha"];
+					const npcs = ["Avery", "Bailey", "Briar", "Charlie", "Darryl", "Doren", "Eden", "Gwylan", "Harper", "Jordan", "Kylar", "Landry", "Leighton", "Mason", "Morgan", "River", "Robin", "Sam", "Sirris", "Whitney", "Winter", "Black Wolf", "Niki", "Quinn", "Remy", "Alex", "Great Hawk", "Wren", "Sydney", "Ivory Wraith", "Zephyr", "Night Monster", "Taylor", "Casey", "Salem", "Pruti", "Haegish", "Rowan", "Mint Mocha", "Harlowe"];
 					const currentNPC = V.npc[0] || V.selectedNPC;
 					const excludedNPCs = ["Mickey", "Brown Fox"];
 					let index, skin, skincolour, creatorvariable;
 					let ismonster;
-					if (currentNPC === "Black Wolf") ismonster = V.blackwolfmonster;
-					else if (currentNPC === "Great Hawk") ismonster = V.greathawkmonster;
-					else if (currentNPC === "Night Monster") ismonster = V.nightmonstermonster;
+					if ((currentNPC === "Black Wolf" && V.hallucinations === 0 && V.settings.namedBeasts.blackwolf.hallucinationsOnly === true) || (currentNPC === "Black Wolf" && V.settings.namedBeasts.blackwolf.hallucinationsOnly === false)) ismonster = 0;
+					else if ((currentNPC === "Great Hawk" && V.hallucinations === 0 && V.settings.namedBeasts.greathawk.hallucinationsOnly === true) || (currentNPC === "Great Hawk" && V.settings.namedBeasts.greathawk.hallucinationsOnly === false)) ismonster = 0;
+					else if ((currentNPC === "Night Monster" && V.hallucinations === 0 && V.settings.namedBeasts.nightmonster.hallucinationsOnly === true) || (currentNPC === "Night Monster" && V.settings.namedBeasts.nightmonster.hallucinationsOnly === false)) ismonster = 0;
 					if (!excludedNPCs.includes(currentNPC)) {
 						index = npcs.indexOf(currentNPC);
-						/*skin = V.NPCName[index].skincolour;
-						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;*/
 						skin = V.NPCName[index].skincolour;
-						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;
 					} else if (currentNPC === "Brown Fox") {
 						index = 7;
-						/*skin = V.NPCName[index].skincolour;
-						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;*/
 						skin = V.NPCName[index].skincolour;
-						skincolour = skin === "white" ? "light" : skin === "black" ? "dark" : skin;
+						skincolour = typeof skin === "number" ? (skin < 50 ? "light" : "dark") : skin;
 					}
 					creatorvariable = V["creator" + currentNPC.replace(/\s+/g, '')];
 
 					if (V.NPCList[0].name === "'Mickey'" || V.NPCList[1].name === "'Mickey'" || V.selectedNPC === "Mickey")
 						return `img/npc/Mickey/${V.mickeySkincolour}/${V.creatorMickey}.png`;
-					else if (["Black Wolf", "Great Hawk", "Night Monster"].includes(currentNPC) && (ismonster === 0 || ismonster === 1 && V.hallucinations >= 1))
+					else if (["Black Wolf", "Great Hawk", "Night Monster"].includes(currentNPC) && (ismonster === 0))
 						return `img/npc/${currentNPC}/i/monster/${creatorvariable}.png`;
 					else if (currentNPC === "Sydney")
 						if (C.npc.Sydney.purity > 0)
@@ -1736,7 +1738,7 @@ Renderer.CanvasModels.main = {
 		 */
 		"freckles": {
 			filters: ["tan"],
-			z: ZIndices.freckles,
+			z: ZIndices.faceFreckles,
 
 			srcfn(options) {
 				return `img/face/${options.facestyle}/${options.mouthvariant}/freckles.png`;
@@ -1818,7 +1820,7 @@ Renderer.CanvasModels.main = {
 
 			srcfn(options) {
 				const half = options.eyes_half ? "-half-closed" : "";
-				return `img/face/${options.facestyle}/${options.eyevariant}/eyelids${half}.png`;
+				return `img/face/${options.facestyle}/${options.facevariant}/eyelids${half}.png`;
 			},
 			animationfn(options) {
 				return options.blink_animation;
@@ -1879,7 +1881,7 @@ Renderer.CanvasModels.main = {
 			z: ZIndices.blush + 1,
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.mouthvariant}/blusher.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/blusher.png`;
 			},
 			showfn(options) {
 				return options.show_face && !!options.blusher_colour;
@@ -1927,11 +1929,11 @@ Renderer.CanvasModels.main = {
 			},
 		},
 		"blush": {
-			filters: ["tan"],
 			z: ZIndices.blush,
+			filters: ["tan"],
 
 			srcfn(options) {
-				return `img/face/${options.facestyle}/${options.mouthvariant}/blush-${options.blush}.png`;
+				return `img/face/${options.facestyle}/${options.eyevariant}/blush-${options.blush}.png`;
 			},
 			showfn(options) {
 				return options.show_face && options.blush > 0;
@@ -2629,7 +2631,7 @@ Renderer.CanvasModels.main = {
 				return `img/transformations/dragon/rightwing/${options.dragon_wings_type}.png`;
 			},
 			showfn(options) {
-				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_right === "idle"*/
+				return options.show_tf && isPartEnabled(options.dragon_wings_type) && V.dragoncolor === "change"
 			},
 			z: ZIndices.backhair,
 			animation: "idle"
@@ -2640,7 +2642,7 @@ Renderer.CanvasModels.main = {
 				return `img/transformations/dragon/leftwing/${options.dragon_wings_type}.png`;
 			},
 			showfn(options) {
-				return options.show_tf && isPartEnabled(options.dragon_wings_type) /*&& options.dragon_wing_left === "idle"*/
+				return options.show_tf && isPartEnabled(options.dragon_wings_type) && V.dragoncolor === "change"
 			},
 			z: ZIndices.backhair,
 			animation: "idle"
@@ -2651,7 +2653,42 @@ Renderer.CanvasModels.main = {
 				return `img/transformations/dragon/tail/${options.dragon_tail_type}.png`;
 			},
 			showfn(options) {
-				return options.show_tf && isPartEnabled(options.dragon_tail_type)
+				return options.show_tf && isPartEnabled(options.dragon_tail_type) && V.dragoncolor === "change"
+			},
+			zfn(options) {
+				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
+			},
+			animation: "idle"
+		},
+		"dragon_wings_right2": {
+			filters: ["hair"],
+			srcfn(options) {
+				return `img/transformations/dragon/rightwing/${options.dragon_wings_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_wings_type) && V.dragoncolor === "hair"
+			},
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"dragon_wings_left2": {
+			filters: ["hair"],
+			srcfn(options) {
+				return `img/transformations/dragon/leftwing/${options.dragon_wings_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_wings_type) && V.dragoncolor === "hair"
+			},
+			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"dragon_tail2": {
+			filters: ["hair"],
+			srcfn(options) {
+				return `img/transformations/dragon/tail/${options.dragon_tail_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.dragon_tail_type) && V.dragoncolor === "hair"
 			},
 			zfn(options) {
 				return options.tail_layer === "back" ? ZIndices.backhair + 1 : ZIndices.tail;
@@ -3033,7 +3070,7 @@ Renderer.CanvasModels.main = {
 		"fae_wings_right": {
 			filters: ["fae_wings"],
 			srcfn(options) {
-				return `img/transformations/fae/rightwing/default.png`;
+				return `img/transformations/fae/rightwing/${options.fae_wings_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fae_wings_type) && options.fae_wing_right === "idle";
@@ -3044,12 +3081,25 @@ Renderer.CanvasModels.main = {
 		"fae_wings_left": {
 			filters: ["fae_wings"],
 			srcfn(options) {
-				return `img/transformations/fae/leftwing/default.png`;
+				return `img/transformations/fae/leftwing/${options.fae_wings_type}.png`;
 			},
 			showfn(options) {
 				return options.show_tf && isPartEnabled(options.fae_wings_type) && options.fae_wing_left === "idle";
 			},
 			z: ZIndices.backhair,
+			animation: "idle"
+		},
+		"fae_wings_head": {
+			filters: ["fae_wings"],
+			srcfn(options) {
+				return `img/transformations/goblin/ears/${options.goblin_ears_type}.png`;
+			},
+			showfn(options) {
+				return options.show_tf && isPartEnabled(options.goblin_ears_type) && options.goblin_ears_type === "moth";
+			},
+			zfn(options) {
+				return options.ear_layer === "back" ? ZIndices.ears : ZIndices.horns - 1;
+			},
 			animation: "idle"
 		},
 		"fae_fairies": {
@@ -3465,7 +3515,7 @@ Renderer.CanvasModels.main = {
 				return `img/transformations/goblin/ears/${options.goblin_ears_type}.png`;
 			},
 			showfn(options) {
-				return options.show_tf && options.show_face && isPartEnabled(options.goblin_ears_type)
+				return options.show_tf && isPartEnabled(options.goblin_ears_type) && options.goblin_ears_type === "default";
 			},
 			filters: ["tan"],
 			zfn(options) {
@@ -4019,6 +4069,76 @@ Renderer.CanvasModels.main = {
 			},
 			showfn(options) {
 				return !!options.writing_right_thigh;
+			},
+		},
+
+		/*
+				███████ ██████  ███████  ██████ ██   ██ ██      ███████ ███████ 
+				██      ██   ██ ██      ██      ██  ██  ██      ██      ██      
+				█████   ██████  █████   ██      █████   ██      █████   ███████ 
+				██      ██   ██ ██      ██      ██  ██  ██      ██           ██ 
+				██      ██   ██ ███████  ██████ ██   ██ ███████ ███████ ███████
+		*/
+		"freckles_base": {
+			filters: ["tan"],
+			z: ZIndices.bodyFreckles,
+			animation: "idle",
+
+			srcfn(options) {
+				return `img/body/freckles/base-${options.body_type}-freckles-${options.bodyFreckles}.png`;
+			},
+			showfn(options) {
+				return options.bodyFreckles !== "none" && !options.mannequin;
+			},
+		},
+		"freckles_pregnant_belly": {
+			filters: ["tan"],
+			z: ZIndices.bellyBase + 0.1,
+			animation: "idle",
+
+			srcfn(options) {
+				return between(options.belly, 1, 24) ? `img/body/freckles/pregnant-belly/${options.belly}-freckles.png` : "";
+			},
+			showfn(options) {
+				return options.bodyFreckles === "full" && !options.mannequin && !!options.belly;
+			},
+		},
+		"freckles_left_arm": {
+			filters: ["tan"],
+			animation: "idle",
+
+			srcfn(options) {
+				if (options.arm_left === "cover") {
+					return "img/body/freckles/left-arm-cover-freckles.png";
+				} else if (options.arm_left === "idle") {
+					return `img/body/freckles/left-arm-idle-${options.body_type}-freckles.png`;
+				}
+			},
+			showfn(options) {
+				return options.bodyFreckles !== "none" && !options.mannequin && options.arm_left !== "none";
+			},
+			zfn(options) {
+				return options.arm_left === "cover" ? ZIndices.left_cover_arm + 0.1 : ZIndices.armsidle + 0.1;
+			},
+		},
+		"freckles_right_arm": {
+			filters: ["tan"],
+			animation: "idle",
+
+			srcfn(options) {
+				if (options.arm_right === "cover") {
+					return "img/body/freckles/right-arm-cover-freckles.png";
+				} else if (options.arm_right === "hold") {
+					return "img/body/freckles/right-arm-hold-freckles.png";
+				} else if (options.arm_right === "idle") {
+					return `img/body/freckles/right-arm-idle-${options.body_type}-freckles.png`;
+				}
+			},
+			showfn(options) {
+				return options.bodyFreckles !== "none" && !options.mannequin && options.arm_right !== "none";
+			},
+			zfn(options) {
+				return ["cover", "hold"].includes(options.arm_right) ? ZIndices.right_cover_arm + 0.1 : ZIndices.armsidle + 0.1;
 			},
 		},
 

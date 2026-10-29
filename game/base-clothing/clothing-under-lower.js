@@ -2664,7 +2664,8 @@ function initUnderLower() {
 		These items should have a `modder` variable with the modder's name in a short string.
 	*/
 	setup.moddedClothes.under_lower = [
-		{index: 1,
+		{
+			index: 1,
 			slot: "under_lower",
 			name: "tentacle bottom",
 			name_cap: "Tentacle suit bottom",
@@ -2711,8 +2712,8 @@ function initUnderLower() {
 			iconFile: "",
 			accIcon: 0,
 		},
-		
-			{index: 2,
+		{
+			index: 2,
 			slot: "under_lower",
 			name: "mushroom bottoms",
 			name_cap: "Mushroom bottoms",
@@ -2758,10 +2759,9 @@ function initUnderLower() {
 			location: 0,
 			iconFile: "",
 			accIcon: 0,
-			
 		},
-		
-			{index: 3,
+		{
+			index: 3,
 			slot: "under_lower",
 			name: "Speedster panties",
 			name_cap: "speedster panties",
@@ -2807,7 +2807,53 @@ function initUnderLower() {
 			location: 0,
 			iconFile: "speedster-panties.png",
 			accIcon: 0,
-			
+		},
+		{
+			index: 4,
+			slot: "under_lower",
+			name: "adhesive groin talisman",
+			name_cap: "Adhesive Groin Talisman",
+			variable: "talisman",
+			combat: {
+				reference: "plainpanties",
+			},
+			integrity: 10,
+			integrity_max: 10,
+			fabric_strength: 1,
+			reveal: 1000,
+			rearresize: 0,
+			word: "n",
+			one_piece: 0,
+			state: "waist",
+			state_base: "waist",
+			plural: 1,
+			colour: 0,
+			colour_options: [],
+			colour_sidebar: 0,
+			exposed: 0,
+			exposed_base: 0,
+			vagina_exposed: 0,
+			vagina_exposed_base: 0,
+			anus_exposed: 0,
+			anus_exposed_base: 0,
+			type: ["costume", "apotropaic"],
+			anal_shield: 0,
+			gender: "n",
+			femininity: 0,
+			warmth: 0,
+			cost: 1000,
+			description: "Talismans designed to repel spirits.",
+			shop: ["cursed"],
+			accessory: 0,
+			accessory_colour: 0,
+			accessory_colour_options: [],
+			accessory_colour_combat:"",
+			penis_img: 0,
+			high_img: 0,
+			cursed: 0,
+			location: 0,
+			iconFile: "talisman.png",
+			accIcon: 0,
 		}
 	];
 

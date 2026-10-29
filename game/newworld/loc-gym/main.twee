@@ -1,0 +1,244 @@
+:: Harvest Gym
+<<set $outside to 0>><<set $location to "harvestgym">><<effects>>
+<<npc Harlowe>><<person1>>
+<<if $gymintro is undefined>>
+    From the outside, the gym isn't too impressive. A fairly simple undecorated building. It strangely lacks any windows, a brick building secluded to its own corner of the street.
+    <br><br>
+    As you enter, you find the place pretty empty, though that is expected for an establishment on Harvest Street. A few patrons exercise at the various machines throughout the room, and it seems there are a few backrooms that are labeled staff only.
+    <br><br>
+    Only moments after entering, you are greeted by a person wearing sporty clothing. <<He>> looks to be the building's owner. <<He>> has a rich wine colored hair, a bit messy from activity. <<His>> hair is worn in a loose <<if $pronoun is "m">>spiked style<<else>>sidecut<</if>>.
+    <br><br>
+    "A new face I see?" <<He>> steps close looking you over. "My name is Harlowe, I own this place." <<He>> says, offering a firm handshake. <<if $physique gte 10000>>"You've got some nice looking muscles. Keep up your workouts if you don't want to lose them." <<glove>><<npcincr Harlowe love 1>><<else>>"Your body looks pretty small. You could do with some more work." <<He>> speaks factually, blunt but not as an insult, a pure observation.<</if>>
+    <br><br>
+    "If you want to use our facilities here, you'll have to pay the £200 weekly membership fee. Though, if you work hard enough, I let regulars workout free of charge. So keep up with us and we'll see if you've got what it takes."
+    <br><br>
+    <<set $gymintro to 1>>
+<<elseif Time.dayState is "night">>
+    It's closing time, the few patrons of the gym begin to pack up and leave.<<if $exposed gte 1>> Panic swells within you as you realise how exposed you'll be should you be found in this state of dress.<</if>>
+    <br><br>
+    <<lockericon>><<link [[Locker|Gym Locker]]>><<endevent>><</link>>
+    <br>
+    <<link [[Leave the gym (0:05)|Harvest Street]]>><<pass 5>><<endevent>><</link>>
+<<else>>
+    You are in Harlowe's gym. A few regulars workout on the machines throughout the building. The lack of windows leaves the room bathed in synthetic light that hurts your eyes a bit.
+    <br><br>
+<</if>>
+<<if Time.dayState isnot "night">>
+    <<if $stress gte $stressmax and !$possessed>>
+	    <<passoutgym>>
+    <<elseif $gymmembership lte 0 or $gymmembership is undefined>>
+        <span class="blue">You will need a membership to use any of the facilities here.</span>
+        <br>
+        <<if $money gte 20000>>
+            <<link [[Buy a membership pass £200|Harvest Gym Pass]]>><<set $gymmembership to 7>><<pass 10>><</link>>
+        <<else>>
+            <span class="red">You do not have the £200 required for a weekly membership.</span>
+        <</if>> 
+        <br><br>
+        <<link [[Leave the gym (0:05)|Harvest Street]]>><<pass 5>><<endevent>><</link>>
+    <<else>>
+        <span class="blue">Your membership will run out in <<print $gymmembership>> days.</span>
+        <br><br>
+        <<prisonicon "lift">><<link [[Spend some time lifting weights (1:00)|Gym Lift]]>><<pass 60>><<physique 10>><<tiredness 10>><</link>><<ggphysique>><<ggtiredness>>
+        <br>
+        <<runicon>><<link [[Practice jogging on the treadmill (1:00)|Gym Run]]>><<pass 60>><<athletics 10>><<tiredness 5>><</link>><<ggathletics>><<ggtiredness>>
+        <br>
+        <<lockericon>><<link [[Locker|Gym Locker]]>><<endevent>><</link>>
+        <br>
+        <<link [[Leave the gym (0:05)|Harvest Street]]>><<pass 5>><<endevent>><</link>>
+    <</if>>
+<</if>>
+
+:: Harvest Gym Pass
+You approach the front where Harlowe is assisting with spotting a regular's lifting. As you draw near, <<he>> seems to ignore you.
+<br><br>
+<<link [[Wait patiently (0:10)|Harvest Gym Pass 2]]>><<set $phase to 1>><<pass 10>><</link>>
+<br>
+<<link [[Clear your throat to get <<his>> attention|Harvest Gym Pass 2]]>><<set $phase to 2>><</link>>
+
+:: Harvest Gym Pass 2
+<<generate2>>
+<<if $phase is 1>>
+    You wait a few minutes, watching the <<person2>><<person>><<person1>> lift. They breathe heavily as they lower the weight back onto the bar. Harlowe congratulates them with a pat on the back, "Nice going bud, that was your personal best wasn't it?" You can make out from where you stand.
+    <br><br>
+    After a moment, Harlowe makes <<his>> way over to you. "Hey, what was it you needed? I appreciate you waiting patiently, you seem to know gym etiquette, or at least respect."<<glove>><<npcincr Harlowe love 1>>
+    <br><br>
+    "Anyway, what was it that you needed?" <<He>> crosses <<his>> arms.
+<<else>>
+    <<He>> continues to ignore you for a moment as the <<person2>><<person>><<person1>> puts down the weight before looking up annoyed. "Listen kid, when someone is spotting a lift, you should never interrupt."
+    <br><br>
+    <<He>> extends a hand to the <<person2>><<person>><<person1>>, helping them up before giving you their full attention. "If I get distracted and they needed my help, they could have gotten seriously hurt. Just give it some thought next time." <<llove>><<npcincr Harlowe love -1>>
+    <br><br>
+    "Anyway, what was it that you needed so desperately?" <<He>> crosses <<his>> arms.
+<</if>>
+<br><br>
+You let Harlowe know you are interested in a gym membership. You remove the £200 from your wallet and hand it over. Harlowe counts the bills, and checks their authenticity. You wonder if people have tried to use fake bills in the past.
+<br><br>
+<<if $gymmember is undefined>>
+    After a moment, Harlowe leads you to the front where <<he>> puts your money in the register and prints you a laminated card. "That is your pass, it will automatically expire after a week. Just speak to me if you need it renewed."
+    <<set $gymmember to 1>>
+<<else>>
+    After a moment, Harlowe leads you to the front where <<he>> puts your money in the register and takes your gym card. "This will just take a moment." <<He>> says as he swipes the card at the front computer and taps a few keys.
+    <br><br>
+    "There you go," <<he>> says, handing you back the card. "It has been renewed for another seven days. As usual, just let me know if you need it renewed again."
+<</if>>
+<br><br>
+With a thanks given, Harlowe retreats into the staff only backrooms of the gym.
+<br><br>
+<<link [[Next|Harvest Gym]]>><<endevent>><</link>>
+
+:: Gym Run
+You turn on the treadmill and begin to jog.
+<br><br>
+The gym remains fairly empty, allowing you a respite from the hecticness of your daily life.
+<br><br>
+<<cleareventpool>>
+<<addinlineevent "harlowe_checkup">>
+    As you finish up your jogging, Harlowe stops by with a bottle of water. "Hey there, saw you were working hard."
+    <br><br>
+    <<if $athletics gte 600>>
+        "Your leg muscles look pretty well developed. A good runner, I can tell." <<He>> says checking your form. <<glove>><<npcincr Harlowe love 1>>
+    <<else>>
+        "Your muscles could use a bit of work. Your form is lacking some musculature that would help you keep in top shape." <<He>> observes as <<he>> looks over your body.
+    <</if>>
+    <br><br>
+    "Here," <<he>> says. "You look like you could use a drink." Harlowe hands you the bottle of water with a wave as <<he>> turns <<his>> attention to the other patrons.
+    <br>
+<</addinlineevent>>
+
+<<addinlineevent "harlowe_sketchy">>
+    As you finish your jog, you notice something strange out of the corner of your eye. Harlowe seems to be discussing something with one of the regulars in the back of the gym.
+    <br><br>
+    You listen carefully and try to pick up on the conversation,
+    <<if $skulduggery gte 600>>
+        and manage to pick up some of it with your sharp ears. "Are you sure that's a good choice, can you trust them?" The regular questions. "I don't have much choice, but it should be fine with the leverage we have for it." Harlowe looks around cautiously before ending the conversation early and retreating to the staff room.
+    <<else>>
+        but you can't seem to hear much before the conversation ends. Harlowe looks around cautiously before returning to the staff room in the back.
+    <</if>>
+    <br><br>
+    You wonder what that discussion was about.
+    <br>
+<</addinlineevent>>
+
+<<addinlineevent "staff_door">>
+    Your eyes make contact with the staff door in the back. You wonder just what is going on in there behind closed doors. Harlowe seems to spend a lot of time back there.
+    <br><br>
+    Your thought is interrupted as Harlowe appears beside you. "Hey there, <<girl>>. How has the workout been going?" <<He>> looks over your running form.
+    <br><br>
+    <<if $athletics gte 600>>
+        "Your leg muscles look pretty well developed. A good runner, I can tell." <<glove>><<npcincr Harlowe love 1>>
+    <<else>>
+        "Your muscles could use a bit of work. Your form is lacking some musculature that would help you keep in top shape." <<He>> observes with a nod.
+    <</if>>
+    <br><br>
+    "Here," <<he>> says. "I got you a towel, should help you clean up." Harlowe hands you a towel with a wave as <<he>> turns <<his>> attention to the other patrons.
+    <br>
+<</addinlineevent>>
+
+<<addinlineevent "other_patron">>
+    As your jogging draws to an end, you catch the sight of another patron checking you out. They avert their eyes with a blush as you look over.
+    <br><br>
+    <<brothelicon>><<link [[Flirt (0:05)|Gym Encounter]]>><<endevent>><<pass 5>><</link>><<promiscuous1>>
+<</addinlineevent>>
+<<if random(1,3) is 1>><<runeventpool>><</if>>
+<br>
+<<link [[Next|Harvest Gym]]>><</link>>
+
+:: Gym Encounter
+<<generate1>><<person1>>
+You approach and try to talk to the <<person>>. <<He>> stammers, "O-oh it's nothing I'm sorry!" before making a dash for the door.
+<br><br>
+What a cute shy <<personsimple>>, your mood feels a bit lighter. <<lstress>><<stress -6>>
+<br><br>
+<<link [[Next|Harvest Gym]]>><</link>>
+
+:: Gym Lift
+You lie on the bench and begin to lift the weights positioned over you.
+<br><br>
+The gym remains fairly empty, allowing you a respite from the hecticness of your daily life.
+<br><br>
+<<cleareventpool>>
+<<addinlineevent "harlowe_checkup">>
+    As you begin lifting, Harlowe stops by and gazes down toward you. "Hey there, need a spotter?"
+    <br><br>
+    <<if $physique gte 10000>>
+        "Your muscles are quite strong, not that I am doubting your ability." <<He>> says checking your form. <<glove>><<npcincr Harlowe love 1>>
+    <<else>>
+        "Your muscles look like they could use quite a bit of work, wouldn't want you to get hurt while exercising." <<He>> observes as <<he>> looks over your body.
+    <</if>>
+    <br><br>
+    "Here," <<he>> says, standing beside you. "Keep up the good work." Harlowe spots as you continue your lifts. As you finish, <<he>> gives you a smile and small wave as <<he>> turns <<his>> attention to the other patrons.
+    <br>
+<</addinlineevent>>
+
+<<addinlineevent "harlowe_sketchy">>
+    As you finish your lifts, you notice something strange out of the corner of your eye. Harlowe seems to be discussing something with one of the regulars in the back of the gym.
+    <br><br>
+    You listen carefully and try to pick up on the conversation,
+    <<if $skulduggery gte 600>>
+        and manage to pick up some of it with your sharp ears. "Are you sure that's a good choice, can you trust them?" The regular questions. "I don't have much choice, but it should be fine with the leverage we have for it." Harlowe looks around cautiously before ending the conversation early and retreating to the staff room.
+    <<else>>
+        but you can't seem to hear much before the conversation ends. Harlowe looks around cautiously before returning to the staff room in the back.
+    <</if>>
+    <br><br>
+    You wonder what that discussion was about.
+    <br>
+<</addinlineevent>>
+
+<<addinlineevent "staff_door">>
+    Your eyes make contact with the staff door in the back. You wonder just what is going on in there behind closed doors. Harlowe seems to spend a lot of time back there.
+    <br><br>
+    Your thought is interrupted as Harlowe appears beside you. "Hey there, <<girl>>. How has the workout been going?" <<He>> looks over your running form.
+    <br><br>
+    <<if $physique gte 10000>>
+        "Wow your muscles are quite strong." Harlowe observes with a glance. "I can tell you put work into maintaining your form, nice work." <<glove>><<npcincr Harlowe love 1>>
+    <<else>>
+        "Your muscles could use a bit of work. Your form is lacking some musculature that would help you keep in top shape." <<He>> observes with a nod.
+    <</if>>
+    <br><br>
+    "Here," <<he>> says. "I got you a towel, should help you clean up." Harlowe hands you a towel with a wave as <<he>> turns <<his>> attention to the other patrons.
+    <br>
+<</addinlineevent>>
+
+<<addinlineevent "other_patron">>
+    As you finish lifting, wiping your brow of sweat, you catch the sight of another patron checking you out. They avert their eyes with a blush as you look over.
+    <br><br>
+    <<brothelicon>><<link [[Flirt (0:05)|Gym Encounter]]>><<endevent>><<pass 5>><</link>><<promiscuous1>>
+<</addinlineevent>>
+<<if random(1,3) is 1>><<runeventpool>><</if>>
+<br>
+<<link [[Next|Harvest Gym]]>><</link>>
+
+:: Gym Wake Up
+You wake up sometime later, still sore and exhausted. You're on a cot in a room you haven't seen before. You sit up but a voice from the corner startles you. "Don't move too fast, you're still waking up."
+<br><br>
+You turn to face the corner as your eyes adjust to the light and see Harlowe. "Are you feeling better? It's not every day someone passes out in the gym. You looked pretty worse for wear, though its easy to see why in this town."
+<br><br>
+<<He>> tosses you a clear plastic bottle filled with water. "Take a drink you look dehydrated." 
+<br><br>
+As you drink, you look around.
+<<if $speech_attitude is "meek">>			
+	"W-where am I?" you ask cautiously.
+    <br><br>
+    "No need to be so cautious, this is just one of the gym's backrooms. I brought you in here to rest up." Harlowe responds.
+<<elseif $speech_attitude is "bratty">>
+	"Where did you bring me," you demand.
+    <br><br>
+    "Feisty," <<he>> chuckles, "This is just one of the gym's backrooms, I brought you in here to rest up." Harlowe responds.
+<<else>>
+	"Thank you," you say. "Where is this?"
+    <br><br>
+    "This is just one of the gym's backrooms. I brought you in here to rest up." Harlowe responds.
+<</if>>
+<br><br>
+<<He>> helps you stagger to your feet, feeling much better. "I'm glad to see you're doing better at least," <<he>> smiles. <<He>> helps to support you as <<he>> walks you to the front of the establishment.
+<br><br>
+"Listen," <<he>> continues. "I'm gonna make sure you get home alright, okay?"
+<br><br>
+You nod as <<he>> guides you into <<his>> car, buckling you in and driving. The car pulls up to the orphanage, did you ever mention that around <<him>>, you wonder. 
+<br><br>
+The door is opened for you and Harlowe helps you out of the car. "Listen kid, try to take better care of yourself. You're lucky, some folks around here would do a lot worse to a thing like you."
+<br><br>
+<<He>> gives a final small wave of <<his>> hand as the car pulls away from the orphanage.
+<br><br>
+<<link [[Next|Domus Street]]>><</link>>

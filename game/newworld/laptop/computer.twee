@@ -1,20 +1,46 @@
 :: Computer Widgets [widget]
 
 <<widget "computerhomepage">>
-<div style="position: relative;">
-	<img src="img/misc/desktop/desktop.png" style="position: absolute;" usemap="#image-map">
-	<img src="img/misc/desktop/icons.png" style="position: absolute;" usemap="#image-map">
-
-	<map name="image-map">
-		<area class="no-numberify" alt="Tamagochi Dungeon" title="Tamagochi Dungeon" coords="1,2,77,84" shape="rect" onclick="desktopMove('Tamagochi Dungeon')">
-		<area class="no-numberify" alt="Mineblox" title="Mineblox" coords="154,84,78,1" shape="rect" onclick="desktopMove('Mineblox')">
-		<area class="no-numberify" alt="Blogspace" title="Blogspace" coords="154,0,239,76" shape="rect" onclick="desktopMove('Blogspace')">
-		<area class="no-numberify" alt="Camhub" title="Camhub" coords="241,0,313,76" shape="rect" onclick="desktopMove('Camhub')">
-		<area class="no-numberify" alt="Shutdown" title="Shutdown" coords="81,462,3,537" shape="rect" onclick="desktopMove('Bedroom')">
+	<<set _laptoplocations to [
+		{ id: "Tamagochi Dungeon",  name: "Tamagochi Dungeon", coords: [1, 2, 77, 84]     },
+		{ id: "Mineblox",           name: "Mineblox",          coords: [78, 1, 154, 84]   },
+		{ id: "Blogspace",          name: "Blogspace",         coords: [154, 0, 239, 76]  },
+		{ id: "Camhub",             name: "Camhub",            coords: [241, 0, 313, 76]  },
+		{ id: "Bedroom",            name: "Bedroom",           coords: [3, 462, 81, 537]  }
+	]>>
+	<map id="laptop-map" name="laptop-map">
+		<div id="laptopmap" style="position: relative; display: inline-block;">
+			<img id="laptopbg" src="img/misc/desktop/desktop.png" style="position: absolute;">
+			<img id="laptopicon" usemap="#laptop-map" src="img/misc/desktop/icons.png" style="position: absolute;">
+		</div>
+		<<for _loc range _laptoplocations>>
+			<area class="no-numberify map-area"
+				@alt="_loc.name"
+				@title="_loc.name"
+				@coords="_loc.coords.join(',')"
+				shape="rect"
+				@data-passage="_loc.id">
+		<</for>>
 	</map>
-</div>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<<getouticon>><<link [[Back|Bedroom]]>><</link>>
+	<<script>>
+		$(document).one('click', '#laptop-map area', function(ev) {
+			ev.preventDefault();
+			const passage = $(this).data('passage');
+			if (passage) desktopMove(passage);
+		});
+	<</script>>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<span class="blue">Direct links in case of icons not working.</span>
+	<br>
+	<<getouticon>><<link [[Tamagochi Dungeon|Tamagochi Dungeon]]>><</link>>
+	<br>
+	<<getouticon>><<link [[Mineblox|Mineblox]]>><</link>>
+	<br>
+	<<getouticon>><<link [[Blogspace|Blogspace]]>><</link>>
+	<br>
+	<<getouticon>><<link [[Camhub|Camhub]]>><</link>>
+	<br>
+	<<getouticon>><<link [[Back|Bedroom]]>><</link>>
 <</widget>>
 
 <<widget "camdancestripeffects">>
@@ -346,7 +372,7 @@
 			<<set $specialrequests.pushUnique(
 				{label:"Missing Children",   text:"Several children have gone missing from the town in just a few hours.<br>HIGH PRIORITY EVENT"}
 			)>>
-		<<elseif (Time.monthName is "December" and Time.monthDay >= 25) or (Time.monthName is "January" and Time.monthDay <= 6) and $perchtaevent isnot 1 and $settings.goreEnabled and $fame.investigator gte 1200>>
+		<<elseif ((Time.monthName is "December" and Time.monthDay >= 25) or (Time.monthName is "January" and Time.monthDay <= 6)) and $perchtaevent isnot 1 and $settings.goreEnabled and $fame.investigator gte 1200>>
 			<<set $specialrequests.pushUnique(
 				{label:"Mysterious Death",   text:"Investigate the unnatural death of a Danube Street resident.<br>HIGH PRIORITY EVENT"}
 			)>>

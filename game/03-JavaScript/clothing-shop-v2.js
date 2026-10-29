@@ -65,6 +65,10 @@ function clothingSlotToIconName(slotName, outfits) {
 			return outfits ? "underoutfit" : "underupper";
 		case "under_lower":
 			return "underlower";
+		case "over_lower":
+			return "overlower";
+		case "over_head":
+			return "overhead";
 		default:
 			return slotName;
 	}

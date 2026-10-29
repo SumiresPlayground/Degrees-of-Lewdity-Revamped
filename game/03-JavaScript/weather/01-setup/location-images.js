@@ -2980,6 +2980,40 @@ setup.LocationImages = {
 			},
 		},
 	},
+	mines: {
+		folder: "mines",
+		base: {
+			default: {
+				image: "base.png",
+			},
+		},
+		emissive: {
+			lights: {
+				image: "emissive.png",
+				color: "#deae66",
+				size: 4,
+				animation: {
+					frameDelay: 200,
+				},
+			},
+		},
+		weather: {
+			fogDistributionCurve: 0,
+			rainSplashEnabled: false,
+			fogEnabled: false,
+
+			groundBounds: {
+				splashes: {
+					top: 0,
+					bottom: 0,
+				},
+				fog: {
+					top: 0,
+					bottom: 0,
+				},
+			},
+		},
+	},
 	moor: {
 		folder: "moor",
 		base: {
@@ -5167,6 +5201,41 @@ setup.LocationImages = {
 				},
 				fog: {
 					top: 16,
+					bottom: 0,
+				},
+			},
+		},
+	},
+	harvestgym: {
+		folder: "pub",
+		base: {
+			default: {
+				condition: () => !Weather.isSnow,
+				image: "base.png",
+			},
+			snow: {
+				condition: () => Weather.isSnow,
+				image: "snow.png",
+			},
+		},
+		emissive: {
+			condition: () => Weather.lightsOn,
+			image: "emissive.png",
+			color: "#deae66",
+			strength: 3,
+		},
+		weather: {
+			fogDistributionCurve: 1.5,
+			rainSplashEnabled: true,
+			fogEnabled: true,
+
+			groundBounds: {
+				splashes: {
+					top: 5,
+					bottom: 0,
+				},
+				fog: {
+					top: 9,
 					bottom: 0,
 				},
 			},

@@ -73,7 +73,11 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
 		<<rng>>
 		<<if $rng gte 81>>
 			<<eventislanditem>>
-		<<elseif $danger gte (9900 - $allure) and ($settings.bestialityEnabled or $monster is 1)>>
+		<<elseif $danger gte (9900 - $allure) and ($location is "desert" or $location is "beach") and (beastSexEnabledForType("ant", $monster is 1) or beastSexEnabledForType("hawk", $monster is 1) or beastSexEnabledForType("lizard", $monster is 1))>>
+			<<eventisland>>
+        <<elseif $danger gte (9900 - $allure) and $location is "mforest" and (beastSexEnabledForType("boar", $monster is 1) or beastSexEnabledForType("wolf", $monster is 1) or beastSexEnabledForType("cat", $monster is 1) or $settings.voreEnabled or $settings.lurkersEnabled)>>
+			<<eventisland>>
+        <<elseif $danger gte (9900 - $allure) and $location is "glacier" and (beastSexEnabledForType("bear", $monster is 1) or beastSexEnabledForType("wolf", $monster is 1))>>
 			<<eventisland>>
 		<<else>>
 			<<eventislandsafe>>
@@ -110,12 +114,18 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
         <<if $islanddistance is 40>>
             <<planeicon>><<link [[Explore the plane (0:30)|Plane Explore]]>><<pass 30>><</link>>
             <br>
+            <<if $portalquest is 2>>
+                <<link [[Meet with Pruti|Pruti Rift Setup]]>><<endevent>><<set $portalquest to 3>><</link>>
+                <br>
+            <</if>>
+            <<if $portalquest is 3 and $daily.riftisland isnot 1>>
+                <<link [[Use the rift|Misland Rift]]>><<endevent>><<set $phase to 1>><<set $daily.riftisland to 1>><</link>>
+                <br>
+            <<elseif $portalquest is 3>>
+                <span class="purple">The obsidian glass needs time to recharge</span>
+            <</if>>
         <</if>>
-        <<if $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50>>
-            <<prutihuticon>><<link [[Enter Pruti's Hut (0:10)|Witch Hut Return]]>><<pass 30>><</link>>
-            <br>
-        <</if>>
-        <<if $islanddistance is 45 and $NPCName[$NPCNameList.indexOf("Pruti")].love gte 50  and $prutidev is false>>
+        <<if $islanddistance is 45 and $syndromepruti is 1>>
             <<prutihuticon>><<link [[Approach Pruti's Hut (0:10)|Witch Hut Front]]>><<pass 30>><</link>>
             <br>
         <</if>>
@@ -233,7 +243,7 @@ The page is illegible, the words are scribbled beyond comprehension and dried bl
 <<getouticon>><<link [[Back (0:05)|Misland]]>><<pass 5>><</link>>
 
 :: Desert Village
-<<location "desert">>
+<<location "desert">><<set $bus to "desert">>
 <<applyLocationEffects>>
 <<effects>>
 The village is small, a handful of makeshift structures surrounding the oasis. You can see people going about their daily lives, tending crops and grazing animals, and children playing in the water. Despite the harsh desert climate, this oasis is an oasis of life, a refuge from the treacherous surroundings.
@@ -983,6 +993,10 @@ Shops line the sturdy pier. The dock looks a lot more developed than the surroun
     <<highicon>><<link [[Sell antiques|Misland Sell]]>><</link>>
     <br>
 <</if>>
+<<if $portalquest is 1>>
+    <<link [[Look for something dark yet reflective for Pruti|Pruti Shop Search]]>><</link>>
+    <br>
+<</if>>
 <<stallicon "open">><<link [[Visit the clothing shops|Misland Clothing Shop]]>><</link>>
 <br>
 <<getouticon>><<link [[Back|Misland Dock]]>><</link>>
@@ -1195,3 +1209,18 @@ I'll be sellin' these beauties to the mainland for a pretty penny.
 <<money `(($antiquemoney * 100) / 2)`>><<set $antiquemoneyhistory += $antiquemoney>><<set $antiquemoney to 0>><<if $museumAntiques.antiques.antiquesilvermask is "found">><<set $phase to 1>><<else>><<set $phase to 0>><</if>><<if $museumAntiques.antiques.antiqueivorynecklace is "found">><<world_corruption "hard" 2>><</if>><<museumdonate>>
 
 <<link [[Next|Desert Dock Shops]]>><<endevent>><</link>>
+
+:: Misland Rift
+<<if $phase is 1>>
+    You step toward the rift within the plane wreckage. The obsidian lens reflects natural energy that opens the rift, feeling that lurching feeling you get from tearing through space.
+    <br><br>
+    Moments later, you find yourself at the forest shrine.
+    <br><br>
+    <<link [[Next|Forest]]>><<set $islanddistance to 40>><</link>>
+<<else>>
+    You step toward the rift in the forest shrine. The glossy pearl projects light that opens the rift, allowing you enter. You are overwhelmed by that lurching feeling you get from tearing through space.
+    <br><br>
+    Moments later, you find yourself at the plane wreckage.
+    <br><br>
+    <<link [[Next|Misland]]>><<set $islanddistance to 40>><</link>>
+<</if>>

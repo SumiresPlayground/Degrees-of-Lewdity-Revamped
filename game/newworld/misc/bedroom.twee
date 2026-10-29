@@ -317,7 +317,7 @@ You kneel at your altar and begin to pray for a boon.
 	<<if $aurigafavor gte 10>>
 		<<link [[Pray for impurity|Auriga Impurity]]>><<set $aurigafavor -= 10>>
 			<<if V.featsPurityBoost is undefined>><<set V.featsPurityBoost to -1>><<else>><<set V.featsPurityBoost -= 1>><</if>>
-		<</link>>
+		<</link>><br>
 	<</if>>
 	<<if $aurigafavor gte 20>>
 		<<link [[Pray for pure lust|Auriga Lust]]>><<set $aurigafavor -= 20>>
@@ -332,24 +332,24 @@ You kneel at your altar and begin to pray for a boon.
 	<<if $virgofavor gte 10>>
 		<<link [[Pray for purity|Virgo Purity]]>><<set $virgofavor -= 10>>
 			<<if V.featsPurityBoost is undefined>><<set V.featsPurityBoost to 1>><<else>><<set V.featsPurityBoost += 1>><</if>>
-		<</link>>
+		<</link>><br>
 	<</if>>
 	<<if $virgofavor gte 20>>
 		<<link [[Pray to purge corruption|Virgo Uncorrupt]]>><<set $virgofavor -= 20>><<set $world_corruption_soft -= 10>><</link>>
 	<</if>>
 <<elseif V.furniture.bedroom.shrine.id is "abyssina">>
 	<<if $abyssinafavor gte 10>>
-		<<link [[Pray for corruption|Abyssina Corruption]]>><<set $abyssinafavor -= 10>><<set $world_corruption_soft += 5>><</link>>
+		<<link [[Pray for corruption|Abyssina Corruption]]>><<set $abyssinafavor -= 10>><<set $world_corruption_soft += 5>><</link>><br>
 	<</if>>
 	<<if $abyssinafavor gte 20>>
 		<<link [[Pray for greater corruption|Abyssina Hard Corruption]]>><<set $abyssinafavor -= 20>><<set $world_corruption_hard += 1>><</link>>
 	<</if>>
 <<elseif V.furniture.bedroom.shrine.id is "auspacia">>
 	<<if $auspaciafavor gte 10>>
-		<<link [[Pray for bounty|Auspacia Bounty]]>><<set $auspaciafavor -= 10>><<set $daily.auspaciatending to true>><</link>>
+		<<link [[Pray for bounty|Auspacia Bounty]]>><<set $auspaciafavor -= 10>><<set $daily.auspaciatending to true>><</link>><br>
 	<</if>>
 	<<if $auspaciafavor gte 20>>
-		<<link [[Pray for fortune|Auspacia Fortune]]>><<set $auspaciafavor -= 20>><<set $antiquemoney * 1.1>><</link>>
+		<<link [[Pray for fortune|Auspacia Fortune]]>><<set $auspaciafavor -= 20>><<set $antiquemoney to Math.round($antiquemoney * 1.1)>><</link>>
 	<</if>>
 <</if>>
 <br>

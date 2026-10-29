@@ -86,39 +86,43 @@
 		<<exit>>
 	<</if>>
 
-	<<if $rentday isnot undefined || $rentmoney isnot undefined>>
+	<<if $rentDay isnot undefined || $rentMoney isnot undefined>>
 		<hr>
 		<h1 class="header gold bold">Time-Sensitive</h1>
 		<ul class="journal">
-			<<if $avery_mansion>>/* Is Avery paying for the PC? */
-				<<if $avery_mansion.rage.assess gte 9 or C.npc.Avery.state is "dismissed">>
-					<<set _avery_pay to false>>
-				<<else>>
-					<<set _avery_pay to true>>
-				<</if>>
-			<<else>>
-				<<set _avery_pay to false>>
-			<</if>>
-			<<if !_avery_pay>>
-				<<if $rentday isnot undefined>>
-					<<if $renttime lte 0>>
-						<li>Bailey is looking for you and wants <<printmoney $rentmoney>><<babyRentDisplay " plus " " for not looking after your children" "gold">><<bratTaxDisplay " plus " " for being a brat this week" "gold">>.</li>
+			<<if $rentDay isnot undefined>>
+				<<if isRentDue() or isBaileyLookingForPlayer()>>
+					<li>
+					<<if $baileyRefusedToPay>>
+						Bailey will try to visit you again on <<rentday>> and wants <<printmoney $rentMoney>><<babyRentDisplay " plus " " for not looking after your children" "gold">><<bratTaxDisplay " plus " " for being a brat this week" "gold">>.
 					<<else>>
-						<li>Bailey wants <<printmoney $rentmoney>> on <<rentday>><<babyRentDisplay " plus " " for not looking after your children" "gold">><<bratTaxDisplay " plus " " for being a brat this week" "gold">>.</li>
+						Bailey is looking for you and wants <<printmoney $rentMoney>><<babyRentDisplay " plus " " for not looking after your children" "gold">><<bratTaxDisplay " plus " " for being a brat this week" "gold">>.
 					<</if>>
-				<<elseif $rentmoney isnot undefined>>
-					<li>Bailey wants <<printmoney $rentmoney>><<babyRentDisplay " plus " " for not looking after your children" "gold">><<bratTaxDisplay " plus " " for being a brat this week" "gold">>.</li>
+					<<if $rentThug>>
+						<<if $rentTime is 0>>
+							<span class="green"><<nnpc_His "Bailey">> thugs aren't after you yet.</span>
+						<<else>>
+							<<switch $rentThug?.anger>>
+								<<case 0>><span class="teal"><<nnpc_His "Bailey">> thugs are looking for you.</span>
+								<<case 1>><span class="lblue"><<nnpc_His "Bailey">> thugs are focused on finding you.</span>
+								<<case 2>><span class="blue"><<nnpc_His "Bailey">> thugs are frustrated by you.</span>
+								<<case 3>><span class="purple"><<nnpc_His "Bailey">> thugs are making your capture a priority.</span>
+								<<case 4>><span class="pink"><<nnpc_His "Bailey">> thugs are developing a vendetta against you.</span>
+								<<default>><span class="red"><<nnpc_His "Bailey">> thugs view catching you as their number one priority.</span>
+							<</switch>>
+						<</if>>
+					<</if>></li>
+				<<elseif isAveryPayingBailey() isnot 2>>
+					<li>Bailey wants <<printmoney $rentMoney>> on <<rentday>><<babyRentDisplay " plus " " for not looking after your children" "gold">><<bratTaxDisplay " plus " " for being a brat this week" "gold">>.</li>
 				<</if>>
+			<<elseif $rentMoney isnot undefined>>
+				<li>Bailey wants <<printmoney $rentMoney>><<babyRentDisplay " plus " " for not looking after your children" "gold">>.</li>
 			<</if>>
 
-			<<if $bailey_confiscation and $bailey_confiscation.items and $bailey_confiscation.items.length gt 0>> /* Bailey Confiscation System */
+			<<if $bailey_confiscation?.items?.length gt 0>> /* Bailey Confiscation System */
 				<<set _rentDueDate to getFormattedDate(new DateTime(Time.date).addDays(($bailey_confiscation.day + 7) - Time.days), true)>>
 				<<set _discardDate to getFormattedDate(new DateTime(Time.date).addDays(($bailey_confiscation.day + 8) - Time.days), true)>>
 				<li>Bailey confiscated your <<baileyConfiscationListFull>>. Pay your rent on <span class="gold"><<print _rentDueDate>></span> or buy your stuff back before <span class="gold"><<print _discardDate>></span>, or <<nnpc_he "Bailey">>'ll pawn it off.</li>
-			<</if>>
-
-			<<if $horseacademystudent is 1>>
-				<li>You have <<print $horseacademycountdown>> days until the next regional race.</li>
 			<</if>>
 
 			<<if $syndromeeden is 1 and $edenfreedom gte 1 and $location isnot "cabin">> /* Another parameter is planned, something like $edenpunishment. It is meant to only trigger the journal note after the player has been given a reason to be wary of breaking Eden's rules. */
@@ -156,15 +160,15 @@
 				<</if>>
 			<</if>>
 
-			<<if ($bailey_date_scheduled is 1 or $bailey_date_allnight_scheduled is 1) and Time.hour lte 20 and $bailey_date_attended isnot 1>>
+			<<if ($baileyDateScheduled or $baileyDateAllNightScheduled) and Time.hour lte 20 and !$baileyDateAttended>>
 				<li>You have a date scheduled with Bailey <span class="pink">tonight</span>. <<nnpc_He "Bailey">>'ll wait for you in the orphanage between <span class="gold"><<ampm 19 00>></span> and <span class="gold"><<ampm 20 00>></span>.</li>
 			<</if>>
 
-			<<if $bailey_halloween_scheduled is Time.year and Time.monthDay is 31 and Time.monthName is "October" and (Time.hour lt 19 or (Time.hour is 19 and Time.minute lte 30)) and $bailey_halloween_attended isnot Time.year>>
+			<<if $baileyHalloweenScheduled is Time.year and Time.monthDay is 31 and Time.monthName is "October" and (Time.hour lt 19 or (Time.hour is 19 and Time.minute lte 30)) and $baileyHalloweenAttended isnot Time.year>>
 				<li>Bailey is expecting you at <<nnpc_his "Bailey">> charity gala <span class="pink">tonight</span>. <<nnpc_He "Bailey">>'ll pick you up from the orphanage between <span class="gold"><<ampm 18 30>></span> and <span class="gold"><<ampm 19 30>></span>.</li>
 			<</if>>
 
-			<<if $bailey_monogamous and baileyWeeksMissed() gte 1>>
+			<<if $baileyMonogamous and baileyWeeksMissed() gte 1>>
 				<li>Bailey expects you at <<nnpc_his "Bailey">> flat this weekend, between <span class="gold"><<ampm 21 00>></span> and <span class="gold"><<ampm 6 00>></span>.</li>
 			<</if>>
 
@@ -280,49 +284,51 @@
 			<</if>>
 
 			<<if $studyBooks isnot undefined and ($studyBooks?.rented isnot "none" or $studyBooks?.stolen isnot "none")>>
-				<<if $studyBooks.rented isnot "none" and $book_rent_timer>>
-					<<switch $studyBooks.rented>>
-						<<case "Pinch">>
-							<<if $per_npc.pinch isnot undefined>>
-								<<set _book to `copy of \"How ${$per_npc.pinch.pronoun is "m" ? "Mr" : "Ms"} Pinch Groped Christmas\"`>>
+				<li>
+					<<if $studyBooks.rented isnot "none">>
+						<<switch $studyBooks.rented>>
+							<<case "Pinch">>
+								<<if $per_npc.pinch isnot undefined>>
+									<<set _book to `copy of \"How ${$per_npc.pinch.pronoun is "m" ? "Mr" : "Ms"} Pinch Groped Christmas\"`>>
+								<<else>>
+									<<set _book to "olive-coloured book">>
+								<</if>>
+							<<case "Raul and Janet">>
+								<<set _book to `copy of \"${$studyBooks.rented}\"`>>
+							<<case "English" "science" "maths" "history">>
+								<<set _book to $studyBooks.rented + " textbook">>
+						<</switch>>
+						<<if Time.schoolTerm>>
+							<<if $book_rent_timer is 0>>
+								<span class="blue">You have <<a _book>> due.</span>
+							<<elseif $book_rent_timer lt 0>>
+								<span class="red">You have <<a _book>> overdue.</span>
 							<<else>>
-								<<set _book to "olive-coloured book">>
+								You have <<a _book>> due in <span class="gold">$book_rent_timer</span> <<pluralise $book_rent_timer "day">>.
 							<</if>>
-						<<case "Raul and Janet">>
-							<<set _book to `copy of \"${$studyBooks.rented}\"`>>
-						<<case "English" "science" "maths" "history">>
-							<<set _book to $studyBooks.rented + " textbook">>
-					<</switch>>
-					<<if Time.schoolTerm>>
-						<<if $book_rent_timer is 0>>
-							<li><span class="blue">You have a book due.</span></li>
-						<<elseif $book_rent_timer lt 0>>
-							<li><span class="red">You have a book overdue.</span></li>
-						<<else>>
-							<li>You have a book due in <span class="gold">$book_rent_timer</span> <<pluralise $book_rent_timer "day">>.</li>
 						<</if>>
 					<</if>>
-				<</if>>
-				<<if $studyBooks.stolen isnot "none" and $book_rent_timer>>
-					<<set _colour to $bookStolenKnown gte 3 ? "red" : $bookStolenKnown is 2 ? "pink" : "white">>
-					<<switch $studyBooks.stolen>>
-						<<case "Pinch">>
-							<<if $per_npc.pinch isnot undefined>>
-								<li><span @class=_colour>You've stolen a copy of "How <<= $per_npc.pinch.pronoun is "m" ? "Mr" : "Ms">> Pinch Groped Christmas".</span></li>
-							<<else>>
-								<li><span @class=_colour>You've stolen an olive-coloured book.</span></li>
-							<</if>>
-						<<case "Raul and Janet">>
-							<li><span @class=_colour>You've stolen a copy of "$studyBooks.stolen".</span></li>
-						<<case "English" "science" "maths" "history">>
-							<li><span @class=_colour>You've stolen <<a $studyBooks.stolen>> textbook.</span></li>
-						<<default>>
-					<</switch>>
-				<</if>>
-				<<if !Time.schoolTerm and $studyBooks.rented isnot "none">>
-					<li><<if $studyBooks.rented>>You have a book checked out.<</if>>
-					<span class="blue">Books are not due over school break!</span></li>
-				<</if>>
+					<<if $studyBooks.stolen isnot "none">>
+						<<set _colour to $bookStolenKnown gte 3 ? "red" : $bookStolenKnown is 2 ? "pink" : "white">>
+						<<switch $studyBooks.stolen>>
+							<<case "Pinch">>
+								<<if $per_npc.pinch isnot undefined>>
+									<span @class=_colour>You've stolen a copy of "How <<= $per_npc.pinch.pronoun is "m" ? "Mr" : "Ms">> Pinch Groped Christmas".</span>
+								<<else>>
+									<span @class=_colour>You've stolen an olive-coloured book.</span>
+								<</if>>
+							<<case "Raul and Janet">>
+								<span @class=_colour>You've stolen a copy of "$studyBooks.stolen".</span>
+							<<case "English" "science" "maths" "history">>
+								<span @class=_colour>You've stolen <<a $studyBooks.stolen>> textbook.</span>
+							<<default>>
+						<</switch>>
+					<</if>>
+					<<if !Time.schoolTerm and $studyBooks.rented isnot "none">>
+						<<if $studyBooks.rented>>You have <<a _book>> checked out.<</if>>
+						<span class="blue">Books are not due over school break!</span>
+					<</if>>
+				</li>
 			<</if>>
 
 			<<if $gwylanSeen?.includes("ritual_beast")>>
@@ -349,444 +355,501 @@
 						You've accepted a task from 'Mickey'.
 					<<elseif $pubfame.status is "done">>
 						You've completed the task 'Mickey' gave you.
+					<<elseif $pubfame.status is "hiding">> /* only happens when the elk compound interrogation is failed */
+						You've failed the task 'Mickey' gave you.
 					<</if>>
 				</li>
+			<</if>>
+
+			<<if $schoolfameblackmail isnot undefined and Time.schoolDay>>
+				<<set _blackmail_colour to $schoolfameconsensual is 1 ? "white" : $schoolfameblackmail gte 3 ? "red" : "pink">>
+				/*White for paid lewd photoshoots, red for when the school board event is possible, pink for unpaid lewd photoshoots */
+				<<if $schoolfameboard isnot 1 or $schoolfameconsensual is 1>>
+					<<if $schoolfameblackmail gt 0 and Time.hour lt 17>>
+						<li> Leighton expects to see you at <<nnpc_his "Leighton">> office <span @class=_blackmail_colour>today</span> between <<ampm 7 00>> and <<ampm 17 00>>. </li>
+					<<elseif $schoolfameblackmail is 0>>
+						<li> You've done the photoshoot at Leighton's office today. </li>
+					<</if>>
+				<</if>>
 			<</if>>
 		</ul>
 	<</if>>
 
-	<<if !$statFreeze and (($location is "asylum" and ($eden_asylum_window is 1 or ($daily.eden.distract gte 1 and Time.hour lt 21))) || $temple_spear_mission gte 1 || $docks.hired || ($brothelshowdata.intro and $brothelshowdata.type is "none") || $exhibitionismrun || $robindebtevent gte 1 and $robinmissing isnot 0 || $pubtask2 is 1 || $pubtask || $police_hack is 1 || $pub_hack_job gte 1 || $pubfame ||( $earSlime.event and !_tempEventHide) || $earSlime.forcedCommando isnot undefined || $earSlime.forcedDressing isnot undefined || $temple_rank is "prospective" || $chef_state gte 4 || $mason_pond gte 1 || ($brothel_machine_repair gte 1 and $brothel_machine_repair lte 3) || ($harpy gte 6 and $birdFly isnot 1) || getChildrenAt("inventory").filter(child => child.species === "hawk").length gt 0 || $adultshopgrandopening || ($adultshopintro is 1 and $adultshopunlocked is undefined) || $gwylan?.request.event) || $acceptedRequest || $culttaskphase gte 0>>
-		/*TODO: streamline during eventual Journal UI Overhaul bc lol. lmao, even. */
-		<hr>
-		<h1 class="header gold bold">Reminders</h1>
-		<ul class="journal carry">
-			<<if $acceptedRequest>>
-				<li><span class="ghost-footer">Accepted request: «$acceptedRequest»</span></li>
-				<<if $acceptedRequest is "Strange Creaking" or $acceptedRequest is "Weird Creature" or $acceptedRequest is "Something in Cupboard" or $acceptedRequest is "Something Following" or $acceptedRequest is "Missing Children" or $acceptedRequest is "Something Watching at Night">>
-					<li><span class="ghost-footer">The request location is on «Domus Street»</span></li>
-				<<elseif $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall" or $acceptedRequest is "Mysterious Death" or $acceptedRequest is "Crying Baby">>
-					<li><span class="ghost-footer">The request location is on «Danube Street»</span></li>
-				<<elseif $acceptedRequest is "Stuff Disappearing">>
-					<li><span class="ghost-footer">The request location is on «Harvest Street»</span></li>
-				<<elseif $acceptedRequest is "Unknown Blood">>
-					<li><span class="ghost-footer">The request location is on «Nightingale Street»</span></li>
-				<<elseif $acceptedRequest is "Special Request">>
-					<li><span class="ghost-footer">The request location is in the «Commercial Alleyways»</span></li>
-				<<elseif $acceptedRequest is "Ravaged Farm">>
-					<li><span class="ghost-footer">The request location is in the «Farmlands»</span></li>
-				<</if>>
-				<br>
-			<</if>>
-			<<if $temple_spear_mission is 1>>
-				<li><<islandicon>> Jordan has tasked you with retrieving an artefact spear. It is said to reside on a mysterious island.
-					<<if $temple_spear_mission_winter is undefined>>
-						Jordan mentioned that the historian at the local museum might have more information.
+	<<if $museumintro is 1>>
+		<<museumAntiqueText>><<museumPaintingText>><<set _museumItemsFound to []>><<set _museumItemsTalk to []>>
+		<<set _museumKeys to Object.keys($museumAntiques.antiques)>>
+		<<for _i to 0; _i lt _museumKeys.length; _i++>>
+			<<if ["found", "talk"].includes($museumAntiques.antiques[_museumKeys[_i]])>>
+				<<if _museumAntiqueText[_museumKeys[_i]]>>
+					<<if ["found"].includes($museumAntiques.antiques[_museumKeys[_i]])>>
+						<<set _museumItemsFound.push(_museumAntiqueText[_museumKeys[_i]].name.toLowerCase())>>
 					<<else>>
-						According to Winter, you can find someone who knows of the island at a secret pub in the sewers.
+						<<set _museumItemsTalk.push(_museumAntiqueText[_museumKeys[_i]].name.toLowerCase())>>
 					<</if>>
-				</li>
-			<</if>>
-			<<if $eden_asylum_window is 1 and $location is "asylum">>
-				<<if Time.hour lt 22>>
-					<li><<asylumicon "cell">> Eden will be watching the asylum at <<ampm 20 00>> <span class="pink">tonight</span>.</li>
 				<<else>>
-					<li><<asylumicon "cell">> Eden is watching the asylum, waiting for you to mark your room.</li>
+					<li><span class="red">Warning: Antique "_museumKeys[_i]" doesn't have a hint. Did you export this save from a modded version?</span></li>
+					<<set $museumAntiqueJournalHints.delete(_museumKeys[_i])>>
 				<</if>>
 			<</if>>
-
-			<<if $daily.eden.distract gte 1 and $location is "asylum">>
-				<<if Time.hour lt 21>>
-					<li><<asylumicon "cell">> Eden will create a distraction at <<ampm 21 00>> <span class="pink">tonight</span>.</li>
-				<</if>>
-			<</if>>
-
-			<<if $docks.hired>>
-				<<if $docks.fakeID is "shown">>
-					<li><<docksicon>> Your shift at the docks starts at <<ampm 7 00>>. You can enter as early as <<ampm 6 00>> and show up late before <<ampm 8 00>>.</li>
+		<</for>>
+		<<set _museumKeys to Object.keys($museumAntiques.paintings)>>
+		<<for _i to 0; _i lt _museumKeys.length; _i++>>
+			<<if ["found", "talk"].includes($museumAntiques.paintings[_museumKeys[_i]])>>
+				<<if ["found"].includes($museumAntiques.antiques[_museumKeys[_i]])>>
+					<<set _museumItemsFound.push(_museumPaintingText[_museumKeys[_i]].journalName.toLowerCase())>>
 				<<else>>
-					<li><<docksicon>> Your shift at the docks starts at <<ampm 7 00>> on any day except school days. You can enter as early as <<ampm 6 00>> and show up late before <<ampm 7 15>>.</li>
+					<<set _museumItemsTalk.push(_museumPaintingText[_museumKeys[_i]].journalName.toLowerCase())>>
 				<</if>>
 			<</if>>
+		<</for>>
+	<</if>>
 
-			<<if $brothelshowdata.intro and $brothelshowdata.type is "none">>
-				<li><<brothelicon "stage">> You can star in shows at the brothel.</li>
+	<hr>
+	<h1 class="header gold bold">Reminders</h1>
+	<ul class="journal carry">
+		<<if $acceptedRequest>>
+			<li><span class="ghost-footer">Accepted request: «$acceptedRequest»</span></li>
+			<<if $acceptedRequest is "Strange Creaking" or $acceptedRequest is "Weird Creature" or $acceptedRequest is "Something in Cupboard" or $acceptedRequest is "Something Following" or $acceptedRequest is "Missing Children" or $acceptedRequest is "Something Watching at Night">>
+				<li><span class="ghost-footer">The request location is on «Domus Street»</span></li>
+			<<elseif $acceptedRequest is "Rattling Trashcans" or $acceptedRequest is "Hissing from Garage" or $acceptedRequest is "Strange Holes" or $acceptedRequest is "Cracked Wall" or $acceptedRequest is "Mysterious Death" or $acceptedRequest is "Crying Baby">>
+				<li><span class="ghost-footer">The request location is on «Danube Street»</span></li>
+			<<elseif $acceptedRequest is "Stuff Disappearing">>
+				<li><span class="ghost-footer">The request location is on «Harvest Street»</span></li>
+			<<elseif $acceptedRequest is "Unknown Blood">>
+				<li><span class="ghost-footer">The request location is on «Nightingale Street»</span></li>
+			<<elseif $acceptedRequest is "Special Request">>
+				<li><span class="ghost-footer">The request location is in the «Commercial Alleyways»</span></li>
+			<<elseif $acceptedRequest is "Ravaged Farm">>
+				<li><span class="ghost-footer">The request location is in the «Farmlands»</span></li>
 			<</if>>
+			<br>
+		<</if>>
+		
+		<<if $culttaskcomplete is 1>>
+			<li class = "purple"><<pilloryicon>>Return to the elders.</li>
+		<<elseif $culttaskphase is 0>>
+			<li class = "purple"><<lakeicon "plinth">>Retrieve an idol of the Dark Mother from the old temple.</li>
+		<<elseif $culttaskphase is 1>>
+			<li class = "purple"><<foresticon "churchyard">>Retrieve an idol of the Dark Mother from within the tomb of peasants.</li>
+		<<elseif $culttaskphase is 2>>
+			<li class = "purple"><<sewericon "drain">>Retrieve an idol of the Dark Mother from within a maze of filth and grime.</li>
+		<<elseif $culttaskphase is 3>>
+			<li class = "purple"><<wolficon>>Retrieve an idol of the Dark Mother from within the home of the old god.</li>
+		<<elseif $culttaskphase is 4>>
+			<li class = "purple"><<fellowshipbedicon>>Retrieve an idol of the Dark Mother from inside yourself.</li>
+		<</if>>
 
-			<<if $exhibitionismrun>>
-				<<if $exhibitionismrun is "danube" and $exhibitionismrunon is 0>>
-					<li><<danubeicon>>A mysterious note offers you <<printmoney 10000>> to strip by the oak behind the spa on Danube Street.</li>
-				<<elseif $exhibitionismrun is "danube" and $exhibitionismrunon is 1>>
-					<li><<danubeicon>>A mysterious note offers you <<printmoney 30000>> to strip and make yourself cum by the oak behind the spa on Danube Street.</li>
-				<<elseif $exhibitionismrun is "starfish">>
-					<li><<starfishicon>>A mysterious note offers you <<printmoney 50000>> to flash your butt at the traffic on Starfish Street for fifteen minutes.</li>
-				<<elseif $exhibitionismrun is "cliff">>
-					<li><<clifficon>>A mysterious note offers you <<printmoney 100000>> to run nude from Cliff Street to High Street, and back again.</li>
+		<<if $portalquest is 1>>
+			<li class = "purple"><<oasisicon>>Find something dark and reflective for Pruti.</li>
+		<<elseif $portalquest is 2>>
+			<li class = "purple"><<planeicon>>Return to Pruti at the plane wreckage.</li>
+		<</if>>
+
+		<<if $prutiquest is 1>>
+			<li class = "purple"><<planeicon>>Find a sample from the plane wreckage.</li>
+		<<elseif $prutiquest is 3>>
+			<li class = "purple"><<planeicon>>Find a sample from the anthill.</li>
+		<<elseif $prutiquest is 5>>
+			<li class = "purple"><<icon "wolf-cave-entrance.png">>Find a sample from the caldera.</li>
+		<<elseif $prutiquest is 2 or $prutiquest is 4 or $prutiquest is 6>>
+			<li class = "purple"><<prutihuticon>>Return to Pruti at the hut.</li>
+		<<elseif $prutiquest is 7>>
+			<li class = "purple">Return to Pruti in <<print $prutitimer>> days.</li>
+		<</if>>
+
+		<<if $temple_spear_mission is 1>>
+			<li><<islandicon>> Jordan has tasked you with retrieving an artefact spear. It is said to reside on a mysterious island.
+				<<if $temple_spear_mission_winter is undefined>>
+					Jordan mentioned that the historian at the local museum might have more information.
+				<<else>>
+					According to Winter, you can find someone who knows of the island at a secret pub in the sewers.
 				<</if>>
+			</li>
+		<</if>>
+		<<if $eden_asylum_window is 1 and $location is "asylum">>
+			<<if Time.hour lt 22>>
+				<li><<asylumicon "cell">> Eden will be watching the asylum at <<ampm 20 00>> <span class="pink">tonight</span>.</li>
+			<<else>>
+				<li><<asylumicon "cell">> Eden is watching the asylum, waiting for you to mark your room.</li>
 			<</if>>
+		<</if>>
 
-			<<if $pubtask2 is 1>>
-				<li><<crimeicon "black box">> Return the black box to Landry at the pub.</li>
-			<<elseif $pubtask>>
-				<li><<crimeicon "black box">> Landry wants you to retrieve a black box from the $pubtask.</li>
+		<<if $daily.eden.distract gte 1 and $location is "asylum">>
+			<<if Time.hour lt 21>>
+				<li><<asylumicon "cell">> Eden will create a distraction at <<ampm 21 00>> <span class="pink">tonight</span>.</li>
 			<</if>>
+		<</if>>
 
-			<<if $farm_manors_usb gte 1>>
-				<li><<techicon "usb">> You have a USB containing sensitive information, found in a manor in the farmlands.</li>
+		<<if $docks.hired>>
+			<<if $docks.fakeID is "shown">>
+				<li><<docksicon>> Your shift at the docks starts at <<ampm 7 00>>. You can enter as early as <<ampm 6 00>> and show up late before <<ampm 8 00>>.</li>
+			<<else>>
+				<li><<docksicon>> Your shift at the docks starts at <<ampm 7 00>> on any day except school days. You can enter as early as <<ampm 6 00>> and show up late before <<ampm 7 15>>.</li>
 			<</if>>
+		<</if>>
 
-			<<if $police_hack is 1>>
-				<li><<techicon "computer">> Landry might be able to help you with the locked police computer.</li>
-			<<elseif $pub_hack_job is 1>>
-				<li><<investigateicon>> Landry wants you to find a hacker supposedly named 'Mickey' living at the Domus Street orphanage.</li>
-			<<elseif $pub_hack_job is 2>>
-				<li><<socialiseicon>> Convince 'Mickey' to work with you.</li>
-			<<elseif $pub_hack_job is 3>>
-				<<if !$hacker_tasks.includes("bailey")>>
-					<li><<techicon "email">> 'Mickey' wants you to implant a device on Bailey's computer while Bailey is logged in.</li>
-				<</if>>
-				<<if !$hacker_tasks.includes("leighton")>>
-					<li><<crimeicon "safe">> 'Mickey' wants you to steal memory cards from a strongbox under Leighton's desk.</li>
-				<</if>>
-				<<if $hacker_tasks.length gte 2>>
-					<li><<socialiseicon>> You need to talk to Landry about 'Mickey'.</li>
-				<</if>>
-			<</if>>
+		<<if $brothelshowdata.intro and $brothelshowdata.type is "none">>
+			<li><<brothelicon "stage">> You can star in shows at the brothel.</li>
+		<</if>>
 
-			<<if $pubfame>>
-				<<if $pubfame.status is "accepted">>
-					<li>
-						<<switch $pubfame.task>>
-							<<case "river">>
-								<<investigateicon>> 'Mickey' wants you to check on River, the maths teacher at your school.
-							<<case "gwylan">>
-								<<icon "snowgsnowglobelobe.gif">> 'Mickey' wants you to find a specific snow globe at <<if $forest_shop_intro is 1>>Gwylan's shop<<else>>the shop on the outskirts of the forest<</if>>.
-							<<case "temple">>
-								<<templeicon>> 'Mickey' wants you to find a book on architecture at the temple with a password on the inside cover.
-							<<case "kylar">>
-								<<icon "manila-envelope.png">> 'Mickey' wants you to deliver a letter to
-								<<if C.npc.Kylar.state is "prison">>
-									the police station, so they can give it to Kylar.
-								<<else>>
-									Kylar<<if C.npc.Kylar.init isnot 1>>, a student at your school<</if>>.
-								<</if>>
-							<<case "wren">>
-								<<icon "manila-envelope.png">> 'Mickey' wants you to deliver a letter to <<if $wren_intro is undefined>>a <<nnpc_gender "Wren">> named Wren. <<nnpc_He "Wren">> can be found at Remy's estate in the moor, or at the docks at night<<else>>Wren<</if>>.
-							<<case "hospital">>
-								<<icon "access-card.png">>
-								'Mickey' wants you to steal a keycard from the hospital.
-								<<if $location is "asylum">>
-									However, you think they might be happy with a keycard from this place too.
-								<</if>>
-							<<case "morgan">>
-								<<techicon "usb">> 'Mickey' wants you to retrieve a USB drive from the old sewers. They think <<if $sewersintro is 1>>Morgan<<else>>someone down there<</if>> has it.
-							<<case "niki">>
-								<<photographystudioicon>> 'Mickey' wants you to retrieve a photo from Niki's photography studio, of a $per_npc.pubfame_model.fullDescription with $pubfame.niki.hair hair.
-							<<case "bailey">>
-								<<techicon "usb">> 'Mickey' wants you to implant a device on Bailey's computer while Bailey is logged in.
-							<<case "briar">>
-								<<techicon "usb">> 'Mickey' wants you to implant a device on Briar's computer at the brothel.
-							<<case "office">>
-								<<if $avery_fate is "ascended">>
-									<<skyscrapericon>> 'Mickey' wants you to deliver a letter to Avery's skyscraper
-								<<else>>
-									<<officebuildingicon>> 'Mickey' wants you to deliver a letter to the office building
-								<</if>>.
-							<<case "remy">>
-								<!-- intentionally does not include the password -->
-								<<steedicon>> 'Mickey' wants you to retrieve a package from a contact at Remy's riding school<<if $ridingschoolintro is undefined>>, in the countryside beyond Harvest Street<</if>>.
-							<<case "compound">>
-								<<techicon "vcam">> 'Mickey' wants you to set cameras around the compound on Elk Street.
-								<<if $pubfame.compound.cameras.length gte 1>>
-									You've already hidden cameras in <<print formatList($pubfame.compound.cameras, "and", true)>>.
-								<</if>>
-						<</switch>>
-						They'll <<if $pubfame.goal.includes("perm")>>permanently<<else>>temporarily<</if>> <<if $pubfame.goal.includes("Raise")>>raise<<else>>lower<</if>> your <<fameProse $pubfame.target>> fame upon completion.
-					</li>
-				<<elseif $pubfame.status is "done">>
-					<li><<socialiseicon>> You can report to 'Mickey' that your favour is complete.</li>
-				<</if>>
+		<<if $exhibitionismrun>>
+			<<if $exhibitionismrun is "danube" and $exhibitionismrunon is 0>>
+				<li><<danubeicon>>A mysterious note offers you <<printmoney 10000>> to strip by the oak behind the spa on Danube Street.</li>
+			<<elseif $exhibitionismrun is "danube" and $exhibitionismrunon is 1>>
+				<li><<danubeicon>>A mysterious note offers you <<printmoney 30000>> to strip and make yourself cum by the oak behind the spa on Danube Street.</li>
+			<<elseif $exhibitionismrun is "starfish">>
+				<li><<starfishicon>>A mysterious note offers you <<printmoney 50000>> to flash your butt at the traffic on Starfish Street for fifteen minutes.</li>
+			<<elseif $exhibitionismrun is "cliff">>
+				<li><<clifficon>>A mysterious note offers you <<printmoney 100000>> to run nude from Cliff Street to High Street, and back again.</li>
 			<</if>>
+		<</if>>
 
-			<<if $robindebtevent gte 1 and $robinmissing is "docks" and $docksrobinintro isnot 1>>
-				<li><<docksicon>> Robin is missing. <<nnpc_He "Robin">> was taken to the docks on Mer Street.</li>
-			<</if>>
+		<<if $pubtask2 is 1>>
+			<li><<crimeicon "black box">> Return the black box to Landry at the pub.</li>
+		<<elseif $pubtask>>
+			<li><<crimeicon "black box">> Landry wants you to retrieve a black box from the $pubtask.</li>
+		<</if>>
 
-			<<if $robindebtevent gte 1 and $robinmissing is "landfill" and $mistrobinintro isnot 1 and $robinmistknown>>
-				<li><<landfillicon>> Robin is missing. <<nnpc_He "Robin">> was taken to the landfill on Elk Street.</li>
-			<</if>>
+		<<if $farm_manors_usb gte 1>>
+			<li><<techicon "usb">> You have a USB containing sensitive information, found in a manor in the farmlands.</li>
+		<</if>>
 
-			<<if $robindebtevent gte 1 and $robinmissing is "pillory" and $robinPillory.known is 1>>
-				<li><<pilloryicon>> Robin is missing.
-					<<if Time.hour lte 14>>
-						<<nnpc_Hes "Robin">> scheduled to be put in the pillory on Cliff Street at <<ampm 15 00>>.
-					<<else>>
-						<<nnpc_Hes "Robin">> currently in the pillory. You don't know what will happen to <<nnpc_him "Robin">>.
-					<</if>>
-				</li>
+		<<if $police_hack is 1>>
+			<li><<techicon "computer">> Landry might be able to help you with the locked police computer.</li>
+		<<elseif $pub_hack_job is 1>>
+			<li><<investigateicon>> Landry wants you to find a hacker supposedly named 'Mickey' living at the Domus Street orphanage.</li>
+		<<elseif $pub_hack_job is 2>>
+			<li><<socialiseicon>> Convince 'Mickey' to work with you.</li>
+		<<elseif $pub_hack_job is 3>>
+			<<if !$hacker_tasks.includes("bailey")>>
+				<li><<techicon "email">> 'Mickey' wants you to implant a device on Bailey's computer while Bailey is logged in.</li>
 			<</if>>
+			<<if !$hacker_tasks.includes("leighton")>>
+				<li><<crimeicon "safe">> 'Mickey' wants you to steal memory cards from a strongbox under Leighton's desk.</li>
+			<</if>>
+			<<if $hacker_tasks.length gte 2>>
+				<li><<socialiseicon>> You need to talk to Landry about 'Mickey'.</li>
+			<</if>>
+		<</if>>
 
-			<<if $culttaskcomplete is 1>>
-				<li class = "purple"><<pilloryicon>>Return to the elders.</li>
-			<<elseif $culttaskphase is 0>>
-				<li class = "purple"><<lakeicon "plinth">>Retrieve an idol of the Dark Mother from the old temple.</li>
-			<<elseif $culttaskphase is 1>>
-				<li class = "purple"><<foresticon "churchyard">>Retrieve an idol of the Dark Mother from within the tomb of peasants.</li>
-			<<elseif $culttaskphase is 2>>
-				<li class = "purple"><<sewericon "drain">>Retrieve an idol of the Dark Mother from within a maze of filth and grime.</li>
-			<<elseif $culttaskphase is 3>>
-				<li class = "purple"><<wolficon>>Retrieve an idol of the Dark Mother from within the home of the old god.</li>
-			<<elseif $culttaskphase is 4>>
-				<li class = "purple"><<fellowshipbedicon>>Retrieve an idol of the Dark Mother from inside yourself.</li>
-			<</if>>
+		<<if $fake_artefact is "pc" and $avery_fate isnot "ascended">>
+			<li><<ind>>Landry wants you to find the wishing stones in the vault in Avery's mansion and replace them with the fakes <<nnpc_he Landry>> provided. <<nnpc_He Landry>> said that would save Avery from <<nnpc_himself "Avery">>.</li>
+		<</if>>
 
-
-			<<if $earSlime.event and !_tempEventHide and !$hypnosis_traits.silence gte 1>>
-				<<switch $earSlime.event>>
-					<<case "get sperm into your anus" "get sperm into your vagina" "get sperm into your anus completed" "get sperm into your vagina completed">>
-						<li class="lewd"><<socialiseicon "ask">> The slime in your head commanded you to get sperm into your <<print $player.vaginaExist ? "vagina" : "anus">>.</li>
-					<<case "get your own sperm into your anus" "get your own sperm into your vagina" "get your own sperm into your anus completed" "get your own sperm into your vagina completed">>
-						<li class="lewd"><<socialiseicon "ask">> The slime in your head commanded you to get your own sperm into your <<print $player.vaginaExist ? "vagina" : "anus">>.</li>
-					<<case "only sleep naked from now on" "only wear feminine clothes for a while" "only wear masculine clothes for a while">> /* Show nothing */
-					<<default>>
-						<li class="lewd"><<bedicon>> The slime in your head commanded you to <<print $earSlime.event>><<if $earSlime.noSleep>> before it allows you to sleep<</if>>.</li>
-				<</switch>>
-			<</if>>
-			<<if $earSlime.forcedCommando isnot undefined and !$hypnosis_traits.silence gte 1>>
-				<li class="lewd"><<icon "cross.png" "infront">><span class="clothes-white"><<icon "clothes/plain-panties.png">></span> The slime in your head commanded you to go commando.</li>
-			<</if>>
-			<<if $earSlime.forcedDressing isnot undefined and !$hypnosis_traits.silence gte 1>>
-				<li class="lewd"><<if $earSlime.forcedDressing.type is "f">><<femaleicon>><<else>><<maleicon>><</if>> The slime in your head commanded you to only wear more <<print $earSlime.forcedDressing.type is "f" ? "feminine" : "masculine">> clothing.</li>
-			<</if>>
-
-			<<if $temple_rank is "prospective">>
-				<li><<templeicon>> Jordan has offered you a place at the temple, but you must first pass the trial of purity.</li>
-			<</if>>
-
-			<<if $chef_state is 4>>
-				<li><<nightingaleicon>> Sam wants you to visit an address on Nightingale Street.</li>
-			<<elseif $chef_state is 7 and $chef_rework lte 0>>
-				<li><<cafeicon>> The renovations at the Ocean Breeze have finished.</li>
-			<<elseif $chef_state is 7 and $chef_rework lte 30>>
-				<li><<cafeicon>> The Ocean Breeze is closed for renovations. They will be done <<nDays $chef_rework>>.</li>
-			<<elseif $chef_state is 7>>
-				<<set _timer to $chef_rework - 30>>
-				<li><<cafeicon>> The Ocean Breeze will close for renovations <<nDays _timer>>.</li>
-			<<elseif $chef_state is 8>>
-				<li><<cafeicon>> Sam wants you to attend the Ocean Breeze's grand reopening on any evening between <<ampm 18 00>> and <<ampm 21 00>>.</li>
-			<</if>>
-
-			<<if $mason_pond is 1>>
-				<li><<socialiseicon "ask">> Mason mentioned a stream under Domus Street, which could be used to make a spring. You'd need Bailey's permission first.</li>
-			<<elseif $mason_pond is 2>>
-				<li><<birdicon "wallet">> Bailey wants <<printmoney 500000>> to build a spring in the orphanage garden.</li>
-			<<elseif $mason_pond is 3>>
-				<li><<watericon "waterside_wolfcave">> A spring is being built in the orphanage garden.</li>
-			<<elseif $mason_pond is 4>>
-				<li><<watericon "waterside_wolfcave">> The spring in the orphanage garden should be finished.</li>
-			<</if>>
-
-			<<if $brothel_machine_repair is 1>>
-				<li><<socialiseicon "ask">> Ask Briar about the backstage sex machine.</li>
-			<<elseif $brothel_machine_repair is 2>>
-				<li><<symbol "lust">> The brothel sex machine needs refuelling. It uses an expensive pink gel. Briar suggested looking in the landfill. It would be deep inside, near the compactor.</li>
-			<<elseif $brothel_machine_repair is 3>>
-				<li><<symbol "lust">> You have the pink gel Briar wants for the sex machine.</li>
-			<</if>>
-
-			<<if $transformationParts.bird.wings isnot "disabled" and $birdFly isnot 1>>
-				<li><<birdicon "prepare_hunt_day">> Your wings are strong, but you don't know how to use them. The Great Hawk could teach you.</li>
-			<</if>>
-			<<set _eggIcon to getChildrenAt("inventory").filter(child => child.species === "hawk").length>>
-			<<if _eggIcon gt 0>>
-				<li><<birdicon "eggs">> You're carrying <<number _eggIcon>> fertilised bird <<pluralise _eggIcon "egg. It needs" "eggs. They need">> to be brought to <<if $syndromebird>>your nest<<else>>the tower<</if>> in the moor to hatch.</li>
-			<</if>>
-
-			<<if $farm_stage gte 5 and $estate_fence is undefined>>
-				<li><<mooricon "remy">> Remy is encroaching on Alex's farm, operating from the estate on the moor.</li>
-			<<elseif $farm_stage gte 5 or isPubfameTaskAccepted("wren")>>
-				<<if $estate_fence is "quest" and currentSkillValue('skulduggery') lt 800>>
-					<li><<mooricon "remy">> Find someone who can help you break into the Remy Estate. Someone with underworld connections, or who knows the moor.</li>
-				<<elseif $estate_fence is "bird">>
-					<li><<mooricon "remy">> Search the Remy Estate fence for an entrance made by the Great Hawk.</li>
-				<<elseif $estate_fence is "landry">>
-					<li><<mooricon "remy">> Search the Remy Estate fence for an entrance made by Landry's specialist.</li>
-				<</if>>
-			<</if>>
-
-			<<if $farm>>
-				<<if $farm.tower gte 1 and !$farm.tower_guard>>
-					<li><<investigateicon>> The watchtower at the farm isn't staffed. You can find suitable candidates in the pub on Harvest Street.</li>
-				<</if>>
-			<</if>>
-
-			<<if $photo>>
-				<<if $photo.job is "kaiju" and $photo_high_money>>
-					<li><<photographystudioicon>> You can collect your pay for the High Street job from Niki.</li>
-				<<elseif $photo.job is "kaiju">>
-					<li><<photographystudioicon>> You've done a client job for Niki this week.</li>
-				<</if>>
-			<</if>>
-
-			<<if $jordan_ritual_dance is 1>>
-				<li><<danubeicon>> Jordan has asked you to investigate one of the manors on Danube Street. One of the temple's flock went missing after finding work there. You can get access through Charlie, and your status as a dancer.</li>
-			<<elseif $jordan_ritual_dance is 2>>
-				<li><<templeicon>> You encountered a strange ritual in a manor on Danube Street. Inform Jordan, head <<nnpc_title "Jordan">> at the temple.</li>
-			<</if>>
-
-			<<if $farm>>
-				<<if $farm.build>>
+		<<if $pubfame>>
+			<<if $pubfame.status is "accepted">>
 				<li>
-					<<switch $farm.build>>
-						<<case "parasites 1">>
-							<<farmicon 'parasitebarn'>> The parasite barn is being built.
-						<<case "parasites 2">>
-							<<farmicon 'parasitebarn'>> The parasite barn is being expanded.
-						<<case "wall 1">>
-							<<choreicon "fix">> The wall is undergoing a thorough repair.
-						<<case "wall 2">>
-							<<choreicon "fix">> The wall is being reinforced.
-						<<case "wall 3">>
-							<<choreicon "fix">> A metal fence is being built atop the stone wall.
-						<<case "wall 4">>
-							<<choreicon "fix">> Barbed wire is being affixed atop the fence.
-						<<case "tower 1">>
-							<<skyscrapericon "construction">> A watchtower is being constructed at the edge of the fields.
-						<<case "tower 2">>
-							<<techicon "torch">> Searchlights are being affixed atop the watchtower.
-						<<case "kennel 1">>
-							<<farmicon "kennel">> A guard dog training facility is being constructed.
-						<<case "barn 1" "barn 2">>
-							<<farmicon "barn">> The barn is being expanded.
-						<<case "woodland 1" "woodland 2" "woodland 3">>
-							<<choreicon "fix">> A fence is being built around the nearby woodland.
-						<<case "stable 1">>
-							<<farmicon "barn">> The stable is being expanded.
-						<<case "coop 1" "coop 2">>
-							<<farmicon "barn">> The coop is being expanded.
-						<<case "irrigation">>
-							<<gardenicon "plot">> Irrigation is being installed in a field.
-						<<case "nursery">>
-							<<childicon "crib">> A nursery is being built in the cottage.
+					<<switch $pubfame.task>>
+						<<case "river">>
+							<<investigateicon>> 'Mickey' wants you to check on River, the maths teacher at your school.
+						<<case "gwylan">>
+							<<icon "snowgsnowglobelobe.gif">> 'Mickey' wants you to find a specific snow globe at <<if $forest_shop_intro is 1>>Gwylan's shop<<else>>the shop on the outskirts of the forest<</if>>.
+						<<case "temple">>
+							<<templeicon>> 'Mickey' wants you to find a book on architecture at the temple with a password on the inside cover.
+						<<case "kylar">>
+							<<icon "manila-envelope.png">> 'Mickey' wants you to deliver a letter to
+							<<if C.npc.Kylar.state is "prison">>
+								the police station, so they can give it to Kylar.
+							<<else>>
+								Kylar<<if C.npc.Kylar.init isnot 1>>, a student at your school<</if>>.
+							<</if>>
+						<<case "wren">>
+							<<icon "manila-envelope.png">> 'Mickey' wants you to deliver a letter to <<if $wren_intro is undefined>>a <<nnpc_gender "Wren">> named Wren. <<nnpc_He "Wren">> can be found at Remy's estate in the moor, or at the docks at night<<else>>Wren<</if>>.
+						<<case "hospital">>
+							<<icon "access-card.png">>
+							'Mickey' wants you to steal a keycard from the hospital.
+							<<if $location is "asylum">>
+								However, you think they might be happy with a keycard from this place too.
+							<</if>>
+						<<case "morgan">>
+							<<techicon "usb">> 'Mickey' wants you to retrieve a USB drive from the old sewers. They think <<if $sewersintro is 1>>Morgan<<else>>someone down there<</if>> has it.
+						<<case "niki">>
+							<<photographystudioicon>> 'Mickey' wants you to retrieve a photo from Niki's photography studio, of a $per_npc.pubfame_model.fullDescription with $pubfame.niki.hair hair.
+						<<case "bailey">>
+							<<techicon "usb">> 'Mickey' wants you to implant a device on Bailey's computer while Bailey is logged in.
+						<<case "briar">>
+							<<techicon "usb">> 'Mickey' wants you to implant a device on Briar's computer at the brothel.
+						<<case "office">>
+							<<if $avery_fate is "ascended">>
+								<<skyscrapericon>> 'Mickey' wants you to deliver a letter to Avery's skyscraper
+							<<else>>
+								<<officebuildingicon>> 'Mickey' wants you to deliver a letter to the office building
+							<</if>>.
+						<<case "remy">>
+							<!-- intentionally does not include the password -->
+							<<steedicon>> 'Mickey' wants you to retrieve a package from a contact at Remy's riding school<<if $ridingschoolintro is undefined>>, in the countryside beyond Harvest Street<</if>>.
+						<<case "compound">>
+							<<techicon "vcam">> 'Mickey' wants you to set cameras around the compound on Elk Street.
+							<<if $pubfame.compound.cameras.length gte 1>>
+								You've already hidden cameras in <<print formatList($pubfame.compound.cameras, "and", true)>>.
+							<</if>>
 					<</switch>>
-					It'll be finished <<nDays $farm.build_timer>>.
+					They'll <<if $pubfame.goal.includes("perm")>>permanently<<else>>temporarily<</if>> <<if $pubfame.goal.includes("Raise")>>raise<<else>>lower<</if>> your <<fameProse $pubfame.target>> fame upon completion.
 				</li>
+			<<elseif $pubfame.status is "done">>
+				<li><<socialiseicon>> You can report to 'Mickey' that your favour is complete.</li>
+			<</if>>
+		<</if>>
+
+		<<if $robindebtevent gte 1 and $robinmissing is "docks" and $docksrobinintro isnot 1>>
+			<li><<docksicon>> Robin is missing. <<nnpc_He "Robin">> was taken to the docks on Mer Street.</li>
+		<</if>>
+
+		<<if $robindebtevent gte 1 and $robinmissing is "landfill" and $mistrobinintro isnot 1 and $robinmistknown>>
+			<li><<landfillicon>> Robin is missing. <<nnpc_He "Robin">> was taken to the landfill on Elk Street.</li>
+		<</if>>
+
+		<<if $robindebtevent gte 1 and $robinmissing is "pillory" and $robinPillory.known is 1>>
+			<li><<pilloryicon>> Robin is missing.
+				<<if Time.hour lte 14>>
+					<<nnpc_Hes "Robin">> scheduled to be put in the pillory on Cliff Street at <<ampm 15 00>>.
+				<<else>>
+					<<nnpc_Hes "Robin">> currently in the pillory. You don't know what will happen to <<nnpc_him "Robin">>.
 				<</if>>
-			<</if>>
+			</li>
+		<</if>>
 
-			<<if $adultshopgrandopening is true>>
-				<li><<shopicon "adult">> The grand opening of Sirris' adult shop is taking place on Elk Street <span class="pink">today</span>.</li>
-			<<elseif $adultshopintro is 1 and $adultshopunlocked is undefined>>
-				<<set $_theshop to "The adult shop">>
-				<li>
-					<<if $adultshopprogress gte 22>>
-						<<shopicon "adult">> $_theshop's official opening is tomorrow.
-					<<elseif $adultshopprogress gte 18>>
-						<<shopicon "dilapidated">> $_theshop is nearing completion.
-					<<elseif $adultshopprogress gte 14>>
-						<<shopicon "dilapidated">> $_theshop is halfway to completion.
-					<<elseif $adultshopprogress gte 7>>
-						<<shopicon "dilapidated">> $_theshop is starting to take shape.
-					<<elseif $adultshopprogress gte 2>>
-						<<shopicon "dilapidated">> $_theshop is in disrepair.
-					<<else>>
-						<<shopicon "dilapidated">> $_theshop is in great disrepair.
-					<</if>>
-					<<if $adultshopprogress lt 22>>
-						You can help Sydney there on Elk Street, on Fridays after <<ampm 16>>.
-					<</if>>
-				</li>
-			<</if>>
+		<<if $earSlime.event and !_tempEventHide and !$hypnosis_traits.silence gte 1>>
+			<<switch $earSlime.event>>
+				<<case "get sperm into your anus" "get sperm into your vagina" "get sperm into your anus completed" "get sperm into your vagina completed">>
+					<li class="lewd"><<socialiseicon "ask">> The slime in your head commanded you to get sperm into your <<print $player.vaginaExist ? "vagina" : "anus">>.</li>
+				<<case "get your own sperm into your anus" "get your own sperm into your vagina" "get your own sperm into your anus completed" "get your own sperm into your vagina completed">>
+					<li class="lewd"><<socialiseicon "ask">> The slime in your head commanded you to get your own sperm into your <<print $player.vaginaExist ? "vagina" : "anus">>.</li>
+				<<case "only sleep naked from now on" "only wear feminine clothes for a while" "only wear masculine clothes for a while">> /* Show nothing */
+				<<default>>
+					<li class="lewd"><<bedicon>> The slime in your head commanded you to <<print $earSlime.event>><<if $earSlime.noSleep>> before it allows you to sleep<</if>>.</li>
+			<</switch>>
+		<</if>>
+		<<if $earSlime.forcedCommando isnot undefined and !$hypnosis_traits.silence gte 1>>
+			<li class="lewd"><<icon "cross.png" "infront">><span class="clothes-white"><<icon "clothes/plain-panties.png">></span> The slime in your head commanded you to go commando.</li>
+		<</if>>
+		<<if $earSlime.forcedDressing isnot undefined and !$hypnosis_traits.silence gte 1>>
+			<li class="lewd"><<if $earSlime.forcedDressing.type is "f">><<femaleicon>><<else>><<maleicon>><</if>> The slime in your head commanded you to only wear more <<print $earSlime.forcedDressing.type is "f" ? "feminine" : "masculine">> clothing.</li>
+		<</if>>
 
-			<<if $avery_mansion?.landry is 1 and !$avery_fate>>
-				<li><<harvesticon>> Someone dropped a note for you outside Avery's mansion, asking you to visit them in the pub on Harvest Street.</li>
-			<</if>>
+		<<if $temple_rank is "prospective">>
+			<li><<templeicon>> Jordan has offered you a place at the temple, but you must first pass the trial of purity.</li>
+		<</if>>
 
-			<<if $gwylan?.request?.event and !($gwylan?.timer?.nobody gte Time.date.timeStamp)>>
-				<<switch $gwylan.request.event>>
-					<<case "meetAtShop">>
-						<li><<shopicon "forest">>Gwylan has asked you to meet <<nnpc_him "Gwylan">> at the forest shop.</li>
-					<<case "meetAtCafe">>
-						<li><<cafeicon>>Gwylan has asked you to meet <<nnpc_him "Gwylan">> at the cafe between <<ampm 7 20>> and <<ampm 9 20>>.</li>
-					<<case "yearning">>
-						<li><<shopicon "forest">>Gwylan has asked you to meet <<nnpc_him "Gwylan">> at the forest shop so <<nnpc_he "Gwylan">> can apologise properly.</li>
-					<<case "clothing">>
-						<li><<shopicon "forest">>Gwylan has asked you to wear <<if $gwylan.request.items.length gt 1>>some clothes<<else>>a clothing item<</if>> to the forest shop.</li>
-						<<gwylanJournalItems>>
-					<<case "ingredients">>
-						<li><<icon "tending/basket.png">>Gwylan has asked you to gather some ingredients.</li>
-						<<gwylanJournalItems>>
-					<<case "sample">>
-						<li><<iconUi "sym-lust-empty.png">> Gwylan has asked you to gather some samples.</li>
-						<<gwylanJournalItems>>
-					<<case "recipe">>
-						<li><<icon "tending/basket.png">>Gwylan has asked you to gather some items to make <span class="blue">$gwylan.request.special</span>.</li>
-						<<gwylanJournalItems>>
-					<<case "samplePlayer">>
-						/* ToDo: Gwylan */
-					<<case "preen">>
-						<<if $gwylan.request.special is "harpy">>
-							<li><<tficon "bird">> Gwylan has asked to preen your wings.
-							<<if $transformationParts.bird.wings is "disabled">>
-								<span class="blue">You don't have wings anymore. Perhaps enough hawk feathers will suffice.</span>
-							<</if>>
-							</li>
-						<<else>>
-							<<set $_featherCount to $gwylan.request.items.find(feather => feather.name === "feathers").need>>
-							<li><<birdicon "feathers">> Gwylan has asked you for <span class="gold"><<number $_featherCount>></span> of the hawk's feathers.</li>
-							<<if $bird?.materials?.feathers>>You have <span class="blue"><<number $bird.materials.feathers>>.</span><</if>>
-							<<if $transformationParts.bird.wings isnot "disabled">>
-								<span class="gold">Perhaps <<nnpc_he "Gwylan">> could preen your wings directly...</span>
-							<</if>>
-						<</if>>
-					<<case "cream">>
-						<li><<foodstufficon "cream">><span class="lewd">Gwylan has made you a lewd offer involving some cream...</span></li>
-					<<case "robin">>
-						/* ToDo: Gwylan */
-					<<case "chastity">>
-						<li>
-						<<if playerChastity()>><<lockicon>><<else>><<lockicon "unlock">><</if>>
-						<<if $gwylan.request.command is true>>
-							Gwylan <<if $hypnosis_traits.devotion gte 3>>has commanded<<else>>wants<</if>> you to remove your chastity device.
-						<<else>>
-							Gwylan has offered to help you remove your chastity device.
-						<</if>>
-						<<if playerChastity() and $gwylan.request.items>>
-							<<nnpc_He "Gwylan">> needs some items to help.
+		<<if $chef_state is 4>>
+			<li><<nightingaleicon>> Sam wants you to visit an address on Nightingale Street.</li>
+		<<elseif $chef_state is 7 and $chef_rework lte 0>>
+			<li><<cafeicon>> The renovations at the Ocean Breeze have finished.</li>
+		<<elseif $chef_state is 7 and $chef_rework lte 30>>
+			<li><<cafeicon>> The Ocean Breeze is closed for renovations. They will be done <<nDays $chef_rework>>.</li>
+		<<elseif $chef_state is 7>>
+			<<set _timer to $chef_rework - 30>>
+			<li><<cafeicon>> The Ocean Breeze will close for renovations <<nDays _timer>>.</li>
+		<<elseif $chef_state is 8>>
+			<li><<cafeicon>> Sam wants you to attend the Ocean Breeze's grand reopening on any evening between <<ampm 18 00>> and <<ampm 21 00>>.</li>
+		<</if>>
+
+		<<if $mason_pond is 1>>
+			<li><<socialiseicon "ask">> Mason mentioned a stream under Domus Street, which could be used to make a spring. You'd need Bailey's permission first.</li>
+		<<elseif $mason_pond is 2>>
+			<li><<birdicon "wallet">> Bailey wants <<printmoney 500000>> to build a spring in the orphanage garden.</li>
+		<<elseif $mason_pond is 3>>
+			<li><<watericon "waterside_wolfcave">> A spring is being built in the orphanage garden.</li>
+		<<elseif $mason_pond is 4>>
+			<li><<watericon "waterside_wolfcave">> The spring in the orphanage garden should be finished.</li>
+		<</if>>
+
+		<<if $brothel_machine_repair is 1>>
+			<li><<socialiseicon "ask">> Ask Briar about the backstage sex machine.</li>
+		<<elseif $brothel_machine_repair is 2>>
+			<li><<symbol "lust">> The brothel sex machine needs refuelling. It uses an expensive pink gel. Briar suggested looking in the landfill. It would be deep inside, near the compactor.</li>
+		<<elseif $brothel_machine_repair is 3>>
+			<li><<symbol "lust">> You have the pink gel Briar wants for the sex machine.</li>
+		<</if>>
+
+		<<if $transformationParts.bird.wings isnot "disabled" and $birdFly isnot 1>>
+			<li><<birdicon "prepare_hunt_day">> Your wings are strong, but you don't know how to use them. The Great Hawk could teach you.</li>
+		<</if>>
+		<<set _eggIcon to getChildrenAt("inventory").filter(child => child.species === "hawk").length>>
+		<<if _eggIcon gt 0>>
+			<li><<birdicon "eggs">> You're carrying <<number _eggIcon>> fertilised bird <<pluralise _eggIcon "egg. It needs" "eggs. They need">> to be brought to <<if $syndromebird>>your nest<<else>>the tower<</if>> in the moor to hatch.</li>
+		<</if>>
+
+		<<if $farm_stage gte 5 and $estate_fence is undefined>>
+			<li><<mooricon "remy">> Remy is encroaching on Alex's farm, operating from the estate on the moor.</li>
+		<<elseif $farm_stage gte 5 or isPubfameTaskAccepted("wren")>>
+			<<if $estate_fence is "quest" and currentSkillValue('skulduggery') lt 800>>
+				<li><<mooricon "remy">> Find someone who can help you break into the Remy Estate. Someone with underworld connections, or who knows the moor.</li>
+			<<elseif $estate_fence is "bird">>
+				<li><<mooricon "remy">> Search the Remy Estate fence for an entrance made by the Great Hawk.</li>
+			<<elseif $estate_fence is "landry">>
+				<li><<mooricon "remy">> Search the Remy Estate fence for an entrance made by Landry's specialist.</li>
+			<</if>>
+		<</if>>
+
+		<<if $farm>>
+			<<if $farm.tower gte 1 and !$farm.tower_guard>>
+				<li><<investigateicon>> The watchtower at the farm isn't staffed. You can find suitable candidates in the pub on Harvest Street.</li>
+			<</if>>
+		<</if>>
+
+		<<if $photo>>
+			<<if $photo.job is "kaiju" and $photo_high_money>>
+				<li><<photographystudioicon>> You can collect your pay for the High Street job from Niki.</li>
+			<<elseif $photo.job is "kaiju">>
+				<li><<photographystudioicon>> You've done a client job for Niki this week.</li>
+			<</if>>
+		<</if>>
+
+		<<if $jordan_ritual_dance is 1>>
+			<li><<danubeicon>> Jordan has asked you to investigate one of the manors on Danube Street. One of the temple's flock went missing after finding work there. You can get access through Charlie, and your status as a dancer.</li>
+		<<elseif $jordan_ritual_dance is 2>>
+			<li><<templeicon>> You encountered a strange ritual in a manor on Danube Street. Inform Jordan, head <<nnpc_title "Jordan">> at the temple.</li>
+		<</if>>
+
+		<<if $farm>>
+			<<if $farm.build>>
+			<li>
+				<<switch $farm.build>>
+					<<case "parasites 1">>
+						<<farmicon 'parasitebarn'>> The parasite barn is being built.
+					<<case "parasites 2">>
+						<<farmicon 'parasitebarn'>> The parasite barn is being expanded.
+					<<case "wall 1">>
+						<<choreicon "fix">> The wall is undergoing a thorough repair.
+					<<case "wall 2">>
+						<<choreicon "fix">> The wall is being reinforced.
+					<<case "wall 3">>
+						<<choreicon "fix">> A metal fence is being built atop the stone wall.
+					<<case "wall 4">>
+						<<choreicon "fix">> Barbed wire is being affixed atop the fence.
+					<<case "tower 1">>
+						<<skyscrapericon "construction">> A watchtower is being constructed at the edge of the fields.
+					<<case "tower 2">>
+						<<techicon "torch">> Searchlights are being affixed atop the watchtower.
+					<<case "kennel 1">>
+						<<farmicon "kennel">> A guard dog training facility is being constructed.
+					<<case "barn 1" "barn 2">>
+						<<farmicon "barn">> The barn is being expanded.
+					<<case "woodland 1" "woodland 2" "woodland 3">>
+						<<choreicon "fix">> A fence is being built around the nearby woodland.
+					<<case "stable 1">>
+						<<farmicon "barn">> The stable is being expanded.
+					<<case "coop 1" "coop 2">>
+						<<farmicon "barn">> The coop is being expanded.
+					<<case "irrigation">>
+						<<gardenicon "plot">> Irrigation is being installed in a field.
+					<<case "nursery">>
+						<<childicon "crib">> A nursery is being built in the cottage.
+				<</switch>>
+				It'll be finished <<nDays $farm.build_timer>>.
+			</li>
+			<</if>>
+		<</if>>
+
+		<<if $adultshopgrandopening is true>>
+			<li><<shopicon "adult">> The grand opening of Sirris' adult shop is taking place on Elk Street <span class="pink">today</span>.</li>
+		<<elseif $adultshopintro is 1 and $adultshopunlocked is undefined>>
+			<<set $_theshop to "The adult shop">>
+			<li>
+				<<if $adultshopprogress gte 22>>
+					<<shopicon "adult">> $_theshop's official opening is tomorrow.
+				<<elseif $adultshopprogress gte 18>>
+					<<shopicon "dilapidated">> $_theshop is nearing completion.
+				<<elseif $adultshopprogress gte 14>>
+					<<shopicon "dilapidated">> $_theshop is halfway to completion.
+				<<elseif $adultshopprogress gte 7>>
+					<<shopicon "dilapidated">> $_theshop is starting to take shape.
+				<<elseif $adultshopprogress gte 2>>
+					<<shopicon "dilapidated">> $_theshop is in disrepair.
+				<<else>>
+					<<shopicon "dilapidated">> $_theshop is in great disrepair.
+				<</if>>
+				<<if $adultshopprogress lt 22>>
+					You can help Sydney there on Elk Street, on Fridays after <<ampm 16>>.
+				<</if>>
+			</li>
+		<</if>>
+
+		<<if $avery_mansion?.landry is 1 and !$avery_fate>>
+			<li><<harvesticon>> Someone dropped a note for you outside Avery's mansion, asking you to visit them in the pub on Harvest Street.</li>
+		<</if>>
+
+		<<if $gwylan?.request?.event and !($gwylan?.timer?.nobody gte Time.date.timeStamp)>>
+			<<switch $gwylan.request.event>>
+				<<case "meetAtShop">>
+					<li><<shopicon "forest">>Gwylan has asked you to meet <<nnpc_him "Gwylan">> at the forest shop.</li>
+				<<case "meetAtCafe">>
+					<li><<cafeicon>>Gwylan has asked you to meet <<nnpc_him "Gwylan">> at the cafe between <<ampm 7 20>> and <<ampm 9 20>>.</li>
+				<<case "yearning">>
+					<li><<shopicon "forest">>Gwylan has asked you to meet <<nnpc_him "Gwylan">> at the forest shop so <<nnpc_he "Gwylan">> can apologise properly.</li>
+				<<case "clothing">>
+					<li><<shopicon "forest">>Gwylan has asked you to wear <<if $gwylan.request.items.length gt 1>>some clothes<<else>>a clothing item<</if>> to the forest shop.</li>
+					<<gwylanJournalItems>>
+				<<case "ingredients">>
+					<li><<icon "tending/basket.png">>Gwylan has asked you to gather some ingredients.</li>
+					<<gwylanJournalItems>>
+				<<case "sample">>
+					<li><<iconUi "sym-lust-empty.png">> Gwylan has asked you to gather some samples.</li>
+					<<gwylanJournalItems>>
+				<<case "recipe">>
+					<li><<icon "tending/basket.png">>Gwylan has asked you to gather some items to make <span class="blue">$gwylan.request.special</span>.</li>
+					<<gwylanJournalItems>>
+				<<case "samplePlayer">>
+					/* ToDo: Gwylan */
+				<<case "preen">>
+					<<if $gwylan.request.special is "harpy">>
+						<li><<tficon "bird">> Gwylan has asked to preen your wings.
+						<<if $harpy lt 6>>
+							<span class="blue">You don't have wings anymore. Perhaps enough hawk feathers will suffice.</span>
 						<</if>>
 						</li>
-						<<if !playerChastity()>>
-							<span class='fa-icon fa-selected'></span>
-						<<else>>
-							<span class='fa-icon fa-unselected'></span>
+					<<else>>
+						<<set $_featherCount to $gwylan.request.items.find(feather => feather.name === "feathers").need>>
+						<li><<birdicon "feathers">> Gwylan has asked you for <span class="gold"><<number $_featherCount>></span> of the hawk's feathers.</li>
+						<<if $bird?.materials?.feathers>>You have <span class="blue"><<number $bird.materials.feathers>>.</span><</if>>
+						<<if $harpy gte 6>>
+							<span class="gold">Perhaps <<nnpc_he "Gwylan">> could preen your wings directly...</span>
 						<</if>>
-						<<if $worn.genitals.name is "gold chastity belt" or $gwylan.request.details?.gold>>
-							<<antiqueicon "chastity">>
-						<<else>>
-							<<icon "clothes/chastity-belt.png">>
-						<</if>>
-						<span class="red">Remove</span> chastity device
-						<<if playerChastity() and $gwylan.request.items>>
-							<br><span class="blue">Or</span><br>
-							<<gwylanJournalItems>>
-						<</if>>
+					<</if>>
+				<<case "cream">>
+					<li><<foodstufficon "cream">><span class="lewd">Gwylan has made you a lewd offer involving some cream...</span></li>
+				<<case "robin">>
+					/* ToDo: Gwylan */
+				<<case "chastity">>
+					<li>
+					<<if playerChastity()>><<lockicon>><<else>><<lockicon "unlock">><</if>>
+					<<if $gwylan.request.command is true>>
+						Gwylan <<if $hypnosis_traits.devotion gte 3>>has commanded<<else>>wants<</if>> you to remove your chastity device.
+					<<else>>
+						Gwylan has offered to help you remove your chastity device.
+					<</if>>
+					<<if playerChastity() and $gwylan.request.items>>
+						<<nnpc_He "Gwylan">> needs some items to help.
+					<</if>>
+					</li>
+					<<if !playerChastity()>>
+						<span class='fa-icon fa-selected'></span>
+					<<else>>
+						<span class='fa-icon fa-unselected'></span>
+					<</if>>
+					<<if $worn.genitals.name is "gold chastity belt" or $gwylan.request.details?.gold>>
+						<<antiqueicon "chastity">>
+					<<else>>
+						<<icon "clothes/chastity-belt.png">>
+					<</if>>
+					<span class="red">Remove</span> chastity device
+					<<if playerChastity() and $gwylan.request.items>>
+						<br><span class="blue">Or</span><br>
+						<<gwylanJournalItems>>
+					<</if>>
 
-					<<default>>
-						<li><span class="red">Gwylan has asked you to do something, but the task has no journal description! Please report this bug.</span></li>
-				<</switch>>
-			<</if>>
-		</ul>
-	<</if>>
+				<<default>>
+					<li><span class="red">Gwylan has asked you to do something, but the task has no journal description! Please report this bug.</span></li>
+			<</switch>>
+		<</if>>
 
-	<<if ["requested", "ready"].includes($daily?.fishing?.baitShopRequest) and Time.hour lt 19>>
-		<hr>
-		<h1 class="header gold bold">Fishing</h1>
-		<ul class="journal">
-			<<icon `"fish/" + $daily.fishing.baitShopRequestFish + ".png"`>> The bait shop owner wants a freshly-caught <span class="gold">$daily.fishing.baitShopRequestFish</span>, brought to them before they close at <<ampm 19 00>>.
-			<<if $daily.fishing.baitShopRequest is "ready">>
-				<span class="green">You've caught one to hand over.</span>
-			<</if>>
-		</ul>
-	<</if>>
+		<<if _museumItemsFound?.length gte 1>>
+			<li><<museumicon>>You should show the <<= formatList(_museumItemsFound, "and")>> to Winter<<if _museumItemsTalk.length gte 1>>, and ask <<nnpc_him "Winter">> about the <<= formatList(_museumItemsTalk, "and")>><</if>>.</li>
+		<<elseif _museumItemsTalk?.length gte 1>>
+			<li><<museumicon>>You should ask Winter about the <<= formatList(_museumItemsTalk, "and")>>.</li>
+		<</if>>
+	</ul>
 
 	<<if ["requested", "ready"].includes($daily?.fishing?.baitShopRequest) and Time.hour lt 19>>
 		<hr>
@@ -877,9 +940,6 @@
 					<li>Eden's invited you for a Christmas dinner at <<ampm 18 00>>.</li>
 				<</if>>
 			<</if>>
-			<<if $fake_artefact is "pc" and $avery_fate isnot "ascended">>
-				<li>Landry wants you to find the wishing stones in the vault in Avery's mansion and replace them with the fakes <<nnpc_he Landry>> provided. <<nnpc_He Landry>> said that would save Avery from <<nnpc_himself "Avery">>.</li>
-			<</if>>
 		</ul>
 	<</if>>
 
@@ -935,26 +995,6 @@
 				<</if>>
 				</li>
 			<</if>>
-			/* Reworked, left in while in construction
-			<<if $avery_mansion.landry gte 2 and $auriga_artefact is "Avery">>
-				<li>Landry will give you <span class="gold">£10000</span> if you can bring <<nnpc_him "Landry">> the <span class="pink">wishing stones</span> from Avery's mansion.</li>
-				<<if $avery_mansion.mickey>>
-					<li>Mickey suggests making Avery feel more dominant would cause them to reveal the stones' location. Alternatively, helping Avery reach their goals could bring them into the open.</li>
-				<</if>>
-				<<if $avery_mansion.jobs.includes("dungeon")>>
-					<li>Avery revealed a dungeon containing a vault. It seems a likely place for the stones.</li>
-				<</if>>
-				<<if $avery_mansion.fake_stones is 2>>
-					<li>Optionally, replace Avery's wishing stones with the fakes Mickey gave you.</li>
-				<</if>>
-			<<elseif $avery_mansion.landry gte 2 and $auriga_artefact is "pc">>
-				<li>Landry will give you <span class="gold">£10000</span> if you can bring <<nnpc_him "Landry">> the <span class="pink">wishing stones</span> that are in your possession.</li>
-			<</if>>
-			<<if $avery_mansion.fake_stones is 1>>
-				<li><<investigateicon>> Find a convincing fake to swap for the wishing stones.</li>
-			<<elseif $avery_mansion.fake_stones is 2>>
-				<li><<icon "avery-vault.png">> Leave the fake wishing stones in Avery's vault.</li>
-			<</if>>*/
 			<<if $avery_mansion.jobs.filter(job => !job.includes("dungeon")).length>>
 				<li>
 					<<icon "avery-garage.png">> Additionally, Avery expects to see proper presentation from you when <<nnpc_he "Avery">> returns from work.
@@ -1041,6 +1081,31 @@
 		</ul>
 	<</if>>
 
+	<<if $kylar_altar_research and $kylar_sleep_abduction and !$kylar_altar_research.includes("tape")>>
+		<h1 class="header gold bold">Investigate the forest altar.</h1>
+		<ul class="journal">		
+			<<if $kylar_altar_research.includes("library")>>
+				<li><span class="black">You've learned all there is to know from the school library.</span></li>
+				<<if !$kylar_altar_research.includes("temple")>>
+					<li>Search for the missing pages at the temple.</li>
+				<<else>>
+					<li><span class="black">You found the missing pages at the temple.</span></li>
+				<</if>>
+				<<if $kylar_altar_research.includes("temple") and !$kylar_altar_research.includes("tape")>>
+					<li>Play the video tape you found. There's a player in Kylar's manor.</li>
+				<</if>>
+			<<else>>
+				<<if $kylar_altar_library gte 100>>
+					<li>Ask at the school library counter.</li>
+				<<elseif $kylar_altar_library gte 1>>
+					<li>School library research progress: <span class="gold">$kylar_altar_library%</span></li>
+				<<else>>
+					<li>Search for information in the school library.</li>
+				<</if>>
+			<</if>>
+		</ul>
+	<</if>>
+
 	<<if $scienceproject is "ongoing">>
 		<hr>
 		<h1 class="header gold bold">Science Fair</h1>
@@ -1057,15 +1122,12 @@
 		<</if>>
 		You have the following ongoing science projects. You'll choose one to present at the fair.
 		<br><br>
+		<<scienceprojectchance>>
 		<<if $sciencelichenknown is 1>>
 			<span class="gold bold">Local Lichen</span>
 			<br>
-			<<if $sciencechance is undefined>>
-				<<set $sciencechance to []>>
-			<</if>>
 			<<if $sciencelichenpark is 1>>
 				<<if $sciencelichenparkready is 1>>
-					<<run $sciencechance.pushUnique("Lichen")>>
 					<span class='fa-icon fa-selected'></span> You've incorporated the lichen living in the park to your project.
 					<br>
 				<<else>>
@@ -1078,7 +1140,6 @@
 			<</if>>
 			<<if $sciencelichentemple is 1>>
 				<<if $sciencelichentempleready is 1>>
-					<<run $sciencechance.pushUnique("Temple")>>
 					<span class='fa-icon fa-selected'></span> You've incorporated the lichen living on the temple to your project.
 					<br>
 				<<else>>
@@ -1091,7 +1152,6 @@
 			<</if>>
 			<<if $sciencelichendrain is 1>>
 				<<if $sciencelichendrainready is 1>>
-					<<run $sciencechance.pushUnique("Drain")>>
 					<span class='fa-icon fa-selected'></span> You've incorporated the lichen living in the storm drain to your project.
 					<br>
 				<<else>>
@@ -1104,7 +1164,6 @@
 			<</if>>
 			<<if $sciencelichenlake is 1>>
 				<<if $sciencelichenlakeready is 1>>
-					<<run $sciencechance.pushUnique("Ruin")>>
 					<span class='fa-icon fa-selected'></span> You've incorporated the lichen living on the lake ruin to your project.
 					<br>
 				<<else>>
@@ -1115,7 +1174,7 @@
 				<span class='fa-icon fa-unselected'></span><span class="black"> Examine purple lichen on the lake ruin.</span>
 				<br>
 			<</if>>
-			As it is, this project has a <span @class="($sciencechance.length is 0 ? 'red' : $sciencechance.length is 1 ? 'pink' : $sciencechance.length is 2 ? 'purple' : $sciencechance.length is 3 ? 'teal' : $sciencechance.length is 4 ? 'green' : '')"><<print ($sciencelichenparkready * 25 + $sciencelichenlakeready * 25 + $sciencelichendrainready * 25 + $sciencelichentempleready * 25)>>%</span> chance of winning the fair. Winning with this project will greatly reduce trauma and endear you to your teachers.
+			As it is, this project has a <span @class="($sciencelichenchance gte 100 ? 'green' : $sciencelichenchance gte 75 ? 'teal' : $sciencelichenchance gte 50 ? 'purple' : $sciencelichenchance gte 25 ? 'pink' : $sciencelichenchance gte 0 ? 'red' : '')"><<print $sciencelichenchance>>%</span> chance of winning the fair. Winning with this project will greatly reduce trauma and endear you to your teachers.
 			<br><br>
 		<<else>>
 			<span class="black">????????????</span>
@@ -1140,7 +1199,6 @@
 				Add mushrooms to your project at home or the library.
 			<</if>>
 			<br>
-			<<set $scienceshroomchance to ($scienceshroomwolfready * 10 + $scienceshroomheartready * 10)>>
 			As it is, this project has a <span @class="$scienceshroomchance gte 100 ? 'green' : $scienceshroomchance gte 80 ? 'teal' : $scienceshroomchance gte 60 ? 'lblue' : $scienceshroomchance gte 40 ? 'purple' : $scienceshroomchance gte 20 ? 'pink' : $scienceshroomchance gte 0 ? 'red' : ''"><<print $scienceshroomchance>>%</span> chance of winning the fair. Winning with this project will greatly reduce trauma and make you more popular among your peers.
 			<br><br>
 		<<else>>
@@ -1159,7 +1217,7 @@
 				Add phalli to your project at home or the library.
 			<</if>>
 			<br>
-			As it is, this project has a <span @class="$sciencephallusready gte 10 ? 'green' : $sciencephallusready gte 8 ? 'teal' : $sciencephallusready gte 6 ? 'lblue' : $sciencephallusready gte 4 ? 'purple' : $sciencephallusready gte 2 ? 'pink' : $sciencephallusready gte 0 ? 'red' : ''"><<print ($sciencephallusready * 10)>>%</span> chance of winning the fair. Winning with this project will greatly reduce trauma and make you more famous.
+			As it is, this project has a <span @class="$sciencephallusready gte 10 ? 'green' : $sciencephallusready gte 8 ? 'teal' : $sciencephallusready gte 6 ? 'lblue' : $sciencephallusready gte 4 ? 'purple' : $sciencephallusready gte 2 ? 'pink' : $sciencephallusready gte 0 ? 'red' : ''"><<print $sciencephalluschance>>%</span> chance of winning the fair. Winning with this project will greatly reduce trauma and make you more famous.
 			<br>
 		<<else>>
 			<span class="black">????????????</span>
@@ -1280,10 +1338,10 @@
 				</li>
 			<</if>>
 			<<if $antiquemoney gt 0>>
-				<li><<museumicon>><span class="green">£<<print $antiquemoney>></span> in antiques. You can sell them to the museum.</li>
+				<li><<museumicon>><span class="green">£<<print $antiquemoney.toLocaleString("en-GB")>></span> in antiques. You can sell them to the museum.</li>
 			<</if>>
 			<<if $blackmoney gt 0>>
-				<li><<highicon>><span class="green">£<<print $blackmoney>></span> in stolen goods. You can sell them to someone on the black market.</li>
+				<li><<highicon>><span class="green">£<<print $blackmoney.toLocaleString("en-GB")>></span> in stolen goods. You can sell them to someone on the black market.</li>
 			<</if>>
 			<<if $phials_held gt 0>>
 				<li><<icon "aphrodisiac.png">> <span class="green">$phials_held</span> <<pluralise $phials_held "phial">> of aphrodisiac. You can sell <<pluralise $phials_held "it">> on Elk Street.</li>
@@ -1341,12 +1399,12 @@
 	<</if>>
 
 
-	<<if Object.keys($plots).length gte 1>> /* display plot readiness */
+	<<if Object.values($plots).some(loc => loc.length)>> /* display plot readiness */
 		<hr>
 		<h1 class="header gold bold">Gardens</h1>
 		<<for $_plotToDisplay range ["garden", "farm", "wolf", "eden", "asylum"]>>
 			<<set $_currentPlot to $plots[$_plotToDisplay]>>
-			<<if $_currentPlot and $_currentPlot.filter(()=>true).length>>
+			<<if $_currentPlot?.filter(()=>true).length>>
 				<<set $_plotsToWater to $_currentPlot.filter(plot => plot.stage >= 1 && plot.stage < 5 && plot.bed !== "water" && plot.water === 0).length>>
 				<<set $_plotsToPick  to $_currentPlot.filter(plot => plot.stage >= 5 ).length>>
 				<<set $_plotsEmpty   to $_currentPlot.filter(plot => !(plot.stage >= 1)).length>>
@@ -1404,30 +1462,10 @@
 		<<if $museumintro is 1>>
 			<<museumAntiqueText>><<museumPaintingText>>
 			<<if $museumAntiqueJournalHints.length gte 1 || Object.values(V.museumAntiques.paintings).includes("found")>>
-				<<set _hintslist to clone($museumAntiqueJournalHints).reverse()>>
 				<<if $museumAntiqueJournalHints.length gte 1>>
-					Winter has mentioned some items that are missing from the museum.
+					Winter has mentioned some items that are missing from the museum. You can view available hints by <<if SugarCube.Browser.isMobile.any()>>tapping on<<else>>hovering over<</if>> each pedestal in the list below.
 				<</if>>
-				<ul class="journal">
-					<<for _hint range _hintslist>>
-						<<if _museumAntiqueText[_hint]>>
-							<<if ["found", "talk"].includes($museumAntiques.antiques[_hint])>>
-								<li>You should show the <<= _museumAntiqueText[_hint].name.toLowerCase()>> to Winter.</li>
-							<<else>>
-								<li><<print _museumAntiqueText[_hint].journal>></li>
-							<</if>>
-						<<else>>
-							<li><span class="red">Warning: Antique "_hint" doesn't have a hint. Did you export this save from a modded version?</span></li>
-							<<set $museumAntiqueJournalHints.delete(_hint)>>
-						<</if>>
-					<</for>>
-					<<for $_labelP, $_valueP range $museumAntiques.paintings>>
-						<<if $_valueP is "found">>
-							<li>You should show the <<= _museumPaintingText[$_labelP].journalName.toLowerCase()>> to Winter.</li>
-						<</if>>
-					<</for>>
-				</ul>
-				<br>
+				<br><br>
 			<</if>>
 			<<set $_antiquesFound to Object.values($museumAntiques.antiques).filter(status => status !== "notFound").length>>
 			<<set $_paintingsFound to Object.values($museumAntiques.paintings).filter(status => status !== "notFound").length>>
@@ -1466,7 +1504,7 @@
 				<</if>>
 				<div class="itemCollectible">
 					<<for _labelM, _valueM range $museumAntiques.antiques>>
-						<<set _antique to $museumAntiqueJournalHints.includes(_labelM) ? _museumAntiqueText[_labelM]?.journalName || _museumAntiqueText[_labelM].name.toLowerCase().toUpperFirst() : _museumAntiqueText[_labelM].name.toLowerCase().toUpperFirst()>>
+						<<set _antique to $museumAntiqueJournalHints.includes(_labelM) ? _museumAntiqueText[_labelM].journal || _museumAntiqueText[_labelM]?.journalName || _museumAntiqueText[_labelM].name.toLowerCase().toUpperFirst() : _museumAntiqueText[_labelM].name.toLowerCase().toUpperFirst()>>
 						<<if $museumAntiqueJournalHints.includes(_labelM)>>
 							<<switch _valueM>>
 								<<case "notFound">>
@@ -1481,7 +1519,7 @@
 						<<else>>
 							<<switch _valueM>>
 								<<case "notFound">>
-									<div class="item unknown" tooltip="Unknown antique.">
+									<div class="item unknown" tooltip="Unknown antique">
 										<<mysteryicon>>
 									</div>
 								<<default>>
@@ -1554,7 +1592,7 @@
 										<img class="icon" @src="'img/misc/prop/' + _museumPaintingText[_labelP].inlineFull" width="120" height="120">
 									</div>
 								<<case "notFound">>
-									<div class="item" tooltip="Unknown Painting.">
+									<div class="item" tooltip="Unknown painting">
 										<img class="icon" src="img/misc/prop/curtain.png" width="120" height="120">
 									</div>
 								<<default>>
@@ -1569,12 +1607,12 @@
 			<br>
 		<</if>>
 
+		<<set _foodstuffKeys to Object.keys(setup.foodstuff)>>
 		<<if $plants_known.length gte 0>>
-			<<set _foodstuffKeys to Object.keys(setup.foodstuff)>>
-			<<set _collection to 0>>
+			<<set _plantCollection to 0>>
 			<<for _i to 0; _i lt $plants_known.length; _i++>>
 				<<if Object.keys(setup.foodstuff).includes($plants_known[_i])>>
-					<<set _collection += 1>>
+					<<set _plantCollection += 1>>
 				<</if>>
 			<</for>>
 			<<set _total to 0>>
@@ -1583,14 +1621,14 @@
 					<<set _total += 1>>
 				<</if>>
 			<</for>>
-			<<if _collection is 0>>
+			<<if _plantCollection is 0>>
 				You can't grow any plants. Explore the world more to discover seeds.
 			<<else>>
-				You can grow <span class="gold"><<= _collection>></span> <<pluralise _collection "kind of plant" "kinds of plants">>.
-				<<if _collection is _total>>
+				You can grow <span class="gold"><<= _plantCollection>></span> <<pluralise _plantCollection "kind of plant" "kinds of plants">>.
+				<<if _plantCollection is _total>>
 					You've found <span class="green">every</span> seed.
 				<<else>>
-					<<set _seedsMissing to _total - _collection>>
+					<<set _seedsMissing to _total - _plantCollection>>
 					You're missing <span class="gold"><<= _seedsMissing>></span> <<pluralise _seedsMissing "seed">>.
 				<</if>>
 			<</if>>
@@ -1610,7 +1648,7 @@
 									<<icon `"tending/" + _icon`>>
 								</div>
 							<<else>>
-								<div class="item unknown" tooltip="Unknown seed.">
+								<div class="item unknown" tooltip="Unknown seed">
 									<<mysteryicon>>
 								</div>
 							<</if>>
@@ -1618,9 +1656,57 @@
 					<</for>>
 				</div>
 			</details>
-		<</if>>
-		<<if $fishing.locationsFound.length>>
 			<br>
+		<</if>>
+
+		<<set _recipeCollection to 0>>
+		<<set _total to 0>>
+		<<for _i to 0; _i lt _foodstuffKeys.length; _i++>>
+			<<if $foodstuff[_foodstuffKeys[_i]].knows_recipe>>
+				<<set _recipeCollection += 1>>
+			<</if>>
+			<<if setup.foodstuff[_foodstuffKeys[_i]].recipe and setup.foodstuff[_foodstuffKeys[_i]].recipe.difficulty lt 5>> /* Excludes unobtainable ghostbrew and wolfbrew */
+				<<set _total += 1>>
+			<</if>>
+		<</for>>
+		<<if _recipeCollection gte 0>>
+			<<if _recipeCollection is 0>>
+				You haven't learnt any recipes. Explore the world more to discover recipes.
+			<<else>>
+				You have learnt <span class="gold"><<= _recipeCollection>></span> <<pluralise _recipeCollection "recipe">>.
+				<<if _recipeCollection is _total>>
+					You've discovered <span class="green">every</span> recipe.
+				<<else>>
+					<<set _recipesMissing to _total - _recipeCollection>>
+					You're missing <span class="gold"><<= _recipesMissing>></span> <<pluralise _recipesMissing "recipe">>.
+				<</if>>
+			<</if>>
+			<br><br>
+			<details class="journal">
+				<summary class="journal">Recipes</summary>
+				<div class="itemCollectible">
+					<<for _i to 0; _i lt _foodstuffKeys.length; _i++>>
+						<<set _recipeItem to setup.foodstuff[_foodstuffKeys[_i]]>>
+						<<set _tooltip to _recipeItem.name.toUpperFirst()>>
+						<<set _icon to _recipeItem?.icon>>
+						<<if _recipeItem.recipe and _recipeItem.recipe.difficulty lt 5>> /* Excludes unobtainable ghostbrew and wolfbrew */
+							<<if $foodstuff[_foodstuffKeys[_i]].knows_recipe>>
+								<div class="item" @tooltip="_tooltip">
+									<<icon `"tending/" + _icon`>>
+								</div>
+							<<else>>
+								<div class="item unknown" tooltip="Unknown recipe">
+									<<mysteryicon>>
+								</div>
+							<</if>>
+						<</if>>
+					<</for>>
+				</div>
+			</details>
+			<br>
+		<</if>>
+
+		<<if $fishing.locationsFound.length>>
 			<<set _fishingLocations to ["fishingPier", "fishingBeach", "fishingCoastPath", "fishingForestLake", "fishingMoor"]>>
 			<<set _fishKeys to Object.keys(setup.fishing.lootTables.fish)>>
 			<<set _fishDiscovered to _fishKeys.filter(k => $fishing.record[k]).length>>
@@ -1775,7 +1861,7 @@
 			<<if !$journalNotes[_currentPage]>><<set _currentPage to "default">><</if>>
 			<<replace "#customOverlayContent">><<journalNotes>><</replace>>
 		<</link>> |
-		<<if $debug is 1>>
+		<<if $debug>>
 			<<link "DEBUG: <<=($options.enableJournalDebugTwee ? 'Disable' : 'Enable')>> Code Execution">>
 				<<if $options.enableJournalDebugTwee>>
 					<<set delete $options.enableJournalDebugTwee>>
@@ -1812,7 +1898,7 @@
 <</widget>>
 
 <<widget "journalNotesTextarea">>
-	<<if $options.enableJournalDebugTwee and $debug is 1>>
+	<<if $options.enableJournalDebugTwee and $debug>>
 		<div class="settingsToggleItemWide">
 			<<foldout true "_journalDebugTweeFoldout">>
 				<span style="font-size:large">output</span>

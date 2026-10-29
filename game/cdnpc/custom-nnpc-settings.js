@@ -7,6 +7,7 @@ function updateAll() {
     }
     Wikifier.wikifyEval("<<options-render-custom-nnpc-update T.customNNPCClothingSet>>");
     Wikifier.wikifyEval('<<options-custom-nnpc-custom-layers-list-update>>');
+    Wikifier.wikifyEval('<<options-custom-nnpc-tanning-layers-list-update>>');
     Wikifier.wikifyEval("<<options-custom-nnpc-tattoos-list-update>>");
 
     $('#imageset-target')?.text(V.customNNPC.imageset[V.customNNPC.settingsActivePreview].replace(/[^a-zA-Z0-9_]/g, ''));
@@ -15,11 +16,12 @@ function updateAll() {
 
 function nnpcImagePreviewUpdate() {
     let targets = "#npcSettingsMenu .macro-radiobutton," +
-        "#npcSettingsMenu .macro-listbox," +
-        "#npcSettingsMenu .macro-checkbox,"+
-        "#npcSettingsMenu .macro-textbox,"+
-        "#npcSettingsMenu .custom-nnpc-tear-slider,"+
-        "#npcSettingsMenu .macro-numberbox";
+      "#npcSettingsMenu .macro-listbox," +
+      "#npcSettingsMenu .macro-checkbox,"+
+      "#npcSettingsMenu .macro-textbox,"+
+      "#npcSettingsMenu .custom-nnpc-tear-slider,"+
+      "#npcSettingsMenu .macro-numberbox,"+
+      "#npcSettingsMenu input";
 
     jQuery(document).on("change", targets, (event) => {
         updateAll();
@@ -35,9 +37,28 @@ DefineMacroS("nnpc-image-preview-auto-update", nnpcImagePreviewUpdate);
 
 function nnpcOutfitUpdate() {
     let activeNPC = V.customNNPC.settingsActivePreview;
-    let outfit = setup.npcClothesSets.find(hs => hs.name === T.customNNPCClothingSet);
+    let outfit;
+    if(T.customNNPCClothingSet === "CDNPC_OUTFIT_SANDBOX"){
+        outfit = {
+            name: "CDNPC_OUTFIT_SANDBOX",
+            desc: "An outfit not used anywhere, use to test styles or create tanlines!",
+            type: "Sandbox",
+            clothes:{
+                upper:{
+                    name: "N/A",
+                    word:"n"
+                },
+                lower:{
+                    name: "N/A",
+                    word:"n"
+                }
+            }
+        }
+    }else {
+        outfit = setup.npcClothesSets.find(hs => hs.name === T.customNNPCClothingSet);
+    }
 
-    if(!(outfit.name in V.customNNPC.customClothesSets[activeNPC])){
+    if(!(outfit.name in V.customNNPC.customClothesSets[activeNPC]) && outfit){
         console.log("Generating clothing set "+outfit.name+" for "+activeNPC);
         customNNPCDefaultClothes(outfit.name, activeNPC);
     }
@@ -54,6 +75,9 @@ function nnpcOutfitUpdate() {
             let target = T.clothesTargets[j];
             if (outfit.name in V.customNNPC.customClothesSets[activeNPC]) {
                 let newClothes = V.customNNPC.customClothesSets[activeNPC][outfit.name][target];
+                if(typeof newClothes === "undefined"){
+                    newClothes = setup.clothes[target].find(hs => hs.variable === "naked");
+                }
                 T.wornClothes[target] = newClothes.variable;
                 if ("colour_options" in newClothes && newClothes.colour_options.length > 0) {
                     T.wornColours[target]["colour"] = newClothes.colour ?? newClothes.colour_options[0];
@@ -272,19 +296,12 @@ function nnpcGetAllClothingSets() {
 
 DefineMacro("custom-nnpc-get-all-sets", nnpcGetAllClothingSets);
 
-function customNNPCCopyClothingSet() {
-    console.log("Copying from: " + T.customNNPCCopyTarget + " to " + T.customNNPCClothingSet);
-    if (T.customNNPCClothingSet === "naked") return;
-    if (T.customNNPCCopyTarget === T.customNNPCClothingSet) return;
-    let activeNPC = V.customNNPC.settingsActivePreview;
-
+function copyOutfit(outfitData, targetNpc, targetOutfit){
     for (let i = 0; i < T.clothesTargets.length; i++) {
         let target = T.clothesTargets[i];
-        let newClothes = T.customNNPCCopyTarget === "naked" ? setup.clothes[target][0] : V.customNNPC.customClothesSets[activeNPC][T.customNNPCCopyTarget][target];
+        let newClothes = outfitData[target];
 
-        let copy = $.extend(true, {}, newClothes)
-
-        V.customNNPC.customClothesSets[activeNPC][T.customNNPCClothingSet][target] = copy;
+        V.customNNPC.customClothesSets[targetNpc][targetOutfit][target] = $.extend(true, {}, newClothes);
         T.wornClothes[target] = newClothes.variable;
         if ("colour_options" in newClothes && newClothes.colour_options.length > 0) {
             T.wornColours[target]["colour"] = newClothes.colour;
@@ -311,6 +328,15 @@ function customNNPCCopyClothingSet() {
             T.wornColours[target]["altposition"] = newClothes.altposition;
         }
     }
+}
+
+function customNNPCCopyClothingSet() {
+    console.log("Copying from: " + T.customNNPCCopyTarget + " to " + T.customNNPCClothingSet);
+    if (T.customNNPCClothingSet === "naked") return;
+    if (T.customNNPCCopyTarget === T.customNNPCClothingSet) return;
+    let activeNPC = V.customNNPC.settingsActivePreview;
+
+    copyOutfit(V.customNNPC.customClothesSets[activeNPC][T.customNNPCCopyTarget], activeNPC, T.customNNPCClothingSet);
 
     Wikifier.wikifyEval("<<options-render-custom-nnpc-update T.customNNPCClothingSet>>");
     Wikifier.wikifyEval("<<options-custom-nnpc-clothes-list-update>>");
@@ -533,6 +559,78 @@ DefineMacro("custom-nnpc-file-setup-all", function () {
     });
 });
 
+
+function importOutfitSettings(data) {
+    if(!confirm(`Do you want to import outfit ${data.character} ${data.outfit} into ${V.customNNPC.settingsActivePreview} ${T.customNNPCClothingSet}?`)) {
+        return;
+    }
+
+    copyOutfit(data.outfitData, V.customNNPC.settingsActivePreview, T.customNNPCClothingSet);
+
+    Wikifier.wikifyEval("<<options-render-custom-nnpc-update T.customNNPCClothingSet>>");
+    Wikifier.wikifyEval("<<options-custom-nnpc-clothes-list-update>>");
+}
+
+DefineMacro("custom-nnpc-outfit-import-export-setup", function () {
+    if(SugarCube.Browser.isMobile.any()) {
+        jQuery(document).off('click', "#custom-nnpc-outfit-settings-import");
+        jQuery(document).on('click', "#custom-nnpc-outfit-settings-import", (event) => {
+            try {
+                const fileContent = $("#custom-nnpc-outfit-settings-textarea").val();
+                const jsonContent = JSON.parse(fileContent);
+                if (!"character" in jsonContent || !"outfit" in jsonContent) {
+                    throw "Missing character name or outfit name";
+                } else {
+                    importOutfitSettings(jsonContent);
+                }
+            } catch (e) {
+                alert("Error loading file: " + e);
+            }
+        });
+    }
+    else{
+        jQuery(document).off('change', "#custom-nnpc-outfit-settings-import");
+        jQuery(document).on('change', "#custom-nnpc-outfit-settings-import", (event) => {
+            try {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const fileContent = event.target.result;
+                    const jsonContent = JSON.parse(fileContent);
+                    if (!"character" in jsonContent || !"outfit" in jsonContent) {
+                        throw "Missing character name or outfit name";
+                    } else {
+                        importOutfitSettings(jsonContent);
+                    }
+                };
+                reader.readAsText(document.getElementById("custom-nnpc-outfit-settings-import").files[0]);
+            } catch (e) {
+                alert("Error loading file: " + e);
+            }
+        });
+    }
+
+    jQuery(document).off('click', "#custom-nnpc-outfit-settings-export");
+    jQuery(document).on("click", "#custom-nnpc-outfit-settings-export", (event) => {
+        const activeNPC = V.customNNPC.settingsActivePreview;
+        const activeOutfit = T.customNNPCClothingSet;
+
+        const title = (activeNPC + "_" + activeOutfit).replace(" ", "_").toLowerCase() + "_outfit.json";
+
+        let jsonContent = JSON.stringify({
+            character: activeNPC,
+            outfit: activeOutfit,
+            outfitData: V.customNNPC.customClothesSets[activeNPC][activeOutfit]
+        });
+
+        if(SugarCube.Browser.isMobile.any()){
+            $("#custom-nnpc-outfit-settings-textarea").val(jsonContent);
+        }else{
+            const blob = new Blob([jsonContent], {type: 'application/json'});
+            saveAs(blob, title, jsonContent);
+        }
+    });
+});
+
 function orderTattoosByName(tatA, tatB) {
     if (tatA.writing === "none") return -1;
     if (tatB.writing === "none") return 1;
@@ -595,10 +693,7 @@ function customNNPCSettingsTabSetup(){
 
     // Body
     T.CustomNNPCSettingsTabs.push(["Body", "custom-nnpc-settings-tab-bodyshape"]);
-    if(V.customNNPC.settingsActivePreview !== "Ivory Wraith"){
-        T.CustomNNPCSettingsTabs.push(["Skin colour", "custom-nnpc-settings-tab-skin"]);
-    }
-
+    T.CustomNNPCSettingsTabs.push(["Tanlines", "custom-nnpc-settings-tab-tanning"]);
     T.CustomNNPCSettingsTabs.push(["Makeup", "custom-nnpc-settings-tab-makeup"]);
 
     // Pubes
@@ -872,6 +967,35 @@ function customNNPCOptionsResetOutfit(){
 }
 
 DefineMacro("custom-nnpc-options-reset-outfit",customNNPCOptionsResetOutfit);
+
+DefineMacro("custom-nnpc-options-generate-tanlines", function () {
+    const activeNPC = V.customNNPC.settingsActivePreview;
+
+    let previewModel = Renderer.locateModel(...["customNNPC","options"]);
+    if(!previewModel.tanningLayers){
+        alert("Could not generate tanlines from outfit.")
+        return;
+    }
+    V.customNNPC.customData[activeNPC].tanning_layers.push(
+      {
+          layers: previewModel.tanningLayers.layers,
+          value: 50.0,
+          colorAdjust: 0.0,
+          slots: previewModel.tanningLayers.slots,
+          monthSpecific: false,
+          monthMin : 6,
+          monthMax : 8
+      });
+
+    for (let i = 0; i < T.CustomNNPCSettingsTabs.length; i++) {
+        if(T.CustomNNPCSettingsTabs[i][1] === "custom-nnpc-settings-tab-tanning"){
+            T.customNNPCClothingSet = "naked";
+            customNNPCSettingsTabSetActive(i)
+            updateAll();
+            break;
+        }
+    }
+});
 
 function customNNPCResetHairstyle(){
     if(confirm("You are about to reset " + V.customNNPC.settingsActivePreview + "'s hair. \n\nProceed?")){

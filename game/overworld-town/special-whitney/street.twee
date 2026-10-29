@@ -981,7 +981,7 @@ Held by the ankles, you're forced over the edge of the dumpster. Your fall is cu
 <<ruffleHair>>
 <br><br>
 
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	You hear rustling beneath you. Suddenly, pale hands burst from below to grab you. Not one pair, but several.
 	<<if $wraith.state is "haunt">>
 		Fingernails dig deep into your flesh, dragging along your skin. They leave painful welts in their wake.
@@ -1002,6 +1002,10 @@ Held by the ankles, you're forced over the edge of the dumpster. Your fall is cu
 	<</if>>
 	You collapse onto the pavement, chest heaving. Whitney and <<his>> friends are nowhere to be found.
 <<else>>
+	<<if _wraithEvent>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<if C.npc.Whitney.dom gte 15>>
 		You wait a moment before pushing the lid up. It doesn't budge. You hear Whitney and <<his>> friends laugh. <<Hes>> sat above you, trapping you inside. Unable to do much else, you <<if $speech_attitude is "meek">>curl up in a ball<<elseif $speech_attitude is "bratty">>sigh in frustration<<else>>lie back down<</if>> and wait for them to leave.
 		<<pass 10>><<trauma 6>><<stress 6>><<gtrauma>><<gstress>>
@@ -2686,17 +2690,18 @@ You're helpless to stop Whitney as <<he>> drags you out of the alley.
 			<<else>>
 				<<He>> sneers when <<his>> hand touches your $worn.genitals.name. "Got yourself locked up? Well, that's not gonna make you look any less like a slut."
 			<</if>>
-		<<elseif isHermOrCrossdresser() and !$genderknown.includes("Whitney")>>
+		<<elseif isHermOrCrossdresser() and !$genderknown.includes("Whitney") and $settings.nudeGenderPerception !== 0>>
 			<<set $genderknown.pushUnique("Whitney")>>
 			<<He>> grabs your crotch, then suddenly stops. Then, with a more deliberate touch, <<he>>
 			<<if $player.penisExist and $player.vaginaExist>>
 				runs <<his>> fingers along the outline of your <<penis>>, before ramming them against your <<pussy>>.
 				<br><br>
-
-				<<if _whitney.penis isnot "none" and _whitney.vagina isnot "none">> /* whitney is also a herm */
-					"Well, well, well." <<He>> sounds pleasantly surprised, but not confused. "Next perv who shows up is in for quite a show."
-				<<else>>
-					"Whatever's going on down here," <<he>> chuckles, "some perv's in for a show."
+				<<if $settings.nudeGenderPerception !== 0>>
+					<<if _whitney.penis isnot "none" and _whitney.vagina isnot "none">> /* whitney is also a herm */
+						"Well, well, well." <<He>> sounds pleasantly surprised, but not confused. "Next perv who shows up is in for quite a show."
+					<<else>>
+						"Whatever's going on down here," <<he>> chuckles, "some perv's in for a show."
+					<</if>>
 				<</if>>
 			<<elseif $player.penisExist>>
 				squeezes your shaft through your _bottom.name, chuckling.
@@ -2719,7 +2724,7 @@ You're helpless to stop Whitney as <<he>> drags you out of the alley.
 			<</if>>
 		<<else>>
 			"Scared?" <<he>> asks, roughly palming your crotch. "Some perv's gonna see your
-			<<set _hermText to (_whitney.gender is "h" ? "little secret" : "freaky junk")>>
+			<<set _hermText to ($settings.nudeGenderPerception === 0 ? "junk" : (_whitney.gender is "h" ? "little secret" : "freaky junk"))>>
 			<<print ($player.penisExist ? (!$player.vaginaExist ? "dick" : _hermText) : "cunt")>> and there's nothing you can do about it."
 		<</if>>
 	<<case 1>>
@@ -3435,7 +3440,7 @@ You arrive outside your room. Whitney looks inside. "You live like this?" <<he>>
 	<</if>>
 <<elseif $whitney_bailey_met gte 1>>
 	<<npc Bailey 2>><<generatey3>>
-	<<if $syndromebaileybuild gte 3>>
+	<<if $syndromeBaileyBuild gte 3>>
 		You enter Bailey's office, <<person2>><span class="red">and find <<him>> sitting at <<his>> desk.</span> <<He>> looks up at you calmly. You meet <<his>> gaze. Whitney barges into you from behind, followed by <<person1>><<his>> friends.
 	<<elseif $speech_attitude is "bratty" or currentSkillValue('willpower') gte ($willpowermax * 0.7) or C.npc.Bailey.dom lte 30>>
 		You enter Bailey's office, <<person2>><span class="red">and find <<him>> sitting at <<his>> desk.</span> <<He>> looks up with an annoyed expression. You hold your ground as Whitney barges past you, followed by <<person1>><<his>> friends.

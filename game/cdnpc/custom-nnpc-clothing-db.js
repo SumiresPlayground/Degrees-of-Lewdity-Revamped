@@ -19,6 +19,9 @@ function customNNPCClothingInitDb() {
         "naked": {
             "Contributor": "Mother Nature",
         },
+        "CDNPC_OUTFIT_SANDBOX": {
+            "Contributor": "My scuffed code",
+        },
         "maleDefault": {
             "upper": [
                 {variable: "polo", colour1: "white"},
@@ -4424,6 +4427,156 @@ function customNNPCClothingInitDb() {
         "ritualRobes": {
             "rant": "Oh Gwylan, Gwylan, Gwylan... Why does the story text cals you naked here yet you insist on calling it 'ritual robes' in the gamefiles?" +
                 "though I do respect the hat staying on during sex part. That is pretty funny I gotta admit."
+        },
+        "mines": [
+            {
+                "upper": [{variable: "boilersuit", colour1:"black"}],
+                "lower": [{variable: "boilersuit", colour1: "black"}],
+                "feet": [{variable: "work"}],
+            },
+            {
+                "upper": [{variable: "boilersuit", colour1:"navy"}],
+                "lower": [{variable: "boilersuit", colour1: "navy"}],
+                "feet": [{variable: "work"}],
+            },
+            {
+                "upper": [{variable: "boilersuit", colour1:"blue steel"}],
+                "lower": [{variable: "boilersuit", colour1: "blue steel"}],
+                "feet": [{variable: "work"}],
+            },
+            {
+                "upper": [{variable: "boilersuit", colour1:"khaki"}],
+                "lower": [{variable: "boilersuit", colour1: "khaki"}],
+                "feet": [{variable: "work"}],
+            },
+            {
+                "upper": [{variable: "boilersuit", colour1:"olive"}],
+                "lower": [{variable: "boilersuit", colour1: "olive"}],
+                "feet": [{variable: "work"}],
+            },
+            {
+                "upper": [{variable: "boilersuit", colour1:"sand"}],
+                "lower": [{variable: "boilersuit", colour1: "sand"}],
+                "feet": [{variable: "work"}],
+            },
+            {
+                "upper": [{variable: "boilersuit", colour1:"wine"}],
+                "lower": [{variable: "boilersuit", colour1: "wine"}],
+                "feet": [{variable: "work"}],
+            },
+            {
+                "upper": [{variable: "boilersuit", colour1:"dusty orange"}],
+                "lower": [{variable: "boilersuit", colour1: "dusty orange"}],
+                "feet": [{variable: "work"}],
+            },
+        ],
+        "baileyJacket": {
+            "upper": [{variable: "brownleather", alt:true, colour1:"red"}],
+            "lower": [{variable: "straight trousers", colour1: "black"}],
+            "feet": [{variable: "wingtips", colour1: "black", colour2: "brown"}],
+            "neck": [{variable: "suspenders", colour1:"black", colour2:"steel"}]
+        },
+        "Zephyr": {
+            "contributor": "Numberjack",
+            "upper": [{variable: "gothicjacket"}],
+            lower_tucked: true,
+            "lower": [{variable: "straight trousers", colour1: "olive"}],
+            "under_upper": [{variable: "chestwrap"}],
+            "under_lower": [{variable: "bloomers", colour1: "white"}],
+            "head": [
+                {variable: "wide brim sun hat", colour1: "black", colour2: "white"},
+                {variable: "fur beret", colour1: "black"},
+                {variable: "large beret", colour1: "black"}
+            ],
+            "hands": [{variable: "longleathergloves", colour1: "black"}],
+            "legs": [{variable: "elegantkneehigh", colour1: "white"}],
+            "handheld": [{variable: "cane", colour1: "black", colour2: "steel"}],
+            "feet": [{variable: "kneefurboots", colour1: "black", colour2: "black"}],
+        },
+        "samCardigan":{
+            "upper": [{variable:"cableknitcardigan", colour1:"white"}],
+            "under_upper": [{variable:"undershirt", colour1:"black"}],
+            "lower": [{variable:"trousers", colour1:"brown"}],
+            "feet": [
+                {variable: "trainers", colour2: "white"},
+                {variable: "wellies", colour1: "black"},
+                {variable: "work", colour1: "black"},
+                {variable: "work", colour1: "brown"},
+                {variable: "long", colour1: "black"},
+                {variable: "long", colour1: "brown"},
+                {variable: "lightuptrainers", colour2: "white"},
+                {variable: "hightops", colour2: "white"},
+            ],
+        },
+        "maleWren":{
+            "upper": [{variable:"belted", colour1:"black"}],
+            "under_upper": [{variable:"undershirt", colour1:"black", colour2:"black"}],
+            "feet":[{variable: "combat", colour1: "black"}],
+            "lower": [{variable: "trousers", colour1: "black"}]
+        },
+        "femaleWren":{
+            "upper": [{variable:"belted", colour1:"black"}],
+            "under_upper": [{variable:"undershirt", colour1:"black", colour2:"black"}],
+            "feet":[{variable: "combat", colour1: "black"}],
+            "lower": [{variable: "cutskirtshort", colour1: "black"}],
+            "legs": [{variable: "fishnettights", colour1: "black"}]
+        },
+        "nikiCoat":{
+            "upper": [{variable: "blackleather", colour1: "soft brown"}],
+            "lower": [{variable:"straight trousers", colour1:"black"}],
+            "under_upper": [{variable:"undershirt", colour1:"black", colour2:"black"}],
+            "feet": [
+                {variable: "trainers", colour2: "white"},
+                {variable: "wellies", colour1: "black"},
+                {variable: "work", colour1: "black"},
+                {variable: "work", colour1: "brown"},
+                {variable: "long", colour1: "black"},
+                {variable: "long", colour1: "brown"},
+                {variable: "lightuptrainers", colour2: "white"},
+                {variable: "hightops", colour2: "white"},
+            ],
+        },
+        "quinnSuit":{
+            "contributor": "Roxas",
+            "upper": [{variable: "singlebreasted", colour1: "black", colour2:"pale white"}],
+            "lower": [{variable: "3piecesuit", colour1: "wine"}],
+            "neck": [{variable: "tie", colour1: "black", colour2: "black"}],
+            "feet": [{variable: "wingtips", colour1: "black", colour2: "wine"}],
+        },
+        "quinnSkirtSuit":{
+            "contributor": "Roxas",
+            "upper": [{variable: "singlebreasted", colour1: "black", colour2:"pale white"}],
+            "lower": [{variable: "pencillong", colour1: "black"}],
+            "neck": [{variable: "tie", colour1: "black", colour2: "black"}],
+            "feet": [{variable: "courtheels", colour1: "black"}],
+        },
+        "quinnCoat":{
+            "upper": [{variable: "peacoat", colour1: "black", colour2:"gold"}],
+            "lower": [{variable: "3piecesuit", colour1: "wine"}],
+            "neck": [{variable: "tie", colour1: "black", colour2: "black"}],
+            "feet": [{variable: "wingtips", colour1: "black", colour2: "wine"}],
+        },
+        "quinnFurCoat":{
+            "upper": [{variable: "winterjacket", colour1: "black", colour2:"tan", alt:true}],
+            "lower": [{variable: "pencillong", colour1: "black"}],
+            "neck": [{variable: "tie", colour1: "black", colour2: "black"}],
+            "feet": [{variable: "courtheels", colour1: "black"}],
+        },
+        "jordanHabit":{
+            "contributor": "Numberjack",
+            "upper": [{variable: "initiate"}],
+            "lower": [{variable: "initiate"}],
+            "under_lower": [{variable: "chastitybelt"}],
+            "head": [{variable: "hoodie", colour1: "white", colour2: "white"}],
+            "neck": [
+                {variable: "holypendant"},
+                {variable: "stonependant"},
+                {variable: "holystole", colour1: "white"},
+                {variable: "holystole", colour1: "yellow"},
+                {variable: "holystolelong", colour1: "white"},
+                {variable: "holystolelong", colour1: "yellow"}
+            ],
+            "feet": [{variable: "sandals", colour1: "brown"}]
         },
     };
 }

@@ -180,6 +180,7 @@
 				<<set $transformationParts.lizard.tail to "default">>
 				<<set $hastail to "true">>
 				<<set $thicktail to "true">>
+				<<set $transformationParts.traits.aquatail to "default">>
 				<<set $transformationParts.traits.lungs to "default">>
 			<</if>>
 			<<if $dolphin gte 2>>
@@ -689,10 +690,10 @@
 		<<set $fallenangeltf to 1>>
 		<<set $permanentTransform to 1>>
 		<<earnFeat "Fallen Angel">>
+		<<set $speechFallenTransform to 1>>
 	<<elseif $angel gte 4>>
 		<span class="red">Your halo shatters and fades.</span>
 	<</if>>
-	<<set $speechfallentransform to 1>>
 	<<if $angel gt 0>>
 		<<angelTransform 99>>
 	<</if>>
@@ -718,12 +719,9 @@
 			<<case 3>>
 				<<if $fallenbuild gte 30>>
 					<<set $fallenangel to 4>>
-					<span class="gold">The familiar feeling of soft feathers fills you with hope.</span>
+					<<run $timeMessages.pushUnique("fallenAngelWings")>>
 					<<clearwings>>
-					<<set $transformationParts.fallenAngel.wings to "fallenplus">>
-					<<if $transformationParts.bird.wings is "default">>
-						<<set $transformationParts.fallenAngel.wings to "hidden">>
-					<</if>>
+					<<set $transformationParts.fallenAngel.wings to ($transformationParts.fallenAngel.wings is "classic" ? "classic-fallenplus" : "fallenplus")>>
 				<</if>>
 			<<case 99>>
 				<<set $specialTransform to 0>>
@@ -2367,6 +2365,7 @@
 					<<set $transformationParts.lizard.tail to "default">>
 					<<set $hastail to "true">>
 					<<set $thicktail to "true">>
+					<<set $transformationParts.traits.aquatail to "default">>
 					<<set $transformationParts.traits.lungs to "default">>
 					<br><br>
 				<<elseif $lizardbuild lt 15>>
@@ -2383,6 +2382,7 @@
 					<<set $transformationParts.lizard.tail to "disabled">>
 					<<set $hastail to "false">>
 					<<set $thicktail to "false">>
+					<<set $transformationParts.traits.aquatail to "disabled">>
 					<<set $transformationParts.traits.lungs to "disabled">>
 					<br><br>
 					<<set $permanentTransform to 1>>
@@ -2397,6 +2397,7 @@
 				<<set $thicktail to "false">>
 				<<set $transformationParts.traits.fangs to "disabled">>
 				<<set $transformationParts.traits.lungs to "disabled">>
+				<<set $transformationParts.traits.aquatail to "disabled">>
 		<</switch>>
 	<<else>>
 		<<clearAnimalTransformations>>
@@ -2409,6 +2410,7 @@
 		<<cleartail>>
 		<<set $transformationParts.lizard.eyes to "default">>
 		<<set $transformationParts.traits.fangs to "default">>
+		<<set $transformationParts.traits.aquatail to "default">>
 		<<set $transformationParts.traits.lungs to "default">>
 		<<set $transformationParts.lizard.tail to "default">>
 		<<set $hastail to "true">>
@@ -3252,44 +3254,6 @@
 	<<set $haircolour to $haircolourreset>>
 	<<set $hairfringecolour to $hairfringecolourreset>>
 	<<set $makeup.browscolour to clone($haircolourreset)>>
-<</widget>>
-
-
-<<widget "revealTransformations">>
-	/* DO NOT USE without calling rehideTransformations before scene end */
-	<<set $tfPartsHidden to clone(V.transformationParts)>>
-	<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
-		<<if V.transformationParts.bird.wings is "hidden" and (V.transformationParts.demon.wings is "hidden" or V.transformationParts.angel.wings is "hidden" or V.transformationParts.fallenAngel.wings is "hidden")>>
-		<<else>>
-			<<set $_excludeWings to true>>
-		<</if>>
-	<</if>>
-	<<set $_keys to Object.keys(V.transformationParts)>>
-	<<for $_i to 0; $_i lt $_keys.length; $_i++>>
-		<<set $_key to $_keys[$_i]>>
-		<<for $_label, $_value range V.transformationParts[$_key]>>
-			<<if $_value is "hidden" and $_key isnot "traits" and !["pubes", "pits", "cheeks"].includes($_label) and !($_label is "wings" and $_excludeWings is true)>>
-				<<set V.transformationParts[clone($_key)][clone($_label)] to "default">>
-				<<set $tfPartsHidden[clone($_key)][clone($_label)] to "hideLater">>
-				<<set _unhidden to true>>
-			<</if>>
-		<</for>>
-	<</for>>
-<</widget>>
-
-<<widget "rehideTransformations">>
-	<<if $tfPartsHidden>>
-		<<set $_keys to Object.keys($tfPartsHidden)>>
-		<<for $_i to 0; $_i lt $_keys.length; $_i++>>
-			<<set $_key to $_keys[$_i]>>
-			<<for $_label, $_value range $tfPartsHidden[$_key]>>
-				<<if $_value is "hideLater">>
-					<<set V.transformationParts[clone($_key)][clone($_label)] to "hidden">>
-				<</if>>
-			<</for>>
-		<</for>>
-		<<unset $tfPartsHidden>>
-	<</if>>
 <</widget>>
 
 <<widget "clearcheeks">>

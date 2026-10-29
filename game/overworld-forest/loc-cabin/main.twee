@@ -810,7 +810,7 @@ Your clothes are kept in the corner.
 <<sleep>>
 <<effects>>
 
-<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
+<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<sleepeffects>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
@@ -825,10 +825,14 @@ Your clothes are kept in the corner.
 	<span class="nextLink"><<link [[Walk.|Eden Cabin]]>><<rainWraith>><</link>></span>
 	<br>
 <<else>>
+	<<if $wraith.nightmare is 2 and Time.isBloodMoon()>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 
 	<<wakingEffects $sleepHoursTotal>>
 	<<if ["dryheaving","nausea"].includes(_wakingEffect)>>
-		<br><br>
+		<br>
 		You slept soundly, but now feel a little rough.
 		<br><br>
 	<<elseif $nightmares gte 1 and $controlled is 0>>
@@ -840,7 +844,7 @@ Your clothes are kept in the corner.
 			You sleep soundly.
 			<br><br>
 		<<else>>
-			<br><br>
+			<br>
 		<</if>>
 	<</if>>
 
@@ -2331,7 +2335,7 @@ Far too soon, the song comes to an end. Eden seems disappointed, but doesn't mov
 Disappointed, you pull away from <<him>>, but <<he>> stops you before you can.
 <br><br>
 
-"Wait," <<he>> says. You turn back to ask <<him>> what was wrong, but are interrupted by a kiss. <<takeKissVirginity "Eden" `(isLoveInterest("Eden") ? "loveInterest" : "romantic")`>> 
+"Wait," <<he>> says. You turn back to ask <<him>> what was wrong, but are interrupted by a kiss. <<takeKissVirginity "Eden" `(isLoveInterest("Eden") ? "loveInterest" : "romantic")`>>
 <br><br>
 This one seems different. It's full of everything that Eden feels for you. It's raw, and genuine.
 <br><br>

@@ -110,7 +110,7 @@
 		<<set $position to "doggy">>
 		<<set $NPCList[0].stance to "top">>
 	<</if>>
-	<<set $speechdisable to 1>>
+	<<set $speechDisable to 1>>
 <</if>>
 
 <<effects>>
@@ -564,7 +564,7 @@ You remain still. The <<beasttype>> watches you a moment longer, then
 		<<set $NPCList[0].stance to "top">>
 	<</if>>
 	<<set $molestationstart to 0>>
-	<<set $speechdisable to 1>>
+	<<set $speechDisable to 1>>
 <</if>>
 
 <<effects>>
@@ -756,7 +756,7 @@ After some time like that, the two of you pull apart.
 <br><br>
 
 As the <<beasttype>> comforts you, your thoughts are drawn to how kind <<bhes>> been to you<<if $phase is 4>>, even though you tried to attack <<bhim>><</if>>. Having <<bhim>> fussing over you is surprisingly endearing, and makes you feel at home in this crumbling tower, acting as <<bhis>> <<if $monster is 1>><<wife>><<else>>partner<</if>>.
-<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 <br>
 You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 <br><br>
@@ -1062,7 +1062,7 @@ You are inside <<if $syndromebird is 1>>your tower<<else>>a ruined tower<</if>>,
 
 			<<if $syndromebird isnot 1 and $bird.syndrome gte 15>>
 				Your eyes wander down to the <<pluralise $eggsMoved.length "egg">>. Your <<pluralise $eggsMoved.length "child">>. Your mind fills with instinctual purpose. You rest your head on <<bhis>> shoulder. <<bHis>> plumage is so soft. Staying here with <<bhim>> doesn't seem so bad anymore.
-				<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+				<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 				<br>
 				You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 				<br><br>
@@ -1106,7 +1106,7 @@ You are inside <<if $syndromebird is 1>>your tower<<else>>a ruined tower<</if>>,
 
 	<<if $syndromebird isnot 1 and $bird.syndrome gte 15>>
 		Your eyes wander down to the <<pluralise $bird.eggReact "egg">>. Your <<pluralise $bird.eggReact "child">>. Your mind fills with instinctual purpose. You rest your head on <<bhis>> shoulder. <<bHis>> plumage is so soft. Staying here with <<bhim>> doesn't seem so bad anymore.
-		<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+		<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 		<br>
 		You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 		<br><br>
@@ -1310,7 +1310,7 @@ You are inside <<if $syndromebird is 1>>your tower<<else>>a ruined tower<</if>>,
 	<br><br>
 
 	You stay huddled up to <<bhim>> for a while longer, but eventually pull away. <<bHe>> looks disappointed, but doesn't complain. You look at <<bhim>> once more and smile. Maybe staying with <<bhim>> won't be so bad after all.
-	<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+	<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 	<br>
 	You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 	<br><br>
@@ -1687,7 +1687,7 @@ You are inside <<if $syndromebird is 1>>your tower<<else>>a ruined tower<</if>>,
 			"I am glad <<wife>> is feeling better now," <<bhe>> says.
 		<</if>>
 
-		<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+		<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 		<br>
 		You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 		<br><br>
@@ -1752,7 +1752,7 @@ You're still unable to move, which allows the <<beasttype>> to keep comforting y
 	<</if>>
 
 	As <<bhe>> keeps caressing your hair, you think about how kind <<bhes>> been to you. <<bHes>> different from everyone else. <<bHe>> cares about you. <<bHe>> will keep you safe. You feel like you finally understand <<bhim>>.
-	<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+	<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 	<br>
 	You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 	<br><br>
@@ -2998,7 +2998,7 @@ You sit by the rainwater pool.
 <<sleep>>
 <<setTowerTemp>><<effects>>
 
-<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
+<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<sleepeffects>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
@@ -3010,10 +3010,13 @@ You sit by the rainwater pool.
 	<span class="nextLink"><<link [[Walk.|Bird Tower]]>><<rainWraith>><</link>></span>
 	<br>
 <<else>>
-
+	<<if $wraith.nightmare is 2 and Time.isBloodMoon()>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<wakingEffects $sleepHoursTotal>>
 	<<if ["dryheaving","nausea"].includes(_wakingEffect)>>
-		<br><br>
+		<br>
 		You slept soundly, but now feel a little rough.
 		<br><br>
 	<<elseif $nightmares gte 1 and $controlled is 0>>
@@ -3025,7 +3028,7 @@ You sit by the rainwater pool.
 			You sleep soundly.
 			<br><br>
 		<<else>>
-			<br><br>
+			<br>
 		<</if>>
 	<</if>>
 
@@ -3075,7 +3078,7 @@ You sit by the rainwater pool.
 		<br><br>
 
 		Eventually, you pull away from <<bhim>>. The idea of staying with the <<beasttype>> no longer seems so bad to you, despite the rough start.
-		<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+		<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 		<br>
 		You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 		<br><br>
@@ -3191,7 +3194,7 @@ You sit by the rainwater pool.
 <<sleep>>
 <<setTowerTemp>><<effects>>
 
-<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
+<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<sleepeffects>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
@@ -3203,6 +3206,10 @@ You sit by the rainwater pool.
 	<span class="nextLink"><<link [[Walk.|Bird Tower]]>><<rainWraith>><</link>></span>
 	<br>
 <<else>>
+	<<if $wraith.nightmare is 2 and Time.isBloodMoon()>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<if $nightmares gte 1 and $controlled is 0>>
 		<<nightmareWake>>
 	<<else>>
@@ -3723,10 +3730,8 @@ The <<beasttype>> shakes <<bhis>> feathers, and lets you stroke <<bhis>> wings.
 <</if>>
 <br><br>
 
-<<if $settings.bestialityEnabled or $monster is 1>>
-	<<link [[Rub lewdly|Bird Tower Groom Lewd]]>><<npcincr "Great Hawk" love 1>><</link>><<deviant1>><<glove>>
-	<br>
-<</if>>
+<<link [[Rub lewdly|Bird Tower Groom Lewd]]>><<npcincr "Great Hawk" love 1>><</link>><<deviant1>><<glove>>
+<br>
 <<link [[Stay on the perch|Bird Tower Perch]]>><<endevent>><</link>>
 <br>
 <<link [[Go back inside|Bird Tower]]>><<endevent>><</link>>
@@ -4012,7 +4017,7 @@ You bring your attentive touch down towards <<bhis>> groin.
 					You hope the harvest is good.
 				<</if>>
 			<<case "Bailey">>
-				<<if $bailey_monogamous>>
+				<<if $baileyMonogamous>>
 					Bailey, and your obligations.
 				<<else>>
 					Bailey, and your debt.
@@ -5850,7 +5855,7 @@ You consider your options. The moor itself has nothing special, neither do the a
 Eventually your mind settles on the
 <<if $remySeen?.includesAny("farm","livestock","manor") or $livestock.intro isnot undefined>>
 	Remy Estate. Knowing the kind of business they do, you're sure they would have something special.
-	<<if $estate and $estate.chaos>>
+	<<if $estate?.chaos>>
 		You're no stranger to causing trouble for Remy, but the mere thought of stealing something from the estate with <<your_bird_text>> fills you with adrenaline.
 	<</if>>
 <<else>>
@@ -7364,7 +7369,7 @@ You look up to the sky.
 		You help <<bhim>> get settled in to rest after <<bhis>> ordeal.
 		<<if $bird.syndrome gte 15 and $syndromebird isnot 1>>
 			Your eyes wander down to the <<pluralise $eggLayNumber "egg">>. <<bHis>> <<pluralise $eggLayNumber "child">>. <i>Your <<pluralise $eggLayNumber "child">>,</i> you think. You rest your head on <<bhis>> shoulder. <<bHis>> plumage is so soft. Staying here with <<bhim>> doesn't seem so bad anymore.
-			<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+			<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 			<br>
 			You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 			<br><br>
@@ -7401,7 +7406,7 @@ You look up to the sky.
 	<br><br>
 
 	Would children of your own be so bad? You wonder if <<bhe>> only started producing eggs after finding what <<bhe>> considers to be a mate. You. You rest your head on the <<beasttypes>> shoulder. <i><<your_bird_text "cap">>,</i> you think. <<bHis>> plumage is so soft.
-	<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+	<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 	<br>
 	You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 	<br><br>
@@ -7561,7 +7566,7 @@ You're filled with a sense of maternal bliss.
 	<<wearProp `"hawk egg " + Math.clamp(_eggIcon, 1, 3)`>>
 	<<if $syndromebird isnot 1 and $bird.syndrome gte 15>>
 		Your eyes wander down to the <<pluralise $eggLayNumber "egg">>. Your <<pluralise $eggLayNumber "child">>. Your mind fills with instinctual purpose. You rest your head on <<bhis>> shoulder. <<bHis>> plumage is so soft. Staying here with <<bhim>> doesn't seem so bad anymore.
-		<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+		<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 		<br>
 		You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 		<br><br>
@@ -7631,7 +7636,7 @@ You're filled with a sense of maternal bliss.
 	<br><br>
 
 	Would children of your own be so bad? You wonder if you only started producing eggs after finding a mate. <<bHim>>. You rest your head on the <<beasttypes>> shoulder. <i><<your_bird_text "cap">>,</i> you think. <<bHis>> plumage is so soft.
-	<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+	<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 	<br>
 	You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 	<br><br>
@@ -7940,7 +7945,7 @@ You carefully pluck away the last bits of egg shell from <<if $eggsHatched.lengt
 <br><br>
 
 <<if $syndromebird isnot 1>>
-	<span class="red"><i>After hatching chicks of your own, you see that the Great Hawk only ever wanted a mate.</i> You've gained the "Stockholm Syndrome: Great Hawk" trait.</span>
+	<span class="yellow"><i>After hatching chicks of your own, you see that the Great Hawk only ever wanted a mate.</i> You've gained the "Stockholm Syndrome: Great Hawk" trait.</span>
 	<br><br>
 
 	<<loveInterestAdd "Great Hawk">>
@@ -8070,7 +8075,7 @@ Soon your belly is full, and the <<beasttype>> <<= $phase is 0 ? "backs off" : "
 	<</if>>
 	You stay like that for a while, enjoying the <<beasttype>>'s embrace, until it's finally time to let go. The <<beasttype>> chirps a little as you release <<bhim>>, lightly combing through your <<= $harpy gte 4 ? "feathers" : "hair">> with <<bhis>> <<= $monster is 1 ? "talons" : "beak">>, and you smile as you step back.
 
-	<span class="red">It's not <<bhis>> fault. <<bHe>> only wants a mate.
+	<span class="yellow">It's not <<bhis>> fault. <<bHe>> only wants a mate.
 	<br>
 	You've gained the Stockholm Syndrome: Great Hawk trait.</span>
 	<br><br>

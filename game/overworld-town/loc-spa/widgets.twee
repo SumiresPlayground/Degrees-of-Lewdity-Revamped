@@ -364,7 +364,7 @@
 
 <<widget "spa_tan_events">>
 	<<rngWraith 1>>
-	<<if _wraithEvent and $wraith.state is "haunt" and !$worn.face.type.includes("apotropaic")>>
+	<<if _wraithEvent and $wraith.state is "haunt" and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 		The lights abruptly shut off, plunging you into total darkness. You try to force the bed open, but it remains fixed in place.
 		<br><br>
 
@@ -377,6 +377,10 @@
 		<<link [[Next|Spa]]>><<pass 60>><<clotheson>><</link>>
 		<br>
 	<<else>>
+		<<if _wraithEvent and $wraith.state is "haunt">>
+			<<apotropaic>>
+			<br><br>
+		<</if>>
 		<span class="red">You hear the door open.</span> You turn your head, and see a pair of legs rush in. They crouch a moment, then turn and leave the room.
 		<br><br>
 

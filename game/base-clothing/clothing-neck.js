@@ -2268,7 +2268,42 @@ function initNeck() {
 		location: 0,
 		iconFile: "edencollar.png",
 		accIcon: 0,
-	}
+	},
+	{	
+		index: 4,
+		slot: "neck",
+		name: "gold necklace",
+		name_cap: "Gold necklace",
+		variable: "chakkri",
+		combat: {
+			reference: "clothchoker",
+		},
+		state: 0,
+		state_base: 0,
+		integrity: 100,
+		integrity_max: 100,
+		fabric_strength: 25,
+		reveal: 1,
+		word: "a",
+		plural: 0,
+		colour: 0,
+		colour_options: [],
+		colour_combat:"yellow",
+		type: ["formal"],
+		gender: "n",
+		warmth: 1,
+		cost: 45000,
+		description: "A delicate piece of jewellery.",
+		shop: ["misland"],
+		collared: 0,
+		accessory: 0,
+		accessory_colour: 0,
+		accessory_colour_options: [],
+		cursed: 0,
+		location: 0,
+		iconFile: "gemstone necklace.png",
+		accIcon: 0
+	},
 	];
 
 	setup.moddedClothes.neck.forEach((x, i) => (x.index = setup.clothes.neck.length + i));

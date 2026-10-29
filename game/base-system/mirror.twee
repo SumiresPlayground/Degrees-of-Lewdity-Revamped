@@ -152,9 +152,9 @@
 	<<hairdressericon "hairspray">><<link "Change your hair style">><<set $mirrorMenu to "hair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
 	<br><br>
 		
-	<<if $slime gt 0 or $ghost gte 1 or $mushroom gte 1>>
-	<<link "Change your body">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
-	<br><br>
+	<<if $slime gt 0 or $ghost gte 1 or $mushroom gte 1 or $dollstate gte 1>>
+		<<link "Change your body">><<set $mirrorMenu to "specialHair">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
+		<br><br>
 	<</if>>
 	
 	__Makeup__
@@ -170,7 +170,7 @@
 	<</if>>
 
 	<<if !$simpleMirror>>
-		<<if $specialTransform is 1 or $physicalTransform is 1 or $permanentTransform is 1 or $mushroomtf gte 1 or $traumatized isnot undefined>>
+		<<if $specialTransform is 1 or $physicalTransform is 1 or $permanentTransform is 1 or $mushroomtf gte 1 or $dollstate gte 1 or $traumatized isnot undefined>>
 			__Pure__ __Transformations__
 			<br>
 			<<tficon "angel">><<link "Examine your inner self">><<set $mirrorMenu to "transformation">><<replace #mirror>><<mirrorDisplay>><</replace>><<numberify "#passages > .passage">><</link>>
@@ -217,7 +217,7 @@
 				<<settextcolorfromfemininity _x.femininity>>
 				<span @class="_text_color">
 					_x.factor
-					<<if $debug is 1>>
+					<<if $debug>>
 						_x.femininity
 					<<else>>
 						<<print "+".repeat(
@@ -229,7 +229,7 @@
 				</span>
 				<br>
 			<</for>>
-			<<if $debug is 1>>
+			<<if $debug>>
 				<<settextcolorfromfemininity $player.femininity>>
 				Total femininity: <span @class="_text_color">$player.femininity</span>
 				<br>
@@ -448,6 +448,9 @@
 			<<run _increaseAllure.push(`Alluring shoes ${"+".repeat(Math.floor($worn.feet.reveal / 200))}`)>>
 			<<run _increaseAttractive.push(`Attractive shoes ${"+".repeat(Math.floor($worn.feet.reveal / 200))}`)>>
 		<</if>>
+		<<if $rentThug and isBaileyLookingForPlayer()>>
+			<<run _increaseAllure.push(`Hunted by Bailey's thugs${$rentThug.anger gte 1 ? " " + "+".repeat($rentThug.anger) : ""}`)>>
+		<</if>>
 		<<if Weather.dayState is "night">>
 			<<run _increaseAllure.push("Night")>>
 		<</if>>
@@ -489,7 +492,7 @@
 			{ type: "sex", name: "slut" },
 			{ type: "prostitution", name: "whore" },
 			{ type: "rape", name: "fucktoy" },
-			{ type: "bestiality", name: $settings.bestialityEnabled ? "bitch" : "monster fucker" },
+			{ type: "bestiality", name: isBestialityOnForAnyCreature() ? "bitch" : "monster fucker" },
 			{ type: "exhibitionism", name: "flaunter" },
 			{ type: "pregnancy", name: $fame.pregnancy gte 1000 ? "broodmother" : ($fame.pregnancy gte 400 ? "breeder" : "mother") },
 			{ type: "impreg", name: $fame.impreg gte 1000 ? "allfather" : ($fame.impreg gte 400 ? "sire" : "inseminator") },
@@ -757,6 +760,21 @@
 			<</if>>
 
 		</div>
+		<div id="visualsFreckles" class="settingsToggleItemWide">
+			<span class="gold bold">Freckles:</span>
+			<br>
+			Face: <label>Disabled <<radiobutton "$player.skin.faceFreckles" false autocheck>></label>
+			| <label>Enabled <<radiobutton "$player.skin.faceFreckles" true autocheck>></label>
+			<br>
+			Body: <label>Disabled <<radiobutton "$player.skin.bodyFreckles" "none" autocheck>></label>
+			| <label>Upper body <<radiobutton "$player.skin.bodyFreckles" "upper" autocheck>></label>
+			| <label>Full body <<radiobutton "$player.skin.bodyFreckles" "full" autocheck>></label>
+		</div>
+		<<run $(() => {
+			$('#visualsFreckles input[type="radio"]').on("change", () => {
+				Wikifier.wikifyEval('<<updatesidebarimg true>>');
+			});
+		})>>
 	</div>
 	<hr>
 	<div class="settingsGrid">
@@ -863,6 +881,21 @@
 			<div id="visualsFaceVariantRadios">
 				<<mouthVariantOptions>>
 			</div>
+		</div>
+
+		<div class="settingsToggleItemWide">
+			<span class="gold bold">Default expression:</span>
+			<br>
+			Your default facial expression is:
+			<<listbox "$defaultSidebarMouth" autoselect>>
+				<<option "Smile" "smile">>
+				<<option "Neutral" "neutral">>
+			<</listbox>>
+			<<run $(() => {
+				$("#listbox-defaultsidebarmouth").on("change", () => {
+					Wikifier.wikifyEval('<<updatesidebarimg true>>');
+				});
+			})>>
 		</div>
 	</div>
 <</widget>>
@@ -1202,7 +1235,7 @@
 			<<set _bodyWritingOptions["Love Interests"]["Accomplice"] to "accomplice">>
 		<</if>>
 	<</if>>
-	<<if $syndromebailey>>
+	<<if $syndromeBailey>>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Asset"] to "baileys_asset">>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Ward"] to "baileys_ward">>
 		<<set _bodyWritingOptions["Love Interests"]["Property of Bailey"] to "property_of_bailey">>
@@ -1214,21 +1247,21 @@
 		<<if C.npc.Bailey.love gte 30>>
 			<<set _bodyWritingOptions["Love Interests"]["Bailey's Favourite"] to "baileys_favourite">>
 		<</if>>
-		<<if $bailey_title_unlocked>>
-			<<set setup.bodywriting.baileys_good_boy.writing to $bailey_title + "'s Good Boy">>
-			<<set setup.bodywriting.baileys_good_girl.writing to $bailey_title + "'s Good Girl">>
+		<<if $baileyTitle isnot "Bailey">>
+			<<set setup.bodywriting.baileys_good_boy.writing to $baileyTitle + "'s Good Boy">>
+			<<set setup.bodywriting.baileys_good_girl.writing to $baileyTitle + "'s Good Girl">>
 			<<if ($player.penisExist or $player.gender_appearance is "m" or $backgroundTraits.includes("crossdresser"))>>
-				<<set _bodyWritingOptions["Love Interests"][$bailey_title + "'s Good Boy"] to "baileys_good_boy">>
+				<<set _bodyWritingOptions["Love Interests"][$baileyTitle + "'s Good Boy"] to "baileys_good_boy">>
 			<</if>>
 			<<if ($player.vaginaExist or $player.gender_appearance is "f" or $backgroundTraits.includes("crossdresser"))>>
-				<<set _bodyWritingOptions["Love Interests"][$bailey_title + "'s Good Girl"] to "baileys_good_girl">>
+				<<set _bodyWritingOptions["Love Interests"][$baileyTitle + "'s Good Girl"] to "baileys_good_girl">>
 			<</if>>
 		<</if>>
 	<</if>>
 	<<if $baileydefeatedlewd gte 1>>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Trouble Maker"] to "baileys_trouble_maker">>
 	<</if>>
-	<<if $speech_attitude is "bratty" and $syndromebailey>>
+	<<if $speech_attitude is "bratty" and $syndromeBailey>>
 		<<set _bodyWritingOptions["Love Interests"]["Bailey's Brat"] to "baileys_brat">>
 	<</if>>
 	<<if $debug is 1>>
@@ -1297,7 +1330,7 @@
 				<<set _bodyPartOptions[_text_output.toUpperFirst()] to _label>>
 			<</if>>
 		<</for>>
-		<<if $debug is 1>>
+		<<if $debug>>
 			Write
 			<<listbox "_bodyWritingDebugSelected">>
 				<<optionsfrom _bodyWritingOptions[$bodywritingSet]>>
@@ -1761,7 +1794,8 @@
 						<<set _modeloptions.tanningEnabled to false>>
 						<<set _modeloptions.skin_type = Skin.color.natural>>
 						<<set _modeloptions.skin_tone = Skin.color.tan>>
-						<<set _modeloptions.freckles = $player.freckles == true and $makeup.concealer != 1>>
+						<<set _modeloptions.freckles = $player.skin.faceFreckles == true and $makeup.concealer != 1>>
+						<<set _modeloptions.bodyFreckles to $player.skin.bodyFreckles>>
 						<<set _modeloptions.mouth to 'neutral'>>
 						<<set _modeloptions.facevariant = $facevariant>>
 						<<set _modeloptions.eyevariant = $eyevariant>>
@@ -2089,7 +2123,7 @@
 				You are not wearing any makeup.
 			<</if>>
 
-			<<if _ownsMakeup or _makeup.length gt 0 or $player.freckles == true>>
+			<<if _ownsMakeup or _makeup.length gt 0 or $player.skin.faceFreckles == true>>
 				<br><br>
 				Makeup:
 			<</if>>
@@ -2138,7 +2172,7 @@
 				<</link>>
 			<</if>>
 			/* CONCEALER */
-			<<if $player.freckles == true>>
+			<<if $player.skin.faceFreckles == true>>
 				<<if _ownsMakeup>>|<</if>>
 				<<if $makeup.concealer == 0>>
 					<<link "Hide freckles with concealer">>
@@ -2501,6 +2535,9 @@
 	<<link "Tail layered in front of hair">><<run State.setVar("$taillayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
 	<<link "Tail layered behind hair">><<run State.setVar("$taillayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br><br>
 
+	<<link "Transformation color matches hair">><<run State.setVar("$dragoncolor", "hair")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Transformations can change color">><<run State.setVar("$dragoncolor", "change")>><<run Engine.show()>><<updatesidebarimg>><</link>><br><br>
+
 	<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 3 or $lizardtf is 1 or $dolphin gte 2 or $dolphintf is 1 or $dog gte 2 or $dogtf is 1 or $harpy gte 3 or $harpytf is 1 or $raccoon gte 2 or $raccoontf is 1 or $cow gte 6 or $cowtf is 1 or $sheep gte 6 or $sheeptf is 1 or $fish gte 2 or $fishtf is 1 or $horse gte 2 or $horsetf is 1 or $frog gte 2 or $frogtf is 1 or $spider gte 2 or $spidertf is 1 or $pig gte 2 or $pigtf is 1 or $bunnytf is 1>>
 		__Traits__<br>
 		<<if $wolfgirl gte 2 or $wolftf is 1 or $cat gte 2 or $cattf is 1 or $fox gte 2 or $foxtf is 1 or $bear gte 2 or $beartf is 1 or $dragon gte 2 or $dragontf is 1 or $lizard gte 2 or $lizardtf is 1 or $dog gte 2 or $dogtf is 1 or $spider gte 2 or $spidertf is 1>>
@@ -2665,7 +2702,8 @@
 			<<tficon "cow">><<link "Cow Classic Spotted Brown">><<clearears>><<set _cow.ears = "classic-spotted-brown">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 4 or $wolftf is 1>>
-			<<tficon "wolf">><<link "Wolf">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">><<link "Wolf Default">><<clearears>><<set _wolf.ears = "default">><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">><<link "Wolf Feral">><<clearears>><<set _wolf.ears = "feral">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $fox gte 4 or $foxtf is 1>>
 			<<tficon "fox">><<link "Fox Default">><<clearears>><<set _fox.ears = "default">><<updatesidebarimg>><</link>><br>
@@ -2817,7 +2855,8 @@
 			<<tficon "cow">><<link "Cow Black">><<cleartail>><<set _cow.tail = "black">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $wolfgirl gte 6 or $wolftf is 1>>
-			<<tficon "wolf">><<link "Wolf">><<cleartail>><<set _wolf.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">><<link "Wolf Default">><<cleartail>><<set _wolf.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">><<link "Wolf Feral">><<cleartail>><<set _wolf.tail = "feral">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
 		<</if>>
 		<<if $harpy gte 2 or $harpytf is 1>>
 			<<tficon "bird">><<link "Harpy">><<cleartail>><<set _bird.tail = "default">><<set $hastail to "true">><<set $thintail to "true">><<updatesidebarimg>><</link>><br>
@@ -3046,6 +3085,20 @@
 		<<updatesidebarimg>>
 		<</link>>
 	<</if>>
+
+	<<if $dollstate gte 2>>
+		__Doll__<br>
+			<<tficon "eldritch">>Doll Tentacles (Visual only):<br>
+			<<link "Set">>
+				<<set V.transformationParts.doll.string to "enabled">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<set V.transformationParts.doll.string to "disabled">>
+				<<updatesidebarimg>>
+			<</link>><br>
+	<</if>>
+
 	<br>
 	<<if _isMenuEnabled>>
 		<details class="expandMenu">
@@ -3168,7 +3221,22 @@
 	<<link "Tail layered in front of hair">><<run State.setVar("$taillayer", "back")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
 	<<link "Tail layered behind hair">><<run State.setVar("$taillayer", "front")>><<run Engine.show()>><<updatesidebarimg>><</link>><br><br>
 
+	<<link "Transformation color matches hair">><<run State.setVar("$dragoncolor", "hair")>><<run Engine.show()>><<updatesidebarimg>><</link>><br>
+	<<link "Transformations can change color">><<run State.setVar("$dragoncolor", "change")>><<run Engine.show()>><<updatesidebarimg>><</link>><br><br>
+
 	<br>__Ears__<br>
+		<<if ($demon gte 6 or $demontf is 1) and $faetf is 1>>
+			<<tficon "demon">><<tficon "fae">>Moth Head Wings:<br>
+			<<link "Set">>
+				<<clearears>>
+				<<set _goblin.ears = "moth">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearears>>
+				<<updatesidebarimg>>
+			<</link>><<gencolourselector "_fae.wings_colour">><br>
+		<</if>>
 		<<if ($angel gte 4 or $angeltf is 1) and ($sheep gte 4 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Ears:<br>
 			<<link "Set">>
@@ -3502,12 +3570,26 @@
 			<<link "Set">>
 				<<clearwings>>
 				<<set _eldritch.skin = "forgotten">>
+				<<set _fallen.wings = "hidden">>
 				<<updatesidebarimg>>
 			<</link>>/
 			<<link "Clear">>
 				<<clearwings>>
 				<<updatesidebarimg>>
 			<</link>><br>
+		<</if>>
+		<<if ($demon gte 6 or $demontf is 1) and $faetf is 1>>
+			<<tficon "demon">><<tficon "fae">>Moth Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _fae.wings = "moth">>
+				<<set _demon.wings = "hidden">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><<gencolourselector "_fae.wings_colour">><br>
 		<</if>>
 		<<if ($angel gte 6 or $angeltf is 1) and ($sheep gte 6 or $sheeptf is 1)>>
 			<<tficon "angel">><<tficon "sheep">>Cloud Sheep Wings:<br>
@@ -3680,19 +3762,26 @@
 		<span class='yellow'>It'll take some focus, but you can shift your biomass to elongate or retract your hair length.
 		</span>
 		<br><br>
+	<<elseif $dollstate gte 1>>
+		<span class='purple'>As a doll, you can modify your genitals here.
+		</span>
+		<br><br>
 	<</if>>
-	<div class="settingsToggleItem" id="hair">
-		<span class="gold">Hair:</span><br>
-		<<numberStepper "Hair length" $hairlength {max: 1000, callback: value => {V.hairlength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
-		<<numberStepper "Fringe length" $fringelength {max: 1000, callback: value => {V.fringelength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
-	</div>
-	<<if $slime gt 0>>
+	<<if $ghost gte 1 or $slime gte 1 or $mushroom gte 1>>
+		<div class="settingsToggleItem" id="hair">
+			<span class="gold">Hair:</span><br>
+			<<numberStepper "Hair length" $hairlength {max: 1000, callback: value => {V.hairlength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+			<<numberStepper "Fringe length" $fringelength {max: 1000, callback: value => {V.fringelength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+		</div>
+	<</if>>
+	<<if $slime gt 0 or $dollstate gte 1>>
 		<div class="settingsToggleItem" id="genitals">
 			<<if $player.sex is "m">>
 				<span class="gold">Penis</span> |
 			<<else>>
 				<<link "Penis">>
 					<<wash>>
+					<<set $doll to "male">>
 					<<removeparasite clit>>
 					<<removeparasite penis>>
 					<<set $vaginause to "none">>
@@ -3713,6 +3802,7 @@
 			<<else>>
 				<<link "Vagina">>
 					<<wash>>
+					<<set $doll to "female">>
 					<<removeparasite clit>>
 					<<removeparasite penis>>
 					<<set $vaginause to 0>>
@@ -3733,6 +3823,7 @@
 			<<else>>
 				<<link "Both">>
 					<<wash>>
+					<<set $doll to "both">>
 					<<removeparasite clit>>
 					<<removeparasite penis>>
 					<<set $vaginause to 0>>

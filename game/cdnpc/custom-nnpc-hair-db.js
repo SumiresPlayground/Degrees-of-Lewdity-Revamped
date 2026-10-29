@@ -1593,9 +1593,9 @@ function hairstyleChooseVariant(hs){
         if(Array.isArray(hairstyle[name])){
             hairstyle[name] = hairstyle[name][Math.floor(Math.random() * hairstyle[name].length)];
         }
-        if(name === "hair_fringe_length" || name === "hair_side_length" && hairstyle[name] === "ear"){
+        if((name === "hair_fringe_length" || name === "hair_side_length") && hairstyle[name] === "ear"){
             hairstyle[name] = "short";
-        }else if(name === "hair_fringe_length" || name === "hair_side_length" && hairstyle[name] === "neck"){
+        }else if((name === "hair_fringe_length" || name === "hair_side_length") && hairstyle[name] === "neck"){
             hairstyle[name] = "shoulder";
         }
     }

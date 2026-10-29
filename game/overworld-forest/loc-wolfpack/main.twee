@@ -24,8 +24,8 @@ You are in the wolf cave. The ceiling hangs low. There's a breeze blowing from t
 	<<wolfcavestate>>
 <</if>>
 <br><br>
-<<if Time.month is 4 and Time.monthDay is 1 and $renttime lte 0 and !$bailey_wolfsuit_seen>>
-	<<set $bailey_wolfsuit_seen to true>><<set $renttime to 7>><<set $rentday to Time.weekDay>>
+<<if Time.month is 4 and Time.monthDay is 1 and $rentTime lte 0 and !$baileySeen.includes("wolfsuit")>>
+	<<baileySeenAdd "wolfsuit">><<set $rentTime to 7>><<set $rentDay to Time.weekDay>>
 	<<include "Wolf Cave Bailey Wolfsuit">>
 <<elseif isPregnancyEnding() and !$possessed>>
 	<<pregnancyBirthWolfCave>>
@@ -115,7 +115,7 @@ You are in the clearing outside the wolf cave. A stream runs by.
 	<</if>>
 	<<wolfcavestate>>
 <</if>>
-<<if $pound and $pound.progress is 5>>
+<<if $pound?.progress is 5>>
 	<span class="blue">A dark shape lurks in the trees.</span>
 	<br>
 <</if>>
@@ -150,10 +150,10 @@ You are in the clearing outside the wolf cave. A stream runs by.
 	<</if>>
 	<<wolfcaveicon "wolf play">><<link [[Play (1:00)|Wolf Cave Play]]>><<stress -12>><<pass 1 hour>><</link>><<lstress>>
 	<br>
-	<<if $pound and $pound.progress is 5>>
+	<<if $pound?.progress is 5>>
 		<<wolfcaveicon "black dog">><<link [[Approach the dark shape|Wolf Cave Dog Intro]]>><<set $pound.progress to 6>><<stress 6>><<trauma -6>><<control 25>><</link>><<gstress>><<ggcontrol>><<ltrauma>>
 		<br>
-	<<elseif $pound and $pound.progress is 6 and Time.dayState is "day" and $daily.wolfCaveDog is undefined>>
+	<<elseif $pound?.progress is 6 and Time.dayState is "day" and $daily.wolfCaveDog is undefined>>
 		<<wolfcaveicon "black dog">><<link [[Approach the black dog|Wolf Cave Dog]]>><</link>>
 		<br>
 	<</if>>
@@ -416,7 +416,7 @@ You sit on the edge and try to lower yourself down, but the rock gives way and y
 <<set _autosavehere to true>>
 <<sleep>>
 <<effects>>
-<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic")>>
+<<if $wraith.nightmare is 2 and Time.isBloodMoon() and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<sleepeffects>>
 	You dream of a beautiful figure, cloaked in white, standing under the red moon. It has its arms spread out to you in a welcoming gesture. You can feel its gaze boring into your mind as you step closer.
 	<br><br>
@@ -428,9 +428,13 @@ You sit on the edge and try to lower yourself down, but the rock gives way and y
 	<span class="nextLink"><<link [[Walk.|Wolf Cave]]>><</link>></span>
 	<br>
 <<else>>
+	<<if $wraith.nightmare is 2 and Time.isBloodMoon()>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<wakingEffects $sleepHoursTotal>>
 	<<if ["dryheaving","nausea"].includes(_wakingEffect)>>
-		<br><br>
+		<br>
 		You slept soundly, but now feel a little rough.
 		<br><br>
 	<<elseif $nightmares gte 1 and $controlled is 0>>
@@ -442,7 +446,7 @@ You sit on the edge and try to lower yourself down, but the rock gives way and y
 			You sleep soundly.
 			<br><br>
 		<<else>>
-			<<if !_eggEvent>><br><br><</if>>
+			<<if !_eggEvent>><br><</if>>
 		<</if>>
 	<</if>>
 	<<sleepeffects>>

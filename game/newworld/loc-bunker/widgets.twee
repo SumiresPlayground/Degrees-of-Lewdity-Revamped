@@ -1,7 +1,7 @@
 :: Widgets Bunker [widget]
 <<widget "eventbunker">>
 	<<cleareventpool>>
-	<<if $settings.bestialityEnabled or $monster is 1>>
+	<<if beastSexEnabledForType("rat", $monster is 1)>>
 		<<addinlineevent "bunker_rat">>
 			<<beastNEWinit 1 rat>>
 			The bunker reeks of rot. You plug your nose as you continue onward. The bunker dims significantly until you run into something. It feels gross and matted. It shifts and turns, exposing a large <<beasttype>>.
@@ -99,4 +99,25 @@
 
 <<widget "bunkericon8">>
 	<<icon "bunker8.png">>
+<</widget>>
+
+<<widget "apotropaic">>
+	<<if $worn.face.type.includes("apotropaic")>>
+		<span class="wraith">Your mask repelled an invader.</span>
+	<<elseif $worn.over_head.type.includes("apotropaic")>>
+		<span class="wraith">Your head talisman repelled an invader. They flutter to the ground, drained.</span>
+		<<overheadruined>>
+	<<elseif $worn.over_upper.type.includes("apotropaic")>>
+		<span class="wraith">Your upper talismans repelled an invader. They flutter to the ground, drained.</span>
+		<<overupperruined>>
+	<<elseif $worn.over_lower.type.includes("apotropaic")>>
+		<span class="wraith">Your lower talismans repelled an invader. They flutter to the ground, drained.</span>
+		<<overlowerruined>>
+	<<elseif $worn.under_upper.type.includes("apotropaic")>>
+		<span class="wraith">Your chest talismans repelled an invader. They flutter to the ground, drained.</span>
+		<<underupperruined>>
+	<<elseif $worn.under_lower.type.includes("apotropaic")>>
+		<span class="wraith">Your groin talismans repelled an invader. They flutter to the ground, drained.</span>
+		<<underlowerruined>>
+	<</if>>
 <</widget>>

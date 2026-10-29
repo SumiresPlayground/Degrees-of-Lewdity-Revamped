@@ -68,14 +68,10 @@ The <<personsimple>> blows another puff of smoke and takes a glance your way. "D
     <</if>>
     You hangout with Casey but something seems off this time. "So you wouldn't happen to be seeing anyone else, would you?" <<He>> asks. "Because if you aren't, I'd like it if we could maybe be a bit more than friends, if you catch my drift."
     <br><br>
-    <<if $loveInterest.primary is "None">>
-        <<set $loveInterest.primary to "Casey">>
-        <span class = "gold">Casey is now your love interest! The thought makes you feel warm.</span>
-        <br><br>
-    <<else>>
-        <span class = "gold">Casey can now be claimed as your love interest! The thought makes you feel warm. <br>You can change your love interest in the "Attitudes" menu.</span>
-        <br><br>
-    <</if>>
+    <<loveInterestAdd "Casey">>
+    <br><br>
+    "If you'd feel comfortable, come visit my flat sometime. You're always welcome." <<He>> gives a gently smile.
+    <br><br>
     <<getouticon>><<link [[Leave|Connudatus Street]]>><<endevent>><<set $caseyromance to 1>><</link>>
 
 <<elseif $NPCName[$NPCNameList.indexOf("Casey")].love lte 200>>
@@ -363,7 +359,7 @@ You are inside Casey's flat. Various gathered scraps sit in boxes, leftover from
         <<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
     <</if>>
 <</if>>
-<<if $renttime lte 0>>
+<<if $rentTime lte 0>>
     <<link [[Leave|Flats Bailey]]>><</link>>
 <<else>>
     <<link [[Leave|Flats]]>><</link>>

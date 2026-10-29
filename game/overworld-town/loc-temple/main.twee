@@ -145,7 +145,7 @@ You are in the main hall of the temple. Stone walls and pillars tower into darkn
 	<br>
 	<<link [[Refuse|Temple]]>><<endevent>><</link>>
 	<br>
-<<elseif ($temple_rank is "monk" or $temple_rank is "priest") and ($renttime lte -2 or $renttime lte 0 and Time.hour gte 4 and Time.hour lte 21)>>
+<<elseif ($temple_rank is "monk" or $temple_rank is "priest") and ($rentTime lte -2 or $rentTime lte 0 and Time.hour gte 4 and Time.hour lte 21)>>
 	<<if $temple_bailey is undefined>>
 		<<npc "Bailey" 1>>
 		<<npc "Jordan" 2>>
@@ -174,9 +174,9 @@ You are in the main hall of the temple. Stone walls and pillars tower into darkn
 		<br>
 		<<link [[Remain silent|Temple Bailey Intro Silent]]>><<set $temple_bailey to 1>><</link>>
 		<br>
-		<<link [[Vouch for Bailey|Temple Bailey Intro Vouch]]>><<set $temple_bailey to 1>><</link>><<if $syndromebailey>><<gbaileystock>><<else>> | <span class="blue">+ ???</span><</if>>
+		<<link [[Vouch for Bailey|Temple Bailey Intro Vouch]]>><<set $temple_bailey to 1>><</link>><<if $syndromeBailey>><<gbaileystock>><<else>> | <span class="blue">+ ???</span><</if>>
 		<br>
-		<<set $renttime to 7>><<set $rentday to Time.weekDay>>
+		<<set $rentTime to 7>><<set $rentDay to Time.weekDay>><<thuganger -5>><<set $baileyRefusedToPay to 0>>
 	<<else>>
 		<<npc "Bailey">><<person1>>
 		<<if $per_npc.bishop_right_hand>>
@@ -234,6 +234,10 @@ You are in the main hall of the temple. Stone walls and pillars tower into darkn
 		<</if>>
 	<<elseif $exposed lte 0>>
 		<<templeicon "pray">><<link [[Pray|Temple Pray]]>><<set $eventskip to 1>><<set $phase to 1>><</link>>
+		<br>
+	<</if>>
+	<<if $kylar_altar_research and $kylar_altar_research.includes("library") and !$kylar_altar_research.includes("temple") and !$temple_scriptorium_known>>
+		<<socialiseicon "ask">><<link [[Ask around about the pages missing from the school library (0:20)|Temple Altar Research Ask]]>><<pass 20>><</link>>
 		<br>
 	<</if>>
 	<<if $exposed lte 0>>
@@ -317,8 +321,6 @@ You are in the main hall of the temple. Stone walls and pillars tower into darkn
 		<</if>>
 	<</if>>
 
-
-
 	<<if $temple_rank isnot undefined and $temple_rank isnot "prospective">>
 		<br>
 		<<if $prayer_room_init is 1>>
@@ -336,7 +338,12 @@ You are in the main hall of the temple. Stone walls and pillars tower into darkn
 			<<templeicon "cloister">><<link [[Cloister|Temple Cloister]]>><</link>>
 			<br>
 		<</if>>
-
+	<</if>>
+	<<if $temple_scriptorium_known is 1>>
+		<<templeicon "scriptorium">><<link [[Search for the scriptorium (0:20)|Temple Scriptorium Search]]>><<pass 20>><</link>>
+		<br>
+	<<elseif $temple_scriptorium_known gte 2>>
+		<<templeicon "scriptorium">><<link [[Sneak into the scriptorium (0:01)|Temple Scriptorium Lock]]>><<pass 1>><</link>>
 	<</if>>
 	<br>
 	<<wolficon>><<link [[Leave (0:01)|Wolf Street]]>><<pass 1>><</link>>
@@ -545,7 +552,7 @@ The <<person1>>young <<monk>> follows the older <<person2>><<monk>> with eyes do
 :: Temple Thurible Chat
 <<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
 
-You try to strike up a conversation, but an <<generate2>><<person2>>older <<monk>> intervenes. "Don't distract <<person1>><<him>>," <<person2>><<he>> snaps. "<<person1>><<He>> has very important duties."
+You try to strike up a conversation, but an <<generate2>><<person2>>older <<monk>> intervenes. "Don't distract <<person1>><<him>>," <<person2>><<he>> snaps. <<person1>>"<<He>> has very important duties."
 <br><br>
 
 The <<person1>><<person>> looks away, blushing.
@@ -1018,8 +1025,23 @@ You look away from the <<monk>>, and <<he>> continues down the aisle.
 	<<if $onemoreslime is undefined>>
 		<<set $onemoreslime to 0>>
 	<</if>>
+	<<if $kylar_altar_research and $kylar_altar_research.includes("library") and !$kylar_altar_research.includes("temple") and !$temple_scriptorium_known>>
+		<<socialiseicon "ask">><<link [[Ask about the pages missing from the school library|Temple Altar Research Jordan]]>><</link>>
+		<br>
+	<</if>>
 	<<getouticon>><<link [[Step away|Temple]]>><<endevent>><</link>>
 <</if>>
+
+:: Temple Altar Research Jordan
+<<effects>>
+
+Jordan listens to your description of the book. "I'm sorry to hear it," <<he>> says. "I'm unfamiliar with that title, but it sounds interesting. I hope you're able to find a new copy."
+<br><br>
+
+<<endevent>>
+
+<<link [[Next|Temple]]>><</link>>
+<br>
 
 :: Temple Spear
 <<effects>>
@@ -1692,7 +1714,7 @@ You look down to examine it yourself. It doesn't feel as tight or uncomfortable 
 :: Temple Chastity Shield
 
 <<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
-<<He>> leads you out of the main hall and into a small room. "I'll need to access the belt," <<he>> says. You ignore your apprehension and remove your <<bottoms>>. <<He>> kneels behind you and starts tinkering with the belt. It rubs against your <<genitals>> as <<he>> works, but you manage to stay calm.
+<<He>> leads you out of the main hall and into a small room. <<if !$worn.under_lower.type.includes("naked")>>"I'll need to access the belt," <<he>> says. You ignore your apprehension and remove your <<bottoms>>.<</if>> <<He>> kneels behind you and starts tinkering with the belt. It rubs against your <<genitals>> as <<he>> works, but you manage to stay calm.
 <br><br>
 <<He>> stands up. "All done. You are now protected from sodomy. If there are any problems, come see me." <<He>> leaves you alone in the room.
 <br><br>
@@ -1705,7 +1727,7 @@ You look down to examine it yourself. It doesn't feel as tight or uncomfortable 
 :: Temple Chastity Shield Removal
 
 <<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
-<<He>> leads you out of the main hall and into a small room. "I'll need to access the belt," <<he>> says. You ignore your apprehension and remove your <<bottoms>>. <<He>> kneels behind you and starts tinkering with the belt. It rubs against your <<genitals>> as <<he>> works, but you manage to stay calm.
+<<He>> leads you out of the main hall and into a small room. <<if !$worn.under_lower.type.includes("naked")>>"I'll need to access the belt," <<he>> says. You ignore your apprehension and remove your <<bottoms>>.<</if>> <<He>> kneels behind you and starts tinkering with the belt. It rubs against your <<genitals>> as <<he>> works, but you manage to stay calm.
 <br><br>
 <<He>> stands up. "All done. You are no longer protected from sodomy, so be careful. If there are any problems, come see me." <<He>> leaves you alone in the room.
 <br><br>
@@ -1723,7 +1745,7 @@ You look down to examine it yourself. It doesn't feel as tight or uncomfortable 
 :: Temple Chastity Removal
 
 <<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
-<<He>> leads you out of the main hall and into a small room. "Please undress," <<he>> says. You ignore your apprehension and remove your clothing.
+<<He>> leads you out of the main hall and into a small room. <<if !$worn.under_lower.type.includes("naked")>>"Please undress," <<he>> says. You ignore your apprehension and remove your clothing.<</if>>
 
 <<if $worn.genitals.origin is "temple">>
 	<<He>> produces a sinister bladed instrument from <<his>> robes and kneels in front of you.
@@ -2814,6 +2836,7 @@ Stern-faced <<monks>> cluster you and the other victims together.
 <<unset $temple_wall_victim>>
 <<set $temple_arcade_known to true>>
 <<set $player.virginity.temple to true>>
+<<set $temple_chastity_timer to 30>>
 <<clotheson>>
 
 <<pass 20>>
@@ -3706,92 +3729,31 @@ Sydney hugs you again before leaving.
 <<link [[Leave|Temple]]>><<endevent>><<set $temple_spear_mission to 1>><<unset $spearQuestion>><<unset $spearQuestions>><</link>>
 <br>
 
+:: Temple Altar Research Ask
+<<effects>>
 
-:: Jordan Slime Inquiry
-<<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
+<<generate1>><<person1>>
 
-"Forgive me, I may not have heard you correctly. You said you are a... slime?" Jordan looks incredulously at you as describe you your situation and how it came to be. <<He>> looks notably shaken when you mention the ear slimes.
-<br><br> 
-"Oh, dear..." <<he>> begins. "I have heard tales... rituals of something similar to this occuring. There used to exist an ancient sect of our order, or so I've read." <<He>> stares at you deep in thought before continuing. "The members of this sect were said to partake in sacrifices involving the very same creatures which you have described. Even I had my own doubts, but you seem to be walking proof of their activities. Or at least the results thereof."
-<br><br>
-"As this occured centuries before my time, I'm afraid my knowledge of the matter is rather lacking. Many records of the sect were deliberately destroyed in an attempt hide some of the more unsavory parts of our order's history." <<He>> gives you a melancholic smile and looks skyward.
-<br><br>
-"As you've probably surmised, what I have just revealed to you was something not meant to be divulged. Especially not to those not yet initiated into our order. However, considering your situation, I'd feel guilty concealing this information from you when it may prove vital." 
-<br><br>
-Jordan's voice suddenly becomes an octave lower and <<he>> adopts a solemn facial expression. <<His>> piercing gaze gives you pause. <span class="gold">"The ruins of the lake</span>. The building where those ruins once stood. The chambers there were said to be where these rituals took place. Most of them occuring around the time of a <span class="gold">blood moon</span>."
-<br><br>  
-"For obvious reasons, I doubt you'll find anything intact. The ruins are sunken, after all. <<He>> concludes. "Still, it may be worth investigating."
-<br><br>
-"Whatever you decide to do with this information is up to you. I wish you luck."
-<br><br>
-<<link [[Next|Temple]]>><</link>>
 
-:: Jordan Slime Inquiry 2
-<<set $outside to 0>><<set $location to "temple">><<temple_effects>><<effects>>
-
-"Un... unbelievable. To think that the tales of old held some truth to them." Jordan looks at you in wonder after you regale <<him>> with the events that proceeded after coming in contact with the plinth in the ruins. "I must wonder, however, how you've managed to enter such a state again. Have you perhaps been pursued by the slimes you mentioned earlier?" You don't respond, only giving Jordan a nervous glance before lowering your gaze.
-<br><br>
-"Regardless of the reason, you are fortunate that area still maintains it's original function. I... assume helping to restore one's humanity after their transformation is it's original purpose, at least. As such, you can simply return to the plinth and undo the process when conditions are appropriate." You nod and thank Jordan. As you turn around to leave, <<he>> gives a final warning.
-<br><br>
-"I assume the ritual, and thus your restoration, was performed during the blood moon, as stated in the scriptures. That lake is said to become particularly dangerous around that time. I believe the same goes for our town, actually. Widespread, mysterious happenings tend to occur during those nights. That said, I urge you to maintain your distance from those ruins unless you absolutely must traverse them. Especially during the blood moon."
-<br><br>
-"I shall pray for your continued safety."
-<br><br>
-<<link [[Next|Temple]]>><<endevent>><</link>>
-
-:: Temple Ghost
-The moment Jordan's eyes settle upon you, <<his>> demeanour shifts. <<He>> reaches out, touching your skin. <<His>> smile drops as <<his>> fingers make contact.
-<br><br>
-"Oh,<<if $temple_rank is "monk" or $temple_rank is "priest">><<sister>><<else>>child<</if>>, what happened to you?" <<He>> says with concern.. "Did something befall you?"
-<br><br>
-You explain the situation to <<him>>. Although <<his>> eyes show a tint of worry, <<he>> nods.
-<br><br>
-"If what you say is true, then your body may have been stolen by a spirit," <<he>> says."There may be scriptures that could help you. Come along with me."
-<br><br>
-<<link [[Next|Temple Ghost 2]]>><<set $exorcism to 1>><</link>>
-
-:: Temple Ghost 2
-<<He>> leads you to the temple's private library and peruses the shelves.
-<br><br>
-"Here," <<he>> says, pulling an old, dusty tome from the shelf. <<He>> glances at you, offering an apologetic smile. "Sorry," <<he>> mutters. "This might take a moment." Flipping it open, <<he>> scours the book for anything that might aid you. You wait in silence as <<he>> reads. Eventually, <<he>> speaks.
-<br><br>
-"I can help you get your body back. We'll need to go to the place of the haunting. You mentioned the old manor, correct?" You nod, and <<he>> gives you one in turn.
-<br><br>
-"Alright. Come to me when you're ready. I'll make some preparations in the meantime." You pause. The way <<he>> speaks makes it sound like <<he>>'ll be coming along. As if hearing your thoughts, Jordan smiles and answers, "yes, I'll be joining you. Someone needs to keep you safe." 
-<br><br>
-<<He>> guides you back out of the library. As you part, <<he>> says,
-<br><br>
-"Again, just let me know when you are ready, and we will be off."
-<br><br>
-<<link [[Next|Temple]]>><<endevent>><</link>>
-
-:: Temple Exorcism
-"Are you ready? It's best not to dawdle, then. Who knows what could happen if you're left without your body?" <<He>> steers toward the temple exit, stopping only to turn back to you. "Come, <<if $temple_rank is "monk" or $temple_rank is "priest">><<sister>><<else>>child<</if>>."
-<br><br>
-You quickly follow along.
-<br><br>
-<<link [[Follow Jordan to the Abandoned Mansion|Mansion Jordan 1]]>><</link>>
-
-:: Temple Buy Shrine
-You approach Jordan and enquire about installing a shrine in your room. <<He>> looks toward you with a kind warm smile.
-<br><br>
-"A shrine you say?" Jordan asks surprised. "Of course, I am always willing to help the devout in their pursuit of divine guidance."
-<br><br>
-<<if $money lt 1000000>>
-	<<He>> continues with a apologetic smile. "Though, it seems you lack the funds to purchase the materials for a shrine. If you come back with the money later, I would love to help you though." 
+<<if $temple_rank is "monk" or $temple_rank is "priest">>
+	You ask passing <<monks_and_nuns>> about the missing pages. The first few don't know what you're talking about, but then an old <<monk>> beckons you into an alcove.
 	<br><br>
-	With a small wave, Jordan steps back to the altar.
+	"I'm not familiar with that subject," <<he>> says. "But if they're here, they'll be in the scriptorium, through the cloister."
 	<br><br>
-	<<link [[Back|Temple]]>><<endevent>><</link>>
+	<<He>> walks away. You hear the clink of hidden chains.
+	<br><br>
 <<else>>
-	<<He>> continues after checking the amount of money you have offered. "Alright, seems like that should be enough. Some brothers and sisters will be over shortly to get the shrine set up in your room." 
+	You ask passing <<monks_and_nuns>> about the missing pages. Some listen with sympathy. Others give you the cold shoulder. None seem to know what you're talking about.
 	<br><br>
-	With a small smile and gentle wave, Jordan steps back to the altar.
+	One <<monk>> takes offence. "You think we're common thieves?" <<he>> says. "In the old days thay'd have whipped and branded you for such insolence. As if we don't have our store of knowledge in the scriptorium." <<He>> departs in a huff.
 	<br><br>
-	<<link [[Next|Temple]]>><<set $prayerbox to 1>><<set $money -= 1000000>><<pass 60>><<endevent>>
-		<<run Furniture.set('blank', 'shrine', {
-			name	: 'blank shrine',
-			nameCap	: 'Blank shrine'
-		})>>
-	<</link>>
 <</if>>
+
+<<if !$temple_scriptorium_known>>
+	<<set $temple_scriptorium_known to 1>>
+	<span class="gold">You've learned of a scriptorium, somewhere in the temple.</span>
+	<br><br>
+<</if>>
+
+<<link [[Next|Temple]]>><<endevent>><</link>>
+<br>

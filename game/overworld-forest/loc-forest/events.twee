@@ -697,7 +697,7 @@ Six pairs of eyes stare at you through the dim light. The pack advances on you.
 <<if dangerEvent($forestmod) and $eventskip is 0>>
 	<!-- Modified for monster people -->
 	<<beastNEWinit 1 lizard>>
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("lizard", $monster is 1)>>
 		A large <<beasttype>> rears out of the water!
 		<br><br>
 
@@ -1163,7 +1163,7 @@ They growl at each other. After a brief tussle, with many scratches and bites, t
 		"<<pPackbrother>>. Good to see."
 		<br><br>
 	<</if>>
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("wolf", $monster is 1)>>
 		<<if $phase is 1>>
 			<<if hasSexStat("deviancy", 3)>>
 				<<link [[Mate|Forest Wolf Sex2]]>><<set $phase to 2>><<set $sexstart to 1>><</link>><<deviant3>>
@@ -2677,7 +2677,7 @@ The slimes disappear into the river. <<tearful>> you look around frantically.
 	<<promiscuity1>>
 
 	The <<person>> comes back to <<his>> senses, and wraps <<his>> vines around you. With a gentle, almost teasing push, <<he>> sends you to the forest floor and lowers <<himself>> to lie on top of you.
-	"If I'd know you loved it so much," <<he>> whispers, "I'd have offered more than a kiss. Way more."
+	"If I'd known you loved it so much," <<he>> whispers, "I'd have offered more than a kiss. Way more."
 	<br><br>
 
 	<<link [[Next|Forest Plant Sex]]>><<set $molestationstart to 1>><<set $phase to 0>><</link>>
@@ -3187,7 +3187,7 @@ That is, until you hear rapid footsteps behind you. You turn just in time to be
 <br><br>
 
 <<if $NPCList[0].traits.includesAny("territorial","clever")>>
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<if $monster is 1>>
 			<<bHe>> smugly straddles you, arms crossed. "That was clumsy. You gave yourself away so easily, <<foxnickname>>."
 			<br><br>
@@ -3458,7 +3458,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 		<br><br>
 
 		<<bHe>> knocks you over easily despite <<bhis>> relatively small size.
-		<<if $monster is 1 or $settings.bestialityEnabled>>
+		<<if beastSexEnabledForType("fox", $monster is 1)>>
 			<<if $monster is 1>>
 				<<bHe>> holds both of your arms down.
 				<<if $transformationParts.fox.tail isnot "disabled">>
@@ -3525,7 +3525,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You slowly step 
 
 		<<link [[Pet|Forest Fox Nest Pet]]>><<set $phase2 to 1>><</link>><<tendingdifficulty 1 200>><<llstress>>
 		<br>
-		<<if $transformationParts.fox.tail isnot "disabled" and $monster is 1>>
+		<<if $transformationParts.fox.tail isnot "disabled" and $monster is 1 and monsterSexEnabledForType("fox")>>
 			<<link [[Lick <<bhim>> clean|Forest Fox Nest Lick]]>><<set $phase2 to 1>><</link>><<deviant1>><<fox>>
 			<br>
 		<</if>>
@@ -3596,7 +3596,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You take the cha
 
 	<<link [[Pet|Forest Fox Chase Pet]]>><</link>><<tendingdifficulty _tendingMin _tendingMax>><<llstress>>
 	<br>
-	<<if $settings.bestialityEnabled or $monster is 1>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<if hasSexStat("deviancy", 2)>>
 			<<link [[Adopt mating posture|Forest Fox Nest Mate]]>><<set $phase to 1>><</link>><<deviant2>>
 			<br>
@@ -3616,7 +3616,7 @@ The <<beasttype>> dives behind a bush and starts to dig a hole. You take the cha
 		<br><br>
 
 		The same <<beasttype>> is now on top of you.
-		<<if $monster is 1 or $settings.bestialityEnabled>>
+		<<if beastSexEnabledForType("fox", $monster is 1)>>
 			<<if $monster is 1>>
 				<<bHe>> holds both of your arms down.
 				<<if $transformationParts.fox.tail isnot "disabled">>
@@ -3766,7 +3766,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 
 	<<link [[Pet|Forest Fox Nest Pet]]>><<set $phase2 to 1>><</link>><<tendingdifficulty 1 200>><<llstress>>
 	<br>
-	<<if $transformationParts.fox.tail isnot "disabled" and $monster is 1>>
+	<<if $transformationParts.fox.tail isnot "disabled" and $monster is 1 and monsterSexEnabledForType("fox")>>
 		<<link [[Lick <<bhim>> clean|Forest Fox Nest Lick]]>><<set $phase2 to 1>><</link>><<deviant1>><<fox>>
 		<br>
 	<</if>>
@@ -3817,7 +3817,7 @@ Without warning, the rope releases, dropping you back on the ground. You shakily
 				"Challenging me in my own territory?" <<bHe>> scoffs. "You need to be taught a lesson."
 			<</if>>
 			The <<beasttype>> charges at you!
-			<<if $monster is 1 or $settings.bestialityEnabled>>
+			<<if beastSexEnabledForType("fox", $monster is 1)>>
 				<br><br>
 
 				<<link [[Next|Forest Fox Nest Rape]]>><<set $molestationstart to 1>><<set $position to "missionary">><<set $NPCList[0].stance to "top">><</link>>
@@ -3952,7 +3952,7 @@ You gently touch the <<beasttypes>> tail. It is incredibly soft. You start to pe
 		<br><br>
 	<</if>>
 
-	<<if $settings.bestialityEnabled or $monster is 1>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<if hasSexStat("deviancy", 2)>>
 			<<link [[Adopt mating posture|Forest Fox Nest Mate]]>><<set $phase to 2>><</link>><<deviant2>>
 			<br>
@@ -3969,7 +3969,7 @@ You gently touch the <<beasttypes>> tail. It is incredibly soft. You start to pe
 		<<bHe>> immediately pounces on you, pinning you down.
 		<br><br>
 
-		<<if $monster is 1 or $settings.bestialityEnabled>>
+		<<if beastSexEnabledForType("fox", $monster is 1)>>
 			<<if $monster is 1>>
 				<<bHe>> smugly straddles you, arms crossed over <<bhis>> bare <<print $NPCList[0].breastsdesc>>.
 				<<if $transformationParts.fox.tail isnot "disabled">>
@@ -4099,7 +4099,7 @@ You gently touch the <<beasttypes>> <<if $monster is 1>>hair<<else>>fur<</if>>. 
 	<</if>>
 	<br><br>
 
-	<<if $settings.bestialityEnabled or $monster is 1>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<if hasSexStat("deviancy", 2)>>
 			<<link [[Adopt mating posture|Forest Fox Nest Mate]]>><<set $phase to 3>><</link>><<deviant2>>
 			<br>
@@ -4159,7 +4159,7 @@ You let the <<beasttype>> go.
 
 <<if $NPCList[0].traits.includes("territorial")>>
 	<<if $phase is 2>>
-		<<if $monster is 1>>
+		<<if $monster is 1 and monsterSexEnabledForType("fox")>>
 			<<bHe>> stays completely still. <<bHes>> staring at you... longingly?
 			<br><br>
 
@@ -4171,7 +4171,7 @@ You let the <<beasttype>> go.
 
 			<<link [[Next|Forest Fox Nest Rape]]>><<set $molestationstart to 1>><<set $position to "missionary">><<set $NPCList[0].stance to "top">><</link>>
 			<br>
-		<<elseif $settings.bestialityEnabled>>
+		<<elseif animalSexEnabledForType("fox")>>
 			<span class="red"><<bHe>> takes the opportunity to lunge back at you</span>. It seems you've worked <<bhim>> up. <<bHe>> topples you, pinning you down.
 			<br><br>
 
@@ -4553,12 +4553,14 @@ You put your head right next to the <<beasttype>>.
 		You ask <<bhim>> why <<bhe>> helped you. <<bHe>> blinks at you. "Why wouldn't I?"
 		<br><br>
 
-		<<if hasSexStat("deviancy", 2)>>
-			<<link [[Show your appreciation|Forest Fox Nest Sex]]>><<set $sexstart to 1>><<set $phase2 to 1>><</link>><<deviant2>>
-			<br>
-		<<else>>
-			<<insufficientStat "deviancy" "to show your appreciation">>
-			<br>
+		<<if monsterSexEnabledForType("fox")>>
+			<<if hasSexStat("deviancy", 2)>>
+				<<link [[Show your appreciation|Forest Fox Nest Sex]]>><<set $sexstart to 1>><<set $phase2 to 1>><</link>><<deviant2>>
+				<br>
+			<<else>>
+				<<insufficientStat "deviancy" "to show your appreciation">>
+				<br>
+			<</if>>
 		<</if>>
 		<<link [[Thank and leave|Forest]]>><<endevent>><<unset $forest_nest>><<set $eventskip to 1>><<stress -3>><</link>><<lstress>>
 		<br>
@@ -4572,7 +4574,7 @@ You put your head right next to the <<beasttype>>.
 		Once you're back in the underbrush, you hear a faint hiss. Looking back to the nest, you see a <span class="red">massive snake</span> investigating the area. That wasn't a bird's nest at all, and this <<beasttype>> just saved you. <<bHe>> yips at you once before turning to leave.
 		<br><br>
 
-		<<if $settings.bestialityEnabled and hasSexStat("deviancy", 2)>>
+		<<if animalSexEnabledForType("fox") and hasSexStat("deviancy", 2)>>
 			<<link [[Show your appreciation|Forest Fox Nest Sex]]>><<set $sexstart to 1>><<set $phase2 to 1>><</link>><<deviant2>>
 			<br>
 		<<else>>
@@ -4592,7 +4594,7 @@ You put your head right next to the <<beasttype>>.
 	You feel a breath on your legs.
 	<br><br>
 
-	<<if $settings.voreEnabled>>
+	<<if $settings.voreEnabled and animalSexEnabledForType("snake")>>
 		<<link [[Next|Forest Nest Snake Vore 2]]>><<endevent>><<unset $forest_nest>><<set $molestationstart to 1>><</link>>
 	<<else>>
 		You get to your feet and run as fast as you can.<<beastescape>>
@@ -4661,7 +4663,7 @@ You waste no time. You dash out from the brush. The snake turns to you, the much
 	You feel it trying to get away from you. You move with it, tossing it far off course. It quickly recognises that you're more trouble than you're worth, and retreats back into the underbrush.
 	<br><br>
 
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<if $monster is 1>>
 			You feel something grab onto your arm. It's the <<beasttype>>, and <<bhe>> nuzzles against you, blushing.
 			<<if $NPCList[0].traits.includes("territorial")>>
@@ -4711,7 +4713,7 @@ You waste no time. You dash out from the brush. The snake turns to you, the much
 		<br>
 	<<else>>
 		You see the <<beasttype>> darting off into the forest. You bought <<bhim>> enough time to escape, at least.
-		<<if $settings.voreEnabled>>
+		<<if $settings.voreEnabled and animalSexEnabledForType("snake")>>
 			The snake seems irritated at losing its meal and slithers up to you, mouth agape once more.
 			<br><br>
 
@@ -5107,7 +5109,7 @@ You shout for help out the top of your lungs, hoping for the best. Besides some 
 	After a few minutes of waiting, you see a lone <<beasttype>> emerge from the trees, attracted by the noise. <<bHe>> snarls before biting onto your ankle! The extra weight pulls your $worn.under_lower.name painfully <<print ($player.ballsExist ? " against your testes" : "between your labia")>> until your underwear finally tears off your body. <<gpain>><<ggstress>><<pain 25>><<stress 50>><<set $worn.under_lower.integrity to 0>>.
 	<br><br>
 
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("wolf", $monster is 1)>>
 		You fall to the ground, clutching your crotch in agony. The <<beasttype>>, seeing your vulnerability, leaps on top of you!
 		<br><br>
 		<<link [[Next|Forest Wolf]]>><<set $molestationstart to 1>><</link>>
@@ -5374,7 +5376,7 @@ You try to tear your gaze from the tree, but a visage catches your eye, formed b
 		<</if>>
 		<br><br>
 
-		<<if $monster is 1 or $settings.bestialityEnabled is true>>
+		<<if beastSexEnabledForType("bear", $monster is 1)>>
 			<<link [[Next|Forest Snow Bear Molestation]]>><<set $molestationstart to 1>><</link>>
 		<<else>>
 			You dodge out of the way just in time, and get a faceful of snow. You quickly recover and push yourself forward. The <<beasttype>> swipes at you with <<bhis>> claws as you make your escape,
@@ -5835,7 +5837,7 @@ You try to tear your gaze from the tree, but a visage catches your eye, formed b
 		<br>
 	<<elseif $exposed gte 2>>
 		Gwylan lays atop you, kicking <<his>> legs behind <<him>>. "I just wanted to ask if you needed some clothes," <<he>> says with a smile. "You shouldn't be running around the forest so... openly.
-		<<if $settings.bestialityEnabled and $rng gte 51>>
+		<<if animalSexEnabledForType("wolf") and $rng gte 51>>
 			You'll agitate the wolves.
 		<<else>>
 			You'll catch a cold.
@@ -5994,7 +5996,7 @@ You try to tear your gaze from the tree, but a visage catches your eye, formed b
 		<br>
 	<<elseif $exposed gte 2>>
 		Gwylan lays under you, not seeming to mind this arrangement. "I just wanted to ask if you needed some clothes," <<he>> says with a smile. "You shouldn't be running around the forest so... openly.
-		<<if $settings.bestialityEnabled and $rng gte 51>>
+		<<if animalSexEnabledForType("wolf") and $rng gte 51>>
 			You'll agitate the wolves.
 		<<else>>
 			You'll catch a cold.
@@ -7317,385 +7319,84 @@ You find Gwylan in another small clearing. <<He>> looks at you, then the trees, 
 	<br>
 <</if>>
 
-:: Forest Raccoon
+:: Forest Trail Encounter
 <<location "forest">><<effects>>
 
-
-You drop to the ground and adopt a mating posture.
-<<deviancy3>>
-
-The <<beasttype>> slowly crawls out of the burrow and approaches you, giving your vulnerable form a curious sniff.
-<<if $monster is 1>>
-	<br><br>
-	"Not used to company. Company willing, too. Very Nice."<br>
-<</if>>
-
-After inspecting you for a minute or so, the <<beasttype>> prepares to mount you.
-<br><br>
-
-<<link [[Next|Forest Raccoon Sex]]>><<set $sexstart to 1>><</link>>
-<br>
-
-:: Forest Raccoon Sex 
-<<if $sexstart is 1>>
-	<<set $sexstart to 0>>
-	<<consensual>>
-	<<set $consensual to 1>>
-	<<neutral 1>>
-
-	<<beastCombatInit>>
-<</if>>
-
-<<effects>>
-<<effectsman>>
-<br>
-<<beast $enemyno>>
-<br><br>
-<<stateman>>
-<br><br>
-<<actionsman>>
-<<if $finish is 1>>
-	<span id="next"><<link [[Next|Forest Raccoon Sex Finish]]>><</link>></span><<nexttext>>
-<<elseif $enemyhealth lte 0>>
-	<span id="next"><<link [[Next|Forest Raccoon Sex Finish]]>><</link>></span><<nexttext>>
-<<elseif $enemyarousal gte $enemyarousalmax>>
-	<span id="next"><<link [[Next|Forest Raccoon Sex Finish]]>><</link>></span><<nexttext>>
-<<else>>
-	<span id="next"><<link [[Next|Forest Raccoon Sex]]>><</link>></span><<nexttext>>
-<</if>>
-
-:: Forest Raccoon Sex Finish 
-
-<<set $outside to 0>><<effects>>
-<<if $enemyarousal gte $enemyarousalmax>>
-	<<beastejaculation>>
-	<<if $consensual is 1>>
-		<<if $monster is 1>>
-			The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
-			<br><br>
-			"Was careless. Still safe. Good." <<bHe>> nuzzles your insensate form before turning around. "You stay safe too. Maybe come back. Would like." <<bHe>> scurries off into the underbrush, leaving you to recover. You continue on your journey.
+<<switch $phase>>
+	<<case "truth">>
+		<<if $speech_attitude is "meek">>
+			You timidly point <<him>> towards the lake,
+		<<elseif $speech_attitude is "bratty">>
+			You coolly gesture towards the lake,
 		<<else>>
-			The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
-			<br><br>
-			Satisfied with the lack of an audience, <<bhe>> nuzzles your insensate form before turning around and scurrying off into the underbrush, leaving you to recover. You continue on your journey.
+			You point <<him>> in the direction of the lake, 
 		<</if>>
-	<<else>>
-		<<if $monster is 1>>
-			"What your problem? You wanted. You change mind?" <<bHe>> cocks <<bhis>> head in a quizzical manner before turning around and snorting.
-			"Be sure next time. Me not really fighter. You lucky."
-			<br><br>
-			<<bHe>> scurries off into the underbrush, leaving you to recover. You continue on your journey.
+		mentioning a shortcut you found while exploring.
+		<br><br>
+
+		<<He>> looks rather impressed, sour expression softening the longer <<he>> listens.
+		<br><br>
+
+		"I got lucky running into an expert," <<he>> nods, fixing the straps of <<his>> backpack and patting you on the shoulder. "Thanks for the help, I'll be heading off."
+		<br><br>
+
+		You feel somewhat proud, having helped somebody find their way. <<ltrauma>><<trauma -6>>
+	<<case "trick">>
+		Before you can stop yourself, your hand points in the direction opposite the lake.
+		<br><br>
+
+		<<if $speech_attitude is "meek">>
+			"Oh, it's— it's just a couple minutes in that direction."
+		<<elseif $speech_attitude is "bratty">>
+			"Not very observant, huh? The lake's only a few metres in that direction."
 		<<else>>
-			The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
+			"A couple minutes that way and you'll be right at the lakeside." 
+		<</if>>
+		<br><br>
+
+		"I just came from that direction," the <<person>> mutters, confused. "Must not have seen it. Thanks, I suppose."
+		<br><br>
+
+		With that, <<he>> heads off. You feel an odd satisfaction at having tricked another. <<gcontrol>><<control 10>>
+	<<case "unsure">>
+		<<if $speech_attitude is "meek">>
+			"I'm sorry, I'm not really sure," you mutter.
+		<<elseif $speech_attitude is "bratty">>
+			"Do I look like I would know?" you sigh.
+		<<else>>
+			"I'm not sure," you respond with a brief shrug. 
+		<</if>>
+		<br><br>
+
+		The <<person>> groans, burying <<his>> face in <<his>> hand.
+		<br><br>
+
+		"Right. Thanks anyways," <<he>> grumbles, heading in an arbitrary direction. Relief washes over you. You expected a more wrathful response.
+	<<case "run">>
+		<<if $athleticsSuccess>>
+			<<unset $athleticsSuccess>>
+			 You make a run for it, <span class="green">successfully evading the stranger</span>. The woods fall quiet again, for now.
+		<<else>>
+			You make a run for it, <span class="red">but the <<person>>'s hand takes your arm in a painful grip</span>. <<gpain>><<pain 6>>
 			<br><br>
-			Satisfied with the lack of an audience, <<bhe>> makes a chuffing sound before turning around and scurrying off into the underbrush, leaving you to recover. You continue on your journey.
+
+			"I asked you a question," <<he>> sputters incredulously. "Why on earth are you running?"
+			<br><br>
+
+			<<He>> releases you after a violent
+			<<if !$worn.upper.type.includes("naked")>>
+				struggle, and <span class="red">your <<print $worn.upper.name>> tears in the process</span>. <<set $worn.upper.integrity -= 10>><<integritycheck>>
+			<<elseif !$worn.under_upper.type.includes("naked")>>
+				struggle, and <span class="red">your <<print $worn.under_upper.name>> tears in the process</span>. <<set $worn.under_upper.integrity -= 10>><<integritycheck>>
+			<<else>>
+				struggle.
+			<</if>>
+			<br><br>
+
+			Your legs feel weak as you flee the scene. <<gstress>><<gtrauma>><<stress 6>><<trauma 6>>
 		<</if>>
-		<br><br>
-	<</if>>
-	<<clotheson>>
-	<<endcombat>>
-	<<link [[Next|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
-	<br>
-<<elseif $enemyhealth lte 0>>
-	<<if $monster is 1>>
-		"Ah...! What your problem? You wanted. You change mind?" <<bHe>> cocks <<bhis>> head in a quizzical manner before turning around and snorting.
-		"Be sure next time. Me not really fighter. You lucky."
-		<br><br>
-		<<bHe>> scurries off into the underbrush, leaving you to recover.
-	<<else>>
-		The <<beasttype>> falls back stunned. <<bHe>> growls at you before scurrying off into the underbrush.
-	<</if>>
-	<br><br>
-	<<tearful>> you gather yourself.
-	<br><br>
+<</switch>>
+<br><br>
 
-	<<clotheson>>
-	<<endcombat>>
-
-	<<link [[Next|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
-	<br>
-<<else>>
-	<<if $monster is 1>>
-		The <<beasttype>> shudders as <<bhe>> dismounts you. Leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
-		<br><br>
-		"Was careless. Still safe. Good." <<bHe>> nuzzles your insensate form before turning around. "You stay safe too. Maybe come back. Would like." <<bHe>> scurries off into the underbrush, leaving you to recover. You continue on your journey.
-	<<else>>
-		The <<beasttype>> shudders as <<bhe>> dismounts you, leaving you on the floor. <<bHe>> looks around, checking for any creatures that may have been alerted by your activities.
-		<br><br>
-		Satisfied with the lack of an audience, <<bhe>> nuzzles your insensate form before turning around and scurrying off into the underbrush, leaving you to recover. You continue on your journey.
-		<br><br>
-	<</if>>
-	<<clotheson>>
-	<<endcombat>>
-	<<link [[Next|Forest]]>><<endevent>><<if $foresthunt gte 1>><<set $foresthunt += 1>><</if>><<set $eventskip to 1>><</link>>
-	<br>
-<</if>>
-
-
-:: Forest Dragon Molestation
-
-<<if $molestationstart is 1>>
-	<<set $molestationstart to 0>>
-	<<controlloss>>
-	<<violence 1>>
-	<<neutral 1>>
-	<<molested>>
-
-	<<beastCombatInit>><<set $enemytrust -= 40>><<set $enemyanger += 40>><<set $enemyhealthmax to 400>><<set $enemyhealth to 400>><<set $enemyarousalmax to 1000>>
-	You continue on your path. You don't get far before hearing a roar behind you.
-	<<if $monster is 1>>
-		"Tiny, squishy little morsel!"
-	<</if>>
-	<br><br>
-	<<if $loveInterest>>
-		<<if ($loveInterest.primary is "Eden" or $loveInterest.secondary is "Eden") and (random(1, 2) is 2 or $eden_rescue isnot 1)>>
-			<<enable_rescue>>
-		<</if>>
-	<</if>>
-<</if>>
-
-<<effects>>
-<<effectsman>>
-
-<<if $alarm is 1 and $rescue is 0>>
-	<<set $alarm to 0>>
-	<<if ($loveInterest.primary is "Eden" or $loveInterest.secondary is "Eden")>>
-		<<if $gwylan_rescue is 1>>
-			<span class="red">You're too deep into the forest for Gwylan to hear you, and Eden must not be in the area.</span>
-		<<else>>
-			<span class="red">You're too far from the town for anyone to hear you, and Eden must not be in the area.</span>
-		<</if>>
-	<<else>>
-		<<if $gwylan_rescue is 1>>
-			<span class="red">You're too deep into the forest for Gwylan to hear you.</span>
-		<<else>>
-			<span class="red">You're too far from the town for anyone to hear you.</span>
-		<</if>>
-	<</if>>
-	<br><br>
-<</if>>
-
+<<link [[Next|Forest]]>><<endevent>><<set $eventskip to 1>><<unset $phase>><</link>>
 <br>
-<<beast $enemyno>>
-<br><br>
-<<stateman>>
-<br><br>
-<<actionsman>>
-<<if $enemyarousal gte $enemyarousalmax>>
-	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
-<<elseif $enemyhealth lte 0>>
-	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
-<<elseif $alarm is 1 and $rescue is 1>>
-	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
-<<elseif $pain gte 100 and $willpowerpain is 0>>
-	<span id="next"><<link [[Next|Forest Dragon Molestation Finish]]>><</link>></span><<nexttext>>
-<<else>>
-	<span id="next"><<link [[Next|Forest Dragon Molestation]]>><</link>></span><<nexttext>>
-<</if>>
-
-:: Forest Dragon Molestation Finish
-
-<<location "forest">><<effects>>
-
-<<if $enemyarousal gte $enemyarousalmax>>
-
-	<<beastejaculation>>
-
-	Satisfied, the <<beasttype>> returns to its abode.
-	<<if $monster is 1>>
-		"Next time I might take you with me, squishy," <<bhe>> coos.
-	<</if>>
-	<br><br>
-
-	<<tearful>> you continue on your way.
-	<br><br>
-
-	<<clotheson>>
-	<<endcombat>>
-
-	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-	<br>
-<<elseif $enemyhealth lte 0>>
-
-	You scare the mighty <<beasttype>>. <<bHe>> flees deeper into the forest.
-	<<if $monster is 1>>
-		"Not so tiny! Not so squishy!" <<bhe>> yells as <<bhe>> runs.
-	<</if>>
-	<br><br>
-
-	<<tearful>> you continue on your way.
-	<br><br>
-
-	<<clotheson>>
-	<<endcombat>>
-
-	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-	<br>
-<<elseif $rescue is 1 and $alarm is 1>>
-	You hear a gun fire close by, and a bullet lands near the <<beasttype>>. <<bHe>> backs off in fear and flees into the forest.
-	<br><br>
-
-	<<if $edenCagedEscape>>
-		<<clotheson>>
-		<<endcombat>>
-
-		<<edenCagedSave>>
-	<<else>>
-		Eden emerges and helps you collect yourself. "Damn, I've never seen a dragon that large," <<nnpc_he "Eden">> mutters. "Are you okay?"
-		<br><br>
-
-		<<clotheson>>
-		<<endcombat>>
-		<<if $gwylan_eden_coop gte 1>>
-			Eden glances around for a moment. "We must be in too deep for that shopkeep," <<nnpc_he "Eden">> says.
-			<br><br>
-		<</if>>
-
-		<<if $eden_rescue isnot 1>>
-			<<set $eden_rescue to 1>>
-			Eden pats you on the shoulder. "I was able to hear you because I happened to be in the area," <<nnpc_he "Eden">> says. "<span class="gold">I might not always be around, but I should be able to save you anywhere in the forest.</span> Give me a shout if you're in trouble."
-			<br><br>
-		<</if>>
-
-		<<link [[Go back to the cabin (0:30)|Forest Cabin Return]]>><<pass 30>><</link>>
-		<br>
-		<<link [[Say goodbye|Forest]]>><<endevent>><</link>>
-	<</if>>
-<<else>>
-	<<beastejaculation>>
-
-	Satisfied, the <<beasttype>> returns to its abode.
-	<<if $monster is 1>>
-		"Next time I might take you with me, squishy," <<bhe>> coos.
-	<</if>>
-	<br><br>
-
-	<<tearful>> you continue on your way.
-	<br><br>
-
-	<<clotheson>>
-	<<endcombat>>
-
-	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-	<br>
-<</if>>
-
-:: Forest Mushroom Enter
-<<if Time.dayState is "night" and ($hallucinogen gte 300 or Object.values(V.worn).find(c => c.type.includes("esoteric"))) and $vesselform isnot 2>>
-	As you step into the tree hollow the world slowly begins to tilt. You can sense something is horribly wrong but what? You stumble and lean against the tree hollow as you collapse.
-	<br><br>
-	Suddenly, the tree hollows out from beneath you and you fall deep and far into the darkness. It must have been minutes that you fell before you see light. The tree hollow begins to slope and you hit the ground hard.
-	<br><br>
-	You slowly sit up and rub your head but... are you dreaming? You're in a forest but this one is... different. A huge unnatural moon with the appearance of a stopwatch fills the sky and the forest almost glows purple. Melted clocks float, littering the sky, and yet there is no birds to be seen. Just where are you?
-	<br><br>
-	<<link [[Next|Fae Realm]]>><<location "fae_forest">><<set $faenorth to 0>><<set $faeeast to 0>><<set $eventskip to 1>><</link>>
-<<else>>
-	You step into the tree hollow and try one of the mushrooms, the taste is bitter and you spit it out immediately. Thick spores coat your tongue and you feel a funny sensation.
-	<br>
-	<<link [[Leave|Forest]]>><<set $hallucinogen += 100>><<set $eventskip to 1>><</link>>
-<</if>>
-
-:: Deer Rape
-<<if $molestationstart is 1>>
-	<<set $molestationstart to 0>>
-	<<controlloss>>
-	<<violence 1>>
-	<<neutral 1>>
-	<<molested>>
-	<<beastCombatInit>>
-	<<set $enemytrust += 40>>
-<<elseif $sexstart is 1>>
-	<<set $sexstart to 0>>
-	<<consensual>>
-	<<set $consensual to 1>>
-	<<neutral 1>>
-	<<beastCombatInit>>
-	<<set $enemytrust += 40>>
-<</if>>
-<<effects>>
-<<effectsman>><<man>>
-
-<<if $alarm is 1 and $rescue is 0>>
-	<<set $alarm to 0>>
-	<<forestRescueFail>>
-	<br><br>
-<</if>>
-
-<br>
-<<beast $enemyno>>
-<br><br>
-
-<<stateman>>
-<br><br>
-<<actionsman>>
-
-<<if $alarm is 1 and $rescue is 2>>
-	<span id="next"><<link [[Next|Deer Rescue]]>><<set $phase to 2>><</link>></span><<nexttext>>
-<<elseif _combatend>>
-	<span id="next"><<link [[Next|Deer Rape Finish]]>><</link>></span><<nexttext>>
-<<else>>
-	<span id="next"><<link [[Next|Deer Rape]]>><</link>></span><<nexttext>>
-<</if>>
-
-:: Deer Rape Finish
-
-<<effects>>
-<<if $enemyarousal gte $enemyarousalmax>>
-	<<beastejaculation>>
-
-	The deer buckles as it releases its sperm inside you before pulling out and trotting away.
-	<br><br>
-
-	<<tearful>> you steady yourself.
-	<br><br>
-
-	<<clotheson>>
-	<<endcombat>>
-
-	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-
-<<elseif $rescue is 1 and $forest lte 20>>
-	<<gwylanForestRescue "beast">>
-
-<<elseif $rescue is 1 and $forest gte 21>>
-	You hear a gun fire close by, and a bullet lands at the beasts feet. It back off in fear and flees into the forest.
-	<br><br>
-
-	<<if $edenCagedEscape>>
-		<<clotheson>>
-		<<endcombat>>
-
-		<br><br>
-
-		<<edenCagedSave>>
-	<<else>>
-		Eden emerges and helps you collect yourself. "Damn animals," <<nnpc_he "Eden">> mutters. "Are you okay?"
-		<br><br>
-
-		<<clotheson>>
-		<<endcombat>>
-
-		<br><br>
-
-		<<if $gwylan_eden_coop gte 1>>
-			Eden glances around for a moment. "We must be in too deep for that shopkeep," <<nnpc_he "Eden">> says.
-			<br><br>
-		<</if>>
-
-		<<if $eden_rescue isnot 1>>
-			<<set $eden_rescue to 1>>
-			Eden pats you on the shoulder. "I was able to hear you because I happened to be in the area," <<nnpc_he "Eden">> says. "<span class="gold">I might not always be around, but I should be able to save you anywhere in the forest.</span> Give me a shout if you're in trouble."
-			<br><br>
-		<</if>>
-
-		<<forestCabinReturnLinks>>
-	<</if>>
-<<else>>
-	You shove the <<beasttype>> away from you. <<tearful>> you run.
-	<br><br>
-
-	<<clotheson>>
-	<<endcombat>>
-
-	<<link [[Next|Forest]]>><<set $eventskip to 1>><</link>>
-<</if>>

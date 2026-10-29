@@ -356,7 +356,7 @@ You lie on your mattress. It's hard to get comfortable<<if ($worn.neck.name is "
 	<<nightmareWake>>
 <<else>>
 	<<if ["dryheaving","nausea"].includes(_wakingEffect)>>
-		<br><br>
+		<br>
 		You slept soundly, but now feel a little rough.
 		<br><br>
 	<<elseif ($specialClothesEffects.bimbo.total gte random(100,1000) || $specialClothesEffects.pimp.total gte random(100,1000)) or $arousal gte ($arousalmax / 10) * 9>>
@@ -365,7 +365,7 @@ You lie on your mattress. It's hard to get comfortable<<if ($worn.neck.name is "
 		You sleep soundly.
 		<br><br>
 	<<else>>
-		<br><br>
+		<br>
 	<</if>>
 <</if>>
 <<sleepeffects>>
@@ -1715,7 +1715,7 @@ Panting, <<veteran_guard 0>> steps away from the curled <<person2>><<person>>. Y
 					<<ind>><<link [[Hold up the egg|Prison Spire Egg]]>><</link>>
 					<br>
 				<</if>>
-				<<if $transformationParts.bird.wings isnot "disabled" and $birdFly gte 1 and !$plucked>>
+				<<if ($transformationParts.bird.wings isnot "disabled" and $birdFly gte 1 and !$plucked) or $transformationParts.dragon.wings isnot "disabled">>
 					<br>
 					Your wings, and the wind, are strong. You think you could fly all the way to the mainland from here.
 					<br>
@@ -1726,7 +1726,7 @@ Panting, <<veteran_guard 0>> steps away from the curled <<person2>><<person>>. Y
 				<br>
 			<</if>>
 		<<else>>
-			<<if $transformationParts.bird.wings isnot "disabled" and $birdFly gte 1 and !$plucked>>
+			<<if ($transformationParts.bird.wings isnot "disabled" and $birdFly gte 1 and !$plucked) or $transformationParts.dragon.wings isnot "disabled">>
 				Your wings, and the wind, are strong. You think you could fly all the way to the mainland from here.
 				<br>
 				<<glideicon>><<link [[Soar to the mainland|Prison Soar]]>><</link>>
@@ -2099,7 +2099,7 @@ Another voice cuts through the haze. It sounds like <<anxious_guard 2>>. "I-I ca
 		The pain grows as time seems to rapidly speed up and slow down. You hear the words "breathe" and "push" many times, and you do your best to comply.
 		<br><br>
 
-		<<link [[Next (<<print getTimeString(_timeCalc)>>)| Pregnancy Birth Prison 3]]>><<endevent>><<run beginPlayerBirth()>><<pass _timeCalc>><</link>>
+		<<link [[Next (<<print getTimeString(_timeCalc)>>)| Pregnancy Birth Prison 3]]>><<endevent>><<run setPlayerLitterBorn()>><<pass _timeCalc>><</link>>
 	<<case "wolf">>
 		<<methodical_guard 0 capo>> voice floats through the fog. "This is... unexpected. Non-human pregnancy. Focus..."
 		<br><br>
@@ -2107,7 +2107,7 @@ Another voice cuts through the haze. It sounds like <<anxious_guard 2>>. "I-I ca
 		The pain grows as time seems to rapidly speed up and slow down. You hear the words "breathe" and "push" many times, and you do your best to comply.
 		<br><br>
 
-		<<link [[Next (<<print getTimeString(_timeCalc)>>)| Pregnancy Birth Prison Wolf]]>><<endevent>><<run beginPlayerBirth()>><<pass _timeCalc>><</link>>
+		<<link [[Next (<<print getTimeString(_timeCalc)>>)| Pregnancy Birth Prison Wolf]]>><<endevent>><<run setPlayerLitterBorn()>><<pass _timeCalc>><</link>>
 <</switch>>
 
 :: Pregnancy Birth Prison 3
@@ -2202,7 +2202,7 @@ You awaken in the medical room. A smiling midwife stands beside your bed,
 	<br><br>
 <</if>>
 
-<<link [[Next|Pregnancy Birth Prison 5]]>><<storeon "prison_birth">><<pass 24 hour>><<stress -40>><</link>>
+<<link [[Next|Pregnancy Birth Prison 5]]>><<storeon "prison_birth">><<pass 24 hour>><<stress -40>><<set $tiredness to 0>><</link>>
 <br><br>
 
 :: Pregnancy Birth Prison 5
@@ -2322,7 +2322,7 @@ You awaken in another room. You hear faint whimpering. A smiling midwife stands 
 	<br><br>
 <</if>>
 
-<<link [[Next|Pregnancy Birth Prison Wolf 3]]>><<storeon "prison_birth">><<pass 24 hour>><<stress -40>><</link>>
+<<link [[Next|Pregnancy Birth Prison Wolf 3]]>><<storeon "prison_birth">><<pass 24 hour>><<stress -40>><<set $tiredness to 0>><</link>>
 <br>
 
 :: Pregnancy Birth Prison Wolf 3

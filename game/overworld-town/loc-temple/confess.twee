@@ -127,7 +127,7 @@ A <<personssimple>> voice greets you.
 	You share your doubts about the temple and its faith with <<him>>.
 <</if>>
 
-<<if _wraithEvent and $wraithIntro and !$daily.wraithConfess and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and $wraithIntro and !$daily.wraithConfess and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<pass 30>><<set $daily.wraithConfess to true>>
 	<br><br>
 	<<if $world_corruption_soft gte 100>>
@@ -181,6 +181,10 @@ A <<personssimple>> voice greets you.
 	<<link [[Leave|Temple]]>><<endconfessionself>><</link>>
 	<br>
 <<else>>
+	<<if _wraithEvent>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<He>> lends a patient ear all the while, saying nothing until you're finished.
 	<br><br>
 
@@ -1284,7 +1288,7 @@ You refuse and opt to leave the confessional. "You remain unforgiven," you hear 
 	<<set $sexstart to 0>>
 	<<consensual>>
 	<<set $consensual to 1>>
-	<<set $speechdisable to 1>>
+	<<set $speechDisable to 1>>
 	<<neutral 1>>
 	<<maninit>>
 	<<npcgloryhole>>
@@ -1463,7 +1467,7 @@ Jordan places a hand on your head. "You must use your best judgement to properly
 :: Temple Confess
 <<set $outside to 0>><<set $location to "temple">><<sydneySchedule>><<temple_effects>><<effects>><<rngWraith>>
 <<set $confessionsTaken = ($confessionsTaken || 0) + 1>>
-<<if _wraithEvent and $wraithIntro and !$weekly.wraithConfess and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and $wraithIntro and !$weekly.wraithConfess and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<set _wraithConfess to true>><<set $weekly.wraithConfess to true>><<set $attendant to "wraith">><<set _noOptions to true>>
 	You hear the other door open. Before you can greet your penitent, you feel a cold wind blow. It steals your breath.
 
@@ -1473,6 +1477,9 @@ Jordan places a hand on your head. "You must use your best judgement to properly
 	<br><br>
 
 	"Welcome. Lay your sins bare, so they may be forgiven," you say. You do your best to keep your voice even. When you go to light the incense, the flame flickers out no matter how many times you try.
+<<elseif _wraithEvent and $wraithIntro and !$weekly.wraithConfess>>
+	<<apotropaic>>
+	<br><br>
 <<else>>
 	You hear the other door open and greet your attendant.
 	"Welcome. Lay your sins bare, so they may be forgiven." You light the incense and do your best to speak outside your usual tone.
@@ -1713,7 +1720,7 @@ Jordan places a hand on your head. "You must use your best judgement to properly
 		`"Forgive me, <<sister>>. I stole some money that I found lying unattended at the local <<print either("spa","markets","cafe","arcade","pub")>>."`,
 		`"Forgive me, <<sister>>, for I have stolen from a <<print either("neighbour","friend","co-worker")>>. I... I felt like I deserved something more than they did. I was jealous."`,
 	]>>
-	<<if $settings.bestialityEnabled>>
+	<<if animalSexEnabledForType("cat") or animalSexEnabledForType("dog")>>
 		<<set _sinPoolRepent.push(
 			`"Forgive me, <<sister>>, for I've had impure thoughts about... my <<print either("","friend's","neighbour's")>> <<print either("dog","cat")>>."`,
 			`"Forgive me, <<sister>>, for I have sinned. I have lain with a beast as though it were a human."`,
@@ -2613,7 +2620,7 @@ Jordan places a hand on your head. "You must use your best judgement to properly
 
 :: Temple Confess Repent Orphan Tell
 <<temple_effects>><<effects>>
-<<if $syndromebailey>>
+<<if $syndromeBailey>>
 	<<if $speech_attitude is "meek">>
 		"I... I know who you mean," you say quietly. "But it's not as bad as you think. Bailey keeps a roof over our heads. That has to count for something."
 	<<elseif $speech_attitude is "bratty">>
@@ -3206,7 +3213,7 @@ You grab one of the pieces of paper and a pen from the stack and slip them throu
 		<<set $timer to 0>><<set $sydneyConfession.State to "exposed">>
 		<br><br>
 
-		<<link [[Next|Temple Confess Sydney Sex]]>><<set $speechdisable to 0>><</link>>
+		<<link [[Next|Temple Confess Sydney Sex]]>><<set $speechDisable to 0>><</link>>
 		<br>
 	<<else>>
 		<<set _sydtext to "Sydney">>
@@ -3340,7 +3347,7 @@ You grab one of the pieces of paper and a pen from the stack and slip them throu
 	<</switch>>
 	<br><br>
 
-	<<link [[Next|Temple Confess Sydney Sex]]>><<set $speechdisable to 0>><</link>>
+	<<link [[Next|Temple Confess Sydney Sex]]>><<set $speechDisable to 0>><</link>>
 	<br>
 <<else>>
 	<<set $enemyanger to -10>>
@@ -3370,7 +3377,7 @@ You grab one of the pieces of paper and a pen from the stack and slip them throu
 		<<set $sydneyConfession.Attendant to either("sinner_1", "sinner_2", "sinner_3")>>
 		<<set $sydneyConfession.Pronoun to ($rng lte maleChance() ? "m" : "f")>>
 		<<set $sydneyConfession.State to "present">>
-		<<set $speechdisable to 1>>
+		<<set $speechDisable to 1>>
 		<span class="red">The other door opens.</span> You both freeze, and Sydney covers <<his>> mouth.
 		<br><br>
 		<<set _sydtext to "Sydney">>
@@ -3442,7 +3449,7 @@ You grab one of the pieces of paper and a pen from the stack and slip them throu
 		<<if $sydneyConfession.Sound gte 3>>
 			<span class="red"><<if $sydneyConfession.Pronoun is "m">>He<<else>>She<</if>> gasps in indignation, realising what you're doing.</span> "Fucking perverts!"
 			<<if $sydneyConfession.Pronoun is "m">>He<<else>>She<</if>> flees the confessional. <<grace -4>><<llgrace>>
-			<<set $timer to 0>><<set $sydneyConfession.State to "exposed">><<set $speechdisable to 0>>
+			<<set $timer to 0>><<set $sydneyConfession.State to "exposed">><<set $speechDisable to 0>>
 		<<else>>
 			The penitent speaks.
 			<<switch $sydneyConfession.Attendant>>
@@ -3466,7 +3473,7 @@ You grab one of the pieces of paper and a pen from the stack and slip them throu
 		<<if $sydneyConfession.Sound gte 3>>
 			<span class="red"><<if $sydneyConfession.Pronoun is "m">>He<<else>>She<</if>> gasps in indignation, realising what you're doing.</span> "Fucking perverts!"
 			<<if $sydneyConfession.Pronoun is "m">>He<<else>>She<</if>> flees the confessional. <<grace -4>><<llgrace>>
-			<<set $timer to 0>><<set $sydneyConfession.State to "exposed">><<set $speechdisable to 0>>
+			<<set $timer to 0>><<set $sydneyConfession.State to "exposed">><<set $speechDisable to 0>>
 		<<else>>
 			The penitent speaks.
 			<<switch $sydneyConfession.Attendant>>
@@ -3860,7 +3867,7 @@ Doubts assail you,
 	<<set $sexstart to 0>>
 	<<consensual>>
 	<<set $consensual to 1>>
-	<<set $speechdisable to 1>>
+	<<set $speechDisable to 1>>
 	<<neutral 1>>
 	<<maninit>>
 	<<npcgloryhole>>

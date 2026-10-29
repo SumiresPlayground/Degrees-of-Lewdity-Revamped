@@ -1,6 +1,6 @@
 /* ================================================================
 BAILEY + EDEN LAKE ENCOUNTER - Once a week
-Fires when $syndromeeden >= 1, $syndromebaileybuild >= 1,
+Fires when $syndromeeden >= 1, $syndromeBaileyBuild >= 1,
 the time is 11:00–13:59, and a 20% roll passes ($rng >= 81). 
 ================================================================ */
 
@@ -8,7 +8,7 @@ the time is 11:00–13:59, and a 20% roll passes ($rng >= 81).
 <<effects>>
 <<npc Bailey>><<person1>>
 
-<<if !$baileySeen?.includes("edenLakeSeen")>>
+<<if !$baileySeen.includes("edenLakeSeen")>>
 	You see two figures at the water's edge.
 	<br><br>
 
@@ -21,11 +21,11 @@ the time is 11:00–13:59, and a 20% roll passes ($rng >= 81).
 	Neither is talking. Eden stares at <<nnpc_his "Eden">> line. Bailey reels in a catch. <<He>> unhooks it without looking and drops it in a freezer. Eden's jaw tightens.
 	<br><br>
 
-	Bailey casts again. The line hits the water, causing lotus flowers to drift away. <<if $bailey_lure_received>><span class="blue">You recognize Bailey's lure.</span> It's the snake-shaped fishing lure you gave <<him>> for Christmas.<</if>>
+	Bailey casts again. The line hits the water, causing lotus flowers to drift away. <<if $baileySeen.includes("lure")>><span class="blue">You recognize Bailey's lure.</span> It's the snake-shaped fishing lure you gave <<him>> for Christmas.<</if>>
 	<br><br>
 
 
-	<<if $renttime lte 0>>
+	<<if $rentTime lte 0>>
 		<span class="red">Rent is due.</span>
 		<br><br>
 	<</if>>
@@ -42,7 +42,7 @@ the time is 11:00–13:59, and a 20% roll passes ($rng >= 81).
 	Eden seems to be struggling to catch anything while Bailey reels a catch in leisurely.
 	<br><br>
 
-	<<if $renttime lte 0>>
+	<<if $rentTime lte 0>>
 		<span class="red">Rent is due.</span>
 		<br><br>
 	<</if>>
@@ -107,13 +107,13 @@ You crouch behind a tree and hide. The bark feels rough against your palms.
 	<<link [[Leave quietly|Bailey Eden Lake Watch Leave]]>><</link>><<set $skulduggerydifficulty to 700>><<skulduggerydifficulty>>
 	<br>
 <<else>>
-	<span class="red">Something snaps under your feet.</span> Both heads turn.<<if $wolf gte 4 or $cat gte 4 or $fox gte 4>> Your <<= $wolf gte 4 ? "wolf" : ($cat gte 4 ? "cat" : "fox")>> ears flatten. Too late.<<elseif $harpy gte 4>> Your feathers ruffle. Too late.<<elseif $cow gte 4>> Your cow ears twitch. Too late.<</if>>
+	<span class="red">Something snaps under your feet.</span> Both heads turn.<<if $wolfgirl gte 4 or $cat gte 4 or $fox gte 4>> Your <<= $wolfgirl gte 4 ? "wolf" : ($cat gte 4 ? "cat" : "fox")>> ears flatten. Too late.<<elseif $harpy gte 4>> Your feathers ruffle. Too late.<<elseif $cow gte 4>> Your cow ears twitch. Too late.<</if>>
 	<br><br>
 
 	Eden's hand finds <<nnpc_his "Eden">> rifle. Bailey turns back to reeling in <<his>> catch.
 	<br><br>
 
-	<<if $renttime lte 0>>
+	<<if $rentTime lte 0>>
 		<<link [[Next|Bailey Eden Lake Caught]]>><</link>>
 	<<else>>
 		<<link [[Next|Bailey Eden Lake Confrontation]]>><</link>>
@@ -153,7 +153,7 @@ You start to leave. The trees are right behind you, just a few steps away.
 	Bailey hasn't turned to look at you. <<His>> line is still in the water. <<He>> reels it in, slowly, and sets the rod down.
 	<br><br>
 
-	<<if $renttime lte 0>>
+	<<if $rentTime lte 0>>
 		<<link [[Next|Bailey Eden Lake Solo Rent]]>><</link>>
 	<<else>>
 		<<link [[Next|Bailey Eden Lake Solo Talk]]>><</link>>
@@ -175,11 +175,12 @@ Bailey stands. <<He>> shoulders the rod.
 <<He>> holds out <<his>> hand. "Pay up."
 <br><br>
 
-<<if $money gte $rentmoney + ($babyRent || 0)>>
+<<bratTaxCalc>>
+<<if $money gte $rentMoney + ($babyRent || 0) + $baileyBratTax>>
 	<<link [[Pay|Bailey Eden Lake Solo Pay]]>><</link>>
 	<br>
 <</if>>
-<<if $syndromebaileybuild gte 1 and $money gte $rentmoney + ($babyRent || 0)>>
+<<if $syndromeBaileyBuild gte 1 and $money gte $rentMoney + ($babyRent || 0) + $baileyBratTax>>
 	<span class="red bailey-stockholm"><<link [[Offer yourself|Bailey Eden Lake Solo Offer]]>><</link>></span>
 	<br>
 <</if>>
@@ -194,7 +195,7 @@ Bailey stands. <<He>> shoulders the rod.
 You hand over the money.
 <br><br>
 
-<<rentpay>><<set $renttime to 7>><<set $rentday to Time.weekDay>>
+<<rentpay>><<set $rentTime to 7>><<set $rentDay to Time.weekDay>>
 
 <<He>> nods towards the tree line, towards town. "Go home, brat."
 <br><br>
@@ -222,7 +223,7 @@ You're alone at the lake. Lotus flowers drift across the surface.
 <</if>>
 <br><br>
 
-<<rentpay>><<set $renttime to 7>><<set $rentday to Time.weekDay>>
+<<rentpay>><<set $rentTime to 7>><<set $rentDay to Time.weekDay>>
 
 Bailey looks between you and the trees where Eden left. "Wait here."
 <br><br>
@@ -233,7 +234,7 @@ Bailey looks between you and the trees where Eden left. "Wait here."
 Eden comes back through the trees. <<nnpc_He "Eden">> is carrying the freezer in one hand and <<nnpc_his "Eden">> rifle in the other. <<nnpc_He "Eden">> stops when <<nnpc_he "Eden">> sees you.
 <br><br>
 
-Bailey gestures towards you with a flick of <<his>> wrist. "Take this one too."<<if $bailey_offered is undefined>><<set $bailey_offered to 0>><</if>><<if $bailey_offered is 0>><<npcincr Bailey dom 3>><<gdom "Bailey">><<npcincr Bailey love 3>><<glove "Bailey">><<set $syndromebaileybuild += 1>><<set $stockholm_points.eden to true>><<gbaileystock>><<else>><<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love 1>><<glove "Bailey">><</if>><<set $bailey_offered += 1>>
+Bailey gestures towards you with a flick of <<his>> wrist. "Take this one too."<<if $baileyOffered is 0>><<npcincr Bailey dom 3>><<gdom "Bailey">><<npcincr Bailey love 3>><<glove "Bailey">><<set $syndromeBaileyBuild += 1>><<set $baileyStockholmPoints.eden to true>><<gbaileystock>><<else>><<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love 1>><<glove "Bailey">><</if>><<set $baileyOffered += 1>>
 <br><br>
 
 <<if edenFreedomStatus() is 0>>
@@ -316,8 +317,8 @@ Bailey's eyes don't leave yours as Eden drags you away to <<nnpc_his "Eden">> ca
 	<<link [[Next|Forest]]>><<endevent>><</link>>
 	<br>
 <<elseif $stalk_end is "ambush">>
-	<<set _physique_topple to random(2000, 18000)>>
-	<<if $physique gte _physique_topple>>
+	<<set _physiqueTopple to random(2000, 18000)>>
+	<<if $physique gte _physiqueTopple>>
 		<<endcombat>>
 		<<npc Bailey>><<person1>>
 		You end up on top of <<him>>. <<He>> looks annoyed with you. <<His>> chest rises and falls evenly under your palm.
@@ -371,7 +372,7 @@ Eden comes back through the trees. <<nnpc_He "Eden">> is carrying the freezer in
 <br><br>
 
 Bailey's jaw is tight as <<he>> nods towards you. "Take this one too."<<npcincr Bailey dom 1>><<gdom "Bailey">><<npcincr Bailey love -1>><<llove "Bailey">><<stress 6>><<gstress>>
-<<set $renttime to 7>><<set $rentday to Time.weekDay>>
+<<set $rentTime to 7>><<set $rentDay to Time.weekDay>>
 <br><br>
 
 <<if edenFreedomStatus() is 0>>
@@ -457,7 +458,7 @@ You sit on the log next to Bailey. The bark is warm to the touch.
 <br><br>
 
 Bailey casts <<his>> line. You watch the lotus flowers part around it.
-<<if $bailey_lure_received>>
+<<if $baileySeen.includes("lure")>>
 	The snake lure breaks the surface. You watch it sink.
 <</if>>
 <br><br>
@@ -668,7 +669,7 @@ Bailey keeps reeling in <<his>> line. Slowly, <<he>> looks over <<his>> shoulder
 
 <<baileySeenAdd "edenLakeApproach">>
 
-<<if $renttime lte 0>>
+<<if $rentTime lte 0>>
 	<<link [[Next|Bailey Eden Lake Caught]]>><</link>>
 <<else>>
 	<<link [[Next|Bailey Eden Lake Confrontation]]>><</link>>
@@ -692,7 +693,7 @@ Eden steps towards you.
 <</if>>
 <br><br>
 
-<<if $renttime lte 0>>
+<<if $rentTime lte 0>>
 	Bailey remarks behind <<nnpc_him "Eden">>, "This one owes me rent."
 	<br><br>
 	<<link [[Next|Bailey Eden Lake Caught]]>><</link>>
@@ -722,7 +723,7 @@ Eden steps towards you.
 		"You lost your collar." <<nnpc_He "Eden">> notes, disappointed.
 		<br><br>
 
-		<<if $syndromebailey>>
+		<<if $syndromeBailey>>
 			"Lost mine too." Bailey eyes your neck and scoffs. "And mine costs more."
 			<br><br>
 		<</if>>
@@ -731,7 +732,7 @@ Eden steps towards you.
 		<<npcincr Eden lust 1>><<glust "Eden">><<npcincr Eden dom 1>><<gdom "Eden">>
 		<br><br>
 
-		<<if $syndromebailey>>
+		<<if $syndromeBailey>>
 			Bailey glances at your neck before giving Eden a level stare.
 			<<npcincr Bailey dom -1>><<ldom "Bailey">>
 			<br><br>
@@ -740,7 +741,7 @@ Eden steps towards you.
 		Eden's eyes drop to your neck. <<nnpc_He "Eden">> frowns at the familiar collar. "The witch marked you."
 		<br><br>
 
-		<<if $syndromebailey>>
+		<<if $syndromeBailey>>
 			Bailey eyes your neck too. "<<pShe>>'s in over <<pher>> head."
 			<br><br>
 		<</if>>
@@ -748,7 +749,7 @@ Eden steps towards you.
 		"Whose collar is that?" Eden barks.
 		<br><br>
 
-		<<if $syndromebailey>>
+		<<if $syndromeBailey>>
 			Bailey glances at your neck. <<He>> seems amused. "No one important."
 			<br><br>
 		<</if>>
@@ -756,13 +757,13 @@ Eden steps towards you.
 		"Where's your collar?" <<nnpc_He "Eden">> frowns at you.
 		<br><br>
 
-		<<if $syndromebailey>>
+		<<if $syndromeBailey>>
 			Bailey exhales, "<<pShe>> has a habit of losing them."
 			<br><br>
 		<</if>>
 	<</if>>
 
-	<<if $syndromebailey>>
+	<<if $syndromeBailey>>
 		<<link [[Next|Bailey Eden Lake Stockholm]]>><</link>>
 	<<else>>
 		<<link [[Next|Bailey Eden Lake No Stockholm]]>><</link>>
@@ -915,7 +916,7 @@ Bailey turns to you now. <<His>> hand circles your arm.
 <<person1>>
 
 Bailey escorts you through the woods, one hand around your arm, the other holding <<his>> fishing rod against <<his>> shoulder.
-<<if $bailey_lure_received>>
+<<if $baileySeen.includes("lure")>>
 	The snake-shaped fishing lure bounces as <<he>> walks.
 <</if>>
 <br><br>
@@ -923,7 +924,7 @@ Bailey escorts you through the woods, one hand around your arm, the other holdin
 <<He>> walks at a quick pace towards town. You have to work to keep up without tripping.
 <br><br>
 
-"Don't go into the forests unprepared." Bailey says to you. <<He>>'s not looking at you. <<He>>'s looking at the trees ahead. "Something or the other will try to hunt you down."
+"Don't go into the forests unprepared," Bailey says to you. <<He>>'s not looking at you. <<He>>'s looking at the trees ahead. "Something or the other will try to hunt you down."
 <br><br>
 
 Once you reach the edge of town, <<he>> lets go of your arm. <<He>> glances at you. <<pass 30>>
@@ -1038,7 +1039,7 @@ The corner of Bailey's lip twitches. "Sure. Take <<pher>>. <<pShe>> will just be
 <<effects>>
 <<person1>>
 
-"You need to pay up." Bailey says to you, taking a step towards you before Eden stops <<him>> with a hand on <<his>> shoulder.
+"You need to pay up," Bailey says to you, taking a step towards you before Eden stops <<him>> with a hand on <<his>> shoulder.
 <br><br>
 
 "Give <<pher>> to me." Eden turns to Bailey.
@@ -1198,6 +1199,6 @@ Bailey nods. <<He>> shoulders <<his>> fishing rod and turns around, heading into
 Eden stays quiet. <<nnpc_He "Eden">> stares at Bailey until <<he>> fades into the trees, then <<nnpc_he "Eden">> sets <<nnpc_his "Eden">> attention on you.
 <br><br>
 
-<<set $renttime to 7>><<set $rentday to Time.weekDay>>
+<<set $rentTime to 7>><<set $rentDay to Time.weekDay>>
 <<link [[Next|Bailey Eden Lake Eden Takes You]]>><</link>>
 <br>

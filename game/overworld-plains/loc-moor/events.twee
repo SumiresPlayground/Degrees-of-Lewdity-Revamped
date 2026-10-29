@@ -356,7 +356,7 @@ The creatures disappear into the mire.
 
 
 :: Moor Quicksand
-<<effects>><<rngWraith 1>><<if _wraithEvent and !$worn.face.type.includes("apotropaic")>><<set $quicksandWraith to true>><</if>>
+<<effects>><<rngWraith 1>><<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>><<set $quicksandWraith to true>><</if>>
 <<if $quicksandWraith>><<if $wraith.state is "haunt">><<set _drown to "Drown">><<else>><<set _drown to "Calm">><</if>><<ind>><<ind>><<ind>><span class="wraith-flicker">_drown</span><br><</if>>
 
 You are up to your
@@ -957,7 +957,7 @@ You enter the passage. It's dark, but small holes in the ceiling let in a little
 	<<link [[Walk around (0:30)|Moor Passage Walk]]>><<pass 30>><</link>>
 	<br>
 <<else>>
-	<<if $settings.bestialityEnabled and $settings.lurkersEnabled>>
+	<<if $settings.lurkersEnabled>>
 		<span class="red">You hear a scurrying up ahead.</span> It draws closer.
 		<br><br>
 
@@ -1058,7 +1058,7 @@ You examine the ring. A black gemstone sits surrounded by engravings of what app
 
 
 
-<<if _wraithEvent and !$worn.face.type.includes("apotropaic")>>
+<<if _wraithEvent and !$worn.face.type.includes("apotropaic") and !$worn.over_upper.type.includes("apotropaic") and !$worn.over_lower.type.includes("apotropaic") and !$worn.over_head.type.includes("apotropaic") and !$worn.under_lower.type.includes("apotropaic") and !$worn.under_upper.type.includes("apotropaic")>>
 	<<generateWraith 1>><<initWraith>><<rainWraith>>
 	"<span class="wraith">Graverobber.</span>"
 	<br><br>
@@ -1070,6 +1070,10 @@ You examine the ring. A black gemstone sits surrounded by engravings of what app
 	<br><br>
 	<<link [[Next|Wraith Moor Ring]]>><</link>>
 <<else>>
+	<<if _wraithEvent>>
+		<<apotropaic>>
+		<br><br>
+	<</if>>
 	<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
 <</if>>
 <br>
@@ -2111,7 +2115,7 @@ You turn and walk the way you came, until you find an alternative path. This one
 
 You continue your journey.
 <<beastNEWinit 3 cat>>
-<<if $rng gte 51 and ($settings.bestialityEnabled or $monster is 1)>>
+<<if $rng gte 51 and beastSexEnabledForType("cat", $monster is 1)>>
 	<<outfitChecks>>
 	It's just a feeling, after all.
 	<br><br>
@@ -3042,7 +3046,7 @@ You look down at the shackles now locked around your ankles; you could try to fr
 <<set $location to "moor">><<set $outside to 1>><<effects>>
 
 You shake your head.
-<<if $rng gte 76 and $settings.bestialityEnabled and $settings.lurkersEnabled>>
+<<if $rng gte 76 and $settings.lurkersEnabled>>
 	"Damn, tough break," the <<person>> sighs. "Well, plan B. <<pShes>> all yours."
 	<br><br>
 
@@ -3961,7 +3965,7 @@ You feel the youths leering at your <<bottom>> as you do.
 	<</if>>
 	<br><br>
 
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<link [[Next|Moor Fox Rape]]>><<set $molestationstart to 1>><<set $position to "doggy">><<set $NPCList[0].stance to "top">><</link>>
 	<<else>>
 		After a brief struggle, you manage to scramble to your feet and flee.<<beastescape>>
@@ -3976,7 +3980,7 @@ You feel the youths leering at your <<bottom>> as you do.
 <<effects>>
 <<if $physiqueSuccess>>
 	<<if $monster is 1>>
-		You turn to face your assailant, planting your feet and raising your arms in a defensive posture just in time to intercept <<if $NPCList[0].skincolour is "black">>an ebony<<else>>a pale<</if>> blur leaping at you from the bushes.
+		You turn to face your assailant, planting your feet and raising your arms in a defensive posture just in time to intercept <<if $NPCList[0].skincolour gte 70>>an ebony<<else>>a pale<</if>> blur leaping at you from the bushes.
 		You wrap your arms around it, twist to the side, and release. It crashes to the ground several metres away.
 	<<else>>
 		You turn to face your assailant, planting your feet and raising your arms in a defensive posture just in time to intercept a reddish-brown blur leaping at you from the bushes.
@@ -3992,7 +3996,7 @@ You feel the youths leering at your <<bottom>> as you do.
 	<br>
 <<else>>
 	<<if $monster is 1>>
-		You turn to face your assailant, planting your feet and raising your arms in a defensive posture just in time to intercept <<if $NPCList[0].skincolour is "black">>an ebony<<else>>a pale<</if>> blur leaping at you from the bushes.
+		You turn to face your assailant, planting your feet and raising your arms in a defensive posture just in time to intercept <<if $NPCList[0].skincolour gte 70>>an ebony<<else>>a pale<</if>> blur leaping at you from the bushes.
 		You attempt to grab the blur in order to redirect its momentum, but you're not quite quick enough. The resulting full-force collision overwhelms your balance, knocking you head-over-heels onto the forest floor.
 		<br><br>
 
@@ -4013,7 +4017,7 @@ You feel the youths leering at your <<bottom>> as you do.
 	<</if>>
 	<br><br>
 
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<link [[Next|Moor Fox Rape]]>><<set $molestationstart to 1>><<set $position to "doggy">><<set $NPCList[0].stance to "top">><</link>>
 	<<else>>
 		After a brief struggle, you manage to scramble to your feet and flee.<<beastescape>>
@@ -4055,7 +4059,7 @@ You feel the youths leering at your <<bottom>> as you do.
 	<</if>>
 	<br><br>
 
-	<<if $monster is 1 or $settings.bestialityEnabled>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<link [[Next|Moor Fox Rape]]>><<set $molestationstart to 1>><<set $position to "doggy">><<set $NPCList[0].stance to "top">><</link>>
 	<<else>>
 		After a brief struggle, you manage to scramble to your feet and flee.<<beastescape>>
@@ -4095,7 +4099,7 @@ You slowly hold out your hands toward the <<beasttype>>, doing your best to appe
 	<</if>>
 	<br><br>
 
-	<<if $settings.bestialityEnabled or $monster is 1>>
+	<<if beastSexEnabledForType("fox", $monster is 1)>>
 		<<if hasSexStat("deviancy", 3)>>
 			<<link [["Pet" <<bhim>>|Moor Fox Deviant Pet]]>><<transform fox 1>><</link>><<deviant3>>
 		<<else>>
@@ -4726,7 +4730,7 @@ You slowly hold out your hands toward the <<beasttype>>, doing your best to appe
 	<<else>>
 		<<bHis>> movements are too much for you to handle, causing you to lose balance. <span class="red">You fall down onto the ground</span>
 
-		<<if ($settings.bestialityEnabled or $monster is 1) and $settings.horsesEnabled>>
+		<<if beastSexEnabledForType("horse", $monster is 1)>>
 			as the <<beasttype>> stands over you.<<pain 4>><<gpain>>
 			<br><br>
 
@@ -4764,7 +4768,7 @@ You slowly hold out your hands toward the <<beasttype>>, doing your best to appe
 		<<stress 6>><<gstress>>
 		<br><br>
 
-		<<if ($settings.bestialityEnabled or $monster is 1) and $settings.horsesEnabled>>
+		<<if beastSexEnabledForType("horse", $monster is 1)>>
 			<<link [[Next|Moor Horse Rape]]>><<set $molestationstart to 1>><</link>>
 			<br>
 		<<else>>
@@ -5037,7 +5041,7 @@ With some care, you manage to hold on and balance on <<bhis>> back.
 :: Moor Horse Riding Failure
 <<effects>>
 
-<<if dangerEvent() and ($settings.bestialityEnabled or $monster is 1) and $settings.horsesEnabled>>
+<<if dangerEvent() and beastSexEnabledForType("horse", $monster is 1)>>
 	The <<beasttype>> takes advantage of your position, and mounts you.
 	<br><br>
 
@@ -5209,211 +5213,27 @@ After a while, the <<beasttype>> backs off and <<if $monster is 1>>looks<<else>>
 <<link [[Groom (0:05)|Moor Bird Screech Stroke]]>><<transform bird 1>><<pass 5>><<stress -6>><<trauma -6>><</link>><<ltrauma>><<lstress>>
 <br>
 
-:: Moor Dragons Detour
+:: Moor Pumpkin
 <<effects>>
 
-You turn and walk down an alternate path. This one isn't quite so scary.
-<br><br>
-
-<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
-<br>
-
-:: Moor Dragons Continue
-<<effects>>
-You continue your journey.
-
-<<if $rng gte 100>>
-	<<beastNEWinit 3 dragon>>
-	It's just a feeling, after all.
+<<if $tendingSuccess>>
+	<<wearProp "pumpkin">>
+	You pull the pumpkin from its vine. <span class="green">It's big and ripe.</span>
+	<<tending_pick pumpkin 1 1>>
 	<br><br>
-	You hear the stomping of feet behind you. You turn, and face a pair of red eyes. You hear more feet. You're surrounded.
-	<br><br>
-	<<if $monster is 1>>
-		A <<beasttype 0>> tackles you, <span class="purple">pinning you to the ground.</span> "I'm glad you're here," <<bhe 0>> says. "Such a boring day." <<bHe 0>> leaps away instead of pressing the attack. You rise to your feet, and get pinned by <<bhis 0>> friend.
-		<br>
-	<<else>>
-		A large dragon tackles you, <span class="purple">pinning you to the ground.</span> It growls at you a moment, but then backs away. You rise to your feet, only to be tackled by a second dragon.
-		<br>
+
+	<<if !$plants_known.includes("pumpkin")>>
+		You spy seeds on the ground. They haven't sprouted, but they look healthy. <span class="gold">You can now grow <<foodstufficon "pumpkin">> pumpkins.</span><<set $plants_known.push("pumpkin")>>
+		<br><br>
 	<</if>>
-	<<link [[Fight|Moor Dragons Rape]]>><<set $phase to 0>><<set $molestationstart to 1>><</link>>
-	<br>
-	<<link [[Submit|Moor Dragons Rape]]>><<set $phase to 1>><<set $molestationstart to 1>><</link>>
-	<br>
-<<elseif $rng gte 95>>
-	<<beastNEWinit 1 dragon>>
-	It's just a feeling, after all.
-	<br><br>
-	You hear the stomping of feet behind you. You turn, and face a pair of red eyes.
-	<br><br>
-	<<if $monster is 1>>
-		A <<beasttype>> tackles you, <span class="purple">pinning you to the ground.</span> "I'm glad you're here," <<bhe>> says. "Such a boring day."
-		<br>
-	<<else>>
-		A large dragon tackles you, <span class="purple">pinning you to the ground.</span>
-		<br>
-	<</if>>
-	<<link [[Fight|Moor Dragon Rape]]>><<set $phase to 0>><<set $molestationstart to 1>><</link>>
-	<br>
-	<<link [[Submit|Moor Dragon Rape]]>><<set $phase to 1>><<set $molestationstart to 1>><</link>>
-	<br>
-<<else>>
-	It's just a feeling, after all, and you soon leave it behind.
-	<br><br>
 
 	<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
 	<br>
-<</if>>
-
-:: Moor Dragons Rape
-<<if $molestationstart is 1>>
-	<<set $molestationstart to 0>>
-	<<controlloss>>
-	<<violence 1>>
-	<<neutral 1>>
-	<<molested>>
-	<<beastCombatInit>>
-
-	<<beastTrainGenerate>>
-	<<if $phase is 1>>
-		<<if $NPCList[0].penis isnot "none">>
-			You remain on your knees as the <<beasttype 0>> mounts you.
-			<<set $position to "doggy">><<set $NPCList[0].stance to "top">>
-		<<else>>
-			The <<beasttype 0>> flips you onto your back, and mounts you.
-			<<set $position to "missionary">><<set $NPCList[0].stance to "top">>
-		<</if>>
-	<<else>>
-		You kick the <<beasttype 0>> away from you. <<bHe 0>> hisses.
-		<<set $enemyanger += 30>><<set $enemyhealth -= 100>>
-	<</if>>
-<</if>>
-<<effects>>
-<<effectsman>>
-<br>
-<<beast $enemyno>>
-<br><br>
-<<stateman>>
-<br><br>
-<<actionsman>>
-<<if $enemyarousal gte $enemyarousalmax>>
-	<span id="next"><<link [[Next|Moor Dragons Rape End]]>><</link>></span><<nexttext>>
-<<elseif $enemyhealth lte 0>>
-	<span id="next"><<link [[Next|Moor Dragons Rape End]]>><</link>></span><<nexttext>>
 <<else>>
-	<span id="next"><<link [[Next|Moor Dragons Rape]]>><</link>></span><<nexttext>>
-<</if>>
+	You try to pull the pumpkin from its vine, but it's stuck. You pull a bit too hard, hurling it a distance. <span class="red">It explodes on impact.</span>
+	<<gtending>><<tending 2>>
+	<br><br>
 
-:: Moor Dragons Rape End
-<<effects>>
-<<if $enemyhealth lte 0>>
-	<<beastwound>>
-	<<if $combatTrain.length gt 0>>
-		The <<beasttype>> recoils in pain and fear, but another is eager for a go.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Moor Dragons Rape]]>><<set $finish to 1>><</link>>
-	<<else>>
-		The <<beasttype>> recoils in pain and fear.
-		<br><br>
-		<<tearful>> you struggle to your feet.
-		<br><br>
-		<<clotheson>>
-		<<endcombat>>
-		<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
-		<br>
-	<</if>>
-<<elseif $enemyarousal gte $enemyarousalmax>>
-	<<beastejaculation>>
-	<<if $combatTrain.length gt 0>>
-		Satisfied, the <<beasttype>> moves and another takes its turn.
-		<<combatTrainAdvance>>
-		<br><br>
-		<<link [[Next|Moor Dragons Rape]]>><<set $finish to 1>><</link>>
-	<<else>>
-		Satisfied, the <<beasttype>> moves away from you.
-		<br><br>
-		<<tearful>> you struggle to your feet.
-		<br><br>
-		<<clotheson>>
-		<<endcombat>>
-		<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
-		<br>
-	<</if>>
-<<else>>
-	<<tearful>> you struggle to your feet.
-	<br><br>
-	<<clotheson>>
-	<<endcombat>>
-	<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
-	<br>
-<</if>>
-
-:: Moor Dragon Rape
-<<if $molestationstart is 1>>
-	<<set $molestationstart to 0>>
-	<<controlloss>>
-	<<violence 1>>
-	<<neutral 1>>
-	<<molested>>
-	<<beastCombatInit>>
-
-	<<beastTrainGenerate>>
-	<<if $phase is 1>>
-		<<if $NPCList[0].penis isnot "none">>
-			You remain on your knees as the <<beasttype>> mounts you.
-			<<set $position to "doggy">><<set $NPCList[0].stance to "top">>
-		<<else>>
-			The <<beasttype>> flips you onto your back, and mounts you.
-			<<set $position to "missionary">><<set $NPCList[0].stance to "top">>
-		<</if>>
-	<<else>>
-		You kick the <<beasttype>> away from you. <<bHe>> hisses.
-		<<set $enemyanger += 30>><<set $enemyhealth -= 100>>
-	<</if>>
-<</if>>
-<<effects>>
-<<effectsman>>
-<br>
-<<beast $enemyno>>
-<br><br>
-<<stateman>>
-<br><br>
-<<actionsman>>
-<<if $enemyarousal gte $enemyarousalmax>>
-	<span id="next"><<link [[Next|Moor Dragon Rape End]]>><</link>></span><<nexttext>>
-<<elseif $enemyhealth lte 0>>
-	<span id="next"><<link [[Next|Moor Dragon Rape End]]>><</link>></span><<nexttext>>
-<<else>>
-	<span id="next"><<link [[Next|Moor Dragon Rape]]>><</link>></span><<nexttext>>
-<</if>>
-
-:: Moor Dragon Rape End
-<<effects>>
-<<if $enemyhealth lte 0>>
-	<<beastwound>>
-	The <<beasttype>> recoils in pain and fear.
-	<br><br>
-	<<tearful>> you struggle to your feet.
-	<br><br>
-	<<clotheson>>
-	<<endcombat>>
-	<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
-	<br>
-<<elseif $enemyarousal gte $enemyarousalmax>>
-	<<beastejaculation>>
-	Satisfied, the <<beasttype>> moves away from you.
-	<br><br>
-	<<tearful>> you struggle to your feet.
-	<br><br>
-	<<clotheson>>
-	<<endcombat>>
-	<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
-	<br>
-<<else>>
-	<<tearful>> you struggle to your feet.
-	<br><br>
-	<<clotheson>>
-	<<endcombat>>
 	<<link [[Next|Moor]]>><<set $eventskip to 1>><</link>>
 	<br>
 <</if>>

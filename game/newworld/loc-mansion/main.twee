@@ -1,5 +1,5 @@
 :: Mansion Cemetery
-<<location "abandoned_mansion">>
+<<location "abandoned_mansion">><<set $bus to "abandoned_mansion">>
 <<if $phase is 1>>
 	The ever denser woods at once give way, opening onto large, rusted gates. Whatever lock holds them shut has long since fallen apart, allowing you entry. Behind them lies an old cemetery and an even older, decrepit manor. 
 	<br><br>
@@ -20,6 +20,10 @@
 	<br>
 	<<abandonedmanoricon>><<link [[Approach the Old Manor (0:10)|Forest Mansion Explore]]>><<pass 10>><</link>>
 	<br>
+	<<if $TaylorWith is 0 and V.transformationParts.dragon.wings is "default">>
+		<<dragonwingsicon>><<link [[Fly somewhere|Fly]]>><</link>>
+		<br>
+	<</if>>
 	<<link [[Leave (0:10)|Forest]]>><<pass 10>><</link>>
 
 :: Honeysuckle Seeds
@@ -134,10 +138,6 @@ Picking the corpse for what value it holds, you end up with a fistful of expensi
 		<<link [[Look around (0:30)|Forest Mansion Look Around]]>><</link>>
 	<</if>>
 	<br>
-	<<if $TaylorWith is 0 and V.transformationParts.dragon.wings is "default">>
-		<<dragonwingsicon>><<link [[Fly somewhere|Fly]]>><</link>>
-		<br>
-	<</if>>
 	<<link [[Go back (0:10)|Mansion Cemetery]]>><<pass 10>><</link>>
 <</if>>
 
@@ -575,7 +575,7 @@ You snuggle under the covers.
 
 	<<link [[Next|Forest Mansion Sleep Rape]]>><<set $molestationstart to 1>><</link>>
 	<br>
-<<elseif ($ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 0 and $rng lte 10 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled) or ($ghost is 0 and $slime is 0 and $mushroom is 0 and $exorcised is 1 and $rng lte 15 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled and !$worn.face.name.includes("apotropaic"))>>
+<<elseif ($ghost is 0 and $slime is 0 and $mushroom is 0 and $dollstate is 0 and $exorcised is 0 and $rng lte 10 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled) or ($ghost is 0 and $slime is 0 and $mushroom is 0 and $dollstate is 0 and $exorcised is 1 and $rng lte 15 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled and !$worn.face.name.includes("apotropaic"))>>
 	You rest your head on the pillow and drift off to sleep. You don't get a very good rest, constantly interrupted by chills in the night. When you finally wake up proper, you sit up and stretch before getting out of bed.
 	<br><br>
 	…Though, as you get ready for the day, something feels… off. You place a hand on your temple, wondering if it's sickness, but feel nothing at all. You panic, rushing to the mirror to find yourself completely changed.

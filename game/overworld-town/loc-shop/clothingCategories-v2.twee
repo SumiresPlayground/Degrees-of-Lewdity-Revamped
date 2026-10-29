@@ -59,6 +59,42 @@
 	</div>
 <</widget>>
 
+<<widget "OverBottomShop">>
+	<<set $outside to 0>><<effects>>
+
+	<<if $clothes_choice and $clothes_choice_previous>>
+		<<if $clothes_choice is $clothes_choice_previous>>
+			<<shopbuyv2 "over_lower">>
+		<<else>>
+			<<shopbuyv2 "over_lower" "reset">>
+		<</if>>
+	<<else>>
+		<<shopbuyv2 "over_lower" "reset">>
+	<</if>>
+
+	<div id="clothes-list" class="clothes-list">
+		<<clothingShopv2 $shopName "over_lower">>
+	</div>
+<</widget>>
+
+<<widget "OverHeadShop">>
+	<<set $outside to 0>><<effects>>
+
+	<<if $clothes_choice and $clothes_choice_previous>>
+		<<if $clothes_choice is $clothes_choice_previous>>
+			<<shopbuyv2 "over_head">>
+		<<else>>
+			<<shopbuyv2 "over_head" "reset">>
+		<</if>>
+	<<else>>
+		<<shopbuyv2 "over_head" "reset">>
+	<</if>>
+	
+	<div id="clothes-list" class="clothes-list">
+		<<clothingShopv2 $shopName "over_head">>
+	</div>
+<</widget>>
+
 <<widget "OutfitShop">>
 	<<set $outside to 0>><<effects>>
 
@@ -345,6 +381,24 @@
 					<</if>>
 					<<link "">><<set $shopPage = 0>><<unset $clothes_choice>><<set _shopNameFilter to ''>><<replace "#clothingShop-div">><<OverTopShop>><</replace>><</link>>
 				</div>
+				<<set _active = _args[0] == "overlower" ? "active" : "">>
+				<div @class="'div-link category-tab ' + _active">
+					<<if $options.images is 1>>
+						<div class="category-icon-alt">OL</div>
+					<<else>>
+						<div class="category-icon-alt">OL</div>
+					<</if>>
+					<<link "">><<set $shopPage = 0>><<unset $clothes_choice>><<set _shopNameFilter to ''>><<replace "#clothingShop-div">><<OverBottomShop>><</replace>><</link>>
+				</div>
+				<<set _active = _args[0] == "overhead" ? "active" : "">>
+				<div @class="'div-link category-tab ' + _active">
+					<<if $options.images is 1>>
+						<div class="category-icon-alt">OH</div>
+					<<else>>
+						<div class="category-icon-alt">OH</div>
+					<</if>>
+					<<link "">><<set $shopPage = 0>><<unset $clothes_choice>><<set _shopNameFilter to ''>><<replace "#clothingShop-div">><<OverHeadShop>><</replace>><</link>>
+				</div>
 			</div>
 			<div class="category-group">
 					<<set _active = _args[0] == "outfit" ? "active" : "">>
@@ -503,6 +557,8 @@
 		<<case "all">><<replace "#clothingShop-div">><<AllShop>><</replace>>
 		<<case "overoutfit">><<replace "#clothingShop-div">><<OverOutfitShop>><</replace>>
 		<<case "overupper">><<replace "#clothingShop-div">><<OverTopShop>><</replace>>
+		<<case "overlower">><<replace "#clothingShop-div">><<OverBottomShop>><</replace>>
+		<<case "overhead">><<replace "#clothingShop-div">><<OverHeadShop>><</replace>>
 		<<case "outfit">><<replace "#clothingShop-div">><<OutfitShop>><</replace>>
 		<<case "upper">><<replace "#clothingShop-div">><<TopShop>><</replace>>
 		<<case "lower">><<replace "#clothingShop-div">><<BottomShop>><</replace>>

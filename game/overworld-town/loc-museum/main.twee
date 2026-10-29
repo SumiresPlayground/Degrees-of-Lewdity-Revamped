@@ -63,6 +63,10 @@
 	<<museumAntiqueStatus "antiquegolddagger" "talk">>
 	<<museumAntiqueStatus "antiquegoldamulet" "talk">>
 	<<museumAntiqueStatus "antiquegoldmask" "talk">>
+	<<museumAntiqueStatus "antiquelantern" "talk">>
+	<<museumAntiqueStatus "antiqueshovelhandle" "talk">>
+	<<museumAntiqueStatus "antiquerustypickaxe" "talk">>
+	<<museumAntiqueStatus "antiquepurplediamond" "talk">>
 	<<museumAntiqueStatus "antiqueliquor" "talk">>
 	<<museumAntiqueStatus "antiquebogplate" "talk">>
 	<<museumAntiqueStatus "antiquebogbone" "talk">>
@@ -101,6 +105,10 @@
 	<<if !$daily.winterStoryTime>>
 		<<if $bleedingWardCheckpoint and $museumAntiques.paintings.paintingward is "museum">>
 			<<icon _museumPaintingText.paintingward.icon>><<link [[Ask Winter to tell you the 'Bleeding Ward' story from where you left off (0:15)|Bleeding Ward Resume]]>><<set $daily.winterStoryTime to true>><</link>>
+			<br>
+		<</if>>
+		<<if $museumAntiques.paintings.paintingward is "museum" and !$bleedingWardCheckpoint and !$breedingWard and !$daily.breedingWard>>
+			<<icon _museumPaintingText.paintingward.icon>><<link[[Contemplate the 'Bleeding Ward' story again|Museum Breeding Ward]]>><</link>>
 			<br>
 		<</if>>
 		<<for _labelP, _valueP range $museumAntiques.paintings>>
@@ -161,6 +169,7 @@ The museum is closed. A sign reads:
 	<<link [[Respond flirtatiously|Museum Intro]]>><<set $phase to 2>><<npcincr Winter love -1>><</link>><<promiscuous1>><<llove>>
 	<br>
 <<elseif $bell_timer lte 0 and $passagePrev is "Oxford Street">>
+	<<npc Winter>><<generate2>><<person2>>
 	<<unset $bell_timer>>
 	<<if $worn.feet.type.includes("shackle")>>
 		A hooded figure barges through as you open the doors. You trip over your $worn.feet.name, and together tumble to the ground. The figure jumps to <<his>> feet, but yelps in pain, and hurries away with a limp. You get your bearings, but the figure's already gone.
@@ -168,7 +177,7 @@ The museum is closed. A sign reads:
 		A hooded figure barges through as you open the doors, almost knocking you to the pavement. You get your bearings, but the figure's already gone.
 	<</if>>
 	<br><br>
-	<<npc Winter>><<person1>>
+	<<person1>>
 	You enter the museum, <span class="red">and find Winter lying on the ground.</span> <<His>> eyes are shut. Antiques litter the floor, knocked from pedestals. The leather map still rests on the wall, but a great tear runs through it.
 	<br><br>
 
@@ -422,11 +431,8 @@ You turn towards the exit. "Wait," Winter asks. "It's not worth"—<<he>> coughs
 :: Museum Attack 2
 <<effects>>
 
-<<endevent>>
-<<generate1>><<person1>>
+<<person2>>
 You run out onto Oxford Street, just in time to see the hooded figure rush around the corner. You give chase,
-
-
 
 <<if $athleticsSuccess>>
 	<<set $outside to 1>><<set $location to "alley">><<set $bus to "industrial">>
@@ -724,7 +730,7 @@ Winter dons a pair of gloves and appraises the goods.
 <<He>> takes the goods into a back room.
 <br><br>
 
-<<money `($antiquemoney * 100)` "museumAntique">><<set $antiquemoneyhistory += $antiquemoney>><<set $antiquemoney to 0>>
+<<money `($antiquemoney * 100)` "museumAntique">><<set $antiquemoneyhistory += $antiquemoney>><<set $antiquemoney to 0>><<set $gold_chastity_count to 0>>
 
 <<link [[Next|Museum]]>><<endevent>><</link>>
 <br>
@@ -1487,240 +1493,48 @@ Winter taps the artillery shell. "It's not live," <<he>> says. "Not after all th
 <<link [[Next|Museum]]>><<endevent>><</link>>
 <br>
 
-:: Museum Liquor
+:: Museum Shovel Handle
 <<effects>>
 
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiqueliquor")>>
-	<<run $museumAntiqueJournalHints.delete("antiqueliquor")>>
-<</if>>
+<<museumClearHint "antiqueshovelhandle">>
+<<npc Winter>><<person1>>
 
-<<npc Winter>><<person1>>""Back when this town was just getting started, wine was its primary export. It's what let it find its footing," Winter explains. "Frankly, I'm surprised a bottle has managed to survive until now."
+Winter touches the handle gingerly. "This is barely being held together. Decades of water damage has almost destroyed this piece," <<he>> says.
 <br><br>
-
 <<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
 
-:: Museum Old Tool
+:: Museum Lantern
 <<effects>>
 
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquebogtool")>>
-	<<run $museumAntiqueJournalHints.delete("antiquebogtool")>>
-<</if>>
+<<museumClearHint "antiquelantern">>
+<<npc Winter>><<person1>>
 
-<<npc Winter>><<person1>>"This one is a very common find." Winter says. "It's just an old farming tool that must have fallen into the mud."
+Winter holds the lantern. "This design was common in the 1930s," <<he>> says. "Built to last. I wouldn't be surprised if it still worked."
 <br><br>
 <<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
 
-
-:: Museum Steel Plate
+:: Museum Rusty Pickaxe
 <<effects>>
 
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquebogplate")>>
-	<<run $museumAntiqueJournalHints.delete("antiquebogplate")>>
+<<museumClearHint "antiquerustypickaxe">>
+<<npc Winter>><<person1>>
+
+Winter grips the handle. "These were commonly used in the nearby mines," <<he>> says.
+<<if !$mine.diamond_talk>>
+	"You haven't been going there, have you?"
 <</if>>
-
-<<npc Winter>><<person1>>"It seems to be an old antique steel plate." Winter says. "Not too rare but it seems to be in good condition."
 <br><br>
-
 <<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
 
-:: Museum Ancient Bone
+:: Museum Purple Diamond
 <<effects>>
 
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquebogbone")>>
-	<<run $museumAntiqueJournalHints.delete("antiquebogbone")>>
-<</if>>
+<<museumClearHint "antiquepurplediamond">>
+<<npc Winter>><<person1>>
+<<set $mine.diamond_talk to 1>>
 
-<<npc Winter>><<person1>>"This looks to be some sort of well preserved bone." Winter says. "We're not quite sure what it is yet, but our hopes are high."
+Winter stares at the diamond, enraptured. You grab <<his>> shoulder and shake <<him>>. It seems to snap <<him>> out of it. "Sorry, I don't know what got into me," <<he>> says looking embarrassed. "Where did you even find this?"
 <br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Odd Tablet
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquebunkertablet")>>
-	<<run $museumAntiqueJournalHints.delete("antiquebunkertablet")>>
-<</if>>
-
-<<npc Winter>><<person1>>"I'm actually at a loss of words for this discovery." Winter says. "I know most of the local languages, but this tablet isn't written in any of them."
+You tell <<him>> about how you cleared a collapsed section of the mines and swam through a flooded tunnel, ending with the strange room you found it in. <<He>> listens intently. "You went in the mines! You shouldn't go back there, the mines are extremely dangerous. They were shut down for a reason."
 <br><br>
-
 <<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Old Tag
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquebunkertag")>>
-	<<run $museumAntiqueJournalHints.delete("antiquebunkertag")>>
-<</if>>
-
-<<npc Winter>><<person1>>"This seems to be some sort of ID tag." Winter says. "It's written in an odd language but it shares many similarities."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Cannonball
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquecannonball")>>
-	<<run $museumAntiqueJournalHints.delete("antiquecannonball")>>
-<</if>>
-
-<<npc Winter>><<person1>>"This looks like an old cannonball." Winter says. "Was probably used in a naval war last century."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Art Tablet
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquearttablet")>>
-	<<run $museumAntiqueJournalHints.delete("antiquearttablet")>>
-<</if>>
-
-<<npc Winter>><<person1>>"This looks like an old handpainting." Winter says. "It looks to be drawn on an old stone tablet."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Terracotta Statue
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiqueterracottastatue")>>
-	<<run $museumAntiqueJournalHints.delete("antiqueterracottastatue")>>
-<</if>>
-
-<<npc Winter>><<person1>>"This seems to be some kind of terracotta statue." Winter says. "It looks like it was probably used in rituals for the native people."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Red Vial
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiqueredvial")>>
-	<<run $museumAntiqueJournalHints.delete("antiqueredvial")>>
-<</if>>
-
-<<npc Winter>><<person1>>"What's this?" Winter says. <<He>> glaces inside the vial unsure. "I'll take it off your hands but don't pick up weird stuff like this. Even I don't know what's in here."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Tribal Mask
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquetribemask")>>
-	<<run $museumAntiqueJournalHints.delete("antiquetribemask")>>
-<</if>>
-
-<<npc Winter>><<person1>>"Looks like an old tribal ritual mask." Winter says. "The paint on it is used to portray messages. This one seems to send a message of mourning."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Ebony Statuette
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiqueebonystatuette")>>
-	<<run $museumAntiqueJournalHints.delete("antiqueebonystatuette")>>
-<</if>>
-
-<<npc Winter>><<person1>>"Ah an old ebony statuette." Winter says. "Looks like it's very high quality too."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Ancient Plant
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiqueglacierplant")>>
-	<<run $museumAntiqueJournalHints.delete("antiqueglacierplant")>>
-<</if>>
-
-<<npc Winter>><<person1>>"Hmm what are these seeds?" Winter asks. <<He>> spends a few minutes inspecting the seeds before returning. "It looks similar to our modern species but there are some notable differences."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Gold Bullion
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquebullion")>>
-	<<run $museumAntiqueJournalHints.delete("antiquebullion")>>
-<</if>>
-
-<<npc Winter>><<person1>>"What's this crusty old bar?" Winter asks. <<He>> grabs a rag and rubs the crust from the surface revealing a shiny glint. "It looks to be a bar of gold, surely this would have fetched quite the price, were it not degraded to this point."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Spanish Real
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiquereal")>>
-	<<run $museumAntiqueJournalHints.delete("antiquereal")>>
-<</if>>
-
-<<npc Winter>><<person1>>"Hmm what are these coins?" Winter asks. <<He>> spends a few minutes inspecting the coins before returning. "They seem to read, 'CAROLVS ET IOHANA REGES'. That would seem to date these in the early 15th century under the rule of King Charles I."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Indigo Dye
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("antiqueindigo")>>
-	<<run $museumAntiqueJournalHints.delete("antiqueindigo")>>
-<</if>>
-
-<<npc Winter>><<person1>>"Powder?" Winter asks confused. <<He>> removes a pair of glasses from under the counter and inspects the bottle closely. "It looks to be an old sealed bottle of indigo. Even nowadays natural indigo is rare so this seems like quite the find."
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>
-
-:: Museum Fae Idol
-<<effects>>
-
-<<set $winterHint to "notGiven">>
-<<if $museumAntiqueJournalHints.includes("faeidol")>>
-	<<run $museumAntiqueJournalHints.delete("faeidol")>>
-<</if>>
-
-<<npc Winter>><<person1>>"What is this!?" Winter asks dumbfounded. <<He>> examines the glowing gold idol with extreme interest. "This is astounding, I have never seen anything like it! Where could you find a treasure of such magnitude?!"
-<br><br>
-
-<<link [[Next|Museum]]>><<endevent>><</link>>
-<br>

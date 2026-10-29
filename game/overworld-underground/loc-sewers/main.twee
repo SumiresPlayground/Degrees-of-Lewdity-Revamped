@@ -29,10 +29,10 @@ You are within the storm drain system beneath the residential district.
 	You've pushed yourself too much.
 	<br><br>
 	<<passout>>
-	<<beastNEWinit 4 lizard>>
 
 	<<if dangerEvent()>>
-		<<if $rng gte 51 and ($monster is 1 or $settings.bestialityEnabled)>>
+		<<beastNEWinit 4 lizard>>
+		<<if $rng gte 51 and beastSexEnabledForType("lizard", $monster is 1)>>
 			<<link [[Wake up|Passout Beast Drain]]>><<set $molestationstart to 1>><</link>>
 		<<elseif $rng gte 1>>
 			<<link [[Wake up|Passout Drain Abduction]]>><<endevent>><<set $molestationstart to 1>><</link>>
@@ -294,7 +294,7 @@ You are within the storm drain system, being pulled along by the <<if Weather.pr
 			<br>
 		<<elseif $rng gte 11>>
 			<<beastNEWinit 1 lizard>>
-			<<if $monster is 1 or $settings.bestialityEnabled>>
+			<<if beastSexEnabledForType("lizard", $monster is 1)>>
 				A shadow in the water moves towards you.
 				<br><br>
 				<<link [[Next|Drain Water Lizard]]>><<set $molestationstart to 1>><</link>>
@@ -513,7 +513,7 @@ The water pulls you further along the tunnel.
 :: Drain Water Passout
 
 <<effects>>
-<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0 and $mushroom is 0 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled>>
+<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0 and $mushroom is 0 and $dollstate is 0 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled>>
 	Your insensate body is carried along by water currents until it hits a bank within the sewer canals. You're awakened by the sudden vibration of your ear slimes. Disoriented from your earlier collapse, you barely manage to make out a mass inching towards you from the darkness.
 	<br>
 	<br>
@@ -915,7 +915,7 @@ The slime jumps in the canal, disappearing underwater.
 	<<link [[Next|Drain Struggle]]>><<set $phase to 1>><<set $struggle_start to 1>><</link>>
 
 
-	<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0 and $mushroom is 0 and $slime is 0 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled>>
+	<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0 and $mushroom is 0 and $slime is 0 and $dollstate is 0 and $settings.transformAnimalEnabled and $settings.transformDivineEnabled>>
 		The large slime seems to encourage your ear slimes into a frenzy! The frequency is slow, at first, but soon begins to increase. As they do so, a warmth spreads from your head, flowing through your body. <span class='green'>The slime engulfing you pulses in sync to the ear slimes' movement.</span> Despite the situation, you begin to feel eerily calm. The feeling is oddly familiar, as if you were in a womb. Your consciousness begins to shift as your fatigue takes over. You slowly drift asleep as the giant slime rhythmically caresses your body. As sleep begins to take you, you notice how oddly pliable your skin is starting to feel...
 		<br><br>
 		<<link [[Let it happen|Slime Transformation 1]]>><<pass 60>><</link>>
@@ -954,7 +954,7 @@ You notice a pattern. It spreads by jumping, flattening itself each time.
 	Your knees buckle, and you collapse to the ground. The slime takes advantage of your weakness.
 	<br><br>
 
-	<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0 and $mushroom is 0>>
+	<<if $parasite.left_ear.name is "slime" and $parasite.right_ear.name is "slime" and $ghost is 0 and $mushroom is 0 and $dollstate is 0>>
 		Your orgasm seems to encourage your ear slimes into a frenzy! The frequency is slow, at first, but soon begins to increase. As they do so, a warmth spreads from your head, flowing through your body. <span class='green'>The slime engulfing you pulses in sync to the ear slimes' movement.</span> Despite the situation, you begin to feel eerily calm. The feeling is oddly familiar, as if you were in a womb. Your consciousness begins to shift as fatigue takes over. You slowly drift asleep as the giant slime rhythmically caresses your body. As sleep begins to take you, you notice how oddly pliable your skin is starting to feel...
 		<br>
 		<<link [[Let it happen|Slime Transformation 1]]>><<pass 60>><</link>>

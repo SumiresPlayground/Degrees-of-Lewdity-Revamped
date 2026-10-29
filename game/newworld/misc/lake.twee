@@ -1,0 +1,21 @@
+:: Lake Ruin Ivory 2
+<<effects>><<wearProp "antique ivory necklace">>
+You remove the necklace from your pocket. The craftsmanship is masterful, and you get the feeling that this meant a lot to someone.
+<br><br>
+<<if Time.isBloodMoon()>>
+	You sense a presence, though it doesn't seem to interfere as you place the necklace back onto the plinth.
+<<elseif $wraith.state>>
+	You feel a twinge of dread as you look at your reflection in the blue gemstones. You look pale. <<stress 6>><<gstress>>
+	<br><br>
+	You decide not to linger, and place the necklace back onto the plinth.
+<<else>>
+	You can see your reflection in the blue gemstones. It hurts to lose such a relic but you gently place the necklace back onto the plinth.
+<</if>>
+<br><br>
+You feel despite lingering regret, you've made a decision to mend something that was broken.
+<<if Time.days gte 32>>
+    <<set $wraith.state to "active">>
+<</if>>
+<br><br>
+<<link [[Next|Lake Ruin Deep]]>><</link>>
+<br>
