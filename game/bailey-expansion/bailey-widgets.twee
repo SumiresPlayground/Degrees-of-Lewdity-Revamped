@@ -697,7 +697,7 @@ Call sites own their own spacing. */
 :: Bailey TF Reaction [widget]
 <<widget "baileyTF">>
 	<<if $weekly.baileyTfSeen isnot true and random(1,5) is 1>><<set $weekly.baileyTfSeen to true>>
-		<<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><</if>>
+		<<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><<set _baileyTFOwnsSlot to true>><</if>>
 		<<if $transformationParts.wolf.ears isnot "hidden" and $transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.tail isnot "hidden" and $transformationParts.wolf.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
 				Bailey is walking down the hallway when <<he>> sees you. <<His>> stare lingers on your wolf ears. <<He>> reaches out and tilts your head to the side, examining one. <<He>> lets out an appraising hum before <<he>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
@@ -995,5 +995,6 @@ Call sites own their own spacing. */
 			<br><br>
 
 		<</if>>
-		<<endevent>><</if>>
+		<<if _baileyTFOwnsSlot>><<endevent>><</if>>
+	<</if>>
 <</widget>>

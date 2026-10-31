@@ -1147,10 +1147,8 @@ Bailey finally drags <<his>> gaze from the nursery back to you.
 <<else>>
 <<effects>>
 <<set $baileydefeatedchain to 0>><<set $soldCount += 1>>
-<<set $baileyRefusedToPay to 0>>
 	<<set $baileyBrat to { points: 0, reasons: [] }>><<set $baileyBratTax to 0>>
 <<set $baileyRefusedToPayTotal to $baileyRefusedToPayTotal lt $rentMoney + ($babyRent || 0) ? 0 : $baileyRefusedToPayTotal - ($rentMoney + ($babyRent || 0))>>
-<<set _robin to statusCheck("Robin")>>
 <<unset $bailey_encroach>>
 
 With your head covered by a hood and your arms bound behind your back, you _andRobin are led down a flight of stairs and along a tunnel.
@@ -1497,7 +1495,7 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<br><br>
 
 	The orphans cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -1>><<ldom "Bailey">>
+	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<llthuganger>><<thuganger -2>><<npcincr Bailey dom -1>><<ldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1529,7 +1527,7 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<br><br>
 
 	Bailey's departure lifts a weight from the watching orphans, who cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -1>><<ldom "Bailey">>
+	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<llthuganger>><<thuganger -2>><<npcincr Bailey dom -1>><<ldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1570,13 +1568,13 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<<if $phase2 is "thug">>
 		The thugs slink away after <<him>>.
 		<br><br>
-	<<elseif $baileydefeatedchain gte 2>>
+	<<elseif $baileydefeatedchain gte 2 and $enemyno gte 2>>
 		The <<person2>><<person>> slinks out after <<person1>><<him>>.
 		<br><br>
 	<</if>>
 
 	The orphans cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -3>><<llldom "Bailey">>
+	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<llthuganger>><<thuganger -2>><<npcincr Bailey dom -3>><<llldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1593,13 +1591,13 @@ You trip a couple of times, prompting Bailey to drag you back to your feet and s
 	<<if $phase2 is "thug">>
 		The thugs slink away after <<him>>.
 		<br><br>
-	<<elseif $baileydefeatedchain gte 2>>
+	<<elseif $baileydefeatedchain gte 2 and $enemyno gte 2>>
 		The <<person2>><<person>> slinks out after <<person1>><<him>>.
 		<br><br>
 	<</if>>
 
 	<<His>> departure lifts a weight from the watching orphans, who cheer your defeat of the tyrant. <<He>> will be back, but for now you're in the clear.
-	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<npcincr Bailey dom -2>><<lldom "Bailey">>
+	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>><<llthuganger>><<thuganger -2>><<npcincr Bailey dom -2>><<lldom "Bailey">>
 	<br><br>
 
 	<<clotheson>>
@@ -1890,7 +1888,7 @@ You're escorted by Bailey back to your bedroom and left alone.
 	<<set _weekRent to $rentMoney + ($babyRent || 0)>>
 	<<set _bundle to baileyConfiscationBundle(_weekRent)>>
 	<<if _bundle.items.length is 0>>
-		A hand rests on your shoulder from behind. <span class="red">It's Bailey.</span>
+		A hand rests on your shoulder from behind. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 		<<if $robinfirstrentfight and ($baileypaychain lt 2 or $rentTime lte -1) and _robinAtOrphanage>>
 			<<rentduerobin 0>>
 		<<else>>
@@ -1900,7 +1898,7 @@ You're escorted by Bailey back to your bedroom and left alone.
 		<<npc Bailey>><<person1>>
 		<<run baileyConfiscationApply(_bundle)>>
 
-		You step into the orphanage and see someone leaning against the hallway outside your room. <span class="red">It's Bailey.</span>
+		You step into the orphanage and see someone leaning against the hallway outside your room. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 		<br><br>
 
 		Across from <<him>>, you see a few goons carrying your <<baileyConfiscationList>> out of your room.	<span class="red">They're taking your belongings!</span> Bailey watches them work, unbothered.
