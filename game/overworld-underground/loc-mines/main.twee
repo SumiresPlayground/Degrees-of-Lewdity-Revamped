@@ -108,85 +108,89 @@ You explore the winding tunnels. The map you took makes it easy to find your way
 <br><br>
 <<cleareventpool>>
 
-<<if dangerEvent(1, 9000)>>
-	<<if $settings.tentaclesEnabled and $hallucinations gte 2>>
-		<<addinlineevent "tentacles">>
-			You explore the dim tunnel, until you step on something soft. You look down and see a tentacle on the ground. It wraps around your leg.
-			As you try to wrestle free, a slew of other tentacles emerge from the darkness.
-			<br><br>
-			<<link [[Struggle|Mine Tentacle]]>><<set $molestationstart to 1>><</link>>
-		<</addinlineevent>>
-	<</if>>
+<<addinlineevent "nothing">>
+	You don't find anything of note.
+	<br><br>
+	<<mine_links>>
+<</addinlineevent>>
 
-	<<if $settings.slimesEnabled and $hallucinations gte 1>>
-		<<addinlineevent "slimes">>
-			As you're exploring a damp tunnel, you feel something wet land on your back. You reach to wipe it off, and find a large slime. You look up to see several more about to fall on you.
-			<br><br>
-			<<link [[Struggle|Mine Slime]]>><<set $molestationstart to 1>><</link>>
-		<</addinlineevent>>
-	<</if>>
+<<addinlineevent "gem">>
+	<<mine_gem>>
+	You find something shiny embedded in the wall of a tunnel.
+	<br><br>
+	<<icon "pickaxe.png">><<link [[Attempt to mine it (0:30)|Mine Gem]]>><<pass 30>><<tiredness 10>><<set $phase to _gem>><</link>><<pickaxedifficulty _gem_diff_min _gem_diff_max>><<ggtiredness>>
+	<br>
+	<<mine_links>>
+<</addinlineevent>>
 
-	<<if $settings.lurkersEnabled>>
-		<<addinlineevent "lurkers">>
-			As you're exploring, you see movement in the corner of your eye. You turn to look, but it's gone. As you're about to continue on, camouflaged creatures fly at you from the wall.
-			<br><br>
-			<<link [[Struggle|Mine Struggle]]>><<set $struggle_start to 1>><</link>>
-		<</addinlineevent>>
-	<</if>>
+<<addinlineevent "antique">>
+	<<set $phase to either("shovelhandle","lantern","rustypickaxe")>>
+	You find a 
+	<<if $phase is "shovelhandle">>
+		shovel handle
+	<<elseif $phase is "rustypickaxe">>
+		rusty pickaxe
+	<<else>>
+		$phase
+	<</if>> 
+	<<print either(
+		"under a rock",
+		"in a pile of rotten wood",
+		"on the ground, you almost tripped on it"
+	)>>.
+	<br><br>
+	<<ind>><<link [[Take it|Mine Antique]]>><</link>>
+	<br>
+	<<mine_links>>
+<</addinlineevent>>
 
-	<<addinlineevent "creature" _relativeWeight>>
-		<<generateStrangeCreature 1>><<person1>>
-		As you're exploring, you come across a dark tunnel. You venture forward, making your way through, until you hear small rocks fall behind you. 
-		You turn to look, but nothing's there. You turn to continue, only to see a shape standing in front of you. It lunges, inhuman arms grabbing your body.
+<<if $settings.tentaclesEnabled and $hallucinations gte 2>>
+	<<addinlineevent "tentacles">>
+		You explore the dim tunnel, until you step on something soft. You look down and see a tentacle on the ground. It wraps around your leg.
+		As you try to wrestle free, a slew of other tentacles emerge from the darkness.
 		<br><br>
-		<<link [[Next|Mine Creature Rape]]>><<set $molestationstart to 1>><</link>>
+		<<link [[Struggle|Mine Tentacle]]>><<set $molestationstart to 1>><</link>>
 	<</addinlineevent>>
 <<else>>
-	<<addinlineevent "nothing">>
-		You don't find anything of note.
-		<br><br>
-		<<mine_links>>
-	<</addinlineevent>>
-
-	<<addinlineevent "gem">>
-		<<mine_gem>>
-		You find something shiny embedded in the wall of a tunnel.
-		<br><br>
-		<<icon "pickaxe.png">><<link [[Attempt to mine it (0:30)|Mine Gem]]>><<pass 30>><<tiredness 10>><<set $phase to _gem>><</link>><<pickaxedifficulty _gem_diff_min _gem_diff_max>><<ggtiredness>>
-		<br>
-		<<mine_links>>
-	<</addinlineevent>>
-
-	<<addinlineevent "antique">>
-		<<set $phase to either("shovelhandle","lantern","rustypickaxe")>>
-		You find a 
-		<<if $phase is "shovelhandle">>
-			shovel handle
-		<<elseif $phase is "rustypickaxe">>
-			rusty pickaxe
-		<<else>>
-			$phase
-		<</if>> 
-		<<print either(
-			"under a rock",
-			"in a pile of rotten wood",
-			"on the ground, you almost tripped on it"
-		)>>.
-		<br><br>
-		<<ind>><<link [[Take it|Mine Antique]]>><</link>>
-		<br>
-		<<mine_links>>
-	<</addinlineevent>>
-
-	<<if !$mine.tunnel.intro>>
-		<<addinlineevent "collapsed">>
-			As you're exploring, you come across a steep decline. It's covered in mud. You step onto it before <span class="red">you slip on the mud and slide down the tunnel.</span> 
-			You reach the bottom and land on hard rock. <<pain 10>><<ggpain>>
-			<br><br>
-			<<link [[Recover|Mine Collapse Intro]]>><</link>>
-		<</addinlineevent>>
-	<</if>>
+	<<set _relativeWeight++>>
 <</if>>
+
+<<if $settings.slimesEnabled and $hallucinations gte 1>>
+	<<addinlineevent "slimes">>
+		As you're exploring a damp tunnel, you feel something wet land on your back. You reach to wipe it off, and find a large slime. You look up to see several more about to fall on you.
+		<br><br>
+		<<link [[Struggle|Mine Slime]]>><<set $molestationstart to 1>><</link>>
+	<</addinlineevent>>
+<<else>>
+	<<set _relativeWeight++>>
+<</if>>
+
+<<if !$mine.tunnel.intro>>
+	<<addinlineevent "collapsed">>
+		As you're exploring, you come across a steep decline. It's covered in mud. You step onto it before <span class="red">you slip on the mud and slide down the tunnel.</span> 
+		You reach the bottom and land on hard rock. <<pain 10>><<ggpain>>
+		<br><br>
+		<<link [[Recover|Mine Collapse Intro]]>><</link>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $settings.lurkersEnabled>>
+	<<addinlineevent "lurkers">>
+		As you're exploring, you see movement in the corner of your eye. You turn to look, but it's gone. As you're about to continue on, camouflaged creatures fly at you from the wall.
+		<br><br>
+		<<link [[Struggle|Mine Struggle]]>><<set $struggle_start to 1>><</link>>
+	<</addinlineevent>>
+<<else>>
+	<<set _relativeWeight++>>
+<</if>>
+
+<<addinlineevent "creature" _relativeWeight>>
+	<<generateStrangeCreature 1>><<person1>>
+	As you're exploring, you come across a dark tunnel. You venture forward, making your way through, until you hear small rocks fall behind you. 
+	You turn to look, but nothing's there. You turn to continue, only to see a shape standing in front of you. It lunges, inhuman arms grabbing your body.
+	<br><br>
+	<<link [[Next|Mine Creature Rape]]>><<set $molestationstart to 1>><</link>>
+<</addinlineevent>>
 
 <<runeventpool>>
 
@@ -230,122 +234,9 @@ You pick up a pickaxe and try to break the object out of the rock wall.
 You take the _antique with you.
 
 <br><br>
+<<mine_links>>
 
-A <<person>> peers at you over the rim. "Just in time," <<he>> says. The container comes to a halt, and <<he>> grasps your shoulders. "Wanted some privacy with the public whore." Now higher, you can see more of your surroundings. You were lying in a mine cart, on a track in some forgotten corner of the mines. The only light comes from a lamp at the <<persons>> hip.
-<br><br>
 
-<<He>> pulls you from the cart. While you're still unsteady from the movement, <<he>> trips you up and pushes <<himself>> atop you.
-<br><br>
-
-<<link [[Next|Mines Passout Rape]]>><<set $molestationstart to 1>><</link>>
-<br>
-
-:: Mines Passout Rape
-
-<<if $molestationstart is 1>>
-	<<set $molestationstart to 0>>
-	<<controlloss>>
-	<<violence 1>>
-	<<neutral 1>>
-	<<molested>>
-	<<maninit>>
-	<<enable_rescue>>
-<</if>>
-
-<<effects>>
-<<effectsman>>
-<<alarmstate>>
-<<man>>
-<<stateman>>
-<br><br>
-<<actionsman>>
-
-<<if _combatend>>
-	<span id="next"><<link [[Next|Mines Passout Rape Finish]]>><</link>></span><<nexttext>>
-<<else>>
-	<span id="next"><<link [[Next|Mines Passout Rape]]>><</link>></span><<nexttext>>
-<</if>>
-
-:: Mines Passout Rape Finish
-<<effects>>
-<<set $worn.face.type.push("broken")>>
-<<faceruined>>
-<<if $enemyarousal gte $enemyarousalmax>>
-	<<ejaculation>>
-	<<He>> leans against the minecart to catch <<his>> breath, but puts too much weight on it, and pushes it into motion. It runs down an incline, disappearing in the dark.
-	<br><br>
-	"I'll be right back," the <<person>> sighs as <<he>> <span class="teal">removes your ball gag.</span> <<He>> walks after the cart.
-	<br><br>
-	<<tearful>> you steady yourself against the wall.
-	<br><br>
-
-<<elseif $enemyhealth lte 0>>
-	<<He>> falls away from you, colliding with the minecart and pushing it into motion. It runs down an incline, disappearing in the dark.
-	<br><br>
-	"Look what you made me do," <<he>> says, <span class="teal">tearing the ballgag from your face.</span> "You'll be sorry. Wait here." <<He>> walks after the cart.
-	<br><br>
-	<<tearful>> you steady yourself against the wall.
-	<br><br>
-<</if>>
-
-<<clotheson>>
-
-<<link [[Next|Mines Passout Rape Finish 2]]>><</link>>
-<br>
-
-:: Mines Passout Rape Finish 2
-<<effects>>
-
-<<if $transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.ears isnot "hidden">>
-	<span class="green">Your wolf ears tingle,</span> and turn in the direction of the <<person>>. You hear something, <span class="red">A deep breathing.</span>
-	<br><br>
-	The <<person>> continues into the dark, deaf to the danger.
-	<br><br>
-	<<link [[Warn|Mines Passout Warn]]>><<famegood 20>><<stress 12>><</link>><<ggstress>>
-	<br>
-	<<link [[Run|Mines Passout Run]]>><</link>>
-	<br>
-<<elseif $transformationParts.cat.ears isnot "disabled" and $transformationParts.cat.ears isnot "hidden">>
-	<span class="green">Your cat ears tingle,</span> and turn in the direction of the <<person>>. You hear something, <span class="red">A deep breathing.</span>
-	<br><br>
-	The <<person>> continues into the dark, deaf to the danger.
-	<br><br>
-	<<link [[Warn|Mines Passout Warn]]>><<famegood 20>><<stress 12>><</link>><<ggstress>>
-	<br>
-	<<link [[Run|Mines Passout Run]]>><</link>>
-	<br>
-<<elseif $transformationParts.fox.ears isnot "disabled" and $transformationParts.fox.ears isnot "hidden">>
-	<span class="green">Your fox ears tingle,</span> and turn in the direction of the <<person>>. You hear something, <span class="red">A deep breathing.</span>
-	<br><br>
-	The <<person>> continues into the dark, deaf to the danger.
-	<br><br>
-	<<link [[Warn|Mines Passout Warn]]>><<famegood 20>><<stress 12>><</link>><<ggstress>>
-	<br>
-	<<link [[Run|Mines Passout Run]]>><</link>>
-	<br>
-<<else>>
-	The <<person1>><<person>> disappears in the dark. A few moments pass, <span class="red">then a terrible roar reverberates through the tunnel.</span> The <<person>> screams, and reappears, running as fast as <<he>> can. <<He>> shoves you to the ground as <<he>> passes.
-	<br><br>
-
-	You rise to your feet. An inhuman number of eyes stare at you from the dark.
-	<<if $settings.tentaclesEnabled>>
-		Tentacles snake across the ground, towards you.
-		<br><br>
-
-		<<endcombat>>
-		<<link [[Next|Mines Passout Tentacles]]>><<set $molestationstart to 1>><</link>>
-		<br>
-	<<else>>
-		Panic strikes you. You turn and flee, every muscle straining to put distance between yourself and the creature. You run until you collapse from exhaustion. <<beastescape>>
-		<br><br>
-
-		You lie still, still terrified, listening for any sign of the creature. You don't hear a thing. Your breathing subsides, and you rise to your feet. You're alone in forgotten tunnels. Perhaps you can find a way out.
-		<br><br>
-
-		<<link [[Next|Mines Passout Run 2]]>><</link>>
-		<br>
-	<</if>>
-<</if>>
 
 :: Mine Tentacle
 <<effects>>

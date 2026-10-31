@@ -13658,8 +13658,8 @@ function initUpper() {
 			notuck: 0,
 			pregType: 0,
 		},
-	
-			{index: 2,
+		{
+			index: 2,
 			slot: "upper",
 			name: "mushroom bodice",
 			name_cap: "Mushroom bodice",
@@ -13705,8 +13705,8 @@ function initUpper() {
 			notuck: 0,
 			pregType: 0,
 		},
-	
-			{index: 3,
+		{
+			index: 3,
 			slot: "upper",
 			name: "academy shirt",
 			name_cap: "Academy shirt",
@@ -13749,8 +13749,8 @@ function initUpper() {
 			notuck: 0,
 			pregType: 0,
 		},
-	
-			{index: 4,
+		{
+			index: 4,
 			slot: "upper",
 			name: "horse racing tunic",
 			name_cap: "Horse racing tunic",
@@ -13794,8 +13794,8 @@ function initUpper() {
 			pregType: 0,
 			back_img: 1,
 		},
-	
-			{index: 5,
+		{
+			index: 5,
 			slot: "upper",
 			name: "spring dancer top",
 			name_cap: "Spring dancer top",
@@ -13844,8 +13844,8 @@ function initUpper() {
 			pregType: 0,
 			back_img: 0,
 		},
-	
-			{index: 6,
+		{
+			index: 6,
 			slot: "upper",
 			name: "detective shirt",
 			name_cap: "Detective shirt",
@@ -13921,7 +13921,7 @@ function initUpper() {
 			set: "chakkri",
 			gender: "f",
 			femininity: 200,
-			warmth: 5,
+			warmth: 3,
 			cost: 14000,
 			description: "Exotic.",
 			shop: ["misland"],
@@ -13977,7 +13977,7 @@ function initUpper() {
 			set: "chakkri",
 			gender: "f",
 			femininity: 200,
-			warmth: 5,
+			warmth: 3,
 			cost: 14000,
 			description: "Exotic.",
 			shop: ["misland"],
@@ -14033,7 +14033,7 @@ function initUpper() {
 			set: "chakkri",
 			gender: "f",
 			femininity: 200,
-			warmth: 5,
+			warmth: 3,
 			cost: 14000,
 			description: "Exotic.",
 			shop: ["misland"],
@@ -14089,7 +14089,7 @@ function initUpper() {
 			set: "chakkri",
 			gender: "f",
 			femininity: 200,
-			warmth: 5,
+			warmth: 3,
 			cost: 14000,
 			description: "Exotic.",
 			shop: ["misland"],
