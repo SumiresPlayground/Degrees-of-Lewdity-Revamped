@@ -354,7 +354,7 @@ A hand circles your arm. <span class="bailey-red">It's <<baileyTitleNarration>>.
 <<elseif C.npc.Bailey.dom gte 30>>
 	"You stood me up," <<he>> says calmly. <<His>> jaw is set. "You wasted my time."
 <<else>>
-	"You wasteful little shit." <<He>> sneers at you. "You stood me up."
+	"You wasteful little shit," <<he>> sneers at you. "You stood me up."
 <</if>><<npcincr Bailey love -1>><<llove "Bailey">>
 <br><br>
 
@@ -471,9 +471,7 @@ Call sites own their own spacing. */
 <</widget>>
 
 /* $baileyBratTax = points * 1/10 of current rent. Call beside <<babyRent>>. */
-<<widget "bratTaxCalc">>
-	<<set $baileyBratTax to $baileyBrat.points * Math.floor($rentMoney / 10)>>
-<</widget>>
+<<widget "bratTaxCalc">><<set $baileyBratTax to $baileyBrat.points * Math.floor($rentMoney / 10)>><</widget>>
 
 <<widget "baileyOfferPay">>
 	<<bratTaxCalc>>
@@ -489,9 +487,7 @@ Call sites own their own spacing. */
 <</widget>>
 
 /* bratTax for the journal */
-<<widget "bratTaxDisplay">>
-<<bratTaxCalc>><<if $baileyBratTax>><<print _args[0]>><<printmoney $baileyBratTax _args[2]>><<print _args[1]>><</if>>
-<</widget>>
+<<widget "bratTaxDisplay">><<bratTaxCalc>><<if $baileyBratTax>><<print _args[0]>><<printmoney $baileyBratTax _args[2]>><<print _args[1]>><</if>><</widget>>
 
 <<widget "bratReasonList">>
 	<<set _phrases to ($baileyBrat ? $baileyBrat.reasons : []).map(function (r) {
