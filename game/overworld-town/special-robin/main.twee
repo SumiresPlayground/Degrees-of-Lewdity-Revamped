@@ -3208,7 +3208,7 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 		<<set _options to 1>>
 		<<if $dissociation gte 1>>
 			<<if C.npc.Bailey.dom gte 70 or $syndromeBailey>>
-				<<He>> looks at your eyes. <<He>> gets up and rounds <<his>> desk to you. <<His>> hand finds your jaw and <<he>> turns your face toward <<his>>.
+				<<He>> looks at your eyes. <<He>> gets up and rounds <<his>> desk to you. <<His>> hand finds your jaw and <<he>> turns your face towards <<his>>.
 				<br><br>
 				"Look at me."
 				<br><br>
@@ -3235,7 +3235,7 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 		<<elseif $goooutsidecount + $semenoutsidecount gte 25>>
 			<<He>> looks at your body, covered in <<if $semenoutsidecount gte 1 and $goooutsidecount gte 1>>slime and semen<<elseif $semenoutsidecount gte 1>>semen<<else>>slime<</if>>, and turns away. "Get yourself cleaned up, you're a disgrace."
 		<<elseif $arousal gte ($arousalmax / 5) * 3>>
-			<<if C.npc.Bailey.lust gte 20 and (C.npc.Bailey.dom gte 70 or $syndromeBailey)>>
+			<<if C.npc.Bailey.lust gte 20 and $syndromeBaileyBuild gte 1 and (C.npc.Bailey.dom gte 70 or $syndromeBailey)>>
 				<<He>> looks at your flushed face. <<He>> stops typing and gets up from <<his>> desk.
 				<br><br>
 				"Lock the door," <<he>> says.
@@ -3296,39 +3296,27 @@ Robin watches as you leave <<him>> on the table. <<His>> soulless eyes stare at 
 		<</if>>
 	<<elseif $daily.baileyVisit is 3>>
 		<<set _options to 2>>
-		<<if $syndromeBailey>>
+		<<if $syndromeBailey and C.npc.Bailey.lust gt 30>>
 			<<He>> looks up from <<his>> computer. The corner of <<his>> mouth moves just a fraction.
 			<br><br>
-			<<if C.npc.Bailey.lust gte 20>>
-				"On your knees."
-				<br><br>
-				<<He>> gets up.
-				<br><br>
-				<<link [[Give in|Bailey Office Visit Sex Willing]]>><<set $molestationstart to 1>><</link>>
-				<br>
-				<<link [[Fight <<him>>|Bailey Office Visit Sex]]>><<set $molestationstart to 1>><</link>>
-			<<else>>
-				<<set _options to 1>>
-				<<He>> doesn't look up from <<his>> work. <<He>> seems busy. "I'll deal with you later."
-			<</if>>
+			"On your knees."
+			<br><br>
+			<<He>> gets up.
+			<br><br>
+			<<link [[Give in|Bailey Office Visit Sex Willing]]>><<set $molestationstart to 1>><</link>>
+			<br>
+			<<link [[Fight <<him>>|Bailey Office Visit Sex]]>><<set $molestationstart to 1>><</link>>
+		<<elseif $syndromeBailey>>
+			<<set _options to 1>>
+			<<He>> doesn't look up from <<his>> work. <<He>> seems busy. "I'll deal with you later."
 		<<elseif C.npc.Bailey.dom gte 70>>
 			<<He>> looks up from <<his>> computer. The corner of <<his>> mouth moves just a fraction.
 			<br><br>
-			<<if C.npc.Bailey.lust gte 40>>
-				"On your knees."
-				<br><br>
-				<<He>> gets up.
-				<br><br>
-				<<link [[Give in|Bailey Office Visit Sex Willing]]>><<set $molestationstart to 1>><</link>>
-				<br>
-				<<link [[Fight <<him>>|Bailey Office Visit Sex]]>><<set $molestationstart to 1>><</link>>
-			<<else>>
-				"Begging for a spanking, are we?"
-				<br><br>
-				<<He>> gets up.
-				<br><br>
-				<<link [[Next|Bailey Office Spanking]]>><<set $molestationstart to 1>><</link>>
-			<</if>>
+			"Begging for a spanking, are we?"
+			<br><br>
+			<<He>> gets up.
+			<br><br>
+			<<link [[Next|Bailey Office Spanking]]>><<set $molestationstart to 1>><</link>>
 		<<else>>
 		<<He>> glares at you, then storms out of <<his>> chair and marches your way. "I told you to stop bothering me," <<he>> hisses. "Couldn't leave well enough alone, could you?" <<He>> grabs you before you can react and bends you over <<his>> desk.
 		<br><br>

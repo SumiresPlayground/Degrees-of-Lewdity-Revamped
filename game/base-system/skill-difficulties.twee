@@ -374,6 +374,10 @@
 	<<skill_difficulty currentSkillValue('english') "English" _args[0] _args[1] _args[2]>>
 <</widget>>
 
+<<widget "historydifficulty">>
+	<<skill_difficulty currentSkillValue('history') "History" _args[0] _args[1] _args[2]>>
+<</widget>>
+
 <!--
 	args[0]: skill to be checked.
 	args[1]: skill name to display.
@@ -437,7 +441,8 @@
 			"Tending": "tendingSuccess",
 			"Housekeeping": "housekeepingSuccess",
 			"English": "englishSuccess",
-			"Pickaxe": "pickaxeSuccess"
+			"Pickaxe": "pickaxeSuccess",
+			"History": "historySuccess"
 		}>>
 		<<if _successVars[_args[1]] isnot undefined>>
 			<<set V[_successVars[_args[1]]] to (($_skill gte random(_skilldifficultymin, _skilldifficultymax)) ? 1 : 0)>>
