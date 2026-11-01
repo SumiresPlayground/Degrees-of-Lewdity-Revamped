@@ -2606,7 +2606,7 @@ You are in the main hall of the orphanage.
 	<<baileyRentConfiscation>>
 <<elseif isRentDue() or isBaileyLookingForPlayer()>>
 	<<set $bus to "home">>
-	A hand rests on your shoulder from behind. <span class="red">It's Bailey.</span>
+	A hand rests on your shoulder from behind. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
 	<<if $robinfirstrentfight and ($baileypaychain lt 2 or $rentTime lte -1) and _robinAtOrphanage>>
 		<<rentduerobin 0>>
 	<<else>>
@@ -2720,17 +2720,6 @@ You are in the main hall of the orphanage.
 	<br><br>
 	<<link [[Next|Orphanage]]>><<endevent>><<set $loft_whitney to 4>><</link>>
 	<br>
-<<elseif $rentTime lte -21 and !$bailey_confiscation>> /* Bailey Confiscation System */
-	<<set $bus to "home">>
-	<<baileyRentConfiscation>>
-<<elseif $rentTime lte 0>>
-	<<set $bus to "home">>
-	A hand rests on your shoulder from behind. <span class="bailey-red">It's <<baileyTitleNarration>>.</span>
-	<<if $robinfirstrentfight and ($baileypaychain lt 2 or $rentTime lte -1) and _robinAtOrphanage>>
-		<<rentduerobin 0>>
-	<<else>>
-		<<rentdue 0>>
-	<</if>>
 <<elseif $babyIntros and $babyIntros.Bailey and $babyIntros.Bailey.length gt 0>>
 	<<npc Bailey>><<person1>>
 	"There you are," a voice says. You turn to see Bailey approaching you.

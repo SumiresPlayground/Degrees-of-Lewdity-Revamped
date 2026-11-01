@@ -354,7 +354,7 @@ A hand circles your arm. <span class="bailey-red">It's <<baileyTitleNarration>>.
 <<elseif C.npc.Bailey.dom gte 30>>
 	"You stood me up," <<he>> says calmly. <<His>> jaw is set. "You wasted my time."
 <<else>>
-	"You wasteful little shit." <<He>> sneers at you. "You stood me up."
+	"You wasteful little shit," <<he>> sneers at you. "You stood me up."
 <</if>><<npcincr Bailey love -1>><<llove "Bailey">>
 <br><br>
 
@@ -471,9 +471,7 @@ Call sites own their own spacing. */
 <</widget>>
 
 /* $baileyBratTax = points * 1/10 of current rent. Call beside <<babyRent>>. */
-<<widget "bratTaxCalc">>
-	<<set $baileyBratTax to $baileyBrat.points * Math.floor($rentMoney / 10)>>
-<</widget>>
+<<widget "bratTaxCalc">><<set $baileyBratTax to $baileyBrat.points * Math.floor($rentMoney / 10)>><</widget>>
 
 <<widget "baileyOfferPay">>
 	<<bratTaxCalc>>
@@ -489,9 +487,7 @@ Call sites own their own spacing. */
 <</widget>>
 
 /* bratTax for the journal */
-<<widget "bratTaxDisplay">>
-<<bratTaxCalc>><<if $baileyBratTax>><<print _args[0]>><<printmoney $baileyBratTax _args[2]>><<print _args[1]>><</if>>
-<</widget>>
+<<widget "bratTaxDisplay">><<bratTaxCalc>><<if $baileyBratTax>><<print _args[0]>><<printmoney $baileyBratTax _args[2]>><<print _args[1]>><</if>><</widget>>
 
 <<widget "bratReasonList">>
 	<<set _phrases to ($baileyBrat ? $baileyBrat.reasons : []).map(function (r) {
@@ -696,304 +692,325 @@ Call sites own their own spacing. */
 
 :: Bailey TF Reaction [widget]
 <<widget "baileyTF">>
-	<<if $weekly.baileyTfSeen isnot true and random(1,5) is 1>><<set $weekly.baileyTfSeen to true>>
-		<<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><</if>>
+	<<if $weekly.baileyTfSeen isnot true and $rentTime gt 0 and random(1,5) is 1>><<set $weekly.baileyTfSeen to true>>
+		<<if $NPCList[0] and $NPCList[0].fullDescription is "Bailey">><<person1>><<else>><<endevent>><<npc Bailey>><<person1>><<set _baileyTFOwnsSlot to true>><</if>>
+		Bailey is walking down the hallway when <<he>> sees you.
 		<<if $transformationParts.wolf.ears isnot "hidden" and $transformationParts.wolf.ears isnot "disabled" and $transformationParts.wolf.tail isnot "hidden" and $transformationParts.wolf.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> stare lingers on your wolf ears. <<He>> reaches out and tilts your head to the side, examining one. <<He>> lets out an appraising hum before <<he>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> stare lingers on your wolf ears. <<He>> reaches out and tilts your head to the side, examining one. <<He>> lets out an appraising hum before <<he>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> stares at your wolf ears. <<He>> flicks one with <<his>> finger. "You look like a stray." <<He>> brushes past you.
+				<<He>> stares at your wolf ears. <<He>> flicks one with <<his>> finger. "You look like a stray." <<He>> brushes past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> stops to run two fingers along one of your wolf ears. <<He>> lets out an appraising hum before <<he>> lets go, bumping past your shoulder as <<he>> leaves.
+				<<He>> stops to run two fingers along one of your wolf ears. <<He>> lets out an appraising hum before <<he>> lets go, bumping past your shoulder as <<he>> leaves.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.cat.ears isnot "hidden" and $transformationParts.cat.ears isnot "disabled" and $transformationParts.cat.tail isnot "hidden" and $transformationParts.cat.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your feline tail flick behind you, expression unreadable. "Fitting. You do always land on your feet." <<He>> brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> watches your feline tail flick behind you, expression unreadable. "Fitting. You do always land on your feet." <<He>> brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> grabs your feline tail and yanks it full force. <<He>> lets go and shoulders past you, wiping <<his>> hand on <<his>> trousers as <<he>> leaves.<<gpain>><<pain 4>>
+				<<He>> grabs your feline tail and yanks it full force. <<He>> lets go and shoulders past you, wiping <<his>> hand on <<his>> trousers as <<he>> leaves.<<gpain>><<pain 4>>
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your feline tail flick. "I know someone who would pay good money for a pussycat." <<He>> shoulders past you.
+				<<He>> watches your feline tail flick. "I know someone who would pay good money for a pussycat." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.cow.ears isnot "hidden" and $transformationParts.cow.ears isnot "disabled" and $transformationParts.cow.tail isnot "hidden" and $transformationParts.cow.tail isnot "disabled" and $transformationParts.cow.horns isnot "hidden" and $transformationParts.cow.horns isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze travels from your cow horns to your cow tail. "Cows are in demand. Lucky you." <<He>> brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze travels from your cow horns to your cow tail. "Cows are in demand. Lucky you." <<He>> brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> glances at your cow horns and sneers. "Pathetic." <<He>> bumps past you.
+				<<He>> glances at your cow horns and sneers. "Pathetic." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> stares at your cow tail with a sneer. <<He>> bumps your shoulder as <<he>> passes through.
+				<<He>> stares at your cow tail with a sneer. <<He>> bumps your shoulder as <<he>> passes through.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.bird.wings isnot "hidden" and $transformationParts.bird.wings isnot "disabled" and $transformationParts.bird.tail isnot "hidden" and $transformationParts.bird.tail isnot "disabled" and $transformationParts.bird.plumage isnot "hidden" and $transformationParts.bird.plumage isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze follows the line of your wings. <<He>> straightens a crooked feather. "Someone's going to try to cage you." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze follows the line of your wings. <<He>> straightens a crooked feather. "Someone's going to try to cage you." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> plucks a loose feather from your shoulder and inspects it before dropping it on the floor. "Pick that up." <<He>> shoulders past you down the hall.
+				<<He>> plucks a loose feather from your shoulder and inspects it before dropping it on the floor. "Pick that up." <<He>> shoulders past you down the hall.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> stops to run a finger along a feather. <<His>> expression stays flat. "Careful. Someone might want to clip them." <<He>> bumps your shoulder as <<he>> passes.
+				<<He>> stops to run a finger along a feather. <<His>> expression stays flat. "Careful. Someone might want to clip them." <<He>> bumps your shoulder as <<he>> passes.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.fox.ears isnot "hidden" and $transformationParts.fox.ears isnot "disabled" and $transformationParts.fox.tail isnot "hidden" and $transformationParts.fox.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> stares at your fox ears, then at you. Something flickers behind <<his>> eyes. "Foxes," <<he>> sneers. "I've had my fill of foxes." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> stares at your fox ears, then at you. Something flickers behind <<his>> eyes. "Foxes," <<he>> sneers. "I've had my fill of foxes." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> lip curls at the sight of your fox ears. "Great. Another one." <<He>> bumps past you.
+				<<His>> lip curls at the sight of your fox ears. "Great. Another one." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your fox ears and stops mid-stride. <<He>> exhales sharply and keeps walking, bumping past you.
+				<<He>> looks at your fox ears and stops mid-stride. <<He>> exhales sharply and keeps walking, bumping past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.bunny.ears isnot "hidden" and $transformationParts.bunny.ears isnot "disabled" and $transformationParts.bunny.tail isnot "hidden" and $transformationParts.bunny.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> catches one of your bunny ears between two fingers and runs <<his>> fingers from root to tip. "Try not to get eaten." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> catches one of your bunny ears between two fingers and runs <<his>> fingers from root to tip. "Try not to get eaten." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> grabs both your bunny ears in one hand and yanks your head back before letting go, sneering. "Only an idiot like you would bounce about announcing yourself as prey." <<He>> bumps past you.
+				<<He>> grabs both your bunny ears in one hand and yanks your head back before letting go, sneering. "Only an idiot like you would bounce about announcing yourself as prey." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze drops from your bunny ears to your bunny tail. "Announcing yourself to the wolves, are we?" <<He>> bumps past you.
+				<<His>> gaze drops from your bunny ears to your bunny tail. "Announcing yourself to the wolves, are we?" <<He>> bumps past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.bear.ears isnot "hidden" and $transformationParts.bear.ears isnot "disabled" and $transformationParts.bear.tail isnot "hidden" and $transformationParts.bear.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> tugs one of your bear ears between two fingers, examining it. "You make decent muscle." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> tugs one of your bear ears between two fingers, examining it. "You make decent muscle." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> gives your bear ears a flat look. "Still just a cub." <<He>> bumps past you.
+				<<He>> gives your bear ears a flat look. "Still just a cub." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> stops. <<His>> eyes move over you — the bulk of your shoulders, the way you fill the corridor. <<He>> holds your stare. "You've been eating well." <<He>> doesn't step aside. Neither do you. <<He>> shoulders past you.
+				<<He>> stops. <<His>> eyes move over you — the bulk of your shoulders, the way you fill the corridor. <<He>> holds your stare. "You've been eating well." <<He>> doesn't step aside. Neither do you. <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.fallenAngel.wings isnot "hidden" and $transformationParts.fallenAngel.wings isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze traces your darkened wings. <<He>> runs a thumb along one blackened feather, slow and deliberate. "Damaged goods sell at a discount." <<He>> lets the feather go. "Unless you know the right buyer." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze traces your darkened wings. <<He>> runs a thumb along one blackened feather, slow and deliberate. "Damaged goods sell at a discount." <<He>> lets the feather go. "Unless you know the right buyer." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> lip curls at your darkened wings. "You had one thing going for you." <<He>> flicks a blackened feather off your shoulder. "Not anymore." <<He>> shoulders past you.
+				<<His>> lip curls at your darkened wings. "You had one thing going for you." <<He>> flicks a blackened feather off your shoulder. "Not anymore." <<He>> shoulders past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes move from your wings to your halo. <<He>> stares at the dim glow for a long moment, <<his>> expression stiff. "Stupid little shit." <<He>> bumps past you.
+				<<His>> eyes move from your wings to your halo. <<He>> stares at the dim glow for a long moment, <<his>> expression stiff. "Stupid little shit." <<He>> bumps past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.angel.wings isnot "hidden" and $transformationParts.angel.wings isnot "disabled" and $transformationParts.angel.halo isnot "hidden" and $transformationParts.angel.halo isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> regards your halo, then your wings. <<He>> straightens your feathers with two fingers. "You'll draw attention." <<He>> shoulders past.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> regards your halo, then your wings. <<He>> straightens your feathers with two fingers. "You'll draw attention." <<He>> shoulders past.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes move from your halo to your wings. <<He>> scowls at them before bumping past you down the hallway.
+				<<His>> eyes move from your halo to your wings. <<He>> scowls at them before bumping past you down the hallway.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> shoots a glare at your halo. "Take that off. You look ridiculous." <<He>> bumps past you.
+				<<He>> shoots a glare at your halo. "Take that off. You look ridiculous." <<He>> bumps past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.demon.horns isnot "hidden" and $transformationParts.demon.horns isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze settles on your horns. <<He>> reaches up and taps one with <<his>> knuckle. "Fitting." <<He>> drops <<his>> hand and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze settles on your horns. <<He>> reaches up and taps one with <<his>> knuckle. "Fitting." <<He>> drops <<his>> hand and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes flick to your horns with a sneer. "Seems about right." <<He>> shoulders past you.
+				<<His>> eyes flick to your horns with a sneer. "Seems about right." <<He>> shoulders past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes flick to your horns. <<His>> mouth twitches. "Suits you." <<He>> brushes past you.
+				<<His>> eyes flick to your horns. <<His>> mouth twitches. "Suits you." <<He>> brushes past you.
 			<</if>>
 			<br><br>
 
 			/* New World transformations. */
 		<<elseif $transformationParts.dog.ears isnot "hidden" and $transformationParts.dog.ears isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> scratches behind one of your dog ears, slow and deliberate. "Good dog. You'd come when called." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> scratches behind one of your dog ears, slow and deliberate. "Good dog. You'd come when called." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> grabs your dog tail and tugs. "Remember, strays get put down." <<He>> lets go and shoulders past you. <<gpain>><<pain 4>>
+				<<He>> grabs your dog tail and tugs. "Remember, strays get put down." <<He>> lets go and shoulders past you. <<gpain>><<pain 4>>
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at your wagging tail. "Go on. Sit. Stay. Beg. Heel. It's all you're good for." <<He>> bumps past you.
+				<<He>> sneers at your wagging tail. "Go on. Sit. Stay. Beg. Heel. It's all you're good for." <<He>> bumps past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.deer.horns isnot "hidden" and $transformationParts.deer.horns isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze travels up your antlers. "Someone will want you mounted on a wall." <<He>> brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze travels up your antlers. "Someone will want you mounted on a wall." <<He>> brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your antlers with a sneer. "Roadkill." <<He>> shoulders past you.
+				<<He>> looks over your antlers with a sneer. "Roadkill." <<He>> shoulders past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks one of your antlers. "I can think of at least one hunter who'd like to mount you." <<He>> bumps past you.
+				<<He>> flicks one of your antlers. "I can think of at least one hunter who'd like to mount you." <<He>> bumps past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.horse.ears isnot "hidden" and $transformationParts.horse.ears isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> runs a hand along your horse ear. "A workhorse, are you? Good." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> runs a hand along your horse ear. "A workhorse, are you? Good." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your horse tail. "Don't think I won't sell you to a glue factory if you keep misbehaving." <<He>> shoulders past you.
+				<<He>> looks at your horse tail. "Don't think I won't sell you to a glue factory if you keep misbehaving." <<He>> shoulders past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your horse ears. "You'll pull your weight." <<He>> bumps past you.
+				<<He>> looks at your horse ears. "You'll pull your weight." <<He>> bumps past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.pig.ears isnot "hidden" and $transformationParts.pig.ears isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> pinches your pig ear. "Just keep bringing home the bacon." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> pinches your pig ear. "Just keep bringing home the bacon." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your pig tail with disgust. "A pig. Filthy. Greedy. Fit for the slaughter. Suits you." <<He>> bumps past you.
+				<<He>> eyes your pig tail with disgust. "A pig. Filthy. Greedy. Fit for the slaughter. Suits you." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your pig tail. "It'll do you well to remember that every part of a pig gets used." <<He>> shoulders past you.
+				<<He>> looks over your pig tail. "It'll do you well to remember that every part of a pig gets used." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.sheep.ears isnot "hidden" and $transformationParts.sheep.ears isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> buries a hand in your wool. "Easy to lead, are you? Good." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> buries a hand in your wool. "Easy to lead, are you? Good." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> yanks a curl of your wool. "Sheep. Born to be fleeced and led to slaughter. Pathetic." <<He>> bumps past you.
+				<<He>> yanks a curl of your wool. "Sheep. Born to be fleeced and led to slaughter. Pathetic." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your fleece. "Careful. Sheep get sheared." <<He>> shoulders past you.
+				<<He>> looks over your fleece. "Careful. Sheep get sheared." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.raccoon.ears isnot "hidden" and $transformationParts.raccoon.ears isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> tugs your raccoon tail. "Little thief. I'll find use for you." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> tugs your raccoon tail. "Little thief. I'll find use for you." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your raccoon mask. "Vermin. Get into my things and I'll set a trap." <<He>> bumps past you.
+				<<He>> eyes your raccoon mask. "Vermin. Get into my things and I'll set a trap." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> sees your raccoon mask. "Keep your paws out of my things." <<He>> brushes past you.
+				<<He>> sees your raccoon mask. "Keep your paws out of my things." <<He>> brushes past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.bee.wings isnot "hidden" and $transformationParts.bee.wings isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze catches on your wings. "Busy little worker. Someone always profits off the hive." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze catches on your wings. "Busy little worker. Someone always profits off the hive." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks one of your antennae with a scoff. "Pathetic little drone. Buzz off." <<He>> bumps past you.
+				<<He>> flicks one of your antennae with a scoff. "Pathetic little drone. Buzz off." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your wings buzz. "Keep the buzzing out of my office." <<He>> shoulders past you.
+				<<He>> watches your wings buzz. "Keep the buzzing out of my office." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.dragon.wings isnot "hidden" and $transformationParts.dragon.wings isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze climbs your dragon features. "Rare. Expensive. Mine to sell." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze climbs your dragon features. "Rare. Expensive. Mine to sell." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at your dragon wings. "You're just a delusional little reptile." <<He>> bumps past you.
+				<<He>> sneers at your dragon wings. "You're just a delusional little reptile." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> takes in your dragon wings. "A hoarder, are you? Just remember what's yours is mine." <<He>> brushes past you.
+				<<He>> takes in your dragon wings. "A hoarder, are you? Just remember what's yours is mine." <<He>> brushes past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.lizard.horns isnot "hidden" and $transformationParts.lizard.horns isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs down your tail. "Cold-blooded. I can work with that." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze runs down your tail. "Cold-blooded. I can work with that." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your lizard tail. "Drop your tail and run, if you like. I'll still find you." <<He>> bumps past you.
+				<<He>> eyes your lizard tail. "Drop your tail and run, if you like. I'll still find you." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> studies your horns. "Go crawl back under your rock." <<He>> brushes past you.
+				<<He>> studies your horns. "Go crawl back under your rock." <<He>> brushes past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.spider.eyes isnot "hidden" and $transformationParts.spider.eyes isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze lingers on your many eyes. "Patient little predator, are you?" <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze lingers on your many eyes. "Patient little predator, are you?" <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> grimaces at your extra eyes. "Revolting. I've crushed larger." <<He>> gives you a wide berth as <<he>> passes.
+				<<He>> grimaces at your extra eyes. "Revolting. I've crushed larger." <<He>> gives you a wide berth as <<he>> passes.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your spider features. "Spin all you want. I own the web you're in." <<He>> brushes past you.
+				<<He>> eyes your spider features. "Spin all you want. I own the web you're in." <<He>> brushes past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.frog.eyes isnot "hidden" and $transformationParts.frog.eyes isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> tilts your chin up to look at your froggish eyes. "I can think of a few clients who'd like a little frog like you." <<He>> lets go and brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> tilts your chin up to look at your froggish eyes. "I can think of a few clients who'd like a little frog like you." <<He>> lets go and brushes past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> flicks your cheek. "Pathetic little frog." <<He>> bumps past you.
+				<<He>> flicks your cheek. "Pathetic little frog." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your frog features. "Croak all you like. No one's listening." <<He>> shoulders past you.
+				<<He>> eyes your frog features. "Croak all you like. No one's listening." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.fish.tail isnot "hidden" and $transformationParts.fish.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your fins. "Plenty of fish. Plenty of buyers, too." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> looks over your fins. "Plenty of fish. Plenty of buyers, too." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "A fish out of water. Useless." <<He>> bumps past you.
+				<<He>> eyes your tail. "A fish out of water. Useless." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "Plenty of fish. Plenty of nets, too." <<He>> shoulders past you.
+				<<He>> eyes your tail. "Plenty of fish. Plenty of nets, too." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.dolphin.tail isnot "hidden" and $transformationParts.dolphin.tail isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs down your tail. "Valuable little fish, aren't you?" <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze runs down your tail. "Valuable little fish, aren't you?" <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes your tail. "A beached dolphin. Useless." <<He>> bumps past you.
+				<<He>> eyes your tail. "A beached dolphin. Useless." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks at your tail. "Try not to beach yourself." <<He>> shoulders past you.
+				<<He>> looks at your tail. "Try not to beach yourself." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.fae.wings isnot "hidden" and $transformationParts.fae.wings isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> watches your wings flutter. "Pretty. Pointless. Valuable." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> watches your wings flutter. "Pretty. Pointless. Valuable." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> swats at your wing. "Playing make-believe. Grow up, already." <<He>> bumps past you.
+				<<He>> swats at your wing. "Playing make-believe. Grow up, already." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes follow your wings. "Go on. Fly away. See how far you get before I retrieve you." <<He>> brushes past you.
+				<<His>> eyes follow your wings. "Go on. Fly away. See how far you get before I retrieve you." <<He>> brushes past you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.mushroom.eyes isnot "hidden" and $transformationParts.mushroom.eyes isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> eyes the cap crowning your head. "Some spores are worth good money." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> eyes the cap crowning your head. "Some spores are worth good money." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> sneers at the fungus on you. "Disgusting." <<He>> bumps past you.
+				<<He>> sneers at the fungus on you. "Disgusting." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> keeps <<his>> distance from your spores. "Keep those to yourself." <<He>> steps around you.
+				<<He>> keeps <<his>> distance from your spores. "Keep those to yourself." <<He>> steps around you.
 			<</if>>
 			<br><br>
 
 		<<elseif $transformationParts.zombie.eyes isnot "hidden" and $transformationParts.zombie.eyes isnot "disabled">>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> tilts your grey face toward the light. "Damaged goods. But I've sold worse for more." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> tilts your grey face toward the light. "Damaged goods. But I've sold worse for more." <<He>> lets go and shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> curls <<his>> lip at your grey face. "Spoiled meat. Useless." <<He>> bumps past you.
+				<<He>> curls <<his>> lip at your grey face. "Spoiled meat. Useless." <<He>> bumps past you.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks over your grey face. "Still standing, at least." <<He>> shoulders past you.
+				<<He>> looks over your grey face. "Still standing, at least." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 
 		<<elseif ($transformationParts.ghost.eyes isnot "hidden" and $transformationParts.ghost.eyes isnot "disabled") or ($transformationParts.eldritch.eyes isnot "hidden" and $transformationParts.eldritch.eyes isnot "disabled") or ($transformationParts.cosmic.eyes isnot "hidden" and $transformationParts.cosmic.eyes isnot "disabled")>>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> seems uneasy. "Take that off. Stop messing around." <<He>> gives you a wide berth as <<he>> passes.
+				<<He>> seems uneasy. "Take that off. Stop messing around." <<He>> gives you a wide berth as <<he>> passes.
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> grimaces. "Go haunt someone else." <<He>> gives you a wide berth as <<he>> passes.
+				<<He>> grimaces. "Go haunt someone else." <<He>> gives you a wide berth as <<he>> passes.
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> seems uneasy. <<His>> jaw tightens. "Quit messing around, brat." <<He>> steps around you.
+				<<He>> seems uneasy. <<His>> jaw tightens. "Quit messing around, brat." <<He>> steps around you.
+			<</if>>
+			<br><br>
+
+		<<elseif $transformationParts.doll.body isnot "hidden" and $transformationParts.doll.body isnot "disabled">>
+			<<if C.npc.Bailey.dom gte 70>>
+				<<His>> gaze runs along the seams of your joints. <<He>> raps a knuckle against your forearm. "Finally. Something about you holds still." <<He>> bumps past you.
+			<<elseif C.npc.Bailey.dom lte 30>>
+				<<His>> lip curls at the sight of your joints. "A toy even a child would bin." <<He>> bumps past you.
+			<<else>>
+				<<His>> eyes catch your joints and stick there. "Don't expect anyone to fix you when something snaps." <<He>> shoulders past you.
 			<</if>>
 			<br><br>
 			/* End of New World Transformations */
 
 		<<elseif $worn.neck.name is "Bailey's collar">>
-			Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes find your collar. <<He>> wraps <<his>> hand around your neck like a second collar, smiling. "Good. Don't lose it." <<He>> lets you go and bumps past you.
+			<<His>> eyes find your collar. <<He>> wraps <<his>> hand around your neck like a second collar, smiling. "Good. Don't lose it." <<He>> lets you go and bumps past you.
 			<br><br>
 
 		<<elseif $worn.neck.collared is 1>>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes find the leash. <<He>> holds your stare for a long moment, expression flat. <<He>> reaches up and runs <<his>> hand along your collar. "Someone thinks they own you." <<He>> bumps past you as <<he>> leaves.
+				<<His>> eyes find the leash. <<He>> holds your stare for a long moment, expression flat. <<He>> reaches up and runs <<his>> hand along your collar. "Someone thinks they own you." <<He>> bumps past you as <<he>> leaves.
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze drops to the leash. <<He>> grabs it, winds it once around <<his>> fist, and gives it a sharp tug, causing you to stumble forward. "Someone already broke you in. Good." <<He>> lets go of the leash and bumps past you.<<gpain>><<pain 4>>
+				<<His>> gaze drops to the leash. <<He>> grabs it, winds it once around <<his>> fist, and gives it a sharp tug, causing you to stumble forward. "Someone already broke you in. Good." <<He>> lets go of the leash and bumps past you.<<gpain>><<pain 4>>
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes drop to the leash. <<He>> reaches for it and tugs you towards <<him>>, causing you to stumble. Then, <<he>> lets go and bumps past you.
+				<<His>> eyes drop to the leash. <<He>> reaches for it and tugs you towards <<him>>, causing you to stumble. Then, <<he>> lets go and bumps past you.
 			<</if>>
 			<br><br>
 
-		<<elseif $beauty gte ($beautymax * 0.8)>>
+		<<elseif $beauty gte ($beautymax / 7) * 6>>
 			<<if C.npc.Bailey.dom gte 70>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> gaze runs over you, slow and deliberate. "Valuable, aren't you?" <<he>> says, before <<he>> bumps past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> gaze runs over you, slow and deliberate. "Valuable, aren't you?" <<he>> says, before <<he>> bumps past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<elseif C.npc.Bailey.dom lte 30>>
-				Bailey is walking down the hallway when <<he>> sees you. <<He>> looks you over. "You clean up well. Might get more out of you yet." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<He>> looks you over. "You clean up well. Might get more out of you yet." <<He>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<<else>>
-				Bailey is walking down the hallway when <<he>> sees you. <<His>> eyes linger on you. <<His>> jaw tightens before <<he>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
+				<<His>> eyes linger on you. <<His>> jaw tightens before <<he>> shoulders past you.<<if $syndromeBaileyBuild gte 1>><<npcincr Bailey lust 1>><<glust "Bailey">><</if>>
 			<</if>>
 			<br><br>
 
+		<<else>>
+			<<if $baileydefeatedchain gte 1>>
+				<<He>> sneers at you. "<<rentday>>. You better pay up this time, you little shit." <<He>> bumps past you.
+			<<elseif $money gte $rentMoney + ($babyRent || 0) + $baileyBratTax>>
+				<<He>> smiles, but it doesn't reach <<his>> eyes. "<<rentday>>. Don't forget." <<He>> bumps past you.
+			<<else>>
+				<<He>> gives you a glance. "<<rentday>>. I don't care how you get it, brat." <<He>> bumps past you.
+			<</if>>
+			<br><br>
 		<</if>>
-		<<endevent>><</if>>
+		<<if _baileyTFOwnsSlot>><<endevent>><</if>>
+	<</if>>
 <</widget>>
