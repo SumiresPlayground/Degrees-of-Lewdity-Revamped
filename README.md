@@ -1,5 +1,9 @@
 # Degrees of Lewdity
 
+## Official New World Discord Server!
+
+New World has its own Discord hosted over at [New World Discord](https://discord.gg/wg4Vju35mC)
+
 ## Lexicon of Lewdity
 
 Looking to contribute to Degrees of Lewdity? Read the [Lexicon of Lewdity](https://gitgud.io/Vrelnir/degrees-of-lewdity/-/wikis/home).
