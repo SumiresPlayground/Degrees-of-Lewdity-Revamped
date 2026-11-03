@@ -652,7 +652,8 @@ You snuggle in beside Pruti. <<set $bedGuest to "Pruti">>
 
 <<sleepeffects>>
 <<npc "Pruti">><<person1>>
-<<if $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour gt 20 or $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour lt 7>>
+<<if $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour gt 20 or $rng lte $NPCName[$NPCNameList.indexOf("Pruti")].love and Time.hour lt 7 and !$daily.prutisex>>
+	<<set $daily.prutisex to 1>>
 	You wake up to Pruti's groping. <<He>> starts rubbing up against you.
 	<br><br>
 	<<ind>><<link [[Let it happen|Pruti Sleep Sex]]>><<set $sexstart to 1>><<npcincr Pruti love 3>><</link>><<promiscuous1>>
