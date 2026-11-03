@@ -1,8 +1,8 @@
 :: Widgets Home [widget]
 
 <<widget "home_outside">>
-	<<if $exposed gte 1>>
-		<<set _ex to ($exposed >= 2 ? (Time.dayState == "night" ? 4 : 5) : (Time.dayState == "night" ? 2 : 3))>>
+	<<if $exposedRaw gte 1>>
+		<<set _ex to ($exposedRaw >= 2 ? (Time.dayState == "night" ? 4 : 5) : (Time.dayState == "night" ? 2 : 3))>>
 		<<if hasSexStat("exhibitionism", _ex)>>
 			<<if Time.dayState is "night">>
 				<<dooricon "orphanage">><<link [[Sneak outside (0:02)|Home Leave]]>><<pass 2>><</link>>
@@ -161,11 +161,11 @@
 			<<childicon "blocks">><span class="pink">You're too intoxicated to enter the youth ward.</span>
 		<<else>>
 			<<if !$orphanageWardIntro>>
-				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward Intro]]>><<pass 1>><</link>>
+				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward Intro]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 			<<elseif !$daily.wardHalloween and $halloween is 1 and Time.hour gte 6 and Time.hour lte 21 and $rng gte 51>>
-				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward Halloween Enter]]>><<pass 1>><</link>>
+				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward Halloween Enter]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 			<<else>>
-				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward]]>><<pass 1>><</link>>
+				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward]]>><<set $locationoverwrite to "0">><<pass 1>><</link>>
 			<</if>>
 		<</if>>
 	<</if>>
@@ -251,4 +251,20 @@
 <</if>>
 <<getouticon>><<link [[Leave|Orphanage Loft]]>><<endevent>><</link>>
 <br>
+<</widget>>
+
+<<widget "bedroomEntryEvent">>
+	<<set _forcedBedroomEntry to _args[0] is "forced">>
+	<<set _linkText to _forcedBedroomEntry ? "Next" : "Bedroom (0:01)">>
+	<<if !_forcedBedroomEntry and Time.hour gte 18 and Time.hour lte 20 and statusCheck("Robin").trauma gte 40 and $robinmissing is 0 and !$robinTraumaVisit>>
+		<<bedicon>><<link _linkText "Robin Trauma Visit">><<set $phase to 0>><<pass 1>><</link>>
+	<<elseif $kylar.timer.home gte 100 and $kylar.home is undefined>>
+		<<bedicon>><<link _linkText "Kylar Bedroom 1">><<pass 1>><<set $kylar.timer.home to 0>><<set $kylar.home to 0>><</link>>
+	<<elseif $kylar.timer.home gte 100 and $kylar.home is 0 and C.npc.Kylar.state is "active">>
+		<<bedicon>><<link _linkText "Kylar Bedroom 2">><<pass 1>><<set $kylar.timer.home to 0>><<set $kylar.home to 1>><</link>>
+	<<elseif (Time.hour gte 18 or Time.hour lte 3) and $kylarenglish gte 1 and !$kylar.timer.letter and C.npc.Kylar.state is "active" and $rng gte 96>>
+		<<bedicon>><<link _linkText "Kylar Bedroom Letter">><<pass 1>><<set $kylar.timer.letter to 30>><</link>>
+	<<else>>
+		<<bedicon>><<link _linkText "Bedroom">><<pass 1>><</link>>
+	<</if>>
 <</widget>>
