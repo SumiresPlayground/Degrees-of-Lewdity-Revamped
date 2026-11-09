@@ -198,14 +198,26 @@
 		<div class="settingsToggleItem">
 			You look like a <span @class="_text_color"><<if playerBellyVisible(true)>>pregnant <</if>><<girl>>.</span>
 		</div>
-		<div class="settingsToggleItem">
+		<div class="settingsToggleItem" id="gender">
 			<span class="gold bold">Gender:</span>
 			<br>
 			<label class="blue">Male <<radiobutton "$player.gender" "m" autocheck>></label> |
 			<label class="pink">Female <<radiobutton "$player.gender" "f" autocheck>></label> |
-			<label class="purple">Neither <<radiobutton "$player.gender" "n" autocheck>></label>
+			<label class="purple">Non-Binary <<radiobutton "$player.gender" "n" autocheck>></label>
 			<br>
 			<span class="small-description">How you see yourself. Does not change your genitals or affect how other people perceive you.</span>
+		</div>
+		<div class="settingsToggleItem" id="gender">
+			<span class="gold">Gender Affirmation:</span><br>
+			<label class="green"><<radiobutton "$genderrespect" 1 autocheck>> Respect Gender</label> |
+			<label class="red"><<radiobutton "$genderrespect" 2 autocheck>> Ignore Gender</label>
+			<br>
+			<span class="small-description">Whether or not NPCs will respect your gender identity.</span>
+			<<run $(() => {
+				$("#gender input[type='radio']").on("change", () => {
+					Wikifier.wikifyEval('<<replace "#mirrorGender">><<mirrorGender>><</replace>>');
+				});
+			})>>
 		</div>
 		<div class="settingsToggleItem">
 			<span class="gold bold">Contributing Factors:</span>
@@ -2959,6 +2971,9 @@
 		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
 			<<tficon "fallenangel">><<link "Fallen Angel Classic Plus">><<clearwings>><<set _fallen.wings = "classic-fallenplus">><<updatesidebarimg>><</link>><br>
 		<</if>>
+		<<if $fallenangel gte 4 or $fallenangeltf is 1>>
+			<<tficon "fallenangel">><<link "Fallen Angel Torn">><<clearwings>><<set _fallen.wings = "torn">><<updatesidebarimg>><</link>><br>
+		<</if>>
 		<<if $eldritch is 1>>
 			<<tficon "eldritch">><<link "Eldritch">><<clearwings>><<set _eldritch.tentacle = "default">><<set _eldritch.skin = "default">><<updatesidebarimg>><</link>><br>
 		<</if>>
@@ -3588,6 +3603,19 @@
 				<<clearwings>>
 				<<set _fae.wings = "moth">>
 				<<set _demon.wings = "hidden">>
+				<<updatesidebarimg>>
+			<</link>>/
+			<<link "Clear">>
+				<<clearwings>>
+				<<updatesidebarimg>>
+			<</link>><<gencolourselector "_fae.wings_colour">><br>
+		<</if>>
+		<<if ($harpy gte 6 or $harpytf is 1) and $faetf is 1>>
+			<<tficon "fae">><<tficon "bird">>Feathered Fae Wings:<br>
+			<<link "Set">>
+				<<clearwings>>
+				<<set _fae.wings = "harpy">>
+				<<set _bird.wings = "hidden">>
 				<<updatesidebarimg>>
 			<</link>>/
 			<<link "Clear">>

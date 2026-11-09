@@ -1380,6 +1380,20 @@ function minutePassed(minutes) {
 	}
 	*/
 
+	if (V.transformationParts.bear.ears !== "disabled" && V.transformationParts.bear.tail !== "disabled" && V.physiquesizearchive === undefined) {
+		V.physiquesizearchive = V.physiquesize;
+		V.physiquesize = (V.physiquesize * 1.4);
+		if (V.physiquesize >= 15000) {
+			V.physiquesize = 15000;
+		}
+	}
+	if ((V.transformationParts.bear.ears === "disabled" || V.transformationParts.bear.tail === "disabled") && V.physiquesizearchive !== undefined) {
+		V.physiquesize = V.physiquesizearchive;
+		if (V.physiquesizearchive !== undefined) {
+			delete V.physiquesizearchive;
+		}
+	}
+
 	V.stress = Math.min(V.stress, V.stressmax);
 	if (V.drunk > 0) {
 		// use fancy math to ensure that `pass(60);` and `pass(30);pass(30);` apply the same amount of tiredness regardless of changed V.drunk value

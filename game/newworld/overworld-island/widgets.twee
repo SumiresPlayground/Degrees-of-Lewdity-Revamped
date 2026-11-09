@@ -88,23 +88,23 @@
 <<widget "eventisland">>
 	<<cleareventpool>>
     <<if $location is "desert" or $location is "beach">>
-		<<if beastSexEnabledForType("ant", $monster is 1)>>
+		<<if (V.settings.beastSettings.ant.bestiality is "monsterOnly" or V.settings.beastSettings.ant.bestiality is "on")>>
 			<<addevent "islandant">>
 		<</if>>
-		<<if beastSexEnabledForType("hawk", $monster is 1)>>
+		<<if (V.settings.beastSettings.hawk.bestiality is "monsterOnly" or V.settings.beastSettings.hawk.bestiality is "on")>>
 			<<addevent "islandhawk">>
 		<</if>>
-		<<if beastSexEnabledForType("lizard", $monster is 1)>>
+		<<if (V.settings.beastSettings.lizard.bestiality is "monsterOnly" or V.settings.beastSettings.lizard.bestiality is "on")>>
 			<<addevent "islandlizard">>
 		<</if>>
     <<elseif $location is "mforest">>
-		<<if beastSexEnabledForType("wolf", $monster is 1)>>
+		<<if (V.settings.beastSettings.wolf.bestiality is "monsterOnly" or V.settings.beastSettings.wolf.bestiality is "on")>>
        		<<addevent "islandwolf">>
 		<</if>>
-		<<if beastSexEnabledForType("boar", $monster is 1)>>
+		<<if (V.settings.beastSettings.boar.bestiality is "monsterOnly" or V.settings.beastSettings.boar.bestiality is "on")>>
 			<<addevent "islandboar">>
 		<</if>>
-		<<if beastSexEnabledForType("cat", $monster is 1)>>
+		<<if (V.settings.beastSettings.cat.bestiality is "monsterOnly" or V.settings.beastSettings.cat.bestiality is "on")>>
 			<<addevent "islandcat">>
 		<</if>>
         <<if $settings.lurkersEnabled>>
@@ -114,10 +114,10 @@
 			<<addevent "islandsnake">>
 		<</if>>
 	<<elseif $location is "glacier">>
-		<<if beastSexEnabledForType("bear", $monster is 1)>>
+		<<if (V.settings.beastSettings.bear.bestiality is "monsterOnly" or V.settings.beastSettings.bear.bestiality is "on")>>
 			<<addevent "islandbear">>
 		<</if>>
-		<<if beastSexEnabledForType("wolf", $monster is 1)>>
+		<<if (V.settings.beastSettings.wolf.bestiality is "monsterOnly" or V.settings.beastSettings.wolf.bestiality is "on")>>
 			<<addevent "islandgwolf">>
 		<</if>>
 	<</if>>
@@ -426,6 +426,8 @@
 	<</if>>
 	<<set $frozenValues1.skincolor to Skin.color.natural>>
 	<<if $permadoll isnot 1>>
+		<<set $frozenValues1.leftEyeColour to $leftEyeColour>>
+		<<set $frozenValues1.rightEyeColour to $rightEyeColour>>
 		<<set $leftEyeColour to "brown">>
 		<<set $rightEyeColour to "brown">>
 		<<set $haircolour to "black">>
@@ -562,158 +564,164 @@
 	<<set V.transformationParts.doll.arms to "disabled">>
 	<<set V.transformationParts.doll.string to "disabled">>
 	<<set $dollstate to 0>>
+	<<set $leftEyeColour to $frozenValues1.leftEyeColour>>
+	<<set $rightEyeColour to $frozenValues1.rightEyeColour>>
 <</widget>>
 
 <<widget "prutihairdress">>
-	<<wash>>
-	<<rng>>
-	<<if $player.gender_appearance is "f">>
-		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
-			<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
-			<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
-			<<set _hairOptions to [
-				{hair: "french bob", fringe: "blunt locks"},
-				{hair: "neat", fringe: "french bob"},
-				{hair: "ruffled", fringe: "emo left"},
-				{hair: "layered bob", fringe: "messy curls"},
-				{hair: "short", fringe: "framed"},
-				{hair: "short spiky", fringe: "loose antenna"},
-				{hair: "short", fringe: "sectioned"},
-				{hair: "fishtail right", fringe: "overgrown"},
-			]>>
-		<<else>>
-			<<if $hairlength lt 800 or $fringelength lt 500>>
-				<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+	<<if $forcedmakeover is true>>
+		<<wash>>
+		<<rng>>
+		<<if $player.gender_appearance is "f">>
+			<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+				<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
+				<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
+				<<set _hairOptions to [
+					{hair: "french bob", fringe: "blunt locks"},
+					{hair: "neat", fringe: "french bob"},
+					{hair: "ruffled", fringe: "emo left"},
+					{hair: "layered bob", fringe: "messy curls"},
+					{hair: "short", fringe: "framed"},
+					{hair: "short spiky", fringe: "loose antenna"},
+					{hair: "short", fringe: "sectioned"},
+					{hair: "fishtail right", fringe: "overgrown"},
+				]>>
+			<<else>>
+				<<if $hairlength lt 800 or $fringelength lt 500>>
+					<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+				<</if>>
+				<<if $hairlength gte 800>><<set $hairlength to 600>><</if>>
+				<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
+				<<set _hairOptions to [
+					{hair: "fluffy pigtails", fringe: "fairy waves"},
+					{hair: "magical ribbons", fringe: "front braids"},
+					{hair: "ribbon tail", fringe: "heart rows"},
+					{hair: "scorpion tails", fringe: "framing locks"},
+					{hair: "princess ribbons", fringe: "princess wave"},
+					{hair: "little doll", fringe: "little doll"},
+					{hair: "princess ponytail", fringe: "milkmaid"},
+					{hair: "ribbon tail", fringe: "framed"},
+					{hair: "fairy low buns", fringe: "sideswept braid"},
+					{hair: "sailor buns", fringe: "ringlets"},
+					{hair: "drill ringlets", fringe: "hime"},
+				]>>
 			<</if>>
-			<<if $hairlength gte 800>><<set $hairlength to 600>><</if>>
-			<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
-			<<set _hairOptions to [
-				{hair: "fluffy pigtails", fringe: "fairy waves"},
-				{hair: "magical ribbons", fringe: "front braids"},
-				{hair: "ribbon tail", fringe: "heart rows"},
-				{hair: "scorpion tails", fringe: "framing locks"},
-				{hair: "princess ribbons", fringe: "princess wave"},
-				{hair: "little doll", fringe: "little doll"},
-				{hair: "princess ponytail", fringe: "milkmaid"},
-				{hair: "ribbon tail", fringe: "framed"},
-				{hair: "fairy low buns", fringe: "sideswept braid"},
-				{hair: "sailor buns", fringe: "ringlets"},
-				{hair: "drill ringlets", fringe: "hime"},
-			]>>
-		<</if>>
-	<<else>>
-		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
-			<<if $hairlength lt 800 or $fringelength lt 500>>
-				<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
-			<</if>>
-			<<if $hairlength gte 800>><<set $hairlength to 600>><</if>>
-			<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
-			<<set _hairOptions to [
-				{hair: "fluffy pigtails", fringe: "fairy waves"},
-				{hair: "magical ribbons", fringe: "front braids"},
-				{hair: "ribbon tail", fringe: "heart rows"},
-				{hair: "scorpion tails", fringe: "framing locks"},
-				{hair: "princess ribbons", fringe: "princess wave"},
-				{hair: "little doll", fringe: "little doll"},
-				{hair: "princess ponytail", fringe: "milkmaid"},
-				{hair: "ribbon tail", fringe: "framed"},
-				{hair: "fairy low buns", fringe: "sideswept braid"},
-				{hair: "sailor buns", fringe: "ringlets"},
-				{hair: "drill ringlets", fringe: "hime"},
-			]>>
 		<<else>>
-			<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
-			<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
-			<<set _hairOptions to [
-				{hair: "french bob", fringe: "blunt locks"},
-				{hair: "neat", fringe: "french bob"},
-				{hair: "ruffled", fringe: "emo left"},
-				{hair: "layered bob", fringe: "messy curls"},
-				{hair: "short", fringe: "framed"},
-				{hair: "short spiky", fringe: "loose antenna"},
-				{hair: "short", fringe: "sectioned"},
-				{hair: "fishtail right", fringe: "overgrown"},
-			]>>
+			<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+				<<if $hairlength lt 800 or $fringelength lt 500>>
+					<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+				<</if>>
+				<<if $hairlength gte 800>><<set $hairlength to 600>><</if>>
+				<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
+				<<set _hairOptions to [
+					{hair: "fluffy pigtails", fringe: "fairy waves"},
+					{hair: "magical ribbons", fringe: "front braids"},
+					{hair: "ribbon tail", fringe: "heart rows"},
+					{hair: "scorpion tails", fringe: "framing locks"},
+					{hair: "princess ribbons", fringe: "princess wave"},
+					{hair: "little doll", fringe: "little doll"},
+					{hair: "princess ponytail", fringe: "milkmaid"},
+					{hair: "ribbon tail", fringe: "framed"},
+					{hair: "fairy low buns", fringe: "sideswept braid"},
+					{hair: "sailor buns", fringe: "ringlets"},
+					{hair: "drill ringlets", fringe: "hime"},
+				]>>
+			<<else>>
+				<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
+				<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
+				<<set _hairOptions to [
+					{hair: "french bob", fringe: "blunt locks"},
+					{hair: "neat", fringe: "french bob"},
+					{hair: "ruffled", fringe: "emo left"},
+					{hair: "layered bob", fringe: "messy curls"},
+					{hair: "short", fringe: "framed"},
+					{hair: "short spiky", fringe: "loose antenna"},
+					{hair: "short", fringe: "sectioned"},
+					{hair: "fishtail right", fringe: "overgrown"},
+				]>>
+			<</if>>
 		<</if>>
+		<<set _sameStyleIndex to _hairOptions.indexOf(style => style.hair is $hairtype)>>
+		<<if _sameStyleIndex gte 0>><<run _hairOptions.deleteAt(_sameStyleIndex)>><</if>>
+		<<set _selectedHairStyle to _hairOptions.random()>>
+		<<set $hairtype to _selectedHairStyle.hair>>
+		<<set $fringetype to _selectedHairStyle.fringe>>
+		<<set $ruffledisable to "t">>
 	<</if>>
-	<<set _sameStyleIndex to _hairOptions.indexOf(style => style.hair is $hairtype)>>
-	<<if _sameStyleIndex gte 0>><<run _hairOptions.deleteAt(_sameStyleIndex)>><</if>>
-	<<set _selectedHairStyle to _hairOptions.random()>>
-	<<set $hairtype to _selectedHairStyle.hair>>
-	<<set $fringetype to _selectedHairStyle.fringe>>
-	<<set $ruffledisable to "t">>
 <</widget>>
 
 <<widget "prutidressup">>
-	<<wash>>
-	<<strip>>
-	<<if $player.gender_appearance is "f">>
-		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
-			<<set _clothesOptions to [
-				{upper: "gothic jacket", lower: "plaid school shorts", head: "top hat", legs: "men's garter socks", underlower: "bloomers", feet: "suede pumps"},
-				{upper: "frilly rose wedding suit", head: "rose", underlower: "bloomers", feet: "wingtips"},
-				{upper: "shadbelly coat", lower: "puffy shorts", head: "large bow beret", legs: "lace socks", underlower: "bloomers", feet: "platform mary janes"},
-			]>>
-		<<else>>
-			<<set _clothesOptions to [
-				{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
-				{upper: "princess dress", head: "large lace bow", legs: "elegant knee-high socks", underlower: "bloomers", feet: "rose platform heels"},
-				{upper: "puff sleeve a-line dress", head: "lolita headband", legs: "lace socks with ribbons", underlower: "bloomers", feet: "spat shoes"},
-			]>>
+	<<if $forcedmakeover is true>>
+		<<wash>>
+		<<strip>>
+		<<if $player.gender_appearance is "f">>
+			<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+				<<set _clothesOptions to [
+					{upper: "gothic jacket", lower: "plaid school shorts", head: "top hat", legs: "men's garter socks", underlower: "bloomers", feet: "suede pumps"},
+					{upper: "frilly rose wedding suit", head: "rose", underlower: "bloomers", feet: "wingtips"},
+					{upper: "shadbelly coat", lower: "puffy shorts", head: "large bow beret", legs: "lace socks", underlower: "bloomers", feet: "platform mary janes"},
+				]>>
+			<<else>>
+				<<set _clothesOptions to [
+					{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
+					{upper: "princess dress", head: "large lace bow", legs: "elegant knee-high socks", underlower: "bloomers", feet: "rose platform heels"},
+					{upper: "puff sleeve a-line dress", head: "lolita headband", legs: "lace socks with ribbons", underlower: "bloomers", feet: "spat shoes"},
+				]>>
+			<</if>>
+		<<elseif $player.gender_appearance is "m">>
+			<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
+				<<set _clothesOptions to [
+					{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
+					{upper: "princess dress", head: "large lace bow", legs: "elegant knee-high socks", underlower: "bloomers", feet: "rose platform heels"},
+					{upper: "puff sleeve a-line dress", head: "lolita headband", legs: "lace socks with ribbons", underlower: "bloomers", feet: "spat shoes"},
+				]>>
+			<<else>>
+				<<set _clothesOptions to [
+					{upper: "gothic jacket", lower: "plaid school shorts", head: "top hat", legs: "men's garter socks", underlower: "bloomers", feet: "suede pumps"},
+					{upper: "frilly rose wedding suit", head: "rose", underlower: "bloomers", feet: "wingtips"},
+					{upper: "shadbelly coat", lower: "puffy shorts", head: "large bow beret", legs: "lace socks", underlower: "bloomers", feet: "platform mary janes"},
+				]>>
+			<</if>>
 		<</if>>
-	<<elseif $player.gender_appearance is "m">>
-		<<if $settings.forcedCrossdressingEnabled and $rng gte 51>>
-			<<set _clothesOptions to [
-				{upper: "gothic gown", head: "lolita bonnet", legs: "harness garter stockings", underlower: "bloomers", feet: "knee fur boots"},
-				{upper: "princess dress", head: "large lace bow", legs: "elegant knee-high socks", underlower: "bloomers", feet: "rose platform heels"},
-				{upper: "puff sleeve a-line dress", head: "lolita headband", legs: "lace socks with ribbons", underlower: "bloomers", feet: "spat shoes"},
-			]>>
-		<<else>>
-			<<set _clothesOptions to [
-				{upper: "gothic jacket", lower: "plaid school shorts", head: "top hat", legs: "men's garter socks", underlower: "bloomers", feet: "suede pumps"},
-				{upper: "frilly rose wedding suit", head: "rose", underlower: "bloomers", feet: "wingtips"},
-				{upper: "shadbelly coat", lower: "puffy shorts", head: "large bow beret", legs: "lace socks", underlower: "bloomers", feet: "platform mary janes"},
-			]>>
+		<<set _selectedClothesStyle to _clothesOptions.random()>>
+		<<if _selectedClothesStyle.upper is "gothic gown">>
+			<<upperwear _selectedClothesStyle.upper "white" "black">>
+			<<headwear _selectedClothesStyle.head "black" "white">>
+			<<legswear _selectedClothesStyle.legs "black" "black">>
+			<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
+			<<feetwear _selectedClothesStyle.feet "black" "black">>
+		<<elseif _selectedClothesStyle.upper is "princess dress">>
+			<<upperwear _selectedClothesStyle.upper "teal" "white">>
+			<<headwear _selectedClothesStyle.head "teal" "teal">>
+			<<legswear _selectedClothesStyle.legs "white" "white">>
+			<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
+			<<feetwear _selectedClothesStyle.feet "white" "white">>
+		<<elseif _selectedClothesStyle.upper is "puff sleeve a-line dress">>
+			<<upperwear _selectedClothesStyle.upper "light pink" "white">>
+			<<headwear _selectedClothesStyle.head "light pink" "light pink">>
+			<<legswear _selectedClothesStyle.legs "white" "white">>
+			<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
+			<<feetwear _selectedClothesStyle.feet "white" "light pink">>
+		<<elseif _selectedClothesStyle.upper is "gothic jacket">>
+			<<upperwear _selectedClothesStyle.upper "black" "black">>
+			<<lowerwear _selectedClothesStyle.lower "black" "black">>
+			<<headwear _selectedClothesStyle.head "black" "black">>
+			<<legswear _selectedClothesStyle.legs "black" "black">>
+			<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
+			<<feetwear _selectedClothesStyle.feet "black" "black">>
+		<<elseif _selectedClothesStyle.upper is "frilly rose wedding suit">>
+			<<upperwear _selectedClothesStyle.upper "white" "red">>
+			<<headwear _selectedClothesStyle.head "red" "red">>
+			<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
+			<<feetwear _selectedClothesStyle.feet "white" "white">>
+		<<elseif _selectedClothesStyle.upper is "shadbelly coat">>
+			<<upperwear _selectedClothesStyle.upper "grey" "white">>
+			<<lowerwear _selectedClothesStyle.lower "brown" "brown">>
+			<<headwear _selectedClothesStyle.head "white" "brown">>
+			<<legswear _selectedClothesStyle.legs "white" "white">>
+			<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
+			<<feetwear _selectedClothesStyle.feet "black" "black">>
 		<</if>>
-	<</if>>
-	<<set _selectedClothesStyle to _clothesOptions.random()>>
-	<<if _selectedClothesStyle.upper is "gothic gown">>
-		<<upperwear _selectedClothesStyle.upper "white" "black">>
-		<<headwear _selectedClothesStyle.head "black" "white">>
-		<<legswear _selectedClothesStyle.legs "black" "black">>
-		<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
-		<<feetwear _selectedClothesStyle.feet "black" "black">>
-	<<elseif _selectedClothesStyle.upper is "princess dress">>
-		<<upperwear _selectedClothesStyle.upper "teal" "white">>
-		<<headwear _selectedClothesStyle.head "teal" "teal">>
-		<<legswear _selectedClothesStyle.legs "white" "white">>
-		<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
-		<<feetwear _selectedClothesStyle.feet "white" "white">>
-	<<elseif _selectedClothesStyle.upper is "puff sleeve a-line dress">>
-		<<upperwear _selectedClothesStyle.upper "light pink" "white">>
-		<<headwear _selectedClothesStyle.head "light pink" "light pink">>
-		<<legswear _selectedClothesStyle.legs "white" "white">>
-		<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
-		<<feetwear _selectedClothesStyle.feet "white" "light pink">>
-	<<elseif _selectedClothesStyle.upper is "gothic jacket">>
-		<<upperwear _selectedClothesStyle.upper "black" "black">>
-		<<lowerwear _selectedClothesStyle.lower "black" "black">>
-		<<headwear _selectedClothesStyle.head "black" "black">>
-		<<legswear _selectedClothesStyle.legs "black" "black">>
-		<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
-		<<feetwear _selectedClothesStyle.feet "black" "black">>
-	<<elseif _selectedClothesStyle.upper is "frilly rose wedding suit">>
-		<<upperwear _selectedClothesStyle.upper "white" "red">>
-		<<headwear _selectedClothesStyle.head "red" "red">>
-		<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
-		<<feetwear _selectedClothesStyle.feet "white" "white">>
-	<<elseif _selectedClothesStyle.upper is "shadbelly coat">>
-		<<upperwear _selectedClothesStyle.upper "grey" "white">>
-		<<lowerwear _selectedClothesStyle.lower "brown" "brown">>
-		<<headwear _selectedClothesStyle.head "white" "brown">>
-		<<legswear _selectedClothesStyle.legs "white" "white">>
-		<<underlowerwear _selectedClothesStyle.underlower "white" "white">>
-		<<feetwear _selectedClothesStyle.feet "black" "black">>
 	<</if>>
 <</widget>>
 

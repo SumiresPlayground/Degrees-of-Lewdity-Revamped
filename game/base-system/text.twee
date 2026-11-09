@@ -301,7 +301,17 @@
 	<<if $wraith.mimic is "Morgan" and $wraith.state is "haunt" and random(1,3) is 1>>
 		<<set _text_output to "graverobber">>
 	<<else>>
-		<<set _text_output to ($player.gender_appearance is "m" ? "Charles" : "Charlene")>>
+		<<if $genderrespect is 1>>
+			<<if $player.gender is "m">>
+				<<set _text_output to "Charles">>
+			<<elseif $player.gender is "f">>
+				<<set _text_output to "Charlene">>
+			<<elseif $player.gender is "n">>
+				<<set _text_output to "Charlie">>
+			<</if>>
+		<<else>>
+			<<set _text_output to ($player.gender_appearance is "m" ? "Charles" : "Charlene")>>
+		<</if>>
 	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
@@ -1252,7 +1262,17 @@
 <</widget>>
 
 <<widget "pshe">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "he" : "she")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "he">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "she">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "they">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "he" : "she")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pShe">><<silently>>
@@ -1260,7 +1280,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pshes">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "he's" : "she's")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "he's">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "she's">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "they're">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "he's" : "she's")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pShes">><<silently>>
@@ -1268,11 +1298,31 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pher">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "his" : "her")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "his">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "her">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "their">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "his" : "her")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "phers">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "his" : "hers")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "his">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "hers">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "theirs">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "his" : "hers")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pHer">><<silently>>
@@ -1280,7 +1330,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "phim">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "him" : "her")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "him">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "her">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "they">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "him" : "her")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pHim">><<silently>>
@@ -1288,7 +1348,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pherself">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "himself" : "herself")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "himself">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "herself">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "themself">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "himself" : "herself")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pHerself">><<silently>>
@@ -1296,7 +1366,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "psir">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "sir" : "ma'am")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "sir">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "ma'am">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "mx">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "sir" : "ma'am")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pSir">><<silently>>
@@ -1304,7 +1384,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pmother">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "father" : "mother")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "father">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "mother">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "parent">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "father" : "mother")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pMother">><<silently>>
@@ -1312,7 +1402,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pmum">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "dad" : "mum")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "dad">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "mum">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "parent">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "dad" : "mum")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pMum">><<silently>>
@@ -1320,7 +1420,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pmummy">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "daddy" : "mummy")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "daddy">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "mummy">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "parent">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "daddy" : "mummy")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pMummy">><<silently>>
@@ -1328,7 +1438,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pdaughter">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "son" : "daughter")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "son">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "daughter">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "child">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "son" : "daughter")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pDaughter">><<silently>>
@@ -1336,7 +1456,17 @@
 <</silently>>_text_output<</widget>>
 
 <<widget "pmrs">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "mr" : "mrs")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "mr">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "mrs">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "mx">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "mr" : "mrs")>><<gendercheck>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "pMrs">><<silently>>
@@ -1344,7 +1474,17 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "pms">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "mr" : "ms")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "mr">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "ms">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "mx">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "mr" : "ms")>><<gendercheck>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "pMs">><<silently>>
@@ -1352,11 +1492,31 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "pwaitress">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "waiter" : "waitress")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "waiter">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "waitress">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "server">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "waiter" : "waitress")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pniece">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "nephew" : "niece")>><<gendercheck>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "nephew">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "niece">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "sibling's child">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "nephew" : "niece")>><<gendercheck>>
+	<</if>>
 <</silently>>_text_output<</widget>>
 
 <<widget "pNiece">><<silently>>
@@ -2051,7 +2211,17 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "girl">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "boy" : "girl")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "boy">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "girl">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "person">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "boy" : "girl")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "Girl">><<silently>>
@@ -2059,15 +2229,45 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "woman">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "man" : "woman")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "man">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "woman">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "person">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "man" : "woman")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "women">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "men" : "women")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "men">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "women">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "people">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "men" : "women")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "lady">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "man" : "lady")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "gentleman">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "lady">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "gentleperson">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "gentleman" : "lady")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "lady_npc">><<silently>>
@@ -2075,7 +2275,17 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "gentleman">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "gentleman" : "lady")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "gentleman">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "lady">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "gentleperson">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "gentleman" : "lady")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "gentleman_npc">><<silently>>
@@ -2112,12 +2322,31 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "girlfriend">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "boyfriend" : "girlfriend")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "boyfriend">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "girlfriend">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "partner">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "boyfriend" : "girlfriend")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "partnerfriend">><<silently>>
-	/* Prints the gender of the player's assumed hetero partner */
-	<<set _text_output to ($player.gender_appearance is "m" ? "girlfriend" : "boyfriend")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "boyfriend">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "girlfriend">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "partner">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "boyfriend" : "girlfriend")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "friend">><<silently>>
@@ -2135,7 +2364,17 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "wife">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "husband" : "wife")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "husband">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "wife">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "partner">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "husband" : "wife")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "Wife">><<silently>>
@@ -2143,7 +2382,17 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "sister">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "brother" : "sister")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "brother">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "sister">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "sibling">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "brother" : "sister")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "Sister">><<silently>>
@@ -2151,11 +2400,31 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "princess">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "prince" : "princess")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "prince">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "princess">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "liege">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "prince" : "princess")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "pking">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "king" : "queen")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "king">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "queen">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "majesty">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "king" : "queen")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "sister_npc">><<silently>>
@@ -2217,7 +2486,17 @@
 <</widget>>
 
 <<widget "lass">><<silently>>
-	<<set _text_output to ($player.gender_appearance is "m" ? "lad" : "lass")>>
+	<<if $genderrespect is 1>>
+		<<if $player.gender is "m">>
+			<<set _text_output to "lad">>
+		<<elseif $player.gender is "f">>
+			<<set _text_output to "lass">>
+		<<elseif $player.gender is "n">>
+			<<set _text_output to "bairn">>
+		<</if>>
+	<<else>>
+		<<set _text_output to ($player.gender_appearance is "m" ? "lad" : "lass")>>
+	<</if>>
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "Lass">><<silently>>
@@ -2225,8 +2504,25 @@
 <</silently>><<print _text_output>><</widget>>
 
 <<widget "lassie">><<silently>>
-	<<if C.npc.Doren.love gte 50>>
-		<<set _text_output to ($player.gender_appearance is "m" ? "laddie" : "lassie")>>
+	<<if $genderrespect is 1>>
+		<<if C.npc.Doren.love gte 50>>
+			<<if $player.gender is "m">>
+				<<set _text_output to "laddie">>
+			<<elseif $player.gender is "f">>
+				<<set _text_output to "lassie">>
+			<<elseif $player.gender is "n">>
+				<<set _text_output to "wee bairn">>
+			<</if>>
+			<<set _text_output to ($player.gender_appearance is "m" ? "laddie" : "lassie")>>
+		<<else>>
+			<<if $player.gender is "m">>
+				<<set _text_output to "lad">>
+			<<elseif $player.gender is "f">>
+				<<set _text_output to "lass">>
+			<<elseif $player.gender is "n">>
+				<<set _text_output to "bairn">>
+			<</if>>
+		<</if>>
 	<<else>>
 		<<set _text_output to ($player.gender_appearance is "m" ? "lad" : "lass")>>
 	<</if>>
@@ -4842,7 +5138,7 @@
 
 <<widget "wolfgirl">>
 	<<if !$settings.blindStatsEnabled>> |
-		<span class="blue"><<print ($player.gender_appearance is "m" ? "Wolfboy" : "Wolfgirl")>></span>
+		<span class="blue">Wolf</span>
 	<</if>>
 <</widget>>
 
@@ -4870,7 +5166,7 @@
 
 <<widget "fox">>
 	<<if !$settings.blindStatsEnabled>> |
-		<span class="orange"><<print ($player.gender_appearance is "m" ? "Foxboy" : "Vixen")>></span>
+		<span class="orange">Fox</span>
 	<</if>>
 <</widget>>
 

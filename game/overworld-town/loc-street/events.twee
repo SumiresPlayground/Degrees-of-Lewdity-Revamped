@@ -13470,37 +13470,39 @@ Facing you away from the mirror, the hairdresser gets to work. Throughout the wo
 <br><br>
 <<link [[Next (0:30)|Whitney Shopping Centre Hairdressers 3]]>>
 	<<pass 30>>
-	<<if ($player.gender_appearance is "f" or ($whitneyskirtcheck gte 1 and $settings.forcedCrossdressingEnabled))>>
-		<<if $hairlength lt 400 or $fringelength lt 500>>
-			<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+	<<if $forcedmakeover is true>>
+		<<if ($player.gender_appearance is "f" or ($whitneyskirtcheck gte 1 and $settings.forcedCrossdressingEnabled))>>
+			<<if $hairlength lt 400 or $fringelength lt 500>>
+				<<set $sexStats.pills.pills['Hair Growth Formula'].doseTaken += 6>>
+			<</if>>
+			<<if $hairlength gte 600>><<set $hairlength to 450>><</if>>
+			<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
+			<<set _hairOptions to [
+				{hair: "ribbon tail", fringe: "framed"},
+				{hair: "loose", fringe: "blunt locks"},
+				{hair: "thick pigtails", fringe: "thin flaps"},
+				{hair: "thick ponytail", fringe: "sectioned"},
+				{hair: "french bob", fringe: "bowl"},
+				{hair: "bubble tails", fringe: "hime"},
+				{hair: "space buns", fringe: "tied back"},
+			]>>
+		<<else>>
+			<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
+			<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
+			<<set _hairOptions to [
+				{hair: "short", fringe: "mohawk"},
+				{hair: "shaved", fringe: "swept back"},
+				{hair: "swept right", fringe: "quiff"},
+			]>>
 		<</if>>
-		<<if $hairlength gte 600>><<set $hairlength to 450>><</if>>
-		<<if $fringelength gte 500>><<set $fringelength to 350>><</if>>
-		<<set _hairOptions to [
-			{hair: "ribbon tail", fringe: "framed"},
-			{hair: "loose", fringe: "blunt locks"},
-			{hair: "thick pigtails", fringe: "thin flaps"},
-			{hair: "thick ponytail", fringe: "sectioned"},
-			{hair: "french bob", fringe: "bowl"},
-			{hair: "bubble tails", fringe: "hime"},
-			{hair: "space buns", fringe: "tied back"},
-		]>>
-	<<else>>
-		<<if $hairlength gte 200>><<set $hairlength to 100>><</if>>
-		<<if $fringelength gte 400>><<set $fringelength to 250>><</if>>
-		<<set _hairOptions to [
-			{hair: "short", fringe: "mohawk"},
-			{hair: "shaved", fringe: "swept back"},
-			{hair: "swept right", fringe: "quiff"},
-		]>>
+		<<set _sameStyleIndex to _hairOptions.indexOf(style => style.hair is $hairtype)>>
+		<<if _sameStyleIndex gte 0>><<run _hairOptions.deleteAt(_sameStyleIndex)>><</if>>
+		<<set _selectedHairStyle to _hairOptions.random()>>
+		<<set $hairtype to _selectedHairStyle.hair>>
+		<<set $fringetype to _selectedHairStyle.fringe>>
+		<<set $ruffledisable to "t">>
+		<<calchairlengthstage>>
 	<</if>>
-	<<set _sameStyleIndex to _hairOptions.indexOf(style => style.hair is $hairtype)>>
-	<<if _sameStyleIndex gte 0>><<run _hairOptions.deleteAt(_sameStyleIndex)>><</if>>
-	<<set _selectedHairStyle to _hairOptions.random()>>
-	<<set $hairtype to _selectedHairStyle.hair>>
-	<<set $fringetype to _selectedHairStyle.fringe>>
-	<<set $ruffledisable to "t">>
-	<<calchairlengthstage>>
 <</link>>
 
 :: Whitney Shopping Centre Hairdressers 3
@@ -14430,6 +14432,8 @@ You turn and walk away. You try to focus on looking for another way to cross, bu
 		You strike a fierce pose, <<if $phase2 is 0>>spreading your wings wide and fanning your tail out,<<elseif $phase2 is 1>>spreading your wings wide and<<else>>fanning your tail out and<</if>> staring down the camera like it's your prey.
 	<<elseif $transformationParts.cow.tail isnot "disabled">>
 		You strike a firm pose, planting your feet and lowering your head as if about to ram the camera.
+	<<elseif $transformationParts.dragon.tail isnot "disabled">>
+		You strike a pose, holding your hands like claws and rawring to the camera.
 	<<else>> /* Fallback, just in case */
 		You strike a pose, proudly showing off your <<if $phase2 is 1>>wings<<else>>features<</if>> with a smile.
 	<</if>>
@@ -14453,6 +14457,8 @@ You turn and walk away. You try to focus on looking for another way to cross, bu
 		You <<if $phase2 is 0>>flutter your wings and fan out your feathered tail<<elseif $phase2 is 1>>flutter your wings<<else>>fan out your feathered tail<</if>>, giving the camera a sultry look.
 	<<elseif $transformationParts.cow.tail isnot "disabled">>
 		You cup your chest and arch your back, swaying your tail seductively behind you.
+	<<elseif $transformationParts.dragon.tail isnot "disabled">>
+		You bend forward, making a V over your mouth before letting your tongue slip out seductively, making a show of curling it and flaring the forked tip.
 	<<else>> /* Fallback, just in case */
 		You wink seductively, propping yourself up against a nearby wall while flaunting your <<if $phase2 is 1>>wings<<else>>features<</if>>.
 	<</if>>

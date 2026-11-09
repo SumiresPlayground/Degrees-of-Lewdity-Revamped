@@ -1513,6 +1513,15 @@ Renderer.CanvasModels.main = {
 				{return `img/background/furniture/tank/${V.container.home.name}/mask.png`;}
 			}
 		},
+		"artmodui": {
+			show: true,
+			filters: ["hair"],
+			z: ZIndices.backgroundOverlay +0.99,
+			animation: "idle",
+			srcfn() {
+				return `img/ui/player-border/1.png`;
+			},
+		},
 		"foregroundmirror": {
 			show: true,
 			z: ZIndices.foregroundOverlay,
@@ -2271,7 +2280,7 @@ Renderer.CanvasModels.main = {
 		 */
 		"cow_horns": genlayer_horns("cow", {
 			zfn(options) {
-				return options.horn_layer === "back" ? ZIndices.horns : ZIndices.over_head + 1;
+				return options.horn_layer === "back" ? ZIndices.horns + 1.1 : ZIndices.over_head + 1.1;
 			},
 		}),
 		"cow_ear_left": genlayer_ears("cow", false),

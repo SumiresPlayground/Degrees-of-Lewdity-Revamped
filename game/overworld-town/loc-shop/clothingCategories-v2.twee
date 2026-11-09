@@ -372,10 +372,19 @@
 					<</if>>
 					<<link "">><<set $shopPage = 0>><<unset $clothes_choice>><<set _shopNameFilter to ''>><<replace "#clothingShop-div">><<OverOutfitShop>><</replace>><</link>>
 				</div>
+				<<set _active = _args[0] == "overhead" ? "active" : "">>
+				<div @class="'div-link category-tab ' + _active">
+					<<if $options.images is 1>>
+						<<clothingcategoryicon "over-head">>
+					<<else>>
+						<div class="category-icon-alt">OH</div>
+					<</if>>
+					<<link "">><<set $shopPage = 0>><<unset $clothes_choice>><<set _shopNameFilter to ''>><<replace "#clothingShop-div">><<OverHeadShop>><</replace>><</link>>
+				</div>
 				<<set _active = _args[0] == "overupper" ? "active" : "">>
 				<div @class="'div-link category-tab ' + _active">
 					<<if $options.images is 1>>
-						<div class="category-icon-alt">OU</div>
+						<<clothingcategoryicon "over-upper">>
 					<<else>>
 						<div class="category-icon-alt">OU</div>
 					<</if>>
@@ -384,20 +393,11 @@
 				<<set _active = _args[0] == "overlower" ? "active" : "">>
 				<div @class="'div-link category-tab ' + _active">
 					<<if $options.images is 1>>
-						<div class="category-icon-alt">OL</div>
+						<<clothingcategoryicon "over-lower">>
 					<<else>>
 						<div class="category-icon-alt">OL</div>
 					<</if>>
 					<<link "">><<set $shopPage = 0>><<unset $clothes_choice>><<set _shopNameFilter to ''>><<replace "#clothingShop-div">><<OverBottomShop>><</replace>><</link>>
-				</div>
-				<<set _active = _args[0] == "overhead" ? "active" : "">>
-				<div @class="'div-link category-tab ' + _active">
-					<<if $options.images is 1>>
-						<div class="category-icon-alt">OH</div>
-					<<else>>
-						<div class="category-icon-alt">OH</div>
-					<</if>>
-					<<link "">><<set $shopPage = 0>><<unset $clothes_choice>><<set _shopNameFilter to ''>><<replace "#clothingShop-div">><<OverHeadShop>><</replace>><</link>>
 				</div>
 			</div>
 			<div class="category-group">
