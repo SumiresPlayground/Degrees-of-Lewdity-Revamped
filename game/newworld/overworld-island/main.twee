@@ -73,11 +73,11 @@ The ship pulls into a small inlet river and into a small oasis village. "Well, w
 		<<rng>>
 		<<if $rng gte 81>>
 			<<eventislanditem>>
-		<<elseif $danger gte (9900 - $allure) and ($location is "desert" or $location is "beach") and (beastSexEnabledForType("ant", $monster is 1) or beastSexEnabledForType("hawk", $monster is 1) or beastSexEnabledForType("lizard", $monster is 1))>>
+		<<elseif $danger gte (9900 - $allure) and ($location is "desert" or $location is "beach") and ((V.settings.beastSettings.ant.bestiality is "monsterOnly" or V.settings.beastSettings.ant.bestiality is "on") or (V.settings.beastSettings.hawk.bestiality is "monsterOnly" or V.settings.beastSettings.hawk.bestiality is "on") or (V.settings.beastSettings.lizard.bestiality is "monsterOnly" or V.settings.beastSettings.lizard.bestiality is "on"))>>
 			<<eventisland>>
-        <<elseif $danger gte (9900 - $allure) and $location is "mforest" and (beastSexEnabledForType("boar", $monster is 1) or beastSexEnabledForType("wolf", $monster is 1) or beastSexEnabledForType("cat", $monster is 1) or $settings.voreEnabled or $settings.lurkersEnabled)>>
+        <<elseif $danger gte (9900 - $allure) and $location is "mforest" and ((V.settings.beastSettings.boar.bestiality is "monsterOnly" or V.settings.beastSettings.boar.bestiality is "on") or (V.settings.beastSettings.wolf.bestiality is "monsterOnly" or V.settings.beastSettings.wolf.bestiality is "on") or (V.settings.beastSettings.cat.bestiality is "monsterOnly" or V.settings.beastSettings.cat.bestiality is "on") or $settings.voreEnabled or $settings.lurkersEnabled)>>
 			<<eventisland>>
-        <<elseif $danger gte (9900 - $allure) and $location is "glacier" and (beastSexEnabledForType("bear", $monster is 1) or beastSexEnabledForType("wolf", $monster is 1))>>
+        <<elseif $danger gte (9900 - $allure) and $location is "glacier" and ((V.settings.beastSettings.bear.bestiality is "monsterOnly" or V.settings.beastSettings.bear.bestiality is "on") or (V.settings.beastSettings.wolf.bestiality is "monsterOnly" or V.settings.beastSettings.wolf.bestiality is "on"))>>
 			<<eventisland>>
 		<<else>>
 			<<eventislandsafe>>
@@ -1066,7 +1066,7 @@ You are deep in the depression of the island's caldera. Heavy fog obscures sight
     As you stumble in the frozen wasteland, you stumble upon a deep cave that you hadn't seen in the storm, this might be a good place to rest.
     <br>
 <</if>>
-<<if $calderanorth is -2 and $calderawest is 3>>
+<<if $calderanorth is -2 and $calderawest is 1>>
     <<link [[Pull yourself into the protection of the cave (0:05)|Caldera Cave]]>><<pass 5>><</link>>
     <br>
 <</if>>

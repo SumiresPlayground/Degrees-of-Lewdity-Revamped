@@ -3498,7 +3498,7 @@ function initFoodstuff() {
 	setup.moddedFoodstuff = {
 		mouse_ear: {
 			modder: "New World",
-			name: "mouse_ear",
+			name: "mouse ear",
 			singular: "mouse ear",
 			plural: "mouse ears",
 			icon: "mouse-ear.png",
@@ -3512,6 +3512,7 @@ function initFoodstuff() {
 				has_seeds: true,
 				seasons: ["spring", "summer"],
 				tags: [],
+				featCost: 20,
 			},
 			shop: {
 				sell_price: 800,
@@ -3519,8 +3520,8 @@ function initFoodstuff() {
 		},
 		glacier_crowfoot: {
 			modder: "New World",
-			name: "glacier_crowfoot",
-			singular: "glacier_crowfoot",
+			name: "glacier crowfoot",
+			singular: "glacier crowfoot",
 			plural: "glacier crowfoot",
 			icon: "glacier-crowfoot.png",
 			category: "flower",
@@ -3533,6 +3534,7 @@ function initFoodstuff() {
 				has_seeds: true,
 				seasons: ["winter"],
 				tags: [],
+				featCost: 25,
 			},
 			shop: {
 				sell_price: 1400,
@@ -3540,7 +3542,7 @@ function initFoodstuff() {
 		},
 		green_manure: {
 			modder: "New World",
-			name: "green_manure",
+			name: "green manure",
 			singular: "green manure",
 			plural: "green manure",
 			icon: "green-manure.png",
@@ -3575,6 +3577,7 @@ function initFoodstuff() {
 				has_seeds: true,
 				seasons: ["spring", "autumn"],
 				tags: [],
+				featCost: 10,
 			},
 			shop: {
 				sell_price: 250,

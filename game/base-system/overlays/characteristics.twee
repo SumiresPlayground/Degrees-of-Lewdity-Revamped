@@ -568,6 +568,11 @@
 					<<set _willpowerConfig.modifier to Math.floor(_willpowerConfig.modifier * (1 + ($moorLuck / 100)))>>
 					<<set _willpowerConfig.modTypes.good.pushUnique("<i>????</i>")>>
 				<</if>>
+
+				<<if $transformationParts.bear.ears isnot "disabled" and $transformationParts.bear.tail isnot "disabled">>
+					<<set _physiqueConfig.modifier to Math.floor(_physiqueConfig.modifier * 1.40)>>
+					<<set _physiqueConfig.modTypes.good.pushUnique("bearbuild")>>
+				<</if>>
 			<</silently>>
 
 			<<characteristic-box _purityConfig>>
@@ -643,7 +648,7 @@
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("sticky fingers")>>
 				<</if>>
-				<<if V.transformationParts.traits.sharpEyes isnot "disabled">>
+				<<if $transformationParts.traits.sharpEyes isnot "disabled">>
 					<<set _skulduggeryConfig.modifier to Math.floor(_skulduggeryConfig.modifier * 1.05)>>
 					<<set _skulduggeryConfig.modTypes.good.pushUnique("sharp eyes")>>
 				<</if>>

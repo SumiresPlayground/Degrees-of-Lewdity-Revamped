@@ -180,18 +180,18 @@ You grab a knife from the counter and begin to slice away at the threads of your
 		<span class="green">Your shrine is currently decorated with a small golden statue of Auspacia and strange herbs.</span>
 	<</if>>
 	<br><br>
-	<<if $auriga_scar and V.furniture.bedroom.shrine.id isnot "auriga">>
+	<<if ($auriga_scar or $demontf is 1) and V.furniture.bedroom.shrine.id isnot "auriga">>
 		<<link [[Dedicate your shrine to Auriga (0:10)|Auriga Decorate]]>><<pass 10>><</link>>
 		<br>
-	<<elseif $auriga_scar>>
+	<<elseif $auriga_scar or $demontf is 1>>
 		<span class="blue">Your shrine is already dedicated to Auriga.</span>
 		<br>
 	<</if>>
 
-	<<if ($temple_rank is "monk" or $temple_rank is "priest") and V.furniture.bedroom.shrine.id isnot "virgo">>
+	<<if ($temple_rank is "monk" or $temple_rank is "priest" or $angeltf is 1) and V.furniture.bedroom.shrine.id isnot "virgo">>
 		<<link [[Dedicate your shrine to Virgo (0:10)|Virgo Decorate]]>><<pass 10>><</link>>
 		<br>
-	<<elseif $temple_rank is "monk" or $temple_rank is "priest">>
+	<<elseif $temple_rank is "monk" or $temple_rank is "priest" or $angeltf is 1>>
 		<span class="blue">Your shrine is already dedicated to Virgo.</span>
 		<br>
 	<</if>>
