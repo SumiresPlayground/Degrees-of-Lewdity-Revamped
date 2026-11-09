@@ -2299,6 +2299,13 @@ setup.feats = {
 		filter: ["All", "Transformation", "Questline"],
 		hint: "Hint: Find the cult and fulfil the ritual.",
 	},
+	"Doll": {
+		title: "All Dolled Up",
+		desc: "A whole new body",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	"Fae": {
 		title: "Enchanted",
 		desc: "Blessed by the Wild",
@@ -3095,6 +3102,7 @@ function setupFeatBoosts(force) {
 			name: "Special Clothing",
 			required: ["Curious Attire", "Wicked Wardrobe"],
 			cost: 0,
+			max: 3,
 			missing: "Unlock this boost by obtaining a hidden feat (" + setup.feats["Curious Attire"].hint + ")",
 		},
 		seeds: {

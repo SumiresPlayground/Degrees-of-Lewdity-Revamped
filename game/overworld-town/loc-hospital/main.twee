@@ -176,7 +176,7 @@ You are inside the hospital foyer. <<if $harper_appointments.enabled>>You see a 
 		<br>
 
 		<<if $bodysize lt 3>>
-			<<link [[Enquire about body growth hormones (0:10)|Harper Hormone Inquiry]]>><<pass 10>><</link>>
+			<<link [[Enquire about body growth drugging (0:10)|Harper Hormone Inquiry]]>><<pass 10>><</link>>
 			<br>
 		<</if>>
 
@@ -1978,7 +1978,7 @@ A minute later <<he>> turns back to you. "We can apply special hormones and surg
 <br><br>
 
 <<if ($physique gte 6000 and $bodysize is 0 and $money gte 500000) or ($physique gte 9000 and $bodysize is 1 and $money gte 500000) or ($physique gte 12000 and $bodysize is 2 and $money gte 500000)>>
-	<<link [[Recieve the treatment (£5000 1:30)|Hospital Growth Hormones]]>><<set $bodysize += 1>><<set $physiquesize += 3000>><<set $money -= 500000>><<pass 90>><</link>>
+	<<link [[Recieve the treatment (£5000 1:30)|Hospital Growth Hormones]]>><<set $bodysize += 1>><<set $physiquesize += 3000>><<if $physiquesizearchive isnot undefined>><<set $physiquesizearchive += 3000>><</if>><<set $money -= 500000>><<pass 90>><</link>>
 	<br>
 <<else>>
 	<span class="red">You lack the physique or money for the operation</span>

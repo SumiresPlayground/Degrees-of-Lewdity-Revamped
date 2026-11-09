@@ -12,8 +12,14 @@
 					flex-direction: column;
 					gap: 2px;
 				">
-				<img draggable="false" @src='"img/li-titles/" + $loveInterest.primary + ".png"'>
-				<<if $loveInterest.secondary !== "None">>
+				<<if $loveInterest.primary is "Sydney" and C.npc.Sydney.purity <= 0>>
+					<img draggable="false" @src='"img/li-titles/SydneyCorrupt.png"'>
+				<<else>>
+					<img draggable="false" @src='"img/li-titles/" + $loveInterest.primary + ".png"'>
+				<</if>>
+				<<if $loveInterest.secondary !== "None" and $loveInterest.secondary is "Sydney" and C.npc.Sydney.purity <= 0>>
+					<img draggable="false" @src='"img/li-titles/SydneyCorrupt.png"'>
+				<<elseif $loveInterest.secondary !== "None">>
 					<img draggable="false" @src='"img/li-titles/" + $loveInterest.secondary + ".png"'>
 				<</if>>
 			</div>
@@ -35,8 +41,14 @@
 					width: 40px;
 					height: 40px;
 				">
-				<img draggable="false" @src='"img/li-titles/" + $loveInterest.primary + ".png"'>
-				<<if $loveInterest.secondary !== "None">>
+				<<if $loveInterest.primary is "Sydney" and C.npc.Sydney.purity <= 0>>
+					<img draggable="false" @src='"img/li-titles/SydneyCorrupt.png"'>
+				<<else>>
+					<img draggable="false" @src='"img/li-titles/" + $loveInterest.primary + ".png"'>
+				<</if>>
+				<<if $loveInterest.secondary !== "None" and $loveInterest.secondary is "Sydney" and C.npc.Sydney.purity <= 0>>
+					<img draggable="false" @src='"img/li-titles/SydneyCorrupt.png"'>
+				<<elseif $loveInterest.secondary !== "None">>
 					<img draggable="false" @src='"img/li-titles/" + $loveInterest.secondary + ".png"'>
 				<</if>>
 			</div>

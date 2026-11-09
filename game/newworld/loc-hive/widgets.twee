@@ -3,13 +3,15 @@
     <<passout>>
     <<if $player.gender_appearance is "m">>
         <<cleareventpool>>
-        <<addinlineevent "hive_passout_1" 5>>
-            <<beastNEWinit 1 bee>>
-            You feel yourself losing consciousness and fall to the floor. You awaken several hours later to a rough jab as you open your eyes to see a <<beasttype>> standing over you ready to use you.
-            <br><br>
+        <<if (V.settings.beastSettings.bee.bestiality is "monsterOnly" or V.settings.beastSettings.bee.bestiality is "on")>>
+            <<addinlineevent "hive_passout_1" 5>>
+                <<beastNEWinit 1 bee>>
+                You feel yourself losing consciousness and fall to the floor. You awaken several hours later to a rough jab as you open your eyes to see a <<beasttype>> standing over you ready to use you.
+                <br><br>
 
-            <<link [[Next|Hive Passout Rape]]>><</link>>
-        <</addinlineevent>>
+                <<link [[Next|Hive Passout Rape]]>><</link>>
+            <</addinlineevent>>
+        <</if>>
         <<addinlineevent "hive_passout_2" 4>>
             You fall on the floor unconscious. You awake several hours later. It seems that nobody found your sleeping body or didn't care as you stand up and dust yourself off.
             <br><br>
