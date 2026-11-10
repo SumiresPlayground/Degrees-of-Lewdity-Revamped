@@ -1182,6 +1182,7 @@ function initOverUpper() {
 			exposed: 1,
 			exposed_base: 1,
 			colour: 1,
+			colour_sidebar: 1,
 			colour_options: ["black", "white", "navy blue", "wine", "brown", "light pink", "lilac", "red", "tangerine", "teal", "yellow", "custom"],
 			accessory: 0,
 			accessory_colour: 0,
