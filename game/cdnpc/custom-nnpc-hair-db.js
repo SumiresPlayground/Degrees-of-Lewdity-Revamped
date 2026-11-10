@@ -943,7 +943,7 @@ function customNNPCHairInitDb(){
             contributor: "Numberjack",
             name: "Sirris f",
             gender: "f",
-            hair_fringe_name: ["air vents", "side-pinned"],
+            hair_fringe_name: ["air vents", "side pinned"],
             hair_side_name: "ponytail",
             hair_fringe_length: "neck",
             hair_side_length: "neck",
