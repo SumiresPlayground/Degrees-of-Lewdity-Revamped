@@ -2291,6 +2291,13 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation"],
 	},
+	"Doll": {
+		title: "All Dolled Up",
+		desc: "A whole new body",
+		difficulty: 6,
+		series: "",
+		filter: ["All", "Transformation"],
+	},
 	"Eldritch": {
 		title: "Cthu-who?",
 		desc: "The Mother from the Other",
@@ -2298,13 +2305,6 @@ setup.feats = {
 		series: "",
 		filter: ["All", "Transformation", "Questline"],
 		hint: "Hint: Find the cult and fulfil the ritual.",
-	},
-	"Doll": {
-		title: "All Dolled Up",
-		desc: "A whole new body",
-		difficulty: 6,
-		series: "",
-		filter: ["All", "Transformation"],
 	},
 	"Fae": {
 		title: "Enchanted",
@@ -2715,6 +2715,7 @@ function earnHourlyFeats() {
 	if (V.faetf >= 1) earnFeat("Fae");
 	if (V.slime >= 1) earnFeat("Slime");
 	if (V.ghost >= 1) earnFeat("Ghost");
+	if (V.dollstate >= 1) earnFeat("Doll");
 	if (V.prutiquest >= 9) earnFeat("Witch's Assistant");
 
 	const specialTraits =
